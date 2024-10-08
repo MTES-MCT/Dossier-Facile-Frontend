@@ -5,7 +5,6 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import Button from 'df-shared-next/src/Button/Button.vue'
 import { useRouter } from 'vue-router'
 import { Property } from 'df-shared-next/src/models/Property'
-import UtilsService from '../services/UtilsService'
 import useOwnerStore from '../store/owner-store'
 import GmbiAd from './GmbiAd.vue'
 import FeedbackRequest from './FeedbackRequest.vue'
@@ -53,10 +52,6 @@ function openProperty(p: Property) {
   }
   router.push({ name: 'PropertyName', params: { id: p.id } })
 }
-
-function getApplicantsCount(p: Property) {
-  return UtilsService.getTenants(p).length
-}
 </script>
 
 <template>
@@ -74,7 +69,7 @@ function getApplicantsCount(p: Property) {
         </div>
       </div>
 
-      <table aria-labelledby="my-properties-title" :aria-describedby="t('dashboard.my-properties')">
+      <table aria-labelledby="my-properties-title">
         <tr>
           <th class="desktop">{{ t('dashboard.type') }}</th>
           <th>{{ t('dashboard.name') }}</th>
