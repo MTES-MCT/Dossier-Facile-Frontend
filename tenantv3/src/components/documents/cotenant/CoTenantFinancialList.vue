@@ -118,7 +118,7 @@ function getTenantFinancialDocuments(documents: DfDocument[]): FinancialDocument
       f.id = d.id
 
       const localDoc = DocumentTypeConstants.FINANCIAL_DOCS.find((d2) => {
-        return d2.value === d.subCategory
+        return d2.value === d.documentSubCategory
       })
       if (localDoc !== undefined) {
         f.documentType = localDoc

@@ -44,7 +44,7 @@
                 :label="
                   t('guarantorssection.financial') +
                   (' ' + (k + 1) + ' - ') +
-                  t('documents.subcategory.' + doc.subCategory)
+                  t('documents.subcategory.' + doc.documentSubCategory)
                 "
                 :document="doc"
                 @clickEdit="setGuarantorSubStep(4, g)"

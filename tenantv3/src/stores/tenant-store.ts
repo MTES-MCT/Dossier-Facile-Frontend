@@ -197,7 +197,7 @@ const useTenantStore = defineStore('tenant', {
               f.id = d.id
 
               const localDoc = DocumentTypeConstants.FINANCIAL_DOCS.find((d2: DocumentType) => {
-                return d2.value === d.subCategory
+                return d2.value === d.documentSubCategory
               })
               if (localDoc !== undefined) {
                 f.documentType = localDoc
@@ -233,7 +233,7 @@ const useTenantStore = defineStore('tenant', {
 
               const localDoc = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS.find(
                 (d2: DocumentType) => {
-                  return d2.value === d.subCategory
+                  return d2.value === d.documentSubCategory
                 }
               )
               if (localDoc !== undefined) {

@@ -201,7 +201,7 @@ function onSelectChange($event: any) {
     const doc = guarantorTaxDocument()
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 && doc?.subCategory !== taxDocument.value.value
+        (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== taxDocument.value.value
     }
   }
   return false
@@ -214,7 +214,7 @@ function undoSelect() {
     })
     if (doc !== undefined) {
       const localDoc = documents.value.find((d: DocumentType) => {
-        return d.value === doc.subCategory
+        return d.value === doc.documentSubCategory
       })
       if (localDoc !== undefined) {
         taxDocument.value = localDoc
@@ -245,7 +245,7 @@ function updateGuarantorData() {
     if (guarantorTaxDocument() !== undefined) {
       customText.value = guarantorTaxDocument()?.customText || ''
       const localDoc = documents.value.find((d: DocumentType) => {
-        return d.value === guarantorTaxDocument()?.subCategory
+        return d.value === guarantorTaxDocument()?.documentSubCategory
       })
       if (localDoc !== undefined) {
         taxDocument.value = localDoc
@@ -310,7 +310,7 @@ async function save(force = false) {
 
   const d = getRegisteredDoc()
   if (
-    taxDocument.value.value === d?.subCategory &&
+    taxDocument.value.value === d?.documentSubCategory &&
     customText.value === (d?.customText || '') &&
     newFiles.length <= 0
   ) {
@@ -370,7 +370,7 @@ async function save(force = false) {
 function taxFiles() {
   const newFiles = files.value.map((f) => {
     return {
-      subCategory: taxDocument.value.value,
+      documentSubCategory: taxDocument.value.value,
       id: f.id,
       name: f.name,
       file: f,

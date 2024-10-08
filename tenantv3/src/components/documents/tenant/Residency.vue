@@ -147,7 +147,7 @@ onBeforeMount(() => {
     if (doc !== undefined) {
       customText.value = doc.customText || ''
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === doc.subCategory
+        return d.value === doc.documentSubCategory
       })
       if (localDoc !== undefined) {
         residencyDocument.value = localDoc
@@ -178,7 +178,7 @@ function onSelectChange() {
     })
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc.files?.length || 0) > 0 && doc.subCategory !== residencyDocument.value.value
+        (doc.files?.length || 0) > 0 && doc.documentSubCategory !== residencyDocument.value.value
     }
   }
   return false
@@ -191,7 +191,7 @@ function undoSelect() {
     })
     if (doc !== undefined) {
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === doc.subCategory
+        return d.value === doc.documentSubCategory
       })
       if (localDoc !== undefined) {
         residencyDocument.value = localDoc
@@ -291,7 +291,7 @@ async function save(): Promise<boolean> {
 function residencyFiles() {
   const newFiles = files.value.map((f) => {
     return {
-      subCategory: residencyDocument.value.value,
+      documentSubCategory: residencyDocument.value.value,
       id: f.id,
       name: f.name,
       size: f.size
@@ -311,7 +311,7 @@ async function remove(file: DfFile, silent = false) {
       tenantResidencyDocument.value?.files?.length === 1 &&
       tenantResidencyDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(tenantResidencyDocument.value?.subCategory || '')
+      AnalyticsService.removeDeniedDocument(tenantResidencyDocument.value?.documentSubCategory || '')
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {
