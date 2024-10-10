@@ -1,43 +1,43 @@
 <script setup lang="ts">
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import { Field, ErrorMessage } from 'vee-validate';
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
-import useOwnerStore from '../../store/owner-store';
-import PropertyPage from './PropertyPage.vue';
-import AnalyticsService from '../../services/AnalyticsService';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { Field, ErrorMessage } from 'vee-validate'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import useOwnerStore from '../../store/owner-store'
+import PropertyPage from './PropertyPage.vue'
+import AnalyticsService from '../../services/AnalyticsService'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const route = useRoute();
-const router = useRouter();
-const store = useOwnerStore();
+const route = useRoute()
+const router = useRouter()
+const store = useOwnerStore()
 
-const id = ref(0);
+const id = ref(0)
 if (route.params.id) {
-  id.value = Number(route.params.id);
-  store.updatePropertyToEdit(id.value);
+  id.value = Number(route.params.id)
+  store.updatePropertyToEdit(id.value)
 }
 
 const name = computed({
   get() {
-    return store.getPropertyToEdit?.name;
+    return store.getPropertyToEdit?.name
   },
   set(val: string) {
-    store.setName(val);
-  },
-});
+    store.setName(val)
+  }
+})
 
 function onSubmit() {
-  AnalyticsService.propertyData('nom_register');
+  AnalyticsService.propertyData('nom_register')
   store.saveProperty().then((data) => {
-    router.push({ name: 'PropertyType', params: { id: data.id } });
-  });
+    router.push({ name: 'PropertyType', params: { id: data.id } })
+  })
 }
 
 function onBack() {
-  router.push({ name: 'AccountName' });
+  router.push({ name: 'AccountName' })
 }
 </script>
 
@@ -54,7 +54,7 @@ function onBack() {
           v-model="name"
           v-slot="{ field, meta }"
           :rules="{
-            required: true,
+            required: true
           }"
         >
           <input
@@ -62,7 +62,7 @@ function onBack() {
             class="validate-required form-control fr-input"
             :class="{
               'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid,
+              'fr-input--error': !meta.valid
             }"
             :placeholder="t('propertyname.name-placeholder')"
             type="text"

@@ -188,7 +188,9 @@
             <div class="fr-col-3 fr-p-2w">
               <i class="ri-checkbox-circle-line text-success fs-48"></i>
             </div>
-            <div class="fr-col-9 fr-p-2w">Votre pièce est validée ! Plus besoin d’y toucher</div>
+            <div class="fr-col-9 fr-p-2w">
+              Votre pièce est validée&nbsp;! Plus besoin d’y toucher
+            </div>
           </div>
         </NakedCard>
         <NakedCard class="fr-mt-3w fr-mb-2w">
@@ -229,7 +231,7 @@
               >
                 <p v-html="m.messageBody"></p>
                 <div class="date">
-                  {{ $d(new Date(m.creationDateTime || Date.now()), 'long') }}
+                  {{ d(new Date(m.creationDateTime || Date.now()), 'long') }}
                 </div>
               </div>
             </div>
@@ -294,7 +296,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, d } = useI18n()
 const router = useRouter()
 const store = useTenantStore()
 const messageList = computed(() => store.messageList)
@@ -347,18 +349,12 @@ function guarantors() {
   return props.tenant.guarantors
 }
 
-function hasDoc(docType: string) {
-  return DocumentService.hasDoc(docType, props.tenant)
-}
 function hasFile(docType: string) {
   // TODO change to aggregate financial
   return DocumentService.hasFile(docType, props.tenant)
 }
 function guarantorHasFile(g: Guarantor, docType: string) {
   return DocumentService.guarantorHasFile(g, docType)
-}
-function guarantorHasDoc(g: Guarantor, docType: string) {
-  return DocumentService.guarantorHasDoc(g, docType)
 }
 
 function openDoc(documentCategory: string) {

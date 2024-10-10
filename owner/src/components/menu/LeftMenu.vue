@@ -1,31 +1,37 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue';
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import useOwnerStore from '../../store/owner-store';
+import { useI18n } from 'vue-i18n'
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import useOwnerStore from '../../store/owner-store'
 
-const { t } = useI18n();
-const store = useOwnerStore();
-const route = useRoute();
+const { t } = useI18n()
+const store = useOwnerStore()
+const route = useRoute()
 
 function getName() {
-  return `${store.getUser?.lastName} ${store.getUser?.firstName}`;
+  return `${store.getUser?.lastName} ${store.getUser?.firstName}`
 }
 
-const propertyName = computed(() => store.getPropertyToEdit?.name);
+const propertyName = computed(() => store.getPropertyToEdit?.name)
 
-const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS'));
-const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'));
-const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'));
-const diagnosticStatus = computed(() => (store.getPropertyToEdit?.co2Emission && store.getPropertyToEdit?.energyConsumption
-  ? 'FILLED'
-  : 'TO_PROCESS'));
-const furnitureStatus = computed(() => (store.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS'));
-const livingSpaceStatus = computed(() => (store.getPropertyToEdit?.livingSpace ? 'FILLED' : 'TO_PROCESS'));
+const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS'))
+const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'))
+const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'))
+const diagnosticStatus = computed(() =>
+  store.getPropertyToEdit?.co2Emission && store.getPropertyToEdit?.energyConsumption
+    ? 'FILLED'
+    : 'TO_PROCESS'
+)
+const furnitureStatus = computed(() =>
+  store.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS'
+)
+const livingSpaceStatus = computed(() =>
+  store.getPropertyToEdit?.livingSpace ? 'FILLED' : 'TO_PROCESS'
+)
 
-const id = Number(route.params.id);
-const getParams = id ? { id } : {};
+const id = Number(route.params.id)
+const getParams = id ? { id } : {}
 </script>
 
 <template>

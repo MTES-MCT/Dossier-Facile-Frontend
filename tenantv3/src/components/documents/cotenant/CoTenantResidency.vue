@@ -144,7 +144,7 @@ function goNext() {
 function documentHasNotChanged() {
   const doc = DocumentService.getCoTenantDocument(props.coTenantId, 'RESIDENCY')
   return (
-    documentType.value?.value === doc?.subCategory && document.value.customText === doc?.customText
+    documentType.value?.value === doc?.documentSubCategory && document.value.customText === doc?.customText
   )
 }
 </script>

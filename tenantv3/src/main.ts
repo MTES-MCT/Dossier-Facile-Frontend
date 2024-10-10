@@ -199,7 +199,7 @@ keycloak
       autoClose: 6000,
       theme: 'colored',
       clearOnUrlChange: false
-    } as ToastContainerOptions)
+    } satisfies ToastContainerOptions)
     app.use(MatomoPlugin)
     if (CRISP_ENABLED === 'true') {
       app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })

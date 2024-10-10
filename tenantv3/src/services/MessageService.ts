@@ -12,7 +12,7 @@ export const MessageService = {
   postMessage(data: { tenantId?: number; messageBody: string }) {
     return axios.post<DfMessage>(MESSAGE_ENDPOINT, data)
   },
-  markMessagesAsRead(tenantId?: number) {
+  markMessagesAsRead(tenantId: number) {
     return axios.put<DfMessage[]>(`${MESSAGE_ENDPOINT}/read`, null, {
       params: { tenantId }
     })

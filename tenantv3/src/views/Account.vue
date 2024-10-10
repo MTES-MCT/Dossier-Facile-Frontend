@@ -132,12 +132,13 @@
                               }"
                             ></span>
                           </div>
-                          <ColoredTag
+                          <ColoredBadge
                             class="fr-col-xs-12 fr-col"
                             :status="tenant.status"
                             :warn="true"
                             :text="t(`dossier.warn-${tenant.status}`)"
-                          ></ColoredTag>
+                          >
+                          </ColoredBadge>
                         </div>
                       </button>
                     </li>
@@ -210,6 +211,7 @@
 import { User } from 'df-shared-next/src/models/User'
 import DfButton from 'df-shared-next/src/Button/Button.vue'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
+import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import FakeAnnouncement from '../components/FakeAnnouncement.vue'
 import PartnersSection from '../components/account/PartnersSection.vue'

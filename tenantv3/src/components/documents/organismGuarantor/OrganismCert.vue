@@ -127,7 +127,7 @@ function onSelectChange($event: DocumentType) {
     const doc = certificateDocument.value
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 && doc?.subCategory !== selectedDocumentType.value.value
+        (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== selectedDocumentType.value.value
     }
   }
   return false
@@ -138,7 +138,7 @@ function undoSelect() {
     const doc = certificateDocument.value
     if (doc !== undefined) {
       const localDoc = documentTypeOptions.find((d: DocumentType) => {
-        return d.value === doc?.subCategory
+        return d.value === doc?.documentSubCategory
       })
       if (localDoc !== undefined) {
         selectedDocumentType.value = localDoc
@@ -230,7 +230,7 @@ function loadDocument() {
   // edited guarantor (and thus the corresponding document) from state
   if (certificateDocument.value !== undefined) {
     const localDoc = documentTypeOptions.find((d: DocumentType) => {
-      return d.value === certificateDocument.value?.subCategory
+      return d.value === certificateDocument.value?.documentSubCategory
     })
     if (localDoc !== undefined) {
       selectedDocumentType.value = localDoc

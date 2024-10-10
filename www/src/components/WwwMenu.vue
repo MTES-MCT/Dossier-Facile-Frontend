@@ -6,7 +6,7 @@
         class="fr-nav__link"
         :aria-current="currentPage === '/information' ? 'page' : undefined"
       >
-        {{ t("information") }}
+        {{ t('information') }}
       </a>
     </li>
     <li class="fr-nav__item">
@@ -15,7 +15,7 @@
         class="fr-nav__link"
         :aria-current="currentPage === '/blog' ? 'page' : undefined"
       >
-        {{ t("blog") }}
+        {{ t('blog') }}
       </a>
     </li>
     <li class="fr-nav__item">
@@ -24,7 +24,7 @@
         class="fr-nav__link"
         :aria-current="currentPage === '/partenaires' ? 'page' : undefined"
       >
-        {{ t("partners.menu") }}
+        {{ t('partners.menu') }}
       </a>
     </li>
     <li class="fr-nav__item">
@@ -34,7 +34,7 @@
         target="_blank"
         rel="noreferrer"
       >
-        {{ t("help") }}
+        {{ t('help') }}
       </a>
     </li>
     <li class="fr-nav__item">
@@ -45,7 +45,7 @@
         id="contact-us"
       >
         <span class="fr-icon-mail-line fr-icon--sm" aria-hidden="true"></span>
-        {{ t("contact-us") }}
+        {{ t('contact-us') }}
       </a>
     </li>
     <li class="fr-nav__item fr-translate">
@@ -55,36 +55,36 @@
 </template>
 
 <script setup lang="ts">
-import LanguageSelector from "df-shared-next/src/Header/LanguageSelector.vue";
-import { onMounted, ref } from "vue";
-import { useI18n } from "vue-i18n";
-import useWwwStore from "../stores/www-store";
+import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
+import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import useWwwStore from '../stores/www-store'
 
-  const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
-  const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
+const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
 
-const { t } = useI18n();
-const store = useWwwStore();
+const { t } = useI18n()
+const store = useWwwStore()
 
 function changeLang(lang: string) {
-  store.setLang(lang);
+  store.setLang(lang)
 }
 
-const currentPage = ref("/")
+const currentPage = ref('/')
 
 onMounted(() => {
-  currentPage.value = window.location.pathname;
-});
+  currentPage.value = window.location.pathname
+})
 </script>
 
 <style scoped lang="scss">
-@import "@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.css";
+@import '@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css';
 
 .fr-nav__item {
   position: relative;
 
   a.fr-external-link::after {
-    content: "";
+    content: '';
   }
 }
 

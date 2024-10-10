@@ -214,7 +214,7 @@ const fileNotFound = ref(false)
 const route = useRoute()
 
 function franceConnectTenantCount() {
-  return user.value?.tenants?.filter((t) => t.franceConnect == true).length
+  return user.value?.tenants?.filter((t) => t.franceConnect == true).length || 0
 }
 
 function isTaxChecked() {
@@ -223,7 +223,7 @@ function isTaxChecked() {
       (document: DfDocument) =>
         document.documentCategory === 'TAX' && document.authenticityStatus === 'AUTHENTIC'
     )
-  return user.value?.tenants?.some((t) => hasAuthenticTax(t))
+  return user.value?.tenants?.some(hasAuthenticTax) ?? false
 }
 
 onMounted(() => {

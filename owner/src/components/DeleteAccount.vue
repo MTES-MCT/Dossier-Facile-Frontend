@@ -39,39 +39,39 @@
 </template>
 
 <script setup lang="ts">
-import Modal from 'df-shared-next/src/components/Modal.vue';
-import DfButton from 'df-shared-next/src/Button/Button.vue';
-import { useI18n } from 'vue-i18n';
-import { useToast } from 'vue-toastification';
-import UtilsService from '../services/UtilsService';
-import useOwnerStore from '../store/owner-store';
+import Modal from 'df-shared-next/src/components/Modal.vue'
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import { useI18n } from 'vue-i18n'
+import { useToast } from 'vue-toastification'
+import UtilsService from '../services/UtilsService'
+import useOwnerStore from '../store/owner-store'
 
-const store = useOwnerStore();
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
-const { t } = useI18n();
-const toast = useToast();
+const store = useOwnerStore()
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
+const { t } = useI18n()
+const toast = useToast()
 
 function validDelete() {
-  store.setShowDeleteAccountModal(false);
+  store.setShowDeleteAccountModal(false)
   store.deleteAccount().then(
     () => {
-      window.location.replace(MAIN_URL);
+      window.location.replace(MAIN_URL)
     },
     () => {
       toast.error(t('deleteaccount.try-again').toString(), {
-        timeout: 7000,
-      });
-    },
-  );
+        timeout: 7000
+      })
+    }
+  )
 }
 
 function undoSelect() {
-  store.setShowDeleteAccountModal(false);
-  return false;
+  store.setShowDeleteAccountModal(false)
+  return false
 }
 
 function isMobile() {
-  return UtilsService.isMobile();
+  return UtilsService.isMobile()
 }
 </script>
 

@@ -28,6 +28,11 @@ export default defineConfig({
     vue(),
     vueI18n({})
   ],
+  css: {
+    preprocessorOptions: {
+      scss: { api: 'modern' }
+    }
+  },
   ssgOptions: {
     onFinished: () => {
       const baseURL =  'https://' + process.env.VITE_MAIN_URL;

@@ -59,7 +59,7 @@ const messages = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@import '@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.css';
+@import '@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.min.css';
 
 .declined {
   padding: 1rem 1rem 0.75rem;

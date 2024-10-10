@@ -128,7 +128,7 @@ function updateGuarantorData() {
     })
     if (doc !== undefined) {
       const localDoc = documents.value.find((d: DocumentType) => {
-        return d.value === doc.subCategory
+        return d.value === doc.documentSubCategory
       })
       if (localDoc !== undefined) {
         professionalDocument.value = localDoc
@@ -148,7 +148,7 @@ function onSelectChange() {
     })
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc.files?.length || 0) > 0 && doc.subCategory !== professionalDocument.value.value
+        (doc.files?.length || 0) > 0 && doc.documentSubCategory !== professionalDocument.value.value
     }
   }
   return false
@@ -161,7 +161,7 @@ function undoSelect() {
     })
     if (doc !== undefined) {
       const localDoc = documents.value.find((d: DocumentType) => {
-        return d.value === doc.subCategory
+        return d.value === doc.documentSubCategory
       })
       if (localDoc !== undefined) {
         professionalDocument.value = localDoc
@@ -249,7 +249,7 @@ function save() {
 function professionalFiles() {
   const newFiles = files.value.map((f) => {
     return {
-      subCategory: professionalDocument.value.value,
+      documentSubCategory: professionalDocument.value.value,
       id: f.id,
       name: f.name,
       size: f.size

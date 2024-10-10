@@ -250,7 +250,7 @@ const isWarningTaxSituationModalVisible = ref(false)
 
 const emit = defineEmits(['on-change-document', 'enrich-form-data'])
 
-var loader: any
+let loader: any
 
 onBeforeMount(() => {
   loadDocument()
@@ -280,7 +280,7 @@ function onEventChange($event: any) {
     const doc = getDocument()
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc.files?.length || 0) > 0 && doc.subCategory !== document.value.value
+        (doc.files?.length || 0) > 0 && doc.documentSubCategory !== document.value.value
     }
   }
   emit('on-change-document', document.value, dfDocument.value)
@@ -328,7 +328,7 @@ function loadDocument(forceLoadLast?: boolean) {
 
   // loadDocType
   const localDoc = props.documentsDefinitions.find((d: DocumentType) => {
-    return d.value === dfDocument.value.subCategory
+    return d.value === dfDocument.value.documentSubCategory
   })
   if (localDoc !== undefined) {
     document.value = localDoc
@@ -351,7 +351,7 @@ function undoSelect() {
     const doc = getDocument()
     if (doc !== undefined) {
       const localDoc = props.documentsDefinitions.find((d: DocumentType) => {
-        return d.value === doc.subCategory
+        return d.value === doc.documentSubCategory
       })
       if (localDoc !== undefined) {
         document.value = localDoc
@@ -461,7 +461,7 @@ function remove(file: DfFile) {
           dfDocument.value.files?.length === 0 &&
           dfDocument.value.documentAnalysisReport?.analysisStatus === 'DENIED'
         ) {
-          AnalyticsService.removeDeniedDocument(dfDocument.value.subCategory || '')
+          AnalyticsService.removeDeniedDocument(dfDocument.value.documentSubCategory || '')
         }
 
         ToastService.saveSuccess()

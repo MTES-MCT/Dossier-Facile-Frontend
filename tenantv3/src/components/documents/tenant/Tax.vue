@@ -175,7 +175,7 @@ onBeforeMount(() => {
     if (tenantTaxDocument.value !== undefined) {
       customText.value = tenantTaxDocument.value.customText || ''
       const localDoc = documents.value.find((d: DocumentType) => {
-        return d.value === tenantTaxDocument.value?.subCategory
+        return d.value === tenantTaxDocument.value?.documentSubCategory
       })
       if (localDoc !== undefined) {
         taxDocument.value = localDoc
@@ -209,7 +209,7 @@ function onSelectChange($event: DocumentType) {
     const doc = tenantTaxDocument.value
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 && doc?.subCategory !== taxDocument.value.value
+        (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== taxDocument.value.value
     }
   }
   return false
@@ -230,7 +230,7 @@ function undoSelect() {
     const doc = tenantTaxDocument.value
     if (doc !== undefined) {
       const localDoc = documents.value.find((d: DocumentType) => {
-        return d.value === doc?.subCategory
+        return d.value === doc?.documentSubCategory
       })
       if (localDoc !== undefined) {
         taxDocument.value = localDoc
@@ -316,7 +316,7 @@ async function save(force = false): Promise<boolean> {
 
   const d = getRegisteredDoc()
   if (
-    taxDocument.value.value === d?.subCategory &&
+    taxDocument.value.value === d?.documentSubCategory &&
     customText.value === (d?.customText || '') &&
     newFiles.length <= 0
   ) {
@@ -370,7 +370,7 @@ async function save(force = false): Promise<boolean> {
 function taxFiles() {
   const newFiles = files.value.map((f) => {
     return {
-      subCategory: taxDocument.value.value,
+      documentSubCategory: taxDocument.value.value,
       id: f.id,
       name: f.name,
       file: f,
@@ -391,7 +391,7 @@ async function remove(file: DfFile, silent = false) {
       tenantTaxDocument.value?.files?.length === 1 &&
       tenantTaxDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(tenantTaxDocument.value?.subCategory || '')
+      AnalyticsService.removeDeniedDocument(tenantTaxDocument.value?.documentSubCategory || '')
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {

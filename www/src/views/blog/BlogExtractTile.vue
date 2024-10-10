@@ -1,8 +1,6 @@
 <template>
   <article class="fr-mb-3w">
-    <div
-      class="fr-card fr-enlarge-link fr-card--horizontal fr-card--horizontal-tier"
-    >
+    <div class="fr-card fr-enlarge-link fr-card--horizontal fr-card--horizontal-tier">
       <div class="fr-card__body">
         <div class="fr-card__content">
           <router-link :to="props.path" class="fr-card__title">
@@ -24,19 +22,19 @@
 </template>
 
 <script setup lang="ts">
-  const props = defineProps<{
-    title: string;
-   path: string;
-  image: string;
-  publicationDate: string;
-  }>();
+const props = defineProps<{
+  title: string
+  path: string
+  image: string
+  publicationDate: string
+}>()
 
-  function getImageUrl() {
-    return props.image;
-  }
+function getImageUrl() {
+  return props.image
+}
 </script>
 <style scoped lang="scss">
-@import "df-shared-next/src/scss/_variables.scss";
+@import 'df-shared-next/src/scss/_variables.scss';
 
 a {
   color: $light-blue;

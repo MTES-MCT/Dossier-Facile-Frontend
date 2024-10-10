@@ -78,7 +78,7 @@ function updateGuarantorType(value: string) {
     if (guarantors.value === undefined) {
       return
     }
-    var guarantorId = '0'
+    let guarantorId = '0'
     if (guarantors.value.length >= 0) {
       guarantorId = guarantors.value[0].id?.toString() || '0'
     }

@@ -9,12 +9,12 @@ const toast = useToast();
 function like() {
   axios
     .get(`${import.meta.env.VITE_API_URL}/api/feedback/true`)
-    .then((res: any) => {
+    .then(() => {
       toast.info(t("feedback.feedback-registered").toString(), {
         timeout: 5000,
       });
     })
-    .catch((err: any) => {
+    .catch((err) => {
       console.dir(err);
     });
 }
@@ -22,12 +22,12 @@ function like() {
 function dislike() {
   axios
     .get(`${import.meta.env.VITE_API_URL}/api/feedback/false`)
-    .then((res: any) => {
+    .then(() => {
       toast.info(t("feedback.feedback-registered").toString(), {
         timeout: 5000,
       });
     })
-    .catch((err: any) => {
+    .catch((err) => {
       console.dir(err);
     });
 }
@@ -59,7 +59,9 @@ function dislike() {
     </button>
     <div class="fr-mt-1w">
       Une suggestion ? Contactez-nous :
-      <a href="mailto:contact@filigrane.beta.gouv.fr">contact@filigrane.beta.gouv.fr</a>
+      <a href="mailto:contact@filigrane.beta.gouv.fr"
+        >contact@filigrane.beta.gouv.fr</a
+      >
     </div>
   </div>
 </template>

@@ -294,7 +294,7 @@ function onSelectChange($event: DocumentType) {
 
   selectedDoc.value = financialDocument.value
   isDocDeleteVisible.value =
-    (doc.files?.length || 0) > 0 && doc.subCategory !== financialDocument.value.documentType.value
+    (doc.files?.length || 0) > 0 && doc.documentSubCategory !== financialDocument.value.documentType.value
   return false
 }
 
@@ -305,7 +305,7 @@ function undoSelect() {
     })
     if (doc !== undefined) {
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === doc.subCategory
+        return d.value === doc.documentSubCategory
       })
       if (localDoc !== undefined && selectedDoc.value) {
         selectedDoc.value.documentType = localDoc
@@ -460,7 +460,7 @@ async function save(): Promise<boolean> {
 function financialFiles() {
   const newFiles = financialDocument.value.files.map((file: DfFile) => {
     return {
-      subCategory: financialDocument.value.documentType?.value,
+      documentSubCategory: financialDocument.value.documentType?.value,
       id: file.id,
       name: file.name,
       size: file.size
@@ -480,7 +480,7 @@ function remove(f: FinancialDocument, file: DfFile, silent = false) {
       f.files.length === 1 &&
       financialDocumentSelected.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(financialDocumentSelected.value.subCategory || '')
+      AnalyticsService.removeDeniedDocument(financialDocumentSelected.value.documentSubCategory || '')
     }
     RegisterService.deleteFile(file.id, silent)
   } else {

@@ -1,12 +1,13 @@
-const express = require("express");
-const history = require("connect-history-api-fallback");
+/* eslint-env node */
+import express from "express";
+import history from "connect-history-api-fallback";
 
 const app = express();
 app.use(history());
 
-const CSP_DOMAIN =  process.env.VITE_CSP_DOMAIN || '*.filigrane.beta.gouv.fr';
+const CSP_DOMAIN = process.env.VITE_CSP_DOMAIN || "*.filigrane.beta.gouv.fr";
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
     "default-src 'none'; " +
@@ -26,11 +27,11 @@ app.use(function(req, res, next) {
 });
 
 const directory = "/" + (process.env.STATIC_DIR || "dist");
-app.use(express.static(__dirname + directory));
+app.use(express.static(import.meta.dirname + directory));
 
-app.use(express.static(__dirname + directory));
+app.use(express.static(import.meta.dirname + directory));
 
 const port = process.env.PORT || 3000;
-app.listen(port, function() {
+app.listen(port, function () {
   console.log("Listening on", port);
 });

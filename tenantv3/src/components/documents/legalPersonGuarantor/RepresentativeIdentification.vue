@@ -131,7 +131,7 @@ onBeforeMount(() => {
     const doc = guarantorIdentificationDocument()
     if (doc !== undefined) {
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === doc.subCategory
+        return d.value === doc.documentSubCategory
       })
       if (localDoc !== undefined) {
         identificationDocument.value = localDoc

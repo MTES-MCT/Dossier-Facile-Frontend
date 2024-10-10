@@ -85,7 +85,9 @@ function getLetterStyle() {
 <template>
   <NakedCard class="fr-mt-3w">
     <Form @submit="register">
-      <h3 class="fr-h6 small-text">{{ t('propertydiagnostic.detail-form-title') }}</h3>
+      <h3 class="fr-h6 small-text">
+        {{ t('propertydiagnostic.detail-form-title') }}
+      </h3>
       <p>
         <label class="fr-label" for="rent"
           >{{ t('propertydiagnostic.energy-consumption') }}

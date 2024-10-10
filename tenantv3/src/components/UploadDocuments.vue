@@ -92,7 +92,7 @@ function checkResidencyAndGoNext() {
   const docs = DocumentService.getDocs('RESIDENCY', user.value)
   if (docs.length === 1) {
     const d = docs[0]
-    if (d.subCategory === 'TENANT') {
+    if (d.documentSubCategory === 'TENANT') {
       const nbPages = d.files?.reduce((s: any, a: any) => s + (a.numberOfPages || 0), 0)
       if ((nbPages || 0) < 3) {
         showNbDocumentsResidencyTenant.value = true

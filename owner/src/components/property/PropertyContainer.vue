@@ -4,7 +4,9 @@
     <div class="fr-container position--relative mt-100 fr-mb-5w">
       <div class="fr-grid-row space-between fr-mb-3w">
         <div class="fr-grid-row">
-          <h1 class="title">{{ t('propertycontainer.apply-to', [p.address]) }}</h1>
+          <h1 class="title">
+            {{ t('propertycontainer.apply-to', [p.address]) }}
+          </h1>
         </div>
       </div>
       <NakedCard class="subtitle">
@@ -14,10 +16,11 @@
           </div>
           <div class="fr-col">
             <div>
-              {{ t(titleKey) }} {{ t('propertycontainer.rentdpe') }}
-              {{ dpe }} {{ t('propertycontainer.rent1') }}
+              {{ t(titleKey) }} {{ t('propertycontainer.rentdpe') }} {{ dpe }}
+              {{ t('propertycontainer.rent1') }}
               <span class="blue-text">{{ p.rentCost }}€</span>
-              {{ t('propertycontainer.rent2') }} <span class="blue-text">{{ p.chargesCost }}€</span>
+              {{ t('propertycontainer.rent2') }}
+              <span class="blue-text">{{ p.chargesCost }}€</span>
             </div>
           </div>
         </div>
@@ -28,44 +31,43 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import { useI18n } from 'vue-i18n';
-import PropertyIcon from './PropertyIcon.vue';
-import useOwnerStore from '../../store/owner-store';
-import UtilsService from '../../services/UtilsService';
+import { computed } from 'vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { useI18n } from 'vue-i18n'
+import PropertyIcon from './PropertyIcon.vue'
+import useOwnerStore from '../../store/owner-store'
+import UtilsService from '../../services/UtilsService'
 
-const { t } = useI18n();
-const store = useOwnerStore();
+const { t } = useI18n()
+const store = useOwnerStore()
 
-const p = computed(() => store.getPropertyToConsult);
-const propertyType = computed(() => p.value?.type);
-const propertyFurnished = computed(() => p.value?.furniture);
+const p = computed(() => store.getPropertyToConsult)
+const propertyType = computed(() => p.value?.type)
+const propertyFurnished = computed(() => p.value?.furniture)
 const titleKey = computed(() => {
   if (propertyType.value === 'HOUSE') {
     if (propertyFurnished.value === 'FURNISHED') {
-      return 'house-furnished';
+      return 'house-furnished'
     }
-    return 'house-unfurnished';
+    return 'house-unfurnished'
   }
   if (propertyType.value === 'APARTMENT') {
     if (propertyFurnished.value === 'FURNISHED') {
-      return 'apartment-furnished';
+      return 'apartment-furnished'
     }
-    return 'apartment-unfurnished';
+    return 'apartment-unfurnished'
   }
   if (propertyFurnished.value === 'FURNISHED') {
-    return 'other-furnished';
+    return 'other-furnished'
   }
-  return 'other-unfurnished';
-});
-const dpe = computed(
-  () => UtilsService.getGlobalLetter(
+  return 'other-unfurnished'
+})
+const dpe = computed(() =>
+  UtilsService.getGlobalLetter(
     UtilsService.getEnergyConsumptionLetter(p.value?.energyConsumption),
-    UtilsService.getCO2EmissionLetter(p.value?.co2Emission),
-  ),
-);
-
+    UtilsService.getCO2EmissionLetter(p.value?.co2Emission)
+  )
+)
 </script>
 
 <style scoped lang="scss">
@@ -88,9 +90,6 @@ const dpe = computed(
 .bg-pic {
   width: 100%;
   height: 320px;
-  @media (max-width: 768px) {
-    height: 550px;
-  }
   top: 0;
   left: 0;
   background-size: cover !important;
@@ -99,5 +98,8 @@ const dpe = computed(
     url('../../assets/salon.webp');
   background-color: #314467;
   z-index: 0;
+  @media (max-width: 768px) {
+    height: 550px;
+  }
 }
 </style>

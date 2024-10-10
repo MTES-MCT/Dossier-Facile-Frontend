@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, Ref } from 'vue'
+import { watch } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
 import GuarantorDocuments from '../components/GuarantorDocuments.vue'
 import ProfileContainer from '../components/ProfileContainer.vue'
