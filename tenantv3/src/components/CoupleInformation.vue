@@ -131,16 +131,14 @@
             v-model="authorize"
             v-slot="{ field, meta }"
             type="checkbox"
-            :rules="{
-              isTrue: true
-            }"
+            rules="isTrue"
             :value="true"
           >
             <input
               type="checkbox"
               id="authorize"
               v-bind="field"
-              @change="updateAuthorize()"
+              @change="updateAuthorize"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
@@ -148,7 +146,7 @@
             />
             <label for="authorize" v-html="t('coupleinformation.acceptAuthor')"> </label>
           </Field>
-          <ErrorMessage name="coTenantLastName" v-slot="{ message }">
+          <ErrorMessage name="authorize" v-slot="{ message }">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
@@ -168,7 +166,7 @@ import useTenantStore from '@/stores/tenant-store'
 import { Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 
-defineRule('custom', (v1: any, [v2]: any[]) => {
+defineRule('custom', (v1: string, [v2]: string[]) => {
   if (v1 === v2) {
     return 'same-email-not-valid'
   }
