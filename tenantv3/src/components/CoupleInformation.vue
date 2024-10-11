@@ -168,7 +168,7 @@ import useTenantStore from '@/stores/tenant-store'
 import { Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 
-defineRule('custom', (v1: any, [v2]: any[]) => {
+defineRule('custom', (v1: string, [v2]: string[]) => {
   if (v1 === v2) {
     return 'same-email-not-valid'
   }

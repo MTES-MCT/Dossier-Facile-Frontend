@@ -191,9 +191,7 @@ function hasNothingToSave() {
     return true
   }
   if (applicationType.value === user.value.applicationType && applicationType.value === 'GROUP') {
-    const unregisteredRoommate = coTenants.value.find((r: any) => {
-      return r.id === undefined
-    })
+    const unregisteredRoommate = coTenants.value.find((r) => r.id === undefined)
     if (unregisteredRoommate === undefined) {
       return true
     }
