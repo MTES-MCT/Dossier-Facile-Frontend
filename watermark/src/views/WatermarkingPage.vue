@@ -92,6 +92,7 @@ function getFile() {
               </span>
             </label>
             <input
+              id="file-upload"
               class="fr-upload"
               type="file"
               name="files"
