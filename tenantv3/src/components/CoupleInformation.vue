@@ -131,16 +131,14 @@
             v-model="authorize"
             v-slot="{ field, meta }"
             type="checkbox"
-            :rules="{
-              isTrue: true
-            }"
+            rules="isTrue"
             :value="true"
           >
             <input
               type="checkbox"
               id="authorize"
               v-bind="field"
-              @change="updateAuthorize()"
+              @change="updateAuthorize"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
@@ -148,7 +146,7 @@
             />
             <label for="authorize" v-html="t('coupleinformation.acceptAuthor')"> </label>
           </Field>
-          <ErrorMessage name="coTenantLastName" v-slot="{ message }">
+          <ErrorMessage name="authorize" v-slot="{ message }">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
