@@ -27,7 +27,7 @@ const UtilsService = {
     return activeApartmentSharingApplications.map((pas: any) => {
       const a = pas.apartmentSharing
       if (a !== undefined && a.tenants.length > 0) {
-        const rate = a.totalSalary > 0 ? Math.round((p.rentCost / a.totalSalary) * 100) : '100'
+        const rate = a.totalSalary > 0 ? Math.round(p.rentCost * 100 / a.totalSalary) : -1
         const mainTenant = a.tenants.find((t: Applicant) => t.tenantType === 'CREATE')
         return {
           id: pas.id,
@@ -38,7 +38,7 @@ const UtilsService = {
           tenantType: a.applicationType,
           tenantSalary: `${a.totalSalary} €`,
           guarantorSalary: a.totalGuarantorSalary ? `${a.totalGuarantorSalary} €` : '-',
-          rate: `${rate}`,
+          rate: rate,
           status: a.status,
           token: a.token
         }

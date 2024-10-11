@@ -200,7 +200,7 @@
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
               <td @click="setShowTenant(tenant, k)">
-                <div v-if="tenant.rate == 100">
+                <div v-if="tenant.rate === -1">
                   {{ t('consultproperty.no-income') }}
                 </div>
                 <div v-else>
@@ -419,7 +419,7 @@ function getTenantClass(applicant: Applicant) {
 }
 
 function getRateClass(applicant: Applicant) {
-  if ((applicant?.rate || 100) < 30) {
+  if ((applicant?.rate || 100) < 30 && applicant?.rate !== -1) {
     return 'good'
   }
   return ''
