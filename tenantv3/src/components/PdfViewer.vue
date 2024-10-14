@@ -34,11 +34,11 @@ const loadedRatio = ref(0)
 
 <style scoped lang="scss">
 .main-content {
+  margin: auto;
   width: 768px;
   @media all and (max-width: 992px) {
     width: 95%;
   }
-  margin: auto;
 }
 
 .pdf-content {
