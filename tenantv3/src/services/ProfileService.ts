@@ -1,6 +1,7 @@
 import { User } from 'df-shared-next/src/models/User'
 import axios from 'axios'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import type { FileUser } from 'df-shared-next/src/models/FileUser'
 
 export const ProfileService = {
   unlinkFranceConnect(): Promise<boolean> {
@@ -30,7 +31,7 @@ export const ProfileService = {
       clarification
     })
   },
-  setGuarantorType(typeGuarantorData: any) {
+  setGuarantorType(typeGuarantorData: unknown) {
     return axios.post(
       `${import.meta.env.VITE_API_URL}/api/register/guarantorType`,
       typeGuarantorData
@@ -43,15 +44,15 @@ export const ProfileService = {
     return axios.delete(`${import.meta.env.VITE_API_URL}/api/document/${id}`)
   },
   getUserByToken(token: string) {
-    return axios.get(`${import.meta.env.VITE_API_URL}/api/application/full/${token}`)
+    return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/full/${token}`)
   },
   getPublicUserByToken(token: string) {
-    return axios.get(`${import.meta.env.VITE_API_URL}/api/application/light/${token}`)
+    return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/light/${token}`)
   },
   postCreateFullPdf(token: string): Promise<VoidFunction> {
     return axios.post(`${import.meta.env.VITE_API_URL}/api/application/fullPdf/${token}`, {})
   },
-  getFile(fileUrl: string): Promise<any> {
+  getFile(fileUrl: string) {
     return axios.get(fileUrl, { responseType: 'blob' })
   },
   downloadZip() {
@@ -59,8 +60,8 @@ export const ProfileService = {
       responseType: 'blob'
     })
   },
-  getExpectedProcessingTime(tenantId: number): Promise<string> {
-    return axios.get(
+  getExpectedProcessingTime(tenantId: number) {
+    return axios.get<string>(
       `${import.meta.env.VITE_API_URL}/api/tenant/${tenantId}/expectedProcessingTime`
     )
   }

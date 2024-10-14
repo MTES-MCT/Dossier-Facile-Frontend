@@ -222,7 +222,7 @@ import useTenantStore from '../stores/tenant-store'
 import { useRouter } from 'vue-router'
 import { ProfileService } from '../services/ProfileService'
 import { ToastService } from '../services/ToastService'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
@@ -236,7 +236,7 @@ const user = computed(() => store.user)
 const tabIndex = ref(0)
 const router = useRouter()
 dayjs.extend(relativeTime)
-const expectedDate = ref(null as any)
+const expectedDate = ref<Dayjs | null>(null)
 
 onMounted(() => {
   window.Beacon('init', 'd949ac15-a9eb-4316-b0c5-f92cecc7118f')
@@ -329,6 +329,7 @@ function downloadZip() {
       link.click()
     })
     .catch((error) => {
+      console.error(error)
       ToastService.error()
     })
 }
