@@ -263,7 +263,7 @@ function isTaxChecked() {
 function setUser() {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
   ProfileService.getUserByToken(token)
-    .then((d: any) => {
+    .then((d) => {
       user.value = d.data
       if (user.value) {
         user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
@@ -339,6 +339,7 @@ function downloadFile(url: string) {
       link.click()
     })
     .catch((error) => {
+      console.error(error)
       ToastService.error()
     })
     .finally(() => (showProgressBar.value = false))

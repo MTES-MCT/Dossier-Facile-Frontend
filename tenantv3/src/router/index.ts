@@ -215,7 +215,7 @@ const router = createRouter({
       beforeEnter: async (to, from, next) => {
         const store = useTenantStore()
         if (store.user.status === 'INCOMPLETE') {
-          const d: any = await store.firstProfilePage()
+          const d = await store.firstProfilePage()
           if (d) {
             next(d)
             return
@@ -344,7 +344,7 @@ async function loadUserIfAuthenticated(next: NavigationGuardNext) {
 function updateKeycloakTokenAndMessages() {
   if (updateTokenInterval === undefined) {
     updateTokenInterval = setInterval(() => {
-      keycloak.updateToken(60).catch((err: any) => {
+      keycloak.updateToken(60).catch((err) => {
         console.error(err)
       })
     }, 45000)

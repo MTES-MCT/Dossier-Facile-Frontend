@@ -229,7 +229,7 @@ function isTaxChecked() {
 onMounted(() => {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
   ProfileService.getPublicUserByToken(token)
-    .then((d: any) => {
+    .then((d) => {
       user.value = d.data
       if (user.value) {
         user.value.tenants = user.value?.tenants?.sort((t1, t2) => {

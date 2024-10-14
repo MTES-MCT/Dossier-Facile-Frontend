@@ -29,7 +29,7 @@ const props = withDefaults(
   defineProps<{
     id: number;
     value: boolean;
-    label: string;
+    label?: string;
     hint?: string;
     checkedLabel?: string;
     uncheckedLabel?: string;
