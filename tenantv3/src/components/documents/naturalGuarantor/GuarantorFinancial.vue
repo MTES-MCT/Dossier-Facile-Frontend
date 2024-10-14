@@ -163,12 +163,6 @@ function getDocumentName(document: FinancialDocument): string {
 }
 
 .add-income-btn {
-  margin: 0.5rem 1rem;
-  width: calc(100% - 2rem);
-  @media (min-width: 768px) {
-    margin: 0.5rem 0;
-    width: calc(100%);
-  }
   border-radius: 0.5rem;
   padding: 1.75rem;
   color: var(--primary);
@@ -180,6 +174,12 @@ function getDocumentName(document: FinancialDocument): string {
   }
   &:active {
     background: var(--blue-france-active);
+  }
+  margin: 0.5rem 1rem;
+  width: calc(100% - 2rem);
+  @media (min-width: 768px) {
+    margin: 0.5rem 0;
+    width: calc(100%);
   }
 }
 

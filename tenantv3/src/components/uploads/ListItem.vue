@@ -147,10 +147,10 @@ function getName() {
 .doc-container {
   background-color: white;
   border-radius: 0.5rem;
+  box-shadow: 0 0.5px 4px 0 #cecece;
   padding: 1rem;
   @media (min-width: 768px) {
     padding: 1.5rem;
   }
-  box-shadow: 0 0.5px 4px 0 #cecece;
 }
 </style>

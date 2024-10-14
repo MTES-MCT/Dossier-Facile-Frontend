@@ -390,12 +390,11 @@ function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
   background-size: cover !important;
   background-position: 50% 50% !important;
   background-image: url('../assets/cover-features.webp');
+  z-index: 0;
 
   @media (max-width: 768px) {
     background-image: url('../assets/cover-features-mobile.webp');
   }
-
-  z-index: 0;
 }
 .root {
   width: 100%;
