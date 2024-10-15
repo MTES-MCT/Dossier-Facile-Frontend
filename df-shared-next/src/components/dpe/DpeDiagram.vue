@@ -13,10 +13,12 @@ const props = withDefaults(
     letter: 'A',
     consumption: 0,
     short: false,
-  },
+  }
 );
 
-const letters = computed(() => props.short ? [props.letter] :  ['A', 'B', 'C', 'D', 'E', 'F', 'G'] );
+const letters = computed(() =>
+  props.short ? [props.letter] : ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+);
 const consumption = computed(() => Math.round(props.consumption));
 
 const { t } = useI18n();

@@ -74,13 +74,13 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
-    dossierStatus: string
-    taxDocumentStatus: string
-    franceConnectTenantCount: number
-    tenantCount: number
-    taxChecked: boolean
+    dossierStatus?: string
+    taxDocumentStatus?: string
+    franceConnectTenantCount?: number
+    tenantCount?: number
+    taxChecked?: boolean
   }>(),
   {
     dossierStatus: 'VALIDATED',

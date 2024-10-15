@@ -1,7 +1,6 @@
 import { Property } from 'df-shared-next/src/models/Property'
 import { User } from 'df-shared-next/src/models/User'
 import { useCookies } from 'vue3-cookies'
-import { Composer } from 'vue-i18n'
 import { defineStore } from 'pinia'
 import { OwnerUser } from 'df-shared-next/src/models/OwnerUser'
 import UtilsService from '../services/UtilsService'
@@ -133,11 +132,11 @@ const useOwnerStore = defineStore('owner', {
     setPropertyValidated(validated: boolean) {
       this.propertyToEdit.validated = validated
     },
-    setLang(lang: string) {
-      ;(i18n.global as unknown as Composer).locale.value = lang
+    setLang(lang: 'fr' | 'en') {
+      i18n.global.locale = lang
       i18n.global.fallbackLocale = 'fr'
       const html = document.documentElement
-      html.setAttribute('lang', (i18n.global as unknown as Composer).locale.value)
+      html.setAttribute('lang', i18n.global.locale)
       const { cookies } = useCookies()
       const expireTimes = new Date()
       expireTimes.setFullYear(expireTimes.getFullYear() + 1)
@@ -165,7 +164,7 @@ const useOwnerStore = defineStore('owner', {
     },
     loadUser() {
       return AuthService.loadUser().then(
-        async (response: any) => {
+        async (response) => {
           this.loadUserCommit(response.data)
           return Promise.resolve(response.data)
         },

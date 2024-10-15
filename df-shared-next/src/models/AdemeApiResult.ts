@@ -32,5 +32,4 @@ export class AdemeApiResult {
   motifRemplacement?: string;
   statut?: string;
   numeroDPERemplacant?: string;
-
 }

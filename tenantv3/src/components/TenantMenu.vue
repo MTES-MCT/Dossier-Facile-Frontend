@@ -108,7 +108,7 @@
 import DfButton from 'df-shared-next/src/Button/Button.vue'
 import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
 
-import { useI18n, type Composer } from 'vue-i18n'
+import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
 import i18n from '@/i18n'
@@ -130,7 +130,7 @@ const currentPage = computed(() => {
   return route.name
 })
 
-const lang: string = (i18n.global as unknown as Composer).locale.value
+const lang = i18n.global.locale.value
 
 function showMessaging() {
   return (
@@ -138,7 +138,7 @@ function showMessaging() {
     (messageList.value[user.value.id] !== undefined && messageList.value[user.value.id].length > 0)
   )
 }
-function changeLang(lang: string) {
+function changeLang(lang: 'fr' | 'en') {
   store.setLang(lang)
 }
 </script>

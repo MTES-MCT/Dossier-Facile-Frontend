@@ -1,4 +1,4 @@
-import Keycloak, { KeycloakConfig } from 'keycloak-js'
+import Keycloak, { type KeycloakConfig } from 'keycloak-js'
 
 const options: KeycloakConfig = {
   url: import.meta.env.VITE_SSO_ENDPOINT?.toString() || '',

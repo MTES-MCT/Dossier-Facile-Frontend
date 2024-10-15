@@ -20,7 +20,7 @@ const debounce = 300
 const id = ref(0)
 
 const autocompleteRef = ref()
-let timeout: NodeJS.Timeout
+let timeout: number
 const inputWidth = ref(0)
 const showResults = ref(true)
 const addresses = ref<Array<Address>>([])
@@ -69,7 +69,7 @@ function hideResults() {
 const shouldShowResults = computed(() => showResults.value && addresses.value.length > 0)
 
 function updateAddresses(value: string) {
-  UtilsService.getAddresses(value).then((res: any) => {
+  UtilsService.getAddresses(value).then((res) => {
     if (res.data.type === 'FeatureCollection') {
       addresses.value = res.data.features
       displayResults()
@@ -78,10 +78,11 @@ function updateAddresses(value: string) {
   })
 }
 
-function handleInput(e: any) {
+function handleInput(e: Event) {
   clearTimeout(timeout)
   timeout = setTimeout(() => {
-    updateAddresses(e.target.value)
+    const input = e.target instanceof HTMLInputElement ? e.target.value : ''
+    updateAddresses(input)
   }, debounce)
 }
 

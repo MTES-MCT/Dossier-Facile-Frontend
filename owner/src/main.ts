@@ -12,50 +12,50 @@ import i18n from './i18n'
 import 'vue-toastification/dist/index.css'
 import keycloak from './plugin/keycloak'
 import MatomoPlugin from './plugin/matomo'
-import HelpscoutPlugin from './plugin/helpscout.js'
-import CrispPlugin from './plugin/crisp.js'
+import HelpscoutPlugin from './plugin/helpscout'
+import CrispPlugin from './plugin/crisp'
 
 const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 declare global {
   interface Window {
-    _paq: any
-    Beacon: any
+    _paq: (string | number | undefined)[][]
+    Beacon: ((action: string, data?: string) => void) & { readyQueue: unknown[] }
   }
 }
 
-defineRule('validateEmail', (value: any) => {
+defineRule('validateEmail', (value: unknown) => {
   if (!value) {
     return 'register.email-not-valid'
   }
   return true
 })
-defineRule('isTrue', (value: any) => {
+defineRule('isTrue', (value: unknown) => {
   if (!value) {
     return 'field-required'
   }
   return true
 })
-defineRule('hasValue', (value: any) => {
+defineRule('hasValue', (value: unknown) => {
   if (!value) {
     return 'field-required'
   }
   return true
 })
-defineRule('required', (value: any) => {
+defineRule('required', (value: unknown) => {
   if (typeof value === 'number') {
     if (!value && value !== 0) {
       return 'field-required'
     }
     return true
   }
-  if (!value || !value.length) {
+  if (!value || !(Array.isArray(value) && value.length)) {
     return 'field-required'
   }
   return true
 })
-defineRule('email', (value: any) => {
+defineRule('email', (value: string | undefined | null) => {
   if (!value || !value.length) {
     return true
   }
@@ -64,32 +64,32 @@ defineRule('email', (value: any) => {
   }
   return true
 })
-defineRule('strength', (_value: any, [score]: number[]) => {
+defineRule('strength', (_value: unknown, [score]: number[]) => {
   if (score < 2) {
     return 'register.strength-not-valid'
   }
   return true
 })
-defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
+defineRule('confirm', (_value: unknown, [password, confirm]: string[]) => {
   if (password !== confirm) {
     return 'register.confirm-not-valid'
   }
   return true
 })
-defineRule('positive', (value: any) => {
-  if (!value || !value.length) {
+defineRule('positive', (value: unknown) => {
+  if (!value) {
     return true
   }
-  if (value <= 0) {
+  if (Number(value) <= 0) {
     return 'number-not-positive'
   }
   return true
 })
-defineRule('positiveOrNull', (value: any) => {
-  if (!value || !value.length) {
+defineRule('positiveOrNull', (value: unknown) => {
+  if (!value) {
     return true
   }
-  if (value < 0) {
+  if (Number(value) < 0) {
     return 'number-not-positive-or-null'
   }
   return true

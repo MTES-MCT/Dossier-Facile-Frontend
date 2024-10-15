@@ -159,7 +159,7 @@
 
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { Composer, useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n'
 import Button from 'df-shared-next/src/Button/Button.vue'
 import { computed } from 'vue'
 import DpeDiagram from 'df-shared-next/src/components/dpe/DpeDiagram.vue'
@@ -196,7 +196,7 @@ function formatDate(d: string) {
     return ''
   }
   return format(date, 'dd MMMM yyyy', {
-    locale: (i18n.global as unknown as Composer).locale.value === 'fr' ? fr : enUS
+    locale: i18n.global.locale === 'fr' ? fr : enUS
   })
 }
 </script>
