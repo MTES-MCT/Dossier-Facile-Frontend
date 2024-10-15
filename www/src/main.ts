@@ -13,15 +13,12 @@ const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 
 declare global {
   interface Window {
-    __insp: any
-    __inspld: any
-    Beacon: any
-    _paq: any
-    $: any
+    _paq: (string | number | undefined)[][]
+    Beacon: (action: string, data?: string) => void
   }
 }
 
-export const createApp: any = ViteSSG(
+export const createApp = ViteSSG(
   App,
   { routes },
   async ({ app, router, routes, isClient, initialState }) => {

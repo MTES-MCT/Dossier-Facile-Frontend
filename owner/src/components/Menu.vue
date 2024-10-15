@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import DfButton from 'df-shared-next/src/Button/Button.vue'
 import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
-import useOwnerStore from '../store/owner-store.ts'
+import useOwnerStore from '../store/owner-store'
 
 const store = useOwnerStore()
 const isLoggedIn = computed(() => store.isLoggedIn)
@@ -18,7 +18,7 @@ function currentPage() {
   return route.name
 }
 
-function changeLang(lang: string) {
+function changeLang(lang: 'fr' | 'en') {
   store.setLang(lang)
 }
 

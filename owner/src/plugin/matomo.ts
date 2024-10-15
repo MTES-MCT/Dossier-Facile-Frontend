@@ -1,8 +1,9 @@
 import VueMatomo from 'vue-matomo'
 import router from '../router'
+import type { App } from 'vue'
 
 export default {
-  install(app: any) {
+  install(app: App) {
     const options = {
       host: import.meta.env.VITE_MATOMO_URL,
       siteId: import.meta.env.VITE_MATOMO_SITE_ID,

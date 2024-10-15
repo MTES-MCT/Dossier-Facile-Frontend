@@ -7,7 +7,7 @@ import Footer from 'df-shared-next/src/Footer/Footer.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import { useRouter } from 'vue-router'
 import Menu from './components/Menu.vue'
-import useOwnerStore from './store/owner-store.ts'
+import useOwnerStore from './store/owner-store'
 import DeleteAccount from './components/DeleteAccount.vue'
 
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`

@@ -1,7 +1,7 @@
 import useTenantStore from '@/stores/tenant-store'
 
 export const AnalyticsService = {
-  sendEvent(name: string, data: any) {
+  sendEvent(name: string, data: { event_category: string; event_label?: number }) {
     if (import.meta.env.VITE_MATOMO_ENABLE === 'false') {
       return
     }

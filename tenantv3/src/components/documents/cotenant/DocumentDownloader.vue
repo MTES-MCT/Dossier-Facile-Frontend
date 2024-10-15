@@ -79,7 +79,7 @@
           id="noDocument"
           v-model="noDocument"
           value="false"
-          @click="changeNoDocument($event)"
+          @click="changeNoDocument"
         />
         <label for="noDocument">
           {{
@@ -202,7 +202,7 @@ import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { computed, onBeforeMount, ref } from 'vue'
-import useTenantStore from '@/stores/tenant-store'
+import useTenantStore, { type DispatchNames } from '@/stores/tenant-store'
 import { Field, ErrorMessage } from 'vee-validate'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import { useI18n } from 'vue-i18n'
@@ -216,7 +216,7 @@ const props = withDefaults(
     documentsDefinitions: any
     documentCategory: string
     editedDocumentId?: number
-    dispatchMethodName: string
+    dispatchMethodName: DispatchNames
     typeDocument: string
     listType?: string
     showDownloader?: boolean
@@ -257,7 +257,7 @@ onBeforeMount(() => {
   noDocument.value = dfDocument.value?.noDocument == true
 })
 
-function changeNoDocument(event: Event) {
+function changeNoDocument() {
   if (!noDocument.value && Number(dfDocument.value?.files?.length) > 0) {
     showIsNoDocumentAndFiles.value = true
     dfDocument.value.noDocument = noDocument.value
@@ -415,7 +415,7 @@ function saveNewFiles(avisDetected: boolean) {
       loadDocument(true)
       ToastService.saveSuccess()
     })
-    .catch((err: any) => {
+    .catch((err: unknown) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
       UtilsService.handleCommonSaveError(err)
     })
@@ -424,7 +424,10 @@ function saveNewFiles(avisDetected: boolean) {
     })
 }
 
-function _buildFormData(filesToAdd: any, avisDetected: boolean): FormData {
+function _buildFormData(
+  filesToAdd: { file: File; name: string }[],
+  avisDetected: boolean
+): FormData {
   const formData = new FormData()
   const fieldName = 'documents'
   Array.from(Array(filesToAdd.length).keys()).forEach((x) => {

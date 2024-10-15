@@ -129,17 +129,17 @@ export const RegisterService = {
   async getFranceConnectToken() {
     return axios
       .get(`${import.meta.env.VITE_SSO_ENDPOINT}/realms/dossier-facile/broker/oidc/token`)
-      .then((response: any) => {
+      .then((response) => {
         return Promise.resolve(response.data.access_token)
       })
       .catch((err) => {
         console.dir(err)
       })
   },
-  commentAnalysis(formData: any) {
+  commentAnalysis(formData: unknown) {
     return axios
       .post(`${import.meta.env.VITE_API_URL}/api/document/commentAnalysis`, formData)
-      .then((response: any) => {
+      .then((response) => {
         return Promise.resolve(response.data)
       })
       .catch((err) => {

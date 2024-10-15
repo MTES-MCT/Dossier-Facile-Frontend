@@ -239,7 +239,7 @@
 </template>
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue'
-import { Composer, useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
@@ -390,7 +390,7 @@ const verifiedApplicantsCount = computed(
 
 function formatDate(date: Date) {
   return format(date, 'dd MMMM yyyy', {
-    locale: (i18n.global as unknown as Composer).locale.value === 'fr' ? fr : enUS
+    locale: i18n.global.locale === 'fr' ? fr : enUS
   })
 }
 

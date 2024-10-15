@@ -1,6 +1,6 @@
-import { DfDocument } from "./DfDocument";
-import { Guarantor } from "./Guarantor";
-import { ApartmentSharing } from "./ApartmentSharing";
+import { DfDocument } from './DfDocument';
+import { Guarantor } from './Guarantor';
+import { ApartmentSharing } from './ApartmentSharing';
 
 export class User {
   id!: number;
@@ -16,7 +16,7 @@ export class User {
   applicationType?: string;
   tenantType?: string;
   status?: string;
-  lastUpdateDate?: any;
+  lastUpdateDate?: Date;
   honorDeclaration?: boolean;
   clarification?: string;
   franceConnect?: boolean;

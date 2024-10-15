@@ -232,7 +232,7 @@ function setAddGuarantorStep() {
 
   if (user.value.id === props.tenant?.id) {
     if (guarantors.value.length > 0) {
-      store.addNaturalGuarantor().then((data: any) => {
+      store.addNaturalGuarantor().then((data) => {
         router.push(data)
       })
     } else {

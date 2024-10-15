@@ -55,7 +55,7 @@ function onCreateOwner() {
     <Announcement></Announcement>
     <main role="main">
       <div class="page">
-        <RouterView :key="$route.path" />
+        <RouterView />
       </div>
       <FollowSocials v-if="!isFunnel" />
     </main>

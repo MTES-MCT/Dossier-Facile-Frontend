@@ -46,18 +46,15 @@ import CoTenantName from '../components/documents/cotenant/CoTenantName.vue'
 import CoTenantProfessional from '../components/documents/cotenant/CoTenantProfessional.vue'
 import CoTenantFinancialList from '../components/documents/cotenant/CoTenantFinancialList.vue'
 import CoTenantTax from '../components/documents/cotenant/CoTenantTax.vue'
-import { useI18n } from 'vue-i18n'
 import { onBeforeUnmount, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 declare global {
   interface Window {
-    _paq: any
-    Beacon: any
+    _paq: (string | number | undefined)[][]
+    Beacon: ((action: string, data?: string) => void) & { readyQueue: unknown[] }
   }
 }
-
-const { t } = useI18n()
 
 const router = useRouter()
 const route = useRoute()

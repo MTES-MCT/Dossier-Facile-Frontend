@@ -15,17 +15,11 @@
               <slot></slot>
             </p>
             <div class="align--right">
-              <DfButton
-                type="submit"
-                class="fr-mr-3w"
-                @on-click="validSelect()"
-                :primary="true"
-                >{{
-                  validateBtnText ? validateBtnText : t("validate")
-                }}</DfButton
-              >
+              <DfButton type="submit" class="fr-mr-3w" @on-click="validSelect()" :primary="true">{{
+                validateBtnText ? validateBtnText : t('validate')
+              }}</DfButton>
               <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
-                cancelBtnText ? cancelBtnText : t("cancel")
+                cancelBtnText ? cancelBtnText : t('cancel')
               }}</DfButton>
             </div>
           </div>
@@ -36,33 +30,33 @@
 </template>
 
 <script setup lang="ts">
-import Modal from "./Modal.vue";
-import DfButton from "../Button/Button.vue";
-import { useI18n } from "vue-i18n";
+import Modal from './Modal.vue';
+import DfButton from '../Button/Button.vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
-const emit = defineEmits(["valid", "cancel", "close"]);
+const emit = defineEmits(['valid', 'cancel', 'close']);
 
 const props = defineProps<{
   validateBtnText?: string;
   cancelBtnText?: string;
-  onClose?: Function;
+  onClose?: () => void;
 }>();
 
 function validSelect() {
-  emit("valid");
+  emit('valid');
 }
 
 function undoSelect() {
-  emit("cancel");
+  emit('cancel');
 }
 
 function closeModal() {
   if (props.onClose) {
-    emit("close");
+    emit('close');
   } else {
-    emit("cancel");
+    emit('cancel');
   }
 }
 </script>
