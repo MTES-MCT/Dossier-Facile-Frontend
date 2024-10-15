@@ -1,3 +1,5 @@
+import { AdemeApiResult } from './AdemeApiResult';
+
 export class Property {
   id!: number;
   name!: string;
@@ -19,5 +21,5 @@ export class Property {
   propertyApartmentSharingCount?: number;
   ownerName?: string;
   ademeNumber?: string;
-  ademeApiResult?: any;
+  ademeApiResult?: AdemeApiResult;
 }

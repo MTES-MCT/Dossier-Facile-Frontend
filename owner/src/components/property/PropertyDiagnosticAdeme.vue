@@ -4,7 +4,7 @@
     <div v-if="hasDpe">
       <PropertyDiagnosticResult v-if="dpe" :dpe="dpe"></PropertyDiagnosticResult>
       <PropertyDiagnosticEnergySieves
-        :letter="dpe?.etiquetteBilan"
+        :letter="dpe?.etiquetteBilan || '-'"
       ></PropertyDiagnosticEnergySieves>
       <PropertyDiagnosticExpiryWarning class="fr-mt-3w" v-if="dpe?.statut === 'EXPIRE'">
       </PropertyDiagnosticExpiryWarning>
@@ -27,7 +27,7 @@ const route = useRoute()
 const router = useRouter()
 
 const dpe = computed(() => store.getPropertyToEdit?.ademeApiResult)
-const hasDpe = computed(() => dpe.value?.ademe_number !== null)
+const hasDpe = computed(() => dpe.value?.numero !== null)
 
 onMounted(() => {
   if (route.params.id) {
@@ -50,5 +50,3 @@ function onSubmit() {
   })
 }
 </script>
-
-<style scoped></style>
