@@ -7,7 +7,7 @@ const props = withDefaults(
   defineProps<{
     letter?: string;
     consumption?: number;
-    short: boolean;
+    short?: boolean;
   }>(),
   {
     letter: 'A',

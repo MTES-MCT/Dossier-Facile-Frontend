@@ -36,7 +36,7 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { useI18n } from 'vue-i18n'
 import PropertyIcon from './PropertyIcon.vue'
 import useOwnerStore from '../../store/owner-store'
-import UtilsService from '../../services/UtilsService'
+import DpeService from '../../services/DpeService'
 
 const { t } = useI18n()
 const store = useOwnerStore()
@@ -63,9 +63,10 @@ const titleKey = computed(() => {
   return 'other-unfurnished'
 })
 const dpe = computed(() =>
-  UtilsService.getGlobalLetter(
-    UtilsService.getEnergyConsumptionLetter(p.value?.energyConsumption),
-    UtilsService.getCO2EmissionLetter(p.value?.co2Emission)
+  DpeService.getGlobalLetter(
+    DpeService.getEnergyConsumptionLetter(p.value?.energyConsumption, p.value),
+    DpeService.getCO2EmissionLetter(p.value?.co2Emission, p.value),
+    p.value
   )
 )
 </script>

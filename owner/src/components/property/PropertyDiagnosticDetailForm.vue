@@ -8,7 +8,7 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import useOwnerStore from '../../store/owner-store'
 import DpeDiagram from 'df-shared-next/src/components/dpe/DpeDiagram.vue'
 import DpeCo2Diagram from 'df-shared-next/src/components/dpe/DpeCo2Diagram.vue'
-import UtilsService from '../../services/UtilsService'
+import DpeService from '../../services/DpeService'
 import AnalyticsService from '../../services/AnalyticsService'
 
 const { t } = useI18n()
@@ -27,6 +27,8 @@ if (route.params.id) {
   id.value = Number(route.params.id)
   store.updatePropertyToEdit(Number(id.value))
 }
+
+const property = computed(() => store.getPropertyToEdit)
 
 const co2Emission = computed({
   get() {
@@ -58,9 +60,16 @@ const dpeDate = computed({
 function updateDPE() {
   localCo2Emission.value = co2Emission.value
   localEnergyConsumption.value = energyConsumption.value
-  energyLetter.value = UtilsService.getEnergyConsumptionLetter(energyConsumption.value)
-  co2Letter.value = UtilsService.getCO2EmissionLetter(co2Emission.value)
-  globalLetter.value = UtilsService.getGlobalLetter(energyLetter.value, co2Letter.value)
+  energyLetter.value = DpeService.getEnergyConsumptionLetter(
+    energyConsumption.value,
+    property.value
+  )
+  co2Letter.value = DpeService.getCO2EmissionLetter(co2Emission.value, property.value)
+  globalLetter.value = DpeService.getGlobalLetter(
+    energyLetter.value,
+    co2Letter.value,
+    property.value
+  )
 }
 
 onMounted(() => {
