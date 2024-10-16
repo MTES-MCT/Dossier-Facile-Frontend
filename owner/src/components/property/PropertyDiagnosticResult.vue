@@ -45,14 +45,14 @@
             {{ t('propertydiagnosticresult.dpe.status') }}
           </div>
           <div :class="{ 'color--red': dpe?.statut !== 'ACTIF' }">
-            <strong>{{ t(dpe.statut) }}</strong>
+            <strong>{{ t(dpe.statut || '') }}</strong>
           </div>
         </div>
         <div class="flex--1">
           <div class="label">{{ t('propertydiagnosticresult.dpe.date') }}</div>
           <div>
             <strong>
-              <time>{{ formatDate(dpe.dateRealisation) }}</time>
+              <time>{{ formatDate(dpe.dateRealisation || '') }}</time>
             </strong>
           </div>
         </div>
@@ -63,7 +63,7 @@
           </div>
           <div :class="{ 'color--red': dpe?.statut !== 'ACTIF' }">
             <strong>
-              <time>{{ formatDate(dpe.dateFinValidite) }}</time>
+              <time>{{ formatDate(dpe.dateFinValidite || '') }}</time>
             </strong>
           </div>
         </div>
@@ -167,23 +167,24 @@ import DpeCo2Diagram from 'df-shared-next/src/components/dpe/DpeCo2Diagram.vue'
 import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import i18n from '../../i18n'
-import UtilsService from '../../services/UtilsService'
+import DpeService from '../../services/DpeService'
 import useOwnerStore from '../../store/owner-store'
+import { AdemeApiResult } from 'df-shared-next/src/models/AdemeApiResult'
 
 const { t } = useI18n()
 const store = useOwnerStore()
 
 const props = defineProps<{
-  dpe: any
+  dpe: AdemeApiResult
 }>()
 
 const energyConsumption = computed(() => props.dpe.consommation)
 const energyLetter = computed(() =>
-  UtilsService.getEnergyConsumptionLetter(energyConsumption.value)
+  DpeService.getEnergyConsumptionLetter(energyConsumption.value || 0, null)
 )
 
 const co2Emission = computed(() => props.dpe.emission)
-const co2Letter = computed(() => UtilsService.getCO2EmissionLetter(co2Emission.value))
+const co2Letter = computed(() => DpeService.getCO2EmissionLetter(co2Emission.value || 0, null))
 
 function deleteDpe() {
   store.deleteDpe()
