@@ -96,7 +96,7 @@ const { t } = useI18n()
 const dpe = ref('')
 const store = useOwnerStore()
 const toast = useToast()
-const dpeform = ref(null)
+const dpeform = ref<typeof Form | null>(null)
 
 const emit = defineEmits(['submit', 'on-back'])
 

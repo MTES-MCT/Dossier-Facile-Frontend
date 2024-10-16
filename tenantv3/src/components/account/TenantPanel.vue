@@ -91,8 +91,8 @@ import { computed } from 'vue'
 const props = withDefaults(
   defineProps<{
     tenant: User
-    isCotenant: boolean
-    isCouple: boolean
+    isCotenant?: boolean
+    isCouple?: boolean
   }>(),
   {
     isCotenant: false,

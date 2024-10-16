@@ -229,7 +229,7 @@ function isTaxChecked() {
 onMounted(() => {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
   ProfileService.getPublicUserByToken(token)
-    .then((d: any) => {
+    .then((d) => {
       user.value = d.data
       if (user.value) {
         user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
@@ -304,12 +304,11 @@ function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
   background-size: cover !important;
   background-position: 50% 50% !important;
   background-image: url('../assets/cover-features.webp');
+  z-index: 0;
 
   @media (max-width: 768px) {
     background-image: url('../assets/cover-features-mobile.webp');
   }
-
-  z-index: 0;
 }
 .root {
   width: 100%;

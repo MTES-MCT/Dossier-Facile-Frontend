@@ -40,7 +40,7 @@ import AnalyticsService from '../../services/AnalyticsService'
 const { t } = useI18n()
 
 const props = defineProps<{
-  letter: string
+  letter: string | undefined | null
 }>()
 
 function goodDpe() {

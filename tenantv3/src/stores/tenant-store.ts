@@ -10,7 +10,7 @@ import 'dayjs/locale/en'
 
 import { User } from 'df-shared-next/src/models/User'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { defineStore } from 'pinia'
+import { defineStore, type StoreActions } from 'pinia'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import keycloak from '../plugin/keycloak'
 import { DocumentTypeConstants } from '@/components/documents/share/DocumentTypeConstants'
@@ -27,14 +27,11 @@ import axios from 'axios'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { useCookies } from 'vue3-cookies'
-import type { Composer } from 'vue-i18n'
 import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import { PartnerAccessService } from '@/services/PartnerAccessService'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
-
-declare const window: Window
 
 interface State {
   user: User
@@ -53,6 +50,11 @@ interface State {
   editGuarantorFinancialDocument: boolean
   apartmentSharingLinks: ApartmentSharingLink[]
   partnerAccesses: PartnerAccess[]
+}
+
+type GuarantorType = {
+  tenantId?: number | string | undefined
+  typeGuarantor: string
 }
 
 function defaultState(): State {
@@ -78,6 +80,16 @@ function defaultState(): State {
 }
 
 const initialStore = defaultState()
+
+type ActionNames = keyof StoreActions<ReturnType<typeof useTenantStore>>
+const DISPATCH_NAMES = [
+  'saveTenantFinancial',
+  'saveTenantIdentification',
+  'saveTenantProfessional',
+  'saveTenantResidency',
+  'saveTenantTax'
+] satisfies ActionNames[]
+export type DispatchNames = (typeof DISPATCH_NAMES)[number]
 
 const useTenantStore = defineStore('tenant', {
   state: (): State => ({ ...initialStore }),
@@ -335,7 +347,7 @@ const useTenantStore = defineStore('tenant', {
       })
       return UtilsService.isDocumentValid(document, state.user.preValidationActivated)
     },
-    documentsPreValidated(state: State) {
+    documentsPreValidated() {
       return (user?: User) => {
         for (const category of [
           'IDENTIFICATION',
@@ -351,7 +363,7 @@ const useTenantStore = defineStore('tenant', {
         return true
       }
     },
-    guarantorDocumentsFilled: (state: State) => (g: Guarantor) => {
+    guarantorDocumentsFilled: () => (g: Guarantor) => {
       return (
         (g.typeGuarantor === 'NATURAL_PERSON' &&
           UtilsService.isGuarantorDocumentValid('IDENTIFICATION', g) &&
@@ -638,7 +650,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    setCoTenants(data: any) {
+    setCoTenants(data: Parameters<typeof ProfileService.saveCoTenants>[number]) {
       return ProfileService.saveCoTenants(data).then(
         (response) => {
           return this.loadUserCommit(response.data)
@@ -648,12 +660,12 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    setLang(lang: string) {
-      ;(i18n.global as unknown as Composer).locale.value = lang
-      i18n.global.fallbackLocale = 'fr' as any
+    setLang(lang: 'fr' | 'en') {
+      i18n.global.locale.value = lang
+      i18n.global.fallbackLocale.value = 'fr'
       dayjs.locale(lang)
       const html = document.documentElement
-      html.setAttribute('lang', (i18n.global as unknown as Composer).locale.value)
+      html.setAttribute('lang', i18n.global.locale.value)
       const { cookies } = useCookies()
       const expireTimes = new Date()
       expireTimes.setFullYear(expireTimes.getFullYear() + 1)
@@ -725,7 +737,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    setGuarantorType(guarantorType: any) {
+    setGuarantorType(guarantorType: GuarantorType) {
       return ProfileService.setGuarantorType(guarantorType).then(
         async (response) => {
           this.loadUserCommit(response.data)
@@ -829,7 +841,7 @@ const useTenantStore = defineStore('tenant', {
         }
       }
     },
-    saveTenantIdentification(formData: any) {
+    saveTenantIdentification(formData: FormData) {
       return RegisterService.saveTenantIdentification(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
@@ -840,7 +852,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    saveCoTenantIdentification(formData: any) {
+    saveCoTenantIdentification(formData: FormData) {
       return RegisterService.saveCoTenantIdentification(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
@@ -851,7 +863,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    saveGuarantorName(formData: any) {
+    saveGuarantorName(formData: FormData) {
       return RegisterService.saveGuarantorName(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
@@ -862,7 +874,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    saveGuarantorIdentification(formData: any) {
+    saveGuarantorIdentification(formData: FormData) {
       return RegisterService.saveGuarantorIdentification(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
@@ -873,7 +885,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    saveTenantResidency(formData: any) {
+    saveTenantResidency(formData: FormData) {
       return RegisterService.saveTenantResidency(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
@@ -884,7 +896,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    saveGuarantorResidency(formData: any) {
+    saveGuarantorResidency(formData: FormData) {
       return RegisterService.saveGuarantorResidency(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
@@ -895,7 +907,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    saveTenantProfessional(formData: any) {
+    saveTenantProfessional(formData: FormData) {
       return RegisterService.saveTenantProfessional(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
@@ -906,7 +918,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    saveGuarantorProfessional(formData: any) {
+    saveGuarantorProfessional(formData: FormData) {
       return RegisterService.saveGuarantorProfessional(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
@@ -917,7 +929,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    saveTenantFinancial(formData: any) {
+    saveTenantFinancial(formData: FormData) {
       return RegisterService.saveTenantFinancial(formData).then(
         async (response) => {
           this.loadUserCommit(response.data)
@@ -926,8 +938,8 @@ const useTenantStore = defineStore('tenant', {
             return Promise.resolve(response.data)
           }
           if (formData.has('id')) {
-            const s = fd.find((f: any) => {
-              return f.id.toString() === formData.get('id')
+            const s = fd.find((f) => {
+              return f.id?.toString() === formData.get('id')
             })
             if (s !== undefined) {
               this.selectDocumentFinancial(s)
@@ -944,7 +956,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    saveGuarantorFinancial(formData: any) {
+    saveGuarantorFinancial(formData: FormData) {
       return RegisterService.saveGuarantorFinancial(formData)
         .then(async (response) => {
           this.loadUserCommit(response.data)
@@ -953,8 +965,8 @@ const useTenantStore = defineStore('tenant', {
             return Promise.resolve(response.data)
           }
           if (formData.has('id')) {
-            const s = fd.find((f: any) => {
-              return f.id.toString() === formData.get('id')
+            const s = fd.find((f) => {
+              return f.id?.toString() === formData.get('id')
             })
             if (s === undefined) {
               return Promise.reject('Document not found')
@@ -969,7 +981,7 @@ const useTenantStore = defineStore('tenant', {
           return Promise.reject(error)
         })
     },
-    saveTenantTax(formData: any) {
+    saveTenantTax(formData: FormData) {
       return RegisterService.saveTenantTax(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
@@ -980,7 +992,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    saveGuarantorTax(formData: any) {
+    saveGuarantorTax(formData: FormData) {
       return RegisterService.saveGuarantorTax(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
@@ -1082,7 +1094,7 @@ const useTenantStore = defineStore('tenant', {
       )
     },
     deleteApartmentSharingLink(linkToDelete: ApartmentSharingLink) {
-      ApartmentSharingLinkService.deleteLink(linkToDelete).then((_) => {
+      ApartmentSharingLinkService.deleteLink(linkToDelete).then(() => {
         const newLinks = this.apartmentSharingLinks.filter((link) => link.id !== linkToDelete.id)
         this.setApartmentSharingLinks(newLinks)
       })
@@ -1121,7 +1133,7 @@ const useTenantStore = defineStore('tenant', {
       )
     },
     revokePartnerAccess(accessToRevoke: PartnerAccess) {
-      PartnerAccessService.revokeAccess(accessToRevoke).then((_) => {
+      PartnerAccessService.revokeAccess(accessToRevoke).then(() => {
         const newList = this.partnerAccesses.filter((access) => access.id !== accessToRevoke.id)
         this.setPartnerAccesses(newList)
       })
@@ -1145,13 +1157,14 @@ const useTenantStore = defineStore('tenant', {
           this.loadUser()
         })
     },
-    dispatchByName(name: string, formData: any): any {
+    dispatchByName<Name extends DispatchNames>(name: Name, formData: FormData) {
       const func = this[name]
       if (func) {
         return func(formData)
       }
+      throw new Error('Invalid method name: ' + name)
     },
-    commentAnalysis(formData: any) {
+    commentAnalysis(formData: unknown) {
       return RegisterService.commentAnalysis(formData).then(
         (response) => {
           this.loadUserCommit(response)
