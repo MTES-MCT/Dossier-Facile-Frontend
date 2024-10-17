@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from 'vue'
+import { computed, onBeforeMount, onMounted, onUnmounted } from 'vue'
 import MyHeader from 'df-shared-next/src/Header/Header.vue'
 import Announcement from 'df-shared-next/src/components/Announcement.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
@@ -9,6 +9,7 @@ import { useRouter } from 'vue-router'
 import Menu from './components/Menu.vue'
 import useOwnerStore from './store/owner-store'
 import DeleteAccount from './components/DeleteAccount.vue'
+import { useCookies } from 'vue3-cookies'
 
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 
@@ -20,6 +21,13 @@ const isLoggedIn = computed(() => store.isLoggedIn)
 const hasFooter = computed(() => store.hasFooter)
 
 const showDeleteAccountModal = computed(() => store.getShowDeleteAccountModal)
+
+const { cookies } = useCookies()
+
+onBeforeMount(() => {
+  const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
+  store.setLang(lang)
+})
 
 onMounted(() => {
   window.Beacon('init', '330e68d2-2a04-4659-8048-c05d242ee8f5')
