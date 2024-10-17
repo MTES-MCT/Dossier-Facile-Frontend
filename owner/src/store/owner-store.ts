@@ -140,7 +140,7 @@ const useOwnerStore = defineStore('owner', {
       const { cookies } = useCookies()
       const expireTimes = new Date()
       expireTimes.setFullYear(expireTimes.getFullYear() + 1)
-      cookies.set('lang', lang, expireTimes, '/', import.meta.env.COOKIE_DOMAIN || 'localhost')
+      cookies.set('lang', lang, expireTimes, '/', import.meta.env.VITE_COOKIE_DOMAIN || 'localhost')
     },
     registerSuccess() {
       this.status.loggedIn = false
