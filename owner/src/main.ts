@@ -50,7 +50,7 @@ defineRule('required', (value: unknown) => {
     }
     return true
   }
-  if (!value || !(Array.isArray(value) && value.length)) {
+  if (!value || (Array.isArray(value) && !value.length)) {
     return 'field-required'
   }
   return true
