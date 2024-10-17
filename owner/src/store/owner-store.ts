@@ -133,10 +133,10 @@ const useOwnerStore = defineStore('owner', {
       this.propertyToEdit.validated = validated
     },
     setLang(lang: 'fr' | 'en') {
-      i18n.global.locale = lang
-      i18n.global.fallbackLocale = 'fr'
+      i18n.global.locale.value = lang
+      i18n.global.fallbackLocale.value = 'fr'
       const html = document.documentElement
-      html.setAttribute('lang', i18n.global.locale)
+      html.setAttribute('lang', i18n.global.locale.value)
       const { cookies } = useCookies()
       const expireTimes = new Date()
       expireTimes.setFullYear(expireTimes.getFullYear() + 1)
