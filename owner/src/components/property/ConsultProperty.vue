@@ -390,7 +390,7 @@ const verifiedApplicantsCount = computed(
 
 function formatDate(date: Date) {
   return format(date, 'dd MMMM yyyy', {
-    locale: i18n.global.locale === 'fr' ? fr : enUS
+    locale: i18n.global.locale.value === 'fr' ? fr : enUS
   })
 }
 
