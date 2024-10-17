@@ -10,7 +10,7 @@ location / {
     add_header X-Content-Type-Options "nosniff";
 }
 
-location ~* \.(webp|jpg|jpeg|png|gif|js|css|svg|woff2)$ {
+location ~* \.(webp|jpg|heic|jpeg|png|gif|js|css|svg|woff2)$ {
     expires 365d;
     add_header Cache-Control "public, no-transform";
 }
