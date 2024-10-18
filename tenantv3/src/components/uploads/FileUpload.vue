@@ -10,7 +10,7 @@
           :disabled="isSaving()"
           @change="filesChange"
           class="input-file"
-          accept="image/png, image/jpeg, application/pdf"
+          accept="image/png, image/jpeg, image/heic, application/pdf"
         />
         <div v-if="!isSaving()" class="fr-mt-2w fr-mb-2w">
           {{ t('fileupload.drag-and-drop-files') }}

@@ -696,7 +696,7 @@
   },
   "fileupload": {
     "drag-and-drop-files": "Glissez et déposez vos documents",
-    "files-format": "JPG, PNG ou PDF",
+    "files-format": "JPG, PNG, heic ou PDF",
     "or": "ou",
     "browse-files": "Parcourez vos fichiers",
     "uploading-files": "Envoi des fichiers...",
