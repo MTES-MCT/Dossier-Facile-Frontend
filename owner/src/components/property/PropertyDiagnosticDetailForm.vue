@@ -29,6 +29,7 @@ if (route.params.id) {
 }
 
 const property = computed(() => store.getPropertyToEdit)
+const dpeNotRequired = computed(() => store.getPropertyToEdit?.dpeNotRequired)
 
 const co2Emission = computed({
   get() {
@@ -72,6 +73,10 @@ function updateDPE() {
   )
 }
 
+function updateDpeNotRequired() {
+  store.setDpeNotRequired(!dpeNotRequired.value)
+}
+
 onMounted(() => {
   updateDPE()
 })
@@ -93,7 +98,7 @@ function getLetterStyle() {
 
 <template>
   <NakedCard class="fr-mt-3w">
-    <Form @submit="register">
+    <Form v-slot="{ validate }">
       <h3 class="fr-h6 small-text">
         {{ t('propertydiagnostic.detail-form-title') }}
       </h3>
@@ -108,8 +113,8 @@ function getLetterStyle() {
           v-model="energyConsumption"
           v-slot="{ field, meta }"
           :rules="{
-            required: true,
-            positive: true
+            required: !dpeNotRequired,
+            positive: !dpeNotRequired
           }"
         >
           <input
@@ -137,8 +142,8 @@ function getLetterStyle() {
           v-model="co2Emission"
           v-slot="{ field, meta }"
           :rules="{
-            required: true,
-            positiveOrNull: true
+            required: !dpeNotRequired,
+            positiveOrNull: !dpeNotRequired
           }"
         >
           <input
@@ -166,8 +171,8 @@ function getLetterStyle() {
           v-model="dpeDate"
           v-slot="{ field, meta }"
           :rules="{
-            required: true,
-            positiveOrNull: true
+            required: !dpeNotRequired,
+            positiveOrNull: !dpeNotRequired
           }"
         >
           <input
@@ -185,10 +190,53 @@ function getLetterStyle() {
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </p>
+
+      <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
+        <div class="fr-checkbox-group bg-purple">
+          <Field
+            name="dpeNotRequired"
+            :modelValue="dpeNotRequired"
+            :value="true"
+            @change="updateDpeNotRequired"
+            v-slot="{ field, meta }"
+            type="checkbox"
+            :rules="{
+              isTrue: !dpeDate || !energyConsumption || !co2Emission
+            }"
+          >
+            <input
+              id="dpeNotRequired"
+              type="checkbox"
+              v-bind="field"
+              :class="{
+                'fr-input--valid': meta.valid,
+                'fr-input--error': !meta.valid
+              }"
+            />
+            <label for="dpeNotRequired" v-html="t('propertydiagnostic.no-dpe')"></label>
+          </Field>
+          <ErrorMessage name="authorize" v-slot="{ message }">
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          </ErrorMessage>
+        </div>
+      </div>
+
       <div class="flex-end">
-        <Button @onClick="register" :title="t('register-btn')" :primary="false" type="button">{{
-          t('register-btn')
-        }}</Button>
+        <Button
+          @click="
+            validate().then((result) => {
+              if (result.valid) {
+                register()
+              } else if (!dpeNotRequired) {
+                register()
+              }
+            })
+          "
+          :title="t('register-btn')"
+          :primary="false"
+          type="submit"
+          >{{ t('register-btn') }}</Button
+        >
       </div>
       <div class="fr-p-md-5w fr-mt-3w" v-if="localCo2Emission > 0 && localEnergyConsumption > 0">
         <h2 class="fr-h4">
