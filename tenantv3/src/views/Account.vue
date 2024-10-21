@@ -9,9 +9,9 @@
             </div>
             <h1
               v-html="
-                $t(`account.title.${getApplicationType()}`, [
+                t(`account.title.${getApplicationType()}`, [
                   getFirstName(),
-                  $t(`account.${getGlobalStatus()}`),
+                  t(`account.${getGlobalStatus()}`)
                 ])
               "
             ></h1>
@@ -20,28 +20,46 @@
                 <div class="fr-col" v-if="isDenied()">
                   <div class="fr-callout warning fr-callout-white">
                     <h2 class="fr-m-1w fr-text-title--grey fr-h4">
-                      {{ $t("account.amendment-required-title") }}
+                      {{ t('account.amendment-required-title') }}
                     </h2>
                     <p
                       class="fr-m-1w fr-callout__text"
-                      v-html="$t('account.amendment-required-text')"
+                      v-html="t('account.amendment-required-text')"
                     ></p>
                     <DfButton class="fr-m-1w" @on-click="goToMessaging" :primary="true">{{
-                      $t("account.messaging")
+                      t('account.messaging')
                     }}</DfButton>
                   </div>
                 </div>
                 <div class="fr-col" v-if="user.status === 'TO_PROCESS'">
                   <div class="fr-callout to-process fr-callout-white fr-mb-3w">
-                    <h2 class="fr-h4 dflex">
-                      <i
-                        aria-hidden="true"
-                        class="text-to-process ri-time-line fs-28"
-                        style="font-size: 18px"
-                      ></i>
-                      &nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
-                    </h2>
-                    <p v-html="$t('account.instructional-time-text')"></p>
+                    <div class="fr-mb-1w fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                      <div class="fr-col-12 fr-col-md-6">
+                        <h2 class="fr-h4 fr-mb-0">
+                          <i
+                            aria-hidden="true"
+                            class="text-to-process ri-time-line fs-28"
+                            style="font-size: 18px"
+                          ></i>
+                          &nbsp;<span>{{ t('account.processing-bloc.title') }}</span>
+                        </h2>
+                      </div>
+                      <div class="fr-col-12 fr-col-md-6 badge-container">
+                        <p class="fr-badge fr-badge--purple-glycine">{{ processBadgeText }}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <p>{{ t('account.processing-bloc.text') }}</p>
+                    </div>
+                    <div class="fr-text--bold fr-my-2w">
+                      {{ processBlocDelayText }}
+                    </div>
+                    <div>
+                      <p
+                        class="small-text"
+                        v-html="t('account.processing-bloc.last-update', [lastModifiedDate()])"
+                      ></p>
+                    </div>
                   </div>
                 </div>
                 <div class="fr-col-12 fr-col-lg-4">
@@ -49,21 +67,21 @@
                     <ColoredTag
                       class="fr-m-1w"
                       :status="'DECLINED'"
-                      :text="$t('account.denied')"
+                      :text="t('account.denied')"
                     ></ColoredTag>
                     <h2 class="fr-m-1w fr-text-title--grey fr-h4">
-                      {{ $t("account.download-not-validated-title") }}
+                      {{ t('account.download-not-validated-title') }}
                     </h2>
                     <p
                       class="fr-m-1w fr-callout__text"
-                      v-html="$t('account.download-not-validated-text')"
+                      v-html="t('account.download-not-validated-text')"
                     ></p>
                     <a
                       href="#"
-                      :title="$t('account.download-not-validated-title')"
+                      :title="t('account.download-not-validated-title')"
                       class="float--right"
                       @click="downloadZip"
-                      >{{ $t("account.download-zip") }}
+                      >{{ t('account.download-zip') }}
                       <i class="ri-download-line" style="font-size: 18px"></i>
                     </a>
                   </div>
@@ -72,27 +90,24 @@
             </div>
             <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
               <h2 class="fr-text-title--grey fr-h4">
-                {{ $t("account.congratulations-title") }}
+                {{ t('account.congratulations-title') }}
               </h2>
               <p>
-                {{ $t("account.congratulations-text-1") }}
+                {{ t('account.congratulations-text-1') }}
                 <br />
                 <strong>
-                  {{ $t("account.congratulations-text-2") }}
+                  {{ t('account.congratulations-text-2') }}
                 </strong>
               </p>
               <router-link to="/applications">
                 <DfButton :primary="true">
-                  {{ $t("account.application-page-redirection") }}
+                  {{ t('account.application-page-redirection') }}
                 </DfButton>
               </router-link>
             </div>
 
             <div class="fr-mt-3w fr-p-0w">
-              <section
-                v-if="user.applicationType === 'COUPLE'"
-                class="fr-m-0 fr-p-0 bg-white"
-              >
+              <section v-if="user.applicationType !== 'ALONE'" class="fr-m-0 fr-p-0 bg-white">
                 <div class="fr-tabs account-tabs">
                   <ul class="fr-tabs__list fr-p-0" role="tablist" aria-label="tab-list">
                     <li
@@ -113,15 +128,17 @@
                             {{ UtilsService.tenantFullName(tenant) }}
                             <span
                               :class="{
-                                'fr-fi-icon-fc': tenant.franceConnect,
+                                'fr-fi-icon-fc': tenant.franceConnect
                               }"
                             ></span>
                           </div>
-                          <ColoredTag
+                          <ColoredBadge
                             class="fr-col-xs-12 fr-col"
                             :status="tenant.status"
-                            :text="$t(`dossier.${tenant.status}`)"
-                          ></ColoredTag>
+                            :warn="true"
+                            :text="t(`dossier.warn-${tenant.status}`)"
+                          >
+                          </ColoredBadge>
                         </div>
                       </button>
                     </li>
@@ -138,37 +155,33 @@
                       class="panel"
                       :tenant="tenant"
                       :isCotenant="tenant.id != user.id"
+                      :isCouple="user.applicationType === 'COUPLE'"
                     />
                   </div>
                 </div>
               </section>
-              <TenantPanel
-                v-else
-                :tenant="user"
-                class="fr-p-4w bg-white"
-                :isCotenant="false"
-              />
+              <TenantPanel v-else :tenant="user" class="fr-p-4w bg-white" :isCotenant="false" />
             </div>
             <PartnersSection />
 
             <div class="delete">
               <div class="bg-white fr-p-4w fr-mt-3w">
-                <h3>{{ $t("account.delete-bloc.title") }}</h3>
-                <p>{{ $t("account.delete-bloc.content") }}</p>
+                <h3>{{ t('account.delete-bloc.title') }}</h3>
+                <p>{{ t('account.delete-bloc.content') }}</p>
                 <div class="align--center">
                   <DfButton
                     data-fr-opened="false"
                     aria-controls="modal-delete-account"
                     style="visibility: none"
-                    >{{ $t("account.delete-bloc.button") }}</DfButton
+                    >{{ t('account.delete-bloc.button') }}</DfButton
                   >
                 </div>
               </div>
             </div>
             <div class="opinion fr-mb-5w fr-mt-3w">
               <div class="bg-white fr-p-4w fr-pt-4w">
-                <h3>{{ $t("account.opinion-bloc.title") }}</h3>
-                <p>{{ $t("account.opinion-bloc.content") }}</p>
+                <h3>{{ t('account.opinion-bloc.title') }}</h3>
+                <p>{{ t('account.opinion-bloc.content') }}</p>
                 <div class="align--center">
                   <a
                     class="cleana"
@@ -184,7 +197,7 @@
                     />
                   </a>
                 </div>
-                <p class="fr-mt-3w" v-html="$t('account.opinion-bloc.warning')"></p>
+                <p class="fr-mt-3w" v-html="t('account.opinion-bloc.warning')"></p>
               </div>
             </div>
           </div>
@@ -195,109 +208,171 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared-next/src/models/User";
-import DfButton from "df-shared-next/src/Button/Button.vue";
-import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
-import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import FakeAnnouncement from "../components/FakeAnnouncement.vue";
-import PartnersSection from "@/components/account/PartnersSection.vue";
-import { UtilsService } from "@/services/UtilsService";
-import TenantPanel from "@/components/account/TenantPanel.vue";
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-import useTenantStore from "@/stores/tenant-store";
-import { useRouter } from "vue-router";
-import { ProfileService } from "../services/ProfileService";
-import { ToastService } from "../services/ToastService";
+import { User } from 'df-shared-next/src/models/User'
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
+import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import FakeAnnouncement from '../components/FakeAnnouncement.vue'
+import PartnersSection from '../components/account/PartnersSection.vue'
+import { UtilsService } from '../services/UtilsService'
+import TenantPanel from '../components/account/TenantPanel.vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import useTenantStore from '../stores/tenant-store'
+import { useRouter } from 'vue-router'
+import { ProfileService } from '../services/ProfileService'
+import { ToastService } from '../services/ToastService'
+import dayjs, { Dayjs } from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const FORCE_FAKE_ANNOUNCEMENT_VISIBILITY =
-  import.meta.env.VITE_FORCE_ANNOUNCEMENT_VISIBILITY || false;
-const isAnnouncementVisible = ref(false);
-const store = useTenantStore();
-const user = computed(() => store.user);
-const tabIndex = ref(0);
-const router = useRouter();
+  import.meta.env.VITE_FORCE_ANNOUNCEMENT_VISIBILITY || false
+const PROCESSING_TIME_DELTA = import.meta.env.VITE_PROCESSING_TIME_DELTA || 3
+const isAnnouncementVisible = ref(false)
+const store = useTenantStore()
+const user = computed(() => store.user)
+const tabIndex = ref(0)
+const router = useRouter()
+dayjs.extend(relativeTime)
+const expectedDate = ref<Dayjs | null>(null)
 
 onMounted(() => {
-  window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
-  const today = new Date();
+  window.Beacon('init', 'd949ac15-a9eb-4316-b0c5-f92cecc7118f')
+  const today = new Date()
   if (
     (today.getMonth() >= 5 && today.getMonth() <= 8) ||
-    FORCE_FAKE_ANNOUNCEMENT_VISIBILITY === "true"
+    FORCE_FAKE_ANNOUNCEMENT_VISIBILITY === 'true'
   ) {
-    isAnnouncementVisible.value = true;
+    isAnnouncementVisible.value = true
   }
-});
+})
 
 onBeforeUnmount(() => {
-  window.Beacon("destroy");
-});
+  window.Beacon('destroy')
+})
+
+watch(
+  () => user.value,
+  (tenant) => {
+    if (tenant && tenant.id) {
+      loadExpectedProcessingTime(tenant.id)
+    }
+  },
+  { immediate: true }
+)
+
+function loadExpectedProcessingTime(tenantId: number) {
+  ProfileService.getExpectedProcessingTime(tenantId).then((response) => {
+    if (response && response.data) {
+      expectedDate.value = dayjs(response.data)
+    }
+  })
+}
+
+const processBadgeText = computed(() => {
+  if (expectedDate.value && expectedDate.value != null) {
+    const currentDate = dayjs()
+    const delayFrom = expectedDate.value.diff(currentDate, 'hour')
+    const delayTo = delayFrom + PROCESSING_TIME_DELTA
+
+    return t('account.processing-bloc.badge', [delayFrom, delayTo])
+  }
+  return t('account.processing-bloc.badge-undefined')
+})
+
+const processBlocDelayText = computed(() => {
+  if (expectedDate.value && expectedDate.value != null) {
+    const processFromDate = dayjs(expectedDate.value)
+    const processToDate = dayjs(expectedDate.value).add(PROCESSING_TIME_DELTA, 'hour')
+
+    if (dayjs(processFromDate).isSame(dayjs(processToDate), 'day')) {
+      return t('account.processing-bloc.delay', [
+        processFromDate.format('D MMMM'),
+        processFromDate.format('HH[h]mm'),
+        processToDate.format('HH[h]mm')
+      ])
+    }
+    return t('account.processing-bloc.delay-on-2days', [
+      processFromDate.format('DD/MM à HH[h]mm'),
+      processToDate.format('DD/MM à HH[h]mm')
+    ])
+  }
+  return t('account.processing-bloc.delay-undefined')
+})
+
+function lastModifiedDate(): string {
+  return dayjs(user.value.lastUpdateDate).format('D MMMM YYYY à HH[h]mm')
+}
 
 function getTenants() {
-  const tenants: User[] = [];
-  tenants.push(user.value);
+  const tenants: User[] = []
+  tenants.push(user.value)
 
   user.value?.apartmentSharing?.tenants?.forEach((t) => {
     if (t.id != user.value.id) {
-      tenants.push(t);
+      tenants.push(t)
     }
-  });
+  })
 
-  return tenants;
+  return tenants
 }
 
 function downloadZip() {
   ProfileService.downloadZip()
     .then((response) => {
-      const blob = new Blob([response.data], { type: "application/zip" });
-      const link = window.document.createElement("a");
-      link.href = window.URL.createObjectURL(blob);
-      link.download = "dossierFacile.zip";
-      link.click();
+      const blob = new Blob([response.data], { type: 'application/zip' })
+      const link = window.document.createElement('a')
+      link.href = window.URL.createObjectURL(blob)
+      link.download = 'dossierFacile.zip'
+      link.click()
     })
     .catch((error) => {
-      ToastService.error();
-    });
+      console.error(error)
+      ToastService.error()
+    })
 }
 
 function goToMessaging() {
-  router.push("/messaging");
+  router.push('/messaging')
 }
 
 function getFirstName() {
-  return UtilsService.capitalize(user.value.firstName || "");
+  return UtilsService.capitalize(user.value.firstName || '')
 }
 
 function canCopyLink() {
-  return UtilsService.canShareFile(user.value);
+  return UtilsService.canShareFile(user.value)
 }
 
 function isDenied() {
   return (
     user.value.documents?.find((d) => {
-      return d.documentStatus === "DECLINED";
+      return d.documentStatus === 'DECLINED'
     }) !== undefined ||
     user.value.guarantors?.find((g: Guarantor) => {
       return (
         g.documents?.find((d) => {
-          return d.documentStatus === "DECLINED";
+          return d.documentStatus === 'DECLINED'
         }) !== undefined
-      );
+      )
     })
-  );
+  )
 }
 
 function getGlobalStatus(): string {
-  return user.value.apartmentSharing?.status as string | "INCOMPLETE";
+  return user.value.apartmentSharing?.status as string | 'INCOMPLETE'
 }
 
 function getApplicationType() {
   switch (user.value.applicationType) {
-    case "COUPLE":
-      return "couple";
-    case "GROUP":
-      return "group";
+    case 'COUPLE':
+      return 'couple'
+    case 'GROUP':
+      return 'group'
   }
-  return "alone";
+  return 'alone'
 }
 </script>
 
@@ -306,6 +381,9 @@ function getApplicationType() {
   background-color: var(--background-default-grey);
   &.warning {
     box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
+  }
+  &.to-process {
+    box-shadow: inset 0.25rem 0 0 0 var(--purple-glycine-main-494) !important;
   }
 }
 
@@ -326,7 +404,7 @@ h1 {
   > ul {
     background-color: var(--blue-france-200);
     > li > button.fr-tabs__tab {
-      &:not([aria-selected="true"]) {
+      &:not([aria-selected='true']) {
         background-color: #f2f2f9;
       }
       .name {
@@ -376,7 +454,7 @@ h1 {
     border-bottom: 8px solid var(--color-border-overlay);
     position: absolute;
     display: inline-block;
-    content: "";
+    content: '';
   }
 }
 
@@ -490,9 +568,9 @@ hr {
 
 .fr-fi-icon-fc {
   &:before {
-    content: "";
+    content: '';
     background-color: transparent;
-    background-image: url("../assets/images/icons/franceconnect-icon.png");
+    background-image: url('../assets/images/icons/franceconnect-icon.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -502,14 +580,9 @@ hr {
   }
 }
 
-.fr-callout-white {
-  background-color: var(--background-default-grey);
-  &.warning {
-    box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
-  }
-  &.to-process {
-    box-shadow: inset 0.25rem 0 0 0 var(--purple-glycine-main-494) !important;
+.badge-container {
+  @media (min-width: 768px) {
+    text-align: right;
   }
 }
-
 </style>

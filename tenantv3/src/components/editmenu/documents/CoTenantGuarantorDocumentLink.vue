@@ -5,7 +5,7 @@
       step: 5,
       substep: substep,
       tenantId: coTenant.id,
-      guarantorId: guarantor.id,
+      guarantorId: guarantor.id
     }"
     :document-type="documentType"
     :status="getStatus() || ''"
@@ -14,22 +14,22 @@
 </template>
 
 <script setup lang="ts">
-import DocumentLink from "./DocumentLink.vue";
-import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import { DocumentService } from "@/services/DocumentService";
-import { DocumentType } from "./DocumentType";
-import { User } from "df-shared-next/src/models/User";
-import { PersonType } from "./PersonType";
+import DocumentLink from './DocumentLink.vue'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import { DocumentService } from '@/services/DocumentService'
+import { DocumentType } from './DocumentType'
+import { User } from 'df-shared-next/src/models/User'
+import { PersonType } from './PersonType'
 
-  const props = defineProps<{
-    guarantor: Guarantor;
-    coTenant: User;
-    documentType: DocumentType;
-    substep: number;
-    active: boolean;
-  }>();
+const props = defineProps<{
+  guarantor: Guarantor
+  coTenant: User
+  documentType: DocumentType
+  substep: number
+  active: boolean
+}>()
 
-  function getStatus() {
-    return DocumentService.guarantorStatus(props.documentType, props.guarantor);
-  }
+function getStatus() {
+  return DocumentService.guarantorStatus(props.documentType, props.guarantor)
+}
 </script>

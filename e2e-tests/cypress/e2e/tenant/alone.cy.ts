@@ -22,7 +22,7 @@ describe("alone tenant scenario", () => {
 
     cy.expectPath("/documents-locataire/2");
     cy.get("#select")
-      .select("Dans une autre situation (sans-abri, logement de fonction, etc.)");
+      .select("Dans une autre situation (sans-abri, etc.)");
     cy.get("#customText")
       .type("Test text")
       .clickOnNext();

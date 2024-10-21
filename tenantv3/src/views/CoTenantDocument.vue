@@ -1,20 +1,13 @@
 <template>
   <ProfileContainer :step="getStep()">
     <div v-if="getSubStep() === 0">
-      <CoTenantName
-        :coTenantId="getTenantId()"
-        @on-next="goNext()"
-        @on-back="goBack()"
-      />
+      <CoTenantName :coTenantId="getTenantId()" @on-next="goNext()" @on-back="goBack()" />
     </div>
 
     <div v-if="getSubStep() === 1">
-      <CoTenantIdentification
-        :coTenantId="getTenantId()"
-      ></CoTenantIdentification>
+      <CoTenantIdentification :coTenantId="getTenantId()"></CoTenantIdentification>
       <FooterContainer>
-        <BackNext :showBack="true" @on-next="goNext()" @on-back="goBack()">
-        </BackNext>
+        <BackNext :showBack="true" @on-next="goNext()" @on-back="goBack()"> </BackNext>
       </FooterContainer>
     </div>
     <div v-if="getSubStep() === 2">
@@ -27,8 +20,7 @@
     <div v-if="getSubStep() === 3">
       <CoTenantProfessional :coTenantId="getTenantId()"></CoTenantProfessional>
       <FooterContainer>
-        <BackNext :showBack="true" @on-next="goNext()" @on-back="goBack()">
-        </BackNext>
+        <BackNext :showBack="true" @on-next="goNext()" @on-back="goBack()"> </BackNext>
       </FooterContainer>
     </div>
     <div v-if="getSubStep() === 4">
@@ -39,97 +31,89 @@
       ></CoTenantFinancialList>
     </div>
     <div v-if="getSubStep() === 5">
-      <CoTenantTax
-        :coTenantId="getTenantId()"
-        @on-next="goNext"
-        @on-back="goBack"
-      ></CoTenantTax>
+      <CoTenantTax :coTenantId="getTenantId()" @on-next="goNext" @on-back="goBack"></CoTenantTax>
     </div>
   </ProfileContainer>
 </template>
 
 <script setup lang="ts">
-import ProfileContainer from "../components/ProfileContainer.vue";
-import FooterContainer from "../components/footer/FooterContainer.vue";
-import BackNext from "../components/footer/BackNext.vue";
-import CoTenantIdentification from "../components/documents/cotenant/CoTenantIdentification.vue";
-import CoTenantResidency from "../components/documents/cotenant/CoTenantResidency.vue";
-import CoTenantName from "../components/documents/cotenant/CoTenantName.vue";
-import CoTenantProfessional from "../components/documents/cotenant/CoTenantProfessional.vue";
-import CoTenantFinancialList from "../components/documents/cotenant/CoTenantFinancialList.vue";
-import CoTenantTax from "../components/documents/cotenant/CoTenantTax.vue";
-import { useI18n } from "vue-i18n";
-import { onBeforeUnmount, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
-
+import ProfileContainer from '../components/ProfileContainer.vue'
+import FooterContainer from '../components/footer/FooterContainer.vue'
+import BackNext from '../components/footer/BackNext.vue'
+import CoTenantIdentification from '../components/documents/cotenant/CoTenantIdentification.vue'
+import CoTenantResidency from '../components/documents/cotenant/CoTenantResidency.vue'
+import CoTenantName from '../components/documents/cotenant/CoTenantName.vue'
+import CoTenantProfessional from '../components/documents/cotenant/CoTenantProfessional.vue'
+import CoTenantFinancialList from '../components/documents/cotenant/CoTenantFinancialList.vue'
+import CoTenantTax from '../components/documents/cotenant/CoTenantTax.vue'
+import { onBeforeUnmount, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 declare global {
   interface Window {
-    _paq: any;
-    Beacon: any;
+    _paq: (string | number | undefined)[][]
+    Beacon: ((action: string, data?: string) => void) & { readyQueue: unknown[] }
   }
 }
 
-const { t } = useI18n();
+const router = useRouter()
+const route = useRoute()
 
-const router = useRouter();
-const route = useRoute();
+onMounted(() => {
+  window.Beacon('init', 'e9f4da7d-11be-4b40-9514-ac7ce3e68f67')
+})
 
-  onMounted(() => {
-    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
-  })
+onBeforeUnmount(() => {
+  window.Beacon('destroy')
+})
 
-  onBeforeUnmount(() => {
-    window.Beacon("destroy");
-  })
-
-  function goBack() {
-    if (getSubStep() > 0) {
-      router.push({
-        name: "CoTenantDocuments",
-        params: {
-          substep: Number(getSubStep() - 1).toString(),
-          tenantId: getTenantId().toString(),
-        },
-      });
-      return;
-    }
+function goBack() {
+  if (getSubStep() > 0) {
     router.push({
-      name: "GuarantorChoice",
-    });
+      name: 'CoTenantDocuments',
+      params: {
+        substep: Number(getSubStep() - 1).toString(),
+        tenantId: getTenantId().toString()
+      }
+    })
+    return
   }
+  router.push({
+    name: 'GuarantorChoice'
+  })
+}
 
-  function goNext() {
-    if (getSubStep() < 5) {
-      router.push({
-        name: "CoTenantDocuments",
-        params: {
-          substep: Number(getSubStep() + 1).toString(),
-          tenantId: getTenantId().toString(),
-        },
-      });
-      return;
-    } else {
-      router.push({
-        name: "TenantGuarantors",
-        params: {
-          tenantId: getTenantId().toString(),
-          step: "5",
-        },
-      });
-    }
+function goNext() {
+  if (getSubStep() < 5) {
+    router.push({
+      name: 'CoTenantDocuments',
+      params: {
+        substep: Number(getSubStep() + 1).toString(),
+        tenantId: getTenantId().toString()
+      }
+    })
+    return
+  } else {
+    router.push({
+      name: 'TenantGuarantors',
+      params: {
+        tenantId: getTenantId().toString(),
+        step: '5'
+      }
+    })
   }
+}
 
-  function getTenantId() {
-    return Number(route.params.tenantId);
-  }
+function getTenantId() {
+  return Number(route.params.tenantId)
+}
 
-  function getStep() {
-    return Number(route.params.step) || 0;
-  }
-  function getSubStep() {
-    return Number(route.params.substep) || 0;
-  }
+function getStep() {
+  return Number(route.params.step) || 0
+}
+function getSubStep() {
+  return Number(route.params.substep) || 0
+}
 </script>
 
 <style lang="scss" scoped>

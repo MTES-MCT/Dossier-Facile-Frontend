@@ -5,7 +5,7 @@
         class="modal fr-pt-2w"
         role="dialog"
         aria-labelledby="modalTitle"
-        aria-describedby="modalDescription"
+        :aria-describedby="descriptionId"
       >
         <button
           class="fr-btn--close fr-btn fr-mr-1w"
@@ -21,7 +21,7 @@
             ><span style="visibility: hidden">title</span></slot
           >
         </header>
-        <section class="modal-body" id="modalDescription">
+        <section class="modal-body" :id="descriptionId">
           <slot name="body"> </slot>
         </section>
         <!-- TODO add  v-if="!!this.$slots['footer']" -->
@@ -34,7 +34,11 @@
 </template>
 
 <script setup lang="ts">
+import { useId } from 'vue';
+
 const emit = defineEmits(["close"]);
+
+const descriptionId = useId()
 
 function close() {
   emit("close");
@@ -64,14 +68,14 @@ function close() {
   -webkit-backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
-  @media all and (min-width: 480px) {
-    min-width: 400px;
-  }
   max-width: 90%;
   max-height: 98%;
   overflow: auto;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1),
     0 16px 16px -16px rgba(0, 0, 0, 0.32);
+  @media all and (min-width: 480px) {
+    min-width: 400px;
+  }
 }
 
 .modal-header,

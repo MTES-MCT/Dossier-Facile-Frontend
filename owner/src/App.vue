@@ -1,51 +1,65 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from 'vue';
-import MyHeader from 'df-shared-next/src/Header/Header.vue';
-import Announcement from 'df-shared-next/src/components/Announcement.vue';
-import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue';
-import Footer from 'df-shared-next/src/Footer/Footer.vue';
-import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue';
-import { useRouter } from 'vue-router';
-import Menu from './components/Menu.vue';
-import useOwnerStore from './store/owner-store.ts';
-import DeleteAccount from './components/DeleteAccount.vue';
+import { computed, onBeforeMount, onMounted, onUnmounted } from 'vue'
+import MyHeader from 'df-shared-next/src/Header/Header.vue'
+import Announcement from 'df-shared-next/src/components/Announcement.vue'
+import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
+import Footer from 'df-shared-next/src/Footer/Footer.vue'
+import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
+import { useRouter } from 'vue-router'
+import Menu from './components/Menu.vue'
+import useOwnerStore from './store/owner-store'
+import DeleteAccount from './components/DeleteAccount.vue'
+import { useCookies } from 'vue3-cookies'
 
-const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
+const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 
-const store = useOwnerStore();
-const router = useRouter();
+const store = useOwnerStore()
+const router = useRouter()
 
-const isLoggedIn = computed(() => store.isLoggedIn);
+const isLoggedIn = computed(() => store.isLoggedIn)
 
-const hasFooter = computed(() => store.hasFooter);
+const hasFooter = computed(() => store.hasFooter)
 
-const showDeleteAccountModal = computed(() => store.getShowDeleteAccountModal);
+const showDeleteAccountModal = computed(() => store.getShowDeleteAccountModal)
+
+const { cookies } = useCookies()
+
+onBeforeMount(() => {
+  const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
+  store.setLang(lang)
+})
 
 onMounted(() => {
-  window.Beacon('init', '330e68d2-2a04-4659-8048-c05d242ee8f5');
-});
+  window.Beacon('init', '330e68d2-2a04-4659-8048-c05d242ee8f5')
+})
 
 onUnmounted(() => {
-  window.Beacon('destroy');
-});
+  window.Beacon('destroy')
+})
 
 function onLogin() {
-  router.push({ name: 'Dashboard' });
+  router.push({ name: 'Dashboard' })
 }
 
 function goToTenant() {
-  window.location.href = TENANT_URL;
+  window.location.href = TENANT_URL
 }
 
 function onLogout() {
-  store.logout(true);
+  store.logout(true)
 }
 </script>
 
 <template>
   <SkipLinks></SkipLinks>
-  <MyHeader type="owner" :logged-in="isLoggedIn" @on-login="onLogin" @on-access-tenant="goToTenant"
-    @on-logout="onLogout" :showAccessibility="false">
+  <MyHeader
+    type="owner"
+    :logged-in="isLoggedIn"
+    @on-login="onLogin"
+    @on-access-tenant="goToTenant"
+    @on-logout="onLogout"
+    :showAccessibility="false"
+  >
     <Menu></Menu>
   </MyHeader>
   <div id="content">

@@ -9,23 +9,20 @@
 </template>
 
 <script setup lang="ts">
-import DocumentLink from "./DocumentLink.vue";
-import { DocumentService } from "@/services/DocumentService";
-import { DocumentType } from "./DocumentType";
-import { User } from "df-shared-next/src/models/User";
-import { PersonType } from "./PersonType";
+import DocumentLink from './DocumentLink.vue'
+import { DocumentService } from '@/services/DocumentService'
+import { DocumentType } from './DocumentType'
+import { User } from 'df-shared-next/src/models/User'
+import { PersonType } from './PersonType'
 
-  const props = defineProps<{
-    coTenant: User;
-    documentType: DocumentType;
-    substep: number;
-    active: boolean;
-  }>();
+const props = defineProps<{
+  coTenant: User
+  documentType: DocumentType
+  substep: number
+  active: boolean
+}>()
 
 function getStatus() {
-  return DocumentService.tenantStatus(
-    props.documentType.toString(),
-    props.coTenant
-  ) || '';
+  return DocumentService.tenantStatus(props.documentType.toString(), props.coTenant) || ''
 }
 </script>

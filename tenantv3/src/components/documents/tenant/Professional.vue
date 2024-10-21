@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ t("professional-page.select-label") }}
+          {{ t('professional-page.select-label') }}
         </h1>
         <select
           v-model="professionalDocument"
@@ -25,9 +25,7 @@
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <div
-          v-html="t(`explanation-text.tenant.professional.${professionalDocument.key}`)"
-        ></div>
+        <div v-html="t(`explanation-text.tenant.professional.${professionalDocument.key}`)"></div>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -51,134 +49,128 @@
       </div>
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ t("professional-page.will-delete-files") }}</span>
+      <span>{{ t('professional-page.will-delete-files') }}</span>
     </ConfirmModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import FileUpload from "../../uploads/FileUpload.vue";
-import { DocumentType } from "df-shared-next/src/models/Document";
-import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
-import ListItem from "../../uploads/ListItem.vue";
-import { DfFile } from "df-shared-next/src/models/DfFile";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import { RegisterService } from "../../../services/RegisterService";
-import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import { AnalyticsService } from "../../../services/AnalyticsService";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
-import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
-import { cloneDeep } from "lodash";
-import { UtilsService } from "@/services/UtilsService";
-import useTenantStore from "@/stores/tenant-store";
-import { computed, onBeforeMount, ref } from "vue";
-import { useI18n } from "vue-i18n";
-import { ToastService } from "@/services/ToastService";
-import { useLoading } from "vue-loading-overlay";
+import FileUpload from '../../uploads/FileUpload.vue'
+import { DocumentType } from 'df-shared-next/src/models/Document'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import ListItem from '../../uploads/ListItem.vue'
+import { DfFile } from 'df-shared-next/src/models/DfFile'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { RegisterService } from '../../../services/RegisterService'
+import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import { AnalyticsService } from '../../../services/AnalyticsService'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
+import { cloneDeep } from 'lodash'
+import { UtilsService } from '@/services/UtilsService'
+import useTenantStore from '@/stores/tenant-store'
+import { computed, onBeforeMount, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { ToastService } from '@/services/ToastService'
+import { useLoading } from 'vue-loading-overlay'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const store = useTenantStore();
-const user = computed(() => store.userToEdit);
-const tenantProfessionalDocument = computed(() => store.getTenantProfessionalDocument);
+const store = useTenantStore()
+const user = computed(() => store.userToEdit)
+const tenantProfessionalDocument = computed(() => store.getTenantProfessionalDocument)
 
-const documents = ref(DocumentTypeConstants.PROFESSIONAL_DOCS);
+const documents = ref(DocumentTypeConstants.PROFESSIONAL_DOCS)
 
-const documentDeniedReasons = ref(new DocumentDeniedReasons());
-const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
-const files = ref([] as DfFile[]);
-const uploadProgress = ref(
-  {} as {
-    [key: string]: { state: string; percentage: number };
-  }
-);
-const professionalDocument = ref(new DocumentType());
-const isDocDeleteVisible = ref(false);
+const documentDeniedReasons = ref(new DocumentDeniedReasons())
+const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
+const files = ref([] as DfFile[])
+const professionalDocument = ref(new DocumentType())
+const isDocDeleteVisible = ref(false)
 
 function getLocalStorageKey() {
-  return "professional_" + user.value?.email;
+  return 'professional_' + user.value?.email
 }
 
 const documentStatus = computed(() => {
-  return tenantProfessionalDocument.value?.documentStatus;
-});
+  return tenantProfessionalDocument.value?.documentStatus
+})
 
 onBeforeMount(() => {
   if (user.value?.documents !== null) {
     const doc = user.value?.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "PROFESSIONAL";
-    });
+      return d.documentCategory === 'PROFESSIONAL'
+    })
     if (doc !== undefined) {
       const localDoc = documents.value.find((d: DocumentType) => {
-        return d.value === doc.subCategory;
-      });
+        return d.value === doc.documentSubCategory
+      })
       if (localDoc !== undefined) {
-        professionalDocument.value = localDoc;
-        localStorage.setItem(getLocalStorageKey(), professionalDocument.value.key || "");
+        professionalDocument.value = localDoc
+        localStorage.setItem(getLocalStorageKey(), professionalDocument.value.key || '')
       }
       if (tenantProfessionalDocument.value?.documentDeniedReasons) {
         documentDeniedReasons.value = cloneDeep(
           tenantProfessionalDocument.value.documentDeniedReasons
-        );
+        )
       }
     } else {
-      const key = localStorage.getItem(getLocalStorageKey());
+      const key = localStorage.getItem(getLocalStorageKey())
       if (key) {
         const localDoc = documents.value.find((d: DocumentType) => {
-          return d.key === key;
-        });
+          return d.key === key
+        })
         if (localDoc !== undefined) {
-          professionalDocument.value = localDoc;
+          professionalDocument.value = localDoc
         }
       }
     }
   }
-});
+})
 
 function onSelectChange() {
-  localStorage.setItem(getLocalStorageKey(), professionalDocument.value.key);
+  localStorage.setItem(getLocalStorageKey(), professionalDocument.value.key)
   if (user.value?.documents !== null) {
     const doc = user.value?.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "PROFESSIONAL";
-    });
+      return d.documentCategory === 'PROFESSIONAL'
+    })
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc.files?.length || 0) > 0 &&
-        doc.subCategory !== professionalDocument.value.value;
+        (doc.files?.length || 0) > 0 && doc.documentSubCategory !== professionalDocument.value.value
     }
   }
-  return false;
+  return false
 }
 
 function undoSelect() {
   if (user.value?.documents !== null) {
     const doc = user.value?.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "PROFESSIONAL";
-    });
+      return d.documentCategory === 'PROFESSIONAL'
+    })
     if (doc !== undefined) {
       const localDoc = documents.value.find((d: DocumentType) => {
-        return d.value === doc.subCategory;
-      });
+        return d.value === doc.documentSubCategory
+      })
       if (localDoc !== undefined) {
-        professionalDocument.value = localDoc;
+        professionalDocument.value = localDoc
       }
     }
   }
-  isDocDeleteVisible.value = false;
+  isDocDeleteVisible.value = false
 }
 
 async function validSelect() {
-  isDocDeleteVisible.value = false;
+  isDocDeleteVisible.value = false
   if (user.value?.documents !== null) {
     const doc = user.value?.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "PROFESSIONAL";
-    });
+      return d.documentCategory === 'PROFESSIONAL'
+    })
     if (doc?.files !== undefined) {
       for (const f of doc.files) {
         if (f.id) {
-          await remove(f, true);
+          await remove(f, true)
         }
       }
     }
@@ -186,90 +178,90 @@ async function validSelect() {
 }
 
 function addFiles(fileList: File[]) {
-  AnalyticsService.uploadFile("professional");
+  AnalyticsService.uploadFile('professional')
   const nf = Array.from(fileList).map((f) => {
-    return { name: f.name, file: f, size: f.size };
-  });
-  files.value = [...files.value, ...nf];
-  save();
+    return { name: f.name, file: f, size: f.size }
+  })
+  files.value = [...files.value, ...nf]
+  save()
 }
 function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
+  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 function save() {
-  AnalyticsService.registerFile("professional");
-  uploadProgress.value = {};
-  const fieldName = "documents";
-  const formData = new FormData();
+  AnalyticsService.registerFile('professional')
+  const fieldName = 'documents'
+  const formData = new FormData()
   const newFiles = files.value.filter((f) => {
-    return !f.id;
-  });
-  if (!newFiles.length) return;
+    return !f.id
+  })
+  if (!newFiles.length) return
 
   if (
     professionalDocument.value.maxFileCount &&
     professionalFiles().length > professionalDocument.value.maxFileCount
   ) {
-    ToastService.maxFileError(
-      professionalFiles().length,
-      professionalDocument.value.maxFileCount
-    );
-    files.value = [];
-    return;
+    ToastService.maxFileError(professionalFiles().length, professionalDocument.value.maxFileCount)
+    files.value = []
+    return
   }
   Array.from(Array(newFiles.length).keys()).forEach((x) => {
-    const f: File = newFiles[x].file || new File([], "");
-    formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
-  });
+    const f: File = newFiles[x].file || new File([], '')
+    formData.append(`${fieldName}[${x}]`, f, newFiles[x].name)
+  })
 
-  formData.append("typeDocumentProfessional", professionalDocument.value.value);
+  formData.append('typeDocumentProfessional', professionalDocument.value.value)
 
-  fileUploadStatus.value = UploadStatus.STATUS_SAVING;
-  const $loading = useLoading({});
-  const loader = $loading.show();
+  fileUploadStatus.value = UploadStatus.STATUS_SAVING
+  const $loading = useLoading({})
+  const loader = $loading.show()
   store
     .saveTenantProfessional(formData)
     .then(() => {
-      files.value = [];
-      fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-      ToastService.saveSuccess();
+      files.value = []
+      fileUploadStatus.value = UploadStatus.STATUS_INITIAL
+      ToastService.saveSuccess()
     })
     .catch((err) => {
-      fileUploadStatus.value = UploadStatus.STATUS_FAILED;
-      UtilsService.handleCommonSaveError(err);
+      fileUploadStatus.value = UploadStatus.STATUS_FAILED
+      UtilsService.handleCommonSaveError(err)
     })
     .finally(() => {
-      loader.hide();
-    });
+      loader.hide()
+    })
 }
 
 function professionalFiles() {
   const newFiles = files.value.map((f) => {
     return {
-      subCategory: professionalDocument.value.value,
+      documentSubCategory: professionalDocument.value.value,
       id: f.id,
       name: f.name,
-      size: f.size,
-    };
-  });
+      size: f.size
+    }
+  })
   const existingFiles =
     store.getTenantDocuments?.find((d: DfDocument) => {
-      return d.documentCategory === "PROFESSIONAL";
-    })?.files || [];
-  return [...newFiles, ...existingFiles];
+      return d.documentCategory === 'PROFESSIONAL'
+    })?.files || []
+  return [...newFiles, ...existingFiles]
 }
 
 async function remove(file: DfFile, silent = false) {
-  AnalyticsService.deleteFile("professional");
+  AnalyticsService.deleteFile('professional')
   if (file.id) {
-    await RegisterService.deleteFile(file.id, silent);
+    if (
+      tenantProfessionalDocument.value?.files?.length === 1 &&
+      tenantProfessionalDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
+    ) {
+      AnalyticsService.removeDeniedDocument(tenantProfessionalDocument.value?.documentSubCategory || '')
+    }
+    await RegisterService.deleteFile(file.id, silent)
   } else {
     const firstIndex = files.value.findIndex((f) => {
-      return f.name === file.name && !f.path;
-    });
-    files.value.splice(firstIndex, 1);
+      return f.name === file.name && !f.path
+    })
+    files.value.splice(firstIndex, 1)
   }
 }
 </script>
-
-<style scoped lang="scss"></style>

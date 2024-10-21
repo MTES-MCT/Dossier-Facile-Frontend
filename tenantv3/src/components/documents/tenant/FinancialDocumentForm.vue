@@ -1,10 +1,10 @@
 <template>
-    <Form name="form" @submit="saveAndGoNext">
-  <div>
+  <Form name="form" @submit="saveAndGoNext">
+    <div>
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
           <h1 class="fr-h6">
-            {{ t("financialdocumentform.title") }}
+            {{ t('financialdocumentform.title') }}
           </h1>
 
           <div class="fr-mt-3w">
@@ -20,8 +20,7 @@
       <NakedCard
         class="fr-p-md-5w fr-mb-3w"
         v-if="
-          financialDocument.documentType.key &&
-          financialDocument.documentType.key !== 'no-income'
+          financialDocument.documentType.key && financialDocument.documentType.key !== 'no-income'
         "
       >
         <div>
@@ -35,16 +34,15 @@
             >
               <div>
                 <div class="fr-input-group">
-                  <label for="monthlySum" class="fr-label">
-                    {{ getMonthlySumLabel() }} :
-                  </label>
+                  <label for="monthlySum" class="fr-label"> {{ getMonthlySumLabel() }} : </label>
                   <Field
                     name="monthlySum"
                     v-slot="{ field, meta }"
-                    v-model="financialDocument.monthlySum"
+                    :value="financialDocument.monthlySum"
+                    @input="financialDocument.monthlySum = $event.target.value.replace(/\s+/g, '')"
                     :rules="{
                       required: true,
-                      regex: /^[0-9 ]+$/,
+                      regex: /^[0-9 ]+$/
                     }"
                   >
                     <input
@@ -55,21 +53,16 @@
                       class="validate-required form-control fr-input"
                       :class="{
                         'fr-input--valid': meta.valid,
-                        'fr-input--error': !meta.valid,
+                        'fr-input--error': !meta.valid
                       }"
                       required
                     />
                   </Field>
                   <ErrorMessage name="monthlySum" v-slot="{ message }">
-                    <span role="alert" class="fr-error-text">{{
-                      $t(message || "")
-                    }}</span>
+                    <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                   </ErrorMessage>
-                  <span
-                    class="fr-error-text"
-                    v-if="(financialDocument.monthlySum || 0) > 10000"
-                  >
-                    {{ t("financialdocumentform.high-salary") }}
+                  <span class="fr-error-text" v-if="(financialDocument.monthlySum || 0) > 10000">
+                    {{ t('financialdocumentform.high-salary') }}
                   </span>
                   <span
                     class="fr-error-text"
@@ -78,7 +71,7 @@
                       financialDocument.monthlySum <= 0
                     "
                   >
-                    {{ t("financialdocumentform.low-salary") }}
+                    {{ t('financialdocumentform.low-salary') }}
                   </span>
                 </div>
               </div>
@@ -96,11 +89,7 @@
         >
           <div>
             <div class="fr-mb-3w">
-              <p
-                v-html="
-                  t(`explanation-text.tenant.${financialDocument.documentType.key}`)
-                "
-              ></p>
+              <p v-html="t(`explanation-text.tenant.${financialDocument.documentType.key}`)"></p>
             </div>
             <AllDeclinedMessages
               class="fr-mb-3w"
@@ -143,18 +132,14 @@
             <div class="fr-mb-5w" v-if="financialDocument.noDocument">
               <div class="fr-input-group">
                 <label class="fr-label" for="customText">
-                  {{
-                    t(
-                      `financialdocumentform.customText-${financialDocument.documentType.key}`
-                    )
-                  }}
+                  {{ t(`financialdocumentform.customText-${financialDocument.documentType.key}`) }}
                 </label>
                 <Field
                   name="customText"
                   v-slot="{ field, meta }"
                   v-model="financialDocument.customText"
                   :rules="{
-                    required: true,
+                    required: true
                   }"
                 >
                   <textarea
@@ -167,30 +152,29 @@
                     rows="3"
                     :class="{
                       'fr-input--valid': meta.valid,
-                      'fr-input--error': !meta.valid,
+                      'fr-input--error': !meta.valid
                     }"
                     required
                   />
                   <span>{{ financialDocument.customText.length }} / 2000</span>
                 </Field>
                 <ErrorMessage name="customText" v-slot="{ message }">
-                  <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+                  <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
               </div>
             </div>
           </div>
         </div>
       </NakedCard>
-    <div
-      v-if="
-        financialDocument.documentType.key &&
-        financialDocument.documentType.key === 'no-income'
-      "
-    >
-      <NakedCard class="fr-p-md-5w fr-mb-3w">
+      <div
+        v-if="
+          financialDocument.documentType.key && financialDocument.documentType.key === 'no-income'
+        "
+      >
+        <NakedCard class="fr-p-md-5w fr-mb-3w">
           <div class="fr-input-group">
             <label class="fr-label" for="customTextNoDocument">
-              {{ t("financialdocumentform.has-no-income") }}
+              {{ t('financialdocumentform.has-no-income') }}
             </label>
             <textarea
               v-model="financialDocument.customText"
@@ -204,193 +188,190 @@
             />
             <span>{{ financialDocument.customText.length }} / 2000</span>
           </div>
-      </NakedCard>
-    </div>
-    <ProfileFooter @on-back="goBack"></ProfileFooter>
-    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
-      <template v-slot:body>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-12">
-              <p>
-                {{ t("financialdocumentform.warning-no-income-and-file") }}
-              </p>
+        </NakedCard>
+      </div>
+      <ProfileFooter @on-back="goBack"></ProfileFooter>
+      <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
+        <template v-slot:body>
+          <div class="fr-container">
+            <div class="fr-grid-row justify-content-center">
+              <div class="fr-col-12">
+                <p>
+                  {{ t('financialdocumentform.warning-no-income-and-file') }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </template>
-    </Modal>
-    <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ t("financialdocumentform.will-delete-files") }}</span>
-    </ConfirmModal>
-  </div>
+        </template>
+      </Modal>
+      <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
+        <span>{{ t('financialdocumentform.will-delete-files') }}</span>
+      </ConfirmModal>
+    </div>
   </Form>
 </template>
 
 <script setup lang="ts">
-import { DocumentType } from "df-shared-next/src/models/Document";
-import FileUpload from "../../uploads/FileUpload.vue";
-import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
-import { FinancialDocument } from "df-shared-next/src/models/FinancialDocument";
-import ListItem from "../../uploads/ListItem.vue";
-import { DfFile } from "df-shared-next/src/models/DfFile";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import { RegisterService } from "../../../services/RegisterService";
-import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import Modal from "df-shared-next/src/components/Modal.vue";
-import { AnalyticsService } from "../../../services/AnalyticsService";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import ProfileFooter from "../../footer/ProfileFooter.vue";
-import { cloneDeep } from "lodash";
-import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
-import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
-import { UtilsService } from "@/services/UtilsService";
-import SimpleRadioButtons from "df-shared-next/src/Button/SimpleRadioButtons.vue";
-import { useI18n } from "vue-i18n";
-import useTenantStore from "@/stores/tenant-store";
-import { computed, onBeforeMount, ref } from "vue";
-import { ToastService } from "@/services/ToastService";
-import { useLoading } from "vue-loading-overlay";
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { DocumentType } from 'df-shared-next/src/models/Document'
+import FileUpload from '../../uploads/FileUpload.vue'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
+import ListItem from '../../uploads/ListItem.vue'
+import { DfFile } from 'df-shared-next/src/models/DfFile'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { RegisterService } from '../../../services/RegisterService'
+import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import Modal from 'df-shared-next/src/components/Modal.vue'
+import { AnalyticsService } from '../../../services/AnalyticsService'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import ProfileFooter from '../../footer/ProfileFooter.vue'
+import { cloneDeep } from 'lodash'
+import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
+import { UtilsService } from '@/services/UtilsService'
+import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
+import { useI18n } from 'vue-i18n'
+import useTenantStore from '@/stores/tenant-store'
+import { computed, onBeforeMount, ref } from 'vue'
+import { ToastService } from '@/services/ToastService'
+import { useLoading } from 'vue-loading-overlay'
+import { Form, Field, ErrorMessage } from 'vee-validate'
 
-const store = useTenantStore();
+const store = useTenantStore()
 const user = computed(() => {
-  return store.userToEdit;
-});
+  return store.userToEdit
+})
 const financialDocumentSelected = computed(() => {
-  return store.financialDocumentSelected;
-});
+  return store.financialDocumentSelected
+})
 const tenantFinancialDocuments = computed(() => {
-  return store.tenantFinancialDocuments;
-});
+  return store.tenantFinancialDocuments
+})
 
-const { t } = useI18n();
-const documents = DocumentTypeConstants.FINANCIAL_DOCS;
+const { t } = useI18n()
+const documents = DocumentTypeConstants.FINANCIAL_DOCS
 
-const documentDeniedReasons = ref(new DocumentDeniedReasons());
-const isDocDeleteVisible = ref(false);
-const selectedDoc = ref(new FinancialDocument());
-const isNoIncomeAndFiles = ref(false);
-const financialDocument = ref(new FinancialDocument());
+const documentDeniedReasons = ref(new DocumentDeniedReasons())
+const isDocDeleteVisible = ref(false)
+const selectedDoc = ref(new FinancialDocument())
+const isNoIncomeAndFiles = ref(false)
+const financialDocument = ref(new FinancialDocument())
 
 onBeforeMount(() => {
-  financialDocument.value = { ...cloneDeep(financialDocumentSelected.value) };
-  const doc = tenantFinancialDocument();
+  financialDocument.value = { ...cloneDeep(financialDocumentSelected.value) }
+  const doc = tenantFinancialDocument()
   if (doc?.documentDeniedReasons) {
-    const deniedReasons = tenantFinancialDocument()?.documentDeniedReasons;
+    const deniedReasons = tenantFinancialDocument()?.documentDeniedReasons
     if (deniedReasons) {
-      documentDeniedReasons.value = cloneDeep(deniedReasons);
+      documentDeniedReasons.value = cloneDeep(deniedReasons)
     }
   }
-});
+})
 
 const documentStatus = computed(() => {
-  return tenantFinancialDocument()?.documentStatus;
-});
+  return tenantFinancialDocument()?.documentStatus
+})
 
 function tenantFinancialDocument() {
   return store.getTenantDocuments?.find((d: DfDocument) => {
-    return d.id === financialDocument.value.id;
-  });
+    return d.id === financialDocument.value.id
+  })
 }
 
 function onSelectChange($event: DocumentType) {
-  financialDocument.value.documentType = $event;
+  financialDocument.value.documentType = $event
   if (financialDocument.value.id === null) {
-    return false;
+    return false
   }
 
   const doc = user.value?.documents?.find((d: DfDocument) => {
-    return d.id === financialDocument.value.id;
-  });
+    return d.id === financialDocument.value.id
+  })
   if (doc === undefined) {
-    return false;
+    return false
   }
 
-  selectedDoc.value = financialDocument.value;
+  selectedDoc.value = financialDocument.value
   isDocDeleteVisible.value =
-    (doc.files?.length || 0) > 0 &&
-    doc.subCategory !== financialDocument.value.documentType.value;
-  return false;
+    (doc.files?.length || 0) > 0 && doc.documentSubCategory !== financialDocument.value.documentType.value
+  return false
 }
 
 function undoSelect() {
   if (user.value?.documents !== null) {
     const doc = user.value?.documents?.find((d: DfDocument) => {
-      return d.id === selectedDoc.value?.id;
-    });
+      return d.id === selectedDoc.value?.id
+    })
     if (doc !== undefined) {
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === doc.subCategory;
-      });
+        return d.value === doc.documentSubCategory
+      })
       if (localDoc !== undefined && selectedDoc.value) {
-        selectedDoc.value.documentType = localDoc;
+        selectedDoc.value.documentType = localDoc
       }
     }
   }
-  isDocDeleteVisible.value = false;
+  isDocDeleteVisible.value = false
 }
 
 async function validSelect() {
-  isDocDeleteVisible.value = false;
+  isDocDeleteVisible.value = false
   if (user.value?.documents === null) {
-    return;
+    return
   }
   const doc = user.value?.documents?.find((d: DfDocument) => {
-    return d.id === selectedDoc.value?.id;
-  });
+    return d.id === selectedDoc.value?.id
+  })
   if (doc?.files !== undefined) {
     for (const f of doc.files) {
       if (f.id && selectedDoc.value) {
-        await remove(selectedDoc.value, f, true);
+        await remove(selectedDoc.value, f, true)
       }
     }
   }
 }
 
 function addFiles(fileList: File[]) {
-  AnalyticsService.uploadFile("financial");
+  AnalyticsService.uploadFile('financial')
   const nf = Array.from(fileList).map((f) => {
-    return { name: f.name, file: f, size: f.size };
-  });
-  financialDocument.value.files = [...financialDocument.value.files, ...nf];
-  save();
+    return { name: f.name, file: f, size: f.size }
+  })
+  financialDocument.value.files = [...financialDocument.value.files, ...nf]
+  save()
 }
 
 function resetFiles(f: FinancialDocument) {
-  f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  f.fileUploadStatus = UploadStatus.STATUS_INITIAL
 }
 
 async function save(): Promise<boolean> {
-  const fieldName = "documents";
-  const formData = new FormData();
+  const fieldName = 'documents'
+  const formData = new FormData()
   if (financialDocument.value.documentType.key === undefined) {
-    return Promise.resolve(true);
+    return Promise.resolve(true)
   }
   if (financialDocument.value.id) {
     const original = tenantFinancialDocuments.value?.find((d: DfDocument) => {
-      return d.id === financialDocument.value.id;
-    });
+      return d.id === financialDocument.value.id
+    })
     if (
       original &&
+      financialDocument.value.documentType.key === original.documentType.key &&
       financialDocument.value.noDocument === original.noDocument &&
       financialDocument.value.monthlySum === original.monthlySum &&
       financialDocument.value.files.length === original.files.length &&
       financialDocument.value.customText === original.customText
     ) {
-      return Promise.resolve(true);
+      return Promise.resolve(true)
     }
   }
-  AnalyticsService.registerFile("financial");
+  AnalyticsService.registerFile('financial')
   if (!financialDocument.value.noDocument) {
-    if (
-      !financialFiles().length &&
-      financialDocument.value.documentType.key !== "no-income"
-    ) {
-      ToastService.error("financialdocumentform.missing-file");
-      financialDocument.value.files = [];
-      return Promise.reject(new Error("missing-file"));
+    if (!financialFiles().length && financialDocument.value.documentType.key !== 'no-income') {
+      ToastService.error('financialdocumentform.missing-file')
+      financialDocument.value.files = []
+      return Promise.reject(new Error('missing-file'))
     }
 
     if (
@@ -400,161 +381,164 @@ async function save(): Promise<boolean> {
       ToastService.maxFileError(
         financialFiles().length,
         financialDocument.value.documentType.maxFileCount
-      );
-      return Promise.reject(new Error("max-file"));
+      )
+      return Promise.reject(new Error('max-file'))
     }
 
     const newFiles = financialDocument.value.files.filter((f) => {
-      return !f.id;
-    });
+      return !f.id
+    })
     Array.from(Array(newFiles.length).keys()).forEach((x) => {
-      const f: File = newFiles[x].file || new File([], "");
-      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
-    });
+      const f: File = newFiles[x].file || new File([], '')
+      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name)
+    })
   } else {
     if (financialFiles().length > 0) {
-      isNoIncomeAndFiles.value = true;
-      financialDocument.value.files = [];
-      return Promise.reject(new Error("err"));
+      isNoIncomeAndFiles.value = true
+      financialDocument.value.files = []
+      return Promise.reject(new Error('err'))
     }
   }
 
-  const typeDocumentFinancial = financialDocument.value.documentType?.value || "";
-  formData.append("typeDocumentFinancial", typeDocumentFinancial);
+  const typeDocumentFinancial = financialDocument.value.documentType?.value || ''
+  formData.append('typeDocumentFinancial', typeDocumentFinancial)
 
-  if (financialDocument.value.documentType.key === "no-income") {
-    financialDocument.value.noDocument = true;
-    financialDocument.value.monthlySum = 0;
+  if (financialDocument.value.documentType.key === 'no-income') {
+    financialDocument.value.noDocument = true
+    financialDocument.value.monthlySum = 0
   }
 
-  formData.append("noDocument", financialDocument.value.noDocument ? "true" : "false");
+  formData.append('noDocument', financialDocument.value.noDocument ? 'true' : 'false')
   if (
-    financialDocument.value.documentType.key === "no-income" &&
+    financialDocument.value.documentType.key === 'no-income' &&
     !financialDocument.value.customText
   ) {
-    formData.append("customText", "-");
+    formData.append('customText', '-')
   } else {
-    formData.append("customText", financialDocument.value.customText);
+    formData.append('customText', financialDocument.value.customText)
   }
 
-  if (
-    financialDocument.value.monthlySum !== undefined &&
-    financialDocument.value.monthlySum >= 0
-  ) {
+  if (financialDocument.value.monthlySum !== undefined && financialDocument.value.monthlySum >= 0) {
     if (
-      financialDocument.value.documentType.key !== "no-income" &&
+      financialDocument.value.documentType.key !== 'no-income' &&
       financialDocument.value.monthlySum === 0
     ) {
-      ToastService.error("financialdocumentform.income-zero");
-      return Promise.reject(new Error("err"));
+      ToastService.error('financialdocumentform.income-zero')
+      return Promise.reject(new Error('err'))
     }
-    formData.append("monthlySum", Math.trunc(financialDocument.value.monthlySum).toString());
+    formData.append('monthlySum', Math.trunc(financialDocument.value.monthlySum).toString())
   } else {
-    return Promise.reject(new Error("err"));
+    return Promise.reject(new Error('err'))
   }
   if (financialDocument.value.id) {
-    formData.append("id", financialDocument.value.id.toString());
+    formData.append('id', financialDocument.value.id.toString())
   }
 
-  financialDocument.value.fileUploadStatus = UploadStatus.STATUS_SAVING;
-  const $loading = useLoading({});
-  const loader = $loading.show();
+  financialDocument.value.fileUploadStatus = UploadStatus.STATUS_SAVING
+  const $loading = useLoading({})
+  const loader = $loading.show()
   const res = await store
     .saveTenantFinancial(formData)
     .then(() => {
       financialDocument.value = {
-        ...cloneDeep(financialDocumentSelected.value),
-      };
-      ToastService.saveSuccess();
-      return Promise.resolve(true);
+        ...cloneDeep(financialDocumentSelected.value)
+      }
+      ToastService.saveSuccess()
+      return Promise.resolve(true)
     })
     .catch((err) => {
-      financialDocument.value.fileUploadStatus = UploadStatus.STATUS_FAILED;
-      UtilsService.handleCommonSaveError(err);
-      return Promise.reject(new Error("err"));
+      financialDocument.value.fileUploadStatus = UploadStatus.STATUS_FAILED
+      UtilsService.handleCommonSaveError(err)
+      return Promise.reject(new Error('err'))
     })
     .finally(() => {
-      loader.hide();
-    });
-  return res;
+      loader.hide()
+    })
+  return res
 }
 
 function financialFiles() {
   const newFiles = financialDocument.value.files.map((file: DfFile) => {
     return {
-      subCategory: financialDocument.value.documentType?.value,
+      documentSubCategory: financialDocument.value.documentType?.value,
       id: file.id,
       name: file.name,
-      size: file.size,
-    };
-  });
+      size: file.size
+    }
+  })
   const existingFiles =
     store.getTenantDocuments?.find((d: DfDocument) => {
-      return d.id === financialDocument.value.id;
-    })?.files || [];
-  return [...newFiles, ...existingFiles];
+      return d.id === financialDocument.value.id
+    })?.files || []
+  return [...newFiles, ...existingFiles]
 }
 
-async function remove(f: FinancialDocument, file: DfFile, silent = false) {
-  AnalyticsService.deleteFile("financial");
+function remove(f: FinancialDocument, file: DfFile, silent = false) {
+  AnalyticsService.deleteFile('financial')
   if (file.id) {
-    await RegisterService.deleteFile(file.id, silent);
+    if (
+      f.files.length === 1 &&
+      financialDocumentSelected.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
+    ) {
+      AnalyticsService.removeDeniedDocument(financialDocumentSelected.value.documentSubCategory || '')
+    }
+    RegisterService.deleteFile(file.id, silent)
   } else {
     const firstIndex = f.files.findIndex((lf) => {
-      return lf.name === file.name && !lf.path;
-    });
-    f.files.splice(firstIndex, 1);
+      return lf.name === file.name && !lf.path
+    })
+    f.files.splice(firstIndex, 1)
   }
 }
 
 function getCheckboxLabel(key: string) {
-  if (key === "salary") {
-    return "noDocument-salary";
+  if (key === 'salary') {
+    return 'noDocument-salary'
   }
-  if (key === "pension") {
-    return "noDocument-pension";
+  if (key === 'pension') {
+    return 'noDocument-pension'
   }
-  if (key === "rent") {
-    return "noDocument-rent";
+  if (key === 'rent') {
+    return 'noDocument-rent'
   }
-  if (key === "scholarship") {
-    return "noDocument-scholarship";
+  if (key === 'scholarship') {
+    return 'noDocument-scholarship'
   }
-  if (key === "social-service") {
-    return "noDocument-social";
+  if (key === 'social-service') {
+    return 'noDocument-social'
   }
-  return "";
+  return ''
 }
 
 function goBack() {
-  store.selectDocumentFinancial(undefined);
+  store.selectDocumentFinancial(undefined)
 }
 
 function saveAndGoNext() {
-  save().then(goNext);
+  save().then(goNext)
 }
 
 function goNext() {
-  store.selectDocumentFinancial(undefined);
+  store.selectDocumentFinancial(undefined)
 }
 
 function getMonthlySumLabel() {
-  const docType = financialDocument.value?.documentType.key;
-  let label = t("financialdocumentform.monthlySum.label");
-  if (docType === "salary" || docType === "pension" || docType === "rent") {
-    label += " ";
-    label += t("financialdocumentform.monthlySum.label-tax");
+  const docType = financialDocument.value?.documentType.key
+  let label = t('financialdocumentform.monthlySum.label')
+  if (docType === 'salary' || docType === 'pension' || docType === 'rent') {
+    label += ' '
+    label += t('financialdocumentform.monthlySum.label-tax')
   }
-  return label;
+  return label
 }
 
 function mapDocuments() {
   return documents.map((d) => {
     return {
       id: d.key,
-      labelKey: "documents." + d.key,
-      value: d,
-    };
-  });
+      labelKey: 'documents.' + d.key,
+      value: d
+    }
+  })
 }
 </script>

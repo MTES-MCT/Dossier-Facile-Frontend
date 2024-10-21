@@ -3,15 +3,13 @@
     <NakedCard class="fr-p-md-5w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h6>{{ $t("roommatesinformation.title") }}</h6>
+          <h6>{{ t('roommatesinformation.title') }}</h6>
           <v-gouv-fr-modal>
             <template v-slot:button>
-              <span class="small-font">{{
-                $t("roommatesinformation.more-information")
-              }}</span>
+              <span class="small-font">{{ t('roommatesinformation.more-information') }}</span>
             </template>
             <template v-slot:title>
-              {{ $t("roommatesinformation.more-information") }}
+              {{ t('roommatesinformation.more-information') }}
             </template>
             <template v-slot:content>
               <p>
@@ -22,7 +20,7 @@
         </div>
         <div class="fr-col-12 fr-mt-2w">
           <div v-if="showEmailExists" class="fr-callout">
-            <p class="fr-mb-1w" v-html="$t('roommatesinformation.email-exists')"></p>
+            <p class="fr-mb-1w" v-html="t('roommatesinformation.email-exists')"></p>
           </div>
           <div v-if="modelValue.length > 0">
             <div v-for="(roommate, key) in modelValue" v-bind:key="key" class="fr-mb-1w">
@@ -41,10 +39,10 @@
                         </div>
                         <div class="small-text">
                           {{
-                            $t(
+                            t(
                               roommate.id
-                                ? "roommatesinformation.invite-sent"
-                                : "roommatesinformation.invite-waiting"
+                                ? 'roommatesinformation.invite-sent'
+                                : 'roommatesinformation.invite-waiting'
                             )
                           }}
                         </div>
@@ -54,7 +52,7 @@
                   <div class="fr-col-2 center-icon">
                     <button
                       class="fr-btn fr-btn--secondary icon-btn"
-                      :title="$t('roommatesinformation.delete')"
+                      :title="t('roommatesinformation.delete')"
                       @click="remove(roommate)"
                       type="button"
                     >
@@ -67,9 +65,7 @@
           </div>
         </div>
         <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
-          <label class="fr-label fr-mb-1w">{{
-            $t("roommatesinformation.roommateEmail")
-          }}</label>
+          <label class="fr-label fr-mb-1w">{{ t('roommatesinformation.roommateEmail') }}</label>
           <Field
             id="email"
             name="email"
@@ -77,7 +73,7 @@
             v-slot="{ field, meta }"
             :rules="{
               email: true,
-              atLeastOneEmail: modelValue,
+              atLeastOneEmail: modelValue
             }"
           >
             <input
@@ -86,14 +82,14 @@
               name="email"
               :class="{
                 'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid,
+                'fr-input--error': !meta.valid
               }"
               placeholder="Ex : exemple@exemple.fr"
               type="email"
             />
           </Field>
           <ErrorMessage name="email" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
 
@@ -103,9 +99,9 @@
               class="full-width-xs"
               :fullWidth="isMobile()"
               :secondary="true"
-              :label="$t('roommatesinformation.add-a-roommate')"
+              :label="t('roommatesinformation.add-a-roommate')"
               :btn-type="'button'"
-              :disabled="invalidEmail!= null || !newRoommate || false"
+              :disabled="invalidEmail != null || !newRoommate || false"
               @click="addMail"
             ></v-gouv-fr-button>
           </div>
@@ -121,7 +117,7 @@
             v-slot="{ field, meta }"
             type="checkbox"
             :rules="{
-              isTrue: true,
+              isTrue: true
             }"
             :value="true"
           >
@@ -132,14 +128,13 @@
               @change="updateAuthorize()"
               :class="{
                 'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid,
+                'fr-input--error': !meta.valid
               }"
             />
-            <label for="authorize" v-html="$t('roommatesinformation.acceptAuthor')">
-            </label>
+            <label for="authorize" v-html="t('roommatesinformation.acceptAuthor')"> </label>
           </Field>
           <ErrorMessage name="authorize" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
       </div>
@@ -148,88 +143,90 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared-next/src/models/User";
-import VGouvFrButton from "df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import RoommatesInformationHelp from "./helps/RoommatesInformationHelp.vue";
-import VGouvFrModal from "df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { UtilsService } from "../services/UtilsService";
-import useTenantStore from "@/stores/tenant-store";
-import { computed, onMounted, ref } from "vue";
-import { Field, ErrorMessage, useFieldError, defineRule } from "vee-validate";
+import { User } from 'df-shared-next/src/models/User'
+import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import RoommatesInformationHelp from './helps/RoommatesInformationHelp.vue'
+import VGouvFrModal from 'df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue'
+import { UtilsService } from '../services/UtilsService'
+import useTenantStore from '@/stores/tenant-store'
+import { computed, onMounted, ref } from 'vue'
+import { Field, ErrorMessage, useFieldError, defineRule } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
 
 defineRule('atLeastOneEmail', (email: any, [otherEmails]: any[]) => {
   if (email === '' && otherEmails === undefined) {
-    return 'field-required';
+    return 'field-required'
   }
-  return true;
-});
+  return true
+})
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(['update:modelValue'])
 
-const store = useTenantStore();
-const user = computed(() => store.user);
-const coTenantAuthorize = computed(() => store.coTenantAuthorize);
+const { t } = useI18n()
+const store = useTenantStore()
+const user = computed(() => store.user)
+const coTenantAuthorize = computed(() => store.coTenantAuthorize)
 
 const props = withDefaults(defineProps<{ modelValue: User[] }>(), {
-  modelValue: () => [],
-});
+  modelValue: () => []
+})
 
-const authorize = ref(false);
-const newRoommate = ref("");
-const showEmailExists = ref(false);
+const authorize = ref(false)
+const newRoommate = ref('')
+const showEmailExists = ref(false)
 
-const invalidEmail = useFieldError("email");
+const invalidEmail = useFieldError('email')
 
 onMounted(() => {
-  authorize.value = coTenantAuthorize.value;
-});
+  authorize.value = coTenantAuthorize.value
+})
 
 function addMail() {
-  showEmailExists.value = false;
-  if (newRoommate.value !== "") {
+  showEmailExists.value = false
+  if (newRoommate.value !== '') {
     if (user.value.email !== newRoommate.value) {
-      const coTenant = new User();
-      coTenant.firstName = newRoommate.value.replace(/[^a-zA-Z]/g, '');
-      coTenant.lastName = newRoommate.value.replace(/[^a-zA-Z]/g, '');
-      coTenant.email = newRoommate.value;
-      store.createCoTenant(newRoommate.value);
-      const newCoTenants = [...props.modelValue, coTenant];
-      emit("update:modelValue", newCoTenants);
-      newRoommate.value = "";
+      const coTenant = new User()
+      coTenant.firstName = newRoommate.value.replace(/[^a-zA-Z]/g, '')
+      coTenant.lastName = newRoommate.value.replace(/[^a-zA-Z]/g, '')
+      coTenant.email = newRoommate.value
+      store.createCoTenant(newRoommate.value)
+      const newCoTenants = [...props.modelValue, coTenant]
+      emit('update:modelValue', newCoTenants)
+      newRoommate.value = ''
     } else {
-      showEmailExists.value = true;
+      showEmailExists.value = true
     }
   }
 }
 
 function remove(tenant: User) {
   if (tenant.id) {
-    store.deleteCoTenant(tenant);
+    store.deleteCoTenant(tenant)
     emit(
-      "update:modelValue",
+      'update:modelValue',
       props.modelValue.filter((t) => t.email != tenant.email)
-    );
+    )
   } else {
     emit(
-      "update:modelValue",
+      'update:modelValue',
       props.modelValue.filter((t) => t.email != tenant.email)
-    );
+    )
   }
-  return false;
+  return false
 }
 
 function updateAuthorize() {
-  store.updateCoTenantAuthorize(authorize.value);
+  store.updateCoTenantAuthorize(authorize.value)
 }
 
 function isMobile() {
-  return UtilsService.isMobile();
+  return UtilsService.isMobile()
 }
 </script>
 
 <style scoped lang="scss">
-@import "df-shared-next/src/scss/_variables.scss";
+@import 'df-shared-next/src/scss/_variables.scss';
 
 .overflow--hidden {
   overflow: hidden;

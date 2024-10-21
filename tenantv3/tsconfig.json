@@ -1,31 +1,14 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
-    "types": [
-      "vite/client",
-      "vue3-toastify/global",
-      "node"
-    ]
-  },
+  "files": [],
   "references": [
     {
       "path": "./tsconfig.node.json"
     },
     {
       "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.vitest.json"
     }
   ],
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "compilerOptions": {
+    "module": "NodeNext"
+  }
 }

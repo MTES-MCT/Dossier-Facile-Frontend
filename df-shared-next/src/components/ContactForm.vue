@@ -332,7 +332,7 @@ function accordionClicked(tag: string) {
   emit('on-accordion-clicked', tag)
 }
 
-function onProfileChange($event: any) {
+function onProfileChange() {
   emit("on-profile-change", contactFormData.value.profile);
 }
 
@@ -344,7 +344,7 @@ function submitForm() {
       contactFormData.value.subject = "";
       contactFormData.value.message = "";
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
       status.value = "KO";
     });

@@ -1,26 +1,26 @@
 import { defineRule } from "vee-validate";
 
-defineRule("required", (value: any) => {
+defineRule("required", (value: unknown) => {
   if (typeof value === "number") {
     if (!value && value !== 0) {
       return "field-required";
     }
     return true;
   }
-  if (!value || !value.length) {
+  if (!value || (Array.isArray(value) && !value.length)) {
     return "field-required";
   }
   return true;
 });
 
-defineRule("isTrue", (value: any) => {
+defineRule("isTrue", (value: unknown) => {
   if (!value) {
     return "field-required";
   }
   return true;
 });
 
-defineRule("email", (value: any) => {
+defineRule("email", (value: string | null | undefined) => {
   if (!value || !value.length) {
     return true;
   }

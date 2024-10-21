@@ -2,7 +2,7 @@
   <ProfileContainer :step="3">
     <NakedCard class="fr-p-md-5w">
       <h1 class="fr-h5">
-        {{ $t("guarantorlistpage.my-guarantor") }}
+        {{ t('guarantorlistpage.my-guarantor') }}
       </h1>
       <div v-for="g in user.guarantors" :key="g.id">
         <CardRow @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
@@ -10,10 +10,7 @@
             <div class="text-bold">{{ getGuarantorName(g) }}</div>
           </template>
           <template v-slot:text>
-            <ColoredTag
-              :text="$t(getStatus(g))"
-              :status="getStatus(g)"
-            ></ColoredTag>
+            <ColoredTag :text="t(getStatus(g))" :status="getStatus(g)"></ColoredTag>
           </template>
         </CardRow>
         <ConfirmModal
@@ -21,12 +18,12 @@
           @valid="removeGuarantor(g)"
           @cancel="isRemoveGuarantor = false"
         >
-          <span>{{ $t("guarantorlistpage.remove-guarantor") }}</span>
+          <span>{{ t('guarantorlistpage.remove-guarantor') }}</span>
         </ConfirmModal>
       </div>
       <div v-if="hasOneNaturalGuarantor()">
-        <button @click="addNaturalGuarantor()" class="add-guarantor-btn">
-          {{ $t("guarantorlistpage.add-new-guarantor") }}
+        <button @click.once="addNaturalGuarantor()" class="add-guarantor-btn">
+          {{ t('guarantorlistpage.add-new-guarantor') }}
         </button>
       </div>
     </NakedCard>
@@ -36,142 +33,140 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared-next/src/models/User";
-import GuarantorFooter from "../components/footer/GuarantorFooter.vue";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
-import CardRow from "df-shared-next/src/components/CardRow.vue";
-import ProfileContainer from "../components/ProfileContainer.vue";
-import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import useTenantStore from "@/stores/tenant-store";
-import { computed, onBeforeMount, ref } from "vue";
-import { useI18n } from "vue-i18n";
-import { useRouter } from "vue-router";
-import { ToastService } from "@/services/ToastService";
+import { User } from 'df-shared-next/src/models/User'
+import GuarantorFooter from '../components/footer/GuarantorFooter.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
+import CardRow from 'df-shared-next/src/components/CardRow.vue'
+import ProfileContainer from '../components/ProfileContainer.vue'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import useTenantStore from '@/stores/tenant-store'
+import { computed, onBeforeMount, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+import { ToastService } from '@/services/ToastService'
 
-const { t } = useI18n();
-    const store = useTenantStore();
-    const user = computed(() => store.user);
-const router = useRouter();
+const { t } = useI18n()
+const store = useTenantStore()
+const user = computed(() => store.user)
+const router = useRouter()
 
-  const isRemoveGuarantor = ref(false);
+const isRemoveGuarantor = ref(false)
 
-  onBeforeMount(() => {
-    store.setSelectedGuarantor(undefined);
+onBeforeMount(() => {
+  store.setSelectedGuarantor(undefined)
+})
+
+function getGuarantorName(g: Guarantor) {
+  if (g.firstName || g.lastName) {
+    return `${g.firstName || ''} ${g.lastName || ''}`
+  }
+  if (g.typeGuarantor === 'LEGAL_PERSON' && g.legalPersonName) {
+    return g.legalPersonName
+  }
+  return t('guarantorlistpage.guarantor.' + g.typeGuarantor)
+}
+
+function goBack() {
+  if (user.value?.guarantors && user.value?.guarantors.length > 0) {
+    router.push({ name: 'TenantDocuments', params: { substep: '5' } })
+    return
+  }
+  router.push({
+    name: 'GuarantorChoice'
   })
+}
 
-  function getGuarantorName(g: Guarantor) {
-    if (g.firstName || g.lastName) {
-      return `${g.firstName || ""} ${g.lastName || ""}`;
-    }
-    if (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) {
-      return g.legalPersonName;
-    }
-    return t("guarantorlistpage.guarantor." + g.typeGuarantor);
-  }
-
-  function goBack() {
-    if (user.value?.guarantors && user.value?.guarantors.length > 0) {
-      router.push({ name: "TenantDocuments", params: { substep: "5" } });
-      return;
-    }
+function goNext() {
+  if (user.value.applicationType == 'COUPLE') {
+    const cotenant = user.value.apartmentSharing?.tenants.find((t) => t.id != user.value.id) as User
     router.push({
-      name: "GuarantorChoice",
-    });
-  }
-
-  function goNext() {
-    if (user.value.applicationType == "COUPLE") {
-      const cotenant = user.value.apartmentSharing?.tenants.find(
-        (t) => t.id != user.value.id
-      ) as User;
-      router.push({
-        name: "CoTenantDocuments",
-        params: {
-          step: "4",
-          substep: "0",
-          tenantId: cotenant.id.toString(),
-        },
-      });
-      return;
-    }
-    router.push({
-      name: "ValidateFile",
-    });
-  }
-
-  function getStatus(g: Guarantor) {
-    if (!g.documents) {
-      return "";
-    }
-    if (
-      (g.typeGuarantor === "NATURAL_PERSON" && g.documents.length < 5) ||
-      (g.typeGuarantor === "LEGAL_PERSON" && g.documents.length < 2) ||
-      (g.typeGuarantor === "ORGANISM" && g.documents.length < 1)
-    ) {
-      return "INCOMPLETE";
-    }
-
-    const hasDeclined =
-      g.documents?.find((d: DfDocument) => {
-        return d.documentStatus === "DECLINED";
-      }) !== undefined;
-    if (hasDeclined) {
-      return "DECLINED";
-    }
-
-    const hasToProcess =
-      g.documents?.find((d: DfDocument) => {
-        return d.documentStatus === "TO_PROCESS";
-      }) !== undefined;
-    if (hasToProcess) {
-      return "TO_PROCESS";
-    }
-
-    return "VALIDATED";
-  }
-
-  async function editGuarantor(g: Guarantor) {
-    store.setSelectedGuarantor(g);
-    router.push({
-      name: "GuarantorDocuments",
-      params: { substep: "0" },
-    });
-  }
-
-  function removeGuarantor(g: Guarantor) {
-    store.deleteGuarantor(g).then(
-      () => {
-        if (!user.value.guarantors?.length || 0 >= 1) {
-          router.push({ name: "GuarantorChoice" });
-        }
-        isRemoveGuarantor.value = false;
-      },
-      () => {
-        ToastService.error();
+      name: 'CoTenantDocuments',
+      params: {
+        step: '4',
+        substep: '0',
+        tenantId: cotenant.id.toString()
       }
-    );
+    })
+    return
+  }
+  router.push({
+    name: 'ValidateFile'
+  })
+}
+
+function getStatus(g: Guarantor) {
+  if (!g.documents) {
+    return ''
+  }
+  if (
+    (g.typeGuarantor === 'NATURAL_PERSON' && g.documents.length < 5) ||
+    (g.typeGuarantor === 'LEGAL_PERSON' && g.documents.length < 2) ||
+    (g.typeGuarantor === 'ORGANISM' && g.documents.length < 1)
+  ) {
+    return 'INCOMPLETE'
   }
 
-  function hasOneNaturalGuarantor() {
-    return (
-      user.value.guarantors &&
-      user.value.guarantors.length === 1 &&
-      user.value.guarantors[0].typeGuarantor === "NATURAL_PERSON"
-    );
+  const hasDeclined =
+    g.documents?.find((d: DfDocument) => {
+      return d.documentStatus === 'DECLINED'
+    }) !== undefined
+  if (hasDeclined) {
+    return 'DECLINED'
   }
 
-  function addNaturalGuarantor() {
-    store.addNaturalGuarantor().then((data: any) => {
-      router.push(data)
-    });
+  const hasToProcess =
+    g.documents?.find((d: DfDocument) => {
+      return d.documentStatus === 'TO_PROCESS'
+    }) !== undefined
+  if (hasToProcess) {
+    return 'TO_PROCESS'
   }
+
+  return 'VALIDATED'
+}
+
+async function editGuarantor(g: Guarantor) {
+  store.setSelectedGuarantor(g)
+  router.push({
+    name: 'GuarantorDocuments',
+    params: { substep: '0' }
+  })
+}
+
+function removeGuarantor(g: Guarantor) {
+  store.deleteGuarantor(g).then(
+    () => {
+      if (!user.value.guarantors?.length || 0 >= 1) {
+        router.push({ name: 'GuarantorChoice' })
+      }
+      isRemoveGuarantor.value = false
+    },
+    () => {
+      ToastService.error()
+    }
+  )
+}
+
+function hasOneNaturalGuarantor() {
+  return (
+    user.value.guarantors &&
+    user.value.guarantors.length === 1 &&
+    user.value.guarantors[0].typeGuarantor === 'NATURAL_PERSON'
+  )
+}
+
+function addNaturalGuarantor() {
+  store.addNaturalGuarantor().then((data: any) => {
+    router.push(data)
+  })
+}
 </script>
 
 <style scoped lang="scss">
-@import "df-shared-next/src/scss/_variables.scss";
+@import 'df-shared-next/src/scss/_variables.scss';
 
 h2 {
   font-size: 1rem;

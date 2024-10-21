@@ -1,91 +1,94 @@
 <script setup lang="ts">
-import { Field, ErrorMessage } from 'vee-validate';
-import { computed, ref, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
-import { Address } from 'df-shared-next/src/models/Address';
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import UtilsService from '../../services/UtilsService';
-import PropertyPage from './PropertyPage.vue';
-import useOwnerStore from '../../store/owner-store';
+import { Field, ErrorMessage } from 'vee-validate'
+import { computed, ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import { Address } from 'df-shared-next/src/models/Address'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import UtilsService from '../../services/UtilsService'
+import PropertyPage from './PropertyPage.vue'
+import useOwnerStore from '../../store/owner-store'
+import AnalyticsService from '../../services/AnalyticsService'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const route = useRoute();
-const router = useRouter();
-const store = useOwnerStore();
-const debounce = 300;
+const route = useRoute()
+const router = useRouter()
+const store = useOwnerStore()
+const debounce = 300
 
-const id = ref(0);
+const id = ref(0)
 
-const autocompleteRef = ref();
-let timeout: NodeJS.Timeout;
-const inputWidth = ref(0);
-const showResults = ref(true);
-const addresses = ref<Array<Address>>([]);
+const autocompleteRef = ref()
+let timeout: number
+const inputWidth = ref(0)
+const showResults = ref(true)
+const addresses = ref<Array<Address>>([])
 
 if (route.params.id) {
-  id.value = Number(route.params.id);
-  store.updatePropertyToEdit(Number(id.value));
+  id.value = Number(route.params.id)
+  store.updatePropertyToEdit(Number(id.value))
 }
 
 onMounted(() => {
-  inputWidth.value = autocompleteRef.value.offsetWidth - 2;
-});
+  inputWidth.value = autocompleteRef.value.offsetWidth - 2
+})
 
 const address = computed({
   get() {
-    return store.getPropertyToEdit?.address || '';
+    return store.getPropertyToEdit?.address || ''
   },
   set(val: string) {
-    store.setAddress(val);
-  },
-});
+    store.setAddress(val)
+  }
+})
 
 function onSubmit() {
+  AnalyticsService.propertyData('adresse_register')
   store.saveProperty().then(() => {
     router.push({
       name: 'PropertyFurniture',
-      params: { id: store.getPropertyToEdit.id },
-    });
-  });
+      params: { id: store.getPropertyToEdit.id }
+    })
+  })
 }
 
 function onBack() {
   router.push({
     name: 'PropertyType',
-    params: { id: store.getPropertyToEdit.id },
-  });
+    params: { id: store.getPropertyToEdit.id }
+  })
 }
 
 function displayResults() {
-  showResults.value = true;
+  showResults.value = true
 }
 function hideResults() {
-  showResults.value = false;
+  showResults.value = false
 }
-const shouldShowResults = computed(() => showResults.value && addresses.value.length > 0);
+const shouldShowResults = computed(() => showResults.value && addresses.value.length > 0)
 
 function updateAddresses(value: string) {
-  UtilsService.getAddresses(value).then((res: any) => {
+  UtilsService.getAddresses(value).then((res) => {
     if (res.data.type === 'FeatureCollection') {
-      addresses.value = res.data.features;
-      displayResults();
+      addresses.value = res.data.features
+      displayResults()
     }
-    return res.data;
-  });
+    return res.data
+  })
 }
 
-function handleInput(e: any) {
-  clearTimeout(timeout);
+function handleInput(e: Event) {
+  clearTimeout(timeout)
   timeout = setTimeout(() => {
-    updateAddresses(e.target.value);
-  }, debounce);
+    const input = e.target instanceof HTMLInputElement ? e.target.value : ''
+    updateAddresses(input)
+  }, debounce)
 }
 
 function clickItem(data: Address) {
-  store.setAddress(data.properties.label);
-  showResults.value = false;
+  store.setAddress(data.properties.label)
+  showResults.value = false
 }
 </script>
 
@@ -102,7 +105,7 @@ function clickItem(data: Address) {
           v-model="address"
           v-slot="{ field, meta }"
           :rules="{
-            required: true,
+            required: true
           }"
         >
           <input
@@ -111,7 +114,7 @@ function clickItem(data: Address) {
             class="validate-required form-control fr-input"
             :class="{
               'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid,
+              'fr-input--error': !meta.valid
             }"
             :placeholder="'42 rue de la paix'"
             @input="handleInput"

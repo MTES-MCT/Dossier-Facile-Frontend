@@ -1,93 +1,99 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import useOwnerStore from '../../store/owner-store';
+import { useI18n } from 'vue-i18n'
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
+import { computed, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import useOwnerStore from '../../store/owner-store'
 
-const { t } = useI18n();
-const store = useOwnerStore();
-const route = useRoute();
+const { t } = useI18n()
+const store = useOwnerStore()
+const route = useRoute()
 
-const td0 = ref(null);
-const td1 = ref(null);
-const td2 = ref(null);
-const td3 = ref(null);
-const td4 = ref(null);
-const td5 = ref(null);
-const td6 = ref(null);
-const tds = [td0, td1, td2, td3, td4, td5, td6];
-const tcontainer = ref(null);
+const td0 = ref(null)
+const td1 = ref(null)
+const td2 = ref(null)
+const td3 = ref(null)
+const td4 = ref(null)
+const td5 = ref(null)
+const td6 = ref(null)
+const tds = [td0, td1, td2, td3, td4, td5, td6]
+const tcontainer = ref(null)
 
 onMounted(() => {
-  let left = 0;
+  let left = 0
   if (route.meta.position === undefined) {
-    return;
+    return
   }
-  const tdx = tds[route.meta.position as number];
-  const tcontainerval = tcontainer.value as any;
-  const tdxval = tdx.value as any;
+  const tdx = tds[route.meta.position as number]
+  const tcontainerval = tcontainer.value as any
+  const tdxval = tdx.value as any
   if (
-    tdx === undefined
-    || tdx.value === null
-    || tdxval.offsetLeft === null
-    || tcontainer.value === null
-    || tcontainerval.offsetWidth === null
+    tdx === undefined ||
+    tdx.value === null ||
+    tdxval.offsetLeft === null ||
+    tcontainer.value === null ||
+    tcontainerval.offsetWidth === null
   ) {
-    return;
+    return
   }
-  left = tdxval.offsetLeft - (tcontainerval.offsetWidth - tdxval.offsetWidth) / 2;
-  tcontainerval.scrollTo(left, 0);
-});
+  left = tdxval.offsetLeft - (tcontainerval.offsetWidth - tdxval.offsetWidth) / 2
+  tcontainerval.scrollTo(left, 0)
+})
 
-const propertyName = computed(() => store.getPropertyToEdit?.name);
+const propertyName = computed(() => store.getPropertyToEdit?.name)
 
-const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS'));
-const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'));
-const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'));
-const diagnosticStatus = computed(() => (store.getPropertyToEdit?.co2Emission && store.getPropertyToEdit?.energyConsumption > 0
-  ? 'FILLED'
-  : 'TO_PROCESS'));
-const furnitureStatus = computed(() => (store.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS'));
-const livingSpaceStatus = computed(() => (store.getPropertyToEdit?.livingSpace ? 'FILLED' : 'TO_PROCESS'));
+const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS'))
+const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'))
+const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'))
+const diagnosticStatus = computed(() =>
+  store.getPropertyToEdit?.co2Emission && store.getPropertyToEdit?.energyConsumption > 0
+    ? 'FILLED'
+    : 'TO_PROCESS'
+)
+const furnitureStatus = computed(() =>
+  store.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS'
+)
+const livingSpaceStatus = computed(() =>
+  store.getPropertyToEdit?.livingSpace ? 'FILLED' : 'TO_PROCESS'
+)
 
-const id = Number(route.params.id);
-const getParams = id ? { id } : {};
+const id = Number(route.params.id)
+const getParams = id ? { id } : {}
 
 const step = computed(() => {
   if (route.name === 'AccountName') {
-    return 0;
+    return 0
   }
   if (route.name === 'ValidateProperty') {
-    return 2;
+    return 2
   }
-  return 1;
-});
+  return 1
+})
 
-const substep = computed(() => route.meta.position);
+const substep = computed(() => route.meta.position)
 
 function getStepTitle() {
   if (step.value === 0) {
-    return t('topmenu.personal-information');
+    return t('topmenu.personal-information')
   }
   if (step.value === 2) {
-    return t('topmenu.validate-property');
+    return t('topmenu.validate-property')
   }
-  return t('topmenu.edit-property');
+  return t('topmenu.edit-property')
 }
 
 function getClass(s: number) {
-  let res = '';
+  let res = ''
   if (step.value !== s) {
-    res = 'small';
+    res = 'small'
   }
   if (step.value === 1 && s === 1) {
-    res = `${res} rad${substep.value}`;
+    res = `${res} rad${substep.value}`
   }
   if (step.value === s) {
-    return `${res} active`;
+    return `${res} active`
   }
-  return res;
+  return res
 }
 </script>
 

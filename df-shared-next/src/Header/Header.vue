@@ -76,15 +76,16 @@
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton
-                    size="small"
-                    class="fr-external-link"
+                  <a
+                    class="fr-external-link fr-btn fr-btn--sm"
+                    href="https://partenaire.dossierfacile.logement.gouv.fr"
+                    target="_blank"
+                    rel="noopener"
                     :title="t('partner-link-title')"
-                    @on-click="gotToPartner"
                   >
                     <i class="ri-home-heart-line" aria-hidden="true"></i>
                     {{ t("partner") }}
-                  </DfButton>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -153,15 +154,16 @@
               </DfButton>
             </li>
             <li v-if="!loggedIn">
-              <DfButton
-                size="small"
-                class="fr-external-link"
+              <a
+                class="fr-external-link fr-btn fr-btn--sm"
+                href="https://partenaire.dossierfacile.logement.gouv.fr"
+                target="_blank"
+                rel="noopener"
                 :title="t('partner-link-title')"
-                @on-click="gotToPartner"
               >
                 <i class="ri-home-heart-line" aria-hidden="true"></i>
                 {{ t("partner") }}
-              </DfButton>
+              </a>
             </li>
           </ul>
         </div>
@@ -179,14 +181,13 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults } from "vue";
 import DfButton from "../Button/Button.vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     loggedIn?: boolean;
     lang?: string;
@@ -197,7 +198,7 @@ const props = withDefaults(
     loggedIn: false,
     lang: "fr",
     showAccessibility: false,
-    type: "tenant"
+    type: "tenant",
   }
 );
 
@@ -205,7 +206,7 @@ const emit = defineEmits([
   "on-login",
   "on-access-tenant",
   "on-access-owner",
-  "on-logout"
+  "on-logout",
 ]);
 
 function onLogin() {
@@ -222,10 +223,6 @@ function onAccessTenant() {
 
 function onAccessOwner() {
   emit("on-access-owner");
-}
-
-function gotToPartner() {
-  window.open("https://partenaire.dossierfacile.logement.gouv.fr", "_blank");
 }
 </script>
 

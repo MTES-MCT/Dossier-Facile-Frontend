@@ -54,7 +54,7 @@ describe("couple tenant scenario", () => {
 
     cy.expectPath("/4/2");
     cy.get("#select")
-      .select("Dans une autre situation (sans-abri, logement de fonction, etc.)");
+      .select("Dans une autre situation (sans-abri, etc.)");
     cy.get("#customText")
       .type("Test text")
       .clickOnNext();
@@ -66,6 +66,8 @@ describe("couple tenant scenario", () => {
     cy.contains("Bourses").click();
     cy.get("#monthlySum").type("2000");
     cy.get("#noDocument").click({ force: true });
+    cy.get("#customText").type("Test text");
+
     cy.clickOnNext();
 
     cy.clickOnNext();

@@ -5,7 +5,7 @@
     "behaviour-2": "Les fichiers originaux seront <strong>effacés de nos serveurs après la génération</strong> du fichier filigrané.",
     "behaviour-3": "Le fichier filigrané sera <strong>effacé de nos serveurs après le premier téléchargement</strong> (ou au bout d'un jour s'il n'y a pas eu de téléchargement).",
     "add-file-label": "Sélectionner des fichiers :",
-    "supported-file-format": "Formats supportés : jpg, png, pdf.",
+    "supported-file-format": "Formats supportés : jpg, png, heic, pdf.",
     "submit": "Ajouter le filigrane",
     "subtitle-cnil": "L’ajout d’un filigrane sur vos documents est une bonne pratique mais certains organismes peuvent avoir besoin d’un document vierge (banques, services publics, etc.)",
     "wait": "Veuillez patienter",

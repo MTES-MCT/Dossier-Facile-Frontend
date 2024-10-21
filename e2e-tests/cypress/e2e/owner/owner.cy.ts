@@ -40,10 +40,9 @@ describe("basic owner scenario", () => {
       .type("50")
       .clickOnNext();
 
-    cy.get('input[name="energy"]').type("350");
-    cy.get('input[name="co2"]').type("130");
-    cy.contains("Enregistrer").click();
-    cy.contains("Mon DPE en détail : ").should("be.visible");
+    cy.get('input[name="dpe"]').type("2386E2170938A");
+    cy.contains("Rechercher").click();
+    cy.contains("Mon DPE en détail").should("be.visible");
 
     cy.clickOnNext();
 

@@ -19,7 +19,7 @@
         :cy="radius + 6"
       />
       <text x="22" y="25" class="small" text-anchor="middle">
-        {{ Math.floor(percentage) + "%" }}
+        {{ Math.floor(percentage) + '%' }}
       </text>
     </svg>
     <svg v-if="state === 'done'" width="42" height="42" viewBox="0 0 24 24">
@@ -41,35 +41,36 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 
-
-  const props = withDefaults(defineProps<{
-    percentage: number;
-    color?: string;
-    errorColor?: string;
-    state?: string;
-  }>(), {
+const props = withDefaults(
+  defineProps<{
+    percentage: number
+    color?: string
+    errorColor?: string
+    state?: string
+  }>(),
+  {
     percentage: 0,
-    color: "#42b983",
-    errorColor: "#f66",
-    state: "pending",
-  });
-
-  const radius = 16;
-  const circumference = radius * 2 * Math.PI;
-  const strokeDashoffset = ref(circumference);
-
-
-  // TODO
-  // @Watch("percentage")
-  function onPercentageChanged(val: number, oldVal: number) {
-    const offset = circumference - (val / 100) * circumference;
-    strokeDashoffset.value = offset;
+    color: '#42b983',
+    errorColor: '#f66',
+    state: 'pending'
   }
-  onMounted(() => {
-    onPercentageChanged(props.percentage, 0);
-  })
+)
+
+const radius = 16
+const circumference = radius * 2 * Math.PI
+const strokeDashoffset = ref(circumference)
+
+// TODO
+// @Watch("percentage")
+function onPercentageChanged(val: number, oldVal: number) {
+  const offset = circumference - (val / 100) * circumference
+  strokeDashoffset.value = offset
+}
+onMounted(() => {
+  onPercentageChanged(props.percentage, 0)
+})
 </script>
 
 <style scoped lang="scss">

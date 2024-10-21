@@ -3,21 +3,23 @@
     <div class="bg-pic position--absolute"></div>
     <div class="fr-container position--relative mt-100 fr-mb-5w">
       <div class="fr-grid-row space-between fr-mb-3w">
-        <div class="fr-grid-row">
-          <router-link
-            :title="t('consultproperty.back-label')"
-            class="fr-btn btn--white fr-btn--secondary"
-            to="/"
-            >{{ t('consultproperty.back') }}</router-link
-          >
+        <div ref="headContainer" class="head-container">
+          <div>
+            <router-link
+              :title="t('consultproperty.back-label')"
+              class="fr-btn btn--white fr-btn--secondary"
+              to="/"
+              >{{ t('consultproperty.back') }}</router-link
+            >
+          </div>
           <div class="title">{{ name }}</div>
-        </div>
-        <div class="fr-grid-row">
+          <div class="spacer"></div>
           <VGouvFrModal id="share-modal">
             <template v-slot:button>
               <button
                 :title="t('consultproperty.share-btn')"
                 class="fr-btn btn--white fr-btn--secondary"
+                @click="shareBtnClicked()"
               >
                 {{ t('consultproperty.share-btn') }}
               </button>
@@ -47,14 +49,14 @@
           <button
             :title="t('consultproperty.update-btn')"
             @click="editProperty()"
-            class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
+            class="fr-btn btn--white fr-btn--secondary"
           >
             {{ t('consultproperty.modify-property') }}
           </button>
           <button
             :title="t('consultproperty.delete-btn')"
-            class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
-            @click="confirmDeleteProperty = true"
+            class="fr-btn btn--white fr-btn--secondary"
+            @click="showDeletePropertyModal()"
           >
             {{ t('consultproperty.delete-property') }}
           </button>
@@ -77,7 +79,7 @@
               v-html="
                 `${t(titleKey)} ${t('consultproperty.rent', {
                   rentCost: p.rentCost,
-                  chargesCost: p.chargesCost,
+                  chargesCost: p.chargesCost
                 })}`
               "
             ></div>
@@ -86,7 +88,11 @@
       </NakedCard>
       <NakedCard class="fr-mt-3w">
         <h1 class="fr-h4">
-          {{ t('consultproperty.verified-applicants', { count: verifiedApplicantsCount }) }}
+          {{
+            t('consultproperty.verified-applicants', {
+              count: verifiedApplicantsCount
+            })
+          }}
         </h1>
         <div class="delete-btn-container">
           <button
@@ -194,7 +200,7 @@
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
               <td @click="setShowTenant(tenant, k)">
-                <div v-if="tenant.rate == 100">
+                <div v-if="tenant.rate === -1">
                   {{ t('consultproperty.no-income') }}
                 </div>
                 <div v-else>
@@ -232,179 +238,191 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue';
-import { Composer, useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue';
-import VGouvFrModal from 'df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
-import { useToast } from 'vue-toastification';
-import { format } from 'date-fns';
-import { enUS, fr } from 'date-fns/locale';
-import PropertyIcon from './PropertyIcon.vue';
-import i18n from '../../i18n';
-import Applicant from './Applicant';
-import UtilsService from '../../services/UtilsService';
-import useOwnerStore from '../../store/owner-store';
-import AnalyticsService from '../../services/AnalyticsService';
+import { computed, ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import VGouvFrModal from 'df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue'
+import { useToast } from 'vue-toastification'
+import { format } from 'date-fns'
+import { enUS, fr } from 'date-fns/locale'
+import PropertyIcon from './PropertyIcon.vue'
+import i18n from '../../i18n'
+import Applicant from './Applicant'
+import UtilsService from '../../services/UtilsService'
+import useOwnerStore from '../../store/owner-store'
+import AnalyticsService from '../../services/AnalyticsService'
 
-const { t } = useI18n();
-const confirmDeleteProperty = ref(false);
-const confirmDeleteApplicants = ref(false);
+const { t } = useI18n()
+const confirmDeleteProperty = ref(false)
+const confirmDeleteApplicants = ref(false)
 
-const route = useRoute();
-const router = useRouter();
-const store = useOwnerStore();
-const toast = useToast();
+const route = useRoute()
+const router = useRouter()
+const store = useOwnerStore()
+const toast = useToast()
 
-const sortColumn = ref('');
-const ascending = ref(false);
-const tenantIdToShow = ref(-1);
-const selectedApplicants = ref([]);
+const sortColumn = ref('')
+const ascending = ref(false)
+const tenantIdToShow = ref(-1)
+const selectedApplicants = ref([])
 
-const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`;
-const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`;
+const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`
+const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
 const token = computed(() => {
   if (import.meta.env.VITE_NEW_SHARE_LINK === 'true') {
-    return `${OWNER_URL}/candidater/${store.getPropertyToConsult?.token}`;
+    return `${OWNER_URL}/candidater/${store.getPropertyToConsult?.token}`
   }
-  return `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`;
-});
-const name = computed(() => store.getPropertyToConsult?.name);
-const p = computed(() => store.getPropertyToConsult);
-const propertyType = computed(() => store.getPropertyToConsult?.type);
-const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture);
+  return `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`
+})
+const name = computed(() => store.getPropertyToConsult?.name)
+const p = computed(() => store.getPropertyToConsult)
+const propertyType = computed(() => store.getPropertyToConsult?.type)
+const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture)
 
-const tenants = ref<Array<Applicant>>([]);
+const tenants = ref<Array<Applicant>>([])
 
-const id = ref(0);
+const id = ref(0)
 
 function getTenants(): Applicant[] {
   return UtilsService.getTenants(p.value).sort((a: any, b: any) => {
     if (a[sortColumn.value] < b[sortColumn.value]) {
-      return ascending.value ? 1 : -1;
+      return ascending.value ? 1 : -1
     }
     if (a[sortColumn.value] > b[sortColumn.value]) {
-      return ascending.value ? -1 : 1;
+      return ascending.value ? -1 : 1
     }
-    return 0;
-  });
+    return 0
+  })
+}
+
+function shareBtnClicked() {
+  AnalyticsService.propertyData('partager')
 }
 
 onMounted(async () => {
   if (route.params.id) {
-    id.value = Number(route.params.id);
-    await store.updatePropertyToConsult(id.value);
+    id.value = Number(route.params.id)
+    await store.updatePropertyToConsult(id.value)
     if (Object.keys(store.getPropertyToConsult).length <= 0) {
-      router.push({ name: 'Dashboard' });
+      router.push({ name: 'Dashboard' })
     } else {
-      tenants.value = getTenants();
+      tenants.value = getTenants()
     }
   } else {
-    router.push({ name: 'Dashboard' });
+    router.push({ name: 'Dashboard' })
   }
-});
+})
 
 const titleKey = computed(() => {
   if (propertyType.value === 'HOUSE') {
     if (propertyFurnished.value === 'FURNISHED') {
-      return 'house-furnished';
+      return 'house-furnished'
     }
-    return 'house-unfurnished';
+    return 'house-unfurnished'
   }
   if (propertyType.value === 'APARTMENT') {
     if (propertyFurnished.value === 'FURNISHED') {
-      return 'apartment-furnished';
+      return 'apartment-furnished'
     }
-    return 'apartment-unfurnished';
+    return 'apartment-unfurnished'
   }
   if (propertyFurnished.value === 'FURNISHED') {
-    return 'other-furnished';
+    return 'other-furnished'
   }
-  return 'other-unfurnished';
-});
+  return 'other-unfurnished'
+})
 
 function editProperty() {
-  router.push({ name: 'PropertyName', params: { id: id.value } });
+  AnalyticsService.propertyData('modifier')
+  router.push({ name: 'PropertyName', params: { id: id.value } })
 }
 
 function sortTable(col: string) {
   if (sortColumn.value === col) {
-    ascending.value = !ascending.value;
+    ascending.value = !ascending.value
   } else {
-    sortColumn.value = col;
-    ascending.value = true;
+    sortColumn.value = col
+    ascending.value = true
   }
 }
 
+function showDeletePropertyModal() {
+  confirmDeleteProperty.value = true
+  AnalyticsService.propertyData('supprimer')
+}
+
 function validDeleteFile() {
+  AnalyticsService.propertyData('supprimer_valider')
   store.deleteProperty(id.value).then(() => {
-    router.push({ name: 'Dashboard' });
-  });
-  confirmDeleteProperty.value = false;
+    router.push({ name: 'Dashboard' })
+  })
+  confirmDeleteProperty.value = false
 }
 function undoDeleteFile() {
-  confirmDeleteProperty.value = false;
+  AnalyticsService.propertyData('supprimer_annuler')
+  confirmDeleteProperty.value = false
 }
 function validDeleteApplicants() {
   store.deleteApplicants(selectedApplicants.value).then(() => {
-    selectedApplicants.value = [];
-    store.updatePropertyToConsult(id.value);
-    tenants.value = getTenants();
-  });
-  confirmDeleteApplicants.value = false;
+    selectedApplicants.value = []
+    store.updatePropertyToConsult(id.value)
+    tenants.value = getTenants()
+  })
+  confirmDeleteApplicants.value = false
 }
 function undoDeleteApplicants() {
-  confirmDeleteApplicants.value = false;
+  confirmDeleteApplicants.value = false
 }
 
 function copyToken() {
-  AnalyticsService.copyLink();
-  navigator.clipboard.writeText(token.value);
+  AnalyticsService.propertyData('partager_copylink')
+  navigator.clipboard.writeText(token.value)
   toast.success(t('consultproperty.link-copied').toString(), {
-    timeout: 7000,
-  });
+    timeout: 7000
+  })
 }
 
 const verifiedApplicantsCount = computed(
-  () => tenants.value.filter((u: Applicant) => u.status === 'VALIDATED').length,
-);
+  () => tenants.value.filter((u: Applicant) => u.status === 'VALIDATED').length
+)
 
 function formatDate(date: Date) {
   return format(date, 'dd MMMM yyyy', {
-    locale: (i18n.global as unknown as Composer).locale.value === 'fr' ? fr : enUS,
-  });
+    locale: i18n.global.locale.value === 'fr' ? fr : enUS
+  })
 }
 
 function setShowTenant(applicant: Applicant, tenantId: number) {
   if (applicant.status !== 'VALIDATED') {
-    return;
+    return
   }
   if (tenantIdToShow.value === tenantId) {
-    tenantIdToShow.value = -1;
+    tenantIdToShow.value = -1
   } else {
-    tenantIdToShow.value = tenantId;
+    tenantIdToShow.value = tenantId
   }
 }
 
 function getTenantClass(applicant: Applicant) {
   switch (applicant.status) {
     case 'VALIDATED':
-      return 'validated';
+      return 'validated'
     case 'DECLINED':
-      return 'declined';
+      return 'declined'
     case 'TO_PROCESS':
-      return 'to-process';
+      return 'to-process'
     default:
-      return '';
+      return ''
   }
 }
 
 function getRateClass(applicant: Applicant) {
-  if ((applicant?.rate || 100) < 30) {
-    return 'good';
+  if ((applicant?.rate || 100) < 30 && applicant?.rate !== -1) {
+    return 'good'
   }
-  return '';
+  return ''
 }
 </script>
 
@@ -420,6 +438,9 @@ function getRateClass(applicant: Applicant) {
     url('../../assets/salon.webp');
   background-color: #314467;
   z-index: 0;
+  @media (max-width: 768px) {
+    height: 550px;
+  }
 }
 
 .mt-100 {
@@ -442,9 +463,12 @@ function getRateClass(applicant: Applicant) {
 
 .title {
   color: white;
-  margin-left: 2rem;
   font-size: 2rem;
   line-height: 2rem;
+}
+
+.left-auto {
+  margin-left: auto;
 }
 
 .md-24 {
@@ -607,11 +631,27 @@ tr {
   margin-right: 0;
   text-align: right;
 }
+
+.spacer {
+  flex-grow: 1;
+}
+
+.head-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 1rem;
+  @media all and (max-width: 768px) {
+    flex-direction: column;
+  }
+}
 </style>
 
 <style lang="scss">
 .v-gouv-fr-modal {
-  >a {
+  > a {
     background-image: none;
   }
 }

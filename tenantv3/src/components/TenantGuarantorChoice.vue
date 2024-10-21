@@ -5,21 +5,19 @@
         <NakedCard class="fr-p-md-5w">
           <div class="text-bold fr-mb-1w">
             <h1 class="fr-h5">
-              {{ $t("guarantorchoice.add-guarantor") }}
+              {{ t('guarantorchoice.add-guarantor') }}
             </h1>
           </div>
           <div class="fr-mt-3w">
-            <p v-html="$t('tenantguarantorchoice.optional-guarantor')"></p>
+            <p v-html="t('tenantguarantorchoice.optional-guarantor')"></p>
             <div class="fr-alert fr-alert--info">
-              <p
-                v-html="$t('tenantguarantorchoice.two-guarantors-warning')"
-              ></p>
+              <p v-html="t('tenantguarantorchoice.two-guarantors-warning')"></p>
             </div>
           </div>
         </NakedCard>
         <NakedCard class="fr-p-md-5w fr-mt-3w">
           <div class="fr-mb-2w">
-            {{ $t("tenantguarantorchoice.ask-guarantor") }}
+            {{ t('tenantguarantorchoice.ask-guarantor') }}
           </div>
 
           <GuarantorTypeSelector
@@ -29,107 +27,102 @@
           >
           </GuarantorTypeSelector>
         </NakedCard>
-        <div
-          v-if="tmpGuarantorType === 'NO_GUARANTOR'"
-          class="bg-purple fr-mt-3w fr-mb-5w fr-p-5w"
-        >
+        <div v-if="tmpGuarantorType === 'NO_GUARANTOR'" class="bg-purple fr-mt-3w fr-mb-5w fr-p-5w">
           <div class="fr-grid-row space-between">
             <div class="fr-h5">
-              {{ $t("tenantguarantorchoice.visale-title") }}
+              {{ t('tenantguarantorchoice.visale-title') }}
             </div>
-            <img
-              alt="logo visale"
-              class="logo-visale"
-              src="../assets/visale.svg"
-            />
+            <img alt="logo visale" class="logo-visale" src="../assets/visale.svg" />
           </div>
-          <p>{{ $t("tenantguarantorchoice.visale-text") }}</p>
+          <p>{{ t('tenantguarantorchoice.visale-text') }}</p>
           <div style="text-align: right">
             <DfButton :primary="true" @on-click="gotoVisale()">
-              {{ $t("tenantguarantorchoice.visale-btn") }}
+              {{ t('tenantguarantorchoice.visale-btn') }}
             </DfButton>
           </div>
         </div>
       </div>
 
-      <GuarantorFooter
-        @on-back="goBack"
-        @on-next="setGuarantorType"
-      ></GuarantorFooter>
+      <GuarantorFooter @on-back="goBack" @on-next="setGuarantorType"></GuarantorFooter>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import DfButton from "df-shared-next/src/Button/Button.vue";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import { AnalyticsService } from "../services/AnalyticsService";
-import GuarantorFooter from "./footer/GuarantorFooter.vue";
-import GuarantorTypeSelector from "@/components/GuarantorTypeSelector.vue";
-import { ToastService } from "@/services/ToastService";
-import { onBeforeMount, onUpdated, ref } from "vue";
-import useTenantStore from "@/stores/tenant-store";
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { AnalyticsService } from '../services/AnalyticsService'
+import GuarantorFooter from './footer/GuarantorFooter.vue'
+import GuarantorTypeSelector from '@/components/GuarantorTypeSelector.vue'
+import { ToastService } from '@/services/ToastService'
+import { onBeforeMount, onUpdated, ref } from 'vue'
+import useTenantStore from '@/stores/tenant-store'
+import { useI18n } from 'vue-i18n'
 
-  const props = withDefaults(defineProps<{
-    tenantId: number;
-    isCotenant: boolean;
-  }>(), {
+const props = withDefaults(
+  defineProps<{
+    tenantId: number
+    isCotenant: boolean
+  }>(),
+  {
     isCotenant: false
-  })
-  const emit = defineEmits(["on-back", "on-select"]);
-  const store = useTenantStore();
-
-  const tmpGuarantorType = ref("");
-const guarantorbodycontent = ref();
-
-  onBeforeMount(() => {
-    store.updateSelectedGuarantor(props.tenantId);
-  })
-
-  onUpdated(() => {
-    scrollToEnd();
-  })
-
-  function scrollToEnd() {
-    guarantorbodycontent.value?.scrollIntoView({ behavior: "smooth", block: "end" });
   }
+)
+const emit = defineEmits(['on-back', 'on-select'])
+const store = useTenantStore()
+const { t } = useI18n()
 
-  function setGuarantorType() {
-    if (!tmpGuarantorType.value) {
-      ToastService.error("tenantguarantorchoice.type-required");
-      return;
-    }
-    AnalyticsService.addGuarantor(tmpGuarantorType.value);
-    if (tmpGuarantorType.value === "NO_GUARANTOR") {
-      emit("on-select", tmpGuarantorType.value);
-    } else {
-      store
-        .setGuarantorType({
-          tenantId: props.tenantId.toString(),
-          typeGuarantor: tmpGuarantorType.value,
-        })
-        .then(
-          () => {
-            emit("on-select", tmpGuarantorType.value);
-          },
-          () => {
-            ToastService.error("try-again");
-          }
-        );
-    }
-  }
+const tmpGuarantorType = ref('')
+const guarantorbodycontent = ref()
 
-  function goBack() {
-    emit("on-back");
-  }
+onBeforeMount(() => {
+  store.updateSelectedGuarantor(props.tenantId)
+})
 
-  function gotoVisale() {
-    window.open("https://www.visale.fr", "_blank");
+onUpdated(() => {
+  scrollToEnd()
+})
+
+function scrollToEnd() {
+  guarantorbodycontent.value?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+}
+
+function setGuarantorType() {
+  if (!tmpGuarantorType.value) {
+    ToastService.error('tenantguarantorchoice.type-required')
+    return
   }
+  AnalyticsService.addGuarantor(tmpGuarantorType.value)
+  if (tmpGuarantorType.value === 'NO_GUARANTOR') {
+    emit('on-select', tmpGuarantorType.value)
+  } else {
+    store
+      .setGuarantorType({
+        tenantId: props.tenantId.toString(),
+        typeGuarantor: tmpGuarantorType.value
+      })
+      .then(
+        () => {
+          emit('on-select', tmpGuarantorType.value)
+        },
+        () => {
+          ToastService.error('try-again')
+        }
+      )
+  }
+}
+
+function goBack() {
+  emit('on-back')
+}
+
+function gotoVisale() {
+  window.open('https://www.visale.fr', '_blank')
+}
 </script>
 
 <style scoped lang="scss">
-@import "df-shared-next/src/scss/_variables.scss";
+@import 'df-shared-next/src/scss/_variables.scss';
 
 .remark {
   background-color: #e5e5f4;

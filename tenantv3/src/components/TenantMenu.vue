@@ -6,21 +6,18 @@
         class="fr-nav__link"
         :aria-current="currentPage === 'Messages' ? 'page' : undefined"
       >
-        {{ t("menu.messaging") }}
+        {{ t('menu.messaging') }}
         <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
       </router-link>
     </li>
     <li class="fr-nav__item" v-else>
-      <a
-        :href="`${MAIN_URL}/information`"
-        class="fr-nav__link"
-      >
-        {{ t("menu.information") }}
+      <a :href="`${MAIN_URL}/information`" class="fr-nav__link">
+        {{ t('menu.information') }}
       </a>
     </li>
     <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
-        {{ t("menu.blog") }}
+        {{ t('menu.blog') }}
       </a>
     </li>
     <li class="fr-nav__item">
@@ -30,7 +27,7 @@
         target="_blank"
         rel="noreferrer"
       >
-        {{ t("menu.help") }}
+        {{ t('menu.help') }}
       </a>
     </li>
     <li class="fr-nav__item break" v-show="isLoggedIn">
@@ -40,7 +37,7 @@
         aria-controls="menu-774"
         :aria-current="currentPage === 'Account' ? true : undefined"
       >
-        {{ t("menu.account") }}
+        {{ t('menu.account') }}
       </button>
       <div class="fr-collapse fr-menu" id="menu-774">
         <ul class="fr-menu__list">
@@ -51,7 +48,7 @@
               target="_self"
               :aria-current="currentPage === 'Account' ? 'page' : undefined"
             >
-              {{ t("menu.file") }}
+              {{ t('menu.file') }}
               <br />
               <span class="fr-label--disabled fr-text--xs">
                 {{ user.email }}
@@ -65,7 +62,7 @@
               target="_self"
               :aria-current="currentPage === 'PartnerAccessPage' ? 'page' : undefined"
             >
-              {{ $t("menu.partners") }}
+              {{ t('menu.partners') }}
             </router-link>
           </li>
           <li>
@@ -75,7 +72,7 @@
               target="_self"
               :aria-current="currentPage === 'SharingPage' ? 'page' : undefined"
             >
-              {{ t("menu.applications") }}
+              {{ t('menu.applications') }}
             </router-link>
           </li>
           <li>
@@ -85,7 +82,7 @@
               aria-controls="modal-delete-account"
               style="visibility: none"
             >
-              {{ t("menu.deleteAccount") }}
+              {{ t('menu.deleteAccount') }}
             </DfButton>
           </li>
         </ul>
@@ -98,7 +95,7 @@
         class="fr-nav__link"
       >
         <span class="fr-icon-mail-line fr-icon--sm" aria-hidden="true"></span>
-        {{ t("menu.contact-us") }}
+        {{ t('menu.contact-us') }}
       </router-link>
     </li>
     <li class="fr-nav__item fr-translate">
@@ -108,42 +105,41 @@
 </template>
 
 <script setup lang="ts">
-import DfButton from "df-shared-next/src/Button/Button.vue";
-import LanguageSelector from "df-shared-next/src/Header/LanguageSelector.vue";
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
 
-import { useI18n, type Composer } from "vue-i18n";
-import { computed } from "vue";
-import useTenantStore from "@/stores/tenant-store";
-import i18n from "@/i18n";
-import { useRoute } from "vue-router";
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
+import useTenantStore from '@/stores/tenant-store'
+import i18n from '@/i18n'
+import { useRoute } from 'vue-router'
 
-const { t } = useI18n();
-const store = useTenantStore();
-const user = computed(() => store.user);
-const isLoggedIn = computed(() => store.isLoggedIn);
-const newMessage = computed(() => store.getNewMessage);
-const messageList = computed(() => store.getMessages);
-const partners = computed(() => store.partnerAccesses);
+const { t } = useI18n()
+const store = useTenantStore()
+const user = computed(() => store.user)
+const isLoggedIn = computed(() => store.isLoggedIn)
+const newMessage = computed(() => store.getNewMessage)
+const messageList = computed(() => store.getMessages)
+const partners = computed(() => store.partnerAccesses)
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
-const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
-const route = useRoute();
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
+const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
+const route = useRoute()
 
 const currentPage = computed(() => {
-  return route.name;
-});
+  return route.name
+})
 
-const lang: string = (i18n.global as unknown as Composer).locale.value;
+const lang = i18n.global.locale.value
 
-  function showMessaging() {
-    return (
-      (isLoggedIn.value === true && user.value.status !== "INCOMPLETE") ||
-      (messageList.value[user.value.id] !== undefined &&
-        messageList.value[user.value.id].length > 0)
-    );
-  }
-function changeLang(lang: string) {
-  store.setLang(lang);
+function showMessaging() {
+  return (
+    (isLoggedIn.value === true && user.value.status !== 'INCOMPLETE') ||
+    (messageList.value[user.value.id] !== undefined && messageList.value[user.value.id].length > 0)
+  )
+}
+function changeLang(lang: 'fr' | 'en') {
+  store.setLang(lang)
 }
 </script>
 
@@ -169,7 +165,7 @@ function changeLang(lang: string) {
   position: relative;
 
   a.fr-external-link::after {
-    content: "";
+    content: '';
   }
 }
 

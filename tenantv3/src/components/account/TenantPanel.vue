@@ -1,151 +1,174 @@
 <template>
   <div>
     <div class="main-information">
-      <h3 class="fr-h4">{{ $t("tenantpanel.my-files") + props.tenant.firstName }}</h3>
+      <h3 class="fr-h4">{{ t('tenantpanel.my-files') + props.tenant.firstName }}</h3>
       <ul class="fr-p-0">
         <RowListItem
           v-if="!isCotenant"
-          :label="$t('tenantpanel.clarification-title')"
+          :label="t('tenantpanel.clarification-title')"
           :subLabel="props.tenant.clarification || ''"
+          :canEdit="showButtons"
           @clickEdit="goToValidationPage()"
         />
         <RowListItem
           :label="UtilsService.tenantFullName(props.tenant)"
+          :canEdit="showButtons"
           @clickEdit="gotoTenantName()"
         />
         <FileRowListItem
-          :label="$t('tenantpanel.identification')"
+          :label="t('tenantpanel.identification')"
           :document="document(props.tenant, 'IDENTIFICATION')"
-          :enableDownload="true"
+          :canEdit="showButtons"
+          :enableDownload="showButtons"
           @clickEdit="setTenantStep(1)"
         />
         <FileRowListItem
-          :label="$t('tenantpanel.residency')"
+          :label="t('tenantpanel.residency')"
           :document="document(props.tenant, 'RESIDENCY')"
+          :canEdit="showButtons"
+          :enableDownload="showButtons"
           @clickEdit="setTenantStep(2)"
         />
         <FileRowListItem
-          :label="$t('tenantpanel.professional')"
+          :label="t('tenantpanel.professional')"
           :sub-label="getProfessionalSubCategory(props.tenant)"
           :document="document(props.tenant, 'PROFESSIONAL')"
+          :canEdit="showButtons"
+          :enableDownload="showButtons"
           @clickEdit="setTenantStep(3)"
         />
         <span v-if="documents(props.tenant, 'FINANCIAL').length > 1">
           <FileRowListItem
             v-for="doc in documents(props.tenant, 'FINANCIAL')"
             v-bind:key="doc.id"
-            :label="$t('tenantpanel.financial')"
-            :sub-label="$t(`documents.subcategory.${doc.subCategory}`)"
+            :label="t('tenantpanel.financial')"
+            :sub-label="t(`documents.subcategory.${doc.documentSubCategory}`)"
             :document="doc"
+            :canEdit="showButtons"
+            :enableDownload="showButtons"
             @clickEdit="setTenantStep(4)"
           />
         </span>
         <FileRowListItem
           v-else
-          :label="$t('tenantpanel.financial')"
+          :label="t('tenantpanel.financial')"
           :document="document(props.tenant, 'FINANCIAL')"
+          :canEdit="showButtons"
+          :enableDownload="showButtons"
           @clickEdit="setTenantStep(4)"
         />
         <FileRowListItem
-          :label="$t('tenantpanel.tax')"
+          :label="t('tenantpanel.tax')"
           :document="document(props.tenant, 'TAX')"
+          :canEdit="showButtons"
+          :enableDownload="showButtons"
           @clickEdit="setTenantStep(5)"
         />
       </ul>
     </div>
 
-    <GuarantorsSection :tenant="props.tenant" />
+    <GuarantorsSection
+      :canEdit="showButtons"
+      :enableDownload="showButtons"
+      :tenant="props.tenant"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared-next/src/models/User";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import { AnalyticsService } from "@/services/AnalyticsService";
-import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
-import RowListItem from "@/components/documents/RowListItem.vue";
-import FileRowListItem from "@/components/documents/FileRowListItem.vue";
-import { DocumentTypeConstants } from "@/components/documents/share/DocumentTypeConstants";
-import { useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
-import { UtilsService } from "@/services/UtilsService";
+import { User } from 'df-shared-next/src/models/User'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { AnalyticsService } from '../../services/AnalyticsService'
+import GuarantorsSection from '../../components/account/GuarantorsSection.vue'
+import RowListItem from '../../components/documents/RowListItem.vue'
+import FileRowListItem from '../../components/documents/FileRowListItem.vue'
+import { DocumentTypeConstants } from '../../components/documents/share/DocumentTypeConstants'
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { UtilsService } from '../../services/UtilsService'
+import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    tenant: User;
-    isCotenant: boolean;
+    tenant: User
+    isCotenant?: boolean
+    isCouple?: boolean
   }>(),
   {
-    isCotenant: false
+    isCotenant: false,
+    isCouple: false
   }
-);
+)
 
-const router = useRouter();
-const { t } = useI18n();
+const router = useRouter()
+const { t } = useI18n()
 
-  function gotoTenantName() {
-    if (props.isCotenant) {
-      router.push({
-        name: "CoTenantDocuments",
-        params: {
-          tenantId: props.tenant?.id.toString(),
-          step: "4",
-          substep: "0",
-        },
-      });
-    } else {
-      router.push({ name: "TenantName" });
-    }
+const showButtons = computed(() => {
+  return !props.isCotenant || props.isCouple
+})
+
+function gotoTenantName() {
+  if (props.isCotenant) {
+    router.push({
+      name: 'CoTenantDocuments',
+      params: {
+        tenantId: props.tenant?.id.toString(),
+        step: '4',
+        substep: '0'
+      }
+    })
+  } else {
+    router.push({ name: 'TenantName' })
   }
+}
 
-  function goToValidationPage() {
-    router.push({ name: "ValidateFile" });
-  }
+function goToValidationPage() {
+  router.push({ name: 'ValidateFile' })
+}
 
-  function setTenantStep(n: number) {
-    AnalyticsService.editFromAccount(n);
-    if (props.isCotenant) {
-      router.push({
-        name: "CoTenantDocuments",
-        params: {
-          tenantId: props.tenant?.id.toString(),
-          step: "4",
-          substep: n.toString(),
-        },
-      });
-    } else {
-      router.push({
-        name: "TenantDocuments",
-        params: { substep: n.toString() },
-      });
-    }
+function setTenantStep(n: number) {
+  AnalyticsService.editFromAccount(n)
+  if (props.isCotenant) {
+    router.push({
+      name: 'CoTenantDocuments',
+      params: {
+        tenantId: props.tenant?.id.toString(),
+        step: '4',
+        substep: n.toString()
+      }
+    })
+  } else {
+    router.push({
+      name: 'TenantDocuments',
+      params: { substep: n.toString() }
+    })
   }
+}
 
-  function document(u: User, s: string) {
-    return u.documents?.find((d) => {
-      return d.documentCategory === s;
-    });
-  }
+function document(u: User, s: string) {
+  return u.documents?.find((d) => {
+    return d.documentCategory === s
+  })
+}
 
-  function documents(g: User, docType: string): DfDocument[] {
-    return (
-      (g.documents?.filter((d: DfDocument) => {
-        return d.documentCategory === docType;
-      }) as DfDocument[]) || []
-    );
-  }
+function documents(g: User, docType: string): DfDocument[] {
+  return (
+    (g.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === docType
+    }) as DfDocument[]) || []
+  )
+}
 
-  function getProfessionalSubCategory(u: User): string {
-    const professionalDocument = document(u, "PROFESSIONAL");
-    const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
-      (doc) => doc.value === professionalDocument?.subCategory
-    )?.key;
-    return t(translationKey || "");
-  }
+function getProfessionalSubCategory(u: User): string {
+  const professionalDocument = document(u, 'PROFESSIONAL')
+  const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
+    (doc) => doc.value === professionalDocument?.documentSubCategory
+  )?.key
+  return t(translationKey || '')
+}
 </script>
 
 <style scoped lang="scss">
-
 h1 {
   color: var(--bf500);
   font-size: 2rem;

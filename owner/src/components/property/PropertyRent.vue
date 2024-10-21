@@ -1,50 +1,58 @@
 <script setup lang="ts">
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import { Field, ErrorMessage } from 'vee-validate';
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
-import useOwnerStore from '../../store/owner-store';
-import PropertyPage from './PropertyPage.vue';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { Field, ErrorMessage } from 'vee-validate'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import useOwnerStore from '../../store/owner-store'
+import PropertyPage from './PropertyPage.vue'
+import AnalyticsService from '../../services/AnalyticsService'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const route = useRoute();
-const router = useRouter();
-const store = useOwnerStore();
+const route = useRoute()
+const router = useRouter()
+const store = useOwnerStore()
 
-const id = ref(0);
+const id = ref(0)
 if (route.params.id) {
-  id.value = Number(route.params.id);
-  store.updatePropertyToEdit(Number(id.value));
+  id.value = Number(route.params.id)
+  store.updatePropertyToEdit(Number(id.value))
 }
 
 const rent = computed({
   get() {
-    return store.getPropertyToEdit?.rentCost;
+    return store.getPropertyToEdit?.rentCost
   },
   set(val: number) {
-    store.setRent(val);
-  },
-});
+    store.setRent(val)
+  }
+})
 
 const charges = computed({
   get() {
-    return store.getPropertyToEdit?.chargesCost;
+    return store.getPropertyToEdit?.chargesCost
   },
   set(val: number) {
-    store.setCharges(val);
-  },
-});
+    store.setCharges(val)
+  }
+})
 
 function onSubmit() {
+  AnalyticsService.propertyData('honor_declaration_validate')
   store.saveProperty().then(() => {
-    router.push({ name: 'PropertyDiagnostic', params: { id: store.getPropertyToEdit.id } });
-  });
+    router.push({
+      name: 'PropertyDiagnostic',
+      params: { id: store.getPropertyToEdit.id }
+    })
+  })
 }
 
 function onBack() {
-  router.push({ name: 'PropertyLivingSpace', params: { id: store.getPropertyToEdit.id } });
+  router.push({
+    name: 'PropertyLivingSpace',
+    params: { id: store.getPropertyToEdit.id }
+  })
 }
 </script>
 
@@ -62,7 +70,7 @@ function onBack() {
           v-slot="{ field, meta }"
           :rules="{
             required: true,
-            positive: true,
+            positive: true
           }"
         >
           <input
@@ -70,7 +78,7 @@ function onBack() {
             class="validate-required form-control fr-input"
             :class="{
               'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid,
+              'fr-input--error': !meta.valid
             }"
             :placeholder="t('propertyrent.rent-amount')"
             type="number"
@@ -89,7 +97,7 @@ function onBack() {
           v-slot="{ field, meta }"
           :rules="{
             required: true,
-            positiveOrNull: true,
+            positiveOrNull: true
           }"
         >
           <input
@@ -97,7 +105,7 @@ function onBack() {
             class="validate-required form-control fr-input"
             :class="{
               'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid,
+              'fr-input--error': !meta.valid
             }"
             :placeholder="t('propertyrent.charges-amount')"
             type="number"

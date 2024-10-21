@@ -1,16 +1,50 @@
-import { createI18n } from 'vue-i18n';
+import { createI18n } from 'vue-i18n'
 
-import en from './locales/en.json';
-import fr from './locales/fr.json';
+import en from './locales/en.json'
+import fr from './locales/fr.json'
 
+const datetimeFormats = {
+  en: {
+    short: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    },
+    long: {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true
+    }
+  },
+  fr: {
+    short: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    },
+    long: {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      hour: 'numeric',
+      minute: 'numeric'
+    }
+  }
+} as const
 const i18n = createI18n({
   legacy: false,
   locale: 'fr',
   globalInjection: true,
   messages: {
     en,
-    fr,
+    fr
   },
-});
+  datetimeFormats
+})
 
-export default i18n;
+export default i18n

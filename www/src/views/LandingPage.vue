@@ -5,16 +5,16 @@
         <div class="fr-col-md-8">
           <div class="fr-grid-col">
             <h1 class="fr-h1 fr-mt-3w color--white">
-              {{ t("s0.title") }}
+              {{ t('s0.title') }}
             </h1>
             <p class="text-bold color--white">
-              {{ t("s0.text") }}<br />
-              {{ t("s0.text2") }}
+              {{ t('s0.text') }}<br />
+              {{ t('s0.text2') }}
             </p>
             <p>
               <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
                 <span class="text-center full-width">
-                  {{ t("button") }}
+                  {{ t('button') }}
                 </span>
               </a>
             </p>
@@ -29,16 +29,12 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <div class="fr-tile__link">{{ t("s1.h1") }}</div>
+                  <div class="fr-tile__link">{{ t('s1.h1') }}</div>
                 </h2>
-                <p class="fr-tile__desc">{{ t("s1.p1") }}</p>
+                <p class="fr-tile__desc">{{ t('s1.p1') }}</p>
               </div>
               <div class="fr-tile__img">
-                <img
-                  src="../assets/icons/approval.svg"
-                  class="fr-responsive-img"
-                  alt=""
-                />
+                <img src="../assets/icons/approval.svg" class="fr-responsive-img" alt="" />
               </div>
             </div>
           </div>
@@ -46,9 +42,9 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <div class="fr-tile__link">{{ t("s1.h2") }}</div>
+                  <div class="fr-tile__link">{{ t('s1.h2') }}</div>
                 </h2>
-                <p class="fr-tile__desc">{{ t("s1.p2") }}</p>
+                <p class="fr-tile__desc">{{ t('s1.p2') }}</p>
               </div>
               <div class="fr-tile__img">
                 <img src="../assets/icons/sports.svg" class="fr-responsive-img" alt="" />
@@ -59,9 +55,9 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <div class="fr-tile__link">{{ t("s1.h3") }}</div>
+                  <div class="fr-tile__link">{{ t('s1.h3') }}</div>
                 </h2>
-                <p class="fr-tile__desc">{{ t("s1.p3") }}</p>
+                <p class="fr-tile__desc">{{ t('s1.p3') }}</p>
               </div>
               <div class="fr-tile__img">
                 <img src="../assets/icons/reading.svg" class="fr-responsive-img" alt="" />
@@ -73,47 +69,47 @@
     </section>
     <section class="fr-pb-5w fr-pt-md-9w fr-pt-3w bg-blue-grey">
       <div class="fr-container">
-        <h2 class="fr-h2 s2-title">{{ t("s2.title") }}</h2>
+        <h2 class="fr-h2 s2-title">{{ t('s2.title') }}</h2>
         <div class="fr-grid-row reverse-mobile">
           <div class="fr-col-md-6 fr-grid-col">
             <ol>
               <li>
                 <div class="fr-grid-row align-items--center">
                   <p class="step-number">1</p>
-                  <h3 class="fr-h4 fr-mb-0">{{ t("s2.h1") }}</h3>
+                  <h3 class="fr-h4 fr-mb-0">{{ t('s2.h1') }}</h3>
                 </div>
-                <div>{{ t("s2.p1") }}</div>
+                <div>{{ t('s2.p1') }}</div>
                 <ul class="fr-pt-2w fr-mb-5w">
-                  <li>{{ t("s2.u1a") }}</li>
-                  <li>{{ t("s2.u1b") }}</li>
-                  <li>{{ t("s2.u1c") }}</li>
-                  <li>{{ t("s2.u1d") }}</li>
-                  <li>{{ t("s2.u1e") }}</li>
+                  <li>{{ t('s2.u1a') }}</li>
+                  <li>{{ t('s2.u1b') }}</li>
+                  <li>{{ t('s2.u1c') }}</li>
+                  <li>{{ t('s2.u1d') }}</li>
+                  <li>{{ t('s2.u1e') }}</li>
                 </ul>
               </li>
               <li>
                 <div class="fr-grid-row align-items--center">
                   <p class="step-number">2</p>
-                  <h3 class="fr-h4 fr-mb-0">{{ t("s2.h2") }}</h3>
+                  <h3 class="fr-h4 fr-mb-0">{{ t('s2.h2') }}</h3>
                 </div>
-                <p>{{ t("s2.p2") }}</p>
+                <p>{{ t('s2.p2') }}</p>
               </li>
               <li>
                 <div class="fr-grid-row align-items--center">
                   <p class="step-number">3</p>
-                  <h3 class="fr-h4 fr-mb-0">{{ t("s2.h3") }}</h3>
+                  <h3 class="fr-h4 fr-mb-0">{{ t('s2.h3') }}</h3>
                 </div>
-                <p>{{ t("s2.p3") }}</p>
+                <p>{{ t('s2.p3') }}</p>
               </li>
             </ol>
             <a :href="DOCS_URL" target="_blank" class="fr-btn fr-btn--secondary fr-mt-2w">
               <span class="text-center full-width">
-                {{ t("docs") }}
+                {{ t('docs') }}
               </span>
             </a>
             <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
               <span class="text-center full-width">
-                {{ t("button") }}
+                {{ t('button') }}
               </span>
             </a>
           </div>
@@ -132,12 +128,7 @@
                 srcset="../assets/icons/justif-450.webp, ../assets/icons/justif.webp 1.5x"
               />
               <source media="(min-width: 1200px)" srcset="../assets/icons/justif.webp" />
-              <img
-                loading="lazy"
-                src="../assets/icons/justif-300.webp"
-                alt=""
-                class="justif-img"
-              />
+              <img loading="lazy" src="../assets/icons/justif-300.webp" alt="" class="justif-img" />
             </picture>
           </div>
         </div>
@@ -146,14 +137,14 @@
     <section class="bg--orange fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-pt-7w fr-pb-7w">
         <div class="fr-container">
-          <h2 class="fr-h2 s3-title">{{ t("s3.title") }}</h2>
+          <h2 class="fr-h2 s3-title">{{ t('s3.title') }}</h2>
           <p>
-            {{ t("s3.text1") }}
+            {{ t('s3.text1') }}
             <br />
-            {{ t("s3.text2") }}
+            {{ t('s3.text2') }}
           </p>
           <p>
-            {{ t("s3.text3") }}
+            {{ t('s3.text3') }}
           </p>
         </div>
       </div>
@@ -161,44 +152,44 @@
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container fr-mb-7w">
         <h2 class="fr-h2 text-center">
-          {{ t("s4.title1") }}
+          {{ t('s4.title1') }}
           <span class="color--secondary">{{ validatedDossierCount }}</span>
-          {{ t("s4.title3") }}
+          {{ t('s4.title3') }}
         </h2>
         <div class="text-center">
           <router-link to="/stats" class="fr-link fr-tag">
             <img src="../assets/icons/stats.webp" class="stats-icon" alt="" />
-            {{ t("s4.link") }}
+            {{ t('s4.link') }}
           </router-link>
         </div>
         <div class="fr-grid-row">
           <div class="col fr-p-2w">
             <figure class="fr-quote fr-quote--column">
               <blockquote>
-                <p>{{ t("s4.t1") }}</p>
+                <p>{{ t('s4.t1') }}</p>
               </blockquote>
               <figcaption>
-                <p class="fr-quote__author">{{ t("s4.author1") }}</p>
+                <p class="fr-quote__author">{{ t('s4.author1') }}</p>
               </figcaption>
             </figure>
           </div>
           <div class="col fr-p-2w">
             <figure class="fr-quote fr-quote--column">
               <blockquote>
-                <p>{{ t("s4.t2") }}</p>
+                <p>{{ t('s4.t2') }}</p>
               </blockquote>
               <figcaption>
-                <p class="fr-quote__author">{{ t("s4.author2") }}</p>
+                <p class="fr-quote__author">{{ t('s4.author2') }}</p>
               </figcaption>
             </figure>
           </div>
           <div class="col fr-p-2w">
             <figure class="fr-quote fr-quote--column">
               <blockquote>
-                <p>{{ t("s4.t3") }}</p>
+                <p>{{ t('s4.t3') }}</p>
               </blockquote>
               <figcaption>
-                <p class="fr-quote__author">{{ t("s4.author3") }}</p>
+                <p class="fr-quote__author">{{ t('s4.author3') }}</p>
               </figcaption>
             </figure>
           </div>
@@ -207,7 +198,7 @@
           <p>
             <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
               <span class="text-center full-width">
-                {{ t("button") }}
+                {{ t('button') }}
               </span>
             </a>
           </p>
@@ -215,354 +206,73 @@
       </div>
     </section>
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
-      <div class="fr-container fr-mb-7w">
-        <h2 class="fr-h2 text-center">
-          {{ t("s5.title1") }}
-          <span class="color--secondary">{{ t("s5.title2") }}</span>
-        </h2>
-        <div class="fr-grid-row">
-          <LogoPartnerComponent
-            :image="papUrl"
-            height="60"
-            href="https://www.pap.fr"
-            name="PAP - Particulier à Particulier"
-            width="167"
-          />
-          <LogoPartnerComponent
-              :image="jinkaUrl"
-              href="https://www.jinka.fr"
-              name="Jinka"
-              height="60"
-              width="185"
-          />
-          <LogoPartnerComponent
-            :image="locserviceUrl"
-            height="60"
-            href="https://www.locservice.fr/"
-            name="locservice.fr - location et colocation entre particuliers"
-            width="144"
-          />
-          <LogoPartnerComponent
-            :image="fasttUrl"
-            height="60"
-            href="https://www.fastt.org/"
-            name="fastt"
-            width="95"
-          />
-          <LogoPartnerComponent
-            :image="flatsyUrl"
-            height="60"
-            href="https://www.flatsy.fr/"
-            name="flatsy"
-            width="174"
-          />
-          <LogoPartnerComponent
-            :image="hugoUrl"
-            height="39"
-            href="https://www.monsieurhugo.com/"
-            name="monsieur Hugo"
-            width="210"
-          />
-          <LogoPartnerComponent
-            :image="clickandrentUrl"
-            height="30"
-            href="https://www.clickandrent.fr/"
-            name="click and rent"
-            width="209"
-          />
-          <LogoPartnerComponent
-            :image="qlowerUrl"
-            height="30"
-            href="https://www.qlower.com/"
-            name="qlower"
-            width="148"
-          />
-          <LogoPartnerComponent
-            :image="jelouebienUrl"
-            height="30"
-            href="https://www.jelouebien.com/"
-            name="jelouebien.com"
-            width="227"
-          />
-          <LogoPartnerComponent
-            :image="gererseulUrl"
-            height="46"
-            href="https://www.gererseul.com/"
-            name="gererseul – ma gestion locative"
-            width="200"
-          />
-          <LogoPartnerComponent
-            :image="unDeuxTroisLogerUrl"
-            height="60"
-            href="https://www.123loger.com/"
-            name="123Loger"
-            width="60"
-          />
-          <LogoPartnerComponent
-            :image="superimmoUrl"
-            height="60"
-            href="https://www.superimmo.com/"
-            name="superimmo"
-            width="222"
-          />
-          <LogoPartnerComponent
-            :image="wiziUrl"
-            height="60"
-            href="https://www.wizi.io/"
-            name="wizi"
-            width="151"
-          />
-          <LogoPartnerComponent
-            :image="rentilaUrl"
-            height="60"
-            href="https://www.rentila.com/"
-            name="rentila"
-            width="102"
-          />
-          <LogoPartnerComponent
-            :image="platoimmoUrl"
-            height="60"
-            href="https://www.plato.immo/"
-            name="plato.immo"
-            width="133"
-          />
-          <LogoPartnerComponent
-            :image="immoloyerUrl"
-            height="60"
-            href="https://www.immobilierloyer.com/"
-            name="immobilier loyer"
-            width="208"
-          />
-          <LogoPartnerComponent
-            :image="immopadUrl"
-            height="60"
-            href="https://www.immopad.com/"
-            name="immopad"
-            width="188"
-          />
-          <LogoPartnerComponent
-            :image="mydomusUrl"
-            height="60"
-            href="https://www.mydomus.co/"
-            name="mydomus"
-            width="214"
-          />
-          <LogoPartnerComponent
-            :image="omnireaUrl"
-            height="60"
-            href="https://omnirea.fr/"
-            name="omnirea"
-            width="172"
-          />
-          <LogoPartnerComponent
-            :image="emjysoftUrl"
-            height="60"
-            href="https://www.emjysoft.com/logiciel-gestion-locative/"
-            name="emjysoft - gestion locative"
-            width="162"
-          />
-          <LogoPartnerComponent
-            :image="timciUrl"
-            height="60"
-            href="https://www.timci.com"
-            name="Timci - gestion de biens"
-            width="189"
-          />
-          <LogoPartnerComponent
-            :image="ispUrl"
-            height="60"
-            href="https://www.isp-group.immo/louer/"
-            name="ISP Group - Immobilier et consulting"
-            width="99"
-          />
-          <LogoPartnerComponent
-            :image="jsoftUrl"
-            height="60"
-            href="https://www.jsoft.fr/logiciel-gestion-immobiliere/"
-            name="JSoft - Logiciel de gestion locative immobilière"
-            width="240"
-          />
-          <LogoPartnerComponent
-            :image="mclUrl"
-            height="60"
-            href="https://moncarnetlogement.fr/"
-            name="Mon carnet logement"
-            width="194"
-          />
-          <LogoPartnerComponent
-            :image="pdpUrl"
-            href="https://www.partirdeparis.fr/"
-            name="Partir de Paris"
-            width="196"
-            height="58"
-          />
-          <LogoPartnerComponent
-            :image="goodlizUrl"
-            href="https://goodliz.com"
-            name="GoodLiz"
-            height="60"
-            width="77"
-          />
-          <LogoPartnerComponent
-            :image="pautionsUrl"
-            href="https://pautions.fr"
-            name="Pautions"
-            height="55"
-            width="232"
-          />
-          <LogoPartnerComponent
-            :image="lokappyUrl"
-            height="60"
-            href="https://lokappy.co/"
-            name="lokappy"
-            width="231"
-          />
-        </div>
-        <div class="text-center fr-mt-5w fr-mb-5w">
-          <p>
-            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
-              <span class="text-center full-width">
-                {{ t("button") }}
-              </span>
-            </a>
-          </p>
-        </div>
+      <AllPartnersComponent :limit="8"></AllPartnersComponent>
+      <div class="text-center fr-mt-5w fr-mb-5w">
+        <p>
+          <a href="/partenaires" class="fr-btn fr-mt-2w">
+            <span class="text-center full-width">
+              {{ t('all-partners') }}
+            </span>
+          </a>
+        </p>
       </div>
     </section>
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w institutional-section">
-      <div class="fr-mb-7w">
-        <h2 class="fr-h2 text-center">
-          {{ t("s6.title") }}
-        </h2>
-        <div class="fr-container">
-          <div class="fr-grid-row fr-grid-row--gutters">
-            <LogoInstitutionalPartnerComponent
-              :image="visaleUrl"
-              height="48"
-              href="https://www.visale.fr/"
-              name="visale.fr - connecte emploi et logement"
-              width="150"
-            />
-            <LogoInstitutionalPartnerComponent
-              :image="anilUrl"
-              href="https://www.anil.org/"
-              height="80"
-              width="80"
-              name="ANIL, l’agence nationale pour l’information sur le logement"
-            />
-            <LogoInstitutionalPartnerComponent
-              :image="unmlUrl"
-              href="https://www.unml.info/"
-              name="Union nationale des missions locales"
-              height="60"
-              width="118"
-            />
-            <LogoInstitutionalPartnerComponent
-              :image="cllajUrl"
-              href="https://www.uncllaj.org/"
-              name="Comités Locaux pour le Logement Autonome des Jeunes"
-              height="60"
-              width="137"
-            />
-            <LogoInstitutionalPartnerComponent
-              :image="fuUrl"
-              href="https://franceuniversites.fr/"
-              name="France Universités"
-              height="60"
-              width="194"
-            />
-          </div>
-        </div>
-        <div class="text-center fr-mt-5w fr-mb-5w">
-          <p>
-            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
-              <span class="text-center full-width">
-                {{ t("button") }}
-              </span>
-            </a>
-          </p>
-        </div>
+      <AllInstitutionalPartnersComponent :limit="8"></AllInstitutionalPartnersComponent>
+      <div class="text-center fr-mt-5w fr-mb-5w">
+        <p>
+          <a href="/partenaires" class="fr-btn fr-mt-2w">
+            <span class="text-center full-width">
+              {{ t('all-partners') }}
+            </span>
+          </a>
+        </p>
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import LogoPartnerComponent from "../components/LogoPartnerComponent.vue";
-import LogoInstitutionalPartnerComponent from "../components/LogoInstitutionalPartnerComponent.vue";
-import { StatsService } from "../services/StatsService";
-import { onMounted, ref } from "vue";
-import { useI18n } from "vue-i18n";
+import AllInstitutionalPartnersComponent from '../components/AllInstitutionalPartnersComponent.vue'
+import AllPartnersComponent from '../components/AllPartnersComponent.vue'
+import { StatsService } from '../services/StatsService'
+import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useHead } from '@unhead/vue'
+import image from '../assets/icons/justif.webp'
 
-import papUrl from "../assets/logos/pap.png";
-import locserviceUrl from "../assets/logos/loc_service.webp";
-import fasttUrl from "../assets/logos/fastt.webp";
-import flatsyUrl from "../assets/logos/flatsy.webp";
-import hugoUrl from "../assets/logos/monsieur_hugo.webp";
-import clickandrentUrl from "../assets/logos/clickandrent.webp";
-import qlowerUrl from "../assets/logos/qlower.webp";
-import jelouebienUrl from "../assets/logos/jelouebien.webp";
-import gererseulUrl from "../assets/logos/gererseul.webp";
-import unDeuxTroisLogerUrl from "../assets/logos/123Loger.webp";
-import superimmoUrl from "../assets/logos/superimmo.webp";
-import wiziUrl from "../assets/logos/wizi.webp";
-import rentilaUrl from "../assets/logos/rentila.webp";
-import platoimmoUrl from "../assets/logos/platoimmo.webp";
-import immoloyerUrl from "../assets/logos/immoloyer.webp";
-import emjysoftUrl from "../assets/logos/emjysoft_gestion_locative.webp";
-import timciUrl from "../assets/logos/timci.webp";
-import ispUrl from "../assets/logos/isp_group.webp";
-import jsoftUrl from "../assets/logos/jsoft.webp";
-import mclUrl from "../assets/logos/mon_carnet_logement.webp";
-import pdpUrl from "../assets/logos/partir_de_paris.webp";
-import goodlizUrl from "../assets/logos/goodliz.webp";
-import pautionsUrl from "../assets/logos/pautions.webp";
-import jinkaUrl from "../assets/logos/jinka.webp";
-import lokappyUrl from "../assets/logos/lokappy.webp";
-import visaleUrl from "../assets/logos/visale.webp";
-import anilUrl from "../assets/logos/anil.webp";
-import unmlUrl from "../assets/logos/UNML.webp";
-import cllajUrl from "../assets/logos/CLLAJ.webp";
-import fuUrl from "../assets/logos/FranceUniversites.webp";
-import immopadUrl from "../assets/logos/immopad.webp";
-import mydomusUrl from "../assets/logos/mydomus.webp";
-import omnireaUrl from "../assets/logos/omnirea.webp";
-
-import { useHead } from "@unhead/vue";
-import image from "../assets/icons/justif.webp";
-
-const title = "DossierFacile, le dossier de location numérique de l’État";
+const title = 'DossierFacile, le dossier de location numérique de l’État'
 const description =
-  "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement";
+  "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
 useHead({
   title: title,
   meta: [
-    { name: "og:title", content: title },
-    { name: "twitter:title", content: title },
-    { name: "description", content: description },
-    { name: "og:description", content: description },
-    { name: "twitter:description", content: description },
-    { name: "og:image", content: image },
-    { name: "twitter:image", content: image },
-  ],
-});
+    { name: 'og:title', content: title },
+    { name: 'twitter:title', content: title },
+    { name: 'description', content: description },
+    { name: 'og:description', content: description },
+    { name: 'twitter:description', content: description },
+    { name: 'og:image', content: image },
+    { name: 'twitter:image', content: image }
+  ]
+})
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const REGISTER_URL = import.meta.env.VITE_REGISTER_URL;
-const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
+const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
+const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
 
-const validatedDossierCount = ref("116000");
+const validatedDossierCount = ref('116000')
 
 onMounted(() => {
   StatsService.getValidatedDossierCount()
     .then((result: { data: string }) => {
       if (result.data) {
-        validatedDossierCount.value = result.data;
+        validatedDossierCount.value = result.data
       }
     })
-    .catch(() => {});
-});
+    .catch(() => {})
+})
 </script>
 
 <style scoped lang="scss">
@@ -572,13 +282,13 @@ onMounted(() => {
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
-  background-image: url("/cover-features-0119.webp");
+  background-image: url('/cover-features-0119.webp');
   background-color: #6277a0;
-  @media (max-width: 768px) {
-    background-image: url("/cover-features-mobile-0119.webp");
-  }
-
   z-index: 0;
+
+  @media (max-width: 768px) {
+    background-image: url('/cover-features-mobile-0119.webp');
+  }
 }
 
 .s1-icons {
@@ -608,14 +318,14 @@ blockquote {
 .s2-title {
   &:before {
     margin-right: 10px;
-    content: url("../assets/icons/survey.svg");
+    content: url('../assets/icons/survey.svg');
   }
 }
 
 .s3-title {
   &:before {
     margin-right: 10px;
-    content: url("../assets/icons/lock.svg");
+    content: url('../assets/icons/lock.svg');
   }
 }
 
@@ -625,7 +335,7 @@ ul li {
 }
 
 ul li:before {
-  content: "";
+  content: '';
   display: inline-block;
   color: limegreen;
   font-size: 1rem;
@@ -707,7 +417,7 @@ img {
 }
 
 ol > li::marker {
-  content: "";
+  content: '';
 }
 
 ol {

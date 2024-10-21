@@ -26,24 +26,23 @@
 </template>
 
 <style scoped lang="scss">
-@import "df-shared-next/src/scss/_variables.scss";
+@import 'df-shared-next/src/scss/_variables.scss';
 
 a {
   color: $light-blue;
 }
 </style>
 <script setup lang="ts">
-import ShareArticle from "./ShareArticle.vue";
-import { withDefaults } from "vue";
+import ShareArticle from './ShareArticle.vue'
 
 const props = withDefaults(
   defineProps<{
-    title: string;
-    date: string;
-    hashtags: string;
+    title: string
+    date: string
+    hashtags?: string
   }>(),
   {
-    hashtags: "",
+    hashtags: ''
   }
-);
+)
 </script>

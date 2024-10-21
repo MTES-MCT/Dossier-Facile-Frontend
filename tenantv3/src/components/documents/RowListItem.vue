@@ -11,37 +11,41 @@
       <ul class="fr-btns-group">
         <li>
           <DfButton
-            v-if="onClickEdit"
+            v-if="canEdit"
+            @on-keypress="$emit('click-edit')"
             @on-click="$emit('click-edit')"
           >
             <i class="ri-pencil-line fr-mr-1w" aria-hidden="true"></i>
-            {{ $t("filerowlistitem.edit") }}
+            {{ t('filerowlistitem.edit') }}
           </DfButton>
         </li>
       </ul>
     </div>
     <div class="desktop fr-col-12 fr-col-md-2 fr-btns-group--right">
-      <DfButton
-        v-if="onClickEdit"
-        @on-click="$emit('click-edit')"
-      >
+      <DfButton v-if="canEdit" @on-keypress="$emit('click-edit')" @on-click="$emit('click-edit')">
         <i class="ri-pencil-line fr-mr-1w" aria-hidden="true"></i>
-        {{ $t("filerowlistitem.edit") }}
+        {{ t('filerowlistitem.edit') }}
       </DfButton>
     </div>
   </li>
 </template>
 
 <script setup lang="ts">
-import DfButton from "df-shared-next/src/Button/Button.vue";
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import { useI18n } from 'vue-i18n'
 
-const props = 
+const props = withDefaults(
   defineProps<{
-    label: string,
-    subLabel?: string,
-    onClickEdit?: Function
-  }>();
+    label: string
+    subLabel?: string
+    canEdit?: boolean
+  }>(),
+  {
+    canEdit: false
+  }
+)
 
+const { t } = useI18n()
 </script>
 
 <style lang="scss">
