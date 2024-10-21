@@ -250,7 +250,20 @@
     "contact-adviser": "Contact a France Rénov’ advisor",
     "title-where": "Où trouver le numéro de DPE ?",
     "text-where": "Le numéro de votre DPE se trouve en page 1 de votre diagnostic. Il comporte 13 caractères. Sans ce numéro d'identification, le DPE n'est pas valable.",
-    "understand-dpe": "Comprendre le DPE"
+    "understand-dpe": "Comprendre le DPE",
+    "no-dpe": "Mon bien n'est pas soumis au DPE. <a href='https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006896276' target='_blank' rel='noopener noreferrer'>En savoir plus.</a>",
+    "details": {
+      "title": "Your Energy Performance Certificate in Detail",
+      "subtitle": "Your property is classified {0}, which means:",
+      "list1": "its energy consumption is {0}",
+      "list2": "<strong>any rent increase has been prohibited since August 24, 2022</strong>",
+      "list3": "<strong>your property will be banned from rental starting from {0}</strong>",
+      "france-renov-title": "Have you heard of France Rénov'?",
+      "france-renov-text1": "<strong>France Rénov’ is the public service for home renovation</strong>, supported by the State with local authorities, and led by the National Housing Agency (Anah). France Rénov’ assists you in your renovation projects: identifying necessary work, estimating financial aid, and finding qualified professionals...",
+      "france-renov-text2": "<strong>More than 2,500 France Rénov’ advisors provide free advice and help you carry out your renovation work.</strong>",
+      "contact-france-renov": "Contact a France Rénov’ advisor",
+      "good-dpe": "Your property is classified {0}, which means its energy consumption is less than 330 kWh/m²/year. <strong>Your property is not subject to any rent freeze or rental ban measures.</strong>"
+    }
   },
   "propertyrent": {
     "rent-title": "Monthly Rent and Charges",

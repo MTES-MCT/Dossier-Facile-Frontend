@@ -22,4 +22,5 @@ export class Property {
   ownerName?: string;
   ademeNumber?: string;
   ademeApiResult?: AdemeApiResult;
+  dpeNotRequired: boolean = false;
 }

@@ -256,6 +256,9 @@ const useOwnerStore = defineStore('owner', {
     },
     setAdemeNumber(ademeNumber: string) {
       this.propertyToEdit.ademeNumber = ademeNumber
+    },
+    setDpeNotRequired(value: boolean) {
+      this.propertyToEdit.dpeNotRequired = value
     }
   }
 })
