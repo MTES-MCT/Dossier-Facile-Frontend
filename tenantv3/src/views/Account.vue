@@ -132,13 +132,14 @@
                               }"
                             ></span>
                           </div>
-                          <ColoredBadge
-                            class="fr-col-xs-12 fr-col"
-                            :status="tenant.status"
-                            :warn="true"
-                            :text="t(`dossier.warn-${tenant.status}`)"
-                          >
-                          </ColoredBadge>
+                          <div class="fr-col-xs-12 fr-col fr-mr-1w fr-grid-row">
+                            <ColoredBadge
+                              :status="tenant.status"
+                              :warn="true"
+                              :text="t(`dossier.warn-${tenant.status}`)"
+                            >
+                            </ColoredBadge>
+                          </div>
                         </div>
                       </button>
                     </li>
