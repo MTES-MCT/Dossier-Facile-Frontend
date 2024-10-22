@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{ pictogram?: string }>(), {
+withDefaults(defineProps<{ pictogram?: string }>(), {
   pictogram: 'technical-error'
 })
 </script>

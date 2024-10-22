@@ -71,7 +71,7 @@ import { Field, ErrorMessage } from 'vee-validate'
 
 const { t } = useI18n()
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits<{ 'update:modelValue': [value: string] }>()
 
 const props = withDefaults(
   defineProps<{

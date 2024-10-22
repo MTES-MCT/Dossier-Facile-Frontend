@@ -82,21 +82,21 @@ import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordM
 import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 
-defineRule('strength', (_value: any, [score]: number[]) => {
+defineRule('strength', (_value: unknown, [score]: number[]) => {
   if (score < 2) {
     return 'strength-not-valid'
   }
   return true
 })
 
-defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
+defineRule('confirm', (_value: unknown, [password, confirm]: string[]) => {
   if (password !== confirm) {
     return 'confirm-not-valid'
   }
   return true
 })
 
-const emit = defineEmits(['on-init-password'])
+const emit = defineEmits<{ 'on-init-password': [user: User] }>()
 
 const score = ref(0)
 const user = ref(new User())

@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(['on-click'])
+const emit = defineEmits<{ 'on-click': [] }>()
 
 const props = withDefaults(
   defineProps<{

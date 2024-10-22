@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { useId } from 'vue'
 
-const emit = defineEmits(['close'])
+const emit = defineEmits<{ close: [] }>()
 
 const descriptionId = useId()
 

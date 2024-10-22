@@ -1,7 +1,7 @@
 <template>
   <small>
     <i18n-t keypath="instruction">
-      <template v-slot:asterix>
+      <template #asterix>
         <span style="color: red">*</span>
       </template>
     </i18n-t>
@@ -10,8 +10,8 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const { t } = useI18n() // this is used by i18n-t, don't remove
 </script>
 
 <style scoped lang="scss"></style>

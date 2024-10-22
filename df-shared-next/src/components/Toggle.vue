@@ -41,7 +41,7 @@ const props = withDefaults(
     uncheckedLabel: ''
   }
 )
-const emit = defineEmits(['update'])
+const emit = defineEmits<{ update: [checked: boolean] }>()
 
 const inputId = computed(() => {
   return `toggle-${props.id}`

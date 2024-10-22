@@ -7,4 +7,6 @@ export class ApartmentSharing {
   token?: string
   tokenPublic?: string
   applicationType?: string
+  totalSalary?: number
+  totalGuarantorSalary?: number
 }

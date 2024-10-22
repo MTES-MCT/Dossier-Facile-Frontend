@@ -22,25 +22,26 @@
 </template>
 
 <script setup lang="ts">
+import { DocumentType } from '../models/Document'
 import { useI18n } from 'vue-i18n'
 
-export interface RadioElement {
+type RadioElement = {
   id: string
   labelKey: string
   description?: string
-  value: any
+  value: DocumentType
 }
 
-const emit = defineEmits(['input'])
+const emit = defineEmits<{ input: [value: DocumentType] }>()
 const { t } = useI18n()
 
-const props = defineProps<{
+defineProps<{
   name: string
   elements: RadioElement[]
-  value: any
+  value: DocumentType
 }>()
 
-function onSelect(applicationType: string) {
+function onSelect(applicationType: DocumentType) {
   emit('input', applicationType)
 }
 </script>

@@ -28,7 +28,7 @@ defineProps<{
   elements: AccordionHelpModel[]
 }>()
 
-const emit = defineEmits(['accordion-clicked'])
+const emit = defineEmits<{ 'accordion-clicked': [tag: string] }>()
 
 function accordionClicked(tag: string) {
   emit('accordion-clicked', tag)

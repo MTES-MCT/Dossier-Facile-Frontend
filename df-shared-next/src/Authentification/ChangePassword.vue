@@ -82,34 +82,34 @@ import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
 import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
 import { ref } from 'vue'
 
-defineRule('required', (value: any) => {
+defineRule('required', (value: unknown) => {
   if (typeof value === 'number') {
     if (!value) {
       return 'field-required'
     }
     return true
   }
-  if (!value || !value.length) {
+  if (!value || !(Array.isArray(value) && value.length)) {
     return 'field-required'
   }
   return true
 })
 
-defineRule('strength', (_value: any, [score]: number[]) => {
+defineRule('strength', (_value: unknown, [score]: number[]) => {
   if (score < 2) {
     return 'strength-not-valid'
   }
   return true
 })
 
-defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
+defineRule('confirm', (_value: unknown, [password, confirm]: string[]) => {
   if (password !== confirm) {
     return 'confirm-not-valid'
   }
   return true
 })
 
-const emit = defineEmits(['on-change-password'])
+const emit = defineEmits<{ 'on-change-password': [user: User] }>()
 const { t } = useI18n()
 
 const user = new User()

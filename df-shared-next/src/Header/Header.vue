@@ -179,7 +179,12 @@ withDefaults(
   }
 )
 
-const emit = defineEmits(['on-login', 'on-access-tenant', 'on-access-owner', 'on-logout'])
+const emit = defineEmits<{
+  'on-login': []
+  'on-access-tenant': []
+  'on-access-owner': []
+  'on-logout': []
+}>()
 
 function onLogin() {
   emit('on-login')

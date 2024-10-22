@@ -50,7 +50,7 @@ const props = withDefaults(
     btnType: 'submit'
   }
 )
-const emit = defineEmits(['click'])
+const emit = defineEmits<{ click: [event: MouseEvent] }>()
 
 //gets type class (primary or secondary)
 const typeClass = computed(() => {
@@ -78,7 +78,7 @@ const iconClass = computed(() => {
   return computedIconClass
 })
 
-function pushClick(e: any) {
+function pushClick(e: MouseEvent) {
   emit('click', e)
 }
 </script>

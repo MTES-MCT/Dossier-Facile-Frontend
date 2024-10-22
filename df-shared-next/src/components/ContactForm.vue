@@ -459,8 +459,12 @@ const props = defineProps<{
 }>()
 
 const contactFormData = ref(new ContactFormData())
-const status = ref('NEW') // NEW, OK, KO
-const emit = defineEmits(['on-profile-change', 'on-send-message', 'on-accordion-clicked'])
+const status = ref<'NEW' | 'OK' | 'KO'>('NEW')
+const emit = defineEmits<{
+  'on-profile-change': [profile: string]
+  'on-send-message': [profile: string]
+  'on-accordion-clicked': [tag: string]
+}>()
 
 onMounted(() => {
   if (props.user) {

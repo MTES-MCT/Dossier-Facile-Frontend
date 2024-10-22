@@ -15,12 +15,5 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    status?: string
-  }>(),
-  {
-    status: 'INCOMPLETE'
-  }
-)
+withDefaults(defineProps<{ status?: string }>(), { status: 'INCOMPLETE' })
 </script>

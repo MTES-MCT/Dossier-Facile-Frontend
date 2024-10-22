@@ -32,29 +32,33 @@ const FRENCH = {
   code: 'FR',
   name: 'Français',
   selectLabel: 'Sélectionner une langue'
-}
+} as const
 
 const ENGLISH = {
   id: 'en',
   code: 'EN',
   name: 'English',
   selectLabel: 'Select a language'
-}
-
-const emit = defineEmits(['on-change-lang'])
+} as const
 
 const props = withDefaults(defineProps<{ initialLanguage?: string }>(), {
   initialLanguage: 'fr'
 })
 
-const availableLanguages: Language[] = [FRENCH, ENGLISH]
+const availableLanguages = [FRENCH, ENGLISH] satisfies Language[]
+type AvailableLanguage = (typeof availableLanguages)[number]
+type LanguageKey = AvailableLanguage['id']
 
-const currentLanguage = ref(FRENCH)
+const emit = defineEmits<{
+  'on-change-lang': [lang: LanguageKey]
+}>()
+
+const currentLanguage = ref<Language>(FRENCH)
 
 currentLanguage.value =
   availableLanguages.find((language) => language.id === props.initialLanguage) || FRENCH
 
-function selectLanguage(l: Language) {
+function selectLanguage(l: AvailableLanguage) {
   emit('on-change-lang', l.id)
   currentLanguage.value = availableLanguages.find((language) => language.id === l.id) || FRENCH
 }

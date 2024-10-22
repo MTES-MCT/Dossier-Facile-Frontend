@@ -9,7 +9,7 @@ import { AccordionHelpModel } from '../../models/AccordionHelpModel'
 import { computed } from 'vue'
 
 const { t } = useI18n()
-const emit = defineEmits(['accordion-clicked'])
+const emit = defineEmits<{ 'accordion-clicked': [tag: string] }>()
 
 const elements = computed(
   () =>

@@ -1,5 +1,5 @@
 <template>
-  <img :alt="alt" slot="image" :src="imageData" v-if="!error" />
+  <img :alt="alt" :src="imageData" v-if="!error" />
   <div v-else>{{ error }}</div>
 </template>
 
@@ -29,7 +29,7 @@ onMounted(() => {
       const imgBase64 = new Buffer(resp.data, 'binary').toString('base64')
       imageData.value = 'data:' + mimeType + ';base64,' + imgBase64
     })
-    .catch((err) => {
+    .catch(() => {
       error.value = t('showdoc.error')
       imageData.value = props.src
     })

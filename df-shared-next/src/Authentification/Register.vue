@@ -193,7 +193,7 @@ const user = ref(new User())
 const score = ref(0)
 const generatedPwd = ref('')
 const route = useRoute()
-const emit = defineEmits(['on-register'])
+const emit = defineEmits<{ 'on-register': [user: User] }>()
 
 onMounted(() => {
   user.value.email = props.email

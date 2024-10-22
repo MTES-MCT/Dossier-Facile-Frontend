@@ -6,7 +6,7 @@
 import { computed } from 'vue'
 
 const props = defineProps<{ password: string }>()
-const emit = defineEmits(['score'])
+const emit = defineEmits<{ score: [score: number] }>()
 
 function calculateScore(password: string): number {
   let score = 0

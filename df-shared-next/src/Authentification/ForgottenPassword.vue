@@ -52,7 +52,7 @@ import { useI18n } from 'vue-i18n'
 import { User } from 'df-shared-next/src/models/User'
 import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
 
-defineRule('email', (value: any) => {
+defineRule('email', (value: string | null | undefined) => {
   if (!value || !value.length) {
     return true
   }
@@ -62,20 +62,20 @@ defineRule('email', (value: any) => {
   return true
 })
 
-defineRule('required', (value: any) => {
+defineRule('required', (value: unknown) => {
   if (typeof value === 'number') {
     if (!value) {
       return 'field-required'
     }
     return true
   }
-  if (!value || !value.length) {
+  if (!value || (Array.isArray(value) && !value.length)) {
     return 'field-required'
   }
   return true
 })
 
-const emit = defineEmits(['on-forgotten-password'])
+const emit = defineEmits<{ 'on-forgotten-password': [user: User] }>()
 
 const { t } = useI18n()
 

@@ -1,3 +1,4 @@
+import type { ApartmentSharing } from './ApartmentSharing'
 import { AdemeApiResult } from './AdemeApiResult'
 
 export class Property {
@@ -17,7 +18,7 @@ export class Property {
   furniture?: string
   livingSpace!: number
   address?: string
-  propertiesApartmentSharing: any
+  propertiesApartmentSharing?: { id: number; apartmentSharing: ApartmentSharing }[]
   propertyApartmentSharingCount?: number
   ownerName?: string
   ademeNumber?: string

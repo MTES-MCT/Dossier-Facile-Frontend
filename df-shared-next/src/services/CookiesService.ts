@@ -5,7 +5,7 @@ const DOMAIN = `${import.meta.env.VITE_COOKIE_DOMAIN}`
 const { cookies } = useCookies()
 
 export const CookiesService = {
-  setJsonCookie(name: string, value: any, expires?: string | Date) {
+  setJsonCookie(name: string, value: unknown, expires?: string | Date) {
     const json = JSON.stringify(value)
     const base64 = btoa(json)
     cookies.set(name, base64, expires, '/', DOMAIN)

@@ -40,10 +40,8 @@ import NakedCard from './NakedCard.vue'
 
 const { t } = useI18n()
 
-const props = withDefaults(defineProps<{ danger?: boolean }>(), {
-  danger: false
-})
-const emit = defineEmits(['edit', 'remove'])
+withDefaults(defineProps<{ danger?: boolean }>(), { danger: false })
+const emit = defineEmits<{ edit: []; remove: [] }>()
 
 function edit() {
   emit('edit')

@@ -1,6 +1,8 @@
 <template>
   <fieldset class="fr-fieldset" :id="name">
-    <legend class="fr-fieldset__legend"><slot></slot></legend>
+    <legend class="fr-fieldset__legend">
+      <slot></slot>
+    </legend>
     <div v-for="element in elements" v-bind:key="element.id" class="fr-fieldset__element">
       <div class="fr-radio-group fr-radio-rich">
         <input
@@ -44,9 +46,9 @@ export interface RadioElement {
 }
 
 const { t } = useI18n()
-const emit = defineEmits(['input'])
+const emit = defineEmits<{ input: [value: string] }>()
 
-const props = defineProps<{
+defineProps<{
   name: string
   elements: RadioElement[]
   modelValue: string
