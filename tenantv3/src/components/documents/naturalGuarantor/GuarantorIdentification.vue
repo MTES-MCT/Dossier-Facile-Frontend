@@ -106,7 +106,8 @@ function onSelectChange($event: any) {
     const doc = guarantorIdentificationDocument()
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== identificationDocument.value.value
+        (doc?.files?.length || 0) > 0 &&
+        doc?.documentSubCategory !== identificationDocument.value.value
     }
   }
   return false

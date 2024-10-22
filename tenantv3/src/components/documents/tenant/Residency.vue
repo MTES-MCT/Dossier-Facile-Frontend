@@ -16,7 +16,7 @@
           >
             <option v-if="!residencyDocument" selected disabled></option>
             <option v-for="d in documents" :value="d" :key="d.key">
-              {{ t("documents." + d.key) }}
+              {{ t('documents.' + d.key) }}
             </option>
           </select>
         </div>
@@ -311,7 +311,9 @@ async function remove(file: DfFile, silent = false) {
       tenantResidencyDocument.value?.files?.length === 1 &&
       tenantResidencyDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(tenantResidencyDocument.value?.documentSubCategory || '')
+      AnalyticsService.removeDeniedDocument(
+        tenantResidencyDocument.value?.documentSubCategory || ''
+      )
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {

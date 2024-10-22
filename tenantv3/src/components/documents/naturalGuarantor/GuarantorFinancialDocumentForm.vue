@@ -258,7 +258,8 @@ function onSelectChange($event: any) {
   }
 
   isDocDeleteVisible.value =
-    (doc.files?.length || 0) > 0 && doc.documentSubCategory !== financialDocument.value.documentType.value
+    (doc.files?.length || 0) > 0 &&
+    doc.documentSubCategory !== financialDocument.value.documentType.value
 
   if (isDocDeleteVisible.value) {
     selectedDoc.value = financialDocument.value

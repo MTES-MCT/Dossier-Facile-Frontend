@@ -294,7 +294,8 @@ function onSelectChange($event: DocumentType) {
 
   selectedDoc.value = financialDocument.value
   isDocDeleteVisible.value =
-    (doc.files?.length || 0) > 0 && doc.documentSubCategory !== financialDocument.value.documentType.value
+    (doc.files?.length || 0) > 0 &&
+    doc.documentSubCategory !== financialDocument.value.documentType.value
   return false
 }
 
@@ -480,7 +481,9 @@ function remove(f: FinancialDocument, file: DfFile, silent = false) {
       f.files.length === 1 &&
       financialDocumentSelected.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(financialDocumentSelected.value.documentSubCategory || '')
+      AnalyticsService.removeDeniedDocument(
+        financialDocumentSelected.value.documentSubCategory || ''
+      )
     }
     RegisterService.deleteFile(file.id, silent)
   } else {

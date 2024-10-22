@@ -56,7 +56,8 @@
                     :canView="!isCotenant && hasFile('TAX')"
                     @view="openDoc('TAX')"
                     @edit="setTenantStep(5)"
-                  ></ViewEditBtn>
+                  >
+                  </ViewEditBtn>
                   <FileStatusIcon :status="getStatus('TAX')"></FileStatusIcon>
                 </div>
               </div>
@@ -139,7 +140,8 @@
                     :canView="!isCotenant && guarantorHasFile(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                     @view="openGuarantorDoc(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                     @edit="setGuarantorSubStep(1, g)"
-                  ></ViewEditBtn>
+                  >
+                  </ViewEditBtn>
                   <FileStatusIcon
                     :status="getGuarantorStatus(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                   ></FileStatusIcon>
@@ -159,7 +161,8 @@
                     :canView="!isCotenant && guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')"
                     @view="openGuarantorDoc(g, 'IDENTIFICATION_LEGAL_PERSON')"
                     @edit="setGuarantorSubStep(0, g)"
-                  ></ViewEditBtn>
+                  >
+                  </ViewEditBtn>
                   <FileStatusIcon
                     :status="getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')"
                   ></FileStatusIcon>

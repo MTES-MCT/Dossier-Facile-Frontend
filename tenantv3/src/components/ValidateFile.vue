@@ -99,7 +99,8 @@
         @on-back="goBack()"
         :disabled="hasErrors()"
         :nextLabel="t('validatefile.validate')"
-      ></ProfileFooter>
+      >
+      </ProfileFooter>
     </Form>
     <div v-if="hasErrors()">
       <NakedCard class="fr-px-5w fr-py-3w">

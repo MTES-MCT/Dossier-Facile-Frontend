@@ -8,7 +8,8 @@
             :guarantor="selectedGuarantor"
             @on-back="goBack"
             @on-next="goNext"
-          ></TenantGuarantorName>
+          >
+          </TenantGuarantorName>
         </div>
         <div v-if="substep === 1">
           <GuarantorIdentification
@@ -22,7 +23,8 @@
             :tenantId="tenantId"
             @on-back="goBack"
             @on-next="checkResidencyAndGoNext"
-          ></GuarantorResidency>
+          >
+          </GuarantorResidency>
         </div>
         <div v-if="substep === 3">
           <GuarantorProfessional :tenantId="tenantId" :isCotenant="true"></GuarantorProfessional>
@@ -224,6 +226,7 @@ h2 {
 .title-bar {
   display: flex;
   align-items: center;
+
   span {
     padding: 0.5rem;
     line-height: 1rem;

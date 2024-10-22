@@ -254,7 +254,9 @@ async function remove(file: DfFile, silent = false) {
       tenantProfessionalDocument.value?.files?.length === 1 &&
       tenantProfessionalDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(tenantProfessionalDocument.value?.documentSubCategory || '')
+      AnalyticsService.removeDeniedDocument(
+        tenantProfessionalDocument.value?.documentSubCategory || ''
+      )
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {

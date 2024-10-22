@@ -133,7 +133,8 @@ function onSelectChange($event: any) {
     const doc = tenantIdentificationDocument.value
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== identificationDocument.value.value
+        (doc?.files?.length || 0) > 0 &&
+        doc?.documentSubCategory !== identificationDocument.value.value
     }
   }
   return false
@@ -253,7 +254,9 @@ async function remove(file: DfFile, silent = false) {
       tenantIdentificationDocument.value?.files?.length === 1 &&
       tenantIdentificationDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(tenantIdentificationDocument.value?.documentSubCategory || '')
+      AnalyticsService.removeDeniedDocument(
+        tenantIdentificationDocument.value?.documentSubCategory || ''
+      )
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {

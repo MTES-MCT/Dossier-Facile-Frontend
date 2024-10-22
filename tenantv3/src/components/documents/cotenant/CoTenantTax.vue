@@ -122,7 +122,10 @@ function goNext() {
   enrichFormData(formData)
 
   const d = getRegisteredDoc()
-  if (documentType.value?.value === d?.documentSubCategory && document.value.customText === d?.customText) {
+  if (
+    documentType.value?.value === d?.documentSubCategory &&
+    document.value.customText === d?.customText
+  ) {
     emit('on-next')
     return true
   }

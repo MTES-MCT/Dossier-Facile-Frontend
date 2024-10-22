@@ -127,7 +127,8 @@ function onSelectChange($event: DocumentType) {
     const doc = certificateDocument.value
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== selectedDocumentType.value.value
+        (doc?.files?.length || 0) > 0 &&
+        doc?.documentSubCategory !== selectedDocumentType.value.value
     }
   }
   return false
