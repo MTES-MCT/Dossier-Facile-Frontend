@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(['view', 'edit'])
+const emit = defineEmits<{ view: []; edit: [] }>()
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     canView?: boolean
   }>(),

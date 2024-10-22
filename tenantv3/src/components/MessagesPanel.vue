@@ -407,7 +407,7 @@ function getGuarantorStatus(g: Guarantor, docType: string) {
   return doc?.documentStatus || 'INCOMPLETE'
 }
 
-function isFinancialValid(docs: any[]) {
+function isFinancialValid(docs: DfDocument[]) {
   if (!docs || docs.length === 0) {
     return 'INCOMPLETE'
   }

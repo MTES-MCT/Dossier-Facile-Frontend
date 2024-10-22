@@ -76,11 +76,9 @@ const editFinancialDocument = computed(() => store.getEditGuarantorFinancialDocu
 const financialDocuments = computed(() => store.guarantorFinancialDocuments)
 const user = computed(() => store.userToEdit)
 
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
-const props = defineProps<{
-  tenantId?: number
-}>()
+defineProps<{ tenantId?: number }>()
 
 onBeforeMount(() => {
   initialize()

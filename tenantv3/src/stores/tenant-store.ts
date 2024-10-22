@@ -679,7 +679,7 @@ const useTenantStore = defineStore('tenant', {
         'None'
       )
     },
-    validateFile(data: { honorDeclaration: boolean; clarification: string }) {
+    validateFile(data: { honorDeclaration: boolean; clarification: string | undefined }) {
       return ProfileService.validateFile(data.honorDeclaration, data.clarification).then(
         () => {
           AnalyticsService.validateFile()

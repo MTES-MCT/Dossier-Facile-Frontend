@@ -154,14 +154,14 @@ import { computed, onMounted, ref } from 'vue'
 import { Field, ErrorMessage, useFieldError, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 
-defineRule('atLeastOneEmail', (email: any, [otherEmails]: any[]) => {
+defineRule('atLeastOneEmail', (email: unknown, [otherEmails]: unknown[]) => {
   if (email === '' && otherEmails === undefined) {
     return 'field-required'
   }
   return true
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits<{ 'update:modelValue': [User[]] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -287,6 +287,7 @@ function isMobile() {
 
 .align-bottom {
   align-self: flex-end;
+
   @media all and (max-width: 1247px) {
     margin-top: 1rem;
     margin-bottom: 1.5rem;
@@ -295,6 +296,7 @@ function isMobile() {
 
 .max-content {
   max-width: max-content;
+
   @media all and (max-width: 420px) {
     max-width: 200px;
   }

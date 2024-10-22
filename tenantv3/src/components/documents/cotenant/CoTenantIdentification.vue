@@ -26,9 +26,7 @@ const { t } = useI18n()
 
 const documentsDefinitions = DocumentTypeConstants.IDENTIFICATION_DOCS
 
-const props = defineProps<{
-  coTenantId: number
-}>()
+defineProps<{ coTenantId: number }>()
 </script>
 
 <style scoped lang="scss"></style>

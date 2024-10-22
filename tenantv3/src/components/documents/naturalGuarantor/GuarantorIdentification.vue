@@ -100,8 +100,8 @@ const files = ref([] as DfFile[])
 const identificationDocument = ref(new DocumentType())
 const isDocDeleteVisible = ref(false)
 
-function onSelectChange($event: any) {
-  identificationDocument.value = $event
+function onSelectChange(docType: DocumentType) {
+  identificationDocument.value = docType
   if (user.value?.documents !== null) {
     const doc = guarantorIdentificationDocument()
     if (doc !== undefined) {

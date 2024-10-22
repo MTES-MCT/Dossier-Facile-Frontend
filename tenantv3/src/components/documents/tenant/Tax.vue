@@ -139,7 +139,7 @@ import { computed, onBeforeMount, ref } from 'vue'
 import useTenantStore from '../../../stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '../../../services/ToastService'
-import { useLoading } from 'vue-loading-overlay'
+import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 
 const emit = defineEmits(['on-next', 'on-back'])
@@ -164,7 +164,7 @@ const isWarningTaxSituationModalVisible = ref(false)
 const newFiles = ref([] as File[])
 
 const $loading = useLoading({})
-let loader: any
+let loader: ActiveLoader | undefined
 
 const documentStatus = computed(() => {
   return tenantTaxDocument.value?.documentStatus

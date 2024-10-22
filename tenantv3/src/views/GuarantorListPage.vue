@@ -159,7 +159,7 @@ function hasOneNaturalGuarantor() {
 }
 
 function addNaturalGuarantor() {
-  store.addNaturalGuarantor().then((data: any) => {
+  store.addNaturalGuarantor().then((data) => {
     router.push(data)
   })
 }

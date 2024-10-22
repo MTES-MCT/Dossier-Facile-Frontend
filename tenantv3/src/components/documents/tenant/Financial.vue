@@ -57,7 +57,6 @@
 <script setup lang="ts">
 import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import ProfileFooter from '../../footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import CardRow from 'df-shared-next/src/components/CardRow.vue'
@@ -73,13 +72,10 @@ import { useLoading } from 'vue-loading-overlay'
 
 const { t } = useI18n()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
 const editFinancialDocument = computed(() => store.editFinancialDocument)
 const financialDocuments = computed(() => store.tenantFinancialDocuments)
 
-const documents = DocumentTypeConstants.FINANCIAL_DOCS
-
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 onBeforeMount(() => {
   initialize()

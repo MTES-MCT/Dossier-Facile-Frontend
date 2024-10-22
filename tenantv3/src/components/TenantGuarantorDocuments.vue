@@ -105,7 +105,6 @@ const emit = defineEmits(['on-next'])
 const store = useTenantStore()
 const { t } = useI18n()
 
-const coTenants = computed(() => store.coTenants)
 const selectedGuarantor = computed(() => store.selectedGuarantor)
 
 const props = withDefaults(

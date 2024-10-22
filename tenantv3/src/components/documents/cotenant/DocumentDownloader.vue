@@ -26,7 +26,7 @@
             v-if="listType !== 'dropDownList'"
             name="application-type-selector"
             :value="document"
-            @input="onEventChange($event)"
+            @input="onEventChange"
             :elements="mapDocuments()"
           ></SimpleRadioButtons>
         </div>
@@ -200,7 +200,7 @@ import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
 import WarningTaxDeclaration from '@/components/documents/share/WarningTaxDeclaration.vue'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import { ToastService } from '@/services/ToastService'
-import { useLoading } from 'vue-loading-overlay'
+import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { computed, onBeforeMount, ref } from 'vue'
 import useTenantStore, { type DispatchNames } from '@/stores/tenant-store'
 import { Field, ErrorMessage } from 'vee-validate'
@@ -213,7 +213,7 @@ const store = useTenantStore()
 const props = withDefaults(
   defineProps<{
     coTenantId: number
-    documentsDefinitions: any
+    documentsDefinitions: DocumentType[]
     documentCategory: string
     editedDocumentId?: number
     dispatchMethodName: DispatchNames
@@ -248,9 +248,12 @@ const showIsNoDocumentAndFiles = ref(false)
 const newFiles = ref([] as File[])
 const isWarningTaxSituationModalVisible = ref(false)
 
-const emit = defineEmits(['on-change-document', 'enrich-form-data'])
+const emit = defineEmits<{
+  'on-change-document': [doc: DocumentType, dfDoc: DfDocument]
+  'enrich-form-data': [formData: FormData]
+}>()
 
-let loader: any
+let loader: ActiveLoader | undefined
 
 onBeforeMount(() => {
   loadDocument()
@@ -269,12 +272,15 @@ function changeNoDocument() {
   emit('on-change-document', document.value, dfDocument.value)
   return true
 }
-function onSelectChange($event: any) {
-  const d = props.documentsDefinitions.find((d: any) => d.key === $event?.value)
-  onEventChange(d)
+function onSelectChange(target: EventTarget | null) {
+  const value = target instanceof HTMLSelectElement ? target.value : null
+  const d = props.documentsDefinitions.find((d) => d.key === value)
+  if (d) {
+    onEventChange(d)
+  }
 }
 
-function onEventChange($event: any) {
+function onEventChange($event: DocumentType) {
   document.value = $event
   if (selectedCoTenant.value?.documents !== null) {
     const doc = getDocument()
@@ -492,7 +498,7 @@ function hideLoader() {
 }
 
 function mapDocuments() {
-  return props.documentsDefinitions.map((d: any) => {
+  return props.documentsDefinitions.map((d) => {
     return {
       id: d.key,
       labelKey: props.translationKeyPrefix + d.key,

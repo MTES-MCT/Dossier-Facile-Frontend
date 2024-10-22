@@ -126,8 +126,8 @@ onBeforeMount(() => {
   }
 })
 
-function onSelectChange($event: any) {
-  identificationDocument.value = $event
+function onSelectChange(docType: DocumentType) {
+  identificationDocument.value = docType
   localStorage.setItem(getLocalStorageKey(), identificationDocument.value.key)
   if (user.value?.documents !== null) {
     const doc = tenantIdentificationDocument.value

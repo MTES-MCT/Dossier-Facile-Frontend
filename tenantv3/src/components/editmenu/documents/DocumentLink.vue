@@ -17,12 +17,13 @@ import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import { DocumentType, DocumentTypeTranslations } from './DocumentType'
 import { useI18n } from 'vue-i18n'
 import type { PersonType } from './PersonType'
+import type { RouteParamsRawGeneric } from 'vue-router'
 
 const { t } = useI18n()
 
 const props = defineProps<{
   personType: PersonType
-  routerParams?: any
+  routerParams?: RouteParamsRawGeneric
   documentType: DocumentType
   status: string
   active: boolean

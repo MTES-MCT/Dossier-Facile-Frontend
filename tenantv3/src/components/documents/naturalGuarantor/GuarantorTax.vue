@@ -139,7 +139,7 @@ import { computed, onMounted, ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
-import { useLoading } from 'vue-loading-overlay'
+import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 
 const emit = defineEmits(['on-back', 'on-next'])
@@ -175,7 +175,7 @@ const isDocDeleteVisible = ref(false)
 const newFiles = ref([] as File[])
 const isWarningTaxSituationModalVisible = ref(false)
 
-let loader: any
+let loader: ActiveLoader | undefined
 
 function getRegisteredDoc() {
   if (selectedGuarantor.value?.documents !== null) {
@@ -195,7 +195,7 @@ function guarantorTaxDocument() {
   return store.getGuarantorTaxDocument
 }
 
-function onSelectChange($event: any) {
+function onSelectChange($event: DocumentType) {
   taxDocument.value = $event
   if (user.value?.documents !== null) {
     const doc = guarantorTaxDocument()
@@ -357,7 +357,7 @@ async function save(force = false) {
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       ToastService.saveSuccess()
     })
-    .catch((err: any) => {
+    .catch((err) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
       UtilsService.handleCommonSaveError(err)
     })

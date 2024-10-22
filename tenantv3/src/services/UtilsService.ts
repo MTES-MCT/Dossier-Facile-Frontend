@@ -2,6 +2,7 @@ import { User } from 'df-shared-next/src/models/User'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { ToastService } from './ToastService'
+import { isAxiosError } from 'axios'
 
 export const UtilsService = {
   getLastAddedGuarantor(user: User) {
@@ -66,11 +67,11 @@ export const UtilsService = {
       user.apartmentSharing?.tokenPublic !== ''
     )
   },
-  handleCommonSaveError(err: any) {
-    if (err?.response?.data?.message === null) {
+  handleCommonSaveError(err: unknown) {
+    if (isAxiosError(err) && err.response?.data?.message === null) {
       return
     }
-    if (err.response.data.message.includes('NumberOfPages')) {
+    if (isAxiosError(err) && err.response?.data.message.includes('NumberOfPages')) {
       ToastService.saveFailedNumPages()
     } else {
       ToastService.saveFailed()

@@ -125,7 +125,7 @@ const documents = DocumentTypeConstants.RESIDENCY_DOCS
 
 const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
-const files = ref([] as any[])
+const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
 const residencyDocument = ref(new DocumentType())
 const customText = ref('')
 

@@ -1,6 +1,6 @@
 <template>
   <div class="file-upload fr-col-md-12">
-    <form name="uploadForm" enctype="multipart/form-data" novalidate>
+    <form ref="uploadForm" name="uploadForm" enctype="multipart/form-data" novalidate>
       <label for="file" class="visually-hidden">Ajouter un document</label>
       <div class="dropbox">
         <input
@@ -32,10 +32,13 @@
 <script setup lang="ts">
 import { ToastService } from '@/services/ToastService'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import { useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-const emit = defineEmits(['reset-files', 'add-files'])
+const emit = defineEmits<{ 'add-files': [files: File[]] }>()
+
+const uploadForm = useTemplateRef('uploadForm')
 
 const props = withDefaults(defineProps<{ currentStatus: number; page?: number; size?: number }>(), {
   currentStatus: UploadStatus.STATUS_INITIAL,
@@ -47,22 +50,19 @@ function isSaving() {
   return props.currentStatus === UploadStatus.STATUS_SAVING
 }
 
-function filesChange(e: any) {
-  ;[...e.target.files].forEach((f: File) => {
-    if (f.size > props.size * 1024 * 1024) {
+function filesChange(e: Event) {
+  const inputFiles = e.target instanceof HTMLInputElement ? e.target.files : null
+  const files = inputFiles ? [...inputFiles] : []
+  for (const file of files) {
+    if (file.size > props.size * 1024 * 1024) {
       ToastService.errorf(t('fileupload.file-too-big', [props.size]))
-      return false
     }
-    return true
-  })
-  const fileList = [...e.target.files].filter((f: File) => {
+  }
+  const fileList = files.filter((f) => {
     return f.size < props.size * 1024 * 1024
   })
   emit('add-files', fileList)
-  const form = document.getElementsByName('uploadForm')
-  form.forEach((f: any) => {
-    f.reset()
-  })
+  uploadForm.value?.reset()
 }
 
 function getSizeLimit() {
