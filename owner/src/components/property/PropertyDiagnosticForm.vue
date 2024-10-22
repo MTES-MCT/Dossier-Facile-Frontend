@@ -102,7 +102,9 @@ const emit = defineEmits(['submit', 'on-back'])
 
 const expandNoDPE = computed(
   () =>
-    (store.propertyToEdit?.co2Emission > 0 || store.propertyToEdit?.energyConsumption > 0) &&
+    (store.propertyToEdit?.co2Emission > 0 ||
+      store.propertyToEdit?.energyConsumption > 0 ||
+      store.propertyToEdit?.dpeNotRequired) &&
     !store.propertyToEdit?.ademeNumber
 )
 
@@ -134,7 +136,8 @@ function onBack() {
 function onSubmit() {
   if (
     (store.propertyToEdit?.co2Emission > 0 && store.propertyToEdit?.energyConsumption > 0) ||
-    store.propertyToEdit?.ademeNumber
+    store.propertyToEdit?.ademeNumber ||
+    store.propertyToEdit?.dpeNotRequired
   ) {
     emit('submit')
   } else if (dpeform.value) {

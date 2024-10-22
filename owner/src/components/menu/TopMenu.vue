@@ -46,7 +46,8 @@ const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'T
 const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'))
 const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'))
 const diagnosticStatus = computed(() =>
-  store.getPropertyToEdit?.co2Emission && store.getPropertyToEdit?.energyConsumption > 0
+  (store.getPropertyToEdit?.co2Emission && store.getPropertyToEdit?.energyConsumption > 0) ||
+  store.getPropertyToEdit.dpeNotRequired
     ? 'FILLED'
     : 'TO_PROCESS'
 )

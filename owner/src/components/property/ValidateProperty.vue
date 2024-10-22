@@ -40,10 +40,11 @@ const hasErrors = computed(
       property.rentCost > 0 &&
       property.chargesCost !== undefined &&
       property.chargesCost >= 0 &&
-      property.energyConsumption !== undefined &&
-      property.energyConsumption >= 0 &&
-      property.co2Emission !== undefined &&
-      property.co2Emission >= 0
+      ((property.energyConsumption !== undefined &&
+        property.energyConsumption >= 0 &&
+        property.co2Emission !== undefined &&
+        property.co2Emission >= 0) ||
+        property.dpeNotRequired)
     )
 )
 
