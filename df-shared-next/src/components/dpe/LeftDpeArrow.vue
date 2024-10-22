@@ -11,14 +11,14 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    label?: string;
-    consumption?: number;
+    label?: string
+    consumption?: number
   }>(),
   {
     label: 'A',
-    consumption: 0,
-  },
-);
+    consumption: 0
+  }
+)
 </script>
 
 <style scoped lang="scss">

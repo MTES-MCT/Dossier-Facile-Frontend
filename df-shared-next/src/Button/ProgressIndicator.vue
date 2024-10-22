@@ -10,20 +10,20 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    diameter: string;
-    border: string;
+    diameter: string
+    border: string
   }>(),
   {
-    diameter: "48px",
-    border: "6px"
+    diameter: '48px',
+    border: '6px'
   }
-);
+)
 
 function cssVars() {
   return {
-    "--diameter": props.diameter,
-    "--border": props.border
-  };
+    '--diameter': props.diameter,
+    '--border': props.border
+  }
 }
 </script>
 

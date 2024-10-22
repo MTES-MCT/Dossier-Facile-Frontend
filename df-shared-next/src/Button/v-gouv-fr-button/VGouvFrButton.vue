@@ -19,69 +19,66 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    disabled?: boolean;
-    icon?: string;
-    iconPosition?: string;
-    iconOnly?: boolean;
-    label?: string;
-    primary?: boolean;
-    secondary?: boolean;
-    small?: boolean;
-    large?: boolean;
-    fullWidth?: boolean;
-    btnType?: "submit" | "button" | "reset" | undefined;
-    ariaLabel?: string;
+    disabled?: boolean
+    icon?: string
+    iconPosition?: string
+    iconOnly?: boolean
+    label?: string
+    primary?: boolean
+    secondary?: boolean
+    small?: boolean
+    large?: boolean
+    fullWidth?: boolean
+    btnType?: 'submit' | 'button' | 'reset' | undefined
+    ariaLabel?: string
   }>(),
   {
     disabled: false,
-    icon: "",
-    iconPosition: "left",
+    icon: '',
+    iconPosition: 'left',
     iconOnly: false,
-    label: "Bouton",
+    label: 'Bouton',
     primary: false,
     secondary: false,
     small: false,
     large: false,
     fullWidth: false,
-    btnType: "submit",
+    btnType: 'submit'
   }
-);
-const emit = defineEmits(["click"]);
+)
+const emit = defineEmits(['click'])
 
 //gets type class (primary or secondary)
 const typeClass = computed(() => {
   if (props.secondary && !props.primary) {
-    return "fr-btn--secondary "; //trailing space for next classes
+    return 'fr-btn--secondary ' //trailing space for next classes
   }
-  return "";
-});
+  return ''
+})
 //gets size class (small, medium or large)
 const sizeClass = computed(() => {
-  if (props.small) return "fr-btn--sm ";
-  else if (props.large) return "fr-btn--lg ";
-  else if (props.fullWidth) return "full-width ";
-  return "";
-});
+  if (props.small) return 'fr-btn--sm '
+  else if (props.large) return 'fr-btn--lg '
+  else if (props.fullWidth) return 'full-width '
+  return ''
+})
 //gets icon class
 const iconClass = computed(() => {
-  if (
-    props.icon === "" ||
-    (props.iconPosition !== "left" && props.iconPosition !== "right")
-  )
-    return "";
+  if (props.icon === '' || (props.iconPosition !== 'left' && props.iconPosition !== 'right'))
+    return ''
 
-  let computedIconClass = "fr-fi-" + props.icon;
+  let computedIconClass = 'fr-fi-' + props.icon
   if (!props.iconOnly) {
-    computedIconClass += " fr-btn--icon-" + props.iconPosition;
+    computedIconClass += ' fr-btn--icon-' + props.iconPosition
   }
-  return computedIconClass;
-});
+  return computedIconClass
+})
 
 function pushClick(e: any) {
-  emit("click", e);
+  emit('click', e)
 }
 </script>

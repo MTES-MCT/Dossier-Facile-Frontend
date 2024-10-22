@@ -1,10 +1,10 @@
-import { User } from "./User";
+import { User } from './User'
 
 export class ApartmentSharing {
-  id?: number;
-  tenants: User[] = [];
-  status?: string;
-  token?: string;
-  tokenPublic?: string;
-  applicationType?: string;
+  id?: number
+  tenants: User[] = []
+  status?: string
+  token?: string
+  tokenPublic?: string
+  applicationType?: string
 }

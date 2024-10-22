@@ -3,16 +3,16 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import HelpAccordion from './HelpAccordion.vue';
-import { AccordionHelpModel } from '../../models/AccordionHelpModel';
-import { computed } from 'vue';
+import { useI18n } from 'vue-i18n'
+import HelpAccordion from './HelpAccordion.vue'
+import { AccordionHelpModel } from '../../models/AccordionHelpModel'
+import { computed } from 'vue'
 
-const { t } = useI18n();
-const emit = defineEmits(['accordion-clicked']);
+const { t } = useI18n()
+const emit = defineEmits(['accordion-clicked'])
 
 function accordionClicked(tag: string) {
-  emit('accordion-clicked', tag);
+  emit('accordion-clicked', tag)
 }
 
 const elements = computed(
@@ -23,38 +23,38 @@ const elements = computed(
         title: t('title-1'),
         content: t('content-1'),
         highlight: t('highlight-1'),
-        tag: 'contact_why_denied',
+        tag: 'contact_why_denied'
       },
       {
         id: 'element-2',
         title: t('title-2'),
         content: t('content-2'),
         highlight: t('highlight-2'),
-        tag: 'contact_why_colocation_incomplete',
+        tag: 'contact_why_colocation_incomplete'
       },
       {
         id: 'element-3',
         title: t('title-3'),
         content: t('content-3'),
         highlight: t('highlight-3'),
-        tag: 'contact_how_send_df',
+        tag: 'contact_how_send_df'
       },
       {
         id: 'element-4',
         title: t('title-4'),
         content: t('content-4'),
         highlight: t('highlight-4'),
-        tag: 'contact_how_create_child',
+        tag: 'contact_how_create_child'
       },
       {
         id: 'element-5',
         title: t('title-5'),
         content: t('content-5'),
         highlight: t('highlight-5'),
-        tag: 'contact_where_offers',
-      },
+        tag: 'contact_where_offers'
+      }
     ] satisfies AccordionHelpModel[]
-);
+)
 </script>
 
 <i18n>

@@ -7,45 +7,45 @@
 </template>
 
 <script setup lang="ts">
-import StatusIcon from "./StatusIcon.vue";
+import StatusIcon from './StatusIcon.vue'
 
 const props = withDefaults(
   defineProps<{
-    status?: string;
-    label?: string;
-    text: string;
-    active?: boolean;
-    hideIcon?: boolean;
-    warn?: boolean;
+    status?: string
+    label?: string
+    text: string
+    active?: boolean
+    hideIcon?: boolean
+    warn?: boolean
   }>(),
   {
-    status: "",
+    status: '',
     active: false,
     hideIcon: false,
     warn: false
   }
-);
+)
 
 function getClasses() {
-  const c = props.active ? "active " : "";
+  const c = props.active ? 'active ' : ''
   switch (props.status) {
-    case "VALIDATED":
-      return c + "valid-menu-link";
-    case "TO_PROCESS":
-      return c + "to-process-menu-link";
-    case "DECLINED":
-      return c + "declined-menu-link";
-    case "FILLED":
-      return c + "filled-menu-link";
-    case "INCOMPLETE":
+    case 'VALIDATED':
+      return c + 'valid-menu-link'
+    case 'TO_PROCESS':
+      return c + 'to-process-menu-link'
+    case 'DECLINED':
+      return c + 'declined-menu-link'
+    case 'FILLED':
+      return c + 'filled-menu-link'
+    case 'INCOMPLETE':
       if (props.warn) {
-        return c + "declined-menu-link";
+        return c + 'declined-menu-link'
       }
-      return c + "empty-menu-link";
-    case "grey":
-      return c + "grey";
+      return c + 'empty-menu-link'
+    case 'grey':
+      return c + 'grey'
   }
-  return c + "empty-menu-link";
+  return c + 'empty-menu-link'
 }
 </script>
 

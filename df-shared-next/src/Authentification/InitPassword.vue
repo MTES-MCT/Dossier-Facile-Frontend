@@ -10,7 +10,7 @@
               v-slot="{ field, meta }"
               :rules="`required|strength:${score}`"
             >
-              <label class="fr-label" for="password">{{ t("password") }}</label>
+              <label class="fr-label" for="password">{{ t('password') }}</label>
               <input
                 id="password"
                 :placeholder="t('example-prefix') + passwordExample"
@@ -20,20 +20,15 @@
                 class="validate-required form-control fr-input"
                 :class="{
                   'fr-input--valid': meta.valid,
-                  'fr-input--error': !meta.valid,
+                  'fr-input--error': !meta.valid
                 }"
                 autocomplete="username"
                 required
               />
-              <PasswordMeter
-                @score="setScore"
-                :password="user.password || ''"
-              />
+              <PasswordMeter @score="setScore" :password="user.password || ''" />
             </Field>
             <ErrorMessage name="password" v-slot="{ message }">
-              <span role="alert" class="fr-error-text">{{
-                t(message || "")
-              }}</span>
+              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
             </ErrorMessage>
           </div>
           <div class="fr-col-12 fr-mb-3w">
@@ -43,13 +38,11 @@
               v-slot="{ field, meta }"
               :rules="{
                 required: true,
-                confirm: [user.password, user.confirm],
+                confirm: [user.password, user.confirm]
               }"
             >
               <div class="fr-input-group">
-                <label class="fr-label" for="confirm-password">
-                  {{ t("confirm-password") }}</label
-                >
+                <label class="fr-label" for="confirm-password"> {{ t('confirm-password') }}</label>
                 <input
                   id="confirm-password"
                   type="password"
@@ -58,15 +51,13 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   autocomplete="username"
                   required
                 />
                 <ErrorMessage name="confirm-password" v-slot="{ message }">
-                  <span role="alert" class="fr-error-text">{{
-                    t(message || "")
-                  }}</span>
+                  <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
               </div>
             </Field>
@@ -74,7 +65,7 @@
 
           <div class="fr-col-12 text-center fr-mb-5w">
             <button class="fr-btn" type="submit">
-              {{ t("submit") }}
+              {{ t('submit') }}
             </button>
           </div>
         </div>
@@ -84,42 +75,42 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared-next/src/models/User";
-import { AuthService } from "../services/AuthService";
-import { ref } from "vue";
-import PasswordMeter from "df-shared-next/src/components/PasswordMeter/PasswordMeter.vue";
-import { Form, Field, ErrorMessage, defineRule } from "vee-validate";
-import { useI18n } from "vue-i18n";
+import { User } from 'df-shared-next/src/models/User'
+import { AuthService } from '../services/AuthService'
+import { ref } from 'vue'
+import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
+import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
 
-defineRule("strength", (_value: any, [score]: number[]) => {
+defineRule('strength', (_value: any, [score]: number[]) => {
   if (score < 2) {
-    return "strength-not-valid";
+    return 'strength-not-valid'
   }
-  return true;
-});
+  return true
+})
 
-defineRule("confirm", (_value: any, [password, confirm]: string[]) => {
+defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
   if (password !== confirm) {
-    return "confirm-not-valid";
+    return 'confirm-not-valid'
   }
-  return true;
-});
+  return true
+})
 
-const emit = defineEmits(["on-init-password"]);
+const emit = defineEmits(['on-init-password'])
 
-const score = ref(0);
-const user = ref(new User());
+const score = ref(0)
+const user = ref(new User())
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const passwordExample = AuthService.generatePasswordPlaceholder();
+const passwordExample = AuthService.generatePasswordPlaceholder()
 
 function handleRegister() {
-  emit("on-init-password", user.value);
+  emit('on-init-password', user.value)
 }
 
 function setScore(s: number) {
-  score.value = s;
+  score.value = s
 }
 </script>
 

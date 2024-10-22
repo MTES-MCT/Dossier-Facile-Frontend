@@ -39,9 +39,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 
-const isOpened = ref(false);
+const isOpened = ref(false)
 </script>
 
 <style scoped>

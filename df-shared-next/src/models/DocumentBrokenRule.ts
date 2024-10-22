@@ -1,4 +1,4 @@
 export class DocumentBrokenRule {
-  rule?: string;
-  message?: string;
+  rule?: string
+  message?: string
 }

@@ -1,2 +1,2 @@
-import VGouvFrButton from "./VGouvFrButton.vue";
-export default VGouvFrButton;
+import VGouvFrButton from './VGouvFrButton.vue'
+export default VGouvFrButton

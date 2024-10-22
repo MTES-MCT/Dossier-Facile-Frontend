@@ -1,6 +1,6 @@
-import { Address } from "./Address";
+import { Address } from './Address'
 
 export class GeoJson {
-  features: Address[] = [];
-  query = "";
+  features: Address[] = []
+  query = ''
 }

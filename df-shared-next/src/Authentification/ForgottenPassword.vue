@@ -2,13 +2,13 @@
   <section class="fr-grid-row fr-grid-row--center">
     <div class="fr-col-md-8 fr-col-lg-6">
       <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
-        {{ t("title") }}
+        {{ t('title') }}
       </h2>
       <Form name="form" @submit="handleSubmit">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label class="fr-label" for="email">{{ t("email") }}</label>
+              <label class="fr-label" for="email">{{ t('email') }}</label>
               <Field
                 id="email"
                 name="email"
@@ -31,16 +31,14 @@
                 />
               </Field>
               <ErrorMessage name="email" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{
-                  t(message || "")
-                }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
             <button class="fr-btn" type="submit">
-              {{ t("submit") }}
+              {{ t('submit') }}
             </button>
           </div>
         </div>
@@ -50,42 +48,42 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { User } from "df-shared-next/src/models/User";
-import { Form, Field, ErrorMessage, defineRule } from "vee-validate";
+import { useI18n } from 'vue-i18n'
+import { User } from 'df-shared-next/src/models/User'
+import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
 
-defineRule("email", (value: any) => {
+defineRule('email', (value: any) => {
   if (!value || !value.length) {
-    return true;
+    return true
   }
   if (!/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/.test(value)) {
-    return "email-not-valid";
+    return 'email-not-valid'
   }
-  return true;
-});
+  return true
+})
 
-defineRule("required", (value: any) => {
-  if (typeof value === "number") {
+defineRule('required', (value: any) => {
+  if (typeof value === 'number') {
     if (!value) {
-      return "field-required";
+      return 'field-required'
     }
-    return true;
+    return true
   }
   if (!value || !value.length) {
-    return "field-required";
+    return 'field-required'
   }
-  return true;
-});
+  return true
+})
 
-const emit = defineEmits(["on-forgotten-password"]);
+const emit = defineEmits(['on-forgotten-password'])
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const user = new User();
+const user = new User()
 
 function handleSubmit() {
-  emit("on-forgotten-password", user);
-  user.email = "";
+  emit('on-forgotten-password', user)
+  user.email = ''
 }
 </script>
 

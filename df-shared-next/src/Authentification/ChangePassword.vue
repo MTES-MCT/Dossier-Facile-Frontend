@@ -2,13 +2,13 @@
   <div class="fr-grid-row fr-grid-row--center">
     <div class="fr-col-md-8 fr-col-lg-6">
       <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
-        {{ t("title") }}
+        {{ t('title') }}
       </h2>
       <Form @submit="handleRegister">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label class="fr-label" for="password">{{ t("password") }}</label>
+              <label class="fr-label" for="password">{{ t('password') }}</label>
               <Field
                 id="password"
                 name="password"
@@ -21,29 +21,22 @@
                   class="form-control validate-required fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   placeholder="DF-DC520!x"
                   type="password"
                   autocomplete="new-password"
                 />
               </Field>
-              <PasswordMeter
-                @score="setScore"
-                :password="user.password || ''"
-              />
+              <PasswordMeter @score="setScore" :password="user.password || ''" />
               <ErrorMessage name="password" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{
-                  t(message || "")
-                }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label class="fr-label" for="confirm-password">
-                {{ t("confirm-password") }}</label
-              >
+              <label class="fr-label" for="confirm-password"> {{ t('confirm-password') }}</label>
               <Field
                 id="confirm-password"
                 name="confirm-password"
@@ -51,7 +44,7 @@
                 v-slot="{ field, meta }"
                 :rules="{
                   required: true,
-                  confirm: [user.password, user.confirm],
+                  confirm: [user.password, user.confirm]
                 }"
               >
                 <input
@@ -59,23 +52,21 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   type="password"
                   autocomplete="new-password"
                 />
               </Field>
               <ErrorMessage name="confirm-password" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{
-                  t(message || "")
-                }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
             <button class="fr-btn" type="submit">
-              {{ t("submit") }}
+              {{ t('submit') }}
             </button>
           </div>
         </div>
@@ -85,51 +76,51 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { User } from "../models/User";
-import { Form, Field, ErrorMessage, defineRule } from "vee-validate";
-import PasswordMeter from "df-shared-next/src/components/PasswordMeter/PasswordMeter.vue";
-import { ref } from "vue";
+import { useI18n } from 'vue-i18n'
+import { User } from '../models/User'
+import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
+import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
+import { ref } from 'vue'
 
-defineRule("required", (value: any) => {
-  if (typeof value === "number") {
+defineRule('required', (value: any) => {
+  if (typeof value === 'number') {
     if (!value) {
-      return "field-required";
+      return 'field-required'
     }
-    return true;
+    return true
   }
   if (!value || !value.length) {
-    return "field-required";
+    return 'field-required'
   }
-  return true;
-});
+  return true
+})
 
-defineRule("strength", (_value: any, [score]: number[]) => {
+defineRule('strength', (_value: any, [score]: number[]) => {
   if (score < 2) {
-    return "strength-not-valid";
+    return 'strength-not-valid'
   }
-  return true;
-});
+  return true
+})
 
-defineRule("confirm", (_value: any, [password, confirm]: string[]) => {
+defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
   if (password !== confirm) {
-    return "confirm-not-valid";
+    return 'confirm-not-valid'
   }
-  return true;
-});
+  return true
+})
 
-const emit = defineEmits(["on-change-password"]);
-const { t } = useI18n();
+const emit = defineEmits(['on-change-password'])
+const { t } = useI18n()
 
-const user = new User();
-const score = ref(0);
+const user = new User()
+const score = ref(0)
 
 function handleRegister() {
-  emit("on-change-password", user);
+  emit('on-change-password', user)
 }
 
 function setScore(s: number) {
-  score.value = s;
+  score.value = s
 }
 </script>
 
