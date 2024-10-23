@@ -4,6 +4,7 @@ import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import useOwnerStore from '../../store/owner-store'
+import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
 
 const { t } = useI18n()
 const store = useOwnerStore()
@@ -19,8 +20,7 @@ const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'T
 const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'))
 const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'))
 const diagnosticStatus = computed(() =>
-  (store.getPropertyToEdit?.co2Emission && store.getPropertyToEdit?.energyConsumption) ||
-  store.getPropertyToEdit?.dpeNotRequired
+  store.getPropertyToEdit && SharedPropertyService.hasDpe(store.getPropertyToEdit)
     ? 'FILLED'
     : 'TO_PROCESS'
 )
