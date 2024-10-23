@@ -91,6 +91,7 @@ import { useToast } from 'vue-toastification'
 import BackNext from '../footer/BackNext.vue'
 import FooterContainer from '../footer/FooterContainer.vue'
 import AnalyticsService from '../../services/AnalyticsService'
+import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
 
 const { t } = useI18n()
 const dpe = ref('')
@@ -101,9 +102,7 @@ const dpeform = ref<typeof Form | null>(null)
 const emit = defineEmits(['submit', 'on-back'])
 
 const expandNoDPE = computed(
-  () =>
-    (store.propertyToEdit?.co2Emission > 0 || store.propertyToEdit?.energyConsumption > 0) &&
-    !store.propertyToEdit?.ademeNumber
+  () => SharedPropertyService.hasDpe(store.propertyToEdit) && !store.propertyToEdit?.ademeNumber
 )
 
 function search() {
@@ -132,10 +131,7 @@ function onBack() {
 }
 
 function onSubmit() {
-  if (
-    (store.propertyToEdit?.co2Emission > 0 && store.propertyToEdit?.energyConsumption > 0) ||
-    store.propertyToEdit?.ademeNumber
-  ) {
+  if (SharedPropertyService.hasDpe(store.propertyToEdit)) {
     emit('submit')
   } else if (dpeform.value) {
     dpeform.value.$el.requestSubmit()

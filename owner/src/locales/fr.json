@@ -397,7 +397,8 @@
     "apply-to": "Candidater au {0}",
     "rent1": "dont le loyer mensuel est de",
     "rent2": "et les charges de",
-    "rentdpe": "avec un DPE"
+    "rentdpe": "avec un DPE",
+    "no-dpe-required": "non soumis au DPE"
   },
   "landing": {
     "title": "Vous mettez un logement en location ? Nous vérifions les dossiers de location à votre place.",

@@ -355,7 +355,8 @@
     "apply-to": "Apply for {0}",
     "rent1": "with a monthly rent of",
     "rent2": "and charges of",
-    "rentdpe": "with an EPC"
+    "rentdpe": "with an EPC",
+    "no-dpe-required": "without EPC required"
   },
   "landing": {
     "title": "Are you letting a property? We'll check the rental files for you.",
