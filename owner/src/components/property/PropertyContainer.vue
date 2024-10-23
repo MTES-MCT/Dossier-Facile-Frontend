@@ -17,7 +17,11 @@
           <div class="fr-col">
             <div>
               {{ t(titleKey) }}
-              {{ !p.dpeNotRequired ? t('propertycontainer.rentdpe') + dpe : '' }}
+              {{
+                !p.dpeNotRequired
+                  ? t('propertycontainer.rentdpe') + dpe
+                  : t('propertycontainer.no-dpe-required')
+              }}
               {{ t('propertycontainer.rent1') }}
               <span class="blue-text">{{ p.rentCost }}€</span>
               {{ t('propertycontainer.rent2') }}
