@@ -21,7 +21,7 @@ describe("couple tenant scenario", () => {
     cy.simpleUploadDocumentStep("Passeport");
 
     cy.expectPath("/documents-locataire/2");
-    cy.selectResidencyStep("Hébergé par ses parents", 3);
+    cy.selectResidencyStep("Hébergé par vos parents, par un ami, par un proche", 3);
 
     cy.expectPath("/documents-locataire/3");
     cy.selectProfessionalStatusStep("CDD");
