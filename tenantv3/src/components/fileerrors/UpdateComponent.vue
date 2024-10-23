@@ -63,7 +63,7 @@ import { computed, ref } from 'vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 const { t } = useI18n()
 
-const emit = defineEmits(['on-update'])
+const emit = defineEmits<{ 'on-update': [] }>()
 const store = useTenantStore()
 
 const props = defineProps<{

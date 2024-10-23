@@ -100,7 +100,7 @@ import { useI18n } from 'vue-i18n'
 
 const route = useRoute()
 const router = useRouter()
-const emit = defineEmits(['on-next'])
+const emit = defineEmits<{ 'on-next': [] }>()
 
 const store = useTenantStore()
 const { t } = useI18n()

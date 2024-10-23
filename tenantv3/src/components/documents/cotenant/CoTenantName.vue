@@ -91,7 +91,7 @@ const lastName = ref('')
 const preferredName = ref('')
 const displayPreferredNameField = ref(false)
 
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 onBeforeMount(() => {
   selectedCoTenant.value = store.getTenant(Number(props.coTenantId))

@@ -2,9 +2,11 @@
   <div>
     <FullTenantFileErrors :user="user" :keyprefix="'my'"></FullTenantFileErrors>
 
-    <div v-for="(tenant, k) in coTenants" :key="k" v-if="user.applicationType === 'COUPLE'">
-      <FullTenantFileErrors :user="tenant" :keyprefix="'tenant'"></FullTenantFileErrors>
-    </div>
+    <template v-if="user.applicationType === 'COUPLE'">
+      <div v-for="(tenant, k) in coTenants" :key="k">
+        <FullTenantFileErrors :user="tenant" :keyprefix="'tenant'"></FullTenantFileErrors>
+      </div>
+    </template>
   </div>
 </template>
 

@@ -11,7 +11,7 @@ import { User } from 'df-shared-next/src/models/User'
 import TenantErrors from './TenantErrors.vue'
 import GuarantorErrors from './GuarantorErrors.vue'
 
-const props = defineProps<{
+defineProps<{
   user: User
   keyprefix: string
 }>()

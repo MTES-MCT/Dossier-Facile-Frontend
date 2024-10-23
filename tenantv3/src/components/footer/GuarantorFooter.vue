@@ -10,9 +10,9 @@
 import FooterContainer from './FooterContainer.vue'
 import BackNext from './BackNext.vue'
 
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-next': []; 'on-back': [] }>()
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     showBack?: boolean
   }>(),

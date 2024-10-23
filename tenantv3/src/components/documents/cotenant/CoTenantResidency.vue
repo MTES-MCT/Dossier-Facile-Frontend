@@ -87,7 +87,7 @@ const props = defineProps<{
   coTenantId: number
 }>()
 const store = useTenantStore()
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const documentsDefinitions = DocumentTypeConstants.RESIDENCY_DOCS
 const documentType = ref(new DocumentType())

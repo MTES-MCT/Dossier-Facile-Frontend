@@ -98,7 +98,7 @@ const props = defineProps<{
   tenantId: number
   guarantor: Guarantor
 }>()
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)

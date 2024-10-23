@@ -52,7 +52,7 @@ import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
 
 const { t } = useI18n()
-const emit = defineEmits(['remove'])
+const emit = defineEmits<{ remove: [] }>()
 
 const props = withDefaults(
   defineProps<{

@@ -117,7 +117,7 @@ import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 
 const { t } = useI18n()
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()
 const user = computed(() => store.userToEdit)
 const tenantResidencyDocument = computed(() => store.getTenantResidencyDocument)

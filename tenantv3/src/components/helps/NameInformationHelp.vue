@@ -18,7 +18,7 @@ import { useI18n } from 'vue-i18n'
 
 const store = useTenantStore()
 const isFranceConnected = computed(() => store.isFranceConnected)
-const emit = defineEmits(['updateInformation'])
+const emit = defineEmits<{ updateInformation: [] }>()
 
 const { t } = useI18n()
 

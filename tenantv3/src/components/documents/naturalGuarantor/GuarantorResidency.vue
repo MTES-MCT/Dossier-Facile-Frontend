@@ -131,7 +131,7 @@ const customText = ref('')
 
 const documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS
 const isDocDeleteVisible = ref(false)
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 onMounted(() => {
   updateGuarantorData()

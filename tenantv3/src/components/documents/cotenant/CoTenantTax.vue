@@ -65,7 +65,7 @@ const documentsDefinitions = DocumentTypeConstants.TAX_DOCS
 const props = defineProps<{
   coTenantId: number
 }>()
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()
 const { t } = useI18n()
 

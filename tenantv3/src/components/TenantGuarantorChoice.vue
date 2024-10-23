@@ -68,7 +68,7 @@ const props = withDefaults(
     isCotenant: false
   }
 )
-const emit = defineEmits(['on-back', 'on-select'])
+const emit = defineEmits<{ 'on-back': []; 'on-select': [guarantorType: string] }>()
 const store = useTenantStore()
 const { t } = useI18n()
 

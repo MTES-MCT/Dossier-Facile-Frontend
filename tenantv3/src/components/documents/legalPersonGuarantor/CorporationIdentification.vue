@@ -103,7 +103,7 @@ const documentDeniedReasons = ref(new DocumentDeniedReasons())
 
 const files = ref([] as DfFile[])
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 onBeforeMount(() => {
   organismName.value = getGuarantor()?.legalPersonName || ''

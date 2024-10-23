@@ -142,7 +142,7 @@ import { ToastService } from '@/services/ToastService'
 import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
