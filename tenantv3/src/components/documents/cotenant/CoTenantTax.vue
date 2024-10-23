@@ -74,11 +74,11 @@ const showDownloader = ref(false)
 const forceShowDownloader = ref(false)
 const document = ref(new DfDocument())
 
-function changeDocument(docType?: DocumentType, doc?: DfDocument) {
+function changeDocument(docType: DocumentType, doc: DfDocument) {
   if (docType) {
     documentType.value = docType
   }
-  document.value = doc as DfDocument
+  document.value = doc
   showDownloader.value = documentType.value?.key === 'my-name'
   forceShowDownloader.value = documentType.value?.key === 'my-name'
 }
@@ -130,7 +130,7 @@ function goNext() {
     return true
   }
 
-  formData.append('typeDocumentTax', documentType.value?.value as string)
+  formData.append('typeDocumentTax', documentType.value?.value)
   if (document.value.id && document.value.id > 0) {
     formData.append('id', document.value.id.toString())
   }

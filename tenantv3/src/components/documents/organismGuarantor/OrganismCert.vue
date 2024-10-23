@@ -116,7 +116,7 @@ function guarantorCertificateDocument(): DfDocument | undefined {
   if (props.guarantor) {
     return props.guarantor.documents?.find((d: DfDocument) => {
       return d.documentCategory === 'GUARANTEE_PROVIDER_CERTIFICATE'
-    }) as DfDocument
+    })
   }
   return store.getGuaranteeProviderCertificateDocument
 }

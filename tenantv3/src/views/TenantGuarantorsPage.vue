@@ -58,7 +58,7 @@ function onEdit(g: Guarantor) {
       step: getStep().toString(),
       substep: '0',
       tenantId: getTenantId().toString(),
-      guarantorId: g.id?.toString() as string
+      guarantorId: g.id?.toString()
     }
   })
 }

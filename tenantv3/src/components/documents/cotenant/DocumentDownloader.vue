@@ -299,34 +299,35 @@ const documentStatus = computed(() => {
   return getDocument()?.documentStatus
 })
 function documentFiles(): DfFile[] {
-  return getDocument().files ? (getDocument().files as DfFile[]) : []
+  return getDocument().files ?? []
 }
 
 function loadDocument(forceLoadLast?: boolean) {
   selectedCoTenant.value = store.getTenant(Number(props.coTenantId))
   if (localEditedDocumentId.value) {
     const doc = selectedCoTenant.value.documents
-      ? (selectedCoTenant.value.documents.find((d: DfDocument) => {
+      ? selectedCoTenant.value.documents.find((d: DfDocument) => {
           return (
             d.documentCategory === props.documentCategory && d.id === localEditedDocumentId.value
           )
-        }) as DfDocument)
+        })
       : undefined
 
     dfDocument.value = doc ? doc : new DfDocument()
     if (localEditedDocumentId.value == -1 && forceLoadLast) {
-      const docs = selectedCoTenant.value.documents?.filter((d: DfDocument) => {
-        return d.documentCategory === props.documentCategory
-      }) as DfDocument[]
+      const docs =
+        selectedCoTenant.value.documents?.filter((d: DfDocument) => {
+          return d.documentCategory === props.documentCategory
+        }) || []
 
       dfDocument.value = docs[docs.length - 1]
       localEditedDocumentId.value = dfDocument.value.id
     }
   } else {
     const doc = selectedCoTenant.value.documents
-      ? (selectedCoTenant.value.documents.find((d: DfDocument) => {
+      ? selectedCoTenant.value.documents.find((d: DfDocument) => {
           return d.documentCategory === props.documentCategory
-        }) as DfDocument)
+        })
       : undefined
 
     dfDocument.value = doc ? doc : new DfDocument()
@@ -341,9 +342,7 @@ function loadDocument(forceLoadLast?: boolean) {
   }
 
   if (dfDocument.value?.documentDeniedReasons) {
-    documentDeniedReasons.value = cloneDeep(
-      dfDocument.value?.documentDeniedReasons
-    ) as DocumentDeniedReasons
+    documentDeniedReasons.value = cloneDeep(dfDocument.value?.documentDeniedReasons)
   }
   emit('on-change-document', document.value, dfDocument.value)
 }

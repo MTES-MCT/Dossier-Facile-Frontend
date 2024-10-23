@@ -30,7 +30,7 @@ onBeforeMount(() => {
   })
   const guarantor = coTenant?.guarantors?.find((g: Guarantor) => {
     return g.id === guarantorId()
-  }) as Guarantor
+  })
   store.setSelectedGuarantor(guarantor)
 })
 

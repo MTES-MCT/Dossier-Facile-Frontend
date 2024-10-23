@@ -96,7 +96,7 @@ const showDownloader = ref(false)
 
 function changeDocument(docType: DocumentType, doc: DfDocument) {
   documentType.value = docType
-  document.value = doc as DfDocument
+  document.value = doc
   document.value.noDocument = docType?.key === 'other-residency'
   showDownloader.value = docType?.key !== 'other-residency'
 }

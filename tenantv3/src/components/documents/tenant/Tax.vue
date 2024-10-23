@@ -341,7 +341,7 @@ async function save(force = false): Promise<boolean> {
   if (force) {
     formData.append('avisDetected', 'true')
   } else {
-    const filteredFiles = files.value.map((f) => f.file as File).filter((f) => f !== undefined)
+    const filteredFiles = files.value.map((f) => f.file).filter((f) => f !== undefined)
     if (!(await PdfAnalysisService.includesRejectedTaxDocuments(filteredFiles))) {
       formData.append('avisDetected', 'false')
     }
@@ -367,7 +367,7 @@ async function save(force = false): Promise<boolean> {
     })
 }
 
-function taxFiles() {
+function taxFiles(): DfFile[] {
   const newFiles = files.value.map((f) => {
     return {
       documentSubCategory: taxDocument.value.value,
@@ -381,7 +381,7 @@ function taxFiles() {
     store.getTenantDocuments?.find((d: DfDocument) => {
       return d.documentCategory === 'TAX'
     })?.files || []
-  return [...newFiles, ...existingFiles] as DfFile[]
+  return [...newFiles, ...existingFiles]
 }
 
 async function remove(file: DfFile, silent = false) {

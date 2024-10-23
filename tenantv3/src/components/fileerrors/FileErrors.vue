@@ -18,6 +18,6 @@ const store = useTenantStore()
 const user = computed(() => store.user)
 
 const coTenants = computed(() => {
-  return user.value.apartmentSharing?.tenants.filter((t: User) => t.id != user.value?.id) as User[]
+  return user.value.apartmentSharing?.tenants.filter((t: User) => t.id != user.value?.id)
 })
 </script>

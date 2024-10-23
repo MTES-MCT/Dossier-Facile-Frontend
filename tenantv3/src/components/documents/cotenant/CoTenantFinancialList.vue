@@ -139,11 +139,14 @@ onBeforeMount(() => {
 })
 
 function hasNoIncome(financialDocuments?: FinancialDocument[]): boolean {
-  return (financialDocuments &&
-    financialDocuments.length > 0 &&
-    financialDocuments.find((f) => {
-      return f.documentType && f.documentType.key !== 'no-income'
-    }) === undefined) as boolean
+  return (
+    (financialDocuments &&
+      financialDocuments.length > 0 &&
+      financialDocuments.find((f) => {
+        return f.documentType && f.documentType.key !== 'no-income'
+      }) === undefined) ||
+    false
+  )
 }
 
 function initialize() {
