@@ -103,7 +103,7 @@ const documentDeniedReasons = ref(new DocumentDeniedReasons())
 
 const files = ref([] as DfFile[])
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 onBeforeMount(() => {
   organismName.value = getGuarantor()?.legalPersonName || ''
@@ -129,7 +129,7 @@ function guarantorIdentificationLegalPersonDocument(): DfDocument | undefined {
   if (props.guarantor) {
     return props.guarantor.documents?.find((d: DfDocument) => {
       return d.documentCategory === 'IDENTIFICATION_LEGAL_PERSON'
-    }) as DfDocument
+    })
   }
   return store.getGuarantorIdentificationLegalPersonDocument
 }

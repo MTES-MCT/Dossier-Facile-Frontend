@@ -39,15 +39,12 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const props = withDefaults(
-  defineProps<{ showBack?: boolean; disabled?: boolean; nextLabel?: string }>(),
-  {
-    showBack: true,
-    disabled: false
-  }
-)
+withDefaults(defineProps<{ showBack?: boolean; disabled?: boolean; nextLabel?: string }>(), {
+  showBack: true,
+  disabled: false
+})
 
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 function isMobile() {
   return UtilsService.isMobile()

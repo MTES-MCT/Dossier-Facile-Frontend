@@ -9,7 +9,7 @@ export const PdfAnalysisService = {
       const page = await pdf.getPage(1)
       const content = await page.getTextContent()
       page.cleanup()
-      return content.items.map((item: any) => item.str).join('')
+      return content.items.map((item) => ('str' in item ? item.str : '')).join('')
     } catch (error) {
       console.error('Error reading PDF first page:', error)
       return 'Error reading PDF'

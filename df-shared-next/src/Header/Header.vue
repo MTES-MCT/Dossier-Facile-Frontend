@@ -29,9 +29,7 @@
                   <span style="font-weight: normal">Dossier</span>Facile
                 </p>
               </a>
-              <p class="fr-header__service-tagline">
-                Le dossier de location numérique de l'État
-              </p>
+              <p class="fr-header__service-tagline">Le dossier de location numérique de l'État</p>
             </div>
           </div>
 
@@ -41,18 +39,13 @@
                 <li v-if="loggedIn">
                   <DfButton :small="true" :primary="false" @on-click="onLogout"
                     ><i class="ri-account-circle-line" aria-hidden="true"></i>
-                    {{ t("logout") }}
+                    {{ t('logout') }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton
-                    :primary="true"
-                    :title="t('signup')"
-                    size="small"
-                    @on-click="onLogin"
-                  >
+                  <DfButton :primary="true" :title="t('signup')" size="small" @on-click="onLogin">
                     <i class="ri-account-circle-line" aria-hidden="true"></i>
-                    {{ t("signup") }}
+                    {{ t('signup') }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
@@ -63,16 +56,11 @@
                     @on-click="onAccessOwner"
                   >
                     <i class="ri-community-line" aria-hidden="true"></i>
-                    {{ t("owner") }}
+                    {{ t('owner') }}
                   </DfButton>
-                  <DfButton
-                    v-else
-                    size="small"
-                    :title="t('tenant')"
-                    @on-click="onAccessTenant"
-                  >
+                  <DfButton v-else size="small" :title="t('tenant')" @on-click="onAccessTenant">
                     <i class="ri-user-star-line" aria-hidden="true"></i>
-                    {{ t("tenant") }}
+                    {{ t('tenant') }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
@@ -84,7 +72,7 @@
                     :title="t('partner-link-title')"
                   >
                     <i class="ri-home-heart-line" aria-hidden="true"></i>
-                    {{ t("partner") }}
+                    {{ t('partner') }}
                   </a>
                 </li>
               </ul>
@@ -96,13 +84,7 @@
     <!-- Navigation principale -->
     <div class="fr-header__menu fr-modal" id="modal-dc">
       <div class="fr-container">
-        <button
-          class="fr-btn--close fr-btn"
-          aria-controls="modal-dc"
-          title="fermer"
-        >
-          Fermer
-        </button>
+        <button class="fr-btn--close fr-btn" aria-controls="modal-dc" title="fermer">Fermer</button>
         <div class="fr-header__menu-links" style="display: none"></div>
         <div class="fr-header__menu-links-hack">
           <ul class="fr-btns-group">
@@ -115,7 +97,7 @@
                 @on-click="onLogout"
               >
                 <i class="ri-account-circle-line" aria-hidden="true"></i>
-                >{{ t("logout") }}
+                >{{ t('logout') }}
               </DfButton>
             </li>
             <li v-if="!loggedIn">
@@ -127,7 +109,7 @@
                 @on-click="onLogin"
               >
                 <i class="ri-account-circle-line" aria-hidden="true"></i>
-                {{ t("signup") }}
+                {{ t('signup') }}
               </DfButton>
             </li>
 
@@ -140,7 +122,7 @@
                 @on-click="onAccessOwner"
               >
                 <i class="ri-community-line" aria-hidden="true"></i>
-                {{ t("owner") }}
+                {{ t('owner') }}
               </DfButton>
               <DfButton
                 v-else
@@ -150,7 +132,7 @@
                 @on-click="onAccessTenant"
               >
                 <i class="ri-user-star-line" aria-hidden="true"></i>
-                {{ t("tenant") }}
+                {{ t('tenant') }}
               </DfButton>
             </li>
             <li v-if="!loggedIn">
@@ -162,17 +144,12 @@
                 :title="t('partner-link-title')"
               >
                 <i class="ri-home-heart-line" aria-hidden="true"></i>
-                {{ t("partner") }}
+                {{ t('partner') }}
               </a>
             </li>
           </ul>
         </div>
-        <nav
-          class="fr-nav"
-          id="navigation-832"
-          role="navigation"
-          aria-label="Menu principal"
-        >
+        <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
           <slot></slot>
         </nav>
       </div>
@@ -181,48 +158,48 @@
 </template>
 
 <script setup lang="ts">
-import DfButton from "../Button/Button.vue";
-import { useI18n } from "vue-i18n";
+import DfButton from '../Button/Button.vue'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n();
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
+const { t } = useI18n()
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 
 withDefaults(
   defineProps<{
-    loggedIn?: boolean;
-    lang?: string;
-    showAccessibility?: boolean;
-    type?: string;
+    loggedIn?: boolean
+    lang?: string
+    showAccessibility?: boolean
+    type?: string
   }>(),
   {
     loggedIn: false,
-    lang: "fr",
+    lang: 'fr',
     showAccessibility: false,
-    type: "tenant",
+    type: 'tenant'
   }
-);
+)
 
-const emit = defineEmits([
-  "on-login",
-  "on-access-tenant",
-  "on-access-owner",
-  "on-logout",
-]);
+const emit = defineEmits<{
+  'on-login': []
+  'on-access-tenant': []
+  'on-access-owner': []
+  'on-logout': []
+}>()
 
 function onLogin() {
-  emit("on-login");
+  emit('on-login')
 }
 
 function onLogout() {
-  emit("on-logout");
+  emit('on-logout')
 }
 
 function onAccessTenant() {
-  emit("on-access-tenant");
+  emit('on-access-tenant')
 }
 
 function onAccessOwner() {
-  emit("on-access-owner");
+  emit('on-access-owner')
 }
 </script>
 

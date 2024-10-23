@@ -16,7 +16,7 @@ import InitPassword from 'df-shared-next/src/Authentification/InitPassword.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { ToastService } from '../services/ToastService'
 import useTenantStore from '../stores/tenant-store'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
@@ -33,7 +33,7 @@ function onInitPassword(user: User) {
       ToastService.success('joincouple.password-update')
       router.push({ name: 'TenantName' })
     },
-    (error: any) => {
+    (error) => {
       if (error.response.data.message.includes('password recovery token or is expired')) {
         ToastService.error('joincouple.token-expired')
       } else {

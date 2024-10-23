@@ -27,7 +27,7 @@
               <SimpleRadioButtons
                 name="application-type-selector"
                 :value="financialDocument.documentType"
-                @input="onSelectChange($event)"
+                @input="onSelectChange"
                 :elements="mapDocuments()"
               ></SimpleRadioButtons>
             </div>
@@ -244,8 +244,8 @@ function guarantorFinancialDocument() {
   })
 }
 
-function onSelectChange($event: any) {
-  financialDocument.value.documentType = $event
+function onSelectChange(docType: DocumentType) {
+  financialDocument.value.documentType = docType
   if (financialDocument.value.id === null) {
     return false
   }
@@ -258,7 +258,8 @@ function onSelectChange($event: any) {
   }
 
   isDocDeleteVisible.value =
-    (doc.files?.length || 0) > 0 && doc.documentSubCategory !== financialDocument.value.documentType.value
+    (doc.files?.length || 0) > 0 &&
+    doc.documentSubCategory !== financialDocument.value.documentType.value
 
   if (isDocDeleteVisible.value) {
     selectedDoc.value = financialDocument.value

@@ -16,7 +16,7 @@
 import FooterContainer from './FooterContainer.vue'
 import BackNext from './BackNext.vue'
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     showBack?: boolean
     disabled?: boolean
@@ -28,7 +28,7 @@ const props = withDefaults(
   }
 )
 
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-next': []; 'on-back': [] }>()
 
 function nextAction() {
   emit('on-next')

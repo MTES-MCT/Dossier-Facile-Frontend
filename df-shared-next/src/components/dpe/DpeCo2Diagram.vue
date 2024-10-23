@@ -1,28 +1,26 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
-import LeftDpeArrow from './LeftDpeArrow.vue';
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import LeftDpeArrow from './LeftDpeArrow.vue'
 
 const props = withDefaults(
   defineProps<{
-    letter?: string;
-    consumption?: number;
-    short?: boolean;
+    letter?: string
+    consumption?: number
+    short?: boolean
   }>(),
   {
     letter: 'A',
     consumption: 0,
-    short: false,
+    short: false
   }
-);
+)
 
-const letters = computed(() =>
-  props.short ? [props.letter] : ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-);
+const letters = computed(() => (props.short ? [props.letter] : ['A', 'B', 'C', 'D', 'E', 'F', 'G']))
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const consumption = computed(() => Math.round(props.consumption));
+const consumption = computed(() => Math.round(props.consumption))
 </script>
 
 <template>

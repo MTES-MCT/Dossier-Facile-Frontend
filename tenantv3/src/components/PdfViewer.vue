@@ -25,9 +25,7 @@ import VuePdfEmbed from 'vue-pdf-embed'
 
 const pdfcontent = ref()
 
-const props = defineProps<{
-  src: string
-}>()
+defineProps<{ src: string }>()
 
 const loadedRatio = ref(0)
 </script>
@@ -36,6 +34,7 @@ const loadedRatio = ref(0)
 .main-content {
   margin: auto;
   width: 768px;
+
   @media all and (max-width: 992px) {
     width: 95%;
   }

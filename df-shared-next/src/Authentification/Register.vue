@@ -2,7 +2,7 @@
   <div>
     <div>
       <h1 class="fr-h2 text-center fr-mt-3w fr-mb-3w color--primary">
-        {{ t("title") }}
+        {{ t('title') }}
       </h1>
 
       <template>
@@ -12,21 +12,21 @@
               :to="{
                 name: 'SourceLink',
                 params: getParams(),
-                query: getQuery(),
+                query: getQuery()
               }"
               class="color--primary"
-              >{{ t("connect-france-connect") }}</router-link
+              >{{ t('connect-france-connect') }}</router-link
             >
           </div>
           <div v-else>
             <div class="fr-alert fr-alert--info">
-              <p class="fr-alert__title">{{ t("alert-info-title") }}</p>
-              <p>{{ t("alert-info-content") }}</p>
+              <p class="fr-alert__title">{{ t('alert-info-title') }}</p>
+              <p>{{ t('alert-info-content') }}</p>
             </div>
             <div class="text-center">
               <div class="fr-mt-2w fr-mb-2w small-text">
-                FranceConnect est la solution proposée par l’État pour sécuriser
-                et simplifier la connexion à vos services en ligne
+                FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la
+                connexion à vos services en ligne
               </div>
             </div>
             <div id="kc-social-providers" class="fr-mt-5w fr-mb-1w text-center">
@@ -37,7 +37,7 @@
                   type="button"
                   :href="getLoginLink()"
                 >
-                  <span>{{ t("connect-france-particulier") }}</span>
+                  <span>{{ t('connect-france-particulier') }}</span>
                 </a>
               </ul>
             </div>
@@ -54,7 +54,7 @@
           </div>
         </div>
 
-        <div class="separator">{{ t("or") }}</div>
+        <div class="separator">{{ t('or') }}</div>
       </template>
 
       <Form id="signupForm" name="form" @submit="handleRegister">
@@ -65,17 +65,17 @@
               v-model="user.email"
               v-slot="{ field, meta }"
               :rules="{
-                required: true,
+                required: true
               }"
             >
               <div class="fr-input-group">
-                <label class="fr-label" for="email">{{ t("email") }}</label>
+                <label class="fr-label" for="email">{{ t('email') }}</label>
                 <input
                   v-bind="field"
                   class="form-control validate-required fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   id="email"
                   name="email"
@@ -85,9 +85,7 @@
                   required
                 />
                 <ErrorMessage name="email" v-slot="{ message }">
-                  <span role="alert" class="fr-error-text">{{
-                    t(message || "")
-                  }}</span>
+                  <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
               </div>
             </Field>
@@ -100,9 +98,7 @@
               :rules="`required|strength:${score}`"
             >
               <div class="fr-input-group">
-                <label class="fr-label" for="password">{{
-                  t("password")
-                }}</label>
+                <label class="fr-label" for="password">{{ t('password') }}</label>
                 <input
                   id="password"
                   :placeholder="t('example-prefix') + generatedPwd"
@@ -112,19 +108,14 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   autocomplete="new-password"
                   required
                 />
-                <PasswordMeter
-                  @score="setScore"
-                  :password="user.password || ''"
-                />
+                <PasswordMeter @score="setScore" :password="user.password || ''" />
                 <ErrorMessage name="password" v-slot="{ message }">
-                  <span role="alert" class="fr-error-text">{{
-                    t(message || "")
-                  }}</span>
+                  <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
               </div>
             </Field>
@@ -136,13 +127,11 @@
               v-slot="{ field, meta }"
               :rules="{
                 required: true,
-                confirm: [user.password, user.confirm],
+                confirm: [user.password, user.confirm]
               }"
             >
               <div class="fr-input-group">
-                <label class="fr-label" for="confirm-password">
-                  {{ t("confirm-password") }}</label
-                >
+                <label class="fr-label" for="confirm-password"> {{ t('confirm-password') }}</label>
                 <input
                   id="confirm-password"
                   type="password"
@@ -151,50 +140,30 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   autocomplete="new-password"
                   required
                 />
                 <ErrorMessage name="confirm-password" v-slot="{ message }">
-                  <span role="alert" class="fr-error-text">{{
-                    t(message || "")
-                  }}</span>
+                  <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
               </div>
             </Field>
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="bg-purple fr-checkbox-group">
-              <Field
-                name="acceptCgu"
-                id="acceptCgu"
-                type="checkbox"
-                rules="isTrue"
-                :value="true"
-              />
-              <label for="acceptCgu"
-                ><div v-html="t('accept-cgu')"></div
-              ></label>
-              <ErrorMessage
-                class="fr-error-text"
-                name="acceptCgu"
-                v-slot="{ message }"
-              >
-                <span role="alert" class="fr-error-text">{{
-                  t(message || "")
-                }}</span>
+              <Field name="acceptCgu" id="acceptCgu" type="checkbox" rules="isTrue" :value="true" />
+              <label for="acceptCgu"><div v-html="t('accept-cgu')"></div></label>
+              <ErrorMessage class="fr-error-text" name="acceptCgu" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
-            <button
-              id="signup-submit"
-              class="fr-btn full-width-btn"
-              type="submit"
-            >
-              {{ t("submit") }}
+            <button id="signup-submit" class="fr-btn full-width-btn" type="submit">
+              {{ t('submit') }}
             </button>
           </div>
         </div>
@@ -204,64 +173,64 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared-next/src/models/User";
-import { AuthService } from "../services/AuthService";
-import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
-import PasswordMeter from "df-shared-next/src/components/PasswordMeter/PasswordMeter.vue";
-import { Form, Field, ErrorMessage } from "vee-validate";
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+import { User } from 'df-shared-next/src/models/User'
+import { AuthService } from '../services/AuthService'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
-const PASSWORD_MIN_SCORE = 2;
-const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VITE_FRANCE_CONNECT_LOGIN_URL;
+const PASSWORD_MIN_SCORE = 2
+const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VITE_FRANCE_CONNECT_LOGIN_URL
 
 const props = defineProps<{
-  email: string;
-}>();
+  email: string
+}>()
 
-const user = ref(new User());
-const score = ref(0);
-const generatedPwd = ref("");
-const route = useRoute();
-const emit = defineEmits(["on-register"]);
+const user = ref(new User())
+const score = ref(0)
+const generatedPwd = ref('')
+const route = useRoute()
+const emit = defineEmits<{ 'on-register': [user: User] }>()
 
 onMounted(() => {
-  user.value.email = props.email;
-  generatedPwd.value = AuthService.generatePasswordPlaceholder();
-});
+  user.value.email = props.email
+  generatedPwd.value = AuthService.generatePasswordPlaceholder()
+})
 
 function handleRegister() {
   if (score.value < PASSWORD_MIN_SCORE) {
-    return;
+    return
   }
-  emit("on-register", user.value);
+  emit('on-register', user.value)
 }
 
 function setScore(s: number) {
-  score.value = s;
+  score.value = s
 }
 
 function getParams() {
   if (!route.params.source) {
-    return undefined;
+    return undefined
   }
   return {
-    source: route.params.source,
-  };
+    source: route.params.source
+  }
 }
 
 function getQuery() {
   return {
-    internalPartnerId: route.query.internalPartnerId?.toString() || "",
-    firstName: route.query.firstName?.toString() || "",
-    lastName: route.query.lastName?.toString() || "",
-    email: route.query.email?.toString() || "",
-  };
+    internalPartnerId: route.query.internalPartnerId?.toString() || '',
+    firstName: route.query.firstName?.toString() || '',
+    lastName: route.query.lastName?.toString() || '',
+    email: route.query.email?.toString() || ''
+  }
 }
 
 function getLoginLink() {
-  return FRANCE_CONNECT_LOGIN_URL;
+  return FRANCE_CONNECT_LOGIN_URL
 }
 </script>
 
@@ -281,7 +250,7 @@ function getLoginLink() {
 
 .separator::before,
 .separator::after {
-  content: "";
+  content: '';
   flex: 1;
   border-bottom: 1px solid #cecece;
 }
@@ -302,8 +271,7 @@ a.zocial.franceconnect-particulier {
 }
 
 a.zocial.franceconnect-particulier:hover {
-  background: url(../assets/fc/franceconnect-bouton-hover@2x.png) no-repeat left
-    top !important;
+  background: url(../assets/fc/franceconnect-bouton-hover@2x.png) no-repeat left top !important;
   height: 70px;
   width: auto;
 }
@@ -319,8 +287,7 @@ a#social-franceconnect-particulier {
 }
 
 a#social-franceconnect-particulier:hover {
-  background: url(../assets/fc/franceconnect-bouton-hover.png) no-repeat left
-    top !important;
+  background: url(../assets/fc/franceconnect-bouton-hover.png) no-repeat left top !important;
   height: 60px;
   width: 230px;
 }

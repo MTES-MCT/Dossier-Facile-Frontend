@@ -292,7 +292,7 @@ import CoTenantDocumentLink from './documents/CoTenantDocumentLink.vue'
 import CoTenantGuarantorDocumentLink from './documents/CoTenantGuarantorDocumentLink.vue'
 import { useI18n } from 'vue-i18n'
 import useTenantStore from '@/stores/tenant-store'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { DocumentType } from './documents/DocumentType'
 
@@ -303,26 +303,6 @@ const coTenants = computed(() => store.coTenants)
 const route = useRoute()
 
 const { t } = useI18n()
-
-const tds = {
-  td0: ref(),
-  td1: ref(),
-  td2: ref(),
-  td3: ref(),
-  td4: ref(),
-  td5: ref()
-}
-
-const gds = {
-  gd0: ref(),
-  gd1: ref(),
-  gd2: ref(),
-  gd3: ref(),
-  gd4: ref(),
-  gd5: ref()
-}
-// const tcontainer = ref();
-// const gcontainer = ref();
 
 const props = withDefaults(
   defineProps<{

@@ -93,7 +93,7 @@ function checkResidencyAndGoNext() {
   if (docs.length === 1) {
     const d = docs[0]
     if (d.documentSubCategory === 'TENANT') {
-      const nbPages = d.files?.reduce((s: any, a: any) => s + (a.numberOfPages || 0), 0)
+      const nbPages = d.files?.reduce((s, a) => s + (a.numberOfPages || 0), 0)
       if ((nbPages || 0) < 3) {
         showNbDocumentsResidencyTenant.value = true
         AnalyticsService.missingResidencyDocumentDetected()
@@ -154,6 +154,7 @@ h2 {
 .title-bar {
   display: flex;
   align-items: center;
+
   span {
     padding: 0.5rem;
     line-height: 1rem;

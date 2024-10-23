@@ -80,7 +80,7 @@ const props = defineProps<{
 }>()
 const { t } = useI18n()
 const store = useTenantStore()
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const tenantFinancialDocuments = ref([] as FinancialDocument[])
 const tenantOriginalDocuments = ref([] as DfDocument[])
@@ -139,11 +139,14 @@ onBeforeMount(() => {
 })
 
 function hasNoIncome(financialDocuments?: FinancialDocument[]): boolean {
-  return (financialDocuments &&
-    financialDocuments.length > 0 &&
-    financialDocuments.find((f) => {
-      return f.documentType && f.documentType.key !== 'no-income'
-    }) === undefined) as boolean
+  return (
+    (financialDocuments &&
+      financialDocuments.length > 0 &&
+      financialDocuments.find((f) => {
+        return f.documentType && f.documentType.key !== 'no-income'
+      }) === undefined) ||
+    false
+  )
 }
 
 function initialize() {

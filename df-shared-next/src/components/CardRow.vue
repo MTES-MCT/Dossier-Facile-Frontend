@@ -5,11 +5,7 @@
         <div class="v-center">
           <slot name="tag"></slot>
         </div>
-        <div
-          v-if="$slots.text"
-          class="text-container"
-          :class="{ danger: danger }"
-        >
+        <div v-if="$slots.text" class="text-container" :class="{ danger: danger }">
           <slot name="text"></slot>
         </div>
       </div>
@@ -39,22 +35,20 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import NakedCard from "./NakedCard.vue";
+import { useI18n } from 'vue-i18n'
+import NakedCard from './NakedCard.vue'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const props = withDefaults(defineProps<{ danger?: boolean }>(), {
-  danger: false,
-});
-const emit = defineEmits(["edit", "remove"]);
+withDefaults(defineProps<{ danger?: boolean }>(), { danger: false })
+const emit = defineEmits<{ edit: []; remove: [] }>()
 
 function edit() {
-  emit("edit");
+  emit('edit')
 }
 
 function remove() {
-  emit("remove");
+  emit('remove')
 }
 </script>
 

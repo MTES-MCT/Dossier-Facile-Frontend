@@ -98,16 +98,16 @@ const props = defineProps<{
   tenantId: number
   guarantor: Guarantor
 }>()
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
-const firstName = ref('')
-const lastName = ref('')
+const firstName = ref<string | undefined>('')
+const lastName = ref<string | undefined>('')
 
 onBeforeMount(() => {
-  firstName.value = props.guarantor.firstName as string
-  lastName.value = props.guarantor.lastName as string
+  firstName.value = props.guarantor.firstName
+  lastName.value = props.guarantor.lastName
 })
 
 function save() {

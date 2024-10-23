@@ -121,7 +121,7 @@ import { useI18n } from 'vue-i18n'
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const { t } = useI18n()
 
-const emit = defineEmits(['on-login-tenant', 'on-logout', 'on-create-owner'])
+const emit = defineEmits<{ 'on-login-tenant': []; 'on-logout': []; 'on-create-owner': [] }>()
 
 const props = withDefaults(
   defineProps<{

@@ -99,7 +99,8 @@
         @on-back="goBack()"
         :disabled="hasErrors()"
         :nextLabel="t('validatefile.validate')"
-      ></ProfileFooter>
+      >
+      </ProfileFooter>
     </Form>
     <div v-if="hasErrors()">
       <NakedCard class="fr-px-5w fr-py-3w">
@@ -138,7 +139,7 @@ const { t } = useI18n()
 
 const store = useTenantStore()
 const user = computed(() => store.user)
-const emit = defineEmits(['on-back'])
+const emit = defineEmits<{ 'on-back': [] }>()
 
 const router = useRouter()
 
@@ -198,11 +199,9 @@ function sendFile() {
   }
   const $loading = useLoading({})
   const loader = $loading.show()
-  const params: any = {
-    honorDeclaration: true
-  }
-  if (user.value.tenantType === 'CREATE') {
-    params.clarification = precision.value
+  const params = {
+    honorDeclaration: true,
+    clarification: user.value.tenantType === 'CREATE' ? precision.value : undefined
   }
   store
     .validateFile(params)

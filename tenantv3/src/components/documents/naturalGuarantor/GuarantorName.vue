@@ -92,7 +92,7 @@ const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const firstName = ref('')
 const lastName = ref('')
 
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 onBeforeMount(() => {
   firstName.value = selectedGuarantor.value?.firstName || ''

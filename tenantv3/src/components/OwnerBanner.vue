@@ -1,29 +1,20 @@
 <template>
   <div class="wrapper">
     <div class="owner-banner-bg text--white">
-      <img
-        class="men"
-        aria-hidden="true"
-        alt="Homme debout"
-        src="../assets/owner/Homme.svg"
-      />
+      <img class="men" aria-hidden="true" alt="Homme debout" src="../assets/owner/Homme.svg" />
       <div class="main">
-        <h2 class="fr-h6 text--white ">
-          {{ t("ownerbanner.title1") }}<br />{{ t("ownerbanner.title2") }}
+        <h2 class="fr-h6 text--white">
+          {{ t('ownerbanner.title1') }}<br />{{ t('ownerbanner.title2') }}
         </h2>
-        <p class=""><ul>
-        <li>{{ t("ownerbanner.text1") }}</li>
-        <li>{{ t("ownerbanner.text2") }}</li>
-        <li>{{ t("ownerbanner.text3") }}</li>
-        </ul></p>
-        <DfButton :dark="true" @on-click="signal">{{ t("ownerbanner.btn") }}</DfButton>
+        <p class=""></p>
+        <ul>
+          <li>{{ t('ownerbanner.text1') }}</li>
+          <li>{{ t('ownerbanner.text2') }}</li>
+          <li>{{ t('ownerbanner.text3') }}</li>
+        </ul>
+        <DfButton :dark="true" @on-click="signal">{{ t('ownerbanner.btn') }}</DfButton>
       </div>
-      <img
-        class="tenant"
-        aria-hidden="true"
-        alt="Locataire"
-        src="../assets/owner/Locataire.svg"
-      />
+      <img class="tenant" aria-hidden="true" alt="Locataire" src="../assets/owner/Locataire.svg" />
       <img
         class="dog"
         aria-hidden="true"
@@ -37,17 +28,17 @@
 </template>
 
 <script setup lang="ts">
-import { AnalyticsService } from "@/services/AnalyticsService";
-import DfButton from "df-shared-next/src/Button/Button.vue";
-import { useI18n } from "vue-i18n";
+import { AnalyticsService } from '@/services/AnalyticsService'
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-  const OWNER_URL = `//${import.meta.env.VUE_APP_OWNER_URL}/creation`;
-  function signal() {
-    AnalyticsService.openCreateOwnerAccount();
-    window.open(OWNER_URL, "_blank", "noopener");
-  }
+const OWNER_URL = `//${import.meta.env.VUE_APP_OWNER_URL}/creation`
+function signal() {
+  AnalyticsService.openCreateOwnerAccount()
+  window.open(OWNER_URL, '_blank', 'noopener')
+}
 </script>
 
 <style scoped lang="scss">
@@ -60,6 +51,7 @@ const { t } = useI18n();
 .main {
   flex: 1;
   padding: 2rem;
+
   @media all and (max-width: 768px) {
     padding: 1rem;
   }
@@ -79,6 +71,7 @@ const { t } = useI18n();
   width: 96px;
   align-self: flex-end;
   margin-bottom: -30px;
+
   @media all and (max-width: 768px) {
     margin-left: -60px;
   }
@@ -99,6 +92,7 @@ const { t } = useI18n();
   align-self: flex-end;
   margin-right: -40px;
   margin-bottom: -29px;
+
   @media all and (max-width: 990px) {
     display: none;
   }
@@ -114,14 +108,14 @@ ul {
 }
 
 @media all and (min-width: 990px) {
-  ul li{
-     display: inline;
-     &:not(:first-child) {
-     &:before {
-      content: ' · ',
-     }
+  ul li {
+    display: inline;
+
+    &:not(:first-child) {
+      &:before {
+        content: ' · ';
+      }
     }
   }
 }
-
 </style>

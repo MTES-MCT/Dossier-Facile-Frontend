@@ -33,7 +33,7 @@ function onInitPassword(user: User) {
       ToastService.success('joingroup.password-update')
       router.push({ name: 'TenantName' })
     },
-    (error: any) => {
+    (error) => {
       console.log('Erreur ' + error.message)
       if (error.code == 'ERR_BAD_REQUEST') {
         ToastService.error('joingroup.bad-request')

@@ -78,9 +78,9 @@ export const DocumentTypeConstants = {
       maxFileCount: 10
     },
     {
-      key: "guest-company",
-      value: "GUEST_ORGANISM",
-      maxFileCount: 10,
+      key: 'guest-company',
+      value: 'GUEST_ORGANISM',
+      maxFileCount: 10
     },
     {
       key: 'guest-organism',
@@ -116,9 +116,9 @@ export const DocumentTypeConstants = {
       maxFileCount: 10
     },
     {
-      key: "guest-company",
-      value: "GUEST_ORGANISM",
-      maxFileCount: 10,
+      key: 'guest-company',
+      value: 'GUEST_ORGANISM',
+      maxFileCount: 10
     },
     {
       key: 'guest-organism',

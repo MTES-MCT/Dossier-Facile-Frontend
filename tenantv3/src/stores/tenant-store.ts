@@ -310,7 +310,7 @@ const useTenantStore = defineStore('tenant', {
       return tenantDocumentsPreValidated(user) || false
     },
     allNamesFilled(state: State): boolean {
-      const userNamesFilled = (u: User) => u.firstName && u.lastName
+      const userNamesFilled = (u: User) => Boolean(u.firstName && u.lastName)
       const guarantorNamesFilled = (g: Guarantor) =>
         !g ||
         (g.typeGuarantor === 'NATURAL_PERSON' && g.firstName && g.lastName) ||
@@ -327,7 +327,7 @@ const useTenantStore = defineStore('tenant', {
           return false
         }
       }
-      return (userNamesFilled(user) && user.guarantors.every(guarantorNamesFilled)) as boolean
+      return userNamesFilled(user) && user.guarantors.every(guarantorNamesFilled)
     },
     hasDoc: (state: State) => (docType: string, user?: User) => {
       const u = user || state.user
@@ -679,7 +679,7 @@ const useTenantStore = defineStore('tenant', {
         'None'
       )
     },
-    validateFile(data: { honorDeclaration: boolean; clarification: string }) {
+    validateFile(data: { honorDeclaration: boolean; clarification: string | undefined }) {
       return ProfileService.validateFile(data.honorDeclaration, data.clarification).then(
         () => {
           AnalyticsService.validateFile()

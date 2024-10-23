@@ -1,12 +1,12 @@
-import { DfDocument } from "./DfDocument";
+import { DfDocument } from './DfDocument'
 
 export class Guarantor {
-  id?: number;
+  id?: number
 
-  lastName?: string;
-  firstName?: string;
-  typeGuarantor?: string;
-  legalPersonName?: string;
+  lastName?: string
+  firstName?: string
+  typeGuarantor?: string
+  legalPersonName?: string
 
-  documents?: DfDocument[];
+  documents?: DfDocument[]
 }

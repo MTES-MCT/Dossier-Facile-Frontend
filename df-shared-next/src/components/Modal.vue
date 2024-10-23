@@ -17,9 +17,7 @@
           Fermer
         </button>
         <header class="modal-header" id="modalTitle">
-          <slot name="header"
-            ><span style="visibility: hidden">title</span></slot
-          >
+          <slot name="header"><span style="visibility: hidden">title</span></slot>
         </header>
         <section class="modal-body" :id="descriptionId">
           <slot name="body"> </slot>
@@ -34,14 +32,14 @@
 </template>
 
 <script setup lang="ts">
-import { useId } from 'vue';
+import { useId } from 'vue'
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits<{ close: [] }>()
 
 const descriptionId = useId()
 
 function close() {
-  emit("close");
+  emit('close')
 }
 </script>
 
@@ -71,7 +69,8 @@ function close() {
   max-width: 90%;
   max-height: 98%;
   overflow: auto;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 8px 16px 0 rgba(0, 0, 0, 0.1),
     0 16px 16px -16px rgba(0, 0, 0, 0.32);
   @media all and (min-width: 480px) {
     min-width: 400px;

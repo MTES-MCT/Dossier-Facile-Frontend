@@ -87,7 +87,7 @@ const props = defineProps<{
   coTenantId: number
 }>()
 const store = useTenantStore()
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const documentsDefinitions = DocumentTypeConstants.RESIDENCY_DOCS
 const documentType = ref(new DocumentType())
@@ -96,7 +96,7 @@ const showDownloader = ref(false)
 
 function changeDocument(docType: DocumentType, doc: DfDocument) {
   documentType.value = docType
-  document.value = doc as DfDocument
+  document.value = doc
   document.value.noDocument = docType?.key === 'other-residency'
   showDownloader.value = docType?.key !== 'other-residency'
 }
@@ -144,7 +144,8 @@ function goNext() {
 function documentHasNotChanged() {
   const doc = DocumentService.getCoTenantDocument(props.coTenantId, 'RESIDENCY')
   return (
-    documentType.value?.value === doc?.documentSubCategory && document.value.customText === doc?.customText
+    documentType.value?.value === doc?.documentSubCategory &&
+    document.value.customText === doc?.customText
   )
 }
 </script>

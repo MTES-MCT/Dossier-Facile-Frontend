@@ -139,10 +139,10 @@ import { computed, onBeforeMount, ref } from 'vue'
 import useTenantStore from '../../../stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '../../../services/ToastService'
-import { useLoading } from 'vue-loading-overlay'
+import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const { t } = useI18n()
 
 const store = useTenantStore()
@@ -164,7 +164,7 @@ const isWarningTaxSituationModalVisible = ref(false)
 const newFiles = ref([] as File[])
 
 const $loading = useLoading({})
-let loader: any
+let loader: ActiveLoader | undefined
 
 const documentStatus = computed(() => {
   return tenantTaxDocument.value?.documentStatus
@@ -341,7 +341,7 @@ async function save(force = false): Promise<boolean> {
   if (force) {
     formData.append('avisDetected', 'true')
   } else {
-    const filteredFiles = files.value.map((f) => f.file as File).filter((f) => f !== undefined)
+    const filteredFiles = files.value.map((f) => f.file).filter((f) => f !== undefined)
     if (!(await PdfAnalysisService.includesRejectedTaxDocuments(filteredFiles))) {
       formData.append('avisDetected', 'false')
     }
@@ -367,7 +367,7 @@ async function save(force = false): Promise<boolean> {
     })
 }
 
-function taxFiles() {
+function taxFiles(): DfFile[] {
   const newFiles = files.value.map((f) => {
     return {
       documentSubCategory: taxDocument.value.value,
@@ -381,7 +381,7 @@ function taxFiles() {
     store.getTenantDocuments?.find((d: DfDocument) => {
       return d.documentCategory === 'TAX'
     })?.files || []
-  return [...newFiles, ...existingFiles] as DfFile[]
+  return [...newFiles, ...existingFiles]
 }
 
 async function remove(file: DfFile, silent = false) {

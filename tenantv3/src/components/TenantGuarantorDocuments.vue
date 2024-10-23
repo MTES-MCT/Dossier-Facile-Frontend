@@ -8,7 +8,8 @@
             :guarantor="selectedGuarantor"
             @on-back="goBack"
             @on-next="goNext"
-          ></TenantGuarantorName>
+          >
+          </TenantGuarantorName>
         </div>
         <div v-if="substep === 1">
           <GuarantorIdentification
@@ -22,7 +23,8 @@
             :tenantId="tenantId"
             @on-back="goBack"
             @on-next="checkResidencyAndGoNext"
-          ></GuarantorResidency>
+          >
+          </GuarantorResidency>
         </div>
         <div v-if="substep === 3">
           <GuarantorProfessional :tenantId="tenantId" :isCotenant="true"></GuarantorProfessional>
@@ -98,12 +100,11 @@ import { useI18n } from 'vue-i18n'
 
 const route = useRoute()
 const router = useRouter()
-const emit = defineEmits(['on-next'])
+const emit = defineEmits<{ 'on-next': [] }>()
 
 const store = useTenantStore()
 const { t } = useI18n()
 
-const coTenants = computed(() => store.coTenants)
 const selectedGuarantor = computed(() => store.selectedGuarantor)
 
 const props = withDefaults(
@@ -224,6 +225,7 @@ h2 {
 .title-bar {
   display: flex;
   align-items: center;
+
   span {
     padding: 0.5rem;
     line-height: 1rem;

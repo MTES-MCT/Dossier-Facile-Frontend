@@ -22,16 +22,16 @@
 </template>
 
 <script setup lang="ts">
-import { AccordionHelpModel } from '../../models/AccordionHelpModel';
+import { AccordionHelpModel } from '../../models/AccordionHelpModel'
 
 defineProps<{
-  elements: AccordionHelpModel[];
-}>();
+  elements: AccordionHelpModel[]
+}>()
 
-const emit = defineEmits(['accordion-clicked']);
+const emit = defineEmits<{ 'accordion-clicked': [tag: string] }>()
 
 function accordionClicked(tag: string) {
-  emit('accordion-clicked', tag);
+  emit('accordion-clicked', tag)
 }
 </script>
 

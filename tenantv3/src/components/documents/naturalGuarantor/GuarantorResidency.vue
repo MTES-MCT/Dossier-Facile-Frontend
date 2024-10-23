@@ -16,7 +16,7 @@
           >
             <option v-if="!residencyDocument" selected disabled></option>
             <option v-for="d in documents" :value="d" :key="d.key">
-              {{ t("guarantorresidency." + d.key) }}
+              {{ t('guarantorresidency.' + d.key) }}
             </option>
           </select>
         </div>
@@ -131,7 +131,7 @@ const customText = ref('')
 
 const documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS
 const isDocDeleteVisible = ref(false)
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 onMounted(() => {
   updateGuarantorData()

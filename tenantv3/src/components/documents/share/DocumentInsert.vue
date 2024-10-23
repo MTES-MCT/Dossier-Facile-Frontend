@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(
+withDefaults(
   defineProps<{
     allowList: string[]
     blockList: string[]

@@ -3,9 +3,9 @@
     <RichRadioButtons
       name="application-type-selector"
       v-model="checkedApplicationType"
-      @input="onChange($event)"
+      @input="onChange"
       :elements="applicationTypeOptions"
-    ></RichRadioButtons>
+    />
     <ConfirmModal v-if="showConfirmationModal" @valid="validSelect()" @cancel="undoSelect()">
       <span>{{ getConfirmModalContent() }}</span>
     </ConfirmModal>
@@ -23,7 +23,7 @@ const store = useTenantStore()
 const user = computed(() => store.user)
 const roommates = computed(() => store.getRoommates)
 const { t } = useI18n()
-const emit = defineEmits(['selected'])
+const emit = defineEmits<{ selected: [value: string] }>()
 
 const applicationType = ref('')
 const checkedApplicationType = ref('')
@@ -57,8 +57,8 @@ onBeforeMount(() => {
   checkedApplicationType.value = applicationType.value
 })
 
-function onChange($event: any) {
-  checkedApplicationType.value = $event
+function onChange(value: string) {
+  checkedApplicationType.value = value
   if (applicationType.value === checkedApplicationType.value) {
     return
   }

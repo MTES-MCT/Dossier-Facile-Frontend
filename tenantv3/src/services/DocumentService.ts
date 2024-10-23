@@ -1,8 +1,8 @@
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { User } from 'df-shared-next/src/models/User'
-import { UtilsService } from '@/services/UtilsService'
 import useTenantStore from '@/stores/tenant-store'
+import type { DfFile } from 'df-shared-next/src/models/DfFile'
 
 const store = useTenantStore()
 
@@ -68,7 +68,7 @@ export const DocumentService = {
     const docs = store.user.documents.filter((d: DfDocument) => {
       return d.documentCategory === documentCategory
     })
-    let files: any[] = []
+    let files: DfFile[] = []
     if (docs === undefined) {
       return []
     }
@@ -85,7 +85,7 @@ export const DocumentService = {
     const docs = g.documents.filter((d: DfDocument) => {
       return d.documentCategory === documentCategory
     })
-    let files: any[] = []
+    let files: DfFile[] = []
     if (docs === undefined) {
       return files
     }
