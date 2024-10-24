@@ -54,7 +54,7 @@
           </button>
         </h3>
         <div class="fr-collapse" id="noDPE">
-          <p :v-html="t('propertydiagnostic.no-dpe-text')"></p>
+          <p>{{ t('propertydiagnostic.no-dpe-text') }}</p>
           <div class="fr-highlight">
             <ul>
               <li>
