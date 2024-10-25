@@ -69,7 +69,7 @@ const mainPages = [
   },
   {
     name: 'Aide',
-    url: 'https://docs.dossierfacile.logement.gouv.fr'
+    url: 'https://aide.dossierfacile.logement.gouv.fr/fr'
   },
   {
     name: 'Contact',

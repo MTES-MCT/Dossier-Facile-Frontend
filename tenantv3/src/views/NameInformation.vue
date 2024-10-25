@@ -17,7 +17,7 @@
           <span class="text-bold">{{ t('nameinformation.same-for-guarantors') }}</span>
           <br />
           🧐
-          <a href="https://docs.dossierfacile.logement.gouv.fr/" target="_blank" rel="noopener">{{
+          <a href="https://aide.dossierfacile.logement.gouv.fr/fr/" target="_blank" rel="noopener">{{
             t('nameinformation.see-documentation')
           }}</a>
         </p>

@@ -167,7 +167,7 @@
           </div>
           <div class="btn-align fr-mt-2w">
             <a
-              href="https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition"
+              href="https://aide.dossierfacile.logement.gouv.fr/fr/article/5-avis-dimposition-eg82wt/"
               rel="noopener"
               target="_blank"
               >{{ t('tax-page.avis-link-to-doc') }}</a
