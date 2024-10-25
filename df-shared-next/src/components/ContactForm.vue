@@ -36,7 +36,7 @@
         <li>
           des informations plus générales, à propos de la
           <a
-            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/gestion-des-donnees-et-securite-new-1d3d36d/?bust=1718693015989"
+            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/gestion-des-donnees-et-securite-new-1d3d36d/"
             rel="noopener"
             target="_blank"
             >sécurité de vos documents</a
