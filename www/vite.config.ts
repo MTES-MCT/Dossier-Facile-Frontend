@@ -33,6 +33,9 @@ export default defineConfig({
     }
   },
   ssgOptions: {
+    onPageRendered: (route: string, renderedHTML: string) => {
+      return renderedHTML.replace(/<link rel="modulepreload".*?>/i, '')
+    },
     onFinished: () => {
       const baseURL = 'https://' + process.env.VITE_MAIN_URL
       generateSiteMap({ hostname: baseURL })
