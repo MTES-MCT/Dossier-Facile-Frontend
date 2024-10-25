@@ -10,7 +10,7 @@
         <li>
           de la documentation, comme
           <a
-            href="https://docs.dossierfacile.logement.gouv.fr/article/93-liste-des-documents-a-fournir-2-0"
+            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/liste-des-documents-a-fournir-scnv25/"
             rel="noopener"
             target="_blank"
             >la liste des documents à fournir</a
@@ -20,14 +20,14 @@
         <li>
           des tutoriels : comment créer un
           <a
-            href="https://docs.dossierfacile.logement.gouv.fr/article/48-dossier-couple-2023"
+            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-de-location-en-couple-26ajqi/"
             rel="noopener"
             target="_blank"
             >DossierFacile en couple ?</a
           >
           Comment créer un
           <a
-            href="https://docs.dossierfacile.logement.gouv.fr/article/7-ajout-dun-colocataire"
+            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-de-location-en-famille-ou-entre-amies-ow7uhc/"
             rel="noopener"
             target="_blank"
             >DossierFacile en colocation ?</a
@@ -36,7 +36,7 @@
         <li>
           des informations plus générales, à propos de la
           <a
-            href="https://docs.dossierfacile.logement.gouv.fr/article/31-gestion-des-donnees-et-securite"
+            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/gestion-des-donnees-et-securite-new-1d3d36d/?bust=1718693015989"
             rel="noopener"
             target="_blank"
             >sécurité de vos documents</a
@@ -47,7 +47,7 @@
       <a
         class="fr-btn"
         @click="accordionClicked('contact_need_information')"
-        href="https://docs.dossierfacile.logement.gouv.fr"
+        href="https://aide.dossierfacile.logement.gouv.fr/fr/"
         rel="noopener"
         target="_blank"
         >Consulter notre aide en ligne</a
@@ -407,7 +407,7 @@
               <DfButton class="" :primary="true">
                 <a
                   class="fr-external-link"
-                  href="https://docs.dossierfacile.logement.gouv.fr"
+                  href="https://aide.dossierfacile.logement.gouv.fr/fr/"
                   title="Documentation DossierFacile"
                   target="_blank"
                   rel="noreferrer noopener "

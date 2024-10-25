@@ -126,7 +126,7 @@
       votre compte (comme nous n'enregistrons pas d'éléments nominatifs, seuls ces éléments peuvent
       nous permettre de retrouver votre compte). Vous pouvez également
       <a
-        href="https://docs.dossierfacile.logement.gouv.fr/guide-dutilisation-de-dossierfacile/supprimer-son-compte"
+        href="https://aide.dossierfacile.logement.gouv.fr/fr/article/supprimer-son-compte-ccyu3l/"
         >supprimer votre compte directement depuis votre espace personnel DossierFacile</a
       >.
     </p>
