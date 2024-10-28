@@ -373,13 +373,15 @@ function getDocs(tenant: User | Guarantor, docType: string) {
 }
 
 function isTaxAuthentic(user: User | Guarantor) {
-  const doc = document(user, 'TAX') as DfDocument
-  return doc.authenticityStatus === 'AUTHENTIC'
+  const doc = document(user, 'TAX')
+  return doc?.authenticityStatus === 'AUTHENTIC'
 }
 
 function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
-  const doc = document(user, 'TAX') as DfDocument
-  return isTaxAuthentic(user) ? t('file.tax-verified') : t('documents.status.' + doc.documentStatus)
+  const doc = document(user, 'TAX')
+  return isTaxAuthentic(user)
+    ? t('file.tax-verified')
+    : t('documents.status.' + doc?.documentStatus)
 }
 </script>
 
