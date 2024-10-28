@@ -37,14 +37,14 @@
             <div class="fr-header__tools-links">
               <ul class="fr-btns-group">
                 <li v-if="loggedIn">
-                  <DfButton :small="true" :primary="false" @on-click="onLogout"
-                    ><i class="ri-account-circle-line" aria-hidden="true"></i>
+                  <DfButton :small="true" :primary="false" @on-click="onLogout">
+                    <RiAccountCircleLine aria-hidden="true" />
                     {{ t('logout') }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
                   <DfButton :primary="true" :title="t('signup')" size="small" @on-click="onLogin">
-                    <i class="ri-account-circle-line" aria-hidden="true"></i>
+                    <RiAccountCircleLine aria-hidden="true" />
                     {{ t('signup') }}
                   </DfButton>
                 </li>
@@ -55,11 +55,11 @@
                     :title="t('owner')"
                     @on-click="onAccessOwner"
                   >
-                    <i class="ri-community-line" aria-hidden="true"></i>
+                    <RiCommunityLine aria-hidden="true" />
                     {{ t('owner') }}
                   </DfButton>
                   <DfButton v-else size="small" :title="t('tenant')" @on-click="onAccessTenant">
-                    <i class="ri-user-star-line" aria-hidden="true"></i>
+                    <RiUserStarLine aria-hidden="true" />
                     {{ t('tenant') }}
                   </DfButton>
                 </li>
@@ -71,7 +71,7 @@
                     rel="noopener"
                     :title="t('partner-link-title')"
                   >
-                    <i class="ri-home-heart-line" aria-hidden="true"></i>
+                    <RiHomeHeartLine aria-hidden="true" />
                     {{ t('partner') }}
                   </a>
                 </li>
@@ -96,8 +96,8 @@
                 size="small"
                 @on-click="onLogout"
               >
-                <i class="ri-account-circle-line" aria-hidden="true"></i>
-                >{{ t('logout') }}
+                <RiAccountCircleLine aria-hidden="true" />
+                {{ t('logout') }}
               </DfButton>
             </li>
             <li v-if="!loggedIn">
@@ -108,7 +108,7 @@
                 size="small"
                 @on-click="onLogin"
               >
-                <i class="ri-account-circle-line" aria-hidden="true"></i>
+                <RiAccountCircleLine aria-hidden="true" />
                 {{ t('signup') }}
               </DfButton>
             </li>
@@ -121,7 +121,7 @@
                 :title="t('owner')"
                 @on-click="onAccessOwner"
               >
-                <i class="ri-community-line" aria-hidden="true"></i>
+                <RiCommunityLine aria-hidden="true" />
                 {{ t('owner') }}
               </DfButton>
               <DfButton
@@ -131,7 +131,7 @@
                 :title="t('tenant')"
                 @on-click="onAccessTenant"
               >
-                <i class="ri-user-star-line" aria-hidden="true"></i>
+                <RiUserStarLine aria-hidden="true" />
                 {{ t('tenant') }}
               </DfButton>
             </li>
@@ -143,7 +143,7 @@
                 rel="noopener"
                 :title="t('partner-link-title')"
               >
-                <i class="ri-home-heart-line" aria-hidden="true"></i>
+                <RiHomeHeartLine aria-hidden="true" />
                 {{ t('partner') }}
               </a>
             </li>
@@ -158,6 +158,12 @@
 </template>
 
 <script setup lang="ts">
+import {
+  RiAccountCircleLine,
+  RiCommunityLine,
+  RiHomeHeartLine,
+  RiUserStarLine
+} from '@remixicon/vue'
 import DfButton from '../Button/Button.vue'
 import { useI18n } from 'vue-i18n'
 
@@ -229,9 +235,8 @@ li {
     display: none;
   }
 }
-header i {
-  padding-right: 0.25rem;
-  font-size: 24px;
+.fr-header .remixicon {
+  margin-right: 0.25rem;
 }
 .fr-header {
   .fr-links-group {

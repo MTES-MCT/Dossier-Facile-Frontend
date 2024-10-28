@@ -8,7 +8,7 @@
           aria-expanded="false"
           :aria-controls="e.id"
         >
-          <i class="circle ri-arrow-right-line fs-22"></i>{{ e.title }}
+          <RiArrowRightLine class="circle fr-p-1v" />{{ e.title }}
         </button>
       </h3>
       <div class="fr-collapse" :id="e.id">
@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import { RiArrowRightLine } from '@remixicon/vue'
 import { AccordionHelpModel } from '../../models/AccordionHelpModel'
 
 defineProps<{
