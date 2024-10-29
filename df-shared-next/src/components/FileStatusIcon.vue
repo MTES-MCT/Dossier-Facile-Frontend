@@ -1,19 +1,15 @@
 <template>
-  <span>
-    <i v-if="status === 'TO_PROCESS'" class="text-warning ri-time-line" style="font-size: 18px"></i>
-    <i
-      v-if="status === 'DECLINED' || status === 'INCOMPLETE'"
-      class="ri-close-circle-fill text-danger"
-      style="font-size: 18px"
-    ></i>
-    <i
-      v-if="status === 'VALIDATED'"
-      class="text-success ri-checkbox-circle-line"
-      style="font-size: 18px"
-    ></i>
-  </span>
+  <RiTimeLine v-if="status === 'TO_PROCESS'" size="18px" class="text-warning" />
+  <RiCloseCircleFill
+    v-if="status === 'DECLINED' || status === 'INCOMPLETE'"
+    size="18px"
+    class="text-danger"
+  />
+  <RiCheckboxCircleLine v-if="status === 'VALIDATED'" size="18px" class="text-success" />
 </template>
 
 <script setup lang="ts">
+import { RiCheckboxCircleLine, RiCloseCircleFill, RiTimeLine } from '@remixicon/vue'
+
 withDefaults(defineProps<{ status?: string }>(), { status: 'INCOMPLETE' })
 </script>

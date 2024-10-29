@@ -210,12 +210,9 @@
               </td>
               <td @click="setShowTenant(tenant, k)">
                 <div class="tag" :class="getTenantClass(tenant)">
-                  <i v-if="tenant.status === 'DECLINED'" class="ri-close-circle-fill fs-18"></i>
-                  <i
-                    v-else-if="tenant.status === 'VALIDATED'"
-                    class="ri-chekbox-circle-line fs-18"
-                  ></i>
-                  <i v-else class="ri-time-line fs-18"></i>
+                  <RiCloseCircleFill v-if="tenant.status === 'DECLINED'" size="18px" />
+                  <RiCheckboxCircleLine v-else-if="tenant.status === 'VALIDATED'" size="18px" />
+                  <RiTimeLine v-else size="18px" />
                   <span class="fr-ml-1v">
                     {{ t(tenant.status || '') }}
                   </span>
@@ -253,6 +250,7 @@ import Applicant from './Applicant'
 import UtilsService from '../../services/UtilsService'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
+import { RiCheckboxCircleLine, RiCloseCircleFill, RiTimeLine } from '@remixicon/vue'
 
 const { t } = useI18n()
 const confirmDeleteProperty = ref(false)

@@ -9,6 +9,7 @@ import useOwnerStore from '../store/owner-store'
 import GmbiAd from './GmbiAd.vue'
 import FeedbackRequest from './FeedbackRequest.vue'
 import AnalyticsService from '../services/AnalyticsService'
+import { RiBuilding4Line, RiCommunityFill, RiHome4Fill } from '@remixicon/vue'
 
 const store = useOwnerStore()
 const { t } = useI18n()
@@ -81,9 +82,9 @@ function openProperty(p: Property) {
         <tr class="clickable" v-for="p in properties" :key="p.name" @click="openProperty(p)">
           <td class="desktop blue-text inline-block">
             <div class="fr-m-1v icon-container">
-              <i v-if="p.type === 'HOUSE'" class="fs-24 ri-home-4-fill"></i>
-              <i v-else-if="p.type === 'APARTMENT'" class="fs-24 ri-building-4-line"></i>
-              <i v-else class="fs-24 ri-community-fill"></i>
+              <RiHome4Fill v-if="p.type === 'HOUSE'" />
+              <RiBuilding4Line v-else-if="p.type === 'APARTMENT'" />
+              <RiCommunityFill v-else />
             </div>
           </td>
           <td class="blue-grey">{{ p.name }}</td>

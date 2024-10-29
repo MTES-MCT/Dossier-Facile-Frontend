@@ -16,7 +16,7 @@
           class="fr-p-1w fr-mr-2w icon-btn"
           :class="{ danger: danger, 'color--primary': !danger }"
         >
-          <i class="fs-24 ri-pencil-line"></i>
+          <RiPencilLine />
         </button>
         <button
           :title="t('remove')"
@@ -24,7 +24,7 @@
           class="fr-p-1w icon-btn"
           :class="{ danger: danger, 'color--primary': !danger }"
         >
-          <i class="fs-24 ri-delete-bin-2-fill"></i>
+          <RiDeleteBin2Fill />
         </button>
       </div>
     </div>
@@ -37,6 +37,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import NakedCard from './NakedCard.vue'
+import { RiDeleteBin2Fill, RiPencilLine } from '@remixicon/vue'
 
 const { t } = useI18n()
 
@@ -83,6 +84,7 @@ function remove() {
 }
 
 .icon-btn {
+  display: flex;
   border: 1px solid var(--primary);
   background-color: var(--background-default-grey);
   &.danger {

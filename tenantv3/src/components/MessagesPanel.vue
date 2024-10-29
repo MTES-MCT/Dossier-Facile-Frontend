@@ -189,7 +189,7 @@
         <NakedCard class="fr-mt-3w fr-mb-2w">
           <div class="fr-grid-row">
             <div class="fr-col-3 fr-p-2w">
-              <i class="ri-checkbox-circle-line text-success fs-48"></i>
+              <RiCheckboxCircleLine size="48px" class="text-success" />
             </div>
             <div class="fr-col-9 fr-p-2w">
               Votre pièce est validée&nbsp;! Plus besoin d’y toucher
@@ -199,7 +199,7 @@
         <NakedCard class="fr-mt-3w fr-mb-2w">
           <div class="fr-grid-row">
             <div class="fr-col-3 fr-p-2w">
-              <i class="ri-time-fill text-warning fs-48"></i>
+              <RiTimeFill size="48px" class="text-warning" />
             </div>
             <div class="fr-col-9 fr-p-2w">Nous sommes en cours de traitement de cette pièce</div>
           </div>
@@ -207,7 +207,7 @@
         <NakedCard class="fr-mt-3w fr-mb-2w">
           <div class="fr-grid-row">
             <div class="fr-col-3 fr-p-2w">
-              <i class="ri-close-circle-fill text-danger fs-48"></i>
+              <RiCloseCircleFill size="48px" class="text-danger" />
             </div>
             <div class="fr-col-9 fr-p-2w">
               Vous devez modifier votre pièce afin que nous validions votre dossier
@@ -298,6 +298,7 @@ import useTenantStore from '@/stores/tenant-store'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { RiCheckboxCircleLine, RiCloseCircleFill, RiTimeFill } from '@remixicon/vue'
 
 const { t, d } = useI18n()
 const router = useRouter()

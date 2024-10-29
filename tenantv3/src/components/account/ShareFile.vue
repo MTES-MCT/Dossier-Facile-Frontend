@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="fr-h4 align-items--center" style="display: flex">
-      <i class="ri-share-line fr-mr-1w" aria-hidden="true"></i>
+      <RiShareLine class="fr-mr-1w bold-icon" aria-hidden="true" />
       {{ t('sharefile.title') }}
     </h2>
     <p>
@@ -92,6 +92,7 @@ import useTenantStore from '../../stores/tenant-store'
 import { computed, ref } from 'vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import { RiShareLine } from '@remixicon/vue'
 
 const store = useTenantStore()
 const user = computed(() => store.user)

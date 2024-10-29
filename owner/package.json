@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",
+    "@remixicon/vue": "4.5.0",
     "@sentry/tracing": "7.119.2",
     "@sentry/vue": "7.119.2",
     "axios": "^1.7.4",
@@ -36,7 +37,6 @@
     "express": "4.21.1",
     "keycloak-js": "21.0.1",
     "pinia": "2.0.33",
-    "remixicon": "4.2.0",
     "vee-validate": "4.12.2",
     "vue": "3.5.12",
     "vue-i18n": "^9.3.0-beta.17",

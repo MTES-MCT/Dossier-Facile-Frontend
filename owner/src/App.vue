@@ -82,7 +82,6 @@ function onLogout() {
 @import '@gouvfr/dsfr/dist/utility/colors/colors.min.css';
 @import 'df-shared-next/src/scss/_main.scss';
 @import 'df-shared-next/src/scss/_variables.scss';
-@import '../../node_modules/remixicon/fonts/remixicon.css';
 
 #app {
   min-height: 100vh;
@@ -101,5 +100,10 @@ function onLogout() {
   flex: auto;
   display: flex;
   flex-direction: column;
+}
+
+.bold-icon path {
+  stroke: currentColor;
+  stroke-width: 0.6;
 }
 </style>

@@ -1,10 +1,25 @@
 <template>
-  <div class="icons" v-if="getStatus()">
-    <i :class="getStatus()" aria-hidden="true"></i>
+  <div class="icons" v-if="icon">
+    <component :is="icon" size="14px" aria-hidden="true" />
   </div>
 </template>
 
 <script setup lang="ts">
+import {
+  RiAlertLine,
+  RiArrowRightLine,
+  RiAttachmentLine,
+  RiCloseCircleFill,
+  RiCloseCircleLine,
+  RiGroupLine,
+  RiPassValidLine,
+  RiTeamLine,
+  RiTimeLine,
+  RiUserLine,
+  RiVerifiedBadgeLine
+} from '@remixicon/vue'
+import { computed } from 'vue'
+
 const props = withDefaults(
   defineProps<{
     status: string
@@ -15,41 +30,40 @@ const props = withDefaults(
   }
 )
 
-function getStatus() {
+const icon = computed(() => {
   switch (props.status) {
     case 'EMPTY':
-      return 'ri-arrow-right-line'
+      return RiArrowRightLine
     case 'FILLED':
-      return 'ri-attachment-line'
+      return RiAttachmentLine
     case 'TO_PROCESS':
-      return 'ri-time-line'
+      return RiTimeLine
     case 'VALIDATED':
-      return 'ri-verified-badge-line'
+      return RiVerifiedBadgeLine
     case 'DECLINED':
-      return 'ri-close-circle-fill'
+      return RiCloseCircleFill
     case 'NAME':
-      return 'ri-pass-valid-line'
+      return RiPassValidLine
     case 'ALONE':
-      return 'ri-user-line'
+      return RiUserLine
     case 'COUPLE':
-      return 'ri-group-line'
+      return RiGroupLine
     case 'GROUP':
-      return 'ri-team-line'
+      return RiTeamLine
     case 'INCOMPLETE':
       if (props.warn) {
-        return 'ri-alert-line'
+        return RiAlertLine
       }
-      return 'ri-close-circle-line'
+      return RiCloseCircleLine
   }
   return undefined
-}
+})
 </script>
 
 <style scoped lang="scss">
 .icons {
+  display: flex;
+  align-items: center;
   margin-right: 0.5rem;
-}
-.icons > span {
-  font-size: 16px;
 }
 </style>

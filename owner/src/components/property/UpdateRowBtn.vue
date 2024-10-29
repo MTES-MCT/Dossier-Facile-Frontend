@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RiPencilLine } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -12,7 +13,7 @@ const props = defineProps<{ title: string; to: any }>()
     <router-link class="fr-btn update-btn fr-btn--secondary" :to="props.to">
       <div class="desktop">{{ t('updaterowbtn.update') }}</div>
       <div class="mobile">
-        <i class="color--primary fs-16 ri-pencil-line"></i>
+        <RiPencilLine size="16px" />
       </div>
     </router-link>
   </div>

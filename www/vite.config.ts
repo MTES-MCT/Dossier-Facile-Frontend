@@ -9,34 +9,36 @@ import vueI18n from '@intlify/vite-plugin-vue-i18n'
 export default defineConfig({
   build: {
     assetsInlineLimit: (file) => {
-      return !file.endsWith('.svg') && !file.endsWith('.min.js') && !file.endsWith('.woff') && !file.endsWith('.woff2')
-        && !file.endsWith('.ttf') && !file.endsWith('.otf') && !file.endsWith('.eot');
+      return (
+        !file.endsWith('.svg') &&
+        !file.endsWith('.min.js') &&
+        !file.endsWith('.woff') &&
+        !file.endsWith('.woff2') &&
+        !file.endsWith('.ttf') &&
+        !file.endsWith('.otf') &&
+        !file.endsWith('.eot')
+      )
     }
   },
   server: {
     port: 9001,
     fs: {
-      allow: [
-        './src',
-        '../df-shared-next',
-        '../node_modules',
-        './node_modules'
-      ]
+      allow: ['./src', '../df-shared-next', '../node_modules', './node_modules']
     }
   },
-  plugins: [
-    vue(),
-    vueI18n({})
-  ],
+  plugins: [vue(), vueI18n({})],
   css: {
     preprocessorOptions: {
       scss: { api: 'modern' }
     }
   },
   ssgOptions: {
+    onPageRendered: (route: string, renderedHTML: string) => {
+      return renderedHTML.replace(/<link rel="modulepreload".*?>/i, '')
+    },
     onFinished: () => {
-      const baseURL =  'https://' + process.env.VITE_MAIN_URL;
-      generateSiteMap({ hostname: baseURL})
+      const baseURL = 'https://' + process.env.VITE_MAIN_URL
+      generateSiteMap({ hostname: baseURL })
     }
   },
   resolve: {
@@ -45,6 +47,6 @@ export default defineConfig({
     }
   },
   ssr: {
-	  noExternal: [/vue3-cookies/]
+    noExternal: [/vue3-cookies/]
   }
 })

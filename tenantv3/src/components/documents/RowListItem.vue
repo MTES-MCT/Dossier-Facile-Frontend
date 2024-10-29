@@ -15,7 +15,7 @@
             @on-keypress="$emit('click-edit')"
             @on-click="$emit('click-edit')"
           >
-            <i class="ri-pencil-line fr-mr-1w" aria-hidden="true"></i>
+            <RiPencilLine class="fr-mr-1w" size="1rem" aria-hidden="true" />
             {{ t('filerowlistitem.edit') }}
           </DfButton>
         </li>
@@ -23,7 +23,7 @@
     </div>
     <div class="desktop fr-col-12 fr-col-md-2 fr-btns-group--right">
       <DfButton v-if="canEdit" @on-keypress="$emit('click-edit')" @on-click="$emit('click-edit')">
-        <i class="ri-pencil-line fr-mr-1w" aria-hidden="true"></i>
+        <RiPencilLine class="fr-mr-1w" size="1rem" aria-hidden="true" />
         {{ t('filerowlistitem.edit') }}
       </DfButton>
     </div>
@@ -31,6 +31,7 @@
 </template>
 
 <script setup lang="ts">
+import { RiPencilLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/Button.vue'
 import { useI18n } from 'vue-i18n'
 

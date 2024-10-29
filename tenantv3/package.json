@@ -23,6 +23,7 @@
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
+    "@remixicon/vue": "4.4.0",
     "@sentry/vue": "7.119.2",
     "axios": "^1.7.4",
     "dayjs": "^1.11.10",
@@ -31,7 +32,6 @@
     "lodash.clonedeep": "^4.5.0",
     "pdfjs-dist": "^4.2.67",
     "pinia": "2.2.2",
-    "remixicon": "4.2.0",
     "vee-validate": "4.12.2",
     "vue": "3.5.12",
     "vue-i18n": "9.14.1",
