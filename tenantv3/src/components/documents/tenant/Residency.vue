@@ -56,7 +56,7 @@
           v-if="residencyDocument.key === 'tenant'"
         >
           <div class="fr-text-default--info fr-h6 title">
-            <i class="ri-error-warning-line"></i>
+            <RiErrorWarningLine size="1.25rem" class="bold-icon" style="vertical-align: middle" />
             <span class="fr-ml-1w">
               {{ t('residency-page.warning-only-rent-receipt') }}
             </span>
@@ -115,6 +115,7 @@ import useTenantStore from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
+import { RiErrorWarningLine } from '@remixicon/vue'
 
 const { t } = useI18n()
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()

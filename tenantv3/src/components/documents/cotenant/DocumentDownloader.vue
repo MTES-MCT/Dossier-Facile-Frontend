@@ -151,9 +151,8 @@
     >
       <template v-slot:body>
         <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
-          <h1 class="avis-title fr-h4">
-            <i class="ri-alarm-warning-line"></i>
-
+          <h1 class="avis-title fr-h4 display--flex align-items--center">
+            <RiAlarmWarningLine class="bold-icon fr-mr-1w" />
             {{ t('tax-page.avis-detected') }}
           </h1>
           <p>
@@ -206,6 +205,7 @@ import useTenantStore, { type DispatchNames } from '@/stores/tenant-store'
 import { Field, ErrorMessage } from 'vee-validate'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import { useI18n } from 'vue-i18n'
+import { RiAlarmWarningLine } from '@remixicon/vue'
 
 const { t } = useI18n()
 const store = useTenantStore()

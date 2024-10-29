@@ -7,36 +7,24 @@
     <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
       <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">
-          <i
-            v-if="dossierStatus == 'VALIDATED'"
-            class="ri-checkbox-circle-line text-success fs-24"
-          ></i>
-          <i
-            v-else-if="dossierStatus == 'TO_PROCESS'"
-            class="ri-time-fill fs-24 fr-mb-2w bloc-warning-icon status-toprocess"
-          ></i>
-          <i
-            v-else
-            class="ri-close-circle-fill fs-24 fr-mb-2w bloc-warning-icon status-incomplete"
-          ></i>
+          <RiCheckboxCircleLine v-if="dossierStatus === 'VALIDATED'" class="text-success" />
+          <RiTimeFill
+            v-else-if="dossierStatus === 'TO_PROCESS'"
+            class="fr-mb-2w bloc-warning-icon status-toprocess"
+          />
+          <RiCloseCircleFill v-else class="fr-mb-2w bloc-warning-icon status-incomplete" />
 
           <p>{{ t('filereinsurance.documents-' + dossierStatus) }}</p>
         </NakedCard>
       </div>
       <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">
-          <i
-            v-if="dossierStatus == 'VALIDATED'"
-            class="ri-checkbox-circle-line text-success fs-24"
-          ></i>
-          <i
-            v-else-if="dossierStatus == 'TO_PROCESS'"
-            class="ri-time-fill fs-24 fr-mb-2w bloc-warning-icon status-toprocess"
-          ></i>
-          <i
-            v-else
-            class="ri-close-circle-fill fs-24 fr-mb-2w bloc-warning-icon status-incomplete"
-          ></i>
+          <RiCheckboxCircleLine v-if="dossierStatus === 'VALIDATED'" class="text-success" />
+          <RiTimeFill
+            v-else-if="dossierStatus === 'TO_PROCESS'"
+            class="fr-mb-2w bloc-warning-icon status-toprocess"
+          />
+          <RiCloseCircleFill v-else class="fr-mb-2w bloc-warning-icon status-incomplete" />
           <p>{{ t('filereinsurance.file-' + dossierStatus) }}</p>
         </NakedCard>
       </div>
@@ -69,6 +57,7 @@
 </template>
 
 <script setup lang="ts">
+import { RiCheckboxCircleLine, RiCloseCircleFill, RiTimeFill } from '@remixicon/vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { useI18n } from 'vue-i18n'
 
@@ -106,9 +95,9 @@ withDefaults(
   }
 }
 .bloc-warning-icon {
-  font-size: 24px;
   height: 44px;
   width: 44px;
+  padding: 8px;
   border-style: solid;
   border-width: 1px;
   border-radius: 50%;

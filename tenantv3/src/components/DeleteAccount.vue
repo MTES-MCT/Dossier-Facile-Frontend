@@ -1,8 +1,10 @@
 <template>
   <DSFRSimpleModal modalId="modal-delete-account">
     <template v-slot:header>
-      <i class="fr-pr-1w ri-close-circle-line text-danger fs-24"></i>
-      {{ t('deleteaccount.title') }}
+      <span class="display--flex align-items--center">
+        <RiCloseCircleLine class="text-danger fr-mr-1w bold-icon" size="24" />
+        {{ t('deleteaccount.title') }}
+      </span>
     </template>
     <template v-slot:body>
       <p>{{ t('deleteaccount.confirm-delete') }}</p>
@@ -31,6 +33,7 @@ import DfButton from 'df-shared-next/src/Button/Button.vue'
 import useTenantStore from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
+import { RiCloseCircleLine } from '@remixicon/vue'
 
 const store = useTenantStore()
 

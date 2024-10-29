@@ -7,7 +7,7 @@
       <!-- TODO : bouton voir -->
       <DfButton class="update-btn" @on-click="update">
         <span class="desktop">{{ t('fileerrors.update') }}</span>
-        <i class="color--primary ri-pencil-line fs-16 mobile"></i>
+        <RiPencilLine size="1rem" class="color--primary mobile" />
       </DfButton>
     </div>
     <div class="rules-container" v-if="brokenRules && brokenRules.length > 0">
@@ -61,6 +61,7 @@ import { Form, Field, ErrorMessage } from 'vee-validate'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 import { computed, ref } from 'vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { RiPencilLine } from '@remixicon/vue'
 const { t } = useI18n()
 
 const emit = defineEmits<{ 'on-update': [] }>()
