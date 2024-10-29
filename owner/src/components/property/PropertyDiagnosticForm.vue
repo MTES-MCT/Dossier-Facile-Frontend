@@ -50,7 +50,9 @@
             aria-controls="noDPE"
             @click="AnalyticsService.dpeEvent('dpe_no_number')"
           >
-            <i class="circle ri-arrow-right-line fs-22"></i>{{ t('propertydiagnostic.no-dpe-btn') }}
+            <RiArrowRightLine size="22px" class="circle fr-p-1v" />{{
+              t('propertydiagnostic.no-dpe-btn')
+            }}
           </button>
         </h3>
         <div class="fr-collapse" id="noDPE">
@@ -92,6 +94,7 @@ import BackNext from '../footer/BackNext.vue'
 import FooterContainer from '../footer/FooterContainer.vue'
 import AnalyticsService from '../../services/AnalyticsService'
 import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
+import { RiArrowRightLine } from '@remixicon/vue'
 
 const { t } = useI18n()
 const dpe = ref('')

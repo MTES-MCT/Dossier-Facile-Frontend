@@ -5,7 +5,7 @@
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <h4 class="fr-col-10 title">
-              <i class="fr-pr-1w ri-close-circle-line text-danger" style="font-size: 38px"></i>
+              <RiCloseCircleLine class="text-danger fr-mr-1w bold-icon" size="38px" />
               {{ t('deleteaccount.title') }}
             </h4>
           </div>
@@ -45,6 +45,7 @@ import { useI18n } from 'vue-i18n'
 import { useToast } from 'vue-toastification'
 import UtilsService from '../services/UtilsService'
 import useOwnerStore from '../store/owner-store'
+import { RiCloseCircleLine } from '@remixicon/vue'
 
 const store = useOwnerStore()
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`

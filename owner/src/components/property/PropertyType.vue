@@ -7,6 +7,7 @@ import { Field, ErrorMessage } from 'vee-validate'
 import PropertyPage from './PropertyPage.vue'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
+import { RiBuilding4Line, RiCommunityFill, RiHome4Fill } from '@remixicon/vue'
 
 const { t } = useI18n()
 
@@ -65,7 +66,7 @@ function onBack() {
         >
           <div class="fr-grid-col">
             <div class="icon-container desktop">
-              <i class="fs-36 ri-building-4-line icon-color"></i>
+              <RiBuilding4Line size="36px" class="icon-color" />
             </div>
             <div class="fr-mb-md-5w fr-m-2w">
               {{ t('propertytype.apartment') }}
@@ -87,7 +88,7 @@ function onBack() {
         >
           <div class="fr-grid-col">
             <div class="icon-container desktop">
-              <i class="fs-36 ri-home-4-fill icon-color"></i>
+              <RiHome4Fill size="36px" class="icon-color" />
             </div>
             <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.house') }}</div>
           </div>
@@ -107,7 +108,7 @@ function onBack() {
         >
           <div class="fr-grid-col">
             <div class="icon-container desktop">
-              <i class="fs-36 ri-community-fill icon-color"></i>
+              <RiCommunityFill size="36px" class="icon-color" />
             </div>
             <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.other') }}</div>
           </div>
