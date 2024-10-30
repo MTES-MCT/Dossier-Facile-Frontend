@@ -49,7 +49,7 @@ export const createApp = ViteSSG(
       theme: 'colored',
       clearOnUrlChange: false
     } as ToastContainerOptions)
-    if (CRISP_ENABLED === 'true') {
+    if (isClient && CRISP_ENABLED === 'true') {
       app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
       window.$crisp.push(["safe", true])
     }
