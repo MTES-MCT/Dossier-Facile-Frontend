@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { RiPencilLine } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
+import type { RouterLinkProps } from 'vue-router'
 
 const { t } = useI18n()
 
-const props = defineProps<{ title: string; to: any }>()
+const props = defineProps<{ title: string; to: RouterLinkProps['to'] }>()
 </script>
 
 <template>

@@ -3,9 +3,9 @@ import { User } from 'df-shared-next/src/models/User'
 export default class Applicant extends User {
   tenantName?: string
 
-  tenantSalary?: number
+  tenantSalary?: string
 
-  guarantorSalary?: number
+  guarantorSalary?: string
 
   rate?: number
 }
