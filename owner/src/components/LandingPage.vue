@@ -282,7 +282,7 @@ function onRegister(user: User) {
       (error) => {
         if (
           error.response?.data?.errors?.filter(
-            (e: any) => e?.code === 'UniqueEmailActiveAccount'
+            (e: { code: string }) => e?.code === 'UniqueEmailActiveAccount'
           ) !== undefined
         ) {
           toast.error(t('signuppage.duplicate-email').toString(), {

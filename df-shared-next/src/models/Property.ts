@@ -1,6 +1,8 @@
 import type { ApartmentSharing } from './ApartmentSharing'
 import { AdemeApiResult } from './AdemeApiResult'
 
+export type PropertyType = 'HOUSE' | 'APARTMENT' | 'OTHER'
+
 export class Property {
   id!: number
   name!: string
@@ -14,7 +16,7 @@ export class Property {
   chargesCost!: number
   displayed!: boolean
   validated!: boolean
-  type?: string
+  type?: PropertyType
   furniture?: string
   livingSpace!: number
   address?: string

@@ -114,11 +114,11 @@
           <thead>
             <tr>
               <th></th>
-              <th @click="sortTable('date')" class="desktop">
+              <th @click="sortTable('lastUpdateDate')" class="desktop">
                 {{ t('consultproperty.date') }}
                 <div
                   class="arrow"
-                  v-if="'date' == sortColumn"
+                  v-if="'lastUpdateDate' == sortColumn"
                   v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
@@ -261,7 +261,7 @@ const router = useRouter()
 const store = useOwnerStore()
 const toast = useToast()
 
-const sortColumn = ref('')
+const sortColumn = ref<keyof Applicant | ''>('')
 const ascending = ref(false)
 const tenantIdToShow = ref(-1)
 const selectedApplicants = ref([])
@@ -284,11 +284,15 @@ const tenants = ref<Array<Applicant>>([])
 const id = ref(0)
 
 function getTenants(): Applicant[] {
-  return UtilsService.getTenants(p.value).sort((a: any, b: any) => {
-    if (a[sortColumn.value] < b[sortColumn.value]) {
+  return UtilsService.getTenants(p.value).sort((a, b) => {
+    if (sortColumn.value === '') return 0
+    const left = a[sortColumn.value]
+    const right = b[sortColumn.value]
+    if (!left || !right) return 0
+    if (left < right) {
       return ascending.value ? 1 : -1
     }
-    if (a[sortColumn.value] > b[sortColumn.value]) {
+    if (right > left) {
       return ascending.value ? -1 : 1
     }
     return 0
@@ -337,7 +341,7 @@ function editProperty() {
   router.push({ name: 'PropertyName', params: { id: id.value } })
 }
 
-function sortTable(col: string) {
+function sortTable(col: keyof Applicant) {
   if (sortColumn.value === col) {
     ascending.value = !ascending.value
   } else {

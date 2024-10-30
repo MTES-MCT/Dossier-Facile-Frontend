@@ -10,14 +10,12 @@ const { t } = useI18n()
 
 const token = route.params.token.toString()
 const showError = ref(false)
-const errorMessage = ref('')
 
 AuthService.confirmAccount(token).then(
   () => {
     router.push({ name: 'Dashboard' })
   },
-  (error: any) => {
-    errorMessage.value = error
+  () => {
     showError.value = true
   }
 )
