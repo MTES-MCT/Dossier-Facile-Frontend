@@ -594,7 +594,7 @@ textarea {
     "submit" : "Envoyer mon message",
     "owner": "Propriétaire",
     "tenant": "Locataire",
-    "accept-cgu" : "Vous acceptez que ces informations soient transmises à notre équipe d'assistance et à Helpscout, notre outil d’assistance, afin de répondre à votre demande.",
+    "accept-cgu" : "Vous acceptez que ces informations soient transmises à notre équipe d'assistance et à CRISP, notre outil d’assistance, afin de répondre à votre demande.",
     "field-required" : "Ce champ est requis",
     "require-accept" : "L'acception est requise",
     "email-not-valid" : "Email non-valide",

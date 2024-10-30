@@ -15,7 +15,7 @@ import ProfileContainer from '../components/ProfileContainer.vue'
 import { User } from 'df-shared-next/src/models/User'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import useTenantStore from '@/stores/tenant-store'
-import { computed, onBeforeMount, onBeforeUnmount } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -24,7 +24,6 @@ const store = useTenantStore()
 const coTenants = computed(() => store.coTenants)
 
 onBeforeMount(() => {
-  window.Beacon('init', 'e9f4da7d-11be-4b40-9514-ac7ce3e68f67')
   const coTenant = coTenants.value.find((r: User) => {
     return r.id === tenantId()
   })
@@ -32,10 +31,6 @@ onBeforeMount(() => {
     return g.id === guarantorId()
   })
   store.setSelectedGuarantor(guarantor)
-})
-
-onBeforeUnmount(() => {
-  window.Beacon('destroy')
 })
 
 function getSubStep() {

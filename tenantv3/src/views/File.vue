@@ -235,7 +235,7 @@ import RowListItem from '@/components/documents/RowListItem.vue'
 import FileNotFound from '@/views/FileNotFound.vue'
 import { ToastService } from '@/services/ToastService'
 import { useI18n } from 'vue-i18n'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 
@@ -275,14 +275,6 @@ function setUser() {
       fileNotFound.value = true
     })
 }
-
-onMounted(() => {
-  setUser()
-  window.Beacon('init', 'e9f4da7d-11be-4b40-9514-ac7ce3e68f67')
-})
-onBeforeUnmount(() => {
-  window.Beacon('destroy')
-})
 
 function document(u: User | Guarantor, s: string) {
   return u.documents?.find((d) => {

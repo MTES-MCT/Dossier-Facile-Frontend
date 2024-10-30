@@ -74,7 +74,7 @@ const elements = computed(
     "highlight-4": "Did you use your FranceConnect account to create your child's file, and our team rejected your file? You need to separate your FranceConnect and DossierFacile accounts. Check out the <a href='https://aide.dossierfacile.logement.gouv.fr/fr/article/utilisation-de-franceconnect-dans-dossierfacile-p7fiv0/#2-dissocier-votre-compte-dossierfacile-de-votre-compte-franceconnect-pour-changer-lidentite-du-titulaire-du-dossier' target='_blank'>Separate your FranceConnect and DossierFacile accounts</a> page in our <a href='https://aide.dossierfacile.logement.gouv.fr/fr/' target='_blank'>online help</a>.",
     "title-5": "Where are your rental property listings?",
     "content-5": "DossierFacile does not offer properties for rent. DossierFacile only helps you create a clear, complete, and coherent digital rental file that you can then send to different landlords.",
-    "highlight-5": "Need more information? Check out the <a href='https://dossierfacile.helpscoutdocs.com/article/28-dossierfacile-ne-propose-pas-de-logements' target='_blank'>What is DossierFacile?</a> page in our <a href='https://aide.dossierfacile.logement.gouv.fr/fr/' target='_blank'>online help</a>."
+    "highlight-5": "Need more information? Check out the <a href='https://aide.dossierfacile.logement.gouv.fr/fr/article/dossierfacile-simplifiez-votre-dossier-de-location-dvw117/#1-ce-que-dossierfacile-ne-fait-pas' target='_blank'>What is DossierFacile?</a> page in our <a href='https://aide.dossierfacile.logement.gouv.fr/fr/' target='_blank'>online help</a>."
   },
   "fr": {
     "title-1" : "Pourquoi mon dossier a-t-il été refusé ?",
@@ -91,7 +91,7 @@ const elements = computed(
     "highlight-4": "Vous avez utilisé votre compte FranceConnect pour créer le dossier de votre enfant, et notre équipe a refusé votre dossier ? Vous devez séparer vos comptes FranceConnect et DossierFacile. Consultez la page <a href='https://aide.dossierfacile.logement.gouv.fr/fr/article/utilisation-de-franceconnect-dans-dossierfacile-p7fiv0/#2-dissocier-votre-compte-dossierfacile-de-votre-compte-franceconnect-pour-changer-lidentite-du-titulaire-du-dossier' target='_blank'>Séparer vos comptes FranceConnect et DossierFacile</a> de notre <a href='https://aide.dossierfacile.logement.gouv.fr/fr/' target='_blank'>aide en ligne</a>.",
     "title-5" : "Où sont vos offres de logement en location ?",
     "content-5": "DossierFacile ne propose pas de logements. DossierFacile vous aide seulement à constituer un dossier de location numérique clair, complet et cohérent que vous pouvez ensuite envoyer à différents propriétaires.",
-    "highlight-5": "Vous avez besoin de plus d’informations ? Consultez la page <a href='https://dossierfacile.helpscoutdocs.com/article/28-dossierfacile-ne-propose-pas-de-logements' target='_blank'>DossierFacile c’est quoi</a> ? de notre <a href='https://aide.dossierfacile.logement.gouv.fr/fr/' target='_blank'>aide en ligne</a>."
+    "highlight-5": "Vous avez besoin de plus d’informations ? Consultez la page <a href='https://aide.dossierfacile.logement.gouv.fr/fr/article/dossierfacile-simplifiez-votre-dossier-de-location-dvw117/#1-ce-que-dossierfacile-ne-fait-pas' target='_blank'>DossierFacile c’est quoi</a> ? de notre <a href='https://aide.dossierfacile.logement.gouv.fr/fr/' target='_blank'>aide en ligne</a>."
   }
 }
 </i18n>
