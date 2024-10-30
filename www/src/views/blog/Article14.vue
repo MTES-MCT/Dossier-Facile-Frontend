@@ -144,7 +144,7 @@
     </p>
     <p>
       Vous pourrez trouver plus en détail dans notre
-      <a href="https://dossierfacile.helpscoutdocs.com/article/31-gestion-des-donnees-et-securite"
+      <a href="https://aide.dossierfacile.logement.gouv.fr/fr/article/gestion-des-donnees-et-securite-1d3d36d/"
         >documentation</a
       >
       et dans nos

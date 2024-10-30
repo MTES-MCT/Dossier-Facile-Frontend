@@ -217,7 +217,7 @@ import FakeAnnouncement from '../components/FakeAnnouncement.vue'
 import PartnersSection from '../components/account/PartnersSection.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import useTenantStore from '../stores/tenant-store'
 import { useRouter } from 'vue-router'
 import { ProfileService } from '../services/ProfileService'
@@ -240,7 +240,6 @@ dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
 
 onMounted(() => {
-  window.Beacon('init', 'd949ac15-a9eb-4316-b0c5-f92cecc7118f')
   const today = new Date()
   if (
     (today.getMonth() >= 5 && today.getMonth() <= 8) ||
@@ -248,10 +247,6 @@ onMounted(() => {
   ) {
     isAnnouncementVisible.value = true
   }
-})
-
-onBeforeUnmount(() => {
-  window.Beacon('destroy')
 })
 
 watch(

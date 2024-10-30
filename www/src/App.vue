@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue'
 import Footer from 'df-shared-next/src/Footer/Footer.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import Announcement from 'df-shared-next/src/components/Announcement.vue'
@@ -9,22 +8,6 @@ import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
 
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
-
-onMounted(() => {
-  setTimeout(function () {
-    const beaconScript = document.createElement('script')
-    beaconScript.setAttribute('src', '/js/helpscout.js')
-    // beaconScript.setAttribute('id', 'beacon')
-    document.head.appendChild(beaconScript)
-    beaconScript.addEventListener('load', () => {
-      window.Beacon('init', 'e9f4da7d-11be-4b40-9514-ac7ce3e68f67')
-    })
-  }, 10000)
-})
-
-onBeforeUnmount(() => {
-  window.Beacon('destroy')
-})
 
 function onCreateOwner() {
   window.location.href = OWNER_URL

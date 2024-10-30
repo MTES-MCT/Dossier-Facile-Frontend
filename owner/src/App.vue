@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted, onUnmounted } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import MyHeader from 'df-shared-next/src/Header/Header.vue'
 import Announcement from 'df-shared-next/src/components/Announcement.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
@@ -27,14 +27,6 @@ const { cookies } = useCookies()
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
   store.setLang(lang)
-})
-
-onMounted(() => {
-  window.Beacon('init', '330e68d2-2a04-4659-8048-c05d242ee8f5')
-})
-
-onUnmounted(() => {
-  window.Beacon('destroy')
 })
 
 function onLogin() {

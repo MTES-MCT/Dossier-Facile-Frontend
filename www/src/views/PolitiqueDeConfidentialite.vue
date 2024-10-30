@@ -270,8 +270,8 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>helpscout.net</td>
-                    <td>États-Unis</td>
+                    <td>crisp.chat</td>
+                    <td>France</td>
                     <td>Référentiel CNIL sur les cookies</td>
                     <td>13 mois</td>
                   </tr>

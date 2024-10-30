@@ -10,7 +10,7 @@ import useTenantStore from '@/stores/tenant-store'
 import GuarantorDocuments from '../components/GuarantorDocuments.vue'
 import ProfileContainer from '../components/ProfileContainer.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { computed, onBeforeUnmount, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const store = useTenantStore()
@@ -30,13 +30,6 @@ watch(route, () => {
   }
 })
 
-onMounted(() => {
-  window.Beacon('init', 'e9f4da7d-11be-4b40-9514-ac7ce3e68f67')
-})
-
-onBeforeUnmount(() => {
-  window.Beacon('destroy')
-})
 function getStep() {
   return Number(route.params.substep) || 0
 }

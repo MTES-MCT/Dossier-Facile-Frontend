@@ -46,26 +46,16 @@ import CoTenantName from '../components/documents/cotenant/CoTenantName.vue'
 import CoTenantProfessional from '../components/documents/cotenant/CoTenantProfessional.vue'
 import CoTenantFinancialList from '../components/documents/cotenant/CoTenantFinancialList.vue'
 import CoTenantTax from '../components/documents/cotenant/CoTenantTax.vue'
-import { onBeforeUnmount, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 declare global {
   interface Window {
     _paq: (string | number | undefined)[][]
-    Beacon: ((action: string, data?: string) => void) & { readyQueue: unknown[] }
   }
 }
 
 const router = useRouter()
 const route = useRoute()
-
-onMounted(() => {
-  window.Beacon('init', 'e9f4da7d-11be-4b40-9514-ac7ce3e68f67')
-})
-
-onBeforeUnmount(() => {
-  window.Beacon('destroy')
-})
 
 function goBack() {
   if (getSubStep() > 0) {
