@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { type PropertyType } from 'df-shared-next/src/models/Property'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
@@ -25,7 +26,7 @@ const type = computed({
   get() {
     return store.getPropertyToEdit?.type || ''
   },
-  set(val: string) {
+  set(val: PropertyType) {
     store.setType(val)
   }
 })

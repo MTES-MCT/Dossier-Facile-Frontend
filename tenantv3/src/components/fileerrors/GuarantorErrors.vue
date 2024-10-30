@@ -62,7 +62,7 @@
       <div class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-document-guarantor`) }}
       </div>
-      <div v-if="!documentsGuarantorFilled('GUARANTEE_PROVIDER_CERTIFICATE')">
+      <div v-if="!isGuarantorDocumentValid('GUARANTEE_PROVIDER_CERTIFICATE')">
         <UpdateComponent
           :document="getDocument(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
           @on-update="openGuarantor(g, 1)"

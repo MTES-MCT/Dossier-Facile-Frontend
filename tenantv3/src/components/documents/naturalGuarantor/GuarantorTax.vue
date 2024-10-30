@@ -373,7 +373,7 @@ function taxFiles(): DfFile[] {
       documentSubCategory: taxDocument.value.value,
       id: f.id,
       name: f.name,
-      file: f,
+      file: f.file,
       size: f.size
     }
   })

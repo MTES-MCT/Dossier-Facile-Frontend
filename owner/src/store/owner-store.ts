@@ -1,4 +1,4 @@
-import { Property } from 'df-shared-next/src/models/Property'
+import { Property, type PropertyType } from 'df-shared-next/src/models/Property'
 import { User } from 'df-shared-next/src/models/User'
 import { useCookies } from 'vue3-cookies'
 import { defineStore } from 'pinia'
@@ -75,7 +75,7 @@ const useOwnerStore = defineStore('owner', {
     setName(name: string) {
       this.propertyToEdit.name = name
     },
-    setType(type: string) {
+    setType(type: PropertyType) {
       this.propertyToEdit.type = type
     },
     setAddress(address: string) {
