@@ -174,7 +174,7 @@
       "permit": "Please add your permit <b>front and back</b>.",
       "other": "",
       "less-than-year": "I have declared that I have been in France for less than a year.",
-      "my-name": "I add a tax assessment in my name.",
+      "my-name": "<p>Please add here <strong>all pages of your most recent tax notice</strong>, whether you are taxable or not.</p><p>Note: previous years' notices can also be added if you wish, but they are not sufficient.</p>",
       "my-parents": "I have declared that I am financially dependent on my parents' household.",
       "no-income": "I have no income.",
       "organism-guarantor": "I add a certificate or a visa issued by the organization guaranteeing for me.",

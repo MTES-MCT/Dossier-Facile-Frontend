@@ -54,7 +54,7 @@
     >
       <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
         <div class="fr-mb-3w">
-          <div class="fr-mb-2w" v-html="t(`explanation-text.tenant.${taxDocument.key}`)"></div>
+          <div class="fr-mb-2w" v-html="t('explanation-text.tenant.my-name')"></div>
           <WarningTaxDeclaration />
         </div>
       </div>
