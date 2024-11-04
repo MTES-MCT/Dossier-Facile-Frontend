@@ -49,8 +49,8 @@ const elements = computed(
     "content-2": "The candidate needs to join your landlord space. You can send them the link to <a href='https://aide.dossierfacile.logement.gouv.fr/fr/article/candidater-au-bien-dun-proprietaire-1u59jkz/' target='_blank'>our help page on this topic</a>.",
     "highlight-2": "Need more information? Check out the <a href='https://aide.dossierfacile.logement.gouv.fr/fr/category/proprietaire-cyzg3f/' target='_blank'>FAQ</a> in our <a href='https://aide.dossierfacile.logement.gouv.fr/fr/' target='_blank'>online help</a> for landlords.",
     "title-3": "I can't log into my landlord account.",
-    "content-3": "Go to the <a href='https://proprietaire.dossierfacile.logement.gouv.fr/' target='_blank'>landlord space</a> and log in. You can enter the email address and password of your landlord space on the site and click the <a href='https://proprietaire.dossierfacile.logement.gouv.fr/home' target='_blank'>log in</a> button at the top of the page.",
-    "highlight-3": "Your email address and password not working? We recommend <a href='https://proprietaire.dossierfacile.logement.gouv.fr/mot-de-passe-oublie' target='_blank'>resetting your password</a>."
+    "content-3": "Go to the <a href='https://proprietaire.dossierfacile.logement.gouv.fr/' target='_blank'>landlord space</a> and click the <a href='https://proprietaire.dossierfacile.logement.gouv.fr/home' target='_blank'>log in</a> button at the top of the page.",
+    "highlight-3": "Your email address and password are not working? We recommend <a href='https://proprietaire.dossierfacile.logement.gouv.fr/mot-de-passe-oublie' target='_blank'>resetting your password</a>."
   },
   "fr": {
     "title-1" : "Pourquoi ne puis-je pas consulter les dossiers envoyés par les candidats ?",
@@ -60,7 +60,7 @@ const elements = computed(
     "content-2": "Le candidat doit rejoindre votre espace propriétaire. Vous pouvez lui envoyer le lien vers <a href='https://aide.dossierfacile.logement.gouv.fr/fr/article/candidater-au-bien-dun-proprietaire-1u59jkz/' target='_blank'>notre page d’aide à ce sujet</a>.",
     "highlight-2": "Vous avez besoin de plus d’informations ? Consultez la <a href='https://aide.dossierfacile.logement.gouv.fr/fr/category/proprietaire-cyzg3f/' target='_blank'>FAQ</a> de notre <a href='https://aide.dossierfacile.logement.gouv.fr/fr/' target='_blank'>aide en ligne</a> destinée aux propriétaires.",
     "title-3" : "Je n’arrive pas à me connecter à mon compte propriétaire.",
-    "content-3": "Rendez-vous dans l’<a href='https://proprietaire.dossierfacile.logement.gouv.fr/' target='_blank'>espace propriétaire</a> et connectez-vous. Vous pouvez laisser l’adresse e-mail et le mot de passe de votre espace propriétaire du site et cliquez sur le bouton <a href='https://proprietaire.dossierfacile.logement.gouv.fr/home' target='_blank'>se connecter</a> en haut de la page.",
+    "content-3": "Rendez-vous dans l’<a href='https://proprietaire.dossierfacile.logement.gouv.fr/' target='_blank'>espace propriétaire</a> du site et cliquez sur le bouton <a href='https://proprietaire.dossierfacile.logement.gouv.fr/home' target='_blank'>se connecter</a> en haut de la page.",
     "highlight-3": "Votre adresse e-mail et votre mot de passe ne fonctionnent pas ? Nous vous recommandons de <a href='https://proprietaire.dossierfacile.logement.gouv.fr/mot-de-passe-oublie' target='_blank'>réinitialiser votre mot de passe</a>.",
   }
 }
