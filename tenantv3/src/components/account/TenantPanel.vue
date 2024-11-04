@@ -153,9 +153,9 @@ function document(u: User, s: string) {
 
 function documents(g: User, docType: string): DfDocument[] {
   return (
-    (g.documents?.filter((d: DfDocument) => {
+    g.documents?.filter((d: DfDocument) => {
       return d.documentCategory === docType
-    }) as DfDocument[]) || []
+    }) || []
   )
 }
 

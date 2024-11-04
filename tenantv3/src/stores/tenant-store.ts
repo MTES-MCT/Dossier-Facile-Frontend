@@ -288,9 +288,13 @@ const useTenantStore = defineStore('tenant', {
         if (id === state.user.id) {
           return state.user
         }
-        return state.user.apartmentSharing.tenants.find((r: User) => {
+        const user = state.user.apartmentSharing.tenants.find((r: User) => {
           return r.id === id
-        }) as User
+        })
+        if (!user) {
+          throw new Error(`Tenant ${id} not found`)
+        }
+        return user
       },
     allDocumentsPreValidated(state: State): boolean {
       const user = state.user
@@ -321,9 +325,9 @@ const useTenantStore = defineStore('tenant', {
       if (user.applicationType === 'COUPLE') {
         const couple = user.apartmentSharing?.tenants.find(
           (cotenant: User) => user.id !== cotenant.id
-        ) as User
+        )
 
-        if (!userNamesFilled(couple) || !couple.guarantors.every(guarantorNamesFilled)) {
+        if (!couple || !userNamesFilled(couple) || !couple.guarantors.every(guarantorNamesFilled)) {
           return false
         }
       }

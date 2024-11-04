@@ -160,7 +160,7 @@ function guarantorIdentificationDocument(): DfDocument | undefined {
   if (props.guarantor) {
     return props.guarantor.documents?.find((d: DfDocument) => {
       return d.documentCategory === 'IDENTIFICATION'
-    }) as DfDocument
+    })
   }
   return store.getGuarantorIdentificationDocument
 }

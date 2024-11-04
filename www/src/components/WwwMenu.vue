@@ -49,7 +49,7 @@
       </a>
     </li>
     <li class="fr-nav__item fr-translate">
-      <LanguageSelector @on-change-lang="changeLang" />
+      <LanguageSelector @on-change-lang="store.setLang" />
     </li>
   </ul>
 </template>
@@ -65,10 +65,6 @@ const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
 
 const { t } = useI18n()
 const store = useWwwStore()
-
-function changeLang(lang: string) {
-  store.setLang(lang)
-}
 
 const currentPage = ref('/')
 

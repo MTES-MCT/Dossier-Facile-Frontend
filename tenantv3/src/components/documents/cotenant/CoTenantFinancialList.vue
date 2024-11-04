@@ -153,9 +153,10 @@ function initialize() {
   tenantOriginalDocuments.value = getOriginalDocuments()
   tenantFinancialDocuments.value = getTenantFinancialDocuments(tenantOriginalDocuments.value)
   if (hasNoIncome(tenantFinancialDocuments.value)) {
-    financialDocument.value = tenantFinancialDocuments.value.find((f) => {
-      return f.documentType && f.documentType.key === 'no-income'
-    }) as FinancialDocument
+    financialDocument.value =
+      tenantFinancialDocuments.value.find((f) => {
+        return f.documentType && f.documentType.key === 'no-income'
+      }) || new FinancialDocument()
   } else {
     financialDocument.value = new FinancialDocument()
     editFinancialDocument.value = !hasFinancial()

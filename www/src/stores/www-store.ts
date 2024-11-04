@@ -19,9 +19,9 @@ const useOwnerStore = defineStore('www', {
   state: (): State => ({ ...initialStore }),
   getters: {},
   actions: {
-    setLang(lang: string) {
-      i18n.global.locale.value = lang as any
-      i18n.global.fallbackLocale = 'fr' as any
+    setLang(lang: 'fr' | 'en') {
+      i18n.global.locale.value = lang
+      i18n.global.fallbackLocale.value = 'fr'
       const html = document.documentElement
       html.setAttribute('lang', i18n.global.locale.value)
       const expireTimes = new Date()

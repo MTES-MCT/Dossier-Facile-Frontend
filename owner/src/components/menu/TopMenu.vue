@@ -25,7 +25,7 @@ onMounted(() => {
   if (route.meta.position === undefined) {
     return
   }
-  const tdx = tds[route.meta.position as number]
+  const tdx = tds[route.meta.position]
   const tcontainerval = tcontainer.value
   const tdxval = tdx.value
   if (
