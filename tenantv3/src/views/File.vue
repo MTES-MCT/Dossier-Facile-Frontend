@@ -235,7 +235,7 @@ import RowListItem from '@/components/documents/RowListItem.vue'
 import FileNotFound from '@/views/FileNotFound.vue'
 import { ToastService } from '@/services/ToastService'
 import { useI18n } from 'vue-i18n'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 
@@ -275,14 +275,6 @@ function setUser() {
       fileNotFound.value = true
     })
 }
-
-onMounted(() => {
-  setUser()
-  window.Beacon('init', 'e9f4da7d-11be-4b40-9514-ac7ce3e68f67')
-})
-onBeforeUnmount(() => {
-  window.Beacon('destroy')
-})
 
 function document(u: User | Guarantor, s: string) {
   return u.documents?.find((d) => {
@@ -373,13 +365,15 @@ function getDocs(tenant: User | Guarantor, docType: string) {
 }
 
 function isTaxAuthentic(user: User | Guarantor) {
-  const doc = document(user, 'TAX') as DfDocument
-  return doc.authenticityStatus === 'AUTHENTIC'
+  const doc = document(user, 'TAX')
+  return doc?.authenticityStatus === 'AUTHENTIC'
 }
 
 function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
-  const doc = document(user, 'TAX') as DfDocument
-  return isTaxAuthentic(user) ? t('file.tax-verified') : t('documents.status.' + doc.documentStatus)
+  const doc = document(user, 'TAX')
+  return isTaxAuthentic(user)
+    ? t('file.tax-verified')
+    : t('documents.status.' + doc?.documentStatus)
 }
 </script>
 

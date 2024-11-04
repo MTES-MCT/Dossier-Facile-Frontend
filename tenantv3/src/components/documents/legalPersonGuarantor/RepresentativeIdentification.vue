@@ -114,7 +114,7 @@ const props = defineProps<{
 }>()
 const store = useTenantStore()
 const user = computed(() => store.userToEdit)
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const MAX_FILE_COUNT = 5
 

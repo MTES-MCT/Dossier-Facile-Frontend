@@ -27,7 +27,7 @@ import ProfileContainer from '../components/ProfileContainer.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import TenantGuarantorList from './TenantGuarantorList.vue'
 import useTenantStore from '@/stores/tenant-store'
-import { computed, onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const store = useTenantStore()
@@ -58,18 +58,11 @@ function onEdit(g: Guarantor) {
       step: getStep().toString(),
       substep: '0',
       tenantId: getTenantId().toString(),
-      guarantorId: g.id?.toString() as string
+      guarantorId: g.id?.toString()
     }
   })
 }
 
-onMounted(() => {
-  window.Beacon('init', 'e9f4da7d-11be-4b40-9514-ac7ce3e68f67')
-})
-
-onBeforeUnmount(() => {
-  window.Beacon('destroy')
-})
 
 function updateGuarantorType(value: string) {
   if (value == 'NO_GUARANTOR') {

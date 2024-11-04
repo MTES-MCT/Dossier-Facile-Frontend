@@ -50,11 +50,13 @@
             aria-controls="noDPE"
             @click="AnalyticsService.dpeEvent('dpe_no_number')"
           >
-            <i class="circle ri-arrow-right-line fs-22"></i>{{ t('propertydiagnostic.no-dpe-btn') }}
+            <RiArrowRightLine size="22px" class="circle fr-p-1v" />{{
+              t('propertydiagnostic.no-dpe-btn')
+            }}
           </button>
         </h3>
         <div class="fr-collapse" id="noDPE">
-          <p :v-html="t('propertydiagnostic.no-dpe-text')"></p>
+          <p>{{ t('propertydiagnostic.no-dpe-text') }}</p>
           <div class="fr-highlight">
             <ul>
               <li>
@@ -91,6 +93,8 @@ import { useToast } from 'vue-toastification'
 import BackNext from '../footer/BackNext.vue'
 import FooterContainer from '../footer/FooterContainer.vue'
 import AnalyticsService from '../../services/AnalyticsService'
+import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
+import { RiArrowRightLine } from '@remixicon/vue'
 
 const { t } = useI18n()
 const dpe = ref('')
@@ -101,9 +105,7 @@ const dpeform = ref<typeof Form | null>(null)
 const emit = defineEmits(['submit', 'on-back'])
 
 const expandNoDPE = computed(
-  () =>
-    (store.propertyToEdit?.co2Emission > 0 || store.propertyToEdit?.energyConsumption > 0) &&
-    !store.propertyToEdit?.ademeNumber
+  () => SharedPropertyService.hasDpe(store.propertyToEdit) && !store.propertyToEdit?.ademeNumber
 )
 
 function search() {
@@ -132,10 +134,7 @@ function onBack() {
 }
 
 function onSubmit() {
-  if (
-    (store.propertyToEdit?.co2Emission > 0 && store.propertyToEdit?.energyConsumption > 0) ||
-    store.propertyToEdit?.ademeNumber
-  ) {
+  if (SharedPropertyService.hasDpe(store.propertyToEdit)) {
     emit('submit')
   } else if (dpeform.value) {
     dpeform.value.$el.requestSubmit()

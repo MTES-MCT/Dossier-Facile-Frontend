@@ -1,11 +1,7 @@
 <template>
   <fieldset class="fr-fieldset" :id="name">
     <legend class="fr-fieldset__legend"><slot></slot></legend>
-    <div
-      v-for="element in elements"
-      v-bind:key="element.id"
-      class="fr-fieldset__element"
-    >
+    <div v-for="element in elements" v-bind:key="element.id" class="fr-fieldset__element">
       <div class="fr-radio-group">
         <input
           :id="element.id"
@@ -26,26 +22,27 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
+import { DocumentType } from '../models/Document'
+import { useI18n } from 'vue-i18n'
 
-export interface RadioElement {
-  id: string;
-  labelKey: string;
-  description?: string;
-  value: any;
+type RadioElement = {
+  id: string
+  labelKey: string
+  description?: string
+  value: DocumentType
 }
 
-const emit = defineEmits(["input"]);
-const { t } = useI18n();
+const emit = defineEmits<{ input: [value: DocumentType] }>()
+const { t } = useI18n()
 
-const props = defineProps<{
-  name: string;
-  elements: RadioElement[];
-  value: any;
-}>();
+defineProps<{
+  name: string
+  elements: RadioElement[]
+  value: DocumentType
+}>()
 
-function onSelect(applicationType: string) {
-  emit("input", applicationType);
+function onSelect(applicationType: DocumentType) {
+  emit('input', applicationType)
 }
 </script>
 

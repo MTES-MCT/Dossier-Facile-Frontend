@@ -114,11 +114,11 @@
           <thead>
             <tr>
               <th></th>
-              <th @click="sortTable('date')" class="desktop">
+              <th @click="sortTable('lastUpdateDate')" class="desktop">
                 {{ t('consultproperty.date') }}
                 <div
                   class="arrow"
-                  v-if="'date' == sortColumn"
+                  v-if="'lastUpdateDate' == sortColumn"
                   v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
@@ -210,12 +210,9 @@
               </td>
               <td @click="setShowTenant(tenant, k)">
                 <div class="tag" :class="getTenantClass(tenant)">
-                  <i v-if="tenant.status === 'DECLINED'" class="ri-close-circle-fill fs-18"></i>
-                  <i
-                    v-else-if="tenant.status === 'VALIDATED'"
-                    class="ri-chekbox-circle-line fs-18"
-                  ></i>
-                  <i v-else class="ri-time-line fs-18"></i>
+                  <RiCloseCircleFill v-if="tenant.status === 'DECLINED'" size="18px" />
+                  <RiCheckboxCircleLine v-else-if="tenant.status === 'VALIDATED'" size="18px" />
+                  <RiTimeLine v-else size="18px" />
                   <span class="fr-ml-1v">
                     {{ t(tenant.status || '') }}
                   </span>
@@ -253,6 +250,7 @@ import Applicant from './Applicant'
 import UtilsService from '../../services/UtilsService'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
+import { RiCheckboxCircleLine, RiCloseCircleFill, RiTimeLine } from '@remixicon/vue'
 
 const { t } = useI18n()
 const confirmDeleteProperty = ref(false)
@@ -263,7 +261,7 @@ const router = useRouter()
 const store = useOwnerStore()
 const toast = useToast()
 
-const sortColumn = ref('')
+const sortColumn = ref<keyof Applicant | ''>('')
 const ascending = ref(false)
 const tenantIdToShow = ref(-1)
 const selectedApplicants = ref([])
@@ -286,11 +284,15 @@ const tenants = ref<Array<Applicant>>([])
 const id = ref(0)
 
 function getTenants(): Applicant[] {
-  return UtilsService.getTenants(p.value).sort((a: any, b: any) => {
-    if (a[sortColumn.value] < b[sortColumn.value]) {
+  return UtilsService.getTenants(p.value).sort((a, b) => {
+    if (sortColumn.value === '') return 0
+    const left = a[sortColumn.value]
+    const right = b[sortColumn.value]
+    if (!left || !right) return 0
+    if (left < right) {
       return ascending.value ? 1 : -1
     }
-    if (a[sortColumn.value] > b[sortColumn.value]) {
+    if (right > left) {
       return ascending.value ? -1 : 1
     }
     return 0
@@ -339,7 +341,7 @@ function editProperty() {
   router.push({ name: 'PropertyName', params: { id: id.value } })
 }
 
-function sortTable(col: string) {
+function sortTable(col: keyof Applicant) {
   if (sortColumn.value === col) {
     ascending.value = !ascending.value
   } else {

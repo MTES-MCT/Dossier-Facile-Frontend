@@ -1,5 +1,5 @@
 const AnalyticsService = {
-  sendEvent(name: string, data: any) {
+  sendEvent(name: string, data: { event_category: string; event_label?: string }) {
     if (!import.meta.env.VITE_MATOMO_ENABLE) {
       return
     }

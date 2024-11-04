@@ -1,10 +1,10 @@
 <template>
   <div class="fr-container fr-container-full-size">
-    <TopEditMenu :step="step"></TopEditMenu>
+    <TopEditMenu :step="step" />
     <div class="bg--grey full-height fr-grid-row">
-      <LeftEditMenu :step="step" class="fr-col-md-4 fr-col-xl-3"></LeftEditMenu>
+      <LeftEditMenu :step="step" class="fr-col-md-4 fr-col-xl-3" />
       <div
-        class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0"
+        class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0 flex--1"
         id="step-content"
       >
         <div class="max-600 ml fr-col-12">
@@ -19,9 +19,7 @@
 import LeftEditMenu from './editmenu/LeftEditMenu.vue'
 import TopEditMenu from './editmenu/TopEditMenu.vue'
 
-const props = defineProps<{
-  step: number
-}>()
+defineProps<{ step: number }>()
 </script>
 
 <style lang="scss" scoped>

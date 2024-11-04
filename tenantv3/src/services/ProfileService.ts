@@ -25,7 +25,7 @@ export const ProfileService = {
   async deleteCoTenant(id: number) {
     await axios.delete(`${import.meta.env.VITE_API_URL}/api/tenant/deleteCoTenant/${id}`)
   },
-  validateFile(honorDeclaration: boolean, clarification: string) {
+  validateFile(honorDeclaration: boolean, clarification: string | undefined) {
     return axios.post(`${import.meta.env.VITE_API_URL}/api/register/honorDeclaration`, {
       honorDeclaration,
       clarification

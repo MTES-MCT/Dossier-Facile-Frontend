@@ -64,12 +64,12 @@ const strokeDashoffset = ref(circumference)
 
 // TODO
 // @Watch("percentage")
-function onPercentageChanged(val: number, oldVal: number) {
+function onPercentageChanged(val: number) {
   const offset = circumference - (val / 100) * circumference
   strokeDashoffset.value = offset
 }
 onMounted(() => {
-  onPercentageChanged(props.percentage, 0)
+  onPercentageChanged(props.percentage)
 })
 </script>
 

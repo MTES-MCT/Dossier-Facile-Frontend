@@ -1,23 +1,24 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 import useOwnerStore from '../../store/owner-store'
+import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
 
 const { t } = useI18n()
 const store = useOwnerStore()
 const route = useRoute()
 
-const td0 = ref(null)
-const td1 = ref(null)
-const td2 = ref(null)
-const td3 = ref(null)
-const td4 = ref(null)
-const td5 = ref(null)
-const td6 = ref(null)
+const td0 = useTemplateRef('td0')
+const td1 = useTemplateRef('td1')
+const td2 = useTemplateRef('td2')
+const td3 = useTemplateRef('td3')
+const td4 = useTemplateRef('td4')
+const td5 = useTemplateRef('td5')
+const td6 = useTemplateRef('td6')
 const tds = [td0, td1, td2, td3, td4, td5, td6]
-const tcontainer = ref(null)
+const tcontainer = useTemplateRef('tcontainer')
 
 onMounted(() => {
   let left = 0
@@ -25,13 +26,13 @@ onMounted(() => {
     return
   }
   const tdx = tds[route.meta.position as number]
-  const tcontainerval = tcontainer.value as any
-  const tdxval = tdx.value as any
+  const tcontainerval = tcontainer.value
+  const tdxval = tdx.value
   if (
     tdx === undefined ||
-    tdx.value === null ||
+    tdxval === null ||
     tdxval.offsetLeft === null ||
-    tcontainer.value === null ||
+    tcontainerval === null ||
     tcontainerval.offsetWidth === null
   ) {
     return
@@ -46,9 +47,7 @@ const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'T
 const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'))
 const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'))
 const diagnosticStatus = computed(() =>
-  store.getPropertyToEdit?.co2Emission && store.getPropertyToEdit?.energyConsumption > 0
-    ? 'FILLED'
-    : 'TO_PROCESS'
+  SharedPropertyService.hasDpe(store.getPropertyToEdit) ? 'FILLED' : 'TO_PROCESS'
 )
 const furnitureStatus = computed(() =>
   store.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS'
@@ -148,7 +147,7 @@ function getClass(s: number) {
           ></ColoredTag>
         </router-link>
       </div>
-      <div class="ml-5" ref="td5">
+      <div class="ml-5" ref="td6">
         <router-link :to="{ name: 'PropertyDiagnostic', params: getParams }" class="fr-link">
           <ColoredTag :text="t('topmenu.diagnostic')" :status="diagnosticStatus"></ColoredTag>
         </router-link>

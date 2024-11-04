@@ -24,38 +24,49 @@
               title="direction générale de l'aménagement, du logement et de la nature - Nouvelle fenêtre"
               target="_blank"
               rel="noreferrer noopener"
-              >direction générale de l'aménagement, du logement et de la
-              nature</a
+              >direction générale de l'aménagement, du logement et de la nature</a
             >. <br />Le code source est disponible en licence libre
           </p>
           <ul class="fr-footer__content-list">
             <li class="fr-footer__content-item">
-              <a class="fr-footer__content-link"
-                 title="legifrance.gouv.fr - nouvelle fenêtre"
-                 rel="noreferrer noopener"
-                 target="_blank"
-                 href="https://www.legifrance.gouv.fr/">legifrance.gouv.fr</a>
+              <a
+                class="fr-footer__content-link"
+                title="legifrance.gouv.fr - nouvelle fenêtre"
+                rel="noreferrer noopener"
+                target="_blank"
+                href="https://www.legifrance.gouv.fr/"
+                >legifrance.gouv.fr</a
+              >
             </li>
             <li class="fr-footer__content-item">
-              <a class="fr-footer__content-link"
-                 title="info.gouv.fr - nouvelle fenêtre"
-                 rel="noreferrer noopener"
-                 target="_blank"
-                 href="https://www.info.gouv.fr/">info.gouv.fr</a>
+              <a
+                class="fr-footer__content-link"
+                title="info.gouv.fr - nouvelle fenêtre"
+                rel="noreferrer noopener"
+                target="_blank"
+                href="https://www.info.gouv.fr/"
+                >info.gouv.fr</a
+              >
             </li>
             <li class="fr-footer__content-item">
-              <a class="fr-footer__content-link"
-                 title="service-public.fr - nouvelle fenêtre"
-                 rel="noreferrer noopener"
-                 target="_blank"
-                 href="https://service-public.fr">service-public.fr</a>
+              <a
+                class="fr-footer__content-link"
+                title="service-public.fr - nouvelle fenêtre"
+                rel="noreferrer noopener"
+                target="_blank"
+                href="https://service-public.fr"
+                >service-public.fr</a
+              >
             </li>
             <li class="fr-footer__content-item">
-              <a class="fr-footer__content-link"
-                 title="data.gouv.fr - nouvelle fenêtre"
-                 rel="noreferrer noopener"
-                 target="_blank"
-                 href="https://data.gouv.fr">data.gouv.fr</a>
+              <a
+                class="fr-footer__content-link"
+                title="data.gouv.fr - nouvelle fenêtre"
+                rel="noreferrer noopener"
+                target="_blank"
+                href="https://data.gouv.fr"
+                >data.gouv.fr</a
+              >
             </li>
           </ul>
         </div>
@@ -63,11 +74,8 @@
       <div class="fr-footer__bottom">
         <ul class="fr-footer__bottom-list">
           <li class="fr-footer__bottom-item">
-            <a
-              class="fr-footer__bottom-link"
-              :href="`${VITE_MAIN_URL}/plan-du-site`"
-            >
-              {{ t("sitemap") }}
+            <a class="fr-footer__bottom-link" :href="`${VITE_MAIN_URL}/plan-du-site`">
+              {{ t('sitemap') }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -75,37 +83,34 @@
               class="fr-footer__bottom-link"
               :href="`${VITE_MAIN_URL}/accessibilite`"
               :title="t('accessibility-link')"
-              >{{ t("accessibility") }}</a
+              >{{ t('accessibility') }}</a
             >
+          </li>
+          <li class="fr-footer__bottom-item">
+            <a class="fr-footer__bottom-link" :href="`${VITE_MAIN_URL}/mentions-legales`">
+              {{ t('legals') }}
+            </a>
           </li>
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VITE_MAIN_URL}/mentions-legales`"
+              :href="`${VITE_MAIN_URL}/politique-de-confidentialite`"
             >
-              {{ t("legals") }}
+              {{ t('privacy-policy') }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
             <a
-                class="fr-footer__bottom-link"
-                :href="`${VITE_MAIN_URL}/politique-de-confidentialite`"
+              class="fr-footer__bottom-link"
+              :title="t('cgu-link-title')"
+              :href="`${VITE_MAIN_URL}/cgu`"
             >
-              {{ t("privacy-policy") }}
-            </a>
-          </li>
-          <li class="fr-footer__bottom-item">
-            <a
-                class="fr-footer__bottom-link"
-                :title="t('cgu-link-title')"
-                :href="`${VITE_MAIN_URL}/cgu`"
-            >
-              {{ t("cgu") }}
+              {{ t('cgu') }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
             <a class="fr-footer__bottom-link" :href="`${VITE_MAIN_URL}/stats`">
-              {{ t("statistics") }}
+              {{ t('statistics') }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -116,7 +121,7 @@
               rel="noreferrer"
               :title="t('faq-link-title')"
             >
-              {{ t("faq") }}
+              {{ t('faq') }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -127,7 +132,7 @@
               rel="noreferrer"
               :title="t('partner-link-title')"
             >
-              {{ t("partner") }}
+              {{ t('partner') }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -138,16 +143,14 @@
               :title="t('sources-link-title')"
               href="https://github.com/MTES-MCT/Dossier-Facile-Frontend"
             >
-              {{ t("sources") }}
+              {{ t('sources') }}
             </a>
           </li>
         </ul>
         <div class="fr-footer__bottom-copy">
           <p>
             Sauf mention contraire, tous les contenus de ce site sont sous
-            <a
-              href="https://github.com/etalab/licence-ouverte/blob/master/LO.md"
-              target="_blank"
+            <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank"
               >licence etalab-2.0</a
             >
           </p>
@@ -158,13 +161,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const VITE_MAIN_URL = ref(`//${import.meta.env.VITE_MAIN_URL}`);
-const VITE_DOCS_URL = ref(`//${import.meta.env.VITE_DOCS_URL}`);
+const VITE_MAIN_URL = ref(`//${import.meta.env.VITE_MAIN_URL}`)
+const VITE_DOCS_URL = ref(`//${import.meta.env.VITE_DOCS_URL}`)
 
-const { t } = useI18n();
+const { t } = useI18n()
 </script>
 
 <style lang="scss" scoped>
@@ -199,7 +202,7 @@ ul.fr-follow {
   background-image: none;
 }
 .fr-follow a.fr-btn--tiktok:before {
-  content: "";
+  content: '';
   -webkit-mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/fr--tiktok-fill.svg);
   mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/fr--tiktok-fill.svg);
   --icon-size: 1.5rem;

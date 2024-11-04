@@ -29,7 +29,7 @@
                   <div class="fr-col-10">
                     <div class="fr-grid-row nowrap">
                       <div class="center-icon fr-mr-1w">
-                        <i class="color--white ri-user-fill fs-24 round-icon icon"></i>
+                        <RiUserFill class="color--white round-icon icon" size="32px" />
                       </div>
                       <div class="fr-grid-col overflow--hidden max-content">
                         <div :title="roommate.email" class="overflow--hidden">
@@ -56,7 +56,7 @@
                       @click="remove(roommate)"
                       type="button"
                     >
-                      <i class="fs-24 ri-delete-bin-2-fill color--primary icon"></i>
+                      <RiDeleteBin2Fill class="color--primary icon" size="32px" />
                     </button>
                   </div>
                 </div>
@@ -153,15 +153,16 @@ import useTenantStore from '@/stores/tenant-store'
 import { computed, onMounted, ref } from 'vue'
 import { Field, ErrorMessage, useFieldError, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import { RiDeleteBin2Fill, RiUserFill } from '@remixicon/vue'
 
-defineRule('atLeastOneEmail', (email: any, [otherEmails]: any[]) => {
+defineRule('atLeastOneEmail', (email: unknown, [otherEmails]: unknown[]) => {
   if (email === '' && otherEmails === undefined) {
     return 'field-required'
   }
   return true
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits<{ 'update:modelValue': [User[]] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -287,6 +288,7 @@ function isMobile() {
 
 .align-bottom {
   align-self: flex-end;
+
   @media all and (max-width: 1247px) {
     margin-top: 1rem;
     margin-bottom: 1.5rem;
@@ -295,6 +297,7 @@ function isMobile() {
 
 .max-content {
   max-width: max-content;
+
   @media all and (max-width: 420px) {
     max-width: 200px;
   }

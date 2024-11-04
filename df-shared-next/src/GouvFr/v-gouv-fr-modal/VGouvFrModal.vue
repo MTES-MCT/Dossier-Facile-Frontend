@@ -25,8 +25,11 @@
                 </button>
               </div>
               <div class="fr-modal__content">
-                <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
-                  <span class="ri-arrow-right-line"></span>
+                <h1
+                  id="fr-modal-title-modal-1"
+                  class="fr-modal__title display--flex align-items--center"
+                >
+                  <RiArrowRightLine />
                   <slot name="title"> </slot>
                 </h1>
                 <slot name="content"> </slot>
@@ -39,9 +42,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { RiArrowRightLine } from '@remixicon/vue'
+import { ref } from 'vue'
 
-const isOpened = ref(false);
+const isOpened = ref(false)
 </script>
 
 <style scoped>

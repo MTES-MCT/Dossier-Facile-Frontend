@@ -56,7 +56,8 @@
                     :canView="!isCotenant && hasFile('TAX')"
                     @view="openDoc('TAX')"
                     @edit="setTenantStep(5)"
-                  ></ViewEditBtn>
+                  >
+                  </ViewEditBtn>
                   <FileStatusIcon :status="getStatus('TAX')"></FileStatusIcon>
                 </div>
               </div>
@@ -139,7 +140,8 @@
                     :canView="!isCotenant && guarantorHasFile(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                     @view="openGuarantorDoc(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                     @edit="setGuarantorSubStep(1, g)"
-                  ></ViewEditBtn>
+                  >
+                  </ViewEditBtn>
                   <FileStatusIcon
                     :status="getGuarantorStatus(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                   ></FileStatusIcon>
@@ -159,7 +161,8 @@
                     :canView="!isCotenant && guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')"
                     @view="openGuarantorDoc(g, 'IDENTIFICATION_LEGAL_PERSON')"
                     @edit="setGuarantorSubStep(0, g)"
-                  ></ViewEditBtn>
+                  >
+                  </ViewEditBtn>
                   <FileStatusIcon
                     :status="getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')"
                   ></FileStatusIcon>
@@ -186,7 +189,7 @@
         <NakedCard class="fr-mt-3w fr-mb-2w">
           <div class="fr-grid-row">
             <div class="fr-col-3 fr-p-2w">
-              <i class="ri-checkbox-circle-line text-success fs-48"></i>
+              <RiCheckboxCircleLine size="48px" class="text-success" />
             </div>
             <div class="fr-col-9 fr-p-2w">
               Votre pièce est validée&nbsp;! Plus besoin d’y toucher
@@ -196,7 +199,7 @@
         <NakedCard class="fr-mt-3w fr-mb-2w">
           <div class="fr-grid-row">
             <div class="fr-col-3 fr-p-2w">
-              <i class="ri-time-fill text-warning fs-48"></i>
+              <RiTimeFill size="48px" class="text-warning" />
             </div>
             <div class="fr-col-9 fr-p-2w">Nous sommes en cours de traitement de cette pièce</div>
           </div>
@@ -204,7 +207,7 @@
         <NakedCard class="fr-mt-3w fr-mb-2w">
           <div class="fr-grid-row">
             <div class="fr-col-3 fr-p-2w">
-              <i class="ri-close-circle-fill text-danger fs-48"></i>
+              <RiCloseCircleFill size="48px" class="text-danger" />
             </div>
             <div class="fr-col-9 fr-p-2w">
               Vous devez modifier votre pièce afin que nous validions votre dossier
@@ -295,6 +298,7 @@ import useTenantStore from '@/stores/tenant-store'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { RiCheckboxCircleLine, RiCloseCircleFill, RiTimeFill } from '@remixicon/vue'
 
 const { t, d } = useI18n()
 const router = useRouter()
@@ -404,7 +408,7 @@ function getGuarantorStatus(g: Guarantor, docType: string) {
   return doc?.documentStatus || 'INCOMPLETE'
 }
 
-function isFinancialValid(docs: any[]) {
+function isFinancialValid(docs: DfDocument[]) {
   if (!docs || docs.length === 0) {
     return 'INCOMPLETE'
   }

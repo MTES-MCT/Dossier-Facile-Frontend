@@ -52,7 +52,12 @@ const props = defineProps<{
 const route = useRoute()
 const { t } = useI18n()
 const store = useTenantStore()
-const emit = defineEmits(['on-edit', 'on-delete', 'on-back', 'on-next'])
+const emit = defineEmits<{
+  'on-back': []
+  'on-next': []
+  'on-edit': [guarantor: Guarantor]
+  'on-delete': [guarantor: Guarantor]
+}>()
 
 const isRemoveGuarantor = ref(false)
 

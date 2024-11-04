@@ -9,11 +9,11 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    required?: boolean;
-    forInput?: string;
+    required?: boolean
+    forInput?: string
   }>(),
   {
     required: false
   }
-);
+)
 </script>

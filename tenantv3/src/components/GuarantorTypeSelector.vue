@@ -3,9 +3,9 @@
     <RichRadioButtons
       name="guarantor-type-selector"
       v-model="checkedGuarantorType"
-      @input="onButtonSelected($event)"
+      @input="onButtonSelected"
       :elements="guarantorTypeOptions"
-    ></RichRadioButtons>
+    />
     <ConfirmModal
       v-if="confirmGuarantorChangeModal"
       @valid="confirmGuarantorTypeChange()"
@@ -39,7 +39,7 @@ const props = withDefaults(
   }
 )
 
-const emit = defineEmits(['selected'])
+const emit = defineEmits<{ selected: [value: string] }>()
 
 const checkedGuarantorType = ref('')
 const confirmGuarantorChangeModal = ref(false)
@@ -83,8 +83,8 @@ onBeforeMount(() => {
   }
 })
 
-function onButtonSelected($event: any) {
-  checkedGuarantorType.value = $event
+function onButtonSelected(value: string) {
+  checkedGuarantorType.value = value
   if (
     guarantor.value?.typeGuarantor !== checkedGuarantorType.value &&
     (user.value.guarantors.length || 0) > 0 &&

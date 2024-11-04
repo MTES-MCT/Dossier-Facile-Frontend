@@ -116,7 +116,7 @@ function guarantorCertificateDocument(): DfDocument | undefined {
   if (props.guarantor) {
     return props.guarantor.documents?.find((d: DfDocument) => {
       return d.documentCategory === 'GUARANTEE_PROVIDER_CERTIFICATE'
-    }) as DfDocument
+    })
   }
   return store.getGuaranteeProviderCertificateDocument
 }
@@ -127,7 +127,8 @@ function onSelectChange($event: DocumentType) {
     const doc = certificateDocument.value
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== selectedDocumentType.value.value
+        (doc?.files?.length || 0) > 0 &&
+        doc?.documentSubCategory !== selectedDocumentType.value.value
     }
   }
   return false
@@ -184,7 +185,7 @@ function save(files: File[]) {
   const $loading = useLoading({})
   const loader = $loading.show()
   RegisterService.saveOrganismIdentification(formData)
-    .then(async (response: any) => {
+    .then(async (response) => {
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       ToastService.saveSuccess()
       await store.loadUserCommit(response.data)

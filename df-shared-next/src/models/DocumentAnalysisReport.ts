@@ -1,6 +1,6 @@
-import { DocumentBrokenRule } from './DocumentBrokenRule';
+import { DocumentBrokenRule } from './DocumentBrokenRule'
 export class DocumentAnalysisReport {
-	analysisStatus?: string;
-	brokenRules?: DocumentBrokenRule[];
-	comment?: string;
+  analysisStatus?: string
+  brokenRules?: DocumentBrokenRule[]
+  comment?: string
 }

@@ -1,52 +1,69 @@
 <template>
-  <div class="icons" v-if="getStatus()">
-    <i :class="getStatus()" aria-hidden="true"></i>
+  <div class="icons" v-if="icon">
+    <component :is="icon" size="14px" aria-hidden="true" />
   </div>
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
-  status: string;
-  warn: boolean;
-}>(),{
-  warn: false
-});
+import {
+  RiAlertLine,
+  RiArrowRightLine,
+  RiAttachmentLine,
+  RiCloseCircleFill,
+  RiCloseCircleLine,
+  RiGroupLine,
+  RiPassValidLine,
+  RiTeamLine,
+  RiTimeLine,
+  RiUserLine,
+  RiVerifiedBadgeLine
+} from '@remixicon/vue'
+import { computed } from 'vue'
 
-function getStatus() {
-  switch (props.status) {
-    case "EMPTY":
-      return "ri-arrow-right-line";
-    case "FILLED":
-      return "ri-attachment-line";
-    case "TO_PROCESS":
-      return "ri-time-line";
-    case "VALIDATED":
-      return "ri-verified-badge-line";
-    case "DECLINED":
-      return "ri-close-circle-fill";
-    case "NAME":
-      return "ri-pass-valid-line";
-    case "ALONE":
-      return "ri-user-line";
-    case "COUPLE":
-      return "ri-group-line";
-    case "GROUP":
-      return "ri-team-line";
-    case "INCOMPLETE":
-      if (props.warn) {
-        return "ri-alert-line";
-      }
-      return "ri-close-circle-line";
+const props = withDefaults(
+  defineProps<{
+    status: string
+    warn: boolean
+  }>(),
+  {
+    warn: false
   }
-  return undefined;
-}
+)
+
+const icon = computed(() => {
+  switch (props.status) {
+    case 'EMPTY':
+      return RiArrowRightLine
+    case 'FILLED':
+      return RiAttachmentLine
+    case 'TO_PROCESS':
+      return RiTimeLine
+    case 'VALIDATED':
+      return RiVerifiedBadgeLine
+    case 'DECLINED':
+      return RiCloseCircleFill
+    case 'NAME':
+      return RiPassValidLine
+    case 'ALONE':
+      return RiUserLine
+    case 'COUPLE':
+      return RiGroupLine
+    case 'GROUP':
+      return RiTeamLine
+    case 'INCOMPLETE':
+      if (props.warn) {
+        return RiAlertLine
+      }
+      return RiCloseCircleLine
+  }
+  return undefined
+})
 </script>
 
 <style scoped lang="scss">
 .icons {
+  display: flex;
+  align-items: center;
   margin-right: 0.5rem;
-}
-.icons > span {
-  font-size: 16px;
 }
 </style>

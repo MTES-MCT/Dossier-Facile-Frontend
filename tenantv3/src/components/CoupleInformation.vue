@@ -173,7 +173,7 @@ defineRule('custom', (v1: string, [v2]: string[]) => {
   return true
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits<{ 'update:modelValue': [coTenants: User[]] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()

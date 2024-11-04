@@ -11,6 +11,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import ChangePassword from 'df-shared-next/src/Authentification/ChangePassword.vue'
 import useOwnerStore from '../../store/owner-store'
+import { isAxiosError } from 'axios'
 
 const route = useRoute()
 const router = useRouter()
@@ -28,8 +29,11 @@ function onChangePassword(user: User) {
       })
       router.push({ name: 'Dashboard' })
     },
-    (error: any) => {
-      if (error.response.data.message.includes('password recovery token or is expired')) {
+    (error: unknown) => {
+      if (
+        isAxiosError(error) &&
+        error.response?.data.message.includes('password recovery token or is expired')
+      ) {
         toast.error(t('changepasswordpage.token-expired').toString(), {
           timeout: 7000
         })

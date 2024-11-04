@@ -30,34 +30,29 @@
 </template>
 
 <script setup lang="ts">
-import Modal from './Modal.vue';
-import DfButton from '../Button/Button.vue';
-import { useI18n } from 'vue-i18n';
+import Modal from './Modal.vue'
+import DfButton from '../Button/Button.vue'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const emit = defineEmits(['valid', 'cancel', 'close']);
+const emit = defineEmits<{ valid: []; cancel: [] }>()
 
-const props = defineProps<{
-  validateBtnText?: string;
-  cancelBtnText?: string;
-  onClose?: () => void;
-}>();
+defineProps<{
+  validateBtnText?: string
+  cancelBtnText?: string
+}>()
 
 function validSelect() {
-  emit('valid');
+  emit('valid')
 }
 
 function undoSelect() {
-  emit('cancel');
+  emit('cancel')
 }
 
 function closeModal() {
-  if (props.onClose) {
-    emit('close');
-  } else {
-    emit('cancel');
-  }
+  emit('cancel')
 }
 </script>
 

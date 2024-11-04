@@ -33,9 +33,9 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{ pictogram?: string }>(), {
-  pictogram: "technical-error",
-});
+withDefaults(defineProps<{ pictogram?: string }>(), {
+  pictogram: 'technical-error'
+})
 </script>
 
 <style scoped lang="scss"></style>

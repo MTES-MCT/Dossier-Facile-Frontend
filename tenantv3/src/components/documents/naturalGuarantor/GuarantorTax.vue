@@ -85,9 +85,8 @@
     >
       <template v-slot:body>
         <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
-          <h1 class="avis-title fr-h4">
-            <i class="ri-alarm-warning-line"></i>
-
+          <h1 class="avis-title fr-h4 display--flex align-items--center">
+            <RiAlarmWarningLine class="bold-icon fr-mr-1w" />
             {{ t('tax-page.avis-detected') }}
           </h1>
           <p>
@@ -101,7 +100,7 @@
           </div>
           <div class="btn-align fr-mt-2w">
             <a
-              href="https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition"
+              href="https://aide.dossierfacile.logement.gouv.fr/fr/article/5-avis-dimposition-eg82wt/"
               rel="noopener"
               target="_blank"
               >{{ t('tax-page.avis-link-to-doc') }}</a
@@ -139,10 +138,11 @@ import { computed, onMounted, ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
-import { useLoading } from 'vue-loading-overlay'
+import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import { RiAlarmWarningLine } from '@remixicon/vue'
 
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -175,7 +175,7 @@ const isDocDeleteVisible = ref(false)
 const newFiles = ref([] as File[])
 const isWarningTaxSituationModalVisible = ref(false)
 
-let loader: any
+let loader: ActiveLoader | undefined
 
 function getRegisteredDoc() {
   if (selectedGuarantor.value?.documents !== null) {
@@ -195,7 +195,7 @@ function guarantorTaxDocument() {
   return store.getGuarantorTaxDocument
 }
 
-function onSelectChange($event: any) {
+function onSelectChange($event: DocumentType) {
   taxDocument.value = $event
   if (user.value?.documents !== null) {
     const doc = guarantorTaxDocument()
@@ -326,7 +326,7 @@ async function save(force = false) {
   if (force) {
     formData.append('avisDetected', 'true')
   } else {
-    const filesToSave = files.value.map((f) => f.file as File).filter((f) => f !== undefined)
+    const filesToSave = files.value.map((f) => f.file).filter((f) => f !== undefined)
     if (!(await PdfAnalysisService.includesRejectedTaxDocuments(filesToSave))) {
       formData.append('avisDetected', 'false')
     }
@@ -357,7 +357,7 @@ async function save(force = false) {
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       ToastService.saveSuccess()
     })
-    .catch((err: any) => {
+    .catch((err) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
       UtilsService.handleCommonSaveError(err)
     })
@@ -367,13 +367,13 @@ async function save(force = false) {
   return true
 }
 
-function taxFiles() {
+function taxFiles(): DfFile[] {
   const newFiles = files.value.map((f) => {
     return {
       documentSubCategory: taxDocument.value.value,
       id: f.id,
       name: f.name,
-      file: f,
+      file: f.file,
       size: f.size
     }
   })
@@ -381,7 +381,7 @@ function taxFiles() {
     store.getGuarantorDocuments?.find((d: DfDocument) => {
       return d.documentCategory === 'TAX'
     })?.files || []
-  return [...newFiles, ...existingFiles] as DfFile[]
+  return [...newFiles, ...existingFiles]
 }
 
 async function remove(file: DfFile, silent = false) {

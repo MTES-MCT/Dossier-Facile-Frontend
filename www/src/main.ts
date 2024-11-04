@@ -5,16 +5,18 @@ import { ViteSSG } from 'vite-ssg'
 import App from './App.vue'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 import * as Sentry from '@sentry/vue'
+import CrispPlugin from './plugin/crisp'
 
 import routes from './router/index'
 import { BrowserTracing } from '@sentry/browser'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
+const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID
+const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 declare global {
   interface Window {
     _paq: (string | number | undefined)[][]
-    Beacon: (action: string, data?: string) => void
   }
 }
 
@@ -47,6 +49,10 @@ export const createApp = ViteSSG(
       theme: 'colored',
       clearOnUrlChange: false
     } as ToastContainerOptions)
+    if (isClient && CRISP_ENABLED === 'true') {
+      app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
+      window.$crisp.push(["safe", true])
+    }
 
     router.beforeEach((to, from, next) => {
       if (

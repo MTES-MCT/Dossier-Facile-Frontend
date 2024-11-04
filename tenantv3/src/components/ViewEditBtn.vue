@@ -1,18 +1,20 @@
 <template>
-  <div style="display: flex">
+  <div class="display--flex">
     <button class="fr-btn fr-btn--secondary icon-btn" title="View" @click="view" v-if="canView">
-      <i class="ri-eye-line color--primary fs-18 icons"></i>
+      <RiEyeLine size="26px" class="color--primary icons" />
     </button>
     <button class="fr-btn fr-btn--secondary icon-btn" title="Edit" @click="edit">
-      <i class="ri-pencil-line color--primary fs-18 icons"></i>
+      <RiPencilLine size="26px" class="color--primary icons" />
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(['view', 'edit'])
+import { RiEyeLine, RiPencilLine } from '@remixicon/vue'
 
-const props = withDefaults(
+const emit = defineEmits<{ view: []; edit: [] }>()
+
+withDefaults(
   defineProps<{
     canView?: boolean
   }>(),
@@ -38,11 +40,12 @@ function edit() {
 }
 
 .icon-btn {
-  display: block;
+  display: flex;
   height: 2.5rem;
   width: 2.5rem;
   border-radius: 50%;
   overflow: hidden;
+  justify-content: center;
 }
 
 .icons {

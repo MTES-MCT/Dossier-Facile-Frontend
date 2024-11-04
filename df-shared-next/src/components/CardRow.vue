@@ -5,11 +5,7 @@
         <div class="v-center">
           <slot name="tag"></slot>
         </div>
-        <div
-          v-if="$slots.text"
-          class="text-container"
-          :class="{ danger: danger }"
-        >
+        <div v-if="$slots.text" class="text-container" :class="{ danger: danger }">
           <slot name="text"></slot>
         </div>
       </div>
@@ -20,7 +16,7 @@
           class="fr-p-1w fr-mr-2w icon-btn"
           :class="{ danger: danger, 'color--primary': !danger }"
         >
-          <i class="fs-24 ri-pencil-line"></i>
+          <RiPencilLine />
         </button>
         <button
           :title="t('remove')"
@@ -28,7 +24,7 @@
           class="fr-p-1w icon-btn"
           :class="{ danger: danger, 'color--primary': !danger }"
         >
-          <i class="fs-24 ri-delete-bin-2-fill"></i>
+          <RiDeleteBin2Fill />
         </button>
       </div>
     </div>
@@ -39,22 +35,21 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import NakedCard from "./NakedCard.vue";
+import { useI18n } from 'vue-i18n'
+import NakedCard from './NakedCard.vue'
+import { RiDeleteBin2Fill, RiPencilLine } from '@remixicon/vue'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const props = withDefaults(defineProps<{ danger?: boolean }>(), {
-  danger: false,
-});
-const emit = defineEmits(["edit", "remove"]);
+withDefaults(defineProps<{ danger?: boolean }>(), { danger: false })
+const emit = defineEmits<{ edit: []; remove: [] }>()
 
 function edit() {
-  emit("edit");
+  emit('edit')
 }
 
 function remove() {
-  emit("remove");
+  emit('remove')
 }
 </script>
 
@@ -89,6 +84,7 @@ function remove() {
 }
 
 .icon-btn {
+  display: flex;
   border: 1px solid var(--primary);
   background-color: var(--background-default-grey);
   &.danger {

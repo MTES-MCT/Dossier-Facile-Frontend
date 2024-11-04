@@ -36,12 +36,11 @@
                     <div class="fr-mb-1w fr-grid-row fr-grid-row--gutters fr-grid-row--center">
                       <div class="fr-col-12 fr-col-md-6">
                         <h2 class="fr-h4 fr-mb-0">
-                          <i
+                          <RiTimeLine
+                            size="18px"
+                            class="text-to-process bold-icon"
                             aria-hidden="true"
-                            class="text-to-process ri-time-line fs-28"
-                            style="font-size: 18px"
-                          ></i>
-                          &nbsp;<span>{{ t('account.processing-bloc.title') }}</span>
+                          />&nbsp;<span>{{ t('account.processing-bloc.title') }}</span>
                         </h2>
                       </div>
                       <div class="fr-col-12 fr-col-md-6 badge-container">
@@ -79,10 +78,10 @@
                     <a
                       href="#"
                       :title="t('account.download-not-validated-title')"
-                      class="float--right"
+                      class="download-link"
                       @click="downloadZip"
                       >{{ t('account.download-zip') }}
-                      <i class="ri-download-line" style="font-size: 18px"></i>
+                      <RiDownloadLine size="18px" />
                     </a>
                   </div>
                 </div>
@@ -132,13 +131,14 @@
                               }"
                             ></span>
                           </div>
-                          <ColoredBadge
-                            class="fr-col-xs-12 fr-col"
-                            :status="tenant.status"
-                            :warn="true"
-                            :text="t(`dossier.warn-${tenant.status}`)"
-                          >
-                          </ColoredBadge>
+                          <div class="fr-col-xs-12 fr-col fr-mr-1w fr-grid-row">
+                            <ColoredBadge
+                              :status="tenant.status"
+                              :warn="true"
+                              :text="t(`dossier.warn-${tenant.status}`)"
+                            >
+                            </ColoredBadge>
+                          </div>
                         </div>
                       </button>
                     </li>
@@ -217,7 +217,7 @@ import FakeAnnouncement from '../components/FakeAnnouncement.vue'
 import PartnersSection from '../components/account/PartnersSection.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import useTenantStore from '../stores/tenant-store'
 import { useRouter } from 'vue-router'
 import { ProfileService } from '../services/ProfileService'
@@ -225,6 +225,7 @@ import { ToastService } from '../services/ToastService'
 import dayjs, { Dayjs } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useI18n } from 'vue-i18n'
+import { RiDownloadLine, RiTimeLine } from '@remixicon/vue'
 const { t } = useI18n()
 
 const FORCE_FAKE_ANNOUNCEMENT_VISIBILITY =
@@ -239,7 +240,6 @@ dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
 
 onMounted(() => {
-  window.Beacon('init', 'd949ac15-a9eb-4316-b0c5-f92cecc7118f')
   const today = new Date()
   if (
     (today.getMonth() >= 5 && today.getMonth() <= 8) ||
@@ -247,10 +247,6 @@ onMounted(() => {
   ) {
     isAnnouncementVisible.value = true
   }
-})
-
-onBeforeUnmount(() => {
-  window.Beacon('destroy')
 })
 
 watch(
@@ -377,6 +373,10 @@ function getApplicationType() {
 </script>
 
 <style scoped lang="scss">
+.fr-callout {
+  display: flex;
+  flex-direction: column;
+}
 .fr-callout-white {
   background-color: var(--background-default-grey);
   &.warning {
@@ -584,5 +584,12 @@ hr {
   @media (min-width: 768px) {
     text-align: right;
   }
+}
+
+.download-link {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 2px;
 }
 </style>

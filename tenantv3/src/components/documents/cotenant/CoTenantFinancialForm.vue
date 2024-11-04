@@ -128,7 +128,7 @@ import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import { ToastService } from '@/services/ToastService'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 const store = useTenantStore()
-const emit = defineEmits(['on-next', 'on-back', 'update:modelValue'])
+const emit = defineEmits<{ 'on-next': []; 'on-back': []; 'update:modelValue': [doc: DfDocument] }>()
 const { t } = useI18n()
 
 const props = defineProps<{

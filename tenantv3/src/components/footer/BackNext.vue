@@ -12,7 +12,7 @@
         @click="backAction()"
         :aria-label="t('backnext.back')"
       >
-        <i class="color--primary ri-arrow-left-s-line mobile"></i>
+        <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
         <span class="desktop">{{ t('backnext.back') }}</span>
       </v-gouv-fr-button>
       <div v-if="!showBack"></div>
@@ -36,18 +36,16 @@
 import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue'
 import { UtilsService } from '../../services/UtilsService'
 import { useI18n } from 'vue-i18n'
+import { RiArrowLeftSLine } from '@remixicon/vue'
 
 const { t } = useI18n()
 
-const props = withDefaults(
-  defineProps<{ showBack?: boolean; disabled?: boolean; nextLabel?: string }>(),
-  {
-    showBack: true,
-    disabled: false
-  }
-)
+withDefaults(defineProps<{ showBack?: boolean; disabled?: boolean; nextLabel?: string }>(), {
+  showBack: true,
+  disabled: false
+})
 
-const emit = defineEmits(['on-back', 'on-next'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 function isMobile() {
   return UtilsService.isMobile()
@@ -86,6 +84,10 @@ function nextAction() {
   @media (max-width: 768px) {
     width: 40px !important;
   }
+}
+
+.no-shrink {
+  flex-shrink: 0;
 }
 </style>
 

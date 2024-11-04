@@ -1,9 +1,11 @@
 <template>
   <div class="list-item fr-mb-1w doc-container">
     <div class="fr-grid-row" style="align-items: center">
-      <div class="fr-mr-md-2w fr-mr-1w cursor--pointer" @click="openDoc()">
-        <i class="ri-article-line fs-32 color--focus"></i>
-      </div>
+      <RiArticleLine
+        size="32px"
+        class="color--focus fr-mr-md-2w fr-mr-1w cursor--pointer"
+        @click="openDoc"
+      />
       <div class="text fr-pr-2w cursor--pointer" @click="openDoc()">
         <div class="text-bold">{{ getName() }}</div>
         <div class="size">{{ getSize() }}</div>
@@ -50,9 +52,10 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import DfButton from 'df-shared-next/src/Button/Button.vue'
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
+import { RiArticleLine } from '@remixicon/vue'
 
 const { t } = useI18n()
-const emit = defineEmits(['remove'])
+const emit = defineEmits<{ remove: [] }>()
 
 const props = withDefaults(
   defineProps<{

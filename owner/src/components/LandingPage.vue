@@ -54,7 +54,7 @@
                 </p>
               </div>
               <div class="fr-tile__img">
-                <i class="ri-checkbox-circle-line purpose-icon"></i>
+                <RiCheckboxCircleLine class="purpose-icon" />
               </div>
             </div>
           </div>
@@ -71,7 +71,7 @@
                 </p>
               </div>
               <div class="fr-tile__img">
-                <i class="ri-eye-2-line purpose-icon"></i>
+                <RiEye2Line class="purpose-icon" />
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@
                 </p>
               </div>
               <div class="fr-tile__img">
-                <i class="ri-timer-flash-line purpose-icon"></i>
+                <RiTimerFlashLine class="purpose-icon" />
               </div>
             </div>
           </div>
@@ -149,7 +149,7 @@
           <div class="fr-col-12 fr-col-md-3 fr-grid-col fr-p-2w">
             <div class="fr-grid-row howto">
               <div class="fr-col-12 howto-title">
-                <div class="ri-checkbox-circle-line"></div>
+                <RiCheckboxCircleLine size="19px" class="fr-mt-1v no-shrink bold-icon" />
                 {{ t('landing.howto.add-property.title') }}
               </div>
               <div class="fr-col-12">
@@ -168,7 +168,7 @@
           <div class="fr-col-12 fr-col-md-3 fr-grid-col fr-p-2w">
             <div class="fr-grid-row howto">
               <div class="fr-col-12 howto-title">
-                <div class="ri-eye-2-line"></div>
+                <RiEye2Line size="19px" class="fr-mt-1v no-shrink bold-icon" />
                 {{ t('landing.howto.invite-tenant.title') }}
               </div>
               <div class="fr-col-12">
@@ -187,7 +187,7 @@
           <div class="fr-col-12 fr-col-md-3 fr-grid-col fr-p-2w">
             <div class="fr-grid-row howto">
               <div class="fr-col-12 howto-title">
-                <div class="ri-timer-flash-line"></div>
+                <RiTimerFlashLine size="19px" class="fr-mt-1v no-shrink bold-icon" />
                 {{ t('landing.howto.manage-tenant.title') }}
               </div>
               <div class="fr-col-12">
@@ -254,6 +254,7 @@ import Modal from 'df-shared-next/src/components/Modal.vue'
 import useOwnerStore from '../store/owner-store'
 import SignupVerticalCard from './auth/SignupVerticalCard.vue'
 import SignupCard from './auth/SignupCard.vue'
+import { RiCheckboxCircleLine, RiEye2Line, RiTimerFlashLine } from '@remixicon/vue'
 
 const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VITE_SSO_FRANCE_CONNECT_LOGIN_URL
 const MAIN_URL = `${import.meta.env.VITE_OWNER_URL}`
@@ -281,7 +282,7 @@ function onRegister(user: User) {
       (error) => {
         if (
           error.response?.data?.errors?.filter(
-            (e: any) => e?.code === 'UniqueEmailActiveAccount'
+            (e: { code: string }) => e?.code === 'UniqueEmailActiveAccount'
           ) !== undefined
         ) {
           toast.error(t('signuppage.duplicate-email').toString(), {
@@ -324,8 +325,8 @@ function onRegister(user: User) {
   }
 }
 .purpose-icon {
-  font-size: 4rem;
   color: #0063cb;
+  margin: 0.5rem;
 }
 .howto {
   :last-child {
@@ -352,5 +353,8 @@ function onRegister(user: User) {
 .justif-img {
   margin-left: auto;
   margin-right: auto;
+}
+.no-shrink {
+  flex-shrink: 0;
 }
 </style>

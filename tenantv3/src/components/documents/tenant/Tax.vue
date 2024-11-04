@@ -54,7 +54,7 @@
     >
       <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
         <div class="fr-mb-3w">
-          <div class="fr-mb-2w" v-html="t(`explanation-text.tenant.${taxDocument.key}`)"></div>
+          <div class="fr-mb-2w" v-html="t('explanation-text.tenant.my-name')"></div>
           <WarningTaxDeclaration />
         </div>
       </div>
@@ -85,9 +85,8 @@
     >
       <template v-slot:body>
         <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
-          <h1 class="avis-title fr-h4">
-            <i class="ri-alarm-warning-line"></i>
-
+          <h1 class="avis-title fr-h4 display--flex align-items--center">
+            <RiAlarmWarningLine class="bold-icon fr-mr-1w" />
             {{ t('tax-page.avis-detected') }}
           </h1>
           <p>
@@ -101,7 +100,7 @@
           </div>
           <div class="btn-align fr-mt-2w">
             <a
-              href="https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition"
+              href="https://aide.dossierfacile.logement.gouv.fr/fr/article/5-avis-dimposition-eg82wt/"
               rel="noopener"
               target="_blank"
               >{{ t('tax-page.avis-link-to-doc') }}</a
@@ -139,10 +138,11 @@ import { computed, onBeforeMount, ref } from 'vue'
 import useTenantStore from '../../../stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '../../../services/ToastService'
-import { useLoading } from 'vue-loading-overlay'
+import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import { RiAlarmWarningLine } from '@remixicon/vue'
 
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const { t } = useI18n()
 
 const store = useTenantStore()
@@ -164,7 +164,7 @@ const isWarningTaxSituationModalVisible = ref(false)
 const newFiles = ref([] as File[])
 
 const $loading = useLoading({})
-let loader: any
+let loader: ActiveLoader | undefined
 
 const documentStatus = computed(() => {
   return tenantTaxDocument.value?.documentStatus
@@ -341,7 +341,7 @@ async function save(force = false): Promise<boolean> {
   if (force) {
     formData.append('avisDetected', 'true')
   } else {
-    const filteredFiles = files.value.map((f) => f.file as File).filter((f) => f !== undefined)
+    const filteredFiles = files.value.map((f) => f.file).filter((f) => f !== undefined)
     if (!(await PdfAnalysisService.includesRejectedTaxDocuments(filteredFiles))) {
       formData.append('avisDetected', 'false')
     }
@@ -367,13 +367,13 @@ async function save(force = false): Promise<boolean> {
     })
 }
 
-function taxFiles() {
+function taxFiles(): DfFile[] {
   const newFiles = files.value.map((f) => {
     return {
       documentSubCategory: taxDocument.value.value,
       id: f.id,
       name: f.name,
-      file: f,
+      file: f.file,
       size: f.size
     }
   })
@@ -381,7 +381,7 @@ function taxFiles() {
     store.getTenantDocuments?.find((d: DfDocument) => {
       return d.documentCategory === 'TAX'
     })?.files || []
-  return [...newFiles, ...existingFiles] as DfFile[]
+  return [...newFiles, ...existingFiles]
 }
 
 async function remove(file: DfFile, silent = false) {

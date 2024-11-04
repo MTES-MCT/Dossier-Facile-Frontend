@@ -1,11 +1,9 @@
 <template>
   <fieldset class="fr-fieldset" :id="name">
-    <legend class="fr-fieldset__legend"><slot></slot></legend>
-    <div
-      v-for="element in elements"
-      v-bind:key="element.id"
-      class="fr-fieldset__element"
-    >
+    <legend class="fr-fieldset__legend">
+      <slot></slot>
+    </legend>
+    <div v-for="element in elements" v-bind:key="element.id" class="fr-fieldset__element">
       <div class="fr-radio-group fr-radio-rich">
         <input
           :id="element.id"
@@ -36,32 +34,32 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
+import { useI18n } from 'vue-i18n'
 
 export interface RadioElement {
-  id: string;
-  labelKey: string;
-  description?: string;
-  iconClass: string;
-  iconCount?: number;
-  optionName: string;
+  id: string
+  labelKey: string
+  description?: string
+  iconClass: string
+  iconCount?: number
+  optionName: string
 }
 
-const { t } = useI18n();
-const emit = defineEmits(["input"]);
+const { t } = useI18n()
+const emit = defineEmits<{ input: [value: string] }>()
 
-const props = defineProps<{
-  name: string;
-  elements: RadioElement[];
-  modelValue: string;
-}>();
+defineProps<{
+  name: string
+  elements: RadioElement[]
+  modelValue: string
+}>()
 
 function getIconCount(element: RadioElement) {
-  return element.iconCount === undefined ? 1 : element.iconCount;
+  return element.iconCount === undefined ? 1 : element.iconCount
 }
 
 function onSelect(applicationType: string) {
-  emit("input", applicationType);
+  emit('input', applicationType)
 }
 </script>
 

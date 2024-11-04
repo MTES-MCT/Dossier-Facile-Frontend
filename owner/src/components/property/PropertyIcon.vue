@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { RiBuilding4Line, RiCommunityFill, RiHome4Fill } from '@remixicon/vue'
+
 defineProps<{
   type: string
 }>()
@@ -6,8 +8,8 @@ defineProps<{
 
 <template>
   <div class="blue-text inline-block fr-m-1w">
-    <i v-if="type === 'HOUSE'" class="fs-36 ri-home-4-fill"></i>
-    <i v-else-if="type === 'APARTMENT'" class="fs-36 ri-building-4-line"></i>
-    <i v-else class="fs-36 ri-community-fill"></i>
+    <RiHome4Fill v-if="type === 'HOUSE'" size="36px" />
+    <RiBuilding4Line v-else-if="type === 'APARTMENT'" size="36px" />
+    <RiCommunityFill v-else size="36px" />
   </div>
 </template>

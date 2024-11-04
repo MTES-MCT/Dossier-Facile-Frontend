@@ -416,7 +416,7 @@ const props = withDefaults(
 const coTenants = computed(() => {
   const c = user.value.apartmentSharing?.tenants?.filter((r: User) => {
     return r.id != user.value.id
-  }) as User[]
+  })
   if (!c) {
     return []
   }

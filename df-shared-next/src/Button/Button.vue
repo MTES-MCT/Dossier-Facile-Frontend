@@ -11,42 +11,42 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(["on-click"]);
+const emit = defineEmits<{ 'on-click': [] }>()
 
 const props = withDefaults(
-  defineProps < {
-    title?: string;
-    primary?: boolean;
-    size?: string;
-    dark?: boolean;
-    disabled?: boolean;
-    tertiary?: boolean;
-    tertiaryNoOutline ?: boolean;
+  defineProps<{
+    title?: string
+    primary?: boolean
+    size?: string
+    dark?: boolean
+    disabled?: boolean
+    tertiary?: boolean
+    tertiaryNoOutline?: boolean
   }>(),
   {
     primary: false,
-    size: "normal",
+    size: 'normal',
     dark: false,
     disabled: false,
     tertiary: false,
     tertiaryNoOutline: false
   }
-);
+)
 
 function classes() {
   return {
-    "fr-btn--secondary": !props.primary && !props.tertiary && !props.tertiaryNoOutline,
-    "fr-btn--lg": props.size === "large",
-    "fr-btn--sm": props.size === "small",
-    "fr-btn--icon": props.size === "icon",
-    "fr-btn--tertiary": props.tertiary,
-    "fr-btn--tertiary-no-outline": props.tertiaryNoOutline,
-    dark: props.dark,
-  };
+    'fr-btn--secondary': !props.primary && !props.tertiary && !props.tertiaryNoOutline,
+    'fr-btn--lg': props.size === 'large',
+    'fr-btn--sm': props.size === 'small',
+    'fr-btn--icon': props.size === 'icon',
+    'fr-btn--tertiary': props.tertiary,
+    'fr-btn--tertiary-no-outline': props.tertiaryNoOutline,
+    dark: props.dark
+  }
 }
 
 function onClick() {
-  emit("on-click");
+  emit('on-click')
 }
 </script>
 

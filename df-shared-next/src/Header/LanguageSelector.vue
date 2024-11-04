@@ -16,9 +16,7 @@
           :hreflang="language.id"
           :lang="language.id"
           href="#"
-          :aria-current="
-            currentLanguage.code === language.code ? 'page' : undefined
-          "
+          :aria-current="currentLanguage.code === language.code ? 'page' : undefined"
           @click="selectLanguage(language)"
           >{{ language.code }} - {{ language.name }}</a
         >
@@ -27,47 +25,48 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 
 const FRENCH = {
-  id: "fr",
-  code: "FR",
-  name: "Français",
-  selectLabel: "Sélectionner une langue",
-};
+  id: 'fr',
+  code: 'FR',
+  name: 'Français',
+  selectLabel: 'Sélectionner une langue'
+} as const
 
 const ENGLISH = {
-  id: "en",
-  code: "EN",
-  name: "English",
-  selectLabel: "Select a language",
-};
-
-const emit = defineEmits(["on-change-lang"]);
+  id: 'en',
+  code: 'EN',
+  name: 'English',
+  selectLabel: 'Select a language'
+} as const
 
 const props = withDefaults(defineProps<{ initialLanguage?: string }>(), {
-  initialLanguage: "fr",
-});
+  initialLanguage: 'fr'
+})
 
-const availableLanguages: Language[] = [FRENCH, ENGLISH];
+const availableLanguages = [FRENCH, ENGLISH] satisfies Language[]
+type AvailableLanguage = (typeof availableLanguages)[number]
+type LanguageKey = AvailableLanguage['id']
 
-const currentLanguage = ref(FRENCH);
+const emit = defineEmits<{
+  'on-change-lang': [lang: LanguageKey]
+}>()
+
+const currentLanguage = ref<Language>(FRENCH)
 
 currentLanguage.value =
-  availableLanguages.find(
-    (language) => language.id === props.initialLanguage
-  ) || FRENCH;
+  availableLanguages.find((language) => language.id === props.initialLanguage) || FRENCH
 
-function selectLanguage(l: Language) {
-  emit("on-change-lang", l.id);
-  currentLanguage.value =
-    availableLanguages.find((language) => language.id === l.id) || FRENCH;
+function selectLanguage(l: AvailableLanguage) {
+  emit('on-change-lang', l.id)
+  currentLanguage.value = availableLanguages.find((language) => language.id === l.id) || FRENCH
 }
 
 interface Language {
-  id: string;
-  code: string;
-  name: string;
-  selectLabel: string;
+  id: string
+  code: string
+  name: string
+  selectLabel: string
 }
 </script>

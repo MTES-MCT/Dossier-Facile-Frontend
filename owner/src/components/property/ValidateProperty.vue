@@ -8,6 +8,7 @@ import { useToast } from 'vue-toastification'
 import PropertyPage from './PropertyPage.vue'
 import useOwnerStore from '../../store/owner-store'
 import UpdateRowBtn from './UpdateRowBtn.vue'
+import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
 
 const { t } = useI18n()
 
@@ -40,10 +41,7 @@ const hasErrors = computed(
       property.rentCost > 0 &&
       property.chargesCost !== undefined &&
       property.chargesCost >= 0 &&
-      property.energyConsumption !== undefined &&
-      property.energyConsumption >= 0 &&
-      property.co2Emission !== undefined &&
-      property.co2Emission >= 0
+      SharedPropertyService.hasDpe(property)
     )
 )
 

@@ -66,7 +66,6 @@ function onCreateOwner() {
 <style lang="scss">
 @import 'df-shared-next/src/scss/_main.scss';
 @import 'vue3-toastify/dist/index.css';
-@import '../../node_modules/remixicon/fonts/remixicon.css';
 
 #content {
   flex: auto;
@@ -79,5 +78,10 @@ function onCreateOwner() {
   min-height: 300px;
   display: flex;
   align-items: stretch;
+}
+
+.bold-icon path {
+  stroke: currentColor;
+  stroke-width: 0.6;
 }
 </style>

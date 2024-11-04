@@ -28,8 +28,9 @@ function onRegister(user: User) {
       },
       (error) => {
         if (
-          error.response?.data?.errors.filter((e: any) => e.code === 'UniqueEmailActiveAccount') !==
-          undefined
+          error.response?.data?.errors.filter(
+            (e: { code: string }) => e.code === 'UniqueEmailActiveAccount'
+          ) !== undefined
         ) {
           toast.error(t('signuppage.duplicate-email').toString(), {
             timeout: 7000

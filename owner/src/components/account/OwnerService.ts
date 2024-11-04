@@ -12,7 +12,7 @@ const OwnerService = {
     })
   },
   saveProperty(property: Property) {
-    return axios.put(`${API_URL}property`, {
+    return axios.post(`${API_URL}property`, {
       ...property
     })
   },

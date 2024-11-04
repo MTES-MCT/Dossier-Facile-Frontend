@@ -16,7 +16,7 @@
           >
             <option v-if="!residencyDocument" selected disabled></option>
             <option v-for="d in documents" :value="d" :key="d.key">
-              {{ t("documents." + d.key) }}
+              {{ t('documents.' + d.key) }}
             </option>
           </select>
         </div>
@@ -56,7 +56,7 @@
           v-if="residencyDocument.key === 'tenant'"
         >
           <div class="fr-text-default--info fr-h6 title">
-            <i class="ri-error-warning-line"></i>
+            <RiErrorWarningLine size="1.25rem" class="bold-icon" style="vertical-align: middle" />
             <span class="fr-ml-1w">
               {{ t('residency-page.warning-only-rent-receipt') }}
             </span>
@@ -115,9 +115,10 @@ import useTenantStore from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
+import { RiErrorWarningLine } from '@remixicon/vue'
 
 const { t } = useI18n()
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()
 const user = computed(() => store.userToEdit)
 const tenantResidencyDocument = computed(() => store.getTenantResidencyDocument)
@@ -125,7 +126,7 @@ const documents = DocumentTypeConstants.RESIDENCY_DOCS
 
 const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
-const files = ref([] as any[])
+const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
 const residencyDocument = ref(new DocumentType())
 const customText = ref('')
 
@@ -311,7 +312,9 @@ async function remove(file: DfFile, silent = false) {
       tenantResidencyDocument.value?.files?.length === 1 &&
       tenantResidencyDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(tenantResidencyDocument.value?.documentSubCategory || '')
+      AnalyticsService.removeDeniedDocument(
+        tenantResidencyDocument.value?.documentSubCategory || ''
+      )
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {

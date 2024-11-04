@@ -31,7 +31,7 @@ import AnalyticsService from '../../services/AnalyticsService'
 
 const { t } = useI18n()
 
-function redirectFranceRenov($event: any) {
+function redirectFranceRenov($event: Event) {
   AnalyticsService.dpeEvent('dpe_find_diagsnotic')
   window.open(
     'https://www.service-public.fr/particuliers/vosdroits/R57710?utm_source=dossierfacile&utm_medium=display&utm_campaign=dossierfacile ',

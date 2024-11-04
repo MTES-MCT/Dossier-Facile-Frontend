@@ -2,9 +2,11 @@
   <div>
     <FullTenantFileErrors :user="user" :keyprefix="'my'"></FullTenantFileErrors>
 
-    <div v-for="(tenant, k) in coTenants" :key="k" v-if="user.applicationType === 'COUPLE'">
-      <FullTenantFileErrors :user="tenant" :keyprefix="'tenant'"></FullTenantFileErrors>
-    </div>
+    <template v-if="user.applicationType === 'COUPLE'">
+      <div v-for="(tenant, k) in coTenants" :key="k">
+        <FullTenantFileErrors :user="tenant" :keyprefix="'tenant'"></FullTenantFileErrors>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -18,6 +20,6 @@ const store = useTenantStore()
 const user = computed(() => store.user)
 
 const coTenants = computed(() => {
-  return user.value.apartmentSharing?.tenants.filter((t: User) => t.id != user.value?.id) as User[]
+  return user.value.apartmentSharing?.tenants.filter((t: User) => t.id != user.value?.id)
 })
 </script>

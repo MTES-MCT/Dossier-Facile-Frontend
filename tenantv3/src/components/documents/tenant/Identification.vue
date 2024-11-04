@@ -126,14 +126,15 @@ onBeforeMount(() => {
   }
 })
 
-function onSelectChange($event: any) {
-  identificationDocument.value = $event
+function onSelectChange(docType: DocumentType) {
+  identificationDocument.value = docType
   localStorage.setItem(getLocalStorageKey(), identificationDocument.value.key)
   if (user.value?.documents !== null) {
     const doc = tenantIdentificationDocument.value
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== identificationDocument.value.value
+        (doc?.files?.length || 0) > 0 &&
+        doc?.documentSubCategory !== identificationDocument.value.value
     }
   }
   return false
@@ -253,7 +254,9 @@ async function remove(file: DfFile, silent = false) {
       tenantIdentificationDocument.value?.files?.length === 1 &&
       tenantIdentificationDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(tenantIdentificationDocument.value?.documentSubCategory || '')
+      AnalyticsService.removeDeniedDocument(
+        tenantIdentificationDocument.value?.documentSubCategory || ''
+      )
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {

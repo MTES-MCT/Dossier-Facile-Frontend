@@ -23,36 +23,36 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    id: number;
-    value: boolean;
-    label?: string;
-    hint?: string;
-    checkedLabel?: string;
-    uncheckedLabel?: string;
+    id: number
+    value: boolean
+    label?: string
+    hint?: string
+    checkedLabel?: string
+    uncheckedLabel?: string
   }>(),
   {
-    label: "",
-    hint: "",
-    checkedLabel: "",
-    uncheckedLabel: "",
+    label: '',
+    hint: '',
+    checkedLabel: '',
+    uncheckedLabel: ''
   }
-);
-const emit = defineEmits(["update"]);
+)
+const emit = defineEmits<{ update: [checked: boolean] }>()
 
 const inputId = computed(() => {
-  return `toggle-${props.id}`;
-});
+  return `toggle-${props.id}`
+})
 
 const hintId = computed(() => {
-  return `${inputId.value}-hint-text`;
-});
+  return `${inputId.value}-hint-text`
+})
 
 function updateValue(event: Event) {
-  emit("update", (event.target as HTMLInputElement).checked);
+  emit('update', (event.target as HTMLInputElement).checked)
 }
 </script>
 
