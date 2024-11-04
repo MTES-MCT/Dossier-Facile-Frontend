@@ -235,7 +235,7 @@ import RowListItem from '@/components/documents/RowListItem.vue'
 import FileNotFound from '@/views/FileNotFound.vue'
 import { ToastService } from '@/services/ToastService'
 import { useI18n } from 'vue-i18n'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 
@@ -275,6 +275,8 @@ function setUser() {
       fileNotFound.value = true
     })
 }
+
+onMounted(setUser)
 
 function document(u: User | Guarantor, s: string) {
   return u.documents?.find((d) => {
