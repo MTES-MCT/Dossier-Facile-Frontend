@@ -178,13 +178,13 @@ const props = defineProps<{
   dpe: AdemeApiResult
 }>()
 
-const energyConsumption = computed(() => props.dpe.consommation)
+const energyConsumption = computed(() => Number(props.dpe.consommation))
 const energyLetter = computed(() =>
-  DpeService.getEnergyConsumptionLetter(energyConsumption.value || 0, null)
+  DpeService.getEnergyConsumptionLetter(energyConsumption.value, null)
 )
 
-const co2Emission = computed(() => props.dpe.emission)
-const co2Letter = computed(() => DpeService.getCO2EmissionLetter(co2Emission.value || 0, null))
+const co2Emission = computed(() => Number(props.dpe.emission))
+const co2Letter = computed(() => DpeService.getCO2EmissionLetter(co2Emission.value, null))
 
 function deleteDpe() {
   store.deleteDpe()
