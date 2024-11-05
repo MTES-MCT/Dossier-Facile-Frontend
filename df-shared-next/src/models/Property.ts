@@ -27,3 +27,8 @@ export class Property {
   ademeApiResult?: AdemeApiResult
   dpeNotRequired: boolean = false
 }
+
+export type LightProperty = Omit<
+  Property,
+  'propertiesApartmentSharing' | 'propertiesApartmentSharingCount'
+>
