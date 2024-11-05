@@ -8,14 +8,14 @@ export class AdemeApiResult {
   region?: string
   departement?: string
   typeBatiment?: string
-  anneeConstruction?: number
+  anneeConstruction?: string
   periodeConstruction?: string
-  surfaceHabitable?: number
+  surfaceHabitable?: string
   dateRealisation?: string
   dateFinValidite?: string
-  consommation?: number
-  consommationEnergieFinale?: number
-  emission?: number
+  consommation?: string
+  consommationEnergieFinale?: string
+  emission?: string
   etiquetteEnergie?: string
   etiquetteEmission?: string
   etiquetteEmissionPetiteSurface?: string
