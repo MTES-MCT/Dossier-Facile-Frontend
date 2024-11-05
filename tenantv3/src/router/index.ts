@@ -1,4 +1,4 @@
-import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import type { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 import useTenantStore from '@/stores/tenant-store'
 import { CONTENT, type SkipLink } from 'df-shared-next/src/models/SkipLink'
@@ -13,6 +13,16 @@ const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
 
 let updateTokenInterval: number
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    description?: string
+    hideFooter?: boolean
+    requiresAuth?: boolean
+    skipLinks?: SkipLink[]
+    title: string
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -295,23 +305,23 @@ const router = createRouter({
       },
       component: () => import(/* webpackChunkName: "404" */ '../views/NotFound404.vue')
     }
-  ],
+  ] satisfies RouteRecordRaw[],
   scrollBehavior() {
     document.getElementById('app')?.scrollIntoView()
   }
 })
 
 async function keepGoing(to: RouteLocationNormalized, next: NavigationGuardNext) {
-  document.title = to.meta?.title as string
+  document.title = to.meta?.title
   if (to.meta?.description) {
     const tag = document.querySelector('meta[name="description"]')
-    tag?.setAttribute('content', to.meta.description as string)
+    tag?.setAttribute('content', to.meta.description)
 
     const prop = document.querySelector('meta[property="og:description"]')
-    prop?.setAttribute('content', to.meta.description as string)
+    prop?.setAttribute('content', to.meta.description)
 
     const title = document.querySelector('meta[property="og:title"]')
-    title?.setAttribute('content', to.meta.title as string)
+    title?.setAttribute('content', to.meta.title)
   }
   next()
 }
@@ -373,7 +383,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
 
   to.matched.some((record) => {
     const store = useTenantStore()
-    store.updateSkipLinks(record.meta.skipLinks as SkipLink[])
+    store.updateSkipLinks(record.meta.skipLinks || [])
   })
 
   await loadUserIfAuthenticated(next)

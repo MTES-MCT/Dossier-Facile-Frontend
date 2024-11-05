@@ -147,13 +147,13 @@ function documentsDefinitions() {
   })
 }
 
-function changeDocument(docType?: DocumentType, doc?: DfDocument) {
+function changeDocument(docType: DocumentType, doc: DfDocument) {
   if (!docType) {
     return
   }
 
   documentType.value = docType
-  document.value = doc as DfDocument
+  document.value = doc
   updateMonthlySum()
 }
 
@@ -172,13 +172,10 @@ function enrichFormData(formData: FormData) {
     document.value.monthlySum = 0
   }
   formData.append('noDocument', document.value?.noDocument === true ? 'true' : 'false')
-  if (
-    documentType.value?.key === 'no-income' &&
-    (!document.value.customText || document.value.customText.length < 0)
-  ) {
+  if (documentType.value?.key === 'no-income' && !document.value.customText) {
     formData.append('customText', '-')
-  } else {
-    formData.append('customText', document.value.customText as string)
+  } else if (document.value.customText) {
+    formData.append('customText', document.value.customText)
   }
   if (props.modelValue.monthlySum !== undefined && props.modelValue.monthlySum >= 0) {
     formData.append('monthlySum', props.modelValue.monthlySum.toString())
@@ -226,7 +223,7 @@ function goNext() {
     const formData = new FormData()
     enrichFormData(formData)
 
-    formData.append('typeDocumentFinancial', documentType.value?.value as string)
+    formData.append('typeDocumentFinancial', documentType.value?.value)
     if (document.value.id && document.value.id > 0) {
       formData.append('id', document.value.id.toString())
     }

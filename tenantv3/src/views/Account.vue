@@ -357,8 +357,8 @@ function isDenied() {
   )
 }
 
-function getGlobalStatus(): string {
-  return user.value.apartmentSharing?.status as string | 'INCOMPLETE'
+function getGlobalStatus() {
+  return user.value.apartmentSharing?.status
 }
 
 function getApplicationType() {

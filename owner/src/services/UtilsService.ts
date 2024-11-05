@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Property } from 'df-shared-next/src/models/Property'
+import type { GeoJson } from 'df-shared-next/src/models/GeoJson'
 import Applicant from '../components/property/Applicant'
 
 const API_URL = `${import.meta.env.VITE_OWNER_API_URL}/api/`
@@ -13,7 +14,7 @@ const UtilsService = {
     return word.replace(/([' -][A-Za-zÀ-ÖØ-öø-ÿ])/g, (s) => s.toUpperCase())
   },
   getAddresses(label: string) {
-    return axios.get(`${API_URL}property/listAddresses/${label}`)
+    return axios.get<GeoJson>(`${API_URL}property/listAddresses/${label}`)
   },
   getTenants(p: Property): Applicant[] {
     if (!p.propertiesApartmentSharing) {

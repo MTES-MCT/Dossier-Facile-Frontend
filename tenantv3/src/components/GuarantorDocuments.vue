@@ -87,7 +87,6 @@ const props = withDefaults(
 
 const router = useRouter()
 
-const tmpGuarantorType = ref('')
 const changeGuarantorVisible = ref(false)
 
 onBeforeMount(() => {
@@ -95,7 +94,6 @@ onBeforeMount(() => {
     ? guarantor.value
     : UtilsService.getLastAddedGuarantor(user.value)
   store.setSelectedGuarantor(currentGuarantor)
-  tmpGuarantorType.value = currentGuarantor?.typeGuarantor as string
 })
 
 function updateSubstep(s: number) {
@@ -120,7 +118,6 @@ function validSelect() {
 }
 
 function undoSelect() {
-  tmpGuarantorType.value = guarantor.value?.typeGuarantor || ''
   changeGuarantorVisible.value = false
 }
 

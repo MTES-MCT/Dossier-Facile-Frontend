@@ -8,6 +8,18 @@ import keycloak from '../plugin/keycloak'
 
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
 
+declare module 'vue-router' {
+  interface RouteMeta {
+    anonymous?: boolean
+    description?: string
+    hasFooter?: boolean
+    position?: number
+    requireAuth?: boolean
+    requiresComplete?: boolean
+    title: string
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -219,7 +231,7 @@ const routes = [
     },
     component: () => import('../components/NotFound404.vue')
   }
-]
+] satisfies VueRouter.RouteRecordRaw[]
 
 const router = VueRouter.createRouter({
   history: VueRouter.createWebHistory(),
@@ -227,16 +239,16 @@ const router = VueRouter.createRouter({
 })
 
 function updateMetaData(to: VueRouter.RouteLocationNormalized) {
-  document.title = (to.meta?.title as string) || ''
+  document.title = to.meta?.title || ''
   if (to.meta?.description) {
     const tag = document.querySelector('meta[name="description"]')
-    tag?.setAttribute('content', to.meta.description as string)
+    tag?.setAttribute('content', to.meta.description)
 
     const prop = document.querySelector('meta[property="og:description"]')
-    prop?.setAttribute('content', to.meta.description as string)
+    prop?.setAttribute('content', to.meta.description)
 
     const title = document.querySelector('meta[property="og:title"]')
-    title?.setAttribute('content', to.meta.title as string)
+    title?.setAttribute('content', to.meta.title)
   }
 }
 

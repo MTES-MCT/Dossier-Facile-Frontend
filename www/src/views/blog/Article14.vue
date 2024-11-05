@@ -125,8 +125,7 @@
       l'exercer, envoyez-nous un courriel en précisant la date et l'heure précise de création de
       votre compte (comme nous n'enregistrons pas d'éléments nominatifs, seuls ces éléments peuvent
       nous permettre de retrouver votre compte). Vous pouvez également
-      <a
-        href="https://aide.dossierfacile.logement.gouv.fr/fr/article/supprimer-son-compte-ccyu3l/"
+      <a href="https://aide.dossierfacile.logement.gouv.fr/fr/article/supprimer-son-compte-ccyu3l/"
         >supprimer votre compte directement depuis votre espace personnel DossierFacile</a
       >.
     </p>
@@ -144,7 +143,8 @@
     </p>
     <p>
       Vous pourrez trouver plus en détail dans notre
-      <a href="https://aide.dossierfacile.logement.gouv.fr/fr/article/gestion-des-donnees-et-securite-1d3d36d/"
+      <a
+        href="https://aide.dossierfacile.logement.gouv.fr/fr/article/gestion-des-donnees-et-securite-1d3d36d/"
         >documentation</a
       >
       et dans nos

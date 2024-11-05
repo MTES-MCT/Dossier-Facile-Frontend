@@ -266,7 +266,7 @@ const validatedDossierCount = ref('116000')
 
 onMounted(() => {
   StatsService.getValidatedDossierCount()
-    .then((result: { data: string }) => {
+    .then((result) => {
       if (result.data) {
         validatedDossierCount.value = result.data
       }

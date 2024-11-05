@@ -117,10 +117,10 @@ const documentStatus = computed(() => {
   return guarantorIdentificationDocument()?.documentStatus
 })
 
-function guarantorIdentificationDocument(): DfDocument {
+function guarantorIdentificationDocument(): DfDocument | undefined {
   const doc = selectedGuarantor.value?.documents?.find((d: DfDocument) => {
     return d.documentCategory === 'IDENTIFICATION'
-  }) as DfDocument
+  })
   return doc
 }
 

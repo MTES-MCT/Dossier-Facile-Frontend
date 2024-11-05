@@ -185,7 +185,7 @@ const props = withDefaults(
 )
 
 const user = computed(() => store.user)
-const guarantors = ref([] as Guarantor[])
+const guarantors = ref<Guarantor[]>([])
 const showConfirmModal = ref(false)
 let selectedGuarantor: Guarantor | undefined
 
@@ -193,7 +193,7 @@ const { t } = useI18n()
 
 onBeforeMount(() => {
   if (props.tenant?.guarantors !== undefined) {
-    guarantors.value = props.tenant.guarantors as Guarantor[]
+    guarantors.value = props.tenant.guarantors
   }
 })
 
@@ -216,9 +216,11 @@ function document(g: Guarantor, s: string) {
 }
 
 function documents(g: Guarantor, docType: string): DfDocument[] {
-  return g.documents?.filter((d: DfDocument) => {
-    return d.documentCategory === docType
-  }) as DfDocument[]
+  return (
+    g.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === docType
+    }) || []
+  )
 }
 
 async function setGuarantorSubStep(n: number, g: Guarantor) {
@@ -257,7 +259,7 @@ function setAddGuarantorStep() {
               step: '5',
               substep: '0',
               tenantId: props.tenant.id.toString(),
-              guarantorId: g.id?.toString() as string
+              guarantorId: g.id?.toString()
             }
           })
         })

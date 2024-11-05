@@ -33,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User'
 import GuarantorFooter from '../components/footer/GuarantorFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
@@ -81,7 +80,10 @@ function goBack() {
 
 function goNext() {
   if (user.value.applicationType == 'COUPLE') {
-    const cotenant = user.value.apartmentSharing?.tenants.find((t) => t.id != user.value.id) as User
+    const cotenant = user.value.apartmentSharing?.tenants.find((t) => t.id != user.value.id)
+    if (!cotenant) {
+      throw new Error('cotenant not found for user ' + user.value.id)
+    }
     router.push({
       name: 'CoTenantDocuments',
       params: {

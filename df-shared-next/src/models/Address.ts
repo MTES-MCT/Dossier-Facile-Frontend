@@ -1,4 +1,5 @@
 export class Address {
+  type = 'Feature'
   geometry = { type: 'Point', coordinates: [] }
   properties = {
     label: '',
@@ -12,7 +13,6 @@ export class Address {
     y: 0,
     city: '',
     context: '',
-    type: '',
     importance: 0,
     street: ''
   }
