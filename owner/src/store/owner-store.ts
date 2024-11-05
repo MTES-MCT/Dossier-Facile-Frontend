@@ -248,11 +248,14 @@ const useOwnerStore = defineStore('owner', {
         return Promise.resolve(response.data)
       })
     },
-    deleteDpe() {
-      return OwnerService.deleteDpe(this.propertyToEdit.id).then((response) => {
-        this.setPropertyToEdit(response.data)
-        return Promise.resolve(response.data)
-      })
+    async deleteDpe() {
+      const response = await OwnerService.deleteDpe(this.propertyToEdit.id)
+      const ownerUser = response.data
+      this.loadUserCommit(ownerUser)
+      const property = this.properties.find((p) => p.id === this.propertyToEdit.id)
+      if (property) {
+        this.setPropertyToEdit(property)
+      }
     },
     setAdemeNumber(ademeNumber: string) {
       this.propertyToEdit.ademeNumber = ademeNumber
