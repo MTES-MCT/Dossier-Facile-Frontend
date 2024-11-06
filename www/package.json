@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",
+    "@sentry/vite-plugin": "2.22.6",
     "@sentry/vue": "7.119.2",
     "axios": "^1.7.4",
     "df-shared-next": "0.1.0",

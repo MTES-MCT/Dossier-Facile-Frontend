@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
@@ -16,7 +17,9 @@ export default defineConfig({
         !file.endsWith('.otf') &&
         !file.endsWith('.eot')
       )
-    }
+    },
+
+    sourcemap: true
   },
   server: {
     port: 3000,
@@ -29,7 +32,11 @@ export default defineConfig({
       scss: { api: 'modern' }
     }
   },
-  plugins: [vue(), vueI18n({})],
+  plugins: [vue(), vueI18n({}), sentryVitePlugin({
+    org: "betagouv",
+    project: "front-owner",
+    url: "https://sentry.incubateur.net"
+  })],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

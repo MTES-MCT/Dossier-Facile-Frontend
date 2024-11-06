@@ -28,3 +28,6 @@ coverage
 *.sw?
 
 .vite-ssg-temp
+
+# Sentry Config File
+.env.sentry-build-plugin
