@@ -23,14 +23,11 @@ import emjysoftUrl from '../assets/logos/emjysoft_gestion_locative.webp'
 import timciUrl from '../assets/logos/timci.webp'
 import ispUrl from '../assets/logos/isp_group.webp'
 import jsoftUrl from '../assets/logos/jsoft.webp'
-import mclUrl from '../assets/logos/mon_carnet_logement.webp'
 import pdpUrl from '../assets/logos/partir_de_paris.webp'
-import goodlizUrl from '../assets/logos/goodliz.webp'
 import pautionsUrl from '../assets/logos/pautions.webp'
 import jinkaUrl from '../assets/logos/jinka.webp'
 import lokappyUrl from '../assets/logos/lokappy.webp'
 import immopadUrl from '../assets/logos/immopad.webp'
-import mydomusUrl from '../assets/logos/mydomus.webp'
 import omnireaUrl from '../assets/logos/omnirea.webp'
 
 interface Partner {
@@ -200,13 +197,6 @@ export const PARTNERS: Partner[] = [
     width: '188'
   },
   {
-    image: mydomusUrl,
-    height: '60',
-    href: 'https://www.mydomus.co/',
-    name: 'mydomus',
-    width: '214'
-  },
-  {
     image: omnireaUrl,
     height: '60',
     href: 'https://omnirea.fr/',
@@ -242,25 +232,11 @@ export const PARTNERS: Partner[] = [
     width: '240'
   },
   {
-    image: mclUrl,
-    height: '60',
-    href: 'https://moncarnetlogement.fr/',
-    name: 'Mon carnet logement',
-    width: '194'
-  },
-  {
     image: pdpUrl,
     href: 'https://www.partirdeparis.fr/',
     name: 'Partir de Paris',
     width: '196',
     height: '58'
-  },
-  {
-    image: goodlizUrl,
-    href: 'https://goodliz.com',
-    name: 'GoodLiz',
-    height: '60',
-    width: '77'
   },
   {
     image: pautionsUrl,
