@@ -1,4 +1,4 @@
-import { AuthService } from 'df-shared-next/src/services/AuthService'
+import { AuthService } from '@/services/AuthService'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import type { SkipLink } from 'df-shared-next/src/models/SkipLink'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'

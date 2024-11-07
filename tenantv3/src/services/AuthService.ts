@@ -1,7 +1,7 @@
-import { apiService } from './../../../tenantv3/src/services/ApiService'
-import { User } from '../models/User'
+import type { User } from 'df-shared-next/src/models/User'
+import { apiService } from './ApiService'
 import axios from 'axios'
-import { CookiesService } from './CookiesService'
+import { CookiesService } from 'df-shared-next/src/services/CookiesService'
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/`
 
@@ -27,7 +27,7 @@ export const AuthService = {
 
   loadUser() {
     return apiService
-      .get('tenant/profile', {
+      .get<User>('tenant/profile', {
         params: {
           nocache: new Date().getTime(),
           ...CookiesService.getJsonCookie('acquisition')
@@ -41,29 +41,5 @@ export const AuthService = {
 
   confirmAccount(token: string) {
     return axios.get<void>(`${API_URL}tenant/doNotArchive/${token}`)
-  },
-  generatePasswordPlaceholder() {
-    const chars = [
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-      '0123456789',
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
-      '#!?-_.'
-    ]
-    return [4, 4, 2, 2]
-      .map(function (len, i) {
-        return Array(len)
-          .fill(chars[i])
-          .map(function (x) {
-            return x[Math.floor(Math.random() * x.length)]
-          })
-          .join('')
-      })
-      .concat()
-      .join('')
-      .split('')
-      .sort(function () {
-        return 0.5 - Math.random()
-      })
-      .join('')
   }
 }
