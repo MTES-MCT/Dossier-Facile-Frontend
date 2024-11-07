@@ -239,7 +239,7 @@ const router = createRouter({
       path: '/applications',
       name: 'SharingPage',
       meta: {
-        title: 'Mes candidatures - DossierFacile',
+        title: 'Vos candidatures - DossierFacile',
         requiresAuth: true
       },
       component: () => import(/* webpackChunkName: "account" */ '../views/SharingPage.vue')
@@ -248,7 +248,7 @@ const router = createRouter({
       path: '/partners',
       name: 'PartnerAccessPage',
       meta: {
-        title: 'Mes partages - DossierFacile',
+        title: 'Vos partages - DossierFacile',
         requiresAuth: true
       },
       component: () => import(/* webpackChunkName: "account" */ '../views/PartnerAccessPage.vue')

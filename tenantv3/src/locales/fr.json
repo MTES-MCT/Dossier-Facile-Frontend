@@ -343,10 +343,11 @@
   },
   "account": {
     "title": {
-      "alone": "Bonjour {0},<br/>votre dossier {1} !",
-      "group": "Bonjour {0},<br/>votre dossier {1} !",
-      "couple": "Bonjour {0},<br/>votre dossier de couple {1} !"
+      "dashboard": "Tableau de bord"
     },
+    "content-title": "Votre dossier",
+    "share-file-button": "Partager votre dossier",
+    "share-file-view-button": "Voir votre dossier",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "Mise à jour de votre dossier",
     "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
@@ -376,10 +377,10 @@
       "content": "Nous cherchons constamment à améliorer la qualité de notre service. Dans le cadre de cette démarche d’amélioration, nous cherchons à obtenir votre retour d’expérience. En cliquant sur le bouton ci-dessous, vous pourrez évaluer DossierFacile. Vos commentaires nous sont précieux ! Merci.",
       "warning": "Attention : ce formulaire ne nous permet pas de vous répondre. Si vous rencontrez un problème avec votre dossier, contactez plutôt notre équipe de support à cette adresse : <a href=\"mailto:contact{'@'}dossierfacile.logement.gouv.fr\">contact{'@'}dossierfacile.logement.gouv.fr</a> ou en utilisant <a href=\"/contact\">ce formulaire de contact</a>."
     },
-    "share-file": "Partager mon dossier",
+    "share-file": "Partager votre dossier",
     "share-file-description": "Copiez votre lien-dossier pour le partager ! À vous de l'envoyer aux propriétaires ou bailleurs de votre choix (par mail, SMS, etc.)",
-    "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
-    "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
+    "file-resume": "Partager votre dossier de synthèse <br>(sans pièce justificative)",
+    "file-full": "Partager votre dossier complet<br>(avec pièces justificatives)",
     "copy": "Copier",
     "field-required": "Ce champ est requis",
     "CDI": "en CDI",
@@ -405,10 +406,9 @@
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
-    "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
-    "congratulations-text-1": "Afin de candidater au logement de vos rêves, partagez votre dossier à un propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail dans la section \"Mes candidatures\" depuis le menu individuel, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix.",
-    "congratulations-text-2": "Pour rappel, DossierFacile ne propose pas de logement.",
-    "application-page-redirection": "Commencez à partager votre dossier",
+    "congratulations-title": "Votre DossierFacile est disponible",
+    "congratulations-text-1": "Rendez-vous sur la page <a href=\"/applications\">Partager votre dossier</a> pour envoyer votre DossierFacile par e-mail ou par lien, avec ou sans justificatif.",
+    "congratulations-text-2": "Pour plus d’informations, consultez la page <a href=\"https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-visualiser-et-partager-son-dossier-valide-1orckmm/\">Visualiser et partager son dossier validé</a> de notre <a href=\"https://aide.dossierfacile.logement.gouv.fr\">aide en ligne</a>.",
     "full-link-copied": "Le lien de mon dossier complet est copié !",
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !",
     "dossier": {
@@ -966,9 +966,9 @@
   },
   "menu": {
     "help": "Aide",
-    "file": "Mon dossier",
-    "partners": "Mes partages",
-    "applications": "Mes candidatures",
+    "file": "Votre dossier",
+    "partners": "Vos partages",
+    "applications": "Vos candidatures",
     "account": "Mon compte",
     "messaging": "Messagerie",
     "blog": "Blog",
@@ -1134,21 +1134,28 @@
     "require-accept": "Vous devez accepter la déclaration"
   },
   "sharefile": {
-    "title": "Partager mon dossier",
-    "desc1": "Afin de candidater au logement de vos rêves, partagez votre dossier au propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail ci-dessous, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix.",
-    "desc2": "Pour rappel, DossierFacile ne propose pas de logement.",
-    "desc3": "En utilisant le partage de dossier, vous acceptez que votre adresse email soit partagée au propriétaire.",
+    "title": "Partager votre dossier",
+    "desc1": "Saisissez, l’adresse e-mail du destinataire ci-dessous pour partager votre dossier. Chaque destinataire reçoit un lien unique que vous pouvez désactiver lorsque vous le souhaitez.",
+    "desc2": "Si vous ne disposez pas de l’adresse e-mail de votre destinataire, vous pouvez envoyer <a href=\"{0}\">le lien de votre dossier</a> par messagerie ou par SMS par exemple.",
+    "desc3": "Rappel : DossierFacile ne propose pas de logement.",
     "lastvisit": "Dernière visite :",
     "share-btn-email": "Partager",
     "share-btn-copy": "Copier",
+    "bytype-label": "Partager votre dossier",
     "full": "Avec justificatifs",
     "resume": "Sans justificatif",
     "by-mail": "Par mail",
     "by-link": "Par lien",
     "email-label": "Email du bailleur :",
     "email-placeholder": "bailleur{'@'}exemple.com",
-    "sent-success": "Votre dossier a bien été partagé"
+    "sent-success": "Votre dossier a bien été partagé",
+    "view": {
+      "title": "Voir votre dossier",
+      "text": "Vous souhaitez voir votre dossier avant de le partager ?",
+      "button": "Voir votre dossier"
+    }
   },
+
   "showdoc": {
     "preview": "Prévisualisation du document en cours…",
     "error": "Erreur de prévisualisation",
@@ -1296,10 +1303,10 @@
     "delete": "Suppression de mon compte",
     "opinion": "Racontez-nous votre expérience DossierFacile.fr",
     "delete-account": "Supprimer mon compte",
-    "share-file": "Partager mon dossier",
+    "share-file": "Partager votre dossier",
     "share-file-description": "Copiez votre lien-dossier pour le partager ! À vous de l'envoyer aux propriétaires ou bailleurs de votre choix (par mail, SMS, etc.)",
-    "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
-    "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
+    "file-resume": "Partager votre dossier de synthèse <br>(sans pièce justificative)",
+    "file-full": "Partager votre dossier complet<br>(avec pièces justificatives)",
     "copy": "Copier",
     "field-required": "Ce champ est requis",
     "CDI": "en CDI",
@@ -1372,7 +1379,7 @@
     "close-alt": "Fermer la fenêtre modale"
   },
   "sharing-page": {
-    "title": "Mes candidatures",
+    "title": "Vos candidatures",
     "file-not-ready": {
       "title": "Votre dossier {0}",
       "status": {
@@ -1402,9 +1409,9 @@
     }
   },
   "partners-page": {
-    "title": "Mon dossier partagé",
+    "title": "Votre dossier partagé",
     "accesses": {
-      "title": "Les partenaires ayant accès à mon dossier",
+      "title": "Les partenaires ayant accès à votre dossier",
       "date": "Date",
       "since-date": "Depuis le ",
       "default-date": "Depuis 2023",

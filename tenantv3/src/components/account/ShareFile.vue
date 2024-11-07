@@ -1,21 +1,21 @@
 <template>
   <div>
     <h2 class="fr-h4 align-items--center" style="display: flex">
-      <RiShareLine class="fr-mr-1w bold-icon" aria-hidden="true" />
       {{ t('sharefile.title') }}
     </h2>
     <p>
-      {{ t('sharefile.desc1') }}
-    </p>
-    <p class="bold">
-      {{ t('sharefile.desc2') }}
-    </p>
-    <p class="bold">
-      {{ t('sharefile.desc3') }}
+      <span v-html="t('sharefile.desc1')"></span>
+      <br/>
+      <span v-html="t('sharefile.desc2', [getUrl()])"></span>
+      <br/>
+      <span class="bold">
+        {{ t('sharefile.desc3') }}
+      </span>
     </p>
     <Form name="form" @submit="handleSubmit">
       <div class="form-container">
-        <div class="fr-mt-md-4w full-mobile">
+        <div class="fr-mt-md-1w full-mobile">
+          <label class="fr-label fr-text--bold" for="shareType">{{ t('sharefile.bytype-label') }}</label>
           <Field id="shareType" name="shareType" v-model="shareType" v-slot="{ field, meta }">
             <select
               v-bind="field"
@@ -81,6 +81,21 @@
         </div>
       </div>
     </Form>
+    <h2 class="fr-h4 align-items--center fr-mt-3w" style="display: flex">
+      {{ t('sharefile.view.title') }}
+    </h2>
+    <p>
+      <span>
+        {{ t('sharefile.view.text') }}
+      </span>
+      <br/>
+      <router-link :to="getFullFileUrl()" class="fr-btn fr-btn--secondary fr-mt-2w">
+        <RiEyeLine aria-hidden="true" />
+        <span class="text-center full-width">
+          {{ t('sharefile.view.button') }}
+        </span>
+      </router-link>
+    </p>
   </div>
 </template>
 <script setup lang="ts">
@@ -92,7 +107,7 @@ import useTenantStore from '../../stores/tenant-store'
 import { computed, ref } from 'vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
-import { RiShareLine } from '@remixicon/vue'
+import { RiEyeLine } from '@remixicon/vue'
 
 const store = useTenantStore()
 const user = computed(() => store.user)
@@ -123,6 +138,10 @@ function sendMail() {
     .catch(() => {
       ToastService.error()
     })
+}
+
+function getFullFileUrl(){
+  return `/file/${user.value.apartmentSharing?.token}`
 }
 
 function getUrl() {

@@ -1,10 +1,10 @@
 <template>
   <div class="fakeannouncement">
-    <h2 class="title fr-h6 align-items--center" style="display: flex">
+    <div class="title fr-h6 align-items--center" style="display: flex">
       <img alt="" src="../assets/logo_bouclier_secure.svg" />{{
         t('fakeannouncement.fake-announce-title')
       }}
-    </h2>
+    </div>
     <img alt="Police nationale" src="../assets/police_nationale.svg" class="logo-police" />
 
     <div class="announcement-container">
