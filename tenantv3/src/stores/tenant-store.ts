@@ -1062,8 +1062,8 @@ const useTenantStore = defineStore('tenant', {
     commentAnalysis(formData: unknown) {
       return RegisterService.commentAnalysis(formData).then(
         (response) => {
-          this.loadUserCommit(response)
-          return Promise.resolve(response)
+          this.loadUserCommit(response.data)
+          return Promise.resolve(response.data)
         },
         (error) => {
           return Promise.reject(error)

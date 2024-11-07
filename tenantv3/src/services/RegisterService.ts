@@ -128,13 +128,9 @@ export const RegisterService = {
     return axios.post<User>(url, formData)
   },
   commentAnalysis(formData: unknown) {
-    return axios
-      .post<User>(`${import.meta.env.VITE_API_URL}/api/document/commentAnalysis`, formData)
-      .then((response) => {
-        return Promise.resolve(response.data)
-      })
-      .catch((err) => {
-        console.dir(err)
-      })
+    return axios.post<User>(
+      `${import.meta.env.VITE_API_URL}/api/document/commentAnalysis`,
+      formData
+    )
   }
 }
