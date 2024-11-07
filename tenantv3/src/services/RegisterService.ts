@@ -36,15 +36,6 @@ export const RegisterService = {
     )
   },
 
-  saveCoTenantIdentification(formData: FormData) {
-    return axios.post(
-      `${import.meta.env.VITE_API_URL}/api/tenant/coTenant/${formData.get(
-        'coTenantId'
-      )}/documentIdentification`,
-      formData
-    )
-  },
-
   saveGuarantorName(formData: FormData) {
     return axios.post(
       `${import.meta.env.VITE_API_URL}/api/register/guarantorNaturalPerson/name`,
@@ -125,16 +116,6 @@ export const RegisterService = {
   saveOrganismIdentification(formData: FormData) {
     const url = `${import.meta.env.VITE_API_URL}/api/register/guarantorOrganism/documentCertificate`
     return axios.post(url, formData)
-  },
-  async getFranceConnectToken() {
-    return axios
-      .get(`${import.meta.env.VITE_SSO_ENDPOINT}/realms/dossier-facile/broker/oidc/token`)
-      .then((response) => {
-        return Promise.resolve(response.data.access_token)
-      })
-      .catch((err) => {
-        console.dir(err)
-      })
   },
   commentAnalysis(formData: unknown) {
     return axios

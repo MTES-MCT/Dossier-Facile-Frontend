@@ -19,9 +19,6 @@ export const ProfileService = {
   saveCoTenants(data: { applicationType: string; coTenants: User[]; acceptAccess: boolean }) {
     return axios.post(`${import.meta.env.VITE_API_URL}/api/register/application/v2`, data)
   },
-  getCoTenant(id: number) {
-    return axios.delete(`${import.meta.env.VITE_API_URL}/api/tenant/coTenant/${id}/profile`)
-  },
   async deleteCoTenant(id: number) {
     await axios.delete(`${import.meta.env.VITE_API_URL}/api/tenant/deleteCoTenant/${id}`)
   },

@@ -10,33 +10,10 @@ export const AuthService = {
     return axios.post(API_URL + 'user/logout')
   },
 
-  register(user: User, source: string, internalPartnerId: string) {
-    return axios.post(API_URL + 'register/account', {
-      email: user.email,
-      password: user.password,
-      confirm: user.confirm,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      source: source,
-      internalPartnerId: internalPartnerId
-    })
-  },
-
   deleteAccount() {
     return axios.delete(API_URL + 'user/deleteAccount')
   },
 
-  resetPassword(user: User) {
-    return axios.post(API_URL + 'user/forgotPassword', {
-      email: user.email
-    })
-  },
-
-  changePassword(user: User) {
-    return axios.post(`${API_URL}user/createPassword/${user.token}`, {
-      password: user.password
-    })
-  },
   createPasswordCouple(user: User) {
     return axios.post(`${API_URL}user/createPassword/${user.token}`, {
       password: user.password
