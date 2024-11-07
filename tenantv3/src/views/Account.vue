@@ -7,14 +7,7 @@
             <div class="fr-mb-3w" v-if="isAnnouncementVisible">
               <FakeAnnouncement></FakeAnnouncement>
             </div>
-            <h1
-              v-html="
-                t(`account.title.${getApplicationType()}`, [
-                  getFirstName(),
-                  t(`account.${getGlobalStatus()}`)
-                ])
-              "
-            ></h1>
+            <h1 v-html="t(`account.title.dashboard`)"></h1>
             <div v-if="isDenied() || user.status === 'TO_PROCESS'">
               <div class="fr-grid-row fr-grid-row--gutters">
                 <div class="fr-col" v-if="isDenied()">
@@ -92,19 +85,26 @@
                 {{ t('account.congratulations-title') }}
               </h2>
               <p>
-                {{ t('account.congratulations-text-1') }}
+                <span v-html="t('account.congratulations-text-1')"></span>
                 <br />
-                <strong>
-                  {{ t('account.congratulations-text-2') }}
-                </strong>
+                <span v-html="t('account.congratulations-text-2')"></span>
               </p>
-              <router-link to="/applications">
-                <DfButton :primary="true">
-                  {{ t('account.application-page-redirection') }}
-                </DfButton>
-              </router-link>
+              <div class="fr-col-12 fr-btns-group--left">
+                <router-link to="/applications" class="fr-btn fr-mt-2w fr-mr-2w">
+                  <RiShareLine aria-hidden="true" />
+                  <span class="text-center full-width">
+                    {{ t('account.share-file-button') }}
+                  </span>
+                </router-link>
+                <router-link class="fr-btn update-btn fr-btn--secondary" :to="getDossierUrl()">
+                  <RiEyeLine aria-hidden="true" />
+                  <span class="text-center full-width">
+                    {{ t('account.share-file-view-button') }}
+                  </span>
+                </router-link>
+              </div>
             </div>
-
+            <h2 class="fr-h3" v-html="t(`account.content-title`)"></h2>
             <div class="fr-mt-3w fr-p-0w">
               <section v-if="user.applicationType !== 'ALONE'" class="fr-m-0 fr-p-0 bg-white">
                 <div class="fr-tabs account-tabs">
@@ -225,7 +225,7 @@ import { ToastService } from '../services/ToastService'
 import dayjs, { Dayjs } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useI18n } from 'vue-i18n'
-import { RiDownloadLine, RiTimeLine } from '@remixicon/vue'
+import { RiDownloadLine, RiTimeLine, RiShareLine, RiEyeLine } from '@remixicon/vue'
 const { t } = useI18n()
 
 const FORCE_FAKE_ANNOUNCEMENT_VISIBILITY =
@@ -259,6 +259,9 @@ watch(
   { immediate: true }
 )
 
+function getDossierUrl() {
+  return `/file/${user.value.apartmentSharing?.token}`;
+}
 function loadExpectedProcessingTime(tenantId: number) {
   ProfileService.getExpectedProcessingTime(tenantId).then((response) => {
     if (response && response.data) {
