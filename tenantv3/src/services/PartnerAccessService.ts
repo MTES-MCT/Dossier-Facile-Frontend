@@ -9,6 +9,6 @@ export const PartnerAccessService = {
     return axios.get<PartnerAccess[]>(LINKS_API_URL)
   },
   revokeAccess(access: PartnerAccess) {
-    return axios.delete(`${LINKS_API_URL}/${access.id}`)
+    return axios.delete<void>(`${LINKS_API_URL}/${access.id}`)
   }
 }

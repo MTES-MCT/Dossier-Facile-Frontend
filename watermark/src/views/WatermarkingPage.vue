@@ -29,7 +29,7 @@ async function handleSubmit() {
   formData.append(`watermark`, watermark.value)
 
   axios
-    .post(`${API_URL}/api/document/files`, formData)
+    .post<{ token: string }>(`${API_URL}/api/document/files`, formData)
     .then((res) => {
       token.value = res.data.token
       getFile()
@@ -55,7 +55,7 @@ function getWatermarkedFileName() {
 
 function getFile() {
   axios
-    .get(`${API_URL}/api/document/url/${token.value}`)
+    .get<{ url: string }>(`${API_URL}/api/document/url/${token.value}`)
     .then((res) => {
       if (res.data.url) {
         url.value = `${API_URL}/api/document/${token.value}`

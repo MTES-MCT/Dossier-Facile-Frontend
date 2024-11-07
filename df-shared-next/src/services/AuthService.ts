@@ -7,20 +7,20 @@ const API_URL = `${import.meta.env.VITE_API_URL}/api/`
 
 export const AuthService = {
   logout() {
-    return axios.post(API_URL + 'user/logout')
+    return axios.post<void>(API_URL + 'user/logout')
   },
 
   deleteAccount() {
-    return axios.delete(API_URL + 'user/deleteAccount')
+    return axios.delete<void>(API_URL + 'user/deleteAccount')
   },
 
   createPasswordCouple(user: User) {
-    return axios.post(`${API_URL}user/createPassword/${user.token}`, {
+    return axios.post<User>(`${API_URL}user/createPassword/${user.token}`, {
       password: user.password
     })
   },
   createPasswordGroup(user: User) {
-    return axios.post(`${API_URL}user/createPassword/${user.token}`, {
+    return axios.post<User>(`${API_URL}user/createPassword/${user.token}`, {
       password: user.password
     })
   },
@@ -40,7 +40,7 @@ export const AuthService = {
   },
 
   confirmAccount(token: string) {
-    return axios.get(`${API_URL}tenant/doNotArchive/${token}`)
+    return axios.get<void>(`${API_URL}tenant/doNotArchive/${token}`)
   },
   generatePasswordPlaceholder() {
     const chars = [
