@@ -37,5 +37,3 @@ withDefaults(defineProps<{ pictogram?: string }>(), {
   pictogram: 'technical-error'
 })
 </script>
-
-<style scoped lang="scss"></style>

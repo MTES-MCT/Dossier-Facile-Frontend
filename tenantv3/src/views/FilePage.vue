@@ -248,7 +248,7 @@ const showProgressBar = ref(false)
 const fileNotFound = ref(false)
 
 function franceConnectTenantCount() {
-  return user.value?.tenants?.filter((t) => t.franceConnect == true).length
+  return user.value?.tenants?.filter((t) => t.franceConnect).length
 }
 
 function isTaxChecked() {

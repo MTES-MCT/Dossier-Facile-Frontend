@@ -32,5 +32,3 @@ function downloadFile() {
     {{ t("watermarking-page.download-file") }}
   </a>
 </template>
-
-<style scoped lang="scss"></style>

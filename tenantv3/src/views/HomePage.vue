@@ -21,7 +21,6 @@ onMounted(() => {
     } else {
       window.location.replace(MAIN_URL)
     }
-    return
   })
 })
 </script>

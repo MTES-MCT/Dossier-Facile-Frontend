@@ -43,5 +43,3 @@ function accordionClicked(tag: string) {
   AnalyticsService.contactEvent(tag)
 }
 </script>
-
-<style scoped lang="scss"></style>

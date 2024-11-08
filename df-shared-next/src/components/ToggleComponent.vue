@@ -55,5 +55,3 @@ function updateValue(event: Event) {
   emit('update', (event.target as HTMLInputElement).checked)
 }
 </script>
-
-<style scoped lang="scss"></style>
