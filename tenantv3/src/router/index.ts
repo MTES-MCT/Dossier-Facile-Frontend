@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import useTenantStore from '@/stores/tenant-store'
 import { CONTENT, type SkipLink } from 'df-shared-next/src/models/SkipLink'
 import keycloak from '../plugin/keycloak'
-import Home from '../views/Home.vue'
+import Home from '../views/HomePage.vue'
 import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
@@ -213,7 +213,7 @@ const router = createRouter({
       meta: {
         title: 'Dossier - DossierFacile'
       },
-      component: () => import(/* webpackChunkName: "file" */ '../views/File.vue')
+      component: () => import(/* webpackChunkName: "file" */ '../views/FilePage.vue')
     },
     {
       path: '/account',
@@ -233,7 +233,7 @@ const router = createRouter({
         }
         next()
       },
-      component: () => import(/* webpackChunkName: "account" */ '../views/Account.vue')
+      component: () => import(/* webpackChunkName: "account" */ '../views/AccountPage.vue')
     },
     {
       path: '/applications',
@@ -260,7 +260,7 @@ const router = createRouter({
         title: 'Messages - DossierFacile',
         requiresAuth: true
       },
-      component: () => import(/* webpackChunkName: "messages" */ '../views/Messages.vue')
+      component: () => import(/* webpackChunkName: "messages" */ '../views/MessagesPage.vue')
     },
     {
       path: '/ajout-couple/:token',
@@ -295,7 +295,7 @@ const router = createRouter({
         title: 'Contact - DossierFacile',
         requiresAuth: false
       },
-      component: () => import(/* webpackChunkName: "contact" */ '../views/Contact.vue')
+      component: () => import(/* webpackChunkName: "contact" */ '../views/ContactPage.vue')
     },
     {
       path: '/:pathMatch(.*)',

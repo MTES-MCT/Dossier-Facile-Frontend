@@ -5,9 +5,9 @@
     </h2>
     <p>
       <span v-html="t('sharefile.desc1')"></span>
-      <br/>
+      <br />
       <span v-html="t('sharefile.desc2', [getUrl()])"></span>
-      <br/>
+      <br />
       <span class="bold">
         {{ t('sharefile.desc3') }}
       </span>
@@ -15,7 +15,9 @@
     <Form name="form" @submit="handleSubmit">
       <div class="form-container">
         <div class="fr-mt-md-1w full-mobile">
-          <label class="fr-label fr-text--bold" for="shareType">{{ t('sharefile.bytype-label') }}</label>
+          <label class="fr-label fr-text--bold" for="shareType">{{
+            t('sharefile.bytype-label')
+          }}</label>
           <Field id="shareType" name="shareType" v-model="shareType" v-slot="{ field, meta }">
             <select
               v-bind="field"
@@ -88,7 +90,7 @@
       <span>
         {{ t('sharefile.view.text') }}
       </span>
-      <br/>
+      <br />
       <router-link :to="getFullFileUrl()" class="fr-btn fr-btn--secondary fr-mt-2w">
         <RiEyeLine aria-hidden="true" />
         <span class="text-center full-width">
@@ -101,7 +103,7 @@
 <script setup lang="ts">
 import { AnalyticsService } from '../../services/AnalyticsService'
 import { OwnerService } from '../../services/OwnerService'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { ToastService } from '../../services/ToastService'
 import useTenantStore from '../../stores/tenant-store'
 import { computed, ref } from 'vue'
@@ -140,7 +142,7 @@ function sendMail() {
     })
 }
 
-function getFullFileUrl(){
+function getFullFileUrl() {
   return `/file/${user.value.apartmentSharing?.token}`
 }
 

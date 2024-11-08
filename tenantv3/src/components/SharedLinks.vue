@@ -129,9 +129,9 @@
 
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import Toggle from 'df-shared-next/src/components/Toggle.vue'
+import Toggle from 'df-shared-next/src/components/ToggleComponent.vue'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
-import Button from 'df-shared-next/src/Button/Button.vue'
+import Button from 'df-shared-next/src/Button/DfButton.vue'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'

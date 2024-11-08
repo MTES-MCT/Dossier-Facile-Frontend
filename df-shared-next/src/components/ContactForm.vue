@@ -438,8 +438,8 @@
 </template>
 
 <script setup lang="ts">
-import Modal from './Modal.vue'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import Modal from './ModalComponent.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import RequiredFieldsInstruction from 'df-shared-next/src/components/form/RequiredFieldsInstruction.vue'
 import OwnerHelpAccordion from './contact/OwnerHelpAccordion.vue'
 import TenantHelpAccordion from './contact/TenantHelpAccordion.vue'

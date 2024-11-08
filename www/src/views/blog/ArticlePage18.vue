@@ -39,8 +39,8 @@
     </p>
     <ul>
       <li>
-        il <strong>gagne plus que vous</strong> : sinon il est probable qu’il ne puisse pas vraiment
-        vous aider si vous faites défaut,
+        il <strong>gagne plus que vous</strong>&nbsp;: sinon il est probable qu’il ne puisse pas
+        vraiment vous aider si vous faites défaut,
       </li>
       <li>il <strong>ait un emploi stable</strong> (périodes d’essai ou CDD à éviter),</li>
       <li>
@@ -61,7 +61,7 @@
     <h2 class="fr-h6">Les organismes de garantie</h2>
     <p>
       <a href="https://www.visale.fr/" target="_blank" rel="noopener">Visale</a>
-      <strong> est une caution entièrement gratuite </strong> d’Action Logement, qui a pour mission
+      <strong> est une caution entièrement gratuite </strong> d’Action Logement, qui a pour mission
       d’aider gratuitement les jeunes et les personnes les plus précaires à accéder à la location.
       <strong>Nous vous la recommandons fortement si vous êtes éligible !</strong>
     </p>
@@ -146,10 +146,10 @@
       s’applique également à la garantie Visale. Le cumul GLI et caution est toutefois autorisé
       uniquement dans le cas où le locataire est étudiant ou apprenti.
     </p>
-    <h2 class="fr-h6">📂 Comment intégrer son garant à son DossierFacile ?</h2>
+    <h2 class="fr-h6">📂 Comment intégrer son garant à son DossierFacile&nbsp;?</h2>
     <p>
-      Rien de plus facile ! Après l’ajout de ses pièces personnelles, le candidat locataire a la
-      possibilité d’ajouter un garant à son dossier : 
+      Rien de plus facile&nbsp;! Après l’ajout de ses pièces personnelles, le candidat locataire a
+      la possibilité d’ajouter un garant à son dossier&nbsp;:
     </p>
     <ul>
       <li>

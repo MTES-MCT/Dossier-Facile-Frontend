@@ -160,7 +160,7 @@
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { useI18n } from 'vue-i18n'
-import Button from 'df-shared-next/src/Button/Button.vue'
+import Button from 'df-shared-next/src/Button/DfButton.vue'
 import { computed } from 'vue'
 import DpeDiagram from 'df-shared-next/src/components/dpe/DpeDiagram.vue'
 import DpeCo2Diagram from 'df-shared-next/src/components/dpe/DpeCo2Diagram.vue'

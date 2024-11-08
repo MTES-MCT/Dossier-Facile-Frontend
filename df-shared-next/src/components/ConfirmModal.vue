@@ -30,8 +30,8 @@
 </template>
 
 <script setup lang="ts">
-import Modal from './Modal.vue'
-import DfButton from '../Button/Button.vue'
+import Modal from './ModalComponent.vue'
+import DfButton from '../Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

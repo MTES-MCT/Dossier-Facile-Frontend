@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import { useI18n } from 'vue-i18n'

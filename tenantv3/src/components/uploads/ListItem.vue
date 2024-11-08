@@ -11,7 +11,7 @@
         <div class="size">{{ getSize() }}</div>
       </div>
       <div class="progress">
-        <Progress :percentage="percentage" :state="uploadState" />
+        <ProgressIndicator :percentage="percentage" :state="uploadState" />
       </div>
       <DfButton
         v-if="file.path || file.preview"
@@ -44,12 +44,12 @@
 
 <script setup lang="ts">
 import { DfFile } from 'df-shared-next/src/models/DfFile'
-import Progress from './Progress.vue'
+import ProgressIndicator from './ProgressIndicator.vue'
 import ShowDoc from '../documents/share/ShowDoc.vue'
-import Modal from 'df-shared-next/src/components/Modal.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import { AnalyticsService } from '../../services/AnalyticsService'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
 import { RiArticleLine } from '@remixicon/vue'

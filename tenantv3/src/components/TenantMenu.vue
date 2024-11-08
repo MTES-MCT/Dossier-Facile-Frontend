@@ -110,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
 
 import { useI18n } from 'vue-i18n'

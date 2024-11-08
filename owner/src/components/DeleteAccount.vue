@@ -39,8 +39,8 @@
 </template>
 
 <script setup lang="ts">
-import Modal from 'df-shared-next/src/components/Modal.vue'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 import { useToast } from 'vue-toastification'
 import UtilsService from '../services/UtilsService'

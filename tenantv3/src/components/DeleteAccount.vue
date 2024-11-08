@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import DSFRSimpleModal from 'df-shared-next/src/components/DSFRSimpleModal.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import useTenantStore from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'

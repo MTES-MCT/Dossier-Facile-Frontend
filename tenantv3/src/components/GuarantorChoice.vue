@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
 import GuarantorFooter from './footer/GuarantorFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'

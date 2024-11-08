@@ -17,19 +17,19 @@
     <h2>1. Donner tous les documents obligatoires</h2>
     <ul>
       <li>
-        <b>Une pièce d’identité recto-verso parmi :</b> carte d'identité française ou étrangère
+        <b>Une pièce d’identité recto-verso parmi&nbsp;:</b> carte d'identité française ou étrangère
         (avec photo), passeport français ou étranger (avec photo), permis de conduire français ou
         étranger (avec photo), carte de séjour temporaire, carte de résident, carte de ressortissant
         d'un État membre de l'UE.
       </li>
       <li>
-        <b>Un justificatif de domicile parmi :</b> 3 dernières quittances de loyer, attestation sur
-        l'honneur datée et signée de l'hébergeant indiquant que le candidat à la location réside à
-        son domicile à titre gratuit, attestation d'élection de domicile, dernier avis de taxe
+        <b>Un justificatif de domicile parmi&nbsp;:</b> 3 dernières quittances de loyer, attestation
+        sur l'honneur datée et signée de l'hébergeant indiquant que le candidat à la location réside
+        à son domicile à titre gratuit, attestation d'élection de domicile, dernier avis de taxe
         foncière ou, si nécessaire, titre de propriété de la résidence principale.
       </li>
       <li>
-        <b>Un justificatif d’activité professionnelle :</b> contrat de travail ou de stage ou
+        <b>Un justificatif d’activité professionnelle&nbsp;:</b> contrat de travail ou de stage ou
         d'engagement (service civique), attestation de l'employeur, carte d'étudiant recto-verso ou
         certificat de scolarité pour l'année en cours, copie de la carte professionnelle (profession
         libérale), copie du certificat d'identification de l'Insee comportant les numéros
@@ -38,11 +38,11 @@
         moins de 3 mois (entreprises commerciales).
       </li>
       <li>
-        <b>Un justificatif de ressources :</b> 3 derniers bulletins de salaire, 2 derniers bilans
-        comptables, justificatif de versement des indemnités, retraites, pensions, prestations
-        sociales et familiales et allocations perçues lors des 3 derniers mois ou justificatif de
-        l'ouverture des droits établis par l'organisme payeur, justification de revenus fonciers, de
-        rentes viagères ou de revenus de valeurs et capitaux mobiliers.
+        <b>Un justificatif de ressources&nbsp;:</b> 3 derniers bulletins de salaire, 2 derniers
+        bilans comptables, justificatif de versement des indemnités, retraites, pensions,
+        prestations sociales et familiales et allocations perçues lors des 3 derniers mois ou
+        justificatif de l'ouverture des droits établis par l'organisme payeur, justification de
+        revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers.
       </li>
     </ul>
 

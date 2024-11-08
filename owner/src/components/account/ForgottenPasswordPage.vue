@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useToast } from 'vue-toastification'
 import ForgottenPassword from 'df-shared-next/src/Authentification/ForgottenPassword.vue'
-import Modal from 'df-shared-next/src/components/Modal.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import useOwnerStore from '../../store/owner-store'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`

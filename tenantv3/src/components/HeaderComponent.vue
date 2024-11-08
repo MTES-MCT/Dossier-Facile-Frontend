@@ -116,7 +116,7 @@
 
 <script setup lang="ts">
 import { RiAccountCircleLine, RiCommunityLine, RiHomeHeartLine } from '@remixicon/vue'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue'
 import { useI18n } from 'vue-i18n'
 

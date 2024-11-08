@@ -77,7 +77,7 @@
 
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import Button from 'df-shared-next/src/Button/Button.vue'
+import Button from 'df-shared-next/src/Button/DfButton.vue'
 import dayjs from 'dayjs'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, ref } from 'vue'

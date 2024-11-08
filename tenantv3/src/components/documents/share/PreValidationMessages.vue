@@ -40,7 +40,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useTenantStore from '../../../stores/tenant-store'
 import { Form, Field, ErrorMessage } from 'vee-validate'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 import { ToastService } from '../../../services/ToastService'
 

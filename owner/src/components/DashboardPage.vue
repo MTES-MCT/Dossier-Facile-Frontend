@@ -2,7 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import Button from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useRouter } from 'vue-router'
 import { Property } from 'df-shared-next/src/models/Property'
 import useOwnerStore from '../store/owner-store'
@@ -64,9 +64,9 @@ function openProperty(p: Property) {
           {{ t('dashboard.my-properties') }}
         </h2>
         <div>
-          <Button @onClick="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
+          <DfButton @onClick="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
             t('dashboard.add-property')
-          }}</Button>
+          }}</DfButton>
         </div>
       </div>
 

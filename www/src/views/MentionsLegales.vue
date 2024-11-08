@@ -105,14 +105,6 @@ onBeforeMount(() => {
     consentRemoved.value = true
   }
 })
-
-function changeConsentRemoved() {
-  if (consentRemoved.value) {
-    window._paq.push(['optUserOut'])
-  } else {
-    window._paq.push(['forgetUserOptOut'])
-  }
-}
 </script>
 
 <style scoped lang="scss">
