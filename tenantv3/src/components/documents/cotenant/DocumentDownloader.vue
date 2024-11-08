@@ -50,8 +50,8 @@
         class="fr-mb-3w"
         :user-id="selectedCoTenant?.id"
         :document="dfDocument"
-        :documentDeniedReasons="documentDeniedReasons"
-        :documentStatus="documentStatus"
+        :document-denied-reasons="documentDeniedReasons"
+        :document-status="documentStatus"
       ></AllDeclinedMessages>
 
       <div v-if="!noDocument || forceShowDownloader">
@@ -133,7 +133,7 @@
       <slot name="after-downloader"></slot>
     </NakedCard>
     <Modal v-show="showIsNoDocumentAndFiles" @close="showIsNoDocumentAndFiles = false">
-      <template v-slot:body>
+      <template #body>
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
@@ -149,7 +149,7 @@
       v-if="isWarningTaxSituationModalVisible"
       @close="isWarningTaxSituationModalVisible = false"
     >
-      <template v-slot:body>
+      <template #body>
         <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
           <h1 class="avis-title fr-h4 display--flex align-items--center">
             <RiAlarmWarningLine class="bold-icon fr-mr-1w" />
@@ -226,6 +226,7 @@ const props = withDefaults(
     translationKeyPrefix?: string
   }>(),
   {
+    editedDocumentId: undefined,
     listType: 'default',
     showDownloader: true,
     allowNoDocument: false,

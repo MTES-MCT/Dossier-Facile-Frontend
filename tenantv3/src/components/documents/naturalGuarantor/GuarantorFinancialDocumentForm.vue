@@ -2,7 +2,7 @@
   <div>
     <Form name="form" @submit="goNext">
       <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
-        <template v-slot:body>
+        <template #body>
           <div class="fr-container">
             <div class="fr-grid-row justify-content-center">
               <div class="fr-col-12">
@@ -94,8 +94,8 @@
             class="fr-mb-3w"
             :user-id="user?.id"
             :document="financialDocument"
-            :documentDeniedReasons="documentDeniedReasons"
-            :documentStatus="documentStatus"
+            :document-denied-reasons="documentDeniedReasons"
+            :document-status="documentStatus"
           ></AllDeclinedMessages>
           <div v-if="financialFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
             <ListItem

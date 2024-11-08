@@ -4,7 +4,7 @@
       <div v-if="selectedGuarantor?.typeGuarantor === 'NATURAL_PERSON'">
         <div v-if="substep === 0">
           <TenantGuarantorName
-            :tenantId="tenantId"
+            :tenant-id="tenantId"
             :guarantor="selectedGuarantor"
             @on-back="goBack"
             @on-next="goNext"
@@ -13,34 +13,34 @@
         </div>
         <div v-if="substep === 1">
           <GuarantorIdentification
-            :isCotenant="true"
-            :tenantId="tenantId"
+            :is-cotenant="true"
+            :tenant-id="tenantId"
           ></GuarantorIdentification>
           <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
         </div>
         <div v-if="substep === 2">
           <GuarantorResidency
-            :tenantId="tenantId"
+            :tenant-id="tenantId"
             @on-back="goBack"
             @on-next="checkResidencyAndGoNext"
           >
           </GuarantorResidency>
         </div>
         <div v-if="substep === 3">
-          <GuarantorProfessional :tenantId="tenantId" :isCotenant="true"></GuarantorProfessional>
+          <GuarantorProfessional :tenant-id="tenantId" :is-cotenant="true"></GuarantorProfessional>
           <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
         </div>
         <div v-if="substep === 4">
           <GuarantorFinancial
-            :tenantId="tenantId"
+            :tenant-id="tenantId"
             @on-back="goBack"
             @on-next="goNext"
           ></GuarantorFinancial>
         </div>
         <div v-if="substep === 5">
           <GuarantorTax
-            :tenantId="tenantId"
-            :isCotenant="true"
+            :tenant-id="tenantId"
+            :is-cotenant="true"
             @on-back="goBack"
             @on-next="nextStep"
           ></GuarantorTax>
@@ -50,14 +50,14 @@
         <OrganismCert
           :is-cotenant="true"
           :guarantor="selectedGuarantor"
-          :tenantId="tenantId"
+          :tenant-id="tenantId"
         ></OrganismCert>
         <GuarantorFooter @on-back="goBack" @on-next="nextStep"></GuarantorFooter>
       </div>
       <div v-if="selectedGuarantor?.typeGuarantor === 'LEGAL_PERSON'">
         <div v-if="substep === 0">
           <CorporationIdentification
-            :tenantId="tenantId"
+            :tenant-id="tenantId"
             :guarantor="selectedGuarantor"
             @on-back="goBack"
             @on-next="goNext"
@@ -65,7 +65,7 @@
         </div>
         <div v-if="substep === 1">
           <RepresentativeIdentification
-            :tenantId="tenantId"
+            :tenant-id="tenantId"
             :guarantor="selectedGuarantor"
             @on-back="goBack"
             @on-next="nextStep"

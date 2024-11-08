@@ -3,16 +3,16 @@
     <NakedCard class="fr-p-5w fr-mt-3w">
       <h1 class="fr-h4">{{ t('nameinformationform.title') }}</h1>
       <div>
-        <NameInformationHelp @updateInformation="openUnlinkModal = true" />
+        <NameInformationHelp @update-information="openUnlinkModal = true" />
         <RequiredFieldsInstruction />
         <ConfirmModal
           class="fr-px-md-16w"
           v-if="openUnlinkModal"
-          :validateBtnText="t('nameinformationform.unlink-account-btn')"
+          :validate-btn-text="t('nameinformationform.unlink-account-btn')"
           @valid="unlinkFranceConnect()"
           @cancel="openUnlinkModal = false"
         >
-          <template v-slot:title>
+          <template #title>
             <span class="fr-fi-refresh-line"></span>
             <span> {{ t('nameinformationform.unlink-fc-link') }}</span>
           </template>
@@ -31,7 +31,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <TextField
               name="lastname"
-              :fieldLabel="t('nameinformationform.lastname')"
+              :field-label="t('nameinformationform.lastname')"
               validation-rules="onlyAlpha"
               v-model.trim="lastname"
               :required="true"
@@ -50,11 +50,11 @@
           <div class="fr-col-12 fr-mb-3w" v-if="displayPreferredNameField">
             <TextField
               name="preferredname"
-              :fieldLabel="t('nameinformationform.preferredname')"
+              :field-label="t('nameinformationform.preferredname')"
               validation-rules="onlyAlpha"
               v-model.trim="preferredname"
             >
-              <template v-slot:right>
+              <template #right>
                 <button
                   class="fr-btn fr-btn--tertiary fr-icon-close-line"
                   :title="t('nameinformationform.delete-preferredname')"
@@ -68,7 +68,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <TextField
               name="firstname"
-              :fieldLabel="t('nameinformationform.firstname')"
+              :field-label="t('nameinformationform.firstname')"
               validation-rules="onlyAlpha"
               v-model.trim="firstname"
               :required="true"
@@ -78,13 +78,13 @@
           <div class="fr-col-12 fr-mb-3w">
             <TextField
               name="zipcode"
-              :fieldLabel="t('nameinformationform.zipcode')"
+              :field-label="t('nameinformationform.zipcode')"
               validation-rules="zipcode"
               v-model="zipcode"
             />
           </div>
         </div>
-        <ProfileFooter :showBack="false"></ProfileFooter>
+        <ProfileFooter :show-back="false"></ProfileFooter>
       </Form>
     </NakedCard>
   </div>

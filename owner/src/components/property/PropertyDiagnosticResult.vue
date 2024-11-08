@@ -10,9 +10,9 @@
       </div>
       <div>
         <Button
-          @onClick="deleteDpe"
+          @on-click="deleteDpe"
           :title="t('propertydiagnosticresult.dpe.delete')"
-          :tertiaryNoOutline="true"
+          :tertiary-no-outline="true"
           class="fr-icon-delete-fill fr-btn--icon-right"
           >{{ t('propertydiagnosticresult.dpe.delete') }}</Button
         >

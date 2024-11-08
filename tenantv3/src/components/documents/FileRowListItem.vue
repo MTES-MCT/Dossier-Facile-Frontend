@@ -65,7 +65,10 @@ const props = withDefaults(
     canEdit?: boolean
   }>(),
   {
+    subLabel: undefined,
+    document: undefined,
     enableDownload: true,
+    tagLabel: undefined,
     showValidated: false,
     canEdit: false
   }
@@ -84,7 +87,7 @@ function getTagLabel() {
 
 function documentStatus() {
   if (props.document) {
-    return props.document?.documentStatus ? props.document?.documentStatus : 'EMPTY'
+    return props.document.documentStatus ? props.document.documentStatus : 'EMPTY'
   }
   return 'EMPTY'
 }

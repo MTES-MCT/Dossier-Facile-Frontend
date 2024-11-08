@@ -16,7 +16,7 @@
           @remove="removeFinancial(f)"
           :danger="tenantFinancialDocument(f)?.documentStatus === 'DECLINED'"
         >
-          <template v-slot:tag>
+          <template #tag>
             <div class="fixed-width">
               <ColoredTag
                 :text="getDocumentName(f)"
@@ -24,7 +24,7 @@
               ></ColoredTag>
             </div>
           </template>
-          <template v-slot:text>
+          <template #text>
             <div
               class="text-bold"
               :class="{ declined: tenantFinancialDocument(f)?.documentStatus }"
@@ -34,11 +34,11 @@
               {{ f.monthlySum }} {{ t('financial-page.monthly') }}
             </div>
           </template>
-          <template v-slot:bottom>
+          <template #bottom>
             <AllDeclinedMessages
               class="fr-mb-3w"
-              :documentDeniedReasons="documentDeniedReasons(f)"
-              :documentStatus="documentStatus(f)"
+              :document-denied-reasons="documentDeniedReasons(f)"
+              :document-status="documentStatus(f)"
             ></AllDeclinedMessages>
           </template>
         </CardRow>

@@ -50,7 +50,7 @@ function onLogout() {
     @on-login="onLogin"
     @on-access-tenant="goToTenant"
     @on-logout="onLogout"
-    :showAccessibility="false"
+    :show-accessibility="false"
   >
     <OwnerMenu />
   </MyHeader>

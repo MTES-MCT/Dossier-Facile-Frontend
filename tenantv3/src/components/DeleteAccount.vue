@@ -1,12 +1,12 @@
 <template>
-  <DSFRSimpleModal modalId="modal-delete-account">
-    <template v-slot:header>
+  <DSFRSimpleModal modal-id="modal-delete-account">
+    <template #header>
       <span class="display--flex align-items--center">
         <RiCloseCircleLine class="text-danger fr-mr-1w bold-icon" size="24" />
         {{ t('deleteaccount.title') }}
       </span>
     </template>
-    <template v-slot:body>
+    <template #body>
       <p>{{ t('deleteaccount.confirm-delete') }}</p>
       <div class="btn-container">
         <DfButton

@@ -135,7 +135,7 @@ function getFile() {
       <DownloadLink
         v-if="url"
         :url="url"
-        :fileName="getWatermarkedFileName()"
+        :file-name="getWatermarkedFileName()"
         @on-downloaded="url = ''"
       />
     </div>

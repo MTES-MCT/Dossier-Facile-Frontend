@@ -25,7 +25,7 @@ const consumption = computed(() => Math.round(props.consumption))
 
 <template>
   <div>
-    <div v-for="l in letters" class="container fr-mb-1v" :class="l" v-bind:key="l">
+    <div v-for="l in letters" class="container fr-mb-1v" :class="l" :key="l">
       <span class="rectangle" :class="l">{{ l }}</span>
       <LeftDpeArrow
         :label="t('dpe.kgco2')"

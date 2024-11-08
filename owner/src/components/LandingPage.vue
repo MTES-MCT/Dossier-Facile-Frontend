@@ -227,7 +227,7 @@
       </div>
     </section>
     <Modal v-show="isValidModalVisible" @close="closeModal">
-      <template v-slot:body>
+      <template #body>
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">

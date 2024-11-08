@@ -111,7 +111,7 @@
                   <ul class="fr-tabs__list fr-p-0" role="tablist" aria-label="tab-list">
                     <li
                       v-for="(tenant, k) in getTenants()"
-                      v-bind:key="`li${k}`"
+                      :key="`li${k}`"
                       role="presentation"
                     >
                       <button
@@ -145,7 +145,7 @@
                   </ul>
                   <div
                     v-for="(tenant, k) in getTenants()"
-                    v-bind:key="`t${k}`"
+                    :key="`t${k}`"
                     :id="`tabpanel-${k}-panel`"
                     class="fr-tabs__panel"
                     role="tabpanel"
@@ -154,13 +154,13 @@
                     <TenantPanel
                       class="panel"
                       :tenant="tenant"
-                      :isCotenant="tenant.id != user.id"
-                      :isCouple="user.applicationType === 'COUPLE'"
+                      :is-cotenant="tenant.id != user.id"
+                      :is-couple="user.applicationType === 'COUPLE'"
                     />
                   </div>
                 </div>
               </section>
-              <TenantPanel v-else :tenant="user" class="fr-p-4w bg-white" :isCotenant="false" />
+              <TenantPanel v-else :tenant="user" class="fr-p-4w bg-white" :is-cotenant="false" />
             </div>
             <PartnersSection />
 

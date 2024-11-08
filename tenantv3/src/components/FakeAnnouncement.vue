@@ -11,10 +11,10 @@
       <div class="announcement-text">
         <p>
           <i18n-t keypath="fakeannouncement.content">
-            <template v-slot:nodocument>
+            <template #nodocument>
               <span style="font-weight: bold">{{ t('fakeannouncement.nodocument') }}</span>
             </template>
-            <template v-slot:masecurite>
+            <template #masecurite>
               <a
                 href="https://www.masecurite.interieur.gouv.fr/fr"
                 rel="noopener"

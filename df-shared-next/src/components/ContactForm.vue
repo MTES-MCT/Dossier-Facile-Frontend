@@ -395,7 +395,7 @@
 
     <div v-if="status == 'OK'">
       <Modal @close="closeModal">
-        <template v-slot:body>
+        <template #body>
           <div class="fr-px-md-14w mail-success-container">
             <div class="fr-py-4w text-center green-title">
               {{ t('message-sent-title') }}
@@ -421,7 +421,7 @@
     </div>
     <div v-if="status === 'KO'">
       <Modal @close="closeModal">
-        <template v-slot:body>
+        <template #body>
           <div class="fr-container">
             <div class="fr-grid-row justify-content-center">
               <div class="fr-col-12">

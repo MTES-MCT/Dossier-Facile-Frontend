@@ -1,8 +1,8 @@
 <template>
   <ProfileContainer :step="getStep()">
     <TenantGuarantorDocuments
-      :tenantId="tenantId()"
-      :guarantorId="guarantorId()"
+      :tenant-id="tenantId()"
+      :guarantor-id="guarantorId()"
       :substep="getSubStep()"
       @on-next="goNext"
     ></TenantGuarantorDocuments>

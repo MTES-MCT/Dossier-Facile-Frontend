@@ -59,8 +59,8 @@
         class="fr-mb-3w"
         :user-id="user?.id"
         :document="guarantorTaxDocument()"
-        :documentDeniedReasons="documentDeniedReasons"
-        :documentStatus="documentStatus"
+        :document-denied-reasons="documentDeniedReasons"
+        :document-status="documentStatus"
       ></AllDeclinedMessages>
       <WarningTaxDeclaration />
 
@@ -83,7 +83,7 @@
       v-if="isWarningTaxSituationModalVisible"
       @close="isWarningTaxSituationModalVisible = false"
     >
-      <template v-slot:body>
+      <template #body>
         <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
           <h1 class="avis-title fr-h4 display--flex align-items--center">
             <RiAlarmWarningLine class="bold-icon fr-mr-1w" />
@@ -159,6 +159,7 @@ const props = withDefaults(
     isCotenant?: boolean
   }>(),
   {
+    tenantId: undefined,
     isCotenant: false
   }
 )

@@ -46,7 +46,7 @@ function onCreateOwner() {
     @on-login-tenant="onLoginTenant"
     @on-create-owner="onCreateOwner"
     @on-logout="onLogout"
-    :showAccessibility="isFunnel"
+    :show-accessibility="isFunnel"
   >
     <TenantMenu />
   </MyHeader>

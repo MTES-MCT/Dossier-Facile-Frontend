@@ -1,7 +1,7 @@
 <template>
   <div class="bg-blue">
     <div class="fr-container">
-      <Breadcrumb :currentPage="t('contact.title')" />
+      <Breadcrumb :current-page="t('contact.title')" />
       <ContactForm
         @on-profile-change="profileChanged"
         @on-send-message="contactMessageSent"

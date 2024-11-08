@@ -1,14 +1,14 @@
 <template>
   <div>
     <DocumentDownloader
-      :coTenantId="coTenantId"
-      :documentsDefinitions="documentsDefinitions"
-      documentCategory="PROFESSIONAL"
-      dispatchMethodName="saveTenantProfessional"
-      typeDocument="typeDocumentProfessional"
-      listType="dropDownList"
+      :co-tenant-id="coTenantId"
+      :documents-definitions="documentsDefinitions"
+      document-category="PROFESSIONAL"
+      dispatch-method-name="saveTenantProfessional"
+      type-document="typeDocumentProfessional"
+      list-type="dropDownList"
     >
-      <template v-slot:title>
+      <template #title>
         {{ t('cotenantprofessional.title') }}
       </template>
     </DocumentDownloader>

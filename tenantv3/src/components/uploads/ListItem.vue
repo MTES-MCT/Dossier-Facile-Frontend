@@ -32,7 +32,7 @@
       </DfButton>
     </div>
     <Modal @close="isDocModalVisible = false" v-if="isDocModalVisible">
-      <template v-slot:body>
+      <template #body>
         <ShowDoc :file="file"></ShowDoc>
       </template>
     </Modal>

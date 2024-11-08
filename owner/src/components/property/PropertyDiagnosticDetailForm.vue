@@ -195,7 +195,7 @@ function getLetterStyle() {
         <div class="fr-checkbox-group bg-purple">
           <Field
             name="dpeNotRequired"
-            :modelValue="dpeNotRequired"
+            :model-value="dpeNotRequired"
             :value="true"
             @change="updateDpeNotRequired"
             v-slot="{ field, meta }"

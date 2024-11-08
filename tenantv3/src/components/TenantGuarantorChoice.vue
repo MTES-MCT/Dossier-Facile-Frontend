@@ -21,8 +21,8 @@
           </div>
 
           <GuarantorTypeSelector
-            :localStorageKey="`cotenantGuarantorType_${tenantId}`"
-            :isCotenant="isCotenant"
+            :local-storage-key="`cotenantGuarantorType_${tenantId}`"
+            :is-cotenant="isCotenant"
             @selected="tmpGuarantorType = $event"
           >
           </GuarantorTypeSelector>

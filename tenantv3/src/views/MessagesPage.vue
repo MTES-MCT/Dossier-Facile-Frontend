@@ -3,7 +3,7 @@
     <section v-if="user.applicationType === 'COUPLE'" class="fr-mt-5w fr-mb-3w">
       <div class="fr-tabs">
         <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
-          <li v-for="(tenant, k) in getTenants()" v-bind:key="`li${k}`" role="presentation">
+          <li v-for="(tenant, k) in getTenants()" :key="`li${k}`" role="presentation">
             <button
               class="fr-tabs__tab fr-tabs__tab--icon-right"
               :id="`tabpanel-${k}`"
@@ -19,14 +19,14 @@
         </ul>
         <div
           v-for="(tenant, k) in getTenants()"
-          v-bind:key="`t${k}`"
+          :key="`t${k}`"
           :id="`tabpanel-${k}-panel`"
           class="fr-tabs__panel"
           aria-selected="false"
           role="tabpanel"
           :tabindex="k"
         >
-          <MessagesPanel :tenant="tenant" :isCotenant="tenant.id != user.id" />
+          <MessagesPanel :tenant="tenant" :is-cotenant="tenant.id != user.id" />
         </div>
       </div>
     </section>

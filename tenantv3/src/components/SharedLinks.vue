@@ -22,7 +22,7 @@
         <tbody>
           <tr
             v-for="link in links"
-            v-bind:key="link.id"
+            :key="link.id"
             :class="link.enabled ? '' : 'fr-label--disabled'"
           >
             <td>{{ formatDate(link.creationDate) }}</td>
@@ -42,8 +42,8 @@
               <Toggle
                 :id="link.id || 0"
                 :value="link.enabled || false"
-                :checkedLabel="t('sharing-page.shared-links.enabled')"
-                :uncheckedLabel="t('sharing-page.shared-links.disabled')"
+                :checked-label="t('sharing-page.shared-links.enabled')"
+                :unchecked-label="t('sharing-page.shared-links.disabled')"
                 @update="updateSharedLinkStatus(link, $event)"
               />
             </td>
@@ -70,7 +70,7 @@
       <ul
         class="fr-p-0"
         v-for="link in links"
-        v-bind:key="link.id"
+        :key="link.id"
         :class="link.enabled ? '' : 'fr-label--disabled'"
       >
         <li class="fr-grid-row file-list-item fr-p-3w">
@@ -79,7 +79,7 @@
           </div>
           <div class="fr-col-7 align--right">
             <ColoredTag
-              :hideIcon="true"
+              :hide-icon="true"
               :text="link.fullData ? t('sharefile.full') : t('sharefile.resume')"
               :status="'grey'"
               :active="link.enabled"
@@ -91,8 +91,8 @@
               class="fr-toggle--label-left"
               :id="link.id || 0"
               :value="link.enabled || false"
-              :checkedLabel="t('sharing-page.shared-links.enabled')"
-              :uncheckedLabel="t('sharing-page.shared-links.disabled')"
+              :checked-label="t('sharing-page.shared-links.enabled')"
+              :unchecked-label="t('sharing-page.shared-links.disabled')"
               @update="updateSharedLinkStatus(link, $event)"
             />
           </div>

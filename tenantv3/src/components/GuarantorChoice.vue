@@ -21,7 +21,7 @@
           </div>
 
           <GuarantorTypeSelector
-            :localStorageKey="`guarantorType_${user.email}`"
+            :local-storage-key="`guarantorType_${user.email}`"
             @selected="tmpGuarantorType = $event"
           >
           </GuarantorTypeSelector>

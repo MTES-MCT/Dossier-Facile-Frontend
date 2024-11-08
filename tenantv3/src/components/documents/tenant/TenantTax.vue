@@ -60,8 +60,8 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
-        :documentDeniedReasons="documentDeniedReasons"
-        :documentStatus="documentStatus"
+        :document-denied-reasons="documentDeniedReasons"
+        :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem v-for="(file, k) in taxFiles()" :key="k" :file="file" @remove="remove(file)" />
@@ -83,7 +83,7 @@
       v-if="isWarningTaxSituationModalVisible"
       @close="isWarningTaxSituationModalVisible = false"
     >
-      <template v-slot:body>
+      <template #body>
         <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
           <h1 class="avis-title fr-h4 display--flex align-items--center">
             <RiAlarmWarningLine class="bold-icon fr-mr-1w" />

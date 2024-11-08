@@ -64,7 +64,7 @@ function openProperty(p: Property) {
           {{ t('dashboard.my-properties') }}
         </h2>
         <div>
-          <DfButton @onClick="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
+          <DfButton @on-click="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
             t('dashboard.add-property')
           }}</DfButton>
         </div>

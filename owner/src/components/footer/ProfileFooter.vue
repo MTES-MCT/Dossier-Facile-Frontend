@@ -2,8 +2,8 @@
   <div>
     <FooterContainer>
       <BackNext
-        :showBack="showBack"
-        :nextLabel="nextLabel"
+        :show-back="showBack"
+        :next-label="nextLabel"
         :disabled="disabled"
         @on-next="nextAction()"
         @on-back="backAction()"

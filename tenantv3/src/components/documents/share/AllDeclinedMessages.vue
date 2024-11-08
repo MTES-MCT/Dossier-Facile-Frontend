@@ -40,7 +40,9 @@ const props = withDefaults(
   }>(),
   {
     documentDeniedReasons: null,
-    documentStatus: ''
+    documentStatus: '',
+    userId: undefined,
+    document: undefined
   }
 )
 
