@@ -174,12 +174,12 @@
 
 <script setup lang="ts">
 import { User } from 'df-shared-next/src/models/User'
-import { AuthService } from '../services/AuthService'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import { generatePasswordPlaceholder } from '@/services/UtilsService'
 const { t } = useI18n()
 
 const PASSWORD_MIN_SCORE = 2
@@ -197,7 +197,7 @@ const emit = defineEmits<{ 'on-register': [user: User] }>()
 
 onMounted(() => {
   user.value.email = props.email
-  generatedPwd.value = AuthService.generatePasswordPlaceholder()
+  generatedPwd.value = generatePasswordPlaceholder()
 })
 
 function handleRegister() {

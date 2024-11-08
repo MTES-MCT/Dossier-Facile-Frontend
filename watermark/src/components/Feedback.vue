@@ -8,7 +8,7 @@ const toast = useToast();
 
 function like() {
   axios
-    .get(`${import.meta.env.VITE_API_URL}/api/feedback/true`)
+    .get<void>(`${import.meta.env.VITE_API_URL}/api/feedback/true`)
     .then(() => {
       toast.info(t("feedback.feedback-registered").toString(), {
         timeout: 5000,
@@ -21,7 +21,7 @@ function like() {
 
 function dislike() {
   axios
-    .get(`${import.meta.env.VITE_API_URL}/api/feedback/false`)
+    .get<void>(`${import.meta.env.VITE_API_URL}/api/feedback/false`)
     .then(() => {
       toast.info(t("feedback.feedback-registered").toString(), {
         timeout: 5000,

@@ -76,11 +76,11 @@
 
 <script setup lang="ts">
 import { User } from 'df-shared-next/src/models/User'
-import { AuthService } from '../services/AuthService'
 import { ref } from 'vue'
 import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
 import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import { generatePasswordPlaceholder } from '../services/UtilsService'
 
 defineRule('strength', (_value: unknown, [score]: number[]) => {
   if (score < 2) {
@@ -103,7 +103,7 @@ const user = ref(new User())
 
 const { t } = useI18n()
 
-const passwordExample = AuthService.generatePasswordPlaceholder()
+const passwordExample = generatePasswordPlaceholder()
 
 function handleRegister() {
   emit('on-init-password', user.value)

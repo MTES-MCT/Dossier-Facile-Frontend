@@ -45,7 +45,7 @@ function isImage() {
 
 onMounted(() => {
   if (props.file?.path && !isImage()) {
-    axios.get(props.file.path, { responseType: 'blob' }).then((response) => {
+    axios.get<Blob>(props.file.path, { responseType: 'blob' }).then((response) => {
       const blob = new Blob([response.data], { type: 'application/pdf' })
       pdfContent.value = window.URL.createObjectURL(blob)
       isLoaded.value = true

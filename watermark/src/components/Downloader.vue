@@ -13,7 +13,7 @@ const emit = defineEmits(["on-downloaded"]);
 
 function downloadFile() {
   axios
-    .get(props.url, { responseType: "blob" })
+    .get<Blob>(props.url, { responseType: "blob" })
     .then((response) => {
       const blob = new Blob([response.data], { type: "application/pdf" });
       const link = document.createElement("a");
