@@ -17,9 +17,7 @@ const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
 
 const lang = i18n.global.locale.value
 
-function currentPage() {
-  return route.name
-}
+const currentPage = computed(() => route.name)
 
 function changeLang(lang: 'fr' | 'en') {
   store.setLang(lang)
@@ -43,6 +41,11 @@ function showDeleteAccountModal() {
       </a>
     </li>
     <li class="fr-nav__item">
+      <a :href="`${MAIN_URL}/partenaires`" class="fr-nav__link">
+        {{ t('partners') }}
+      </a>
+    </li>
+    <li class="fr-nav__item">
       <a
         :href="`${DOCS_URL}`"
         class="fr-nav__link fr-external-link"
@@ -52,13 +55,13 @@ function showDeleteAccountModal() {
         {{ t('menu.help') }}
       </a>
     </li>
-    <li class="fr-nav__item break" v-show="isLoggedIn">
+    <li class="fr-nav__item break" v-if="isLoggedIn">
       <button
         class="fr-nav__btn"
         aria-expanded="false"
         aria-controls="menu-774"
-        v-bind:aria-current="
-          currentPage() === 'AccountName' || currentPage() === 'Dashboard' ? true : undefined
+        :aria-current="
+          currentPage === 'AccountName' || currentPage === 'Dashboard' ? true : undefined
         "
       >
         {{ t('menu.account') }}
@@ -70,7 +73,7 @@ function showDeleteAccountModal() {
               class="fr-nav__link"
               href="/proprietaire"
               target="_self"
-              v-bind:aria-current="currentPage() === 'AccountName' ? 'page' : undefined"
+              :aria-current="currentPage === 'AccountName' ? 'page' : undefined"
               >{{ t('menu.personal-data') }}</a
             >
           </li>
@@ -79,7 +82,7 @@ function showDeleteAccountModal() {
               class="fr-nav__link"
               href="/"
               target="_self"
-              v-bind:aria-current="currentPage() === 'Dashboard' ? 'page' : undefined"
+              :aria-current="currentPage === 'Dashboard' ? 'page' : undefined"
               >{{ t('menu.dashboard') }}</a
             >
           </li>
@@ -94,7 +97,7 @@ function showDeleteAccountModal() {
     <li class="fr-nav__item" :class="{ break: !isLoggedIn }">
       <a
         href="/contact"
-        v-bind:aria-current="currentPage() === 'Contact' ? 'page' : undefined"
+        :aria-current="currentPage === 'Contact' ? 'page' : undefined"
         class="fr-nav__link"
       >
         <span class="fr-icon-mail-line fr-icon--sm" aria-hidden="true"></span>
@@ -128,3 +131,14 @@ function showDeleteAccountModal() {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "partners": "Partners"
+  },
+  "fr": {
+    "partners": "Partenaires"
+  }
+}
+</i18n>
