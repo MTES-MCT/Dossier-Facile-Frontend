@@ -9,7 +9,10 @@ declare global {
 
 export default {
   install(app: App, options: { websiteId: string }) {
-    window.$crisp = []
+    window.$crisp = [
+      ['safe', true],
+      ['on', 'chat:opened', () => window.$crisp.push(['do', 'helpdesk:search'])]
+    ]
     window.CRISP_WEBSITE_ID = options.websiteId
 
     const d = document

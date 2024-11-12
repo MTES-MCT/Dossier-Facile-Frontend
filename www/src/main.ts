@@ -48,7 +48,6 @@ export const createApp = ViteSSG(App, { routes }, async ({ app, router, isClient
   } satisfies ToastContainerOptions)
   if (isClient && CRISP_ENABLED === 'true') {
     app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
-    window.$crisp.push(['safe', true])
   }
 
   router.beforeEach((to, from, next) => {
