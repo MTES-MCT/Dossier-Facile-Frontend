@@ -132,7 +132,6 @@ function mountApp() {
   app.use(MatomoPlugin)
   if (CRISP_ENABLED === 'true') {
     app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
-    window.$crisp.push(["safe", true])
   }
   app.mount('#app')
 }
