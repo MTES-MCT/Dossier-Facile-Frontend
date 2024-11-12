@@ -1,4 +1,4 @@
-import { sentryVitePlugin } from "@sentry/vite-plugin";
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
@@ -8,15 +8,10 @@ import { fileURLToPath } from 'node:url'
 export default defineConfig({
   build: {
     assetsInlineLimit: (file) => {
-      return (
-        !file.endsWith('.svg') &&
-        !file.endsWith('.min.js') &&
-        !file.endsWith('.woff') &&
-        !file.endsWith('.woff2') &&
-        !file.endsWith('.ttf') &&
-        !file.endsWith('.otf') &&
-        !file.endsWith('.eot')
-      )
+      if (file.endsWith('.svg')) {
+        return false
+      }
+      // When this returns undefined, the default behaviour is used: inline only if size < 4k
     },
 
     sourcemap: true
