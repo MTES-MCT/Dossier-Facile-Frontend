@@ -14,7 +14,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <TextField
               name="lastname"
-              :fieldLabel="t('cotenantname.lastname')"
+              :field-label="t('cotenantname.lastname')"
               validation-rules="onlyAlpha"
               v-model.trim="lastName"
               :required="true"
@@ -31,11 +31,11 @@
           <div class="fr-col-12 fr-mb-3w" v-if="displayPreferredNameField">
             <TextField
               name="preferredname"
-              :fieldLabel="t('cotenantname.preferredname')"
+              :field-label="t('cotenantname.preferredname')"
               validation-rules="onlyAlpha"
               v-model.trim="preferredName"
             >
-              <template v-slot:right>
+              <template #right>
                 <button
                   class="fr-btn fr-btn--tertiary fr-icon-close-line"
                   :title="t('nameinformationform.delete-preferredname')"
@@ -49,7 +49,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <TextField
               name="firstname"
-              :fieldLabel="t('cotenantname.firstname')"
+              :field-label="t('cotenantname.firstname')"
               validation-rules="onlyAlpha"
               v-model.trim="firstName"
               :required="true"
@@ -58,7 +58,7 @@
         </div>
       </NakedCard>
       <FooterContainer>
-        <BackNext :showBack="true" @on-back="goBack()"> </BackNext>
+        <BackNext :show-back="true" @on-back="goBack()"> </BackNext>
       </FooterContainer>
     </Form>
   </div>

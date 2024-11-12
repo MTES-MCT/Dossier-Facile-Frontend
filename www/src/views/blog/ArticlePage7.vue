@@ -30,14 +30,14 @@
       constituant leur résidence principale et formalisée par la conclusion d’un contrat unique ou
       de plusieurs contrats entre les locataires et les bailleurs. »
     </p>
-    <h2>2. Qu’est ce que la clause de solidarité ?</h2>
+    <h2>2. Qu’est ce que la clause de solidarité&nbsp;?</h2>
     <p>
       Elle est souvent exigée par le propriétaire afin qu’il se prémunisse contre les impayés.
       Ainsi, si un colocataire ne paie pas sa part de loyer, le propriétaire peut se retourner
       contre les autres pour exiger la somme due. En l’absence de cette clause, chaque locataire
       n’est redevable que de sa quote-part du loyer.
     </p>
-    <h2>3. Qu’est-ce que le dépôt de garantie ?</h2>
+    <h2>3. Qu’est-ce que le dépôt de garantie&nbsp;?</h2>
     <p>
       Le dépôt de garantie est partagé entre les colocataires signataires du bail et versé à
       l’entrée des lieux. Il ne peut être demandé que s’il est mentionné dans le contrat et que son
@@ -47,7 +47,7 @@
       s’arranger avec le propriétaire pour que son dépôt de garantie lui soit remboursé par celui
       qui le remplace.
     </p>
-    <h2>4. Peut-on percevoir des aides lors d’une colocation ?</h2>
+    <h2>4. Peut-on percevoir des aides lors d’une colocation&nbsp;?</h2>
     <p>
       Chaque colocataire peut obtenir une aide au logement pour la part de loyer dont il est
       redevable, s'il remplit les conditions pour y avoir droit. Chaque colocataire doit faire sa
@@ -55,7 +55,7 @@
       <a target="_blank" href="https://www.caf.fr/" rel="noreferrer">auprès de la Caf</a>
       (Caisse d’allocations familiales).
     </p>
-    <h2>5. Comment réagir au départ d’un colocataire ?</h2>
+    <h2>5. Comment réagir au départ d’un colocataire&nbsp;?</h2>
     <p>
       Le colocataire souhaitant quitter le logement doit adresser au propriétaire un congé par
       lettre recommandée avec accusé de réception en respectant le délai de préavis prévu dans le

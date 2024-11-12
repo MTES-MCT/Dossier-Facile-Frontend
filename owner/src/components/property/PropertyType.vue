@@ -131,44 +131,42 @@ function onBack() {
   border-radius: 0.5rem;
   text-align: center;
   background-color: var(--background-default-grey);
+  --icon-color: #4c4ce2;
+  --background-color: white;
+  color: #4c4ce2;
+  background-color: white;
+
+  &:hover {
+    --icon-color: white;
+    --background-color: #4c4ce2;
+    background-color: var(--primary);
+    color: #4c4ce2;
+    box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
+    border: solid 1px var(--primary);
+    @media all and (min-width: 767px) {
+      background-color: var(--bf200-bf300);
+      color: #4c4ce2;
+    }
+  }
+
+  &.selected {
+    background-color: var(--primary);
+    color: white;
+    border: solid 1px #0063cb;
+    --background-color: #4c4ce2;
+    --icon-color: white;
+    @media all and (min-width: 767px) {
+      background-color: var(--bf200-bf300);
+      color: #4c4ce2;
+    }
+  }
+
   @media all and (min-width: 992px) {
     max-width: 15rem;
   }
   @media all and (max-width: 767px) {
     margin-right: 0;
     width: 100%;
-  }
-
-  &:hover {
-    background-color: var(--primary);
-    color: #4c4ce2;
-    box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
-    @media all and (min-width: 767px) {
-      background-color: var(--bf200-bf300);
-      color: #4c4ce2;
-    }
-    border: solid 1px var(--primary);
-  }
-
-  &.selected {
-    background-color: var(--primary);
-    color: white;
-    @media all and (min-width: 767px) {
-      background-color: var(--bf200-bf300);
-      color: #4c4ce2;
-    }
-    border: solid 1px #0063cb;
-    --background-color: #4c4ce2;
-    --icon-color: white;
-  }
-
-  --icon-color: #4c4ce2;
-  --background-color: white;
-  color: #4c4ce2;
-  background-color: white;
-  &:hover {
-    --icon-color: white;
-    --background-color: #4c4ce2;
   }
 }
 

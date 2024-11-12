@@ -18,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="access in accesses" v-bind:key="access.id">
+          <tr v-for="access in accesses" :key="access.id">
             <td>{{ formatDate(access.accessGrantedDate) }}</td>
             <td colspan="4" class="wrap">{{ access.name }}</td>
             <td>
@@ -36,7 +36,7 @@
       </table>
     </div>
     <div class="mobile">
-      <ul class="fr-p-0" v-for="access in accesses" v-bind:key="access.id">
+      <ul class="fr-p-0" v-for="access in accesses" :key="access.id">
         <li class="fr-grid-row file-list-item fr-p-3w">
           <div class="fr-col-5">
             {{ formatDate(access.accessGrantedDate) }}
@@ -61,8 +61,8 @@
   <ConfirmModal
     v-if="revokingAccess !== undefined"
     :title="t('partners-page.revoke-modal.title')"
-    :validateBtnText="t('partners-page.revoke-modal.validate')"
-    :cancelBtnText="t('partners-page.revoke-modal.cancel')"
+    :validate-btn-text="t('partners-page.revoke-modal.validate')"
+    :cancel-btn-text="t('partners-page.revoke-modal.cancel')"
     @valid="revoke(revokingAccess)"
     @cancel="revokingAccess = undefined"
   >
@@ -77,7 +77,7 @@
 
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import Button from 'df-shared-next/src/Button/Button.vue'
+import Button from 'df-shared-next/src/Button/DfButton.vue'
 import dayjs from 'dayjs'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, ref } from 'vue'

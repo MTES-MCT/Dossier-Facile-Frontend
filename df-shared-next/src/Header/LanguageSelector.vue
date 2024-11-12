@@ -10,7 +10,7 @@
   </button>
   <div class="fr-collapse fr-translate__menu fr-menu" id="select-language">
     <ul class="fr-menu__list">
-      <li v-for="language in availableLanguages" v-bind:key="language.id">
+      <li v-for="language in availableLanguages" :key="language.id">
         <a
           class="fr-translate__language fr-nav__link"
           :hreflang="language.id"

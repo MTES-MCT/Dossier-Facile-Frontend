@@ -27,8 +27,8 @@ function onBack() {
 
 <template>
   <div class="full-height fr-grid-row-desktop fr-container fr-container-full-size">
-    <TopMenu tMenu></TopMenu>
-    <LeftMenu tMenu class="fr-col-md-4 fr-col-xl-3"></LeftMenu>
+    <TopMenu></TopMenu>
+    <LeftMenu class="fr-col-md-4 fr-col-xl-3"></LeftMenu>
     <div
       class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0"
     >

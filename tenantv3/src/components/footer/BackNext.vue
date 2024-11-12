@@ -42,7 +42,8 @@ const { t } = useI18n()
 
 withDefaults(defineProps<{ showBack?: boolean; disabled?: boolean; nextLabel?: string }>(), {
   showBack: true,
-  disabled: false
+  disabled: false,
+  nextLabel: undefined
 })
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()

@@ -98,7 +98,7 @@
       <ProfileFooter
         @on-back="goBack()"
         :disabled="hasErrors()"
-        :nextLabel="t('validatefile.validate')"
+        :next-label="t('validatefile.validate')"
       >
       </ProfileFooter>
     </Form>

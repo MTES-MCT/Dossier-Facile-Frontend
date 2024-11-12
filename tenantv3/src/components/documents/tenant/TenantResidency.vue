@@ -31,12 +31,12 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
-        :documentDeniedReasons="documentDeniedReasons"
-        :documentStatus="documentStatus"
+        :document-denied-reasons="documentDeniedReasons"
+        :document-status="documentStatus"
       ></AllDeclinedMessages>
       <TextField
         name="customText"
-        :fieldLabel="t('residency-page.custom-text')"
+        :field-label="t('residency-page.custom-text')"
         v-model="customText"
         validation-rules="required"
         :textarea="true"
@@ -66,8 +66,8 @@
       <AllDeclinedMessages
         class="fr-mb-3w"
         :document="tenantResidencyDocument"
-        :documentDeniedReasons="documentDeniedReasons"
-        :documentStatus="documentStatus"
+        :document-denied-reasons="documentDeniedReasons"
+        :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem

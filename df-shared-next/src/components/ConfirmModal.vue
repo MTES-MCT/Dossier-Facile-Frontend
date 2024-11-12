@@ -1,13 +1,13 @@
 <template>
   <Modal @close="closeModal()">
-    <template v-slot:header>
+    <template #header>
       <div class="fr-container">
         <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
           <slot name="title"></slot>
         </h1>
       </div>
     </template>
-    <template v-slot:body>
+    <template #body>
       <div class="fr-container">
         <div class="fr-grid-row justify-content-center">
           <div class="fr-col-12">
@@ -30,8 +30,8 @@
 </template>
 
 <script setup lang="ts">
-import Modal from './Modal.vue'
-import DfButton from '../Button/Button.vue'
+import Modal from './ModalComponent.vue'
+import DfButton from '../Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

@@ -78,10 +78,10 @@
             </div>
             <div class="fr-m-0 fr-py-2w">
               <i18n-t keypath="partnerssection.signal-text">
-                <template v-slot:nodocument>
+                <template #nodocument>
                   <span style="font-weight: bold">{{ t('partnerssection.nodocument') }}</span>
                 </template>
-                <template v-slot:masecurite>
+                <template #masecurite>
                   <a
                     href="https://www.masecurite.interieur.gouv.fr/fr"
                     :title="t('partnerssection.link-title').toString()"

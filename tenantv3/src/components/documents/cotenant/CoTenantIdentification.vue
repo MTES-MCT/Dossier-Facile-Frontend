@@ -1,16 +1,16 @@
 <template>
   <div>
     <DocumentDownloader
-      :coTenantId="coTenantId"
-      :documentsDefinitions="documentsDefinitions"
-      documentCategory="IDENTIFICATION"
-      dispatchMethodName="saveTenantIdentification"
-      typeDocument="typeDocumentIdentification"
+      :co-tenant-id="coTenantId"
+      :documents-definitions="documentsDefinitions"
+      document-category="IDENTIFICATION"
+      dispatch-method-name="saveTenantIdentification"
+      type-document="typeDocumentIdentification"
     >
-      <template v-slot:title>
+      <template #title>
         {{ t('cotenantidentification.title') }}
       </template>
-      <template v-slot:description>
+      <template #description>
         <p>{{ t('cotenantidentification.description') }}</p>
       </template>
     </DocumentDownloader>

@@ -2,8 +2,8 @@
   <div>
     <FooterContainer id="footer-navigation">
       <BackNext
-        :showBack="showBack"
-        :nextLabel="nextLabel"
+        :show-back="showBack"
+        :next-label="nextLabel"
         :disabled="disabled"
         @on-next="nextAction()"
         @on-back="backAction()"
@@ -24,7 +24,8 @@ withDefaults(
   }>(),
   {
     showBack: true,
-    disabled: false
+    disabled: false,
+    nextLabel: undefined
   }
 )
 

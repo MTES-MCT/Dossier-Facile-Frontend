@@ -93,8 +93,8 @@
             </div>
             <AllDeclinedMessages
               class="fr-mb-3w"
-              :documentDeniedReasons="documentDeniedReasons"
-              :documentStatus="documentStatus"
+              :document-denied-reasons="documentDeniedReasons"
+              :document-status="documentStatus"
             ></AllDeclinedMessages>
             <div
               v-if="
@@ -192,7 +192,7 @@
       </div>
       <ProfileFooter @on-back="goBack"></ProfileFooter>
       <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
-        <template v-slot:body>
+        <template #body>
           <div class="fr-container">
             <div class="fr-grid-row justify-content-center">
               <div class="fr-col-12">
@@ -222,7 +222,7 @@ import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { RegisterService } from '../../../services/RegisterService'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import Modal from 'df-shared-next/src/components/Modal.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ProfileFooter from '../../footer/ProfileFooter.vue'

@@ -1,37 +1,37 @@
 <template>
   <ProfileContainer :step="getStep()">
     <div v-if="getSubStep() === 0">
-      <CoTenantName :coTenantId="getTenantId()" @on-next="goNext()" @on-back="goBack()" />
+      <CoTenantName :co-tenant-id="getTenantId()" @on-next="goNext()" @on-back="goBack()" />
     </div>
 
     <div v-if="getSubStep() === 1">
-      <CoTenantIdentification :coTenantId="getTenantId()"></CoTenantIdentification>
+      <CoTenantIdentification :co-tenant-id="getTenantId()"></CoTenantIdentification>
       <FooterContainer>
-        <BackNext :showBack="true" @on-next="goNext()" @on-back="goBack()"> </BackNext>
+        <BackNext :show-back="true" @on-next="goNext()" @on-back="goBack()"> </BackNext>
       </FooterContainer>
     </div>
     <div v-if="getSubStep() === 2">
       <CoTenantResidency
-        :coTenantId="getTenantId()"
+        :co-tenant-id="getTenantId()"
         @on-next="goNext()"
         @on-back="goBack()"
       ></CoTenantResidency>
     </div>
     <div v-if="getSubStep() === 3">
-      <CoTenantProfessional :coTenantId="getTenantId()"></CoTenantProfessional>
+      <CoTenantProfessional :co-tenant-id="getTenantId()"></CoTenantProfessional>
       <FooterContainer>
-        <BackNext :showBack="true" @on-next="goNext()" @on-back="goBack()"> </BackNext>
+        <BackNext :show-back="true" @on-next="goNext()" @on-back="goBack()"> </BackNext>
       </FooterContainer>
     </div>
     <div v-if="getSubStep() === 4">
       <CoTenantFinancialList
-        :coTenantId="getTenantId()"
+        :co-tenant-id="getTenantId()"
         @on-next="goNext"
         @on-back="goBack"
       ></CoTenantFinancialList>
     </div>
     <div v-if="getSubStep() === 5">
-      <CoTenantTax :coTenantId="getTenantId()" @on-next="goNext" @on-back="goBack"></CoTenantTax>
+      <CoTenantTax :co-tenant-id="getTenantId()" @on-next="goNext" @on-back="goBack"></CoTenantTax>
     </div>
   </ProfileContainer>
 </template>

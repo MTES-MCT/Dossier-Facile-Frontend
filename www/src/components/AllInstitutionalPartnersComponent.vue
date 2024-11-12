@@ -5,7 +5,7 @@
     </h2>
     <div class="fr-container">
       <div class="fr-grid-row fr-grid-row--gutters">
-        <template v-for="partner in partners" v-bind:key="partner.name">
+        <template v-for="partner in partners" :key="partner.name">
           <LogoInstitutionalPartnerComponent
             :image="partner.image"
             :height="partner.height"

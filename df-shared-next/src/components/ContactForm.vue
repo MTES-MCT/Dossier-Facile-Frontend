@@ -395,7 +395,7 @@
 
     <div v-if="status == 'OK'">
       <Modal @close="closeModal">
-        <template v-slot:body>
+        <template #body>
           <div class="fr-px-md-14w mail-success-container">
             <div class="fr-py-4w text-center green-title">
               {{ t('message-sent-title') }}
@@ -421,7 +421,7 @@
     </div>
     <div v-if="status === 'KO'">
       <Modal @close="closeModal">
-        <template v-slot:body>
+        <template #body>
           <div class="fr-container">
             <div class="fr-grid-row justify-content-center">
               <div class="fr-col-12">
@@ -438,8 +438,8 @@
 </template>
 
 <script setup lang="ts">
-import Modal from './Modal.vue'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import Modal from './ModalComponent.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import RequiredFieldsInstruction from 'df-shared-next/src/components/form/RequiredFieldsInstruction.vue'
 import OwnerHelpAccordion from './contact/OwnerHelpAccordion.vue'
 import TenantHelpAccordion from './contact/TenantHelpAccordion.vue'

@@ -1,23 +1,23 @@
 <template>
   <div>
     <DocumentDownloader
-      :coTenantId="coTenantId"
-      :documentsDefinitions="documentsDefinitions"
-      documentCategory="TAX"
-      dispatchMethodName="saveTenantTax"
-      typeDocument="typeDocumentTax"
-      translationKeyPrefix="cotenanttax."
-      listType="grid"
-      :showDownloader="showDownloader"
-      :forceShowDownloader="forceShowDownloader"
-      :testAvisSituation="true"
+      :co-tenant-id="coTenantId"
+      :documents-definitions="documentsDefinitions"
+      document-category="TAX"
+      dispatch-method-name="saveTenantTax"
+      type-document="typeDocumentTax"
+      translation-key-prefix="cotenanttax."
+      list-type="grid"
+      :show-downloader="showDownloader"
+      :force-show-downloader="forceShowDownloader"
+      :test-avis-situation="true"
       @on-change-document="changeDocument"
       @enrich-form-data="enrichFormData"
     >
-      <template v-slot:title>
+      <template #title>
         {{ t('cotenanttax.title') }}
       </template>
-      <template v-slot:after-select-block>
+      <template #after-select-block>
         <NakedCard
           class="fr-p-md-5w fr-mb-3w fr-mt-3w"
           v-if="documentType ? documentType.key === 'other-tax' : false"
@@ -40,7 +40,7 @@
       </template>
     </DocumentDownloader>
     <FooterContainer>
-      <BackNext :showBack="true" @on-next="goNext" @on-back="goBack"> </BackNext>
+      <BackNext :show-back="true" @on-next="goNext" @on-back="goBack"> </BackNext>
     </FooterContainer>
   </div>
 </template>

@@ -111,7 +111,7 @@
                   <ul class="fr-tabs__list fr-p-0" role="tablist" aria-label="tab-list">
                     <li
                       v-for="(tenant, k) in getTenants()"
-                      v-bind:key="`li${k}`"
+                      :key="`li${k}`"
                       role="presentation"
                     >
                       <button
@@ -145,7 +145,7 @@
                   </ul>
                   <div
                     v-for="(tenant, k) in getTenants()"
-                    v-bind:key="`t${k}`"
+                    :key="`t${k}`"
                     :id="`tabpanel-${k}-panel`"
                     class="fr-tabs__panel"
                     role="tabpanel"
@@ -154,13 +154,13 @@
                     <TenantPanel
                       class="panel"
                       :tenant="tenant"
-                      :isCotenant="tenant.id != user.id"
-                      :isCouple="user.applicationType === 'COUPLE'"
+                      :is-cotenant="tenant.id != user.id"
+                      :is-couple="user.applicationType === 'COUPLE'"
                     />
                   </div>
                 </div>
               </section>
-              <TenantPanel v-else :tenant="user" class="fr-p-4w bg-white" :isCotenant="false" />
+              <TenantPanel v-else :tenant="user" class="fr-p-4w bg-white" :is-cotenant="false" />
             </div>
             <PartnersSection />
 
@@ -209,7 +209,7 @@
 
 <script setup lang="ts">
 import { User } from 'df-shared-next/src/models/User'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
@@ -260,7 +260,7 @@ watch(
 )
 
 function getDossierUrl() {
-  return `/file/${user.value.apartmentSharing?.token}`;
+  return `/file/${user.value.apartmentSharing?.token}`
 }
 function loadExpectedProcessingTime(tenantId: number) {
   ProfileService.getExpectedProcessingTime(tenantId).then((response) => {
@@ -337,10 +337,6 @@ function goToMessaging() {
   router.push('/messaging')
 }
 
-function getFirstName() {
-  return UtilsService.capitalize(user.value.firstName || '')
-}
-
 function canCopyLink() {
   return UtilsService.canShareFile(user.value)
 }
@@ -358,20 +354,6 @@ function isDenied() {
       )
     })
   )
-}
-
-function getGlobalStatus() {
-  return user.value.apartmentSharing?.status
-}
-
-function getApplicationType() {
-  switch (user.value.applicationType) {
-    case 'COUPLE':
-      return 'couple'
-    case 'GROUP':
-      return 'group'
-  }
-  return 'alone'
 }
 </script>
 

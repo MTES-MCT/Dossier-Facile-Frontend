@@ -1,21 +1,21 @@
 <template>
   <div class="fr-mb-15w">
     <div v-if="substep <= 1">
-      <Identification></Identification>
+      <TenantIdentification></TenantIdentification>
       <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
     </div>
     <div v-if="substep === 2">
-      <Residency @on-back="goBack" @on-next="checkResidencyAndGoNext"></Residency>
+      <TenantResidency @on-back="goBack" @on-next="checkResidencyAndGoNext"></TenantResidency>
     </div>
     <div v-if="substep === 3">
-      <Professional></Professional>
+      <TenantProfessional></TenantProfessional>
       <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
     </div>
     <div v-if="substep === 4">
-      <Financial @on-back="goBack" @on-next="goNext"></Financial>
+      <TenantFinancial @on-back="goBack" @on-next="goNext"></TenantFinancial>
     </div>
     <div v-if="substep === 5">
-      <Tax @on-back="goBack" @on-next="goNext"></Tax>
+      <TenantTax @on-back="goBack" @on-next="goNext"></TenantTax>
     </div>
     <ConfirmModal
       v-if="showNbDocumentsResidencyTenant"
@@ -31,11 +31,11 @@
 </template>
 
 <script setup lang="ts">
-import Identification from './documents/tenant/Identification.vue'
-import Residency from './documents/tenant/Residency.vue'
-import Professional from './documents/tenant/Professional.vue'
-import Financial from './documents/tenant/Financial.vue'
-import Tax from './documents/tenant/Tax.vue'
+import TenantIdentification from './documents/tenant/TenantIdentification.vue'
+import TenantResidency from './documents/tenant/TenantResidency.vue'
+import TenantProfessional from './documents/tenant/TenantProfessional.vue'
+import TenantFinancial from './documents/tenant/TenantFinancial.vue'
+import TenantTax from './documents/tenant/TenantTax.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
 import ProfileFooter from './footer/ProfileFooter.vue'
 import { DocumentService } from '../services/DocumentService'

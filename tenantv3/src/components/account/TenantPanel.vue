@@ -6,70 +6,70 @@
         <RowListItem
           v-if="!isCotenant"
           :label="t('tenantpanel.clarification-title')"
-          :subLabel="props.tenant.clarification || ''"
-          :canEdit="showButtons"
-          @clickEdit="goToValidationPage()"
+          :sub-label="props.tenant.clarification || ''"
+          :can-edit="showButtons"
+          @click-edit="goToValidationPage()"
         />
         <RowListItem
           :label="UtilsService.tenantFullName(props.tenant)"
-          :canEdit="showButtons"
-          @clickEdit="gotoTenantName()"
+          :can-edit="showButtons"
+          @click-edit="gotoTenantName()"
         />
         <FileRowListItem
           :label="t('tenantpanel.identification')"
           :document="document(props.tenant, 'IDENTIFICATION')"
-          :canEdit="showButtons"
-          :enableDownload="showButtons"
-          @clickEdit="setTenantStep(1)"
+          :can-edit="showButtons"
+          :enable-download="showButtons"
+          @click-edit="setTenantStep(1)"
         />
         <FileRowListItem
           :label="t('tenantpanel.residency')"
           :document="document(props.tenant, 'RESIDENCY')"
-          :canEdit="showButtons"
-          :enableDownload="showButtons"
-          @clickEdit="setTenantStep(2)"
+          :can-edit="showButtons"
+          :enable-download="showButtons"
+          @click-edit="setTenantStep(2)"
         />
         <FileRowListItem
           :label="t('tenantpanel.professional')"
           :sub-label="getProfessionalSubCategory(props.tenant)"
           :document="document(props.tenant, 'PROFESSIONAL')"
-          :canEdit="showButtons"
-          :enableDownload="showButtons"
-          @clickEdit="setTenantStep(3)"
+          :can-edit="showButtons"
+          :enable-download="showButtons"
+          @click-edit="setTenantStep(3)"
         />
         <span v-if="documents(props.tenant, 'FINANCIAL').length > 1">
           <FileRowListItem
             v-for="doc in documents(props.tenant, 'FINANCIAL')"
-            v-bind:key="doc.id"
+            :key="doc.id"
             :label="t('tenantpanel.financial')"
             :sub-label="t(`documents.subcategory.${doc.documentSubCategory}`)"
             :document="doc"
-            :canEdit="showButtons"
-            :enableDownload="showButtons"
-            @clickEdit="setTenantStep(4)"
+            :can-edit="showButtons"
+            :enable-download="showButtons"
+            @click-edit="setTenantStep(4)"
           />
         </span>
         <FileRowListItem
           v-else
           :label="t('tenantpanel.financial')"
           :document="document(props.tenant, 'FINANCIAL')"
-          :canEdit="showButtons"
-          :enableDownload="showButtons"
-          @clickEdit="setTenantStep(4)"
+          :can-edit="showButtons"
+          :enable-download="showButtons"
+          @click-edit="setTenantStep(4)"
         />
         <FileRowListItem
           :label="t('tenantpanel.tax')"
           :document="document(props.tenant, 'TAX')"
-          :canEdit="showButtons"
-          :enableDownload="showButtons"
-          @clickEdit="setTenantStep(5)"
+          :can-edit="showButtons"
+          :enable-download="showButtons"
+          @click-edit="setTenantStep(5)"
         />
       </ul>
     </div>
 
     <GuarantorsSection
-      :canEdit="showButtons"
-      :enableDownload="showButtons"
+      :can-edit="showButtons"
+      :enable-download="showButtons"
       :tenant="props.tenant"
     />
   </div>

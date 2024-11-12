@@ -186,16 +186,14 @@ ul.fr-follow {
     color: grey;
     max-width: 1.5rem;
     vertical-align: middle;
+    --icon-size: 1rem;
+    padding-left: 0.15rem;
     &:before {
       visibility: visible;
     }
   }
   li {
     padding: 0 0.25rem 0 0.25rem;
-  }
-  .fr-btn {
-    --icon-size: 1rem;
-    padding-left: 0.15rem;
   }
 }
 .fr-footer__brand-link {

@@ -19,17 +19,17 @@
       </FileHeader>
       <FileReinsurance
         v-if="user !== null"
-        :dossierStatus="user.status"
-        :taxDocumentStatus="taxDocumentStatus()"
-        :franceConnectTenantCount="franceConnectTenantCount()"
-        :tenantCount="user.tenants?.length"
-        :taxChecked="isTaxChecked()"
+        :dossier-status="user.status"
+        :tax-document-status="taxDocumentStatus()"
+        :france-connect-tenant-count="franceConnectTenantCount()"
+        :tenant-count="user.tenants?.length"
+        :tax-checked="isTaxChecked()"
       ></FileReinsurance>
 
       <section class="fr-mt-5w fr-mb-3w">
         <div class="fr-tabs">
           <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
-            <li v-for="(tenant, k) in getTenants()" v-bind:key="`li${k}`" role="presentation">
+            <li v-for="(tenant, k) in getTenants()" :key="`li${k}`" role="presentation">
               <button
                 class="fr-tabs__tab fr-tabs__tab--icon-right"
                 :class="{ 'fr-fi-icon-fc-right': tenant.franceConnect }"
@@ -45,7 +45,7 @@
           </ul>
           <div
             v-for="(tenant, k) in getTenants()"
-            v-bind:key="`t${k}`"
+            :key="`t${k}`"
             :id="`tabpanel-${k}-panel`"
             class="fr-tabs__panel"
             aria-selected="false"
@@ -60,43 +60,43 @@
                 <RowListItem
                   v-if="tenant.clarification !== undefined"
                   :label="t('tenantpanel.clarification-title')"
-                  :subLabel="tenant.clarification"
-                  :canEdit="false"
+                  :sub-label="tenant.clarification"
+                  :can-edit="false"
                 />
                 <FileRowListItem
                   :label="t('file.identification')"
                   :document="document(tenant, 'IDENTIFICATION')"
-                  :showValidated="true"
-                  :canEdit="false"
+                  :show-validated="true"
+                  :can-edit="false"
                 />
                 <FileRowListItem
                   :label="t('file.residency')"
                   :document="document(tenant, 'RESIDENCY')"
-                  :showValidated="true"
-                  :canEdit="false"
+                  :show-validated="true"
+                  :can-edit="false"
                 />
                 <FileRowListItem
                   :label="t('file.professional')"
                   :document="document(tenant, 'PROFESSIONAL')"
-                  :showValidated="true"
-                  :canEdit="false"
+                  :show-validated="true"
+                  :can-edit="false"
                 />
                 <FileRowListItem
-                  v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
-                  v-bind:key="doc.id"
-                  :label="t('file.financial') + (k >= 1 ? ' ' + (k + 1) : '')"
+                  v-for="(doc, j) in getDocs(tenant, 'FINANCIAL')"
+                  :key="doc.id"
+                  :label="t('file.financial') + (j >= 1 ? ' ' + (j + 1) : '')"
                   :document="doc"
-                  :showValidated="true"
-                  :canEdit="false"
+                  :show-validated="true"
+                  :can-edit="false"
                 />
                 <FileRowListItem
                   :label="t('file.tax')"
-                  :tagLabel="getTaxDocumentBadgeLabel(tenant)"
+                  :tag-label="getTaxDocumentBadgeLabel(tenant)"
                   :document="document(tenant, 'TAX')"
-                  :showValidated="true"
-                  :canEdit="false"
+                  :show-validated="true"
+                  :can-edit="false"
                 >
-                  <template v-slot:postTag>
+                  <template #postTag>
                     <div v-if="isTaxAuthentic(tenant)">
                       <img
                         src="../assets/images/icons/dgfip-icon.png"
@@ -112,7 +112,7 @@
                   {{ t('file.guarant') }}
                 </h2>
                 <div v-if="tenant.guarantors">
-                  <div v-for="g in tenant.guarantors" v-bind:key="g.id">
+                  <div v-for="g in tenant.guarantors" :key="g.id">
                     <ul v-if="g.typeGuarantor === 'NATURAL_PERSON'" class="without-padding">
                       <div>
                         <b>{{ UtilsService.guarantorFullName(g) }}</b>
@@ -120,37 +120,37 @@
                       <FileRowListItem
                         :label="t('file.identification')"
                         :document="document(g, 'IDENTIFICATION')"
-                        :showValidated="true"
-                        :canEdit="false"
+                        :show-validated="true"
+                        :can-edit="false"
                       />
                       <FileRowListItem
                         :label="t('file.residency')"
                         :document="document(g, 'RESIDENCY')"
-                        :showValidated="true"
-                        :canEdit="false"
+                        :show-validated="true"
+                        :can-edit="false"
                       />
                       <FileRowListItem
                         :label="t('file.professional')"
                         :document="document(g, 'PROFESSIONAL')"
-                        :showValidated="true"
-                        :canEdit="false"
+                        :show-validated="true"
+                        :can-edit="false"
                       />
                       <FileRowListItem
-                        v-for="(doc, k) in getDocs(g, 'FINANCIAL')"
-                        v-bind:key="doc.id"
-                        :label="t('file.financial') + (k >= 1 ? ' ' + (k + 1) : '')"
+                        v-for="(doc, j) in getDocs(g, 'FINANCIAL')"
+                        :key="doc.id"
+                        :label="t('file.financial') + (j >= 1 ? ' ' + (j + 1) : '')"
                         :document="doc"
-                        :showValidated="true"
-                        :canEdit="false"
+                        :show-validated="true"
+                        :can-edit="false"
                       />
                       <FileRowListItem
                         :label="t('file.tax')"
-                        :tagLabel="getTaxDocumentBadgeLabel(g)"
+                        :tag-label="getTaxDocumentBadgeLabel(g)"
                         :document="document(g, 'TAX')"
-                        :showValidated="true"
-                        :canEdit="false"
+                        :show-validated="true"
+                        :can-edit="false"
                       >
-                        <template v-slot:postTag>
+                        <template #postTag>
                           <div v-if="isTaxAuthentic(g)">
                             <img
                               src="../assets/images/icons/dgfip-icon.png"
@@ -165,22 +165,22 @@
                       <FileRowListItem
                         :label="t('file.identification-legal-person')"
                         :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
-                        :showValidated="true"
-                        :canEdit="false"
+                        :show-validated="true"
+                        :can-edit="false"
                       />
                       <FileRowListItem
                         :label="t('file.identification')"
                         :document="document(g, 'IDENTIFICATION')"
-                        :showValidated="true"
-                        :canEdit="false"
+                        :show-validated="true"
+                        :can-edit="false"
                       />
                     </ul>
                     <ul v-if="g.typeGuarantor === 'ORGANISM'" class="without-padding">
                       <FileRowListItem
                         :label="t('file.organism')"
                         :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
-                        :showValidated="true"
-                        :canEdit="false"
+                        :show-validated="true"
+                        :can-edit="false"
                       />
                     </ul>
                   </div>
@@ -223,7 +223,7 @@
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { User } from 'df-shared-next/src/models/User'
 import { FileUser } from 'df-shared-next/src/models/FileUser'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { ProfileService } from '../services/ProfileService'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import FileReinsurance from '../components/FileReinsurance.vue'
@@ -248,7 +248,7 @@ const showProgressBar = ref(false)
 const fileNotFound = ref(false)
 
 function franceConnectTenantCount() {
-  return user.value?.tenants?.filter((t) => t.franceConnect == true).length
+  return user.value?.tenants?.filter((t) => t.franceConnect).length
 }
 
 function isTaxChecked() {

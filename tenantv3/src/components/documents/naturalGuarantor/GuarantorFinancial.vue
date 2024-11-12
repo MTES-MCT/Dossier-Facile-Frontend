@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="editFinancialDocument">
-      <GuarantorFinancialDocumentForm :tenantId="tenantId"></GuarantorFinancialDocumentForm>
+      <GuarantorFinancialDocumentForm :tenant-id="tenantId"></GuarantorFinancialDocumentForm>
     </div>
     <div v-if="!editFinancialDocument">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
@@ -16,7 +16,7 @@
           @remove="removeFinancial(f)"
           :danger="guarantorFinancialDocument(f)?.documentStatus === 'DECLINED'"
         >
-          <template v-slot:tag>
+          <template #tag>
             <div class="fixed-width">
               <ColoredTag
                 :text="getDocumentName(f)"
@@ -24,7 +24,7 @@
               ></ColoredTag>
             </div>
           </template>
-          <template v-slot:text>
+          <template #text>
             <div
               class="text-bold"
               :title="t('guarantorfinancial.net-monthly')"
@@ -33,13 +33,13 @@
               {{ f.monthlySum }} {{ t('guarantorfinancial.monthly') }}
             </div>
           </template>
-          <template v-slot:bottom>
+          <template #bottom>
             <AllDeclinedMessages
               class="fr-mb-0"
               :user-id="user?.id"
               :document="f"
-              :documentDeniedReasons="documentDeniedReasons(f)"
-              :documentStatus="documentStatus(f)"
+              :document-denied-reasons="documentDeniedReasons(f)"
+              :document-status="documentStatus(f)"
             ></AllDeclinedMessages>
           </template>
         </CardRow>

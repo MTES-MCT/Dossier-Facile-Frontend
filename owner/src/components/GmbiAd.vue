@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import Button from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 
 const { t } = useI18n()
 </script>
@@ -12,7 +12,9 @@ const { t } = useI18n()
       <div>
         <h6>{{ t('gmbi-ad.title') }}</h6>
         <a href="https://cfspart.impots.gouv.fr/enp/gmbi.do">
-          <Button class="gmbi-button" :primary="true">{{ t('gmbi-ad.call-to-action') }} </Button>
+          <DfButton class="gmbi-button" :primary="true"
+            >{{ t('gmbi-ad.call-to-action') }}
+          </DfButton>
         </a>
       </div>
       <img src="../assets/logo_GMBI.svg" alt="Logo GMBI" />

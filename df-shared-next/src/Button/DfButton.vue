@@ -29,7 +29,8 @@ const props = withDefaults(
     dark: false,
     disabled: false,
     tertiary: false,
-    tertiaryNoOutline: false
+    tertiaryNoOutline: false,
+    title: undefined
   }
 )
 

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
 import useOwnerStore from '../store/owner-store'
 import i18n from '@/i18n'

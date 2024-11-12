@@ -19,9 +19,7 @@
             <div class="fr-header__service">
               <p class="fr-header__service-title">
                 <span style="font-weight: normal">Filigrane</span>Facile
-                <span class="fr-badge fr-badge--sm fr-badge--green-menthe"
-                  >BÊTA</span
-                >
+                <span class="fr-badge fr-badge--sm fr-badge--green-menthe">BÊTA</span>
               </p>
             </div>
           </div>
@@ -34,8 +32,7 @@
                     href="https://www.dossierfacile.logement.gouv.fr/?mtm_campaign=filigranefacile"
                     target="_blank"
                   >
-                    Vous constituez un dossier de location ? Essayez
-                    DossierFacile
+                    Vous constituez un dossier de location ? Essayez DossierFacile
                   </a>
                 </li>
               </ul>
@@ -46,5 +43,3 @@
     </div>
   </header>
 </template>
-
-<style scoped lang="scss"></style>

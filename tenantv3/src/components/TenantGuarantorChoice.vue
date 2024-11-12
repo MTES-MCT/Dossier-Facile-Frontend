@@ -21,8 +21,8 @@
           </div>
 
           <GuarantorTypeSelector
-            :localStorageKey="`cotenantGuarantorType_${tenantId}`"
-            :isCotenant="isCotenant"
+            :local-storage-key="`cotenantGuarantorType_${tenantId}`"
+            :is-cotenant="isCotenant"
             @selected="tmpGuarantorType = $event"
           >
           </GuarantorTypeSelector>
@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
 import GuarantorFooter from './footer/GuarantorFooter.vue'

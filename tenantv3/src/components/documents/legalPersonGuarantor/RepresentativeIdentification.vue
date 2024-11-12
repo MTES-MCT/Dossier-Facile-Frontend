@@ -58,8 +58,8 @@
             class="fr-mb-3w"
             :user-id="user?.id"
             :document="guarantorIdentificationDocument()"
-            :documentDeniedReasons="documentDeniedReasons"
-            :documentStatus="documentStatus"
+            :document-denied-reasons="documentDeniedReasons"
+            :document-status="documentStatus"
           ></AllDeclinedMessages>
           <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
             <ListItem

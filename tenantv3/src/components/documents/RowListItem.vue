@@ -32,8 +32,10 @@
 
 <script setup lang="ts">
 import { RiPencilLine } from '@remixicon/vue'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
+
+defineEmits<{ 'click-edit': [] }>()
 
 const props = withDefaults(
   defineProps<{
@@ -42,7 +44,8 @@ const props = withDefaults(
     canEdit?: boolean
   }>(),
   {
-    canEdit: false
+    canEdit: false,
+    subLabel: undefined
   }
 )
 

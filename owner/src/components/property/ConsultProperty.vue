@@ -15,7 +15,7 @@
           <div class="title">{{ name }}</div>
           <div class="spacer"></div>
           <VGouvFrModal id="share-modal">
-            <template v-slot:button>
+            <template #button>
               <button
                 :title="t('consultproperty.share-btn')"
                 class="fr-btn btn--white fr-btn--secondary"
@@ -24,10 +24,10 @@
                 {{ t('consultproperty.share-btn') }}
               </button>
             </template>
-            <template v-slot:title>
+            <template #title>
               {{ t('consultproperty.share-modal-title') }}
             </template>
-            <template v-slot:content>
+            <template #content>
               <p>
                 {{ t('consultproperty.share-modal-description') }}
               </p>
@@ -119,7 +119,7 @@
                 <div
                   class="arrow"
                   v-if="'lastUpdateDate' == sortColumn"
-                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                  :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
               <th @click="sortTable('tenantName')">
@@ -127,7 +127,7 @@
                 <div
                   class="arrow"
                   v-if="'tenantName' == sortColumn"
-                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                  :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
               <th @click="sortTable('tenantType')" class="desktop">
@@ -135,7 +135,7 @@
                 <div
                   class="arrow"
                   v-if="'tenantType' == sortColumn"
-                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                  :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
               <th @click="sortTable('tenantSalary')">
@@ -143,7 +143,7 @@
                 <div
                   class="arrow"
                   v-if="'tenantSalary' == sortColumn"
-                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                  :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
               <th @click="sortTable('guarantorSalary')" class="desktop">
@@ -151,7 +151,7 @@
                 <div
                   class="arrow"
                   v-if="'guarantorSalary' == sortColumn"
-                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                  :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
               <th @click="sortTable('rate')">
@@ -159,7 +159,7 @@
                 <div
                   class="arrow"
                   v-if="'rate' == sortColumn"
-                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                  :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
               <th @click="sortTable('status')">
@@ -167,7 +167,7 @@
                 <div
                   class="arrow"
                   v-if="'status' == sortColumn"
-                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                  :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
             </tr>

@@ -1,7 +1,7 @@
 import * as VueRouter from 'vue-router'
 import { useCookies } from 'vue3-cookies'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
-import Dashboard from '../components/Dashboard.vue'
+import Dashboard from '../components/DashboardPage.vue'
 import LandingPage from '../components/LandingPage.vue'
 import useOwnerStore from '../store/owner-store'
 import keycloak from '../plugin/keycloak'
@@ -100,7 +100,7 @@ const routes = [
       requiresAuth: true,
       hasFooter: false
     },
-    component: () => import('../components/account/Account.vue')
+    component: () => import('../components/account/AccountPage.vue')
   },
   {
     path: '/consulte-propriete/:id',

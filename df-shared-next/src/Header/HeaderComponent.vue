@@ -164,7 +164,7 @@ import {
   RiHomeHeartLine,
   RiUserStarLine
 } from '@remixicon/vue'
-import DfButton from '../Button/Button.vue'
+import DfButton from '../Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

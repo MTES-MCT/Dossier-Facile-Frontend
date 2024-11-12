@@ -60,8 +60,8 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
-        :documentDeniedReasons="documentDeniedReasons"
-        :documentStatus="documentStatus"
+        :document-denied-reasons="documentDeniedReasons"
+        :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem v-for="(file, k) in taxFiles()" :key="k" :file="file" @remove="remove(file)" />
@@ -83,7 +83,7 @@
       v-if="isWarningTaxSituationModalVisible"
       @close="isWarningTaxSituationModalVisible = false"
     >
-      <template v-slot:body>
+      <template #body>
         <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
           <h1 class="avis-title fr-h4 display--flex align-items--center">
             <RiAlarmWarningLine class="bold-icon fr-mr-1w" />
@@ -122,7 +122,7 @@ import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { RegisterService } from '../../../services/RegisterService'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import ProfileFooter from '../../footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
@@ -130,7 +130,7 @@ import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { cloneDeep } from 'lodash'
 import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
-import Modal from 'df-shared-next/src/components/Modal.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import WarningTaxDeclaration from '../../../components/documents/share/WarningTaxDeclaration.vue'
 import { UtilsService } from '../../../services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'

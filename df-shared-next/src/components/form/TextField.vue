@@ -9,7 +9,7 @@
           v-if="!textarea"
           :name="name"
           :value="modelValue"
-          v-on:input="updateModel($event)"
+          @input="updateModel($event)"
           v-slot="{ field, meta }"
           :rules="getValidationRules()"
         >
@@ -32,7 +32,7 @@
           v-else
           :name="name"
           :value="modelValue"
-          v-on:input="updateModel($event)"
+          @input="updateModel($event)"
           v-slot="{ field, meta }"
           :rules="{
             required: true

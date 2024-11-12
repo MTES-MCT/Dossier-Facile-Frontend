@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import Artwork from 'df-shared-next/src/components/Artwork.vue'
+import Artwork from 'df-shared-next/src/components/ArtworkImage.vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 </script>

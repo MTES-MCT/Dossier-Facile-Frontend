@@ -1,7 +1,7 @@
 <template>
   <form name="form" @submit.prevent="validDelete">
     <Modal @close="undoSelect()" id="modal-delete-account">
-      <template v-slot:header>
+      <template #header>
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <h4 class="fr-col-10 title">
@@ -11,7 +11,7 @@
           </div>
         </div>
       </template>
-      <template v-slot:body>
+      <template #body>
         <div class="fr-container min-w">
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-10">
@@ -39,8 +39,8 @@
 </template>
 
 <script setup lang="ts">
-import Modal from 'df-shared-next/src/components/Modal.vue'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 import { useToast } from 'vue-toastification'
 import UtilsService from '../services/UtilsService'

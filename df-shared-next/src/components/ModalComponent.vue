@@ -1,34 +1,32 @@
 <template>
-  <transition name="modal-fade">
-    <div class="modal-backdrop">
-      <div
-        class="modal fr-pt-2w"
-        role="dialog"
-        aria-labelledby="modalTitle"
-        :aria-describedby="descriptionId"
+  <div class="modal-backdrop">
+    <div
+      class="modal fr-pt-2w"
+      role="dialog"
+      aria-labelledby="modalTitle"
+      :aria-describedby="descriptionId"
+    >
+      <button
+        class="fr-btn--close fr-btn fr-mr-1w"
+        title="Fermer la fenêtre modale"
+        aria-label="Fermer la fenêtre modale"
+        @click="close()"
+        type="button"
       >
-        <button
-          class="fr-btn--close fr-btn fr-mr-1w"
-          title="Fermer la fenêtre modale"
-          aria-label="Fermer la fenêtre modale"
-          @click="close()"
-          type="button"
-        >
-          Fermer
-        </button>
-        <header class="modal-header" id="modalTitle">
-          <slot name="header"><span style="visibility: hidden">title</span></slot>
-        </header>
-        <section class="modal-body" :id="descriptionId">
-          <slot name="body"> </slot>
-        </section>
-        <!-- TODO add  v-if="!!this.$slots['footer']" -->
-        <footer class="modal-footer">
-          <slot name="footer"> </slot>
-        </footer>
-      </div>
+        Fermer
+      </button>
+      <header class="modal-header" id="modalTitle">
+        <slot name="header"><span style="visibility: hidden">title</span></slot>
+      </header>
+      <section class="modal-body" :id="descriptionId">
+        <slot name="body"> </slot>
+      </section>
+      <!-- TODO add  v-if="!!this.$slots['footer']" -->
+      <footer class="modal-footer">
+        <slot name="footer"> </slot>
+      </footer>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script setup lang="ts">

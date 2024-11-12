@@ -47,7 +47,8 @@ const props = withDefaults(
     small: false,
     large: false,
     fullWidth: false,
-    btnType: 'submit'
+    btnType: 'submit',
+    ariaLabel: undefined
   }
 )
 const emit = defineEmits<{ click: [event: MouseEvent] }>()
