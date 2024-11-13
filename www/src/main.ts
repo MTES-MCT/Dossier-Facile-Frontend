@@ -5,7 +5,7 @@ import { ViteSSG } from 'vite-ssg'
 import App from './App.vue'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 import * as Sentry from '@sentry/vue'
-import CrispPlugin from './plugin/crisp'
+import { CrispPlugin } from 'df-shared-next/src/plugin/crisp'
 
 import routes from './router/index'
 import { BrowserTracing } from '@sentry/browser'

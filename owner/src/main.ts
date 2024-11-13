@@ -12,7 +12,7 @@ import i18n from './i18n'
 import 'vue-toastification/dist/index.css'
 import keycloak from './plugin/keycloak'
 import MatomoPlugin from './plugin/matomo'
-import CrispPlugin from './plugin/crisp'
+import { CrispPlugin } from 'df-shared-next/src/plugin/crisp'
 
 const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED

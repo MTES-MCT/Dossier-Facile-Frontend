@@ -2,16 +2,24 @@ import type { App } from 'vue'
 
 declare global {
   interface Window {
-    $crisp: unknown[]
+    $crisp: unknown[] & { is?: (method: string) => boolean }
     CRISP_WEBSITE_ID: string
   }
 }
 
-export default {
+export const CrispPlugin = {
   install(app: App, options: { websiteId: string }) {
     window.$crisp = [
       ['safe', true],
-      ['on', 'chat:opened', () => window.$crisp.push(['do', 'helpdesk:search'])]
+      [
+        'on',
+        'chat:opened',
+        () => {
+          if (!window.$crisp.is?.('session:ongoing')) {
+            window.$crisp.push(['do', 'helpdesk:search'])
+          }
+        }
+      ]
     ]
     window.CRISP_WEBSITE_ID = options.websiteId
 
