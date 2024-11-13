@@ -13,7 +13,8 @@ const props = withDefaults(
     forInput?: string
   }>(),
   {
-    required: false
+    required: false,
+    forInput: undefined
   }
 )
 </script>

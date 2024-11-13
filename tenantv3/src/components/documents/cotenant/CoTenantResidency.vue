@@ -1,19 +1,19 @@
 <template>
   <div>
     <DocumentDownloader
-      :coTenantId="coTenantId"
-      :documentsDefinitions="documentsDefinitions"
-      documentCategory="RESIDENCY"
-      listType="dropDownList"
-      dispatchMethodName="saveTenantResidency"
-      typeDocument="typeDocumentResidency"
-      :showDownloader="showDownloader"
+      :co-tenant-id="coTenantId"
+      :documents-definitions="documentsDefinitions"
+      document-category="RESIDENCY"
+      list-type="dropDownList"
+      dispatch-method-name="saveTenantResidency"
+      type-document="typeDocumentResidency"
+      :show-downloader="showDownloader"
       @on-change-document="changeDocument"
     >
-      <template v-slot:title>
+      <template #title>
         {{ t('cotenantresidency.title') }}
       </template>
-      <template v-slot:after-select-block>
+      <template #after-select-block>
         <NakedCard
           class="fr-p-md-5w fr-mb-3w fr-mt-3w"
           v-if="documentType.key === 'other-residency'"
@@ -55,7 +55,7 @@
     </DocumentDownloader>
     <FooterContainer>
       <BackNext
-        :showBack="true"
+        :show-back="true"
         @on-next="(documentType.key !== 'other-residency' || !invalidCustomText) && goNext()"
         @on-back="goBack()"
       >

@@ -31,8 +31,8 @@
         class="fr-mb-3w"
         :user-id="user?.id"
         :document="guarantorIdentificationDocument()"
-        :documentDeniedReasons="documentDeniedReasons"
-        :documentStatus="documentStatus"
+        :document-denied-reasons="documentDeniedReasons"
+        :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="identificationFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
@@ -90,6 +90,7 @@ const props = withDefaults(
     isCotenant?: boolean
   }>(),
   {
+    tenantId: undefined,
     isCotenant: false
   }
 )
@@ -117,10 +118,10 @@ const documentStatus = computed(() => {
   return guarantorIdentificationDocument()?.documentStatus
 })
 
-function guarantorIdentificationDocument(): DfDocument {
+function guarantorIdentificationDocument(): DfDocument | undefined {
   const doc = selectedGuarantor.value?.documents?.find((d: DfDocument) => {
     return d.documentCategory === 'IDENTIFICATION'
-  }) as DfDocument
+  })
   return doc
 }
 

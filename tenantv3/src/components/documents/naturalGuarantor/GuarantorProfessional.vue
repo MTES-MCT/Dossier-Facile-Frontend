@@ -40,8 +40,8 @@
         class="fr-mb-3w"
         :user-id="user?.id"
         :document="guarantorProfessionalDocument()"
-        :documentDeniedReasons="documentDeniedReasons"
-        :documentStatus="documentStatus"
+        :document-denied-reasons="documentDeniedReasons"
+        :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem

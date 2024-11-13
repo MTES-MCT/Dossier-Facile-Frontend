@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import MyButton from '../../../df-shared-next/src/Button/Button.vue';
+import MyButton from '../../../df-shared-next/src/Button/DfButton.vue';
 
 const meta = {
   title: 'DossierFacile/Button',
@@ -9,12 +9,12 @@ const meta = {
   render: (args) => ({
     components: { MyButton },
     setup() {
-        return { args }
+      return { args };
     },
     template: `
       <MyButton v-bind="args">{{ args.title }}</MyButton>
-    `
-  })
+    `,
+  }),
 } satisfies Meta<typeof MyButton>;
 
 export default meta;

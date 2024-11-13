@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { AuthService } from 'df-shared-next/src/services/AuthService'
+import { AuthService } from '@/services/AuthService'
 import { useRouter, useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'

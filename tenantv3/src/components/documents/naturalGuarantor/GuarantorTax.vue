@@ -59,8 +59,8 @@
         class="fr-mb-3w"
         :user-id="user?.id"
         :document="guarantorTaxDocument()"
-        :documentDeniedReasons="documentDeniedReasons"
-        :documentStatus="documentStatus"
+        :document-denied-reasons="documentDeniedReasons"
+        :document-status="documentStatus"
       ></AllDeclinedMessages>
       <WarningTaxDeclaration />
 
@@ -83,7 +83,7 @@
       v-if="isWarningTaxSituationModalVisible"
       @close="isWarningTaxSituationModalVisible = false"
     >
-      <template v-slot:body>
+      <template #body>
         <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
           <h1 class="avis-title fr-h4 display--flex align-items--center">
             <RiAlarmWarningLine class="bold-icon fr-mr-1w" />
@@ -129,8 +129,8 @@ import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedR
 import { cloneDeep } from 'lodash'
 import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
 import { AnalyticsService } from '../../../services/AnalyticsService'
-import Modal from 'df-shared-next/src/components/Modal.vue'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import WarningTaxDeclaration from '@/components/documents/share/WarningTaxDeclaration.vue'
 import { UtilsService } from '@/services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
@@ -159,6 +159,7 @@ const props = withDefaults(
     isCotenant?: boolean
   }>(),
   {
+    tenantId: undefined,
     isCotenant: false
   }
 )

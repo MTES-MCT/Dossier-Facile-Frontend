@@ -76,13 +76,13 @@
             {{ t('coupleinformation.partner-email-title') }}
           </h1>
           <v-gouv-fr-modal>
-            <template v-slot:button>
+            <template #button>
               <span class="small-font">{{ t('coupleinformation.more-information') }}</span>
             </template>
-            <template v-slot:title>
+            <template #title>
               {{ t('coupleinformation.more-information') }}
             </template>
-            <template v-slot:content>
+            <template #content>
               <p>
                 <CoupleInformationHelp></CoupleInformationHelp>
               </p>

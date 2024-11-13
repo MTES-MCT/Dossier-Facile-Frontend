@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import useTenantStore from '../../stores/tenant-store'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'

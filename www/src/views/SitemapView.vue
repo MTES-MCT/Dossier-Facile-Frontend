@@ -8,20 +8,20 @@
               <h1>Plan du site</h1>
               <p><i>Dossier</i><b>Facile</b>, le dossier de location numérique de l’État.</p>
 
-              <h2 v-for="page in mainPages" v-bind:key="page.url" class="fr-h4">
+              <h2 v-for="page in mainPages" :key="page.url" class="fr-h4">
                 <a :href="page.url">{{ page.name }}</a>
               </h2>
 
               <h2 class="fr-h4">Autres pages</h2>
               <ul>
-                <li v-for="page in otherPages" v-bind:key="page.url">
+                <li v-for="page in otherPages" :key="page.url">
                   <a :href="page.url">{{ page.name }}</a>
                 </li>
               </ul>
 
               <h2 class="fr-mt-3w fr-h4">Réseaux sociaux</h2>
               <ul>
-                <li v-for="social in socials" v-bind:key="social.name">
+                <li v-for="social in socials" :key="social.name">
                   <a :href="social.url">{{ social.name }}</a>
                 </li>
               </ul>

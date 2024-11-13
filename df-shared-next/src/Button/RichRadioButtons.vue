@@ -3,7 +3,7 @@
     <legend class="fr-fieldset__legend">
       <slot></slot>
     </legend>
-    <div v-for="element in elements" v-bind:key="element.id" class="fr-fieldset__element">
+    <div v-for="element in elements" :key="element.id" class="fr-fieldset__element">
       <div class="fr-radio-group fr-radio-rich">
         <input
           :id="element.id"
@@ -22,7 +22,7 @@
           <div class="icon-container">
             <span
               v-for="i in getIconCount(element)"
-              v-bind:key="i"
+              :key="i"
               :class="element.iconClass + ' fr-icon--lg'"
               aria-hidden="true"
             ></span>

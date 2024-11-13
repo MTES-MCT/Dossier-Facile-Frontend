@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import Modal from 'df-shared-next/src/components/Modal.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import { ref } from 'vue'
 import { User } from 'df-shared-next/src/models/User'
 import { useToast } from 'vue-toastification'
-import Register from './account/Register.vue'
+import RegisterComponent from './account/RegisterComponent.vue'
 import useOwnerStore from '../store/owner-store'
 
 const { t } = useI18n()
@@ -76,12 +76,12 @@ function onRegister(user: User) {
           </router-link>
         </div>
         <div class="margin-auto max-400">
-          <Register @on-register="onRegister" />
+          <RegisterComponent @on-register="onRegister" />
         </div>
       </div>
     </div>
     <Modal v-show="isValidModalVisible" @close="closeModal">
-      <template v-slot:body>
+      <template #body>
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">

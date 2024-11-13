@@ -67,7 +67,7 @@ import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import useOwnerStore from '../../store/owner-store'
 import PropertyContainer from './PropertyContainer.vue'
 

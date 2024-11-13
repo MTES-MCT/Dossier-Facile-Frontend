@@ -2,9 +2,9 @@
   <div>
     <div v-if="editFinancialDocument">
       <CoTenantFinancialForm
-        :coTenantId="coTenantId"
+        :co-tenant-id="coTenantId"
         v-model="financialDocument"
-        :allowNoIncome="allowNoIncome()"
+        :allow-no-income="allowNoIncome()"
         @on-edit="setEditFinancialDocument"
         @on-next="goNext"
         @on-back="goBack"
@@ -23,12 +23,12 @@
           @remove="removeFinancial(f)"
           :danger="documentStatus(f) === 'DECLINED'"
         >
-          <template v-slot:tag>
+          <template #tag>
             <div class="fixed-width">
               <ColoredTag :text="getDocumentName(f)" :status="documentStatus(f)"></ColoredTag>
             </div>
           </template>
-          <template v-slot:text>
+          <template #text>
             <div
               class="text-bold"
               :class="{ declined: documentStatus(f) }"
@@ -38,11 +38,11 @@
               {{ f.monthlySum }} {{ t('cotenantfinanciallist.monthly') }}
             </div>
           </template>
-          <template v-slot:bottom>
+          <template #bottom>
             <AllDeclinedMessages
               class="fr-mb-3w"
-              :documentDeniedReasons="documentDeniedReasons(f)"
-              :documentStatus="documentStatus(f)"
+              :document-denied-reasons="documentDeniedReasons(f)"
+              :document-status="documentStatus(f)"
             ></AllDeclinedMessages>
           </template>
         </CardRow>
@@ -153,9 +153,10 @@ function initialize() {
   tenantOriginalDocuments.value = getOriginalDocuments()
   tenantFinancialDocuments.value = getTenantFinancialDocuments(tenantOriginalDocuments.value)
   if (hasNoIncome(tenantFinancialDocuments.value)) {
-    financialDocument.value = tenantFinancialDocuments.value.find((f) => {
-      return f.documentType && f.documentType.key === 'no-income'
-    }) as FinancialDocument
+    financialDocument.value =
+      tenantFinancialDocuments.value.find((f) => {
+        return f.documentType && f.documentType.key === 'no-income'
+      }) || new FinancialDocument()
   } else {
     financialDocument.value = new FinancialDocument()
     editFinancialDocument.value = !hasFinancial()

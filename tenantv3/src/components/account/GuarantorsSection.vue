@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="guarantors.length > 0" class="main-guarantor-information">
-      <div v-for="g in guarantors" v-bind:key="g.id">
+      <div v-for="g in guarantors" :key="g.id">
         <hr />
         <div class="inline-block-flex item-action">
           <h4>
@@ -19,53 +19,53 @@
             <FileRowListItem
               :label="t('guarantorssection.identification')"
               :document="document(g, 'IDENTIFICATION')"
-              @clickEdit="setGuarantorSubStep(1, g)"
-              :canEdit="canEdit"
-              :enableDownload="enableDownload"
+              @click-edit="setGuarantorSubStep(1, g)"
+              :can-edit="canEdit"
+              :enable-download="enableDownload"
             />
             <FileRowListItem
               :label="t('guarantorssection.residency')"
               :document="document(g, 'RESIDENCY')"
-              @clickEdit="setGuarantorSubStep(2, g)"
-              :canEdit="canEdit"
-              :enableDownload="enableDownload"
+              @click-edit="setGuarantorSubStep(2, g)"
+              :can-edit="canEdit"
+              :enable-download="enableDownload"
             />
             <FileRowListItem
               :label="t('guarantorssection.professional')"
               :document="document(g, 'PROFESSIONAL')"
-              @clickEdit="setGuarantorSubStep(3, g)"
-              :canEdit="canEdit"
-              :enableDownload="enableDownload"
+              @click-edit="setGuarantorSubStep(3, g)"
+              :can-edit="canEdit"
+              :enable-download="enableDownload"
             />
             <span v-if="documents(g, 'FINANCIAL').length > 1">
               <FileRowListItem
                 v-for="(doc, k) in documents(g, 'FINANCIAL')"
-                v-bind:key="doc.id"
+                :key="doc.id"
                 :label="
                   t('guarantorssection.financial') +
                   (' ' + (k + 1) + ' - ') +
                   t('documents.subcategory.' + doc.documentSubCategory)
                 "
                 :document="doc"
-                @clickEdit="setGuarantorSubStep(4, g)"
-                :canEdit="canEdit"
-                :enableDownload="enableDownload"
+                @click-edit="setGuarantorSubStep(4, g)"
+                :can-edit="canEdit"
+                :enable-download="enableDownload"
               />
             </span>
             <FileRowListItem
               v-else
               :label="t('guarantorssection.financial')"
               :document="document(g, 'FINANCIAL')"
-              @clickEdit="setGuarantorSubStep(4, g)"
-              :canEdit="canEdit"
-              :enableDownload="enableDownload"
+              @click-edit="setGuarantorSubStep(4, g)"
+              :can-edit="canEdit"
+              :enable-download="enableDownload"
             />
             <FileRowListItem
               :label="t('guarantorssection.tax')"
               :document="document(g, 'TAX')"
-              @clickEdit="setGuarantorSubStep(5, g)"
-              :canEdit="canEdit"
-              :enableDownload="enableDownload"
+              @click-edit="setGuarantorSubStep(5, g)"
+              :can-edit="canEdit"
+              :enable-download="enableDownload"
             />
           </ul>
         </div>
@@ -74,9 +74,9 @@
             <FileRowListItem
               :label="t('guarantorssection.organism-identification')"
               :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
-              @clickEdit="setGuarantorSubStep(1, g)"
-              :canEdit="canEdit"
-              :enableDownload="enableDownload"
+              @click-edit="setGuarantorSubStep(1, g)"
+              :can-edit="canEdit"
+              :enable-download="enableDownload"
             />
           </ul>
         </div>
@@ -85,18 +85,18 @@
             <FileRowListItem
               :label="t('guarantorssection.identification-legal-person')"
               :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
-              @clickEdit="setGuarantorSubStep(0, g)"
-              :canEdit="canEdit"
-              :enableDownload="enableDownload"
+              @click-edit="setGuarantorSubStep(0, g)"
+              :can-edit="canEdit"
+              :enable-download="enableDownload"
             />
           </ul>
           <ul class="without-padding">
             <FileRowListItem
               :label="t('guarantorssection.identity-represent')"
               :document="document(g, 'IDENTIFICATION')"
-              @clickEdit="setGuarantorSubStep(1, g)"
-              :canEdit="canEdit"
-              :enableDownload="enableDownload"
+              @click-edit="setGuarantorSubStep(1, g)"
+              :can-edit="canEdit"
+              :enable-download="enableDownload"
             />
           </ul>
         </div>
@@ -179,13 +179,14 @@ const props = withDefaults(
     enableDownload?: boolean
   }>(),
   {
+    tenant: undefined,
     canEdit: false,
     enableDownload: false
   }
 )
 
 const user = computed(() => store.user)
-const guarantors = ref([] as Guarantor[])
+const guarantors = ref<Guarantor[]>([])
 const showConfirmModal = ref(false)
 let selectedGuarantor: Guarantor | undefined
 
@@ -193,7 +194,7 @@ const { t } = useI18n()
 
 onBeforeMount(() => {
   if (props.tenant?.guarantors !== undefined) {
-    guarantors.value = props.tenant.guarantors as Guarantor[]
+    guarantors.value = props.tenant.guarantors
   }
 })
 
@@ -216,9 +217,11 @@ function document(g: Guarantor, s: string) {
 }
 
 function documents(g: Guarantor, docType: string): DfDocument[] {
-  return g.documents?.filter((d: DfDocument) => {
-    return d.documentCategory === docType
-  }) as DfDocument[]
+  return (
+    g.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === docType
+    }) || []
+  )
 }
 
 async function setGuarantorSubStep(n: number, g: Guarantor) {
@@ -257,7 +260,7 @@ function setAddGuarantorStep() {
               step: '5',
               substep: '0',
               tenantId: props.tenant.id.toString(),
-              guarantorId: g.id?.toString() as string
+              guarantorId: g.id?.toString()
             }
           })
         })

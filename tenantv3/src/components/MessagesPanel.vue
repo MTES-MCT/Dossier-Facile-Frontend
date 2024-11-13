@@ -9,7 +9,7 @@
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && hasFile('IDENTIFICATION')"
+                    :can-view="!isCotenant && hasFile('IDENTIFICATION')"
                     @view="openDoc('IDENTIFICATION')"
                     @edit="setTenantStep(1)"
                   ></ViewEditBtn>
@@ -20,7 +20,7 @@
                 <div class="subtitle">Justificatif de situation d'hébergement</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && hasFile('RESIDENCY')"
+                    :can-view="!isCotenant && hasFile('RESIDENCY')"
                     @view="openDoc('RESIDENCY')"
                     @edit="setTenantStep(2)"
                   ></ViewEditBtn>
@@ -31,7 +31,7 @@
                 <div class="subtitle">Justificatif de situation professionnelle</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && hasFile('PROFESSIONAL')"
+                    :can-view="!isCotenant && hasFile('PROFESSIONAL')"
                     @view="openDoc('PROFESSIONAL')"
                     @edit="setTenantStep(3)"
                   ></ViewEditBtn>
@@ -42,7 +42,7 @@
                 <div class="subtitle">Justificatif de ressources</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && hasFile('FINANCIAL')"
+                    :can-view="!isCotenant && hasFile('FINANCIAL')"
                     @view="openDoc('FINANCIAL')"
                     @edit="setTenantStep(4)"
                   ></ViewEditBtn>
@@ -53,7 +53,7 @@
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && hasFile('TAX')"
+                    :can-view="!isCotenant && hasFile('TAX')"
                     @view="openDoc('TAX')"
                     @edit="setTenantStep(5)"
                   >
@@ -65,7 +65,7 @@
           </div>
         </NakedCard>
 
-        <div v-for="g in guarantors()" v-bind:key="g.id">
+        <div v-for="g in guarantors()" :key="g.id">
           <NakedCard v-if="g.typeGuarantor === 'NATURAL_PERSON'" class="fr-mt-3w fr-mb-2w">
             <div class="boxed boxed--lg boxed--border">
               <h5>Les documents du garant</h5>
@@ -74,7 +74,7 @@
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && guarantorHasFile(g, 'IDENTIFICATION')"
+                    :can-view="!isCotenant && guarantorHasFile(g, 'IDENTIFICATION')"
                     @view="openGuarantorDoc(g, 'IDENTIFICATION')"
                     @edit="setGuarantorSubStep(1, g)"
                   ></ViewEditBtn>
@@ -87,7 +87,7 @@
                 <div class="subtitle">Justificatif de situation d'hébergement</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && guarantorHasFile(g, 'RESIDENCY')"
+                    :can-view="!isCotenant && guarantorHasFile(g, 'RESIDENCY')"
                     @view="guarantorHasFile(g, 'RESIDENCY')"
                     @edit="setGuarantorSubStep(2, g)"
                   ></ViewEditBtn>
@@ -98,7 +98,7 @@
                 <div class="subtitle">Justificatif de situation professionnelle</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && guarantorHasFile(g, 'PROFESSIONAL')"
+                    :can-view="!isCotenant && guarantorHasFile(g, 'PROFESSIONAL')"
                     @view="guarantorHasFile(g, 'PROFESSIONAL')"
                     @edit="setGuarantorSubStep(3, g)"
                   ></ViewEditBtn>
@@ -109,7 +109,7 @@
                 <div class="subtitle">Justificatif de ressources</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && guarantorHasFile(g, 'FINANCIAL')"
+                    :can-view="!isCotenant && guarantorHasFile(g, 'FINANCIAL')"
                     @view="guarantorHasFile(g, 'FINANCIAL')"
                     @edit="setGuarantorSubStep(4, g)"
                   ></ViewEditBtn>
@@ -120,7 +120,7 @@
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && guarantorHasFile(g, 'TAX')"
+                    :can-view="!isCotenant && guarantorHasFile(g, 'TAX')"
                     @view="openGuarantorDoc(g, 'TAX')"
                     @edit="setGuarantorSubStep(5, g)"
                   ></ViewEditBtn>
@@ -137,7 +137,7 @@
                 <div class="subtitle">{{ t('messagespanel.organism') }}</div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && guarantorHasFile(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
+                    :can-view="!isCotenant && guarantorHasFile(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                     @view="openGuarantorDoc(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                     @edit="setGuarantorSubStep(1, g)"
                   >
@@ -158,7 +158,7 @@
                 </div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')"
+                    :can-view="!isCotenant && guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')"
                     @view="openGuarantorDoc(g, 'IDENTIFICATION_LEGAL_PERSON')"
                     @edit="setGuarantorSubStep(0, g)"
                   >
@@ -174,7 +174,7 @@
                 </div>
                 <div class="row align--center">
                   <ViewEditBtn
-                    :canView="!isCotenant && guarantorHasFile(g, 'IDENTIFICATION')"
+                    :can-view="!isCotenant && guarantorHasFile(g, 'IDENTIFICATION')"
                     @view="openGuarantorDoc(g, 'IDENTIFICATION')"
                     @edit="setGuarantorSubStep(1, g)"
                   ></ViewEditBtn>
@@ -267,11 +267,11 @@
       </div>
     </div>
     <Modal v-if="isDocModalVisible" @close="isDocModalVisible = false">
-      <template v-slot:body>
+      <template #body>
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
-              <div v-for="f in files" v-bind:key="f.id">
+              <div v-for="f in files" :key="f.id">
                 <ShowDoc :file="f"></ShowDoc>
               </div>
             </div>
@@ -287,7 +287,7 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import FileStatusIcon from 'df-shared-next/src/components/FileStatusIcon.vue'
 import { DocumentService } from '../services/DocumentService'
 import { DfFile } from 'df-shared-next/src/models/DfFile'
-import Modal from 'df-shared-next/src/components/Modal.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import ShowDoc from '../components/documents/share/ShowDoc.vue'
 import { User } from 'df-shared-next/src/models/User'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'

@@ -163,7 +163,8 @@
         "salary": "salary",
         "scholarship": "<p>Thank you for adding one of the following documents here:</p><ul><li>your <strong>student card</strong></li><li>a <strong>certificate of enrollment</strong></li></ul><p>The document must include your name, the name of the institution, and the current academic year.</p>",
         "unemployed": "<p>Thank you for adding one of the following documents:</p><ul><li>An unemployment situation notice (Pôle emploi⁽¹⁾) issued within the last 3 months</li><li>A certificate of eligibility for unemployment benefits (ARE)</li></ul><p>⁽¹⁾ Learn <a href='https://www.pole-emploi.fr/candidat/vos-services-en-ligne/les-pas-a-pas-les-videos-qui-vou/comment-obtenir-une-attestation.html' target='_blank' rel='noopener'>how to obtain your unemployment situation notice</a> on the Pôle emploi website.</p>",
-        "student": "<p>Thank you for adding one of the following documents:</p><ul><li>Your student card</li><li>A certificate of enrollment</li><li>The ParcoursSup registration certificate</li></ul><p>The document must include your name, the name of the institution, and the current academic year.</p>"
+        "student": "<p>Thank you for adding one of the following documents:</p><ul><li>Your student card</li><li>A certificate of enrollment</li><li>The ParcoursSup registration certificate</li></ul><p>The document must include your name, the name of the institution, and the current academic year.</p>",
+        "no-activity": "<p>If you are disabled and receive the disabled adults' allowance (AAH), please add here <strong>a disability pension payment attestation</strong>⁽¹⁾ from the CAF less than 3 months old.</p><p>⁽¹⁾ find out how to obtain a <a href='https://www.ameli.fr/roubaix-tourcoing/assure/adresses-et-contacts/l-obtention-d-un-document/obtenir-une-attestation/obtenir-une-attestation-de-paiement-de-pension-d-invalidite-ou-de-rente' target='_blank' rel='noopener'>payment certificate from the CAF</a>.</p><p>If you're unemployed and don't receive any income, you can add a <strong>sworn statement</strong> explaining your situation here.</p><p>Tip: you can use this <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>model of sworn statement</a></p>"
       },
       "guarantor_salary": "I add the three latest salary slips from my guarantor, an employer's attestation, proof of payment of internship allowances, a financial statement, or a tax assessment in their name, complete and issued within the last 2 years.",
       "guest": "Please add <strong>a solemn declaration</strong> of free accommodation (we recommend using the attestation template available on the <a target='_blank' rel='noopener' title='site to generate an attestation' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a> website).",
@@ -304,9 +305,7 @@
   },
   "account": {
     "title": {
-      "alone": "Hello {0},<br/>your file {1}!",
-      "group": "Hello {0},<br/>your file {1}!",
-      "couple": "Hello {0},<br/>your couple file {1}!"
+      "dashboard": "Dashboard"
     },
     "last-update": "Last update of the file on {0}",
     "file-update-title": "Update your file",
@@ -338,6 +337,8 @@
     },
     "share-file": "Share my file",
     "share-file-description": "Copy your file link to share it! It's up to you to send it to the landlords or property owners of your choice (by email, SMS, etc.)",
+    "share-file-button": "Share your file",
+    "share-file-view-button": "View your file",
     "file-resume": "Share my summary file <br>(without supporting documents)",
     "file-full": "Share my complete file<br>(with supporting documents)",
     "copy": "Copy",
@@ -365,9 +366,9 @@
     "amendment-required-title": "Requested modifications",
     "amendment-required-text": "After reviewing your file, modifications are requested. <br>Check your messages for details.",
     "messaging": "Check my messages",
-    "congratulations-title": "🎉 Congratulations! Your DossierFacile is available!",
-    "congratulations-text-1": "To apply for the housing of your dreams, share your file with a landlord of your choice, with or without supporting documents, either by email by entering their email address in the section \"Share my file\" below, or by link by sending your DossierFacile link by email, SMS, etc. to the landlords of your choice. Please note that DossierFacile does not offer housing.",
-    "congratulations-text-2": "Your information is protected!",
+    "congratulations-title": "Your DossierFacile is available",
+    "congratulations-text-1": "Go to the <a href=\"/applications\">Share your file</a> page to send your DossierFacile by email or link, with or without supporting documents.",
+    "congratulations-text-2": "For more information, visit the <a href=\"https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-visualiser-et-partager-son-dossier-valide-1orckmm/\">View and share your validated file</a> page in our <a href=\"https://aide.dossierfacile.logement.gouv.fr\">online help</a>.",
     "full-link-copied": "The link to my complete file is copied!",
     "public-link-copied": "The link to my summary file is copied!",
     "dossier": {
@@ -925,9 +926,9 @@
   },
   "menu": {
     "help": "Help",
-    "file": "My File",
-    "applications": "My applications",
-    "partners": "My shared data",
+    "file": "Your File",
+    "applications": "Your applications",
+    "partners": "Your shared data",
     "account": "My Account",
     "messaging": "Messaging",
     "blog": "Blog",
@@ -1094,20 +1095,26 @@
     "require-accept": "You must accept the declaration"
   },
   "sharefile": {
-    "title": "Share my file",
-    "desc1": "To apply for the home of your dreams, share your application with the landlord of your choice, with or without supporting documents. You can do this either by email, providing their email address below, or by sending your DossierFacile link via email, SMS, etc. to the landlords or property owners of your choice.",
-    "desc2": "Please note, DossierFacile does not offer housing.",
-    "desc3": "By using the application sharing feature, you agree to have your email address shared with the landlord.",
+    "title": "Share your file",
+    "desc1": "Enter the recipient's email address below to share your file. Each recipient receives a unique link that you can disable whenever you wish.",
+    "desc2": "If you do not have the recipient's email address, you can send <a href=\"{0}\">the link to your file</a> via messaging or SMS, for example.",
+    "desc3": "Reminder: DossierFacile does not offer housing.",
     "lastvisit": "Last visit :",
     "share-btn-email": "Share",
     "share-btn-copy": "Copy",
+    "bytype-label": "Share your file",
     "full": "With supporting documents",
     "resume": "Without supporting documents",
     "by-mail": "By email",
     "by-link": "By link",
     "email-label": "Landlord's Email:",
     "email-placeholder": "landlord{'@'}example.com",
-    "sent-success": "Your file has been successfully shared"
+    "sent-success": "Your file has been successfully shared",
+    "view": {
+      "title": "See your file",
+      "text": "See your DossierFacile before to share it ?",
+      "button": "See your file"
+    },
   },
   "showdoc": {
     "preview": "Document preview loading…",
@@ -1339,7 +1346,7 @@
     "close-alt": "Close modal window"
   },
   "sharing-page": {
-    "title": "My applications",
+    "title": "Your applications",
     "file-not-ready": {
       "title": "Your file {0}",
       "status": {

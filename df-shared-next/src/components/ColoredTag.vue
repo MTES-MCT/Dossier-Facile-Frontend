@@ -20,6 +20,7 @@ const props = withDefaults(
   }>(),
   {
     status: '',
+    label: undefined,
     active: false,
     hideIcon: false,
     warn: false

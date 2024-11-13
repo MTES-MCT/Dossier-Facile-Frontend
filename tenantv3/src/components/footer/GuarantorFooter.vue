@@ -1,7 +1,7 @@
 <template>
   <div>
     <FooterContainer>
-      <BackNext :showBack="showBack" @on-next="nextAction()" @on-back="backAction()"> </BackNext>
+      <BackNext :show-back="showBack" @on-next="nextAction()" @on-back="backAction()"> </BackNext>
     </FooterContainer>
   </div>
 </template>

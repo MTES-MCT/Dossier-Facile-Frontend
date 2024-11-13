@@ -4,11 +4,11 @@ import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import type { FileUser } from 'df-shared-next/src/models/FileUser'
 
 export const ProfileService = {
-  unlinkFranceConnect(): Promise<boolean> {
-    return axios.delete(`${import.meta.env.VITE_API_URL}/api/user/franceConnect`)
+  unlinkFranceConnect() {
+    return axios.delete<void>(`${import.meta.env.VITE_API_URL}/api/user/franceConnect`)
   },
   saveNames(user: User) {
-    return axios.post(`${import.meta.env.VITE_API_URL}/api/register/names`, {
+    return axios.post<User>(`${import.meta.env.VITE_API_URL}/api/register/names`, {
       tenantId: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -17,31 +17,28 @@ export const ProfileService = {
     })
   },
   saveCoTenants(data: { applicationType: string; coTenants: User[]; acceptAccess: boolean }) {
-    return axios.post(`${import.meta.env.VITE_API_URL}/api/register/application/v2`, data)
-  },
-  getCoTenant(id: number) {
-    return axios.delete(`${import.meta.env.VITE_API_URL}/api/tenant/coTenant/${id}/profile`)
+    return axios.post<User>(`${import.meta.env.VITE_API_URL}/api/register/application/v2`, data)
   },
   async deleteCoTenant(id: number) {
-    await axios.delete(`${import.meta.env.VITE_API_URL}/api/tenant/deleteCoTenant/${id}`)
+    await axios.delete<void>(`${import.meta.env.VITE_API_URL}/api/tenant/deleteCoTenant/${id}`)
   },
   validateFile(honorDeclaration: boolean, clarification: string | undefined) {
-    return axios.post(`${import.meta.env.VITE_API_URL}/api/register/honorDeclaration`, {
+    return axios.post<User>(`${import.meta.env.VITE_API_URL}/api/register/honorDeclaration`, {
       honorDeclaration,
       clarification
     })
   },
   setGuarantorType(typeGuarantorData: unknown) {
-    return axios.post(
+    return axios.post<User>(
       `${import.meta.env.VITE_API_URL}/api/register/guarantorType`,
       typeGuarantorData
     )
   },
   deleteGuarantor(g: Guarantor) {
-    return axios.delete(`${import.meta.env.VITE_API_URL}/api/guarantor/${g.id}`)
+    return axios.delete<void>(`${import.meta.env.VITE_API_URL}/api/guarantor/${g.id}`)
   },
   deleteDocument(id: number) {
-    return axios.delete(`${import.meta.env.VITE_API_URL}/api/document/${id}`)
+    return axios.delete<void>(`${import.meta.env.VITE_API_URL}/api/document/${id}`)
   },
   getUserByToken(token: string) {
     return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/full/${token}`)
@@ -49,14 +46,14 @@ export const ProfileService = {
   getPublicUserByToken(token: string) {
     return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/light/${token}`)
   },
-  postCreateFullPdf(token: string): Promise<VoidFunction> {
-    return axios.post(`${import.meta.env.VITE_API_URL}/api/application/fullPdf/${token}`, {})
+  postCreateFullPdf(token: string) {
+    return axios.post<void>(`${import.meta.env.VITE_API_URL}/api/application/fullPdf/${token}`, {})
   },
   getFile(fileUrl: string) {
-    return axios.get(fileUrl, { responseType: 'blob' })
+    return axios.get<Blob>(fileUrl, { responseType: 'blob' })
   },
   downloadZip() {
-    return axios.get(`${import.meta.env.VITE_API_URL}/api/application/zip`, {
+    return axios.get<Blob>(`${import.meta.env.VITE_API_URL}/api/application/zip`, {
       responseType: 'blob'
     })
   },

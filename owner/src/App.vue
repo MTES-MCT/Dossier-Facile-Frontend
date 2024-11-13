@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, onBeforeMount } from 'vue'
-import MyHeader from 'df-shared-next/src/Header/Header.vue'
-import Announcement from 'df-shared-next/src/components/Announcement.vue'
+import MyHeader from 'df-shared-next/src/Header/HeaderComponent.vue'
+import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
-import Footer from 'df-shared-next/src/Footer/Footer.vue'
+import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import { useRouter } from 'vue-router'
-import Menu from './components/Menu.vue'
+import OwnerMenu from './components/OwnerMenu.vue'
 import useOwnerStore from './store/owner-store'
 import DeleteAccount from './components/DeleteAccount.vue'
 import { useCookies } from 'vue3-cookies'
@@ -50,9 +50,9 @@ function onLogout() {
     @on-login="onLogin"
     @on-access-tenant="goToTenant"
     @on-logout="onLogout"
-    :showAccessibility="false"
+    :show-accessibility="false"
   >
-    <Menu></Menu>
+    <OwnerMenu />
   </MyHeader>
   <div id="content">
     <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>

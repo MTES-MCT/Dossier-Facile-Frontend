@@ -24,16 +24,18 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    name?: string
+    name: string
     image?: string
-    href?: string
+    href: string
     width?: string
     height?: string
     title?: string
   }>(),
   {
     width: '60',
-    height: '60'
+    height: '60',
+    image: '',
+    title: ''
   }
 )
 

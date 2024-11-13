@@ -19,127 +19,127 @@ const routes = [
   {
     path: '/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location',
     name: 'Article1',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article1.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage1.vue')
   },
   {
     path: '/blog/constituer-votre-dossierFacile',
     name: 'Article2',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article2.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage2.vue')
   },
   {
     path: '/blog/pourquoi-dossierfacile-est-il-gratuit',
     name: 'Article3',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article3.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage3.vue')
   },
   {
     path: '/blog/locatio-devient-dossier-facile',
     name: 'Article0',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article0.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage0.vue')
   },
   {
     path: '/blog/5-astuces-pour-booster-votre-dossier-de-location',
     name: 'Article4',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article4.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage4.vue')
   },
   {
     path: '/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne',
     name: 'Article5',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article5.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage5.vue')
   },
   {
     path: '/blog/dossierfacile-fait-peau-neuve',
     name: 'Article6',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article6.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage6.vue')
   },
   {
     path: '/blog/tout-comprendre-a-la-vie-en-colocation',
     name: 'Article7',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article7.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage7.vue')
   },
   {
     path: '/blog/comment-justifier-son-domicile',
     name: 'Article8',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article8.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage8.vue')
   },
   {
     path: '/blog/loyer-locataire-ou-bailleur',
     name: 'Article9',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article9.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage9.vue')
   },
   {
     path: '/blog/quand-les-journalistes-parlent-de-dossierfacile',
     name: 'Article10',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article10.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage10.vue')
   },
   {
     path: '/blog/la-caution-locative-changement-en-vue-pour-2022',
     name: 'Article11',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article11.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage11.vue')
   },
   {
     path: '/blog/au-secours-mon-ascenceur-est-en-panne',
     name: 'Article12',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article12.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage12.vue')
   },
   {
     path: '/blog/usurpation-d-identite-en-france-comment-prevenir-agir',
     name: 'Article13',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article13.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage13.vue')
   },
   {
     path: '/blog/engage-dans-la-protection-de-vos-donnees-personnelles',
     name: 'Article14',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article14.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage14.vue')
   },
   {
     path: '/blog/passoires-thermiques-top-depart-du-gel-des-loyers',
     name: 'Article15',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article15.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage15.vue')
   },
   {
     path: '/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr',
     name: 'Article16',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article16.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage16.vue')
   },
   {
     path: '/blog/que-verifier-lors-de-la-visite-d-un-logement',
     name: 'Article17',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article17.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage17.vue')
   },
   {
     path: '/blog/un-garant-qui-comment-pourquoi',
     name: 'Article18',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article18.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage18.vue')
   },
   {
     path: '/blog/tout-ce-que-vous-devez-savoir-avant-de-quitter-votre-logement',
     name: 'Article19',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article19.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage19.vue')
   },
   {
     path: '/blog/dossierfacile-lance-filigrane-facile',
     name: 'Article20',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article20.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage20.vue')
   },
   {
     path: '/blog/guide-aide-etudiant-logement',
     name: 'Article21',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article21.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage21.vue')
   },
   {
     path: '/blog/dossierfacile-devient-dossierfacile-logement-gouv-fr',
     name: 'Article22',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article22.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage22.vue')
   },
   {
     path: '/blog/proprietaire-comment-detecter-fausse-fiche-paie',
     name: 'Article23',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article23.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage23.vue')
   },
   {
     path: '/blog/guide-etape-par-etape-pour-trouver-appartement-ideal',
     name: 'Article24',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article24.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage24.vue')
   },
   {
     path: '/information',

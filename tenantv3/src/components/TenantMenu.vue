@@ -21,6 +21,11 @@
       </a>
     </li>
     <li class="fr-nav__item">
+      <a :href="`${MAIN_URL}/partenaires`" class="fr-nav__link">
+        {{ t('partners') }}
+      </a>
+    </li>
+    <li class="fr-nav__item">
       <a
         :href="`${DOCS_URL}`"
         class="fr-nav__link fr-external-link"
@@ -30,7 +35,7 @@
         {{ t('menu.help') }}
       </a>
     </li>
-    <li class="fr-nav__item break" v-show="isLoggedIn">
+    <li class="fr-nav__item break" v-if="isLoggedIn">
       <button
         class="fr-nav__btn"
         aria-expanded="false"
@@ -105,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
 
 import { useI18n } from 'vue-i18n'
@@ -181,3 +186,14 @@ function changeLang(lang: 'fr' | 'en') {
   }
 }
 </style>
+
+<i18n>
+  {
+    "en": {
+      "partners": "Partners"
+    },
+    "fr": {
+      "partners": "Partenaires"
+    }
+  }
+</i18n>

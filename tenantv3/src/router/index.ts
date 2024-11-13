@@ -1,9 +1,9 @@
-import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import type { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 import useTenantStore from '@/stores/tenant-store'
 import { CONTENT, type SkipLink } from 'df-shared-next/src/models/SkipLink'
 import keycloak from '../plugin/keycloak'
-import Home from '../views/Home.vue'
+import Home from '../views/HomePage.vue'
 import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
@@ -13,6 +13,16 @@ const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
 
 let updateTokenInterval: number
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    description?: string
+    hideFooter?: boolean
+    requiresAuth?: boolean
+    skipLinks?: SkipLink[]
+    title: string
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -203,7 +213,7 @@ const router = createRouter({
       meta: {
         title: 'Dossier - DossierFacile'
       },
-      component: () => import(/* webpackChunkName: "file" */ '../views/File.vue')
+      component: () => import(/* webpackChunkName: "file" */ '../views/FilePage.vue')
     },
     {
       path: '/account',
@@ -223,13 +233,13 @@ const router = createRouter({
         }
         next()
       },
-      component: () => import(/* webpackChunkName: "account" */ '../views/Account.vue')
+      component: () => import(/* webpackChunkName: "account" */ '../views/AccountPage.vue')
     },
     {
       path: '/applications',
       name: 'SharingPage',
       meta: {
-        title: 'Mes candidatures - DossierFacile',
+        title: 'Vos candidatures - DossierFacile',
         requiresAuth: true
       },
       component: () => import(/* webpackChunkName: "account" */ '../views/SharingPage.vue')
@@ -238,7 +248,7 @@ const router = createRouter({
       path: '/partners',
       name: 'PartnerAccessPage',
       meta: {
-        title: 'Mes partages - DossierFacile',
+        title: 'Vos partages - DossierFacile',
         requiresAuth: true
       },
       component: () => import(/* webpackChunkName: "account" */ '../views/PartnerAccessPage.vue')
@@ -250,7 +260,7 @@ const router = createRouter({
         title: 'Messages - DossierFacile',
         requiresAuth: true
       },
-      component: () => import(/* webpackChunkName: "messages" */ '../views/Messages.vue')
+      component: () => import(/* webpackChunkName: "messages" */ '../views/MessagesPage.vue')
     },
     {
       path: '/ajout-couple/:token',
@@ -285,7 +295,7 @@ const router = createRouter({
         title: 'Contact - DossierFacile',
         requiresAuth: false
       },
-      component: () => import(/* webpackChunkName: "contact" */ '../views/Contact.vue')
+      component: () => import(/* webpackChunkName: "contact" */ '../views/ContactPage.vue')
     },
     {
       path: '/:pathMatch(.*)',
@@ -295,23 +305,23 @@ const router = createRouter({
       },
       component: () => import(/* webpackChunkName: "404" */ '../views/NotFound404.vue')
     }
-  ],
+  ] satisfies RouteRecordRaw[],
   scrollBehavior() {
     document.getElementById('app')?.scrollIntoView()
   }
 })
 
 async function keepGoing(to: RouteLocationNormalized, next: NavigationGuardNext) {
-  document.title = to.meta?.title as string
+  document.title = to.meta?.title
   if (to.meta?.description) {
     const tag = document.querySelector('meta[name="description"]')
-    tag?.setAttribute('content', to.meta.description as string)
+    tag?.setAttribute('content', to.meta.description)
 
     const prop = document.querySelector('meta[property="og:description"]')
-    prop?.setAttribute('content', to.meta.description as string)
+    prop?.setAttribute('content', to.meta.description)
 
     const title = document.querySelector('meta[property="og:title"]')
-    title?.setAttribute('content', to.meta.title as string)
+    title?.setAttribute('content', to.meta.title)
   }
   next()
 }
@@ -373,7 +383,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
 
   to.matched.some((record) => {
     const store = useTenantStore()
-    store.updateSkipLinks(record.meta.skipLinks as SkipLink[])
+    store.updateSkipLinks(record.meta.skipLinks || [])
   })
 
   await loadUserIfAuthenticated(next)

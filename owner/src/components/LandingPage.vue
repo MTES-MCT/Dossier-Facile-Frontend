@@ -227,7 +227,7 @@
       </div>
     </section>
     <Modal v-show="isValidModalVisible" @close="closeModal">
-      <template v-slot:body>
+      <template #body>
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
@@ -250,7 +250,7 @@ import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { User } from 'df-shared-next/src/models/User'
 import { useI18n } from 'vue-i18n'
-import Modal from 'df-shared-next/src/components/Modal.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import useOwnerStore from '../store/owner-store'
 import SignupVerticalCard from './auth/SignupVerticalCard.vue'
 import SignupCard from './auth/SignupCard.vue'

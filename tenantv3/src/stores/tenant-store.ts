@@ -1,4 +1,4 @@
-import { AuthService } from 'df-shared-next/src/services/AuthService'
+import { AuthService } from '@/services/AuthService'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import type { SkipLink } from 'df-shared-next/src/models/SkipLink'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
@@ -23,9 +23,6 @@ import * as Sentry from '@sentry/vue'
 import { MessageService } from '@/services/MessageService'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { RegisterService } from '@/services/RegisterService'
-import axios from 'axios'
-import { ToastService } from '@/services/ToastService'
-import { useLoading } from 'vue-loading-overlay'
 import { useCookies } from 'vue3-cookies'
 import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import { PartnerAccessService } from '@/services/PartnerAccessService'
@@ -175,12 +172,6 @@ const useTenantStore = defineStore('tenant', {
     getNewMessage(state: State): number {
       return state.newMessage
     },
-    getSpouseAuthorize(state: State): boolean {
-      return state.spouseAuthorize
-    },
-    getCoTenantAuthorize(state: State): boolean {
-      return state.coTenantAuthorize
-    },
     guarantors(state: State): Guarantor[] {
       return state.user.guarantors
     },
@@ -257,20 +248,8 @@ const useTenantStore = defineStore('tenant', {
       }
       return financialdocuments
     },
-    getFinancialDocumentSelected(state: State): FinancialDocument {
-      return state.financialDocumentSelected
-    },
-    getEditFinancialDocument(state: State): boolean {
-      return state.editFinancialDocument
-    },
-    getGuarantorFinancialDocumentSelected(state: State): FinancialDocument | undefined {
-      return state.guarantorFinancialDocumentSelected
-    },
     getEditGuarantorFinancialDocument(state: State): boolean {
       return state.editGuarantorFinancialDocument
-    },
-    getCoTenants(state: State): User[] {
-      return state.coTenants
     },
     getSpouse(): User | null {
       if (this.user.apartmentSharing.applicationType === 'COUPLE') {
@@ -288,9 +267,13 @@ const useTenantStore = defineStore('tenant', {
         if (id === state.user.id) {
           return state.user
         }
-        return state.user.apartmentSharing.tenants.find((r: User) => {
+        const user = state.user.apartmentSharing.tenants.find((r: User) => {
           return r.id === id
-        }) as User
+        })
+        if (!user) {
+          throw new Error(`Tenant ${id} not found`)
+        }
+        return user
       },
     allDocumentsPreValidated(state: State): boolean {
       const user = state.user
@@ -321,9 +304,9 @@ const useTenantStore = defineStore('tenant', {
       if (user.applicationType === 'COUPLE') {
         const couple = user.apartmentSharing?.tenants.find(
           (cotenant: User) => user.id !== cotenant.id
-        ) as User
+        )
 
-        if (!userNamesFilled(couple) || !couple.guarantors.every(guarantorNamesFilled)) {
+        if (!couple || !userNamesFilled(couple) || !couple.guarantors.every(guarantorNamesFilled)) {
           return false
         }
       }
@@ -386,24 +369,9 @@ const useTenantStore = defineStore('tenant', {
     initState() {
       Object.assign(this, defaultState())
     },
-    loginFailure() {
-      this.status.loggedIn = false
-      this.user = new User()
-      AnalyticsService.loginFail()
-    },
     logoutCommit() {
       this.status.loggedIn = false
       this.user = new User()
-    },
-    registerSuccess() {
-      this.status.loggedIn = false
-      this.user = new User()
-      AnalyticsService.registerSuccess()
-    },
-    registerFailure() {
-      this.status.loggedIn = false
-      this.user = new User()
-      AnalyticsService.registerFail()
     },
     unlinkFCSuccess() {
       this.user.franceConnect = false
@@ -574,28 +542,6 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    register(user: User, source: string, internalPartnerId: string) {
-      return AuthService.register(user, source, internalPartnerId).then(
-        (response) => {
-          this.registerSuccess()
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          this.registerFailure()
-          return Promise.reject(error)
-        }
-      )
-    },
-    resetPassword(user: User) {
-      return AuthService.resetPassword(user).then(
-        (user) => {
-          return Promise.resolve(user)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
-    },
     unlinkFranceConnect(user: User) {
       if (!user.franceConnect) {
         return Promise.reject('Account is not a FranceConnect Account')
@@ -614,16 +560,6 @@ const useTenantStore = defineStore('tenant', {
       return AuthService.loadUser().then(
         (response) => {
           this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
-    },
-    loadCoTenant(coTenant: User) {
-      return ProfileService.getCoTenant(coTenant.id).then(
-        (response) => {
           return Promise.resolve(response.data)
         },
         (error) => {
@@ -748,17 +684,6 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    changePassword(user: User) {
-      return AuthService.changePassword(user).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(user)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
-    },
     createPasswordCouple(user: User) {
       return AuthService.createPasswordCouple(user).then(
         (response) => {
@@ -843,17 +768,6 @@ const useTenantStore = defineStore('tenant', {
     },
     saveTenantIdentification(formData: FormData) {
       return RegisterService.saveTenantIdentification(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
-    },
-    saveCoTenantIdentification(formData: FormData) {
-      return RegisterService.saveCoTenantIdentification(formData).then(
         (response) => {
           this.loadUserCommit(response.data)
           return Promise.resolve(response.data)
@@ -1138,25 +1052,6 @@ const useTenantStore = defineStore('tenant', {
         this.setPartnerAccesses(newList)
       })
     },
-    deleteFile(id: number | string, silent = false) {
-      const $loading = useLoading({})
-      const loader = $loading.show()
-      const url = `${import.meta.env.VITE_API_URL}/api/file/${id}`
-      axios
-        .delete(url)
-        .then(() => {
-          if (!silent) {
-            ToastService.deleteSuccess()
-          }
-        })
-        .catch(() => {
-          ToastService.deleteFailed()
-        })
-        .finally(() => {
-          loader.hide()
-          this.loadUser()
-        })
-    },
     dispatchByName<Name extends DispatchNames>(name: Name, formData: FormData) {
       const func = this[name]
       if (func) {
@@ -1167,8 +1062,8 @@ const useTenantStore = defineStore('tenant', {
     commentAnalysis(formData: unknown) {
       return RegisterService.commentAnalysis(formData).then(
         (response) => {
-          this.loadUserCommit(response)
-          return Promise.resolve(response)
+          this.loadUserCommit(response.data)
+          return Promise.resolve(response.data)
         },
         (error) => {
           return Promise.reject(error)

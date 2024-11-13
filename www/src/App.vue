@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Footer from 'df-shared-next/src/Footer/Footer.vue'
+import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
-import Announcement from 'df-shared-next/src/components/Announcement.vue'
-import MyHeader from 'df-shared-next/src/Header/Header.vue'
+import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
+import MyHeader from 'df-shared-next/src/Header/HeaderComponent.vue'
 import WwwMenu from './components/WwwMenu.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
 

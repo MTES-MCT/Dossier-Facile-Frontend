@@ -96,7 +96,7 @@
           </div>
         </div>
       </NakedCard>
-      <ProfileFooter :showBack="false"></ProfileFooter>
+      <ProfileFooter :show-back="false"></ProfileFooter>
     </Form>
   </div>
 </template>

@@ -12,12 +12,12 @@ export const ApartmentSharingLinkService = {
     return axios.get<ApartmentSharingLinks>(LINKS_API_URL)
   },
   deleteLink(link: ApartmentSharingLink) {
-    return axios.delete(`${LINKS_API_URL}/${link.id}`)
+    return axios.delete<void>(`${LINKS_API_URL}/${link.id}`)
   },
   resendLink(link: ApartmentSharingLink) {
-    return axios.post(`${LINKS_API_URL}/${link.id}/resend`)
+    return axios.post<void>(`${LINKS_API_URL}/${link.id}/resend`)
   },
   updateLinkStatus(link: ApartmentSharingLink, enabled: boolean) {
-    return axios.put(`${LINKS_API_URL}/${link.id}?enabled=${enabled}`)
+    return axios.put<void>(`${LINKS_API_URL}/${link.id}?enabled=${enabled}`)
   }
 }

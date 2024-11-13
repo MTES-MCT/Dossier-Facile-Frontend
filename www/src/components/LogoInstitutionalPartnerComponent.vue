@@ -33,7 +33,8 @@ const props = withDefaults(
   }>(),
   {
     width: '60',
-    height: '60'
+    height: '60',
+    title: ''
   }
 )
 

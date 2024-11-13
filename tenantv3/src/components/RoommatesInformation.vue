@@ -5,13 +5,13 @@
         <div class="fr-col-12">
           <h6>{{ t('roommatesinformation.title') }}</h6>
           <v-gouv-fr-modal>
-            <template v-slot:button>
+            <template #button>
               <span class="small-font">{{ t('roommatesinformation.more-information') }}</span>
             </template>
-            <template v-slot:title>
+            <template #title>
               {{ t('roommatesinformation.more-information') }}
             </template>
-            <template v-slot:content>
+            <template #content>
               <p>
                 <RoommatesInformationHelp></RoommatesInformationHelp>
               </p>
@@ -23,7 +23,7 @@
             <p class="fr-mb-1w" v-html="t('roommatesinformation.email-exists')"></p>
           </div>
           <div v-if="modelValue.length > 0">
-            <div v-for="(roommate, key) in modelValue" v-bind:key="key" class="fr-mb-1w">
+            <div v-for="(roommate, key) in modelValue" :key="key" class="fr-mb-1w">
               <NakedCard>
                 <div class="fr-grid-row bg--white">
                   <div class="fr-col-10">
@@ -97,7 +97,7 @@
           <div class="fr-grid-row fr-grid-row--right">
             <v-gouv-fr-button
               class="full-width-xs"
-              :fullWidth="isMobile()"
+              :full-width="isMobile()"
               :secondary="true"
               :label="t('roommatesinformation.add-a-roommate')"
               :btn-type="'button'"

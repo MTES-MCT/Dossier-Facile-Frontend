@@ -4,10 +4,10 @@ import useTenantStore from './stores/tenant-store'
 import { computed, onBeforeMount } from 'vue'
 import TenantSkipLinks from './components/TenantSkipLinks.vue'
 import TenantMenu from './components/TenantMenu.vue'
-import MyHeader from './components/Header.vue'
-import Footer from 'df-shared-next/src/Footer/Footer.vue'
+import MyHeader from './components/HeaderComponent.vue'
+import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import DeleteAccount from './components/DeleteAccount.vue'
-import Announcement from 'df-shared-next/src/components/Announcement.vue'
+import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import { useCookies } from 'vue3-cookies'
 
@@ -46,7 +46,7 @@ function onCreateOwner() {
     @on-login-tenant="onLoginTenant"
     @on-create-owner="onCreateOwner"
     @on-logout="onLogout"
-    :showAccessibility="isFunnel"
+    :show-accessibility="isFunnel"
   >
     <TenantMenu />
   </MyHeader>

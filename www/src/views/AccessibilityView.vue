@@ -51,7 +51,7 @@
                 Liste des critères non conformes :
               </caption>
               <th></th>
-              <tr v-for="criteria in nonCompliantCriteria" v-bind:key="criteria.id">
+              <tr v-for="criteria in nonCompliantCriteria" :key="criteria.id">
                 <td class="text-bold">{{ criteria.id }}</td>
                 <td>{{ criteria.title }}</td>
               </tr>
@@ -102,7 +102,7 @@
             </ul>
             <p>Pages du site ayant fait l’objet de la vérification de conformité :</p>
             <ul>
-              <li v-for="page in pagesVerified" v-bind:key="page.url">
+              <li v-for="page in pagesVerified" :key="page.url">
                 <a :href="page.url">{{ page.name }}</a>
               </li>
             </ul>

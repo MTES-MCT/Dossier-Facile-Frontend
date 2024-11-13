@@ -2,21 +2,21 @@
   <div>
     <Form name="form" @submit="goNext">
       <DocumentDownloader
-        :coTenantId="coTenantId"
-        :documentsDefinitions="documentsDefinitions()"
-        :editedDocumentId="modelValue.id ? modelValue.id : -1"
-        documentCategory="FINANCIAL"
-        dispatchMethodName="saveTenantFinancial"
-        typeDocument="typeDocumentFinancial"
-        :showDownloader="showDownloader"
-        :allowNoDocument="true"
+        :co-tenant-id="coTenantId"
+        :documents-definitions="documentsDefinitions()"
+        :edited-document-id="modelValue.id ? modelValue.id : -1"
+        document-category="FINANCIAL"
+        dispatch-method-name="saveTenantFinancial"
+        type-document="typeDocumentFinancial"
+        :show-downloader="showDownloader"
+        :allow-no-document="true"
         @enrich-form-data="enrichFormData"
         @on-change-document="changeDocument"
       >
-        <template v-slot:title>
+        <template #title>
           {{ t('cotenantfinancialform.title') }}
         </template>
-        <template v-slot:after-select-block>
+        <template #after-select-block>
           <NakedCard
             class="fr-p-md-5w fr-mb-3w fr-mt-3w"
             v-if="documentType && documentType.key ? documentType.key !== 'no-income' : false"
@@ -27,7 +27,7 @@
                   name="monthlySum"
                   v-slot="{ field, meta }"
                   :value="modelValue.monthlySum"
-                  v-on:input="setMonthlySum($event)"
+                  @input="setMonthlySum($event)"
                   :rules="{
                     required: true,
                     regex: /^[0-9 ]+$/
@@ -103,10 +103,10 @@
             </div>
           </NakedCard>
         </template>
-        <template v-slot:after-downloader> </template>
+        <template #after-downloader> </template>
       </DocumentDownloader>
       <FooterContainer>
-        <BackNext :showBack="true" @on-back="goBack"> </BackNext>
+        <BackNext :show-back="true" @on-back="goBack"> </BackNext>
       </FooterContainer>
     </Form>
   </div>
@@ -147,13 +147,13 @@ function documentsDefinitions() {
   })
 }
 
-function changeDocument(docType?: DocumentType, doc?: DfDocument) {
+function changeDocument(docType: DocumentType, doc: DfDocument) {
   if (!docType) {
     return
   }
 
   documentType.value = docType
-  document.value = doc as DfDocument
+  document.value = doc
   updateMonthlySum()
 }
 
@@ -172,13 +172,10 @@ function enrichFormData(formData: FormData) {
     document.value.monthlySum = 0
   }
   formData.append('noDocument', document.value?.noDocument === true ? 'true' : 'false')
-  if (
-    documentType.value?.key === 'no-income' &&
-    (!document.value.customText || document.value.customText.length < 0)
-  ) {
+  if (documentType.value?.key === 'no-income' && !document.value.customText) {
     formData.append('customText', '-')
-  } else {
-    formData.append('customText', document.value.customText as string)
+  } else if (document.value.customText) {
+    formData.append('customText', document.value.customText)
   }
   if (props.modelValue.monthlySum !== undefined && props.modelValue.monthlySum >= 0) {
     formData.append('monthlySum', props.modelValue.monthlySum.toString())
@@ -226,7 +223,7 @@ function goNext() {
     const formData = new FormData()
     enrichFormData(formData)
 
-    formData.append('typeDocumentFinancial', documentType.value?.value as string)
+    formData.append('typeDocumentFinancial', documentType.value?.value)
     if (document.value.id && document.value.id > 0) {
       formData.append('id', document.value.id.toString())
     }

@@ -21,7 +21,7 @@ import { configure, defineRule } from 'vee-validate'
 import MatomoPlugin from './plugin/matomo'
 import * as Sentry from '@sentry/vue'
 
-import CrispPlugin from './plugin/crisp'
+import { CrispPlugin } from 'df-shared-next/src/plugin/crisp'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID
@@ -195,7 +195,6 @@ keycloak
     app.use(MatomoPlugin)
     if (CRISP_ENABLED === 'true') {
       app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
-      window.$crisp.push(["safe", true])
     }
     app.mount('#app')
   })

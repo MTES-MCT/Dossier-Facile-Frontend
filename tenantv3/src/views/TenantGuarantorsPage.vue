@@ -2,8 +2,8 @@
   <ProfileContainer :step="getStep()">
     <div v-show="!guarantors || guarantors.length == 0">
       <TenantGuarantorChoice
-        :tenantId="getTenantId()"
-        :isCotenant="true"
+        :tenant-id="getTenantId()"
+        :is-cotenant="true"
         @on-back="goBack"
         @on-select="updateGuarantorType"
       ></TenantGuarantorChoice>

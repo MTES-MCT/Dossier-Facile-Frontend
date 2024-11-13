@@ -1,20 +1,20 @@
 <template>
   <div class="fakeannouncement">
-    <h2 class="title fr-h6 align-items--center" style="display: flex">
+    <div class="title fr-h6 align-items--center" style="display: flex">
       <img alt="" src="../assets/logo_bouclier_secure.svg" />{{
         t('fakeannouncement.fake-announce-title')
       }}
-    </h2>
+    </div>
     <img alt="Police nationale" src="../assets/police_nationale.svg" class="logo-police" />
 
     <div class="announcement-container">
       <div class="announcement-text">
         <p>
           <i18n-t keypath="fakeannouncement.content">
-            <template v-slot:nodocument>
+            <template #nodocument>
               <span style="font-weight: bold">{{ t('fakeannouncement.nodocument') }}</span>
             </template>
-            <template v-slot:masecurite>
+            <template #masecurite>
               <a
                 href="https://www.masecurite.interieur.gouv.fr/fr"
                 rel="noopener"
@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
-import DfButton from 'df-shared-next/src/Button/Button.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

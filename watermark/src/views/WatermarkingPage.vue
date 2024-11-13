@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Downloader from '../components/Downloader.vue'
+import DownloadLink from '../components/DownloadLink.vue'
 import ProgressIndicator from '../components/ProgressIndicator.vue'
 import axios from 'axios'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import Feedback from '../components/Feedback.vue'
+import FeedbackComponent from '../components/FeedbackComponent.vue'
 import { useToast } from 'vue-toastification'
 
 const { t } = useI18n()
@@ -29,7 +29,7 @@ async function handleSubmit() {
   formData.append(`watermark`, watermark.value)
 
   axios
-    .post(`${API_URL}/api/document/files`, formData)
+    .post<{ token: string }>(`${API_URL}/api/document/files`, formData)
     .then((res) => {
       token.value = res.data.token
       getFile()
@@ -55,7 +55,7 @@ function getWatermarkedFileName() {
 
 function getFile() {
   axios
-    .get(`${API_URL}/api/document/url/${token.value}`)
+    .get<{ url: string }>(`${API_URL}/api/document/url/${token.value}`)
     .then((res) => {
       if (res.data.url) {
         url.value = `${API_URL}/api/document/${token.value}`
@@ -132,13 +132,13 @@ function getFile() {
         </button>
       </div>
 
-      <Downloader
+      <DownloadLink
         v-if="url"
         :url="url"
-        :fileName="getWatermarkedFileName()"
+        :file-name="getWatermarkedFileName()"
         @on-downloaded="url = ''"
       />
     </div>
   </form>
-  <Feedback />
+  <FeedbackComponent />
 </template>

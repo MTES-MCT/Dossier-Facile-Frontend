@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -8,17 +9,15 @@ import vueI18n from '@intlify/vite-plugin-vue-i18n'
 export default defineConfig({
   build: {
     target: 'es2022',
+
     assetsInlineLimit: (file) => {
-      return (
-        !file.endsWith('.svg') &&
-        !file.endsWith('.min.js') &&
-        !file.endsWith('.woff') &&
-        !file.endsWith('.woff2') &&
-        !file.endsWith('.ttf') &&
-        !file.endsWith('.otf') &&
-        !file.endsWith('.eot')
-      )
-    }
+      if (file.endsWith('.svg')) {
+        return false
+      }
+      // When this returns undefined, the default behaviour is used: inline only if size < 4k
+    },
+
+    sourcemap: true
   },
   esbuild: {
     target: 'es2022'
@@ -35,7 +34,11 @@ export default defineConfig({
       allow: ['./src', '../node_modules', '../df-shared-next', './node_modules']
     }
   },
-  plugins: [vue(), vueI18n({})],
+  plugins: [vue(), vueI18n({}), sentryVitePlugin({
+    org: "betagouv",
+    project: "front-tenant",
+    url: "https://sentry.incubateur.net"
+  })],
   css: {
     preprocessorOptions: {
       scss: { api: 'modern' }
