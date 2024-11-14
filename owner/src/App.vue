@@ -2,6 +2,8 @@
 import { computed, onBeforeMount } from 'vue'
 import MyHeader from 'df-shared-next/src/Header/HeaderComponent.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
+import ConsentBanner from 'df-shared-next/src/components/ConsentBanner.vue'
+import ConsentModal from 'df-shared-next/src/components/ConsentModal.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
 import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
@@ -10,6 +12,8 @@ import OwnerMenu from './components/OwnerMenu.vue'
 import useOwnerStore from './store/owner-store'
 import DeleteAccount from './components/DeleteAccount.vue'
 import { useCookies } from 'vue3-cookies'
+import { isConsentRequired } from 'df-shared-next/src/services/ConsentService'
+import { ref } from 'vue'
 
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 
@@ -23,6 +27,8 @@ const hasFooter = computed(() => store.hasFooter)
 const showDeleteAccountModal = computed(() => store.getShowDeleteAccountModal)
 
 const { cookies } = useCookies()
+
+const consentRequired = ref(isConsentRequired())
 
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
@@ -43,7 +49,8 @@ function onLogout() {
 </script>
 
 <template>
-  <SkipLinks></SkipLinks>
+  <ConsentBanner :show="consentRequired" @choice-made="consentRequired = false" />
+  <SkipLinks />
   <MyHeader
     type="owner"
     :logged-in="isLoggedIn"
@@ -67,6 +74,7 @@ function onLogout() {
   <div v-if="hasFooter">
     <Footer />
   </div>
+  <ConsentModal @choice-made="consentRequired = false" />
 </template>
 
 <style lang="scss">

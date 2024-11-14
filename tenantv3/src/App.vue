@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { RouterView, useRouter } from 'vue-router'
 import useTenantStore from './stores/tenant-store'
-import { computed, onBeforeMount } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import TenantSkipLinks from './components/TenantSkipLinks.vue'
 import TenantMenu from './components/TenantMenu.vue'
 import MyHeader from './components/HeaderComponent.vue'
+import ConsentBanner from 'df-shared-next/src/components/ConsentBanner.vue'
+import ConsentModal from 'df-shared-next/src/components/ConsentModal.vue'
 import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import DeleteAccount from './components/DeleteAccount.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import { useCookies } from 'vue3-cookies'
+import { isConsentRequired } from 'df-shared-next/src/services/ConsentService'
 
 const store = useTenantStore()
 const router = useRouter()
@@ -19,6 +22,8 @@ const isLoggedIn = computed(() => store.isLoggedIn)
 
 const OWNER_URL = `//${import.meta.env.VITE_OWNER_URL}`
 const { cookies } = useCookies()
+
+const consentRequired = ref(isConsentRequired())
 
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
@@ -40,7 +45,8 @@ function onCreateOwner() {
 </script>
 
 <template>
-  <TenantSkipLinks></TenantSkipLinks>
+  <ConsentBanner :show="consentRequired" @choice-made="consentRequired = false" />
+  <TenantSkipLinks />
   <MyHeader
     :logged-in="isLoggedIn"
     @on-login-tenant="onLoginTenant"
@@ -61,6 +67,7 @@ function onCreateOwner() {
     </main>
   </div>
   <Footer v-if="!isFunnel" />
+  <ConsentModal @choice-made="consentRequired = false" />
 </template>
 
 <style lang="scss">

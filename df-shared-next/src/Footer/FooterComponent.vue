@@ -100,6 +100,16 @@
             </a>
           </li>
           <li class="fr-footer__bottom-item">
+            <button
+              type="button"
+              class="fr-footer__bottom-link"
+              data-fr-opened="false"
+              aria-controls="fr-consent-modal"
+            >
+              Gestion des cookies
+            </button>
+          </li>
+          <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
               :title="t('cgu-link-title')"
@@ -163,6 +173,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+defineEmits<{ showModal: [] }>()
 
 const VITE_MAIN_URL = ref(`//${import.meta.env.VITE_MAIN_URL}`)
 const VITE_DOCS_URL = ref(`//${import.meta.env.VITE_DOCS_URL}`)
