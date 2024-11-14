@@ -5,6 +5,7 @@ import { computed, onBeforeMount } from 'vue'
 import TenantSkipLinks from './components/TenantSkipLinks.vue'
 import TenantMenu from './components/TenantMenu.vue'
 import MyHeader from './components/HeaderComponent.vue'
+import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import DeleteAccount from './components/DeleteAccount.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
@@ -40,7 +41,8 @@ function onCreateOwner() {
 </script>
 
 <template>
-  <TenantSkipLinks></TenantSkipLinks>
+  <ConsentHandler />
+  <TenantSkipLinks />
   <MyHeader
     :logged-in="isLoggedIn"
     @on-login-tenant="onLoginTenant"

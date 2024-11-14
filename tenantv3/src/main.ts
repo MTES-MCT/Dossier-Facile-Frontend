@@ -18,13 +18,11 @@ import axios from 'axios'
 import { LoadingPlugin } from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import { configure, defineRule } from 'vee-validate'
-import MatomoPlugin from './plugin/matomo'
 import * as Sentry from '@sentry/vue'
 
-import { CrispPlugin } from 'df-shared-next/src/plugin/crisp'
+import { register } from 'df-shared-next/src/services/ConsentService'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
-const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 defineRule('onlyAlpha', (value: string) => {
@@ -192,10 +190,7 @@ keycloak
       theme: 'colored',
       clearOnUrlChange: false
     } satisfies ToastContainerOptions)
-    app.use(MatomoPlugin)
-    if (CRISP_ENABLED === 'true') {
-      app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
-    }
+    register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
     app.mount('#app')
   })
   .catch(() => {
