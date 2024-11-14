@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie'
 import type { App } from 'vue'
-import { MatomoPlugin } from '../plugin/matomo'
 import { CrispPlugin } from '../plugin/crisp'
 
 const aYearFromNow = new Date()
@@ -20,7 +19,7 @@ const setCookie = (data: ConsentServices) => Cookies.set('consent', JSON.stringi
 let app: App | null = null
 let servicesEnabled: ConsentServices | null = null
 
-const useServicesIfEnabled = (services: ConsentServices) => {
+const useServicesIfEnabled = async (services: ConsentServices) => {
   if (!app || !servicesEnabled) {
     console.warn('ConsentService was not registered')
     return
@@ -29,6 +28,7 @@ const useServicesIfEnabled = (services: ConsentServices) => {
     app.use(CrispPlugin, { websiteId: import.meta.env.VITE_CRISP_WEBSITE_ID })
   }
   if (servicesEnabled.matomo && services.matomo) {
+    const { MatomoPlugin } = await import("../plugin/matomo")
     app.use(MatomoPlugin)
   }
 }

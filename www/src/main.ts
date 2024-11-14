@@ -45,7 +45,7 @@ export const createApp = ViteSSG(App, { routes }, async ({ app, router, isClient
     theme: 'colored',
     clearOnUrlChange: false
   } satisfies ToastContainerOptions)
-  register(app, { matomo: true, crisp: isClient && CRISP_ENABLED === 'true' })
+  register(app, { matomo: isClient, crisp: isClient && CRISP_ENABLED === 'true' })
 
   router.beforeEach((to, from, next) => {
     if (
