@@ -1,4 +1,7 @@
 import Cookies from 'js-cookie'
+import type { App } from 'vue'
+import { MatomoPlugin } from '../plugin/matomo'
+import { CrispPlugin } from '../plugin/crisp'
 
 const aYearFromNow = new Date()
 aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1)
@@ -10,26 +13,52 @@ const OPTIONS: Cookies.CookieAttributes = {
   domain: import.meta.env.VITE_COOKIE_DOMAIN
 }
 
-type ConsentData = { crisp: boolean; matomo: boolean }
+type ConsentServices = { crisp: boolean; matomo: boolean }
 
-const setCookie = (data: ConsentData) => Cookies.set('consent', JSON.stringify(data), OPTIONS)
+const setCookie = (data: ConsentServices) => Cookies.set('consent', JSON.stringify(data), OPTIONS)
+
+let app: App | null = null
+let servicesEnabled: ConsentServices | null = null
+
+const useServicesIfEnabled = (services: ConsentServices) => {
+  if (!app || !servicesEnabled) {
+    console.warn('ConsentService was not registered')
+    return
+  }
+  if (servicesEnabled.crisp && services.crisp) {
+    app.use(CrispPlugin, { websiteId: import.meta.env.VITE_CRISP_WEBSITE_ID })
+  }
+  if (servicesEnabled.matomo && services.matomo) {
+    app.use(MatomoPlugin)
+  }
+}
+
+export const register = (vueApp: App, services: ConsentServices) => {
+  app = vueApp
+  servicesEnabled = services
+  const servicesChoices = getAll();
+  if (servicesChoices) {
+    useServicesIfEnabled(servicesChoices)
+  }
+}
+
+export const accept = (services: ConsentServices) => {
+  setCookie(services)
+  useServicesIfEnabled(services)
+}
 
 export const acceptAll = () => {
-  setCookie({ crisp: true, matomo: true })
+  accept({ crisp: true, matomo: true })
 }
 
 export const rejectAll = () => {
-  setCookie({ crisp: false, matomo: false })
+  accept({ crisp: false, matomo: false })
 }
 
-export const accept = (services: ConsentData) => {
-  setCookie(services)
-}
-
-const isConsentData = (data: unknown): data is ConsentData =>
+const isConsentData = (data: unknown): data is ConsentServices =>
   data != null && typeof data === 'object' && 'crisp' in data && 'matomo' in data
 
-export const getAll = (): ConsentData | null => {
+export const getAll = (): ConsentServices | null => {
   try {
     const data: unknown = JSON.parse(Cookies.get('consent') || 'null')
     if (data === null || isConsentData(data)) {
@@ -41,4 +70,4 @@ export const getAll = (): ConsentData | null => {
   }
 }
 
-export const isConsentRequired = () => getAll() === null;
+export const isConsentRequired = () => getAll() === null
