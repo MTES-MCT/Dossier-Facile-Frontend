@@ -6,6 +6,9 @@ import MyHeader from 'df-shared-next/src/Header/HeaderComponent.vue'
 import WwwMenu from './components/WwwMenu.vue'
 import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
+import { onBeforeMount } from 'vue'
+import Cookies from 'js-cookie'
+import i18n from './i18n'
 
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
@@ -17,6 +20,12 @@ function onCreateOwner() {
 function onLoginTenant() {
   window.location.replace(`${TENANT_URL}/login`)
 }
+
+onBeforeMount(() => {
+  const lang = Cookies.get('lang') === 'en' ? 'en' : 'fr'
+  i18n.global.locale.value = lang
+  i18n.global.fallbackLocale.value = 'fr'
+})
 </script>
 
 <template>
