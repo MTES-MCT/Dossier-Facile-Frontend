@@ -4,16 +4,11 @@ import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import MyHeader from 'df-shared-next/src/Header/HeaderComponent.vue'
 import WwwMenu from './components/WwwMenu.vue'
-import ConsentBanner from 'df-shared-next/src/components/ConsentBanner.vue'
-import ConsentModal from 'df-shared-next/src/components/ConsentModal.vue'
+import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
-import { isConsentRequired } from 'df-shared-next/src/services/ConsentService'
-import { ref } from 'vue'
 
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
-
-const consentRequired = ref(isConsentRequired())
 
 function onCreateOwner() {
   window.location.href = OWNER_URL
@@ -25,7 +20,7 @@ function onLoginTenant() {
 </script>
 
 <template>
-  <ConsentBanner :show="consentRequired" @choice-made="consentRequired = false" />
+  <ConsentHandler />
   <SkipLinks />
   <MyHeader @on-login="onLoginTenant" @on-access-owner="onCreateOwner">
     <WwwMenu />
@@ -38,7 +33,6 @@ function onLoginTenant() {
     </main>
   </div>
   <Footer />
-  <ConsentModal @choice-made="consentRequired = false" />
 </template>
 
 <style lang="scss">
