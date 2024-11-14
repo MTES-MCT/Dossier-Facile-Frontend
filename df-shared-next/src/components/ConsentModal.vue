@@ -16,44 +16,41 @@
                 aria-controls="fr-consent-modal"
                 title="Fermer"
               >
-                Fermer
+                {{ t('close') }}
               </button>
             </div>
             <div class="fr-modal__content">
               <h1 id="fr-consent-modal-title" class="fr-modal__title">
-                Panneau de gestion des cookies
+                {{ t('title') }}
               </h1>
               <div class="fr-consent-manager">
                 <!-- Finalités -->
                 <div class="fr-consent-service fr-consent-manager__header">
                   <fieldset class="fr-fieldset fr-fieldset--inline">
-                    <legend id="finality-legend" class="fr-consent-service__title">
-                      Préférences pour tous les services. <br />
-                      <a :href="`${MAIN_URL}/politique-de-confidentialite`"
-                        >Données personnelles et cookies</a
-                      >
-                    </legend>
+                    <legend
+                      id="finality-legend"
+                      class="fr-consent-service__title"
+                      v-html="t('legend', [`${MAIN_URL}/politique-de-confidentialite`])"
+                    />
                     <div class="fr-consent-service__radios">
                       <div class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
                         <button
                           type="button"
                           id="consent-service__tout-accepter"
-                          title="Tout accepter"
                           class="fr-btn"
                           aria-controls="fr-consent-modal"
                           @click="acceptAll"
                         >
-                          Tout accepter
+                          {{ t('accept-all') }}
                         </button>
                         <button
                           type="button"
                           id="consent-service__tout-refuser"
-                          title="Tout refuser"
                           class="fr-btn fr-btn--secondary"
                           aria-controls="fr-consent-modal"
                           @click="rejectAll"
                         >
-                          Tout refuser
+                          {{ t('reject-all') }}
                         </button>
                       </div>
                     </div>
@@ -66,7 +63,7 @@
                     class="fr-fieldset fr-fieldset--inline"
                   >
                     <legend id="finality-0-legend" class="fr-consent-service__title">
-                      Cookies obligatoires
+                      {{ t('mandatory-cookies') }}
                     </legend>
                     <div class="fr-consent-service__radios">
                       <div class="fr-radio-group">
@@ -77,7 +74,9 @@
                           id="consent-finality-0-accept"
                           name="consent-finality-0"
                         />
-                        <label class="fr-label" for="consent-finality-0-accept"> Accepter </label>
+                        <label class="fr-label" for="consent-finality-0-accept">
+                          {{ t('accept') }}
+                        </label>
                       </div>
                       <div class="fr-radio-group">
                         <input
@@ -86,12 +85,13 @@
                           id="consent-finality-0-refuse"
                           name="consent-finality-0"
                         />
-                        <label class="fr-label" for="consent-finality-0-refuse"> Refuser </label>
+                        <label class="fr-label" for="consent-finality-0-refuse">
+                          {{ t('reject') }}
+                        </label>
                       </div>
                     </div>
                     <p id="finality-0-desc" class="fr-consent-service__desc">
-                      Ce site utilise des cookies nécessaires à son bon fonctionnement qui ne
-                      peuvent pas être désactivés.
+                      {{ t('mandatory-cookies-desc') }}
                     </p>
                   </fieldset>
                 </div>
@@ -111,7 +111,9 @@
                           name="consent-finality-1"
                           :value="true"
                         />
-                        <label class="fr-label" for="consent-finality-1-accept"> Accepter </label>
+                        <label class="fr-label" for="consent-finality-1-accept">
+                          {{ t('accept') }}
+                        </label>
                       </div>
                       <div class="fr-radio-group">
                         <input
@@ -121,11 +123,13 @@
                           name="consent-finality-1"
                           :value="false"
                         />
-                        <label class="fr-label" for="consent-finality-1-refuse"> Refuser </label>
+                        <label class="fr-label" for="consent-finality-1-refuse">
+                          {{ t('reject') }}
+                        </label>
                       </div>
                     </div>
                     <p id="finality-1-desc" class="fr-consent-service__desc">
-                      Ce service peut déposer 2 cookies.
+                      {{ t('set-cookies', [2]) }}
                     </p>
                   </fieldset>
                 </div>
@@ -145,7 +149,9 @@
                           name="consent-finality-2"
                           :value="true"
                         />
-                        <label class="fr-label" for="consent-finality-2-accept"> Accepter </label>
+                        <label class="fr-label" for="consent-finality-2-accept">
+                          {{ t('accept') }}
+                        </label>
                       </div>
                       <div class="fr-radio-group">
                         <input
@@ -155,11 +161,13 @@
                           name="consent-finality-2"
                           :value="false"
                         />
-                        <label class="fr-label" for="consent-finality-2-refuse"> Refuser </label>
+                        <label class="fr-label" for="consent-finality-2-refuse">
+                          {{ t('reject') }}
+                        </label>
                       </div>
                     </div>
                     <p id="finality-2-desc" class="fr-consent-service__desc">
-                      Ce service peut déposer 8 cookies.
+                      {{ t('set-cookies', [8]) }}
                     </p>
                   </fieldset>
                 </div>
@@ -174,7 +182,7 @@
                       aria-controls="fr-consent-modal"
                       @click="confirm"
                     >
-                      Confirmer mes choix
+                      {{ t('confirm-choices') }}
                     </button>
                   </li>
                 </ul>
@@ -190,6 +198,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import * as Consent from '../services/ConsentService'
+import { useI18n } from 'vue-i18n'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 
@@ -197,6 +206,7 @@ const initialValues = Consent.getAll()
 
 const emit = defineEmits<{ choiceMade: [] }>()
 
+const { t } = useI18n()
 const crispChoice = ref(initialValues?.crisp ?? true)
 const matomoChoice = ref(initialValues?.matomo ?? true)
 
@@ -219,3 +229,34 @@ const confirm = () => {
   emit('choiceMade')
 }
 </script>
+
+<i18n>
+{
+  "en": {
+    "close":"Close",
+    "title": "Cookie management panel",
+    "accept": "Accept",
+    "reject": "Reject",
+    "accept-all": "Accept all",
+    "reject-all": "Reject all",
+    "mandatory-cookies": "Mandatory cookies",
+    "mandatory-cookies-desc": "This site uses cookies which are necessary for its proper operation and which cannot be deactivated.",
+    "confirm-choices": "Confirm choices",
+    "legend": "Settings for all services. <br /><a href={0}>Personal data and cookies</a>",
+    "set-cookies": "This service may set {0} cookies."
+  },
+  "fr": {
+    "close": "Fermer",
+    "title": "Panneau de gestion des cookies",
+    "accept": "Accepter",
+    "reject": "Refuser",
+    "accept-all": "Tout accepter",
+    "reject-all": "Tout refuser",
+    "mandatory-cookies": "Cookies obligatoires",
+    "mandatory-cookies-desc": "Ce site utilise des cookies nécessaires à son bon fonctionnement qui ne peuvent pas être désactivés.",
+    "confirm-choices": "Confirmer mes choix",
+    "legend": "Préférences pour tous les services. <br /><a href={0}>Données personnelles et cookies</a>",
+    "set-cookies": "Ce service peut déposer {0} cookies."
+  }
+}
+</i18n>

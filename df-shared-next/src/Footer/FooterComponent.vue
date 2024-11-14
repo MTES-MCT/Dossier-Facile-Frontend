@@ -106,7 +106,7 @@
               data-fr-opened="false"
               aria-controls="fr-consent-modal"
             >
-              Gestion des cookies
+              {{ t('cookies') }}
             </button>
           </li>
           <li class="fr-footer__bottom-item">
@@ -236,6 +236,7 @@ ul.fr-follow {
   "en": {
     "legals": "Legal notice",
     "privacy-policy": "Privacy Policy",
+    "cookies": "Cookie management",
     "cgu": "GCU",
     "faq": "Help",
     "sitemap": "Sitemap",
@@ -252,6 +253,7 @@ ul.fr-follow {
   "fr": {
     "legals": "Mentions légales",
     "privacy-policy": "Politique de confidentialité",
+    "cookies": "Gestion des cookies",
     "cgu": "CGU",
     "faq": "Aide",
     "sitemap": "Plan du site",
