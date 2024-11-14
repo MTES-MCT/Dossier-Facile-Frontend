@@ -18,7 +18,7 @@ import axios from 'axios'
 import { LoadingPlugin } from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import { configure, defineRule } from 'vee-validate'
-import MatomoPlugin from './plugin/matomo'
+import { MatomoPlugin } from 'df-shared-next/src/plugin/matomo'
 import * as Sentry from '@sentry/vue'
 
 import { CrispPlugin } from 'df-shared-next/src/plugin/crisp'

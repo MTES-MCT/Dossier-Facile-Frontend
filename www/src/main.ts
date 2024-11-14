@@ -6,6 +6,7 @@ import App from './App.vue'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 import * as Sentry from '@sentry/vue'
 import { CrispPlugin } from 'df-shared-next/src/plugin/crisp'
+import { MatomoPlugin } from 'df-shared-next/src/plugin/matomo'
 
 import routes from './router/index'
 import { BrowserTracing } from '@sentry/browser'
@@ -46,6 +47,7 @@ export const createApp = ViteSSG(App, { routes }, async ({ app, router, isClient
     theme: 'colored',
     clearOnUrlChange: false
   } satisfies ToastContainerOptions)
+  app.use(MatomoPlugin)
   if (isClient && CRISP_ENABLED === 'true') {
     app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
   }
