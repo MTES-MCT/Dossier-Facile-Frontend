@@ -75,17 +75,15 @@
           <h1 class="fr-h6">
             {{ t('coupleinformation.partner-email-title') }}
           </h1>
-          <v-gouv-fr-modal>
+          <v-gouv-fr-modal class="fr-link fr-link--sm">
             <template #button>
-              <span class="small-font">{{ t('coupleinformation.more-information') }}</span>
+              {{ t('coupleinformation.more-information') }}
             </template>
             <template #title>
               {{ t('coupleinformation.more-information') }}
             </template>
             <template #content>
-              <p>
-                <CoupleInformationHelp></CoupleInformationHelp>
-              </p>
+              <CoupleInformationHelp></CoupleInformationHelp>
             </template>
           </v-gouv-fr-modal>
         </div>

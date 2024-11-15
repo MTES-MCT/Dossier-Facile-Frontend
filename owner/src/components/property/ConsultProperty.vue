@@ -14,15 +14,9 @@
           </div>
           <div class="title">{{ name }}</div>
           <div class="spacer"></div>
-          <VGouvFrModal id="share-modal">
+          <VGouvFrModal class="fr-btn btn--white fr-btn--secondary" @click="shareBtnClicked">
             <template #button>
-              <button
-                :title="t('consultproperty.share-btn')"
-                class="fr-btn btn--white fr-btn--secondary"
-                @click="shareBtnClicked()"
-              >
-                {{ t('consultproperty.share-btn') }}
-              </button>
+              {{ t('consultproperty.share-btn') }}
             </template>
             <template #title>
               {{ t('consultproperty.share-modal-title') }}
@@ -449,7 +443,7 @@ function getRateClass(applicant: Applicant) {
   margin-top: 200px;
 }
 
-.btn--white {
+:deep(.btn--white) {
   color: white;
   box-shadow: inset 0 0 0 1px white;
   &:hover {

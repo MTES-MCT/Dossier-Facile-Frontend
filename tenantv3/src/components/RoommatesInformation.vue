@@ -4,17 +4,15 @@
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
           <h6>{{ t('roommatesinformation.title') }}</h6>
-          <v-gouv-fr-modal>
+          <v-gouv-fr-modal class="fr-link fr-link--sm">
             <template #button>
-              <span class="small-font">{{ t('roommatesinformation.more-information') }}</span>
+              {{ t('roommatesinformation.more-information') }}
             </template>
             <template #title>
               {{ t('roommatesinformation.more-information') }}
             </template>
             <template #content>
-              <p>
-                <RoommatesInformationHelp></RoommatesInformationHelp>
-              </p>
+              <RoommatesInformationHelp></RoommatesInformationHelp>
             </template>
           </v-gouv-fr-modal>
         </div>
