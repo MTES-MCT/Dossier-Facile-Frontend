@@ -144,10 +144,10 @@
 
 <script setup lang="ts">
 import { User } from 'df-shared-next/src/models/User'
-import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue'
+import VGouvFrButton from 'df-shared-next/src/Button/VGouvFrButton.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import RoommatesInformationHelp from './helps/RoommatesInformationHelp.vue'
-import VGouvFrModal from 'df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue'
+import VGouvFrModal from 'df-shared-next/src/GouvFr/VGouvFrModal.vue'
 import { UtilsService } from '../services/UtilsService'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, onMounted, ref } from 'vue'

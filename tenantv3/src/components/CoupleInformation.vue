@@ -158,7 +158,7 @@
 <script setup lang="ts">
 import { User } from 'df-shared-next/src/models/User'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import VGouvFrModal from 'df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue'
+import VGouvFrModal from 'df-shared-next/src/GouvFr/VGouvFrModal.vue'
 import CoupleInformationHelp from './helps/CoupleInformationHelp.vue'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 import { computed, onMounted, ref } from 'vue'
