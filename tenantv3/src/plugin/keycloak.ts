@@ -1,5 +1,4 @@
-import Keycloak from 'keycloak-js'
-import type { KeycloakConfig } from 'keycloak-js'
+import Keycloak, { type KeycloakConfig } from 'keycloak-js'
 
 const options: KeycloakConfig = {
   url: import.meta.env.VITE_SSO_ENDPOINT?.toString() || '',
@@ -7,5 +6,4 @@ const options: KeycloakConfig = {
   clientId: import.meta.env.VITE_SSO_CLIENT_ID?.toString() || ''
 }
 
-const keycloak = new Keycloak(options)
-export default keycloak
+export const keycloak = new Keycloak(options)

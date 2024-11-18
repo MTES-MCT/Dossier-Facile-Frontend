@@ -296,7 +296,7 @@ router.beforeEach(async (to, _, next) => {
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!keycloak.authenticated) {
-      keycloak.login({ redirectUri: OWNER_URL + to.fullPath })
+      await keycloak.login({ redirectUri: OWNER_URL + to.fullPath })
     }
   }
   if (to.matched.some((record) => record.meta.requiresComplete)) {

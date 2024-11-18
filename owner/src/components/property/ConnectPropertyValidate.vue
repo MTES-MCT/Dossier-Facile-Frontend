@@ -104,7 +104,9 @@ function subscribe() {
       }
     })
     reqInstance
-      .get<{connectedTenantId: number, apartmentSharing: ApartmentSharing }>(`${TENANT_API_URL}/dfc/tenant/profile`)
+      .get<{ connectedTenantId: number; apartmentSharing: ApartmentSharing }>(
+        `${TENANT_API_URL}/dfc/tenant/profile`
+      )
       .then((profile) => {
         apartmentSharing.value = profile.data.apartmentSharing
         PropertyService.subscribe(kcToken!, token.value)
@@ -115,7 +117,7 @@ function subscribe() {
             const createTenant = profile.data.apartmentSharing.tenants.find(
               (tenant) => tenant.tenantType === 'CREATE'
             )
-            mainTenantFirstname.value = createTenant?.firstName ??''
+            mainTenantFirstname.value = createTenant?.firstName ?? ''
             isCreate.value = createTenant?.id === profile.data.connectedTenantId
             showError.value = true
           })
