@@ -6,5 +6,5 @@ const options: KeycloakConfig = {
   clientId: import.meta.env.VITE_TENANT_SSO_CLIENT_ID_PUBLIC?.toString() || ''
 }
 
-const keycloakTenant = Keycloak(options)
+const keycloakTenant = new Keycloak(options)
 export default keycloakTenant

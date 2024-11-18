@@ -12,7 +12,7 @@ import '@gouvfr/dsfr/dist/utility/icons/icons-user/icons-user.min.css'
 import '@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css'
 import '@gouvfr/dsfr/dist/utility/icons/icons-design/icons-design.min.css'
 import '@gouvfr/dsfr/dist/utility/icons/icons-buildings/icons-buildings.min.css'
-import keycloak from './plugin/keycloak'
+import { keycloak } from './plugin/keycloak'
 import axios from 'axios'
 import { LoadingPlugin } from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
@@ -124,7 +124,7 @@ configure({
 const TENANT_API_URL = import.meta.env.VITE_API_URL
 
 keycloak
-  .init({ onLoad: 'check-sso', checkLoginIframe: false })
+  .init({ onLoad: 'check-sso', checkLoginIframe: true})
   .then((auth) => {
     // Token Refresh
     setInterval(() => {
@@ -133,6 +133,7 @@ keycloak
         .then()
         .catch(() => {
           console.log('Failed to refresh token')
+          window.location.reload()
         })
     }, 6000)
     if (auth) {
@@ -182,6 +183,5 @@ keycloak
     app.mount('#app')
   })
   .catch(() => {
-    console.log('Authenticated Failed')
     window.location.reload()
   })

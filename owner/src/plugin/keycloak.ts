@@ -6,5 +6,5 @@ const options: KeycloakConfig = {
   clientId: import.meta.env.VITE_SSO_CLIENT_ID?.toString() || ''
 }
 
-const keycloak = Keycloak(options)
+const keycloak = new Keycloak(options)
 export default keycloak

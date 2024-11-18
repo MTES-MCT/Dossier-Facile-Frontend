@@ -2,7 +2,7 @@ import type { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } fro
 import { createRouter, createWebHistory } from 'vue-router'
 import useTenantStore from '@/stores/tenant-store'
 import { CONTENT, type SkipLink } from 'df-shared-next/src/models/SkipLink'
-import keycloak from '../plugin/keycloak'
+import {keycloak} from '../plugin/keycloak'
 import Home from '../views/HomePage.vue'
 import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
@@ -391,11 +391,10 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!keycloak.authenticated) {
       // The page is protected and the user is not authenticated. Force a login.
-      keycloak.login({
+      await keycloak.login({
         redirectUri: TENANT_URL + to.fullPath
       })
-    } else {
-      if (keycloak.profile?.emailVerified != true) {
+    } else if (!keycloak.profile?.emailVerified) {
         // email should be validated before access to the protected page.
         keycloak.logout({
           redirectUri: 'https:' + MAIN_URL + '/#emailNotValidated'
@@ -405,7 +404,6 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
         keepGoing(to, next)
         return
       }
-    }
   } else if (to.matched.some((record) => record.meta.hideForAuth)) {
     if (keycloak.authenticated) {
       next({ name: 'Profile' })
