@@ -1,10 +1,10 @@
 import * as VueRouter from 'vue-router'
-import { useCookies } from 'vue3-cookies'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
 import Dashboard from '../components/DashboardPage.vue'
 import LandingPage from '../components/LandingPage.vue'
 import useOwnerStore from '../store/owner-store'
 import keycloak from '../plugin/keycloak'
+import cookies from 'js-cookie'
 
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
 
@@ -266,7 +266,6 @@ router.beforeEach(async (to, _, next) => {
     store.setHasFooter(false)
   }
 
-  const { cookies } = useCookies()
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
   store.setLang(lang)
 

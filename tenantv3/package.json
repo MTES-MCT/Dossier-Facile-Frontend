@@ -26,9 +26,11 @@
     "@remixicon/vue": "4.4.0",
     "@sentry/vite-plugin": "2.22.6",
     "@sentry/vue": "7.119.2",
+    "@types/js-cookie": "3.0.6",
     "axios": "^1.7.4",
     "dayjs": "^1.11.10",
     "df-shared-next": "0.1.0",
+    "js-cookie": "3.0.5",
     "keycloak-js": "^22.0.5",
     "lodash.clonedeep": "^4.5.0",
     "pdfjs-dist": "^4.2.67",
@@ -40,7 +42,6 @@
     "vue-matomo": "4.2.0",
     "vue-pdf-embed": "^1.2.1",
     "vue-router": "4.4.5",
-    "vue3-cookies": "1.0.6",
     "vue3-toastify": "0.2.3"
   },
   "devDependencies": {

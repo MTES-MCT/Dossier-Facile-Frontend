@@ -10,7 +10,7 @@ import { useRouter } from 'vue-router'
 import OwnerMenu from './components/OwnerMenu.vue'
 import useOwnerStore from './store/owner-store'
 import DeleteAccount from './components/DeleteAccount.vue'
-import { useCookies } from 'vue3-cookies'
+import cookies from 'js-cookie'
 
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 
@@ -22,8 +22,6 @@ const isLoggedIn = computed(() => store.isLoggedIn)
 const hasFooter = computed(() => store.hasFooter)
 
 const showDeleteAccountModal = computed(() => store.getShowDeleteAccountModal)
-
-const { cookies } = useCookies()
 
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'

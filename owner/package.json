@@ -31,11 +31,13 @@
     "@sentry/tracing": "7.119.2",
     "@sentry/vite-plugin": "2.22.6",
     "@sentry/vue": "7.119.2",
+    "@types/js-cookie": "3.0.6",
     "axios": "^1.7.4",
     "connect-history-api-fallback": "^2.0.0",
     "date-fns": "^2.28.0",
     "df-shared-next": "0.1.0",
     "express": "4.21.1",
+    "js-cookie": "3.0.5",
     "keycloak-js": "21.0.1",
     "pinia": "2.0.33",
     "vee-validate": "4.12.2",
@@ -43,8 +45,7 @@
     "vue-i18n": "^9.3.0-beta.17",
     "vue-matomo": "^4.1.0",
     "vue-router": "4",
-    "vue-toastification": "^2.0.0-rc.5",
-    "vue3-cookies": "1.0.6"
+    "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
