@@ -80,7 +80,7 @@
                 </div>
               </div>
             </div>
-            <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
+            <div class="fr-callout fr-callout-white success" v-if="canCopyLink()">
               <h2 class="fr-text-title--grey fr-h4">
                 {{ t('account.congratulations-title') }}
               </h2>
@@ -369,6 +369,9 @@ function isDenied() {
   }
   &.to-process {
     box-shadow: inset 0.25rem 0 0 0 var(--purple-glycine-main-494) !important;
+  }
+  &.success {
+    box-shadow: inset 0.25rem 0 0 0 var(--success) !important;
   }
 }
 
