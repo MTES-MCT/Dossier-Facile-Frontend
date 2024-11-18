@@ -103,7 +103,6 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { cloneDeep } from 'lodash'
 import { UtilsService } from '@/services/UtilsService'
 import ProfileFooter from '@/components/footer/ProfileFooter.vue'
 import TextField from 'df-shared-next/src/components/form/TextField.vue'
@@ -161,7 +160,7 @@ function updateGuarantorData() {
     }
     const ddr = guarantorResidencyDocument()?.documentDeniedReasons
     if (ddr) {
-      documentDeniedReasons.value = cloneDeep(ddr)
+      documentDeniedReasons.value = structuredClone(ddr)
     }
   }
 }

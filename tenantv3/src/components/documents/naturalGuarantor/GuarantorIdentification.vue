@@ -67,7 +67,6 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { cloneDeep } from 'lodash'
 import { UtilsService } from '../../../services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import useTenantStore from '../../../stores/tenant-store'
@@ -169,7 +168,7 @@ function updateGuarantorData() {
       }
       const docDeniedReasons = guarantorIdentificationDocument()?.documentDeniedReasons
       if (docDeniedReasons !== undefined) {
-        documentDeniedReasons.value = cloneDeep(docDeniedReasons)
+        documentDeniedReasons.value = structuredClone(docDeniedReasons)
       }
     }
   }

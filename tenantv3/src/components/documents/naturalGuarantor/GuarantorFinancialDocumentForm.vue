@@ -187,7 +187,6 @@ import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import ProfileFooter from '../../footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import cloneDeep from 'lodash/cloneDeep'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
@@ -225,12 +224,12 @@ const isNoIncomeAndFiles = ref(false)
 onBeforeMount(() => {
   if (guarantorFinancialDocumentSelected.value) {
     financialDocument.value = {
-      ...cloneDeep(guarantorFinancialDocumentSelected.value)
+      ...structuredClone(guarantorFinancialDocumentSelected.value)
     }
   }
   const doc = guarantorFinancialDocument()
   if (doc?.documentDeniedReasons) {
-    documentDeniedReasons.value = cloneDeep(doc?.documentDeniedReasons)
+    documentDeniedReasons.value = structuredClone(doc?.documentDeniedReasons)
   }
 })
 
@@ -393,7 +392,7 @@ async function save(): Promise<boolean> {
     .saveGuarantorFinancial(formData)
     .then(() => {
       if (guarantorFinancialDocumentSelected.value) {
-        financialDocument.value = cloneDeep(guarantorFinancialDocumentSelected.value)
+        financialDocument.value = structuredClone(guarantorFinancialDocumentSelected.value)
       }
       ToastService.saveSuccess()
       return Promise.resolve(true)

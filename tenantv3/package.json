@@ -32,7 +32,6 @@
     "df-shared-next": "0.1.0",
     "js-cookie": "3.0.5",
     "keycloak-js": "^22.0.5",
-    "lodash.clonedeep": "^4.5.0",
     "pdfjs-dist": "^4.2.67",
     "pinia": "2.2.2",
     "vee-validate": "4.12.2",

@@ -64,7 +64,6 @@ import { AnalyticsService } from '../../../services/AnalyticsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { cloneDeep } from 'lodash'
 import { UtilsService } from '@/services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import useTenantStore from '@/stores/tenant-store'
@@ -108,7 +107,7 @@ onBeforeMount(() => {
         localStorage.setItem(getLocalStorageKey(), identificationDocument.value.key || '')
       }
       if (tenantIdentificationDocument.value?.documentDeniedReasons) {
-        documentDeniedReasons.value = cloneDeep(
+        documentDeniedReasons.value = structuredClone(
           tenantIdentificationDocument.value.documentDeniedReasons
         )
       }
