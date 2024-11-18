@@ -10,8 +10,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { t } = useI18n() // this is used by i18n-t, don't remove
+useI18n()
 </script>
 
 <style scoped lang="scss"></style>
