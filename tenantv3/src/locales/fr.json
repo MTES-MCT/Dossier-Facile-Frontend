@@ -345,7 +345,7 @@
     "title": {
       "dashboard": "Tableau de bord"
     },
-    "content-title": "Votre dossier",
+    "content-title": "Vos documents",
     "share-file-button": "Partager votre dossier",
     "share-file-view-button": "Voir votre dossier",
     "last-update": "Dernière mise à jour du dossier le {0}",
@@ -1135,7 +1135,7 @@
   },
   "sharefile": {
     "title": "Partager votre dossier",
-    "desc1": "Saisissez, l’adresse e-mail du destinataire ci-dessous pour partager votre dossier. Chaque destinataire reçoit un lien unique que vous pouvez désactiver lorsque vous le souhaitez.",
+    "desc1": "Saisissez l’adresse e-mail du destinataire ci-dessous pour partager votre dossier. Chaque destinataire reçoit un lien unique que vous pouvez désactiver lorsque vous le souhaitez.",
     "desc2": "Si vous ne disposez pas de l’adresse e-mail de votre destinataire, vous pouvez envoyer <a href=\"{0}\">le lien de votre dossier</a> par messagerie ou par SMS par exemple.",
     "desc3": "Rappel : DossierFacile ne propose pas de logement.",
     "lastvisit": "Dernière visite :",

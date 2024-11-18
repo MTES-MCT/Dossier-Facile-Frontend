@@ -83,7 +83,7 @@
         </div>
       </div>
     </Form>
-    <h2 class="fr-h4 align-items--center fr-mt-3w" style="display: flex">
+    <h2 class="fr-h4 align-items--center fr-mt-5w" style="display: flex">
       {{ t('sharefile.view.title') }}
     </h2>
     <p>
