@@ -2,7 +2,7 @@ import useTenantStore from '@/stores/tenant-store'
 
 export const AnalyticsService = {
   sendEvent(name: string, data: { event_category: string; event_label?: number }) {
-    if (import.meta.env.VITE_MATOMO_ENABLE === 'false') {
+    if (import.meta.env.VITE_MATOMO_ENABLE === 'false' || !window._paq) {
       return
     }
     const tenantStore = useTenantStore()

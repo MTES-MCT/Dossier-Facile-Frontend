@@ -400,6 +400,9 @@ onBeforeMount(() => {
 })
 
 function changeConsentRemoved() {
+  if (!window._paq) {
+    return
+  }
   if (consentRemoved.value) {
     window._paq.push(['optUserOut'])
   } else {

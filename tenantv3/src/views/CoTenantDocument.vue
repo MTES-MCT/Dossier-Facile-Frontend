@@ -50,7 +50,7 @@ import { useRoute, useRouter } from 'vue-router'
 
 declare global {
   interface Window {
-    _paq: (string | number | undefined)[][]
+    _paq?: (string | number | undefined)[][]
   }
 }
 
