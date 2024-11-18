@@ -25,7 +25,8 @@ const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 defineRule('onlyAlpha', (value: string) => {
-  if (!value.match("^[a-zA-Z \\-'’àâäçéèêëîïôöùûüÿæœÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸÆŒ]*$")) {
+  const regex = /^[a-zA-Z \-'’àâäçéèêëîïôöùûüÿæœÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸÆŒ]*$/
+  if (!regex.test(value)){
     return 'only-alpha'
   }
   return true
@@ -35,7 +36,8 @@ defineRule('zipcode', (value: string | undefined | null) => {
   if (!value) {
     return true
   }
-  if (!value.match('^[0-9]{5}$')) {
+  const regex = /^\d{5}$/
+  if (!regex.test(value)) {
     return 'zipcode-not-valid'
   }
   return true
@@ -78,7 +80,7 @@ defineRule('required', (value: unknown) => {
   return true
 })
 defineRule('email', (value: string | undefined | null) => {
-  if (!value || !value.length) {
+  if (!value?.length) {
     return true
   }
   if (!/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/.test(value)) {
@@ -133,7 +135,6 @@ keycloak
         .then()
         .catch(() => {
           console.log('Failed to refresh token')
-          window.location.reload()
         })
     }, 6000)
     if (auth) {
@@ -146,12 +147,12 @@ keycloak
           return config
         },
 
-        (error) => Promise.reject(error)
+        (error: Error) => Promise.reject(error)
       )
 
       axios.interceptors.response.use(
         (response) => response,
-        (error) => {
+        (error: Error) => {
           if (error.response && (error.response.status === 401 || error.response.status === 403)) {
             console.log('err')
           }

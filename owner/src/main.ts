@@ -139,7 +139,7 @@ if (!window.location.href.includes('/validConnexion/')) {
           .updateToken(70)
           .then()
           .catch(() => {
-            window.location.reload()
+            console.log('Failed to refresh token')
           })
       }, 6000)
       if (auth) {
