@@ -15,7 +15,7 @@ const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 declare global {
   interface Window {
-    _paq: (string | number | undefined)[][]
+    _paq?: (string | number | undefined)[][]
   }
 }
 
