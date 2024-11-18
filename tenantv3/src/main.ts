@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
-import { globalCookiesConfig } from 'vue3-cookies'
 
 import App from './App.vue'
 import router from './router'
@@ -123,21 +122,10 @@ configure({
 })
 
 const TENANT_API_URL = import.meta.env.VITE_API_URL
-const COOKIE_DOMAIN = import.meta.env.VITE_COOKIE_DOMAIN
 
 keycloak
   .init({ onLoad: 'check-sso', checkLoginIframe: false })
   .then((auth) => {
-    const aYearFromNow = new Date()
-    aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1)
-    globalCookiesConfig({
-      expireTimes: aYearFromNow.toUTCString(),
-      path: '/',
-      domain: COOKIE_DOMAIN,
-      secure: true,
-      sameSite: 'None'
-    })
-
     // Token Refresh
     setInterval(() => {
       keycloak

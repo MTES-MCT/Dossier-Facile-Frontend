@@ -23,9 +23,9 @@ import * as Sentry from '@sentry/vue'
 import { MessageService } from '@/services/MessageService'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { RegisterService } from '@/services/RegisterService'
-import { useCookies } from 'vue3-cookies'
 import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import { PartnerAccessService } from '@/services/PartnerAccessService'
+import cookies from 'js-cookie'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -602,18 +602,15 @@ const useTenantStore = defineStore('tenant', {
       dayjs.locale(lang)
       const html = document.documentElement
       html.setAttribute('lang', i18n.global.locale.value)
-      const { cookies } = useCookies()
       const expireTimes = new Date()
       expireTimes.setFullYear(expireTimes.getFullYear() + 1)
-      cookies.set(
-        'lang',
-        lang,
-        expireTimes,
-        '/',
-        import.meta.env.VITE_COOKIE_DOMAIN || 'localhost',
-        true,
-        'None'
-      )
+      cookies.set('lang', lang, {
+        expires: expireTimes,
+        path: '/',
+        domain: import.meta.env.VITE_COOKIE_DOMAIN || 'localhost',
+        secure: true,
+        sameSite: 'None'
+      })
     },
     validateFile(data: { honorDeclaration: boolean; clarification: string | undefined }) {
       return ProfileService.validateFile(data.honorDeclaration, data.clarification).then(

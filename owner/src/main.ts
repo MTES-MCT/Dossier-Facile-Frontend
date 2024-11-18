@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import axios from 'axios'
-import { globalCookiesConfig } from 'vue3-cookies'
 import Toast from 'vue-toastification'
 import { configure, defineRule } from 'vee-validate'
 import { createPinia } from 'pinia'
@@ -95,7 +94,6 @@ configure({
   validateOnInput: true
 })
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const OWNER_API_URL = import.meta.env.VITE_OWNER_API_URL
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT || 'dev'
 
@@ -135,18 +133,6 @@ if (!window.location.href.includes('/validConnexion/')) {
   keycloak
     .init({ onLoad: 'check-sso', checkLoginIframe: true })
     .then((auth) => {
-      const aYearFromNow = new Date()
-      aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1)
-      globalCookiesConfig({
-        expireTimes: aYearFromNow.toUTCString(),
-        path: '/',
-        domain: MAIN_URL.endsWith('dossierfacile.logement.gouv.fr')
-          ? 'dossierfacile.logement.gouv.fr'
-          : 'localhost',
-        secure: true,
-        sameSite: 'None'
-      })
-
       // Token Refresh
       setInterval(() => {
         keycloak

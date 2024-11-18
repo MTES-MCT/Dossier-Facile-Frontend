@@ -1,4 +1,4 @@
-import { sentryVitePlugin } from "@sentry/vite-plugin";
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { fileURLToPath, URL } from 'node:url'
 import generateSiteMap from 'vite-ssg-sitemap'
 
@@ -24,11 +24,15 @@ export default defineConfig({
       allow: ['./src', '../df-shared-next', '../node_modules', './node_modules']
     }
   },
-  plugins: [vue(), vueI18n({}), sentryVitePlugin({
-    org: "betagouv",
-    project: "front-www",
-    url: "https://sentry.incubateur.net"
-  })],
+  plugins: [
+    vue(),
+    vueI18n({}),
+    sentryVitePlugin({
+      org: 'betagouv',
+      project: 'front-www',
+      url: 'https://sentry.incubateur.net'
+    })
+  ],
   css: {
     preprocessorOptions: {
       scss: { api: 'modern' }
@@ -36,7 +40,7 @@ export default defineConfig({
   },
   ssgOptions: {
     onPageRendered: (route: string, renderedHTML: string) => {
-      return renderedHTML.replace(/<link rel="modulepreload".*?>/i, '');
+      return renderedHTML.replace(/<link rel="modulepreload".*?>/i, '')
     },
     onFinished: () => {
       const baseURL = 'https://' + process.env.VITE_MAIN_URL
@@ -47,8 +51,5 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  },
-  ssr: {
-    noExternal: [/vue3-cookies/]
   }
 })

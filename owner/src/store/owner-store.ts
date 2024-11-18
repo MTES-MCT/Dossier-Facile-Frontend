@@ -1,6 +1,5 @@
 import { Property, type PropertyType } from 'df-shared-next/src/models/Property'
 import { User } from 'df-shared-next/src/models/User'
-import { useCookies } from 'vue3-cookies'
 import { defineStore } from 'pinia'
 import { OwnerUser } from 'df-shared-next/src/models/OwnerUser'
 import UtilsService from '../services/UtilsService'
@@ -9,6 +8,8 @@ import AuthService from '../components/auth/AuthService'
 import keycloak from '../plugin/keycloak'
 import OwnerService from '../components/account/OwnerService'
 import PropertyService from '../components/property/PropertyService'
+import cookies from 'js-cookie'
+import { add } from 'date-fns'
 
 interface State {
   user: User
@@ -137,10 +138,11 @@ const useOwnerStore = defineStore('owner', {
       i18n.global.fallbackLocale.value = 'fr'
       const html = document.documentElement
       html.setAttribute('lang', i18n.global.locale.value)
-      const { cookies } = useCookies()
-      const expireTimes = new Date()
-      expireTimes.setFullYear(expireTimes.getFullYear() + 1)
-      cookies.set('lang', lang, expireTimes, '/', import.meta.env.VITE_COOKIE_DOMAIN || 'localhost')
+      cookies.set('lang', lang, {
+        expires: add(new Date(), { years: 1 }),
+        path: '/',
+        domain: import.meta.env.VITE_COOKIE_DOMAIN || 'localhost'
+      })
     },
     registerSuccess() {
       this.status.loggedIn = false

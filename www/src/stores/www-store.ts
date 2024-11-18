@@ -1,5 +1,5 @@
-import { useCookies } from 'vue3-cookies'
 import { defineStore } from 'pinia'
+import cookies from 'js-cookie'
 import i18n from '../i18n'
 
 interface State {
@@ -26,16 +26,13 @@ const useOwnerStore = defineStore('www', {
       html.setAttribute('lang', i18n.global.locale.value)
       const expireTimes = new Date()
       expireTimes.setFullYear(expireTimes.getFullYear() + 1)
-      const { cookies } = useCookies()
-      cookies.set(
-        'lang',
-        lang,
-        expireTimes,
-        '/',
-        import.meta.env.VITE_COOKIE_DOMAIN || 'localhost',
-        true,
-        'None'
-      )
+      cookies.set('lang', lang, {
+        expires: expireTimes,
+        path: '/',
+        domain: import.meta.env.VITE_COOKIE_DOMAIN || 'localhost',
+        secure: true,
+        sameSite: 'None'
+      })
     }
   }
 })

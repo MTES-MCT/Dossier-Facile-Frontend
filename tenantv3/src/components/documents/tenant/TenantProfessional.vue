@@ -68,7 +68,6 @@ import { AnalyticsService } from '../../../services/AnalyticsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { cloneDeep } from 'lodash'
 import { UtilsService } from '@/services/UtilsService'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref } from 'vue'
@@ -112,7 +111,7 @@ onBeforeMount(() => {
         localStorage.setItem(getLocalStorageKey(), professionalDocument.value.key || '')
       }
       if (tenantProfessionalDocument.value?.documentDeniedReasons) {
-        documentDeniedReasons.value = cloneDeep(
+        documentDeniedReasons.value = structuredClone(
           tenantProfessionalDocument.value.documentDeniedReasons
         )
       }
