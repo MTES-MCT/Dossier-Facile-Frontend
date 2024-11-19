@@ -475,6 +475,9 @@ const useTenantStore = defineStore('tenant', {
     updateUserZipcode(zipcode: string) {
       this.user.zipCode = zipcode
     },
+    updateUserAbroad(abroad: boolean){
+      this.user.abroad = abroad
+    },
     selectDocumentFinancial(d: FinancialDocument | undefined) {
       this.financialDocumentSelected = Object.assign({}, d)
       this.editFinancialDocument = d !== undefined
