@@ -83,6 +83,20 @@
               v-model="zipcode"
             />
           </div>
+          <div class="fr-col-12 fr-mb-3w">
+            <div class="fr-checkbox-group bg-purple fr-mb-3w">
+              <input
+                  id="abroad"
+                  type="checkbox"
+                  v-model="abroad"
+                  class="fr-checkbox"
+              />
+              <label for="abroad">
+                {{ t('nameinformationform.abroad-residency-checkbox') }}
+              </label>
+            </div>
+          </div>
+
         </div>
         <ProfileFooter :show-back="false"></ProfileFooter>
       </Form>
@@ -95,7 +109,7 @@ import { Form } from 'vee-validate'
 import RequiredFieldsInstruction from 'df-shared-next/src/components/form/RequiredFieldsInstruction.vue'
 import NameInformationHelp from './helps/NameInformationHelp.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import { AnalyticsService } from '../services/AnalyticsService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import ProfileFooter from './footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { UtilsService } from '@/services/UtilsService'
@@ -119,14 +133,18 @@ const firstname = ref('')
 const lastname = ref('')
 const preferredname = ref('')
 const zipcode = ref('')
+const abroad = ref(false)
 const $loading = useLoading({})
+
 
 onBeforeMount(() => {
   firstname.value = user.value?.firstName || ''
   lastname.value = user.value?.lastName || ''
   preferredname.value = UtilsService.capitalize(user.value?.preferredName || '')
   zipcode.value = user.value?.zipCode || ''
+  abroad.value = user.value?.abroad === true
   displayPreferredNameField.value = preferredname.value !== ''
+
 })
 
 function deletePreferredName() {
@@ -165,7 +183,8 @@ function handleNameInformation() {
     user.value.firstName === firstname.value &&
     user.value.lastName === lastname.value &&
     user.value.preferredName === preferredname.value &&
-    user.value.zipCode === zipcode.value
+    user.value.zipCode === zipcode.value &&
+    user.value.abroad === abroad.value
   ) {
     router.push({ name: 'TenantType' })
     return
@@ -175,6 +194,7 @@ function handleNameInformation() {
   store.updateUserLastname(lastname.value)
   store.updateUserPreferredname(preferredname.value)
   store.updateUserZipcode(zipcode.value)
+  store.updateUserAbroad(abroad.value)
 
   store
     .setNames(user.value)

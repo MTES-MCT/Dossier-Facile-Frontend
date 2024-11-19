@@ -949,6 +949,7 @@
     "add-preferredname": "Add a Preferred Name",
     "delete-preferredname": "Delete Preferred Name",
     "zipcode": "Postal Code (only if you reside in France)",
+    "abroad-residency-checkbox": "You are currently residing abroad.",
     "field-required": "This field is required",
     "title": "Let's start with your personal identity information.",
     "subtitle": "Please provide the information of the person whose name will appear on the lease agreement.",

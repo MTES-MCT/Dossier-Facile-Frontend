@@ -989,6 +989,7 @@
     "add-preferredname": "Ajouter un nom d'usage",
     "delete-preferredname": "Supprimer le nom d'usage",
     "zipcode": "Code postal (uniquement si vous résidez en France)",
+    "abroad-residency-checkbox": "Vous résidez actuellement à l'étranger",
     "field-required": "Ce champ est requis",
     "title": "Votre identité",
     "unlink-fc-link": "Modifier vos informations ?",

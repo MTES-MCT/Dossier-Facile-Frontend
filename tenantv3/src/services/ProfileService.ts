@@ -13,7 +13,8 @@ export const ProfileService = {
       firstName: user.firstName,
       lastName: user.lastName,
       preferredName: user.preferredName,
-      zipCode: user.zipCode
+      zipCode: user.zipCode,
+      abroad: user.abroad
     })
   },
   saveCoTenants(data: { applicationType: string; coTenants: User[]; acceptAccess: boolean }) {

@@ -13,6 +13,7 @@ export class User {
   preferredName?: string
   firstName?: string
   zipCode?: string
+  abroad?: boolean
   applicationType?: string
   tenantType?: string
   status?: string
