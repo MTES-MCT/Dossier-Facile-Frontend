@@ -13,7 +13,7 @@ import '@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css'
 import '@gouvfr/dsfr/dist/utility/icons/icons-design/icons-design.min.css'
 import '@gouvfr/dsfr/dist/utility/icons/icons-buildings/icons-buildings.min.css'
 import { keycloak } from './plugin/keycloak'
-import axios from 'axios'
+import axios, { type AxiosError } from 'axios'
 import { LoadingPlugin } from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import { configure, defineRule } from 'vee-validate'
@@ -152,11 +152,11 @@ keycloak
 
       axios.interceptors.response.use(
         (response) => response,
-        (error) => {
+        (error: AxiosError) => {
           if (error.response && (error.response.status === 401 || error.response.status === 403)) {
             console.log('err')
           }
-          return Promise.reject(new Error(error))
+          return Promise.reject(error)
         }
       )
     }
@@ -180,11 +180,10 @@ keycloak
       theme: 'colored',
       clearOnUrlChange: false
     } satisfies ToastContainerOptions)
-    register(app, {matomo: true, crisp: CRISP_ENABLED === 'true'})
-    keycloak.loadUserInfo()
-          .then((user) => {
-              window.$crisp?.push(['set', 'user:email', [user.email]])
-          })
+    register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
+    keycloak.loadUserInfo().then((user) => {
+      window.$crisp?.push(['set', 'user:email', [user.email]])
+    })
     app.mount('#app')
   })
   .catch((error: Error) => {
