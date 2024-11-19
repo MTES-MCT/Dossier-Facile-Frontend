@@ -16,6 +16,7 @@ module.exports = {
           /^router-link(|-exact)-active$/,
           /.*fr-accordion.*/,
           /.*fr-collapse.*/,
+          /.*fr-modal.*/,
           /data-v-.*/
         ]
       })
