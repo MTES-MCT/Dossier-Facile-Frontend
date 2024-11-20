@@ -25,34 +25,31 @@
               </h1>
               <div class="fr-consent-manager">
                 <!-- Finalités -->
-                <div class="fr-consent-service fr-consent-manager__header">
-                  <fieldset class="fr-fieldset fr-fieldset--inline">
-                    <legend
+                <div class="fr-consent-manager__header">
+                  <fieldset class="fr-fieldset fieldset-all" aria-labelledby="finality-legend">
+                    <div
                       id="finality-legend"
-                      class="fr-text--sm"
                       v-html="t('legend', [`${MAIN_URL}/politique-de-confidentialite`])"
                     />
-                    <div class="fr-consent-service__radios">
-                      <div class="fr-btns-group--inline">
-                        <button
-                          type="button"
-                          id="consent-service__tout-accepter"
-                          class="fr-btn"
-                          aria-controls="fr-consent-modal"
-                          @click="acceptAll"
-                        >
-                          {{ t('accept-all') }}
-                        </button>
-                        <button
-                          type="button"
-                          id="consent-service__tout-refuser"
-                          class="fr-btn fr-btn--secondary"
-                          aria-controls="fr-consent-modal"
-                          @click="rejectAll"
-                        >
-                          {{ t('reject-all') }}
-                        </button>
-                      </div>
+                    <div class="fr-btns-group--inline fr-ml-auto">
+                      <button
+                        type="button"
+                        id="consent-service__tout-accepter"
+                        class="fr-btn"
+                        aria-controls="fr-consent-modal"
+                        @click="acceptAll"
+                      >
+                        {{ t('accept-all') }}
+                      </button>
+                      <button
+                        type="button"
+                        id="consent-service__tout-refuser"
+                        class="fr-btn fr-btn--secondary"
+                        aria-controls="fr-consent-modal"
+                        @click="rejectAll"
+                      >
+                        {{ t('reject-all') }}
+                      </button>
                     </div>
                   </fieldset>
                 </div>
@@ -236,7 +233,12 @@ const confirm = () => {
 
 <style scoped>
 #finality-legend {
-  --text-spacing: 0.75rem 0 0.75rem 0;
+  font-size: 0.875rem;
+}
+.fieldset-all {
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
 }
 </style>
 
