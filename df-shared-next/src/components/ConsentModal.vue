@@ -29,6 +29,7 @@
                   <fieldset class="fr-fieldset fr-fieldset--inline">
                     <legend
                       id="finality-legend"
+                      class="fr-text--sm"
                       v-html="t('legend', [`${MAIN_URL}/politique-de-confidentialite`])"
                     />
                     <div class="fr-consent-service__radios">
@@ -245,7 +246,7 @@ const confirm = () => {
     "mandatory-cookies": "Mandatory cookies",
     "mandatory-cookies-desc": "This site uses cookies which are necessary for its proper operation and which cannot be deactivated.",
     "confirm-choices": "Confirm choices",
-    "legend": "<p class=\"fr-mb-1w\">View DossierFacile's <a href={0}>privacy policy</a></p> <strong>Settings for all services:</strong>",
+    "legend": "View DossierFacile's <a href={0}>privacy policy</a> <br> <strong>Settings for all services:</strong>",
     "crisp-desc": "DossierFacile uses Crisp to chat with its users. If you refuse these cookies, you will not be able to chat with DossierFacile.",
     "matomo-desc": "DossierFacile uses Matomo to analyze its audience and improve its website. Matomo is an open-source tool recommended by the CNIL."
   },
@@ -258,8 +259,8 @@ const confirm = () => {
     "reject-all": "Tout refuser",
     "mandatory-cookies": "Cookies obligatoires",
     "mandatory-cookies-desc": "Ce site utilise des cookies nécessaires à son bon fonctionnement qui ne peuvent pas être désactivés.",
-    "confirm-choices": "Confirmer mes choix",
-    "legend": "<p class=\"fr-mb-1w\">Voir la <a href={0}>politique de confidentialité</a> de DossierFacile</p> <strong>Préférences pour tous les services :</strong>",
+    "confirm-choices": "Confirmer vos choix",
+    "legend": "Voir la <a href={0}>politique de confidentialité</a> de DossierFacile <br> <strong>Préférences pour tous les services :</strong>",
     "crisp-desc": "DossierFacile utilise Crisp pour tchatter avec ses utilisateurs. Si vous refusez ces cookies, vous ne pourrez pas tchatter avec DossierFacile.",
     "matomo-desc": "DossierFacile utilise Matomo pour analyser son audience et améliorer son site internet. Matomo est un outil open-source recommandé par la CNIL."
   }

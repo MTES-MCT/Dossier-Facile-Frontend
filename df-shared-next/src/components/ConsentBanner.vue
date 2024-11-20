@@ -58,7 +58,7 @@ const rejectAll = () => {
 {
   "en": {
     "title": "About cookies on DossierFacile",
-    "desc": "DossierFacile use cookies to improve its website and enable you to use certain services.<br> You can change your choice at any time by clicking on the <button type=\"button\" data-fr-opened=\"false\" aria-controls=\"fr-consent-modal\">Cookie management</button> link at the bottom of any page on the site.",
+    "desc": "DossierFacile use cookies to improve its website and enable you to use certain services.<br> You can change your choice at any time by clicking on the <button type=\"button\" data-fr-opened=\"false\" aria-controls=\"fr-consent-modal\" class=\"btn-link\">Cookie management</button> link at the bottom of any page on the site.",
     "accept-all": "Accept all",
     "accept-all-title": "Accept all cookies",
     "reject-all": "Reject all",
@@ -68,7 +68,7 @@ const rejectAll = () => {
   },
   "fr": {
     "title": "À propos des cookies sur DossierFacile",
-    "desc": "DossierFacile utilise des cookies pour améliorer son site internet et vous permettre d'utiliser certains services.<br> Vous pouvez changer votre choix à tout moment en cliquant sur le lien <button type=\"button\" data-fr-opened=\"false\" aria-controls=\"fr-consent-modal\">Gestion des cookies</button> qui se trouve en bas de chaque page du site.",
+    "desc": "DossierFacile utilise des cookies pour améliorer son site internet et vous permettre d'utiliser certains services.<br> Vous pouvez changer votre choix à tout moment en cliquant sur le lien <button type=\"button\" data-fr-opened=\"false\" aria-controls=\"fr-consent-modal\" class=\"btn-link\">Gestion des cookies</button> qui se trouve en bas de chaque page du site.",
     "accept-all": "Tout accepter",
     "accept-all-title": "Autoriser tous les cookies",
     "reject-all": "Tout refuser",
