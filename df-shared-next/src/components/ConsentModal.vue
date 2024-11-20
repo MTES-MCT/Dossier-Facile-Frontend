@@ -238,7 +238,8 @@ const confirm = () => {
 .fieldset-all {
   align-items: center;
   gap: 1rem;
-  padding-bottom: 1.5rem;
+  padding: 0 0 1.5rem 0;
+  margin: 0;
 }
 </style>
 
