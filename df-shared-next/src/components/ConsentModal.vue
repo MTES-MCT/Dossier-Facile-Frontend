@@ -33,7 +33,7 @@
                       v-html="t('legend', [`${MAIN_URL}/politique-de-confidentialite`])"
                     />
                     <div class="fr-consent-service__radios">
-                      <div class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+                      <div class="fr-btns-group--inline">
                         <button
                           type="button"
                           id="consent-service__tout-accepter"
@@ -233,6 +233,12 @@ const confirm = () => {
   emit('choiceMade')
 }
 </script>
+
+<style scoped>
+#finality-legend {
+  --text-spacing: 0.75rem 0 0.75rem 0;
+}
+</style>
 
 <i18n>
 {
