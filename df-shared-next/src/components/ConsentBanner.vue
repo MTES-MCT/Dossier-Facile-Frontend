@@ -58,7 +58,7 @@ const rejectAll = () => {
 {
   "en": {
     "title": "About cookies on DossierFacile",
-    "desc": "Welcome! We use cookies to improve your experience and the services available on this site. To find out more, visit our <a href={0}>privacy policy</a>. You can, at any time, control which cookies you wish to enable.",
+    "desc": "DossierFacile use cookies to improve its website and enable you to use certain services.<br> You can change your choice at any time by clicking on the <button type=\"button\" data-fr-opened=\"false\" aria-controls=\"fr-consent-modal\">Cookie management</button> link at the bottom of any page on the site.",
     "accept-all": "Accept all",
     "accept-all-title": "Accept all cookies",
     "reject-all": "Reject all",
@@ -68,7 +68,7 @@ const rejectAll = () => {
   },
   "fr": {
     "title": "À propos des cookies sur DossierFacile",
-    "desc": "Bienvenue ! Nous utilisons des cookies pour améliorer votre expérience et les services disponibles sur ce site. Pour en savoir plus, visitez la <a href={0}>politique de confidentialité</a>. Vous pouvez, à tout moment, avoir le contrôle sur les cookies que vous souhaitez activer.",
+    "desc": "DossierFacile utilise des cookies pour améliorer son site internet et vous permettre d'utiliser certains services.<br> Vous pouvez changer votre choix à tout moment en cliquant sur le lien <button type=\"button\" data-fr-opened=\"false\" aria-controls=\"fr-consent-modal\">Gestion des cookies</button> qui se trouve en bas de chaque page du site.",
     "accept-all": "Tout accepter",
     "accept-all-title": "Autoriser tous les cookies",
     "reject-all": "Tout refuser",
