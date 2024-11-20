@@ -232,7 +232,7 @@ import { UtilsService } from '@/services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import { useI18n } from 'vue-i18n'
 import useTenantStore from '@/stores/tenant-store'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, toRaw } from 'vue'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
@@ -258,7 +258,7 @@ const isNoIncomeAndFiles = ref(false)
 const financialDocument = ref(new FinancialDocument())
 
 onBeforeMount(() => {
-  financialDocument.value = { ...structuredClone(financialDocumentSelected.value) }
+  financialDocument.value = { ...structuredClone(toRaw(financialDocumentSelected.value)) }
   const doc = tenantFinancialDocument()
   if (doc?.documentDeniedReasons) {
     const deniedReasons = tenantFinancialDocument()?.documentDeniedReasons
@@ -441,7 +441,7 @@ async function save(): Promise<boolean> {
     .saveTenantFinancial(formData)
     .then(() => {
       financialDocument.value = {
-        ...structuredClone(financialDocumentSelected.value)
+        ...structuredClone(toRaw(financialDocumentSelected.value))
       }
       ToastService.saveSuccess()
       return Promise.resolve(true)
