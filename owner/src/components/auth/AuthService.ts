@@ -10,10 +10,10 @@ const AuthService = {
     return axios.post<void>(`${API_URL}owner/logout`)
   },
 
-  register(user: User) {
+  register({ email, password }: { email: string; password: string }) {
     return axios.post<OwnerUser>(`${API_URL}register/account`, {
-      email: user.email,
-      password: user.password
+      email,
+      password
     })
   },
 
@@ -27,9 +27,9 @@ const AuthService = {
     })
   },
 
-  changePassword(user: User) {
-    return axios.post<OwnerUser>(`${API_URL}register/createPassword/${user.token}`, {
-      password: user.password
+  changePassword({ token, password }: { token: string; password: string }) {
+    return axios.post<OwnerUser>(`${API_URL}register/createPassword/${token}`, {
+      password
     })
   },
 

@@ -30,7 +30,7 @@ withDefaults(
   }
 )
 
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 function nextAction() {
   emit('on-next')

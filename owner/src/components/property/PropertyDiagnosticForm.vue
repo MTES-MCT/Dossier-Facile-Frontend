@@ -102,7 +102,7 @@ const store = useOwnerStore()
 const toast = useToast()
 const dpeform = ref<typeof Form | null>(null)
 
-const emit = defineEmits(['submit', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; submit: [] }>()
 
 const expandNoDPE = computed(
   () => SharedPropertyService.hasDpe(store.propertyToEdit) && !store.propertyToEdit?.ademeNumber

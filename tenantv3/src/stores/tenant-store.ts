@@ -475,7 +475,7 @@ const useTenantStore = defineStore('tenant', {
     updateUserZipcode(zipcode: string) {
       this.user.zipCode = zipcode
     },
-    updateUserAbroad(abroad: boolean){
+    updateUserAbroad(abroad: boolean) {
       this.user.abroad = abroad
     },
     selectDocumentFinancial(d: FinancialDocument | undefined) {
@@ -684,22 +684,20 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    createPasswordCouple(user: User) {
-      return AuthService.createPasswordCouple(user).then(
+    createPasswordCouple({ token, password }: { token: string; password: string }) {
+      return AuthService.createPasswordCouple({ token, password }).then(
         (response) => {
           this.loadUserCommit(response.data)
-          return Promise.resolve(user)
         },
         (error) => {
           return Promise.reject(error)
         }
       )
     },
-    createPasswordGroup(user: User) {
-      return AuthService.createPasswordGroup(user).then(
+    createPasswordGroup({ token, password }: { token: string; password: string }) {
+      return AuthService.createPasswordGroup({ token, password }).then(
         (response) => {
           this.loadUserCommit(response.data)
-          return Promise.resolve(user)
         },
         (error) => {
           return Promise.reject(error)

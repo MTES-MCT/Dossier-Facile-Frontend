@@ -184,7 +184,7 @@
               </td>
               <td class="desktop" @click="setShowTenant(tenant, k)">
                 <div class="tenant-type" :class="getTenantClass(tenant)">
-                  {{ t(tenant.tenantType || '') }}
+                  {{ t(tenant.applicationType || '') }}
                 </div>
               </td>
               <td @click="setShowTenant(tenant, k)">
@@ -240,7 +240,7 @@ import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import PropertyIcon from './PropertyIcon.vue'
 import i18n from '../../i18n'
-import Applicant from './Applicant'
+import type { Applicant } from './Applicant'
 import UtilsService from '../../services/UtilsService'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'

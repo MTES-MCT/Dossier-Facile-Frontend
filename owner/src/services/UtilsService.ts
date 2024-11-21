@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Property } from 'df-shared-next/src/models/Property'
 import type { GeoJson } from 'df-shared-next/src/models/GeoJson'
-import Applicant from '../components/property/Applicant'
+import type { Applicant } from '../components/property/Applicant'
 
 const API_URL = `${import.meta.env.VITE_OWNER_API_URL}/api/`
 
@@ -30,14 +30,14 @@ const UtilsService = {
       if (a !== undefined && a.tenants.length > 0) {
         const rate =
           a.totalSalary && a.totalSalary > 0 ? Math.round((p.rentCost * 100) / a.totalSalary) : -1
-        const mainTenant = a.tenants.find((t: Applicant) => t.tenantType === 'CREATE')
+        const mainTenant = a.tenants.find((t) => t.tenantType === 'CREATE')
         return {
           id: pas.id,
           lastUpdateDate: mainTenant?.lastUpdateDate
             ? new Date(mainTenant.lastUpdateDate)
             : new Date(),
           tenantName: mainTenant ? `${mainTenant.lastName} ${mainTenant.firstName}` : '',
-          tenantType: a.applicationType,
+          applicationType: a.applicationType,
           tenantSalary: `${a.totalSalary} €`,
           guarantorSalary: a.totalGuarantorSalary ? `${a.totalGuarantorSalary} €` : '-',
           rate: rate,

@@ -152,8 +152,8 @@ const useOwnerStore = defineStore('owner', {
       this.status.loggedIn = false
       this.user = new User()
     },
-    register(user: User) {
-      return AuthService.register(user).then(
+    register({ email, password }: { email: string; password: string }) {
+      return AuthService.register({ email, password }).then(
         (response) => {
           this.registerSuccess()
           return Promise.resolve(response.data)
@@ -196,11 +196,10 @@ const useOwnerStore = defineStore('owner', {
         (error: Error) => Promise.reject(error)
       )
     },
-    changePassword(user: User) {
-      return AuthService.changePassword(user).then(
+    changePassword({ token, password }: { token: string; password: string }) {
+      return AuthService.changePassword({ token, password }).then(
         async (response) => {
           this.loadUserCommit(response.data)
-          return Promise.resolve(user)
         },
         (error: Error) => Promise.reject(error)
       )

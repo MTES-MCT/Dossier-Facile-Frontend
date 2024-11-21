@@ -1,6 +1,6 @@
+import type { ApplicationType } from './ApplicationType'
+import type { TenantFileStatus } from './TenantFileStatus'
 import { User } from './User'
-
-type TenantFileStatus = 'TO_PROCESS' | 'VALIDATED' | 'DECLINED' | 'INCOMPLETE' | 'ARCHIVED'
 
 export class ApartmentSharing {
   id?: number
@@ -8,7 +8,7 @@ export class ApartmentSharing {
   status?: TenantFileStatus
   token?: string
   tokenPublic?: string
-  applicationType?: string
+  applicationType?: ApplicationType
   totalSalary?: number
   totalGuarantorSalary?: number
 }

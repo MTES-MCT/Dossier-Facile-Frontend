@@ -39,7 +39,7 @@
               <Field
                 id="email"
                 name="email"
-                v-model="user.email"
+                v-model="email"
                 v-slot="{ field, meta }"
                 :rules="{ email: true, required: true }"
               >
@@ -66,7 +66,7 @@
               <Field
                 id="password"
                 name="password"
-                v-model="user.password"
+                v-model="password"
                 v-slot="{ field, meta }"
                 :rules="{ required: true, strength: score }"
               >
@@ -82,7 +82,7 @@
                   autocomplete="new-password"
                 />
               </Field>
-              <PasswordMeter @score="setScore" :password="user.password || ''" />
+              <PasswordMeter @score="setScore" :password="password || ''" />
               <ErrorMessage class="error-with-password-meter" name="password" v-slot="{ message }">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
@@ -95,11 +95,11 @@
               >
               <Field
                 name="confirm-password"
-                v-model="user.confirm"
+                v-model="confirm"
                 v-slot="{ field, meta }"
                 :rules="{
                   required: true,
-                  confirm: [user.password, user.confirm]
+                  confirm: [password, confirm]
                 }"
               >
                 <input
@@ -133,7 +133,6 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User'
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Form, Field, ErrorMessage } from 'vee-validate'
@@ -142,11 +141,16 @@ import AnalyticsService from '../../services/AnalyticsService'
 
 const { t } = useI18n()
 
-const emit = defineEmits(['on-register', 'on-login-franceconnect'])
+const emit = defineEmits<{
+  'on-register': [data: { email: string; password: string }]
+  'on-login-franceconnect': []
+}>()
 
-const user: User = new User()
 const score = ref(0)
 const generatedPwd = ref('')
+const email = ref('')
+const password = ref('')
+const confirm = ref('')
 
 function generatePlaceholder() {
   const chars = [
@@ -178,7 +182,7 @@ function onSubmit() {
     return
   }
   AnalyticsService.registerWithTopVerticalForm()
-  emit('on-register', user)
+  emit('on-register', { email: email.value, password: password.value })
 }
 function loginFranceConnect() {
   AnalyticsService.onFranceConnectWithTopVerticalForm()
