@@ -1,5 +1,6 @@
 <template>
   <div class="fr-container">
+    <h1 class="fr-mt-3w fr-mb-2w">{{ t('menu.messaging') }}</h1>
     <section v-if="user.applicationType === 'COUPLE'" class="fr-mt-5w fr-mb-3w">
       <div class="fr-tabs">
         <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
@@ -35,12 +36,14 @@
 </template>
 
 <script setup lang="ts">
-import MessagesPanel from '../components/MessagesPanel.vue'
+import MessagesPanel from '@/components/messaging/MessagesPanel.vue'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, onMounted, ref } from 'vue'
 import { UtilsService } from '@/services/UtilsService'
+import { useI18n } from 'vue-i18n'
 
 const store = useTenantStore()
+const { t } = useI18n()
 const user = computed(() => store.user)
 
 const tabIndex = ref(0)
