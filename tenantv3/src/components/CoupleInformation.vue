@@ -163,6 +163,7 @@ import { computed, onMounted, ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
 import { Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 defineRule('custom', (v1: string, [v2]: string[]) => {
   if (v1 === v2) {
@@ -171,14 +172,14 @@ defineRule('custom', (v1: string, [v2]: string[]) => {
   return true
 })
 
-const emit = defineEmits<{ 'update:modelValue': [coTenants: User[]] }>()
+const emit = defineEmits<{ 'update:modelValue': [coTenants: CoTenant[]] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const spouseAuthorize = computed(() => store.spouseAuthorize)
 
-const coTenant = ref(new User())
+const coTenant = ref<CoTenant>(new User())
 const authorize = ref(false)
 const showCheckBox = ref(false)
 const disableNameFields = ref(false)

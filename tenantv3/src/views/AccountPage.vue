@@ -109,11 +109,7 @@
               <section v-if="user.applicationType !== 'ALONE'" class="fr-m-0 fr-p-0 bg-white">
                 <div class="fr-tabs account-tabs">
                   <ul class="fr-tabs__list fr-p-0" role="tablist" aria-label="tab-list">
-                    <li
-                      v-for="(tenant, k) in getTenants()"
-                      :key="`li${k}`"
-                      role="presentation"
-                    >
+                    <li v-for="(tenant, k) in tenants" :key="`li${k}`" role="presentation">
                       <button
                         class="fr-tabs__tab fr-container--fluid"
                         :id="`tabpanel-${k}`"
@@ -144,7 +140,7 @@
                     </li>
                   </ul>
                   <div
-                    v-for="(tenant, k) in getTenants()"
+                    v-for="(tenant, k) in tenants"
                     :key="`t${k}`"
                     :id="`tabpanel-${k}-panel`"
                     class="fr-tabs__panel"
@@ -208,7 +204,6 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
@@ -305,18 +300,10 @@ function lastModifiedDate(): string {
   return dayjs(user.value.lastUpdateDate).format('D MMMM YYYY à HH[h]mm')
 }
 
-function getTenants() {
-  const tenants: User[] = []
-  tenants.push(user.value)
-
-  user.value?.apartmentSharing?.tenants?.forEach((t) => {
-    if (t.id != user.value.id) {
-      tenants.push(t)
-    }
-  })
-
-  return tenants
-}
+const tenants = computed(() => [
+  user.value,
+  ...user.value.apartmentSharing.tenants.filter((t) => t.id !== user.value.id)
+])
 
 function downloadZip() {
   ProfileService.downloadZip()

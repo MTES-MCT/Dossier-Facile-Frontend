@@ -205,6 +205,7 @@ import { Field, ErrorMessage } from 'vee-validate'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import { useI18n } from 'vue-i18n'
 import { RiAlarmWarningLine } from '@remixicon/vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -240,7 +241,7 @@ const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const document = ref(new DocumentType())
 const isDocDeleteVisible = ref(false)
-const selectedCoTenant = ref(new User())
+const selectedCoTenant = ref<CoTenant>(new User())
 
 const dfDocument = ref(new DfDocument())
 const noDocument = ref(false)

@@ -1,10 +1,10 @@
+import type { CoTenant } from './CoTenant'
 import type { ApplicationType } from './ApplicationType'
 import type { TenantFileStatus } from './TenantFileStatus'
-import { User } from './User'
 
 export class ApartmentSharing {
   id?: number
-  tenants: User[] = []
+  tenants: CoTenant[] = []
   status?: TenantFileStatus
   token?: string
   tokenPublic?: string

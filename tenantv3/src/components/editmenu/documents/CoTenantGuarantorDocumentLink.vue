@@ -18,12 +18,12 @@ import DocumentLink from './DocumentLink.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { DocumentService } from '@/services/DocumentService'
 import { DocumentType } from './DocumentType'
-import { User } from 'df-shared-next/src/models/User'
 import { PersonType } from './PersonType'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const props = defineProps<{
   guarantor: Guarantor
-  coTenant: User
+  coTenant: CoTenant
   documentType: DocumentType
   substep: number
   active: boolean

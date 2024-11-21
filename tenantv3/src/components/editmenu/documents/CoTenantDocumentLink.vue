@@ -12,11 +12,11 @@
 import DocumentLink from './DocumentLink.vue'
 import { DocumentService } from '@/services/DocumentService'
 import { DocumentType } from './DocumentType'
-import { User } from 'df-shared-next/src/models/User'
 import { PersonType } from './PersonType'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const props = defineProps<{
-  coTenant: User
+  coTenant: CoTenant
   documentType: DocumentType
   substep: number
   active: boolean

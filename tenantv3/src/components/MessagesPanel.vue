@@ -289,7 +289,6 @@ import { DocumentService } from '../services/DocumentService'
 import { DfFile } from 'df-shared-next/src/models/DfFile'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import ShowDoc from '../components/documents/share/ShowDoc.vue'
-import { User } from 'df-shared-next/src/models/User'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { DfDocument, type DocumentCategory } from 'df-shared-next/src/models/DfDocument'
 import ViewEditBtn from '../components/ViewEditBtn.vue'
@@ -299,6 +298,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { RiCheckboxCircleLine, RiCloseCircleFill, RiTimeFill } from '@remixicon/vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const { t, d } = useI18n()
 const router = useRouter()
@@ -312,7 +312,7 @@ const tenantMessages = computed(() => messageList.value[props.tenant.id])
 
 const props = withDefaults(
   defineProps<{
-    tenant: User
+    tenant: CoTenant
     isCotenant?: boolean
   }>(),
   {

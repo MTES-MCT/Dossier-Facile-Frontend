@@ -3,7 +3,7 @@
     <section v-if="user.applicationType === 'COUPLE'" class="fr-mt-5w fr-mb-3w">
       <div class="fr-tabs">
         <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
-          <li v-for="(tenant, k) in getTenants()" :key="`li${k}`" role="presentation">
+          <li v-for="(tenant, k) in tenants" :key="`li${k}`" role="presentation">
             <button
               class="fr-tabs__tab fr-tabs__tab--icon-right"
               :id="`tabpanel-${k}`"
@@ -18,7 +18,7 @@
           </li>
         </ul>
         <div
-          v-for="(tenant, k) in getTenants()"
+          v-for="(tenant, k) in tenants"
           :key="`t${k}`"
           :id="`tabpanel-${k}-panel`"
           class="fr-tabs__panel"
@@ -35,8 +35,6 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User'
-
 import MessagesPanel from '../components/MessagesPanel.vue'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, onMounted, ref } from 'vue'
@@ -55,16 +53,8 @@ function markMessagesAsRead(tenantId: number) {
   store.readMessages(tenantId)
 }
 
-function getTenants() {
-  const tenants: User[] = []
-  tenants.push(user.value)
-
-  user.value?.apartmentSharing?.tenants?.forEach((t) => {
-    if (t.id != user.value.id) {
-      tenants.push(t)
-    }
-  })
-
-  return tenants
-}
+const tenants = computed(() => [
+  user.value,
+  ...user.value.apartmentSharing.tenants.filter((t) => t.id !== user.value.id)
+])
 </script>

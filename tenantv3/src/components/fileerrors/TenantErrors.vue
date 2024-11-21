@@ -28,20 +28,20 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User'
 import { useI18n } from 'vue-i18n'
 import useTenantStore from '../../stores/tenant-store'
 import { useRouter } from 'vue-router'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import UpdateComponent from './UpdateComponent.vue'
 import { UtilsService } from '../../services/UtilsService'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const store = useTenantStore()
 const { t } = useI18n()
 const router = useRouter()
 
 const props = defineProps<{
-  user: User
+  user: CoTenant
   keyprefix: string
 }>()
 function namesFilled() {
