@@ -89,7 +89,7 @@
           <div class="fr-col-3 right">
             <Toggle
               class="fr-toggle--label-left"
-              :id="link.id || 0"
+              :id="'m' + (link.id || 0)"
               :value="link.enabled || false"
               :checked-label="t('sharing-page.shared-links.enabled')"
               :unchecked-label="t('sharing-page.shared-links.disabled')"

@@ -27,7 +27,7 @@ import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    id: number
+    id: number | string
     value: boolean
     label?: string
     hint?: string
