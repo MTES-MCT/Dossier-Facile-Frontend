@@ -126,6 +126,10 @@ function mountApp() {
   app.use(i18n)
   app.use(Toast)
   register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
+  keycloak.loadUserInfo()
+      .then((user) => {
+        window.$crisp?.push(['set', 'user:email', [user.email]])
+      })
   app.mount('#app')
 }
 
