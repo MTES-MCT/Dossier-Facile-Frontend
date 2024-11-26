@@ -26,7 +26,7 @@ const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 defineRule('onlyAlpha', (value: string) => {
   const regex = /^[a-zA-Z \-'’àâäçéèêëîïôöùûüÿæœÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸÆŒ]*$/
-  if (!regex.test(value)){
+  if (!regex.test(value)) {
     return 'only-alpha'
   }
   return true
@@ -126,7 +126,7 @@ configure({
 const TENANT_API_URL = import.meta.env.VITE_API_URL
 
 keycloak
-  .init({ onLoad: 'check-sso', checkLoginIframe: true})
+  .init({ onLoad: 'check-sso', checkLoginIframe: true })
   .then((auth) => {
     // Token Refresh
     setInterval(() => {
@@ -152,11 +152,11 @@ keycloak
 
       axios.interceptors.response.use(
         (response) => response,
-        (error: Error) => {
+        (error) => {
           if (error.response && (error.response.status === 401 || error.response.status === 403)) {
             console.log('err')
           }
-          return Promise.reject(error)
+          return Promise.reject(new Error(error))
         }
       )
     }
@@ -183,6 +183,7 @@ keycloak
     register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
     app.mount('#app')
   })
-  .catch(() => {
+  .catch((error: Error) => {
+    console.dir(error)
     window.location.reload()
   })
