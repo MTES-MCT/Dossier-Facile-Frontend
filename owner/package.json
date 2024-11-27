@@ -38,7 +38,7 @@
     "df-shared-next": "0.1.0",
     "express": "4.21.1",
     "js-cookie": "3.0.5",
-    "keycloak-js": "25.0.6",
+    "keycloak-js": "26.0.5",
     "pinia": "2.0.33",
     "vee-validate": "4.12.2",
     "vue": "3.5.12",
