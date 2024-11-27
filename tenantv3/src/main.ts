@@ -125,6 +125,7 @@ configure({
 
 const TENANT_API_URL = import.meta.env.VITE_API_URL
 
+console.log('init keycloak')
 keycloak
   .init({ onLoad: 'check-sso', checkLoginIframe: true })
   .then((auth) => {
@@ -188,5 +189,5 @@ keycloak
   })
   .catch((error: Error) => {
     console.dir(error)
-    window.location.reload()
+    // window.location.reload()
   })
