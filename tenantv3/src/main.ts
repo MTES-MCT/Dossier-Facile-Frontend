@@ -180,11 +180,10 @@ keycloak
       theme: 'colored',
       clearOnUrlChange: false
     } satisfies ToastContainerOptions)
-    register(app, {matomo: true, crisp: CRISP_ENABLED === 'true'})
-    keycloak.loadUserInfo()
-          .then((user) => {
-              window.$crisp?.push(['set', 'user:email', [user.email]])
-          })
+    register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
+    keycloak.loadUserInfo().then((user) => {
+      window.$crisp?.push(['set', 'user:email', [user.email]])
+    })
     app.mount('#app')
   })
   .catch((error: Error) => {
