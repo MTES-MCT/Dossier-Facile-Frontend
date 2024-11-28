@@ -1,10 +1,11 @@
 <template>
   <div class="fr-grid-col">
-    <ColoredTag :text="t('DECLINED')" status="DECLINED" />
-    <h2 class="fr-mt-1w">{{ t('overview') }}</h2>
-    <DeclinedDocuments :tenant="tenant" :is-cotenant="isCotenant" />
-
-    <h2 class="fr-mt-3w">{{ t('menu.messaging') }}</h2>
+    <template v-if="tenant.status === 'DECLINED' || tenant.status === 'INCOMPLETE'">
+      <ColoredTag :text="t('DECLINED')" status="DECLINED" />
+      <h2 class="fr-mt-1w">{{ t('overview') }}</h2>
+      <DeclinedDocuments :tenant="tenant" :is-cotenant="isCotenant" />
+      <h2 class="fr-mt-3w">{{ t('menu.messaging') }}</h2>
+    </template>
     <div class="messages">
       <template v-for="m in tenantMessages" :key="m.id">
         <div class="separator">
@@ -61,7 +62,6 @@
       </div>
     </form>
   </div>
-  <!-- </div> -->
 </template>
 
 <script setup lang="ts">
@@ -276,7 +276,7 @@ const formatDate = (time: Date | undefined) => {
     margin-block: 24px;
     padding: 1px;
   }
-  ul > li:only-of-type {
+  .reasons > li:only-of-type {
     list-style-type: none;
     margin-left: -1rem;
   }
