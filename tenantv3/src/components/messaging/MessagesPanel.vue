@@ -42,7 +42,7 @@
     <hr class="fr-mb-3w" />
 
     <form class="submit-form" name="form" @submit.prevent="handleSubmit">
-      <h3 class="answer-title">Répondre dans la messagerie</h3>
+      <h3 class="answer-title">{{ t('reply') }}</h3>
       <div class="fr-grid-row">
         <div class="fr-col-12 fr-mb-3w">
           <textarea
@@ -50,21 +50,16 @@
             class="sendMessage form-control fr-input"
             autocomplete="off"
             autofocus
-            placeholder="Tapez votre message ici"
             rows="4"
             name="sendMessage"
             type="text"
           />
         </div>
 
-        <p class="advice">
-          Le temps de traitement d'un message est le même que celui d'un dossier. Nous vous
-          recommandons donc de ne pas envoyer de message sans modifier vos documents pour ne pas
-          perdre de temps.
-        </p>
+        <p class="advice">{{ t('advice') }}</p>
         <div class="fr-col-12 fr-mb-5w">
           <button class="fr-btn" type="submit" :disabled="!sendMessage">
-            Envoyer votre message
+            {{ t('send-message') }}
           </button>
         </div>
       </div>
@@ -117,12 +112,14 @@ function handleSubmit() {
 const formatDate = (time: Date | undefined) => {
   const date = dayjs(time)
   if (date.isToday()) {
-    return date.format("[Aujourd'hui à] HH[h]mm")
+    const today = t('today')
+    return date.format(`[${today}] HH[h]mm`)
   }
   if (date.isYesterday()) {
-    return date.format('[Hier à] HH[h]mm')
+    const yesterday = t('yesterday')
+    return date.format(`[${yesterday}] HH[h]mm`)
   }
-  return date.format('Le D MMMM YYYY à HH[h]mm')
+  return date.format(dayjs.locale() === 'en' ? 'MMMM D, YYYY h:mm A' : 'Le D MMMM YYYY à HH[h]mm')
 }
 
 const CATEGORY_ITEM = '<li class="category-name">'
@@ -321,13 +318,23 @@ const addIcons = (html: string | undefined) =>
     "overview": "Aperçu des documents refusés",
     "team-df": "Équipe DossierFacile",
     "you": "Vous",
-    "display-previous-msg": "Afficher le message précédent"
+    "display-previous-msg": "Afficher le message précédent",
+    "send-message": "Envoyer votre message",
+    "advice": "Le temps de traitement d'un message est le même que celui d'un dossier. Nous vous recommandons donc de ne pas envoyer de message sans modifier vos documents pour ne pas perdre de temps.",
+    "reply": "Répondre dans la messagerie",
+    "today": "Aujourd'hui à",
+    "yesterday": "Hier à"
   },
   "en": {
     "overview": "Overview of rejected documents",
     "team-df": "Team DossierFacile",
     "you": "You",
-    "display-previous-msg": "Display previous message"
+    "display-previous-msg": "Display previous message",
+    "send-message": "Send your message",
+    "advice": "The processing time for a message is the same as for a file. We therefore recommend that you do not send a message without modifying your documents, to avoid wasting time.",
+    "reply": "Reply in messaging",
+    "today": "Today at",
+    "yesterday": "Yesterday at"
   }
 }
 </i18n>
