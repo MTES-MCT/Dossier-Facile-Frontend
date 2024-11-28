@@ -18,7 +18,7 @@
             operator: m.typeMessage === 'TO_TENANT'
           }"
         >
-          <div class="message" v-html="m.messageBody" />
+          <div class="message" v-html="addIcons(m.messageBody)" />
           <div v-if="m.typeMessage === 'FROM_TENANT'" class="avatar tenant">
             <RiUserFill size="46" color="#000091" />
             <span>{{ t('you') }}</span>
@@ -75,6 +75,7 @@ import isToday from 'dayjs/plugin/isToday'
 import isYesterday from 'dayjs/plugin/isYesterday'
 import dayjs from 'dayjs'
 import { RiGroupFill, RiUserFill } from '@remixicon/vue'
+import ErrorWarningIcon from '@/assets/error-warning.svg?raw'
 dayjs.extend(isToday)
 dayjs.extend(isYesterday)
 
@@ -111,6 +112,10 @@ const formatDate = (time: Date | undefined) => {
   }
   return date.format('Le D MMMM YYYY à HH[h]mm')
 }
+
+const CATEGORY_ITEM = '<li class="category-name">'
+const addIcons = (html: string | undefined) =>
+  html?.replaceAll(CATEGORY_ITEM, CATEGORY_ITEM + ErrorWarningIcon)
 </script>
 
 <style lang="scss" scoped>
@@ -234,6 +239,16 @@ const formatDate = (time: Date | undefined) => {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  .category-name {
+    list-style-type: none;
+    & > svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: #000091;
+      margin-right: 0.5rem;
+      vertical-align: bottom;
+    }
+  }
   & > li:first-child {
     display: flex;
     flex-direction: column;
