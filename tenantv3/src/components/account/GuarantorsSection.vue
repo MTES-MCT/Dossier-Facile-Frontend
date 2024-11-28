@@ -168,13 +168,14 @@ import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { ToastService } from '../../services/ToastService'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const store = useTenantStore()
 const router = useRouter()
 
 const props = withDefaults(
   defineProps<{
-    tenant?: User
+    tenant?: User | CoTenant
     canEdit?: boolean
     enableDownload?: boolean
   }>(),

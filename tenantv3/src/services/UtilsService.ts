@@ -3,6 +3,7 @@ import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { ToastService } from './ToastService'
 import { isAxiosError } from 'axios'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 export const UtilsService = {
   getLastAddedGuarantor(user: User) {
@@ -46,7 +47,7 @@ export const UtilsService = {
     }
     return true
   },
-  getAllDocuments(user: User) {
+  getAllDocuments(user: CoTenant) {
     const docs = user.documents || []
     return docs
   },
@@ -77,7 +78,7 @@ export const UtilsService = {
       ToastService.saveFailed()
     }
   },
-  tenantFullName(user: User) {
+  tenantFullName(user: CoTenant) {
     const firstName = this.capitalize(user.firstName ?? '')
     const lastName = this.capitalize(user.lastName ?? '')
     const preferredName = this.capitalize(user.preferredName ?? '')
@@ -103,7 +104,7 @@ export const UtilsService = {
     )
     return documentsDenied !== undefined
   },
-  getTenantDocumentByType(user: User, docType: string): DfDocument | undefined {
+  getTenantDocumentByType(user: CoTenant, docType: string): DfDocument | undefined {
     return user.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType
     })

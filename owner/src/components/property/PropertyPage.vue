@@ -5,7 +5,7 @@ import TopMenu from '../menu/TopMenu.vue'
 import BackNext from '../footer/BackNext.vue'
 import FooterContainer from '../footer/FooterContainer.vue'
 
-const emit = defineEmits(['submit', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; submit: [] }>()
 
 withDefaults(
   defineProps<{

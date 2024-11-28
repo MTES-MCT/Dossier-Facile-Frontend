@@ -400,7 +400,7 @@ async function save(): Promise<boolean> {
     .catch((err) => {
       financialDocument.value.fileUploadStatus = UploadStatus.STATUS_FAILED
       UtilsService.handleCommonSaveError(err)
-      return Promise.reject(new Error('err'))
+      return Promise.reject(new Error(err))
     })
     .finally(() => {
       loader.hide()

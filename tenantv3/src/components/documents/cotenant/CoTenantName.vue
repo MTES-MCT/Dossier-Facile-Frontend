@@ -77,12 +77,13 @@ import { onBeforeMount, ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
 import { Form } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const props = defineProps<{
   coTenantId: number
 }>()
 
-const selectedCoTenant = ref(new User())
+const selectedCoTenant = ref<CoTenant>(new User())
 const { t } = useI18n()
 const store = useTenantStore()
 

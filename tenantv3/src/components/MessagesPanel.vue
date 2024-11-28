@@ -289,9 +289,8 @@ import { DocumentService } from '../services/DocumentService'
 import { DfFile } from 'df-shared-next/src/models/DfFile'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import ShowDoc from '../components/documents/share/ShowDoc.vue'
-import { User } from 'df-shared-next/src/models/User'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { DfDocument, type DocumentCategory } from 'df-shared-next/src/models/DfDocument'
 import ViewEditBtn from '../components/ViewEditBtn.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
 import useTenantStore from '@/stores/tenant-store'
@@ -299,6 +298,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { RiCheckboxCircleLine, RiCloseCircleFill, RiTimeFill } from '@remixicon/vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const { t, d } = useI18n()
 const router = useRouter()
@@ -312,7 +312,7 @@ const tenantMessages = computed(() => messageList.value[props.tenant.id])
 
 const props = withDefaults(
   defineProps<{
-    tenant: User
+    tenant: CoTenant
     isCotenant?: boolean
   }>(),
   {
@@ -361,14 +361,14 @@ function guarantorHasFile(g: Guarantor, docType: string) {
   return DocumentService.guarantorHasFile(g, docType)
 }
 
-function openDoc(documentCategory: string) {
+function openDoc(documentCategory: DocumentCategory) {
   AnalyticsService.viewFromMessage(documentCategory)
   files.value = DocumentService.getFiles(documentCategory)
   if (files.value.length > 0) {
     isDocModalVisible.value = true
   }
 }
-function openGuarantorDoc(g: Guarantor, documentCategory: string) {
+function openGuarantorDoc(g: Guarantor, documentCategory: DocumentCategory) {
   AnalyticsService.viewFromMessage(documentCategory)
   files.value = DocumentService.getGuarantorFiles(g, documentCategory)
   if (files.value.length > 0) {

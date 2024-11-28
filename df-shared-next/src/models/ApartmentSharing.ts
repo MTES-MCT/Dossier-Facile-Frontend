@@ -1,14 +1,14 @@
-import { User } from './User'
-
-type TenantFileStatus = 'TO_PROCESS' | 'VALIDATED' | 'DECLINED' | 'INCOMPLETE' | 'ARCHIVED'
+import type { CoTenant } from './CoTenant'
+import type { ApplicationType } from './ApplicationType'
+import type { TenantFileStatus } from './TenantFileStatus'
 
 export class ApartmentSharing {
   id?: number
-  tenants: User[] = []
+  tenants: CoTenant[] = []
   status?: TenantFileStatus
   token?: string
   tokenPublic?: string
-  applicationType?: string
+  applicationType?: ApplicationType
   totalSalary?: number
   totalGuarantorSalary?: number
 }

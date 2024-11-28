@@ -1,40 +1,31 @@
 import { DfDocument } from './DfDocument'
 import { Guarantor } from './Guarantor'
 import { ApartmentSharing } from './ApartmentSharing'
+import type { TenantFileStatus } from './TenantFileStatus'
+import type { ApplicationType } from './ApplicationType'
 
 export class User {
   id!: number
-  email!: string
-  password?: string
-  token?: string
-  confirm?: string
-  captcha?: string
+  firstName?: string
   lastName?: string
   preferredName?: string
-  firstName?: string
   zipCode?: string
   abroad?: boolean
-  applicationType?: string
-  tenantType?: string
-  status?: string
-  lastUpdateDate?: Date
+  email!: string
+  tenantType?: 'CREATE' | 'JOIN'
+  status?: TenantFileStatus
   honorDeclaration?: boolean
+  lastUpdateDate?: Date
   clarification?: string
-  franceConnect?: boolean
-  passwordEnabled?: boolean
-
-  identification?: string
-  residency?: string
-  professional?: string
-  financial?: string
-  tax?: string
-
   apartmentSharing: ApartmentSharing = {
     tenants: []
   }
-  guarantors: Guarantor[] = []
   documents?: DfDocument[]
-  allowCheckTax?: boolean
-  linkUrl?: string
+  guarantors: Guarantor[] = []
+  franceConnect?: boolean
+  passwordEnabled?: boolean
   preValidationActivated?: boolean
+
+  /** This is not sent by the backend but added in the frontend */
+  applicationType?: ApplicationType
 }

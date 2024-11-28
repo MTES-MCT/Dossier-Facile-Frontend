@@ -2,22 +2,23 @@ import { User } from 'df-shared-next/src/models/User'
 import axios from 'axios'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import type { FileUser } from 'df-shared-next/src/models/FileUser'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 export const ProfileService = {
   unlinkFranceConnect() {
     return axios.delete<void>(`${import.meta.env.VITE_API_URL}/api/user/franceConnect`)
   },
-  saveNames(user: User) {
+  saveNames(user: User | CoTenant) {
     return axios.post<User>(`${import.meta.env.VITE_API_URL}/api/register/names`, {
       tenantId: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       preferredName: user.preferredName,
-      zipCode: user.zipCode,
-      abroad: user.abroad
+      zipCode: 'zipCode' in user ? user.zipCode : undefined,
+      abroad: 'abroad' in user ? user.abroad : undefined
     })
   },
-  saveCoTenants(data: { applicationType: string; coTenants: User[]; acceptAccess: boolean }) {
+  saveCoTenants(data: { applicationType: string; coTenants: CoTenant[]; acceptAccess: boolean }) {
     return axios.post<User>(`${import.meta.env.VITE_API_URL}/api/register/application/v2`, data)
   },
   async deleteCoTenant(id: number) {

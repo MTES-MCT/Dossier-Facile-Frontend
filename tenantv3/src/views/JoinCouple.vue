@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User'
 import InitPassword from 'df-shared-next/src/Authentification/InitPassword.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { ToastService } from '../services/ToastService'
@@ -26,9 +25,9 @@ const isLoggedIn = computed(() => store.isLoggedIn)
 const route = useRoute()
 const router = useRouter()
 
-function onInitPassword(user: User) {
-  user.token = route.params.token.toString()
-  store.createPasswordCouple(user).then(
+function onInitPassword(password: string) {
+  const token = route.params.token.toString()
+  store.createPasswordCouple({ token, password }).then(
     () => {
       ToastService.success('joincouple.password-update')
       router.push({ name: 'TenantName' })

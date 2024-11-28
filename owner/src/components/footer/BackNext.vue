@@ -47,7 +47,7 @@ withDefaults(
   }
 )
 
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const { t } = useI18n()
 
