@@ -7,7 +7,7 @@
       <h2 class="fr-mt-3w">{{ t('menu.messaging') }}</h2>
     </template>
     <div class="messages">
-      <template v-for="m in tenantMessages" :key="m.id">
+      <template v-for="m in messagesToDisplay" :key="m.id">
         <div class="separator">
           <span class="date">{{ formatDate(m.creationDateTime) }}</span>
         </div>
@@ -30,6 +30,14 @@
         </div>
       </template>
     </div>
+
+    <DfButton
+      v-if="showNextMessageButton"
+      type="button"
+      class="next-message"
+      @click="nbOfMessages++"
+      >{{ t('display-previous-msg') }}</DfButton
+    >
 
     <hr class="fr-mb-3w" />
 
@@ -76,6 +84,7 @@ import isYesterday from 'dayjs/plugin/isYesterday'
 import dayjs from 'dayjs'
 import { RiGroupFill, RiUserFill } from '@remixicon/vue'
 import ErrorWarningIcon from '@/assets/error-warning.svg?raw'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 dayjs.extend(isToday)
 dayjs.extend(isYesterday)
 
@@ -84,7 +93,10 @@ const store = useTenantStore()
 const messageList = computed(() => store.messageList)
 
 const sendMessage = ref('')
-const tenantMessages = computed(() => messageList.value[props.tenant.id])
+const nbOfMessages = ref(1)
+const allMessages = computed(() => messageList.value[props.tenant.id])
+const messagesToDisplay = computed(() => allMessages.value.slice(0, nbOfMessages.value))
+const showNextMessageButton = computed(() => nbOfMessages.value < allMessages.value.length)
 
 const props = withDefaults(
   defineProps<{
@@ -215,6 +227,11 @@ const addIcons = (html: string | undefined) =>
   font-size: 1.25rem;
 }
 
+.next-message {
+  align-self: center;
+  margin-bottom: 2.5rem;
+}
+
 .submit-form {
   align-self: center;
   max-width: 800px;
@@ -303,12 +320,14 @@ const addIcons = (html: string | undefined) =>
   "fr": {
     "overview": "Aperçu des documents refusés",
     "team-df": "Équipe DossierFacile",
-    "you": "Vous"
+    "you": "Vous",
+    "display-previous-msg": "Afficher le message précédent"
   },
   "en": {
     "overview": "Overview of rejected documents",
     "team-df": "Team DossierFacile",
-    "you": "You"
+    "you": "You",
+    "display-previous-msg": "Display previous message"
   }
 }
 </i18n>
