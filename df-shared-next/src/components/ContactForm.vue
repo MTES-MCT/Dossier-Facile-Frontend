@@ -439,13 +439,13 @@
 
 <script setup lang="ts">
 import Modal from './ModalComponent.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import RequiredFieldsInstruction from 'df-shared-next/src/components/form/RequiredFieldsInstruction.vue'
+import DfButton from '../Button/DfButton.vue'
+import RequiredFieldsInstruction from './form/RequiredFieldsInstruction.vue'
 import OwnerHelpAccordion from './contact/OwnerHelpAccordion.vue'
 import TenantHelpAccordion from './contact/TenantHelpAccordion.vue'
-import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
-import { ContactFormData } from 'df-shared-next/src/models/ContactFormData'
-import { SupportService } from 'df-shared-next/src/services/SupportService'
+import FieldLabel from './form/FieldLabel.vue'
+import { ContactFormData } from '../models/ContactFormData'
+import { SupportService } from '../services/SupportService'
 import { User } from '../models/User'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'

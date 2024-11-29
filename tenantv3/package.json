@@ -2,10 +2,9 @@
   "name": "tenantv3",
   "version": "0.1.0",
   "private": true,
-  "workspaces": {},
   "type": "module",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "vite",
@@ -29,7 +28,7 @@
     "@types/js-cookie": "3.0.6",
     "axios": "^1.7.4",
     "dayjs": "^1.11.10",
-    "df-shared-next": "0.1.0",
+    "df-shared-next": "workspace:*",
     "js-cookie": "3.0.5",
     "keycloak-js": "25.0.6",
     "pdfjs-dist": "4.5.136",

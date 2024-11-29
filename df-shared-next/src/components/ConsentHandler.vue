@@ -5,9 +5,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import ConsentBanner from 'df-shared-next/src/components/ConsentBanner.vue'
-import ConsentModal from 'df-shared-next/src/components/ConsentModal.vue'
-import { isConsentRequired } from 'df-shared-next/src/services/ConsentService'
+import ConsentBanner from './ConsentBanner.vue'
+import ConsentModal from './ConsentModal.vue'
+import { isConsentRequired } from '../services/ConsentService'
 
 const consentRequired = ref(isConsentRequired())
 </script>

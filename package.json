@@ -8,23 +8,5 @@
     "type": "git",
     "url": "git@github.com:MTES-MCT/Dossier-Facile-Frontend.git"
   },
-  "workspaces": [
-    "www",
-    "owner",
-    "tenantv3",
-    "watermark",
-    "df-shared-next",
-    "e2e-tests",
-    "storybook"
-  ],
-  "scripts": {
-    "www": "yarn workspace www",
-    "dfowner": "yarn workspace owner",
-    "tenantv3": "yarn workspace tenantv3",
-    "watermark": "yarn workspace watermark",
-    "e2e": "yarn workspace e2e-tests",
-    "storybook": "yarn workspace storybook",
-    "tsc": "vue-tsc --noEmit"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "pnpm@9.14.3+sha512.c0f53ee99477ed969b82b289ad011a5d16bf1623c957e7f29eabe8d0c00b574c29b8c7f54f6c67ee710c73f285c8154d07ce44b46fe2c0eeb476a90441bac371"
 }

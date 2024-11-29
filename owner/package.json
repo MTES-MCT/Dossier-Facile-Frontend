@@ -2,17 +2,9 @@
   "name": "owner",
   "private": true,
   "type": "module",
-  "workspaces": {
-    "nohoist": [
-      "**/connect-history-api-fallback/**",
-      "**/connect-history-api-fallback",
-      "**/express/**",
-      "**/express"
-    ]
-  },
   "version": "0.0.0",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "vite --force",
@@ -35,7 +27,7 @@
     "axios": "^1.7.4",
     "connect-history-api-fallback": "^2.0.0",
     "date-fns": "^2.28.0",
-    "df-shared-next": "0.1.0",
+    "df-shared-next": "workspace:*",
     "express": "4.21.1",
     "js-cookie": "3.0.5",
     "keycloak-js": "25.0.6",

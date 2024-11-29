@@ -76,7 +76,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
+import PasswordMeter from '../components/PasswordMeter/PasswordMeter.vue'
 import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { generatePasswordPlaceholder } from '../services/UtilsService'

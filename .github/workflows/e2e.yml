@@ -2,7 +2,7 @@ name: E2E
 
 on:
   schedule:
-    - cron: '53 7 * * 2'
+    - cron: "53 7 * * 2"
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -10,29 +10,40 @@ jobs:
   tests-on-preprod:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: 20
-      - uses: bahmutov/npm-install@v1
+          version: 9
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          working-directory: e2e-tests
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Run e2e tests
-        uses: cypress-io/github-action@v5.6.1
+        uses: cypress-io/github-action@v6.7.0
         with:
           project: ./e2e-tests
           install: false
           config-file: cypress-preprod.config.ts
           browser: chrome
       - name: Upload screenshot
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: e2e-tests/cypress/screenshots
           retention-days: 1
       - name: Upload video
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos

@@ -2,17 +2,9 @@
   "name": "watermark",
   "private": true,
   "type": "module",
-  "workspaces": {
-    "nohoist": [
-      "**/connect-history-api-fallback/**",
-      "**/connect-history-api-fallback",
-      "**/express/**",
-      "**/express"
-    ]
-  },
   "version": "0.0.0",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "vite",
@@ -30,7 +22,7 @@
     "@vee-validate/rules": "^4.5.11",
     "axios": "^1.7.4",
     "connect-history-api-fallback": "^2.0.0",
-    "df-shared-next": "0.1.0",
+    "df-shared-next": "workspace:*",
     "express": "4.21.1",
     "vee-validate": "^4.11.3",
     "vue": "3.5.12",

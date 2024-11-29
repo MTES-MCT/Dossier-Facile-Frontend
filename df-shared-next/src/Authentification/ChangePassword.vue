@@ -78,7 +78,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
-import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
+import PasswordMeter from '../components/PasswordMeter/PasswordMeter.vue'
 import { ref } from 'vue'
 
 defineRule('required', (value: unknown) => {
