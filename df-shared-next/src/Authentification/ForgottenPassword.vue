@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { User } from 'df-shared-next/src/models/User'
+import { User } from '../models/User'
 import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
 
 defineRule('email', (value: string | null | undefined) => {

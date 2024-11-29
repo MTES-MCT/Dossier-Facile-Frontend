@@ -1,0 +1,8 @@
+packages:
+  - "www"
+  - "owner"
+  - "tenantv3"
+  - "watermark"
+  - "df-shared-next"
+  - "e2e-tests"
+  - "storybook"

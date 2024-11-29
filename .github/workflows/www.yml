@@ -11,23 +11,36 @@ jobs:
   www:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: "20"
-      - uses: bahmutov/npm-install@v1
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          useRollingCache: true
-      - name: Build
-        run: yarn www build
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+
+      - name: Build www
+        run: pnpm --filter www build
       - name: Run unit tests
-        run: yarn www test:unit
+        run: pnpm --filter www test:unit
+
       - name: Run e2e tests
-        uses: cypress-io/github-action@v5.6.1
+        uses: cypress-io/github-action@v6
         with:
-          project: ./www
+          working-directory: www
           install: false
-          start: yarn www dev --host
+          start: pnpm dev --host
           wait-on: "http://localhost:9001"
         env:
           DEBUG: "@cypress/github-action"
@@ -36,27 +49,49 @@ jobs:
   tenant:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: "20"
-      - uses: bahmutov/npm-install@v1
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          useRollingCache: true
-      - name: Build
-        run: yarn tenantv3 build
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build tenantv3
+        run: pnpm --filter tenantv3 build
       - name: Run unit tests
-        run: yarn tenantv3 test:unit
+        run: pnpm --filter tenantv3 test:unit
 
   others:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: "20"
-      - uses: bahmutov/npm-install@v1
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          useRollingCache: true
-      - run: yarn dfowner build
-      - run: yarn watermark build
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build owner
+        run: pnpm --filter owner build
+      - name: Build watermark
+        run: pnpm --filter watermark build
