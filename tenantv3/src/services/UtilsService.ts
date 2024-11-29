@@ -27,7 +27,7 @@ export const UtilsService = {
     })
     return this.isDocumentValid(document)
   },
-  isDocumentValid(document?: DfDocument, preValidationActivated?: boolean) {
+  isDocumentValid(document?: DfDocument) {
     if (document === undefined) {
       return false
     }
@@ -39,7 +39,6 @@ export const UtilsService = {
     }
     if (
       import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE === 'true' &&
-      preValidationActivated &&
       document.documentAnalysisReport?.analysisStatus === 'DENIED' &&
       document.documentAnalysisReport?.comment === null
     ) {

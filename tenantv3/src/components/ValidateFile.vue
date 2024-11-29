@@ -158,10 +158,7 @@ onMounted(() => {
 })
 
 function sendEventPrevalidation(user: User | CoTenant) {
-  if (
-    import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== 'true' ||
-    ('preValidationActivated' in user && !user.preValidationActivated)
-  ) {
+  if (import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== 'true') {
     return
   }
   UtilsService.getAllDocuments(user).forEach((d: DfDocument) => {
