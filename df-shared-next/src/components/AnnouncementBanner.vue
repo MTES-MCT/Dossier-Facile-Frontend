@@ -57,6 +57,7 @@ function closeAnnouncement() {
 .message {
   display: flex;
   align-items: center;
+  word-break: break-all;
 }
 .close {
   color: #fff;
