@@ -29,6 +29,7 @@ import jinkaUrl from '../assets/logos/jinka.webp'
 import lokappyUrl from '../assets/logos/lokappy.webp'
 import immopadUrl from '../assets/logos/immopad.webp'
 import omnireaUrl from '../assets/logos/omnirea.webp'
+import eonImmobilierUrl from '../assets/logos/eon_immobilier.webp'
 
 interface Partner {
   name: string
@@ -251,5 +252,12 @@ export const PARTNERS: Partner[] = [
     href: 'https://lokappy.co/',
     name: 'lokappy',
     width: '231'
+  },
+  {
+    image: eonImmobilierUrl,
+    height: '53',
+    href: 'https://www.eon-immobilier.com/',
+    name: 'Eon Immobilier',
+    width: '240'
   }
 ]
