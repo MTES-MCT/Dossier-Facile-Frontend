@@ -24,7 +24,6 @@ export class User {
   guarantors: Guarantor[] = []
   franceConnect?: boolean
   passwordEnabled?: boolean
-  preValidationActivated?: boolean
 
   /** This is not sent by the backend but added in the frontend */
   applicationType?: ApplicationType

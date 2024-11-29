@@ -327,7 +327,7 @@ const useTenantStore = defineStore('tenant', {
       const document = u.documents?.find((d: DfDocument) => {
         return d.documentCategory === docType
       })
-      return UtilsService.isDocumentValid(document, state.user.preValidationActivated)
+      return UtilsService.isDocumentValid(document)
     },
     documentsPreValidated() {
       return (user?: CoTenant) => {

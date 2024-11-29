@@ -96,10 +96,7 @@ const props = defineProps<{
 }>()
 
 onMounted(() => {
-  if (
-    import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== 'true' ||
-    ('preValidationActivated' in props.user && !props.user.preValidationActivated)
-  ) {
+  if (import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== 'true') {
     return
   }
   for (const v of ['IDENTIFICATION', 'RESIDENCY', 'PROFESSIONAL', 'FINANCIAL', 'TAX']) {
