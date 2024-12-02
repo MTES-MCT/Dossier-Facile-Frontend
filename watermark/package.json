@@ -11,8 +11,7 @@
     "tsc": "vue-tsc --noEmit",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
-    "start": "node server.js"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore"
   },
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",
@@ -21,9 +20,7 @@
     "@sentry/vue": "7.119.2",
     "@vee-validate/rules": "^4.5.11",
     "axios": "^1.7.4",
-    "connect-history-api-fallback": "^2.0.0",
     "df-shared-next": "workspace:*",
-    "express": "4.21.1",
     "vee-validate": "^4.11.3",
     "vue": "3.5.12",
     "vue-i18n": "^9.3.0-beta.17",
