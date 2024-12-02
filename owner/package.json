@@ -12,7 +12,6 @@
     "fbuild": "vue-tsc --noEmit && vite build",
     "tsc": "vue-tsc --noEmit",
     "preview": "vite preview",
-    "start": "node server.js",
     "format": "prettier --write src/",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "cy:run": "cypress run"
@@ -25,10 +24,8 @@
     "@sentry/vue": "7.119.2",
     "@types/js-cookie": "3.0.6",
     "axios": "^1.7.4",
-    "connect-history-api-fallback": "^2.0.0",
     "date-fns": "^2.28.0",
     "df-shared-next": "workspace:*",
-    "express": "4.21.1",
     "js-cookie": "3.0.5",
     "keycloak-js": "25.0.6",
     "pinia": "2.0.33",
