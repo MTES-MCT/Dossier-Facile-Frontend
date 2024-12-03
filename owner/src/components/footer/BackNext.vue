@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue'
+import VGouvFrButton from 'df-shared-next/src/Button/VGouvFrButton.vue'
 import { useI18n } from 'vue-i18n'
 import { withDefaults } from 'vue'
 import { RiArrowLeftSLine } from '@remixicon/vue'
@@ -47,7 +47,7 @@ withDefaults(
   }
 )
 
-const emit = defineEmits(['on-next', 'on-back'])
+const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const { t } = useI18n()
 

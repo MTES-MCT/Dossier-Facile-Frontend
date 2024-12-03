@@ -5,7 +5,7 @@ export class Guarantor {
 
   lastName?: string
   firstName?: string
-  typeGuarantor?: string
+  typeGuarantor?: 'NATURAL_PERSON' | 'LEGAL_PERSON' | 'ORGANISM'
   legalPersonName?: string
 
   documents?: DfDocument[]

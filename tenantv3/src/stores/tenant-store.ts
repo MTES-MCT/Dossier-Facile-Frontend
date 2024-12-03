@@ -12,7 +12,7 @@ import { User } from 'df-shared-next/src/models/User'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { defineStore, type StoreActions } from 'pinia'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import keycloak from '../plugin/keycloak'
+import { keycloak } from '../plugin/keycloak'
 import { DocumentTypeConstants } from '@/components/documents/share/DocumentTypeConstants'
 import { DocumentType } from 'df-shared-next/src/models/Document'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -23,9 +23,10 @@ import * as Sentry from '@sentry/vue'
 import { MessageService } from '@/services/MessageService'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { RegisterService } from '@/services/RegisterService'
-import { useCookies } from 'vue3-cookies'
 import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import { PartnerAccessService } from '@/services/PartnerAccessService'
+import cookies from 'js-cookie'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -159,15 +160,15 @@ const useTenantStore = defineStore('tenant', {
     isFranceConnected(state: State): boolean {
       return state.user.franceConnect || false
     },
-    getRoommates(state: State): User[] {
+    getRoommates(state: State): CoTenant[] {
       if (state.user.apartmentSharing === undefined) {
         return []
       }
       return state.user.apartmentSharing.tenants
-        .filter((r: User) => {
+        .filter((r) => {
           return r.email !== state.user.email
         })
-        .map((u: User) => ({ ...u }))
+        .map((u) => ({ ...u }))
     },
     getNewMessage(state: State): number {
       return state.newMessage
@@ -251,7 +252,7 @@ const useTenantStore = defineStore('tenant', {
     getEditGuarantorFinancialDocument(state: State): boolean {
       return state.editGuarantorFinancialDocument
     },
-    getSpouse(): User | null {
+    getSpouse(): CoTenant | null {
       if (this.user.apartmentSharing.applicationType === 'COUPLE') {
         return (
           this.user.apartmentSharing.tenants.find((t) => {
@@ -263,11 +264,11 @@ const useTenantStore = defineStore('tenant', {
     },
     getTenant:
       (state: State) =>
-      (id: number): User => {
+      (id: number): User | CoTenant => {
         if (id === state.user.id) {
           return state.user
         }
-        const user = state.user.apartmentSharing.tenants.find((r: User) => {
+        const user = state.user.apartmentSharing.tenants.find((r) => {
           return r.id === id
         })
         if (!user) {
@@ -277,13 +278,13 @@ const useTenantStore = defineStore('tenant', {
       },
     allDocumentsPreValidated(state: State): boolean {
       const user = state.user
-      const tenantDocumentsPreValidated = (tenant: User) =>
+      const tenantDocumentsPreValidated = (tenant: CoTenant) =>
         this.documentsPreValidated(tenant) &&
         tenant.guarantors?.every((g) => !!this.guarantorDocumentsFilled(g))
 
       if (user.applicationType === 'COUPLE') {
         const cotenants = user.apartmentSharing?.tenants.filter(
-          (cotenant: User) => user.id !== cotenant.id
+          (cotenant) => user.id !== cotenant.id
         )
         return (
           (tenantDocumentsPreValidated(user) && cotenants.every(tenantDocumentsPreValidated)) ||
@@ -293,7 +294,7 @@ const useTenantStore = defineStore('tenant', {
       return tenantDocumentsPreValidated(user) || false
     },
     allNamesFilled(state: State): boolean {
-      const userNamesFilled = (u: User) => Boolean(u.firstName && u.lastName)
+      const userNamesFilled = (u: CoTenant) => Boolean(u.firstName && u.lastName)
       const guarantorNamesFilled = (g: Guarantor) =>
         !g ||
         (g.typeGuarantor === 'NATURAL_PERSON' && g.firstName && g.lastName) ||
@@ -302,9 +303,7 @@ const useTenantStore = defineStore('tenant', {
 
       const user = state.user
       if (user.applicationType === 'COUPLE') {
-        const couple = user.apartmentSharing?.tenants.find(
-          (cotenant: User) => user.id !== cotenant.id
-        )
+        const couple = user.apartmentSharing?.tenants.find((cotenant) => user.id !== cotenant.id)
 
         if (!couple || !userNamesFilled(couple) || !couple.guarantors.every(guarantorNamesFilled)) {
           return false
@@ -322,16 +321,16 @@ const useTenantStore = defineStore('tenant', {
       })?.files
       return f && f.length > 0
     },
-    isTenantDocumentValid: (state: State) => (docType: string, user?: User) => {
+    isTenantDocumentValid: (state: State) => (docType: string, user?: CoTenant) => {
       const u = user ? user : state.user
       // TODO : handle multiple financial documents
       const document = u.documents?.find((d: DfDocument) => {
         return d.documentCategory === docType
       })
-      return UtilsService.isDocumentValid(document, state.user.preValidationActivated)
+      return UtilsService.isDocumentValid(document)
     },
     documentsPreValidated() {
-      return (user?: User) => {
+      return (user?: CoTenant) => {
         for (const category of [
           'IDENTIFICATION',
           'PROFESSIONAL',
@@ -394,7 +393,7 @@ const useTenantStore = defineStore('tenant', {
       if (applicationType === 'COUPLE') {
         Object.assign(
           this.coTenants,
-          this.user.apartmentSharing?.tenants.filter((t: User) => t.id != this.user?.id)
+          this.user.apartmentSharing?.tenants.filter((t) => t.id != this.user?.id)
         )
       }
       if (this.selectedGuarantor?.id) {
@@ -445,7 +444,7 @@ const useTenantStore = defineStore('tenant', {
       this.newMessage = unreadMessages.length
     },
     deleteRoommates(email: string) {
-      const tenants = this.user.apartmentSharing.tenants.filter((t: User) => {
+      const tenants = this.user.apartmentSharing.tenants.filter((t) => {
         return t.email !== email
       })
       this.user.applicationType = 'ALONE'
@@ -474,6 +473,9 @@ const useTenantStore = defineStore('tenant', {
     },
     updateUserZipcode(zipcode: string) {
       this.user.zipCode = zipcode
+    },
+    updateUserAbroad(abroad: boolean) {
+      this.user.abroad = abroad
     },
     selectDocumentFinancial(d: FinancialDocument | undefined) {
       this.financialDocumentSelected = Object.assign({}, d)
@@ -567,7 +569,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    setNames(user: User) {
+    setNames(user: CoTenant) {
       if (user.firstName && !user.franceConnect) {
         user.firstName = UtilsService.capitalize(user.firstName)
       }
@@ -602,18 +604,15 @@ const useTenantStore = defineStore('tenant', {
       dayjs.locale(lang)
       const html = document.documentElement
       html.setAttribute('lang', i18n.global.locale.value)
-      const { cookies } = useCookies()
       const expireTimes = new Date()
       expireTimes.setFullYear(expireTimes.getFullYear() + 1)
-      cookies.set(
-        'lang',
-        lang,
-        expireTimes,
-        '/',
-        import.meta.env.VITE_COOKIE_DOMAIN || 'localhost',
-        true,
-        'None'
-      )
+      cookies.set('lang', lang, {
+        expires: expireTimes,
+        path: '/',
+        domain: import.meta.env.VITE_COOKIE_DOMAIN || 'localhost',
+        secure: true,
+        sameSite: 'None'
+      })
     },
     validateFile(data: { honorDeclaration: boolean; clarification: string | undefined }) {
       return ProfileService.validateFile(data.honorDeclaration, data.clarification).then(
@@ -684,22 +683,20 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    createPasswordCouple(user: User) {
-      return AuthService.createPasswordCouple(user).then(
+    createPasswordCouple({ token, password }: { token: string; password: string }) {
+      return AuthService.createPasswordCouple({ token, password }).then(
         (response) => {
           this.loadUserCommit(response.data)
-          return Promise.resolve(user)
         },
         (error) => {
           return Promise.reject(error)
         }
       )
     },
-    createPasswordGroup(user: User) {
-      return AuthService.createPasswordGroup(user).then(
+    createPasswordGroup({ token, password }: { token: string; password: string }) {
+      return AuthService.createPasswordGroup({ token, password }).then(
         (response) => {
           this.loadUserCommit(response.data)
-          return Promise.resolve(user)
         },
         (error) => {
           return Promise.reject(error)
@@ -737,7 +734,7 @@ const useTenantStore = defineStore('tenant', {
         this.updateMessages()
       })
     },
-    deleteCoTenant(tenant: User) {
+    deleteCoTenant(tenant: CoTenant) {
       if (tenant.id && tenant.id > 0) {
         ProfileService.deleteCoTenant(tenant.id)
       }

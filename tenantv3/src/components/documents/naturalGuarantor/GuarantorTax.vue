@@ -126,7 +126,6 @@ import GuarantorFooter from '../../footer/GuarantorFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { cloneDeep } from 'lodash'
 import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
@@ -253,7 +252,7 @@ function updateGuarantorData() {
       }
       const docDeniedReasons = guarantorTaxDocument()?.documentDeniedReasons
       if (docDeniedReasons !== undefined) {
-        documentDeniedReasons.value = cloneDeep(docDeniedReasons)
+        documentDeniedReasons.value = structuredClone(docDeniedReasons)
       }
     }
   }

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { useCookies } from 'vue3-cookies'
-const { cookies } = useCookies()
+import cookies from 'js-cookie'
 
 const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
 const DOMAIN = `${import.meta.env.VITE_COOKIE_DOMAIN}`
@@ -24,7 +23,11 @@ function createAnnouncementClosedCookie() {
   const expirationDate = new Date()
   expirationDate.setDate(expirationDate.getDate() + 1)
 
-  cookies.set(announcementClosedCookieKey, 'true', expirationDate, '/', DOMAIN)
+  cookies.set(announcementClosedCookieKey, 'true', {
+    expires: expirationDate,
+    path: '/',
+    domain: DOMAIN
+  })
 }
 
 function closeAnnouncement() {
@@ -54,6 +57,7 @@ function closeAnnouncement() {
 .message {
   display: flex;
   align-items: center;
+  word-break: break-all;
 }
 .close {
   color: #fff;

@@ -10,9 +10,6 @@ dist
 .env.local
 .env.*.local
 
-# prod env files
-.env.*
-
 # Log files
 npm-debug.log*
 yarn-debug.log*

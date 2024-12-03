@@ -95,7 +95,6 @@ import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { cloneDeep } from 'lodash'
 import GuarantorFooter from '../../footer/GuarantorFooter.vue'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import { computed, onBeforeMount, ref } from 'vue'
@@ -139,7 +138,7 @@ onBeforeMount(() => {
     }
   }
   if (guarantorIdentificationDocument()?.documentDeniedReasons) {
-    documentDeniedReasons.value = cloneDeep(
+    documentDeniedReasons.value = structuredClone(
       guarantorIdentificationDocument()!.documentDeniedReasons!
     )
   }

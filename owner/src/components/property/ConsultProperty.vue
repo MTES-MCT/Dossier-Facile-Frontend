@@ -14,15 +14,9 @@
           </div>
           <div class="title">{{ name }}</div>
           <div class="spacer"></div>
-          <VGouvFrModal id="share-modal">
+          <VGouvFrModal class="fr-btn btn--white fr-btn--secondary" @click="shareBtnClicked">
             <template #button>
-              <button
-                :title="t('consultproperty.share-btn')"
-                class="fr-btn btn--white fr-btn--secondary"
-                @click="shareBtnClicked()"
-              >
-                {{ t('consultproperty.share-btn') }}
-              </button>
+              {{ t('consultproperty.share-btn') }}
             </template>
             <template #title>
               {{ t('consultproperty.share-modal-title') }}
@@ -190,7 +184,7 @@
               </td>
               <td class="desktop" @click="setShowTenant(tenant, k)">
                 <div class="tenant-type" :class="getTenantClass(tenant)">
-                  {{ t(tenant.tenantType || '') }}
+                  {{ t(tenant.applicationType || '') }}
                 </div>
               </td>
               <td @click="setShowTenant(tenant, k)">
@@ -240,13 +234,13 @@ import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import VGouvFrModal from 'df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue'
+import VGouvFrModal from 'df-shared-next/src/GouvFr/VGouvFrModal.vue'
 import { useToast } from 'vue-toastification'
 import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import PropertyIcon from './PropertyIcon.vue'
 import i18n from '../../i18n'
-import Applicant from './Applicant'
+import type { Applicant } from './Applicant'
 import UtilsService from '../../services/UtilsService'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
@@ -449,7 +443,7 @@ function getRateClass(applicant: Applicant) {
   margin-top: 200px;
 }
 
-.btn--white {
+:deep(.btn--white) {
   color: white;
   box-shadow: inset 0 0 0 1px white;
   &:hover {

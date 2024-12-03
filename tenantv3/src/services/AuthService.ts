@@ -14,14 +14,14 @@ export const AuthService = {
     return axios.delete<void>(API_URL + 'user/deleteAccount')
   },
 
-  createPasswordCouple(user: User) {
-    return axios.post<User>(`${API_URL}user/createPassword/${user.token}`, {
-      password: user.password
+  createPasswordCouple({ token, password }: { token: string; password: string }) {
+    return axios.post<User>(`${API_URL}user/createPassword/${token}`, {
+      password
     })
   },
-  createPasswordGroup(user: User) {
-    return axios.post<User>(`${API_URL}user/createPassword/${user.token}`, {
-      password: user.password
+  createPasswordGroup({ token, password }: { token: string; password: string }) {
+    return axios.post<User>(`${API_URL}user/createPassword/${token}`, {
+      password
     })
   },
 

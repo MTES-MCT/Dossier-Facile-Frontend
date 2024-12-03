@@ -377,7 +377,7 @@
 </template>
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
-import { useCookies } from 'vue3-cookies'
+import cookies from 'js-cookie'
 import { useHead } from '@unhead/vue'
 
 useHead({
@@ -391,8 +391,6 @@ useHead({
   ]
 })
 
-const { cookies } = useCookies()
-
 const consentRemoved = ref(false)
 
 onBeforeMount(() => {
@@ -402,6 +400,9 @@ onBeforeMount(() => {
 })
 
 function changeConsentRemoved() {
+  if (!window._paq) {
+    return
+  }
   if (consentRemoved.value) {
     window._paq.push(['optUserOut'])
   } else {

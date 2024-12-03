@@ -2,25 +2,16 @@
   "name": "watermark",
   "private": true,
   "type": "module",
-  "workspaces": {
-    "nohoist": [
-      "**/connect-history-api-fallback/**",
-      "**/connect-history-api-fallback",
-      "**/express/**",
-      "**/express"
-    ]
-  },
   "version": "0.0.0",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "vite",
     "tsc": "vue-tsc --noEmit",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
-    "start": "node server.js"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore"
   },
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",
@@ -29,9 +20,7 @@
     "@sentry/vue": "7.119.2",
     "@vee-validate/rules": "^4.5.11",
     "axios": "^1.7.4",
-    "connect-history-api-fallback": "^2.0.0",
-    "df-shared-next": "0.1.0",
-    "express": "4.21.1",
+    "df-shared-next": "workspace:*",
     "vee-validate": "^4.11.3",
     "vue": "3.5.12",
     "vue-i18n": "^9.3.0-beta.17",
@@ -57,5 +46,6 @@
         ]
       }
     ]
-  }
+  },
+  "packageManager": "pnpm@9.14.3+sha512.c0f53ee99477ed969b82b289ad011a5d16bf1623c957e7f29eabe8d0c00b574c29b8c7f54f6c67ee710c73f285c8154d07ce44b46fe2c0eeb476a90441bac371"
 }

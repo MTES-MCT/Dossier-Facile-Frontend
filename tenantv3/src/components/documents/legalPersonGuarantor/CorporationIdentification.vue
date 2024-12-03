@@ -78,7 +78,6 @@ import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { cloneDeep } from 'lodash'
 import GuarantorFooter from '../../footer/GuarantorFooter.vue'
 import { computed, onBeforeMount, ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
@@ -108,7 +107,7 @@ const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 onBeforeMount(() => {
   organismName.value = getGuarantor()?.legalPersonName || ''
   if (guarantorIdentificationLegalPersonDocument()?.documentDeniedReasons) {
-    documentDeniedReasons.value = cloneDeep(
+    documentDeniedReasons.value = structuredClone(
       guarantorIdentificationLegalPersonDocument()!.documentDeniedReasons!
     )
   }

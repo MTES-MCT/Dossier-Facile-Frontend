@@ -81,8 +81,6 @@
   </section>
 </template>
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
-import { useCookies } from 'vue3-cookies'
 import { useHead } from '@unhead/vue'
 
 useHead({
@@ -94,16 +92,6 @@ useHead({
         'DossierFacile s’engage à protéger vos données personnelles : créez votre dossier de location en toute sécurité'
     }
   ]
-})
-
-const { cookies } = useCookies()
-
-const consentRemoved = ref(false)
-
-onBeforeMount(() => {
-  if (cookies.get('mtm_consent_removed')) {
-    consentRemoved.value = true
-  }
 })
 </script>
 

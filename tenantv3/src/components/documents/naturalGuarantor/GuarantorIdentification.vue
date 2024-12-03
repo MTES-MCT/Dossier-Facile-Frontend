@@ -30,8 +30,8 @@
       <AllDeclinedMessages
         class="fr-mb-3w"
         :user-id="user?.id"
-        :document="guarantorIdentificationDocument()"
-        :document-denied-reasons="documentDeniedReasons"
+        :document="guarantorIdentificationDocument"
+        :document-denied-reasons="guarantorIdentificationDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="identificationFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
@@ -66,8 +66,6 @@ import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { cloneDeep } from 'lodash'
 import { UtilsService } from '../../../services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import useTenantStore from '../../../stores/tenant-store'
@@ -95,7 +93,6 @@ const props = withDefaults(
   }
 )
 
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref([] as DfFile[])
 const identificationDocument = ref(new DocumentType())
@@ -104,26 +101,25 @@ const isDocDeleteVisible = ref(false)
 function onSelectChange(docType: DocumentType) {
   identificationDocument.value = docType
   if (user.value?.documents !== null) {
-    const doc = guarantorIdentificationDocument()
+    const doc = guarantorIdentificationDocument.value
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 &&
-        doc?.documentSubCategory !== identificationDocument.value.value
+        (doc.files?.length || 0) > 0 &&
+        doc.documentSubCategory !== identificationDocument.value.value
     }
   }
   return false
 }
 
-const documentStatus = computed(() => {
-  return guarantorIdentificationDocument()?.documentStatus
-})
-
-function guarantorIdentificationDocument(): DfDocument | undefined {
-  const doc = selectedGuarantor.value?.documents?.find((d: DfDocument) => {
+const guarantorIdentificationDocument = computed<DfDocument | undefined>(() =>
+  selectedGuarantor.value?.documents?.find((d: DfDocument) => {
     return d.documentCategory === 'IDENTIFICATION'
   })
-  return doc
-}
+)
+
+const documentStatus = computed(() => {
+  return guarantorIdentificationDocument.value?.documentStatus
+})
 
 function undoSelect() {
   if (selectedGuarantor.value?.documents !== null) {
@@ -159,18 +155,12 @@ async function validSelect() {
 }
 
 function updateGuarantorData() {
-  if (selectedGuarantor.value?.documents !== null) {
-    if (guarantorIdentificationDocument() !== undefined) {
-      const localDoc = documents.find((d: DocumentType) => {
-        return d.value === guarantorIdentificationDocument()?.documentSubCategory
-      })
-      if (localDoc !== undefined) {
-        identificationDocument.value = localDoc
-      }
-      const docDeniedReasons = guarantorIdentificationDocument()?.documentDeniedReasons
-      if (docDeniedReasons !== undefined) {
-        documentDeniedReasons.value = cloneDeep(docDeniedReasons)
-      }
+  if (guarantorIdentificationDocument.value !== undefined) {
+    const localDoc = documents.find((d: DocumentType) => {
+      return d.value === guarantorIdentificationDocument.value?.documentSubCategory
+    })
+    if (localDoc !== undefined) {
+      identificationDocument.value = localDoc
     }
   }
 }
@@ -253,7 +243,7 @@ function identificationFiles() {
       size: f.file?.size
     }
   })
-  const existingFiles = guarantorIdentificationDocument()?.files || []
+  const existingFiles = guarantorIdentificationDocument.value?.files || []
   return [...newFiles, ...existingFiles]
 }
 
@@ -261,10 +251,10 @@ async function remove(file: DfFile, silent = false) {
   if (file.id) {
     if (
       files.value.length === 1 &&
-      guarantorIdentificationDocument()?.documentAnalysisReport?.analysisStatus === 'DENIED'
+      guarantorIdentificationDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
       AnalyticsService.removeDeniedDocument(
-        guarantorIdentificationDocument()?.documentCategory || ''
+        guarantorIdentificationDocument.value?.documentCategory || ''
       )
     }
     await RegisterService.deleteFile(file.id, silent)

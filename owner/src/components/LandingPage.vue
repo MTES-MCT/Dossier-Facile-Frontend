@@ -248,7 +248,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
-import { User } from 'df-shared-next/src/models/User'
 import { useI18n } from 'vue-i18n'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import useOwnerStore from '../store/owner-store'
@@ -273,9 +272,9 @@ function loginFranceConnect() {
     window.location.href = FRANCE_CONNECT_LOGIN_URL.toString()
   }
 }
-function onRegister(user: User) {
-  if (user?.email && user.password) {
-    store.register(user).then(
+function onRegister(data: { email: string; password: string }) {
+  if (data.email && data.password) {
+    store.register(data).then(
       () => {
         isValidModalVisible.value = true
       },

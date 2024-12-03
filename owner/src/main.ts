@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import axios from 'axios'
-import { globalCookiesConfig } from 'vue3-cookies'
 import Toast from 'vue-toastification'
 import { configure, defineRule } from 'vee-validate'
 import { createPinia } from 'pinia'
@@ -11,15 +10,13 @@ import router from './router'
 import i18n from './i18n'
 import 'vue-toastification/dist/index.css'
 import keycloak from './plugin/keycloak'
-import MatomoPlugin from './plugin/matomo'
-import { CrispPlugin } from 'df-shared-next/src/plugin/crisp'
+import { register } from 'df-shared-next/src/services/ConsentService'
 
-const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 declare global {
   interface Window {
-    _paq: (string | number | undefined)[][]
+    _paq?: (string | number | undefined)[][]
   }
 }
 
@@ -97,7 +94,6 @@ configure({
   validateOnInput: true
 })
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const OWNER_API_URL = import.meta.env.VITE_OWNER_API_URL
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT || 'dev'
 
@@ -129,10 +125,11 @@ function mountApp() {
   app.use(router)
   app.use(i18n)
   app.use(Toast)
-  app.use(MatomoPlugin)
-  if (CRISP_ENABLED === 'true') {
-    app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
-  }
+  register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
+  keycloak.loadUserInfo()
+      .then((user) => {
+        window.$crisp?.push(['set', 'user:email', [user.email]])
+      })
   app.mount('#app')
 }
 
@@ -140,18 +137,6 @@ if (!window.location.href.includes('/validConnexion/')) {
   keycloak
     .init({ onLoad: 'check-sso', checkLoginIframe: true })
     .then((auth) => {
-      const aYearFromNow = new Date()
-      aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1)
-      globalCookiesConfig({
-        expireTimes: aYearFromNow.toUTCString(),
-        path: '/',
-        domain: MAIN_URL.endsWith('dossierfacile.logement.gouv.fr')
-          ? 'dossierfacile.logement.gouv.fr'
-          : 'localhost',
-        secure: true,
-        sameSite: 'None'
-      })
-
       // Token Refresh
       setInterval(() => {
         keycloak

@@ -91,7 +91,6 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User'
 import RoommatesInformation from './RoommatesInformation.vue'
 import CoupleInformation from './CoupleInformation.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
@@ -105,6 +104,7 @@ import { useI18n } from 'vue-i18n'
 import useTenantStore from '@/stores/tenant-store'
 import { useRouter } from 'vue-router'
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const router = useRouter()
 const store = useTenantStore()
@@ -115,7 +115,7 @@ const spouseAuthorize = computed(() => store.spouseAuthorize)
 
 const { t } = useI18n()
 
-const coTenants = ref([] as User[])
+const coTenants = ref<CoTenant[]>([])
 const applicationType = ref('')
 
 const localCoTenantAuthorize = ref(false)

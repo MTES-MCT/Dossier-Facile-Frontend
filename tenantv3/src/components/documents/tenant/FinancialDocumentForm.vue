@@ -226,14 +226,13 @@ import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ProfileFooter from '../../footer/ProfileFooter.vue'
-import { cloneDeep } from 'lodash'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UtilsService } from '@/services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import { useI18n } from 'vue-i18n'
 import useTenantStore from '@/stores/tenant-store'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, toRaw } from 'vue'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
@@ -259,12 +258,12 @@ const isNoIncomeAndFiles = ref(false)
 const financialDocument = ref(new FinancialDocument())
 
 onBeforeMount(() => {
-  financialDocument.value = { ...cloneDeep(financialDocumentSelected.value) }
+  financialDocument.value = { ...structuredClone(toRaw(financialDocumentSelected.value)) }
   const doc = tenantFinancialDocument()
   if (doc?.documentDeniedReasons) {
     const deniedReasons = tenantFinancialDocument()?.documentDeniedReasons
     if (deniedReasons) {
-      documentDeniedReasons.value = cloneDeep(deniedReasons)
+      documentDeniedReasons.value = structuredClone(deniedReasons)
     }
   }
 })
@@ -442,7 +441,7 @@ async function save(): Promise<boolean> {
     .saveTenantFinancial(formData)
     .then(() => {
       financialDocument.value = {
-        ...cloneDeep(financialDocumentSelected.value)
+        ...structuredClone(toRaw(financialDocumentSelected.value))
       }
       ToastService.saveSuccess()
       return Promise.resolve(true)

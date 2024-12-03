@@ -16,22 +16,26 @@
   },
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",
+    "@sentry/browser": "7.119.2",
     "@sentry/vite-plugin": "2.22.6",
     "@sentry/vue": "7.119.2",
+    "@types/js-cookie": "3.0.6",
     "axios": "^1.7.4",
-    "df-shared-next": "0.1.0",
+    "df-shared-next": "workspace:*",
+    "js-cookie": "3.0.5",
     "pinia": "^2.1.7",
     "vee-validate": "4.13.2",
     "vue": "3.5.12",
     "vue-i18n": "9",
     "vue-matomo": "^4.2.0",
     "vue-router": "^4.2.5",
-    "vue3-cookies": "1.0.6",
     "vue3-toastify": "0.2.3"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^4.0.0",
     "@fullhuman/vue-cli-plugin-purgecss": "~5.0.0",
+    "@intlify/shared": "9.14.1",
+    "@intlify/vite-plugin-vue-i18n": "^7.0.0",
     "@rushstack/eslint-patch": "^1.3.3",
     "@tsconfig/node18": "^18.2.2",
     "@types/jsdom": "^21.1.7",
@@ -59,10 +63,8 @@
     "vue-tsc": "^2.1.6"
   },
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "type": "module",
-  "workspaces": {
-    "nohoist": []
-  }
+  "packageManager": "pnpm@9.14.3+sha512.c0f53ee99477ed969b82b289ad011a5d16bf1623c957e7f29eabe8d0c00b574c29b8c7f54f6c67ee710c73f285c8154d07ce44b46fe2c0eeb476a90441bac371"
 }

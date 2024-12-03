@@ -6,7 +6,7 @@
         <RowListItem
           v-if="!isCotenant"
           :label="t('tenantpanel.clarification-title')"
-          :sub-label="props.tenant.clarification || ''"
+          :sub-label="'clarification' in tenant ? tenant.clarification || '' : ''"
           :can-edit="showButtons"
           @click-edit="goToValidationPage()"
         />
@@ -87,10 +87,11 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { UtilsService } from '../../services/UtilsService'
 import { computed } from 'vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const props = withDefaults(
   defineProps<{
-    tenant: User
+    tenant: User | CoTenant
     isCotenant?: boolean
     isCouple?: boolean
   }>(),
@@ -145,13 +146,13 @@ function setTenantStep(n: number) {
   }
 }
 
-function document(u: User, s: string) {
+function document(u: CoTenant, s: string) {
   return u.documents?.find((d) => {
     return d.documentCategory === s
   })
 }
 
-function documents(g: User, docType: string): DfDocument[] {
+function documents(g: CoTenant, docType: string): DfDocument[] {
   return (
     g.documents?.filter((d: DfDocument) => {
       return d.documentCategory === docType
@@ -159,7 +160,7 @@ function documents(g: User, docType: string): DfDocument[] {
   )
 }
 
-function getProfessionalSubCategory(u: User): string {
+function getProfessionalSubCategory(u: CoTenant): string {
   const professionalDocument = document(u, 'PROFESSIONAL')
   const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
     (doc) => doc.value === professionalDocument?.documentSubCategory

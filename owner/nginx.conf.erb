@@ -1,0 +1,16 @@
+root /app/dist;
+
+location / {
+    index index.html;
+    # Manage route
+    try_files $uri $uri.html $uri/index.html /index.html =404;
+    # Add security header
+    add_header Content-Security-Policy "<%= ENV['OWNER_CSP'] %>";
+    add_header X-Frame-Options "deny";
+    add_header X-Content-Type-Options "nosniff";
+}
+
+location ~* \.(webp|jpg|heic|jpeg|png|gif|js|css|svg|woff2)$ {
+    expires 365d;
+    add_header Cache-Control "public, no-transform";
+}

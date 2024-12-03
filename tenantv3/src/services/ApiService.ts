@@ -1,5 +1,5 @@
 import axios from 'axios'
-import keycloak from '../plugin/keycloak'
+import { keycloak } from '../plugin/keycloak'
 
 export const apiService = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api`

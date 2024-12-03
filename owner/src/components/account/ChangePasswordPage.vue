@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
@@ -19,10 +18,9 @@ const store = useOwnerStore()
 const toast = useToast()
 const { t } = useI18n()
 
-function onChangePassword(user: User) {
-  const u = { ...user }
-  u.token = route.params.token.toString()
-  store.changePassword(u).then(
+function onChangePassword(password: string) {
+  const token = route.params.token.toString()
+  store.changePassword({ token, password }).then(
     () => {
       toast.success(t('changepasswordpage.password-update').toString(), {
         timeout: 7000

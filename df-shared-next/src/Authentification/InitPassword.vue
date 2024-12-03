@@ -6,7 +6,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <Field
               name="password"
-              v-model="user.password"
+              v-model="password"
               v-slot="{ field, meta }"
               :rules="`required|strength:${score}`"
             >
@@ -25,7 +25,7 @@
                 autocomplete="username"
                 required
               />
-              <PasswordMeter @score="setScore" :password="user.password || ''" />
+              <PasswordMeter @score="setScore" :password="password || ''" />
             </Field>
             <ErrorMessage name="password" v-slot="{ message }">
               <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
@@ -34,11 +34,11 @@
           <div class="fr-col-12 fr-mb-3w">
             <Field
               name="confirm-password"
-              v-model="user.confirm"
+              v-model="confirm"
               v-slot="{ field, meta }"
               :rules="{
                 required: true,
-                confirm: [user.password, user.confirm]
+                confirm: [password, confirm]
               }"
             >
               <div class="fr-input-group">
@@ -75,9 +75,8 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User'
 import { ref } from 'vue'
-import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
+import PasswordMeter from '../components/PasswordMeter/PasswordMeter.vue'
 import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { generatePasswordPlaceholder } from '../services/UtilsService'
@@ -96,17 +95,19 @@ defineRule('confirm', (_value: unknown, [password, confirm]: string[]) => {
   return true
 })
 
-const emit = defineEmits<{ 'on-init-password': [user: User] }>()
+const emit = defineEmits<{ 'on-init-password': [password: string] }>()
 
 const score = ref(0)
-const user = ref(new User())
+
+const password = ref('')
+const confirm = ref('')
 
 const { t } = useI18n()
 
 const passwordExample = generatePasswordPlaceholder()
 
 function handleRegister() {
-  emit('on-init-password', user.value)
+  emit('on-init-password', password.value)
 }
 
 function setScore(s: number) {

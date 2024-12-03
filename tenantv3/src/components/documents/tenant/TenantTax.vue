@@ -128,7 +128,6 @@ import ProfileFooter from '../../footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { cloneDeep } from 'lodash'
 import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import WarningTaxDeclaration from '../../../components/documents/share/WarningTaxDeclaration.vue'
@@ -182,7 +181,7 @@ onBeforeMount(() => {
         localStorage.setItem(getLocalStorageKey(), taxDocument.value.key || '')
       }
       if (tenantTaxDocument.value?.documentDeniedReasons) {
-        documentDeniedReasons.value = cloneDeep(tenantTaxDocument.value.documentDeniedReasons)
+        documentDeniedReasons.value = structuredClone(tenantTaxDocument.value.documentDeniedReasons)
       }
     } else {
       const key = localStorage.getItem(getLocalStorageKey())

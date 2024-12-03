@@ -1,8 +1,8 @@
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { User } from 'df-shared-next/src/models/User'
 import useTenantStore from '@/stores/tenant-store'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const store = useTenantStore()
 
@@ -10,7 +10,7 @@ export const DocumentService = {
   hasDocument() {
     return store.user.documents !== undefined && store.user.documents.length > 0
   },
-  hasDoc(docType: string, tenant: User): DfDocument | undefined {
+  hasDoc(docType: string, tenant: CoTenant): DfDocument | undefined {
     if (tenant.documents === undefined) {
       return undefined
     }
@@ -18,7 +18,7 @@ export const DocumentService = {
       return d.documentCategory === docType
     })
   },
-  getDocs(docType: string, tenant: User): DfDocument[] {
+  getDocs(docType: string, tenant: CoTenant): DfDocument[] {
     if (tenant.documents === undefined) {
       return []
     }
@@ -26,7 +26,7 @@ export const DocumentService = {
       return d.documentCategory === docType
     })
   },
-  hasFile(docType: string, tenant?: User) {
+  hasFile(docType: string, tenant?: CoTenant) {
     const user = tenant ? tenant : store.user
     const document: DfDocument | undefined = this.hasDoc(docType, user)
     if (document === undefined || document.files === undefined) {
@@ -94,28 +94,28 @@ export const DocumentService = {
     }
     return files
   },
-  getTenantIdentityStatus(user: User): string {
+  getTenantIdentityStatus(user: CoTenant): string {
     const doc = this.hasDoc('IDENTIFICATION', user)
     if (!doc) {
       return ''
     }
     return doc.documentStatus || ''
   },
-  getTenantResidencyStatus(user: User): string {
+  getTenantResidencyStatus(user: CoTenant): string {
     const doc = this.hasDoc('RESIDENCY', user)
     if (!doc) {
       return ''
     }
     return doc.documentStatus || ''
   },
-  getTenantProfessionalStatus(user: User): string {
+  getTenantProfessionalStatus(user: CoTenant): string {
     const doc = this.hasDoc('PROFESSIONAL', user)
     if (!doc) {
       return ''
     }
     return doc.documentStatus || ''
   },
-  getTenantFinancialStatus(user: User): string {
+  getTenantFinancialStatus(user: CoTenant): string {
     const docs = this.getDocs('FINANCIAL', user)
     if (docs.length <= 0) {
       return ''
@@ -131,7 +131,7 @@ export const DocumentService = {
     }
     return docs[0].documentStatus || ''
   },
-  getTenantTaxStatus(user: User): string {
+  getTenantTaxStatus(user: CoTenant): string {
     const doc = this.hasDoc('TAX', user)
     if (!doc) {
       return ''
@@ -200,7 +200,7 @@ export const DocumentService = {
     }
     return doc.documentStatus || ''
   },
-  tenantStatus(documentType: string, user?: User) {
+  tenantStatus(documentType: string, user?: CoTenant) {
     const tenant = user == undefined ? store.user : user
     let status
     switch (documentType) {

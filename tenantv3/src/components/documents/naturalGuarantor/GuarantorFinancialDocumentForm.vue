@@ -187,14 +187,13 @@ import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import ProfileFooter from '../../footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import cloneDeep from 'lodash/cloneDeep'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UtilsService } from '../../../services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import useTenantStore from '../../../stores/tenant-store'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, toRaw } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '../../../services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
@@ -225,12 +224,12 @@ const isNoIncomeAndFiles = ref(false)
 onBeforeMount(() => {
   if (guarantorFinancialDocumentSelected.value) {
     financialDocument.value = {
-      ...cloneDeep(guarantorFinancialDocumentSelected.value)
+      ...structuredClone(toRaw(guarantorFinancialDocumentSelected.value))
     }
   }
   const doc = guarantorFinancialDocument()
   if (doc?.documentDeniedReasons) {
-    documentDeniedReasons.value = cloneDeep(doc?.documentDeniedReasons)
+    documentDeniedReasons.value = structuredClone(doc?.documentDeniedReasons)
   }
 })
 
@@ -393,7 +392,7 @@ async function save(): Promise<boolean> {
     .saveGuarantorFinancial(formData)
     .then(() => {
       if (guarantorFinancialDocumentSelected.value) {
-        financialDocument.value = cloneDeep(guarantorFinancialDocumentSelected.value)
+        financialDocument.value = structuredClone(toRaw(guarantorFinancialDocumentSelected.value))
       }
       ToastService.saveSuccess()
       return Promise.resolve(true)
@@ -401,7 +400,7 @@ async function save(): Promise<boolean> {
     .catch((err) => {
       financialDocument.value.fileUploadStatus = UploadStatus.STATUS_FAILED
       UtilsService.handleCommonSaveError(err)
-      return Promise.reject(new Error('err'))
+      return Promise.reject(new Error(err))
     })
     .finally(() => {
       loader.hide()

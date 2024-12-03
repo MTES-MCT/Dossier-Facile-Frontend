@@ -44,7 +44,7 @@
       </router-link>
     </li>
     <li class="fr-nav__item fr-translate">
-      <LanguageSelector @on-change-lang="store.setLang" />
+      <LanguageSelector :initial-language="lang" @on-change-lang="store.setLang" />
     </li>
   </ul>
 </template>
@@ -55,6 +55,7 @@ import { useI18n } from 'vue-i18n'
 import useWwwStore from '../stores/www-store'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import i18n from '@/i18n'
 
 const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
 
@@ -62,6 +63,7 @@ const route = useRoute()
 const { t } = useI18n()
 const store = useWwwStore()
 
+const lang = i18n.global.locale.value
 const currentPage = computed(() => route.name)
 </script>
 

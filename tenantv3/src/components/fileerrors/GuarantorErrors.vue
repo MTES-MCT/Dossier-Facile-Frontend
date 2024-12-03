@@ -84,21 +84,19 @@ import { UtilsService } from '../../services/UtilsService'
 import UpdateComponent from './UpdateComponent.vue'
 import { onMounted } from 'vue'
 import { AnalyticsService } from '../../services/AnalyticsService'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const store = useTenantStore()
 const { t } = useI18n()
 const router = useRouter()
 const props = defineProps<{
   g: Guarantor
-  user: User
+  user: User | CoTenant
   keyprefix: string
 }>()
 
 onMounted(() => {
-  if (
-    import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== 'true' ||
-    !props.user.preValidationActivated
-  ) {
+  if (import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== 'true') {
     return
   }
   for (const v of ['IDENTIFICATION', 'RESIDENCY', 'PROFESSIONAL', 'FINANCIAL', 'TAX']) {

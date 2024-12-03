@@ -186,7 +186,6 @@ import { DocumentType } from 'df-shared-next/src/models/Document'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { User } from 'df-shared-next/src/models/User'
-import { cloneDeep } from 'lodash'
 import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
@@ -206,6 +205,7 @@ import { Field, ErrorMessage } from 'vee-validate'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import { useI18n } from 'vue-i18n'
 import { RiAlarmWarningLine } from '@remixicon/vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -241,7 +241,7 @@ const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const document = ref(new DocumentType())
 const isDocDeleteVisible = ref(false)
-const selectedCoTenant = ref(new User())
+const selectedCoTenant = ref<CoTenant>(new User())
 
 const dfDocument = ref(new DfDocument())
 const noDocument = ref(false)
@@ -343,7 +343,7 @@ function loadDocument(forceLoadLast?: boolean) {
   }
 
   if (dfDocument.value?.documentDeniedReasons) {
-    documentDeniedReasons.value = cloneDeep(dfDocument.value?.documentDeniedReasons)
+    documentDeniedReasons.value = structuredClone(dfDocument.value?.documentDeniedReasons)
   }
   emit('on-change-document', document.value, dfDocument.value)
 }

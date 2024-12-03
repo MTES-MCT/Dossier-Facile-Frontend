@@ -2,7 +2,6 @@
 import { useI18n } from 'vue-i18n'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import { ref } from 'vue'
-import { User } from 'df-shared-next/src/models/User'
 import { useToast } from 'vue-toastification'
 import RegisterComponent from './account/RegisterComponent.vue'
 import useOwnerStore from '../store/owner-store'
@@ -20,9 +19,9 @@ function closeModal() {
   window.location.replace(MAIN_URL)
 }
 
-function onRegister(user: User) {
-  if (user.email && user.password) {
-    store.register(user).then(
+function onRegister(data: { email: string; password: string }) {
+  if (data.email && data.password) {
+    store.register(data).then(
       () => {
         isValidModalVisible.value = true
       },

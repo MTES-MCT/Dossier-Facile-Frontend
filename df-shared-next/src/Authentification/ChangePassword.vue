@@ -12,7 +12,7 @@
               <Field
                 id="password"
                 name="password"
-                v-model="user.password"
+                v-model="password"
                 v-slot="{ field, meta }"
                 :rules="{ required: true, strength: score }"
               >
@@ -28,7 +28,7 @@
                   autocomplete="new-password"
                 />
               </Field>
-              <PasswordMeter @score="setScore" :password="user.password || ''" />
+              <PasswordMeter @score="setScore" :password="password || ''" />
               <ErrorMessage name="password" v-slot="{ message }">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
@@ -40,11 +40,11 @@
               <Field
                 id="confirm-password"
                 name="confirm-password"
-                v-model="user.confirm"
+                v-model="confirm"
                 v-slot="{ field, meta }"
                 :rules="{
                   required: true,
-                  confirm: [user.password, user.confirm]
+                  confirm: [password, confirm]
                 }"
               >
                 <input
@@ -77,9 +77,8 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { User } from '../models/User'
 import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
-import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
+import PasswordMeter from '../components/PasswordMeter/PasswordMeter.vue'
 import { ref } from 'vue'
 
 defineRule('required', (value: unknown) => {
@@ -109,14 +108,15 @@ defineRule('confirm', (_value: unknown, [password, confirm]: string[]) => {
   return true
 })
 
-const emit = defineEmits<{ 'on-change-password': [user: User] }>()
+const emit = defineEmits<{ 'on-change-password': [password: string] }>()
 const { t } = useI18n()
 
-const user = new User()
+const password = ref('')
+const confirm = ref('')
 const score = ref(0)
 
 function handleRegister() {
-  emit('on-change-password', user)
+  emit('on-change-password', password.value)
 }
 
 function setScore(s: number) {

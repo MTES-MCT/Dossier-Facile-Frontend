@@ -2,17 +2,9 @@
   "name": "owner",
   "private": true,
   "type": "module",
-  "workspaces": {
-    "nohoist": [
-      "**/connect-history-api-fallback/**",
-      "**/connect-history-api-fallback",
-      "**/express/**",
-      "**/express"
-    ]
-  },
   "version": "0.0.0",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "vite --force",
@@ -20,7 +12,6 @@
     "fbuild": "vue-tsc --noEmit && vite build",
     "tsc": "vue-tsc --noEmit",
     "preview": "vite preview",
-    "start": "node server.js",
     "format": "prettier --write src/",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "cy:run": "cypress run"
@@ -31,20 +22,19 @@
     "@sentry/tracing": "7.119.2",
     "@sentry/vite-plugin": "2.22.6",
     "@sentry/vue": "7.119.2",
+    "@types/js-cookie": "3.0.6",
     "axios": "^1.7.4",
-    "connect-history-api-fallback": "^2.0.0",
     "date-fns": "^2.28.0",
-    "df-shared-next": "0.1.0",
-    "express": "4.21.1",
-    "keycloak-js": "21.0.1",
+    "df-shared-next": "workspace:*",
+    "js-cookie": "3.0.5",
+    "keycloak-js": "25.0.6",
     "pinia": "2.0.33",
     "vee-validate": "4.12.2",
     "vue": "3.5.12",
     "vue-i18n": "^9.3.0-beta.17",
     "vue-matomo": "^4.1.0",
     "vue-router": "4",
-    "vue-toastification": "^2.0.0-rc.5",
-    "vue3-cookies": "1.0.6"
+    "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
@@ -73,5 +63,6 @@
         ]
       }
     ]
-  }
+  },
+  "packageManager": "pnpm@9.14.3+sha512.c0f53ee99477ed969b82b289ad011a5d16bf1623c957e7f29eabe8d0c00b574c29b8c7f54f6c67ee710c73f285c8154d07ce44b46fe2c0eeb476a90441bac371"
 }

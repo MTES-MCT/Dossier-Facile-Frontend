@@ -1,16 +1,6 @@
 <template>
   <ul class="fr-nav__list">
-    <li class="fr-nav__item" v-if="showMessaging()">
-      <router-link
-        to="/messaging"
-        class="fr-nav__link"
-        :aria-current="currentPage === 'Messages' ? 'page' : undefined"
-      >
-        {{ t('menu.messaging') }}
-        <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
-      </router-link>
-    </li>
-    <li class="fr-nav__item" v-else>
+    <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/information`" class="fr-nav__link">
         {{ t('menu.information') }}
       </a>
@@ -92,6 +82,16 @@
           </li>
         </ul>
       </div>
+    </li>
+    <li class="fr-nav__item" v-if="showMessaging()">
+      <router-link
+        to="/messaging"
+        class="fr-nav__link"
+        :aria-current="currentPage === 'Messages' ? 'page' : undefined"
+      >
+        {{ t('menu.messaging') }}
+        <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
+      </router-link>
     </li>
     <li class="fr-nav__item" :class="{ break: !isLoggedIn }">
       <router-link

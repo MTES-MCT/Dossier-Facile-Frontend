@@ -2,10 +2,9 @@
   "name": "tenantv3",
   "version": "0.1.0",
   "private": true,
-  "workspaces": {},
   "type": "module",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "vite",
@@ -26,12 +25,13 @@
     "@remixicon/vue": "4.4.0",
     "@sentry/vite-plugin": "2.22.6",
     "@sentry/vue": "7.119.2",
+    "@types/js-cookie": "3.0.6",
     "axios": "^1.7.4",
     "dayjs": "^1.11.10",
-    "df-shared-next": "0.1.0",
-    "keycloak-js": "^22.0.5",
-    "lodash.clonedeep": "^4.5.0",
-    "pdfjs-dist": "^4.2.67",
+    "df-shared-next": "workspace:*",
+    "js-cookie": "3.0.5",
+    "keycloak-js": "25.0.6",
+    "pdfjs-dist": "4.5.136",
     "pinia": "2.2.2",
     "vee-validate": "4.12.2",
     "vue": "3.5.12",
@@ -40,7 +40,6 @@
     "vue-matomo": "4.2.0",
     "vue-pdf-embed": "^1.2.1",
     "vue-router": "4.4.5",
-    "vue3-cookies": "1.0.6",
     "vue3-toastify": "0.2.3"
   },
   "devDependencies": {
@@ -76,5 +75,6 @@
         ]
       }
     ]
-  }
+  },
+  "packageManager": "pnpm@9.14.3+sha512.c0f53ee99477ed969b82b289ad011a5d16bf1623c957e7f29eabe8d0c00b574c29b8c7f54f6c67ee710c73f285c8154d07ce44b46fe2c0eeb476a90441bac371"
 }

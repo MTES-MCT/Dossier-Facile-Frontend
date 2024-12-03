@@ -397,6 +397,7 @@ import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 import { useI18n } from 'vue-i18n'
 import { DocumentType } from './documents/DocumentType'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const store = useTenantStore()
 const route = useRoute()
@@ -414,7 +415,7 @@ const props = withDefaults(
 )
 
 const coTenants = computed(() => {
-  const c = user.value.apartmentSharing?.tenants?.filter((r: User) => {
+  const c = user.value.apartmentSharing?.tenants?.filter((r) => {
     return r.id != user.value.id
   })
   if (!c) {
@@ -455,7 +456,7 @@ function getGuarantorLink() {
   return { name: 'GuarantorChoice', force: true }
 }
 
-function getTenantGuarantorLink(tenant: User, stepNum: number) {
+function getTenantGuarantorLink(tenant: CoTenant, stepNum: number) {
   return {
     name: 'TenantGuarantors',
     force: true,
@@ -467,7 +468,7 @@ function isCouple() {
   return user.value.applicationType === 'COUPLE'
 }
 
-function getCoTenant(index: number): User {
+function getCoTenant(index: number): CoTenant {
   if (coTenants.value[index]) {
     return coTenants.value[index]
   }
@@ -493,7 +494,7 @@ function getStepNumber(stepName: string): number {
   return -1
 }
 
-function getName(user: User): string {
+function getName(user: CoTenant): string {
   if (user.preferredName) {
     return `${user.firstName} ${user.preferredName}`
   }

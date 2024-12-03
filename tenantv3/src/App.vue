@@ -5,11 +5,12 @@ import { computed, onBeforeMount } from 'vue'
 import TenantSkipLinks from './components/TenantSkipLinks.vue'
 import TenantMenu from './components/TenantMenu.vue'
 import MyHeader from './components/HeaderComponent.vue'
+import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import DeleteAccount from './components/DeleteAccount.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
-import { useCookies } from 'vue3-cookies'
+import cookies from 'js-cookie'
 
 const store = useTenantStore()
 const router = useRouter()
@@ -18,7 +19,6 @@ const isFunnel = computed(() => store.isFunnel)
 const isLoggedIn = computed(() => store.isLoggedIn)
 
 const OWNER_URL = `//${import.meta.env.VITE_OWNER_URL}`
-const { cookies } = useCookies()
 
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
@@ -40,7 +40,8 @@ function onCreateOwner() {
 </script>
 
 <template>
-  <TenantSkipLinks></TenantSkipLinks>
+  <ConsentHandler />
+  <TenantSkipLinks />
   <MyHeader
     :logged-in="isLoggedIn"
     @on-login-tenant="onLoginTenant"

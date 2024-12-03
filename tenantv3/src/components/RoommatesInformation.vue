@@ -4,17 +4,15 @@
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
           <h6>{{ t('roommatesinformation.title') }}</h6>
-          <v-gouv-fr-modal>
+          <v-gouv-fr-modal class="fr-link fr-link--sm">
             <template #button>
-              <span class="small-font">{{ t('roommatesinformation.more-information') }}</span>
+              {{ t('roommatesinformation.more-information') }}
             </template>
             <template #title>
               {{ t('roommatesinformation.more-information') }}
             </template>
             <template #content>
-              <p>
-                <RoommatesInformationHelp></RoommatesInformationHelp>
-              </p>
+              <RoommatesInformationHelp></RoommatesInformationHelp>
             </template>
           </v-gouv-fr-modal>
         </div>
@@ -144,16 +142,17 @@
 
 <script setup lang="ts">
 import { User } from 'df-shared-next/src/models/User'
-import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue'
+import VGouvFrButton from 'df-shared-next/src/Button/VGouvFrButton.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import RoommatesInformationHelp from './helps/RoommatesInformationHelp.vue'
-import VGouvFrModal from 'df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue'
+import VGouvFrModal from 'df-shared-next/src/GouvFr/VGouvFrModal.vue'
 import { UtilsService } from '../services/UtilsService'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, onMounted, ref } from 'vue'
 import { Field, ErrorMessage, useFieldError, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { RiDeleteBin2Fill, RiUserFill } from '@remixicon/vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 defineRule('atLeastOneEmail', (email: unknown, [otherEmails]: unknown[]) => {
   if (email === '' && otherEmails === undefined) {
@@ -162,14 +161,14 @@ defineRule('atLeastOneEmail', (email: unknown, [otherEmails]: unknown[]) => {
   return true
 })
 
-const emit = defineEmits<{ 'update:modelValue': [User[]] }>()
+const emit = defineEmits<{ 'update:modelValue': [CoTenant[]] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const coTenantAuthorize = computed(() => store.coTenantAuthorize)
 
-const props = withDefaults(defineProps<{ modelValue: User[] }>(), {
+const props = withDefaults(defineProps<{ modelValue: CoTenant[] }>(), {
   modelValue: () => []
 })
 
@@ -201,7 +200,7 @@ function addMail() {
   }
 }
 
-function remove(tenant: User) {
+function remove(tenant: CoTenant) {
   if (tenant.id) {
     store.deleteCoTenant(tenant)
     emit(

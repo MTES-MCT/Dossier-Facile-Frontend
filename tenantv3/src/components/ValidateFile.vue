@@ -134,6 +134,7 @@ import { AnalyticsService } from '../services/AnalyticsService'
 import { User } from 'df-shared-next/src/models/User'
 import { UtilsService } from '../services/UtilsService'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const { t } = useI18n()
 
@@ -156,11 +157,8 @@ onMounted(() => {
   sendEventPrevalidation(user.value)
 })
 
-function sendEventPrevalidation(user: User) {
-  if (
-    import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== 'true' ||
-    !user.preValidationActivated
-  ) {
+function sendEventPrevalidation(user: User | CoTenant) {
+  if (import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== 'true') {
     return
   }
   UtilsService.getAllDocuments(user).forEach((d: DfDocument) => {
@@ -174,11 +172,9 @@ function sendEventPrevalidation(user: User) {
     }
   })
 
-  if (user.applicationType === 'COUPLE') {
-    const cotenants = user.apartmentSharing?.tenants.filter(
-      (cotenant: User) => user.id !== cotenant.id
-    )
-    cotenants.forEach((cotenant: User) => {
+  if ('applicationType' in user && user.applicationType === 'COUPLE') {
+    const cotenants = user.apartmentSharing?.tenants.filter((cotenant) => user.id !== cotenant.id)
+    cotenants.forEach((cotenant) => {
       sendEventPrevalidation(cotenant)
     })
   }

@@ -1,4 +1,4 @@
-import { sentryVitePlugin } from "@sentry/vite-plugin";
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -34,11 +34,15 @@ export default defineConfig({
       allow: ['./src', '../node_modules', '../df-shared-next', './node_modules']
     }
   },
-  plugins: [vue(), vueI18n({}), sentryVitePlugin({
-    org: "betagouv",
-    project: "front-tenant",
-    url: "https://sentry.incubateur.net"
-  })],
+  plugins: [
+    vue(),
+    vueI18n({}),
+    sentryVitePlugin({
+      org: 'betagouv',
+      project: 'front-tenant',
+      url: 'https://sentry.incubateur.net'
+    })
+  ],
   css: {
     preprocessorOptions: {
       scss: { api: 'modern' }

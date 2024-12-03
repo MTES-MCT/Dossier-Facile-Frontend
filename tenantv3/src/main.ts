@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
-import { globalCookiesConfig } from 'vue3-cookies'
 
 import App from './App.vue'
 import router from './router'
@@ -13,22 +12,21 @@ import '@gouvfr/dsfr/dist/utility/icons/icons-user/icons-user.min.css'
 import '@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css'
 import '@gouvfr/dsfr/dist/utility/icons/icons-design/icons-design.min.css'
 import '@gouvfr/dsfr/dist/utility/icons/icons-buildings/icons-buildings.min.css'
-import keycloak from './plugin/keycloak'
-import axios from 'axios'
+import { keycloak } from './plugin/keycloak'
+import axios, { type AxiosError } from 'axios'
 import { LoadingPlugin } from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import { configure, defineRule } from 'vee-validate'
-import MatomoPlugin from './plugin/matomo'
 import * as Sentry from '@sentry/vue'
 
-import { CrispPlugin } from 'df-shared-next/src/plugin/crisp'
+import { register } from 'df-shared-next/src/services/ConsentService'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
-const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 defineRule('onlyAlpha', (value: string) => {
-  if (!value.match("^[a-zA-Z \\-'’àâäçéèêëîïôöùûüÿæœÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸÆŒ]*$")) {
+  const regex = /^[a-zA-Z \-'’àâäçéèêëîïôöùûüÿæœÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸÆŒ]*$/
+  if (!regex.test(value)) {
     return 'only-alpha'
   }
   return true
@@ -38,7 +36,8 @@ defineRule('zipcode', (value: string | undefined | null) => {
   if (!value) {
     return true
   }
-  if (!value.match('^[0-9]{5}$')) {
+  const regex = /^\d{5}$/
+  if (!regex.test(value)) {
     return 'zipcode-not-valid'
   }
   return true
@@ -81,7 +80,7 @@ defineRule('required', (value: unknown) => {
   return true
 })
 defineRule('email', (value: string | undefined | null) => {
-  if (!value || !value.length) {
+  if (!value?.length) {
     return true
   }
   if (!/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/.test(value)) {
@@ -125,21 +124,10 @@ configure({
 })
 
 const TENANT_API_URL = import.meta.env.VITE_API_URL
-const COOKIE_DOMAIN = import.meta.env.VITE_COOKIE_DOMAIN
 
 keycloak
-  .init({ onLoad: 'check-sso', checkLoginIframe: false })
+  .init({ onLoad: 'check-sso', checkLoginIframe: true })
   .then((auth) => {
-    const aYearFromNow = new Date()
-    aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1)
-    globalCookiesConfig({
-      expireTimes: aYearFromNow.toUTCString(),
-      path: '/',
-      domain: COOKIE_DOMAIN,
-      secure: true,
-      sameSite: 'None'
-    })
-
     // Token Refresh
     setInterval(() => {
       keycloak
@@ -159,12 +147,12 @@ keycloak
           return config
         },
 
-        (error) => Promise.reject(error)
+        (error: Error) => Promise.reject(error)
       )
 
       axios.interceptors.response.use(
         (response) => response,
-        (error) => {
+        (error: AxiosError) => {
           if (error.response && (error.response.status === 401 || error.response.status === 403)) {
             console.log('err')
           }
@@ -192,13 +180,13 @@ keycloak
       theme: 'colored',
       clearOnUrlChange: false
     } satisfies ToastContainerOptions)
-    app.use(MatomoPlugin)
-    if (CRISP_ENABLED === 'true') {
-      app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
-    }
+    register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
+    keycloak.loadUserInfo().then((user) => {
+      window.$crisp?.push(['set', 'user:email', [user.email]])
+    })
     app.mount('#app')
   })
-  .catch(() => {
-    console.log('Authenticated Failed')
+  .catch((error: Error) => {
+    console.dir(error)
     window.location.reload()
   })

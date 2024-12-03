@@ -5,18 +5,17 @@ import { ViteSSG } from 'vite-ssg'
 import App from './App.vue'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 import * as Sentry from '@sentry/vue'
-import { CrispPlugin } from 'df-shared-next/src/plugin/crisp'
 
 import routes from './router/index'
 import { BrowserTracing } from '@sentry/browser'
+import { register } from 'df-shared-next/src/services/ConsentService'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
-const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 declare global {
   interface Window {
-    _paq: (string | number | undefined)[][]
+    _paq?: (string | number | undefined)[][]
   }
 }
 
@@ -46,9 +45,7 @@ export const createApp = ViteSSG(App, { routes }, async ({ app, router, isClient
     theme: 'colored',
     clearOnUrlChange: false
   } satisfies ToastContainerOptions)
-  if (isClient && CRISP_ENABLED === 'true') {
-    app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
-  }
+  register(app, { matomo: isClient, crisp: isClient && CRISP_ENABLED === 'true' })
 
   router.beforeEach((to, from, next) => {
     if (
