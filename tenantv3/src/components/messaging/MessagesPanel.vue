@@ -49,7 +49,6 @@
             v-model="sendMessage"
             class="sendMessage form-control fr-input"
             autocomplete="off"
-            autofocus
             rows="4"
             name="sendMessage"
             type="text"
