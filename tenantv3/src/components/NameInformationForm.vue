@@ -18,10 +18,7 @@
           </template>
           <p>
             {{ t('nameinformationform.unlink-fc-content') }}
-            <span v-if="user?.passwordEnabled">
-              {{ t('nameinformationform.unlink-fc-content-password-exists') }}</span
-            >
-            <span v-else>{{ t('nameinformationform.unlink-fc-content-password-undefined') }}</span>
+            <span>{{ t('nameinformationform.unlink-fc-content-password-undefined') }}</span>
           </p>
         </ConfirmModal>
       </div>
@@ -85,18 +82,12 @@
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-checkbox-group bg-purple fr-mb-3w">
-              <input
-                  id="abroad"
-                  type="checkbox"
-                  v-model="abroad"
-                  class="fr-checkbox"
-              />
+              <input id="abroad" type="checkbox" v-model="abroad" class="fr-checkbox" />
               <label for="abroad">
                 {{ t('nameinformationform.abroad-residency-checkbox') }}
               </label>
             </div>
           </div>
-
         </div>
         <ProfileFooter :show-back="false"></ProfileFooter>
       </Form>
@@ -136,7 +127,6 @@ const zipcode = ref('')
 const abroad = ref(false)
 const $loading = useLoading({})
 
-
 onBeforeMount(() => {
   firstname.value = user.value?.firstName || ''
   lastname.value = user.value?.lastName || ''
@@ -144,7 +134,6 @@ onBeforeMount(() => {
   zipcode.value = user.value?.zipCode || ''
   abroad.value = user.value?.abroad === true
   displayPreferredNameField.value = preferredname.value !== ''
-
 })
 
 function deletePreferredName() {
