@@ -82,16 +82,6 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 dayjs.extend(isToday)
 dayjs.extend(isYesterday)
 
-const { t } = useI18n()
-const store = useTenantStore()
-const messageList = computed(() => store.messageList)
-
-const sendMessage = ref('')
-const nbOfMessages = ref(1)
-const allMessages = computed(() => messageList.value[props.tenant.id])
-const messagesToDisplay = computed(() => allMessages.value.slice(0, nbOfMessages.value))
-const showNextMessageButton = computed(() => nbOfMessages.value < allMessages.value.length)
-
 const props = withDefaults(
   defineProps<{
     tenant: CoTenant
@@ -101,6 +91,24 @@ const props = withDefaults(
     isCotenant: false
   }
 )
+
+const { t } = useI18n()
+const store = useTenantStore()
+
+const messageList = computed(() => store.messageList)
+const allMessages = computed(() => messageList.value[props.tenant.id])
+const messagesToDisplay = computed(() => allMessages.value.slice(0, nbOfMessages.value))
+const showNextMessageButton = computed(() => nbOfMessages.value < allMessages.value.length)
+
+let initialMessageCount = 0
+while (
+  initialMessageCount + 1 < allMessages.value.length &&
+  allMessages.value[initialMessageCount].typeMessage === 'FROM_TENANT'
+) {
+  initialMessageCount += 1
+}
+const nbOfMessages = ref(initialMessageCount + 1)
+const sendMessage = ref('')
 
 function handleSubmit() {
   store.sendMessage(sendMessage.value, props.tenant.id).then(() => {
