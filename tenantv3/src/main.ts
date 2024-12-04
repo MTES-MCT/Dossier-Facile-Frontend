@@ -181,7 +181,7 @@ keycloak
       clearOnUrlChange: false
     } satisfies ToastContainerOptions)
     register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
-    keycloak.loadUserInfo().then((user) => {
+    keycloak.loadUserProfile().then((user) => {
       window.$crisp?.push(['set', 'user:email', [user.email]])
     })
     app.mount('#app')
