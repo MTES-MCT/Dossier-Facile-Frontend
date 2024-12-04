@@ -77,10 +77,15 @@ const goToDoc = async (doc: DocumentCategory | undefined) => {
 }
 .file-list {
   display: grid;
-  --max-col-width: calc((100% - 1rem) / 2);
-  grid-template-columns: repeat(auto-fill, minmax(max(16rem, var(--max-col-width)), 1fr));
+  grid-template-columns: 1fr;
+  align-items: center;
   gap: 1rem;
   flex-grow: 1;
+}
+@media (min-width: 48rem) {
+  .file-list {
+    grid-template-columns: 16rem 1fr;
+  }
 }
 </style>
 
