@@ -9,13 +9,13 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p \"build-only {@}\" --",
-    "build-check": "run-p type-check \"build-only {@}\" --",
+    "build-check": "run-p tsc \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.app.json",
+    "tsc": "vue-tsc --noEmit -p tsconfig.app.json",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
   },
