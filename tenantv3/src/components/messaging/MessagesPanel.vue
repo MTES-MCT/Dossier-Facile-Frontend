@@ -96,7 +96,7 @@ const { t } = useI18n()
 const store = useTenantStore()
 
 const messageList = computed(() => store.messageList)
-const allMessages = computed(() => messageList.value[props.tenant.id])
+const allMessages = computed(() => messageList.value[props.tenant.id] ?? [])
 const messagesToDisplay = computed(() => allMessages.value.slice(0, nbOfMessages.value))
 const showNextMessageButton = computed(() => nbOfMessages.value < allMessages.value.length)
 
