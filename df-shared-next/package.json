@@ -9,7 +9,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@remixicon/vue": "4.4.0",
+    "@remixicon/vue": "4.5.0",
     "buffer": "6.0.3",
     "js-cookie": "3.0.5",
     "sass": "1.79.4",
