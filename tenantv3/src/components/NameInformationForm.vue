@@ -151,10 +151,7 @@ function unlinkFranceConnect() {
     .unlinkFranceConnect(user.value)
     .then(
       () => {
-        // if user has not password redirect to resetpassword
-        if (!user.value?.passwordEnabled) {
-          window.location.href = import.meta.env.VITE_RESET_PASSWORD_URL
-        }
+        window.location.href = import.meta.env.VITE_RESET_PASSWORD_URL
       },
       (error) => {
         console.dir(error)
