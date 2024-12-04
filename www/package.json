@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "run-p tsc \"build-only {@}\" --",
     "test:unit": "vitest",
     "test:e2e": "cypress run --e2e",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
@@ -12,7 +12,7 @@
     "format": "prettier --write src/",
     "preview": "vite preview --host",
     "test:e2e:dev": "cypress open --e2e",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
+    "tsc": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",
