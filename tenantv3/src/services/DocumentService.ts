@@ -1,10 +1,18 @@
-import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { DfDocument, type DocumentCategory } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import useTenantStore from '@/stores/tenant-store'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const store = useTenantStore()
+
+const CATEGORIES_ORDER: DocumentCategory[] = [
+  'IDENTIFICATION',
+  'RESIDENCY',
+  'PROFESSIONAL',
+  'FINANCIAL',
+  'TAX'
+]
 
 export const DocumentService = {
   hasDocument() {
@@ -263,5 +271,14 @@ export const DocumentService = {
       })
     }
     return undefined
+  },
+  sortByCategory(doc1: DfDocument, doc2: DfDocument) {
+    if (!doc1.documentCategory || !doc2.documentCategory) {
+      return 0
+    }
+    return (
+      CATEGORIES_ORDER.indexOf(doc1.documentCategory) -
+      CATEGORIES_ORDER.indexOf(doc2.documentCategory)
+    )
   }
 }
