@@ -59,8 +59,7 @@
         </div>
       </div>
       <AllDeclinedMessages
-        class="fr-mb-3w"
-        :document-denied-reasons="documentDeniedReasons"
+        :document-denied-reasons="tenantTaxDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
@@ -127,7 +126,6 @@ import { AnalyticsService } from '../../../services/AnalyticsService'
 import ProfileFooter from '../../footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import WarningTaxDeclaration from '../../../components/documents/share/WarningTaxDeclaration.vue'
@@ -149,8 +147,6 @@ const user = computed(() => store.userToEdit)
 const tenantTaxDocument = computed(() => store.getTenantTaxDocument)
 
 const documents = ref(DocumentTypeConstants.TAX_DOCS)
-
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref([] as DfFile[])
@@ -179,9 +175,6 @@ onBeforeMount(() => {
       if (localDoc !== undefined) {
         taxDocument.value = localDoc
         localStorage.setItem(getLocalStorageKey(), taxDocument.value.key || '')
-      }
-      if (tenantTaxDocument.value?.documentDeniedReasons) {
-        documentDeniedReasons.value = structuredClone(tenantTaxDocument.value.documentDeniedReasons)
       }
     } else {
       const key = localStorage.getItem(getLocalStorageKey())

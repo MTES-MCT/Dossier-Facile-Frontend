@@ -56,10 +56,9 @@
         <p v-html="t(`explanation-text.${guarantorKey()}.${taxDocument.key}`)"></p>
       </div>
       <AllDeclinedMessages
-        class="fr-mb-3w"
         :user-id="user?.id"
-        :document="guarantorTaxDocument()"
-        :document-denied-reasons="documentDeniedReasons"
+        :document="guarantorTaxDocument"
+        :document-denied-reasons="guarantorTaxDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <WarningTaxDeclaration />
@@ -125,7 +124,6 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import GuarantorFooter from '../../footer/GuarantorFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
@@ -166,7 +164,6 @@ const props = withDefaults(
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref([] as DfFile[])
 const taxDocument = ref(new DocumentType())
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 
 const customText = ref('')
 
@@ -187,18 +184,13 @@ function getRegisteredDoc() {
   return undefined
 }
 
-const documentStatus = computed(() => {
-  return guarantorTaxDocument()?.documentStatus
-})
-
-function guarantorTaxDocument() {
-  return store.getGuarantorTaxDocument
-}
+const guarantorTaxDocument = computed(() => store.getGuarantorTaxDocument)
+const documentStatus = computed(() => guarantorTaxDocument.value?.documentStatus)
 
 function onSelectChange($event: DocumentType) {
   taxDocument.value = $event
   if (user.value?.documents !== null) {
-    const doc = guarantorTaxDocument()
+    const doc = guarantorTaxDocument.value
     if (doc !== undefined) {
       isDocDeleteVisible.value =
         (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== taxDocument.value.value
@@ -242,17 +234,13 @@ async function validSelect() {
 
 function updateGuarantorData() {
   if (selectedGuarantor.value?.documents !== null) {
-    if (guarantorTaxDocument() !== undefined) {
-      customText.value = guarantorTaxDocument()?.customText || ''
+    if (guarantorTaxDocument.value !== undefined) {
+      customText.value = guarantorTaxDocument.value.customText || ''
       const localDoc = documents.value.find((d: DocumentType) => {
-        return d.value === guarantorTaxDocument()?.documentSubCategory
+        return d.value === guarantorTaxDocument.value?.documentSubCategory
       })
       if (localDoc !== undefined) {
         taxDocument.value = localDoc
-      }
-      const docDeniedReasons = guarantorTaxDocument()?.documentDeniedReasons
-      if (docDeniedReasons !== undefined) {
-        documentDeniedReasons.value = structuredClone(docDeniedReasons)
       }
     }
   }
@@ -388,9 +376,9 @@ async function remove(file: DfFile, silent = false) {
   if (file.id) {
     if (
       files.value.length === 1 &&
-      guarantorTaxDocument()?.documentAnalysisReport?.analysisStatus === 'DENIED'
+      guarantorTaxDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(guarantorTaxDocument()?.documentCategory || '')
+      AnalyticsService.removeDeniedDocument(guarantorTaxDocument.value?.documentCategory || '')
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {

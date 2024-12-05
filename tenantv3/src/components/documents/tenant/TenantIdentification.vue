@@ -21,10 +21,9 @@
         <p v-html="t(`explanation-text.tenant.${identificationDocument.key}`)"></p>
       </div>
       <AllDeclinedMessages
-        class="fr-mb-3w"
         :user-id="user?.id"
         :document="tenantIdentificationDocument"
-        :document-denied-reasons="documentDeniedReasons"
+        :document-denied-reasons="tenantIdentificationDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="identificationFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
@@ -63,7 +62,6 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UtilsService } from '@/services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import useTenantStore from '@/stores/tenant-store'
@@ -82,7 +80,6 @@ const documents = DocumentTypeConstants.IDENTIFICATION_DOCS
 const tenantIdentificationDocument = computed(() => {
   return store.getTenantIdentificationDocument
 })
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref([] as DfFile[])
 const identificationDocument = ref(new DocumentType())
@@ -105,11 +102,6 @@ onBeforeMount(() => {
       if (localDoc !== undefined) {
         identificationDocument.value = localDoc
         localStorage.setItem(getLocalStorageKey(), identificationDocument.value.key || '')
-      }
-      if (tenantIdentificationDocument.value?.documentDeniedReasons) {
-        documentDeniedReasons.value = structuredClone(
-          tenantIdentificationDocument.value.documentDeniedReasons
-        )
       }
     } else {
       const key = localStorage.getItem(getLocalStorageKey())

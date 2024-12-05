@@ -40,7 +40,6 @@
           </template>
           <template #bottom>
             <AllDeclinedMessages
-              class="fr-mb-3w"
               :document-denied-reasons="documentDeniedReasons(f)"
               :document-status="documentStatus(f)"
             ></AllDeclinedMessages>
