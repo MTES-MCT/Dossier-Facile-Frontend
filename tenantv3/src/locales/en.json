@@ -239,7 +239,7 @@
       "less-than-year": "I have provided all the required documents for my guarantor.",
       "my-name": "I add a <b>tax assessment issued within the last two years</b> in the name of my guarantor. The fiscal number and the income must be legible.",
       "other-tax": "To improve my application, I explain below why I don't have a tax assessment in the name of my guarantor. This explanation will be added to my application:",
-      "owner": "I add a <b>proof of address of my guarantor</b> issued within the <b>last three months</b>.",
+      "owner": "Please add <b>one of the following documents:</b> <ul><li>your guarantor's most recent property tax notice</li><li>or <b>proof of address less than 3 months old in your guarantor's name</b>, such as a telephone, energy (gas, electricity) or water bill, or proof of home insurance.</li></ul>",
       "pension": "I add a pension slip or attestation from my guarantor, or a tax assessment in their name, complete and issued within the last 2 years.",
       "public": "I add a salary slip from my guarantor issued within the last 3 months, an employer's attestation issued within the last 3 months, and their appointment decree.",
       "rent": "I add proof of rent payment from my guarantor, or a tax assessment in their name, complete and issued within the last 2 years.",
