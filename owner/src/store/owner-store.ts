@@ -115,16 +115,11 @@ const useOwnerStore = defineStore('owner', {
       })
     },
     async setPropertyToConsult(token: string) {
-      try {
-        const res = await PropertyService.loadProperty(token)
-        if (res.data.name) {
-          Object.assign(this.propertyToConsult, { ...res.data })
-        } else {
-          return Promise.reject()
-        }
-        return Promise.resolve()
-      } catch (e) {
-        return Promise.reject()
+      const res = await PropertyService.loadProperty(token)
+      if (res.data.name) {
+        Object.assign(this.propertyToConsult, { ...res.data })
+      } else {
+        throw new Error('Property not loaded or has no name')
       }
     },
     setPropertyToEdit(property: Property) {

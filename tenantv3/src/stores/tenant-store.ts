@@ -632,7 +632,7 @@ const useTenantStore = defineStore('tenant', {
         (response) => {
           this.loadUserCommit(response.data)
           if (this.user.guarantors === undefined) {
-            return Promise.reject()
+            return Promise.reject(new Error('No guarantors found'))
           }
           const pageData = this.setGuarantorPage(
             this.user.guarantors[this.user.guarantors.length - 1],

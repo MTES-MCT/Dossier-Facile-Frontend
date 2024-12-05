@@ -155,7 +155,7 @@ function addFiles(fileList: File[]) {
 function save() {
   if (!firstName.value) {
     files.value = []
-    return Promise.reject()
+    return Promise.reject(new Error('Save: no first name'))
   }
   const fieldName = 'documents'
   const formData = new FormData()
@@ -193,7 +193,7 @@ function save() {
 
   if (listFiles().length > MAX_FILE_COUNT) {
     ToastService.maxFileError(listFiles().length, MAX_FILE_COUNT)
-    return Promise.reject()
+    return Promise.reject(new Error('Save: too many files'))
   }
   Array.from(Array(files.value.length).keys()).forEach((x) => {
     formData.append(`${fieldName}[${x}]`, files.value[x], files.value[x].name)
@@ -214,7 +214,7 @@ function save() {
     .catch(() => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
       ToastService.saveFailed()
-      return Promise.reject()
+      return Promise.reject('Save: upload failed')
     })
     .finally(() => {
       loader.hide()
