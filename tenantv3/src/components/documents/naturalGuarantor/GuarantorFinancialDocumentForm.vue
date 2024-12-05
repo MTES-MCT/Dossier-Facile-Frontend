@@ -91,10 +91,9 @@
             ></p>
           </div>
           <AllDeclinedMessages
-            class="fr-mb-3w"
             :user-id="user?.id"
             :document="financialDocument"
-            :document-denied-reasons="documentDeniedReasons"
+            :document-denied-reasons="guarantorFinancialDocument?.documentDeniedReasons"
             :document-status="documentStatus"
           ></AllDeclinedMessages>
           <div v-if="financialFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
@@ -189,7 +188,6 @@ import ProfileFooter from '../../footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UtilsService } from '../../../services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import useTenantStore from '../../../stores/tenant-store'
@@ -215,7 +213,6 @@ const props = defineProps<{
 }>()
 
 const financialDocument = ref(new FinancialDocument())
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const documents = ref(DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS)
 const isDocDeleteVisible = ref(false)
 const selectedDoc = ref(new FinancialDocument())
@@ -227,21 +224,16 @@ onBeforeMount(() => {
       ...structuredClone(toRaw(guarantorFinancialDocumentSelected.value))
     }
   }
-  const doc = guarantorFinancialDocument()
-  if (doc?.documentDeniedReasons) {
-    documentDeniedReasons.value = structuredClone(doc?.documentDeniedReasons)
-  }
 })
 
-const documentStatus = computed(() => {
-  return guarantorFinancialDocument()?.documentStatus
-})
-
-function guarantorFinancialDocument() {
-  return store.getGuarantorDocuments?.find((d: DfDocument) => {
+const guarantorFinancialDocument = computed(() =>
+  store.getGuarantorDocuments?.find((d: DfDocument) => {
     return d.id === financialDocument.value.id
   })
-}
+)
+const documentStatus = computed(() => {
+  return guarantorFinancialDocument.value?.documentStatus
+})
 
 function onSelectChange(docType: DocumentType) {
   financialDocument.value.documentType = docType
