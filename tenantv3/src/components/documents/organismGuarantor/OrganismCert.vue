@@ -16,7 +16,6 @@
     <NakedCard class="fr-p-md-5w fr-mt-3w" v-if="selectedDocumentType.key || files.length > 0">
       <div>
         <AllDeclinedMessages
-          class="fr-mb-3w"
           :user-id="user?.id"
           :document="guarantorCertificateDocument()"
           :document-denied-reasons="documentDeniedReasons"

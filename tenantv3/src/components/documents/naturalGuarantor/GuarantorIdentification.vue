@@ -28,7 +28,6 @@
         <p v-html="t(`explanation-text.${guarantorKey()}.${identificationDocument.key}`)"></p>
       </div>
       <AllDeclinedMessages
-        class="fr-mb-3w"
         :user-id="user?.id"
         :document="guarantorIdentificationDocument"
         :document-denied-reasons="guarantorIdentificationDocument?.documentDeniedReasons"

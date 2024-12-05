@@ -30,8 +30,7 @@
         {{ t('residency-page.warning-other-residency') }}
       </div>
       <AllDeclinedMessages
-        class="fr-mb-3w"
-        :document-denied-reasons="documentDeniedReasons"
+        :document-denied-reasons="tenantResidencyDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <TextField
@@ -64,9 +63,8 @@
         </div>
       </div>
       <AllDeclinedMessages
-        class="fr-mb-3w"
         :document="tenantResidencyDocument"
-        :document-denied-reasons="documentDeniedReasons"
+        :document-denied-reasons="tenantResidencyDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
@@ -105,7 +103,6 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UtilsService } from '@/services/UtilsService'
 import ProfileFooter from '@/components/footer/ProfileFooter.vue'
 import TextField from 'df-shared-next/src/components/form/TextField.vue'
@@ -123,7 +120,6 @@ const user = computed(() => store.userToEdit)
 const tenantResidencyDocument = computed(() => store.getTenantResidencyDocument)
 const documents = DocumentTypeConstants.RESIDENCY_DOCS
 
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
 const residencyDocument = ref(new DocumentType())
@@ -152,11 +148,6 @@ onBeforeMount(() => {
       if (localDoc !== undefined) {
         residencyDocument.value = localDoc
         localStorage.setItem(getLocalStorageKey(), residencyDocument.value.key || '')
-      }
-      if (tenantResidencyDocument.value?.documentDeniedReasons) {
-        documentDeniedReasons.value = structuredClone(
-          tenantResidencyDocument.value.documentDeniedReasons
-        )
       }
     } else {
       const key = localStorage.getItem(getLocalStorageKey())

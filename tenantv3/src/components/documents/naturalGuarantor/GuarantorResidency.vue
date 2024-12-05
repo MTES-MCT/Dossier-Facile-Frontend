@@ -30,10 +30,9 @@
         {{ t('residency-page.warning-other-residency') }}
       </div>
       <AllDeclinedMessages
-        class="fr-mb-3w"
         :user-id="user?.id"
-        :document="guarantorResidencyDocument()"
-        :document-denied-reasons="documentDeniedReasons"
+        :document="guarantorResidencyDocument"
+        :document-denied-reasons="guarantorResidencyDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <TextField
@@ -64,10 +63,9 @@
         <p v-html="t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)"></p>
       </div>
       <AllDeclinedMessages
-        class="fr-mb-3w"
         :user-id="user?.id"
-        :document="guarantorResidencyDocument()"
-        :document-denied-reasons="documentDeniedReasons"
+        :document="guarantorResidencyDocument"
+        :document-denied-reasons="guarantorResidencyDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
@@ -102,7 +100,6 @@ import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UtilsService } from '@/services/UtilsService'
 import ProfileFooter from '@/components/footer/ProfileFooter.vue'
 import TextField from 'df-shared-next/src/components/form/TextField.vue'
@@ -125,7 +122,6 @@ const props = defineProps<{
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref([] as DfFile[])
 const residencyDocument = ref(new DocumentType())
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const customText = ref('')
 
 const documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS
@@ -136,13 +132,11 @@ onMounted(() => {
   updateGuarantorData()
 })
 
-const documentStatus = computed(() => {
-  return guarantorResidencyDocument()?.documentStatus
-})
+const guarantorResidencyDocument = computed(() => store.getGuarantorResidencyDocument)
 
-function guarantorResidencyDocument() {
-  return store.getGuarantorResidencyDocument
-}
+const documentStatus = computed(() => {
+  return guarantorResidencyDocument.value?.documentStatus
+})
 
 function updateGuarantorData() {
   if (selectedGuarantor.value?.documents !== null) {
@@ -157,10 +151,6 @@ function updateGuarantorData() {
       if (localDoc !== undefined) {
         residencyDocument.value = localDoc
       }
-    }
-    const ddr = guarantorResidencyDocument()?.documentDeniedReasons
-    if (ddr) {
-      documentDeniedReasons.value = structuredClone(ddr)
     }
   }
 }
@@ -308,9 +298,11 @@ async function remove(file: DfFile, silent = false) {
   if (file.id) {
     if (
       files.value.length === 1 &&
-      guarantorResidencyDocument()?.documentAnalysisReport?.analysisStatus === 'DENIED'
+      guarantorResidencyDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(guarantorResidencyDocument()?.documentCategory || '')
+      AnalyticsService.removeDeniedDocument(
+        guarantorResidencyDocument.value?.documentCategory || ''
+      )
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {

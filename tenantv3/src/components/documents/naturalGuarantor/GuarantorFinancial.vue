@@ -35,7 +35,6 @@
           </template>
           <template #bottom>
             <AllDeclinedMessages
-              class="fr-mb-0"
               :user-id="user?.id"
               :document="f"
               :document-denied-reasons="documentDeniedReasons(f)"

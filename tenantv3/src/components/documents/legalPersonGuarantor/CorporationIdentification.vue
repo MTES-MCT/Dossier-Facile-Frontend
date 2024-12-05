@@ -39,10 +39,11 @@
             {{ t('corporationidentification.kbis-label') }}
           </h1>
           <AllDeclinedMessages
-            class="fr-mb-3w"
             :user-id="user?.id"
-            :document="guarantorIdentificationLegalPersonDocument()"
-            :document-denied-reasons="documentDeniedReasons"
+            :document="guarantorIdentificationLegalPersonDocument"
+            :document-denied-reasons="
+              guarantorIdentificationLegalPersonDocument?.documentDeniedReasons
+            "
             :document-status="documentStatus"
           ></AllDeclinedMessages>
           <div class="fr-col-md-12 fr-mb-3w">
@@ -77,7 +78,6 @@ import { RegisterService } from '../../../services/RegisterService'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import GuarantorFooter from '../../footer/GuarantorFooter.vue'
 import { computed, onBeforeMount, ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
@@ -98,40 +98,27 @@ const props = defineProps<{
 
 const organismName = ref('')
 
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
-
 const files = ref([] as DfFile[])
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 onBeforeMount(() => {
-  organismName.value = getGuarantor()?.legalPersonName || ''
-  if (guarantorIdentificationLegalPersonDocument()?.documentDeniedReasons) {
-    documentDeniedReasons.value = structuredClone(
-      guarantorIdentificationLegalPersonDocument()!.documentDeniedReasons!
-    )
-  }
+  organismName.value = guarantor.value?.legalPersonName || ''
 })
 
-function getGuarantor() {
-  if (props.guarantor) {
-    return props.guarantor
-  }
-  return store.guarantor
-}
-
-const documentStatus = computed(() => {
-  return guarantorIdentificationLegalPersonDocument()?.documentStatus
-})
-
-function guarantorIdentificationLegalPersonDocument(): DfDocument | undefined {
+const guarantor = computed(() => props.guarantor || store.guarantor)
+const guarantorIdentificationLegalPersonDocument = computed(() => {
   if (props.guarantor) {
     return props.guarantor.documents?.find((d: DfDocument) => {
       return d.documentCategory === 'IDENTIFICATION_LEGAL_PERSON'
     })
   }
   return store.getGuarantorIdentificationLegalPersonDocument
-}
+})
+const documentStatus = computed(
+  () => guarantorIdentificationLegalPersonDocument.value?.documentStatus
+)
+
 function addFiles(fileList: File[]) {
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
@@ -147,7 +134,7 @@ function save() {
   const fieldName = 'documents'
   const formData = new FormData()
   formData.append('legalPersonName', organismName.value)
-  const gId = getGuarantor()?.id
+  const gId = guarantor.value?.id
   if (gId) {
     formData.append('guarantorId', gId.toString())
   }
@@ -208,11 +195,11 @@ function remove(file: DfFile) {
   if (file.id) {
     if (
       files.value.length === 1 &&
-      guarantorIdentificationLegalPersonDocument()?.documentAnalysisReport?.analysisStatus ===
+      guarantorIdentificationLegalPersonDocument.value?.documentAnalysisReport?.analysisStatus ===
         'DENIED'
     ) {
       AnalyticsService.removeDeniedDocument(
-        guarantorIdentificationLegalPersonDocument()?.documentCategory || ''
+        guarantorIdentificationLegalPersonDocument.value?.documentCategory || ''
       )
     }
 
@@ -234,7 +221,7 @@ function listFiles() {
       size: f.file?.size
     }
   })
-  const existingFiles = guarantorIdentificationLegalPersonDocument()?.files || []
+  const existingFiles = guarantorIdentificationLegalPersonDocument.value?.files || []
   return [...newFiles, ...existingFiles]
 }
 
