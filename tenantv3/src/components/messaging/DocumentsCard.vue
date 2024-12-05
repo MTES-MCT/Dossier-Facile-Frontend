@@ -12,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+import { DocumentService } from '@/services/DocumentService'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import type { DfDocument, DocumentCategory } from 'df-shared-next/src/models/DfDocument'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
@@ -29,11 +30,12 @@ const label = computed(() =>
     : props.tenant.firstName
 )
 
-const declinedDocuments = computed(
-  () =>
+const declinedDocuments = computed(() =>
+  (
     props.tenant.documents?.filter(
       (doc) => doc.documentStatus === 'DECLINED' || !doc.documentStatus
     ) || []
+  ).sort(DocumentService.sortByCategory)
 )
 
 const hasDeclinedDocuments = computed(() => declinedDocuments.value.length > 0)
