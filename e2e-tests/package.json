@@ -1,6 +1,7 @@
 {
   "name": "e2e-tests",
   "version": "1.0.0",
+  "type": "module",
   "description": "End-to-end tests for DossierFacile",
   "scripts": {
     "test": "cypress run",
