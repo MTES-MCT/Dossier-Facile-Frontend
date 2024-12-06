@@ -22,9 +22,15 @@ declare namespace Cypress {
 
     testAccessibility(): Chainable<void>;
 
-    simpleUploadDocumentStep(buttonToSelect: string, numberOfFiles?: number): Chainable<void>;
+    simpleUploadDocumentStep(
+      buttonToSelect: string,
+      numberOfFiles?: number
+    ): Chainable<void>;
 
-    selectResidencyStep(residencyType: string, numberOfFiles?: number): Chainable<void>;
+    selectResidencyStep(
+      residencyType: string,
+      numberOfFiles?: number
+    ): Chainable<void>;
 
     selectProfessionalStatusStep(professionalStatus: string): Chainable<void>;
 

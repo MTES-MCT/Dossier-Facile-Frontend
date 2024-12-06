@@ -21,7 +21,10 @@ describe("couple tenant scenario", () => {
     cy.simpleUploadDocumentStep("Passeport");
 
     cy.expectPath("/documents-locataire/2");
-    cy.selectResidencyStep("Hébergé par vos parents, par un ami, par un proche", 3);
+    cy.selectResidencyStep(
+      "Hébergé par vos parents, par un ami, par un proche",
+      3
+    );
 
     cy.expectPath("/documents-locataire/3");
     cy.selectProfessionalStatusStep("CDD");
@@ -53,11 +56,8 @@ describe("couple tenant scenario", () => {
     cy.simpleUploadDocumentStep("Autre");
 
     cy.expectPath("/4/2");
-    cy.get("#select")
-      .select("Dans une autre situation (sans-abri, etc.)");
-    cy.get("#customText")
-      .type("Test text")
-      .clickOnNext();
+    cy.get("#select").select("Dans une autre situation (sans-abri, etc.)");
+    cy.get("#customText").type("Test text").clickOnNext();
 
     cy.expectPath("/4/3");
     cy.selectProfessionalStatusStep("Études");
@@ -87,6 +87,9 @@ describe("couple tenant scenario", () => {
 
     cy.get("h1")
       .should("contain", `Bonjour ${user.firstname},`)
-      .should("contain", "votre dossier de couple est en cours de traitement !");
+      .should(
+        "contain",
+        "votre dossier de couple est en cours de traitement !"
+      );
   });
 });

@@ -29,7 +29,10 @@ describe("flatmate tenant scenario", () => {
     cy.simpleUploadDocumentStep("Titre de séjour français");
 
     cy.expectPath("/documents-locataire/2");
-    cy.selectResidencyStep("Hébergé par vos parents, par un ami, par un proche", 3);
+    cy.selectResidencyStep(
+      "Hébergé par vos parents, par un ami, par un proche",
+      3
+    );
 
     cy.expectPath("/documents-locataire/3");
     cy.selectProfessionalStatusStep("Stage");
@@ -44,22 +47,14 @@ describe("flatmate tenant scenario", () => {
       .clickOnNext();
 
     cy.expectPath("/choix-garant");
-    cy.contains("Une personne morale")
-      .click({force: true})
-      .clickOnNext();
+    cy.contains("Une personne morale").click({ force: true }).clickOnNext();
 
     cy.expectPath("/info-garant/0");
-    cy.get("#organismName")
-      .type("Organisme")
-      .uploadDocument()
-      .clickOnNext();
+    cy.get("#organismName").type("Organisme").uploadDocument().clickOnNext();
 
     const name = "Personne morale 123";
     cy.get("#firstName").type(name);
-    cy.get("#selectID")
-      .select("Autre")
-      .uploadDocument()
-      .clickOnNext();
+    cy.get("#selectID").select("Autre").uploadDocument().clickOnNext();
 
     cy.expectPath("/liste-garants");
     cy.contains(name).should("be.visible");
