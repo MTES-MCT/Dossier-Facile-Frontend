@@ -9,6 +9,7 @@ describe("couple tenant scenario", () => {
 
   it("validate file", () => {
     cy.tenantLogin(user.username);
+    cy.rejectCookies();
     cy.clickOnNext();
 
     cy.expectPath("/type-locataire");

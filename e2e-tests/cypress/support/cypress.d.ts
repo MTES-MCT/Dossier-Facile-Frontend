@@ -40,5 +40,6 @@ declare namespace Cypress {
     ): Chainable<void>;
 
     validationStep(): Chainable<void>;
+    rejectCookies(): Chainable<void>;
   }
 }

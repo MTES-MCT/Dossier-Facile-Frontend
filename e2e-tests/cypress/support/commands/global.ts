@@ -70,6 +70,10 @@ Cypress.Commands.add("testAccessibility", () => {
   cy.checkA11y(null, null, terminalLog);
 });
 
+Cypress.Commands.add("rejectCookies", () => {
+  cy.contains("Tout refuser").click();
+});
+
 function ignoreErrorsOnSsoPage() {
   if (Cypress.env("configName") === "local") {
     cy.origin("https://sso-preprod.dossierfacile.fr", () => {

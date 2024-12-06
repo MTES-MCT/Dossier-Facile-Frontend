@@ -10,6 +10,7 @@ describe("flatmate tenant scenario", () => {
 
   it("validate file", () => {
     cy.tenantLogin(user.username);
+    cy.rejectCookies();
     cy.wait(1000);
 
     cy.get("#lastname").should("have.value", user.lastname);
