@@ -19,7 +19,7 @@
     "@sentry/vite-plugin": "2.22.6",
     "@sentry/vue": "7.119.2",
     "@vee-validate/rules": "^4.5.11",
-    "axios": "^1.7.4",
+    "axios": "^1.7.8",
     "df-shared-next": "workspace:*",
     "vee-validate": "^4.11.3",
     "vue": "3.5.12",
