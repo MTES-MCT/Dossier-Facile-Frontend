@@ -16,7 +16,6 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
           run_install: false
 
       - name: Install Node.js
@@ -26,12 +25,14 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
 
       - name: Run e2e tests
-        uses: cypress-io/github-action@v6.7.0
+        uses: cypress-io/github-action@v6
         with:
-          project: ./e2e-tests
+          working-directory: e2e-tests
           install: false
           config-file: cypress-preprod.config.ts
           browser: chrome

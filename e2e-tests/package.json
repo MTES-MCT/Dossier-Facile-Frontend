@@ -1,6 +1,7 @@
 {
   "name": "e2e-tests",
   "version": "1.0.0",
+  "type": "module",
   "description": "End-to-end tests for DossierFacile",
   "scripts": {
     "test": "cypress run",
@@ -8,10 +9,8 @@
     "cy:open-preprod": "cypress open --browser electron --e2e --config-file cypress-preprod.config.ts"
   },
   "dependencies": {
-    "@types/cypress": "^1.1.3",
-    "@types/cypress-axe": "^0.11.0",
     "axe-core": "^4.8.3",
-    "cypress": "^13.6.4",
+    "cypress": "13.16.1",
     "cypress-axe": "^1.5.0",
     "cypress-iframe": "^1.0.1",
     "cypress-wait-until": "^1.7.2",
