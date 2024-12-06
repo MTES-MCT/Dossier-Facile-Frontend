@@ -10,6 +10,7 @@ describe(
       cy.deleteAccount(username, UserType.TENANT);
 
       cy.tenantLogin(username);
+      cy.rejectCookies();
 
       createCotenant();
       createGuarantor();

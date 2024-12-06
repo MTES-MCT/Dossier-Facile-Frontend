@@ -10,6 +10,7 @@ describe("basic owner scenario", () => {
 
   it("create a property", () => {
     cy.ownerLogin(user.username);
+    cy.rejectCookies();
 
     cy.get("button").contains("Ajouter une propriété").click();
 
