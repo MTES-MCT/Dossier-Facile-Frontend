@@ -21,11 +21,8 @@ describe("alone tenant scenario", () => {
     cy.simpleUploadDocumentStep("Autre");
 
     cy.expectPath("/documents-locataire/2");
-    cy.get("#select")
-      .select("Dans une autre situation (sans-abri, etc.)");
-    cy.get("#customText")
-      .type("Test text")
-      .clickOnNext();
+    cy.get("#select").select("Dans une autre situation (sans-abri, etc.)");
+    cy.get("#customText").type("Test text").clickOnNext();
 
     cy.expectPath("/documents-locataire/3");
     cy.selectProfessionalStatusStep("CDI");
@@ -40,9 +37,7 @@ describe("alone tenant scenario", () => {
     cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.expectPath("/choix-garant");
-    cy.contains("Une personne")
-      .click()
-      .clickOnNext();
+    cy.contains("Une personne").click().clickOnNext();
 
     createGuarantor("Jean", "Dupont");
     cy.get(".add-guarantor-btn").click();
@@ -80,5 +75,7 @@ function createGuarantor(firstname: string, lastname: string) {
   cy.simpleUploadDocumentStep("Votre garant a un avis d'imposition à son nom");
 
   cy.expectPath("/liste-garants");
-  cy.get("#step-content").contains([firstname, lastname].join(" ")).should("be.visible");
+  cy.get("#step-content")
+    .contains([firstname, lastname].join(" "))
+    .should("be.visible");
 }
