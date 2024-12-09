@@ -10,6 +10,7 @@ describe(
       cy.deleteAccount(username, UserType.TENANT);
 
       cy.tenantLogin(username);
+      cy.rejectCookies();
 
       createCotenant();
       createGuarantor();
@@ -17,7 +18,7 @@ describe(
 
     beforeEach(() => {
       cy.clearAllLocalStorage();
-    })
+    });
 
     it("add residency documents for tenant", () => {
       cy.visit("/documents-locataire/2");
@@ -83,7 +84,7 @@ describe(
       cy.uploadDocument(1).clickOnNext();
       clickOnModalButton("Passer à l'étape suivante");
 
-      cy.wait(200)
+      cy.wait(200);
       goBackToResidency();
 
       cy.uploadDocument(1).clickOnNext();
