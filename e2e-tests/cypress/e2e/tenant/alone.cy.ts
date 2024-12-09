@@ -47,9 +47,9 @@ describe("alone tenant scenario", () => {
 
     cy.validationStep();
 
-    cy.get("h1")
-      .should("contain", `Bonjour ${user.firstname},`)
-      .should("contain", "votre dossier est en cours de traitement !");
+    cy.contains("Votre dossier est actuellement en cours de traitement").should(
+      "be.visible"
+    );
   });
 });
 
