@@ -6,7 +6,7 @@
       <DeclinedDocuments :tenant="tenant" :is-cotenant="isCotenant" />
       <h2 class="fr-mt-3w">{{ t('menu.messaging') }}</h2>
     </template>
-    <div class="messages">
+    <div class="messages" ref="messages">
       <template v-for="m in messagesToDisplay" :key="m.id">
         <div class="separator">
           <span class="date">{{ formatDate(m.creationDateTime) }}</span>
@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 import useTenantStore from '@/stores/tenant-store'
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DeclinedDocuments from './DeclinedDocuments.vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
@@ -109,10 +109,16 @@ while (
 }
 const nbOfMessages = ref(initialMessageCount + 1)
 const sendMessage = ref('')
+const messagesContainer = useTemplateRef('messages')
 
 function handleSubmit() {
   store.sendMessage(sendMessage.value, props.tenant.id).then(() => {
     sendMessage.value = ''
+    nbOfMessages.value += 1
+    const scrollTo =
+      messagesContainer.value?.previousElementSibling ||
+      messagesContainer.value?.closest('.fr-container')
+    scrollTo?.scrollIntoView({ behavior: 'smooth' })
   })
 }
 
