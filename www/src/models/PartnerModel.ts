@@ -30,6 +30,7 @@ import lokappyUrl from '../assets/logos/lokappy.webp'
 import immopadUrl from '../assets/logos/immopad.webp'
 import omnireaUrl from '../assets/logos/omnirea.webp'
 import eonImmobilierUrl from '../assets/logos/eon_immobilier.webp'
+import immojeuneUrl from '../assets/logos/immojeune.webp'
 
 interface Partner {
   name: string
@@ -259,5 +260,12 @@ export const PARTNERS: Partner[] = [
     href: 'https://www.eon-immobilier.com/',
     name: 'Eon Immobilier',
     width: '240'
+  },
+  {
+    image: immojeuneUrl,
+    height: '67',
+    href: 'https://www.immojeune.com',
+    name: 'Immmojeune',
+    width: '144'
   }
 ]
