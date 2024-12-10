@@ -212,7 +212,7 @@ import FakeAnnouncement from '../components/FakeAnnouncement.vue'
 import PartnersSection from '../components/account/PartnersSection.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
-import { computed, onMounted, ref, watch } from 'vue'
+import {computed, onMounted, onUnmounted, ref, watch} from 'vue'
 import useTenantStore from '../stores/tenant-store'
 import { useRouter } from 'vue-router'
 import { ProfileService } from '../services/ProfileService'
@@ -233,6 +233,7 @@ const tabIndex = ref(0)
 const router = useRouter()
 dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
+let reloadExpectedProcessTimeIntervalId: number | null = null;
 
 onMounted(() => {
   const today = new Date()
@@ -242,7 +243,25 @@ onMounted(() => {
   ) {
     isAnnouncementVisible.value = true
   }
+  // reload processTime after 10 seconds if date is still missing
+  reloadExpectedProcessTimeIntervalId = setInterval(() => {
+    if (!expectedDate.value) {
+      loadExpectedProcessingTime(user.value.id);
+    } else if (reloadExpectedProcessTimeIntervalId) {
+      clearInterval(reloadExpectedProcessTimeIntervalId);
+      reloadExpectedProcessTimeIntervalId = null;
+    }
+  }, 10000);
+
 })
+
+onUnmounted(() => {
+  if (reloadExpectedProcessTimeIntervalId) {
+    clearInterval(reloadExpectedProcessTimeIntervalId);
+    reloadExpectedProcessTimeIntervalId = null;
+  }
+});
+
 
 watch(
   () => user.value,
