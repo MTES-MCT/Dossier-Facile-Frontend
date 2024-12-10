@@ -28,7 +28,7 @@
     "df-shared-next": "workspace:*",
     "js-cookie": "3.0.5",
     "keycloak-js": "25.0.6",
-    "pinia": "2.0.33",
+    "pinia": "2.2.6",
     "vee-validate": "4.12.2",
     "vue": "3.5.12",
     "vue-i18n": "^9.3.0-beta.17",
