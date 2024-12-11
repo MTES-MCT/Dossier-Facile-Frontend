@@ -1,10 +1,10 @@
 <template>
   <div class="fr-grid-col">
     <template v-if="tenant.status === 'DECLINED' || tenant.status === 'INCOMPLETE'">
-      <ColoredTag :text="t('DECLINED')" status="DECLINED" />
+      <ColoredTag :text="t('DECLINED')" status="DECLINED" class="fr-mt-2w" />
       <h2 class="fr-mt-1w">{{ t('overview') }}</h2>
       <DeclinedDocuments :tenant="tenant" :is-cotenant="isCotenant" />
-      <h2 class="fr-mt-3w">{{ t('menu.messaging') }}</h2>
+      <h2 class="fr-mt-5w">{{ t('menu.messaging') }}</h2>
     </template>
     <div class="messages" ref="messages">
       <template v-for="m in messagesToDisplay" :key="m.id">
