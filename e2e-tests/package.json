@@ -12,8 +12,7 @@
     "axe-core": "^4.8.3",
     "cypress": "13.16.1",
     "cypress-axe": "^1.5.0",
-    "cypress-iframe": "^1.0.1",
-    "cypress-wait-until": "^1.7.2",
+    "cypress-wait-until": "3.0.2",
     "df-shared-next": "workspace:*",
     "owner": "workspace:*"
   },
