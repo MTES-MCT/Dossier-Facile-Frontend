@@ -34,7 +34,6 @@ function hideXhrRequestLogs() {
 // See pending cypress issue https://github.com/cypress-io/cypress/issues/7362
 hideXhrRequestLogs();
 
-// @ts-ignore
 Cypress.on("uncaught:exception", (err, runnable, promise) => {
   return false;
 });

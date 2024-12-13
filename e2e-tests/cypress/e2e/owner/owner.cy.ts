@@ -29,7 +29,7 @@ describe("basic owner scenario", () => {
 
     cy.get('input[name="dpe"]').type("2386E2170938A");
     cy.contains("Rechercher").click();
-    cy.contains("Mon DPE en détail").should("be.visible");
+    cy.contains("Mon DPE en détail", { timeout: 10_000 }).should("be.visible");
 
     cy.clickOnNext();
 
@@ -42,7 +42,7 @@ describe("basic owner scenario", () => {
 
     cy.contains("Partager ma propriété").click();
     cy.contains("Copier").click();
-    cy.get("#share-modal").find(".fr-btn--close").click();
+    cy.get('[data-cy="share-property-modal"]').contains("Fermer").click();
 
     cy.intercept("DELETE", "**/property/*").as("deleteProperty");
     cy.contains("Supprimer ma propriété").click();

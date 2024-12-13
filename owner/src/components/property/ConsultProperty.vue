@@ -14,7 +14,11 @@
           </div>
           <div class="title">{{ name }}</div>
           <div class="spacer"></div>
-          <VGouvFrModal class="fr-btn btn--white fr-btn--secondary" @click="shareBtnClicked">
+          <VGouvFrModal
+            class="fr-btn btn--white fr-btn--secondary"
+            test-id="share-property-modal"
+            @click="shareBtnClicked"
+          >
             <template #button>
               {{ t('consultproperty.share-btn') }}
             </template>

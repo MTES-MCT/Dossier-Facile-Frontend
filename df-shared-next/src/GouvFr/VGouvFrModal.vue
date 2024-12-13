@@ -2,7 +2,7 @@
   <button type="button" :aria-controls="modalId" data-fr-opened="false" v-bind="$attrs">
     <slot name="button"> </slot>
   </button>
-  <dialog :id="modalId" :aria-labelledby="titleId" class="fr-modal">
+  <dialog :id="modalId" :aria-labelledby="titleId" class="fr-modal" :data-cy="testId">
     <div class="fr-container fr-container--fluid fr-container-md">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
@@ -35,6 +35,7 @@
 import { RiArrowRightLine } from '@remixicon/vue'
 import { useId } from 'vue'
 
+defineProps<{ testId?: string }>()
 const modalId = useId()
 const titleId = `${modalId}-title`
 </script>
