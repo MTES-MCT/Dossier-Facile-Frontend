@@ -10,9 +10,7 @@ Cypress.Commands.add("loginWithFC", (username: string) => {
     const providerButton = "#fi-identity-provider-example-faible";
     if ($body.find(providerButton).length) {
       cy.get(providerButton).click();
-      cy.get(":nth-child(1) > .form-control")
-        .clear()
-        .type(username);
+      cy.get(":nth-child(1) > .form-control").clear().type(username);
       cy.get(".button").click();
     }
   });
@@ -24,10 +22,14 @@ Cypress.Commands.add("loginWithFC", (username: string) => {
 Cypress.Commands.add("deleteAccount", (username: string, type: UserType) => {
   ignoreErrorsOnSsoPage();
 
-  cy.visit(type === UserType.TENANT ? Cypress.env("tenantUrl") : Cypress.env("ownerUrl"));
+  cy.visit(
+    type === UserType.TENANT
+      ? Cypress.env("tenantUrl")
+      : Cypress.env("ownerUrl")
+  );
   cy.contains("Se connecter").click();
   cy.loginWithFC(username);
-  
+
   cy.intercept("DELETE", "**/deleteAccount").as("deleteAccount");
 
   cy.get(".fr-nav__btn").click();
@@ -39,7 +41,7 @@ Cypress.Commands.add("deleteAccount", (username: string, type: UserType) => {
     .contains("Supprimer mon compte")
     .click();
 
-  cy.wait("@deleteAccount").its('response.statusCode').should('eq', 200);
+  cy.wait("@deleteAccount").its("response.statusCode").should("eq", 200);
 });
 
 Cypress.Commands.add("expectPath", (path: string) => {
@@ -56,24 +58,28 @@ Cypress.Commands.add("testAccessibility", () => {
   cy.configureAxe({
     // TODO fix disabled rules
     rules: [
-      { id: 'color-contrast', enabled: false },
-      { id: 'aria-allowed-attr', enabled: false },
-      { id: 'duplicate-id-aria', enabled: false },
-      { id: 'region', enabled: false },
-      { id: 'label', enabled: false },
-      { id: 'skip-link', enabled: false },
-      { id: 'page-has-heading-one', enabled: false },
-    ]
-  })
+      { id: "color-contrast", enabled: false },
+      { id: "aria-allowed-attr", enabled: false },
+      { id: "duplicate-id-aria", enabled: false },
+      { id: "region", enabled: false },
+      { id: "label", enabled: false },
+      { id: "skip-link", enabled: false },
+      { id: "page-has-heading-one", enabled: false },
+    ],
+  });
   cy.checkA11y(null, null, terminalLog);
+});
+
+Cypress.Commands.add("rejectCookies", () => {
+  cy.contains("Tout refuser").click();
 });
 
 function ignoreErrorsOnSsoPage() {
   if (Cypress.env("configName") === "local") {
-    cy.origin('https://sso-preprod.dossierfacile.fr', () => {
-      cy.on('uncaught:exception', (_) => {
-        return false
-      })
+    cy.origin("https://sso-preprod.dossierfacile.fr", () => {
+      cy.on("uncaught:exception", (_) => {
+        return false;
+      });
     });
   }
 }

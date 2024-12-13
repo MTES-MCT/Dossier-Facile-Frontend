@@ -127,9 +127,14 @@ function mountApp(ownerAuthenticated: boolean) {
   app.use(Toast)
   register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
   if (ownerAuthenticated) {
-    keycloak.loadUserProfile().then((user) => {
-      window.$crisp?.push(['set', 'user:email', [user.email]])
-    })
+    keycloak
+      .loadUserProfile()
+      .then((user) => {
+        window.$crisp?.push(['set', 'user:email', [user.email]])
+      })
+      .catch((error) => {
+        console.error(new Error('Cannot load user profile', { cause: error }))
+      })
   }
   app.mount('#app')
 }

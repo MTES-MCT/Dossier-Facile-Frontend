@@ -17,8 +17,7 @@ import "./commands/global";
 import "./commands/tenant";
 import "./commands/owner";
 import "cypress-axe";
-import "cypress-iframe";
-import 'cypress-wait-until';
+import "cypress-wait-until";
 
 function hideXhrRequestLogs() {
   const app = window.top;
@@ -35,7 +34,6 @@ function hideXhrRequestLogs() {
 // See pending cypress issue https://github.com/cypress-io/cypress/issues/7362
 hideXhrRequestLogs();
 
-// @ts-ignore
 Cypress.on("uncaught:exception", (err, runnable, promise) => {
   return false;
 });
