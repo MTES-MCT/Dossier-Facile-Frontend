@@ -31,6 +31,7 @@ import immopadUrl from '../assets/logos/immopad.webp'
 import omnireaUrl from '../assets/logos/omnirea.webp'
 import eonImmobilierUrl from '../assets/logos/eon_immobilier.webp'
 import immojeuneUrl from '../assets/logos/immojeune.webp'
+import myappartUrl from '../assets/logos/myappart.png'
 
 interface Partner {
   name: string
@@ -267,5 +268,12 @@ export const PARTNERS: Partner[] = [
     href: 'https://www.immojeune.com',
     name: 'Immmojeune',
     width: '144'
+  },
+  {
+    image: myappartUrl,
+    href: 'https://www.my-appart.fr',
+    name: 'MyAppart',
+    height: '93',
+    width: '248'
   }
 ]
