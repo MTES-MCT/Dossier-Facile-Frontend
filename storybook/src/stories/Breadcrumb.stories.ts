@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import Breadcrumb from '../../../df-shared-next/src/components/dsfr/Breadcrumb.vue';
+import Breadcrumb from 'df-shared-next/src/components/dsfr/BreadcrumbItem.vue';
 
 const meta = {
   title: 'DossierFacile/Breadcrumb',

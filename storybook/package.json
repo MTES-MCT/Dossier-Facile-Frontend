@@ -11,8 +11,10 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@gouvfr/dsfr": "^1.10.1",
+    "@gouvfr/dsfr": "1.11.2",
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
+    "df-shared-next": "workspace:*",
+    "pinia": "2.3.0",
     "vue": "3.5.12"
   },
   "devDependencies": {

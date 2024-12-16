@@ -1,13 +1,12 @@
-import { createI18n } from 'vue-i18n';
-import type { Preview } from "@storybook/vue3";
+import type { Preview } from '@storybook/vue3';
 
-import '../../df-shared-next/src/scss/_main.scss'
-import '../../df-shared-next/src/scss/_variables.scss'
-import '../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.min.js'
-import '../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css'
-import '../../node_modules/@gouvfr/dsfr/dist/utility/colors/colors.min.css'
+import 'df-shared-next/src/scss/_main.scss';
+import 'df-shared-next/src/scss/_variables.scss';
+import '@gouvfr/dsfr/dist/dsfr/dsfr.module.min.js';
+import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
+import '@gouvfr/dsfr/dist/utility/colors/colors.min.css';
 
-import { setup } from "@storybook/vue3";
+import { setup } from '@storybook/vue3';
 import i18n from '../../owner/src/i18n';
 import { createPinia } from 'pinia';
 
@@ -23,8 +22,8 @@ import { createPinia } from 'pinia';
 const pinia = createPinia();
 
 setup((app) => {
-    app.use(pinia);
-    app.use(i18n);
+  app.use(pinia);
+  app.use(i18n);
 });
 
 const preview: Preview = {

@@ -209,11 +209,17 @@ importers:
   storybook:
     dependencies:
       '@gouvfr/dsfr':
-        specifier: ^1.10.1
-        version: 1.13.0
+        specifier: 1.11.2
+        version: 1.11.2
       '@intlify/vite-plugin-vue-i18n':
         specifier: ^7.0.0
         version: 7.0.0(vite@5.4.9(@types/node@22.10.2)(sass@1.82.0)(terser@5.37.0))(vue-i18n@10.0.5(vue@3.5.12(typescript@5.6.2)))
+      df-shared-next:
+        specifier: workspace:*
+        version: link:../df-shared-next
+      pinia:
+        specifier: 2.3.0
+        version: 2.3.0(typescript@5.6.2)(vue@3.5.12(typescript@5.6.2))
       vue:
         specifier: 3.5.12
         version: 3.5.12(typescript@5.6.2)
@@ -1308,10 +1314,6 @@ packages:
 
   '@gouvfr/dsfr@1.11.2':
     resolution: {integrity: sha512-S7idT4rCCw6M1pqxJS8y4nUSq/Rus+Kucoifmv0CrZD/eoBA34HWqWYzR9GIxvtAX/TQ1XC7Hz+54THtVzMeqQ==}
-    engines: {node: '>=18.16.1'}
-
-  '@gouvfr/dsfr@1.13.0':
-    resolution: {integrity: sha512-I6JLYfE63dogk5qOx69gMfW/bKsm+daFgfx2QX75isbKBy5khlJdVxOD0A6ohvywvUJlEcZTmVK8rNHeVvGmgw==}
     engines: {node: '>=18.16.1'}
 
   '@hapi/hoek@9.3.0':
@@ -7092,8 +7094,6 @@ snapshots:
   '@fullhuman/vue-cli-plugin-purgecss@5.0.0': {}
 
   '@gouvfr/dsfr@1.11.2': {}
-
-  '@gouvfr/dsfr@1.13.0': {}
 
   '@hapi/hoek@9.3.0': {}
 
