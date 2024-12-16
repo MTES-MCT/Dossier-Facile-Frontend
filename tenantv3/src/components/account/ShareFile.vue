@@ -163,9 +163,8 @@ function copyLink() {
   } catch (err) {
     ToastService.error('unable-to-coy')
     alert('Oops, unable to copy')
-    return Promise.reject('error')
+    throw new Error('Unable to copy')
   }
-  return Promise.resolve(true)
 }
 </script>
 

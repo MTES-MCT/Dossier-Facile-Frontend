@@ -546,7 +546,7 @@ const useTenantStore = defineStore('tenant', {
     },
     unlinkFranceConnect(user: User) {
       if (!user.franceConnect) {
-        return Promise.reject('Account is not a FranceConnect Account')
+        return Promise.reject(new Error('Account is not a FranceConnect Account'))
       }
       return ProfileService.unlinkFranceConnect().then(
         () => {
@@ -880,7 +880,7 @@ const useTenantStore = defineStore('tenant', {
               return f.id?.toString() === formData.get('id')
             })
             if (s === undefined) {
-              return Promise.reject('Document not found')
+              return Promise.reject(new Error('Document not found'))
             }
             this.selectGuarantorDocumentFinancial(s)
           } else {

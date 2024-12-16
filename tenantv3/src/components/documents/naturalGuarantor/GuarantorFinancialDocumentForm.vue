@@ -328,7 +328,7 @@ async function save(): Promise<boolean> {
   if (!financialDocument.value.noDocument) {
     if (!financialFiles().length) {
       ToastService.error('guarantorfinancialdocumentform.missing-file')
-      return Promise.reject(new Error('err'))
+      return Promise.reject(new Error('Guarantor financial: missing file'))
     }
 
     if (
@@ -352,7 +352,9 @@ async function save(): Promise<boolean> {
     })
   } else if (financialFiles().length > 0) {
     isNoIncomeAndFiles.value = true
-    return Promise.reject(new Error('err'))
+    return Promise.reject(
+      new Error('Guarantor financial - document found but "no document" was checked')
+    )
   }
 
   const typeDocumentFinancial = financialDocument.value.documentType?.value || ''
@@ -364,7 +366,7 @@ async function save(): Promise<boolean> {
   if (financialDocument.value.monthlySum) {
     formData.append('monthlySum', Math.trunc(financialDocument.value.monthlySum).toString())
   } else {
-    return Promise.reject(new Error('err'))
+    return Promise.reject(new Error('Guarantor financial - income was not provided'))
   }
   if (financialDocument.value.id) {
     formData.append('documentId', financialDocument.value.id.toString())

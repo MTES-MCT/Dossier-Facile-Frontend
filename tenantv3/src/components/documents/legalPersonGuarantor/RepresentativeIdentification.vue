@@ -214,7 +214,7 @@ function save() {
     .catch(() => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
       ToastService.saveFailed()
-      return Promise.reject('Save: upload failed')
+      return Promise.reject(new Error('Save: upload failed'))
     })
     .finally(() => {
       loader.hide()

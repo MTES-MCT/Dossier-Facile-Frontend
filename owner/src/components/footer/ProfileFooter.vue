@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults } from 'vue'
 import FooterContainer from './FooterContainer.vue'
 import BackNext from './BackNext.vue'
 

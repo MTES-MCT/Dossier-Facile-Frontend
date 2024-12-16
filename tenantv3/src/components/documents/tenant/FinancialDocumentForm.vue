@@ -386,7 +386,7 @@ async function save(): Promise<boolean> {
     if (financialFiles().length > 0) {
       isNoIncomeAndFiles.value = true
       financialDocument.value.files = []
-      return Promise.reject(new Error('err'))
+      return Promise.reject(new Error('Financial - document found but "no document" was checked'))
     }
   }
 
@@ -414,11 +414,11 @@ async function save(): Promise<boolean> {
       financialDocument.value.monthlySum === 0
     ) {
       ToastService.error('financialdocumentform.income-zero')
-      return Promise.reject(new Error('err'))
+      return Promise.reject(new Error('Financial - zero income but noIncome is unchecked'))
     }
     formData.append('monthlySum', Math.trunc(financialDocument.value.monthlySum).toString())
   } else {
-    return Promise.reject(new Error('err'))
+    return Promise.reject(new Error('Financial - income was not provided'))
   }
   if (financialDocument.value.id) {
     formData.append('id', financialDocument.value.id.toString())
@@ -439,7 +439,7 @@ async function save(): Promise<boolean> {
     .catch((err) => {
       financialDocument.value.fileUploadStatus = UploadStatus.STATUS_FAILED
       UtilsService.handleCommonSaveError(err)
-      return Promise.reject(new Error('err'))
+      return Promise.reject(new Error(err))
     })
     .finally(() => {
       loader.hide()
