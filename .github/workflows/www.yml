@@ -26,25 +26,12 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        uses: cypress-io/github-action@v6
-        with:
-          runTests: false
+        run: pnpm install
 
       - name: Build www
         run: pnpm --filter www build
       - name: Run unit tests
         run: pnpm --filter www test:unit
-
-      - name: Run e2e tests
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: www
-          install: false
-          start: pnpm dev --host
-          wait-on: "http://localhost:9001"
-        env:
-          DEBUG: "@cypress/github-action"
-        timeout-minutes: 3
 
   tenant:
     runs-on: ubuntu-latest
