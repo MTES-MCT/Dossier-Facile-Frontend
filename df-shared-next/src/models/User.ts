@@ -23,7 +23,6 @@ export class User {
   documents?: DfDocument[]
   guarantors: Guarantor[] = []
   franceConnect?: boolean
-  passwordEnabled?: boolean
 
   /** This is not sent by the backend but added in the frontend */
   applicationType?: ApplicationType

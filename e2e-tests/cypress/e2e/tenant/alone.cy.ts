@@ -9,6 +9,7 @@ describe("alone tenant scenario", () => {
 
   it("validate file", () => {
     cy.tenantLogin(user.username);
+    cy.rejectCookies();
 
     cy.get("#lastname").should("have.value", user.lastname);
     cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
@@ -21,11 +22,8 @@ describe("alone tenant scenario", () => {
     cy.simpleUploadDocumentStep("Autre");
 
     cy.expectPath("/documents-locataire/2");
-    cy.get("#select")
-      .select("Dans une autre situation (sans-abri, etc.)");
-    cy.get("#customText")
-      .type("Test text")
-      .clickOnNext();
+    cy.get("#select").select("Dans une autre situation (sans-abri, etc.)");
+    cy.get("#customText").type("Test text").clickOnNext();
 
     cy.expectPath("/documents-locataire/3");
     cy.selectProfessionalStatusStep("CDI");
@@ -40,9 +38,7 @@ describe("alone tenant scenario", () => {
     cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.expectPath("/choix-garant");
-    cy.contains("Une personne")
-      .click()
-      .clickOnNext();
+    cy.contains("Une personne").click().clickOnNext();
 
     createGuarantor("Jean", "Dupont");
     cy.get(".add-guarantor-btn").click();
@@ -51,9 +47,9 @@ describe("alone tenant scenario", () => {
 
     cy.validationStep();
 
-    cy.get("h1")
-      .should("contain", `Bonjour ${user.firstname},`)
-      .should("contain", "votre dossier est en cours de traitement !");
+    cy.contains("Votre dossier est actuellement en cours de traitement").should(
+      "be.visible"
+    );
   });
 });
 
@@ -80,5 +76,7 @@ function createGuarantor(firstname: string, lastname: string) {
   cy.simpleUploadDocumentStep("Votre garant a un avis d'imposition à son nom");
 
   cy.expectPath("/liste-garants");
-  cy.get("#step-content").contains([firstname, lastname].join(" ")).should("be.visible");
+  cy.get("#step-content")
+    .contains([firstname, lastname].join(" "))
+    .should("be.visible");
 }

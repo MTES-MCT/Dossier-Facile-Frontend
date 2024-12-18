@@ -97,7 +97,7 @@ configure({
 const OWNER_API_URL = import.meta.env.VITE_OWNER_API_URL
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT || 'dev'
 
-function mountApp() {
+function mountApp(ownerAuthenticated: boolean) {
   const app = createApp(App)
 
   Sentry.init({
@@ -126,10 +126,16 @@ function mountApp() {
   app.use(i18n)
   app.use(Toast)
   register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
-  keycloak.loadUserInfo()
+  if (ownerAuthenticated) {
+    keycloak
+      .loadUserProfile()
       .then((user) => {
         window.$crisp?.push(['set', 'user:email', [user.email]])
       })
+      .catch((error) => {
+        console.error(new Error('Cannot load user profile', { cause: error }))
+      })
+  }
   app.mount('#app')
 }
 
@@ -173,12 +179,12 @@ if (!window.location.href.includes('/validConnexion/')) {
         )
       }
 
-      mountApp()
+      mountApp(true)
     })
     .catch(() => {
       console.log('Authenticated Failed')
       window.location.reload()
     })
 } else {
-  mountApp()
+  mountApp(false)
 }

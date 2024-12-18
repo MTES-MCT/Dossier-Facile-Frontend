@@ -28,8 +28,7 @@
         <div v-html="t(`explanation-text.tenant.professional.${professionalDocument.key}`)"></div>
       </div>
       <AllDeclinedMessages
-        class="fr-mb-3w"
-        :document-denied-reasons="documentDeniedReasons"
+        :document-denied-reasons="tenantProfessionalDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
@@ -67,7 +66,6 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UtilsService } from '@/services/UtilsService'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref } from 'vue'
@@ -83,7 +81,6 @@ const tenantProfessionalDocument = computed(() => store.getTenantProfessionalDoc
 
 const documents = ref(DocumentTypeConstants.PROFESSIONAL_DOCS)
 
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref([] as DfFile[])
 const professionalDocument = ref(new DocumentType())
@@ -109,11 +106,6 @@ onBeforeMount(() => {
       if (localDoc !== undefined) {
         professionalDocument.value = localDoc
         localStorage.setItem(getLocalStorageKey(), professionalDocument.value.key || '')
-      }
-      if (tenantProfessionalDocument.value?.documentDeniedReasons) {
-        documentDeniedReasons.value = structuredClone(
-          tenantProfessionalDocument.value.documentDeniedReasons
-        )
       }
     } else {
       const key = localStorage.getItem(getLocalStorageKey())

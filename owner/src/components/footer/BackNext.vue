@@ -31,7 +31,6 @@
 <script setup lang="ts">
 import VGouvFrButton from 'df-shared-next/src/Button/VGouvFrButton.vue'
 import { useI18n } from 'vue-i18n'
-import { withDefaults } from 'vue'
 import { RiArrowLeftSLine } from '@remixicon/vue'
 
 withDefaults(

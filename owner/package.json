@@ -13,8 +13,7 @@
     "tsc": "vue-tsc --noEmit",
     "preview": "vite preview",
     "format": "prettier --write src/",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
-    "cy:run": "cypress run"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore"
   },
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",

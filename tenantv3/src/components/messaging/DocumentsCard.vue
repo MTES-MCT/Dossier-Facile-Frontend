@@ -1,18 +1,18 @@
 <template>
   <div v-if="hasDeclinedDocuments" class="user-card">
-    <strong>{{ label }}</strong>
-    <div class="file-list">
-      <template v-for="doc of declinedDocuments" :key="doc.id">
-        <span>{{ t(doc.documentCategory!.toLowerCase()) }}</span>
-        <DfButton type="button" @click="goToDoc(doc.documentCategory)">{{
-          buttonText(doc)
-        }}</DfButton>
-      </template>
-    </div>
+    <template v-for="(doc, i) of declinedDocuments" :key="doc.id">
+      <strong v-if="i === 0">{{ label }}</strong>
+      <span v-else></span>
+      <span>{{ t(doc.documentCategory!.toLowerCase()) }}</span>
+      <DfButton type="button" @click="goToDoc(doc.documentCategory)">{{
+        buttonText(doc)
+      }}</DfButton>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
+import { DocumentService } from '@/services/DocumentService'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import type { DfDocument, DocumentCategory } from 'df-shared-next/src/models/DfDocument'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
@@ -30,11 +30,12 @@ const label = computed(() =>
     : props.tenant.firstName
 )
 
-const declinedDocuments = computed(
-  () =>
+const declinedDocuments = computed(() =>
+  (
     props.tenant.documents?.filter(
       (doc) => doc.documentStatus === 'DECLINED' || !doc.documentStatus
     ) || []
+  ).sort(DocumentService.sortByCategory)
 )
 
 const hasDeclinedDocuments = computed(() => declinedDocuments.value.length > 0)
@@ -65,22 +66,19 @@ const goToDoc = async (doc: DocumentCategory | undefined) => {
 .user-card {
   background-color: var(--background-alt-grey);
   padding: 1rem;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  align-items: center;
   gap: 1rem;
   justify-content: space-between;
   border-radius: 5px;
   & > strong {
-    flex-basis: 12rem;
     white-space: nowrap;
   }
 }
-.file-list {
-  display: grid;
-  --max-col-width: calc((100% - 1rem) / 2);
-  grid-template-columns: repeat(auto-fill, minmax(max(16rem, var(--max-col-width)), 1fr));
-  gap: 1rem;
-  flex-grow: 1;
+@media (min-width: 62rem) {
+  .user-card {
+    grid-template-columns: minmax(16rem, 1fr) 14rem 2fr;
+  }
 }
 </style>
 

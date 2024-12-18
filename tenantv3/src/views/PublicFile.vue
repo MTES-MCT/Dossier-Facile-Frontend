@@ -1,7 +1,11 @@
 <template>
   <div class="root">
     <div class="fr-container" v-if="!fileNotFound">
-      <FileHeader :user="user"></FileHeader>
+      <FileHeader :user="user">
+        <div class="fr-alert fr-alert--info bg-white">
+          <p v-html="t('preview')" />
+        </div>
+      </FileHeader>
 
       <FileReinsurance
         :dossier-status="user?.status || 'TO_PROCESS'"
@@ -351,4 +355,19 @@ function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
   --text-default-grey: #fff;
   --background-contrast-grey: #1d2437;
 }
+
+.bg-white {
+  background-color: #fff;
+}
 </style>
+
+<i18n>
+{
+  "fr": {
+    "preview": "Ce dossier est <strong>un aperçu sans document justificatif</strong>.<br />Si vous souhaitez consulter le dossier complet, vous devez demander au candidat de vous le transmettre."
+  },
+  "en": {
+    "preview": "This file is <strong>a preview without supporting documents</strong>.<br />If you wish to consult the complete file, you must ask the candidate to send it to you."
+  }
+}
+</i18n>

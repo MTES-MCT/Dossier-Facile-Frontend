@@ -3,16 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "run-p tsc \"build-only {@}\" --",
     "test:unit": "vitest",
-    "test:e2e": "cypress run --e2e",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "build-only": "vite-ssg build",
     "dev": "vite",
     "format": "prettier --write src/",
     "preview": "vite preview --host",
-    "test:e2e:dev": "cypress open --e2e",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
+    "tsc": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",
@@ -46,9 +44,7 @@
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/test-utils": "^2.4.1",
     "@vue/tsconfig": "0.5.1",
-    "cypress": "^13.6.4",
     "eslint": "^8.49.0",
-    "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-vue": "^9.17.0",
     "jsdom": "^24.1.1",
     "npm-run-all2": "^6.1.1",

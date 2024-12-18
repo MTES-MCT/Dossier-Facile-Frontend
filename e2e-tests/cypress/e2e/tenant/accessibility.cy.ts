@@ -9,6 +9,7 @@ describe("accessibility checks", () => {
 
   it("funnel accessibility", () => {
     cy.tenantLogin(username);
+    cy.rejectCookies();
     cy.wait(3000);
     cy.testAccessibility();
     cy.clickOnNext();
@@ -36,9 +37,7 @@ describe("accessibility checks", () => {
     cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.testAccessibility();
-    cy.contains("Une personne")
-      .click()
-      .clickOnNext();
+    cy.contains("Une personne").click().clickOnNext();
 
     cy.testAccessibility();
     cy.get("#lastname").type("Dupont");
@@ -61,7 +60,9 @@ describe("accessibility checks", () => {
     cy.clickOnNext();
 
     cy.testAccessibility();
-    cy.simpleUploadDocumentStep("Votre garant a un avis d'imposition à son nom");
+    cy.simpleUploadDocumentStep(
+      "Votre garant a un avis d'imposition à son nom"
+    );
 
     cy.testAccessibility();
     cy.clickOnNext();
@@ -74,7 +75,7 @@ describe("accessibility checks", () => {
 
     cy.testAccessibility();
     cy.contains("Valider mon dossier").click();
-    cy.wait(300)
+    cy.wait(300);
 
     cy.testAccessibility();
   });

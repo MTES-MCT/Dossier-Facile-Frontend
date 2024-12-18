@@ -47,10 +47,9 @@
       <WarningTaxDeclaration class="fr-mb-3w" v-if="document.key === 'my-name'" />
 
       <AllDeclinedMessages
-        class="fr-mb-3w"
         :user-id="selectedCoTenant?.id"
         :document="dfDocument"
-        :document-denied-reasons="documentDeniedReasons"
+        :document-denied-reasons="dfDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
 
@@ -183,7 +182,6 @@ import { RegisterService } from '@/services/RegisterService'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { DfFile } from 'df-shared-next/src/models/DfFile'
 import { DocumentType } from 'df-shared-next/src/models/Document'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { User } from 'df-shared-next/src/models/User'
 import FileUpload from '../../uploads/FileUpload.vue'
@@ -237,7 +235,6 @@ const props = withDefaults(
 )
 
 const localEditedDocumentId = ref(props.editedDocumentId)
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const document = ref(new DocumentType())
 const isDocDeleteVisible = ref(false)
@@ -342,9 +339,6 @@ function loadDocument(forceLoadLast?: boolean) {
     document.value = localDoc
   }
 
-  if (dfDocument.value?.documentDeniedReasons) {
-    documentDeniedReasons.value = structuredClone(dfDocument.value?.documentDeniedReasons)
-  }
   emit('on-change-document', document.value, dfDocument.value)
 }
 

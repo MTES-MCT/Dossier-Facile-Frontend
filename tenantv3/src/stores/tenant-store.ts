@@ -322,7 +322,7 @@ const useTenantStore = defineStore('tenant', {
       return f && f.length > 0
     },
     isTenantDocumentValid: (state: State) => (docType: string, user?: CoTenant) => {
-      const u = user ? user : state.user
+      const u = user || state.user
       // TODO : handle multiple financial documents
       const document = u.documents?.find((d: DfDocument) => {
         return d.documentCategory === docType
@@ -546,7 +546,7 @@ const useTenantStore = defineStore('tenant', {
     },
     unlinkFranceConnect(user: User) {
       if (!user.franceConnect) {
-        return Promise.reject('Account is not a FranceConnect Account')
+        return Promise.reject(new Error('Account is not a FranceConnect Account'))
       }
       return ProfileService.unlinkFranceConnect().then(
         () => {
@@ -632,7 +632,7 @@ const useTenantStore = defineStore('tenant', {
         (response) => {
           this.loadUserCommit(response.data)
           if (this.user.guarantors === undefined) {
-            return Promise.reject()
+            return Promise.reject(new Error('No guarantors found'))
           }
           const pageData = this.setGuarantorPage(
             this.user.guarantors[this.user.guarantors.length - 1],
@@ -880,7 +880,7 @@ const useTenantStore = defineStore('tenant', {
               return f.id?.toString() === formData.get('id')
             })
             if (s === undefined) {
-              return Promise.reject('Document not found')
+              return Promise.reject(new Error('Document not found'))
             }
             this.selectGuarantorDocumentFinancial(s)
           } else {

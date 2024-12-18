@@ -6,7 +6,7 @@
     "verbatimModuleSyntax": true,
     "sourceMap": true,
     "outDir": "dist",
-    "module": "NodeNext"
+    "module": "ES2022"
   },
   "lib": ["es2022"]
 }

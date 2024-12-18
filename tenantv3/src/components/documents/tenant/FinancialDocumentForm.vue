@@ -92,8 +92,7 @@
               <p v-html="t(`explanation-text.tenant.${financialDocument.documentType.key}`)"></p>
             </div>
             <AllDeclinedMessages
-              class="fr-mb-3w"
-              :document-denied-reasons="documentDeniedReasons"
+              :document-denied-reasons="tenantFinancialDocument?.documentDeniedReasons"
               :document-status="documentStatus"
             ></AllDeclinedMessages>
             <div
@@ -227,7 +226,6 @@ import { AnalyticsService } from '../../../services/AnalyticsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ProfileFooter from '../../footer/ProfileFooter.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UtilsService } from '@/services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import { useI18n } from 'vue-i18n'
@@ -251,7 +249,6 @@ const tenantFinancialDocuments = computed(() => {
 const { t } = useI18n()
 const documents = DocumentTypeConstants.FINANCIAL_DOCS
 
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 const isDocDeleteVisible = ref(false)
 const selectedDoc = ref(new FinancialDocument())
 const isNoIncomeAndFiles = ref(false)
@@ -259,24 +256,17 @@ const financialDocument = ref(new FinancialDocument())
 
 onBeforeMount(() => {
   financialDocument.value = { ...structuredClone(toRaw(financialDocumentSelected.value)) }
-  const doc = tenantFinancialDocument()
-  if (doc?.documentDeniedReasons) {
-    const deniedReasons = tenantFinancialDocument()?.documentDeniedReasons
-    if (deniedReasons) {
-      documentDeniedReasons.value = structuredClone(deniedReasons)
-    }
-  }
 })
 
-const documentStatus = computed(() => {
-  return tenantFinancialDocument()?.documentStatus
-})
-
-function tenantFinancialDocument() {
-  return store.getTenantDocuments?.find((d: DfDocument) => {
+const tenantFinancialDocument = computed(() =>
+  store.getTenantDocuments?.find((d: DfDocument) => {
     return d.id === financialDocument.value.id
   })
-}
+)
+
+const documentStatus = computed(() => {
+  return tenantFinancialDocument.value?.documentStatus
+})
 
 function onSelectChange($event: DocumentType) {
   financialDocument.value.documentType = $event
@@ -396,7 +386,7 @@ async function save(): Promise<boolean> {
     if (financialFiles().length > 0) {
       isNoIncomeAndFiles.value = true
       financialDocument.value.files = []
-      return Promise.reject(new Error('err'))
+      return Promise.reject(new Error('Financial - document found but "no document" was checked'))
     }
   }
 
@@ -424,11 +414,11 @@ async function save(): Promise<boolean> {
       financialDocument.value.monthlySum === 0
     ) {
       ToastService.error('financialdocumentform.income-zero')
-      return Promise.reject(new Error('err'))
+      return Promise.reject(new Error('Financial - zero income but noIncome is unchecked'))
     }
     formData.append('monthlySum', Math.trunc(financialDocument.value.monthlySum).toString())
   } else {
-    return Promise.reject(new Error('err'))
+    return Promise.reject(new Error('Financial - income was not provided'))
   }
   if (financialDocument.value.id) {
     formData.append('id', financialDocument.value.id.toString())
@@ -449,7 +439,7 @@ async function save(): Promise<boolean> {
     .catch((err) => {
       financialDocument.value.fileUploadStatus = UploadStatus.STATUS_FAILED
       UtilsService.handleCommonSaveError(err)
-      return Promise.reject(new Error('err'))
+      return Promise.reject(new Error(err))
     })
     .finally(() => {
       loader.hide()

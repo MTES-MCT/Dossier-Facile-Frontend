@@ -55,10 +55,9 @@
         </div>
         <div v-if="identificationDocument && identificationDocument.key">
           <AllDeclinedMessages
-            class="fr-mb-3w"
             :user-id="user?.id"
-            :document="guarantorIdentificationDocument()"
-            :document-denied-reasons="documentDeniedReasons"
+            :document="guarantorIdentificationDocument"
+            :document-denied-reasons="guarantorIdentificationDocument?.documentDeniedReasons"
             :document-status="documentStatus"
           ></AllDeclinedMessages>
           <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
@@ -94,7 +93,6 @@ import { RegisterService } from '../../../services/RegisterService'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import GuarantorFooter from '../../footer/GuarantorFooter.vue'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import { computed, onBeforeMount, ref } from 'vue'
@@ -118,16 +116,15 @@ const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const MAX_FILE_COUNT = 5
 
 const identificationDocument = ref(new DocumentType())
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 
 const files = ref([] as File[])
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const firstName = ref('')
 
 onBeforeMount(() => {
-  firstName.value = getGuarantor()?.firstName || ''
-  if (getGuarantor()?.documents !== null) {
-    const doc = guarantorIdentificationDocument()
+  firstName.value = guarantor.value?.firstName || ''
+  if (guarantor.value?.documents !== null) {
+    const doc = guarantorIdentificationDocument.value
     if (doc !== undefined) {
       const localDoc = documents.find((d: DocumentType) => {
         return d.value === doc.documentSubCategory
@@ -137,32 +134,18 @@ onBeforeMount(() => {
       }
     }
   }
-  if (guarantorIdentificationDocument()?.documentDeniedReasons) {
-    documentDeniedReasons.value = structuredClone(
-      guarantorIdentificationDocument()!.documentDeniedReasons!
-    )
-  }
 })
 
-function getGuarantor() {
-  if (props.guarantor) {
-    return props.guarantor
-  }
-  return store.guarantor
-}
-
-const documentStatus = computed(() => {
-  return guarantorIdentificationDocument()?.documentStatus
-})
-
-function guarantorIdentificationDocument(): DfDocument | undefined {
+const guarantor = computed(() => props.guarantor || store.guarantor)
+const guarantorIdentificationDocument = computed(() => {
   if (props.guarantor) {
     return props.guarantor.documents?.find((d: DfDocument) => {
       return d.documentCategory === 'IDENTIFICATION'
     })
   }
   return store.getGuarantorIdentificationDocument
-}
+})
+const documentStatus = computed(() => guarantorIdentificationDocument.value?.documentStatus)
 
 function addFiles(fileList: File[]) {
   files.value = [...files.value, ...fileList]
@@ -172,11 +155,11 @@ function addFiles(fileList: File[]) {
 function save() {
   if (!firstName.value) {
     files.value = []
-    return Promise.reject()
+    return Promise.reject(new Error('Save: no first name'))
   }
   const fieldName = 'documents'
   const formData = new FormData()
-  const gId = getGuarantor()?.id
+  const gId = guarantor.value?.id
   if (gId) {
     formData.append('guarantorId', gId.toString())
   }
@@ -210,7 +193,7 @@ function save() {
 
   if (listFiles().length > MAX_FILE_COUNT) {
     ToastService.maxFileError(listFiles().length, MAX_FILE_COUNT)
-    return Promise.reject()
+    return Promise.reject(new Error('Save: too many files'))
   }
   Array.from(Array(files.value.length).keys()).forEach((x) => {
     formData.append(`${fieldName}[${x}]`, files.value[x], files.value[x].name)
@@ -231,7 +214,7 @@ function save() {
     .catch(() => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
       ToastService.saveFailed()
-      return Promise.reject()
+      return Promise.reject(new Error('Save: upload failed'))
     })
     .finally(() => {
       loader.hide()
@@ -256,10 +239,10 @@ function remove(file: DfFile) {
   if (file.id) {
     if (
       files.value.length === 1 &&
-      guarantorIdentificationDocument()?.documentAnalysisReport?.analysisStatus === 'DENIED'
+      guarantorIdentificationDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
       AnalyticsService.removeDeniedDocument(
-        guarantorIdentificationDocument()?.documentCategory || ''
+        guarantorIdentificationDocument.value?.documentCategory || ''
       )
     }
     RegisterService.deleteFile(file.id)
@@ -272,7 +255,7 @@ function remove(file: DfFile) {
 }
 
 function listFiles() {
-  const existingFiles = guarantorIdentificationDocument()?.files || []
+  const existingFiles = guarantorIdentificationDocument.value?.files || []
   return existingFiles
 }
 </script>

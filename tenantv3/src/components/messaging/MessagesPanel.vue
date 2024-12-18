@@ -1,12 +1,12 @@
 <template>
   <div class="fr-grid-col">
     <template v-if="tenant.status === 'DECLINED' || tenant.status === 'INCOMPLETE'">
-      <ColoredTag :text="t('DECLINED')" status="DECLINED" />
+      <ColoredTag :text="t('DECLINED')" status="DECLINED" class="fr-mt-2w" />
       <h2 class="fr-mt-1w">{{ t('overview') }}</h2>
       <DeclinedDocuments :tenant="tenant" :is-cotenant="isCotenant" />
-      <h2 class="fr-mt-3w">{{ t('menu.messaging') }}</h2>
+      <h2 class="fr-mt-5w">{{ t('menu.messaging') }}</h2>
     </template>
-    <div class="messages">
+    <div class="messages" ref="messages">
       <template v-for="m in messagesToDisplay" :key="m.id">
         <div class="separator">
           <span class="date">{{ formatDate(m.creationDateTime) }}</span>
@@ -49,7 +49,6 @@
             v-model="sendMessage"
             class="sendMessage form-control fr-input"
             autocomplete="off"
-            autofocus
             rows="4"
             name="sendMessage"
             type="text"
@@ -69,7 +68,7 @@
 
 <script setup lang="ts">
 import useTenantStore from '@/stores/tenant-store'
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DeclinedDocuments from './DeclinedDocuments.vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
@@ -83,16 +82,6 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 dayjs.extend(isToday)
 dayjs.extend(isYesterday)
 
-const { t } = useI18n()
-const store = useTenantStore()
-const messageList = computed(() => store.messageList)
-
-const sendMessage = ref('')
-const nbOfMessages = ref(1)
-const allMessages = computed(() => messageList.value[props.tenant.id])
-const messagesToDisplay = computed(() => allMessages.value.slice(0, nbOfMessages.value))
-const showNextMessageButton = computed(() => nbOfMessages.value < allMessages.value.length)
-
 const props = withDefaults(
   defineProps<{
     tenant: CoTenant
@@ -103,9 +92,33 @@ const props = withDefaults(
   }
 )
 
+const { t } = useI18n()
+const store = useTenantStore()
+
+const messageList = computed(() => store.messageList)
+const allMessages = computed(() => messageList.value[props.tenant.id] ?? [])
+const messagesToDisplay = computed(() => allMessages.value.slice(0, nbOfMessages.value))
+const showNextMessageButton = computed(() => nbOfMessages.value < allMessages.value.length)
+
+let initialMessageCount = 0
+while (
+  initialMessageCount + 1 < allMessages.value.length &&
+  allMessages.value[initialMessageCount].typeMessage === 'FROM_TENANT'
+) {
+  initialMessageCount += 1
+}
+const nbOfMessages = ref(initialMessageCount + 1)
+const sendMessage = ref('')
+const messagesContainer = useTemplateRef('messages')
+
 function handleSubmit() {
   store.sendMessage(sendMessage.value, props.tenant.id).then(() => {
     sendMessage.value = ''
+    nbOfMessages.value += 1
+    const scrollTo =
+      messagesContainer.value?.previousElementSibling ||
+      messagesContainer.value?.closest('.fr-container')
+    scrollTo?.scrollIntoView({ behavior: 'smooth' })
   })
 }
 

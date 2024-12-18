@@ -37,10 +37,9 @@
         ></p>
       </div>
       <AllDeclinedMessages
-        class="fr-mb-3w"
         :user-id="user?.id"
-        :document="guarantorProfessionalDocument()"
-        :document-denied-reasons="documentDeniedReasons"
+        :document="guarantorProfessionalDocument"
+        :document-denied-reasons="guarantorProfessionalDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
@@ -74,7 +73,6 @@ import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { UtilsService } from '../../../services/UtilsService'
 import { useI18n } from 'vue-i18n'
 import useTenantStore from '../../../stores/tenant-store'
@@ -106,19 +104,13 @@ const files = ref([] as DfFile[])
 const professionalDocument = ref(new DocumentType())
 const documents = ref(DocumentTypeConstants.GUARANTOR_PROFESSIONAL_DOCS)
 const isDocDeleteVisible = ref(false)
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
 
 onMounted(() => {
   updateGuarantorData()
 })
 
-const documentStatus = computed(() => {
-  return guarantorProfessionalDocument()?.documentStatus
-})
-
-function guarantorProfessionalDocument() {
-  return store.getGuarantorProfessionalDocument
-}
+const guarantorProfessionalDocument = computed(() => store.getGuarantorProfessionalDocument)
+const documentStatus = computed(() => guarantorProfessionalDocument.value?.documentStatus)
 
 function updateGuarantorData() {
   if (selectedGuarantor.value?.documents !== null) {
@@ -132,10 +124,6 @@ function updateGuarantorData() {
       if (localDoc !== undefined) {
         professionalDocument.value = localDoc
       }
-    }
-    const ddr = guarantorProfessionalDocument()?.documentDeniedReasons
-    if (ddr) {
-      documentDeniedReasons.value = structuredClone(ddr)
     }
   }
 }
@@ -265,9 +253,11 @@ async function remove(file: DfFile, silent = false) {
   if (file.id) {
     if (
       files.value.length === 1 &&
-      guarantorProfessionalDocument()?.documentAnalysisReport?.analysisStatus === 'DENIED'
+      guarantorProfessionalDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(guarantorProfessionalDocument()?.documentCategory || '')
+      AnalyticsService.removeDeniedDocument(
+        guarantorProfessionalDocument.value?.documentCategory || ''
+      )
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {
