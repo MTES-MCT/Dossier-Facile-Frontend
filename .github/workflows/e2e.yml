@@ -2,7 +2,7 @@ name: E2E
 
 on:
   schedule:
-    - cron: "53 7 * * 2"
+    - cron: "53 7 * * *"
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
