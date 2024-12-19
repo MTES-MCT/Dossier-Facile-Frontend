@@ -143,15 +143,6 @@ if (!window.location.href.includes('/validConnexion/')) {
   keycloak
     .init({ onLoad: 'check-sso', checkLoginIframe: true })
     .then((auth) => {
-      // Token Refresh
-      setInterval(() => {
-        keycloak
-          .updateToken(70)
-          .then()
-          .catch(() => {
-            console.log('Failed to refresh token')
-          })
-      }, 6000)
       if (auth) {
         axios.interceptors.request.use(
           (config) => {
@@ -177,6 +168,16 @@ if (!window.location.href.includes('/validConnexion/')) {
             return Promise.reject(error)
           }
         )
+
+        // Token Refresh
+        setInterval(() => {
+          keycloak
+            .updateToken(70)
+            .then()
+            .catch(() => {
+              console.log('Failed to refresh token')
+            })
+        }, 6000)
       }
 
       mountApp(true)

@@ -128,15 +128,6 @@ const TENANT_API_URL = import.meta.env.VITE_API_URL
 keycloak
   .init({ onLoad: 'check-sso', checkLoginIframe: true })
   .then((auth) => {
-    // Token Refresh
-    setInterval(() => {
-      keycloak
-        .updateToken(70)
-        .then()
-        .catch(() => {
-          console.log('Failed to refresh token')
-        })
-    }, 6000)
     if (auth) {
       axios.interceptors.request.use(
         (config) => {
@@ -159,6 +150,27 @@ keycloak
           return Promise.reject(error)
         }
       )
+
+      // Token Refresh
+      setInterval(() => {
+        keycloak
+          .updateToken(70)
+          .then()
+          .catch(() => {
+            console.log('Failed to refresh token')
+          })
+      }, 6000)
+
+      keycloak
+        .loadUserProfile()
+        .then((user) => {
+          window.$crisp?.push(['set', 'user:email', [user.email]])
+        })
+        .catch((error) => {
+          console.error(new Error('Cannot load user profile', { cause: error }))
+        })
+    } else {
+      console.log('Not authenticated')
     }
 
     const app = createApp(App)
@@ -181,14 +193,6 @@ keycloak
       clearOnUrlChange: false
     } satisfies ToastContainerOptions)
     register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
-    keycloak
-      .loadUserProfile()
-      .then((user) => {
-        window.$crisp?.push(['set', 'user:email', [user.email]])
-      })
-      .catch((error) => {
-        console.error(new Error('Cannot load user profile', { cause: error }))
-      })
     app.mount('#app')
   })
   .catch((error: Error) => {
