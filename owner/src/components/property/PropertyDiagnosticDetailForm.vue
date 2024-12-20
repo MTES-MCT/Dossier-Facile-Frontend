@@ -59,8 +59,8 @@ const dpeDate = computed({
 })
 
 function updateDPE() {
-  localCo2Emission.value = co2Emission.value
-  localEnergyConsumption.value = energyConsumption.value
+  localCo2Emission.value = co2Emission.value ?? 0
+  localEnergyConsumption.value = energyConsumption.value ?? 0
   energyLetter.value = DpeService.getEnergyConsumptionLetter(
     energyConsumption.value,
     property.value

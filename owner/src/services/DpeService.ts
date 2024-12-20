@@ -500,39 +500,39 @@ const areaDpeMatching = [
 
 const DpeService = {
   getEnergyConsumptionLetterSmallArea(energyConsumption: number, property: Property) {
-      let area = property.livingSpace
-      if (area <= 8) {
-        area = 8
-      }
-      const dpeValues = areaDpeMatching.find((r) => r.area === area)
-      if (energyConsumption <= 0) {
-        return 'G'
-      }
-      if (dpeValues === undefined) {
-        return 'G'
-      }
-      if (energyConsumption <= dpeValues.cep_a) {
-        return 'A'
-      }
-      if (energyConsumption <= dpeValues.cep_b) {
-        return 'B'
-      }
-      if (energyConsumption <= dpeValues.cep_c) {
-        return 'C'
-      }
-      if (energyConsumption <= dpeValues.cep_d) {
-        return 'D'
-      }
-      if (energyConsumption <= dpeValues.cep_e) {
-        return 'E'
-      }
-      if (energyConsumption <= dpeValues.cep_f) {
-        return 'F'
-      }
-      return 'G'
-  },
-  getEnergyConsumptionLetter(energyConsumption: number, property: Property | null) {
+    let area = property.livingSpace
+    if (area <= 8) {
+      area = 8
+    }
+    const dpeValues = areaDpeMatching.find((r) => r.area === area)
     if (energyConsumption <= 0) {
+      return 'G'
+    }
+    if (dpeValues === undefined) {
+      return 'G'
+    }
+    if (energyConsumption <= dpeValues.cep_a) {
+      return 'A'
+    }
+    if (energyConsumption <= dpeValues.cep_b) {
+      return 'B'
+    }
+    if (energyConsumption <= dpeValues.cep_c) {
+      return 'C'
+    }
+    if (energyConsumption <= dpeValues.cep_d) {
+      return 'D'
+    }
+    if (energyConsumption <= dpeValues.cep_e) {
+      return 'E'
+    }
+    if (energyConsumption <= dpeValues.cep_f) {
+      return 'F'
+    }
+    return 'G'
+  },
+  getEnergyConsumptionLetter(energyConsumption: number | undefined, property: Property | null) {
+    if (energyConsumption === undefined || energyConsumption <= 0) {
       return '-'
     }
     if (property && property.livingSpace <= 40) {
@@ -564,40 +564,44 @@ const DpeService = {
     return '-'
   },
   getCO2EmissionLetterSmallArea(co2Emission: number, property: Property) {
-      let area = property.livingSpace
-      if (area <= 8) {
-        area = 8
-      }
-      const dpeValues = areaDpeMatching.find((r) => r.area === area)
-      if (co2Emission <= 0) {
-        return 'G'
-      }
-      if (dpeValues === undefined) {
-        return 'G'
-      }
-      if (co2Emission <= dpeValues.eges_a) {
-        return 'A'
-      }
-      if (co2Emission <= dpeValues.eges_b) {
-        return 'B'
-      }
-      if (co2Emission <= dpeValues.eges_c) {
-        return 'C'
-      }
-      if (co2Emission <= dpeValues.eges_d) {
-        return 'D'
-      }
-      if (co2Emission <= dpeValues.eges_e) {
-        return 'E'
-      }
-      if (co2Emission <= dpeValues.eges_f) {
-        return 'F'
-      }
+    let area = property.livingSpace
+    if (area <= 8) {
+      area = 8
+    }
+    const dpeValues = areaDpeMatching.find((r) => r.area === area)
+    if (co2Emission <= 0) {
       return 'G'
+    }
+    if (dpeValues === undefined) {
+      return 'G'
+    }
+    if (co2Emission <= dpeValues.eges_a) {
+      return 'A'
+    }
+    if (co2Emission <= dpeValues.eges_b) {
+      return 'B'
+    }
+    if (co2Emission <= dpeValues.eges_c) {
+      return 'C'
+    }
+    if (co2Emission <= dpeValues.eges_d) {
+      return 'D'
+    }
+    if (co2Emission <= dpeValues.eges_e) {
+      return 'E'
+    }
+    if (co2Emission <= dpeValues.eges_f) {
+      return 'F'
+    }
+    return 'G'
   },
-  getCO2EmissionLetter(co2Emission: number, property: Property | null) {
+  getCO2EmissionLetter(co2Emission: number | undefined, property: Property | null) {
     if (property?.ademeApiResult?.etiquetteEmission) {
       return property.ademeApiResult.etiquetteEmission
+    }
+
+    if (co2Emission === undefined) {
+      return '-'
     }
 
     if (property && property.livingSpace <= 40) {
