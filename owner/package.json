@@ -52,8 +52,7 @@
     "typescript": "5.6.2",
     "vite": "5.4.9",
     "vitest": "2.1.8",
-    "vue-tsc": "2.1.6",
-    "yup": "^1.0.2"
+    "vue-tsc": "2.1.6"
   },
   "eslintConfig": {
     "no-param-reassign": [
