@@ -2,7 +2,7 @@ import type { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } fro
 import { createRouter, createWebHistory } from 'vue-router'
 import useTenantStore from '@/stores/tenant-store'
 import { CONTENT, type SkipLink } from 'df-shared-next/src/models/SkipLink'
-import {keycloak} from '../plugin/keycloak'
+import { keycloak } from '../plugin/keycloak'
 import Home from '../views/HomePage.vue'
 import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
@@ -39,17 +39,14 @@ const router = createRouter({
     },
     {
       path: '/login',
-      redirect: () => {
-        window.location.replace(`${TENANT_URL}/account`)
-        return '/account'
-      }
+      redirect: '/account'
     },
     {
       path: '/signup',
-      redirect: () => {
-        window.location.replace(REGISTER_URL)
-        return '/signup'
-      }
+      beforeEnter() {
+        location.href = REGISTER_URL
+      },
+      component: {}
     },
     {
       path: '/profile',
@@ -395,22 +392,20 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
         redirectUri: TENANT_URL + to.fullPath
       })
     } else if (!keycloak.profile?.emailVerified) {
-        // email should be validated before access to the protected page.
-        keycloak.logout({
-          redirectUri: 'https:' + MAIN_URL + '/#emailNotValidated'
-        })
-      } else {
-        updateKeycloakTokenAndMessages()
-        keepGoing(to, next)
-        return
-      }
+      // email should be validated before access to the protected page.
+      keycloak.logout({
+        redirectUri: 'https:' + MAIN_URL + '/#emailNotValidated'
+      })
+    } else {
+      updateKeycloakTokenAndMessages()
+    }
   } else if (to.matched.some((record) => record.meta.hideForAuth)) {
     if (keycloak.authenticated) {
       next({ name: 'Profile' })
+      return
     }
   }
   keepGoing(to, next)
-  next()
 })
 
 export default router
