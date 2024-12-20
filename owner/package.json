@@ -10,7 +10,7 @@
     "dev": "vite --force",
     "build": "vite build",
     "fbuild": "vue-tsc --noEmit && vite build",
-    "tsc": "vue-tsc --noEmit",
+    "tsc": "vue-tsc --noEmit -p tsconfig.app.json",
     "preview": "vite preview",
     "format": "prettier --write src/",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore"
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
+    "@tsconfig/node18": "18.2.4",
     "@types/node": "22.7.4",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
