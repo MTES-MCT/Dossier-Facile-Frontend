@@ -18,6 +18,7 @@ import useTenantStore from '../stores/tenant-store'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { isAxiosError } from 'axios'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -33,7 +34,10 @@ function onInitPassword(password: string) {
       router.push({ name: 'TenantName' })
     },
     (error) => {
-      if (error.response.data.message.includes('password recovery token or is expired')) {
+      if (
+        isAxiosError(error) &&
+        error.response?.data.message.includes('password recovery token or is expired')
+      ) {
         ToastService.error('joincouple.token-expired')
       } else {
         ToastService.error('joincouple.error')

@@ -68,7 +68,7 @@ export const UtilsService = {
     )
   },
   handleCommonSaveError(err: unknown) {
-    if (isAxiosError(err) && err.response?.data?.message === null) {
+    if (isAxiosError(err) && err.response?.data?.message == null) {
       return
     }
     if (isAxiosError(err) && err.response?.data.message.includes('NumberOfPages')) {
