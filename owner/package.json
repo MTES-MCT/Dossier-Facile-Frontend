@@ -30,14 +30,14 @@
     "pinia": "2.0.33",
     "vee-validate": "4.12.2",
     "vue": "3.5.12",
-    "vue-i18n": "^9.3.0-beta.17",
+    "vue-i18n": "10.0.5",
     "vue-matomo": "^4.1.0",
     "vue-router": "4",
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
-    "@intlify/vite-plugin-vue-i18n": "^7.0.0",
     "@tsconfig/node18": "18.2.4",
+    "@intlify/unplugin-vue-i18n": "6.0.1",
     "@types/node": "22.7.4",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
