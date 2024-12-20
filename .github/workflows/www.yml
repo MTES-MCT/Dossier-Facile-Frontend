@@ -36,5 +36,5 @@ jobs:
         run: pnpm --filter ${{ matrix.ws }} build
 
       - name: Run unit tests
-        if: ${{ matrix.ws == 'www' || matrix.ws == 'tenantv3' }}
+        if: ${{ matrix.ws == 'www' || matrix.ws == 'tenantv3' || matrix.ws == 'owner' }}
         run: pnpm --filter ${{ matrix.ws }} test:unit
