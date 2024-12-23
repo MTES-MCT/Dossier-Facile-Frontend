@@ -97,11 +97,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage15.vue')
   },
   {
-    path: '/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr',
-    name: 'Article16',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage16.vue')
-  },
-  {
     path: '/blog/que-verifier-lors-de-la-visite-d-un-logement',
     name: 'Article17',
     component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage17.vue')
@@ -140,6 +135,11 @@ const routes = [
     path: '/blog/guide-etape-par-etape-pour-trouver-appartement-ideal',
     name: 'Article24',
     component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage24.vue')
+  },
+  {
+    path: '/blog/documents-garants',
+    name: 'Article25',
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage25.vue')
   },
   {
     path: '/information',
