@@ -5,17 +5,14 @@ import { useI18n } from 'vue-i18n'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
 import useOwnerStore from '../store/owner-store'
-import i18n from '@/i18n'
 
 const store = useOwnerStore()
 const isLoggedIn = computed(() => store.isLoggedIn)
 const route = useRoute()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
-
-const lang = i18n.global.locale.value
 
 const currentPage = computed(() => route.name)
 
@@ -105,7 +102,7 @@ function showDeleteAccountModal() {
       </a>
     </li>
     <li class="fr-nav__item fr-translate">
-      <LanguageSelector :initial-language="lang" @on-change-lang="changeLang" />
+      <LanguageSelector :initial-language="locale" @on-change-lang="changeLang" />
     </li>
   </ul>
 </template>

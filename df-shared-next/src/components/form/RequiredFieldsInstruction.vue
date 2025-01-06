@@ -9,11 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
+import { I18nT, useI18n } from 'vue-i18n'
 useI18n()
 </script>
-
-<style scoped lang="scss"></style>
 
 <i18n>
 {

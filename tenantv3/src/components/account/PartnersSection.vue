@@ -113,7 +113,7 @@
 
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { useI18n } from 'vue-i18n'
+import { I18nT, useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
