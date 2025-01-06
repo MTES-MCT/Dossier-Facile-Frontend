@@ -166,12 +166,11 @@ import DpeDiagram from 'df-shared-next/src/components/dpe/DpeDiagram.vue'
 import DpeCo2Diagram from 'df-shared-next/src/components/dpe/DpeCo2Diagram.vue'
 import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
-import i18n from '../../i18n'
 import DpeService from '../../services/DpeService'
 import useOwnerStore from '../../store/owner-store'
 import { AdemeApiResult } from 'df-shared-next/src/models/AdemeApiResult'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const store = useOwnerStore()
 
 const props = defineProps<{
@@ -196,7 +195,7 @@ function formatDate(d: string) {
     return ''
   }
   return format(date, 'dd MMMM yyyy', {
-    locale: i18n.global.locale.value === 'fr' ? fr : enUS
+    locale: locale.value === 'fr' ? fr : enUS
   })
 }
 </script>
