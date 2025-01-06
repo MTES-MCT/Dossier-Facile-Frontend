@@ -525,8 +525,8 @@ importers:
         specifier: ~5.0.0
         version: 5.0.0
       '@intlify/shared':
-        specifier: 9.14.1
-        version: 9.14.1
+        specifier: 11.0.1
+        version: 11.0.1
       '@intlify/unplugin-vue-i18n':
         specifier: 6.0.1
         version: 6.0.1(@vue/compiler-dom@3.5.13)(eslint@8.57.1)(rollup@4.24.0)(typescript@5.6.2)(vue-i18n@10.0.5(vue@3.5.12(typescript@5.6.2)))(vue@3.5.12(typescript@5.6.2))
@@ -1537,10 +1537,6 @@ packages:
 
   '@intlify/shared@11.0.1':
     resolution: {integrity: sha512-lH164+aDDptHZ3dBDbIhRa1dOPQUp+83iugpc+1upTOWCnwyC1PVis6rSWNMMJ8VQxvtHQB9JMib48K55y0PvQ==}
-    engines: {node: '>= 16'}
-
-  '@intlify/shared@9.14.1':
-    resolution: {integrity: sha512-XjHu6PEQup9MnP1x0W9y0nXXfq9jFftAYSfV11hryjtH4XqXP8HrzMvXI+ZVifF+jZLszaTzIhvukllplxTQTg==}
     engines: {node: '>= 16'}
 
   '@intlify/unplugin-vue-i18n@6.0.1':
@@ -7591,8 +7587,6 @@ snapshots:
   '@intlify/shared@11.0.0-rc.1': {}
 
   '@intlify/shared@11.0.1': {}
-
-  '@intlify/shared@9.14.1': {}
 
   '@intlify/unplugin-vue-i18n@6.0.1(@vue/compiler-dom@3.5.13)(eslint@8.57.1)(rollup@4.24.0)(typescript@5.6.2)(vue-i18n@10.0.5(vue@3.5.12(typescript@5.6.2)))(vue@3.5.12(typescript@5.6.2))':
     dependencies:
