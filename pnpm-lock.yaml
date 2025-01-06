@@ -179,8 +179,8 @@ importers:
         specifier: 5.2.1
         version: 5.2.1(vite@6.0.7(@types/node@22.10.5)(sass@1.79.4)(terser@5.37.0)(yaml@2.6.1))(vue@3.5.13(typescript@5.6.2))
       '@vue/tsconfig':
-        specifier: 0.5.1
-        version: 0.5.1
+        specifier: 0.7.0
+        version: 0.7.0(typescript@5.6.2)(vue@3.5.13(typescript@5.6.2))
       eslint:
         specifier: ^8.34.0
         version: 8.57.1
@@ -376,8 +376,8 @@ importers:
         specifier: 2.4.3
         version: 2.4.3(@vue/server-renderer@3.5.13(vue@3.5.12(typescript@5.6.2)))(vue@3.5.12(typescript@5.6.2))
       '@vue/tsconfig':
-        specifier: 0.5.1
-        version: 0.5.1
+        specifier: 0.7.0
+        version: 0.7.0(typescript@5.6.2)(vue@3.5.12(typescript@5.6.2))
       eslint:
         specifier: ^8.49.0
         version: 8.57.1
@@ -558,8 +558,8 @@ importers:
         specifier: ^2.4.1
         version: 2.4.6
       '@vue/tsconfig':
-        specifier: 0.5.1
-        version: 0.5.1
+        specifier: 0.7.0
+        version: 0.7.0(typescript@5.6.2)(vue@3.5.12(typescript@5.6.2))
       eslint:
         specifier: ^8.49.0
         version: 8.57.1
@@ -2772,8 +2772,16 @@ packages:
   '@vue/test-utils@2.4.6':
     resolution: {integrity: sha512-FMxEjOpYNYiFe0GkaHsnJPXFHxQ6m4t8vI/ElPGpMWxZKpmRvQ33OIrvRXemy6yha03RxhOlQuy+gZMC3CQSow==}
 
-  '@vue/tsconfig@0.5.1':
-    resolution: {integrity: sha512-VcZK7MvpjuTPx2w6blwnwZAu5/LgBUtejFOi3pPGQFXQN5Ela03FUtd2Qtg4yWGGissVL0dr6Ro1LfOFh+PCuQ==}
+  '@vue/tsconfig@0.7.0':
+    resolution: {integrity: sha512-ku2uNz5MaZ9IerPPUyOHzyjhXoX2kVJaVf7hL315DC17vS6IiZRmmCPfggNbU16QTvM80+uYYy3eYJB59WCtvg==}
+    peerDependencies:
+      typescript: 5.x
+      vue: ^3.4.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      vue:
+        optional: true
 
   '@webassemblyjs/ast@1.14.1':
     resolution: {integrity: sha512-nuBEDgQfm1ccRp/8bCQrx1frohyufl4JlbMMZ4P1wpeOfDhF6FQkxZJ1b/e+PLwr6X1Nhw6OLme5usuBWYBvuQ==}
@@ -9237,7 +9245,15 @@ snapshots:
       js-beautify: 1.15.1
       vue-component-type-helpers: 2.1.10
 
-  '@vue/tsconfig@0.5.1': {}
+  '@vue/tsconfig@0.7.0(typescript@5.6.2)(vue@3.5.12(typescript@5.6.2))':
+    optionalDependencies:
+      typescript: 5.6.2
+      vue: 3.5.12(typescript@5.6.2)
+
+  '@vue/tsconfig@0.7.0(typescript@5.6.2)(vue@3.5.13(typescript@5.6.2))':
+    optionalDependencies:
+      typescript: 5.6.2
+      vue: 3.5.13(typescript@5.6.2)
 
   '@webassemblyjs/ast@1.14.1':
     dependencies:
