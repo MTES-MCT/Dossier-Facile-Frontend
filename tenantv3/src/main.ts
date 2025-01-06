@@ -19,7 +19,7 @@ import 'vue-loading-overlay/dist/css/index.css'
 import { configure, defineRule } from 'vee-validate'
 import * as Sentry from '@sentry/vue'
 
-import { register } from 'df-shared-next/src/services/ConsentService'
+import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
@@ -192,7 +192,7 @@ keycloak
       theme: 'colored',
       clearOnUrlChange: false
     } satisfies ToastContainerOptions)
-    register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
+    app.use(ConsentPlugin, { matomo: true, crisp: CRISP_ENABLED === 'true' })
     app.mount('#app')
   })
   .catch((error: Error) => {

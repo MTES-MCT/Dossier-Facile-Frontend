@@ -10,7 +10,7 @@ import router from './router'
 import { i18n } from './i18n'
 import 'vue-toastification/dist/index.css'
 import keycloak from './plugin/keycloak'
-import { register } from 'df-shared-next/src/services/ConsentService'
+import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
 
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
@@ -125,7 +125,7 @@ function mountApp(ownerAuthenticated: boolean) {
   app.use(router)
   app.use(i18n)
   app.use(Toast)
-  register(app, { matomo: true, crisp: CRISP_ENABLED === 'true' })
+  app.use(ConsentPlugin, { matomo: true, crisp: CRISP_ENABLED === 'true' })
   if (ownerAuthenticated) {
     keycloak
       .loadUserProfile()
