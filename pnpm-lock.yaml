@@ -109,8 +109,8 @@ importers:
         specifier: 4.5.0
         version: 4.5.0(vue@3.5.13(typescript@5.7.2))
       '@sentry/tracing':
-        specifier: 7.119.2
-        version: 7.119.2
+        specifier: 7.120.2
+        version: 7.120.2
       '@sentry/vite-plugin':
         specifier: 2.22.7
         version: 2.22.7
@@ -403,8 +403,8 @@ importers:
         specifier: 1.11.2
         version: 1.11.2
       '@sentry/tracing':
-        specifier: 7.119.2
-        version: 7.119.2
+        specifier: 7.120.2
+        version: 7.120.2
       '@sentry/vite-plugin':
         specifier: 2.22.7
         version: 2.22.7
@@ -1844,6 +1844,10 @@ packages:
     resolution: {integrity: sha512-V2W+STWrafyGJhQv3ulMFXYDwWHiU6wHQAQBShsHVACiFaDrJ2kPRet38FKv4dMLlLlP2xN+ss2e5zv3tYlTiQ==}
     engines: {node: '>=8'}
 
+  '@sentry-internal/tracing@7.120.2':
+    resolution: {integrity: sha512-eo2F8cP6X+vr54Mp6vu+NoQEDz0M5O24Tz8jPY0T1CpiWdwCmHb7Sln+oLXeQ3/LlWdVQihBfKDBZfBdUfsBTg==}
+    engines: {node: '>=8'}
+
   '@sentry/babel-plugin-component-annotate@2.22.7':
     resolution: {integrity: sha512-aa7XKgZMVl6l04NY+3X7BP7yvQ/s8scn8KzQfTLrGRarziTlMGrsCOBQtCNWXOPEbtxAIHpZ9dsrAn5EJSivOQ==}
     engines: {node: '>= 14'}
@@ -1906,6 +1910,10 @@ packages:
     resolution: {integrity: sha512-hQr3d2yWq/2lMvoyBPOwXw1IHqTrCjOsU1vYKhAa6w9vGbJZFGhKGGE2KEi/92c3gqGn+gW/PC7cV6waCTDuVA==}
     engines: {node: '>=8'}
 
+  '@sentry/core@7.120.2':
+    resolution: {integrity: sha512-eurLBFQJC7WWWYoEna25Z9I/GJjqAmH339tv52XP8sqXV7B5hRcHDcfrsT/UGHpU316M24p3lWhj0eimtCZ0SQ==}
+    engines: {node: '>=8'}
+
   '@sentry/integrations@7.119.2':
     resolution: {integrity: sha512-dCuXKvbUE3gXVVa696SYMjlhSP6CxpMH/gl4Jk26naEB8Xjsn98z/hqEoXLg6Nab73rjR9c/9AdKqBbwVMHyrQ==}
     engines: {node: '>=8'}
@@ -1914,16 +1922,24 @@ packages:
     resolution: {integrity: sha512-nHDsBt0mlJXTWAHjzQdCzDbhV2fv8B62PPB5mu5SpI+G5h+ir3r5lR0lZZrMT8eurVowb/HnLXAs+XYVug3blg==}
     engines: {node: '>=12'}
 
-  '@sentry/tracing@7.119.2':
-    resolution: {integrity: sha512-L7t55Ucr58zztbM6lCtzz/c+sVyQQxKbZrmQLbecKqN/M34E4IpkSDB0GdAVKVTCbevXccB6D4WPJIptMccuQw==}
+  '@sentry/tracing@7.120.2':
+    resolution: {integrity: sha512-diN2TLnF/irJuuE5dmOjOFpz1JFACAU4hSUsg9z/eGsatQpdlcPXHuV9GFBcyl7vGvBjsBDIY4z527/vABAZ3w==}
     engines: {node: '>=8'}
 
   '@sentry/types@7.119.2':
     resolution: {integrity: sha512-ydq1tWsdG7QW+yFaTp0gFaowMLNVikIqM70wxWNK+u98QzKnVY/3XTixxNLsUtnAB4Y+isAzFhrc6Vb5GFdFeg==}
     engines: {node: '>=8'}
 
+  '@sentry/types@7.120.2':
+    resolution: {integrity: sha512-FWVoiblHQJ892GaOqdXx/5/n5XDLF28z81vJ0lCY49PMh8waz8LJ0b9RSmt9tasSDl0OQ7eUlPl1xu1jTrv1NA==}
+    engines: {node: '>=8'}
+
   '@sentry/utils@7.119.2':
     resolution: {integrity: sha512-TLdUCvcNgzKP0r9YD7tgCL1PEUp42TObISridsPJ5rhpVGQJvpr+Six0zIkfDUxerLYWZoK8QMm9KgFlPLNQzA==}
+    engines: {node: '>=8'}
+
+  '@sentry/utils@7.120.2':
+    resolution: {integrity: sha512-jgnQlw11mRfQrQRAXbq4zEd+tbYwHel5eqeS/oU6EImXRjmHNtS79nB8MHvJeQu1FMCpFs1Ymrrs5FICwS6VeQ==}
     engines: {node: '>=8'}
 
   '@sentry/vite-plugin@2.22.7':
@@ -7167,6 +7183,12 @@ snapshots:
       '@sentry/types': 7.119.2
       '@sentry/utils': 7.119.2
 
+  '@sentry-internal/tracing@7.120.2':
+    dependencies:
+      '@sentry/core': 7.120.2
+      '@sentry/types': 7.120.2
+      '@sentry/utils': 7.120.2
+
   '@sentry/babel-plugin-component-annotate@2.22.7': {}
 
   '@sentry/browser@7.119.2':
@@ -7239,6 +7261,11 @@ snapshots:
       '@sentry/types': 7.119.2
       '@sentry/utils': 7.119.2
 
+  '@sentry/core@7.120.2':
+    dependencies:
+      '@sentry/types': 7.120.2
+      '@sentry/utils': 7.120.2
+
   '@sentry/integrations@7.119.2':
     dependencies:
       '@sentry/core': 7.119.2
@@ -7253,15 +7280,21 @@ snapshots:
       '@sentry/types': 7.119.2
       '@sentry/utils': 7.119.2
 
-  '@sentry/tracing@7.119.2':
+  '@sentry/tracing@7.120.2':
     dependencies:
-      '@sentry-internal/tracing': 7.119.2
+      '@sentry-internal/tracing': 7.120.2
 
   '@sentry/types@7.119.2': {}
+
+  '@sentry/types@7.120.2': {}
 
   '@sentry/utils@7.119.2':
     dependencies:
       '@sentry/types': 7.119.2
+
+  '@sentry/utils@7.120.2':
+    dependencies:
+      '@sentry/types': 7.120.2
 
   '@sentry/vite-plugin@2.22.7':
     dependencies:
