@@ -88,15 +88,15 @@
               >
                 <use
                   class="fr-artwork-decorative"
-                  xlink:href="@gouvfr/dsfr/src/dsfr/core/asset/artwork/pictograms/document/document.svg#artwork-decorative"
+                  xlink:href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/document/document.svg#artwork-decorative"
                 ></use>
                 <use
                   class="fr-artwork-minor"
-                  xlink:href="@gouvfr/dsfr/src/dsfr/core/asset/artwork/pictograms/document/document.svg#artwork-minor"
+                  xlink:href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/document/document.svg#artwork-minor"
                 ></use>
                 <use
                   class="fr-artwork-major"
-                  xlink:href="@gouvfr/dsfr/src/dsfr/core/asset/artwork/pictograms/document/document.svg#artwork-major"
+                  xlink:href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/document/document.svg#artwork-major"
                 ></use>
               </svg>
             </div>
@@ -123,15 +123,15 @@
               >
                 <use
                   class="fr-artwork-decorative"
-                  xlink:href="@gouvfr/dsfr/src/dsfr/core/asset/artwork/pictograms/buildings/house.svg#artwork-decorative"
+                  xlink:href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/buildings/house.svg#artwork-decorative"
                 ></use>
                 <use
                   class="fr-artwork-minor"
-                  xlink:href="@gouvfr/dsfr/src/dsfr/core/asset/artwork/pictograms/buildings/house.svg#artwork-minor"
+                  xlink:href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/buildings/house.svg#artwork-minor"
                 ></use>
                 <use
                   class="fr-artwork-major"
-                  xlink:href="@gouvfr/dsfr/src/dsfr/core/asset/artwork/pictograms/buildings/house.svg#artwork-major"
+                  xlink:href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/buildings/house.svg#artwork-major"
                 ></use>
               </svg>
             </div>
