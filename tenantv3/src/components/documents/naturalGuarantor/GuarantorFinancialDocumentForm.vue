@@ -309,7 +309,7 @@ async function save(): Promise<boolean> {
   const fieldName = 'documents'
   const formData = new FormData()
   if (financialDocument.value.documentType?.key === undefined) {
-    return Promise.resolve(true)
+    return true
   }
 
   if (financialDocument.value.id) {
@@ -321,14 +321,15 @@ async function save(): Promise<boolean> {
       financialDocument.value.monthlySum === original?.monthlySum &&
       financialDocument.value.files.length === original?.files.length
     ) {
-      return Promise.resolve(true)
+      return true
     }
   }
   AnalyticsService.registerFile('guarantor-financial')
   if (!financialDocument.value.noDocument) {
     if (!financialFiles().length) {
       ToastService.error('guarantorfinancialdocumentform.missing-file')
-      return Promise.reject(new Error('Guarantor financial: missing file'))
+      console.info('Guarantor financial: missing file')
+      return false
     }
 
     if (
@@ -340,7 +341,8 @@ async function save(): Promise<boolean> {
         financialDocument.value.documentType.maxFileCount
       )
       financialDocument.value.files = []
-      return Promise.reject(new Error('max-file'))
+      console.info('max-file')
+      return false
     }
 
     const newFiles = financialDocument.value.files.filter((f) => {
@@ -352,9 +354,8 @@ async function save(): Promise<boolean> {
     })
   } else if (financialFiles().length > 0) {
     isNoIncomeAndFiles.value = true
-    return Promise.reject(
-      new Error('Guarantor financial - document found but "no document" was checked')
-    )
+    console.info('Guarantor financial - document found but "no document" was checked')
+    return false
   }
 
   const typeDocumentFinancial = financialDocument.value.documentType?.value || ''
@@ -366,7 +367,8 @@ async function save(): Promise<boolean> {
   if (financialDocument.value.monthlySum) {
     formData.append('monthlySum', Math.trunc(financialDocument.value.monthlySum).toString())
   } else {
-    return Promise.reject(new Error('Guarantor financial - income was not provided'))
+    console.info('Guarantor financial - income was not provided')
+    return false
   }
   if (financialDocument.value.id) {
     formData.append('documentId', financialDocument.value.id.toString())
@@ -389,12 +391,12 @@ async function save(): Promise<boolean> {
         financialDocument.value = structuredClone(toRaw(guarantorFinancialDocumentSelected.value))
       }
       ToastService.saveSuccess()
-      return Promise.resolve(true)
+      return true
     })
     .catch((err) => {
       financialDocument.value.fileUploadStatus = UploadStatus.STATUS_FAILED
       UtilsService.handleCommonSaveError(err)
-      return Promise.reject(new Error(err))
+      return false
     })
     .finally(() => {
       loader.hide()
@@ -441,10 +443,11 @@ function goBack() {
   store.selectGuarantorDocumentFinancial(undefined)
 }
 
-function goNext() {
-  save().then(() => {
+async function goNext() {
+  const saved = await save()
+  if (saved) {
     store.selectGuarantorDocumentFinancial(undefined)
-  })
+  }
 }
 
 function getCheckboxLabel(key: string) {
