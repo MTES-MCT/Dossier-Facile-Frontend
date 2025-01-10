@@ -2,7 +2,7 @@
   <Modal @close="closeModal()">
     <template #header>
       <div class="fr-container">
-        <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
+        <h1 class="fr-modal__title">
           <slot name="title"></slot>
         </h1>
       </div>
