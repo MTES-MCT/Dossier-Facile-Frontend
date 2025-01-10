@@ -5,7 +5,7 @@
       <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
     </div>
     <div v-if="substep === 2">
-      <TenantResidency @on-back="goBack" @on-next="checkResidencyAndGoNext"></TenantResidency>
+      <TenantResidency @on-back="goBack" @on-next="goNext"></TenantResidency>
     </div>
     <div v-if="substep === 3">
       <TenantProfessional></TenantProfessional>
@@ -17,16 +17,6 @@
     <div v-if="substep === 5">
       <TenantTax @on-back="goBack" @on-next="goNext"></TenantTax>
     </div>
-    <ConfirmModal
-      v-if="showNbDocumentsResidencyTenant"
-      :validate-btn-text="t('uploaddocuments.accept-warning')"
-      :cancel-btn-text="t('uploaddocuments.ignore-warning')"
-      @cancel="cancelAndgoNext()"
-      @close="showNbDocumentsResidencyTenant = false"
-      @valid="showNbDocumentsResidencyTenant = false"
-    >
-      <p v-html="t('uploaddocuments.warning-need-residency-documents-tenant')"></p>
-    </ConfirmModal>
   </div>
 </template>
 
@@ -38,22 +28,15 @@ import TenantFinancial from './documents/tenant/TenantFinancial.vue'
 import TenantTax from './documents/tenant/TenantTax.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
 import ProfileFooter from './footer/ProfileFooter.vue'
-import { DocumentService } from '../services/DocumentService'
-import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import useTenantStore from '../stores/tenant-store'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 
 const store = useTenantStore()
 const user = computed(() => store.user)
 const router = useRouter()
 
 const props = defineProps<{ substep: number }>()
-
-const showNbDocumentsResidencyTenant = ref(false)
-
-const { t } = useI18n()
 
 function updateSubstep(s: number) {
   router.push({
@@ -86,28 +69,6 @@ function goBack() {
       name: 'TenantType'
     })
   }
-}
-
-function checkResidencyAndGoNext() {
-  const docs = DocumentService.getDocs('RESIDENCY', user.value)
-  if (docs.length === 1) {
-    const d = docs[0]
-    if (d.documentSubCategory === 'TENANT') {
-      const nbPages = d.files?.reduce((s, a) => s + (a.numberOfPages || 0), 0)
-      if ((nbPages || 0) < 3) {
-        showNbDocumentsResidencyTenant.value = true
-        AnalyticsService.missingResidencyDocumentDetected()
-        return
-      }
-    }
-  }
-  goNext()
-}
-
-function cancelAndgoNext() {
-  showNbDocumentsResidencyTenant.value = false
-  AnalyticsService.forceMissingResidencyDocument()
-  goNext()
 }
 
 function goNext() {

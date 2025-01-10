@@ -87,6 +87,16 @@
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
       <span>{{ t('residency-page.will-delete-files') }}</span>
     </ConfirmModal>
+    <ConfirmModal
+      v-if="showNbDocumentsResidencyTenant"
+      :validate-btn-text="t('uploaddocuments.accept-warning')"
+      :cancel-btn-text="t('uploaddocuments.ignore-warning')"
+      @cancel="cancelAndgoNext()"
+      @close="showNbDocumentsResidencyTenant = false"
+      @valid="showNbDocumentsResidencyTenant = false"
+    >
+      <p v-html="t('uploaddocuments.warning-need-residency-documents-tenant')"></p>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -112,6 +122,7 @@ import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { RiErrorWarningLine } from '@remixicon/vue'
+import { DocumentService } from '@/services/DocumentService'
 
 const { t } = useI18n()
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
@@ -126,6 +137,7 @@ const residencyDocument = ref(new DocumentType())
 const customText = ref('')
 
 const isDocDeleteVisible = ref(false)
+const showNbDocumentsResidencyTenant = ref(false)
 
 function getLocalStorageKey() {
   return 'residency_' + user.value?.email
@@ -224,7 +236,8 @@ function resetFiles() {
 
 async function goNext() {
   const saved = await save()
-  if (saved) {
+  const valid = saved && checkResidency()
+  if (valid) {
     emit('on-next')
   }
 }
@@ -315,5 +328,27 @@ async function remove(file: DfFile, silent = false) {
     })
     files.value.splice(firstIndex, 1)
   }
+}
+
+function cancelAndgoNext() {
+  showNbDocumentsResidencyTenant.value = false
+  AnalyticsService.forceMissingResidencyDocument()
+  emit('on-next')
+}
+
+function checkResidency() {
+  const docs = DocumentService.getDocs('RESIDENCY', store.user)
+  if (docs.length === 1) {
+    const d = docs[0]
+    if (d.documentSubCategory === 'TENANT') {
+      const nbPages = d.files?.reduce((s, a) => s + (a.numberOfPages || 0), 0)
+      if ((nbPages || 0) < 3) {
+        showNbDocumentsResidencyTenant.value = true
+        AnalyticsService.missingResidencyDocumentDetected()
+        return false
+      }
+    }
+  }
+  return true
 }
 </script>
