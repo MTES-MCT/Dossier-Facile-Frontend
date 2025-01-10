@@ -13,41 +13,11 @@
     </div>
     <hr v-if="step === 2 || step === 3" />
     <div class="menu-grid-row" v-if="step === 2" id="tcontainer">
-      <TenantDocumentLink
-        class="ml-5"
-        id="td1"
-        :document-type="DocumentType.IDENTITY"
-        :substep="1"
-        :active="getTenantCurrentStep(1)"
-      />
-      <TenantDocumentLink
-        class="ml-5"
-        id="td2"
-        :document-type="DocumentType.RESIDENCY"
-        :substep="2"
-        :active="getTenantCurrentStep(2)"
-      />
-      <TenantDocumentLink
-        class="ml-5"
-        id="td3"
-        :document-type="DocumentType.PROFESSIONAL"
-        :substep="3"
-        :active="getTenantCurrentStep(3)"
-      />
-      <TenantDocumentLink
-        class="ml-5"
-        id="td4"
-        :document-type="DocumentType.FINANCIAL"
-        :substep="4"
-        :active="getTenantCurrentStep(4)"
-      />
-      <TenantDocumentLink
-        class="ml-5"
-        id="td5"
-        :document-type="DocumentType.TAX"
-        :substep="5"
-        :active="getTenantCurrentStep(5)"
-      />
+      <TenantDocumentLink class="ml-5" id="td1" :document-type="DocumentType.IDENTITY" />
+      <TenantDocumentLink class="ml-5" id="td2" :document-type="DocumentType.RESIDENCY" />
+      <TenantDocumentLink class="ml-5" id="td3" :document-type="DocumentType.PROFESSIONAL" />
+      <TenantDocumentLink class="ml-5" id="td4" :document-type="DocumentType.FINANCIAL" />
+      <TenantDocumentLink class="ml-5" id="td5" :document-type="DocumentType.TAX" />
     </div>
     <h2 class="small-title" v-if="displayGuarantorName()">
       {{
@@ -402,11 +372,6 @@ function getGuarantorCurrentStep(substep: number, g: Guarantor | undefined): boo
 
 function getCurrentSubStep() {
   return Number(route.params.substep) || 0
-}
-
-function getTenantCurrentStep(substep: number): boolean {
-  const s = Number(route.params.substep) || 0
-  return props.step === 2 && s === substep
 }
 
 function isCouple() {

@@ -82,7 +82,7 @@ const router = createRouter({
       component: () => import(/* webpackChunkName: "profile" */ '../views/TypeInformation.vue')
     },
     {
-      path: '/documents-locataire/:substep',
+      path: '/documents-locataire',
       name: 'TenantDocuments',
       meta: {
         title: 'Mes documents - DossierFacile',
@@ -90,7 +90,34 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      component: () => import(/* webpackChunkName: "profile" */ '../views/TenantDocument.vue')
+      component: () => import('@/views/TenantDocument.vue'),
+      children: [
+        {
+          path: '1',
+          name: 'TenantIdentification',
+          component: () => import('@/components/documents/tenant/TenantIdentification.vue')
+        },
+        {
+          path: '2',
+          name: 'TenantResidency',
+          component: () => import('@/components/documents/tenant/TenantResidency.vue')
+        },
+        {
+          path: '3',
+          name: 'TenantProfessional',
+          component: () => import('@/components/documents/tenant/TenantProfessional.vue')
+        },
+        {
+          path: '4',
+          name: 'TenantFinancial',
+          component: () => import('@/components/documents/tenant/TenantFinancial.vue')
+        },
+        {
+          path: '5',
+          name: 'TenantTax',
+          component: () => import('@/components/documents/tenant/TenantTax.vue')
+        }
+      ]
     },
     {
       path: '/documents-colocataire/:tenantId/:step/:substep/',

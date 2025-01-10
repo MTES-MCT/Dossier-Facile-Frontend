@@ -88,6 +88,7 @@ import { useI18n } from 'vue-i18n'
 import { UtilsService } from '../../services/UtilsService'
 import { computed } from 'vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { TENANT_COMPONENTS } from '../editmenu/documents/DocumentType'
 
 const props = withDefaults(
   defineProps<{
@@ -127,6 +128,7 @@ function goToValidationPage() {
   router.push({ name: 'ValidateFile' })
 }
 
+const routeNames = Object.values(TENANT_COMPONENTS)
 function setTenantStep(n: number) {
   AnalyticsService.editFromAccount(n)
   if (props.isCotenant) {
@@ -139,10 +141,7 @@ function setTenantStep(n: number) {
       }
     })
   } else {
-    router.push({
-      name: 'TenantDocuments',
-      params: { substep: n.toString() }
-    })
+    router.push({ name: routeNames[n - 1] })
   }
 }
 

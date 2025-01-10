@@ -1,49 +1,24 @@
 <template>
   <div class="fr-mb-15w">
-    <div v-if="substep <= 1">
-      <TenantIdentification></TenantIdentification>
-      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
-    </div>
-    <div v-if="substep === 2">
-      <TenantResidency @on-back="goBack" @on-next="goNext"></TenantResidency>
-    </div>
-    <div v-if="substep === 3">
-      <TenantProfessional></TenantProfessional>
-      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
-    </div>
-    <div v-if="substep === 4">
-      <TenantFinancial @on-back="goBack" @on-next="goNext"></TenantFinancial>
-    </div>
-    <div v-if="substep === 5">
-      <TenantTax @on-back="goBack" @on-next="goNext"></TenantTax>
-    </div>
+    <router-view v-slot="{ Component }">
+      <component :is="Component" @on-back="goBack" @on-next="goNext"> </component>
+    </router-view>
   </div>
 </template>
 
 <script setup lang="ts">
-import TenantIdentification from './documents/tenant/TenantIdentification.vue'
-import TenantResidency from './documents/tenant/TenantResidency.vue'
-import TenantProfessional from './documents/tenant/TenantProfessional.vue'
-import TenantFinancial from './documents/tenant/TenantFinancial.vue'
-import TenantTax from './documents/tenant/TenantTax.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
-import ProfileFooter from './footer/ProfileFooter.vue'
 import useTenantStore from '../stores/tenant-store'
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { TENANT_COMPONENTS } from './editmenu/documents/DocumentType'
 
 const store = useTenantStore()
 const user = computed(() => store.user)
 const router = useRouter()
+const route = useRoute()
 
-const props = defineProps<{ substep: number }>()
-
-function updateSubstep(s: number) {
-  router.push({
-    name: 'TenantDocuments',
-    params: { substep: props.substep === s ? '0' : s.toString() }
-  })
-}
+const routeNames = Object.values(TENANT_COMPONENTS)
 
 function goToGuarantor() {
   AnalyticsService.validateFunnel()
@@ -59,23 +34,20 @@ function goToGuarantor() {
 }
 
 function goBack() {
-  if (props.substep > 1) {
-    router.push({
-      name: 'TenantDocuments',
-      params: { substep: (props.substep - 1).toString() }
-    })
+  const substep = routeNames.indexOf(route.name?.toString() || '')
+  if (substep === -1 || substep === 0) {
+    router.push({ name: 'TenantType' })
   } else {
-    router.push({
-      name: 'TenantType'
-    })
+    router.push({ name: routeNames[substep - 1] })
   }
 }
 
 function goNext() {
-  if (props.substep < 5) {
-    updateSubstep(props.substep + 1)
-  } else {
+  const substep = routeNames.indexOf(route.name?.toString() || '')
+  if (substep === -1 || substep === routeNames.length) {
     goToGuarantor()
+  } else {
+    router.push({ name: routeNames[substep + 1] })
   }
 }
 </script>
