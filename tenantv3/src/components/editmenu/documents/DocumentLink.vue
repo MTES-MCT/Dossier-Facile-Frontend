@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
-import { DocumentType, DocumentTypeTranslations } from './DocumentType'
+import { DocumentType, DocumentTypeTranslations, TENANT_COMPONENTS } from './DocumentType'
 import { useI18n } from 'vue-i18n'
 import type { PersonType } from './PersonType'
 import type { RouteParamsRawGeneric } from 'vue-router'
@@ -42,6 +42,9 @@ function getText(): string {
 }
 
 function getTargetComponent() {
+  if (props.personType === 'TENANT') {
+    return TENANT_COMPONENTS[props.documentType]
+  }
   return componentsPerType[props.personType]
 }
 </script>

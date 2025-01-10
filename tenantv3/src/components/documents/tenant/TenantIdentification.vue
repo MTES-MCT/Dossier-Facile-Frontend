@@ -46,6 +46,7 @@
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
       <span>{{ t('identification-page.will-delete-files') }}</span>
     </ConfirmModal>
+    <ProfileFooter @on-back="$emit('on-back')" @on-next="$emit('on-next')"></ProfileFooter>
   </div>
 </template>
 
@@ -69,7 +70,9 @@ import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
+import ProfileFooter from '@/components/footer/ProfileFooter.vue'
 
+defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()
 const user = computed(() => {
   return store.userToEdit

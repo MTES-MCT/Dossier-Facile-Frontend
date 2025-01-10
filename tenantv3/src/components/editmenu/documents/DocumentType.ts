@@ -19,3 +19,11 @@ export const DocumentTypeTranslations: { [type in DocumentType]: string } = {
   IDENTIFICATION: 'identity-represent',
   GUARANTEE_PROVIDER_CERTIFICATE: 'guarantee-provider-certificate'
 }
+
+export const TENANT_COMPONENTS: { [type in DocumentType]?: string } = {
+  IDENTITY: 'TenantIdentification',
+  RESIDENCY: 'TenantResidency',
+  PROFESSIONAL: 'TenantProfessional',
+  FINANCIAL: 'TenantFinancial',
+  TAX: 'TenantTax'
+}

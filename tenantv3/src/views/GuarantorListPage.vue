@@ -70,7 +70,7 @@ function getGuarantorName(g: Guarantor) {
 
 function goBack() {
   if (user.value?.guarantors && user.value?.guarantors.length > 0) {
-    router.push({ name: 'TenantDocuments', params: { substep: '5' } })
+    router.push({ name: 'TenantTax' })
     return
   }
   router.push({

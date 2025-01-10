@@ -929,19 +929,19 @@ const useTenantStore = defineStore('tenant', {
         return { name: 'TenantType' }
       }
       if (!this.hasDoc('IDENTIFICATION')) {
-        return { name: 'TenantDocuments', params: { substep: '1' } }
+        return { name: 'TenantIdentification' }
       }
       if (!this.isTenantDocumentValid('RESIDENCY')) {
-        return { name: 'TenantDocuments', params: { substep: '2' } }
+        return { name: 'TenantResidency' }
       }
       if (!this.hasDoc('PROFESSIONAL')) {
-        return { name: 'TenantDocuments', params: { substep: '3' } }
+        return { name: 'TenantProfessional' }
       }
       if (!this.isTenantDocumentValid('FINANCIAL')) {
-        return { name: 'TenantDocuments', params: { substep: '4' } }
+        return { name: 'TenantFinancial' }
       }
       if (!this.isTenantDocumentValid('TAX')) {
-        return { name: 'TenantDocuments', params: { substep: '5' } }
+        return { name: 'TenantTax' }
       }
       if (this.user.guarantors) {
         for (const g of this.user.guarantors) {

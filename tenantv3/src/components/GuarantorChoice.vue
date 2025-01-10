@@ -81,10 +81,7 @@ onBeforeMount(() => {
 })
 
 function goBack() {
-  router.push({
-    name: 'TenantDocuments',
-    params: { substep: '5' }
-  })
+  router.push({ name: 'TenantTax' })
 }
 
 function setGuarantorType() {
