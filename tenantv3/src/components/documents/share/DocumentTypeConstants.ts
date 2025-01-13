@@ -445,3 +445,13 @@ export const DocumentTypeConstants = {
     }
   ]
 }
+
+export type ResidencyCategory =
+  | 'TENANT'
+  | 'OWNER'
+  | 'GUEST_PARENTS'
+  | 'GUEST'
+  | 'GUEST_COMPANY'
+  | 'GUEST_ORGANISM'
+  | 'SHORT_TERM_RENTAL'
+  | 'OTHER_RESIDENCY'

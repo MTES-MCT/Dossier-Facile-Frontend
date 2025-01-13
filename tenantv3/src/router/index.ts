@@ -99,8 +99,58 @@ const router = createRouter({
         },
         {
           path: '2',
-          name: 'TenantResidency',
-          component: () => import('@/components/documents/tenant/TenantResidency.vue')
+          component: () => import('@/components/documents/tenant/TenantResidency.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantResidency',
+              component: () => import('@/components/residency/ChooseResidency.vue')
+            },
+            {
+              path: 'tenant',
+              component: () => import('@/components/residency/TenantResidency.vue')
+            },
+            {
+              path: 'tenant/receipts',
+              component: () => import('@/components/residency/TenantReceipts.vue')
+            },
+            {
+              path: 'tenant/proof',
+              component: () => import('@/components/residency/TenantProof.vue')
+            },
+            {
+              path: 'guest',
+              component: () => import('@/components/residency/GuestResidency.vue')
+            },
+            {
+              path: 'guest/proof',
+              component: () => import('@/components/residency/GuestProof.vue')
+            },
+            {
+              path: 'guest/no-proof',
+              component: () => import('@/components/residency/GuestNoProof.vue')
+            },
+            {
+              path: 'owner',
+              component: () => import('@/components/residency/OwnerResidency.vue')
+            },
+            {
+              path: 'guest-company',
+              component: () => import('@/components/residency/GuestCompany.vue')
+            },
+            {
+              path: 'guest-organism',
+              component: () => import('@/components/residency/GuestOrganism.vue')
+            },
+            {
+              path: 'short-term-rental',
+              component: () => import('@/components/residency/ShortTermRental.vue')
+            },
+            {
+              path: 'other-residency',
+              component: () => import('@/components/residency/OtherResidency.vue')
+            }
+          ]
         },
         {
           path: '3',

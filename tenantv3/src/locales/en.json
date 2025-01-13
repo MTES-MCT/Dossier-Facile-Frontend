@@ -654,15 +654,15 @@
     "see": "See"
   },
   "fileupload": {
-    "drag-and-drop-files": "Drag and drop your documents",
-    "files-format": "JPG, PNG, heic or PDF",
-    "or": "or",
-    "browse-files": "Browse files",
+    "drag-and-drop-files": "Drag and drop your documents:",
+    "files-format": "Files type: *.jpg,*.png,*.pdf,*.heic",
+    "browse-files": "Or browse files:",
+    "browse": "Browse…",
     "uploading-files": "Uploading files...",
     "send-problem": "Sending problem.",
     "file-too-big": "The file size must not exceed {0}MB",
     "pages": "Maximum {0} pages",
-    "size": " Maximum {0}MB per file"
+    "size": " Maximum size : {0}MB"
   },
   "financialdocumentform": {
     "financial": "Proof of income",

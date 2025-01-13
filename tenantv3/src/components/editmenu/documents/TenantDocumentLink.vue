@@ -3,7 +3,7 @@
     :person-type="PersonType.TENANT"
     :document-type="documentType"
     :status="status"
-    :active="active"
+    :active="link.isActive.value"
   />
 </template>
 
@@ -13,14 +13,13 @@ import { DocumentService } from '@/services/DocumentService'
 import { DocumentType, TENANT_COMPONENTS } from './DocumentType'
 import { PersonType } from './PersonType'
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useLink } from 'vue-router'
 
 const props = defineProps<{
   documentType: DocumentType
 }>()
 
-const route = useRoute()
+const link = useLink({ to: { name: TENANT_COMPONENTS[props.documentType] } })
 
 const status = computed(() => DocumentService.tenantStatus(props.documentType) || '')
-const active = computed(() => route.name === TENANT_COMPONENTS[props.documentType])
 </script>

@@ -695,15 +695,15 @@
     "see": "Voir"
   },
   "fileupload": {
-    "drag-and-drop-files": "Glissez et déposez vos documents",
-    "files-format": "JPG, PNG, heic ou PDF",
-    "or": "ou",
-    "browse-files": "Parcourez vos fichiers",
+    "drag-and-drop-files": "Glissez et déposez vos documents :",
+    "files-format": "Types de fichiers: *.jpg,*.png,*.pdf,*.heic",
+    "browse-files": "Ou parcourez vos fichiers :",
+    "browse": "Parcourir…",
     "uploading-files": "Envoi des fichiers...",
     "send-problem": "Problème d'envoi.",
     "file-too-big": "La taille d'un fichier ne doit pas dépasser {0}Mo",
     "pages": "{0} pages maximum",
-    "size": " {0}Mo maximum par fichier"
+    "size": "Taille maximale : {0}Mo"
   },
   "financialdocumentform": {
     "title": "Vos revenus",
