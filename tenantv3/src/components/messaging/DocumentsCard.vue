@@ -30,7 +30,7 @@ const getTranslation = (cat: DocumentCategory | undefined, prefix = '') =>
 
 const label = computed(() =>
   props.guarantor
-    ? `${t('guarantorchoice.guarantor')} : ${props.tenant.firstName} ${props.tenant.lastName}`
+    ? `${t('guarantorchoice.guarantor')} : ${props.tenant.firstName || ''} ${props.tenant.lastName || ''}`
     : props.tenant.firstName
 )
 
