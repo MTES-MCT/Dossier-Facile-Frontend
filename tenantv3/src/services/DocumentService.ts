@@ -34,6 +34,9 @@ export const DocumentService = {
       return d.documentCategory === docType
     })
   },
+  getUserDocs(docType: string) {
+    return this.getDocs(docType, store.user)
+  },
   hasFile(docType: string, tenant?: CoTenant) {
     const user = tenant ? tenant : store.user
     const document: DfDocument | undefined = this.hasDoc(docType, user)
