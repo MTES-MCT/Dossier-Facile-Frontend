@@ -24,7 +24,7 @@
       d’assistance et d’information destiné aux femmes victimes de violences. Le service est anonyme
       et gratuit. Des associations et organismes publics peuvent également vous venir en aide.
       Consultez la page
-      <a href="https://www.service-public.fr/particuliers/vosdroits/F12544">
+      <a href="https://www.service-public.fr/particuliers/vosdroits/F12544" target="_blank">
         violences conjugales du site service-public.fr</a
       >.
     </p>

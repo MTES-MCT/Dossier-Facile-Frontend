@@ -6,7 +6,7 @@
   />
   <p>
     Veuillez remplir
-    <a href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement"
+    <a href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement" target="_blank"
       >cette attestation d'hébergement</a
     >, la faire signer par votre hébergeur puis la glisser ci-dessous.
   </p>

@@ -12,7 +12,7 @@
     <p>
       Vous n’avez pas de quittance de loyer ? Contactez votre propriétaire : il est légalement tenu
       de vous les fournir. Vous pouvez lui transmettre
-      <a href="https://www.service-public.fr/particuliers/vosdroits/R54103"
+      <a href="https://www.service-public.fr/particuliers/vosdroits/R54103" target="_blank"
         >ce modèle de quittance</a
       >.
     </p>
