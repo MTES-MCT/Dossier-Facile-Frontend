@@ -57,7 +57,7 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: [CONTENT, FOOTER_NAVIGATION]
       },
-      component: () => import(/* webpackChunkName: "profile" */ '../views/NameInformation.vue')
+      component: () => import('../views/NameInformation.vue')
     },
     {
       path: '/nom-locataire',
@@ -68,7 +68,7 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: [CONTENT, FOOTER_NAVIGATION]
       },
-      component: () => import(/* webpackChunkName: "profile" */ '../views/NameInformation.vue')
+      component: () => import('../views/NameInformation.vue')
     },
     {
       path: '/type-locataire',
@@ -79,7 +79,7 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      component: () => import(/* webpackChunkName: "profile" */ '../views/TypeInformation.vue')
+      component: () => import('../views/TypeInformation.vue')
     },
     {
       path: '/documents-locataire',
@@ -178,7 +178,7 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      component: () => import(/* webpackChunkName: "profile" */ '../views/CoTenantDocument.vue')
+      component: () => import('../views/CoTenantDocument.vue')
     },
     {
       path: '/choix-garant',
@@ -189,7 +189,7 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      component: () => import(/* webpackChunkName: "profile" */ '../views/GuarantorChoicePage.vue')
+      component: () => import('../views/GuarantorChoicePage.vue')
     },
     {
       path: '/liste-garants',
@@ -200,7 +200,7 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      component: () => import(/* webpackChunkName: "profile" */ '../views/GuarantorListPage.vue')
+      component: () => import('../views/GuarantorListPage.vue')
     },
     {
       path: '/garants-locataire/:tenantId/:step',
@@ -211,7 +211,7 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      component: () => import(/* webpackChunkName: "profile" */ '../views/TenantGuarantorsPage.vue')
+      component: () => import('../views/TenantGuarantorsPage.vue')
     },
     {
       path: '/validation-dossier',
@@ -222,7 +222,7 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      component: () => import(/* webpackChunkName: "profile" */ '../views/ValidateFilePage.vue')
+      component: () => import('../views/ValidateFilePage.vue')
     },
     {
       path: '/validation-dossier/:step',
@@ -233,7 +233,7 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      component: () => import(/* webpackChunkName: "profile" */ '../views/ValidateFilePage.vue')
+      component: () => import('../views/ValidateFilePage.vue')
     },
     {
       path: '/info-garant/:substep/:guarantorId?',
@@ -258,8 +258,7 @@ const router = createRouter({
         }
         next()
       },
-      component: () =>
-        import(/* webpackChunkName: "profile" */ '../views/GuarantorDocumentsPage.vue')
+      component: () => import('../views/GuarantorDocumentsPage.vue')
     },
     {
       path: '/info-garant-locataire/:tenantId/:guarantorId/:step/:substep?',
@@ -270,8 +269,7 @@ const router = createRouter({
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      component: () =>
-        import(/* webpackChunkName: "profile" */ '../views/TenantGuarantorDocumentsPage.vue')
+      component: () => import('../views/TenantGuarantorDocumentsPage.vue')
     },
     {
       path: '/public-file/:token',
@@ -279,7 +277,7 @@ const router = createRouter({
       meta: {
         title: 'Dossier - DossierFacile'
       },
-      component: () => import(/* webpackChunkName: "file" */ '../views/PublicFile.vue')
+      component: () => import('../views/PublicFile.vue')
     },
     {
       path: '/file/:token',
@@ -287,7 +285,7 @@ const router = createRouter({
       meta: {
         title: 'Dossier - DossierFacile'
       },
-      component: () => import(/* webpackChunkName: "file" */ '../views/FilePage.vue')
+      component: () => import('../views/FilePage.vue')
     },
     {
       path: '/account',
@@ -307,7 +305,7 @@ const router = createRouter({
         }
         next()
       },
-      component: () => import(/* webpackChunkName: "account" */ '../views/AccountPage.vue')
+      component: () => import('../views/AccountPage.vue')
     },
     {
       path: '/applications',
@@ -316,7 +314,7 @@ const router = createRouter({
         title: 'Vos candidatures - DossierFacile',
         requiresAuth: true
       },
-      component: () => import(/* webpackChunkName: "account" */ '../views/SharingPage.vue')
+      component: () => import('../views/SharingPage.vue')
     },
     {
       path: '/partners',
@@ -325,7 +323,7 @@ const router = createRouter({
         title: 'Vos partages - DossierFacile',
         requiresAuth: true
       },
-      component: () => import(/* webpackChunkName: "account" */ '../views/PartnerAccessPage.vue')
+      component: () => import('../views/PartnerAccessPage.vue')
     },
     {
       path: '/messaging',
@@ -334,7 +332,7 @@ const router = createRouter({
         title: 'Messages - DossierFacile',
         requiresAuth: true
       },
-      component: () => import(/* webpackChunkName: "messages" */ '../views/MessagesPage.vue')
+      component: () => import('../views/MessagesPage.vue')
     },
     {
       path: '/ajout-couple/:token',
@@ -342,7 +340,7 @@ const router = createRouter({
       meta: {
         title: 'Confirmation de compte - DossierFacile'
       },
-      component: () => import(/* webpackChunkName: "register" */ '../views/JoinCouple.vue')
+      component: () => import('../views/JoinCouple.vue')
     },
     {
       path: '/ajout-groupe/:token',
@@ -350,7 +348,7 @@ const router = createRouter({
       meta: {
         title: 'Confirmation de compte - DossierFacile'
       },
-      component: () => import(/* webpackChunkName: "register" */ '../views/JoinGroup.vue')
+      component: () => import('../views/JoinGroup.vue')
     },
     {
       path: '/confirmAccount/:token',
@@ -359,8 +357,7 @@ const router = createRouter({
         title: 'Conserver ses documents - DossierFacile',
         hideForAuth: true
       },
-      component: () =>
-        import(/* webpackChunkName: "confirmAccount" */ '../views/ConfirmAccount.vue')
+      component: () => import('../views/ConfirmAccount.vue')
     },
     {
       path: '/contact',
@@ -369,7 +366,7 @@ const router = createRouter({
         title: 'Contact - DossierFacile',
         requiresAuth: false
       },
-      component: () => import(/* webpackChunkName: "contact" */ '../views/ContactPage.vue')
+      component: () => import('../views/ContactPage.vue')
     },
     {
       path: '/:pathMatch(.*)',
@@ -377,7 +374,7 @@ const router = createRouter({
       meta: {
         title: '404 - DossierFacile'
       },
-      component: () => import(/* webpackChunkName: "404" */ '../views/NotFound404.vue')
+      component: () => import('../views/NotFound404.vue')
     }
   ] satisfies RouteRecordRaw[],
   scrollBehavior() {
