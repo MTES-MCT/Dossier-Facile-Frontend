@@ -133,8 +133,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       keycloak-js:
-        specifier: 25.0.6
-        version: 25.0.6
+        specifier: 26.1.0
+        version: 26.1.0
       pinia:
         specifier: 2.3.0
         version: 2.3.0(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
@@ -306,8 +306,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       keycloak-js:
-        specifier: 25.0.6
-        version: 25.0.6
+        specifier: 26.1.0
+        version: 26.1.0
       pdfjs-dist:
         specifier: 4.5.136
         version: 4.5.136
@@ -3997,9 +3997,6 @@ packages:
     resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
     engines: {node: '>=14'}
 
-  js-sha256@0.11.0:
-    resolution: {integrity: sha512-6xNlKayMZvds9h1Y1VWc0fQHQ82BxTXizWPEtEeGvmOUYpBRy4gbWroHLpzowe6xiQhHpelCQiE7HEdznyBL9Q==}
-
   js-stringify@1.0.2:
     resolution: {integrity: sha512-rtS5ATOo2Q5k1G+DADISilDA6lv79zIiwFd6CcjuIxGKLFm5C+RLImRscVap9k55i+MOZwgliw+NejvkLuGD5g==}
 
@@ -4094,12 +4091,8 @@ packages:
   jstransformer@1.0.0:
     resolution: {integrity: sha512-C9YK3Rf8q6VAPDCCU9fnqo3mAfOH6vUGnMcP4AQAYIEpWtfGLpwOTmZ+igtdK5y+VvI2n3CyYSzy4Qh34eq24A==}
 
-  jwt-decode@4.0.0:
-    resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
-    engines: {node: '>=18'}
-
-  keycloak-js@25.0.6:
-    resolution: {integrity: sha512-Km+dc+XfNvY6a4az5jcxTK0zPk52ns9mAxLrHj7lF3V+riVYvQujfHmhayltJDjEpSOJ4C8a57LFNNKnNnRP2g==}
+  keycloak-js@26.1.0:
+    resolution: {integrity: sha512-3CTelLNADK6sIxGHCQmKlT3ezcIp8O3Iimmg+ybS78RHy+HAUkkoBaW/YuHGdYkfEDMBlrqD3u+CQ4vLsrmyFA==}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -9825,8 +9818,6 @@ snapshots:
 
   js-cookie@3.0.5: {}
 
-  js-sha256@0.11.0: {}
-
   js-stringify@1.0.2: {}
 
   js-tokens@4.0.0: {}
@@ -9950,12 +9941,7 @@ snapshots:
       is-promise: 2.2.2
       promise: 7.3.1
 
-  jwt-decode@4.0.0: {}
-
-  keycloak-js@25.0.6:
-    dependencies:
-      js-sha256: 0.11.0
-      jwt-decode: 4.0.0
+  keycloak-js@26.1.0: {}
 
   keyv@4.5.4:
     dependencies:
