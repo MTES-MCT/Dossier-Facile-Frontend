@@ -385,8 +385,6 @@ function getCoTenant(index: number): User {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
-
 h1 {
   font-size: 0.9rem;
   font-weight: 400;

@@ -56,8 +56,6 @@ function goNext() {
 </script>
 
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
-
 h2 {
   font-size: 1rem;
   margin: 0.5rem;
@@ -79,7 +77,7 @@ h2 {
 }
 
 .selected {
-  background-color: $secondary;
+  background-color: var(--secondary);
 }
 
 .check {

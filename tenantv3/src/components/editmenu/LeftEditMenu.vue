@@ -472,8 +472,6 @@ function getName(user: CoTenant): string {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
-
 .left-edit-menu {
   background-color: var(--background-default-grey);
   @media all and (max-width: 768px) {
