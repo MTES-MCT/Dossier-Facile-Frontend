@@ -84,7 +84,7 @@ function showDeleteAccountModal() {
             >
           </li>
           <li>
-            <DfButton class="fr-nav__link" @on-click="showDeleteAccountModal">
+            <DfButton class="fr-nav__link" @click="showDeleteAccountModal">
               {{ t('menu.deleteAccount') }}
             </DfButton>
           </li>

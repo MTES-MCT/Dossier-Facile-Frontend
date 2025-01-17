@@ -5,7 +5,7 @@
         <slot></slot>
       </div>
       <!-- TODO : bouton voir -->
-      <DfButton class="update-btn" @on-click="update">
+      <DfButton class="update-btn" @click="update">
         <span class="desktop">{{ t('fileerrors.update') }}</span>
         <RiPencilLine size="1rem" class="color--primary mobile" />
       </DfButton>
