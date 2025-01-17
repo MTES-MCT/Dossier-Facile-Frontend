@@ -14,16 +14,25 @@
   </div>
   <div class="fr-highlight">
     <p>
-      Vous êtes sans-abri ? Le <a href="tel:115">115</a> est un numéro national d'assistance et
-      d'orientation pour les personnes sans-abri. Il est ouvert 7j/7 et 24h/24.
+      Vous êtes sans-abri ? Le
+      <a href="tel:115" class="phone-link"
+        >115
+        <RiPhoneFill size="1rem" />
+      </a>
+      est un numéro national d'assistance et d'orientation pour les personnes sans-abri. Il est
+      ouvert 7j/7 et 24h/24.
     </p>
   </div>
   <div class="fr-highlight">
     <p>
-      Vous êtes victime de violences conjugales ? Le <a href="tel:3919">3919</a> est un numéro
-      d’assistance et d’information destiné aux femmes victimes de violences. Le service est anonyme
-      et gratuit. Des associations et organismes publics peuvent également vous venir en aide.
-      Consultez la page
+      Vous êtes victime de violences conjugales ? Le
+      <a href="tel:3919" class="phone-link">
+        3919
+        <RiPhoneFill size="1rem" />
+      </a>
+      est un numéro d’assistance et d’information destiné aux femmes victimes de violences. Le
+      service est anonyme et gratuit. Des associations et organismes publics peuvent également vous
+      venir en aide. Consultez la page
       <a href="https://www.service-public.fr/particuliers/vosdroits/F12544" target="_blank">
         violences conjugales du site service-public.fr</a
       >.
@@ -47,6 +56,7 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import useTenantStore from '@/stores/tenant-store'
 import { ToastService } from '@/services/ToastService'
 import { DocumentService } from '@/services/DocumentService'
+import { RiPhoneFill } from '@remixicon/vue'
 
 const CUSTOM_TEXT =
   "Le candidat indique qu'il n'est pas en mesure de fournir de quittance de logement pour ces 3 derniers mois"
@@ -76,3 +86,14 @@ const submit = () => {
     })
 }
 </script>
+
+<style scoped>
+.phone-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  .remixicon {
+    margin-top: -2px;
+  }
+}
+</style>
