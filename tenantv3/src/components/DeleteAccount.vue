@@ -17,7 +17,7 @@
           style="visibility: none"
           >{{ t('deleteaccount.cancel') }}</DfButton
         >
-        <DfButton @on-click="validSelect()" :primary="true">
+        <DfButton @click="validSelect()" :primary="true">
           <span class="mobile">{{ t('deleteaccount.validate-mobile') }}</span>
           <span class="desktop">{{ t('deleteaccount.validate') }}</span>
         </DfButton>

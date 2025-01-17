@@ -12,7 +12,7 @@
             v-else
             :title="t('file.download-disabled-title')"
             :primary="true"
-            @on-click="download"
+            @click="download"
             >{{ t('file.download-all') }}</DfButton
           >
         </div>
@@ -201,7 +201,7 @@
             v-else
             :title="t('file.download-disabled-title')"
             :primary="true"
-            @on-click="download"
+            @click="download"
             >{{ t('file.download-all') }}</DfButton
           >
         </div>

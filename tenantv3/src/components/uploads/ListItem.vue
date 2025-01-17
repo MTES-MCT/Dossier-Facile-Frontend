@@ -16,14 +16,14 @@
       <DfButton
         v-if="file.path || file.preview"
         class="fr-btn--icon-left fr-fi-eye-line fr-mr-md-2w fr-mr-1w"
-        @on-click="openDoc()"
+        @click="openDoc()"
         type="button"
         :title="t('listitem.show')"
       >
         <span class="fr-hidden fr-unhidden-lg">{{ t('listitem.see') }}</span>
       </DfButton>
       <DfButton
-        @on-click="remove()"
+        @click="remove()"
         class="fr-btn--icon-left fr-icon-delete-line"
         type="button"
         :title="t('listitem.remove')"

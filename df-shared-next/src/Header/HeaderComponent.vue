@@ -37,13 +37,13 @@
             <div class="fr-header__tools-links">
               <ul class="fr-btns-group">
                 <li v-if="loggedIn">
-                  <DfButton :small="true" :primary="false" @on-click="onLogout">
+                  <DfButton :small="true" :primary="false" @click="onLogout">
                     <RiAccountCircleLine aria-hidden="true" />
                     {{ t('logout') }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton :primary="true" :title="t('signup')" size="small" @on-click="onLogin">
+                  <DfButton :primary="true" :title="t('signup')" size="small" @click="onLogin">
                     <RiAccountCircleLine aria-hidden="true" />
                     {{ t('signup') }}
                   </DfButton>
@@ -53,12 +53,12 @@
                     v-if="type == 'tenant'"
                     size="small"
                     :title="t('owner')"
-                    @on-click="onAccessOwner"
+                    @click="onAccessOwner"
                   >
                     <RiCommunityLine aria-hidden="true" />
                     {{ t('owner') }}
                   </DfButton>
-                  <DfButton v-else size="small" :title="t('tenant')" @on-click="onAccessTenant">
+                  <DfButton v-else size="small" :title="t('tenant')" @click="onAccessTenant">
                     <RiUserStarLine aria-hidden="true" />
                     {{ t('tenant') }}
                   </DfButton>
@@ -94,7 +94,7 @@
                 class="fr-ml-3"
                 :primary="false"
                 size="small"
-                @on-click="onLogout"
+                @click="onLogout"
               >
                 <RiAccountCircleLine aria-hidden="true" />
                 {{ t('logout') }}
@@ -106,7 +106,7 @@
                 :title="t('signup')"
                 :primary="false"
                 size="small"
-                @on-click="onLogin"
+                @click="onLogin"
               >
                 <RiAccountCircleLine aria-hidden="true" />
                 {{ t('signup') }}
@@ -119,7 +119,7 @@
                 size="small"
                 class="fr-ml-3"
                 :title="t('owner')"
-                @on-click="onAccessOwner"
+                @click="onAccessOwner"
               >
                 <RiCommunityLine aria-hidden="true" />
                 {{ t('owner') }}
@@ -129,7 +129,7 @@
                 size="small"
                 class="fr-ml-3"
                 :title="t('tenant')"
-                @on-click="onAccessTenant"
+                @click="onAccessTenant"
               >
                 <RiUserStarLine aria-hidden="true" />
                 {{ t('tenant') }}

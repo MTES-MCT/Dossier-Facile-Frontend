@@ -36,7 +36,7 @@
           </div>
           <p>{{ t('tenantguarantorchoice.visale-text') }}</p>
           <div style="text-align: right">
-            <DfButton :primary="true" @on-click="gotoVisale()">
+            <DfButton :primary="true" @click="gotoVisale()">
               {{ t('tenantguarantorchoice.visale-btn') }}
             </DfButton>
           </div>

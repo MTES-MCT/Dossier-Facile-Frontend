@@ -1,18 +1,10 @@
 <template>
-  <button
-    :disabled="props.disabled"
-    :class="classes()"
-    class="fr-btn"
-    :title="props.title"
-    @click="onClick"
-  >
+  <button :disabled="props.disabled" :class="classes()" class="fr-btn" :title="props.title">
     <slot></slot>
   </button>
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits<{ 'on-click': [] }>()
-
 const props = withDefaults(
   defineProps<{
     title?: string
@@ -44,10 +36,6 @@ function classes() {
     'fr-btn--tertiary-no-outline': props.tertiaryNoOutline,
     dark: props.dark
   }
-}
-
-function onClick() {
-  emit('on-click')
 }
 </script>
 
