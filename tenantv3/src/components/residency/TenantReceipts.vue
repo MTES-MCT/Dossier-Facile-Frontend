@@ -15,11 +15,7 @@
     </p>
   </div>
   <UploadFiles category="TENANT" />
-  <FooterContainer class="display--flex">
-    <DfButton class="fr-ml-auto" @click="checkFiles" primary
-      >Valider votre situation d'hébergement</DfButton
-    >
-  </FooterContainer>
+  <ResidencyFooter :on-submit="checkFiles" />
   <ConfirmModal
     v-if="showNbDocumentsResidencyTenant"
     :validate-btn-text="t('uploaddocuments.accept-warning')"
@@ -39,10 +35,9 @@ import BackLinkRow from './lib/BackLinkRow.vue'
 import UploadFiles from './lib/UploadFiles.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import FooterContainer from '../footer/FooterContainer.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { DocumentService } from '@/services/DocumentService'
 import { useRouter } from 'vue-router'
+import ResidencyFooter from './lib/ResidencyFooter.vue'
 
 const { t } = useI18n()
 const router = useRouter()

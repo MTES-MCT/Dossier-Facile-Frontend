@@ -1,6 +1,6 @@
 <template>
   <FooterContainer>
-    <form @submit.prevent="goNext" class="display--flex">
+    <form @submit.prevent="submit" class="display--flex">
       <DfButton :disabled="disabled" class="fr-ml-auto" primary
         >Valider votre situation d'hébergement</DfButton
       >
@@ -15,10 +15,16 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
+const props = defineProps<{ onSubmit?: () => void }>()
+
 const router = useRouter()
 const disabled = computed(() => DocumentService.getUserDocs('RESIDENCY').length === 0)
 
-const goNext = () => {
-  router.push({ name: 'TenantProfessional' })
+const submit = () => {
+  if (props.onSubmit) {
+    props.onSubmit()
+  } else {
+    router.push({ name: 'TenantProfessional' })
+  }
 }
 </script>
