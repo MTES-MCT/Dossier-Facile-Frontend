@@ -9,7 +9,7 @@
     >.
   </p>
   <div class="fr-checkbox-group fr-mb-2w displa">
-    <input id="precarious-checkbox" type="checkbox" />
+    <input id="precarious-checkbox" type="checkbox" v-model="isPrecarious" />
     <label class="fr-label" for="precarious-checkbox">Vous êtes dans une situation précaire</label>
   </div>
   <div class="fr-highlight">
@@ -29,10 +29,50 @@
       >.
     </p>
   </div>
-  <ResidencyFooter />
+  <FooterContainer>
+    <form @submit.prevent="submit" class="display--flex">
+      <DfButton :disabled="!isPrecarious" class="fr-ml-auto"
+        >Valider votre situation d'hébergement</DfButton
+      >
+    </form>
+  </FooterContainer>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
-import ResidencyFooter from './lib/ResidencyFooter.vue'
+import { useRouter } from 'vue-router'
+import FooterContainer from '../footer/FooterContainer.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import useTenantStore from '@/stores/tenant-store'
+import { ToastService } from '@/services/ToastService'
+import { DocumentService } from '@/services/DocumentService'
+
+const CUSTOM_TEXT =
+  "Le candidat indique qu'il n'est pas en mesure de fournir de quittance de logement pour ces 3 derniers mois"
+
+const router = useRouter()
+const store = useTenantStore()
+
+const residencyDoc = DocumentService.getUserDocs('RESIDENCY')[0]
+const isPrecarious = ref(
+  residencyDoc?.documentSubCategory === 'OTHER_RESIDENCY' && residencyDoc.customText === CUSTOM_TEXT
+)
+
+const goNext = () => {
+  router.push({ name: 'TenantProfessional' })
+}
+
+const submit = () => {
+  const formData = new FormData()
+  formData.append('customText', CUSTOM_TEXT)
+  formData.append('typeDocumentResidency', 'OTHER_RESIDENCY')
+  store
+    .saveTenantResidency(formData)
+    .then(goNext)
+    .catch((err) => {
+      console.error(err)
+      ToastService.error()
+    })
+}
 </script>
