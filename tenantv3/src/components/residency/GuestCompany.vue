@@ -12,7 +12,7 @@
   <p>
     Nous vous recommandons d’ajouter également une attestation sur l’honneur expliquant votre
     situation. Vous pouvez utiliser le modèle disponible sur le site
-    <a href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement"
+    <a href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement" target="_blank"
       >service-public.fr</a
     >.
   </p>

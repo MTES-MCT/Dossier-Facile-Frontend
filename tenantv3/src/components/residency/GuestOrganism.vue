@@ -2,7 +2,7 @@
   <BackLinkRow label="Hébergé par un organisme" to="/documents-locataire/2" />
   <p>
     Veuillez fournir une
-    <a href="https://www.service-public.fr/simulateur/calcul/16030"
+    <a href="https://www.service-public.fr/simulateur/calcul/16030" target="_blank"
       >attestation d'élection de domicile</a
     >
     de moins de 3 mois datée et signée par l’organisme d’hébergement (hébergement d’urgence,
