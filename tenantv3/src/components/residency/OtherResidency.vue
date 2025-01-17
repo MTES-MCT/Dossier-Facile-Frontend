@@ -31,7 +31,7 @@
   </div>
   <FooterContainer>
     <form @submit.prevent="submit" class="display--flex">
-      <DfButton :disabled="!isPrecarious" class="fr-ml-auto"
+      <DfButton :disabled="!isPrecarious" class="fr-ml-auto" primary
         >Valider votre situation d'hébergement</DfButton
       >
     </form>
