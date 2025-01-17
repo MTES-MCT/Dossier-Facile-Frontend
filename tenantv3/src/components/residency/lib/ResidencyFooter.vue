@@ -1,7 +1,7 @@
 <template>
   <FooterContainer>
     <form @submit.prevent="goNext" class="display--flex">
-      <DfButton :disabled="disabled" class="fr-ml-auto"
+      <DfButton :disabled="disabled" class="fr-ml-auto" primary
         >Valider votre situation d'hébergement</DfButton
       >
     </form>

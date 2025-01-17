@@ -16,7 +16,7 @@
   </div>
   <UploadFiles category="TENANT" />
   <FooterContainer class="display--flex">
-    <DfButton class="fr-ml-auto" @click="checkFiles"
+    <DfButton class="fr-ml-auto" @click="checkFiles" primary
       >Valider votre situation d'hébergement</DfButton
     >
   </FooterContainer>
