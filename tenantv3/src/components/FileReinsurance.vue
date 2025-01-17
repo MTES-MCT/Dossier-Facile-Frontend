@@ -82,8 +82,6 @@ withDefaults(
 </script>
 
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
-
 .text-green {
   color: green;
 }
