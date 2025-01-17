@@ -4,10 +4,13 @@
     label="Vous avez vos 3 dernières quittances de loyer"
     to="/documents-locataire/2/tenant"
   />
-  <p>
-    Veuillez fournir les quittances de <strong>septembre</strong>,<strong>octobre</strong> et
-    <strong>novembre</strong>. Vous pouvez ajouter la quittance de décembre si vous l'avez.
-  </p>
+  <p class="fr-mb-0">Veuillez fournir <strong>les quittances de :</strong></p>
+  <ul>
+    <li><strong>septembre</strong></li>
+    <li><strong>octobre</strong></li>
+    <li><strong>novembre</strong></li>
+  </ul>
+  <p>Vous pouvez ajouter la quittance de décembre si vous l'avez.</p>
   <div class="fr-alert fr-alert--warning fr-mb-2w">
     <p>
       Seules les quittances de loyer sont des documents valides ici. Tout autre document sera
