@@ -5,12 +5,12 @@
     to="/documents-locataire/2/tenant"
   />
   <p class="fr-mb-0">Veuillez fournir <strong>les quittances de :</strong></p>
-  <ul>
-    <li><strong>septembre</strong></li>
-    <li><strong>octobre</strong></li>
-    <li><strong>novembre</strong></li>
+  <ul class="text-lg">
+    <li v-for="(m, i) of monthsLabels" :key="i">
+      <strong>{{ m }}</strong>
+    </li>
   </ul>
-  <p>Vous pouvez ajouter la quittance de décembre si vous l'avez.</p>
+  <p>Vous pouvez ajouter la quittance de {{ month.format('MMMM') }} si vous l'avez.</p>
   <div class="fr-alert fr-alert--warning fr-mb-2w">
     <p>
       Seules les quittances de loyer sont des documents valides ici. Tout autre document sera
@@ -41,6 +41,7 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import { DocumentService } from '@/services/DocumentService'
 import { useRouter } from 'vue-router'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
+import dayjs from 'dayjs'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -67,4 +68,13 @@ function checkFiles() {
   }
   router.push({ name: 'TenantProfessional' })
 }
+
+const month = dayjs().subtract(dayjs().date() < 15 ? 2 : 1, 'month')
+const monthsLabels = [3, 2, 1].map((d) => month.subtract(d, 'month').format('MMMM'))
 </script>
+
+<style scoped>
+.text-lg {
+  font-size: 1.125rem;
+}
+</style>
