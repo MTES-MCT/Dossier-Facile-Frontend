@@ -243,14 +243,13 @@ import { useToast } from 'vue-toastification'
 import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import PropertyIcon from './PropertyIcon.vue'
-import i18n from '../../i18n'
 import type { Applicant } from './Applicant'
 import UtilsService from '../../services/UtilsService'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
 import { RiCheckboxCircleLine, RiCloseCircleFill, RiTimeLine } from '@remixicon/vue'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const confirmDeleteProperty = ref(false)
 const confirmDeleteApplicants = ref(false)
 
@@ -387,10 +386,9 @@ function copyToken() {
 const verifiedApplicantsCount = computed(
   () => tenants.value.filter((u: Applicant) => u.status === 'VALIDATED').length
 )
-
 function formatDate(date: Date) {
   return format(date, 'dd MMMM yyyy', {
-    locale: i18n.global.locale.value === 'fr' ? fr : enUS
+    locale: locale.value === 'fr' ? fr : enUS
   })
 }
 

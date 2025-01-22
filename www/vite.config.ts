@@ -4,7 +4,7 @@ import generateSiteMap from 'vite-ssg-sitemap'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueI18n from '@intlify/vite-plugin-vue-i18n'
+import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -26,7 +26,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    vueI18n({}),
+    vueI18n({ strictMessage: false }),
     sentryVitePlugin({
       org: 'betagouv',
       project: 'front-www',

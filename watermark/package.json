@@ -16,25 +16,23 @@
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",
     "@sentry/tracing": "7.119.2",
-    "@sentry/vite-plugin": "2.22.6",
+    "@sentry/vite-plugin": "2.22.7",
     "@sentry/vue": "7.119.2",
-    "@vee-validate/rules": "^4.5.11",
-    "axios": "^1.7.4",
+    "axios": "1.7.9",
     "df-shared-next": "workspace:*",
-    "vee-validate": "^4.11.3",
-    "vue": "3.5.12",
-    "vue-i18n": "^9.3.0-beta.17",
-    "vue-router": "4",
-    "vue-toastification": "^2.0.0-rc.5"
+    "vue": "3.5.13",
+    "vue-i18n": "11.0.1",
+    "vue-router": "4.5.0",
+    "vue-toastification": "2.0.0-rc.5"
   },
   "devDependencies": {
-    "@intlify/vite-plugin-vue-i18n": "^7.0.0",
-    "@vitejs/plugin-vue": "5.1.4",
+    "@intlify/unplugin-vue-i18n": "6.0.3",
+    "@vitejs/plugin-vue": "5.2.1",
     "sass": "1.79.4",
-    "typescript": "5.6.2",
-    "vite": "5.4.9",
-    "vite-plugin-pwa": "0.20.5",
-    "vue-tsc": "2.1.6"
+    "typescript": "5.7.2",
+    "vite": "6.0.7",
+    "vite-plugin-pwa": "0.21.1",
+    "vue-tsc": "2.2.0"
   },
   "eslintConfig": {
     "no-param-reassign": [

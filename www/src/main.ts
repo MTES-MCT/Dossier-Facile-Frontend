@@ -8,7 +8,7 @@ import * as Sentry from '@sentry/vue'
 
 import routes from './router/index'
 import { BrowserTracing } from '@sentry/browser'
-import { register } from 'df-shared-next/src/services/ConsentService'
+import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
@@ -45,7 +45,7 @@ export const createApp = ViteSSG(App, { routes }, async ({ app, router, isClient
     theme: 'colored',
     clearOnUrlChange: false
   } satisfies ToastContainerOptions)
-  register(app, { matomo: isClient, crisp: isClient && CRISP_ENABLED === 'true' })
+  app.use(ConsentPlugin, { matomo: isClient, crisp: isClient && CRISP_ENABLED === 'true' })
 
   router.beforeEach((to, from, next) => {
     if (

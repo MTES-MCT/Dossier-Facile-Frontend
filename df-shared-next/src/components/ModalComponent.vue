@@ -3,7 +3,7 @@
     <div
       class="modal fr-pt-2w"
       role="dialog"
-      aria-labelledby="modalTitle"
+      :aria-labelledby="titleId"
       :aria-describedby="descriptionId"
     >
       <button
@@ -15,7 +15,7 @@
       >
         Fermer
       </button>
-      <header class="modal-header" id="modalTitle">
+      <header class="modal-header" :id="titleId">
         <slot name="header"><span style="visibility: hidden">title</span></slot>
       </header>
       <section class="modal-body" :id="descriptionId">
@@ -35,6 +35,7 @@ import { useId } from 'vue'
 const emit = defineEmits<{ close: [] }>()
 
 const descriptionId = useId()
+const titleId = `${descriptionId}-title`
 
 function close() {
   emit('close')

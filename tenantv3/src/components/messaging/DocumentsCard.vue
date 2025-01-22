@@ -3,7 +3,7 @@
     <template v-for="(doc, i) of declinedDocuments" :key="doc.id">
       <strong v-if="i === 0">{{ label }}</strong>
       <span v-else></span>
-      <span>{{ t(doc.documentCategory!.toLowerCase()) }}</span>
+      <span>{{ getTranslation(doc.documentCategory) }}</span>
       <DfButton type="button" @click="goToDoc(doc.documentCategory)">{{
         buttonText(doc)
       }}</DfButton>
@@ -18,15 +18,19 @@ import type { DfDocument, DocumentCategory } from 'df-shared-next/src/models/DfD
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { DocumentTypeTranslations } from '../editmenu/documents/DocumentType'
 
 const props = defineProps<{ guarantor?: boolean; tenant: Guarantor }>()
 const emit = defineEmits<{ substep: [substep: number] }>()
 
 const { t } = useI18n()
 
+const getTranslation = (cat: DocumentCategory | undefined, prefix = '') =>
+  cat === undefined || cat === 'NULL' ? '' : t(prefix + DocumentTypeTranslations[cat])
+
 const label = computed(() =>
   props.guarantor
-    ? `${t('guarantorchoice.guarantor')} : ${props.tenant.firstName} ${props.tenant.lastName}`
+    ? `${t('guarantorchoice.guarantor')} : ${props.tenant.firstName || ''} ${props.tenant.lastName || ''}`
     : props.tenant.firstName
 )
 
@@ -41,7 +45,7 @@ const declinedDocuments = computed(() =>
 const hasDeclinedDocuments = computed(() => declinedDocuments.value.length > 0)
 
 const buttonText = (doc: DfDocument) =>
-  `${doc.documentStatus ? t('update') : t('add')} ${t('documents.' + doc.documentCategory?.toLowerCase())}`
+  `${doc.documentStatus ? t('update') : t('add')} ${getTranslation(doc.documentCategory, 'documents.')}`
 
 const goToDoc = async (doc: DocumentCategory | undefined) => {
   const substep = {
@@ -95,7 +99,9 @@ const goToDoc = async (doc: DocumentCategory | undefined) => {
           "residency": "le justificatif de situation d'hébergement",
           "professional": "le justificatif de situation professionnelle",
           "financial": "le justificatif de ressources",
-          "tax": "l'avis d'imposition"
+          "tax": "l'avis d'imposition",
+          "guarantee-provider-certificate": "le certificat de garantie",
+          "identification-legal-person": "l'identité de la personne morale"
         }
     },
     "en": {
@@ -109,7 +115,9 @@ const goToDoc = async (doc: DocumentCategory | undefined) => {
           "residency": "Proof of Address",
           "professional": "Proof of Employment",
           "financial": "Proof of Financial Resources",
-          "tax": "Tax Notice"
+          "tax": "Tax Notice",
+          "guarantee-provider-certificate": "Warranty Certificate",
+          "identification-legal-person": "Legal Entity Identification"
         }
     }
 }

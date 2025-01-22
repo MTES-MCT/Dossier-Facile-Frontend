@@ -8,8 +8,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  www:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ws: [www, tenantv3, owner, watermark]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,57 +32,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build www
-        run: pnpm --filter www build
+      - name: Build ${{ matrix.ws }}
+        run: pnpm --filter ${{ matrix.ws }} build
+
       - name: Run unit tests
-        run: pnpm --filter www test:unit
-
-  tenant:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build tenantv3
-        run: pnpm --filter tenantv3 build
-      - name: Run unit tests
-        run: pnpm --filter tenantv3 test:unit
-
-  others:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build owner
-        run: pnpm --filter owner build
-      - name: Build watermark
-        run: pnpm --filter watermark build
+        if: ${{ matrix.ws == 'www' || matrix.ws == 'tenantv3' || matrix.ws == 'owner' }}
+        run: pnpm --filter ${{ matrix.ws }} test:unit

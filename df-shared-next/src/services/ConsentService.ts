@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import type { App } from 'vue'
+import type { App, Plugin } from 'vue'
 import { CrispPlugin } from '../plugin/crisp'
 
 const aYearFromNow = new Date()
@@ -28,17 +28,19 @@ const useServicesIfEnabled = async (services: ConsentServices) => {
     app.use(CrispPlugin, { websiteId: import.meta.env.VITE_CRISP_WEBSITE_ID })
   }
   if (servicesEnabled.matomo && services.matomo) {
-    const { MatomoPlugin } = await import("../plugin/matomo")
+    const { MatomoPlugin } = await import('../plugin/matomo')
     app.use(MatomoPlugin)
   }
 }
 
-export const register = (vueApp: App, services: ConsentServices) => {
-  app = vueApp
-  servicesEnabled = services
-  const servicesChoices = getAll();
-  if (servicesChoices) {
-    useServicesIfEnabled(servicesChoices)
+export const ConsentPlugin: Plugin<ConsentServices> = {
+  install(vueApp, services) {
+    app = vueApp
+    servicesEnabled = services
+    const servicesChoices = getAll()
+    if (servicesChoices) {
+      useServicesIfEnabled(servicesChoices)
+    }
   }
 }
 

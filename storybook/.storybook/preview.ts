@@ -7,7 +7,7 @@ import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
 import '@gouvfr/dsfr/dist/utility/colors/colors.min.css';
 
 import { setup } from '@storybook/vue3';
-import i18n from '../../owner/src/i18n';
+import { i18n } from '../../owner/src/i18n';
 import { createPinia } from 'pinia';
 
 // const i18n = createI18n({

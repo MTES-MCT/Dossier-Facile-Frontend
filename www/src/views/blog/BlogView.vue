@@ -5,6 +5,18 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ t('blog-title') }}</h1>
           <BlogExtractTile
+            title="Dossier de location : Comment choisir son garant et les documents à fournir pour votre dossier locatif"
+            :image="article25Img"
+            publication-date="24 décembre 2024"
+            path="/blog/documents-garants"
+          >
+            <template #extract>
+              <p>
+                Guide complet sur les documents à fournir pour le garant de votre dossier de location. Découvrez les justificatifs nécessaires pour constituer un dossier locataire solide avec garant, que ce soit pour une personne physique, Visale ou une entreprise.
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="Guide étape par étape pour trouver un appartement idéal"
             :image="article24Img"
             publication-date="27 septembre 2024"
@@ -125,22 +137,6 @@
               </p>
             </template>
           </BlogExtractTile>
-          <BlogExtractTile
-            title="DossierFacile : un service numérique de l’État sans .gouv.fr ?"
-            :image="article16Img"
-            publication-date="14 Mars 2023"
-            path="/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr"
-          >
-            <template #extract>
-              <p>
-                Vous êtes peut-être surpris de constater que DossierFacile, un site proposé par
-                l'Etat pour faciliter la création de dossiers de location de logement, n'a pas
-                l'extension .gouv.fr. En effet, contrairement à la plupart des sites
-                gouvernementaux, DossierFacile a un nom de domaine en .fr...
-              </p>
-            </template>
-          </BlogExtractTile>
-          <hr />
           <BlogExtractTile
             title="Passoires thermiques : top départ du gel des loyers"
             :image="article15Img"
@@ -410,13 +406,13 @@
           </BlogExtractTile>
           <hr />
           <BlogExtractTile
-            title="Locatio devient DossierFacile"
+            title="Créez votre dossier de location en ligne avec DossierFacile"
             :image="article0Img"
             publication-date="21 mars 2019"
             path="/blog/locatio-devient-dossier-facile"
           >
             <template #extract>
-              <p>Pas de panique ! Le nom change, mais le service reste le même !</p>
+              <p>Votre dossier locatif numérique certifié par l'État, anciennement Locatio</p>
               <p>
                 Grâce à DossierFacile, ex-Locatio, vous pouvez monter facilement et gratuitement
                 votre dossier de location en ligne.
@@ -458,6 +454,7 @@ import article21Img from '../../assets/images/blog-article21.webp'
 import article22Img from '../../assets/images/blog-article22.webp'
 import article23Img from '../../assets/images/blog-article23.webp'
 import article24Img from '../../assets/images/blog-article24.webp'
+import article25Img from '../../assets/images/blog-article25.webp'
 
 import { useHead } from '@unhead/vue'
 
