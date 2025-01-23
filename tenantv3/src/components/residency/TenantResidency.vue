@@ -11,7 +11,7 @@
       }}</a>
     </i18n-t>
   </div>
-  <ResidencyFooter />
+  <ResidencyFooter previous-page="/documents-locataire/2" />
 </template>
 
 <script setup lang="ts">

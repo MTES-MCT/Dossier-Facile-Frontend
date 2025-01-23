@@ -20,7 +20,7 @@
     </template>
   </RadioList>
   <DfButton v-if="!showAllItems" @click="showAllItems = true">{{ t('residency.other') }}</DfButton>
-  <ResidencyFooter />
+  <ResidencyFooter previous-page="/documents-locataire/1" />
 </template>
 
 <script setup lang="ts">

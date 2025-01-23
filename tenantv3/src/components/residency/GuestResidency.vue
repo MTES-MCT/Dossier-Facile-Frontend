@@ -4,7 +4,7 @@
     <RadioListItem to="guest/proof">{{ t('accomodation-proof') }}</RadioListItem>
     <RadioListItem to="guest/no-proof">{{ t('no-accomodation-proof') }}</RadioListItem>
   </RadioList>
-  <ResidencyFooter />
+  <ResidencyFooter previous-page="/documents-locataire/2" />
 </template>
 
 <script setup lang="ts">
