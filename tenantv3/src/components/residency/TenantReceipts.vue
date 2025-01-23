@@ -14,7 +14,7 @@
     <p>{{ t('valid-docs') }}</p>
   </div>
   <UploadFiles category="TENANT" />
-  <ResidencyFooter :on-submit="checkFiles" />
+  <ResidencyFooter :on-submit="checkFiles" previous-page="/documents-locataire/2/tenant" />
   <ConfirmModal
     v-if="showNbDocumentsResidencyTenant"
     :validate-btn-text="t('uploaddocuments.accept-warning')"
