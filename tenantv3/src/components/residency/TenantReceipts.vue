@@ -1,21 +1,17 @@
 <template>
-  <BackLinkRow label="Vous êtes locataire" to="/documents-locataire/2" />
-  <BackLinkRow
-    label="Vous avez vos 3 dernières quittances de loyer"
-    to="/documents-locataire/2/tenant"
-  />
-  <p class="fr-mb-0">Veuillez fournir <strong>les quittances de :</strong></p>
+  <BackLinkRow :label="t('you-tenant')" to="/documents-locataire/2" />
+  <BackLinkRow :label="t('have-receipts')" to="/documents-locataire/2/tenant" />
+  <i18n-t keypath="please-provide" tag="p" class="fr-mb-0">
+    <strong>{{ t('receipts-from') }}</strong>
+  </i18n-t>
   <ul class="text-lg">
     <li v-for="(m, i) of monthsLabels" :key="i">
       <strong>{{ m }}</strong>
     </li>
   </ul>
-  <p>Vous pouvez ajouter la quittance de {{ month.format('MMMM') }} si vous l'avez.</p>
+  <p>{{ t('can-add-receipt', [month.format('MMMM')]) }}</p>
   <div class="fr-alert fr-alert--warning fr-mb-2w">
-    <p>
-      Seules les quittances de loyer sont des documents valides ici. Tout autre document sera
-      refusé.
-    </p>
+    <p>{{ t('valid-docs') }}</p>
   </div>
   <UploadFiles category="TENANT" />
   <ResidencyFooter :on-submit="checkFiles" />
@@ -78,3 +74,24 @@ const monthsLabels = [3, 2, 1].map((d) => month.subtract(d, 'month').format('MMM
   font-size: 1.125rem;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "you-tenant": "You are a tenant",
+    "have-receipts": "You have your last 3 rent receipts",
+    "can-add-receipt": "You can add the {0} receipt if you have it.",
+    "please-provide": "Please provide {0}:",
+    "receipts-from": "receipts from",
+    "valid-docs": "Only rental receipts are valid documents here. All other documents will be refused."
+  },
+  "fr": {
+    "you-tenant": "Vous êtes locataire",
+    "have-receipts": "Vous avez vos 3 dernières quittances de loyer",
+    "can-add-receipt": "Vous pouvez ajouter la quittance de {0} si vous l'avez.",
+    "please-provide": "Veuillez fournir {0} :",
+    "receipts-from": "les quittances de",
+    "valid-docs": "Seules les quittances de loyer sont des documents valides ici. Tout autre document sera refusé."
+  }
+}
+</i18n>

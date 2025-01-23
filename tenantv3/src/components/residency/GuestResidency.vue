@@ -1,10 +1,8 @@
 <template>
-  <BackLinkRow label="Vous êtes hébergé" to="/documents-locataire/2" />
+  <BackLinkRow :label="t('you-hosted')" to="/documents-locataire/2" />
   <RadioList>
-    <RadioListItem to="guest/proof"
-      >Vous avez une attestation d'hébergement de moins de 3 mois</RadioListItem
-    >
-    <RadioListItem to="guest/no-proof">Vous n'avez pas d'attestation d'hébergement</RadioListItem>
+    <RadioListItem to="guest/proof">{{ t('accomodation-proof') }}</RadioListItem>
+    <RadioListItem to="guest/no-proof">{{ t('no-accomodation-proof') }}</RadioListItem>
   </RadioList>
   <ResidencyFooter />
 </template>
@@ -14,4 +12,21 @@ import RadioList from './lib/RadioList.vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import RadioListItem from './lib/RadioListItem.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 </script>
+
+<i18n>
+{
+  "en": {
+    "you-hosted": "You are hosted",
+    "accomodation-proof": "You have a proof of accomodation less than 3 months old",
+    "no-accomodation-proof": "You have no proof of accomodation"
+  },
+  "fr": {
+    "you-hosted": "Vous êtes hébergé",
+    "accomodation-proof": "Vous avez une attestation d'hébergement de moins de 3 mois",
+    "no-accomodation-proof": "Vous n'avez pas d'attestation d'hébergement"
+  }
+}
+</i18n>
