@@ -18,14 +18,16 @@
         <div v-else>
           <p class="fr-mb-3v">{{ t('fileupload.drag-and-drop-files') }}</p>
           <p class="text-small fr-mb-3v">
-            {{ sizeLimit }}<br v-if="sizeLimit" />
-            {{ pagesLimit }}<br v-if="pagesLimit" />
             {{ t('fileupload.files-format') }}<br />
+            {{ sizeLimit }}<br v-if="sizeLimit" />
+            {{ pagesLimit }}
           </p>
-          <p class="fr-mb-1w">{{ t('fileupload.browse-files') }}</p>
-          <label for="file" class="label-btn">
-            {{ t('fileupload.browse') }}
-          </label>
+          <p class="fr-mb-1w">
+            {{ t('fileupload.browse-files') }}
+            <label for="file" class="label-btn">
+              {{ t('fileupload.browse') }}
+            </label>
+          </p>
         </div>
       </div>
     </form>
@@ -79,9 +81,8 @@ function filesChange(e: Event) {
 
 .input-file {
   opacity: 0;
-  width: 100%;
-  height: 100%;
   position: absolute;
+  inset: 0;
 }
 
 .file-upload:focus-within {
@@ -99,6 +100,7 @@ function filesChange(e: Event) {
 
 .label-btn {
   padding: 4px 8px;
+  margin-left: 0.5rem;
   border-radius: 4px;
   background-color: var(--background-contrast-grey);
   cursor: pointer;
