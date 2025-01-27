@@ -1,17 +1,20 @@
 import useTenantStore from '@/stores/tenant-store'
 
-export const AnalyticsService = {
-  sendEvent(name: string, data: { event_category: string; event_label?: number }) {
-    if (import.meta.env.VITE_MATOMO_ENABLE === 'false' || !window._paq) {
-      return
-    }
-    const tenantStore = useTenantStore()
-    if (tenantStore.getUser.id !== undefined) {
-      data.event_label = tenantStore.user.id
-    }
-    window._paq.push(['trackEvent', data.event_category, name, data.event_label])
-  },
+type EventCategory = 'prevalidation' | 'funnel' | 'contact' | 'account' | 'misc' | 'file'
 
+function sendEvent(category: EventCategory, name: string) {
+  if (import.meta.env.VITE_MATOMO_ENABLE === 'false' || !window._paq) {
+    return
+  }
+  const tenantStore = useTenantStore()
+  window._paq.push(['trackEvent', category, name, tenantStore.user.id])
+}
+
+function getDoctypeByNumber(docType: number) {
+  return ['identification', 'residency', 'professional', 'financial', 'tax'][docType - 1] || ''
+}
+
+export const AnalyticsService = {
   prevalidationEvent(documentType: string, status: string) {
     let tag = ''
     if (status === 'DENIED') {
@@ -19,155 +22,100 @@ export const AnalyticsService = {
     } else {
       tag = 'pv_print_checked_' + documentType
     }
-    this.sendEvent(tag, {
-      event_category: 'prevalidation'
-    })
+    sendEvent('prevalidation', tag)
   },
 
   removeDeniedDocument(documentType: string) {
-    this.sendEvent('pv_deleteted_denied_' + documentType, {
-      event_category: 'prevalidation'
-    })
+    sendEvent('prevalidation', 'pv_deleteted_denied_' + documentType)
   },
 
   contactEvent(tag: string) {
-    this.sendEvent(tag, {
-      event_category: 'contact'
-    })
+    sendEvent('contact', tag)
   },
 
   unlinkFCSuccess() {
-    this.sendEvent('unlink-fc', {
-      event_category: 'account'
-    })
+    sendEvent('account', 'unlink-fc')
   },
 
   openCreateOwnerAccount() {
-    this.sendEvent('open_owner', {
-      event_category: 'misc'
-    })
+    sendEvent('misc', 'open_owner')
   },
 
   viewFromMain() {
-    this.sendEvent('main-view-doc', {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'main-view-doc')
   },
 
   editFromAccount(docType: number) {
-    this.sendEvent('account-edit-doc_' + this.getDoctypeByNumber(docType), {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'account-edit-doc_' + getDoctypeByNumber(docType))
   },
 
   editAccount(editType: string) {
-    this.sendEvent('account-edit-' + editType, {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'account-edit-' + editType)
   },
 
   deleteFile(docType: string) {
-    this.sendEvent('file-delete_' + docType, {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'file-delete_' + docType)
   },
 
   deleteAccount() {
-    this.sendEvent('account-delete', {
-      event_category: 'account'
-    })
+    sendEvent('account', 'account-delete')
   },
 
   shareByMail(full: string) {
-    this.sendEvent('share-by-mail_' + full, {
-      event_category: 'account'
-    })
+    sendEvent('account', 'share-by-mail_' + full)
   },
 
   copyLink(full: string) {
-    this.sendEvent('copy-link_' + full, {
-      event_category: 'account'
-    })
+    sendEvent('account', 'copy-link_' + full)
   },
 
   confirmName() {
-    this.sendEvent('confirm-name', { event_category: 'funnel' })
+    sendEvent('funnel', 'confirm-name')
   },
 
   confirmType() {
-    this.sendEvent('confirm-type', { event_category: 'funnel' })
+    sendEvent('funnel', 'confirm-type')
   },
 
   uploadFile(docType: string) {
-    this.sendEvent('upload-file_' + docType, {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'upload-file_' + docType)
   },
 
   missingResidencyDocumentDetected() {
-    this.sendEvent('missing-residency-document-detected', {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'missing-residency-document-detected')
   },
   forceMissingResidencyDocument() {
-    this.sendEvent('force-missing-residency-document', {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'force-missing-residency-document')
   },
 
   avisDetected() {
-    this.sendEvent('avis-detected', {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'avis-detected')
   },
 
   avisForceUpload() {
-    this.sendEvent('avis-upload-forced', {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'avis-upload-forced')
   },
 
   registerFile(docType: string) {
-    this.sendEvent('register-file_' + docType, {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'register-file_' + docType)
   },
 
   validateFunnel() {
-    this.sendEvent('validate-tenant-funnel', { event_category: 'funnel' })
+    sendEvent('funnel', 'validate-tenant-funnel')
   },
 
   addGuarantor(guarantorType: string) {
-    this.sendEvent('add-guarantor_' + guarantorType, {
-      event_category: 'funnel'
-    })
+    sendEvent('funnel', 'add-guarantor_' + guarantorType)
   },
 
   validateFile() {
-    this.sendEvent('validate-file', { event_category: 'file' })
+    sendEvent('file', 'validate-file')
   },
 
   openSimulationCAF() {
-    this.sendEvent('open-simulation_caf', { event_category: 'funnel' })
+    sendEvent('funnel', 'open-simulation_caf')
   },
   openMaSecurite() {
-    this.sendEvent('open-ma_securite', { event_category: 'funnel' })
-  },
-
-  getDoctypeByNumber(docType: number) {
-    switch (docType) {
-      case 1:
-        return 'identification'
-      case 2:
-        return 'residency'
-      case 3:
-        return 'professional'
-      case 4:
-        return 'financial'
-      case 5:
-        return 'tax'
-      default:
-        return ''
-    }
+    sendEvent('funnel', 'open-ma_securite')
   }
 }
