@@ -36,57 +36,15 @@ export const AnalyticsService = {
     })
   },
 
-  loginSuccess() {
-    this.sendEvent('login-success', {
-      event_category: 'login'
-    })
-  },
-
-  loginFail() {
-    this.sendEvent('login-fail', {
-      event_category: 'login'
-    })
-  },
-
-  registerSuccess() {
-    this.sendEvent('register-success', {
-      event_category: 'login'
-    })
-  },
-
-  registerFail() {
-    this.sendEvent('register-fail', {
-      event_category: 'login'
-    })
-  },
-
   unlinkFCSuccess() {
     this.sendEvent('unlink-fc', {
       event_category: 'account'
     })
   },
 
-  openHelp(docType: string) {
-    this.sendEvent('open_' + docType, {
-      event_category: 'help'
-    })
-  },
-
   openCreateOwnerAccount() {
     this.sendEvent('open_owner', {
       event_category: 'misc'
-    })
-  },
-
-  editFromMenu(docType: number) {
-    this.sendEvent('menu-edit-doc_' + this.getDoctypeByNumber(docType), {
-      event_category: 'funnel'
-    })
-  },
-
-  viewFromMenu(docType: string) {
-    this.sendEvent('menu-view-doc_' + docType, {
-      event_category: 'funnel'
     })
   },
 
@@ -104,25 +62,6 @@ export const AnalyticsService = {
 
   editAccount(editType: string) {
     this.sendEvent('account-edit-' + editType, {
-      event_category: 'funnel'
-    })
-  },
-
-  viewFromAccount(docType: string) {
-    this.sendEvent('account-view-doc_' + docType, {
-      event_category: 'funnel'
-    })
-  },
-
-  editFromMessage(docType: number) {
-    this.sendEvent('message-edit-doc_' + this.getDoctypeByNumber(docType), {
-      event_category: 'funnel',
-      event_label: docType
-    })
-  },
-
-  viewFromMessage(docType: string) {
-    this.sendEvent('message-view-doc_' + docType, {
       event_category: 'funnel'
     })
   },
