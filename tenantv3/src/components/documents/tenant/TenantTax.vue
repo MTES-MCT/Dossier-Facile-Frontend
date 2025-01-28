@@ -287,7 +287,6 @@ async function save(force = false): Promise<boolean> {
   if (taxDocument.value.key === undefined) {
     return true
   }
-  AnalyticsService.registerFile('tax')
   const fieldName = 'documents'
   const formData = new FormData()
   const newFiles = files.value.filter((f) => {

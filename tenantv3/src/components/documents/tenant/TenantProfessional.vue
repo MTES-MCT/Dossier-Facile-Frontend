@@ -183,7 +183,6 @@ function resetFiles() {
   fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 function save() {
-  AnalyticsService.registerFile('professional')
   const fieldName = 'documents'
   const formData = new FormData()
   const newFiles = files.value.filter((f) => {
