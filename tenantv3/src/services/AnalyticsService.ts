@@ -96,10 +96,6 @@ export const AnalyticsService = {
     sendEvent('funnel', 'avis-upload-forced')
   },
 
-  registerFile(docType: string) {
-    sendEvent('funnel', 'register-file_' + docType)
-  },
-
   validateFunnel() {
     sendEvent('funnel', 'validate-tenant-funnel')
   },

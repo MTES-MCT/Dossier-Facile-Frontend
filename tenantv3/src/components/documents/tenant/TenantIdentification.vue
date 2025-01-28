@@ -177,7 +177,6 @@ function resetFiles() {
 }
 
 function save() {
-  AnalyticsService.registerFile('identification')
   const fieldName = 'documents'
   const formData = new FormData()
   const newFiles = files.value.filter((f) => {

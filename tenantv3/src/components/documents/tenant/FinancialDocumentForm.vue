@@ -356,7 +356,6 @@ async function save(): Promise<boolean> {
       return Promise.resolve(true)
     }
   }
-  AnalyticsService.registerFile('financial')
   if (!financialDocument.value.noDocument) {
     if (!financialFiles().length && financialDocument.value.documentType.key !== 'no-income') {
       ToastService.error('financialdocumentform.missing-file')

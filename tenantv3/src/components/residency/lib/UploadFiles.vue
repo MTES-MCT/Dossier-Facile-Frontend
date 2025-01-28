@@ -62,7 +62,6 @@ const residencyFiles = computed(() => {
 })
 
 async function save(): Promise<boolean> {
-  AnalyticsService.registerFile('residency')
   const formData = new FormData()
   const newFiles = files.value.filter((f) => {
     return !f.id
