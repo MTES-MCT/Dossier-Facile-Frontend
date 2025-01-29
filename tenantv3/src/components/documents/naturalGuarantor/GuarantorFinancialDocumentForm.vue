@@ -98,8 +98,8 @@
           ></AllDeclinedMessages>
           <div v-if="financialFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
             <ListItem
-              v-for="(file, k) in financialFiles()"
-              :key="k"
+              v-for="file in financialFiles()"
+              :key="file.id"
               :file="file"
               @remove="remove(financialDocument, file)"
             />

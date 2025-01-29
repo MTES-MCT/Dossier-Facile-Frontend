@@ -14,7 +14,7 @@
       </div>
     </NakedCard>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
       <div class="fr-mb-3w">
@@ -28,8 +28,8 @@
       ></AllDeclinedMessages>
       <div v-if="identificationFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
-          v-for="(file, k) in identificationFiles()"
-          :key="k"
+          v-for="file in identificationFiles()"
+          :key="file.id"
           :file="file"
           @remove="remove(file)"
           @ask-confirm="AnalyticsService.deleteDocument('identification')"
@@ -171,6 +171,7 @@ function addFiles(fileList: File[]) {
     return { name: f.name, file: f, size: f.size }
   })
   files.value = [...files.value, ...nf]
+
   save()
 }
 

@@ -7,5 +7,4 @@
 <script setup lang="ts">
 import TenantInformationForm from '../components/TenantInformationForm.vue'
 import ProfileContainer from '../components/ProfileContainer.vue'
-
 </script>

@@ -14,7 +14,7 @@
       </NakedCard>
 
       <NakedCard
-        class="fr-p-md-5w fr-mt-3w"
+        class="fr-p-md-5w fr-mt-md-3w"
         v-if="taxDocument.key && taxDocument.key === 'other-tax'"
       >
         <label class="fr-label" for="customText">{{ t('tax-page.custom-text') }}</label>
@@ -49,7 +49,7 @@
     </Form>
 
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
     >
       <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
@@ -63,14 +63,7 @@
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
-        <ListItem
-          v-for="(file, k) in taxFiles()"
-          :key="k"
-          :file="file"
-          @remove="remove(file)"
-          @ask-confirm="AnalyticsService.deleteDocument('tax')"
-          @cancel="AnalyticsService.cancelDelete('tax')"
-        />
+        <ListItem v-for="file in taxFiles()" :key="file.id" :file="file" @remove="remove(file)" />
       </div>
       <div v-if="taxDocument.key === 'my-name'">
         <div class="fr-mb-3w">

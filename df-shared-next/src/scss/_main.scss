@@ -498,15 +498,19 @@ h1 {
 }
 
 .btn-link {
-  background-image: var(--underline-img),var(--underline-img);
-  background-position: var(--underline-x) 100%,var(--underline-x) calc(100% - var(--underline-thickness));
-  background-repeat: no-repeat,no-repeat;
-  background-size: var(--underline-hover-width) calc(var(--underline-thickness)*2),var(--underline-idle-width) var(--underline-thickness);
+  background-image: var(--underline-img), var(--underline-img);
+  background-position:
+    var(--underline-x) 100%,
+    var(--underline-x) calc(100% - var(--underline-thickness));
+  background-repeat: no-repeat, no-repeat;
+  background-size:
+    var(--underline-hover-width) calc(var(--underline-thickness) * 2),
+    var(--underline-idle-width) var(--underline-thickness);
   transition: background-size 0s;
   padding: 0;
   --hover-tint: transparent;
   &:hover {
     background-color: var(--hover-tint);
-    --underline-hover-width: var(--underline-max-width)
+    --underline-hover-width: var(--underline-max-width);
   }
 }
