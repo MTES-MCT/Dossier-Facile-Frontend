@@ -28,7 +28,7 @@
       <span>{{ t('guarantorprofessional.will-delete-files') }}</span>
     </ConfirmModal>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
@@ -44,8 +44,8 @@
       ></AllDeclinedMessages>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
-          v-for="(file, k) in professionalFiles()"
-          :key="k"
+          v-for="file in professionalFiles()"
+          :key="file.id"
           :file="file"
           @remove="remove(file)"
         />

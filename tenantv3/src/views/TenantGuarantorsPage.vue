@@ -63,7 +63,6 @@ function onEdit(g: Guarantor) {
   })
 }
 
-
 function updateGuarantorType(value: string) {
   if (value == 'NO_GUARANTOR') {
     goNext()
