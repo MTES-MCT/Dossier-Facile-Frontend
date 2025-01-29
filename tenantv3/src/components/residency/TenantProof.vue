@@ -8,7 +8,7 @@
   <div class="fr-alert fr-alert--warning fr-mb-2w">
     <p>{{ t('valid-docs') }}</p>
   </div>
-  <UploadFiles category="TENANT" />
+  <UploadFiles category="TENANT" step="TENANT_PROOF" />
   <ResidencyFooter previous-page="/documents-locataire/2/tenant" />
 </template>
 

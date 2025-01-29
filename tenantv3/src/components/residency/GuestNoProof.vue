@@ -8,7 +8,7 @@
       >{{ t('this-certificate') }}</a
     >
   </i18n-t>
-  <UploadFiles category="GUEST" />
+  <UploadFiles category="GUEST" step="GUEST_NO_PROOF" />
   <ResidencyFooter previous-page="/documents-locataire/2/guest" />
 </template>
 

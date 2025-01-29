@@ -24,7 +24,7 @@ import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessage
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import useTenantStore from '@/stores/tenant-store'
-import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import type { DfDocument, DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import { RegisterService } from '@/services/RegisterService'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { UtilsService } from '@/services/UtilsService'
@@ -32,8 +32,13 @@ import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import type { ResidencyCategory } from '@/components/documents/share/DocumentTypeConstants'
 
-const { maxFileCount = 10, category: residencyCategory } = defineProps<{
+const {
+  maxFileCount = 10,
+  category: residencyCategory,
+  step: categoryStep
+} = defineProps<{
   category: ResidencyCategory
+  step?: DocumentCategoryStep
   maxFileCount?: number
 }>()
 
@@ -49,6 +54,7 @@ const residencyFiles = computed(() => {
   const newFiles = files.value.map((f) => {
     return {
       documentSubCategory: residencyCategory,
+      documentCategoryStep: categoryStep,
       id: f.id,
       name: f.name,
       size: f.size
@@ -82,6 +88,9 @@ async function save(): Promise<boolean> {
   })
 
   formData.append('typeDocumentResidency', residencyCategory)
+  if (categoryStep) {
+    formData.append('categoryStep', categoryStep)
+  }
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
   const $loading = useLoading()
