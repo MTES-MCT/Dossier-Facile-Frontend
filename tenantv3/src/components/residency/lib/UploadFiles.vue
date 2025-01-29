@@ -5,7 +5,7 @@
     :document-status="documentStatus"
   ></AllDeclinedMessages>
   <div v-if="residencyFiles.length > 0" class="fr-col-12 fr-mb-3w">
-    <ListItem v-for="(file, k) in residencyFiles" :key="k" :file="file" @remove="remove(file)" />
+    <ListItem v-for="file in residencyFiles" :key="file.id" :file="file" @remove="remove(file)" />
   </div>
   <div class="fr-mb-3w">
     <FileUpload

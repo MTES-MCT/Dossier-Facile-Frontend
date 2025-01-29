@@ -62,8 +62,8 @@
           ></AllDeclinedMessages>
           <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
             <ListItem
-              v-for="(file, k) in listFiles()"
-              :key="k"
+              v-for="file in listFiles()"
+              :key="file.id"
               :file="file"
               @remove="remove(file)"
             />

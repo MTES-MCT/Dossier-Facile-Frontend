@@ -49,7 +49,7 @@
       </NakedCard>
     </Form>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
     >
       <div class="fr-mb-3w">
@@ -64,7 +64,7 @@
       <WarningTaxDeclaration />
 
       <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mt-3w">
-        <ListItem v-for="(file, k) in taxFiles()" :key="k" :file="file" @remove="remove(file)" />
+        <ListItem v-for="file in taxFiles()" :key="file.id" :file="file" @remove="remove(file)" />
       </div>
       <div class="fr-mb-3w fr-mt-3w">
         <FileUpload

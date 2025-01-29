@@ -15,7 +15,7 @@
             </div>
           </div>
         </NakedCard>
-        <NakedCard class="fr-p-md-5w fr-mt-3w">
+        <NakedCard class="fr-p-md-5w fr-mt-md-3w">
           <div class="fr-mb-2w">
             {{ t('tenantguarantorchoice.ask-guarantor') }}
           </div>

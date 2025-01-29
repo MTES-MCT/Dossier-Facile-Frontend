@@ -23,7 +23,7 @@
       </div>
     </NakedCard>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="residencyDocument.key && residencyDocument.key === 'other-residency'"
     >
       <div class="fr-alert fr-alert--warning fr-mb-3w">
@@ -47,7 +47,7 @@
       <span>{{ t('guarantorresidency.will-delete-files') }}</span>
     </ConfirmModal>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="
         (residencyDocument.key && residencyDocument.key !== 'other-residency') ||
         residencyFiles().length > 0
@@ -70,8 +70,8 @@
       ></AllDeclinedMessages>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem
-          v-for="(file, k) in residencyFiles()"
-          :key="k"
+          v-for="file in residencyFiles()"
+          :key="file.id"
           :file="file"
           @remove="remove(file)"
         />

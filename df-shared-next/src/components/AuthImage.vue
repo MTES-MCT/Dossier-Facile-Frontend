@@ -1,6 +1,8 @@
 <template>
   <img :alt="alt" :src="imageData" v-if="!error" />
-  <div v-else>{{ error }}</div>
+  <div v-else>
+    {{ error }}
+  </div>
 </template>
 
 <script setup lang="ts">

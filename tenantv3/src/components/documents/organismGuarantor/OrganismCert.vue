@@ -13,7 +13,7 @@
         ></SimpleRadioButtons>
       </div>
     </NakedCard>
-    <NakedCard class="fr-p-md-5w fr-mt-3w" v-if="selectedDocumentType.key || files.length > 0">
+    <NakedCard class="fr-p-md-5w fr-mt-md-3w" v-if="selectedDocumentType.key || files.length > 0">
       <div>
         <AllDeclinedMessages
           :user-id="user?.id"
@@ -23,8 +23,8 @@
         ></AllDeclinedMessages>
         <div class="fr-col-md-12 fr-mb-3w fr-mt-3w">
           <ListItem
-            v-for="(file, k) in files"
-            :key="k"
+            v-for="file in files"
+            :key="file.id"
             :file="file"
             @remove="remove(Number(file.id))"
           />
