@@ -4,7 +4,7 @@
   <i18n-t keypath="please-provide" tag="p">
     <strong>{{ t('less-3-months') }}</strong>
   </i18n-t>
-  <UploadFiles category="GUEST" />
+  <UploadFiles category="GUEST" step="GUEST_PROOF" />
   <ResidencyFooter previous-page="/documents-locataire/2/guest" />
 </template>
 

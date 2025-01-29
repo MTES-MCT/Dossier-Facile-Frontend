@@ -13,7 +13,7 @@
   <div class="fr-alert fr-alert--warning fr-mb-2w">
     <p>{{ t('valid-docs') }}</p>
   </div>
-  <UploadFiles category="TENANT" />
+  <UploadFiles category="TENANT" step="TENANT_RECEIPT" />
   <ResidencyFooter :on-submit="checkFiles" previous-page="/documents-locataire/2/tenant" />
   <ConfirmModal
     v-if="showNbDocumentsResidencyTenant"
