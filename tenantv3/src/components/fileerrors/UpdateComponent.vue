@@ -28,7 +28,6 @@ defineProps<{ userId?: number; document?: DfDocument }>()
 
 <style scoped>
 .update-component {
-  background-color: var(--g200);
   padding: 1rem;
 }
 
@@ -52,10 +51,5 @@ defineProps<{ userId?: number; document?: DfDocument }>()
     min-height: 1rem;
     line-height: 1rem;
   }
-}
-
-:deep(.form-container) {
-  display: flex;
-  flex-direction: column;
 }
 </style>
