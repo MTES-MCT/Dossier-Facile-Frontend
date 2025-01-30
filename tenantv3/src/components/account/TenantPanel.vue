@@ -89,6 +89,7 @@ import { UtilsService } from '../../services/UtilsService'
 import { computed } from 'vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { TENANT_COMPONENTS } from '../editmenu/documents/DocumentType'
+import { useResidencyLink } from '../residency/lib/useResidencyLink'
 
 const props = withDefaults(
   defineProps<{
@@ -104,6 +105,7 @@ const props = withDefaults(
 
 const router = useRouter()
 const { t } = useI18n()
+const residencyLink = useResidencyLink()
 
 const showButtons = computed(() => {
   return !props.isCotenant || props.isCouple
@@ -141,7 +143,9 @@ function setTenantStep(n: number) {
       }
     })
   } else {
-    router.push({ name: routeNames[n - 1] })
+    const name = routeNames[n - 1]
+    const to = name === 'TenantResidency' ? residencyLink.value : { name }
+    router.push(to)
   }
 }
 
