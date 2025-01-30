@@ -5,10 +5,15 @@
       <div v-for="(b, k) in brokenRules" :key="k">
         <strong>{{ b.message }}</strong>
       </div>
-      <div class="form-container fr-mb-3w">
+      <div class="form-container">
         <Form name="form" @submit="commentAnalysis">
           <FieldLabel for-input="comment">{{ t('updatecomponent.force-message') }}</FieldLabel>
-          <Field name="comment" v-model="comment" v-slot="{ field, meta }">
+          <Field
+            name="comment"
+            v-model="comment"
+            v-slot="{ field, meta }"
+            :rules="{ required: true }"
+          >
             <textarea
               v-bind="field"
               id="comment"
