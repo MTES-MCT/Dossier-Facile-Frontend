@@ -1351,10 +1351,6 @@
     "i-add": "J'ajoute {0}",
     "my-guarantor": "Mon garant"
   },
-  "updatecomponent": {
-    "invalid": "Document invalide",
-    "force-message": "Vous pensez que la vérification automatique commet une erreur. Apportez les précisions qui permettront la clarification de votre situation"
-  },
   "uploaddocuments": {
     "accept-warning": "Ajouter de nouveaux documents",
     "ignore-warning": "Passer à l'étape suivante",
