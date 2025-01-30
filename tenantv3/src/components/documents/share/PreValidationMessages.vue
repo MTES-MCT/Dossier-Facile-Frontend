@@ -1,41 +1,36 @@
 <template>
   <div class="rules-container" v-if="brokenRules && brokenRules.length > 0">
-    <p class="fr-badge fr-badge--error">{{ t('updatecomponent.invalid') }}</p>
-    <div class="fr-mt-3w">
-      <div v-for="(b, k) in brokenRules" :key="k">
-        <strong>{{ b.message }}</strong>
-      </div>
-      <div class="form-container">
-        <Form name="form" @submit="commentAnalysis">
-          <FieldLabel for-input="comment">{{ t('updatecomponent.force-message') }}</FieldLabel>
-          <Field
-            name="comment"
-            v-model="comment"
-            v-slot="{ field, meta }"
-            :rules="{ required: true }"
-          >
-            <textarea
-              v-bind="field"
-              id="comment"
-              type="text"
-              :value="comment"
-              class="validate-required form-control fr-input"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              maxlength="2000"
-              rows="4"
-            />
-            <ErrorMessage name="comment" v-slot="{ message }">
-              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-            </ErrorMessage>
-          </Field>
-          <DfButton class="fr-mt-2w" style="float: right" type="submit" :primary="false">{{
-            t('register')
-          }}</DfButton>
-        </Form>
-      </div>
+    <h5 v-for="(b, k) in brokenRules" :key="k">
+      {{ b.message }}
+    </h5>
+    <div class="form-container">
+      <Form name="form" @submit="commentAnalysis">
+        <FieldLabel for-input="comment">{{ t('updatecomponent.force-message') }}</FieldLabel>
+        <Field
+          name="comment"
+          v-model="comment"
+          v-slot="{ field, meta }"
+          :rules="{ required: true }"
+        >
+          <textarea
+            v-bind="field"
+            id="comment"
+            type="text"
+            :value="comment"
+            class="validate-required form-control fr-input"
+            :class="{
+              'fr-input--valid': meta.valid,
+              'fr-input--error': !meta.valid
+            }"
+            maxlength="2000"
+            rows="4"
+          />
+          <ErrorMessage name="comment" v-slot="{ message }">
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          </ErrorMessage>
+        </Field>
+        <DfButton class="fr-mt-2w" type="submit" primary>{{ t('register') }}</DfButton>
+      </Form>
     </div>
   </div>
 </template>
@@ -81,18 +76,10 @@ function commentAnalysis() {
 </script>
 
 <style scoped>
-.declined {
-  padding: 1rem 1rem 0.75rem;
-  border-radius: 0.25rem;
-  background-color: #fce5e7;
-  color: #525252;
-  line-height: 2;
-}
-
 .rules-container {
-  background-color: #f5f5fe;
+  background-color: #fff5f5;
+  border-left: 4px solid var(--background-flat-error);
+  font-size: 1.125rem;
   padding: 1rem;
-  padding-bottom: 4rem;
-  margin-bottom: 2rem;
 }
 </style>
