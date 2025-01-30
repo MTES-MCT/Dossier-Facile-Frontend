@@ -36,11 +36,12 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const emit = defineEmits<{ valid: []; cancel: [] }>()
+const emit = defineEmits<{ valid: []; cancel: []; close: [] }>()
 
-defineProps<{
+const props = defineProps<{
   validateBtnText?: string
   cancelBtnText?: string
+  emitClose?: boolean
 }>()
 
 function validSelect() {
@@ -52,7 +53,11 @@ function undoSelect() {
 }
 
 function closeModal() {
-  emit('cancel')
+  if (props.emitClose) {
+    emit('close')
+  } else {
+    emit('cancel')
+  }
 }
 </script>
 

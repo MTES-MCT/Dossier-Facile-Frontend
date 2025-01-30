@@ -22,6 +22,7 @@
     @cancel="ignoreAndgoNext()"
     @close="showNbDocumentsResidencyTenant = false"
     @valid="showNbDocumentsResidencyTenant = false"
+    emit-close
   >
     <p v-html="t('uploaddocuments.warning-need-residency-documents-tenant')"></p>
   </ConfirmModal>
