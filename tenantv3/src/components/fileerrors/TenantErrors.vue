@@ -36,10 +36,12 @@ import UpdateComponent from './UpdateComponent.vue'
 import { UtilsService } from '../../services/UtilsService'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { TENANT_COMPONENTS } from '../editmenu/documents/DocumentType'
+import { useResidencyLink } from '../residency/lib/useResidencyLink'
 
 const store = useTenantStore()
 const { t } = useI18n()
 const router = useRouter()
+const residencyLink = useResidencyLink()
 
 const props = defineProps<{
   user: CoTenant
@@ -88,7 +90,9 @@ function openTenant(substep: number) {
       name: 'TenantName'
     })
   } else {
-    router.push({ name: routeNames[substep] })
+    const name = routeNames[substep]
+    const to = name === 'TenantResidency' ? residencyLink.value : { name }
+    router.push(to)
   }
 }
 </script>

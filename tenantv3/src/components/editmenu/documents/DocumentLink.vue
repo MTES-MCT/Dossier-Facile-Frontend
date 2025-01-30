@@ -1,13 +1,7 @@
 <template>
   <div>
-    <router-link
-      :to="{
-        name: getTargetComponent(),
-        force: true,
-        params: routerParams
-      }"
-    >
-      <ColoredTag :text="getText()" :status="status" :active="active"></ColoredTag>
+    <router-link :to="to">
+      <ColoredTag :text="text" :status="status" :active="active"></ColoredTag>
     </router-link>
   </div>
 </template>
@@ -18,8 +12,11 @@ import { DocumentType, DocumentTypeTranslations, TENANT_COMPONENTS } from './Doc
 import { useI18n } from 'vue-i18n'
 import type { PersonType } from './PersonType'
 import type { RouteParamsRawGeneric } from 'vue-router'
+import { computed } from 'vue'
+import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
 
 const { t } = useI18n()
+const residencyLink = useResidencyLink()
 
 const props = defineProps<{
   personType: PersonType
@@ -36,10 +33,7 @@ const componentsPerType: { [type in PersonType]: string } = {
   COTENANT_GUARANTOR: 'TenantGuarantorDocuments'
 }
 
-function getText(): string {
-  const translationKey = DocumentTypeTranslations[props.documentType]
-  return t(translationKey).toString()
-}
+const text = computed(() => t(DocumentTypeTranslations[props.documentType]))
 
 function getTargetComponent() {
   if (props.personType === 'TENANT') {
@@ -47,6 +41,18 @@ function getTargetComponent() {
   }
   return componentsPerType[props.personType]
 }
+
+const to = computed(() => {
+  const name = getTargetComponent()
+  if (name === 'TenantResidency') {
+    return residencyLink.value
+  }
+  return {
+    name,
+    force: true,
+    params: props.routerParams
+  }
+})
 </script>
 
 <style scoped lang="css">
