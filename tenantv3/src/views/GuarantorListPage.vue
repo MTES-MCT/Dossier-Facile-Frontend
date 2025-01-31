@@ -70,7 +70,7 @@ function getGuarantorName(g: Guarantor) {
 
 function goBack() {
   if (user.value?.guarantors && user.value?.guarantors.length > 0) {
-    router.push({ name: 'TenantDocuments', params: { substep: '5' } })
+    router.push({ name: 'TenantTax' })
     return
   }
   router.push({
@@ -168,8 +168,6 @@ function addNaturalGuarantor() {
 </script>
 
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
-
 h2 {
   font-size: 1rem;
   margin: 0.5rem;
@@ -190,7 +188,7 @@ h2 {
 }
 
 .selected {
-  background-color: $secondary;
+  background-color: var(--secondary);
 }
 
 .check {
@@ -204,7 +202,7 @@ h2 {
 }
 
 .guarantorselected {
-  background-color: $light-blue-transparent;
+  background-color: var(--light-blue-transparent);
 }
 
 .title-bar {

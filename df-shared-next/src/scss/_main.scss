@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables';
 @import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css';
 
 #app {
@@ -13,7 +13,7 @@ body {
 }
 
 .color--primary {
-  color: $primary !important;
+  color: var(--primary) !important;
 }
 
 .color--focus {
@@ -21,7 +21,7 @@ body {
 }
 
 .color--secondary {
-  color: $light-blue !important;
+  color: var(--light-blue) !important;
 }
 
 .color--green {
@@ -37,11 +37,11 @@ body {
 }
 
 .bg--orange {
-  background-color: $salmon2;
+  background-color: var(--salmon2);
 }
 
 .bg--blue {
-  background-color: $light-blue-transparent;
+  background-color: var(--light-blue-transparent);
 }
 
 .bg--dark-blue {

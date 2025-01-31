@@ -33,45 +33,18 @@
       <div class="step" :class="getClass(getStepNumber('documents'))">
         <div class="step-number">{{ getStepNumber('documents') }}</div>
         <div class="step-title">
-          <router-link
-            class="fr-link"
-            :to="{ name: 'TenantDocuments', force: true, params: { substep: '1' } }"
+          <router-link class="fr-link" :to="{ name: 'TenantIdentification', force: true }"
             >{{ t('my-document') }}
           </router-link>
         </div>
       </div>
       <div class="vline" :class="getClass(getStepNumber('documents'))">
         <div v-if="step === 2">
-          <TenantDocumentLink
-            class="ml-5"
-            :document-type="DocumentType.IDENTITY"
-            :substep="1"
-            :active="getTenantCurrentStep(1)"
-          />
-          <TenantDocumentLink
-            class="ml-5"
-            :document-type="DocumentType.RESIDENCY"
-            :substep="2"
-            :active="getTenantCurrentStep(2)"
-          />
-          <TenantDocumentLink
-            class="ml-5"
-            :document-type="DocumentType.PROFESSIONAL"
-            :substep="3"
-            :active="getTenantCurrentStep(3)"
-          />
-          <TenantDocumentLink
-            class="ml-5"
-            :document-type="DocumentType.FINANCIAL"
-            :substep="4"
-            :active="getTenantCurrentStep(4)"
-          />
-          <TenantDocumentLink
-            class="ml-5"
-            :document-type="DocumentType.TAX"
-            :substep="5"
-            :active="getTenantCurrentStep(5)"
-          />
+          <TenantDocumentLink class="ml-5" :document-type="DocumentType.IDENTITY" />
+          <TenantDocumentLink class="ml-5" :document-type="DocumentType.RESIDENCY" />
+          <TenantDocumentLink class="ml-5" :document-type="DocumentType.PROFESSIONAL" />
+          <TenantDocumentLink class="ml-5" :document-type="DocumentType.FINANCIAL" />
+          <TenantDocumentLink class="ml-5" :document-type="DocumentType.TAX" />
         </div>
       </div>
       <div class="step" :class="getClass(getStepNumber('guarantor'))">
@@ -431,11 +404,6 @@ function getClass(s: number) {
   return ''
 }
 
-function getTenantCurrentStep(substep: number): boolean {
-  const s = Number(route.params.substep) || 0
-  return props.step === 2 && s === substep
-}
-
 function getGuarantorCurrentStep(substep: number, g: Guarantor | undefined): boolean {
   const s = Number(route.params.substep) || 0
   return (
@@ -504,8 +472,6 @@ function getName(user: CoTenant): string {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
-
 .left-edit-menu {
   background-color: var(--background-default-grey);
   @media all and (max-width: 768px) {

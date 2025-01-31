@@ -93,7 +93,7 @@
           </p>
           <hr class="mobile" />
           <div class="btn-align">
-            <DfButton @on-click="isWarningTaxSituationModalVisible = false" :primary="true">{{
+            <DfButton @click="isWarningTaxSituationModalVisible = false" :primary="true">{{
               t('tax-page.avis-btn')
             }}</DfButton>
           </div>

@@ -49,10 +49,10 @@
             </td>
             <td>
               <div>
-                <Button class="fr-mr-2w" @on-click="deleteSharedLink(link)">
+                <Button class="fr-mr-2w" @click="deleteSharedLink(link)">
                   {{ t('sharing-page.shared-links.delete') }}
                 </Button>
-                <Button :disabled="!link.enabled" @on-click="resendLink(link)">
+                <Button :disabled="!link.enabled" @click="resendLink(link)">
                   {{ t('sharing-page.shared-links.resend') }}
                 </Button>
               </div>
@@ -103,7 +103,7 @@
           <div class="fr-col-12">
             <ul class="fr-btns-group">
               <li>
-                <Button class="fr-btn--tertiary" @on-click="deleteSharedLink(link)">
+                <Button class="fr-btn--tertiary" @click="deleteSharedLink(link)">
                   {{ t('sharing-page.shared-links.delete') }}
                 </Button>
               </li>
@@ -111,7 +111,7 @@
                 <Button
                   :disabled="!link.enabled"
                   class="fr-btn--tertiary"
-                  @on-click="resendLink(link)"
+                  @click="resendLink(link)"
                 >
                   {{ t('sharing-page.shared-links.resend') }}
                 </Button>

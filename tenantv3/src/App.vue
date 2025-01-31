@@ -65,7 +65,7 @@ function onCreateOwner() {
 </template>
 
 <style lang="scss">
-@import 'df-shared-next/src/scss/_main.scss';
+@use 'df-shared-next/src/scss/_main.scss';
 @import 'vue3-toastify/dist/index.css';
 
 #content {

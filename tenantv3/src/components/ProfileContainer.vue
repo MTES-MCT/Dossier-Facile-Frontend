@@ -23,8 +23,6 @@ defineProps<{ step: number }>()
 </script>
 
 <style lang="scss" scoped>
-@import 'df-shared-next/src/scss/_variables.scss';
-
 .ml {
   @media all and (min-width: 1024px) {
     margin-left: 10%;

@@ -12,7 +12,7 @@
           <li>{{ t('ownerbanner.text2') }}</li>
           <li>{{ t('ownerbanner.text3') }}</li>
         </ul>
-        <DfButton :dark="true" @on-click="signal">{{ t('ownerbanner.btn') }}</DfButton>
+        <DfButton :dark="true" @click="signal">{{ t('ownerbanner.btn') }}</DfButton>
       </div>
       <img class="tenant" aria-hidden="true" alt="Locataire" src="../assets/owner/Locataire.svg" />
       <img

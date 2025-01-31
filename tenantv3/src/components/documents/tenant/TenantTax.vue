@@ -63,7 +63,14 @@
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
-        <ListItem v-for="(file, k) in taxFiles()" :key="k" :file="file" @remove="remove(file)" />
+        <ListItem
+          v-for="(file, k) in taxFiles()"
+          :key="k"
+          :file="file"
+          @remove="remove(file)"
+          @ask-confirm="AnalyticsService.deleteDocument('tax')"
+          @cancel="AnalyticsService.cancelDelete('tax')"
+        />
       </div>
       <div v-if="taxDocument.key === 'my-name'">
         <div class="fr-mb-3w">
@@ -93,7 +100,7 @@
           </p>
           <hr class="mobile" />
           <div class="btn-align">
-            <DfButton @on-click="isWarningTaxSituationModalVisible = false" :primary="true">{{
+            <DfButton @click="isWarningTaxSituationModalVisible = false" :primary="true">{{
               t('tax-page.avis-btn')
             }}</DfButton>
           </div>
@@ -287,7 +294,6 @@ async function save(force = false): Promise<boolean> {
   if (taxDocument.value.key === undefined) {
     return true
   }
-  AnalyticsService.registerFile('tax')
   const fieldName = 'documents'
   const formData = new FormData()
   const newFiles = files.value.filter((f) => {

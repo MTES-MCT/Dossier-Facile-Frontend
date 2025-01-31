@@ -108,6 +108,8 @@
                 :key="k"
                 :file="file"
                 @remove="remove(financialDocument, file)"
+                @ask-confirm="AnalyticsService.deleteDocument('financial')"
+                @cancel="AnalyticsService.cancelDelete('financial')"
               />
             </div>
             <div class="fr-mb-3w">
@@ -356,7 +358,6 @@ async function save(): Promise<boolean> {
       return Promise.resolve(true)
     }
   }
-  AnalyticsService.registerFile('financial')
   if (!financialDocument.value.noDocument) {
     if (!financialFiles().length && financialDocument.value.documentType.key !== 'no-income') {
       ToastService.error('financialdocumentform.missing-file')

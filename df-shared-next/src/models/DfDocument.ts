@@ -14,11 +14,18 @@ export type DocumentCategory =
   | 'GUARANTEE_PROVIDER_CERTIFICATE'
   | 'NULL'
 
+export type DocumentCategoryStep =
+  | 'TENANT_RECEIPT'
+  | 'TENANT_PROOF'
+  | 'GUEST_PROOF'
+  | 'GUEST_NO_PROOF'
+
 export class DfDocument {
   id?: number
   path?: string
   documentCategory?: DocumentCategory
   documentSubCategory?: string
+  documentCategoryStep?: DocumentCategoryStep
   documentStatus?: DocumentStatus
   customText?: string
   monthlySum?: number

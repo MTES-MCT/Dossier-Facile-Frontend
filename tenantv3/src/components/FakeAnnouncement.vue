@@ -25,7 +25,7 @@
             </template>
           </i18n-t>
         </p>
-        <DfButton class="fr-mr-3w" @on-click="signal()">{{
+        <DfButton class="fr-mr-3w" @click="signal()">{{
           t('fakeannouncement.signal-button')
         }}</DfButton>
       </div>

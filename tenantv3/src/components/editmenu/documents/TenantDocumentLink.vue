@@ -1,26 +1,25 @@
 <template>
   <DocumentLink
     :person-type="PersonType.TENANT"
-    :router-params="{ substep: substep }"
     :document-type="documentType"
-    :status="getStatus()"
-    :active="active"
+    :status="status"
+    :active="link.isActive.value"
   />
 </template>
 
 <script setup lang="ts">
 import DocumentLink from './DocumentLink.vue'
 import { DocumentService } from '@/services/DocumentService'
-import { DocumentType } from './DocumentType'
+import { DocumentType, TENANT_COMPONENTS } from './DocumentType'
 import { PersonType } from './PersonType'
+import { computed } from 'vue'
+import { useLink } from 'vue-router'
 
 const props = defineProps<{
   documentType: DocumentType
-  substep: number
-  active: boolean
 }>()
 
-function getStatus() {
-  return DocumentService.tenantStatus(props.documentType) || ''
-}
+const link = useLink({ to: { name: TENANT_COMPONENTS[props.documentType] } })
+
+const status = computed(() => DocumentService.tenantStatus(props.documentType) || '')
 </script>

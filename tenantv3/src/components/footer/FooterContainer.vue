@@ -1,12 +1,8 @@
 <template>
-  <div>
-    <div class="profile-footer">
-      <slot></slot>
-    </div>
+  <div class="profile-footer">
+    <slot></slot>
   </div>
 </template>
-
-<script setup lang="ts"></script>
 
 <style lang="scss">
 .profile-footer {

@@ -23,7 +23,7 @@
                   :title="t('deleteaccount.cancel')"
                   class="fr-mr-3w"
                   type="button"
-                  @on-click="undoSelect()"
+                  @click="undoSelect()"
                   >{{ t('deleteaccount.cancel') }}</DfButton
                 >
                 <DfButton type="submit" :title="t('deleteaccount.delete')" :primary="true">{{

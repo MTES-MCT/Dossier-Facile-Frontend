@@ -654,15 +654,15 @@
     "see": "See"
   },
   "fileupload": {
-    "drag-and-drop-files": "Drag and drop your documents",
-    "files-format": "JPG, PNG, heic or PDF",
-    "or": "or",
-    "browse-files": "Browse files",
+    "drag-and-drop-files": "Drag and drop your documents:",
+    "files-format": "File type: .jpg,.png,.pdf or .heic",
+    "browse-files": "Or browse files:",
+    "browse": "Browse…",
     "uploading-files": "Uploading files...",
     "send-problem": "Sending problem.",
     "file-too-big": "The file size must not exceed {0}MB",
     "pages": "Maximum {0} pages",
-    "size": " Maximum {0}MB per file"
+    "size": " Maximum size : {0}MB"
   },
   "financialdocumentform": {
     "financial": "Proof of income",
@@ -1316,10 +1316,6 @@
   "topeditmenu": {
     "i-add": "I Add {0}",
     "my-guarantor": "My Guarantor"
-  },
-  "updatecomponent": {
-    "invalid": "Invalid document",
-    "force-message": "You think the automatic check is making an error. Provide the details that will clarify your situation"
   },
   "uploaddocuments": {
     "warning-need-residency-documents": "Are you sure you have submitted all the necessary documents here?<ul><li>Proof of residence</li><li>Copy of your host's identity document</li><li>Proof of address (less than 3 months old) of your host</li></ul>",

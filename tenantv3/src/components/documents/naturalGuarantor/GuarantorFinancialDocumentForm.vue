@@ -294,6 +294,7 @@ async function validSelect() {
 }
 
 function addFiles(f: FinancialDocument, fileList: File[]) {
+  AnalyticsService.uploadFile('guarantor-financial')
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
@@ -324,7 +325,6 @@ async function save(): Promise<boolean> {
       return true
     }
   }
-  AnalyticsService.registerFile('guarantor-financial')
   if (!financialDocument.value.noDocument) {
     if (!financialFiles().length) {
       ToastService.error('guarantorfinancialdocumentform.missing-file')
