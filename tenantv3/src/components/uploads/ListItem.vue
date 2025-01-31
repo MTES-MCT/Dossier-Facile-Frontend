@@ -36,7 +36,7 @@
         <ShowDoc :file="file"></ShowDoc>
       </template>
     </Modal>
-    <ConfirmModal v-if="confirmDeleteFile" @valid="validDeleteFile()" @cancel="undoDeleteFile()">
+    <ConfirmModal v-if="confirmDeleteFile" @valid="validDeleteFile()" @cancel="cancelDeleteFile()">
       {{ t('listitem.will-delete-file') }}
     </ConfirmModal>
   </div>
@@ -55,7 +55,7 @@ import { ref } from 'vue'
 import { RiArticleLine } from '@remixicon/vue'
 
 const { t } = useI18n()
-const emit = defineEmits<{ remove: [] }>()
+const emit = defineEmits<{ remove: []; 'ask-confirm': []; cancel: [] }>()
 
 const props = withDefaults(
   defineProps<{
@@ -73,6 +73,7 @@ const isDocModalVisible = ref(false)
 const confirmDeleteFile = ref(false)
 
 function remove() {
+  emit('ask-confirm')
   confirmDeleteFile.value = true
 }
 
@@ -81,7 +82,8 @@ function validDeleteFile() {
   confirmDeleteFile.value = false
 }
 
-function undoDeleteFile() {
+function cancelDeleteFile() {
+  emit('cancel')
   confirmDeleteFile.value = false
   return false
 }

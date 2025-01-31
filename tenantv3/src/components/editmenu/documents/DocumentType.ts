@@ -9,7 +9,7 @@ export enum DocumentType {
   GUARANTEE_PROVIDER_CERTIFICATE = 'GUARANTEE_PROVIDER_CERTIFICATE'
 }
 
-export const DocumentTypeTranslations: { [type in DocumentType]: string } = {
+export const DocumentTypeTranslations = {
   IDENTITY: 'identification',
   RESIDENCY: 'residency',
   PROFESSIONAL: 'professional',
@@ -18,7 +18,7 @@ export const DocumentTypeTranslations: { [type in DocumentType]: string } = {
   IDENTIFICATION_LEGAL_PERSON: 'identification-legal-person',
   IDENTIFICATION: 'identity-represent',
   GUARANTEE_PROVIDER_CERTIFICATE: 'guarantee-provider-certificate'
-}
+} as const satisfies { [type in DocumentType]: string }
 
 export const TENANT_COMPONENTS: { [type in DocumentType]?: string } = {
   IDENTITY: 'TenantIdentification',

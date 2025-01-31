@@ -1,17 +1,27 @@
+import { DocumentTypeTranslations } from '@/components/editmenu/documents/DocumentType'
 import useTenantStore from '@/stores/tenant-store'
 
 type EventCategory = 'prevalidation' | 'funnel' | 'contact' | 'account' | 'misc' | 'file'
+type Action = 'clic' | 'print' | 'unknown' | 'delete' | 'upload'
+const DOCUMENT_TYPES = ['identification', 'residency', 'professional', 'financial', 'tax'] as const
+const DOCUMENT_CATEGORIES = Object.values(DocumentTypeTranslations)
+type DocumentCategory = (typeof DOCUMENT_CATEGORIES)[number]
 
-function sendEvent(category: EventCategory, name: string) {
+function sendFullEvent(category: EventCategory, action: Action, name: string) {
   if (import.meta.env.VITE_MATOMO_ENABLE === 'false' || !window._paq) {
+    console.log('sendEvent', category, name)
     return
   }
   const tenantStore = useTenantStore()
-  window._paq.push(['trackEvent', category, name, tenantStore.user.id])
+  window._paq.push(['trackEvent', category, action, name, tenantStore.user.id])
+}
+
+function sendEvent(category: EventCategory, name: string) {
+  sendFullEvent(category, 'unknown', name)
 }
 
 function getDoctypeByNumber(docType: number) {
-  return ['identification', 'residency', 'professional', 'financial', 'tax'][docType - 1] || ''
+  return DOCUMENT_TYPES[docType - 1] || ''
 }
 
 export const AnalyticsService = {
@@ -22,15 +32,19 @@ export const AnalyticsService = {
     } else {
       tag = 'pv_print_checked_' + documentType
     }
-    sendEvent('prevalidation', tag)
+    sendFullEvent('prevalidation', 'print', tag)
+  },
+
+  warningRentReceipts() {
+    sendFullEvent('prevalidation', 'print', 'pv_warning_quittance')
   },
 
   removeDeniedDocument(documentType: string) {
-    sendEvent('prevalidation', 'pv_deleteted_denied_' + documentType)
+    sendFullEvent('prevalidation', 'delete', 'pv_deleteted_denied_' + documentType)
   },
 
   contactEvent(tag: string) {
-    sendEvent('contact', tag)
+    sendFullEvent('contact', 'clic', tag)
   },
 
   unlinkFCSuccess() {
@@ -53,8 +67,8 @@ export const AnalyticsService = {
     sendEvent('funnel', 'account-edit-' + editType)
   },
 
-  deleteFile(docType: string) {
-    sendEvent('funnel', 'file-delete_' + docType)
+  deleteFile(docType: DocumentCategory) {
+    sendFullEvent('funnel', 'delete', 'file-delete_' + docType)
   },
 
   deleteAccount() {
@@ -77,12 +91,13 @@ export const AnalyticsService = {
     sendEvent('funnel', 'confirm-type')
   },
 
-  uploadFile(docType: string) {
-    sendEvent('funnel', 'upload-file_' + docType)
+  uploadFile(docType: DocumentCategory | 'guarantor-financial', category?: string, step?: string) {
+    const name = ['upload-file', docType, category, step].filter((x) => x).join('_')
+    sendFullEvent('funnel', 'upload', name)
   },
 
   missingResidencyDocumentDetected() {
-    sendEvent('funnel', 'missing-residency-document-detected')
+    sendFullEvent('funnel', 'print', 'missing-residency-document-detected')
   },
   forceMissingResidencyDocument() {
     sendEvent('funnel', 'force-missing-residency-document')
@@ -113,5 +128,33 @@ export const AnalyticsService = {
   },
   openMaSecurite() {
     sendEvent('funnel', 'open-ma_securite')
+  },
+
+  selectSituation(category: DocumentCategory, subCategory: string) {
+    sendFullEvent('funnel', 'clic', `${category}_${subCategory}`)
+  },
+  selectOther(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `${category}_others`)
+  },
+  selectSituation2(category: DocumentCategory, sub1Category: string, sub2Category: string) {
+    sendFullEvent('funnel', 'clic', `${category}_${sub1Category}_${sub2Category}`)
+  },
+  editSituation(category: DocumentCategory, subCategory: string) {
+    sendFullEvent('funnel', 'clic', `modify_${category}_${subCategory}`)
+  },
+  editSituation2(category: DocumentCategory, subCategory: string, categoryStep: string) {
+    sendFullEvent('funnel', 'clic', `modify_${category}_${subCategory}_${categoryStep}`)
+  },
+  selectPrecariousness() {
+    sendFullEvent('funnel', 'clic', 'select-precariousness')
+  },
+  seeDocument(category: string) {
+    sendFullEvent('funnel', 'clic', `see_${category}`)
+  },
+  deleteDocument(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `delete-doc_${category}`)
+  },
+  cancelDelete(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `delete-doc-cancel_${category}`)
   }
 }

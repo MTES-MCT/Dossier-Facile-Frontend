@@ -37,6 +37,8 @@
           :key="k"
           :file="file"
           @remove="remove(file)"
+          @ask-confirm="AnalyticsService.deleteDocument('professional')"
+          @cancel="AnalyticsService.cancelDelete('professional')"
         />
       </div>
       <div class="fr-mb-3w">

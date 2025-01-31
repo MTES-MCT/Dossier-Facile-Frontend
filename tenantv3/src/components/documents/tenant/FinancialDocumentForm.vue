@@ -108,6 +108,8 @@
                 :key="k"
                 :file="file"
                 @remove="remove(financialDocument, file)"
+                @ask-confirm="AnalyticsService.deleteDocument('financial')"
+                @cancel="AnalyticsService.cancelDelete('financial')"
               />
             </div>
             <div class="fr-mb-3w">

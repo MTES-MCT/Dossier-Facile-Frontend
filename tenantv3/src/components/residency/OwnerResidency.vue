@@ -1,5 +1,9 @@
 <template>
-  <BackLinkRow :label="t('you-owner')" to="/documents-locataire/2" />
+  <BackLinkRow
+    :label="t('you-owner')"
+    to="/documents-locataire/2"
+    @click="AnalyticsService.editSituation('residency', 'owner')"
+  />
   <i18n-t keypath="please-provide" tag="p">
     <template #notice>
       <strong>{{ t('tax-notice') }}</strong>
@@ -20,6 +24,7 @@ import { useI18n } from 'vue-i18n'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import UploadFiles from './lib/UploadFiles.vue'
+import { AnalyticsService } from '@/services/AnalyticsService'
 const { t } = useI18n()
 </script>
 

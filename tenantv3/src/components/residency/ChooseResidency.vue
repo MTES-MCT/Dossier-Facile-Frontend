@@ -1,25 +1,33 @@
 <template>
   <RadioList>
-    <RadioListItem to="2/tenant">{{ t('residency.tenant') }}</RadioListItem>
-    <RadioListItem to="2/guest"
+    <RadioListItem to="2/tenant" @click="sendEvent('tenant')">{{
+      t('residency.tenant')
+    }}</RadioListItem>
+    <RadioListItem to="2/guest" @click="sendEvent('guest')"
       >{{ t('residency.guest') }}
       <span class="fr-hint-text">{{ t('residency.guest-subtext') }}</span>
     </RadioListItem>
-    <RadioListItem to="2/owner">{{ t('residency.owner') }}</RadioListItem>
+    <RadioListItem to="2/owner" @click="sendEvent('owner')">{{
+      t('residency.owner')
+    }}</RadioListItem>
     <template v-if="showAllItems">
-      <RadioListItem to="2/guest-company">{{ t('residency.guest-company') }}</RadioListItem>
-      <RadioListItem to="2/short-term-rental">{{ t('residency.short-term-rental') }}</RadioListItem>
-      <RadioListItem to="2/guest-organism"
+      <RadioListItem to="2/guest-company" @click="sendEvent('guest-company')">{{
+        t('residency.guest-company')
+      }}</RadioListItem>
+      <RadioListItem to="2/short-term-rental" @click="sendEvent('short-term-rental')">{{
+        t('residency.short-term-rental')
+      }}</RadioListItem>
+      <RadioListItem to="2/guest-organism" @click="sendEvent('guest-organism')"
         >{{ t('residency.guest-organism') }}
         <span class="fr-hint-text">{{ t('residency.guest-organism-subtext') }}</span>
       </RadioListItem>
-      <RadioListItem to="2/other-residency"
+      <RadioListItem to="2/other-residency" @click="sendEvent('other-residency')"
         >{{ t('residency.other-residency') }}
         <span class="fr-hint-text">{{ t('residency.other-residency-subtext') }}</span>
       </RadioListItem>
     </template>
   </RadioList>
-  <DfButton v-if="!showAllItems" @click="showAllItems = true">{{ t('residency.other') }}</DfButton>
+  <DfButton v-if="!showAllItems" @click="showAll">{{ t('residency.other') }}</DfButton>
   <ResidencyFooter previous-page="/documents-locataire/1" />
 </template>
 
@@ -30,8 +38,15 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import RadioListItem from './lib/RadioListItem.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useI18n } from 'vue-i18n'
+import { AnalyticsService } from '@/services/AnalyticsService'
 const showAllItems = ref(false)
 const { t } = useI18n()
+const sendEvent = (subcategory: string) =>
+  AnalyticsService.selectSituation('residency', subcategory)
+const showAll = () => {
+  AnalyticsService.selectOther('residency')
+  showAllItems.value = true
+}
 </script>
 
 <i18n>
