@@ -15,13 +15,13 @@ import ProfileContainer from '../components/ProfileContainer.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
 import useTenantStore from '../stores/tenant-store'
 import { TENANT_COMPONENTS } from '@/components/editmenu/documents/DocumentType'
-import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
+import { useTenantStep } from '@/components/residency/lib/useTenantStep'
 
 const store = useTenantStore()
 const user = computed(() => store.user)
 const router = useRouter()
 const route = useRoute()
-const residencyLink = useResidencyLink()
+const { goToStep } = useTenantStep()
 
 const routeNames = Object.values(TENANT_COMPONENTS)
 
@@ -43,9 +43,7 @@ function goBack() {
   if (substep === -1 || substep === 0) {
     router.push({ name: 'TenantType' })
   } else {
-    const name = routeNames[substep - 1]
-    const to = name === 'TenantResidency' ? residencyLink.value : { name }
-    router.push(to)
+    goToStep(substep - 1)
   }
 }
 
@@ -54,9 +52,7 @@ function goNext() {
   if (substep === -1 || substep + 1 === routeNames.length) {
     goToGuarantor()
   } else {
-    const name = routeNames[substep + 1]
-    const to = name === 'TenantResidency' ? residencyLink.value : { name }
-    router.push(to)
+    goToStep(substep + 1)
   }
 }
 </script>

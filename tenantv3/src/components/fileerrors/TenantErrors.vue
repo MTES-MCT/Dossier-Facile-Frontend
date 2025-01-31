@@ -35,13 +35,12 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import UpdateComponent from './UpdateComponent.vue'
 import { UtilsService } from '../../services/UtilsService'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import { TENANT_COMPONENTS } from '../editmenu/documents/DocumentType'
-import { useResidencyLink } from '../residency/lib/useResidencyLink'
+import { useTenantStep } from '../residency/lib/useTenantStep'
 
 const store = useTenantStore()
 const { t } = useI18n()
 const router = useRouter()
-const residencyLink = useResidencyLink()
+const { goToStep } = useTenantStep()
 
 const props = defineProps<{
   user: CoTenant
@@ -76,7 +75,6 @@ function isDocumentValid(docType: string) {
   return store.isTenantDocumentValid(docType, props.user)
 }
 
-const routeNames = Object.values(TENANT_COMPONENTS)
 function openTenant(substep: number) {
   if (props.keyprefix === 'tenant') {
     router.push({
@@ -90,9 +88,7 @@ function openTenant(substep: number) {
       name: 'TenantName'
     })
   } else {
-    const name = routeNames[substep]
-    const to = name === 'TenantResidency' ? residencyLink.value : { name }
-    router.push(to)
+    goToStep(substep)
   }
 }
 </script>
