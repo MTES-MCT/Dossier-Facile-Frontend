@@ -88,8 +88,7 @@ import { useI18n } from 'vue-i18n'
 import { UtilsService } from '../../services/UtilsService'
 import { computed } from 'vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import { TENANT_COMPONENTS } from '../editmenu/documents/DocumentType'
-import { useResidencyLink } from '../residency/lib/useResidencyLink'
+import { useTenantStep } from '../residency/lib/useTenantStep'
 
 const props = withDefaults(
   defineProps<{
@@ -105,7 +104,7 @@ const props = withDefaults(
 
 const router = useRouter()
 const { t } = useI18n()
-const residencyLink = useResidencyLink()
+const { goToStep } = useTenantStep()
 
 const showButtons = computed(() => {
   return !props.isCotenant || props.isCouple
@@ -130,7 +129,6 @@ function goToValidationPage() {
   router.push({ name: 'ValidateFile' })
 }
 
-const routeNames = Object.values(TENANT_COMPONENTS)
 function setTenantStep(n: number) {
   AnalyticsService.editFromAccount(n)
   if (props.isCotenant) {
@@ -143,9 +141,7 @@ function setTenantStep(n: number) {
       }
     })
   } else {
-    const name = routeNames[n - 1]
-    const to = name === 'TenantResidency' ? residencyLink.value : { name }
-    router.push(to)
+    goToStep(n - 1)
   }
 }
 
