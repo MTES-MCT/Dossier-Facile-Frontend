@@ -4,8 +4,6 @@ import useTenantStore from '@/stores/tenant-store'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
-const store = useTenantStore()
-
 const CATEGORIES_ORDER: DocumentCategory[] = [
   'IDENTIFICATION',
   'RESIDENCY',
@@ -16,6 +14,7 @@ const CATEGORIES_ORDER: DocumentCategory[] = [
 
 export const DocumentService = {
   hasDocument() {
+    const store = useTenantStore()
     return store.user.documents !== undefined && store.user.documents.length > 0
   },
   hasDoc(docType: string, tenant: CoTenant): DfDocument | undefined {
@@ -35,9 +34,11 @@ export const DocumentService = {
     })
   },
   getUserDocs(docType: string) {
+    const store = useTenantStore()
     return this.getDocs(docType, store.user)
   },
   hasFile(docType: string, tenant?: CoTenant) {
+    const store = useTenantStore()
     const user = tenant ? tenant : store.user
     const document: DfDocument | undefined = this.hasDoc(docType, user)
     if (document === undefined || document.files === undefined) {
@@ -69,10 +70,12 @@ export const DocumentService = {
     return document.files.length > 0
   },
   hasGuarantor(guarantorType: string) {
+    const store = useTenantStore()
     const g = store.selectedGuarantor
     return g !== undefined && g.documents !== undefined && g.typeGuarantor === guarantorType
   },
   getFiles(documentCategory: string) {
+    const store = useTenantStore()
     if (!store.user.documents) {
       return []
     }
@@ -150,6 +153,7 @@ export const DocumentService = {
     return doc.documentStatus || ''
   },
   getGuarantorIdentityStatus(g: Guarantor): string {
+    const store = useTenantStore()
     const doc = this.guarantorHasDoc(g || store.selectedGuarantor, 'IDENTIFICATION')
     if (!doc) {
       return ''
@@ -157,6 +161,7 @@ export const DocumentService = {
     return doc.documentStatus || ''
   },
   getGuarantorResidencyStatus(g: Guarantor): string {
+    const store = useTenantStore()
     const doc = this.guarantorHasDoc(g || store.selectedGuarantor, 'RESIDENCY')
     if (!doc) {
       return ''
@@ -164,6 +169,7 @@ export const DocumentService = {
     return doc.documentStatus || ''
   },
   getGuarantorProfessionalStatus(g: Guarantor): string {
+    const store = useTenantStore()
     const doc = this.guarantorHasDoc(g || store.selectedGuarantor, 'PROFESSIONAL')
     if (!doc) {
       return ''
@@ -171,6 +177,7 @@ export const DocumentService = {
     return doc.documentStatus || ''
   },
   getGuarantorFinancialStatus(g: Guarantor): string {
+    const store = useTenantStore()
     const docs = this.getGuarantorDocs(g || store.selectedGuarantor, 'FINANCIAL')
     if (docs.length <= 0) {
       return ''
@@ -187,6 +194,7 @@ export const DocumentService = {
     return docs[0].documentStatus || ''
   },
   getGuarantorTaxStatus(g: Guarantor): string {
+    const store = useTenantStore()
     const doc = this.guarantorHasDoc(g || store.selectedGuarantor, 'TAX')
     return doc?.documentStatus || ''
   },
@@ -212,6 +220,7 @@ export const DocumentService = {
     return doc.documentStatus || ''
   },
   tenantStatus(documentType: string, user?: CoTenant) {
+    const store = useTenantStore()
     const tenant = user == undefined ? store.user : user
     let status
     switch (documentType) {
@@ -267,6 +276,7 @@ export const DocumentService = {
     return status
   },
   getCoTenantDocument(coTenantId: number, documentCategory: string) {
+    const store = useTenantStore()
     const coTenant = store.getTenant(Number(coTenantId))
     if (coTenant.documents !== null) {
       return coTenant.documents?.find((d: DfDocument) => {
