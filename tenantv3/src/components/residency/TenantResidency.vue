@@ -1,8 +1,16 @@
 <template>
-  <BackLinkRow :label="t('you-tenant')" to="/documents-locataire/2" />
+  <BackLinkRow
+    :label="t('you-tenant')"
+    to="/documents-locataire/2"
+    @click="AnalyticsService.editSituation('residency', 'tenant')"
+  />
   <RadioList>
-    <RadioListItem to="tenant/receipts">{{ t('have-receipts') }}</RadioListItem>
-    <RadioListItem to="tenant/proof">{{ t('have-proof') }}</RadioListItem>
+    <RadioListItem to="tenant/receipts" @click="sendEvent('receipts')">{{
+      t('have-receipts')
+    }}</RadioListItem>
+    <RadioListItem to="tenant/proof" @click="sendEvent('proof')">{{
+      t('have-proof')
+    }}</RadioListItem>
   </RadioList>
   <div class="fr-highlight">
     <i18n-t keypath="no-receipts" tag="p">
@@ -20,7 +28,10 @@ import RadioListItem from './lib/RadioListItem.vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useI18n } from 'vue-i18n'
+import { AnalyticsService } from '@/services/AnalyticsService'
 const { t } = useI18n()
+const sendEvent = (category: string) =>
+  AnalyticsService.selectSituation2('residency', 'tenant', category)
 </script>
 
 <i18n>

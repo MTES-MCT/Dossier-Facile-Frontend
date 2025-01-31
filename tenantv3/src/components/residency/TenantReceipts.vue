@@ -1,6 +1,14 @@
 <template>
-  <BackLinkRow :label="t('you-tenant')" to="/documents-locataire/2" />
-  <BackLinkRow :label="t('have-receipts')" to="/documents-locataire/2/tenant" />
+  <BackLinkRow
+    :label="t('you-tenant')"
+    to="/documents-locataire/2"
+    @click="AnalyticsService.editSituation('residency', 'tenant')"
+  />
+  <BackLinkRow
+    :label="t('have-receipts')"
+    to="/documents-locataire/2/tenant"
+    @click="AnalyticsService.editSituation2('residency', 'tenant', 'receipts')"
+  />
   <i18n-t keypath="please-provide" tag="p" class="fr-mb-0">
     <strong>{{ t('receipts-from') }}</strong>
   </i18n-t>

@@ -1,10 +1,19 @@
 <template>
-  <BackLinkRow :label="t('other-residency')" to="/documents-locataire/2" />
+  <BackLinkRow
+    :label="t('other-residency')"
+    to="/documents-locataire/2"
+    @click="AnalyticsService.editSituation('residency', 'other-residency')"
+  />
   <i18n-t keypath="tick-box" tag="p">
     <em>{{ t('cant-provide-receipts') }}</em>
   </i18n-t>
   <div class="fr-checkbox-group fr-mb-2w displa">
-    <input id="precarious-checkbox" type="checkbox" v-model="isPrecarious" />
+    <input
+      id="precarious-checkbox"
+      type="checkbox"
+      v-model="isPrecarious"
+      @click="AnalyticsService.selectPrecariousness"
+    />
     <label class="fr-label" for="precarious-checkbox">{{ t('you-precarious') }}</label>
   </div>
   <div class="fr-highlight">
@@ -50,6 +59,7 @@ import { ToastService } from '@/services/ToastService'
 import { DocumentService } from '@/services/DocumentService'
 import { RiPhoneFill } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
 const CUSTOM_TEXT =
   "Le candidat indique qu'il n'est pas en mesure de fournir de quittance de logement pour ces 3 derniers mois"

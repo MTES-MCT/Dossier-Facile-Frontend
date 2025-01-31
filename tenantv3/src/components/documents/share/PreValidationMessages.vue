@@ -45,6 +45,7 @@ import useTenantStore from '../../../stores/tenant-store'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { ToastService } from '../../../services/ToastService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -53,6 +54,9 @@ const comment = ref('')
 
 onMounted(() => {
   comment.value = props.document?.documentAnalysisReport?.comment || ''
+  if (brokenRules.value.find((r) => r.rule === 'R_RENT_RECEIPT_NB_DOCUMENTS')) {
+    AnalyticsService.warningRentReceipts()
+  }
 })
 
 const props = defineProps<{

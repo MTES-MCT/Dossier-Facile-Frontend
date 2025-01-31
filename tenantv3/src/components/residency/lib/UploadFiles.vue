@@ -5,7 +5,14 @@
     :document-status="documentStatus"
   ></AllDeclinedMessages>
   <div v-if="residencyFiles.length > 0" class="fr-col-12 fr-mb-3w">
-    <ListItem v-for="(file, k) in residencyFiles" :key="k" :file="file" @remove="remove(file)" />
+    <ListItem
+      v-for="(file, k) in residencyFiles"
+      :key="k"
+      :file="file"
+      @remove="remove(file)"
+      @ask-confirm="AnalyticsService.deleteDocument('residency')"
+      @cancel="AnalyticsService.cancelDelete('residency')"
+    />
   </div>
   <div class="fr-mb-3w">
     <FileUpload
@@ -114,7 +121,7 @@ async function save(): Promise<boolean> {
 }
 
 function addFiles(fileList: File[]) {
-  AnalyticsService.uploadFile('residency')
+  AnalyticsService.uploadFile('residency', residencyCategory, categoryStep)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })

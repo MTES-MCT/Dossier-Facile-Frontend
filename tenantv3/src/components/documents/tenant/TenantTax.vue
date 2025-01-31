@@ -63,7 +63,14 @@
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
-        <ListItem v-for="(file, k) in taxFiles()" :key="k" :file="file" @remove="remove(file)" />
+        <ListItem
+          v-for="(file, k) in taxFiles()"
+          :key="k"
+          :file="file"
+          @remove="remove(file)"
+          @ask-confirm="AnalyticsService.deleteDocument('tax')"
+          @cancel="AnalyticsService.cancelDelete('tax')"
+        />
       </div>
       <div v-if="taxDocument.key === 'my-name'">
         <div class="fr-mb-3w">

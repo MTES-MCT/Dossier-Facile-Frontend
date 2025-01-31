@@ -1,6 +1,14 @@
 <template>
-  <BackLinkRow :label="t('you-hosted')" to="/documents-locataire/2" />
-  <BackLinkRow :label="t('no-accomodation-proof')" to="/documents-locataire/2/guest" />
+  <BackLinkRow
+    :label="t('you-hosted')"
+    to="/documents-locataire/2"
+    @click="AnalyticsService.editSituation('residency', 'guest')"
+  />
+  <BackLinkRow
+    :label="t('no-accomodation-proof')"
+    to="/documents-locataire/2/guest"
+    @click="AnalyticsService.editSituation2('residency', 'guest', 'no-proof')"
+  />
   <i18n-t keypath="complete-certificate" tag="p">
     <a
       href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement"
@@ -17,6 +25,7 @@ import { useI18n } from 'vue-i18n'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import UploadFiles from './lib/UploadFiles.vue'
+import { AnalyticsService } from '@/services/AnalyticsService'
 const { t } = useI18n()
 </script>
 

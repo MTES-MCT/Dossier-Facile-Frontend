@@ -1,6 +1,14 @@
 <template>
-  <BackLinkRow :label="t('you-tenant')" to="/documents-locataire/2" />
-  <BackLinkRow :label="t('have-proof')" to="/documents-locataire/2/tenant" />
+  <BackLinkRow
+    :label="t('you-tenant')"
+    to="/documents-locataire/2"
+    @click="AnalyticsService.editSituation('residency', 'tenant')"
+  />
+  <BackLinkRow
+    :label="t('have-proof')"
+    to="/documents-locataire/2/tenant"
+    @click="AnalyticsService.editSituation2('residency', 'tenant', 'proof')"
+  />
   <i18n-t keypath="please-provide" tag="p">
     <strong>{{ t('less-3-months') }}</strong>
   </i18n-t>
@@ -17,6 +25,7 @@ import { useI18n } from 'vue-i18n'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import UploadFiles from './lib/UploadFiles.vue'
+import { AnalyticsService } from '@/services/AnalyticsService'
 const { t } = useI18n()
 </script>
 
