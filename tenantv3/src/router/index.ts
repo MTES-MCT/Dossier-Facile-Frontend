@@ -406,22 +406,6 @@ function registerFunnel(to: RouteLocationNormalized) {
   }
 }
 
-async function loadUserIfAuthenticated(next: NavigationGuardNext) {
-  if (!keycloak.authenticated) {
-    return
-  }
-  await keycloak.loadUserProfile()
-  const store = useTenantStore()
-  await store
-    .loadUser()
-    .then(() => {
-      store.loadPartnerAccesses()
-    })
-    .catch(() => {
-      next({ name: '404' })
-    })
-}
-
 function updateKeycloakTokenAndMessages() {
   if (updateTokenInterval === undefined) {
     updateTokenInterval = setInterval(() => {
@@ -457,21 +441,24 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
     store.updateSkipLinks(record.meta.skipLinks || [])
   })
 
-  await loadUserIfAuthenticated(next)
-
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!keycloak.authenticated) {
+    if (keycloak.authenticated) {
+      if (!keycloak.profile) {
+        await keycloak.loadUserProfile()
+      }
+      if (!keycloak.profile?.emailVerified) {
+        // email should be validated before access to the protected page.
+        keycloak.logout({
+          redirectUri: 'https:' + MAIN_URL + '/#emailNotValidated'
+        })
+      } else {
+        updateKeycloakTokenAndMessages()
+      }
+    } else {
       // The page is protected and the user is not authenticated. Force a login.
       await keycloak.login({
         redirectUri: TENANT_URL + to.fullPath
       })
-    } else if (!keycloak.profile?.emailVerified) {
-      // email should be validated before access to the protected page.
-      keycloak.logout({
-        redirectUri: 'https:' + MAIN_URL + '/#emailNotValidated'
-      })
-    } else {
-      updateKeycloakTokenAndMessages()
     }
   } else if (to.matched.some((record) => record.meta.hideForAuth)) {
     if (keycloak.authenticated) {
