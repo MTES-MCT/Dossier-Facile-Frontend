@@ -21,22 +21,32 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, type RouteLocationRaw } from 'vue-router'
 
-const props = defineProps<{ onSubmit?: () => void; previousPage: RouteLocationRaw }>()
+const {
+  onSubmit,
+  previousPage,
+  enabled = null
+} = defineProps<{
+  onSubmit?: () => void
+  previousPage: RouteLocationRaw
+  enabled?: boolean
+}>()
 
 const { t } = useI18n()
 const router = useRouter()
-const disabled = computed(() => DocumentService.getUserDocs('RESIDENCY').length === 0)
+const disabled = computed(() =>
+  enabled == null ? DocumentService.getUserDocs('RESIDENCY').length === 0 : !enabled
+)
 
 const submit = () => {
-  if (props.onSubmit) {
-    props.onSubmit()
+  if (onSubmit) {
+    onSubmit()
   } else {
     router.push({ name: 'TenantProfessional' })
   }
 }
 
 const back = () => {
-  router.push(props.previousPage)
+  router.push(previousPage)
 }
 </script>
 

@@ -39,27 +39,24 @@
       </template>
     </i18n-t>
   </div>
-  <FooterContainer>
-    <form @submit.prevent="submit" class="display--flex">
-      <DfButton :disabled="!isPrecarious" class="fr-ml-auto" primary>{{
-        t('validate-residency')
-      }}</DfButton>
-    </form>
-  </FooterContainer>
+  <ResidencyFooter
+    previous-page="/documents-locataire/2"
+    :on-submit="submit"
+    :enabled="isPrecarious"
+  />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
-import FooterContainer from '../footer/FooterContainer.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import useTenantStore from '@/stores/tenant-store'
 import { ToastService } from '@/services/ToastService'
 import { DocumentService } from '@/services/DocumentService'
 import { RiPhoneFill } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import ResidencyFooter from './lib/ResidencyFooter.vue'
 
 const CUSTOM_TEXT =
   "Le candidat indique qu'il n'est pas en mesure de fournir de quittance de logement pour ces 3 derniers mois"
