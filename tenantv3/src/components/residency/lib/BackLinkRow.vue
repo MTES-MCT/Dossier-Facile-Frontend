@@ -2,19 +2,73 @@
   <p class="display--flex align-items--center">
     <RiCheckboxCircleLine color="var(--primary)" size="20px" class="fr-mr-1w no-shrink" />
     <span>{{ label }}</span>
-    <router-link :to="to" class="fr-btn fr-btn--tertiary-no-outline fr-ml-auto"
-      >{{ t('edit') }} <RiArrowGoBackLine size="1rem" class="fr-ml-1w"
-    /></router-link>
+    <DfButton tertiary-no-outline class="fr-ml-auto" @click="onClick">
+      {{ t('edit') }} <RiArrowGoBackLine size="1rem" class="fr-ml-1w" />
+    </DfButton>
+
+    <ModalComponent v-if="showChangeSituation" @close="ignore">
+      <template #body>
+        <i18n-t keypath="delete-notice" tag="p">
+          <strong>{{ t('delete-warning') }}</strong>
+        </i18n-t>
+      </template>
+      <template #footer>
+        <ul class="fr-btns-group fr-btns-group--inline-md">
+          <li>
+            <DfButton @click="ignore" primary>{{ t('cancel') }}</DfButton>
+          </li>
+          <li>
+            <DfButton @click="confirm">{{ t('change-situation') }}</DfButton>
+          </li>
+        </ul>
+      </template>
+    </ModalComponent>
   </p>
 </template>
 
 <script setup lang="ts">
-import type { RouterLinkProps } from 'vue-router'
+import { useRouter, type RouterLinkProps } from 'vue-router'
 import { RiArrowGoBackLine, RiCheckboxCircleLine } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
+import { ref } from 'vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
+import useTenantStore from '@/stores/tenant-store'
+import { RegisterService } from '@/services/RegisterService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
-defineProps<{ label: string; to: RouterLinkProps['to'] }>()
+const props = defineProps<{ label: string; to: RouterLinkProps['to'] }>()
 const { t } = useI18n()
+const router = useRouter()
+const store = useTenantStore()
+
+const showChangeSituation = ref(false)
+
+const onClick = () => {
+  if (store.getTenantResidencyDocument) {
+    AnalyticsService.showWarningModale('residency')
+    showChangeSituation.value = true
+  } else {
+    router.push(props.to)
+  }
+}
+
+const confirm = async () => {
+  AnalyticsService.confirmModale('residency')
+  const files = store.getTenantResidencyDocument?.files || []
+  for (const file of files) {
+    if (file.id) {
+      await RegisterService.deleteFile(file.id, true)
+    }
+  }
+  // TODO: handle OtherResidency (no file)
+  router.push(props.to)
+}
+
+const ignore = () => {
+  AnalyticsService.ignoreWarningModale('residency')
+  showChangeSituation.value = false
+}
 </script>
 
 <style scoped>
@@ -26,10 +80,18 @@ const { t } = useI18n()
 <i18n>
 {
   "en": {
-    "edit": "Edit"
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "change-situation": "Change your situation",
+    "delete-warning": "if you change your situation, your supporting documents will be deleted",
+    "delete-notice": "Please note: {0}. You will need to provide new supporting documents."
   },
   "fr": {
-    "edit": "Modifier"
+    "edit": "Modifier",
+    "cancel": "Annuler",
+    "change-situation": "Modifier votre situation",
+    "delete-warning": "modifier votre situation entraîne la suppression de vos justificatifs",
+    "delete-notice": "Attention : {0}. Vous devrez fournir de nouveaux justificatifs."
   }
 }
 </i18n>
