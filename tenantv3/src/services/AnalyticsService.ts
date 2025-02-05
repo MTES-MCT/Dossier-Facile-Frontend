@@ -156,5 +156,14 @@ export const AnalyticsService = {
   },
   cancelDelete(category: DocumentCategory) {
     sendFullEvent('funnel', 'clic', `delete-doc-cancel_${category}`)
+  },
+  showWarningModale(category: DocumentCategory) {
+    sendFullEvent('funnel', 'print', `modale_${category}`)
+  },
+  ignoreWarningModale(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `modale-ignore_${category}`)
+  },
+  confirmModale(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `modale-add_${category}`)
   }
 }
