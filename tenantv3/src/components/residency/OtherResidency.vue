@@ -7,7 +7,7 @@
   <i18n-t keypath="tick-box" tag="p">
     <em>{{ t('cant-provide-receipts') }}</em>
   </i18n-t>
-  <div class="fr-checkbox-group fr-mb-2w displa">
+  <div class="fr-checkbox-group fr-py-2w fr-mb-3w">
     <input
       id="precarious-checkbox"
       type="checkbox"
