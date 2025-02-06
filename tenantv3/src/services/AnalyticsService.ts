@@ -165,5 +165,8 @@ export const AnalyticsService = {
   },
   confirmModale(category: DocumentCategory) {
     sendFullEvent('funnel', 'clic', `modale-add_${category}`)
+  },
+  validateFunnelStep(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `validate-tenant_funnel_${category}`)
   }
 }
