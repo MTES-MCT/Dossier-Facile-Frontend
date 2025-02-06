@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import FooterContainer from '@/components/footer/FooterContainer.vue'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { DocumentService } from '@/services/DocumentService'
 import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
@@ -38,6 +39,7 @@ const disabled = computed(() =>
 )
 
 const submit = () => {
+  AnalyticsService.validateFunnelStep('residency')
   if (onSubmit) {
     onSubmit()
   } else {
