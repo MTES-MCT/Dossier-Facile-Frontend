@@ -697,7 +697,7 @@
   },
   "fileupload": {
     "drag-and-drop-files": "Glissez et déposez vos documents :",
-    "files-format": "Fichier .jpg,.png,.pdf ou .heic",
+    "files-format": "Fichier .jpg, .png, .pdf ou .heic",
     "browse-files": "Ou parcourez vos fichiers :",
     "browse": "Parcourir…",
     "uploading-files": "Envoi des fichiers...",
