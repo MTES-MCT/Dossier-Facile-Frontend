@@ -32,14 +32,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import RadioList from './lib/RadioList.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import RadioListItem from './lib/RadioListItem.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
-const showAllItems = ref(false)
+import { showAllItems } from './residencyState'
 const { t } = useI18n()
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation('residency', subcategory)
