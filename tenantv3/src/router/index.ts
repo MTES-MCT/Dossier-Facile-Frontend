@@ -406,15 +406,13 @@ function registerFunnel(to: RouteLocationNormalized) {
   }
 }
 
-function updateKeycloakTokenAndMessages() {
+function updateKeycloakToken() {
   if (updateTokenInterval === undefined) {
     updateTokenInterval = setInterval(() => {
       keycloak.updateToken(60).catch((err) => {
         console.error(err)
       })
     }, 45000)
-    const store = useTenantStore()
-    store.updateMessages()
   }
 }
 
@@ -452,7 +450,13 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
           redirectUri: 'https:' + MAIN_URL + '/#emailNotValidated'
         })
       } else {
-        updateKeycloakTokenAndMessages()
+        updateKeycloakToken()
+        const store = useTenantStore()
+        if (!store.user.id) {
+          await store.loadUser()
+          await store.loadPartnerAccesses()
+        }
+        store.updateMessages()
       }
     } else {
       // The page is protected and the user is not authenticated. Force a login.
