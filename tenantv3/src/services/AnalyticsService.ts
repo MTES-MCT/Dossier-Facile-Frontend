@@ -9,7 +9,6 @@ type DocumentCategory = (typeof DOCUMENT_CATEGORIES)[number]
 
 function sendFullEvent(category: EventCategory, action: Action, name: string) {
   if (import.meta.env.VITE_MATOMO_ENABLE === 'false' || !window._paq) {
-    console.log('sendEvent', category, name)
     return
   }
   const tenantStore = useTenantStore()
