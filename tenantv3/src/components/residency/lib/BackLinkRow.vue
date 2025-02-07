@@ -34,7 +34,6 @@ import { ref } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import useTenantStore from '@/stores/tenant-store'
-import { RegisterService } from '@/services/RegisterService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 
 const props = defineProps<{ label: string; to: RouterLinkProps['to'] }>()
@@ -55,13 +54,10 @@ const onClick = () => {
 
 const confirm = async () => {
   AnalyticsService.confirmModale('residency')
-  const files = store.getTenantResidencyDocument?.files || []
-  for (const file of files) {
-    if (file.id) {
-      await RegisterService.deleteFile(file.id, true)
-    }
+  const docId = store.getTenantResidencyDocument?.id
+  if (docId) {
+    await store.deleteDocument(docId)
   }
-  // TODO: handle OtherResidency (no file)
   router.push(props.to)
 }
 
