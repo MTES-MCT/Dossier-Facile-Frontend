@@ -11,7 +11,6 @@ import DeleteAccount from './components/DeleteAccount.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import cookies from 'js-cookie'
-import { keycloak } from './plugin/keycloak'
 
 const store = useTenantStore()
 const router = useRouter()
@@ -21,14 +20,10 @@ const isLoggedIn = computed(() => store.isLoggedIn)
 
 const OWNER_URL = `//${import.meta.env.VITE_OWNER_URL}`
 
-onBeforeMount(async () => {
+onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
   const store = useTenantStore()
   store.setLang(lang)
-  if (keycloak.authenticated) {
-    await store.loadUser()
-    await store.loadPartnerAccesses()
-  }
 })
 
 function onLogout() {
