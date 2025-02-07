@@ -416,6 +416,33 @@ function updateKeycloakToken() {
   }
 }
 
+async function handleProtectedRoute(to: RouteLocationNormalized) {
+  if (keycloak.authenticated) {
+    if (!keycloak.profile) {
+      await keycloak.loadUserProfile()
+    }
+    if (!keycloak.profile?.emailVerified) {
+      // email should be validated before access to the protected page.
+      keycloak.logout({
+        redirectUri: 'https:' + MAIN_URL + '/#emailNotValidated'
+      })
+    } else {
+      updateKeycloakToken()
+      const store = useTenantStore()
+      if (!store.user.id) {
+        await store.loadUser()
+        await store.loadPartnerAccesses()
+        store.updateMessages()
+      }
+    }
+  } else {
+    // The page is protected and the user is not authenticated. Force a login.
+    await keycloak.login({
+      redirectUri: TENANT_URL + to.fullPath
+    })
+  }
+}
+
 router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuardNext) => {
   registerFunnel(to)
   if (
@@ -440,30 +467,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
   })
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (keycloak.authenticated) {
-      if (!keycloak.profile) {
-        await keycloak.loadUserProfile()
-      }
-      if (!keycloak.profile?.emailVerified) {
-        // email should be validated before access to the protected page.
-        keycloak.logout({
-          redirectUri: 'https:' + MAIN_URL + '/#emailNotValidated'
-        })
-      } else {
-        updateKeycloakToken()
-        const store = useTenantStore()
-        if (!store.user.id) {
-          await store.loadUser()
-          await store.loadPartnerAccesses()
-        }
-        store.updateMessages()
-      }
-    } else {
-      // The page is protected and the user is not authenticated. Force a login.
-      await keycloak.login({
-        redirectUri: TENANT_URL + to.fullPath
-      })
-    }
+    await handleProtectedRoute(to)
   } else if (to.matched.some((record) => record.meta.hideForAuth)) {
     if (keycloak.authenticated) {
       next({ name: 'Profile' })
