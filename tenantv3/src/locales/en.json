@@ -926,13 +926,14 @@
     "help": "Help",
     "file": "Your File",
     "applications": "Your applications",
-    "partners": "Your shared data",
+    "shared": "Your shared data",
     "account": "My Account",
     "messaging": "Messaging",
     "blog": "Blog",
     "information": "About Us",
     "contact-us": "Contact Us",
-    "deleteAccount": "Delete My Account"
+    "deleteAccount": "Delete My Account",
+    "partners": "Partners"
   },
   "messagespanel": {
     "identification-legal-person": "Legal Entity Identification",

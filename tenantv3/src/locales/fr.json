@@ -968,14 +968,15 @@
   "menu": {
     "help": "Aide",
     "file": "Votre dossier",
-    "partners": "Vos partages",
+    "shared": "Vos partages",
     "applications": "Vos candidatures",
     "account": "Mon compte",
     "messaging": "Messagerie",
     "blog": "Blog",
     "information": "Qui sommes-nous ?",
     "contact-us": "Nous contacter",
-    "deleteAccount": "Supprimer mon compte"
+    "deleteAccount": "Supprimer mon compte",
+    "partners": "Partenaires"
   },
   "messagespanel": {
     "identification-legal-person": "Identité personne morale",
