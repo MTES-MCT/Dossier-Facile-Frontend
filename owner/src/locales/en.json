@@ -9,6 +9,7 @@
   "property-living-space": "Living space",
   "email-required": "Email is required",
   "field-required": "This field is required",
+  "field-past-date": "The date you entered is in the future. Please enter a valid date.",
   "house-furnished": "Furnished house",
   "house-unfurnished": "Unfurnished house",
   "apartment-furnished": "Furnished apartment",
