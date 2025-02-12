@@ -237,14 +237,13 @@ const router = createRouter({
     },
     {
       path: '/info-garant/:substep/:guarantorId?',
-      name: 'GuarantorDocuments',
       meta: {
         title: 'Mon garant - DossierFacile',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      beforeEnter: async (to, from, next) => {
+      beforeEnter: (to) => {
         const store = useTenantStore()
         const g = store.guarantors.find((g: Guarantor) => {
           return g.id?.toString() == to.params.guarantorId
@@ -254,11 +253,45 @@ const router = createRouter({
             (g.typeGuarantor === 'NATURAL_PERSON' && (!g?.firstName || !g?.lastName))) &&
           to.params.substep !== '0'
         ) {
-          next({ name: 'GuarantorDocuments', params: { substep: '0' } })
+          return { name: 'GuarantorDocuments', params: { substep: '0' } }
         }
-        next()
       },
-      component: () => import('../views/GuarantorDocumentsPage.vue')
+      component: () => import('../views/GuarantorDocumentsPage.vue'),
+      children: [
+        {
+          path: '',
+          name: 'GuarantorDocuments',
+          component: () => import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
+        },
+        {
+          path: 'tenant',
+          component: () => import('@/components/guarantorResidency/GuarantorTenant.vue')
+        },
+        {
+          path: 'owner',
+          component: () => import('@/components/guarantorResidency/GuarantorOwner.vue')
+        },
+        {
+          path: 'guest',
+          component: () => import('@/components/guarantorResidency/GuarantorGuest.vue')
+        },
+        {
+          path: 'guest/proof',
+          component: () => import('@/components/guarantorResidency/GuarantorGuestProof.vue')
+        },
+        {
+          path: 'guest/no-proof',
+          component: () => import('@/components/guarantorResidency/GuarantorGuestNoProof.vue')
+        },
+        {
+          path: 'guest-company',
+          component: () => import('@/components/guarantorResidency/GuarantorGuestCompany.vue')
+        },
+        {
+          path: 'other',
+          component: () => import('@/components/guarantorResidency/GuarantorOther.vue')
+        }
+      ]
     },
     {
       path: '/info-garant-locataire/:tenantId/:guarantorId/:step/:substep?',
@@ -294,16 +327,11 @@ const router = createRouter({
         title: 'Mon dossier - DossierFacile',
         requiresAuth: true
       },
-      beforeEnter: async (to, from, next) => {
+      beforeEnter: () => {
         const store = useTenantStore()
         if (store.user.status === 'INCOMPLETE') {
-          const d = await store.firstProfilePage()
-          if (d) {
-            next(d)
-            return
-          }
+          return store.firstProfilePage()
         }
-        next()
       },
       component: () => import('../views/AccountPage.vue')
     },

@@ -1,5 +1,6 @@
 <template>
   <AllDeclinedMessages
+    :user-id="userId"
     :document="tenantResidencyDocument"
     :document-denied-reasons="tenantResidencyDocument?.documentDeniedReasons"
     :document-status="documentStatus"
@@ -11,16 +12,12 @@
       :file="file"
       :watermark-url="documentWatermarkUrl" 
       @remove="remove(file)"
-      @ask-confirm="AnalyticsService.deleteDocument('residency')"
-      @cancel="AnalyticsService.cancelDelete('residency')"
+      @ask-confirm="AnalyticsService.deleteDocument(category)"
+      @cancel="AnalyticsService.cancelDelete(category)"
     />
   </div>
   <div class="fr-mb-3w">
-    <FileUpload
-      :current-status="fileUploadStatus"
-      @add-files="addFiles"
-      @reset-files="resetFiles"
-    ></FileUpload>
+    <FileUpload :current-status="fileUploadStatus" @add-files="addFiles"></FileUpload>
   </div>
 </template>
 
@@ -32,7 +29,7 @@ import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessage
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import useTenantStore from '@/stores/tenant-store'
-import type { DfDocument, DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
+import type { DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import { RegisterService } from '@/services/RegisterService'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { UtilsService } from '@/services/UtilsService'
@@ -43,11 +40,13 @@ import type { ResidencyCategory } from '@/components/documents/share/DocumentTyp
 const {
   maxFileCount = 10,
   category: residencyCategory,
-  step: categoryStep
+  step: categoryStep,
+  guarantor = false
 } = defineProps<{
   category: ResidencyCategory
   step?: DocumentCategoryStep
   maxFileCount?: number
+  guarantor?: boolean
 }>()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
@@ -55,9 +54,12 @@ const files = ref<{ name: string; file: File; size: number; id?: string; path?: 
 
 const store = useTenantStore()
 
-const tenantResidencyDocument = computed(() => store.getTenantResidencyDocument)
+const category = guarantor ? 'guarantor-residency' : 'residency'
+const tenantResidencyDocument = computed(() =>
+  guarantor ? store.getGuarantorResidencyDocument : store.getTenantResidencyDocument
+)
 const documentStatus = computed(() => tenantResidencyDocument.value?.documentStatus)
-
+const userId = computed(() => (guarantor ? store.user.id : undefined))
 const residencyFiles = computed(() => {
   const newFiles = files.value.map((f) => {
     return {
@@ -68,10 +70,7 @@ const residencyFiles = computed(() => {
       size: f.size
     }
   })
-  const existingFiles =
-    store.getTenantDocuments?.find((d: DfDocument) => {
-      return d.documentCategory === 'RESIDENCY'
-    })?.files || []
+  const existingFiles = tenantResidencyDocument.value?.files || []
   return [...newFiles, ...existingFiles]
 })
 
@@ -101,12 +100,15 @@ async function save(): Promise<boolean> {
   if (categoryStep) {
     formData.append('categoryStep', categoryStep)
   }
+  if (guarantor && store.guarantor?.id) {
+    formData.append('guarantorId', store.guarantor.id?.toString())
+  }
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
   const $loading = useLoading()
   const loader = $loading.show()
-  return await store
-    .saveTenantResidency(formData)
+  const action = guarantor ? 'saveGuarantorResidency' : 'saveTenantResidency'
+  return await store[action](formData)
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
@@ -124,7 +126,7 @@ async function save(): Promise<boolean> {
 }
 
 function addFiles(fileList: File[]) {
-  AnalyticsService.uploadFile('residency', residencyCategory, categoryStep)
+  AnalyticsService.uploadFile(category, residencyCategory, categoryStep)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
@@ -132,12 +134,8 @@ function addFiles(fileList: File[]) {
   save()
 }
 
-function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-}
-
 async function remove(file: DfFile, silent = false) {
-  AnalyticsService.deleteFile('residency')
+  AnalyticsService.deleteFile(category)
   if (file.id) {
     if (
       tenantResidencyDocument.value?.files?.length === 1 &&

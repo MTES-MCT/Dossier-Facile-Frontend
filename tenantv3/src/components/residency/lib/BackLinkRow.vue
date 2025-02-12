@@ -30,22 +30,28 @@
 import { useRouter, type RouterLinkProps } from 'vue-router'
 import { RiArrowGoBackLine, RiCheckboxCircleLine } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import useTenantStore from '@/stores/tenant-store'
 import { AnalyticsService } from '@/services/AnalyticsService'
 
-const props = defineProps<{ label: string; to: RouterLinkProps['to'] }>()
+const props = defineProps<{ label: string; to: RouterLinkProps['to']; guarantor?: boolean }>()
+const emit = defineEmits<{ edit: [] }>()
 const { t } = useI18n()
 const router = useRouter()
 const store = useTenantStore()
 
 const showChangeSituation = ref(false)
+const residencyDocument = computed(() =>
+  props.guarantor ? store.getGuarantorResidencyDocument : store.getTenantResidencyDocument
+)
+const category = computed(() => (props.guarantor ? 'guarantor-residency' : 'residency'))
 
 const onClick = () => {
-  if (store.getTenantResidencyDocument) {
-    AnalyticsService.showWarningModale('residency')
+  emit('edit')
+  if (residencyDocument.value) {
+    AnalyticsService.showWarningModale(category.value)
     showChangeSituation.value = true
   } else {
     router.push(props.to)
@@ -53,8 +59,8 @@ const onClick = () => {
 }
 
 const confirm = async () => {
-  AnalyticsService.confirmModale('residency')
-  const docId = store.getTenantResidencyDocument?.id
+  AnalyticsService.confirmModale(category.value)
+  const docId = residencyDocument.value?.id
   if (docId) {
     await store.deleteDocument(docId)
   }
@@ -62,7 +68,7 @@ const confirm = async () => {
 }
 
 const ignore = () => {
-  AnalyticsService.ignoreWarningModale('residency')
+  AnalyticsService.ignoreWarningModale(category.value)
   showChangeSituation.value = false
 }
 </script>

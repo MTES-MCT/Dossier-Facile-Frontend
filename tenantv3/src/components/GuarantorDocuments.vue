@@ -10,7 +10,10 @@
           <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
         </div>
         <div v-if="substep === 2">
-          <GuarantorResidency @on-back="goBack" @on-next="goNext"></GuarantorResidency>
+          <NakedCard class="fr-p-md-5w">
+            <h6>{{ t('guarantor-residency-situation') }}</h6>
+            <router-view />
+          </NakedCard>
         </div>
         <div v-if="substep === 3">
           <GuarantorProfessional></GuarantorProfessional>
@@ -54,7 +57,6 @@ import GuarantorName from './documents/naturalGuarantor/GuarantorName.vue'
 import RepresentativeIdentification from './documents/legalPersonGuarantor/RepresentativeIdentification.vue'
 import CorporationIdentification from './documents/legalPersonGuarantor/CorporationIdentification.vue'
 import OrganismCert from './documents/organismGuarantor/OrganismCert.vue'
-import GuarantorResidency from './documents/naturalGuarantor/GuarantorResidency.vue'
 import GuarantorProfessional from './documents/naturalGuarantor/GuarantorProfessional.vue'
 import GuarantorFinancial from './documents/naturalGuarantor/GuarantorFinancial.vue'
 import GuarantorTax from './documents/naturalGuarantor/GuarantorTax.vue'
@@ -66,6 +68,7 @@ import { computed, onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ToastService } from '@/services/ToastService'
 import { useI18n } from 'vue-i18n'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -220,3 +223,14 @@ h2 {
   font-size: 14px;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "guarantor-residency-situation" : "Your guarantor's housing situation"
+  },
+  "fr": {
+    "guarantor-residency-situation" : "Situation d'hébergement de votre garant"
+  }
+}
+</i18n>
