@@ -489,11 +489,6 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
     )
   }
 
-  to.matched.some((record) => {
-    const store = useTenantStore()
-    store.updateSkipLinks(record.meta.skipLinks || [])
-  })
-
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     await handleProtectedRoute(to)
   } else if (to.matched.some((record) => record.meta.hideForAuth)) {

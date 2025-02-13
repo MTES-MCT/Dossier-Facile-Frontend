@@ -1,6 +1,5 @@
 import { AuthService } from '@/services/AuthService'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
-import type { SkipLink } from 'df-shared-next/src/models/SkipLink'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
 import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
 import i18n from '../i18n'
@@ -43,7 +42,6 @@ interface State {
   editFinancialDocument: boolean
   newMessage: number
   messageList: DfMessage[][]
-  skipLinks: SkipLink[]
   guarantorFinancialDocumentSelected: FinancialDocument | undefined
   editGuarantorFinancialDocument: boolean
   apartmentSharingLinks: ApartmentSharingLink[]
@@ -68,7 +66,6 @@ function defaultState(): State {
     editFinancialDocument: false,
     newMessage: 0,
     messageList: [],
-    skipLinks: [],
     guarantorFinancialDocumentSelected: new FinancialDocument(),
     editGuarantorFinancialDocument: false,
     apartmentSharingLinks: [],
@@ -458,9 +455,6 @@ const useTenantStore = defineStore('tenant', {
     },
     updateIsFunnel(isFunnel: boolean) {
       this.isFunnel = isFunnel
-    },
-    updateSkipLinks(skipLinks: SkipLink[]) {
-      this.skipLinks = skipLinks
     },
     updateUserFirstname(firstname: string) {
       this.user.firstName = firstname

@@ -1,10 +1,10 @@
 <template>
-  <div class="profile-footer">
+  <div id="footer-navigation" class="profile-footer">
     <slot></slot>
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .profile-footer {
   position: fixed;
   bottom: 0;
