@@ -2,7 +2,7 @@
   <BackLinkRow
     :label="t('short-term-rental')"
     to="/documents-locataire/2"
-    @click="AnalyticsService.editSituation('residency', 'short-term-rental')"
+    @edit="AnalyticsService.editSituation('residency', 'short-term-rental')"
   />
   <i18n-t keypath="please-provide" tag="p">
     <strong>{{ t('paid-invoices') }}</strong>

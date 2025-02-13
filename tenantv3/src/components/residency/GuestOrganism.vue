@@ -2,7 +2,7 @@
   <BackLinkRow
     :label="t('guest-organism')"
     to="/documents-locataire/2"
-    @click="AnalyticsService.editSituation('residency', 'guest-organism')"
+    @edit="AnalyticsService.editSituation('residency', 'guest-organism')"
   />
   <i18n-t keypath="please-provide" tag="p">
     <a href="https://www.service-public.fr/simulateur/calcul/16030" target="_blank">{{

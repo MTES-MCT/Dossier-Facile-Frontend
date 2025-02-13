@@ -2,12 +2,12 @@
   <BackLinkRow
     :label="t('you-hosted')"
     to="/documents-locataire/2"
-    @click="AnalyticsService.editSituation('residency', 'guest')"
+    @edit="AnalyticsService.editSituation('residency', 'guest')"
   />
   <BackLinkRow
     :label="t('no-accomodation-proof')"
     to="/documents-locataire/2/guest"
-    @click="AnalyticsService.editSituation2('residency', 'guest', 'no-proof')"
+    @edit="AnalyticsService.editSituation2('residency', 'guest', 'no-proof')"
   />
   <i18n-t keypath="complete-certificate" tag="p">
     <a

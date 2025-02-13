@@ -2,7 +2,7 @@
   <BackLinkRow
     :label="t('other-residency')"
     to="/documents-locataire/2"
-    @click="AnalyticsService.editSituation('residency', 'other-residency')"
+    @edit="AnalyticsService.editSituation('residency', 'other-residency')"
   />
   <i18n-t keypath="tick-box" tag="p">
     <em>{{ t('cant-provide-receipts') }}</em>
@@ -12,7 +12,7 @@
       id="precarious-checkbox"
       type="checkbox"
       v-model="isPrecarious"
-      @click="AnalyticsService.selectPrecariousness"
+      @edit="AnalyticsService.selectPrecariousness"
     />
     <label class="fr-label" for="precarious-checkbox">{{ t('you-precarious') }}</label>
   </div>

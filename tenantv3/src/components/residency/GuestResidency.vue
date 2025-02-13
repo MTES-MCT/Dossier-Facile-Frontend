@@ -2,7 +2,7 @@
   <BackLinkRow
     :label="t('you-hosted')"
     to="/documents-locataire/2"
-    @click="AnalyticsService.editSituation('residency', 'guest')"
+    @edit="AnalyticsService.editSituation('residency', 'guest')"
   />
   <RadioList>
     <RadioListItem to="guest/proof" @click="sendEvent('proof')">{{

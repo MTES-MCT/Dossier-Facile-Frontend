@@ -2,12 +2,12 @@
   <BackLinkRow
     :label="t('you-tenant')"
     to="/documents-locataire/2"
-    @click="AnalyticsService.editSituation('residency', 'tenant')"
+    @edit="AnalyticsService.editSituation('residency', 'tenant')"
   />
   <BackLinkRow
     :label="t('have-proof')"
     to="/documents-locataire/2/tenant"
-    @click="AnalyticsService.editSituation2('residency', 'tenant', 'proof')"
+    @edit="AnalyticsService.editSituation2('residency', 'tenant', 'proof')"
   />
   <i18n-t keypath="please-provide" tag="p">
     <strong>{{ t('less-3-months') }}</strong>
