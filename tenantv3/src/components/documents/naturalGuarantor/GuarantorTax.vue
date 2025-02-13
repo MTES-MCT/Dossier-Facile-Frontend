@@ -64,7 +64,13 @@
       <WarningTaxDeclaration />
 
       <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mt-3w">
-        <ListItem v-for="file in taxFiles()" :key="file.id" :file="file" @remove="remove(file)" />
+        <ListItem 
+          v-for="file in taxFiles()"
+          :key="file.id"
+          :file="file" 
+          :watermark-url="documentWatermarkUrl" 
+          @remove="remove(file)" 
+        />
       </div>
       <div class="fr-mb-3w fr-mt-3w">
         <FileUpload
@@ -185,6 +191,7 @@ function getRegisteredDoc() {
 }
 
 const guarantorTaxDocument = computed(() => store.getGuarantorTaxDocument)
+const documentWatermarkUrl = computed(() => guarantorTaxDocument.value?.name)
 const documentStatus = computed(() => guarantorTaxDocument.value?.documentStatus)
 
 function onSelectChange($event: DocumentType) {

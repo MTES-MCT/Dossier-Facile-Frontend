@@ -9,6 +9,7 @@
       v-for="file in residencyFiles"
       :key="file.id"
       :file="file"
+      :watermark-url="documentWatermarkUrl" 
       @remove="remove(file)"
       @ask-confirm="AnalyticsService.deleteDocument('residency')"
       @cancel="AnalyticsService.cancelDelete('residency')"
@@ -73,6 +74,8 @@ const residencyFiles = computed(() => {
     })?.files || []
   return [...newFiles, ...existingFiles]
 })
+
+const documentWatermarkUrl = computed(() => tenantResidencyDocument.value?.name)
 
 async function save(): Promise<boolean> {
   const formData = new FormData()

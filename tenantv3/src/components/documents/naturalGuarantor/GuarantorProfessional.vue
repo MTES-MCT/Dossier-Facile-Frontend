@@ -47,6 +47,7 @@
           v-for="file in professionalFiles()"
           :key="file.id"
           :file="file"
+          :watermark-url="documentWatermarkUrl"
           @remove="remove(file)"
         />
       </div>
@@ -111,6 +112,8 @@ onMounted(() => {
 
 const guarantorProfessionalDocument = computed(() => store.getGuarantorProfessionalDocument)
 const documentStatus = computed(() => guarantorProfessionalDocument.value?.documentStatus)
+
+const documentWatermarkUrl = computed(() => guarantorProfessionalDocument.value?.name)
 
 function updateGuarantorData() {
   if (selectedGuarantor.value?.documents !== null) {

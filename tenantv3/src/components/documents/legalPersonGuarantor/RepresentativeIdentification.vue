@@ -65,6 +65,7 @@
               v-for="file in listFiles()"
               :key="file.id"
               :file="file"
+              :watermark-url="documentWatermarkUrl"
               @remove="remove(file)"
             />
           </div>
@@ -258,6 +259,11 @@ function listFiles() {
   const existingFiles = guarantorIdentificationDocument.value?.files || []
   return existingFiles
 }
+
+const documentWatermarkUrl = computed(() => {
+  return guarantorIdentificationDocument.value?.name
+})
+
 </script>
 
 <style scoped lang="scss">

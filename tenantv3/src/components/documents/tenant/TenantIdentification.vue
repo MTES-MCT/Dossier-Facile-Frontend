@@ -31,6 +31,7 @@
           v-for="file in identificationFiles()"
           :key="file.id"
           :file="file"
+          :watermark-url="documentWatermarkUrl"
           @remove="remove(file)"
           @ask-confirm="AnalyticsService.deleteDocument('identification')"
           @cancel="AnalyticsService.cancelDelete('identification')"
@@ -96,6 +97,10 @@ function getLocalStorageKey() {
 
 const documentStatus = computed(() => {
   return tenantIdentificationDocument.value?.documentStatus
+})
+
+const documentWatermarkUrl = computed(() => {
+  return tenantIdentificationDocument.value?.name
 })
 
 onBeforeMount(() => {

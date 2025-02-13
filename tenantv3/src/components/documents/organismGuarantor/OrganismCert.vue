@@ -26,6 +26,7 @@
             v-for="file in files"
             :key="file.id"
             :file="file"
+            :watermark-url="documentWatermarkUrl"
             @remove="remove(Number(file.id))"
           />
         </div>
@@ -109,6 +110,10 @@ function guarantorId() {
 
 const documentStatus = computed(() => {
   return certificateDocument.value?.documentStatus
+})
+
+const documentWatermarkUrl = computed(() => {
+  return certificateDocument.value?.name
 })
 
 function guarantorCertificateDocument(): DfDocument | undefined {

@@ -38,6 +38,7 @@
           v-for="file in identificationFiles()"
           :key="file.id"
           :file="file"
+          :watermark-url="documentWatermarkUrl"
           @remove="remove(file)"
         />
       </div>
@@ -115,6 +116,10 @@ const guarantorIdentificationDocument = computed<DfDocument | undefined>(() =>
     return d.documentCategory === 'IDENTIFICATION'
   })
 )
+
+const documentWatermarkUrl = computed(() => {
+  return guarantorIdentificationDocument.value?.name
+})
 
 const documentStatus = computed(() => {
   return guarantorIdentificationDocument.value?.documentStatus

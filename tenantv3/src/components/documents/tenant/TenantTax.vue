@@ -63,7 +63,13 @@
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
-        <ListItem v-for="file in taxFiles()" :key="file.id" :file="file" @remove="remove(file)" />
+        <ListItem 
+          v-for="file in taxFiles()"
+          :key="file.id" 
+          :file="file" 
+          :watermark-url="documentWatermarkUrl" 
+          @remove="remove(file)"
+        />
       </div>
       <div v-if="taxDocument.key === 'my-name'">
         <div class="fr-mb-3w">
@@ -374,6 +380,8 @@ function taxFiles(): DfFile[] {
     })?.files || []
   return [...newFiles, ...existingFiles]
 }
+
+const documentWatermarkUrl = computed(() => tenantTaxDocument.value?.name)
 
 async function remove(file: DfFile, silent = false) {
   AnalyticsService.deleteFile('tax')
