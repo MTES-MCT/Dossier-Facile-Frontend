@@ -36,6 +36,7 @@
           v-for="file in professionalFiles()"
           :key="file.id"
           :file="file"
+          :watermark-url="documentWatermarkUrl"
           @remove="remove(file)"
           @ask-confirm="AnalyticsService.deleteDocument('professional')"
           @cancel="AnalyticsService.cancelDelete('professional')"
@@ -83,6 +84,7 @@ const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.userToEdit)
 const tenantProfessionalDocument = computed(() => store.getTenantProfessionalDocument)
+const documentWatermarkUrl = computed(() => tenantProfessionalDocument.value?.name)
 
 const documents = ref(DocumentTypeConstants.PROFESSIONAL_DOCS)
 

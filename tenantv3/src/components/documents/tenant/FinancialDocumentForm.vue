@@ -107,6 +107,7 @@
                 v-for="file in financialFiles()"
                 :key="file.id"
                 :file="file"
+                :watermark-url="documentWatermarkUrl"
                 @remove="remove(financialDocument, file)"
                 @ask-confirm="AnalyticsService.deleteDocument('financial')"
                 @cancel="AnalyticsService.cancelDelete('financial')"
@@ -265,6 +266,10 @@ const tenantFinancialDocument = computed(() =>
     return d.id === financialDocument.value.id
   })
 )
+
+const documentWatermarkUrl = computed(() => {
+  return tenantFinancialDocument.value?.name
+})
 
 const documentStatus = computed(() => {
   return tenantFinancialDocument.value?.documentStatus

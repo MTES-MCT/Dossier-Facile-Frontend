@@ -21,7 +21,7 @@
     </div>
     <Modal @close="isDocModalVisible = false" v-if="isDocModalVisible">
       <template #body>
-        <ShowDoc :file="file"></ShowDoc>
+        <ShowDoc :file="file" :watermark-url="watermarkUrl"></ShowDoc>
       </template>
     </Modal>
     <ConfirmModal v-if="confirmDeleteFile" @valid="validDeleteFile()" @cancel="cancelDeleteFile()">
@@ -46,10 +46,12 @@ const emit = defineEmits<{ remove: []; 'ask-confirm': []; cancel: [] }>()
 const props = withDefaults(
   defineProps<{
     file: DfFile
+    watermarkUrl?: string
     uploadState?: string
     percentage?: number
   }>(),
   {
+    watermarkUrl: undefined,
     uploadState: 'idle',
     percentage: 0
   }
@@ -80,13 +82,15 @@ function openDoc() {
 }
 
 function getSize() {
+  // Extract file extension from props.file.originalName and make it uppercase
+  const extension = props.file?.originalName?.split('.').pop()?.toUpperCase() || ''
   if (props.file.size) {
     const kb = props.file.size / 1000
     if (kb > 1000) {
       const mb = kb / 1000
-      return `${mb.toFixed(2)} ${t('listitem.mb')}`
+      return `${extension} - ${mb.toFixed(2)} ${t('listitem.mb')}`
     }
-    return `${kb.toFixed(2)} ${t('listitem.kb')}`
+    return `${extension} - ${kb.toFixed(2)} ${t('listitem.kb')}`
   }
   return '-'
 }

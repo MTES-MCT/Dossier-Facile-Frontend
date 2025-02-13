@@ -59,6 +59,7 @@
             v-for="file in documentFiles()"
             :key="file.id"
             :file="file"
+            :watermark-url="documentWatermarkUrl"
             @remove="remove(file)"
           />
         </div>
@@ -299,6 +300,10 @@ const documentStatus = computed(() => {
 function documentFiles(): DfFile[] {
   return getDocument().files ?? []
 }
+
+const documentWatermarkUrl = computed(() => {
+  return getDocument()?.name
+})
 
 function loadDocument(forceLoadLast?: boolean) {
   selectedCoTenant.value = store.getTenant(Number(props.coTenantId))

@@ -51,6 +51,7 @@
               v-for="file in listFiles()"
               :key="file.id"
               :file="file"
+              :watermark-url="documentWatermarkUrl"
               @remove="remove(file)"
             />
           </div>
@@ -118,6 +119,8 @@ const guarantorIdentificationLegalPersonDocument = computed(() => {
 const documentStatus = computed(
   () => guarantorIdentificationLegalPersonDocument.value?.documentStatus
 )
+
+const documentWatermarkUrl = computed(() => guarantorIdentificationLegalPersonDocument.value?.name)
 
 function addFiles(fileList: File[]) {
   const nf = Array.from(fileList).map((f) => {

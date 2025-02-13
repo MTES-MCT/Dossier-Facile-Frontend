@@ -73,6 +73,7 @@
           v-for="file in residencyFiles()"
           :key="file.id"
           :file="file"
+          :watermark-url="documentWatermarkUrl"
           @remove="remove(file)"
         />
       </div>
@@ -133,6 +134,8 @@ onMounted(() => {
 })
 
 const guarantorResidencyDocument = computed(() => store.getGuarantorResidencyDocument)
+
+const documentWatermarkUrl = computed(() => guarantorResidencyDocument.value?.name)
 
 const documentStatus = computed(() => {
   return guarantorResidencyDocument.value?.documentStatus

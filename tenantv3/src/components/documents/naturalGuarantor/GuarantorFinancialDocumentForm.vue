@@ -101,6 +101,7 @@
               v-for="file in financialFiles()"
               :key="file.id"
               :file="file"
+              :watermark-url="documentWatermarkUrl"
               @remove="remove(financialDocument, file)"
             />
           </div>
@@ -231,6 +232,11 @@ const guarantorFinancialDocument = computed(() =>
     return d.id === financialDocument.value.id
   })
 )
+
+const documentWatermarkUrl = computed(() => {
+  return guarantorFinancialDocument.value?.name
+})
+
 const documentStatus = computed(() => {
   return guarantorFinancialDocument.value?.documentStatus
 })
