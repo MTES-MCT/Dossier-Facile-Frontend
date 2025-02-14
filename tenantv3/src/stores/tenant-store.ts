@@ -35,7 +35,6 @@ interface State {
   user: User
   selectedGuarantor: Guarantor | undefined
   status: { loggedIn: boolean }
-  isFunnel: boolean
   spouseAuthorize: boolean
   coTenantAuthorize: boolean
   coTenants: User[]
@@ -59,7 +58,6 @@ function defaultState(): State {
     user: new User(),
     selectedGuarantor: new Guarantor(),
     status: { loggedIn: false },
-    isFunnel: false,
     spouseAuthorize: false,
     coTenantAuthorize: false,
     coTenants: [],
@@ -453,9 +451,6 @@ const useTenantStore = defineStore('tenant', {
     },
     updateCoTenantAuthorize(authorize: boolean) {
       this.coTenantAuthorize = authorize
-    },
-    updateIsFunnel(isFunnel: boolean) {
-      this.isFunnel = isFunnel
     },
     updateUserFirstname(firstname: string) {
       this.user.firstName = firstname

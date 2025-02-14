@@ -425,15 +425,6 @@ async function keepGoing(to: RouteLocationNormalized, next: NavigationGuardNext)
   next()
 }
 
-function registerFunnel(to: RouteLocationNormalized) {
-  const store = useTenantStore()
-  if (to.matched.some((record) => record.meta.hideFooter)) {
-    store.updateIsFunnel(true)
-  } else {
-    store.updateIsFunnel(false)
-  }
-}
-
 function updateKeycloakToken() {
   if (updateTokenInterval === undefined) {
     updateTokenInterval = setInterval(() => {
@@ -472,7 +463,6 @@ async function handleProtectedRoute(to: RouteLocationNormalized) {
 }
 
 router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuardNext) => {
-  registerFunnel(to)
   if (
     to.query.mtm_campaign !== undefined ||
     to.query.mtm_source !== undefined ||

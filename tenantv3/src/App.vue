@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterView, useRouter } from 'vue-router'
+import { RouterView, useRoute, useRouter } from 'vue-router'
 import useTenantStore from './stores/tenant-store'
 import { computed, onBeforeMount } from 'vue'
 import TenantSkipLinks from './components/TenantSkipLinks.vue'
@@ -14,8 +14,9 @@ import cookies from 'js-cookie'
 
 const store = useTenantStore()
 const router = useRouter()
+const route = useRoute()
 
-const isFunnel = computed(() => store.isFunnel)
+const isFunnel = computed(() => route.meta.hideFooter)
 const isLoggedIn = computed(() => store.isLoggedIn)
 
 const OWNER_URL = `//${import.meta.env.VITE_OWNER_URL}`
@@ -44,10 +45,10 @@ function onCreateOwner() {
   <TenantSkipLinks />
   <MyHeader
     :logged-in="isLoggedIn"
+    :show-accessibility="isFunnel"
     @on-login-tenant="onLoginTenant"
     @on-create-owner="onCreateOwner"
     @on-logout="onLogout"
-    :show-accessibility="isFunnel"
   >
     <TenantMenu />
   </MyHeader>
