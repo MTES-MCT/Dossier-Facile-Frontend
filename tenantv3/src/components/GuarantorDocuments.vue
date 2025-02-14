@@ -7,7 +7,7 @@
         </div>
         <div v-if="substep === 1">
           <GuarantorIdentification></GuarantorIdentification>
-          <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
+          <GuarantorFooter @on-back="goBack" @on-next="goToResidency"></GuarantorFooter>
         </div>
         <div v-if="substep === 2">
           <NakedCard class="fr-p-md-5w">
@@ -17,7 +17,7 @@
         </div>
         <div v-if="substep === 3">
           <GuarantorProfessional></GuarantorProfessional>
-          <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
+          <GuarantorFooter @on-back="goToResidency" @on-next="goNext"></GuarantorFooter>
         </div>
         <div v-if="substep === 4">
           <GuarantorFinancial @on-back="goBack" @on-next="goNext"></GuarantorFinancial>
@@ -69,15 +69,12 @@ import { useRouter } from 'vue-router'
 import { ToastService } from '@/services/ToastService'
 import { useI18n } from 'vue-i18n'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 
 const { t } = useI18n()
 const store = useTenantStore()
-const guarantor = computed(() => {
-  return store.selectedGuarantor
-})
-const user = computed(() => {
-  return store.user
-})
+const guarantor = computed(() => store.selectedGuarantor)
+const user = computed(() => store.user)
 
 const props = withDefaults(
   defineProps<{
@@ -139,6 +136,15 @@ function goBack() {
 
 function goNext() {
   updateSubstep(props.substep + 1)
+}
+
+function goToResidency() {
+  if (guarantor.value) {
+    const path = makeGuarantorResidencyLink(guarantor.value)
+    router.push(path)
+  } else {
+    updateSubstep(2)
+  }
 }
 
 function nextStep() {

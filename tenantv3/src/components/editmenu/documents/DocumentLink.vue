@@ -11,15 +11,15 @@ import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import { DocumentType, DocumentTypeTranslations, TENANT_COMPONENTS } from './DocumentType'
 import { useI18n } from 'vue-i18n'
 import type { PersonType } from './PersonType'
-import type { RouteParamsRawGeneric } from 'vue-router'
+import type { RouteLocationRaw, RouteParamsRawGeneric } from 'vue-router'
 import { computed } from 'vue'
 import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
 
 const { t } = useI18n()
 const residencyLink = useResidencyLink()
-
 const props = defineProps<{
   personType: PersonType
+  to?: RouteLocationRaw
   routerParams?: RouteParamsRawGeneric
   documentType: DocumentType
   status: string
@@ -43,6 +43,9 @@ function getTargetComponent() {
 }
 
 const to = computed(() => {
+  if (props.to) {
+    return props.to
+  }
   const name = getTargetComponent()
   if (name === 'TenantResidency') {
     return residencyLink.value
