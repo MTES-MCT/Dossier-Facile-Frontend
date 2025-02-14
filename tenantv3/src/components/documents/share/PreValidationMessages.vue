@@ -9,7 +9,7 @@
       <p v-else>{{ t('prevalidation.force-message') }}</p>
     </template>
     <div class="form-container">
-      <Form name="form" @submit="commentAnalysis">
+      <Form name="form" class="fr-grid-col" @submit="commentAnalysis">
         <Field
           name="comment"
           v-model="comment"
@@ -32,7 +32,7 @@
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </Field>
-        <DfButton class="fr-mt-2w" type="submit" primary>{{ t('register') }}</DfButton>
+        <DfButton class="fr-mt-2w fr-ml-auto" type="submit" primary>{{ t('register') }}</DfButton>
       </Form>
     </div>
   </div>

@@ -27,7 +27,9 @@
       </RadioListItem>
     </template>
   </RadioList>
-  <DfButton v-if="!showAllItems" @click="showAll">{{ t('residency.other') }}</DfButton>
+  <DfButton v-if="!showAllItems" class="fr-ml-auto" @click="showAll">{{
+    t('residency.other')
+  }}</DfButton>
   <ResidencyFooter previous-page="/documents-locataire/1" />
 </template>
 

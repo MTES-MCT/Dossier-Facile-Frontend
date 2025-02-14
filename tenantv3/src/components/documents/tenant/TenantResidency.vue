@@ -1,5 +1,5 @@
 <template>
-  <NakedCard class="fr-p-md-5w">
+  <NakedCard class="fr-p-md-5w fr-grid-col">
     <h6>{{ t('residency-situation') }}</h6>
     <router-view />
   </NakedCard>
