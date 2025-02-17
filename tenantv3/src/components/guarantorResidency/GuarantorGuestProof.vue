@@ -29,7 +29,7 @@ import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 const { t } = useI18n()
 const guarantorId = useGuarantorId()
-const previousPage = computed(() => `/info-garant/2/${guarantorId}/guest`)
+const previousPage = computed(() => `/info-garant/2/${guarantorId.value}/guest`)
 </script>
 
 <i18n>

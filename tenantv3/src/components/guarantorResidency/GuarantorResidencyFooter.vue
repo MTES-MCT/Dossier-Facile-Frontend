@@ -34,7 +34,7 @@ const submit = async () => {
   AnalyticsService.validateFunnelStep('guarantor-residency')
   const goNext = onSubmit ? await onSubmit() : true
   if (goNext) {
-    router.push(`/info-garant/3/${guarantorId}`)
+    router.push(`/info-garant/3/${guarantorId.value}`)
   }
 }
 
