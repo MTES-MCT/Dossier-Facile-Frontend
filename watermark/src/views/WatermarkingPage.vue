@@ -2,7 +2,7 @@
 import DownloadLink from '../components/DownloadLink.vue'
 import ProgressIndicator from '../components/ProgressIndicator.vue'
 import axios from 'axios'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import FeedbackComponent from '../components/FeedbackComponent.vue'
 import { useToast } from 'vue-toastification'
@@ -15,6 +15,7 @@ const token = ref('')
 const wait = ref(false)
 const url = ref('')
 const watermark = ref('')
+const prefix = ref('')
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -48,10 +49,16 @@ function handleChange(e: Event) {
   }
 }
 
-function getWatermarkedFileName() {
-  const originalFileNames = files.value.map((file) => file.name.split('.')[0])
-  return originalFileNames.join('_') + '_filigrane'
-}
+const watermarkedFileName = computed(() => {
+  const filigranedFiles = files.value.map((file) => file.name.split('.')[0]).join('_') + '_filigrane'
+
+  if (!prefix.value) {
+    return filigranedFiles
+  }
+
+  return `${prefix.value}_${filigranedFiles}`
+})
+
 
 function getFile() {
   axios
@@ -119,6 +126,21 @@ function getFile() {
           </div>
         </div>
       </div>
+      <div class="fr-col-12 fr-mb-3w">
+        <div class="fr-input-group">
+          <div class="fr-text-group">
+            <label class="fr-label" for="text">
+              {{ t('watermarking-page.add-prefix.label') }}
+            </label>
+            <input
+              class="fr-input"
+              type="text"
+              v-model="prefix"
+              :placeholder="t('watermarking-page.add-prefix.placeholder')"
+            />
+          </div>
+        </div>
+      </div>
 
       <div class="fr-col-12 text-center fr-mb-5w">
         <button class="fr-btn" type="submit" :disabled="wait && !url">
@@ -135,7 +157,7 @@ function getFile() {
       <DownloadLink
         v-if="url"
         :url="url"
-        :file-name="getWatermarkedFileName()"
+        :file-name="watermarkedFileName"
         @on-downloaded="url = ''"
       />
     </div>
