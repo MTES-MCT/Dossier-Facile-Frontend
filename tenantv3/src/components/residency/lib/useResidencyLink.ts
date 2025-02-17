@@ -1,5 +1,6 @@
 import useTenantStore from '@/stores/tenant-store'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import type { User } from 'df-shared-next/src/models/User'
 import { computed } from 'vue'
 
 const RESIDENCY_PATH = '/documents-locataire/2'
@@ -26,13 +27,15 @@ function documentPath(doc: DfDocument | undefined) {
   return '/' + CATEGORY_TO_PATH[category]
 }
 
+export function makeResidencyLink(user: User) {
+  const document = user.documents?.find((d) => {
+    return d.documentCategory === 'RESIDENCY'
+  })
+  return `${RESIDENCY_PATH}${documentPath(document)}`
+}
+
 export function useResidencyLink() {
   const store = useTenantStore()
-  const document = computed(() =>
-    store.user.documents?.find((d) => {
-      return d.documentCategory === 'RESIDENCY'
-    })
-  )
-  const link = computed(() => `${RESIDENCY_PATH}${documentPath(document.value)}`)
+  const link = computed(() => makeResidencyLink(store.user))
   return link
 }

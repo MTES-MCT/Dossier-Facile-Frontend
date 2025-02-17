@@ -27,6 +27,7 @@ import { PartnerAccessService } from '@/services/PartnerAccessService'
 import cookies from 'js-cookie'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
+import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -925,7 +926,7 @@ const useTenantStore = defineStore('tenant', {
         return { name: 'TenantIdentification' }
       }
       if (!this.isTenantDocumentValid('RESIDENCY')) {
-        return { name: 'TenantResidency' }
+        return makeResidencyLink(this.user)
       }
       if (!this.hasDoc('PROFESSIONAL')) {
         return { name: 'TenantProfessional' }
