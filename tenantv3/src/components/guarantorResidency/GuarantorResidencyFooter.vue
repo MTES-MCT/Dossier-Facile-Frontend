@@ -21,15 +21,21 @@ import { useI18n } from 'vue-i18n'
 import { useRouter, type RouteLocationRaw } from 'vue-router'
 import { useGuarantorId } from './useGuarantorId'
 
-const { previousPage } = defineProps<{ previousPage: RouteLocationRaw }>()
+const { previousPage, onSubmit } = defineProps<{
+  previousPage: RouteLocationRaw
+  onSubmit?: () => Promise<boolean>
+}>()
 
 const { t } = useI18n()
 const router = useRouter()
 const guarantorId = useGuarantorId()
 
-const submit = () => {
+const submit = async () => {
   AnalyticsService.validateFunnelStep('guarantor-residency')
-  router.push(`/info-garant/3/${guarantorId}`)
+  const goNext = onSubmit ? await onSubmit() : true
+  if (goNext) {
+    router.push(`/info-garant/3/${guarantorId}`)
+  }
 }
 
 const back = () => {
