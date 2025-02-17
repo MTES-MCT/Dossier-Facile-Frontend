@@ -5,6 +5,18 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ t('blog-title') }}</h1>
           <BlogExtractTile
+            title="Dossier de location : Comment monter son dossier de location en tant qu'auto-entrepreneur ?"
+            :image="article19Img"
+            publication-date="17 février 2025"
+            path="/blog/documents-auto-entrepreneur"
+          >
+            <template #extract>
+              <p>
+                Être auto-entrepreneur est une aventure excitante, mais cela peut parfois rendre certaines démarches, comme louer un logement, un peu plus complexes.
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="Dossier de location : Comment choisir son garant et les documents à fournir pour votre dossier locatif"
             :image="article25Img"
             publication-date="24 décembre 2024"
