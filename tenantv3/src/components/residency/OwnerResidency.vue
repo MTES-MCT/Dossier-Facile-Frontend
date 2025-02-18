@@ -16,7 +16,7 @@
     <p>{{ t('valid-docs') }}</p>
   </div>
   <UploadFiles category="OWNER" />
-  <ResidencyFooter previous-page="/documents-locataire/2" />
+  <ResidencyFooter />
 </template>
 
 <script setup lang="ts">

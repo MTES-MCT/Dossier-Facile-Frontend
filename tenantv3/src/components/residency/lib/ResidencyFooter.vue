@@ -1,11 +1,9 @@
 <template>
   <FooterContainer class="residency-footer">
-    <form @submit.prevent="back">
-      <DfButton>
-        <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
-        <span class="desktop">{{ t('profilefooter.back') }}</span>
-      </DfButton>
-    </form>
+    <router-link to="/documents-locataire/1" class="fr-btn fr-btn--secondary">
+      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
+      <span class="desktop">{{ t('profilefooter.back') }}</span>
+    </router-link>
     <form @submit.prevent="submit">
       <DfButton :disabled="disabled" primary>{{ t('validate-residency') }}</DfButton>
     </form>
@@ -20,15 +18,10 @@ import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter, type RouteLocationRaw } from 'vue-router'
+import { useRouter } from 'vue-router'
 
-const {
-  onSubmit,
-  previousPage,
-  enabled = null
-} = defineProps<{
+const { onSubmit, enabled = null } = defineProps<{
   onSubmit?: () => void
-  previousPage: RouteLocationRaw
   enabled?: boolean
 }>()
 
@@ -45,10 +38,6 @@ const submit = () => {
   } else {
     router.push({ name: 'TenantProfessional' })
   }
-}
-
-const back = () => {
-  router.push(previousPage)
 }
 </script>
 

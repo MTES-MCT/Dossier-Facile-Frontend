@@ -36,7 +36,7 @@
     />
     <span v-if="errorMessage" role="alert" class="fr-error-text">{{ t(errorMessage || '') }}</span>
   </template>
-  <GuarantorResidencyFooter :previous-page="previousPage" :on-submit="submit" />
+  <GuarantorResidencyFooter :on-submit="submit" />
 </template>
 
 <script setup lang="ts">

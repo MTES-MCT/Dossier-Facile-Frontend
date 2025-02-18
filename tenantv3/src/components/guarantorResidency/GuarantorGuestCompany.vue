@@ -20,7 +20,7 @@
   </i18n-t>
 
   <UploadFiles category="GUEST_COMPANY" guarantor />
-  <GuarantorResidencyFooter :previous-page="previousPage" />
+  <GuarantorResidencyFooter />
 </template>
 
 <script setup lang="ts">

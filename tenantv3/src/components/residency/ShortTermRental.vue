@@ -8,7 +8,7 @@
     <strong>{{ t('paid-invoices') }}</strong>
   </i18n-t>
   <UploadFiles category="SHORT_TERM_RENTAL" />
-  <ResidencyFooter previous-page="/documents-locataire/2" />
+  <ResidencyFooter />
 </template>
 
 <script setup lang="ts">

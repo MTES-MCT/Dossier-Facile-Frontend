@@ -30,7 +30,7 @@
   <DfButton v-if="!showAllItems" class="fr-ml-auto" @click="showAll">{{
     t('residency.other')
   }}</DfButton>
-  <ResidencyFooter previous-page="/documents-locataire/1" />
+  <ResidencyFooter />
 </template>
 
 <script setup lang="ts">

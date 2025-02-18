@@ -22,7 +22,7 @@
     <p>{{ t('valid-docs') }}</p>
   </div>
   <UploadFiles category="TENANT" step="TENANT_RECEIPT" />
-  <ResidencyFooter :on-submit="checkFiles" previous-page="/documents-locataire/2/tenant" />
+  <ResidencyFooter :on-submit="checkFiles" />
   <ModalComponent
     v-if="showNbDocumentsResidencyTenant"
     @close="showNbDocumentsResidencyTenant = false"

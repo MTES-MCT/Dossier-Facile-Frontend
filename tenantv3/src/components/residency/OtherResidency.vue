@@ -39,11 +39,7 @@
       </template>
     </i18n-t>
   </div>
-  <ResidencyFooter
-    previous-page="/documents-locataire/2"
-    :on-submit="submit"
-    :enabled="isPrecarious"
-  />
+  <ResidencyFooter :on-submit="submit" :enabled="isPrecarious" />
 </template>
 
 <script setup lang="ts">

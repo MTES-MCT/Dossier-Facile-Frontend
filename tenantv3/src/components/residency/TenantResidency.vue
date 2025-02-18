@@ -19,7 +19,7 @@
       }}</a>
     </i18n-t>
   </div>
-  <ResidencyFooter previous-page="/documents-locataire/2" />
+  <ResidencyFooter />
 </template>
 
 <script setup lang="ts">

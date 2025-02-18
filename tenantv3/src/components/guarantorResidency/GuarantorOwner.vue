@@ -18,7 +18,7 @@
   </ul>
 
   <UploadFiles category="OWNER" guarantor />
-  <GuarantorResidencyFooter :previous-page="previousPage" />
+  <GuarantorResidencyFooter />
 </template>
 
 <script setup lang="ts">

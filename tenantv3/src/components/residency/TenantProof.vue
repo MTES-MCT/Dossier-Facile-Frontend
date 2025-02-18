@@ -17,7 +17,7 @@
     <p>{{ t('valid-docs') }}</p>
   </div>
   <UploadFiles category="TENANT" step="TENANT_PROOF" />
-  <ResidencyFooter previous-page="/documents-locataire/2/tenant" />
+  <ResidencyFooter />
 </template>
 
 <script setup lang="ts">

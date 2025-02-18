@@ -13,7 +13,7 @@
     <p>{{ t('receipts-info') }}</p>
   </div>
   <UploadFiles category="TENANT" guarantor />
-  <GuarantorResidencyFooter :previous-page="previousPage" />
+  <GuarantorResidencyFooter />
 </template>
 
 <script setup lang="ts">

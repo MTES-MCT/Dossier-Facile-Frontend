@@ -16,7 +16,7 @@
   </i18n-t>
 
   <UploadFiles category="GUEST" step="GUEST_PROOF" guarantor />
-  <GuarantorResidencyFooter :previous-page="previousPage" />
+  <GuarantorResidencyFooter />
 </template>
 
 <script setup lang="ts">

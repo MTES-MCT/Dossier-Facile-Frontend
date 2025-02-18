@@ -10,7 +10,7 @@
     }}</a>
   </i18n-t>
   <UploadFiles category="GUEST_ORGANISM" />
-  <ResidencyFooter previous-page="/documents-locataire/2" />
+  <ResidencyFooter />
 </template>
 
 <script setup lang="ts">

@@ -13,7 +13,7 @@
       t('guarantor-residency.no-proof')
     }}</RadioListItem>
   </RadioList>
-  <GuarantorResidencyFooter :previous-page="previousPage" />
+  <GuarantorResidencyFooter />
 </template>
 
 <script setup lang="ts">

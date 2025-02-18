@@ -18,7 +18,7 @@
     >
   </i18n-t>
   <UploadFiles category="GUEST_COMPANY" />
-  <ResidencyFooter previous-page="/documents-locataire/2" />
+  <ResidencyFooter />
 </template>
 
 <script setup lang="ts">

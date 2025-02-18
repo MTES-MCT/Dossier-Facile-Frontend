@@ -12,7 +12,7 @@
       t('no-accomodation-proof')
     }}</RadioListItem>
   </RadioList>
-  <ResidencyFooter previous-page="/documents-locataire/2" />
+  <ResidencyFooter />
 </template>
 
 <script setup lang="ts">

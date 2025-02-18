@@ -17,7 +17,7 @@
       >{{ t('residency.other') }}
     </RadioListItem>
   </RadioList>
-  <GuarantorResidencyFooter :previous-page="'/info-garant/1/' + guarantorId" />
+  <GuarantorResidencyFooter />
 </template>
 
 <script setup lang="ts">
