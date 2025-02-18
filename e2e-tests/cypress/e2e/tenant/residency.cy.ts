@@ -1,5 +1,12 @@
 import { getTenantUser, UserType } from "../../support/users";
 
+function getInputByLabel(label: string) {
+  return cy
+    .contains(label)
+    .invoke("attr", "for")
+    .then((id) => cy.get("#" + id));
+}
+
 describe(
   "residency category",
   { testIsolation: false, baseUrl: Cypress.env("tenantUrl") },
@@ -26,7 +33,6 @@ describe(
       testResidencyStep();
 
       // Should get warning for category needing at least 3 files
-      changeResidencyCategory("Locataire");
       verifyThatThreeDocumentsAreMandatory();
       goBackToResidency();
     });
@@ -35,18 +41,77 @@ describe(
       cy.visit("/info-garant/0");
       clickOnMenuItem("Situation d'hébergement");
 
-      testResidencyStep();
+      testGuarantorResidencyStep();
     });
 
     it("add residency documents for cotenant", () => {
       clickOnMenuItem("Les documents de mon conjoint");
-      cy.wait(300);
+      cy.expectPath("/documents-colocataire/");
       clickOnMenuItem("Situation d'hébergement");
 
-      testResidencyStep();
+      testCoResidencyStep();
     });
 
     function testResidencyStep() {
+      cy.contains("Autres situations").click();
+      cy.contains("En situation précaire").click();
+      cy.get(".dropbox").should("not.exist");
+      cy.contains("Valider votre situation d'hébergement").should(
+        "be.disabled"
+      );
+      cy.contains("Vous êtes dans une situation précaire").click();
+      cy.contains("Valider votre situation d'hébergement").should("be.enabled");
+      cy.clickOnNext().expectPath("/3");
+      cy.contains("Retour").click();
+      getInputByLabel("Vous êtes dans une situation précaire").should(
+        "be.checked"
+      );
+      cy.contains("Modifier").click();
+      cy.contains("Modifier votre situation").click();
+
+      // Should not be able to continue without uploading a file
+      cy.contains("Locataire").click();
+      cy.contains(
+        "Vous avez une attestation de bon paiement des loyers"
+      ).click();
+      cy.contains("Valider votre situation d'hébergement").should(
+        "be.disabled"
+      );
+      cy.contains("Modifier").click();
+
+      // Should upload a file and continue
+      cy.contains("Propriétaire").click();
+      cy.uploadDocument(1).clickOnNext();
+      goBackToResidency();
+      cy.contains("Modifier").click();
+      cy.contains("Modifier votre situation").click();
+    }
+
+    function testGuarantorResidencyStep() {
+      cy.contains("Autre").click();
+      cy.get(".dropbox").should("exist");
+      cy.contains("Vous ne pouvez pas fournir de document").click();
+      cy.clickOnNext().expectPath("/2");
+      cy.get("textarea[name=customText]").type("Test");
+      cy.uploadDocument(1).clickOnNext().expectPath("/3");
+      cy.contains("Retour").click();
+      cy.contains("Modifier").click();
+      cy.contains("Modifier votre situation").click();
+
+      // Should be able to continue without uploading a file
+      cy.contains("Locataire").click();
+      cy.clickOnNext();
+      goBackToResidency();
+
+      // Should upload a file and continue
+      cy.contains("Propriétaire").click();
+      cy.uploadDocument(1).clickOnNext();
+      goBackToResidency();
+      cy.contains("Modifier").click();
+      cy.contains("Modifier votre situation").click();
+    }
+
+    function testCoResidencyStep() {
       // Should be able to continue without choosing a category
       cy.clickOnNext();
       goBackToResidency();
@@ -74,19 +139,13 @@ describe(
       cy.get("#select").select(categoryLabel);
     }
 
-    function changeResidencyCategory(categoryLabel: string) {
-      selectResidencyCategory(categoryLabel);
-      clickOnModalButton("Valider");
-      cy.wait(200);
-    }
-
     function verifyThatThreeDocumentsAreMandatory() {
-      cy.uploadDocument(1).clickOnNext();
+      cy.selectResidencyStep(
+        "Locataire",
+        "Vous avez vos 3 dernières quittances de loyer"
+      );
       clickOnModalButton("Passer à l'étape suivante");
-
-      cy.wait(200);
-      goBackToResidency();
-
+      cy.contains("Retour").click();
       cy.uploadDocument(1).clickOnNext();
       clickOnModalButton("Ajouter de nouveaux documents");
       cy.uploadDocument(1).clickOnNext();
@@ -102,10 +161,8 @@ describe(
     }
 
     function goBackToResidency() {
-      cy.wait(200);
       cy.expectPath("/3");
       cy.contains("Retour").click();
-      cy.wait(500);
     }
 
     function createGuarantor() {
@@ -118,9 +175,7 @@ describe(
     }
 
     function createCotenant() {
-      cy.wait(500);
       cy.visit("/type-locataire");
-      cy.wait(5000);
       cy.contains("En couple").click();
       cy.get('input[name="coTenantLastName"]').type("Martin");
       cy.get('input[name="coTenantFirstName"]').type("Louise");
@@ -129,7 +184,6 @@ describe(
 
     function clickOnMenuItem(label: string) {
       cy.get("#funnel-menu").contains(label).click();
-      cy.wait(1000);
     }
   }
 );

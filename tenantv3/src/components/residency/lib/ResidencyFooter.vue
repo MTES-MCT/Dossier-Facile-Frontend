@@ -5,7 +5,9 @@
       <span class="desktop">{{ t('profilefooter.back') }}</span>
     </router-link>
     <form @submit.prevent="submit">
-      <DfButton :disabled="disabled" primary>{{ t('validate-residency') }}</DfButton>
+      <DfButton :disabled="disabled" primary data-cy="next-btn">{{
+        t('validate-residency')
+      }}</DfButton>
     </form>
   </FooterContainer>
 </template>

@@ -23,8 +23,8 @@ describe("couple tenant scenario", () => {
 
     cy.expectPath("/documents-locataire/2");
     cy.selectResidencyStep(
-      "Hébergé par vos parents, par un ami, par un proche",
-      3
+      "Hébergé chez quelqu'un",
+      "Vous avez une attestation d'hébergement de moins de 3 mois"
     );
 
     cy.expectPath("/documents-locataire/3");

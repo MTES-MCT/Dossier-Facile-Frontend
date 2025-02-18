@@ -5,7 +5,7 @@
       <span class="desktop">{{ t('backnext.back') }}</span>
     </router-link>
     <form @submit.prevent="submit">
-      <DfButton primary>{{ t('backnext.continue') }}</DfButton>
+      <DfButton primary data-cy="next-btn">{{ t('backnext.continue') }}</DfButton>
     </form>
   </FooterContainer>
 </template>
