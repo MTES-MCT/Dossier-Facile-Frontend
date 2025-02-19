@@ -79,7 +79,7 @@ function openTenant(substep: number) {
   if (props.keyprefix === 'tenant') {
     router.push({
       name: 'CoTenantDocuments',
-      params: { substep: substep, tenantId: props.user.id.toString(), step: '4' }
+      params: { substep: substep + 1, tenantId: props.user.id.toString(), step: '4' }
     })
     return
   }
