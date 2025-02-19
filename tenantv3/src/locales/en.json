@@ -422,7 +422,6 @@
     "field-required": "This field is required"
   },
   "cotenantdocument": {
-    "warning-need-residency-documents": "Are you sure you have submitted all the necessary documents here?",
     "list1": "Proof of accommodation",
     "list2": "Copy of the ID document of the host",
     "list3": "Proof of address of the host dated within the last 3 months"
@@ -654,15 +653,15 @@
     "see": "See"
   },
   "fileupload": {
-    "drag-and-drop-files": "Drag and drop your documents",
-    "files-format": "JPG, PNG, heic or PDF",
-    "or": "or",
-    "browse-files": "Browse files",
+    "drag-and-drop-files": "Drag and drop your documents:",
+    "files-format": "File type: .jpg, .png, .pdf or .heic",
+    "browse-files": "Or browse files:",
+    "browse": "Browse…",
     "uploading-files": "Uploading files...",
     "send-problem": "Sending problem.",
     "file-too-big": "The file size must not exceed {0}MB",
     "pages": "Maximum {0} pages",
-    "size": " Maximum {0}MB per file"
+    "size": " Maximum size : {0}MB"
   },
   "financialdocumentform": {
     "financial": "Proof of income",
@@ -756,7 +755,6 @@
     "validate": "Validate",
     "will-delete-guarantor": "Do you really want to change the type of guarantor?",
     "validate-file": "Next Step - Validate Application",
-    "warning-need-residency-documents": "Are you sure you have provided all the necessary documents here?",
     "list1": "Proof of accommodation",
     "list2": "Copy of the host's identity document",
     "list3": "Proof of residence of the host, dated within the last 3 months"
@@ -928,13 +926,14 @@
     "help": "Help",
     "file": "Your File",
     "applications": "Your applications",
-    "partners": "Your shared data",
+    "shared": "Your shared data",
     "account": "My Account",
     "messaging": "Messaging",
     "blog": "Blog",
     "information": "About Us",
     "contact-us": "Contact Us",
-    "deleteAccount": "Delete My Account"
+    "deleteAccount": "Delete My Account",
+    "partners": "Partners"
   },
   "messagespanel": {
     "identification-legal-person": "Legal Entity Identification",
@@ -1316,16 +1315,6 @@
   "topeditmenu": {
     "i-add": "I Add {0}",
     "my-guarantor": "My Guarantor"
-  },
-  "updatecomponent": {
-    "invalid": "Invalid document",
-    "force-message": "You think the automatic check is making an error. Provide the details that will clarify your situation"
-  },
-  "uploaddocuments": {
-    "warning-need-residency-documents": "Are you sure you have submitted all the necessary documents here?<ul><li>Proof of residence</li><li>Copy of your host's identity document</li><li>Proof of address (less than 3 months old) of your host</li></ul>",
-    "accept-warning": "Add new documents",
-    "ignore-warning": "Proceed to the next step",
-    "warning-need-residency-documents-tenant": "<p>Are you sure you have properly submitted your last 3 rent receipts (or a proof of good payment of rent)? A rent receipt indicates to a landlord that you are paying your rent on time. <strong>A document that only mentions your address (such as an EDF bill) is not sufficient in this case.</strong></p><p>This is a very common mistake, and your application cannot be approved without these 3 rent receipts.</p>"
   },
   "validatefile": {
     "title": "I Validate My File",

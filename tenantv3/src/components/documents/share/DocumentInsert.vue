@@ -33,12 +33,10 @@ withDefaults(
 </script>
 
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
-
 .fr-grid-row {
   width: 100%;
   background-color: var(--g200);
-  border: 1px solid $primary;
+  border: 1px solid var(--primary);
   border-radius: 10px;
   > div {
     padding: 1rem;
@@ -54,7 +52,7 @@ withDefaults(
   &:after {
     position: absolute;
     content: '';
-    border-left: 1px solid $primary;
+    border-left: 1px solid var(--primary);
     height: 70%;
     transform: translateY(-50%);
     right: 0;

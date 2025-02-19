@@ -226,8 +226,6 @@ function isMobile() {
 </script>
 
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
-
 .overflow--hidden {
   overflow: hidden;
   white-space: nowrap;

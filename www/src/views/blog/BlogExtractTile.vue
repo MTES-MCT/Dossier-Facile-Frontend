@@ -37,7 +37,7 @@ function getImageUrl() {
 @import 'df-shared-next/src/scss/_variables.scss';
 
 a {
-  color: $light-blue;
+  color: var(--light-blue);
 }
 
 .fr-h2 {

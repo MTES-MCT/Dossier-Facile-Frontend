@@ -1,6 +1,6 @@
 <template>
   <div>
-    <FooterContainer id="footer-navigation">
+    <FooterContainer>
       <BackNext
         :show-back="showBack"
         :next-label="nextLabel"

@@ -10,11 +10,7 @@
     <div class="mobile fr-col-12 fr-col-md-2">
       <ul class="fr-btns-group">
         <li>
-          <DfButton
-            v-if="canEdit"
-            @on-keypress="$emit('click-edit')"
-            @on-click="$emit('click-edit')"
-          >
+          <DfButton v-if="canEdit" @click="$emit('click-edit')">
             <RiPencilLine class="fr-mr-1w" size="1rem" aria-hidden="true" />
             {{ t('filerowlistitem.edit') }}
           </DfButton>
@@ -22,7 +18,7 @@
       </ul>
     </div>
     <div class="desktop fr-col-12 fr-col-md-2 fr-btns-group--right">
-      <DfButton v-if="canEdit" @on-keypress="$emit('click-edit')" @on-click="$emit('click-edit')">
+      <DfButton v-if="canEdit" @click="$emit('click-edit')">
         <RiPencilLine class="fr-mr-1w" size="1rem" aria-hidden="true" />
         {{ t('filerowlistitem.edit') }}
       </DfButton>

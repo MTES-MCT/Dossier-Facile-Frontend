@@ -49,7 +49,7 @@
       </NakedCard>
     </Form>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
     >
       <div class="fr-mb-3w">
@@ -64,7 +64,13 @@
       <WarningTaxDeclaration />
 
       <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mt-3w">
-        <ListItem v-for="(file, k) in taxFiles()" :key="k" :file="file" @remove="remove(file)" />
+        <ListItem 
+          v-for="file in taxFiles()"
+          :key="file.id"
+          :file="file" 
+          :watermark-url="documentWatermarkUrl" 
+          @remove="remove(file)" 
+        />
       </div>
       <div class="fr-mb-3w fr-mt-3w">
         <FileUpload
@@ -93,7 +99,7 @@
           </p>
           <hr class="mobile" />
           <div class="btn-align">
-            <DfButton @on-click="isWarningTaxSituationModalVisible = false" :primary="true">{{
+            <DfButton @click="isWarningTaxSituationModalVisible = false" :primary="true">{{
               t('tax-page.avis-btn')
             }}</DfButton>
           </div>
@@ -185,6 +191,7 @@ function getRegisteredDoc() {
 }
 
 const guarantorTaxDocument = computed(() => store.getGuarantorTaxDocument)
+const documentWatermarkUrl = computed(() => guarantorTaxDocument.value?.name)
 const documentStatus = computed(() => guarantorTaxDocument.value?.documentStatus)
 
 function onSelectChange($event: DocumentType) {

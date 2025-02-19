@@ -256,7 +256,8 @@
       },
       "guarantor_salary": "<p>Merci d’ajouter <strong>l’un des documents suivants, au choix</strong> :</p><div>Pour les salariés:</div><ul><li>ses <strong>3 derniers bulletins de salaire</strong></li></ul><div>Pour les indépendants:<div><ul><li>son dernier ou avant-dernier <strong>avis d'imposition</strong></li><li> une <strong>synthèse de bilan comptable</strong>⁽¹⁾ de moins de deux ans</li></ul><p>⁽¹⁾ ses 2 derniers bilans comptables peuvent être acceptés ici. Veuillez toutefois noter qu’il s’agit de documents longs et complexes: des documents de synthèse sont à privilégier.</p><p>Conseil : si vous disposez de plusieurs documents de votre garant (bulletins de salaire et contrat de travail par exemple), répartissez-les entre cette rubrique <em>Revenus</em> et la précédente <em>Situation professionnelle</em> afin de ne pas surcharger votre dossier.</p>",
       "guest": "Merci d'ajouter ici <strong>une attestation sur l'honneur</strong> d'hébergement à titre gratuit de moins de 3 mois (nous vous recommandons d'utiliser le modèle d'attestation disponible sur le site <a target='_blank' rel='noopener' title='site pour générer une attestation' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a>).",
-      "guest-organism": "<p><b>Logement de fonction :</b><br>Merci d'ajouter ici <b>une attestation de votre employeur</b> indiquant que vous bénéficiez d'un logement de fonction.<br>Si vous n'en avez pas, vous pouvez ajouter un bulletin de salaire sur lequel le logement de fonction est visible ou un contrat de travail sur l'honneur expliquant votre situation (nous vous recommandons d'utiliser le modèle d'attestation disponible sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank' rel='noopener'>service-public.fr</a>).</p><p><b>Hébergé par un organisme :</b><br> Merci d’ajouter ici une <a href='https://www.service-public.fr/simulateur/calcul/16030' target='_blank' rel='noopener'>attestation d’élection de domicile</a> de moins de 3 mois datée et signée par l’organisme d’hébergement (hébergement d’urgence, placement...)</p>",
+      "guest-company": "<p>Merci d'ajouter ici <b>une attestation de votre employeur</b> indiquant que vous bénéficiez d'un logement de fonction.<br>Si vous n'en avez pas, vous pouvez ajouter un bulletin de salaire sur lequel le logement de fonction est visible ou un contrat de travail sur l'honneur expliquant votre situation (nous vous recommandons d'utiliser le modèle d'attestation disponible sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank' rel='noopener'>service-public.fr</a>).</p>",
+      "guest-organism": "<p>Merci d’ajouter ici une <a href='https://www.service-public.fr/simulateur/calcul/16030' target='_blank' rel='noopener'>attestation d’élection de domicile</a> de moins de 3 mois datée et signée par l’organisme d’hébergement (hébergement d’urgence, placement...)</p>",
       "short-term-rental": "Merci d’ajouter ici les <b>factures réglées</b> (de l’organisme, de l’hôtel, du camping etc.) de ces 3 derniers mois.",
       "other-residency": "",
       "identity-card": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
@@ -695,15 +696,15 @@
     "see": "Voir"
   },
   "fileupload": {
-    "drag-and-drop-files": "Glissez et déposez vos documents",
-    "files-format": "JPG, PNG, heic ou PDF",
-    "or": "ou",
-    "browse-files": "Parcourez vos fichiers",
+    "drag-and-drop-files": "Glissez et déposez vos documents :",
+    "files-format": "Fichier .jpg, .png, .pdf ou .heic",
+    "browse-files": "Ou parcourez vos fichiers :",
+    "browse": "Parcourir…",
     "uploading-files": "Envoi des fichiers...",
     "send-problem": "Problème d'envoi.",
     "file-too-big": "La taille d'un fichier ne doit pas dépasser {0}Mo",
     "pages": "{0} pages maximum",
-    "size": " {0}Mo maximum par fichier"
+    "size": "Poids maximal : {0}Mo"
   },
   "financialdocumentform": {
     "title": "Vos revenus",
@@ -967,14 +968,15 @@
   "menu": {
     "help": "Aide",
     "file": "Votre dossier",
-    "partners": "Vos partages",
+    "shared": "Vos partages",
     "applications": "Vos candidatures",
     "account": "Mon compte",
     "messaging": "Messagerie",
     "blog": "Blog",
     "information": "Qui sommes-nous ?",
     "contact-us": "Nous contacter",
-    "deleteAccount": "Supprimer mon compte"
+    "deleteAccount": "Supprimer mon compte",
+    "partners": "Partenaires"
   },
   "messagespanel": {
     "identification-legal-person": "Identité personne morale",
@@ -1349,15 +1351,6 @@
   "topeditmenu": {
     "i-add": "J'ajoute {0}",
     "my-guarantor": "Mon garant"
-  },
-  "updatecomponent": {
-    "invalid": "Document invalide",
-    "force-message": "Vous pensez que la vérification automatique commet une erreur. Apportez les précisions qui permettront la clarification de votre situation"
-  },
-  "uploaddocuments": {
-    "accept-warning": "Ajouter de nouveaux documents",
-    "ignore-warning": "Passer à l'étape suivante",
-    "warning-need-residency-documents-tenant": "<p>Êtes-vous sûr·e d'avoir bien transmis vos 3 dernières quittances (ou une attestation de bon paiement des loyers) ?<br>Une quittance indique à un propriétaire que vous payez bien votre loyer. <strong>Un document qui ne mentionne que votre adresse (une facture EDF par exemple) ne suffit pas ici.</strong></p><p>Il s'agit d'une erreur très fréquente, et votre dossier ne pourra pas être validé sans ces 3 quittances.</p>"
   },
   "validatefile": {
     "title": "Je valide mon dossier",

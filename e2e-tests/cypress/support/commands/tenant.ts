@@ -41,10 +41,13 @@ Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string, number
   cy.clickOnNext();
 });
 
-Cypress.Commands.add("selectResidencyStep", (residencyType: string, numberOfFiles: number = 1) => {
-  cy.get("#select")
-    .select(residencyType)
-    .uploadDocument(numberOfFiles)
+Cypress.Commands.add("selectResidencyStep", (residencyLabel: string,  step2Label?: string, numberOfFiles = 1) => {
+  cy.contains(residencyLabel)
+    .click();
+  if (step2Label) {
+    cy.contains(step2Label).click();
+  }
+  cy.uploadDocument(numberOfFiles)
     .clickOnNext();
 });
 

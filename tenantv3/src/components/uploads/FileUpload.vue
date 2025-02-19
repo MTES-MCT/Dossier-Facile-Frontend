@@ -7,22 +7,27 @@
           id="file"
           type="file"
           multiple
-          :disabled="isSaving()"
+          :disabled="isSaving"
           @change="filesChange"
           class="input-file"
           accept="image/png, image/jpeg, image/heic, application/pdf"
         />
-        <div v-if="!isSaving()" class="fr-mt-2w fr-mb-2w">
-          {{ t('fileupload.drag-and-drop-files') }}
-          <br />
-          {{ t('fileupload.files-format') }}<br />
-          {{ getSizeLimit() }}<br />
-          {{ getPagesLimit() }}<br />
-          {{ t('fileupload.or') }}<br />
-          <a href="#">{{ t('fileupload.browse-files') }}</a>
-        </div>
-        <div v-if="isSaving()">
+        <div v-if="isSaving">
           {{ t('fileupload.uploading-files') }}
+        </div>
+        <div v-else>
+          <p class="fr-mb-3v">{{ t('fileupload.drag-and-drop-files') }}</p>
+          <p class="text-small fr-mb-3v">
+            {{ t('fileupload.files-format') }}<br />
+            {{ sizeLimit }}<br v-if="sizeLimit" />
+            {{ pagesLimit }}
+          </p>
+          <p class="fr-mb-1w">
+            {{ t('fileupload.browse-files') }}
+            <label for="file" class="label-btn">
+              {{ t('fileupload.browse') }}
+            </label>
+          </p>
         </div>
       </div>
     </form>
@@ -32,7 +37,7 @@
 <script setup lang="ts">
 import { ToastService } from '@/services/ToastService'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
-import { useTemplateRef } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -46,9 +51,9 @@ const props = withDefaults(defineProps<{ currentStatus: number; page?: number; s
   size: 10
 })
 
-function isSaving() {
-  return props.currentStatus === UploadStatus.STATUS_SAVING
-}
+const isSaving = computed(() => props.currentStatus === UploadStatus.STATUS_SAVING)
+const sizeLimit = computed(() => (props.size > 0 ? t('fileupload.size', [props.size]) : ''))
+const pagesLimit = computed(() => (props.page > 0 ? t('fileupload.pages', [props.page]) : ''))
 
 function filesChange(e: Event) {
   const inputFiles = e.target instanceof HTMLInputElement ? e.target.files : null
@@ -64,39 +69,20 @@ function filesChange(e: Event) {
   emit('add-files', fileList)
   uploadForm.value?.reset()
 }
-
-function getSizeLimit() {
-  if (props.size > 0) {
-    return t('fileupload.size', [props.size])
-  }
-  return ''
-}
-
-function getPagesLimit() {
-  if (props.page > 0) {
-    return t('fileupload.pages', [props.page])
-  }
-  return ''
-}
 </script>
 
 <style scoped lang="scss">
 .dropbox {
-  outline: 2px dashed var(--primary);
-  outline-offset: -10px;
-  background-color: var(--g200);
-  padding: 10px 10px;
+  border: 1px solid var(--border-default-grey);
+  padding: 1rem;
   min-height: 50px;
   position: relative;
-  cursor: pointer;
 }
 
 .input-file {
   opacity: 0;
-  width: 100%;
-  height: 100%;
   position: absolute;
-  cursor: pointer;
+  inset: 0;
 }
 
 .file-upload:focus-within {
@@ -106,14 +92,17 @@ function getPagesLimit() {
   outline-color: #0a76f6;
 }
 
-.dropbox:hover {
-  background-image: linear-gradient(0deg, var(--color-active), var(--color-active));
-  --color-hover: rgba(0, 0, 246, 0.1);
-  --color-active: rgba(91, 91, 255, 0.1);
+.text-small {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  color: var(--text-mention-grey);
 }
 
-.dropbox div {
-  font-size: 1em;
-  text-align: center;
+.label-btn {
+  padding: 4px 8px;
+  margin-left: 0.5rem;
+  border-radius: 4px;
+  background-color: var(--background-contrast-grey);
+  cursor: pointer;
 }
 </style>

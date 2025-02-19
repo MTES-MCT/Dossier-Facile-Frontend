@@ -6,7 +6,7 @@ import { UserType } from "../users";
 Cypress.Commands.add("loginWithFC", (username: string) => {
   cy.get("#social-oidc").click();
 
-  cy.get("body").then(($body: any) => {
+  cy.get("body").then(($body) => {
     const providerButton = "#fi-identity-provider-example-faible";
     if ($body.find(providerButton).length) {
       cy.get(providerButton).click();
@@ -49,7 +49,7 @@ Cypress.Commands.add("expectPath", (path: string) => {
 });
 
 Cypress.Commands.add("clickOnNext", () => {
-  cy.get(".next-btn").click();
+  cy.get('[data-cy="next-btn"]').click();
 });
 
 Cypress.Commands.add("testAccessibility", () => {

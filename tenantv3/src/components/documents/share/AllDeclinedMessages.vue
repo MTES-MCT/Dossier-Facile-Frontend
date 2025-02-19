@@ -1,5 +1,5 @@
 <template>
-  <PreValidationMessages :user-id="userId" :document="document"></PreValidationMessages>
+  <PreValidationMessages :user-id="userId" :document="document" class="fr-mb-4w" />
   <div
     v-if="
       documentDeniedReasons !== null &&

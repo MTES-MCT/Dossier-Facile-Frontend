@@ -4,11 +4,9 @@
 
 <script setup lang="ts">
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
-import useTenantStore from '../stores/tenant-store'
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-const store = useTenantStore()
-const mySkipLinks = computed(() => store.skipLinks)
+const route = useRoute()
+const mySkipLinks = computed(() => route.meta.skipLinks)
 </script>
-
-<style scoped lang="scss"></style>

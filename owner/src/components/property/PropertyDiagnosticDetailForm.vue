@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Form, Field, ErrorMessage } from 'vee-validate'
+import Button from 'df-shared-next/src/Button/DfButton.vue'
+import DpeCo2Diagram from 'df-shared-next/src/components/dpe/DpeCo2Diagram.vue'
+import DpeDiagram from 'df-shared-next/src/components/dpe/DpeDiagram.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { defineRule, ErrorMessage, Field, Form } from 'vee-validate'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
-import Button from 'df-shared-next/src/Button/DfButton.vue'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import useOwnerStore from '../../store/owner-store'
-import DpeDiagram from 'df-shared-next/src/components/dpe/DpeDiagram.vue'
-import DpeCo2Diagram from 'df-shared-next/src/components/dpe/DpeCo2Diagram.vue'
-import DpeService from '../../services/DpeService'
 import AnalyticsService from '../../services/AnalyticsService'
+import DpeService from '../../services/DpeService'
+import useOwnerStore from '../../store/owner-store'
 
 const { t } = useI18n()
 
@@ -72,6 +72,22 @@ function updateDPE() {
     property.value
   )
 }
+
+defineRule('pastDate', (value: string | null | undefined) => {
+  if (!value) {
+    return true
+  }
+  const inputDate = new Date(value)
+  const today = new Date()
+  // Comparer uniquement les dates sans les heures
+  inputDate.setHours(0, 0, 0, 0)
+  today.setHours(0, 0, 0, 0)
+
+  if (inputDate > today) {
+    return 'field-past-date'
+  }
+  return true
+})
 
 function updateDpeNotRequired() {
   store.setDpeNotRequired(!dpeNotRequired.value)
@@ -172,7 +188,8 @@ function getLetterStyle() {
           v-slot="{ field, meta }"
           :rules="{
             required: !dpeNotRequired,
-            positiveOrNull: !dpeNotRequired
+            positiveOrNull: !dpeNotRequired,
+            pastDate: !dpeNotRequired
           }"
         >
           <input
@@ -182,6 +199,7 @@ function getLetterStyle() {
               'fr-input--valid': meta.valid,
               'fr-input--error': !meta.valid
             }"
+            :max="new Date().toISOString().split('T')[0]"
             placeholder="13/12/2023"
             type="date"
           />

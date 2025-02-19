@@ -1,4 +1,4 @@
-import { Property, type PropertyType } from 'df-shared-next/src/models/Property'
+import { Property, type LightProperty, type PropertyType } from 'df-shared-next/src/models/Property'
 import { User } from 'df-shared-next/src/models/User'
 import { defineStore } from 'pinia'
 import { OwnerUser } from 'df-shared-next/src/models/OwnerUser'
@@ -15,8 +15,8 @@ interface State {
   user: User
   status: { loggedIn: boolean }
   footer: boolean
-  properties: Property[]
-  propertyToEdit: Property
+  properties: LightProperty[]
+  propertyToEdit: LightProperty
   propertyToConsult: Property
   showDeleteAccountModal: boolean
 }
@@ -44,7 +44,7 @@ const useOwnerStore = defineStore('owner', {
     isLoggedIn: () => keycloak.authenticated,
     hasFooter: (state: State) => state.footer,
     getProperties: (state: State) => state.properties,
-    getPropertyToEdit: (state: State): Property => state.propertyToEdit,
+    getPropertyToEdit: (state: State) => state.propertyToEdit,
     getPropertyToConsult: (state: State) => state.propertyToConsult,
     getShowDeleteAccountModal: (state: State) => state.showDeleteAccountModal
   },

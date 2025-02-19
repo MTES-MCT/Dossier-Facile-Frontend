@@ -27,18 +27,12 @@
           (!showValidated || document.documentStatus === 'VALIDATED')
         "
         class="fr-btn--icon-left fr-fi-eye-line fr-mr-1w"
-        @on-click="openDocument()"
-        @on-keypress="openDocument()"
+        @click="openDocument()"
       >
         {{ t('filerowlistitem.see') }}
       </DfButton>
 
-      <DfButton
-        v-if="canEdit"
-        class="fr-btn--icon-left fr-icon-pencil-line"
-        @on-click="clickEdit()"
-        @on-keypress="openDocument()"
-      >
+      <DfButton v-if="canEdit" class="fr-btn--icon-left fr-icon-pencil-line" @click="clickEdit()">
         {{ t('filerowlistitem.edit') }}
       </DfButton>
     </div>

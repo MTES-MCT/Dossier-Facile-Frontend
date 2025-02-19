@@ -1,6 +1,5 @@
 import { AuthService } from '@/services/AuthService'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
-import type { SkipLink } from 'df-shared-next/src/models/SkipLink'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
 import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
 import i18n from '../i18n'
@@ -27,6 +26,8 @@ import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import { PartnerAccessService } from '@/services/PartnerAccessService'
 import cookies from 'js-cookie'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
+import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -35,7 +36,6 @@ interface State {
   user: User
   selectedGuarantor: Guarantor | undefined
   status: { loggedIn: boolean }
-  isFunnel: boolean
   spouseAuthorize: boolean
   coTenantAuthorize: boolean
   coTenants: User[]
@@ -43,7 +43,6 @@ interface State {
   editFinancialDocument: boolean
   newMessage: number
   messageList: DfMessage[][]
-  skipLinks: SkipLink[]
   guarantorFinancialDocumentSelected: FinancialDocument | undefined
   editGuarantorFinancialDocument: boolean
   apartmentSharingLinks: ApartmentSharingLink[]
@@ -60,7 +59,6 @@ function defaultState(): State {
     user: new User(),
     selectedGuarantor: new Guarantor(),
     status: { loggedIn: false },
-    isFunnel: false,
     spouseAuthorize: false,
     coTenantAuthorize: false,
     coTenants: [],
@@ -68,7 +66,6 @@ function defaultState(): State {
     editFinancialDocument: false,
     newMessage: 0,
     messageList: [],
-    skipLinks: [],
     guarantorFinancialDocumentSelected: new FinancialDocument(),
     editGuarantorFinancialDocument: false,
     apartmentSharingLinks: [],
@@ -456,12 +453,6 @@ const useTenantStore = defineStore('tenant', {
     updateCoTenantAuthorize(authorize: boolean) {
       this.coTenantAuthorize = authorize
     },
-    updateIsFunnel(isFunnel: boolean) {
-      this.isFunnel = isFunnel
-    },
-    updateSkipLinks(skipLinks: SkipLink[]) {
-      this.skipLinks = skipLinks
-    },
     updateUserFirstname(firstname: string) {
       this.user.firstName = firstname
     },
@@ -757,6 +748,9 @@ const useTenantStore = defineStore('tenant', {
           }
         }
       } else {
+        if (substep === 2) {
+          return makeGuarantorResidencyLink(guarantor)
+        }
         return {
           name: 'GuarantorDocuments',
           params: { substep, guarantorId: guarantor.id }
@@ -929,19 +923,19 @@ const useTenantStore = defineStore('tenant', {
         return { name: 'TenantType' }
       }
       if (!this.hasDoc('IDENTIFICATION')) {
-        return { name: 'TenantDocuments', params: { substep: '1' } }
+        return { name: 'TenantIdentification' }
       }
       if (!this.isTenantDocumentValid('RESIDENCY')) {
-        return { name: 'TenantDocuments', params: { substep: '2' } }
+        return makeResidencyLink(this.user)
       }
       if (!this.hasDoc('PROFESSIONAL')) {
-        return { name: 'TenantDocuments', params: { substep: '3' } }
+        return { name: 'TenantProfessional' }
       }
       if (!this.isTenantDocumentValid('FINANCIAL')) {
-        return { name: 'TenantDocuments', params: { substep: '4' } }
+        return { name: 'TenantFinancial' }
       }
       if (!this.isTenantDocumentValid('TAX')) {
-        return { name: 'TenantDocuments', params: { substep: '5' } }
+        return { name: 'TenantTax' }
       }
       if (this.user.guarantors) {
         for (const g of this.user.guarantors) {

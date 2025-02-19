@@ -13,6 +13,7 @@
   "property-living-space": "Surface",
   "email-required": "L'email est obligatoire",
   "field-required": "Ce champ est requis",
+  "field-past-date": "La date que vous avez saisie est dans le futur. Merci d’entrer une date valide.",
   "house-furnished": "Une maison meublée",
   "house-unfurnished": "Une maison non meublée",
   "apartment-furnished": "Un appartement meublé",

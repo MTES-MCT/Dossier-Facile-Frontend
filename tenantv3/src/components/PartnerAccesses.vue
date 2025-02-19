@@ -22,7 +22,7 @@
             <td>{{ formatDate(access.accessGrantedDate) }}</td>
             <td colspan="4" class="wrap">{{ access.name }}</td>
             <td>
-              <Button @on-click="revokingAccess = access">
+              <Button @click="revokingAccess = access">
                 {{ t('partners-page.accesses.revoke') }}
               </Button>
             </td>
@@ -45,7 +45,7 @@
           <div class="fr-col-12">
             <ul class="fr-btns-group">
               <li>
-                <Button class="fr-btn--tertiary" @on-click="revokingAccess = access">
+                <Button class="fr-btn--tertiary" @click="revokingAccess = access">
                   {{ t('partners-page.accesses.revoke') }}
                 </Button>
               </li>

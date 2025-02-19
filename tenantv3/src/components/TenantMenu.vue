@@ -12,7 +12,7 @@
     </li>
     <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/partenaires`" class="fr-nav__link">
-        {{ t('partners') }}
+        {{ t('menu.partners') }}
       </a>
     </li>
     <li class="fr-nav__item">
@@ -57,7 +57,7 @@
               target="_self"
               :aria-current="currentPage === 'PartnerAccessPage' ? 'page' : undefined"
             >
-              {{ t('menu.partners') }}
+              {{ t('menu.shared') }}
             </router-link>
           </li>
           <li>
@@ -186,14 +186,3 @@ function changeLang(lang: 'fr' | 'en') {
   }
 }
 </style>
-
-<i18n>
-  {
-    "en": {
-      "partners": "Partners"
-    },
-    "fr": {
-      "partners": "Partenaires"
-    }
-  }
-</i18n>

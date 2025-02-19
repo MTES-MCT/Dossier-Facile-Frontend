@@ -2,7 +2,7 @@
   <Modal @close="closeModal()">
     <template #header>
       <div class="fr-container">
-        <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
+        <h1 class="fr-modal__title">
           <slot name="title"></slot>
         </h1>
       </div>
@@ -15,10 +15,10 @@
               <slot></slot>
             </p>
             <div class="align--right">
-              <DfButton type="submit" class="fr-mr-3w" @on-click="validSelect()" :primary="true">{{
+              <DfButton type="submit" class="fr-mr-3w" @click="validSelect()" :primary="true">{{
                 validateBtnText ? validateBtnText : t('validate')
               }}</DfButton>
-              <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
+              <DfButton class="fr-mr-3w" @click="undoSelect()">{{
                 cancelBtnText ? cancelBtnText : t('cancel')
               }}</DfButton>
             </div>
@@ -36,11 +36,12 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const emit = defineEmits<{ valid: []; cancel: [] }>()
+const emit = defineEmits<{ valid: []; cancel: []; close: [] }>()
 
-defineProps<{
+const props = defineProps<{
   validateBtnText?: string
   cancelBtnText?: string
+  emitClose?: boolean
 }>()
 
 function validSelect() {
@@ -52,7 +53,11 @@ function undoSelect() {
 }
 
 function closeModal() {
-  emit('cancel')
+  if (props.emitClose) {
+    emit('close')
+  } else {
+    emit('cancel')
+  }
 }
 </script>
 
