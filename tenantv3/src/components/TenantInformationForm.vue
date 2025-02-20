@@ -135,10 +135,7 @@ onBeforeMount(() => {
 
 async function handleOthersInformation() {
   if (hasNothingToSave()) {
-    router.push({
-      name: 'TenantDocuments',
-      params: { substep: '1' }
-    })
+    router.push({ name: 'TenantIdentification' })
     return
   }
 
@@ -163,10 +160,7 @@ async function handleOthersInformation() {
       if (applicationType.value === 'GROUP') {
         ToastService.info('tenantinformationform.roommates-saved')
       }
-      router.push({
-        name: 'TenantDocuments',
-        params: { substep: '1' }
-      })
+      router.push({ name: 'TenantIdentification' })
     },
     (error) => {
       loader.hide()
@@ -219,7 +213,7 @@ function authorize() {
   if (applicationType.value === 'GROUP' && !localCoTenantAuthorize.value) {
     return
   }
-  router.push({ name: 'TenantDocuments', params: { substep: '1' } })
+  router.push({ name: 'TenantIdentification' })
 }
 
 function goBack() {

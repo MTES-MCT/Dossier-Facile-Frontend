@@ -65,7 +65,7 @@ function close() {
   -webkit-backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
-  max-width: 90%;
+  max-width: min(70rem, 90%);
   max-height: 98%;
   overflow: auto;
   box-shadow:

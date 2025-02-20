@@ -22,7 +22,11 @@ describe("accessibility checks", () => {
     cy.simpleUploadDocumentStep("Passeport");
 
     cy.testAccessibility();
-    cy.selectResidencyStep("Locataire", 3);
+    cy.selectResidencyStep(
+      "Locataire",
+      "Vous avez vos 3 dernières quittances de loyer",
+      3
+    );
 
     cy.testAccessibility();
     cy.selectProfessionalStatusStep("CDI");

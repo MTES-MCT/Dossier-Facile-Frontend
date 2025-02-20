@@ -38,7 +38,7 @@
 
     <slot name="after-select-block"></slot>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="showDownloader && (document.key || documentFiles.length > 0)"
     >
       <div class="fr-mb-3w">
@@ -56,9 +56,10 @@
       <div v-if="!noDocument || forceShowDownloader">
         <div v-if="documentFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem
-            v-for="(file, k) in documentFiles()"
-            :key="k"
+            v-for="file in documentFiles()"
+            :key="file.id"
             :file="file"
+            :watermark-url="documentWatermarkUrl"
             @remove="remove(file)"
           />
         </div>
@@ -159,7 +160,7 @@
           </p>
           <hr class="mobile" />
           <div class="btn-align">
-            <DfButton @on-click="isWarningTaxSituationModalVisible = false" :primary="true">{{
+            <DfButton @click="isWarningTaxSituationModalVisible = false" :primary="true">{{
               t('tax-page.avis-btn')
             }}</DfButton>
           </div>
@@ -299,6 +300,10 @@ const documentStatus = computed(() => {
 function documentFiles(): DfFile[] {
   return getDocument().files ?? []
 }
+
+const documentWatermarkUrl = computed(() => {
+  return getDocument()?.name
+})
 
 function loadDocument(forceLoadLast?: boolean) {
   selectedCoTenant.value = store.getTenant(Number(props.coTenantId))

@@ -29,6 +29,7 @@ declare namespace Cypress {
 
     selectResidencyStep(
       residencyType: string,
+      step2Label?: string,
       numberOfFiles?: number
     ): Chainable<void>;
 

@@ -159,7 +159,7 @@ useHead({
 @import 'df-shared-next/src/scss/_variables.scss';
 
 a {
-  color: $light-blue;
+  color: var(--light-blue);
 }
 
 .height-40 {

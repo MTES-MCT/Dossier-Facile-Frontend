@@ -104,10 +104,13 @@
               class="fr-col-md-12 fr-mb-3w"
             >
               <ListItem
-                v-for="(file, k) in financialFiles()"
-                :key="k"
+                v-for="file in financialFiles()"
+                :key="file.id"
                 :file="file"
+                :watermark-url="documentWatermarkUrl"
                 @remove="remove(financialDocument, file)"
+                @ask-confirm="AnalyticsService.deleteDocument('financial')"
+                @cancel="AnalyticsService.cancelDelete('financial')"
               />
             </div>
             <div class="fr-mb-3w">
@@ -264,6 +267,10 @@ const tenantFinancialDocument = computed(() =>
   })
 )
 
+const documentWatermarkUrl = computed(() => {
+  return tenantFinancialDocument.value?.name
+})
+
 const documentStatus = computed(() => {
   return tenantFinancialDocument.value?.documentStatus
 })
@@ -356,7 +363,6 @@ async function save(): Promise<boolean> {
       return Promise.resolve(true)
     }
   }
-  AnalyticsService.registerFile('financial')
   if (!financialDocument.value.noDocument) {
     if (!financialFiles().length && financialDocument.value.documentType.key !== 'no-income') {
       ToastService.error('financialdocumentform.missing-file')

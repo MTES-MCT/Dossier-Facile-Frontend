@@ -1,9 +1,10 @@
 <template>
   <DocumentLink
     :person-type="PersonType.GUARANTOR"
+    :to="to"
     :router-params="{ substep: substep, guarantorId: guarantor.id }"
     :document-type="documentType"
-    :status="getStatus()"
+    :status="status"
     :active="active"
   />
 </template>
@@ -14,6 +15,8 @@ import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { DocumentService } from '@/services/DocumentService'
 import { DocumentType } from './DocumentType'
 import { PersonType } from './PersonType'
+import { computed } from 'vue'
+import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 
 const props = defineProps<{
   guarantor: Guarantor
@@ -22,7 +25,11 @@ const props = defineProps<{
   active: boolean
 }>()
 
-function getStatus() {
-  return DocumentService.guarantorStatus(props.documentType.toString(), props.guarantor) || ''
-}
+const to = computed(() =>
+  props.documentType === 'RESIDENCY' ? makeGuarantorResidencyLink(props.guarantor) : undefined
+)
+
+const status = computed(
+  () => DocumentService.guarantorStatus(props.documentType, props.guarantor) || ''
+)
 </script>

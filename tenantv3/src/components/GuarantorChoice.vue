@@ -15,7 +15,7 @@
             </div>
           </div>
         </NakedCard>
-        <NakedCard class="fr-p-md-5w fr-mt-3w">
+        <NakedCard class="fr-p-md-5w fr-mt-md-3w">
           <div class="fr-mb-2w">
             {{ t('guarantorchoice.ask-guarantor') }}
           </div>
@@ -33,7 +33,7 @@
           </div>
           <p>{{ t('guarantorchoice.visale-text') }}</p>
           <div style="text-align: right">
-            <DfButton :primary="true" @on-click="gotoVisale()">
+            <DfButton :primary="true" @click="gotoVisale()">
               {{ t('guarantorchoice.visale-btn') }}
             </DfButton>
           </div>
@@ -81,10 +81,7 @@ onBeforeMount(() => {
 })
 
 function goBack() {
-  router.push({
-    name: 'TenantDocuments',
-    params: { substep: '5' }
-  })
+  router.push({ name: 'TenantTax' })
 }
 
 function setGuarantorType() {
@@ -131,8 +128,6 @@ function gotoVisale() {
 </script>
 
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
-
 .remark {
   background-color: #e5e5f4;
   padding: 1rem;

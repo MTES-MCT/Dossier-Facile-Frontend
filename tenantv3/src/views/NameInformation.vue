@@ -17,9 +17,12 @@
           <span class="text-bold">{{ t('nameinformation.same-for-guarantors') }}</span>
           <br />
           🧐
-          <a href="https://aide.dossierfacile.logement.gouv.fr/fr/" target="_blank" rel="noopener">{{
-            t('nameinformation.see-documentation')
-          }}</a>
+          <a
+            href="https://aide.dossierfacile.logement.gouv.fr/fr/"
+            target="_blank"
+            rel="noopener"
+            >{{ t('nameinformation.see-documentation') }}</a
+          >
         </p>
       </div>
     </div>
@@ -42,7 +45,6 @@ const store = useTenantStore()
 const user = computed(() => {
   return store.user
 })
-
 </script>
 
 <style lang="scss" scoped>

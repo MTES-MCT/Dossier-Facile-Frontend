@@ -98,9 +98,10 @@
           ></AllDeclinedMessages>
           <div v-if="financialFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
             <ListItem
-              v-for="(file, k) in financialFiles()"
-              :key="k"
+              v-for="file in financialFiles()"
+              :key="file.id"
               :file="file"
+              :watermark-url="documentWatermarkUrl"
               @remove="remove(financialDocument, file)"
             />
           </div>
@@ -231,6 +232,11 @@ const guarantorFinancialDocument = computed(() =>
     return d.id === financialDocument.value.id
   })
 )
+
+const documentWatermarkUrl = computed(() => {
+  return guarantorFinancialDocument.value?.name
+})
+
 const documentStatus = computed(() => {
   return guarantorFinancialDocument.value?.documentStatus
 })
@@ -294,6 +300,7 @@ async function validSelect() {
 }
 
 function addFiles(f: FinancialDocument, fileList: File[]) {
+  AnalyticsService.uploadFile('guarantor-financial')
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
@@ -324,7 +331,6 @@ async function save(): Promise<boolean> {
       return true
     }
   }
-  AnalyticsService.registerFile('guarantor-financial')
   if (!financialDocument.value.noDocument) {
     if (!financialFiles().length) {
       ToastService.error('guarantorfinancialdocumentform.missing-file')

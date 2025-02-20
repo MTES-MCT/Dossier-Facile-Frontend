@@ -9,15 +9,24 @@ import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 export default defineConfig({
   build: {
     target: 'es2022',
-
+    sourcemap: true,
     assetsInlineLimit: (file) => {
       if (file.endsWith('.svg')) {
         return false
       }
       // When this returns undefined, the default behaviour is used: inline only if size < 4k
     },
-
-    sourcemap: true
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('pdfjs')) return 'pdfjs'
+          if (id.includes('vue-pdf')) return 'vue-pdf'
+          if (id.includes('@gouvfr/dsfr')) return 'dsfr'
+          if (id.includes('node_modules')) return 'vendor'
+          if (id.includes('/residency/')) return 'residency'
+        }
+      }
+    }
   },
   esbuild: {
     target: 'es2022'

@@ -1,42 +1,30 @@
 <template>
-  <div class="list-item fr-mb-1w doc-container">
-    <div class="fr-grid-row" style="align-items: center">
-      <RiArticleLine
-        size="32px"
-        class="color--focus fr-mr-md-2w fr-mr-1w cursor--pointer"
-        @click="openDoc"
-      />
-      <div class="text fr-pr-2w cursor--pointer" @click="openDoc()">
-        <div class="text-bold">{{ getName() }}</div>
-        <div class="size">{{ getSize() }}</div>
+  <div class="fr-card fr-mb-3w">
+    <div class="cursor--pointer" @click="openDoc()">
+      <ShowPreview :file="file"></ShowPreview>
+    </div>
+    <div class="text fr-pt-1w fr-pl-2w">
+      <h3 class="fr-card__title">
+        <a @click="openDoc()" href="#">{{ getName() }}</a>
+      </h3>
+      <div class="size">{{ getSize() }}</div>
+      <div class="links blue-text fr-mb-1w fr-mr-2w">
+        <a href="#" v-if="file.path || file.preview" @click="openDoc()" :title="t('listitem.show')">
+          <span>{{ t('listitem.see') }}</span>
+          <span class="fr-fi--sm fr-icon-eye-line fr-ml-1w"></span>
+        </a>
+        <a href="#" @click="remove()" :title="t('listitem.remove')">
+          <span>{{ t('listitem.delete') }}</span>
+          <span class="fr-fi--sm fr-icon-delete-line fr-ml-1w"></span>
+        </a>
       </div>
-      <div class="progress">
-        <ProgressIndicator :percentage="percentage" :state="uploadState" />
-      </div>
-      <DfButton
-        v-if="file.path || file.preview"
-        class="fr-btn--icon-left fr-fi-eye-line fr-mr-md-2w fr-mr-1w"
-        @on-click="openDoc()"
-        type="button"
-        :title="t('listitem.show')"
-      >
-        <span class="fr-hidden fr-unhidden-lg">{{ t('listitem.see') }}</span>
-      </DfButton>
-      <DfButton
-        @on-click="remove()"
-        class="fr-btn--icon-left fr-icon-delete-line"
-        type="button"
-        :title="t('listitem.remove')"
-      >
-        <span class="fr-hidden fr-unhidden-lg">{{ t('listitem.delete') }}</span>
-      </DfButton>
     </div>
     <Modal @close="isDocModalVisible = false" v-if="isDocModalVisible">
       <template #body>
-        <ShowDoc :file="file"></ShowDoc>
+        <ShowDoc :file="file" :watermark-url="watermarkUrl"></ShowDoc>
       </template>
     </Modal>
-    <ConfirmModal v-if="confirmDeleteFile" @valid="validDeleteFile()" @cancel="undoDeleteFile()">
+    <ConfirmModal v-if="confirmDeleteFile" @valid="validDeleteFile()" @cancel="cancelDeleteFile()">
       {{ t('listitem.will-delete-file') }}
     </ConfirmModal>
   </div>
@@ -44,26 +32,26 @@
 
 <script setup lang="ts">
 import { DfFile } from 'df-shared-next/src/models/DfFile'
-import ProgressIndicator from './ProgressIndicator.vue'
 import ShowDoc from '../documents/share/ShowDoc.vue'
+import ShowPreview from '../documents/share/ShowPreview.vue'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import { AnalyticsService } from '../../services/AnalyticsService'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
-import { RiArticleLine } from '@remixicon/vue'
 
 const { t } = useI18n()
-const emit = defineEmits<{ remove: [] }>()
+const emit = defineEmits<{ remove: []; 'ask-confirm': []; cancel: [] }>()
 
 const props = withDefaults(
   defineProps<{
     file: DfFile
+    watermarkUrl?: string
     uploadState?: string
     percentage?: number
   }>(),
   {
+    watermarkUrl: undefined,
     uploadState: 'idle',
     percentage: 0
   }
@@ -73,6 +61,7 @@ const isDocModalVisible = ref(false)
 const confirmDeleteFile = ref(false)
 
 function remove() {
+  emit('ask-confirm')
   confirmDeleteFile.value = true
 }
 
@@ -81,7 +70,8 @@ function validDeleteFile() {
   confirmDeleteFile.value = false
 }
 
-function undoDeleteFile() {
+function cancelDeleteFile() {
+  emit('cancel')
   confirmDeleteFile.value = false
   return false
 }
@@ -92,13 +82,15 @@ function openDoc() {
 }
 
 function getSize() {
+  // Extract file extension from props.file.originalName and make it uppercase
+  const extension = props.file?.originalName?.split('.').pop()?.toUpperCase() || ''
   if (props.file.size) {
     const kb = props.file.size / 1000
     if (kb > 1000) {
       const mb = kb / 1000
-      return `${mb.toFixed(2)} ${t('listitem.mb')}`
+      return `${extension} - ${mb.toFixed(2)} ${t('listitem.mb')}`
     }
-    return `${kb.toFixed(2)} ${t('listitem.kb')}`
+    return `${extension} - ${kb.toFixed(2)} ${t('listitem.kb')}`
   }
   return '-'
 }
@@ -108,10 +100,7 @@ function getName() {
 }
 </script>
 
-<style scoped lang="scss">
-.progress {
-  float: left;
-}
+<style scoped lang="css">
 .text {
   float: right;
   flex: 2;
@@ -123,37 +112,33 @@ function getName() {
   }
 }
 
-.text > div {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.text-bold {
-  font-weight: bold;
-}
-.row {
-  height: 42px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.list-item {
-  background-color: var(--g200);
-}
-
 .size {
   font-size: 12px;
   color: var(--g600);
 }
 
-.doc-container {
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.5px 4px 0 #cecece;
-  padding: 1rem;
-  @media (min-width: 768px) {
-    padding: 1.5rem;
+.fr-card {
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+.fr-card__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-weight: normal;
+  max-width: 250px;
+  a {
+    background-image: none;
+    outline-width: 0;
   }
+}
+
+.links {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  gap: 32px;
 }
 </style>

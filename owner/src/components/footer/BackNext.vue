@@ -20,8 +20,9 @@
           :label="nextLabel ? nextLabel : t('backnext.continue')"
           :btn-type="'submit'"
           :disabled="disabled"
-          @click="nextAction()"
           :aria-label="t('backnext.continue-aria-label')"
+          data-cy="next-btn"
+          @click="nextAction()"
         ></VGouvFrButton>
       </div>
     </div>

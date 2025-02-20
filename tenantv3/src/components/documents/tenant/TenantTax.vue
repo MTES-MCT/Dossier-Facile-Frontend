@@ -14,7 +14,7 @@
       </NakedCard>
 
       <NakedCard
-        class="fr-p-md-5w fr-mt-3w"
+        class="fr-p-md-5w fr-mt-md-3w"
         v-if="taxDocument.key && taxDocument.key === 'other-tax'"
       >
         <label class="fr-label" for="customText">{{ t('tax-page.custom-text') }}</label>
@@ -49,7 +49,7 @@
     </Form>
 
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
     >
       <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
@@ -63,7 +63,13 @@
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
-        <ListItem v-for="(file, k) in taxFiles()" :key="k" :file="file" @remove="remove(file)" />
+        <ListItem 
+          v-for="file in taxFiles()"
+          :key="file.id" 
+          :file="file" 
+          :watermark-url="documentWatermarkUrl" 
+          @remove="remove(file)"
+        />
       </div>
       <div v-if="taxDocument.key === 'my-name'">
         <div class="fr-mb-3w">
@@ -93,7 +99,7 @@
           </p>
           <hr class="mobile" />
           <div class="btn-align">
-            <DfButton @on-click="isWarningTaxSituationModalVisible = false" :primary="true">{{
+            <DfButton @click="isWarningTaxSituationModalVisible = false" :primary="true">{{
               t('tax-page.avis-btn')
             }}</DfButton>
           </div>
@@ -287,7 +293,6 @@ async function save(force = false): Promise<boolean> {
   if (taxDocument.value.key === undefined) {
     return true
   }
-  AnalyticsService.registerFile('tax')
   const fieldName = 'documents'
   const formData = new FormData()
   const newFiles = files.value.filter((f) => {
@@ -375,6 +380,8 @@ function taxFiles(): DfFile[] {
     })?.files || []
   return [...newFiles, ...existingFiles]
 }
+
+const documentWatermarkUrl = computed(() => tenantTaxDocument.value?.name)
 
 async function remove(file: DfFile, silent = false) {
   AnalyticsService.deleteFile('tax')

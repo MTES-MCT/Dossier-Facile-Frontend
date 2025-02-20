@@ -62,9 +62,10 @@
           ></AllDeclinedMessages>
           <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
             <ListItem
-              v-for="(file, k) in listFiles()"
-              :key="k"
+              v-for="file in listFiles()"
+              :key="file.id"
               :file="file"
+              :watermark-url="documentWatermarkUrl"
               @remove="remove(file)"
             />
           </div>
@@ -258,6 +259,11 @@ function listFiles() {
   const existingFiles = guarantorIdentificationDocument.value?.files || []
   return existingFiles
 }
+
+const documentWatermarkUrl = computed(() => {
+  return guarantorIdentificationDocument.value?.name
+})
+
 </script>
 
 <style scoped lang="scss">

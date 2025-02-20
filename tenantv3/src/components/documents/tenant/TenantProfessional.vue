@@ -21,7 +21,7 @@
       </div>
     </NakedCard>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
@@ -33,10 +33,13 @@
       ></AllDeclinedMessages>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
-          v-for="(file, k) in professionalFiles()"
-          :key="k"
+          v-for="file in professionalFiles()"
+          :key="file.id"
           :file="file"
+          :watermark-url="documentWatermarkUrl"
           @remove="remove(file)"
+          @ask-confirm="AnalyticsService.deleteDocument('professional')"
+          @cancel="AnalyticsService.cancelDelete('professional')"
         />
       </div>
       <div class="fr-mb-3w">
@@ -50,6 +53,7 @@
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
       <span>{{ t('professional-page.will-delete-files') }}</span>
     </ConfirmModal>
+    <ProfileFooter @on-back="$emit('on-back')" @on-next="$emit('on-next')"></ProfileFooter>
   </div>
 </template>
 
@@ -72,12 +76,15 @@ import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
+import ProfileFooter from '@/components/footer/ProfileFooter.vue'
+
+defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const { t } = useI18n()
-
 const store = useTenantStore()
 const user = computed(() => store.userToEdit)
 const tenantProfessionalDocument = computed(() => store.getTenantProfessionalDocument)
+const documentWatermarkUrl = computed(() => tenantProfessionalDocument.value?.name)
 
 const documents = ref(DocumentTypeConstants.PROFESSIONAL_DOCS)
 
@@ -180,7 +187,6 @@ function resetFiles() {
   fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 function save() {
-  AnalyticsService.registerFile('professional')
   const fieldName = 'documents'
   const formData = new FormData()
   const newFiles = files.value.filter((f) => {

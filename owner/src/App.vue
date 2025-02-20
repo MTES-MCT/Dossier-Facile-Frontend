@@ -70,10 +70,9 @@ function onLogout() {
 </template>
 
 <style lang="scss">
+@use 'df-shared-next/src/scss/_main.scss';
 @import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
 @import '@gouvfr/dsfr/dist/utility/colors/colors.min.css';
-@import 'df-shared-next/src/scss/_main.scss';
-@import 'df-shared-next/src/scss/_variables.scss';
 
 #app {
   min-height: 100vh;

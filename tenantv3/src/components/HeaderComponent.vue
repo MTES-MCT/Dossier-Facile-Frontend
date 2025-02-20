@@ -43,19 +43,19 @@
                   </v-gouv-fr-button>
                 </li>
                 <li v-if="!props?.loggedIn">
-                  <DfButton :primary="true" size="small" @on-click="onLoginTenant">
+                  <DfButton :primary="true" size="small" @click="onLoginTenant">
                     <RiAccountCircleLine aria-hidden="true" />
                     {{ t('signin') }}
                   </DfButton>
                 </li>
                 <li v-if="!props?.loggedIn">
-                  <DfButton size="small" @on-click="onCreateOwner">
+                  <DfButton size="small" @click="onCreateOwner">
                     <RiCommunityLine aria-hidden="true" />
                     {{ t('owner-header') }}
                   </DfButton>
                 </li>
                 <li v-if="!props?.loggedIn">
-                  <DfButton size="small" @on-click="goToPartner">
+                  <DfButton size="small" @click="goToPartner">
                     <RiHomeHeartLine aria-hidden="true" />
                     {{ t('partner') }}
                   </DfButton>
@@ -74,7 +74,7 @@
         <div class="fr-header__menu-links-hack">
           <ul class="fr-links-group">
             <li v-if="props?.loggedIn">
-              <DfButton class="fr-ml-3" :primary="false" size="small" @on-click="onLogout">
+              <DfButton class="fr-ml-3" :primary="false" size="small" @click="onLogout">
                 <RiAccountCircleLine aria-hidden="true" />
                 >{{ t('logout') }}
               </DfButton>
@@ -85,7 +85,7 @@
                 id="signin-button"
                 :primary="false"
                 size="small"
-                @on-click="onLoginTenant"
+                @click="onLoginTenant"
               >
                 <RiAccountCircleLine aria-hidden="true" />
                 {{ t('signin') }}
@@ -93,7 +93,7 @@
             </li>
 
             <li v-if="!props?.loggedIn">
-              <DfButton size="small" class="fr-ml-3" @on-click="onCreateOwner">
+              <DfButton size="small" class="fr-ml-3" @click="onCreateOwner">
                 <RiCommunityLine aria-hidden="true" />
                 {{ t('owner') }}
               </DfButton>

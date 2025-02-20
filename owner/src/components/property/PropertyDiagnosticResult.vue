@@ -10,7 +10,7 @@
       </div>
       <div>
         <Button
-          @on-click="deleteDpe"
+          @click="deleteDpe"
           :title="t('propertydiagnosticresult.dpe.delete')"
           :tertiary-no-outline="true"
           class="fr-icon-delete-fill fr-btn--icon-right"

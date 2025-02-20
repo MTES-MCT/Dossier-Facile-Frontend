@@ -4,7 +4,7 @@
       <div class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-names`) }}
       </div>
-      <UpdateComponent @on-update="openTenant(0)">{{ t('fileerrors.update') }}</UpdateComponent>
+      <UpdateComponent @on-update="openTenant(-1)">{{ t('fileerrors.update') }}</UpdateComponent>
     </div>
 
     <div v-if="!allTenantDocumentsPreValidated()" class="fr-text--bold">
@@ -16,7 +16,7 @@
     >
       <div v-if="!isDocumentValid(v)">
         <UpdateComponent
-          @on-update="openTenant(k + 1)"
+          @on-update="openTenant(k)"
           :user-id="user.id"
           :broken-rules="getDocumentBrokenRules(v)"
           :document="getDocument(v)"
@@ -35,10 +35,12 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import UpdateComponent from './UpdateComponent.vue'
 import { UtilsService } from '../../services/UtilsService'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { useTenantStep } from '../residency/lib/useTenantStep'
 
 const store = useTenantStore()
 const { t } = useI18n()
 const router = useRouter()
+const { goToStep } = useTenantStep()
 
 const props = defineProps<{
   user: CoTenant
@@ -77,19 +79,16 @@ function openTenant(substep: number) {
   if (props.keyprefix === 'tenant') {
     router.push({
       name: 'CoTenantDocuments',
-      params: { substep: substep, tenantId: props.user.id.toString(), step: '4' }
+      params: { substep: substep + 1, tenantId: props.user.id.toString(), step: '4' }
     })
     return
   }
-  if (substep == 0) {
+  if (substep === -1) {
     router.push({
       name: 'TenantName'
     })
   } else {
-    router.push({
-      name: 'TenantDocuments',
-      params: { substep: substep }
-    })
+    goToStep(substep)
   }
 }
 </script>

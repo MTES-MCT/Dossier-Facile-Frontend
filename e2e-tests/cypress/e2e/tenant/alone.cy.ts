@@ -22,8 +22,10 @@ describe("alone tenant scenario", () => {
     cy.simpleUploadDocumentStep("Autre");
 
     cy.expectPath("/documents-locataire/2");
-    cy.get("#select").select("Dans une autre situation (sans-abri, etc.)");
-    cy.get("#customText").type("Test text").clickOnNext();
+    cy.contains("Autres situations").click();
+    cy.contains("En situation précaire").click();
+    cy.contains("Vous êtes dans une situation précaire").click();
+    cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/3");
     cy.selectProfessionalStatusStep("CDI");

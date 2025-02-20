@@ -14,7 +14,7 @@
       </div>
     </NakedCard>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
+      class="fr-p-md-5w fr-mt-md-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
       <div class="fr-mb-3w">
@@ -28,10 +28,13 @@
       ></AllDeclinedMessages>
       <div v-if="identificationFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
-          v-for="(file, k) in identificationFiles()"
-          :key="k"
+          v-for="file in identificationFiles()"
+          :key="file.id"
           :file="file"
+          :watermark-url="documentWatermarkUrl"
           @remove="remove(file)"
+          @ask-confirm="AnalyticsService.deleteDocument('identification')"
+          @cancel="AnalyticsService.cancelDelete('identification')"
         />
       </div>
       <div class="fr-mb-3w">
@@ -46,6 +49,7 @@
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
       <span>{{ t('identification-page.will-delete-files') }}</span>
     </ConfirmModal>
+    <ProfileFooter @on-back="$emit('on-back')" @on-next="$emit('on-next')"></ProfileFooter>
   </div>
 </template>
 
@@ -69,7 +73,9 @@ import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
+import ProfileFooter from '@/components/footer/ProfileFooter.vue'
 
+defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()
 const user = computed(() => {
   return store.userToEdit
@@ -91,6 +97,10 @@ function getLocalStorageKey() {
 
 const documentStatus = computed(() => {
   return tenantIdentificationDocument.value?.documentStatus
+})
+
+const documentWatermarkUrl = computed(() => {
+  return tenantIdentificationDocument.value?.name
 })
 
 onBeforeMount(() => {
@@ -166,6 +176,7 @@ function addFiles(fileList: File[]) {
     return { name: f.name, file: f, size: f.size }
   })
   files.value = [...files.value, ...nf]
+
   save()
 }
 
@@ -174,7 +185,6 @@ function resetFiles() {
 }
 
 function save() {
-  AnalyticsService.registerFile('identification')
   const fieldName = 'documents'
   const formData = new FormData()
   const newFiles = files.value.filter((f) => {

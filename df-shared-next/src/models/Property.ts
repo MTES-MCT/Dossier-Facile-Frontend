@@ -28,7 +28,4 @@ export class Property {
   dpeNotRequired: boolean = false
 }
 
-export type LightProperty = Omit<
-  Property,
-  'propertiesApartmentSharing' | 'propertiesApartmentSharingCount'
->
+export type LightProperty = Omit<Property, 'propertiesApartmentSharing'>

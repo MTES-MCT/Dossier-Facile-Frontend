@@ -7,7 +7,6 @@
 <script setup lang="ts">
 import GuarantorChoice from '../components/GuarantorChoice.vue'
 import ProfileContainer from '../components/ProfileContainer.vue'
-
 </script>
 
 <style lang="scss" scoped>

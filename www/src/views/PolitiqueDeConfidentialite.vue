@@ -415,7 +415,7 @@ function changeConsentRemoved() {
 @import 'df-shared-next/src/scss/_variables.scss';
 
 a {
-  color: $light-blue;
+  color: var(--light-blue);
 }
 
 h4 {

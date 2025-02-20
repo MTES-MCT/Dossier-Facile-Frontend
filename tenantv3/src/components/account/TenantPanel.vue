@@ -88,6 +88,7 @@ import { useI18n } from 'vue-i18n'
 import { UtilsService } from '../../services/UtilsService'
 import { computed } from 'vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { useTenantStep } from '../residency/lib/useTenantStep'
 
 const props = withDefaults(
   defineProps<{
@@ -103,6 +104,7 @@ const props = withDefaults(
 
 const router = useRouter()
 const { t } = useI18n()
+const { goToStep } = useTenantStep()
 
 const showButtons = computed(() => {
   return !props.isCotenant || props.isCouple
@@ -139,10 +141,7 @@ function setTenantStep(n: number) {
       }
     })
   } else {
-    router.push({
-      name: 'TenantDocuments',
-      params: { substep: n.toString() }
-    })
+    goToStep(n - 1)
   }
 }
 
