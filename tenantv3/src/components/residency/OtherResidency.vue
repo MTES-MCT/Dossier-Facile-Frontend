@@ -1,7 +1,7 @@
 <template>
   <BackLinkRow
     :label="t('other-residency')"
-    to="/documents-locataire/2"
+    to="../2"
     @edit="AnalyticsService.editSituation('residency', 'other-residency')"
   />
   <i18n-t keypath="tick-box" tag="p">
@@ -10,8 +10,8 @@
   <div class="fr-checkbox-group fr-py-2w fr-mb-3w">
     <input
       id="precarious-checkbox"
-      type="checkbox"
       v-model="isPrecarious"
+      type="checkbox"
       @edit="AnalyticsService.selectPrecariousness"
     />
     <label class="fr-label" for="precarious-checkbox">{{ t('you-precarious') }}</label>

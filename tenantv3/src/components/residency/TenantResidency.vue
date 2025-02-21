@@ -1,7 +1,7 @@
 <template>
   <BackLinkRow
     :label="t('you-tenant')"
-    to="/documents-locataire/2"
+    to="../2"
     @edit="AnalyticsService.editSituation('residency', 'tenant')"
   />
   <RadioList>

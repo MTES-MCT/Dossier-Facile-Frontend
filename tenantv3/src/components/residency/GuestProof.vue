@@ -1,12 +1,12 @@
 <template>
   <BackLinkRow
     :label="t('you-hosted')"
-    to="/documents-locataire/2"
+    to="../../2"
     @edit="AnalyticsService.editSituation('residency', 'guest')"
   />
   <BackLinkRow
     :label="t('accomodation-proof')"
-    to="/documents-locataire/2/guest"
+    to="../guest"
     @edit="AnalyticsService.editSituation2('residency', 'guest', 'proof')"
   />
   <i18n-t keypath="please-provide" tag="p">

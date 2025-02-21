@@ -1,7 +1,7 @@
 <template>
   <BackLinkRow
     :label="t('you-owner')"
-    to="/documents-locataire/2"
+    to="../2"
     @edit="AnalyticsService.editSituation('residency', 'owner')"
   />
   <i18n-t keypath="please-provide" tag="p">
