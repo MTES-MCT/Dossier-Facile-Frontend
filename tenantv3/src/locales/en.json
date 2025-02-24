@@ -510,13 +510,6 @@
     "independent": "Self-Employed",
     "other": "Other"
   },
-  "cotenantresidency": {
-    "title": "Your Co-tenant's Current Housing Situation",
-    "tenant": "Tenant",
-    "owner": "Owner",
-    "guest": "Staying for free",
-    "guest-parents": "Staying with parents"
-  },
   "cotenanttax": {
     "title": "My Co-tenant's Tax Notice",
     "my-name": "I have a tax notice in my co-tenant's name",

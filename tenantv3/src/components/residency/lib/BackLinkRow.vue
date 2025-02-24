@@ -15,7 +15,7 @@
       <template #footer>
         <ul class="fr-btns-group fr-btns-group--inline-md">
           <li>
-            <DfButton @click="ignore" primary>{{ t('cancel') }}</DfButton>
+            <DfButton primary @click="ignore">{{ t('cancel') }}</DfButton>
           </li>
           <li>
             <DfButton @click="confirm">{{ t('change-situation') }}</DfButton>
@@ -30,27 +30,29 @@
 import { useRouter, type RouterLinkProps } from 'vue-router'
 import { RiArrowGoBackLine, RiCheckboxCircleLine } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import useTenantStore from '@/stores/tenant-store'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { residencyKey } from '../residencyState'
 
 const props = defineProps<{ label: string; to: RouterLinkProps['to']; guarantor?: boolean }>()
 const emit = defineEmits<{ edit: [] }>()
 const { t } = useI18n()
 const router = useRouter()
 const store = useTenantStore()
+const residencyState = inject(residencyKey)
+if (!residencyState) {
+  throw new Error('Residency state was not provided')
+}
 
 const showChangeSituation = ref(false)
-const residencyDocument = computed(() =>
-  props.guarantor ? store.getGuarantorResidencyDocument : store.getTenantResidencyDocument
-)
 const category = computed(() => (props.guarantor ? 'guarantor-residency' : 'residency'))
 
 const onClick = () => {
   emit('edit')
-  if (residencyDocument.value) {
+  if (residencyState.document.value) {
     AnalyticsService.showWarningModale(category.value)
     showChangeSituation.value = true
   } else {
@@ -60,7 +62,7 @@ const onClick = () => {
 
 const confirm = async () => {
   AnalyticsService.confirmModale(category.value)
-  const docId = residencyDocument.value?.id
+  const docId = residencyState.document.value?.id
   if (docId) {
     await store.deleteDocument(docId)
   }

@@ -8,7 +8,19 @@
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { useI18n } from 'vue-i18n'
+import { residencyKey } from '@/components/residency/residencyState'
+import { computed, provide } from 'vue'
+import useTenantStore from '@/stores/tenant-store'
 const { t } = useI18n()
+const store = useTenantStore()
+
+provide(residencyKey, {
+  category: 'residency',
+  previousStep: '/documents-locataire/1',
+  nextStep: { name: 'TenantProfessional' },
+  document: computed(() => store.getTenantResidencyDocument),
+  userId: undefined
+})
 </script>
 
 <i18n>

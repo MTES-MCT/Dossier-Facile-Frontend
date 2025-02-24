@@ -277,13 +277,8 @@ export const DocumentService = {
   },
   getCoTenantDocument(coTenantId: number, documentCategory: string) {
     const store = useTenantStore()
-    const coTenant = store.getTenant(Number(coTenantId))
-    if (coTenant.documents !== null) {
-      return coTenant.documents?.find((d: DfDocument) => {
-        return d.documentCategory === documentCategory
-      })
-    }
-    return undefined
+    const coTenant = store.getTenant(coTenantId)
+    return coTenant.documents?.find((d) => d.documentCategory === documentCategory)
   },
   sortByCategory(doc1: DfDocument, doc2: DfDocument) {
     if (!doc1.documentCategory || !doc2.documentCategory) {

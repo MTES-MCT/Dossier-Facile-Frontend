@@ -1,6 +1,6 @@
 <template>
   <FooterContainer class="residency-footer">
-    <router-link to="/documents-locataire/1" class="fr-btn fr-btn--secondary">
+    <router-link :to="residencyState.previousStep" class="fr-btn fr-btn--secondary">
       <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
       <span class="desktop">{{ t('profilefooter.back') }}</span>
     </router-link>
@@ -15,12 +15,12 @@
 <script setup lang="ts">
 import FooterContainer from '@/components/footer/FooterContainer.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { DocumentService } from '@/services/DocumentService'
 import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { residencyKey } from '../residencyState'
 
 const { onSubmit, enabled = null } = defineProps<{
   onSubmit?: () => void
@@ -29,8 +29,12 @@ const { onSubmit, enabled = null } = defineProps<{
 
 const { t } = useI18n()
 const router = useRouter()
+const residencyState = inject(residencyKey)
+if (!residencyState) {
+  throw new Error('Residency state was not provided')
+}
 const disabled = computed(() =>
-  enabled == null ? DocumentService.getUserDocs('RESIDENCY').length === 0 : !enabled
+  enabled == null ? residencyState.document.value == undefined : !enabled
 )
 
 const submit = () => {
@@ -38,7 +42,7 @@ const submit = () => {
   if (onSubmit) {
     onSubmit()
   } else {
-    router.push({ name: 'TenantProfessional' })
+    router.push(residencyState.nextStep)
   }
 }
 </script>

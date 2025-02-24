@@ -43,16 +43,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { inject, ref } from 'vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import useTenantStore from '@/stores/tenant-store'
 import { ToastService } from '@/services/ToastService'
-import { DocumentService } from '@/services/DocumentService'
 import { RiPhoneFill } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
+import { residencyKey } from './residencyState'
 
 const CUSTOM_TEXT =
   "Le candidat indique qu'il n'est pas en mesure de fournir de quittance de logement pour ces 3 derniers mois"
@@ -60,20 +60,26 @@ const CUSTOM_TEXT =
 const router = useRouter()
 const store = useTenantStore()
 const { t } = useI18n()
+const residencyState = inject(residencyKey)
+if (!residencyState) {
+  throw new Error('Residency state was not provided')
+}
 
-const residencyDoc = DocumentService.getUserDocs('RESIDENCY')[0]
+const residencyDoc = residencyState.document.value
 const isPrecarious = ref(
   residencyDoc?.documentSubCategory === 'OTHER_RESIDENCY' && residencyDoc.customText === CUSTOM_TEXT
 )
 
 const goNext = () => {
-  router.push({ name: 'TenantProfessional' })
+  router.push(residencyState?.nextStep)
 }
 
 const submit = () => {
   const formData = new FormData()
+  formData.append('noDocument', 'true')
   formData.append('customText', CUSTOM_TEXT)
   formData.append('typeDocumentResidency', 'OTHER_RESIDENCY')
+  residencyState?.addData?.(formData)
   store
     .saveTenantResidency(formData)
     .then(goNext)

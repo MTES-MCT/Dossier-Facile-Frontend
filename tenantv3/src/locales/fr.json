@@ -548,13 +548,6 @@
     "independent": "Indépendant",
     "other": "Autre"
   },
-  "cotenantresidency": {
-    "title": "La situation d’hébergement actuelle de votre conjoint",
-    "tenant": "Locataire",
-    "owner": "Propriétaire",
-    "guest": "Hébergé·e gratuitement",
-    "guest-parents": "Chez ses parents"
-  },
   "cotenanttax": {
     "title": "L'avis d'imposition de votre conjoint",
     "my-name": "Votre conjoint a un avis d’imposition à son nom",

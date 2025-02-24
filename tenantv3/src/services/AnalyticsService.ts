@@ -1,6 +1,12 @@
 import { DocumentTypeTranslations } from '@/components/editmenu/documents/DocumentType'
 import useTenantStore from '@/stores/tenant-store'
 
+declare global {
+  interface Window {
+    _paq?: (string | number | undefined)[][]
+  }
+}
+
 type EventCategory = 'prevalidation' | 'funnel' | 'contact' | 'account' | 'misc' | 'file'
 type Action = 'clic' | 'print' | 'unknown' | 'delete' | 'upload'
 const DOCUMENT_TYPES = ['identification', 'residency', 'professional', 'financial', 'tax'] as const

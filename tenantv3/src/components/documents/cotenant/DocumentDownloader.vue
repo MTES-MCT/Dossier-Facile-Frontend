@@ -392,11 +392,11 @@ async function addFiles(fileList: File[]) {
     isWarningTaxSituationModalVisible.value = true
     hideLoader()
   } else {
-    saveNewFiles(false)
+    saveNewFiles()
   }
 }
 
-function saveNewFiles(avisDetected: boolean) {
+function saveNewFiles() {
   const filesToAdd = Array.from(newFiles.value).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
@@ -408,7 +408,7 @@ function saveNewFiles(avisDetected: boolean) {
     ToastService.maxFileError(futurLength, document.value.maxFileCount)
     return
   }
-  const formData = _buildFormData(filesToAdd, avisDetected)
+  const formData = _buildFormData(filesToAdd)
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
 
@@ -429,10 +429,7 @@ function saveNewFiles(avisDetected: boolean) {
     })
 }
 
-function _buildFormData(
-  filesToAdd: { file: File; name: string }[],
-  avisDetected: boolean
-): FormData {
+function _buildFormData(filesToAdd: { file: File; name: string }[]): FormData {
   const formData = new FormData()
   const fieldName = 'documents'
   Array.from(Array(filesToAdd.length).keys()).forEach((x) => {
@@ -446,11 +443,7 @@ function _buildFormData(
     formData.append('id', localEditedDocumentId.value.toString())
   }
   emit('enrich-form-data', formData)
-  if (avisDetected) {
-    formData.append('avisDetected', 'true')
-  } else {
-    formData.append('avisDetected', 'false')
-  }
+  formData.append('avisDetected', 'false')
 
   return formData
 }
