@@ -177,7 +177,6 @@ const emit = defineEmits<{ 'update:modelValue': [coTenants: CoTenant[]] }>()
 const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
-const spouseAuthorize = computed(() => store.spouseAuthorize)
 
 const coTenant = ref<CoTenant>(new User())
 const authorize = ref(false)
@@ -198,7 +197,7 @@ onMounted(() => {
     if (coTenant.value.email?.length > 0) {
       disableEmailField.value = true
       showCheckBox.value = true
-      authorize.value = spouseAuthorize.value
+      authorize.value = store.spouseAuthorize
     }
   }
 })
@@ -221,7 +220,7 @@ function handleInput() {
 }
 
 function updateAuthorize() {
-  store.updateCoupleAuthorize(authorize.value)
+  store.spouseAuthorize = authorize.value
 }
 </script>
 

@@ -105,6 +105,7 @@ import useTenantStore from '@/stores/tenant-store'
 import { useRouter } from 'vue-router'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { isAxiosError } from 'axios'
 
 const router = useRouter()
 const store = useTenantStore()
@@ -162,9 +163,9 @@ async function handleOthersInformation() {
       }
       router.push({ name: 'TenantIdentification' })
     },
-    (error) => {
+    (error: unknown) => {
       loader.hide()
-      if (error.response.data.message.includes('are already being used')) {
+      if (isAxiosError(error) && error.response?.data.message.includes('are already being used')) {
         ToastService.error('tenantinformationform.email-exists')
         return
       } else {

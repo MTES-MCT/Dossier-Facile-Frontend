@@ -447,9 +447,6 @@ const useTenantStore = defineStore('tenant', {
       this.user.applicationType = 'ALONE'
       this.user.apartmentSharing.tenants = tenants
     },
-    updateCoupleAuthorize(authorize: boolean) {
-      this.spouseAuthorize = authorize
-    },
     updateCoTenantAuthorize(authorize: boolean) {
       this.coTenantAuthorize = authorize
     },
@@ -579,15 +576,9 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    setCoTenants(data: Parameters<typeof ProfileService.saveCoTenants>[number]) {
-      return ProfileService.saveCoTenants(data).then(
-        (response) => {
-          return this.loadUserCommit(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async setCoTenants(data: Parameters<typeof ProfileService.saveCoTenants>[number]) {
+      const response = await ProfileService.saveCoTenants(data)
+      return this.loadUserCommit(response.data)
     },
     setLang(lang: 'fr' | 'en') {
       i18n.global.locale.value = lang
