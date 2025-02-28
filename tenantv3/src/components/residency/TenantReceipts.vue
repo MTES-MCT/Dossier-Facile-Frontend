@@ -64,7 +64,6 @@ import BackLinkRow from './lib/BackLinkRow.vue'
 import UploadFiles from './lib/UploadFiles.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { DocumentService } from '@/services/DocumentService'
 import { useRouter } from 'vue-router'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import dayjs from 'dayjs'
@@ -73,7 +72,7 @@ import { useResidencyState } from './residencyState'
 
 const i18n = useI18n()
 const router = useRouter()
-const { textKey } = useResidencyState()
+const { document, textKey } = useResidencyState()
 const showNbDocumentsResidencyTenant = ref(false)
 
 const t = (key: string, params?: [string]) =>
@@ -86,16 +85,13 @@ function ignoreAndgoNext() {
 }
 
 function checkFiles() {
-  const docs = DocumentService.getUserDocs('RESIDENCY')
-  if (docs.length === 1) {
-    const d = docs[0]
-    if (d.documentSubCategory === 'TENANT') {
-      const nbPages = d.files?.reduce((s, a) => s + (a.numberOfPages || 0), 0) || 0
-      if (nbPages < 3) {
-        showNbDocumentsResidencyTenant.value = true
-        AnalyticsService.missingResidencyDocumentDetected()
-        return
-      }
+  const d = document.value
+  if (d?.documentSubCategory === 'TENANT') {
+    const nbPages = d.files?.reduce((s, a) => s + (a.numberOfPages || 0), 0) || 0
+    if (nbPages < 3) {
+      showNbDocumentsResidencyTenant.value = true
+      AnalyticsService.missingResidencyDocumentDetected()
+      return
     }
   }
   router.push({ name: 'TenantProfessional' })
