@@ -16,19 +16,12 @@
             :is-cotenant="true"
             :tenant-id="tenantId"
           ></GuarantorIdentification>
-          <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
+          <GuarantorFooter @on-back="goBack" @on-next="goToResidency"></GuarantorFooter>
         </div>
-        <div v-if="substep === 2">
-          <GuarantorResidency
-            :tenant-id="tenantId"
-            @on-back="goBack"
-            @on-next="checkResidencyAndGoNext"
-          >
-          </GuarantorResidency>
-        </div>
+        <CoupleGuarantorResidency v-if="substep === 2"></CoupleGuarantorResidency>
         <div v-if="substep === 3">
           <GuarantorProfessional :tenant-id="tenantId" :is-cotenant="true"></GuarantorProfessional>
-          <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
+          <GuarantorFooter @on-back="goToResidency" @on-next="goNext"></GuarantorFooter>
         </div>
         <div v-if="substep === 4">
           <GuarantorFinancial
@@ -85,7 +78,6 @@ import RepresentativeIdentification from './documents/legalPersonGuarantor/Repre
 import CorporationIdentification from './documents/legalPersonGuarantor/CorporationIdentification.vue'
 import OrganismCert from './documents/organismGuarantor/OrganismCert.vue'
 import GuarantorIdentification from './documents/naturalGuarantor/GuarantorIdentification.vue'
-import GuarantorResidency from './documents/naturalGuarantor/GuarantorResidency.vue'
 import GuarantorProfessional from './documents/naturalGuarantor/GuarantorProfessional.vue'
 import GuarantorFinancial from './documents/naturalGuarantor/GuarantorFinancial.vue'
 import GuarantorTax from './documents/naturalGuarantor/GuarantorTax.vue'
@@ -97,6 +89,8 @@ import useTenantStore from '@/stores/tenant-store'
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import CoupleGuarantorResidency from './documents/naturalGuarantor/CoupleGuarantorResidency.vue'
+import { makeCotenantGuarantorResidencyLink } from './guarantorResidency/makeGuarantorResidencyLink'
 
 const route = useRoute()
 const router = useRouter()
@@ -157,13 +151,6 @@ function goBack() {
   }
 }
 
-function checkResidencyAndGoNext() {
-  if (!selectedGuarantor.value) {
-    return
-  }
-  goNext()
-}
-
 function goNext() {
   router.push({
     name: 'TenantGuarantorDocuments',
@@ -174,6 +161,16 @@ function goNext() {
       guarantorId: route.params.guarantorId
     }
   })
+}
+
+function goToResidency() {
+  const { tenantId, guarantorId } = route.params
+  const coTenants = store.user.apartmentSharing?.tenants.filter((t) => t.id != store.user.id)
+  const coTenant = coTenants?.find((r) => r.id === Number(tenantId))
+  const guarantor = coTenant?.guarantors?.find((g) => g.id === Number(guarantorId))
+  const document = guarantor?.documents?.find((d) => d.documentCategory === 'RESIDENCY')
+  const link = makeCotenantGuarantorResidencyLink(Number(tenantId), Number(guarantorId), document)
+  router.push(link)
 }
 
 function nextStep() {

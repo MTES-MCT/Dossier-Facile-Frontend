@@ -1,6 +1,6 @@
 <template>
   <FooterContainer class="residency-footer">
-    <router-link :to="`/info-garant/1/${guarantorId}`" class="fr-btn fr-btn--secondary">
+    <router-link :to="residencyState.previousStep" class="fr-btn fr-btn--secondary">
       <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
       <span class="desktop">{{ t('backnext.back') }}</span>
     </router-link>
@@ -17,19 +17,23 @@ import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { useGuarantorId } from './useGuarantorId'
+import { residencyKey } from '../residency/residencyState'
+import { inject } from 'vue'
 
 const { onSubmit } = defineProps<{ onSubmit?: () => Promise<boolean> }>()
 
 const { t } = useI18n()
 const router = useRouter()
-const guarantorId = useGuarantorId()
+const residencyState = inject(residencyKey)
+if (!residencyState) {
+  throw new Error('Residency state was not provided')
+}
 
 const submit = async () => {
   AnalyticsService.validateFunnelStep('guarantor-residency')
   const goNext = onSubmit ? await onSubmit() : true
   if (goNext) {
-    router.push(`/info-garant/3/${guarantorId.value}`)
+    router.push(residencyState.nextStep)
   }
 }
 </script>

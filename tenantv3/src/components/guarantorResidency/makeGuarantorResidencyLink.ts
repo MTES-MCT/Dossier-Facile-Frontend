@@ -25,3 +25,11 @@ export function makeGuarantorResidencyLink(guarantor: Guarantor) {
   const document = guarantor?.documents?.find((d) => d.documentCategory === 'RESIDENCY')
   return `${RESIDENCY_PATH}/${guarantor.id}${documentPath(document)}`
 }
+
+export function makeCotenantGuarantorResidencyLink(
+  tenantId: number,
+  guarantorId: number,
+  document: DfDocument | undefined
+) {
+  return `/info-garant-locataire/${tenantId}/${guarantorId}/5/2${documentPath(document)}`
+}

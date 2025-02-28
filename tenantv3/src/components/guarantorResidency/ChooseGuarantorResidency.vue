@@ -1,19 +1,19 @@
 <template>
   <RadioList>
-    <RadioListItem :to="guarantorId + '/tenant'" @click="sendEvent('tenant')">{{
+    <RadioListItem :to="here + '/tenant'" @click="sendEvent('tenant')">{{
       t('residency.tenant')
     }}</RadioListItem>
-    <RadioListItem :to="guarantorId + '/owner'" @click="sendEvent('owner')">{{
+    <RadioListItem :to="here + '/owner'" @click="sendEvent('owner')">{{
       t('residency.owner')
     }}</RadioListItem>
-    <RadioListItem :to="guarantorId + '/guest'" @click="sendEvent('guest')"
+    <RadioListItem :to="here + '/guest'" @click="sendEvent('guest')"
       >{{ t('residency.guest') }}
       <span class="fr-hint-text">{{ t('residency.guest-subtext') }}</span>
     </RadioListItem>
-    <RadioListItem :to="guarantorId + '/guest-company'" @click="sendEvent('guest-company')">{{
+    <RadioListItem :to="here + '/guest-company'" @click="sendEvent('guest-company')">{{
       t('residency.guest-company')
     }}</RadioListItem>
-    <RadioListItem :to="guarantorId + '/other'" @click="sendEvent('other')"
+    <RadioListItem :to="here + '/other'" @click="sendEvent('other')"
       >{{ t('residency.other') }}
     </RadioListItem>
   </RadioList>
@@ -25,11 +25,13 @@ import RadioList from '@/components/residency/lib/RadioList.vue'
 import RadioListItem from '@/components/residency/lib/RadioListItem.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { useGuarantorId } from './useGuarantorId'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
 const { t } = useI18n()
-const guarantorId = useGuarantorId()
+const route = useRoute()
+const here = computed(() => route.path)
 
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation('guarantor-residency', subcategory)

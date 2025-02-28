@@ -279,6 +279,7 @@
                 :document-type="DocumentType.RESIDENCY"
                 :substep="2"
                 :active="getGuarantorCurrentStep(2, g)"
+                :to="makeResidencyLink(g)"
               />
               <CoTenantGuarantorDocumentLink
                 class="ml-10"
@@ -371,6 +372,7 @@ import { UtilsService } from '@/services/UtilsService'
 import { useI18n } from 'vue-i18n'
 import { DocumentType } from './documents/DocumentType'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { makeCotenantGuarantorResidencyLink } from '../guarantorResidency/makeGuarantorResidencyLink'
 
 const store = useTenantStore()
 const route = useRoute()
@@ -467,6 +469,11 @@ function getName(user: CoTenant): string {
     return `${user.firstName} ${user.preferredName}`
   }
   return `${user.firstName} ${user.lastName}`
+}
+
+function makeResidencyLink(g: Guarantor) {
+  const doc = g.documents?.find((d) => d.documentCategory === 'RESIDENCY')
+  return makeCotenantGuarantorResidencyLink(getCoTenant(0).id, g.id!, doc)
 }
 </script>
 

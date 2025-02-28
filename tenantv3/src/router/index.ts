@@ -71,6 +71,37 @@ const RESIDENCY_COMPONENTS = [
   }
 ]
 
+const GUARANTOR_RESIDENCY_ROUTES = [
+  {
+    path: 'tenant',
+    component: () => import('@/components/guarantorResidency/GuarantorTenant.vue')
+  },
+  {
+    path: 'owner',
+    component: () => import('@/components/guarantorResidency/GuarantorOwner.vue')
+  },
+  {
+    path: 'guest',
+    component: () => import('@/components/guarantorResidency/GuarantorGuest.vue')
+  },
+  {
+    path: 'guest/proof',
+    component: () => import('@/components/guarantorResidency/GuarantorGuestProof.vue')
+  },
+  {
+    path: 'guest/no-proof',
+    component: () => import('@/components/guarantorResidency/GuarantorGuestNoProof.vue')
+  },
+  {
+    path: 'guest-company',
+    component: () => import('@/components/guarantorResidency/GuarantorGuestCompany.vue')
+  },
+  {
+    path: 'other',
+    component: () => import('@/components/guarantorResidency/GuarantorOther.vue')
+  }
+]
+
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -274,46 +305,26 @@ export const router = createRouter({
           name: 'GuarantorDocuments',
           component: () => import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
         },
-        {
-          path: 'tenant',
-          component: () => import('@/components/guarantorResidency/GuarantorTenant.vue')
-        },
-        {
-          path: 'owner',
-          component: () => import('@/components/guarantorResidency/GuarantorOwner.vue')
-        },
-        {
-          path: 'guest',
-          component: () => import('@/components/guarantorResidency/GuarantorGuest.vue')
-        },
-        {
-          path: 'guest/proof',
-          component: () => import('@/components/guarantorResidency/GuarantorGuestProof.vue')
-        },
-        {
-          path: 'guest/no-proof',
-          component: () => import('@/components/guarantorResidency/GuarantorGuestNoProof.vue')
-        },
-        {
-          path: 'guest-company',
-          component: () => import('@/components/guarantorResidency/GuarantorGuestCompany.vue')
-        },
-        {
-          path: 'other',
-          component: () => import('@/components/guarantorResidency/GuarantorOther.vue')
-        }
+        ...GUARANTOR_RESIDENCY_ROUTES
       ]
     },
     {
       path: '/info-garant-locataire/:tenantId/:guarantorId/:step/:substep?',
-      name: 'TenantGuarantorDocuments',
       meta: {
         title: 'Édition du garant du locataire - DossierFacile',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      component: () => import('../views/TenantGuarantorDocumentsPage.vue')
+      component: () => import('../views/TenantGuarantorDocumentsPage.vue'),
+      children: [
+        {
+          path: '',
+          name: 'TenantGuarantorDocuments',
+          component: () => import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
+        },
+        ...GUARANTOR_RESIDENCY_ROUTES
+      ]
     },
     {
       path: '/public-file/:token',
