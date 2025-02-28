@@ -16,6 +16,7 @@ const store = useTenantStore()
 
 provide(residencyKey, {
   category: 'residency',
+  textKey: 'tenant',
   previousStep: '/documents-locataire/1',
   nextStep: { name: 'TenantProfessional' },
   document: computed(() => store.getTenantResidencyDocument),

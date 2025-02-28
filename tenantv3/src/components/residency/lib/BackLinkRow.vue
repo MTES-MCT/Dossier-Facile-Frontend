@@ -30,22 +30,19 @@
 import { useRouter, type RouterLinkProps } from 'vue-router'
 import { RiArrowGoBackLine, RiCheckboxCircleLine } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
-import { computed, inject, ref } from 'vue'
+import { computed, ref } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import useTenantStore from '@/stores/tenant-store'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { residencyKey } from '../residencyState'
+import { useResidencyState } from '../residencyState'
 
 const props = defineProps<{ label: string; to: RouterLinkProps['to']; guarantor?: boolean }>()
 const emit = defineEmits<{ edit: [] }>()
 const { t } = useI18n()
 const router = useRouter()
 const store = useTenantStore()
-const residencyState = inject(residencyKey)
-if (!residencyState) {
-  throw new Error('Residency state was not provided')
-}
+const residencyState = useResidencyState()
 
 const showChangeSituation = ref(false)
 const category = computed(() => (props.guarantor ? 'guarantor-residency' : 'residency'))

@@ -32,6 +32,7 @@ const document = computed(() => {
 
 provide(residencyKey, {
   category: 'guarantor-residency',
+  textKey: 'couple',
   previousStep: {
     name: 'TenantGuarantorDocuments',
     params: {

@@ -19,6 +19,7 @@ const tenantId = Number(route.params.tenantId)
 const step = route.params.step
 provide(residencyKey, {
   category: 'residency',
+  textKey: 'couple',
   previousStep: {
     name: 'CoTenantDocuments',
     params: {
@@ -46,10 +47,10 @@ provide(residencyKey, {
 <i18n>
 {
   "en": {
-    "residency-situation": "Your spouse's current housing situation",
+    "residency-situation": "Your spouse's housing situation",
   },
   "fr": {
-    "residency-situation": "La situation d'hébergement actuelle de votre conjoint"
+    "residency-situation": "Situation d’hébergement de votre conjoint"
   }
 }
 </i18n>

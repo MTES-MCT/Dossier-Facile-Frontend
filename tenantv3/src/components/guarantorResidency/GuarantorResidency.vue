@@ -19,6 +19,7 @@ const guarantorId = useGuarantorId()
 
 provide(residencyKey, {
   category: 'guarantor-residency',
+  textKey: 'tenant',
   previousStep: `/info-garant/1/${guarantorId}`,
   nextStep: `/info-garant/3/${guarantorId}`,
   document: computed(() => store.getGuarantorResidencyDocument),

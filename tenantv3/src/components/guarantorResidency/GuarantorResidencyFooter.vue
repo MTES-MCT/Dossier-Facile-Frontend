@@ -17,18 +17,13 @@ import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { residencyKey } from '../residency/residencyState'
-import { inject } from 'vue'
+import { useResidencyState } from '../residency/residencyState'
 
 const { onSubmit } = defineProps<{ onSubmit?: () => Promise<boolean> }>()
 
 const { t } = useI18n()
 const router = useRouter()
-const residencyState = inject(residencyKey)
-if (!residencyState) {
-  throw new Error('Residency state was not provided')
-}
-
+const residencyState = useResidencyState()
 const submit = async () => {
   AnalyticsService.validateFunnelStep('guarantor-residency')
   const goNext = onSubmit ? await onSubmit() : true

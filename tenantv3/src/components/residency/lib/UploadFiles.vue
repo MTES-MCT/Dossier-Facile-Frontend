@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
+import { computed, ref } from 'vue'
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
 import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
@@ -36,7 +36,7 @@ import { UtilsService } from '@/services/UtilsService'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import type { ResidencyCategory } from '@/components/documents/share/DocumentTypeConstants'
-import { residencyKey } from '../residencyState'
+import { useResidencyState } from '../residencyState'
 
 const {
   maxFileCount = 10,
@@ -54,10 +54,7 @@ const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
 
 const store = useTenantStore()
-const residencyState = inject(residencyKey)
-if (!residencyState) {
-  throw new Error('Residency state was not provided')
-}
+const residencyState = useResidencyState()
 
 // const category = guarantor ? 'guarantor-residency' : 'residency'
 // eslint-disable-next-line vue/no-dupe-keys

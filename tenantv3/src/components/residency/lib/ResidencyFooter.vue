@@ -17,10 +17,10 @@ import FooterContainer from '@/components/footer/FooterContainer.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { computed, inject } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { residencyKey } from '../residencyState'
+import { useResidencyState } from '../residencyState'
 
 const { onSubmit, enabled = null } = defineProps<{
   onSubmit?: () => void
@@ -29,10 +29,7 @@ const { onSubmit, enabled = null } = defineProps<{
 
 const { t } = useI18n()
 const router = useRouter()
-const residencyState = inject(residencyKey)
-if (!residencyState) {
-  throw new Error('Residency state was not provided')
-}
+const residencyState = useResidencyState()
 const disabled = computed(() =>
   enabled == null ? residencyState.document.value == undefined : !enabled
 )
