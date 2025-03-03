@@ -1,13 +1,13 @@
 <template>
   <BackLinkRow
     :label="t('guarantor-guest')"
-    :to="'/info-garant/2/' + guarantorId"
+    :to="grandparentRoute"
     guarantor
     @edit="AnalyticsService.editSituation('guarantor-residency', 'guest')"
   />
   <BackLinkRow
     :label="t('guarantor-guest-no-proof')"
-    :to="previousPage"
+    :to="parentRoute"
     guarantor
     @edit="AnalyticsService.editSituation2('guarantor-residency', 'guest', 'no-proof')"
   />
@@ -27,13 +27,12 @@
 import { useI18n } from 'vue-i18n'
 import UploadFiles from '@/components/residency/lib/UploadFiles.vue'
 import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
-import { useGuarantorId } from './useGuarantorId'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
-import { computed } from 'vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { useParentRoute } from './useParentRoute'
 const { t } = useI18n()
-const guarantorId = useGuarantorId()
-const previousPage = computed(() => `/info-garant/2/${guarantorId.value}/guest`)
+const parentRoute = useParentRoute()
+const grandparentRoute = useParentRoute(2)
 </script>
 
 <i18n>

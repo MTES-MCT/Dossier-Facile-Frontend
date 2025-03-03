@@ -1,7 +1,7 @@
 <template>
   <BackLinkRow
     :label="t('guarantor-other')"
-    :to="previousPage"
+    :to="parentRoute"
     guarantor
     @edit="AnalyticsService.editSituation('guarantor-residency', 'other')"
   />
@@ -44,18 +44,19 @@ import { useI18n } from 'vue-i18n'
 import UploadFiles from '@/components/residency/lib/UploadFiles.vue'
 import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
 import { useGuarantorId } from './useGuarantorId'
-import { computed, ref, useId } from 'vue'
+import { ref, useId } from 'vue'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useField } from 'vee-validate'
 import useTenantStore from '@/stores/tenant-store'
 import { ToastService } from '@/services/ToastService'
+import { useParentRoute } from './useParentRoute'
 
 const { t } = useI18n()
 const guarantorId = useGuarantorId()
-const previousPage = computed(() => `/info-garant/2/${guarantorId.value}`)
 const checkboxId = useId()
 const store = useTenantStore()
+const parentRoute = useParentRoute()
 const initialText = store.getGuarantorResidencyDocument?.customText || ''
 const { errorMessage, meta, value, validate } = useField<string>(
   'customText',

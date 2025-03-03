@@ -1,7 +1,7 @@
 <template>
   <BackLinkRow
     :label="t('guarantor-residency.guest')"
-    :to="previousPage"
+    :to="parentRoute"
     guarantor
     @edit="AnalyticsService.editSituation('guarantor-residency', 'guest')"
   />
@@ -22,13 +22,11 @@ import RadioListItem from '@/components/residency/lib/RadioListItem.vue'
 import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { useGuarantorId } from './useGuarantorId'
-import { computed } from 'vue'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
+import { useParentRoute } from './useParentRoute'
 
 const { t } = useI18n()
-const guarantorId = useGuarantorId()
-const previousPage = computed(() => `/info-garant/2/${guarantorId.value}`)
+const parentRoute = useParentRoute()
 
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation2('guarantor-residency', 'guest', subcategory)
