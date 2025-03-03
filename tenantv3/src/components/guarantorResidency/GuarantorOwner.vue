@@ -1,6 +1,6 @@
 <template>
   <BackLinkRow
-    :label="t('garantor-owner')"
+    :label="t(textKey + '.garantor-owner')"
     :to="parentRoute"
     guarantor
     @edit="AnalyticsService.editSituation('guarantor-residency', 'owner')"
@@ -9,7 +9,7 @@
     <strong>{{ t('your-choice') }}</strong>
   </i18n-t>
   <ul>
-    <i18n-t keypath="choice-1" tag="li">
+    <i18n-t :keypath="textKey + '.choice-1'" tag="li">
       <strong>{{ t('tax-notice') }}</strong>
     </i18n-t>
     <i18n-t keypath="choice-2" tag="li">
@@ -28,29 +28,43 @@ import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useParentRoute } from './useParentRoute'
+import { useResidencyState } from '../residency/residencyState'
 const { t } = useI18n()
 const parentRoute = useParentRoute()
+const { textKey } = useResidencyState()
 </script>
 
 <i18n>
 {
   "en": {
-    "garantor-owner": "Your guarantor is an owner",
     "please-provide" : "Please add one of the following documents here:",
     "your-choice": "",
-    "choice-1": "your guarantor's {0}",
     "tax-notice": "2024 property tax notice",
-    "choice-2": "{0} in your name, such as a telephone, electricity or water bill, or proof of home insurance.",
     "recent-proof": "or proof of address less than 3 months old",
+    "choice-2": "{0} in their name, such as a telephone, electricity or water bill, or proof of home insurance.",
+    "tenant": {
+      "garantor-owner": "Your guarantor is an owner",
+      "choice-1": "your guarantor's {0}",
+    },
+    "couple": {
+      "garantor-owner": "Their guarantor is an owner",
+      "choice-1": "their guarantor's {0}",
+    }
   },
   "fr": {
-    "garantor-owner": "Votre garant est propriétaire",
     "please-provide" : "Merci d'ajouter ici l'un des documents suivants, {0} :",
     "your-choice": "au choix",
-    "choice-1": "{0} de votre garant",
     "tax-notice": "l'avis de taxe foncière 2024",
-    "choice-2": "{0} à son nom : facture de téléphone, d'électricité, d'eau ou attestation d'assurance habitation par exemple",
     "recent-proof": "ou un justificatif de domicile de moins de 3 mois",
+    "choice-2": "{0} à son nom : facture de téléphone, d'électricité, d'eau ou attestation d'assurance habitation par exemple",
+    "tenant": {
+      "garantor-owner": "Votre garant est propriétaire",
+      "choice-1": "{0} de votre garant",
+    },
+    "couple": {
+      "garantor-owner": "Son garant est propriétaire",
+      "choice-1": "{0} de son garant",
+    }
   }
 }
 </i18n>

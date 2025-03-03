@@ -1,16 +1,16 @@
 <template>
   <BackLinkRow
-    :label="t('guarantor-residency.guest')"
+    :label="t(textKey + '.guest')"
     :to="parentRoute"
     guarantor
     @edit="AnalyticsService.editSituation('guarantor-residency', 'guest')"
   />
   <RadioList>
     <RadioListItem to="guest/proof" @click="sendEvent('proof')">{{
-      t('guarantor-residency.proof')
+      t(textKey + '.proof')
     }}</RadioListItem>
     <RadioListItem to="guest/no-proof" @click="sendEvent('no-proof')">{{
-      t('guarantor-residency.no-proof')
+      t(textKey + '.no-proof')
     }}</RadioListItem>
   </RadioList>
   <GuarantorResidencyFooter />
@@ -24,9 +24,11 @@ import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { useParentRoute } from './useParentRoute'
+import { useResidencyState } from '../residency/residencyState'
 
 const { t } = useI18n()
 const parentRoute = useParentRoute()
+const { textKey } = useResidencyState()
 
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation2('guarantor-residency', 'guest', subcategory)
@@ -35,17 +37,27 @@ const sendEvent = (subcategory: string) =>
 <i18n>
 {
   "en": {
-    "guarantor-residency": {
+    "tenant": {
       "guest": "Your guarantor is a lodger",
       "proof": "Your guarantor has proof of accomodation less than 3 months old",
       "no-proof": "Your guarantor has no proof of accomodation"
+    },
+    "couple": {
+      "guest": "Their guarantor is a lodger",
+      "proof": "Their guarantor has proof of accomodation less than 3 months old",
+      "no-proof": "Their guarantor has no proof of accomodation"
     }
   },
   "fr": {
-    "guarantor-residency": {
+    "tenant": {
       "guest": "Votre garant est hébergé",
       "proof": "Votre garant a une attestation d'hébergement de moins de 3 mois",
       "no-proof": "Votre garant n'a pas d'attestation d'hébergement"
+    },
+    "couple": {
+      "guest": "Son garant est hébergé",
+      "proof": "Son garant a une attestation d'hébergement de moins de 3 mois",
+      "no-proof": "Son garant n'a pas d'attestation d'hébergement"
     }
   }
 }
