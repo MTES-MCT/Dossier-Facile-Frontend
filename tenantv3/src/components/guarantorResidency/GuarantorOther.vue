@@ -43,7 +43,6 @@
 import { useI18n } from 'vue-i18n'
 import UploadFiles from '@/components/residency/lib/UploadFiles.vue'
 import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
-import { useGuarantorId } from './useGuarantorId'
 import { ref, useId } from 'vue'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -54,11 +53,10 @@ import { useParentRoute } from './useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
 
 const { t } = useI18n()
-const guarantorId = useGuarantorId()
 const checkboxId = useId()
 const store = useTenantStore()
 const parentRoute = useParentRoute()
-const { textKey } = useResidencyState()
+const { addData, textKey } = useResidencyState()
 const initialText = store.getGuarantorResidencyDocument?.customText || ''
 const { errorMessage, meta, value, validate } = useField<string>(
   'customText',
@@ -78,7 +76,7 @@ async function submit() {
   const formData = new FormData()
   formData.append('customText', value.value)
   formData.append('typeDocumentResidency', 'OTHER_RESIDENCY')
-  formData.append('guarantorId', guarantorId.value)
+  addData?.(formData)
   try {
     await store.saveGuarantorResidency(formData)
     return true
