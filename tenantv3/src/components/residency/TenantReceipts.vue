@@ -72,7 +72,7 @@ import { useResidencyState } from './residencyState'
 
 const i18n = useI18n()
 const router = useRouter()
-const { document, textKey } = useResidencyState()
+const { document, nextStep, textKey } = useResidencyState()
 const showNbDocumentsResidencyTenant = ref(false)
 
 const t = (key: string, params?: [string]) =>
@@ -81,7 +81,7 @@ const t = (key: string, params?: [string]) =>
 function ignoreAndgoNext() {
   showNbDocumentsResidencyTenant.value = false
   AnalyticsService.forceMissingResidencyDocument()
-  router.push({ name: 'TenantProfessional' })
+  router.push(nextStep)
 }
 
 function checkFiles() {
@@ -94,7 +94,7 @@ function checkFiles() {
       return
     }
   }
-  router.push({ name: 'TenantProfessional' })
+  router.push(nextStep)
 }
 
 const month = dayjs().subtract(dayjs().date() < 15 ? 2 : 1, 'month')
