@@ -11,7 +11,12 @@ type EventCategory = 'prevalidation' | 'funnel' | 'contact' | 'account' | 'misc'
 type Action = 'clic' | 'print' | 'unknown' | 'delete' | 'upload'
 const DOCUMENT_TYPES = ['identification', 'residency', 'professional', 'financial', 'tax'] as const
 const DOCUMENT_CATEGORIES = Object.values(DocumentTypeTranslations)
-type DocumentCategory = (typeof DOCUMENT_CATEGORIES)[number] | 'guarantor-residency'
+type DocumentCategoryBase = (typeof DOCUMENT_CATEGORIES)[number]
+type DocumentCategory =
+  | DocumentCategoryBase
+  | `guarantor-${DocumentCategoryBase}`
+  | `couple-${DocumentCategoryBase}`
+  | `couple-guarantor-${DocumentCategoryBase}`
 
 function sendFullEvent(category: EventCategory, action: Action, name: string) {
   if (import.meta.env.VITE_MATOMO_ENABLE === 'false' || !window._paq) {

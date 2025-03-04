@@ -2,12 +2,12 @@
   <BackLinkRow
     :label="t('you-tenant')"
     to="../../2"
-    @edit="AnalyticsService.editSituation('residency', 'tenant')"
+    @edit="AnalyticsService.editSituation(category, 'tenant')"
   />
   <BackLinkRow
     :label="t('have-receipts')"
     to="../tenant"
-    @edit="AnalyticsService.editSituation2('residency', 'tenant', 'receipts')"
+    @edit="AnalyticsService.editSituation2(category, 'tenant', 'receipts')"
   />
   <i18n-t :keypath="textKey + '.please-provide'" tag="p" class="fr-mb-0">
     <strong>{{ t('receipts-from') }}</strong>
@@ -72,7 +72,7 @@ import { useResidencyState } from './residencyState'
 
 const i18n = useI18n()
 const router = useRouter()
-const { document, nextStep, textKey } = useResidencyState()
+const { category, document, nextStep, textKey } = useResidencyState()
 const showNbDocumentsResidencyTenant = ref(false)
 
 const t = (key: string, params?: [string]) =>

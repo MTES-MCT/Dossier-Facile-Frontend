@@ -2,12 +2,12 @@
   <BackLinkRow
     :label="t(textKey + '.you-tenant')"
     to="../../2"
-    @edit="AnalyticsService.editSituation('residency', 'tenant')"
+    @edit="AnalyticsService.editSituation(category, 'tenant')"
   />
   <BackLinkRow
     :label="t(textKey + '.have-proof')"
     to="../tenant"
-    @edit="AnalyticsService.editSituation2('residency', 'tenant', 'proof')"
+    @edit="AnalyticsService.editSituation2(category, 'tenant', 'proof')"
   />
   <i18n-t :keypath="textKey + '.please-provide'" tag="p">
     <strong>{{ t(textKey + '.less-3-months') }}</strong>
@@ -28,7 +28,7 @@ import UploadFiles from './lib/UploadFiles.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
 const { t } = useI18n()
-const { textKey } = useResidencyState()
+const { category, textKey } = useResidencyState()
 </script>
 
 <i18n>

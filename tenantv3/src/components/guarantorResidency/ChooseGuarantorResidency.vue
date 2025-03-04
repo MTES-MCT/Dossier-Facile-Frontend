@@ -28,13 +28,14 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
+import { useResidencyState } from '../residency/residencyState'
 
 const { t } = useI18n()
 const route = useRoute()
+const { category } = useResidencyState()
 const here = computed(() => route.path)
 
-const sendEvent = (subcategory: string) =>
-  AnalyticsService.selectSituation('guarantor-residency', subcategory)
+const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
 </script>
 
 <i18n>

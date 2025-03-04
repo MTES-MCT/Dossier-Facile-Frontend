@@ -8,7 +8,7 @@ type ResidencyState = {
   previousStep: RouteLocationRaw
   nextStep: RouteLocationRaw
   document: Ref<DfDocument | undefined>
-  category: 'residency' | 'guarantor-residency'
+  category: 'residency' | 'guarantor-residency' | 'couple-residency' | 'couple-guarantor-residency'
   textKey: 'tenant' | 'couple'
   userId: number | undefined
   addData?: (formData: FormData) => void

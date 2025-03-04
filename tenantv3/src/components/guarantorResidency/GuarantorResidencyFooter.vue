@@ -25,7 +25,7 @@ const { t } = useI18n()
 const router = useRouter()
 const residencyState = useResidencyState()
 const submit = async () => {
-  AnalyticsService.validateFunnelStep('guarantor-residency')
+  AnalyticsService.validateFunnelStep(residencyState.category)
   const goNext = onSubmit ? await onSubmit() : true
   if (goNext) {
     router.push(residencyState.nextStep)

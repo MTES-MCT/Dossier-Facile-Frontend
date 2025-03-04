@@ -2,7 +2,7 @@
   <BackLinkRow
     :label="t(textKey + '.you-owner')"
     to="../2"
-    @edit="AnalyticsService.editSituation('residency', 'owner')"
+    @edit="AnalyticsService.editSituation(category, 'owner')"
   />
   <i18n-t :keypath="textKey + '.please-provide'" tag="p">
     <template #notice>
@@ -27,7 +27,7 @@ import UploadFiles from './lib/UploadFiles.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
 const { t } = useI18n()
-const { textKey } = useResidencyState()
+const { category, textKey } = useResidencyState()
 </script>
 
 <i18n>

@@ -2,7 +2,7 @@
   <BackLinkRow
     :label="t('other-residency')"
     to="../2"
-    @edit="AnalyticsService.editSituation('residency', 'other-residency')"
+    @edit="AnalyticsService.editSituation(category, 'other-residency')"
   />
   <i18n-t :keypath="textKey + '.tick-box'" tag="p">
     <em>{{ t('cant-provide-receipts') }}</em>
@@ -61,7 +61,7 @@ const router = useRouter()
 const store = useTenantStore()
 const { t } = useI18n()
 const residencyState = useResidencyState()
-const { textKey } = residencyState
+const { category, textKey } = residencyState
 
 const residencyDoc = residencyState.document.value
 const isPrecarious = ref(

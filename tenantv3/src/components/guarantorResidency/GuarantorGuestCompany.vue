@@ -2,8 +2,7 @@
   <BackLinkRow
     :label="t('garantor-guest-company')"
     :to="parentRoute"
-    guarantor
-    @edit="AnalyticsService.editSituation('guarantor-residency', 'guest-company')"
+    @edit="AnalyticsService.editSituation(category, 'guest-company')"
   />
   <i18n-t keypath="please-provide" tag="p">
     <strong>{{ t(textKey + '.company-proof') }}</strong>
@@ -33,7 +32,7 @@ import { useParentRoute } from './useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
 const { t } = useI18n()
 const parentRoute = useParentRoute()
-const { textKey } = useResidencyState()
+const { category, textKey } = useResidencyState()
 </script>
 
 <i18n>

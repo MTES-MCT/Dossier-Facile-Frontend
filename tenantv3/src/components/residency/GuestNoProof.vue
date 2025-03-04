@@ -2,12 +2,12 @@
   <BackLinkRow
     :label="t(textKey + '.you-hosted')"
     to="../../2"
-    @edit="AnalyticsService.editSituation('residency', 'guest')"
+    @edit="AnalyticsService.editSituation(category, 'guest')"
   />
   <BackLinkRow
     :label="t(textKey + '.no-accomodation-proof')"
     to="../guest"
-    @edit="AnalyticsService.editSituation2('residency', 'guest', 'no-proof')"
+    @edit="AnalyticsService.editSituation2(category, 'guest', 'no-proof')"
   />
   <i18n-t :keypath="textKey + '.complete-certificate'" tag="p">
     <a
@@ -28,7 +28,7 @@ import UploadFiles from './lib/UploadFiles.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
 const { t } = useI18n()
-const { textKey } = useResidencyState()
+const { category, textKey } = useResidencyState()
 </script>
 
 <i18n>

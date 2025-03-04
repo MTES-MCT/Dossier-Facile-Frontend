@@ -2,7 +2,7 @@
   <BackLinkRow
     :label="t(textKey + '.you-hosted')"
     to="../2"
-    @edit="AnalyticsService.editSituation('residency', 'guest')"
+    @edit="AnalyticsService.editSituation(category, 'guest')"
   />
   <RadioList>
     <RadioListItem to="guest/proof" @click="sendEvent('proof')">{{
@@ -24,9 +24,9 @@ import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
 const { t } = useI18n()
-const { textKey } = useResidencyState()
-const sendEvent = (category: string) =>
-  AnalyticsService.selectSituation2('residency', 'guest', category)
+const { category, textKey } = useResidencyState()
+const sendEvent = (subCategory: string) =>
+  AnalyticsService.selectSituation2(category, 'guest', subCategory)
 </script>
 
 <i18n>

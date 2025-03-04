@@ -40,12 +40,12 @@ import RadioListItem from './lib/RadioListItem.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { showAllItems } from './residencyState'
+import { showAllItems, useResidencyState } from './residencyState'
 const { t } = useI18n()
-const sendEvent = (subcategory: string) =>
-  AnalyticsService.selectSituation('residency', subcategory)
+const { category } = useResidencyState()
+const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
 const showAll = () => {
-  AnalyticsService.selectOther('residency')
+  AnalyticsService.selectOther(category)
   showAllItems.value = true
 }
 </script>

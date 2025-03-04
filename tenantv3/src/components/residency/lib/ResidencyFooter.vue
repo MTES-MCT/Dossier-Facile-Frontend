@@ -35,7 +35,7 @@ const disabled = computed(() =>
 )
 
 const submit = () => {
-  AnalyticsService.validateFunnelStep('residency')
+  AnalyticsService.validateFunnelStep(residencyState.category)
   if (onSubmit) {
     onSubmit()
   } else {

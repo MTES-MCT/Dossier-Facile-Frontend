@@ -56,7 +56,6 @@ const files = ref<{ name: string; file: File; size: number; id?: string; path?: 
 const store = useTenantStore()
 const residencyState = useResidencyState()
 
-// const category = guarantor ? 'guarantor-residency' : 'residency'
 // eslint-disable-next-line vue/no-dupe-keys
 const category = residencyState.category
 const tenantResidencyDocument = residencyState.document

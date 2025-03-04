@@ -2,8 +2,7 @@
   <BackLinkRow
     :label="t('guarantor-other')"
     :to="parentRoute"
-    guarantor
-    @edit="AnalyticsService.editSituation('guarantor-residency', 'other')"
+    @edit="AnalyticsService.editSituation(category, 'other')"
   />
   <i18n-t :keypath="textKey + '.please-provide'" tag="p">
     <strong>{{ t('recent-proof') }}</strong>
@@ -56,7 +55,7 @@ const { t } = useI18n()
 const checkboxId = useId()
 const store = useTenantStore()
 const parentRoute = useParentRoute()
-const { addData, textKey } = useResidencyState()
+const { addData, category, textKey } = useResidencyState()
 const initialText = store.getGuarantorResidencyDocument?.customText || ''
 const { errorMessage, meta, value, validate } = useField<string>(
   'customText',

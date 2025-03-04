@@ -2,8 +2,7 @@
   <BackLinkRow
     :label="t(textKey + '.guest')"
     :to="parentRoute"
-    guarantor
-    @edit="AnalyticsService.editSituation('guarantor-residency', 'guest')"
+    @edit="AnalyticsService.editSituation(category, 'guest')"
   />
   <RadioList>
     <RadioListItem to="guest/proof" @click="sendEvent('proof')">{{
@@ -28,10 +27,10 @@ import { useResidencyState } from '../residency/residencyState'
 
 const { t } = useI18n()
 const parentRoute = useParentRoute()
-const { textKey } = useResidencyState()
+const { category, textKey } = useResidencyState()
 
 const sendEvent = (subcategory: string) =>
-  AnalyticsService.selectSituation2('guarantor-residency', 'guest', subcategory)
+  AnalyticsService.selectSituation2(category, 'guest', subcategory)
 </script>
 
 <i18n>

@@ -18,7 +18,7 @@ const route = useRoute()
 const tenantId = Number(route.params.tenantId)
 const step = route.params.step
 provide(residencyKey, {
-  category: 'residency',
+  category: 'couple-residency',
   textKey: 'couple',
   previousStep: {
     name: 'CoTenantDocuments',
