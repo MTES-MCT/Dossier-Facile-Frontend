@@ -3,7 +3,7 @@
     <DocumentDownloader
       :co-tenant-id="coTenantId"
       :documents-definitions="documentsDefinitions"
-      document-category="PROFESSIONAL"
+      :document-category="DocumentType.PROFESSIONAL"
       dispatch-method-name="saveTenantProfessional"
       type-document="typeDocumentProfessional"
       list-type="dropDownList"
@@ -19,6 +19,7 @@
 import { useI18n } from 'vue-i18n'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import DocumentDownloader from './DocumentDownloader.vue'
+import { DocumentType } from '@/components/editmenu/documents/DocumentType'
 
 const { t } = useI18n()
 

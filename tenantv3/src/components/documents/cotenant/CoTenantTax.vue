@@ -3,7 +3,7 @@
     <DocumentDownloader
       :co-tenant-id="coTenantId"
       :documents-definitions="documentsDefinitions"
-      document-category="TAX"
+      :document-category="DocumentTypeEnum.TAX"
       dispatch-method-name="saveTenantTax"
       type-document="typeDocumentTax"
       translation-key-prefix="cotenanttax."
@@ -59,6 +59,8 @@ import { useLoading } from 'vue-loading-overlay'
 import useTenantStore from '@/stores/tenant-store'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+import { DocumentType as DocumentTypeEnum } from '@/components/editmenu/documents/DocumentType'
 
 const documentsDefinitions = DocumentTypeConstants.TAX_DOCS
 

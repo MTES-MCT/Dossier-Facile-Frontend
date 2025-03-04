@@ -32,6 +32,7 @@
           :key="file.id"
           :file="file"
           :watermark-url="documentWatermarkUrl"
+          doc-category="identification"
           @remove="remove(file)"
           @ask-confirm="AnalyticsService.deleteDocument('identification')"
           @cancel="AnalyticsService.cancelDelete('identification')"

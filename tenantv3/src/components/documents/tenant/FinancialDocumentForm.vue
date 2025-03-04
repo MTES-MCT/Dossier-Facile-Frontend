@@ -108,6 +108,7 @@
                 :key="file.id"
                 :file="file"
                 :watermark-url="documentWatermarkUrl"
+                doc-category="financial"
                 @remove="remove(financialDocument, file)"
                 @ask-confirm="AnalyticsService.deleteDocument('financial')"
                 @cancel="AnalyticsService.cancelDelete('financial')"

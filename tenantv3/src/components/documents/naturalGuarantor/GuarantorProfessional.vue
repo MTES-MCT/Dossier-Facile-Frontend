@@ -47,6 +47,7 @@
           v-for="file in professionalFiles()"
           :key="file.id"
           :file="file"
+          doc-category="guarantor-professional"
           :watermark-url="documentWatermarkUrl"
           @remove="remove(file)"
         />
@@ -253,6 +254,7 @@ function professionalFiles() {
 }
 
 async function remove(file: DfFile, silent = false) {
+  AnalyticsService.deleteFile('guarantor-professional')
   if (file.id) {
     if (
       files.value.length === 1 &&

@@ -59,6 +59,7 @@
             v-for="file in documentFiles()"
             :key="file.id"
             :file="file"
+            :doc-category="analyticDocType"
             :watermark-url="documentWatermarkUrl"
             @remove="remove(file)"
           />
@@ -179,32 +180,36 @@
 </template>
 
 <script setup lang="ts">
+import WarningTaxDeclaration from '@/components/documents/share/WarningTaxDeclaration.vue'
+import {
+  DocumentType as DocumentTypeEnum,
+  DocumentTypeTranslations
+} from '@/components/editmenu/documents/DocumentType'
 import { RegisterService } from '@/services/RegisterService'
+import { ToastService } from '@/services/ToastService'
+import { UtilsService } from '@/services/UtilsService'
+import useTenantStore, { type DispatchNames } from '@/stores/tenant-store'
+import { RiAlarmWarningLine } from '@remixicon/vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { DfFile } from 'df-shared-next/src/models/DfFile'
 import { DocumentType } from 'df-shared-next/src/models/Document'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { User } from 'df-shared-next/src/models/User'
+import { ErrorMessage, Field } from 'vee-validate'
+import { computed, onBeforeMount, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
+import { AnalyticsService, type DocumentCategory } from '../../../services/AnalyticsService'
+import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
 import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
-import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import Modal from 'df-shared-next/src/components/ModalComponent.vue'
-import { UtilsService } from '@/services/UtilsService'
-import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
-import WarningTaxDeclaration from '@/components/documents/share/WarningTaxDeclaration.vue'
-import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
-import { ToastService } from '@/services/ToastService'
-import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
-import { computed, onBeforeMount, ref } from 'vue'
-import useTenantStore, { type DispatchNames } from '@/stores/tenant-store'
-import { Field, ErrorMessage } from 'vee-validate'
-import { AnalyticsService } from '../../../services/AnalyticsService'
-import { useI18n } from 'vue-i18n'
-import { RiAlarmWarningLine } from '@remixicon/vue'
-import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -213,7 +218,7 @@ const props = withDefaults(
   defineProps<{
     coTenantId: number
     documentsDefinitions: DocumentType[]
-    documentCategory: string
+    documentCategory: DocumentTypeEnum
     editedDocumentId?: number
     dispatchMethodName: DispatchNames
     typeDocument: string
@@ -303,6 +308,12 @@ function documentFiles(): DfFile[] {
 
 const documentWatermarkUrl = computed(() => {
   return getDocument()?.name
+})
+
+const analyticDocType = computed<DocumentCategory>(() => {
+  const translation = DocumentTypeTranslations[props.documentCategory]
+
+  return `cotenant-${translation}`
 })
 
 function loadDocument(forceLoadLast?: boolean) {
@@ -453,6 +464,7 @@ function resetFiles() {
 }
 
 function remove(file: DfFile) {
+  AnalyticsService.deleteFile(analyticDocType.value)
   if (file.id) {
     showLoader()
     RegisterService.deleteFileById(Number(file.id))

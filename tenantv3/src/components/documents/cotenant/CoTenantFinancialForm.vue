@@ -5,7 +5,7 @@
         :co-tenant-id="coTenantId"
         :documents-definitions="documentsDefinitions()"
         :edited-document-id="modelValue.id ? modelValue.id : -1"
-        document-category="FINANCIAL"
+        :document-category="DocumentTypeEnum.FINANCIAL"
         dispatch-method-name="saveTenantFinancial"
         type-document="typeDocumentFinancial"
         :show-downloader="showDownloader"
@@ -113,20 +113,21 @@
 </template>
 
 <script setup lang="ts">
+import { DocumentType as DocumentTypeEnum } from '@/components/editmenu/documents/DocumentType'
+import { ToastService } from '@/services/ToastService'
+import { UtilsService } from '@/services/UtilsService'
+import useTenantStore from '@/stores/tenant-store'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { DocumentType } from 'df-shared-next/src/models/Document'
-import DocumentDownloader from './DocumentDownloader.vue'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import FooterContainer from '../../footer/FooterContainer.vue'
-import BackNext from '../../footer/BackNext.vue'
-import { UtilsService } from '@/services/UtilsService'
-import { useLoading } from 'vue-loading-overlay'
+import { ErrorMessage, Field, Form } from 'vee-validate'
 import { ref } from 'vue'
-import useTenantStore from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
+import { useLoading } from 'vue-loading-overlay'
+import BackNext from '../../footer/BackNext.vue'
+import FooterContainer from '../../footer/FooterContainer.vue'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
-import { ToastService } from '@/services/ToastService'
-import { Form, Field, ErrorMessage } from 'vee-validate'
+import DocumentDownloader from './DocumentDownloader.vue'
 const store = useTenantStore()
 const emit = defineEmits<{ 'on-next': []; 'on-back': []; 'update:modelValue': [doc: DfDocument] }>()
 const { t } = useI18n()

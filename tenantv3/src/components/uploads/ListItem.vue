@@ -35,7 +35,7 @@ import { DfFile } from 'df-shared-next/src/models/DfFile'
 import ShowDoc from '../documents/share/ShowDoc.vue'
 import ShowPreview from '../documents/share/ShowPreview.vue'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
-import { AnalyticsService } from '../../services/AnalyticsService'
+import { AnalyticsService, type DocumentCategory } from '../../services/AnalyticsService'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
@@ -46,6 +46,7 @@ const emit = defineEmits<{ remove: []; 'ask-confirm': []; cancel: [] }>()
 const props = withDefaults(
   defineProps<{
     file: DfFile
+    docCategory: DocumentCategory
     watermarkUrl?: string
     uploadState?: string
     percentage?: number
@@ -77,7 +78,7 @@ function cancelDeleteFile() {
 }
 
 function openDoc() {
-  AnalyticsService.viewFromMain()
+  AnalyticsService.viewFromMain(props.docCategory)
   isDocModalVisible.value = true
 }
 

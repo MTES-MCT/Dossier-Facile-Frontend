@@ -64,12 +64,13 @@
       <WarningTaxDeclaration />
 
       <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mt-3w">
-        <ListItem 
+        <ListItem
           v-for="file in taxFiles()"
           :key="file.id"
-          :file="file" 
-          :watermark-url="documentWatermarkUrl" 
-          @remove="remove(file)" 
+          :file="file"
+          :watermark-url="documentWatermarkUrl"
+          doc-category="guarantor-tax"
+          @remove="remove(file)"
         />
       </div>
       <div class="fr-mb-3w fr-mt-3w">
@@ -380,6 +381,7 @@ function taxFiles(): DfFile[] {
 }
 
 async function remove(file: DfFile, silent = false) {
+  AnalyticsService.deleteFile('guarantor-tax')
   if (file.id) {
     if (
       files.value.length === 1 &&

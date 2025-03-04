@@ -27,6 +27,7 @@
             :key="file.id"
             :file="file"
             :watermark-url="documentWatermarkUrl"
+            doc-category="guarantee-provider-certificate"
             @remove="remove(Number(file.id))"
           />
         </div>
