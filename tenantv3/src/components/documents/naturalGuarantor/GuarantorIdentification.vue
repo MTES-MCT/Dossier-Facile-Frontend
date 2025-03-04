@@ -38,6 +38,7 @@
           v-for="file in identificationFiles()"
           :key="file.id"
           :file="file"
+          doc-category="guarantor-identification"
           :watermark-url="documentWatermarkUrl"
           @remove="remove(file)"
         />
@@ -252,6 +253,7 @@ function identificationFiles() {
 }
 
 async function remove(file: DfFile, silent = false) {
+  AnalyticsService.deleteFile('guarantor-identification')
   if (file.id) {
     if (
       files.value.length === 1 &&

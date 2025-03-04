@@ -11,6 +11,7 @@
       :key="file.id"
       :file="file"
       :watermark-url="documentWatermarkUrl"
+      :doc-category="category"
       @remove="remove(file)"
       @ask-confirm="AnalyticsService.deleteDocument(category)"
       @cancel="AnalyticsService.cancelDelete(category)"

@@ -17,6 +17,7 @@ type DocumentCategory =
   | `guarantor-${DocumentCategoryBase}`
   | `couple-${DocumentCategoryBase}`
   | `couple-guarantor-${DocumentCategoryBase}`
+  | `cotenant-${DocumentCategoryBase}`
 
 function sendFullEvent(category: EventCategory, action: Action, name: string) {
   if (import.meta.env.VITE_MATOMO_ENABLE === 'false' || !window._paq) {
@@ -65,8 +66,8 @@ export const AnalyticsService = {
     sendEvent('misc', 'open_owner')
   },
 
-  viewFromMain() {
-    sendEvent('funnel', 'main-view-doc')
+  viewFromMain(docType: DocumentCategory) {
+    sendEvent('funnel', 'main-view-doc_' + docType)
   },
 
   editFromAccount(docType: number) {
@@ -180,3 +181,5 @@ export const AnalyticsService = {
     sendFullEvent('funnel', 'clic', `validate-tenant_funnel_${category}`)
   }
 }
+
+export type { DocumentCategory }

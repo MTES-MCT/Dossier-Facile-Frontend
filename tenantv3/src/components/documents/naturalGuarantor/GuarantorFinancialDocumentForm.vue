@@ -101,6 +101,7 @@
               v-for="file in financialFiles()"
               :key="file.id"
               :file="file"
+              doc-category="guarantor-financial"
               :watermark-url="documentWatermarkUrl"
               @remove="remove(financialDocument, file)"
             />
@@ -427,6 +428,7 @@ function financialFiles() {
 }
 
 function remove(f: FinancialDocument, file: DfFile, silent = false) {
+  AnalyticsService.deleteFile('guarantor-financial')
   if (file.id) {
     if (
       f.files.length === 1 &&

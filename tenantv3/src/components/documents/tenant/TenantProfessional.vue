@@ -37,6 +37,7 @@
           :key="file.id"
           :file="file"
           :watermark-url="documentWatermarkUrl"
+          doc-category="professional"
           @remove="remove(file)"
           @ask-confirm="AnalyticsService.deleteDocument('professional')"
           @cancel="AnalyticsService.cancelDelete('professional')"

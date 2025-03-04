@@ -63,11 +63,12 @@
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
-        <ListItem 
+        <ListItem
           v-for="file in taxFiles()"
-          :key="file.id" 
-          :file="file" 
-          :watermark-url="documentWatermarkUrl" 
+          :key="file.id"
+          :file="file"
+          :watermark-url="documentWatermarkUrl"
+          doc-category="tax"
           @remove="remove(file)"
         />
       </div>
