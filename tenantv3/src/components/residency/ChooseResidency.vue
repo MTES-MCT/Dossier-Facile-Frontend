@@ -5,7 +5,7 @@
     }}</RadioListItem>
     <RadioListItem to="2/guest" @click="sendEvent('guest')"
       >{{ t('residency.guest') }}
-      <span class="fr-hint-text">{{ t('residency.guest-subtext') }}</span>
+      <span class="fr-hint-text">{{ t(textKey + '.guest-subtext') }}</span>
     </RadioListItem>
     <RadioListItem to="2/owner" @click="sendEvent('owner')">{{
       t('residency.owner')
@@ -42,7 +42,7 @@ import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { showAllItems, useResidencyState } from './residencyState'
 const { t } = useI18n()
-const { category } = useResidencyState()
+const { category, textKey } = useResidencyState()
 const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
 const showAll = () => {
   AnalyticsService.selectOther(category)
@@ -56,7 +56,6 @@ const showAll = () => {
     "residency": {
       "tenant": "Tenant",
       "guest": "Staying with someone",
-      "guest-subtext": "At your parents', a friend's, a relative's…",
       "owner": "Owner",
       "guest-company": "In a staff housing",
       "short-term-rental": "Airbnb rentals, hotels, campsites",
@@ -65,13 +64,18 @@ const showAll = () => {
       "other-residency": "In a precarious situation",
       "other-residency-subtext": "homeless, victim of domestic violence",
       "other": "Other situations…"
+    },
+    "tenant": {
+      "guest-subtext": "At your parents', a friend's, a relative's…",
+    },
+    "couple": {
+      "guest-subtext": "At a relative's, a friend's…",
     }
   },
   "fr": {
     "residency": {
       "tenant": "Locataire",
       "guest": "Hébergé chez quelqu'un",
-      "guest-subtext": "Chez vos parents, un ami, un proche…",
       "owner": "Propriétaire",
       "guest-company": "Dans un logement de fonction",
       "short-term-rental": "En location de type airbnb, à l'hôtel, au camping",
@@ -80,6 +84,12 @@ const showAll = () => {
       "other-residency": "En situation précaire",
       "other-residency-subtext": "sans-abri, victime de violences conjugales",
       "other": "Autres situations…"
+    },
+    "tenant": {
+      "guest-subtext": "Chez vos parents, un ami, un proche…",
+    },
+    "couple": {
+      "guest-subtext": "Chez un parent, un ami, un proche…",
     }
   }
 }

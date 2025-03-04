@@ -44,7 +44,7 @@ const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(cate
     "residency": {
       "tenant": "Tenant",
       "guest": "Staying with someone",
-      "guest-subtext": "At your parents', a friend's, a relative's…",
+      "guest-subtext": "At a relative's, a friend's…",
       "owner": "Owner",
       "guest-company": "In a staff housing",
       "guest-organism": "Hosted by an organization",
@@ -55,7 +55,7 @@ const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(cate
     "residency": {
       "tenant": "Locataire",
       "guest": "Hébergé chez quelqu'un",
-      "guest-subtext": "Chez vos parents, un ami, un proche…",
+      "guest-subtext": "Chez un parent, un ami, un proche…",
       "owner": "Propriétaire",
       "guest-company": "Dans un logement de fonction",
       "other": "Autre",
