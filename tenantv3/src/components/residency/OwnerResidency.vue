@@ -6,7 +6,7 @@
   />
   <i18n-t :keypath="textKey + '.please-provide'" tag="p">
     <template #notice>
-      <strong>{{ t('tax-notice') }}</strong>
+      <strong>{{ t('tax-notice', [taxYear]) }}</strong>
     </template>
     <template #link>
       <a href="https://www.impots.gouv.fr/accueil" target="_blank">{{ t('tax-website') }}</a>
@@ -26,6 +26,7 @@ import ResidencyFooter from './lib/ResidencyFooter.vue'
 import UploadFiles from './lib/UploadFiles.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
+import { taxYear } from '@/components/residency/lib/taxYear'
 const { t } = useI18n()
 const { category, textKey } = useResidencyState()
 </script>
@@ -33,7 +34,7 @@ const { category, textKey } = useResidencyState()
 <i18n>
 {
   "en": {
-    "tax-notice": "2024 property tax notice",
+    "tax-notice": "{0} property tax notice",
     "tax-website": "tax website",
     "valid-docs": "Only the latest property tax notice is a valid document here. Any other document (older notice, for example) will be refused.",
     "tenant": {
@@ -46,7 +47,7 @@ const { category, textKey } = useResidencyState()
     }
   },
   "fr": {
-    "tax-notice": "avis de taxe foncière 2024",
+    "tax-notice": "avis de taxe foncière {0}",
     "tax-website": "site internet des impôts",
     "valid-docs": "Seul le dernier avis de taxe foncière est un document valide ici. Tout autre document (avis plus ancien par exemple) sera refusé.",
     "tenant": {
