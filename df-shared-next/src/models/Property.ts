@@ -1,5 +1,5 @@
 import type { ApartmentSharing } from './ApartmentSharing'
-import { AdemeApiResult } from './AdemeApiResult'
+import { type AdemeApiResult } from './AdemeApiResult'
 
 export type PropertyType = 'HOUSE' | 'APARTMENT' | 'OTHER'
 
