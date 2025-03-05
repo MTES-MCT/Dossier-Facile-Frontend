@@ -36,7 +36,8 @@ const datetimeFormats = {
     }
   }
 } as const
-const i18n = createI18n({
+
+export const i18n = createI18n({
   legacy: false,
   locale: 'fr',
   globalInjection: true,
@@ -46,5 +47,3 @@ const i18n = createI18n({
   },
   datetimeFormats
 })
-
-export default i18n

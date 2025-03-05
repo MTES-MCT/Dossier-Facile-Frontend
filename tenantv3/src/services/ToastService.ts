@@ -1,5 +1,5 @@
 import { toast } from 'vue3-toastify'
-import i18n from '@/i18n'
+import { i18n } from '@/i18n'
 
 export const ToastService = {
   errorf(message: string) {

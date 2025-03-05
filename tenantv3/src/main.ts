@@ -4,7 +4,7 @@ import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 
 import App from './App.vue'
 import { router } from './router'
-import i18n from './i18n'
+import { i18n } from './i18n'
 import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css'
 import '@gouvfr/dsfr/dist/utility/colors/colors.min.css'
 import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css'
