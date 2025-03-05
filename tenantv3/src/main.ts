@@ -179,7 +179,8 @@ keycloak
       app,
       dsn: 'https://7032afeb9b1740f68e01148573cff778@sentry.incubateur.net/98',
       environment: ENVIRONMENT,
-      tracesSampleRate: 0.05
+      tracesSampleRate: 0.05,
+      integrations: [Sentry.browserTracingIntegration({ router })]
     })
 
     app.use(createPinia())
