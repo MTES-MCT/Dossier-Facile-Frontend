@@ -78,9 +78,7 @@ import ProfileFooter from '@/components/footer/ProfileFooter.vue'
 
 defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()
-const user = computed(() => {
-  return store.userToEdit
-})
+const user = computed(() => store.user)
 const { t } = useI18n()
 
 const documents = DocumentTypeConstants.IDENTIFICATION_DOCS

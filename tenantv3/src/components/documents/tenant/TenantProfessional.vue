@@ -83,7 +83,7 @@ defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
+const user = computed(() => store.user)
 const tenantProfessionalDocument = computed(() => store.getTenantProfessionalDocument)
 const documentWatermarkUrl = computed(() => tenantProfessionalDocument.value?.name)
 

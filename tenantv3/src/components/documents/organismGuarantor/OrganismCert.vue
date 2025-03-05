@@ -76,7 +76,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
+const user = computed(() => store.user)
 
 const MAX_FILE_COUNT = 5
 

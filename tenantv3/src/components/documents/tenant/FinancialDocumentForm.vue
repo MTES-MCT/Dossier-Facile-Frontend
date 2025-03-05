@@ -240,9 +240,7 @@ import { useLoading } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 
 const store = useTenantStore()
-const user = computed(() => {
-  return store.userToEdit
-})
+const user = computed(() => store.user)
 const financialDocumentSelected = computed(() => {
   return store.financialDocumentSelected
 })

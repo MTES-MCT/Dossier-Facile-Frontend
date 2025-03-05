@@ -55,7 +55,7 @@
         </div>
         <div v-if="identificationDocument && identificationDocument.key">
           <AllDeclinedMessages
-            :user-id="user?.id"
+            :user-id="store.user?.id"
             :document="guarantorIdentificationDocument"
             :document-denied-reasons="guarantorIdentificationDocument?.documentDeniedReasons"
             :document-status="documentStatus"
@@ -113,7 +113,6 @@ const props = defineProps<{
   guarantor?: Guarantor
 }>()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const MAX_FILE_COUNT = 5

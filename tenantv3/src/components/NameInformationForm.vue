@@ -113,7 +113,7 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
+const user = computed(() => store.user)
 
 const router = useRouter()
 

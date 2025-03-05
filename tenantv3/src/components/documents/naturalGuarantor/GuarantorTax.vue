@@ -153,9 +153,7 @@ const store = useTenantStore()
 const selectedGuarantor = computed(() => {
   return store.selectedGuarantor
 })
-const user = computed(() => {
-  return store.userToEdit
-})
+const user = computed(() => store.user)
 
 const props = withDefaults(
   defineProps<{

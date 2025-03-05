@@ -151,9 +151,6 @@ export const useTenantStore = defineStore('tenant', {
       return state.selectedGuarantor
     },
     isLoggedIn: () => keycloak.authenticated,
-    userToEdit(state: State): User | null {
-      return state.user
-    },
     isFranceConnected(state: State): boolean {
       return state.user.franceConnect || false
     },

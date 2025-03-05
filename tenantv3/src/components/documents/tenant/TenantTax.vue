@@ -150,7 +150,7 @@ const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const { t } = useI18n()
 
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
+const user = computed(() => store.user)
 const tenantTaxDocument = computed(() => store.getTenantTaxDocument)
 
 const documents = ref(DocumentTypeConstants.TAX_DOCS)

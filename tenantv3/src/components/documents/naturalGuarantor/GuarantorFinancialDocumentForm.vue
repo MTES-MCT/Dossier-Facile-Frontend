@@ -91,7 +91,7 @@
             ></p>
           </div>
           <AllDeclinedMessages
-            :user-id="user?.id"
+            :user-id="store.user?.id"
             :document="financialDocument"
             :document-denied-reasons="guarantorFinancialDocument?.documentDeniedReasons"
             :document-status="documentStatus"
@@ -201,7 +201,6 @@ import { Form, Field, ErrorMessage } from 'vee-validate'
 
 const { t } = useI18n()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
 
 const selectedGuarantor = computed(() => {
   return store.selectedGuarantor

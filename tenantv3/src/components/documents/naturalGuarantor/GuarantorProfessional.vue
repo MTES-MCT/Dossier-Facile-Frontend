@@ -85,7 +85,7 @@ import { AnalyticsService } from '../../../services/AnalyticsService'
 
 const { t } = useI18n()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
+const user = computed(() => store.user)
 const selectedGuarantor = computed(() => {
   return store.selectedGuarantor
 })

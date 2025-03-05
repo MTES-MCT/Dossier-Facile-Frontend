@@ -35,7 +35,7 @@
           </template>
           <template #bottom>
             <AllDeclinedMessages
-              :user-id="user?.id"
+              :user-id="store.user?.id"
               :document="f"
               :document-denied-reasons="documentDeniedReasons(f)"
               :document-status="documentStatus(f)"
@@ -73,7 +73,6 @@ const { t } = useI18n()
 const store = useTenantStore()
 const editFinancialDocument = computed(() => store.getEditGuarantorFinancialDocument)
 const financialDocuments = computed(() => store.guarantorFinancialDocuments)
-const user = computed(() => store.userToEdit)
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 

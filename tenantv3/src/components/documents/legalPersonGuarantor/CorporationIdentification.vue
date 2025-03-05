@@ -39,7 +39,7 @@
             {{ t('corporationidentification.kbis-label') }}
           </h1>
           <AllDeclinedMessages
-            :user-id="user?.id"
+            :user-id="store.user?.id"
             :document="guarantorIdentificationLegalPersonDocument"
             :document-denied-reasons="
               guarantorIdentificationLegalPersonDocument?.documentDeniedReasons
@@ -91,7 +91,6 @@ import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
 const { t } = useI18n()
 
 const props = defineProps<{
