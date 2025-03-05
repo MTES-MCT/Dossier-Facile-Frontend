@@ -89,7 +89,6 @@ export type DispatchNames = (typeof DISPATCH_NAMES)[number]
 export const useTenantStore = defineStore('tenant', {
   state: (): State => ({ ...initialStore }),
   getters: {
-    getUser: (state: State) => state.user,
     getTenantDocuments(state: State): DfDocument[] {
       return state.user.documents || []
     },
@@ -164,14 +163,8 @@ export const useTenantStore = defineStore('tenant', {
         })
         .map((u) => ({ ...u }))
     },
-    getNewMessage(state: State): number {
-      return state.newMessage
-    },
     guarantors(state: State): Guarantor[] {
       return state.user.guarantors
-    },
-    getMessages(state: State): DfMessage[][] {
-      return state.messageList
     },
     tenantFinancialDocuments(state: State): FinancialDocument[] {
       const financialDocuments: FinancialDocument[] = []
@@ -242,9 +235,6 @@ export const useTenantStore = defineStore('tenant', {
         }
       }
       return financialdocuments
-    },
-    getEditGuarantorFinancialDocument(state: State): boolean {
-      return state.editGuarantorFinancialDocument
     },
     getSpouse(): CoTenant | null {
       if (this.user.apartmentSharing.applicationType === 'COUPLE') {
@@ -353,9 +343,6 @@ export const useTenantStore = defineStore('tenant', {
         (g.typeGuarantor === 'ORGANISM' &&
           UtilsService.isGuarantorDocumentValid('GUARANTEE_PROVIDER_CERTIFICATE', g))
       )
-    },
-    getApartmentSharingLinks(state: State): ApartmentSharingLink[] {
-      return state.apartmentSharingLinks
     }
   },
   actions: {

@@ -123,8 +123,7 @@ const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const isLoggedIn = computed(() => store.isLoggedIn)
-const newMessage = computed(() => store.getNewMessage)
-const messageList = computed(() => store.getMessages)
+const newMessage = computed(() => store.newMessage)
 const partners = computed(() => store.partnerAccesses)
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
@@ -140,7 +139,7 @@ const lang = i18n.global.locale.value
 function showMessaging() {
   return (
     (isLoggedIn.value === true && user.value.status !== 'INCOMPLETE') ||
-    (messageList.value[user.value.id] !== undefined && messageList.value[user.value.id].length > 0)
+    (store.messageList[user.value.id] !== undefined && store.messageList[user.value.id].length > 0)
   )
 }
 function changeLang(lang: 'fr' | 'en') {

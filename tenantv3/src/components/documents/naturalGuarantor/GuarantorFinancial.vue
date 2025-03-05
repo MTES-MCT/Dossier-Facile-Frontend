@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="editFinancialDocument">
+    <div v-if="store.editGuarantorFinancialDocument">
       <GuarantorFinancialDocumentForm :tenant-id="tenantId"></GuarantorFinancialDocumentForm>
     </div>
-    <div v-if="!editFinancialDocument">
+    <div v-else>
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
           <h1 class="fr-h6">{{ t('guarantorfinancial.title') }}</h1>
@@ -71,7 +71,6 @@ import { useLoading } from 'vue-loading-overlay'
 const { t } = useI18n()
 
 const store = useTenantStore()
-const editFinancialDocument = computed(() => store.getEditGuarantorFinancialDocument)
 const financialDocuments = computed(() => store.guarantorFinancialDocuments)
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
