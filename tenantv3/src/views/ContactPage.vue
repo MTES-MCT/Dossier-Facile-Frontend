@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import ContactForm from 'df-shared-next/src/components/ContactForm.vue'
 import Breadcrumb from 'df-shared-next/src/components/dsfr/BreadcrumbItem.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '../services/AnalyticsService'

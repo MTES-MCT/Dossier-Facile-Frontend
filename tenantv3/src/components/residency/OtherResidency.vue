@@ -46,7 +46,7 @@
 import { ref } from 'vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { ToastService } from '@/services/ToastService'
 import { RiPhoneFill } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'

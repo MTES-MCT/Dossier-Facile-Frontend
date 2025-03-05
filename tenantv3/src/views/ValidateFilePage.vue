@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import ValidateFile from '../components/ValidateFile.vue'
 import ProfileContainer from '../components/ProfileContainer.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 

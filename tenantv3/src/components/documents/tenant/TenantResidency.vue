@@ -10,7 +10,7 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { useI18n } from 'vue-i18n'
 import { residencyKey } from '@/components/residency/residencyState'
 import { computed, provide } from 'vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 const { t } = useI18n()
 const store = useTenantStore()
 

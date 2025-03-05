@@ -79,7 +79,7 @@
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import Button from 'df-shared-next/src/Button/DfButton.vue'
 import dayjs from 'dayjs'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 import { useI18n } from 'vue-i18n'

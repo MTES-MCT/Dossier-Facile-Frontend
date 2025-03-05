@@ -72,7 +72,7 @@ import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 
 const props = defineProps<{
   coTenantId: number

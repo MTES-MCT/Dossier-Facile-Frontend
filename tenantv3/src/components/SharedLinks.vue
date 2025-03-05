@@ -136,7 +136,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import { ToastService } from '../services/ToastService'
-import useTenantStore from '../stores/tenant-store'
+import { useTenantStore } from '../stores/tenant-store'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 

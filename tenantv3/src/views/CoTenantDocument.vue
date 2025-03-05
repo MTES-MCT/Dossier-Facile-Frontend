@@ -42,7 +42,7 @@ import CoTenantTax from '../components/documents/cotenant/CoTenantTax.vue'
 import { useRoute, useRouter } from 'vue-router'
 import CoupleResidency from '@/components/documents/cotenant/CoupleResidency.vue'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 
 const router = useRouter()
 const route = useRoute()

@@ -1,4 +1,4 @@
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { User } from 'df-shared-next/src/models/User'

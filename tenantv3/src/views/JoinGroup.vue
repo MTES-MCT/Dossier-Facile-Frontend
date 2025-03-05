@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import useTenantStore from '../stores/tenant-store'
+import { useTenantStore } from '../stores/tenant-store'
 import { ToastService } from '../services/ToastService'
 import { useRoute, useRouter } from 'vue-router'
 import InitPassword from 'df-shared-next/src/Authentification/InitPassword.vue'

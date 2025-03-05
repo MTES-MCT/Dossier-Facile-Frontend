@@ -41,7 +41,7 @@
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useTenantStore from '../../../stores/tenant-store'
+import { useTenantStore } from '../../../stores/tenant-store'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { ToastService } from '../../../services/ToastService'

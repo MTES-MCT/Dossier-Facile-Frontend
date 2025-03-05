@@ -139,7 +139,7 @@ import WarningTaxDeclaration from '../../../components/documents/share/WarningTa
 import { UtilsService } from '../../../services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import { computed, onBeforeMount, ref } from 'vue'
-import useTenantStore from '../../../stores/tenant-store'
+import { useTenantStore } from '../../../stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '../../../services/ToastService'
 import { useLoading, type ActiveLoader } from 'vue-loading-overlay'

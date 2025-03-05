@@ -115,7 +115,7 @@ import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
 
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import i18n from '@/i18n'
 import { useRoute } from 'vue-router'
 

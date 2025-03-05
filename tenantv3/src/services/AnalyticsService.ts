@@ -1,5 +1,5 @@
 import { DocumentTypeTranslations } from '@/components/editmenu/documents/DocumentType'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 
 declare global {
   interface Window {

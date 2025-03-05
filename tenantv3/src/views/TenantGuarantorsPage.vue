@@ -26,7 +26,7 @@ import TenantGuarantorChoice from '../components/TenantGuarantorChoice.vue'
 import ProfileContainer from '../components/ProfileContainer.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import TenantGuarantorList from './TenantGuarantorList.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 

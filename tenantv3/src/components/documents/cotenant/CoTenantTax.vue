@@ -56,7 +56,7 @@ import BackNext from '../../footer/BackNext.vue'
 import { UtilsService } from '@/services/UtilsService'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import NameInformationForm from '../components/NameInformationForm.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 

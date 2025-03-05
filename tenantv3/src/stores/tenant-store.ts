@@ -86,7 +86,7 @@ const DISPATCH_NAMES = [
 ] satisfies ActionNames[]
 export type DispatchNames = (typeof DISPATCH_NAMES)[number]
 
-const useTenantStore = defineStore('tenant', {
+export const useTenantStore = defineStore('tenant', {
   state: (): State => ({ ...initialStore }),
   getters: {
     getUser: (state: State) => state.user,
@@ -1054,5 +1054,3 @@ const useTenantStore = defineStore('tenant', {
     }
   }
 })
-
-export default useTenantStore

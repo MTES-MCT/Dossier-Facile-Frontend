@@ -73,7 +73,7 @@
 <script setup lang="ts">
 import { DocumentTypeTranslations } from '@/components/editmenu/documents/DocumentType'
 import { ToastService } from '@/services/ToastService'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { DfFile } from 'df-shared-next/src/models/DfFile'

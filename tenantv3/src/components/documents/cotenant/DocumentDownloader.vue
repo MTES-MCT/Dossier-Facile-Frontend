@@ -188,7 +188,7 @@ import {
 import { RegisterService } from '@/services/RegisterService'
 import { ToastService } from '@/services/ToastService'
 import { UtilsService } from '@/services/UtilsService'
-import useTenantStore, { type DispatchNames } from '@/stores/tenant-store'
+import { useTenantStore, type DispatchNames } from '@/stores/tenant-store'
 import { RiAlarmWarningLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'

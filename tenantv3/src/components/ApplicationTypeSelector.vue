@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import RichRadioButtons from 'df-shared-next/src/Button/RichRadioButtons.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { computed, onBeforeMount, ref } from 'vue'

@@ -59,7 +59,7 @@ import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedR
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useTenantStore from '../../../stores/tenant-store'
+import { useTenantStore } from '../../../stores/tenant-store'
 import { ToastService } from '../../../services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'

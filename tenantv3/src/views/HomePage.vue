@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted } from 'vue'
-import useTenantStore from '../stores/tenant-store'
+import { useTenantStore } from '../stores/tenant-store'
 
 const store = useTenantStore()
 

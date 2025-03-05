@@ -1,6 +1,6 @@
 import { DfDocument, type DocumentCategory } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 

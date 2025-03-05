@@ -13,7 +13,7 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ProfileContainer from '../components/ProfileContainer.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
-import useTenantStore from '../stores/tenant-store'
+import { useTenantStore } from '../stores/tenant-store'
 import { TENANT_COMPONENTS } from '@/components/editmenu/documents/DocumentType'
 import { useTenantStep } from '@/components/residency/lib/useTenantStep'
 

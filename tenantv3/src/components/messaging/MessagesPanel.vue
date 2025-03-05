@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DeclinedDocuments from './DeclinedDocuments.vue'

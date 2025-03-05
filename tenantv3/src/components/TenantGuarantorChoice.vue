@@ -56,7 +56,7 @@ import GuarantorFooter from './footer/GuarantorFooter.vue'
 import GuarantorTypeSelector from '@/components/GuarantorTypeSelector.vue'
 import { ToastService } from '@/services/ToastService'
 import { onBeforeMount, onUpdated, ref } from 'vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 
 const props = withDefaults(

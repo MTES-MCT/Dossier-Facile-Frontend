@@ -116,7 +116,7 @@
 import { DocumentType as DocumentTypeEnum } from '@/components/editmenu/documents/DocumentType'
 import { ToastService } from '@/services/ToastService'
 import { UtilsService } from '@/services/UtilsService'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { DocumentType } from 'df-shared-next/src/models/Document'

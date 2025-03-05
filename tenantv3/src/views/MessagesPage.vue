@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import MessagesPanel from '@/components/messaging/MessagesPanel.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onMounted, ref } from 'vue'
 import { UtilsService } from '@/services/UtilsService'
 import { useI18n } from 'vue-i18n'

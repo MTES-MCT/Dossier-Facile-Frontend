@@ -28,7 +28,7 @@
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ShareFile from '@/components/account/ShareFile.vue'
 import SharedLinks from '@/components/SharedLinks.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount } from 'vue'
 import { UtilsService } from '@/services/UtilsService'
 import { useI18n } from 'vue-i18n'

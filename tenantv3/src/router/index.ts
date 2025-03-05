@@ -1,6 +1,6 @@
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { CONTENT, type SkipLink } from 'df-shared-next/src/models/SkipLink'
 import { keycloak } from '../plugin/keycloak'
 import Home from '../views/HomePage.vue'

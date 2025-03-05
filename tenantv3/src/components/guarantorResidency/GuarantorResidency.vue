@@ -9,7 +9,7 @@
 import { computed, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { residencyKey } from '../residency/residencyState'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { useGuarantorId } from './useGuarantorId'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 

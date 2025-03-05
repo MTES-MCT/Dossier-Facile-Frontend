@@ -33,7 +33,7 @@ import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from '../residencyState'
 

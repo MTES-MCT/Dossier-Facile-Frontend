@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
