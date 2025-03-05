@@ -10,14 +10,14 @@
         <div class="fr-mt-3w">
           <div v-if="listType == 'dropDownList'">
             <select
-              :value="document.key"
-              @change="onSelectChange($event.target)"
-              class="fr-select fr-mb-3w fr-mt-3w"
               id="select"
+              :value="document.key"
+              class="fr-select fr-mb-3w fr-mt-3w"
               as="select"
+              @change="onSelectChange($event.target)"
             >
               <option v-if="!document.key" selected disabled></option>
-              <option v-for="d in documentsDefinitions" :value="d.key" :key="d.key">
+              <option v-for="d in documentsDefinitions" :key="d.key" :value="d.key">
                 {{ t(translationKeyPrefix + d.key) }}
               </option>
             </select>
@@ -26,8 +26,8 @@
             v-if="listType !== 'dropDownList'"
             name="application-type-selector"
             :value="document"
-            @input="onEventChange"
             :elements="mapDocuments()"
+            @input="onEventChange"
           ></SimpleRadioButtons>
         </div>
       </div>
@@ -38,13 +38,13 @@
 
     <slot name="after-select-block"></slot>
     <NakedCard
-      class="fr-p-md-5w fr-mt-md-3w"
       v-if="showDownloader && (document.key || documentFiles.length > 0)"
+      class="fr-p-md-5w fr-mt-md-3w"
     >
       <div class="fr-mb-3w">
         <p v-html="t(`explanation-text.cotenant.${document.key}`)"></p>
       </div>
-      <WarningTaxDeclaration class="fr-mb-3w" v-if="document.key === 'my-name'" />
+      <WarningTaxDeclaration v-if="document.key === 'my-name'" class="fr-mb-3w" />
 
       <AllDeclinedMessages
         :user-id="selectedCoTenant?.id"
@@ -76,9 +76,9 @@
       </div>
       <div v-if="allowNoDocument" class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
         <input
-          type="checkbox"
           id="noDocument"
           v-model="noDocument"
+          type="checkbox"
           value="false"
           @click="changeNoDocument"
         />
@@ -90,29 +90,29 @@
       </div>
 
       <div
-        class="fr-mb-5w"
         v-if="!forceShowDownloader && (dfDocument ? dfDocument.noDocument : null)"
+        class="fr-mb-5w"
       >
         <div class="fr-input-group">
           <label class="fr-label" for="customText">
             {{ t(`cotenantfinancialform.customText-${document.key}`) }}
           </label>
           <Field
-            name="customText"
-            v-model="dfDocument.customText"
             v-slot="{ field, meta }"
+            v-model="dfDocument.customText"
+            name="customText"
             :rules="{
               required: true
             }"
           >
             <textarea
               v-bind="field"
+              id="customText"
               class="form-control fr-input validate-required"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
-              id="customText"
               name="customText"
               placeholder=""
               type="text"
@@ -125,7 +125,7 @@
               2000</span
             >
           </Field>
-          <ErrorMessage name="customText" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="customText">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
@@ -161,7 +161,7 @@
           </p>
           <hr class="mobile" />
           <div class="btn-align">
-            <DfButton @click="isWarningTaxSituationModalVisible = false" :primary="true">{{
+            <DfButton :primary="true" @click="isWarningTaxSituationModalVisible = false">{{
               t('tax-page.avis-btn')
             }}</DfButton>
           </div>

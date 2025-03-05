@@ -1,5 +1,5 @@
 <template>
-  <NakedCard class="fr-mt-3w fr-p-md-5w" v-if="!allTenantDocumentsPreValidated() || !namesFilled()">
+  <NakedCard v-if="!allTenantDocumentsPreValidated() || !namesFilled()" class="fr-mt-3w fr-p-md-5w">
     <div v-if="!namesFilled()">
       <div class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-names`) }}
@@ -16,10 +16,10 @@
     >
       <div v-if="!isDocumentValid(v)">
         <UpdateComponent
-          @on-update="openTenant(k)"
           :user-id="user.id"
           :broken-rules="getDocumentBrokenRules(v)"
           :document="getDocument(v)"
+          @on-update="openTenant(k)"
           >{{ t(`fileerrors.${v}`) }}</UpdateComponent
         >
       </div>

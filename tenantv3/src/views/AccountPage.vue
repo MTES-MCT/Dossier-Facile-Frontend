@@ -4,13 +4,13 @@
       <section class="fr-mt-3w">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
-            <div class="fr-mb-3w" v-if="isAnnouncementVisible">
+            <div v-if="isAnnouncementVisible" class="fr-mb-3w">
               <FakeAnnouncement></FakeAnnouncement>
             </div>
             <h1 v-html="t(`account.title.dashboard`)"></h1>
             <div v-if="isDenied() || user.status === 'TO_PROCESS'">
               <div class="fr-grid-row fr-grid-row--gutters">
-                <div class="fr-col" v-if="isDenied()">
+                <div v-if="isDenied()" class="fr-col">
                   <div class="fr-callout warning fr-callout-white">
                     <h2 class="fr-m-1w fr-text-title--grey fr-h4">
                       {{ t('account.amendment-required-title') }}
@@ -19,12 +19,12 @@
                       class="fr-m-1w fr-callout__text"
                       v-html="t('account.amendment-required-text')"
                     ></p>
-                    <DfButton class="fr-m-1w" @click="goToMessaging" :primary="true">{{
+                    <DfButton class="fr-m-1w" :primary="true" @click="goToMessaging">{{
                       t('account.messaging')
                     }}</DfButton>
                   </div>
                 </div>
-                <div class="fr-col" v-if="user.status === 'TO_PROCESS'">
+                <div v-if="user.status === 'TO_PROCESS'" class="fr-col">
                   <div class="fr-callout to-process fr-callout-white fr-mb-3w">
                     <div class="fr-mb-1w fr-grid-row fr-grid-row--gutters fr-grid-row--center">
                       <div class="fr-col-12 fr-col-md-6">
@@ -80,7 +80,7 @@
                 </div>
               </div>
             </div>
-            <div class="fr-callout fr-callout-white success" v-if="canCopyLink()">
+            <div v-if="canCopyLink()" class="fr-callout fr-callout-white success">
               <h2 class="fr-text-title--grey fr-h4">
                 {{ t('account.congratulations-title') }}
               </h2>
@@ -111,8 +111,8 @@
                   <ul class="fr-tabs__list fr-p-0" role="tablist" aria-label="tab-list">
                     <li v-for="(tenant, k) in tenants" :key="`li${k}`" role="presentation">
                       <button
-                        class="fr-tabs__tab fr-container--fluid"
                         :id="`tabpanel-${k}`"
+                        class="fr-tabs__tab fr-container--fluid"
                         :tabindex="tabIndex === k ? 0 : -1"
                         role="tab"
                         aria-selected="false"
@@ -141,8 +141,8 @@
                   </ul>
                   <div
                     v-for="(tenant, k) in tenants"
-                    :key="`t${k}`"
                     :id="`tabpanel-${k}-panel`"
+                    :key="`t${k}`"
                     class="fr-tabs__panel"
                     role="tabpanel"
                     :tabindex="k"

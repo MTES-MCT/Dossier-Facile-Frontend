@@ -67,7 +67,7 @@
       </div>
     </div>
     <!-- Navigation principale -->
-    <div class="fr-header__menu fr-modal" id="modal-dc">
+    <div id="modal-dc" class="fr-header__menu fr-modal">
       <div class="fr-container">
         <button class="fr-link--close fr-link" aria-controls="modal-dc">Fermer</button>
         <div class="fr-header__menu-links" style="display: none"></div>
@@ -81,8 +81,8 @@
             </li>
             <li v-if="!props?.loggedIn">
               <DfButton
-                class="fr-ml-3"
                 id="signin-button"
+                class="fr-ml-3"
                 :primary="false"
                 size="small"
                 @click="onLoginTenant"
@@ -106,7 +106,7 @@
             </li>
           </ul>
         </div>
-        <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
+        <nav id="navigation-832" class="fr-nav" role="navigation" aria-label="Menu principal">
           <slot></slot>
         </nav>
       </div>

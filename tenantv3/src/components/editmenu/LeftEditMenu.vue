@@ -1,5 +1,5 @@
 <template>
-  <div class="left-edit-menu fr-pt-7w fr-pb-12w" id="funnel-menu">
+  <div id="funnel-menu" class="left-edit-menu fr-pt-7w fr-pb-12w">
     <div class="inner-left-edit">
       <div class="step" :class="getClass(getStepNumber('information'))">
         <div class="step-number">{{ getStepNumber('information') }}</div>
@@ -19,7 +19,7 @@
             />
           </router-link>
         </div>
-        <div class="ml-5" v-if="user.applicationType">
+        <div v-if="user.applicationType" class="ml-5">
           <router-link :to="{ name: 'TenantType', force: true }">
             <ColoredTag
               :label="t('lefteditmenu.file-type')"

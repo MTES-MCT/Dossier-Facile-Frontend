@@ -19,15 +19,15 @@
       </template>
       <template #after-select-block>
         <NakedCard
-          class="fr-p-md-5w fr-mb-3w fr-mt-3w"
           v-if="documentType ? documentType.key === 'other-tax' : false"
+          class="fr-p-md-5w fr-mb-3w fr-mt-3w"
         >
           <div class="fr-input-group">
             <label class="fr-label" for="customText">{{ t('cotenanttax.custom-text') }}</label>
             <textarea
+              id="customText"
               v-model="document.customText"
               class="form-control fr-input validate-required"
-              id="customText"
               name="customText"
               placeholder=""
               type="text"

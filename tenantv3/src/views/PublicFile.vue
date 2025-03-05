@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div class="fr-container" v-if="!fileNotFound">
+    <div v-if="!fileNotFound" class="fr-container">
       <FileHeader :user="user">
         <div class="fr-alert fr-alert--info bg-white">
           <p v-html="t('preview')" />
@@ -20,9 +20,9 @@
           <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
             <li v-for="(tenant, k) in getTenants()" :key="`li${k}`" role="presentation">
               <button
+                :id="`tabpanel-${k}`"
                 class="fr-tabs__tab fr-tabs__tab--icon-right"
                 :class="{ 'fr-fi-icon-fc-right': tenant.franceConnect }"
-                :id="`tabpanel-${k}`"
                 :tabindex="tabIndex === k ? 0 : -1"
                 role="tab"
                 aria-selected="false"
@@ -35,8 +35,8 @@
           </ul>
           <div
             v-for="(tenant, k) in getTenants()"
-            :key="`t${k}`"
             :id="`tabpanel-${k}-panel`"
+            :key="`t${k}`"
             class="fr-tabs__panel"
             aria-selected="false"
             role="tabpanel"

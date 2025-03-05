@@ -13,27 +13,27 @@
         <div class="fr-grid-row fr-grid-row--center fr-mt-3w">
           <div class="fr-col-12 fr-mb-3w">
             <TextField
+              v-model.trim="lastName"
               name="lastname"
               :field-label="t('cotenantname.lastname')"
               validation-rules="onlyAlpha"
-              v-model.trim="lastName"
               :required="true"
             />
             <button
-              class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-mt-1w"
               v-if="!displayPreferredNameField"
-              @click="displayPreferredNameField = true"
+              class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-mt-1w"
               type="button"
+              @click="displayPreferredNameField = true"
             >
               {{ t('nameinformationform.add-preferredname') }}
             </button>
           </div>
-          <div class="fr-col-12 fr-mb-3w" v-if="displayPreferredNameField">
+          <div v-if="displayPreferredNameField" class="fr-col-12 fr-mb-3w">
             <TextField
+              v-model.trim="preferredName"
               name="preferredname"
               :field-label="t('cotenantname.preferredname')"
               validation-rules="onlyAlpha"
-              v-model.trim="preferredName"
             >
               <template #right>
                 <button
@@ -48,10 +48,10 @@
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <TextField
+              v-model.trim="firstName"
               name="firstname"
               :field-label="t('cotenantname.firstname')"
               validation-rules="onlyAlpha"
-              v-model.trim="firstName"
               :required="true"
             />
           </div>

@@ -12,9 +12,9 @@
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
         <CardRow
+          :danger="guarantorFinancialDocument(f)?.documentStatus === 'DECLINED'"
           @edit="selectFinancialDocument(f)"
           @remove="removeFinancial(f)"
-          :danger="guarantorFinancialDocument(f)?.documentStatus === 'DECLINED'"
         >
           <template #tag>
             <div class="fixed-width">
@@ -26,9 +26,9 @@
           </template>
           <template #text>
             <div
+              v-show="f.documentType.key !== 'no-income'"
               class="text-bold"
               :title="t('guarantorfinancial.net-monthly')"
-              v-show="f.documentType.key !== 'no-income'"
             >
               {{ f.monthlySum }} {{ t('guarantorfinancial.monthly') }}
             </div>
@@ -44,7 +44,7 @@
         </CardRow>
       </div>
       <div>
-        <button @click="addAndSelectFinancial()" v-if="!hasNoIncome()" class="add-income-btn">
+        <button v-if="!hasNoIncome()" class="add-income-btn" @click="addAndSelectFinancial()">
           {{ t('guarantorfinancial.add-income') }}
         </button>
       </div>

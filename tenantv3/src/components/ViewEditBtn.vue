@@ -1,6 +1,6 @@
 <template>
   <div class="display--flex">
-    <button class="fr-btn fr-btn--secondary icon-btn" title="View" @click="view" v-if="canView">
+    <button v-if="canView" class="fr-btn fr-btn--secondary icon-btn" title="View" @click="view">
       <RiEyeLine size="26px" class="color--primary icons" />
     </button>
     <button class="fr-btn fr-btn--secondary icon-btn" title="Edit" @click="edit">

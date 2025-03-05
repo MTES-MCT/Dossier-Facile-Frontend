@@ -6,8 +6,8 @@
         <NameInformationHelp @update-information="openUnlinkModal = true" />
         <RequiredFieldsInstruction />
         <ConfirmModal
-          class="fr-px-md-16w"
           v-if="openUnlinkModal"
+          class="fr-px-md-16w"
           :validate-btn-text="t('nameinformationform.unlink-account-btn')"
           @valid="unlinkFranceConnect()"
           @cancel="openUnlinkModal = false"
@@ -27,29 +27,29 @@
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <TextField
+              v-model.trim="lastname"
               name="lastname"
               :field-label="t('nameinformationform.lastname')"
               validation-rules="onlyAlpha"
-              v-model.trim="lastname"
               :required="true"
               :disabled="user?.franceConnect"
             />
             <button
-              class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-mt-1w"
               v-if="!displayPreferredNameField"
-              @click="displayPreferredNameField = true"
+              class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-mt-1w"
               type="button"
               title="{{ t('nameinformationform.add-preferredname') }}"
+              @click="displayPreferredNameField = true"
             >
               {{ t('nameinformationform.add-preferredname') }}
             </button>
           </div>
-          <div class="fr-col-12 fr-mb-3w" v-if="displayPreferredNameField">
+          <div v-if="displayPreferredNameField" class="fr-col-12 fr-mb-3w">
             <TextField
+              v-model.trim="preferredname"
               name="preferredname"
               :field-label="t('nameinformationform.preferredname')"
               validation-rules="onlyAlpha"
-              v-model.trim="preferredname"
             >
               <template #right>
                 <button
@@ -64,25 +64,25 @@
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <TextField
+              v-model.trim="firstname"
               name="firstname"
               :field-label="t('nameinformationform.firstname')"
               validation-rules="onlyAlpha"
-              v-model.trim="firstname"
               :required="true"
               :disabled="user?.franceConnect"
             />
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <TextField
+              v-model="zipcode"
               name="zipcode"
               :field-label="t('nameinformationform.zipcode')"
               validation-rules="zipcode"
-              v-model="zipcode"
             />
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-checkbox-group bg-purple fr-mb-3w">
-              <input id="abroad" type="checkbox" v-model="abroad" class="fr-checkbox" />
+              <input id="abroad" v-model="abroad" type="checkbox" class="fr-checkbox" />
               <label for="abroad">
                 {{ t('nameinformationform.abroad-residency-checkbox') }}
               </label>

@@ -7,10 +7,10 @@
           <p>{{ getCheckboxInstructions() }}<span style="color: red"> *</span></p>
           <div class="fr-checkbox-group bg-purple fr-mb-3w">
             <Field
+              v-slot="{ field, meta }"
+              v-model="declaration"
               name="declaration"
               type="checkbox"
-              v-model="declaration"
-              v-slot="{ field, meta }"
               :rules="{
                 isTrue: true
               }"
@@ -27,25 +27,25 @@
               />
             </Field>
             <label for="declaration" v-html="t('validatefile.declaration')"> </label>
-            <ErrorMessage name="declaration" v-slot="{ message }">
+            <ErrorMessage v-slot="{ message }" name="declaration">
               <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
             </ErrorMessage>
           </div>
           <div v-if="hasGuarantors()">
             <div class="fr-checkbox-group bg-purple fr-mb-3w">
               <Field
+                v-slot="{ field, meta }"
+                v-model="declaration2"
                 name="declaration2"
                 type="checkbox"
-                v-model="declaration2"
-                v-slot="{ field, meta }"
                 :rules="{
                   isTrue: true
                 }"
                 :value="true"
               >
                 <input
-                  type="checkbox"
                   id="declaration2"
+                  type="checkbox"
                   :class="{
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid
@@ -58,7 +58,7 @@
                   ? t('validatefile.declaration2-plural')
                   : t('validatefile.declaration2')
               }}</label>
-              <ErrorMessage name="declaration2" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="declaration2">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -71,7 +71,7 @@
               <label for="precision" class="fr-label">
                 {{ t('validatefile.precision') }}
               </label>
-              <Field id="precision" name="precision" v-model="precision" v-slot="{ field, meta }">
+              <Field id="precision" v-slot="{ field, meta }" v-model="precision" name="precision">
                 <textarea
                   id="precision"
                   :class="{
@@ -88,7 +88,7 @@
                 />
               </Field>
               <span>{{ precision.length }} / 2000</span>
-              <ErrorMessage name="precision" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="precision">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </p>
@@ -96,9 +96,9 @@
         </div>
       </div>
       <ProfileFooter
-        @on-back="goBack()"
         :disabled="hasErrors()"
         :next-label="t('validatefile.validate')"
+        @on-back="goBack()"
       >
       </ProfileFooter>
     </Form>

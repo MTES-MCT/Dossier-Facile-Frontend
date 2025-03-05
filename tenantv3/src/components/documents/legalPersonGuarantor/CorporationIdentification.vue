@@ -3,9 +3,9 @@
     <Form name="form" @submit="goNext">
       <NakedCard class="fr-p-md-5w">
         <Field
-          name="organismName"
-          v-model="organismName"
           v-slot="{ field, meta }"
+          v-model="organismName"
+          name="organismName"
           :rules="{
             required: true
           }"
@@ -16,18 +16,18 @@
             >
             <input
               v-bind="field"
+              id="organismName"
               class="form-control fr-input validate-required"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
-              id="organismName"
               name="organismName"
               :placeholder="t('corporationidentification.organism-name-placeholder')"
               type="text"
               required
             />
-            <ErrorMessage name="organismName" v-slot="{ message }">
+            <ErrorMessage v-slot="{ message }" name="organismName">
               <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
             </ErrorMessage>
           </div>

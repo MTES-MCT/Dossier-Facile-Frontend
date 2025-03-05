@@ -51,8 +51,8 @@
                     <button
                       class="fr-btn fr-btn--secondary icon-btn"
                       :title="t('roommatesinformation.delete')"
-                      @click="remove(roommate)"
                       type="button"
+                      @click="remove(roommate)"
                     >
                       <RiDeleteBin2Fill class="color--primary icon" size="32px" />
                     </button>
@@ -66,9 +66,9 @@
           <label class="fr-label fr-mb-1w">{{ t('roommatesinformation.roommateEmail') }}</label>
           <Field
             id="email"
-            name="email"
-            v-model="newRoommate"
             v-slot="{ field, meta }"
+            v-model="newRoommate"
+            name="email"
             :rules="{
               email: true,
               atLeastOneEmail: modelValue
@@ -86,7 +86,7 @@
               type="email"
             />
           </Field>
-          <ErrorMessage name="email" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="email">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
@@ -110,9 +110,9 @@
       <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
         <div class="fr-checkbox-group bg-purple">
           <Field
-            name="authorize"
-            v-model="authorize"
             v-slot="{ field, meta }"
+            v-model="authorize"
+            name="authorize"
             type="checkbox"
             :rules="{
               isTrue: true
@@ -123,15 +123,15 @@
               id="authorize"
               type="checkbox"
               v-bind="field"
-              @change="updateAuthorize()"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
+              @change="updateAuthorize()"
             />
             <label for="authorize" v-html="t('roommatesinformation.acceptAuthor')"> </label>
           </Field>
-          <ErrorMessage name="authorize" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="authorize">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>

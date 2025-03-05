@@ -2,17 +2,17 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6" v-if="isCotenant">
+        <h1 v-if="isCotenant" class="fr-h6">
           {{ t('guarantoridentification.title-cotenant') }}
         </h1>
-        <h1 class="fr-h6" v-else>{{ t('guarantoridentification.title') }}</h1>
+        <h1 v-else class="fr-h6">{{ t('guarantoridentification.title') }}</h1>
 
         <div class="fr-mt-3w">
           <SimpleRadioButtons
             name="application-type-selector"
             :value="identificationDocument"
-            @input="onSelectChange($event)"
             :elements="mapDocuments()"
+            @input="onSelectChange($event)"
           ></SimpleRadioButtons>
         </div>
       </div>
@@ -21,8 +21,8 @@
       <span>{{ t('guarantoridentification.will-delete-files') }}</span>
     </ConfirmModal>
     <NakedCard
-      class="fr-p-md-5w fr-mt-md-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
+      class="fr-p-md-5w fr-mt-md-3w"
     >
       <div class="fr-mb-3w">
         <p v-html="t(`explanation-text.${guarantorKey()}.${identificationDocument.key}`)"></p>

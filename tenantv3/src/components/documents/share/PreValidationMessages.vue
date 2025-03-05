@@ -1,5 +1,5 @@
 <template>
-  <div class="rules-container" v-if="brokenRules && brokenRules.length > 0">
+  <div v-if="brokenRules && brokenRules.length > 0" class="rules-container">
     <template v-for="(b, k) in brokenRules" :key="k">
       <h6>{{ b.message }}</h6>
       <template v-if="isRuleWithCustomText(b.rule)">
@@ -11,9 +11,9 @@
     <div class="form-container">
       <Form name="form" class="fr-grid-col" @submit="commentAnalysis">
         <Field
-          name="comment"
-          v-model="comment"
           v-slot="{ field, meta }"
+          v-model="comment"
+          name="comment"
           :rules="{ required: true }"
         >
           <textarea
@@ -28,7 +28,7 @@
             maxlength="2000"
             rows="4"
           />
-          <ErrorMessage name="comment" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="comment">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </Field>

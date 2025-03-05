@@ -36,7 +36,7 @@
       </table>
     </div>
     <div class="mobile">
-      <ul class="fr-p-0" v-for="access in accesses" :key="access.id">
+      <ul v-for="access in accesses" :key="access.id" class="fr-p-0">
         <li class="fr-grid-row file-list-item fr-p-3w">
           <div class="fr-col-5">
             {{ formatDate(access.accessGrantedDate) }}

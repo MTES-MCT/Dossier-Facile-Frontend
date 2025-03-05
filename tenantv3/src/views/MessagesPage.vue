@@ -7,8 +7,8 @@
           <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
             <li v-for="(tenant, k) in tenants" :key="`li${k}`" role="presentation">
               <button
-                class="fr-tabs__tab fr-tabs__tab--icon-right"
                 :id="`tabpanel-${k}`"
+                class="fr-tabs__tab fr-tabs__tab--icon-right"
                 :tabindex="tabIndex === k ? 0 : -1"
                 role="tab"
                 aria-selected="false"
@@ -21,8 +21,8 @@
           </ul>
           <div
             v-for="(tenant, k) in tenants"
-            :key="`t${k}`"
             :id="`tabpanel-${k}-panel`"
+            :key="`t${k}`"
             class="fr-tabs__panel"
             aria-selected="false"
             role="tabpanel"

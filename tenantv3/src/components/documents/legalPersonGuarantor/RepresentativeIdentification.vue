@@ -3,9 +3,9 @@
     <Form name="form" @submit="goNext">
       <NakedCard class="fr-p-md-5w">
         <Field
-          name="firstName"
-          v-model="firstName"
           v-slot="{ field, meta }"
+          v-model="firstName"
+          name="firstName"
           :rules="{
             required: true
           }"
@@ -16,18 +16,18 @@
             </h1>
             <input
               v-bind="field"
+              id="firstName"
               class="form-control fr-input validate-required"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
-              id="firstName"
               name="firstName"
               :placeholder="t('representativeidentification.organism-name-placeholder')"
               type="text"
               required
             />
-            <ErrorMessage name="firstName" v-slot="{ message }">
+            <ErrorMessage v-slot="{ message }" name="firstName">
               <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
             </ErrorMessage>
           </div>
@@ -42,13 +42,13 @@
             </b>
           </label>
           <select
+            id="selectID"
             v-model="identificationDocument"
             class="fr-select fr-mb-3w"
-            id="selectID"
             as="select"
           >
             <option v-if="!identificationDocument" selected disabled></option>
-            <option v-for="d in documents" :value="d" :key="d.key">
+            <option v-for="d in documents" :key="d.key" :value="d">
               {{ t(d.key) }}
             </option>
           </select>
@@ -60,7 +60,7 @@
             :document-denied-reasons="guarantorIdentificationDocument?.documentDeniedReasons"
             :document-status="documentStatus"
           ></AllDeclinedMessages>
-          <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
+          <div v-if="listFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
             <ListItem
               v-for="file in listFiles()"
               :key="file.id"

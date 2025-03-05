@@ -1,10 +1,10 @@
 <template>
   <div>
     <RichRadioButtons
-      name="guarantor-type-selector"
       v-model="checkedGuarantorType"
-      @input="onButtonSelected"
+      name="guarantor-type-selector"
       :elements="guarantorTypeOptions"
+      @input="onButtonSelected"
     />
     <ConfirmModal
       v-if="confirmGuarantorChangeModal"

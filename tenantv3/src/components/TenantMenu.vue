@@ -25,7 +25,7 @@
         {{ t('menu.help') }}
       </a>
     </li>
-    <li class="fr-nav__item break" v-if="isLoggedIn">
+    <li v-if="isLoggedIn" class="fr-nav__item break">
       <button
         class="fr-nav__btn"
         aria-expanded="false"
@@ -34,7 +34,7 @@
       >
         {{ t('menu.account') }}
       </button>
-      <div class="fr-collapse fr-menu" id="menu-774">
+      <div id="menu-774" class="fr-collapse fr-menu">
         <ul class="fr-menu__list">
           <li>
             <router-link
@@ -83,7 +83,7 @@
         </ul>
       </div>
     </li>
-    <li class="fr-nav__item" v-if="showMessaging()">
+    <li v-if="showMessaging()" class="fr-nav__item">
       <router-link
         to="/messaging"
         class="fr-nav__link"

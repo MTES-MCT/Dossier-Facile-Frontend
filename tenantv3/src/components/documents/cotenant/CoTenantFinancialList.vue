@@ -2,8 +2,8 @@
   <div>
     <div v-if="editFinancialDocument">
       <CoTenantFinancialForm
-        :co-tenant-id="coTenantId"
         v-model="financialDocument"
+        :co-tenant-id="coTenantId"
         :allow-no-income="allowNoIncome()"
         @on-edit="setEditFinancialDocument"
         @on-next="goNext"
@@ -19,9 +19,9 @@
       </NakedCard>
       <div v-for="f in tenantFinancialDocuments" :key="f.id">
         <CardRow
+          :danger="documentStatus(f) === 'DECLINED'"
           @edit="selectFinancialDocument(f)"
           @remove="removeFinancial(f)"
-          :danger="documentStatus(f) === 'DECLINED'"
         >
           <template #tag>
             <div class="fixed-width">
@@ -30,10 +30,10 @@
           </template>
           <template #text>
             <div
+              v-show="f.documentType.key !== 'no-income'"
               class="text-bold"
               :class="{ declined: documentStatus(f) }"
               :title="t('cotenantfinanciallist.net-monthly')"
-              v-show="f.documentType.key !== 'no-income'"
             >
               {{ f.monthlySum }} {{ t('cotenantfinanciallist.monthly') }}
             </div>
@@ -47,7 +47,7 @@
         </CardRow>
       </div>
       <div v-if="financialDocument.documentType.key !== 'no-income'">
-        <button @click="addFinancialDocument()" class="add-income-btn">
+        <button class="add-income-btn" @click="addFinancialDocument()">
           {{ t('cotenantfinanciallist.add-income') }}
         </button>
       </div>

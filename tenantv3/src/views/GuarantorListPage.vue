@@ -22,7 +22,7 @@
         </ConfirmModal>
       </div>
       <div v-if="hasOneNaturalGuarantor()">
-        <button @click.once="addNaturalGuarantor()" class="add-guarantor-btn">
+        <button class="add-guarantor-btn" @click.once="addNaturalGuarantor()">
           {{ t('guarantorlistpage.add-new-guarantor') }}
         </button>
       </div>

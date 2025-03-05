@@ -6,23 +6,23 @@
           {{ t('professional-page.select-label') }}
         </h1>
         <select
+          id="select"
           v-model="professionalDocument"
           class="fr-select fr-mb-3w fr-mt-3w"
-          id="select"
           as="select"
-          @change="onSelectChange()"
           aria-label="Select professional situation"
+          @change="onSelectChange()"
         >
           <option v-if="!professionalDocument" selected disabled></option>
-          <option v-for="d in documents" :value="d" :key="d.key">
+          <option v-for="d in documents" :key="d.key" :value="d">
             {{ t(d.key) }}
           </option>
         </select>
       </div>
     </NakedCard>
     <NakedCard
-      class="fr-p-md-5w fr-mt-md-3w"
       v-if="professionalDocument.key || professionalFiles().length > 0"
+      class="fr-p-md-5w fr-mt-md-3w"
     >
       <div class="fr-mb-3w">
         <div v-html="t(`explanation-text.tenant.professional.${professionalDocument.key}`)"></div>

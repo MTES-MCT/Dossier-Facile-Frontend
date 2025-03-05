@@ -8,7 +8,7 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'plugin:vue/vue3-strongly-recommended',
+    'plugin:vue/vue3-recommended',
     'eslint:recommended',
     '@vue/eslint-config-typescript/recommended',
     '@vue/eslint-config-prettier/skip-formatting'
@@ -18,5 +18,8 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     sourceType: 'module'
   },
-  plugins: ['vue']
+  plugins: ['vue'],
+  rules: {
+    'vue/no-v-html': 'off'
+  }
 }

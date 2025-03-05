@@ -8,12 +8,12 @@
         <SimpleRadioButtons
           name="organism-type-selector"
           :value="selectedDocumentType"
-          @input="onSelectChange($event)"
           :elements="documentTypes()"
+          @input="onSelectChange($event)"
         ></SimpleRadioButtons>
       </div>
     </NakedCard>
-    <NakedCard class="fr-p-md-5w fr-mt-md-3w" v-if="selectedDocumentType.key || files.length > 0">
+    <NakedCard v-if="selectedDocumentType.key || files.length > 0" class="fr-p-md-5w fr-mt-md-3w">
       <div>
         <AllDeclinedMessages
           :user-id="user?.id"

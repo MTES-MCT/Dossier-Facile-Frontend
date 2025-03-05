@@ -13,9 +13,9 @@
                 >{{ t('tenantguarantorname.lastname') }} :</label
               >
               <Field
-                name="lastname"
-                v-model="lastName"
                 v-slot="{ field, meta }"
+                v-model="lastName"
+                name="lastname"
                 :rules="{
                   required: true,
                   onlyAlpha: true
@@ -23,19 +23,19 @@
               >
                 <input
                   v-bind="field"
+                  id="lastname"
                   class="form-control fr-input validate-required"
                   :class="{
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid
                   }"
-                  id="lastname"
                   name="lastname"
                   :placeholder="t('tenantguarantorname.lastname-placeholder')"
                   type="text"
                   required
                 />
               </Field>
-              <ErrorMessage name="lastname" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="lastname">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -46,9 +46,9 @@
                 >{{ t('tenantguarantorname.firstname') }} :</label
               >
               <Field
-                name="firstname"
-                v-model="firstName"
                 v-slot="{ field, meta }"
+                v-model="firstName"
+                name="firstname"
                 :rules="{
                   required: true,
                   onlyAlpha: true
@@ -67,7 +67,7 @@
                   required
                 />
               </Field>
-              <ErrorMessage name="firstname" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="firstname">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>

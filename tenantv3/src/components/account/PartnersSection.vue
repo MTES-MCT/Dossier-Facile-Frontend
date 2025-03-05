@@ -97,10 +97,10 @@
             <a
               class="fr-btn fr-mt-1w fr-ml-2w cleana"
               href="#"
-              @click="signal()"
               rel="noreferrer"
               target="_blank"
               :title="t('partnerssection.go-to-signal').toString()"
+              @click="signal()"
             >
               {{ t('partnerssection.signal-btn') }}
             </a>

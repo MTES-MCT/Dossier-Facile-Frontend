@@ -9,17 +9,17 @@
         <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
           <div class="fr-col-12 fr-mb-3w">
             <Field
-              name="lastname"
-              v-model="lastName"
               v-slot="{ field, meta }"
+              v-model="lastName"
+              name="lastname"
               :rules="{ required: true, onlyAlpha: true }"
             >
               <div class="fr-input-group">
                 <label class="fr-label" for="lastname">{{ t('guarantorname.lastname') }} :</label>
                 <input
                   v-bind="field"
-                  class="form-control fr-input validate-required"
                   id="lastname"
+                  class="form-control fr-input validate-required"
                   name="lastname"
                   :placeholder="t('guarantorname.lastname-placeholder')"
                   type="text"
@@ -29,7 +29,7 @@
                   }"
                   required
                 />
-                <ErrorMessage name="lastname" v-slot="{ message }">
+                <ErrorMessage v-slot="{ message }" name="lastname">
                   <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
               </div>
@@ -37,9 +37,9 @@
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <Field
-              name="firstname"
-              v-model="firstName"
               v-slot="{ field, meta }"
+              v-model="firstName"
+              name="firstname"
               :rules="{ required: true, onlyAlpha: true }"
             >
               <div class="fr-input-group">
@@ -58,7 +58,7 @@
                   required
                 />
 
-                <ErrorMessage name="firstname" v-slot="{ message }">
+                <ErrorMessage v-slot="{ message }" name="firstname">
                   <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
               </div>

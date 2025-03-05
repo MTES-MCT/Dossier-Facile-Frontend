@@ -2,22 +2,22 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6" v-if="isCotenant">
+        <h1 v-if="isCotenant" class="fr-h6">
           {{ t('guarantorprofessional.title-cotenant') }}
         </h1>
-        <h1 class="fr-h6" v-else>{{ t('guarantorprofessional.title') }}</h1>
+        <h1 v-else class="fr-h6">{{ t('guarantorprofessional.title') }}</h1>
         <div class="fr-mt-3w">
           <label v-if="isCotenant">{{ t('guarantorprofessional.select-label-cotenant') }}</label>
           <select
+            id="select"
             v-model="professionalDocument"
             class="fr-select fr-mb-3w"
-            id="select"
             as="select"
-            @change="onSelectChange()"
             aria-label="Select professional situation"
+            @change="onSelectChange()"
           >
             <option v-if="!professionalDocument" selected disabled></option>
-            <option v-for="d in documents" :value="d" :key="d.key">
+            <option v-for="d in documents" :key="d.key" :value="d">
               {{ t(d.key) }}
             </option>
           </select>
@@ -28,8 +28,8 @@
       <span>{{ t('guarantorprofessional.will-delete-files') }}</span>
     </ConfirmModal>
     <NakedCard
-      class="fr-p-md-5w fr-mt-md-3w"
       v-if="professionalDocument.key || professionalFiles().length > 0"
+      class="fr-p-md-5w fr-mt-md-3w"
     >
       <div class="fr-mb-3w">
         <p
