@@ -4,12 +4,7 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
-
 <style scoped lang="scss">
-.hidden {
-  display: none;
-}
 .card {
   padding: 1rem;
   box-shadow:
@@ -22,16 +17,5 @@
       content: none;
     }
   }
-}
-
-.fr-btn {
-  flex-direction: row;
-}
-
-hr {
-  color: gray;
-  border-style: inset;
-  border-width: 1px;
-  margin: 0.5em auto;
 }
 </style>
