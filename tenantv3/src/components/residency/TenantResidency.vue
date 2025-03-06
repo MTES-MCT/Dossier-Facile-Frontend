@@ -23,8 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import RadioList from './lib/RadioList.vue'
-import RadioListItem from './lib/RadioListItem.vue'
+import RadioList from '../common/RadioList.vue'
+import RadioListItem from '../common/RadioListItem.vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useI18n } from 'vue-i18n'

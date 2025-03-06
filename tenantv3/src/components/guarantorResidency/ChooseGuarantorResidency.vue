@@ -21,8 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import RadioList from '@/components/residency/lib/RadioList.vue'
-import RadioListItem from '@/components/residency/lib/RadioListItem.vue'
+import RadioList from '@/components/common/RadioList.vue'
+import RadioListItem from '@/components/common/RadioListItem.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
