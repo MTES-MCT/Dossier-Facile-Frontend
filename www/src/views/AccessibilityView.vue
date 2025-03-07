@@ -12,7 +12,10 @@
             </p>
             <p>
               Cette déclaration d’accessibilité s’applique au site
-              <strong>DossierFacile</strong> : https://www.dossierfacile.logement.gouv.fr.
+              <strong>DossierFacile</strong> :
+              <a href="https://www.dossierfacile.logement.gouv.fr"
+                >https://www.dossierfacile.logement.gouv.fr</a
+              >.
             </p>
 
             <h2>Qu'est-ce que l'accessibilité numérique ?</h2>
@@ -26,17 +29,18 @@
 
             <h2>État de conformité</h2>
             <p>
-              Le site <strong>DossierFacile</strong
-              ><span> (<span>https://www.dossierfacile.logement.gouv.fr</span>)</span> est en
-              conformité partielle avec le référentiel général d’amélioration de l’accessibilité en
-              raison des non-conformités ci-dessous.
+              Le site <strong>DossierFacile</strong> (<a
+                href="https://www.dossierfacile.logement.gouv.fr"
+                >https://www.dossierfacile.logement.gouv.fr</a
+              >) est en conformité partielle avec le référentiel général d’amélioration de
+              l’accessibilité en raison des non-conformités ci-dessous.
             </p>
 
             <h2>Résultats des tests</h2>
             <p>
               L’audit de conformité au RGAA 4.1 réalisé par la société
-              <a href="https://www.numerik-ea.fr/">Numerik-ea</a> révèle que 75% des critères RGAA
-              sont respectés.
+              <a href="https://www.numerik-ea.fr/" target="_blank">Numerik-ea</a> révèle que 75% des
+              critères RGAA sont respectés.
             </p>
             <p>Dans le détail :</p>
             <ul>
@@ -124,11 +128,15 @@
             </p>
 
             <p>
+              Envoyer un courrier : <br />
               1 place Carpeaux<br />
               92800 Puteaux<br />
               France
             </p>
-            <p>+33 1 40 81 21 22</p>
+            <p>
+              Contacter par téléphone : <br />
+              <a href="tel:+33 1 40 81 21 22">+33 1 40 81 21 22</a>
+            </p>
 
             <h2>Voie de recours</h2>
             <p>
@@ -140,14 +148,18 @@
             <p>Vous pouvez&nbsp;:</p>
             <ul>
               <li>
-                Écrire un message au
-                <a href="https://formulaire.defenseurdesdroits.fr/">Défenseur des droits</a>
+                <a href="https://formulaire.defenseurdesdroits.fr/" target="_blank"
+                  >Écrire un message au Défenseur des droits</a
+                >
               </li>
               <li>
-                Contacter
-                <a href="https://www.defenseurdesdroits.fr/saisir/delegues"
-                  >le délégué du Défenseur des droits dans votre région</a
+                <a href="https://www.defenseurdesdroits.fr/saisir/delegues" target="_blank"
+                  >Contacter le délégué du Défenseur des droits dans votre région</a
                 >
+              </li>
+              <li>
+                Contacter le défenseur des droits par téléphone :
+                <a href="tel:09 69 39 00 00">09 69 39 00 00</a>
               </li>
               <li>
                 Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre)&nbsp;:<br />
