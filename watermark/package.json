@@ -18,7 +18,7 @@
     "@sentry/tracing": "7.119.2",
     "@sentry/vite-plugin": "2.22.7",
     "@sentry/vue": "7.119.2",
-    "axios": "1.7.9",
+    "axios": "1.8.2",
     "df-shared-next": "workspace:*",
     "vue": "3.5.13",
     "vue-i18n": "11.0.1",
