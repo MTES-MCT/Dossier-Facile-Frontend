@@ -233,7 +233,194 @@ export const router = createRouter({
         {
           path: '4',
           name: 'TenantFinancial',
-          component: () => import('@/components/documents/tenant/TenantFinancial.vue')
+          // component: () => import('@/components/documents/tenant/TenantFinancial.vue')
+          component: () => import('@/components/financial/FinancialRecap.vue')
+        },
+        {
+          path: '4/ajouter',
+          component: () => import('@/components/documents/tenant/TenantFinancial2.vue'),
+          children: [
+            {
+              path: '',
+              component: () => import('@/components/financial/ChooseFinancial.vue')
+            },
+            {
+              path: 'travail',
+              component: () => import('@/components/financial/FinancialJob.vue')
+            },
+            {
+              path: 'travail/salarie',
+              component: () => import('@/components/financial/JobEmployed.vue')
+            },
+            {
+              path: 'travail/salarie/plus-3-mois',
+              component: () => import('@/components/financial/EmployedMore3Months.vue')
+            },
+            {
+              path: 'travail/salarie/moins-3-mois',
+              component: () => import('@/components/financial/EmployedLess3Months.vue')
+            },
+            {
+              path: 'travail/salarie/pas-encore',
+              component: () => import('@/components/financial/EmployedNotYet.vue')
+            },
+            {
+              path: 'travail/independant',
+              component: () => import('@/components/financial/JobFreelance.vue')
+            },
+            {
+              path: 'travail/independant/auto-entrepreneur',
+              component: () => import('@/components/financial/AutoEntrepreneur.vue')
+            },
+            {
+              path: 'travail/independant/autre',
+              component: () => import('@/components/financial/FreelanceOther.vue')
+            },
+            {
+              path: 'travail/intermittent',
+              component: () => import('@/components/financial/JobIntermittent.vue')
+            },
+            {
+              path: 'travail/artiste-auteur',
+              component: () => import('@/components/financial/JobArtist.vue')
+            },
+            {
+              path: 'social',
+              component: () => import('@/components/financial/FinancialSocial.vue')
+            },
+            {
+              path: 'social/caf',
+              component: () => import('@/components/financial/SocialCAF.vue')
+            },
+            {
+              path: 'social/caf/plus-3-Mois',
+              component: () => import('@/components/financial/CAFMore3Months.vue')
+            },
+            {
+              path: 'social/caf/moins-3-Mois',
+              component: () => import('@/components/financial/CAFLess3Months.vue')
+            },
+            {
+              path: 'social/france-travail',
+              component: () => import('@/components/financial/SocialFranceTravail.vue')
+            },
+            {
+              path: 'social/france-travail/plus-3-mois',
+              component: () => import('@/components/financial/FranceTravailMore3Months.vue')
+            },
+            {
+              path: 'social/france-travail/moins-3-mois',
+              component: () => import('@/components/financial/FranceTravailLess3Months.vue')
+            },
+            {
+              path: 'social/france-travail/pas-encore',
+              component: () => import('@/components/financial/FranceTravailNotYet.vue')
+            },
+            {
+              path: 'social/apl',
+              component: () => import('@/components/financial/SocialAPL.vue')
+            },
+            {
+              path: 'social/apl/plus-3-mois',
+              component: () => import('@/components/financial/APLMore3Months.vue')
+            },
+            {
+              path: 'social/apl/moins-3-mois',
+              component: () => import('@/components/financial/APLLess3Months.vue')
+            },
+            {
+              path: 'social/apl/pas-encore',
+              component: () => import('@/components/financial/APLNotYet.vue')
+            },
+            {
+              path: 'social/aah',
+              component: () => import('@/components/financial/SocialAAH.vue')
+            },
+            {
+              path: 'social/aah/plus-3-mois',
+              component: () => import('@/components/financial/AAHMore3Months.vue')
+            },
+            {
+              path: 'social/aah/moins-3-mois',
+              component: () => import('@/components/financial/AAHLess3Months.vue')
+            },
+            {
+              path: 'social/aah/pas-encore',
+              component: () => import('@/components/financial/AAHNotYet.vue')
+            },
+            {
+              path: 'social/autre',
+              component: () => import('@/components/financial/SocialAutre.vue')
+            },
+            {
+              path: 'pension',
+              component: () => import('@/components/financial/FinancialPension.vue')
+            },
+            {
+              path: 'pension/retraite',
+              component: () => import('@/components/financial/PensionRetirement.vue')
+            },
+            {
+              path: 'pension/retraite/bulletin',
+              component: () => import('@/components/financial/PensionStatement.vue')
+            },
+            {
+              path: 'pension/retraite/pas-de-bulletin',
+              component: () => import('@/components/financial/PensionNoStatement.vue')
+            },
+            {
+              path: 'pension/invalidite',
+              component: () => import('@/components/financial/PensionDisability.vue')
+            },
+            {
+              path: 'pension/invalidite/plus-3-mois',
+              component: () => import('@/components/financial/DisabilityMore3Months.vue')
+            },
+            {
+              path: 'pension/invalidite/moins-3-mois',
+              component: () => import('@/components/financial/DisabilityLess3Months.vue')
+            },
+            {
+              path: 'pension/invalidite/pas-encore',
+              component: () => import('@/components/financial/DisabilityNotYet.vue')
+            },
+            {
+              path: 'pension/alimentaire',
+              component: () => import('@/components/financial/PensionAlimony.vue')
+            },
+            {
+              path: 'rente',
+              component: () => import('@/components/financial/FinancialAnnuity.vue')
+            },
+            {
+              path: 'rente/revenus-locatifs',
+              component: () => import('@/components/financial/AnnuityRentalIncome.vue')
+            },
+            {
+              path: 'rente/revenus-locatifs/quittance',
+              component: () => import('@/components/financial/AnnuityRentalReceipt.vue')
+            },
+            {
+              path: 'rente/revenus-locatifs/pas-de-quittance',
+              component: () => import('@/components/financial/AnnuityRentalNoReceipt.vue')
+            },
+            {
+              path: 'rente/viagere',
+              component: () => import('@/components/financial/AnnuityLife.vue')
+            },
+            {
+              path: 'rente/autre',
+              component: () => import('@/components/financial/AnnuityOther.vue')
+            },
+            {
+              path: 'bourse',
+              component: () => import('@/components/financial/HasGrant.vue')
+            },
+            {
+              path: 'pas-de-revenus',
+              component: () => import('@/components/financial/NoIncome.vue')
+            }
+          ]
         },
         {
           path: '5',
