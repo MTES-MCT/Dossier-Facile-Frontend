@@ -28,7 +28,7 @@
     </div>
     <div class="fr-col-md-8 fr-col-xs-12 fr-grid-row fr-grid-row--center d-p-200">
       <div class="fr-col-xs-12 fr-col-md-10 max-600">
-        <NameInformationForm :user="user"></NameInformationForm>
+        <NameInformationForm></NameInformationForm>
       </div>
     </div>
   </aside>
@@ -36,15 +36,9 @@
 
 <script setup lang="ts">
 import NameInformationForm from '../components/NameInformationForm.vue'
-import { useTenantStore } from '@/stores/tenant-store'
-import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-const store = useTenantStore()
-const user = computed(() => {
-  return store.user
-})
 </script>
 
 <style lang="scss" scoped>
