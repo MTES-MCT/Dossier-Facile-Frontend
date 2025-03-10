@@ -10,5 +10,10 @@
     "paths": {
       "@/*": ["./src/*"]
     }
+  },
+  "vueCompilerOptions": {
+    "checkUnknownComponents": true,
+    "checkUnknownEvents": true,
+    "checkUnknownDirectives": true
   }
 }
