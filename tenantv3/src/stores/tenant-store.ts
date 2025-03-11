@@ -12,8 +12,6 @@ import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { defineStore, type StoreActions } from 'pinia'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { keycloak } from '../plugin/keycloak'
-import { DocumentTypeConstants } from '@/components/documents/share/DocumentTypeConstants'
-import { DocumentType } from 'df-shared-next/src/models/Document'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { UtilsService } from '@/services/UtilsService'
 import { ProfileService } from '@/services/ProfileService'
@@ -28,6 +26,7 @@ import cookies from 'js-cookie'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -167,74 +166,13 @@ export const useTenantStore = defineStore('tenant', {
       return state.user.guarantors
     },
     tenantFinancialDocuments(state: State): FinancialDocument[] {
-      const financialDocuments: FinancialDocument[] = []
-      if (state.user.documents !== null) {
-        const docs = state.user.documents?.filter((d: DfDocument) => {
-          return d.documentCategory === 'FINANCIAL'
-        })
-        if (docs !== undefined && docs.length > 0) {
-          docs
-            .sort((a: DfDocument, b: DfDocument) => {
-              return (a?.id || 0) - (b?.id || 0)
-            })
-            .forEach((d: DfDocument) => {
-              const f = new FinancialDocument()
-              f.noDocument = d.noDocument || false
-              f.customText = d.customText || ''
-              if (f.customText === '-') {
-                f.customText = ''
-              }
-              f.monthlySum = d.monthlySum || 0
-              f.id = d.id
-
-              const localDoc = DocumentTypeConstants.FINANCIAL_DOCS.find((d2: DocumentType) => {
-                return d2.value === d.documentSubCategory
-              })
-              if (localDoc !== undefined) {
-                f.documentType = localDoc
-              }
-              financialDocuments.push(f)
-            })
-        }
-      }
-      return financialDocuments
+      const fDocs = state.user.documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
+      return fDocs.sort((a, b) => (a.id || 0) - (b.id || 0)).map(toFinancialDoc)
     },
     guarantorFinancialDocuments(state: State): FinancialDocument[] {
-      const financialdocuments: FinancialDocument[] = []
-      if (!state.selectedGuarantor) {
-        return financialdocuments
-      }
-      const g: Guarantor = state.selectedGuarantor
-      const dfDocs: DfDocument[] = g.documents || []
-      if (dfDocs !== null) {
-        const docs = dfDocs?.filter((d: DfDocument) => {
-          return d.documentCategory === 'FINANCIAL'
-        })
-        if (docs !== undefined && docs.length > 0) {
-          docs
-            .sort((a: DfDocument, b: DfDocument) => {
-              return (a?.id || 0) - (b?.id || 0)
-            })
-            .forEach((d: DfDocument) => {
-              const f = new FinancialDocument()
-              f.noDocument = d.noDocument || false
-              f.customText = d.customText || ''
-              f.monthlySum = d.monthlySum || 0
-              f.id = d.id
-
-              const localDoc = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS.find(
-                (d2: DocumentType) => {
-                  return d2.value === d.documentSubCategory
-                }
-              )
-              if (localDoc !== undefined) {
-                f.documentType = localDoc
-              }
-              financialdocuments.push(f)
-            })
-        }
-      }
-      return financialdocuments
+      const docs =
+        state.selectedGuarantor?.documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
+      return docs.sort((a, b) => (a.id || 0) - (b.id || 0)).map(toFinancialDoc)
     },
     getSpouse(): CoTenant | null {
       if (this.user.apartmentSharing.applicationType === 'COUPLE') {
@@ -868,3 +806,19 @@ export const useTenantStore = defineStore('tenant', {
     }
   }
 })
+
+function toFinancialDoc(d: DfDocument): FinancialDocument {
+  return {
+    noDocument: d.noDocument || false,
+    customText: (d.customText || '').replace(/^-$/, ''),
+    monthlySum: d.monthlySum || 0,
+    id: d.id,
+    documentType: {
+      key: d.documentSubCategory?.toLowerCase().replaceAll('_', '-') || '',
+      value: d.documentSubCategory || '',
+      maxFileCount: d.documentSubCategory === 'NO_INCOME' ? 0 : 10
+    },
+    files: [],
+    fileUploadStatus: UploadStatus.STATUS_INITIAL
+  }
+}
