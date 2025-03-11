@@ -8,7 +8,13 @@ export class FinancialDocument {
   id?: number
   documentType = new DocumentType()
   documentCategory?: DocumentCategory
-  documentSubCategory?: string
+  documentSubCategory?:
+    | 'SALARY'
+    | 'SCHOLARSHIP'
+    | 'SOCIAL_SERVICE'
+    | 'RENT'
+    | 'PENSION'
+    | 'NO_INCOME'
   noDocument = false
   files: DfFile[] = []
   fileUploadStatus = UploadStatus.STATUS_INITIAL
