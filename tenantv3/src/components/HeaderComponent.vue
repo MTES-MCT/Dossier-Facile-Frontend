@@ -148,7 +148,8 @@ function onCreateOwner() {
   emit('on-create-owner')
 }
 function goToPartner() {
-  window.location.href = 'https://partenaire.dossierfacile.logement.gouv.fr'
+  window.location.href =
+    'https://partenaire.dossierfacile.logement.gouv.fr/devenir-partenaire-1/pourquoi-devenir-partenaire-dossierfacile'
 }
 </script>
 
