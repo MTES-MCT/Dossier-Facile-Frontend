@@ -8,8 +8,9 @@
       guarantorId: guarantor.id
     }"
     :document-type="documentType"
-    :status="getStatus() || ''"
+    :status="status"
     :active="active"
+    :to="to"
   />
 </template>
 
@@ -20,6 +21,8 @@ import { DocumentService } from '@/services/DocumentService'
 import { DocumentType } from './DocumentType'
 import { PersonType } from './PersonType'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { computed } from 'vue'
+import type { RouteLocationRaw } from 'vue-router'
 
 const props = defineProps<{
   guarantor: Guarantor
@@ -27,9 +30,10 @@ const props = defineProps<{
   documentType: DocumentType
   substep: number
   active: boolean
+  to?: RouteLocationRaw
 }>()
 
-function getStatus() {
-  return DocumentService.guarantorStatus(props.documentType, props.guarantor)
-}
+const status = computed(
+  () => DocumentService.guarantorStatus(props.documentType, props.guarantor) || ''
+)
 </script>

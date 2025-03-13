@@ -22,7 +22,7 @@
         </ConfirmModal>
       </div>
       <div v-if="hasOneNaturalGuarantor()">
-        <button @click.once="addNaturalGuarantor()" class="add-guarantor-btn">
+        <button class="add-guarantor-btn" @click.once="addNaturalGuarantor()">
           {{ t('tenantguarantorlist.add-new-guarantor') }}
         </button>
       </div>
@@ -42,7 +42,7 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { ToastService } from '@/services/ToastService'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{

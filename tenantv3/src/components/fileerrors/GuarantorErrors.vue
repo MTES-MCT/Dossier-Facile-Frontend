@@ -76,7 +76,7 @@
 <script setup lang="ts">
 import { User } from 'df-shared-next/src/models/User'
 import { useI18n } from 'vue-i18n'
-import useTenantStore from '../../stores/tenant-store'
+import { useTenantStore } from '../../stores/tenant-store'
 import { useRouter } from 'vue-router'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'

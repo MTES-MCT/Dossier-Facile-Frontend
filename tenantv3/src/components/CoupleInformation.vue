@@ -13,9 +13,9 @@
           </FieldLabel>
           <Field
             id="coTenantLastName"
-            name="coTenantLastName"
-            v-model="coTenant.lastName"
             v-slot="{ field, meta }"
+            v-model="coTenant.lastName"
+            name="coTenantLastName"
             :rules="{
               required: true,
               onlyAlpha: true
@@ -29,11 +29,11 @@
                 'fr-input--error': !meta.valid
               }"
               type="text"
-              @input="handleInput"
               :disabled="disableNameFields"
+              @input="handleInput"
             />
           </Field>
-          <ErrorMessage name="coTenantLastName" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="coTenantLastName">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
@@ -43,9 +43,9 @@
           </FieldLabel>
           <Field
             id="coTenantFirstName"
-            name="coTenantFirstName"
-            v-model="coTenant.firstName"
             v-slot="{ field, meta }"
+            v-model="coTenant.firstName"
+            name="coTenantFirstName"
             :rules="{
               required: true,
               onlyAlpha: true
@@ -59,11 +59,11 @@
                 'fr-input--error': !meta.valid
               }"
               type="text"
-              @input="handleInput"
               :disabled="disableNameFields"
+              @input="handleInput"
             />
           </Field>
-          <ErrorMessage name="coTenantFirstName" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="coTenantFirstName">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
@@ -93,9 +93,9 @@
           </FieldLabel>
           <Field
             id="email"
-            name="email"
-            v-model="coTenant.email"
             v-slot="{ field, meta }"
+            v-model="coTenant.email"
+            name="email"
             :rules="{
               email: true,
               custom: user.email
@@ -111,40 +111,40 @@
               name="email"
               placeholder="Ex : exemple@exemple.fr"
               type="email"
-              @input="handleInput"
               :disabled="disableEmailField"
+              @input="handleInput"
             />
           </Field>
-          <ErrorMessage name="email" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="email">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
       </div>
     </NakedCard>
-    <div ref="checkboxauthorize" v-if="showCheckBox" class="fr-grid-row fr-grid-row--center">
+    <div v-if="showCheckBox" ref="checkboxauthorize" class="fr-grid-row fr-grid-row--center">
       <div class="fr-col-12 fr-mb-3w fr-mt-3w">
         <div class="bg-purple fr-checkbox-group">
           <Field
-            name="authorize"
-            v-model="authorize"
             v-slot="{ field, meta }"
+            v-model="authorize"
+            name="authorize"
             type="checkbox"
             rules="isTrue"
             :value="true"
           >
             <input
-              type="checkbox"
               id="authorize"
+              type="checkbox"
               v-bind="field"
-              @change="updateAuthorize"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
+              @change="updateAuthorize"
             />
             <label for="authorize" v-html="t('coupleinformation.acceptAuthor')"> </label>
           </Field>
-          <ErrorMessage name="authorize" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="authorize">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
@@ -160,7 +160,7 @@ import VGouvFrModal from 'df-shared-next/src/GouvFr/VGouvFrModal.vue'
 import CoupleInformationHelp from './helps/CoupleInformationHelp.vue'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 import { computed, onMounted, ref } from 'vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
@@ -177,7 +177,6 @@ const emit = defineEmits<{ 'update:modelValue': [coTenants: CoTenant[]] }>()
 const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
-const spouseAuthorize = computed(() => store.spouseAuthorize)
 
 const coTenant = ref<CoTenant>(new User())
 const authorize = ref(false)
@@ -198,7 +197,7 @@ onMounted(() => {
     if (coTenant.value.email?.length > 0) {
       disableEmailField.value = true
       showCheckBox.value = true
-      authorize.value = spouseAuthorize.value
+      authorize.value = store.spouseAuthorize
     }
   }
 })
@@ -221,7 +220,7 @@ function handleInput() {
 }
 
 function updateAuthorize() {
-  store.updateCoupleAuthorize(authorize.value)
+  store.spouseAuthorize = authorize.value
 }
 </script>
 

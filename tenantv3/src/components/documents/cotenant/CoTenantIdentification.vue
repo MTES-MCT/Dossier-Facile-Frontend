@@ -3,7 +3,7 @@
     <DocumentDownloader
       :co-tenant-id="coTenantId"
       :documents-definitions="documentsDefinitions"
-      document-category="IDENTIFICATION"
+      :document-category="DocumentType.IDENTIFICATION"
       dispatch-method-name="saveTenantIdentification"
       type-document="typeDocumentIdentification"
     >
@@ -21,6 +21,7 @@
 import { useI18n } from 'vue-i18n'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import DocumentDownloader from './DocumentDownloader.vue'
+import { DocumentType } from '@/components/editmenu/documents/DocumentType'
 
 const { t } = useI18n()
 

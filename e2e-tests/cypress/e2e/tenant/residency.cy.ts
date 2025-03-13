@@ -112,31 +112,32 @@ describe(
     }
 
     function testCoResidencyStep() {
-      // Should be able to continue without choosing a category
-      cy.clickOnNext();
-      goBackToResidency();
-
-      // Should be able to add text
-      selectResidencyCategory("Dans une autre situation (sans-abri, etc.)");
+      // Precarious situation: should not be able to continue without checking the box
+      cy.contains("Autres situations").click();
+      cy.contains("En situation précaire").click();
       cy.get(".dropbox").should("not.exist");
-      cy.clickOnNext().expectPath("/2");
-      cy.get("#customText").type("Test text").clickOnNext();
-      goBackToResidency();
-      cy.get("#customText").should("have.value", "Test text");
+      cy.contains("Valider votre situation d'hébergement").should(
+        "be.disabled"
+      );
+      cy.contains("Votre conjoint est dans une situation précaire").click();
+      cy.contains("Valider votre situation d'hébergement").should("be.enabled");
+      cy.clickOnNext().expectPath("/3");
+      cy.contains("Retour").click();
+      getInputByLabel("Votre conjoint est dans une situation précaire").should(
+        "be.checked"
+      );
+      cy.contains("Modifier").click();
+      cy.contains("Modifier votre situation").click();
 
-      // Should be able to continue without uploading a file
-      selectResidencyCategory("Locataire");
-      cy.clickOnNext();
-      goBackToResidency();
+      // Should be able to go back
+      cy.contains("Locataire").click();
+      cy.contains("Modifier").click();
+      cy.expectPath("/2");
 
       // Should upload a file and continue
-      selectResidencyCategory("Propriétaire");
+      cy.contains("Propriétaire").click();
       cy.uploadDocument(1).clickOnNext();
       goBackToResidency();
-    }
-
-    function selectResidencyCategory(categoryLabel: string) {
-      cy.get("#select").select(categoryLabel);
     }
 
     function verifyThatThreeDocumentsAreMandatory() {

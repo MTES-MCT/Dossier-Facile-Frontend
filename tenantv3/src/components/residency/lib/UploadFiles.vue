@@ -10,7 +10,8 @@
       v-for="file in residencyFiles"
       :key="file.id"
       :file="file"
-      :watermark-url="documentWatermarkUrl" 
+      :watermark-url="documentWatermarkUrl"
+      :doc-category="category"
       @remove="remove(file)"
       @ask-confirm="AnalyticsService.deleteDocument(category)"
       @cancel="AnalyticsService.cancelDelete(category)"
@@ -28,7 +29,7 @@ import ListItem from '@/components/uploads/ListItem.vue'
 import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import type { DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import { RegisterService } from '@/services/RegisterService'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
@@ -36,6 +37,7 @@ import { UtilsService } from '@/services/UtilsService'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import type { ResidencyCategory } from '@/components/documents/share/DocumentTypeConstants'
+import { useResidencyState } from '../residencyState'
 
 const {
   maxFileCount = 10,
@@ -53,13 +55,13 @@ const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
 
 const store = useTenantStore()
+const residencyState = useResidencyState()
 
-const category = guarantor ? 'guarantor-residency' : 'residency'
-const tenantResidencyDocument = computed(() =>
-  guarantor ? store.getGuarantorResidencyDocument : store.getTenantResidencyDocument
-)
+// eslint-disable-next-line vue/no-dupe-keys
+const category = residencyState.category
+const tenantResidencyDocument = residencyState.document
 const documentStatus = computed(() => tenantResidencyDocument.value?.documentStatus)
-const userId = computed(() => (guarantor ? store.user.id : undefined))
+const userId = residencyState.userId
 const residencyFiles = computed(() => {
   const newFiles = files.value.map((f) => {
     return {
@@ -100,9 +102,7 @@ async function save(): Promise<boolean> {
   if (categoryStep) {
     formData.append('categoryStep', categoryStep)
   }
-  if (guarantor && store.guarantor?.id) {
-    formData.append('guarantorId', store.guarantor.id?.toString())
-  }
+  residencyState?.addData?.(formData)
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
   const $loading = useLoading()

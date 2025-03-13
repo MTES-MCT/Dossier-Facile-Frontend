@@ -1,12 +1,12 @@
 <template>
   <div class="preview">
     <!-- If a preview is available display it or if it's an image diplay id -->
-    <AuthImage :src="getPreviewImage()!" v-if="hasToDisplayImage()" :alt="t('showdoc.preview')" />
+    <AuthImage v-if="hasToDisplayImage()" :src="getPreviewImage()!" :alt="t('showdoc.preview')" />
     <!-- If there is no preview available and the file is not an image preview pdf-->
     <div v-else-if="!isImage()">
       <vue-pdf-embed
-        :page="0"
         v-if="isPreviewPdfLoaded"
+        :page="0"
         :source="pdfPreviewContent"
         width="96"
       ></vue-pdf-embed>

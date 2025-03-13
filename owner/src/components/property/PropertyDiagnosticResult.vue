@@ -168,7 +168,7 @@ import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import DpeService from '../../services/DpeService'
 import useOwnerStore from '../../store/owner-store'
-import { AdemeApiResult } from 'df-shared-next/src/models/AdemeApiResult'
+import { type AdemeApiResult } from 'df-shared-next/src/models/AdemeApiResult'
 
 const { t, locale } = useI18n()
 const store = useOwnerStore()

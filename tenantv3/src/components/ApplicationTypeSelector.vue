@@ -1,10 +1,10 @@
 <template>
   <div>
     <RichRadioButtons
-      name="application-type-selector"
       v-model="checkedApplicationType"
-      @input="onChange"
+      name="application-type-selector"
       :elements="applicationTypeOptions"
+      @input="onChange"
     />
     <ConfirmModal v-if="showConfirmationModal" @valid="validSelect()" @cancel="undoSelect()">
       <span>{{ getConfirmModalContent() }}</span>
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import RichRadioButtons from 'df-shared-next/src/Button/RichRadioButtons.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { computed, onBeforeMount, ref } from 'vue'

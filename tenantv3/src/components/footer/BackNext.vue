@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="fr-grid-row space-around fr-mb-1w footer-btn">
-      <slot name="additionalButton" v-if="isMobile()"></slot>
+      <slot v-if="isMobile()" name="additionalButton"></slot>
     </div>
     <div class="fr-grid-row btn-spacing footer-btn">
       <v-gouv-fr-button
@@ -9,15 +9,15 @@
         class="fr-mr-2w px40"
         :secondary="true"
         :btn-type="'button'"
-        @click="backAction()"
         :aria-label="t('backnext.back')"
+        @click="backAction()"
       >
         <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
         <span class="desktop">{{ t('backnext.back') }}</span>
       </v-gouv-fr-button>
       <div v-if="!showBack"></div>
       <div class="fr-grid-row flex-1">
-        <slot name="additionalButton" v-if="!isMobile()"></slot>
+        <slot v-if="!isMobile()" name="additionalButton"></slot>
         <v-gouv-fr-button
           class="next-btn"
           :secondary="false"

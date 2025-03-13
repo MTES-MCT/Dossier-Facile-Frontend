@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterView, useRoute, useRouter } from 'vue-router'
-import useTenantStore from './stores/tenant-store'
+import { useTenantStore } from './stores/tenant-store'
 import { computed, onBeforeMount } from 'vue'
 import TenantSkipLinks from './components/TenantSkipLinks.vue'
 import TenantMenu from './components/TenantMenu.vue'

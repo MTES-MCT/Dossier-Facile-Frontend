@@ -1,8 +1,8 @@
 <template>
   <BackLinkRow
     :label="t('short-term-rental')"
-    to="/documents-locataire/2"
-    @edit="AnalyticsService.editSituation('residency', 'short-term-rental')"
+    to="../2"
+    @edit="AnalyticsService.editSituation(category, 'short-term-rental')"
   />
   <i18n-t keypath="please-provide" tag="p">
     <strong>{{ t('paid-invoices') }}</strong>
@@ -17,7 +17,9 @@ import BackLinkRow from './lib/BackLinkRow.vue'
 import UploadFiles from './lib/UploadFiles.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { useResidencyState } from './residencyState'
 const { t } = useI18n()
+const { category } = useResidencyState()
 </script>
 
 <i18n>

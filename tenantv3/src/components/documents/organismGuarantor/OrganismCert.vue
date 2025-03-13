@@ -8,12 +8,12 @@
         <SimpleRadioButtons
           name="organism-type-selector"
           :value="selectedDocumentType"
-          @input="onSelectChange($event)"
           :elements="documentTypes()"
+          @input="onSelectChange($event)"
         ></SimpleRadioButtons>
       </div>
     </NakedCard>
-    <NakedCard class="fr-p-md-5w fr-mt-md-3w" v-if="selectedDocumentType.key || files.length > 0">
+    <NakedCard v-if="selectedDocumentType.key || files.length > 0" class="fr-p-md-5w fr-mt-md-3w">
       <div>
         <AllDeclinedMessages
           :user-id="user?.id"
@@ -27,6 +27,7 @@
             :key="file.id"
             :file="file"
             :watermark-url="documentWatermarkUrl"
+            doc-category="guarantee-provider-certificate"
             @remove="remove(Number(file.id))"
           />
         </div>
@@ -58,7 +59,7 @@ import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedR
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useTenantStore from '../../../stores/tenant-store'
+import { useTenantStore } from '../../../stores/tenant-store'
 import { ToastService } from '../../../services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
@@ -75,7 +76,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
+const user = computed(() => store.user)
 
 const MAX_FILE_COUNT = 5
 

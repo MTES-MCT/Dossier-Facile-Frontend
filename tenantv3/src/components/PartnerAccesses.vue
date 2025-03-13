@@ -36,7 +36,7 @@
       </table>
     </div>
     <div class="mobile">
-      <ul class="fr-p-0" v-for="access in accesses" :key="access.id">
+      <ul v-for="access in accesses" :key="access.id" class="fr-p-0">
         <li class="fr-grid-row file-list-item fr-p-3w">
           <div class="fr-col-5">
             {{ formatDate(access.accessGrantedDate) }}
@@ -79,7 +79,7 @@
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import Button from 'df-shared-next/src/Button/DfButton.vue'
 import dayjs from 'dayjs'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 import { useI18n } from 'vue-i18n'

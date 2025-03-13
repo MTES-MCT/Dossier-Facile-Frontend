@@ -10,14 +10,14 @@
         <div class="fr-mt-3w">
           <div v-if="listType == 'dropDownList'">
             <select
-              :value="document.key"
-              @change="onSelectChange($event.target)"
-              class="fr-select fr-mb-3w fr-mt-3w"
               id="select"
+              :value="document.key"
+              class="fr-select fr-mb-3w fr-mt-3w"
               as="select"
+              @change="onSelectChange($event.target)"
             >
               <option v-if="!document.key" selected disabled></option>
-              <option v-for="d in documentsDefinitions" :value="d.key" :key="d.key">
+              <option v-for="d in documentsDefinitions" :key="d.key" :value="d.key">
                 {{ t(translationKeyPrefix + d.key) }}
               </option>
             </select>
@@ -26,8 +26,8 @@
             v-if="listType !== 'dropDownList'"
             name="application-type-selector"
             :value="document"
-            @input="onEventChange"
             :elements="mapDocuments()"
+            @input="onEventChange"
           ></SimpleRadioButtons>
         </div>
       </div>
@@ -38,13 +38,13 @@
 
     <slot name="after-select-block"></slot>
     <NakedCard
-      class="fr-p-md-5w fr-mt-md-3w"
       v-if="showDownloader && (document.key || documentFiles.length > 0)"
+      class="fr-p-md-5w fr-mt-md-3w"
     >
       <div class="fr-mb-3w">
         <p v-html="t(`explanation-text.cotenant.${document.key}`)"></p>
       </div>
-      <WarningTaxDeclaration class="fr-mb-3w" v-if="document.key === 'my-name'" />
+      <WarningTaxDeclaration v-if="document.key === 'my-name'" class="fr-mb-3w" />
 
       <AllDeclinedMessages
         :user-id="selectedCoTenant?.id"
@@ -59,6 +59,7 @@
             v-for="file in documentFiles()"
             :key="file.id"
             :file="file"
+            :doc-category="analyticDocType"
             :watermark-url="documentWatermarkUrl"
             @remove="remove(file)"
           />
@@ -75,9 +76,9 @@
       </div>
       <div v-if="allowNoDocument" class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
         <input
-          type="checkbox"
           id="noDocument"
           v-model="noDocument"
+          type="checkbox"
           value="false"
           @click="changeNoDocument"
         />
@@ -89,29 +90,29 @@
       </div>
 
       <div
-        class="fr-mb-5w"
         v-if="!forceShowDownloader && (dfDocument ? dfDocument.noDocument : null)"
+        class="fr-mb-5w"
       >
         <div class="fr-input-group">
           <label class="fr-label" for="customText">
             {{ t(`cotenantfinancialform.customText-${document.key}`) }}
           </label>
           <Field
-            name="customText"
-            v-model="dfDocument.customText"
             v-slot="{ field, meta }"
+            v-model="dfDocument.customText"
+            name="customText"
             :rules="{
               required: true
             }"
           >
             <textarea
               v-bind="field"
+              id="customText"
               class="form-control fr-input validate-required"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
-              id="customText"
               name="customText"
               placeholder=""
               type="text"
@@ -124,7 +125,7 @@
               2000</span
             >
           </Field>
-          <ErrorMessage name="customText" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="customText">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
@@ -160,7 +161,7 @@
           </p>
           <hr class="mobile" />
           <div class="btn-align">
-            <DfButton @click="isWarningTaxSituationModalVisible = false" :primary="true">{{
+            <DfButton :primary="true" @click="isWarningTaxSituationModalVisible = false">{{
               t('tax-page.avis-btn')
             }}</DfButton>
           </div>
@@ -179,32 +180,36 @@
 </template>
 
 <script setup lang="ts">
+import WarningTaxDeclaration from '@/components/documents/share/WarningTaxDeclaration.vue'
+import {
+  DocumentType as DocumentTypeEnum,
+  DocumentTypeTranslations
+} from '@/components/editmenu/documents/DocumentType'
 import { RegisterService } from '@/services/RegisterService'
+import { ToastService } from '@/services/ToastService'
+import { UtilsService } from '@/services/UtilsService'
+import { useTenantStore, type DispatchNames } from '@/stores/tenant-store'
+import { RiAlarmWarningLine } from '@remixicon/vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import Modal from 'df-shared-next/src/components/ModalComponent.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { DfFile } from 'df-shared-next/src/models/DfFile'
 import { DocumentType } from 'df-shared-next/src/models/Document'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { User } from 'df-shared-next/src/models/User'
+import { ErrorMessage, Field } from 'vee-validate'
+import { computed, onBeforeMount, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
+import { AnalyticsService, type DocumentCategory } from '../../../services/AnalyticsService'
+import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
 import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
-import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import Modal from 'df-shared-next/src/components/ModalComponent.vue'
-import { UtilsService } from '@/services/UtilsService'
-import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
-import WarningTaxDeclaration from '@/components/documents/share/WarningTaxDeclaration.vue'
-import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
-import { ToastService } from '@/services/ToastService'
-import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
-import { computed, onBeforeMount, ref } from 'vue'
-import useTenantStore, { type DispatchNames } from '@/stores/tenant-store'
-import { Field, ErrorMessage } from 'vee-validate'
-import { AnalyticsService } from '../../../services/AnalyticsService'
-import { useI18n } from 'vue-i18n'
-import { RiAlarmWarningLine } from '@remixicon/vue'
-import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -213,7 +218,7 @@ const props = withDefaults(
   defineProps<{
     coTenantId: number
     documentsDefinitions: DocumentType[]
-    documentCategory: string
+    documentCategory: DocumentTypeEnum
     editedDocumentId?: number
     dispatchMethodName: DispatchNames
     typeDocument: string
@@ -305,6 +310,12 @@ const documentWatermarkUrl = computed(() => {
   return getDocument()?.name
 })
 
+const analyticDocType = computed<DocumentCategory>(() => {
+  const translation = DocumentTypeTranslations[props.documentCategory]
+
+  return `cotenant-${translation}`
+})
+
 function loadDocument(forceLoadLast?: boolean) {
   selectedCoTenant.value = store.getTenant(Number(props.coTenantId))
   if (localEditedDocumentId.value) {
@@ -392,11 +403,11 @@ async function addFiles(fileList: File[]) {
     isWarningTaxSituationModalVisible.value = true
     hideLoader()
   } else {
-    saveNewFiles(false)
+    saveNewFiles()
   }
 }
 
-function saveNewFiles(avisDetected: boolean) {
+function saveNewFiles() {
   const filesToAdd = Array.from(newFiles.value).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
@@ -408,7 +419,7 @@ function saveNewFiles(avisDetected: boolean) {
     ToastService.maxFileError(futurLength, document.value.maxFileCount)
     return
   }
-  const formData = _buildFormData(filesToAdd, avisDetected)
+  const formData = _buildFormData(filesToAdd)
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
 
@@ -429,10 +440,7 @@ function saveNewFiles(avisDetected: boolean) {
     })
 }
 
-function _buildFormData(
-  filesToAdd: { file: File; name: string }[],
-  avisDetected: boolean
-): FormData {
+function _buildFormData(filesToAdd: { file: File; name: string }[]): FormData {
   const formData = new FormData()
   const fieldName = 'documents'
   Array.from(Array(filesToAdd.length).keys()).forEach((x) => {
@@ -446,11 +454,7 @@ function _buildFormData(
     formData.append('id', localEditedDocumentId.value.toString())
   }
   emit('enrich-form-data', formData)
-  if (avisDetected) {
-    formData.append('avisDetected', 'true')
-  } else {
-    formData.append('avisDetected', 'false')
-  }
+  formData.append('avisDetected', 'false')
 
   return formData
 }
@@ -460,6 +464,7 @@ function resetFiles() {
 }
 
 function remove(file: DfFile) {
+  AnalyticsService.deleteFile(analyticDocType.value)
   if (file.id) {
     showLoader()
     RegisterService.deleteFileById(Number(file.id))

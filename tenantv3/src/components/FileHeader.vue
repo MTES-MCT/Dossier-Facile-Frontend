@@ -5,7 +5,7 @@
         <p class="fr-badge fr-badge--sm fr-mt-3w">
           {{ t('last-update', [getLastUpdateDate()]) }}
         </p>
-        <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
+        <h1 v-if="user" class="fr-h1 color--white fr-mt-3w">
           {{ t('file.title', [getName()]) }}
         </h1>
         <p class="text-bold color--white">

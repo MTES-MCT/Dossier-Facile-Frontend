@@ -1,19 +1,19 @@
 <template>
   <RadioList>
-    <RadioListItem :to="guarantorId + '/tenant'" @click="sendEvent('tenant')">{{
+    <RadioListItem :to="here + '/tenant'" @click="sendEvent('tenant')">{{
       t('residency.tenant')
     }}</RadioListItem>
-    <RadioListItem :to="guarantorId + '/owner'" @click="sendEvent('owner')">{{
+    <RadioListItem :to="here + '/owner'" @click="sendEvent('owner')">{{
       t('residency.owner')
     }}</RadioListItem>
-    <RadioListItem :to="guarantorId + '/guest'" @click="sendEvent('guest')"
+    <RadioListItem :to="here + '/guest'" @click="sendEvent('guest')"
       >{{ t('residency.guest') }}
       <span class="fr-hint-text">{{ t('residency.guest-subtext') }}</span>
     </RadioListItem>
-    <RadioListItem :to="guarantorId + '/guest-company'" @click="sendEvent('guest-company')">{{
+    <RadioListItem :to="here + '/guest-company'" @click="sendEvent('guest-company')">{{
       t('residency.guest-company')
     }}</RadioListItem>
-    <RadioListItem :to="guarantorId + '/other'" @click="sendEvent('other')"
+    <RadioListItem :to="here + '/other'" @click="sendEvent('other')"
       >{{ t('residency.other') }}
     </RadioListItem>
   </RadioList>
@@ -25,14 +25,17 @@ import RadioList from '@/components/residency/lib/RadioList.vue'
 import RadioListItem from '@/components/residency/lib/RadioListItem.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { useGuarantorId } from './useGuarantorId'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
+import { useResidencyState } from '../residency/residencyState'
 
 const { t } = useI18n()
-const guarantorId = useGuarantorId()
+const route = useRoute()
+const { category } = useResidencyState()
+const here = computed(() => route.path)
 
-const sendEvent = (subcategory: string) =>
-  AnalyticsService.selectSituation('guarantor-residency', subcategory)
+const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
 </script>
 
 <i18n>
@@ -41,7 +44,7 @@ const sendEvent = (subcategory: string) =>
     "residency": {
       "tenant": "Tenant",
       "guest": "Staying with someone",
-      "guest-subtext": "At your parents', a friend's, a relative's…",
+      "guest-subtext": "At a relative's, a friend's…",
       "owner": "Owner",
       "guest-company": "In a staff housing",
       "guest-organism": "Hosted by an organization",
@@ -52,7 +55,7 @@ const sendEvent = (subcategory: string) =>
     "residency": {
       "tenant": "Locataire",
       "guest": "Hébergé chez quelqu'un",
-      "guest-subtext": "Chez vos parents, un ami, un proche…",
+      "guest-subtext": "Chez un parent, un ami, un proche…",
       "owner": "Propriétaire",
       "guest-company": "Dans un logement de fonction",
       "other": "Autre",

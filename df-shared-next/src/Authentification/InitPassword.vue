@@ -80,6 +80,7 @@ import PasswordMeter from '../components/PasswordMeter/PasswordMeter.vue'
 import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { generatePasswordPlaceholder } from '../services/UtilsService'
+import '../validators/validationRules'
 
 defineRule('strength', (_value: unknown, [score]: number[]) => {
   if (score < 2) {

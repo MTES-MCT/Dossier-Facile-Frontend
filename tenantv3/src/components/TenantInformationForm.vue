@@ -3,20 +3,20 @@
     <div v-if="!isOwner()">
       <Form name="form" @submit="authorize">
         <NakedCard class="fr-p-md-5w">
-          <div class="fr-grid-row fr-grid-row--center" v-if="applicationType === 'COUPLE'">
+          <div v-if="applicationType === 'COUPLE'" class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12">
               <Field
+                v-slot="{ field, meta }"
+                v-model="localSpouseAuthorize"
                 name="authorize"
                 type="checkbox"
-                v-model="localSpouseAuthorize"
-                v-slot="{ field, meta }"
                 :rules="{ isTrue: true }"
                 :value="true"
               >
                 <div class="fr-checkbox-group bg-purple">
                   <input
-                    type="checkbox"
                     id="authorize"
+                    type="checkbox"
                     value="false"
                     v-bind="field"
                     :class="{
@@ -26,27 +26,27 @@
                   />
                   <label for="authorize" v-html="t('tenantinformationform.acceptAuthorSpouse')">
                   </label>
-                  <ErrorMessage name="authorize" v-slot="{ message }">
+                  <ErrorMessage v-slot="{ message }" name="authorize">
                     <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                   </ErrorMessage>
                 </div>
               </Field>
             </div>
           </div>
-          <div class="fr-grid-row fr-grid-row--center" v-if="applicationType === 'GROUP'">
+          <div v-if="applicationType === 'GROUP'" class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12">
               <Field
+                v-slot="{ field, meta }"
+                v-model="localCoTenantAuthorize"
                 name="authorize"
                 type="checkbox"
-                v-model="localCoTenantAuthorize"
-                v-slot="{ field, meta }"
                 :rules="{ isTrue: true }"
                 :value="true"
               >
                 <div class="fr-checkbox-group bg-purple">
                   <input
-                    type="checkbox"
                     id="authorize"
+                    type="checkbox"
                     value="false"
                     v-bind="field"
                     :class="{
@@ -56,7 +56,7 @@
                   />
                   <label for="authorize" v-html="t('tenantinformationform.acceptAuthorCoTenant')">
                   </label>
-                  <ErrorMessage name="authorize" v-slot="{ message }">
+                  <ErrorMessage v-slot="{ message }" name="authorize">
                     <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                   </ErrorMessage>
                 </div>
@@ -76,12 +76,12 @@
         <ApplicationTypeSelector @selected="updateApplicationType"></ApplicationTypeSelector>
       </NakedCard>
       <Form name="form" @submit="handleOthersInformation">
-        <CoupleInformation v-model="coTenants" class="fr-mt-2w" v-if="applicationType === 'COUPLE'">
+        <CoupleInformation v-if="applicationType === 'COUPLE'" v-model="coTenants" class="fr-mt-2w">
         </CoupleInformation>
         <RoommatesInformation
+          v-if="applicationType === 'GROUP'"
           v-model="coTenants"
           class="fr-mt-2w"
-          v-if="applicationType === 'GROUP'"
         >
         </RoommatesInformation>
         <ProfileFooter @on-back="goBack"></ProfileFooter>
@@ -101,10 +101,11 @@ import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { useRouter } from 'vue-router'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { isAxiosError } from 'axios'
 
 const router = useRouter()
 const store = useTenantStore()
@@ -162,9 +163,9 @@ async function handleOthersInformation() {
       }
       router.push({ name: 'TenantIdentification' })
     },
-    (error) => {
+    (error: unknown) => {
       loader.hide()
-      if (error.response.data.message.includes('are already being used')) {
+      if (isAxiosError(error) && error.response?.data.message.includes('are already being used')) {
         ToastService.error('tenantinformationform.email-exists')
         return
       } else {

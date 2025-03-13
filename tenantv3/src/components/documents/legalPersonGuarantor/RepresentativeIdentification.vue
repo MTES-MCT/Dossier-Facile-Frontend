@@ -3,9 +3,9 @@
     <Form name="form" @submit="goNext">
       <NakedCard class="fr-p-md-5w">
         <Field
-          name="firstName"
-          v-model="firstName"
           v-slot="{ field, meta }"
+          v-model="firstName"
+          name="firstName"
           :rules="{
             required: true
           }"
@@ -16,18 +16,18 @@
             </h1>
             <input
               v-bind="field"
+              id="firstName"
               class="form-control fr-input validate-required"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
-              id="firstName"
               name="firstName"
               :placeholder="t('representativeidentification.organism-name-placeholder')"
               type="text"
               required
             />
-            <ErrorMessage name="firstName" v-slot="{ message }">
+            <ErrorMessage v-slot="{ message }" name="firstName">
               <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
             </ErrorMessage>
           </div>
@@ -42,29 +42,30 @@
             </b>
           </label>
           <select
+            id="selectID"
             v-model="identificationDocument"
             class="fr-select fr-mb-3w"
-            id="selectID"
             as="select"
           >
             <option v-if="!identificationDocument" selected disabled></option>
-            <option v-for="d in documents" :value="d" :key="d.key">
+            <option v-for="d in documents" :key="d.key" :value="d">
               {{ t(d.key) }}
             </option>
           </select>
         </div>
         <div v-if="identificationDocument && identificationDocument.key">
           <AllDeclinedMessages
-            :user-id="user?.id"
+            :user-id="store.user?.id"
             :document="guarantorIdentificationDocument"
             :document-denied-reasons="guarantorIdentificationDocument?.documentDeniedReasons"
             :document-status="documentStatus"
           ></AllDeclinedMessages>
-          <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
+          <div v-if="listFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
             <ListItem
               v-for="file in listFiles()"
               :key="file.id"
               :file="file"
+              :doc-category="analyticDocumentType"
               :watermark-url="documentWatermarkUrl"
               @remove="remove(file)"
             />
@@ -84,25 +85,26 @@
 </template>
 
 <script setup lang="ts">
-import FileUpload from '../../uploads/FileUpload.vue'
-import { DocumentType } from 'df-shared-next/src/models/Document'
-import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
-import ListItem from '../../uploads/ListItem.vue'
+import { DocumentTypeTranslations } from '@/components/editmenu/documents/DocumentType'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { DfFile } from 'df-shared-next/src/models/DfFile'
-import { RegisterService } from '../../../services/RegisterService'
+import { DocumentType } from 'df-shared-next/src/models/Document'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import GuarantorFooter from '../../footer/GuarantorFooter.vue'
-import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import { ErrorMessage, Field, Form } from 'vee-validate'
 import { computed, onBeforeMount, ref } from 'vue'
-import useTenantStore from '../../../stores/tenant-store'
-import { ToastService } from '../../../services/ToastService'
-import { useLoading } from 'vue-loading-overlay'
-import { Form, Field, ErrorMessage } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
-import { AnalyticsService } from '../../../services/AnalyticsService'
+import { useLoading } from 'vue-loading-overlay'
+import { AnalyticsService, type DocumentCategory } from '../../../services/AnalyticsService'
+import { RegisterService } from '../../../services/RegisterService'
+import { ToastService } from '../../../services/ToastService'
+import { useTenantStore } from '../../../stores/tenant-store'
+import GuarantorFooter from '../../footer/GuarantorFooter.vue'
+import FileUpload from '../../uploads/FileUpload.vue'
+import ListItem from '../../uploads/ListItem.vue'
+import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 
 const { t } = useI18n()
 const documents = DocumentTypeConstants.REPRESENTATIVE_IDENTIFICATION
@@ -111,7 +113,6 @@ const props = defineProps<{
   guarantor?: Guarantor
 }>()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const MAX_FILE_COUNT = 5
@@ -147,6 +148,14 @@ const guarantorIdentificationDocument = computed(() => {
   return store.getGuarantorIdentificationDocument
 })
 const documentStatus = computed(() => guarantorIdentificationDocument.value?.documentStatus)
+
+const analyticDocumentType = computed<DocumentCategory>(() => {
+  if (props.guarantor) {
+    return `guarantor-${DocumentTypeTranslations.IDENTIFICATION_LEGAL_PERSON}`
+  } else {
+    return DocumentTypeTranslations.IDENTIFICATION_LEGAL_PERSON
+  }
+})
 
 function addFiles(fileList: File[]) {
   files.value = [...files.value, ...fileList]
@@ -237,6 +246,7 @@ function resetFiles() {
 }
 
 function remove(file: DfFile) {
+  AnalyticsService.deleteFile(analyticDocumentType.value)
   if (file.id) {
     if (
       files.value.length === 1 &&
@@ -263,7 +273,6 @@ function listFiles() {
 const documentWatermarkUrl = computed(() => {
   return guarantorIdentificationDocument.value?.name
 })
-
 </script>
 
 <style scoped lang="scss">

@@ -1,4 +1,5 @@
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { User } from 'df-shared-next/src/models/User'
 import { computed } from 'vue'
@@ -27,11 +28,11 @@ function documentPath(doc: DfDocument | undefined) {
   return '/' + CATEGORY_TO_PATH[category]
 }
 
-export function makeResidencyLink(user: User) {
+export function makeResidencyLink(user: User | CoTenant, path = RESIDENCY_PATH) {
   const document = user.documents?.find((d) => {
     return d.documentCategory === 'RESIDENCY'
   })
-  return `${RESIDENCY_PATH}${documentPath(document)}`
+  return `${path}${documentPath(document)}`
 }
 
 export function useResidencyLink() {

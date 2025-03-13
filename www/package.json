@@ -18,7 +18,7 @@
     "@sentry/vite-plugin": "2.22.7",
     "@sentry/vue": "7.119.2",
     "@types/js-cookie": "3.0.6",
-    "axios": "1.7.9",
+    "axios": "catalog:",
     "df-shared-next": "workspace:*",
     "js-cookie": "3.0.5",
     "pinia": "2.3.0",

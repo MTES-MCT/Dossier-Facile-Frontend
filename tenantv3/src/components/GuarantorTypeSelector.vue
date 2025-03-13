@@ -1,10 +1,10 @@
 <template>
   <div>
     <RichRadioButtons
-      name="guarantor-type-selector"
       v-model="checkedGuarantorType"
-      @input="onButtonSelected"
+      name="guarantor-type-selector"
       :elements="guarantorTypeOptions"
+      @input="onButtonSelected"
     />
     <ConfirmModal
       v-if="confirmGuarantorChangeModal"
@@ -20,7 +20,7 @@
 import RichRadioButtons from 'df-shared-next/src/Button/RichRadioButtons.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { ToastService } from '@/services/ToastService'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

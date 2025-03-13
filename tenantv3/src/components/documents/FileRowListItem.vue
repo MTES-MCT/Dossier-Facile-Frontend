@@ -18,7 +18,7 @@
         <slot name="postTag"></slot>
       </div>
     </div>
-    <div class="fr-col-12 fr-col-md-4 fr-btns-group--right" v-if="enableDownload || canEdit">
+    <div v-if="enableDownload || canEdit" class="fr-col-12 fr-col-md-4 fr-btns-group--right">
       <DfButton
         v-if="
           enableDownload &&

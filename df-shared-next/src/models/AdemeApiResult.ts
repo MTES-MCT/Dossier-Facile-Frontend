@@ -1,4 +1,4 @@
-export class AdemeApiResult {
+export type AdemeApiResult = {
   id?: string
   type?: string
   numero?: string

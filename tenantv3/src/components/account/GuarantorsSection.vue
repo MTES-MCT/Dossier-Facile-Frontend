@@ -19,23 +19,23 @@
             <FileRowListItem
               :label="t('guarantorssection.identification')"
               :document="document(g, 'IDENTIFICATION')"
-              @click-edit="setGuarantorSubStep(1, g)"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              @click-edit="setGuarantorSubStep(1, g)"
             />
             <FileRowListItem
               :label="t('guarantorssection.residency')"
               :document="document(g, 'RESIDENCY')"
-              @click-edit="setGuarantorSubStep(2, g)"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              @click-edit="setGuarantorSubStep(2, g)"
             />
             <FileRowListItem
               :label="t('guarantorssection.professional')"
               :document="document(g, 'PROFESSIONAL')"
-              @click-edit="setGuarantorSubStep(3, g)"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              @click-edit="setGuarantorSubStep(3, g)"
             />
             <span v-if="documents(g, 'FINANCIAL').length > 1">
               <FileRowListItem
@@ -47,25 +47,25 @@
                   t('documents.subcategory.' + doc.documentSubCategory)
                 "
                 :document="doc"
-                @click-edit="setGuarantorSubStep(4, g)"
                 :can-edit="canEdit"
                 :enable-download="enableDownload"
+                @click-edit="setGuarantorSubStep(4, g)"
               />
             </span>
             <FileRowListItem
               v-else
               :label="t('guarantorssection.financial')"
               :document="document(g, 'FINANCIAL')"
-              @click-edit="setGuarantorSubStep(4, g)"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              @click-edit="setGuarantorSubStep(4, g)"
             />
             <FileRowListItem
               :label="t('guarantorssection.tax')"
               :document="document(g, 'TAX')"
-              @click-edit="setGuarantorSubStep(5, g)"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              @click-edit="setGuarantorSubStep(5, g)"
             />
           </ul>
         </div>
@@ -74,9 +74,9 @@
             <FileRowListItem
               :label="t('guarantorssection.organism-identification')"
               :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
-              @click-edit="setGuarantorSubStep(1, g)"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              @click-edit="setGuarantorSubStep(1, g)"
             />
           </ul>
         </div>
@@ -85,18 +85,18 @@
             <FileRowListItem
               :label="t('guarantorssection.identification-legal-person')"
               :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
-              @click-edit="setGuarantorSubStep(0, g)"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              @click-edit="setGuarantorSubStep(0, g)"
             />
           </ul>
           <ul class="without-padding">
             <FileRowListItem
               :label="t('guarantorssection.identity-represent')"
               :document="document(g, 'IDENTIFICATION')"
-              @click-edit="setGuarantorSubStep(1, g)"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              @click-edit="setGuarantorSubStep(1, g)"
             />
           </ul>
         </div>
@@ -163,7 +163,7 @@ import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { User } from 'df-shared-next/src/models/User'
 import FileRowListItem from '../documents/FileRowListItem.vue'
-import useTenantStore from '../../stores/tenant-store'
+import { useTenantStore } from '../../stores/tenant-store'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'

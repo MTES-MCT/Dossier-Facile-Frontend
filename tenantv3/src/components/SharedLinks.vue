@@ -68,9 +68,9 @@
     </div>
     <div class="mobile">
       <ul
-        class="fr-p-0"
         v-for="link in links"
         :key="link.id"
+        class="fr-p-0"
         :class="link.enabled ? '' : 'fr-label--disabled'"
       >
         <li class="fr-grid-row file-list-item fr-p-3w">
@@ -88,8 +88,8 @@
           <div class="fr-col-9 bold mail-container">{{ link.ownerEmail }}</div>
           <div class="fr-col-3 right">
             <Toggle
-              class="fr-toggle--label-left"
               :id="'m' + (link.id || 0)"
+              class="fr-toggle--label-left"
               :value="link.enabled || false"
               :checked-label="t('sharing-page.shared-links.enabled')"
               :unchecked-label="t('sharing-page.shared-links.disabled')"
@@ -136,7 +136,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import { ToastService } from '../services/ToastService'
-import useTenantStore from '../stores/tenant-store'
+import { useTenantStore } from '../stores/tenant-store'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 

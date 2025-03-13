@@ -5,7 +5,7 @@
         :co-tenant-id="coTenantId"
         :documents-definitions="documentsDefinitions()"
         :edited-document-id="modelValue.id ? modelValue.id : -1"
-        document-category="FINANCIAL"
+        :document-category="DocumentTypeEnum.FINANCIAL"
         dispatch-method-name="saveTenantFinancial"
         type-document="typeDocumentFinancial"
         :show-downloader="showDownloader"
@@ -18,20 +18,20 @@
         </template>
         <template #after-select-block>
           <NakedCard
-            class="fr-p-md-5w fr-mb-3w fr-mt-3w"
             v-if="documentType && documentType.key ? documentType.key !== 'no-income' : false"
+            class="fr-p-md-5w fr-mb-3w fr-mt-3w"
           >
             <div>
               <div class="fr-input-group">
                 <Field
-                  name="monthlySum"
                   v-slot="{ field, meta }"
+                  name="monthlySum"
                   :value="modelValue.monthlySum"
-                  @input="setMonthlySum($event)"
                   :rules="{
                     required: true,
                     regex: /^[0-9 ]+$/
                   }"
+                  @input="setMonthlySum($event)"
                 >
                   <label for="monthlySum" class="fr-label"> {{ getMonthlySumLabel() }} : </label>
                   <input
@@ -47,11 +47,10 @@
                     required
                   />
                 </Field>
-                <ErrorMessage name="monthlySum" v-slot="{ message }">
+                <ErrorMessage v-slot="{ message }" name="monthlySum">
                   <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
                 <span
-                  class="fr-error-text"
                   v-if="
                     modelValue
                       ? modelValue.monthlySum
@@ -59,6 +58,7 @@
                         : false
                       : false
                   "
+                  class="fr-error-text"
                 >
                   {{ t('cotenantfinancialform.high-salary') }}
                 </span>
@@ -75,19 +75,19 @@
                 {{ t('cotenantfinancialform.has-no-income') }}
               </label>
               <Field
-                name="customTextNoDocument"
-                v-model="document.customText"
                 v-slot="{ field, meta }"
+                v-model="document.customText"
+                name="customTextNoDocument"
               >
                 <textarea
                   v-bind="field"
+                  id="customTextNoDocument"
                   maxlength="2000"
                   rows="3"
                   class="form-control fr-input validate-required"
                   :class="{
                     'fr-input--valid': meta.valid
                   }"
-                  id="customTextNoDocument"
                   name="customText"
                   placeholder=""
                   type="text"
@@ -97,7 +97,7 @@
                   2000</span
                 >
               </Field>
-              <ErrorMessage name="customTextNoDocument" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="customTextNoDocument">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -113,20 +113,21 @@
 </template>
 
 <script setup lang="ts">
+import { DocumentType as DocumentTypeEnum } from '@/components/editmenu/documents/DocumentType'
+import { ToastService } from '@/services/ToastService'
+import { UtilsService } from '@/services/UtilsService'
+import { useTenantStore } from '@/stores/tenant-store'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { DocumentType } from 'df-shared-next/src/models/Document'
-import DocumentDownloader from './DocumentDownloader.vue'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import FooterContainer from '../../footer/FooterContainer.vue'
-import BackNext from '../../footer/BackNext.vue'
-import { UtilsService } from '@/services/UtilsService'
-import { useLoading } from 'vue-loading-overlay'
+import { ErrorMessage, Field, Form } from 'vee-validate'
 import { ref } from 'vue'
-import useTenantStore from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
+import { useLoading } from 'vue-loading-overlay'
+import BackNext from '../../footer/BackNext.vue'
+import FooterContainer from '../../footer/FooterContainer.vue'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
-import { ToastService } from '@/services/ToastService'
-import { Form, Field, ErrorMessage } from 'vee-validate'
+import DocumentDownloader from './DocumentDownloader.vue'
 const store = useTenantStore()
 const emit = defineEmits<{ 'on-next': []; 'on-back': []; 'update:modelValue': [doc: DfDocument] }>()
 const { t } = useI18n()

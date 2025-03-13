@@ -6,7 +6,7 @@
       <DeclinedDocuments :tenant="tenant" :is-cotenant="isCotenant" />
       <h2 class="fr-mt-5w">{{ t('menu.messaging') }}</h2>
     </template>
-    <div class="messages" ref="messages">
+    <div ref="messages" class="messages">
       <template v-for="m in messagesToDisplay" :key="m.id">
         <div class="separator">
           <span class="date">{{ formatDate(m.creationDateTime) }}</span>
@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DeclinedDocuments from './DeclinedDocuments.vue'

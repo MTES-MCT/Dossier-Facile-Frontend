@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { useRouter, type RouteLocationRaw } from 'vue-router'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import DocumentsCard from './DocumentsCard.vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'

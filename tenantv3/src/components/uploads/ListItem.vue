@@ -5,21 +5,21 @@
     </div>
     <div class="text fr-pt-1w fr-pl-2w">
       <h3 class="fr-card__title">
-        <a @click="openDoc()" href="#">{{ getName() }}</a>
+        <a href="#" @click="openDoc()">{{ getName() }}</a>
       </h3>
       <div class="size">{{ getSize() }}</div>
       <div class="links blue-text fr-mb-1w fr-mr-2w">
-        <a href="#" v-if="file.path || file.preview" @click="openDoc()" :title="t('listitem.show')">
+        <a v-if="file.path || file.preview" href="#" :title="t('listitem.show')" @click="openDoc()">
           <span>{{ t('listitem.see') }}</span>
           <span class="fr-fi--sm fr-icon-eye-line fr-ml-1w"></span>
         </a>
-        <a href="#" @click="remove()" :title="t('listitem.remove')">
+        <a href="#" :title="t('listitem.remove')" @click="remove()">
           <span>{{ t('listitem.delete') }}</span>
           <span class="fr-fi--sm fr-icon-delete-line fr-ml-1w"></span>
         </a>
       </div>
     </div>
-    <Modal @close="isDocModalVisible = false" v-if="isDocModalVisible">
+    <Modal v-if="isDocModalVisible" @close="isDocModalVisible = false">
       <template #body>
         <ShowDoc :file="file" :watermark-url="watermarkUrl"></ShowDoc>
       </template>
@@ -35,7 +35,7 @@ import { DfFile } from 'df-shared-next/src/models/DfFile'
 import ShowDoc from '../documents/share/ShowDoc.vue'
 import ShowPreview from '../documents/share/ShowPreview.vue'
 import Modal from 'df-shared-next/src/components/ModalComponent.vue'
-import { AnalyticsService } from '../../services/AnalyticsService'
+import { AnalyticsService, type DocumentCategory } from '../../services/AnalyticsService'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
@@ -46,6 +46,7 @@ const emit = defineEmits<{ remove: []; 'ask-confirm': []; cancel: [] }>()
 const props = withDefaults(
   defineProps<{
     file: DfFile
+    docCategory: DocumentCategory
     watermarkUrl?: string
     uploadState?: string
     percentage?: number
@@ -77,7 +78,7 @@ function cancelDeleteFile() {
 }
 
 function openDoc() {
-  AnalyticsService.viewFromMain()
+  AnalyticsService.viewFromMain(props.docCategory)
   isDocModalVisible.value = true
 }
 

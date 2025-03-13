@@ -18,7 +18,7 @@
       <ul v-if="messages.length > 1">
         <li v-for="(message, k) in messages" :key="k" v-html="message"></li>
       </ul>
-      <div v-else v-html="messages[0]" class="fr-mt-1w"></div>
+      <div v-else class="fr-mt-1w" v-html="messages[0]"></div>
     </div>
   </div>
 </template>

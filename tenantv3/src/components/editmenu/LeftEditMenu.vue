@@ -1,5 +1,5 @@
 <template>
-  <div class="left-edit-menu fr-pt-7w fr-pb-12w" id="funnel-menu">
+  <div id="funnel-menu" class="left-edit-menu fr-pt-7w fr-pb-12w">
     <div class="inner-left-edit">
       <div class="step" :class="getClass(getStepNumber('information'))">
         <div class="step-number">{{ getStepNumber('information') }}</div>
@@ -19,7 +19,7 @@
             />
           </router-link>
         </div>
-        <div class="ml-5" v-if="user.applicationType">
+        <div v-if="user.applicationType" class="ml-5">
           <router-link :to="{ name: 'TenantType', force: true }">
             <ColoredTag
               :label="t('lefteditmenu.file-type')"
@@ -279,6 +279,7 @@
                 :document-type="DocumentType.RESIDENCY"
                 :substep="2"
                 :active="getGuarantorCurrentStep(2, g)"
+                :to="makeResidencyLink(g)"
               />
               <CoTenantGuarantorDocumentLink
                 class="ml-10"
@@ -364,13 +365,14 @@ import GuarantorDocumentLink from './documents/GuarantorDocumentLink.vue'
 import TenantDocumentLink from './documents/TenantDocumentLink.vue'
 import CoTenantDocumentLink from './documents/CoTenantDocumentLink.vue'
 import CoTenantGuarantorDocumentLink from './documents/CoTenantGuarantorDocumentLink.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 import { useI18n } from 'vue-i18n'
 import { DocumentType } from './documents/DocumentType'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { makeCotenantGuarantorResidencyLink } from '../guarantorResidency/makeGuarantorResidencyLink'
 
 const store = useTenantStore()
 const route = useRoute()
@@ -467,6 +469,11 @@ function getName(user: CoTenant): string {
     return `${user.firstName} ${user.preferredName}`
   }
   return `${user.firstName} ${user.lastName}`
+}
+
+function makeResidencyLink(g: Guarantor) {
+  const doc = g.documents?.find((d) => d.documentCategory === 'RESIDENCY')
+  return makeCotenantGuarantorResidencyLink(getCoTenant(0).id, g.id!, doc)
 }
 </script>
 

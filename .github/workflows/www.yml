@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Typecheck ${{ matrix.ws }}
+        run: pnpm --filter ${{ matrix.ws }} tsc
+
       - name: Build ${{ matrix.ws }}
         run: pnpm --filter ${{ matrix.ws }} build
 

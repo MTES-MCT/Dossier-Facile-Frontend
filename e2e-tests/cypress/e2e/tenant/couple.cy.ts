@@ -57,8 +57,10 @@ describe("couple tenant scenario", () => {
     cy.simpleUploadDocumentStep("Autre");
 
     cy.expectPath("/4/2");
-    cy.get("#select").select("Dans une autre situation (sans-abri, etc.)");
-    cy.get("#customText").type("Test text").clickOnNext();
+    cy.contains("Autres situations").click();
+    cy.contains("En situation précaire").click();
+    cy.contains("Votre conjoint est dans une situation précaire").click();
+    cy.contains("Valider votre situation d'hébergement").click();
 
     cy.expectPath("/4/3");
     cy.selectProfessionalStatusStep("Études");

@@ -8,14 +8,14 @@
         <SimpleRadioButtons
           name="application-type-selector"
           :value="identificationDocument"
-          @input="onSelectChange"
           :elements="mapDocuments()"
+          @input="onSelectChange"
         ></SimpleRadioButtons>
       </div>
     </NakedCard>
     <NakedCard
-      class="fr-p-md-5w fr-mt-md-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
+      class="fr-p-md-5w fr-mt-md-3w"
     >
       <div class="fr-mb-3w">
         <p v-html="t(`explanation-text.tenant.${identificationDocument.key}`)"></p>
@@ -32,6 +32,7 @@
           :key="file.id"
           :file="file"
           :watermark-url="documentWatermarkUrl"
+          doc-category="identification"
           @remove="remove(file)"
           @ask-confirm="AnalyticsService.deleteDocument('identification')"
           @cancel="AnalyticsService.cancelDelete('identification')"
@@ -68,7 +69,7 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { UtilsService } from '@/services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
@@ -77,9 +78,7 @@ import ProfileFooter from '@/components/footer/ProfileFooter.vue'
 
 defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()
-const user = computed(() => {
-  return store.userToEdit
-})
+const user = computed(() => store.user)
 const { t } = useI18n()
 
 const documents = DocumentTypeConstants.IDENTIFICATION_DOCS

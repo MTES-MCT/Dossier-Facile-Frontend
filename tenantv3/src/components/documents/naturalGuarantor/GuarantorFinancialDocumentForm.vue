@@ -27,25 +27,25 @@
               <SimpleRadioButtons
                 name="application-type-selector"
                 :value="financialDocument.documentType"
-                @input="onSelectChange"
                 :elements="mapDocuments()"
+                @input="onSelectChange"
               ></SimpleRadioButtons>
             </div>
           </div>
         </div>
-        <div class="fr-mt-3w" v-if="financialDocument.documentType?.key">
+        <div v-if="financialDocument.documentType?.key" class="fr-mt-3w">
           <div>
             <div class="fr-input-group">
               <label for="monthlySum" class="fr-label"> {{ getMonthlySumLabel() }} : </label>
               <Field
-                name="monthlySum"
                 v-slot="{ field, meta }"
+                name="monthlySum"
                 :value="financialDocument.monthlySum"
-                @input="financialDocument.monthlySum = $event.target.value.replace(/\s+/g, '')"
                 :rules="{
                   required: true,
                   regex: /^[0-9 ]+$/
                 }"
+                @input="financialDocument.monthlySum = $event.target.value.replace(/\s+/g, '')"
               >
                 <input
                   id="monthlySum"
@@ -60,17 +60,17 @@
                   required
                 />
               </Field>
-              <ErrorMessage name="monthlySum" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="monthlySum">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
-              <span class="fr-error-text" v-if="(financialDocument.monthlySum || 0) > 10000">
+              <span v-if="(financialDocument.monthlySum || 0) > 10000" class="fr-error-text">
                 {{ t('guarantorfinancialdocumentform.high-salary') }}
               </span>
               <span
-                class="fr-error-text"
                 v-if="
                   financialDocument.monthlySum !== undefined && financialDocument.monthlySum <= 0
                 "
+                class="fr-error-text"
               >
                 {{ t('guarantorfinancialdocumentform.low-salary') }}
               </span>
@@ -78,12 +78,12 @@
           </div>
         </div>
         <div
-          class="fr-mt-3w"
           v-if="
             financialDocument.documentType?.key !== 'no-income' &&
             financialDocument.monthlySum !== undefined &&
             financialDocument.monthlySum >= 0
           "
+          class="fr-mt-3w"
         >
           <div class="fr-mb-3w">
             <p
@@ -91,7 +91,7 @@
             ></p>
           </div>
           <AllDeclinedMessages
-            :user-id="user?.id"
+            :user-id="store.user?.id"
             :document="financialDocument"
             :document-denied-reasons="guarantorFinancialDocument?.documentDeniedReasons"
             :document-status="documentStatus"
@@ -101,6 +101,7 @@
               v-for="file in financialFiles()"
               :key="file.id"
               :file="file"
+              doc-category="guarantor-financial"
               :watermark-url="documentWatermarkUrl"
               @remove="remove(financialDocument, file)"
             />
@@ -114,10 +115,10 @@
           </div>
           <div class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
             <input
-              type="checkbox"
               id="noDocument"
-              value="false"
               v-model="financialDocument.noDocument"
+              type="checkbox"
+              value="false"
             />
             <label for="noDocument">
               {{
@@ -129,7 +130,7 @@
               }}
             </label>
           </div>
-          <div class="fr-mb-5w" v-if="financialDocument.noDocument">
+          <div v-if="financialDocument.noDocument" class="fr-mb-5w">
             <div class="fr-input-group">
               <label class="fr-label" for="customText">
                 {{
@@ -141,27 +142,27 @@
                 }}
               </label>
               <Field
-                name="customText"
                 v-slot="{ field, meta }"
                 v-model="financialDocument.customText"
+                name="customText"
                 :rules="{
                   required: true
                 }"
               >
                 <input
                   v-bind="field"
+                  id="customText"
                   class="form-control fr-input validate-required"
                   :class="{
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid
                   }"
-                  id="customText"
                   placeholder=""
                   type="text"
                   required
                 />
               </Field>
-              <ErrorMessage name="customText" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="customText">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -191,7 +192,7 @@ import { AnalyticsService } from '../../../services/AnalyticsService'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { UtilsService } from '../../../services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
-import useTenantStore from '../../../stores/tenant-store'
+import { useTenantStore } from '../../../stores/tenant-store'
 import { computed, onBeforeMount, ref, toRaw } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '../../../services/ToastService'
@@ -200,7 +201,6 @@ import { Form, Field, ErrorMessage } from 'vee-validate'
 
 const { t } = useI18n()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
 
 const selectedGuarantor = computed(() => {
   return store.selectedGuarantor
@@ -427,6 +427,7 @@ function financialFiles() {
 }
 
 function remove(f: FinancialDocument, file: DfFile, silent = false) {
+  AnalyticsService.deleteFile('guarantor-financial')
   if (file.id) {
     if (
       f.files.length === 1 &&

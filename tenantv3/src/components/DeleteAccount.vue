@@ -17,7 +17,7 @@
           style="visibility: none"
           >{{ t('deleteaccount.cancel') }}</DfButton
         >
-        <DfButton @click="validSelect()" :primary="true">
+        <DfButton :primary="true" @click="validSelect()">
           <span class="mobile">{{ t('deleteaccount.validate-mobile') }}</span>
           <span class="desktop">{{ t('deleteaccount.validate') }}</span>
         </DfButton>
@@ -30,7 +30,7 @@
 import DSFRSimpleModal from 'df-shared-next/src/components/DSFRSimpleModal.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { RiCloseCircleLine } from '@remixicon/vue'

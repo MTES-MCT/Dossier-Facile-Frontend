@@ -57,7 +57,9 @@ function closeAnnouncement() {
 .message {
   display: flex;
   align-items: center;
-  word-break: break-all;
+  > span {
+    overflow: hidden;
+  }
 }
 .close {
   color: #fff;

@@ -2,7 +2,7 @@ import { AuthService } from '@/services/AuthService'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
 import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
-import i18n from '../i18n'
+import { i18n } from '../i18n'
 import dayjs from 'dayjs'
 import 'dayjs/locale/fr'
 import 'dayjs/locale/en'
@@ -86,7 +86,7 @@ const DISPATCH_NAMES = [
 ] satisfies ActionNames[]
 export type DispatchNames = (typeof DISPATCH_NAMES)[number]
 
-const useTenantStore = defineStore('tenant', {
+export const useTenantStore = defineStore('tenant', {
   state: (): State => ({ ...initialStore }),
   getters: {
     getUser: (state: State) => state.user,
@@ -151,9 +151,6 @@ const useTenantStore = defineStore('tenant', {
       return state.selectedGuarantor
     },
     isLoggedIn: () => keycloak.authenticated,
-    userToEdit(state: State): User | null {
-      return state.user
-    },
     isFranceConnected(state: State): boolean {
       return state.user.franceConnect || false
     },
@@ -447,9 +444,6 @@ const useTenantStore = defineStore('tenant', {
       this.user.applicationType = 'ALONE'
       this.user.apartmentSharing.tenants = tenants
     },
-    updateCoupleAuthorize(authorize: boolean) {
-      this.spouseAuthorize = authorize
-    },
     updateCoTenantAuthorize(authorize: boolean) {
       this.coTenantAuthorize = authorize
     },
@@ -579,15 +573,9 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    setCoTenants(data: Parameters<typeof ProfileService.saveCoTenants>[number]) {
-      return ProfileService.saveCoTenants(data).then(
-        (response) => {
-          return this.loadUserCommit(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async setCoTenants(data: Parameters<typeof ProfileService.saveCoTenants>[number]) {
+      const response = await ProfileService.saveCoTenants(data)
+      return this.loadUserCommit(response.data)
     },
     setLang(lang: 'fr' | 'en') {
       i18n.global.locale.value = lang
@@ -1063,5 +1051,3 @@ const useTenantStore = defineStore('tenant', {
     }
   }
 })
-
-export default useTenantStore

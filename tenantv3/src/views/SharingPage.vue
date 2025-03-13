@@ -4,10 +4,10 @@
       <section class="fr-my-5w">
         <h1 class="fr-h4">{{ t('sharing-page.title') }}</h1>
         <div style="display: flex; flex-direction: column; gap: 1.5rem">
-          <NakedCard class="fr-px-md-3w fr-py-md-4w" v-if="displayShareBloc()">
+          <NakedCard v-if="displayShareBloc()" class="fr-px-md-3w fr-py-md-4w">
             <ShareFile></ShareFile>
           </NakedCard>
-          <div class="fr-alert fr-alert--warning fr-mb-0" v-else>
+          <div v-else class="fr-alert fr-alert--warning fr-mb-0">
             <h3 class="fr-h5">
               {{
                 t(`sharing-page.file-not-ready.title`, [
@@ -28,7 +28,7 @@
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ShareFile from '@/components/account/ShareFile.vue'
 import SharedLinks from '@/components/SharedLinks.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount } from 'vue'
 import { UtilsService } from '@/services/UtilsService'
 import { useI18n } from 'vue-i18n'

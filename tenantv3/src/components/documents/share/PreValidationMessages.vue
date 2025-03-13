@@ -1,5 +1,5 @@
 <template>
-  <div class="rules-container" v-if="brokenRules && brokenRules.length > 0">
+  <div v-if="brokenRules && brokenRules.length > 0" class="rules-container">
     <template v-for="(b, k) in brokenRules" :key="k">
       <h6>{{ b.message }}</h6>
       <template v-if="isRuleWithCustomText(b.rule)">
@@ -11,9 +11,9 @@
     <div class="form-container">
       <Form name="form" class="fr-grid-col" @submit="commentAnalysis">
         <Field
-          name="comment"
-          v-model="comment"
           v-slot="{ field, meta }"
+          v-model="comment"
+          name="comment"
           :rules="{ required: true }"
         >
           <textarea
@@ -28,7 +28,7 @@
             maxlength="2000"
             rows="4"
           />
-          <ErrorMessage name="comment" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="comment">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </Field>
@@ -41,7 +41,7 @@
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useTenantStore from '../../../stores/tenant-store'
+import { useTenantStore } from '../../../stores/tenant-store'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { ToastService } from '../../../services/ToastService'
@@ -100,12 +100,12 @@ const isRuleWithCustomText = (rule: string | undefined) =>
     "prevalidation": {
       "force-message": "Si vous pensez que notre outil fait erreur, vous pouvez expliquer le problème ci-dessous.",
       "R_RENT_RECEIPT_NAME": {
-        "p1": "Notre outil ne trouve pas vos nom et prénom sur ce document.",
-        "p2": "Si notre outil fait erreur (par exemple, si vos quittances sont à votre nom de jeune fille), vous pouvez expliquer le problème ci-dessous."
+        "p1": "Notre outil ne trouve pas de nom et prénom sur ce document.",
+        "p2": "Si notre outil fait erreur (par exemple, si les quittances sont au nom de jeune fille), vous pouvez expliquer le problème ci-dessous."
       },
       "R_RENT_RECEIPT_NB_DOCUMENTS": {
-        "p1": "Notre outil ne détecte qu'un seul document. Avez-vous bien fourni vos 3 dernières quittances ?",
-        "p2": "Si notre outil fait erreur (par exemple, si vos 3 quittances sont réunies sur un seul document), vous pouvez expliquer le problème ci-dessous."
+        "p1": "Notre outil ne détecte qu'un seul document. Avez-vous bien fourni 3 dernières quittances ?",
+        "p2": "Si notre outil fait erreur (par exemple, si 3 quittances sont réunies sur un seul document), vous pouvez expliquer le problème ci-dessous."
       },
       "R_RENT_RECEIPT_MONTHS": {
         "p1": "Notre outil détecte des quittances trop anciennes.",
@@ -117,12 +117,12 @@ const isRuleWithCustomText = (rule: string | undefined) =>
     "prevalidation": {
       "force-message": "If you think our tool is making a mistake, you can explain the problem below",
       "R_RENT_RECEIPT_NAME": {
-        "p1": "Our tool cannot find you first and last name on this document",
-        "p2": "If our tool makes a mistake (for example, if your receipts are in your maiden name), you can explain the problem below."
+        "p1": "Our tool cannot find a first and last name on this document",
+        "p2": "If our tool makes a mistake (for example, if the receipts are in the maiden's name), you can explain the problem below."
       },
       "R_RENT_RECEIPT_NB_DOCUMENTS": {
-        "p1": "Our tool detects only one document. Have you provided your last 3 receipts?",
-        "p2": "If our tool makes a mistake (for example, if your 3 receipts are combined in a single document), you can explain the problem below."
+        "p1": "Our tool detects only one document. Have you provided the last 3 receipts?",
+        "p2": "If our tool makes a mistake (for example, if 3 receipts are combined in a single document), you can explain the problem below."
       },
       "R_RENT_RECEIPT_MONTHS": {
         "p1": "Our tool detects receipts that are too old.",

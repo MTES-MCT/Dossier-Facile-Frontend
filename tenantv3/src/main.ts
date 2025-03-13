@@ -3,8 +3,8 @@ import { createPinia } from 'pinia'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 
 import App from './App.vue'
-import router from './router'
-import i18n from './i18n'
+import { router } from './router'
+import { i18n } from './i18n'
 import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css'
 import '@gouvfr/dsfr/dist/utility/colors/colors.min.css'
 import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css'
@@ -179,7 +179,8 @@ keycloak
       app,
       dsn: 'https://7032afeb9b1740f68e01148573cff778@sentry.incubateur.net/98',
       environment: ENVIRONMENT,
-      tracesSampleRate: 0.05
+      tracesSampleRate: 0.05,
+      integrations: [Sentry.browserTracingIntegration({ router })]
     })
 
     app.use(createPinia())

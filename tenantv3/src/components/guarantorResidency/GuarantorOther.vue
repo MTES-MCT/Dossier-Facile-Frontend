@@ -1,11 +1,10 @@
 <template>
   <BackLinkRow
     :label="t('guarantor-other')"
-    :to="previousPage"
-    guarantor
-    @edit="AnalyticsService.editSituation('guarantor-residency', 'other')"
+    :to="parentRoute"
+    @edit="AnalyticsService.editSituation(category, 'other')"
   />
-  <i18n-t keypath="please-provide" tag="p">
+  <i18n-t :keypath="textKey + '.please-provide'" tag="p">
     <strong>{{ t('recent-proof') }}</strong>
   </i18n-t>
   <i18n-t keypath="advice" tag="p">
@@ -22,7 +21,7 @@
   </div>
   <template v-if="noDoc">
     <div class="fr-highlight fr-ml-0">
-      <p class="fr-text--sm">{{ t('no-doc-long') }}</p>
+      <p class="fr-text--sm">{{ t(textKey + '.no-doc-long') }}</p>
     </div>
     <textarea
       v-model="value"
@@ -43,19 +42,20 @@
 import { useI18n } from 'vue-i18n'
 import UploadFiles from '@/components/residency/lib/UploadFiles.vue'
 import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
-import { useGuarantorId } from './useGuarantorId'
-import { computed, ref, useId } from 'vue'
+import { ref, useId } from 'vue'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useField } from 'vee-validate'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { ToastService } from '@/services/ToastService'
+import { useParentRoute } from './useParentRoute'
+import { useResidencyState } from '../residency/residencyState'
 
 const { t } = useI18n()
-const guarantorId = useGuarantorId()
-const previousPage = computed(() => `/info-garant/2/${guarantorId.value}`)
 const checkboxId = useId()
 const store = useTenantStore()
+const parentRoute = useParentRoute()
+const { addData, category, textKey } = useResidencyState()
 const initialText = store.getGuarantorResidencyDocument?.customText || ''
 const { errorMessage, meta, value, validate } = useField<string>(
   'customText',
@@ -75,7 +75,7 @@ async function submit() {
   const formData = new FormData()
   formData.append('customText', value.value)
   formData.append('typeDocumentResidency', 'OTHER_RESIDENCY')
-  formData.append('guarantorId', guarantorId.value)
+  addData?.(formData)
   try {
     await store.saveGuarantorResidency(formData)
     return true
@@ -91,19 +91,31 @@ async function submit() {
 {
   "en": {
     "guarantor-other": "Other",
-    "please-provide" : "Please provide {0} attesting to your guarantor's housing situation.",
     "recent-proof": "a document less than 3 months old",
     "advice": "If you don't have one, please add an affidavit explaining your situation. You can use the model available on the {0} website.",
     "no-doc": "You cannot provide a document",
-    "no-doc-long": "You don't have proof of your guarantor's accommodation status? Please explain the reasons in the text field and add a sworn statement."
+    "tenant": {
+      "please-provide" : "Please provide {0} attesting to your guarantor's housing situation.",
+      "no-doc-long": "You don't have proof of your guarantor's accommodation status? Please explain the reasons in the text field and add a sworn statement."
+    },
+    "couple": {
+      "please-provide" : "Please provide {0} attesting to their guarantor's housing situation.",
+      "no-doc-long": "You don't have proof of the accommodation status of your spouse's guarantor? Please explain the reasons in the text field and add a sworn statement."
+    }
   },
   "fr": {
     "guarantor-other": "Autre",
-    "please-provide" : "Veuillez fournir {0} attestant la situation d'hébergement de votre garant.",
     "recent-proof": "un document de moins de 3 mois",
     "advice": "Si vous n'en avez pas, veuillez ajouter une attestation sur l’honneur expliquant sa situation. Vous pouvez utiliser le modèle disponible sur le site {0}",
     "no-doc": "Vous ne pouvez pas fournir de document",
-    "no-doc-long": "Vous n’avez pas de document attestant la situation d’hébergement de votre garant ? Veuillez en expliquer les raisons dans le champ texte et ajouter une attestation sur l’honneur."
+    "tenant": {
+      "please-provide" : "Veuillez fournir {0} attestant la situation d’hébergement de votre garant.",
+      "no-doc-long": "Vous n’avez pas de document attestant la situation d’hébergement de votre garant ? Veuillez en expliquer les raisons dans le champ texte et ajouter une attestation sur l’honneur."
+    },
+    "couple": {
+      "please-provide" : "Veuillez fournir {0} attestant la situation d’hébergement de son garant.",
+      "no-doc-long": "Vous n’avez pas de document attestant la situation d’hébergement du garant de votre conjoint ? Veuillez en expliquer les raisons dans le champ texte et ajouter une attestation sur l’honneur."
+    }
   }
 }
 </i18n>

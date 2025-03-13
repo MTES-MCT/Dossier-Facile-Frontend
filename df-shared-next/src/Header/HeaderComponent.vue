@@ -66,7 +66,7 @@
                 <li v-if="!loggedIn">
                   <a
                     class="fr-external-link fr-btn fr-btn--sm"
-                    href="https://partenaire.dossierfacile.logement.gouv.fr"
+                    href="https://partenaire.dossierfacile.logement.gouv.fr/devenir-partenaire-1/pourquoi-devenir-partenaire-dossierfacile"
                     target="_blank"
                     rel="noopener"
                     :title="t('partner-link-title')"
@@ -138,7 +138,7 @@
             <li v-if="!loggedIn">
               <a
                 class="fr-external-link fr-btn fr-btn--sm"
-                href="https://partenaire.dossierfacile.logement.gouv.fr"
+                href="https://partenaire.dossierfacile.logement.gouv.fr/devenir-partenaire-1/pourquoi-devenir-partenaire-dossierfacile"
                 target="_blank"
                 rel="noopener"
                 :title="t('partner-link-title')"

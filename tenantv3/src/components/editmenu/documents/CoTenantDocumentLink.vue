@@ -1,10 +1,11 @@
 <template>
   <DocumentLink
     :person-type="PersonType.COTENANT"
-    :router-params="{ substep: substep, guarantorId: coTenant.id }"
+    :router-params="{ substep: substep, tenantId: coTenant.id }"
     :document-type="documentType"
-    :status="getStatus()"
+    :status="status"
     :active="active"
+    :to="to"
   />
 </template>
 
@@ -14,6 +15,9 @@ import { DocumentService } from '@/services/DocumentService'
 import { DocumentType } from './DocumentType'
 import { PersonType } from './PersonType'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { computed } from 'vue'
+import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
+import { useRoute } from 'vue-router'
 
 const props = defineProps<{
   coTenant: CoTenant
@@ -21,8 +25,17 @@ const props = defineProps<{
   substep: number
   active: boolean
 }>()
+const route = useRoute()
 
-function getStatus() {
-  return DocumentService.tenantStatus(props.documentType.toString(), props.coTenant) || ''
-}
+const status = computed(
+  () => DocumentService.tenantStatus(props.documentType, props.coTenant) || ''
+)
+
+const to = computed(() => {
+  if (props.documentType !== 'RESIDENCY') {
+    return undefined
+  }
+  const step = route.params.step
+  return makeResidencyLink(props.coTenant, `/documents-colocataire/${props.coTenant.id}/${step}/2`)
+})
 </script>

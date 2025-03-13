@@ -1,8 +1,8 @@
 <template>
   <BackLinkRow
     :label="t('guest-organism')"
-    to="/documents-locataire/2"
-    @edit="AnalyticsService.editSituation('residency', 'guest-organism')"
+    to="../2"
+    @edit="AnalyticsService.editSituation(category, 'guest-organism')"
   />
   <i18n-t keypath="please-provide" tag="p">
     <a href="https://www.service-public.fr/simulateur/calcul/16030" target="_blank">{{
@@ -19,7 +19,9 @@ import BackLinkRow from './lib/BackLinkRow.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import UploadFiles from './lib/UploadFiles.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { useResidencyState } from './residencyState'
 const { t } = useI18n()
+const { category } = useResidencyState()
 </script>
 
 <i18n>

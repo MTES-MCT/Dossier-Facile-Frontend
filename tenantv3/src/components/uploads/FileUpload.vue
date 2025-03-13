@@ -8,9 +8,9 @@
           type="file"
           multiple
           :disabled="isSaving"
-          @change="filesChange"
           class="input-file"
           accept="image/png, image/jpeg, image/heic, application/pdf"
+          @change="filesChange"
         />
         <div v-if="isSaving">
           {{ t('fileupload.uploading-files') }}

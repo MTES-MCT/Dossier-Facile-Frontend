@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { watch } from 'vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import GuarantorDocuments from '../components/GuarantorDocuments.vue'
 import ProfileContainer from '../components/ProfileContainer.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'

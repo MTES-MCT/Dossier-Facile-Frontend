@@ -6,23 +6,23 @@
           {{ t('professional-page.select-label') }}
         </h1>
         <select
+          id="select"
           v-model="professionalDocument"
           class="fr-select fr-mb-3w fr-mt-3w"
-          id="select"
           as="select"
-          @change="onSelectChange()"
           aria-label="Select professional situation"
+          @change="onSelectChange()"
         >
           <option v-if="!professionalDocument" selected disabled></option>
-          <option v-for="d in documents" :value="d" :key="d.key">
+          <option v-for="d in documents" :key="d.key" :value="d">
             {{ t(d.key) }}
           </option>
         </select>
       </div>
     </NakedCard>
     <NakedCard
-      class="fr-p-md-5w fr-mt-md-3w"
       v-if="professionalDocument.key || professionalFiles().length > 0"
+      class="fr-p-md-5w fr-mt-md-3w"
     >
       <div class="fr-mb-3w">
         <div v-html="t(`explanation-text.tenant.professional.${professionalDocument.key}`)"></div>
@@ -37,6 +37,7 @@
           :key="file.id"
           :file="file"
           :watermark-url="documentWatermarkUrl"
+          doc-category="professional"
           @remove="remove(file)"
           @ask-confirm="AnalyticsService.deleteDocument('professional')"
           @cancel="AnalyticsService.cancelDelete('professional')"
@@ -71,7 +72,7 @@ import { AnalyticsService } from '../../../services/AnalyticsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { UtilsService } from '@/services/UtilsService'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
@@ -82,7 +83,7 @@ defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
+const user = computed(() => store.user)
 const tenantProfessionalDocument = computed(() => store.getTenantProfessionalDocument)
 const documentWatermarkUrl = computed(() => tenantProfessionalDocument.value?.name)
 

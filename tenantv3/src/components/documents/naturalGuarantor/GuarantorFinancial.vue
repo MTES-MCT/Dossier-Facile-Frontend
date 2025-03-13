@@ -12,9 +12,9 @@
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
         <CardRow
+          :danger="guarantorFinancialDocument(f)?.documentStatus === 'DECLINED'"
           @edit="selectFinancialDocument(f)"
           @remove="removeFinancial(f)"
-          :danger="guarantorFinancialDocument(f)?.documentStatus === 'DECLINED'"
         >
           <template #tag>
             <div class="fixed-width">
@@ -26,16 +26,16 @@
           </template>
           <template #text>
             <div
+              v-show="f.documentType.key !== 'no-income'"
               class="text-bold"
               :title="t('guarantorfinancial.net-monthly')"
-              v-show="f.documentType.key !== 'no-income'"
             >
               {{ f.monthlySum }} {{ t('guarantorfinancial.monthly') }}
             </div>
           </template>
           <template #bottom>
             <AllDeclinedMessages
-              :user-id="user?.id"
+              :user-id="store.user?.id"
               :document="f"
               :document-denied-reasons="documentDeniedReasons(f)"
               :document-status="documentStatus(f)"
@@ -44,7 +44,7 @@
         </CardRow>
       </div>
       <div>
-        <button @click="addAndSelectFinancial()" v-if="!hasNoIncome()" class="add-income-btn">
+        <button v-if="!hasNoIncome()" class="add-income-btn" @click="addAndSelectFinancial()">
           {{ t('guarantorfinancial.add-income') }}
         </button>
       </div>
@@ -62,7 +62,7 @@ import CardRow from 'df-shared-next/src/components/CardRow.vue'
 import GuarantorFinancialDocumentForm from './GuarantorFinancialDocumentForm.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
@@ -73,7 +73,6 @@ const { t } = useI18n()
 const store = useTenantStore()
 const editFinancialDocument = computed(() => store.getEditGuarantorFinancialDocument)
 const financialDocuments = computed(() => store.guarantorFinancialDocuments)
-const user = computed(() => store.userToEdit)
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 

@@ -2,17 +2,17 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6" v-if="isCotenant">
+        <h1 v-if="isCotenant" class="fr-h6">
           {{ t('guarantoridentification.title-cotenant') }}
         </h1>
-        <h1 class="fr-h6" v-else>{{ t('guarantoridentification.title') }}</h1>
+        <h1 v-else class="fr-h6">{{ t('guarantoridentification.title') }}</h1>
 
         <div class="fr-mt-3w">
           <SimpleRadioButtons
             name="application-type-selector"
             :value="identificationDocument"
-            @input="onSelectChange($event)"
             :elements="mapDocuments()"
+            @input="onSelectChange($event)"
           ></SimpleRadioButtons>
         </div>
       </div>
@@ -21,8 +21,8 @@
       <span>{{ t('guarantoridentification.will-delete-files') }}</span>
     </ConfirmModal>
     <NakedCard
-      class="fr-p-md-5w fr-mt-md-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
+      class="fr-p-md-5w fr-mt-md-3w"
     >
       <div class="fr-mb-3w">
         <p v-html="t(`explanation-text.${guarantorKey()}.${identificationDocument.key}`)"></p>
@@ -38,6 +38,7 @@
           v-for="file in identificationFiles()"
           :key="file.id"
           :file="file"
+          doc-category="guarantor-identification"
           :watermark-url="documentWatermarkUrl"
           @remove="remove(file)"
         />
@@ -68,7 +69,7 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { UtilsService } from '../../../services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
-import useTenantStore from '../../../stores/tenant-store'
+import { useTenantStore } from '../../../stores/tenant-store'
 import { computed, onMounted, ref } from 'vue'
 import { ToastService } from '../../../services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
@@ -78,7 +79,7 @@ import { AnalyticsService } from '../../../services/AnalyticsService'
 const { t } = useI18n()
 
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
+const user = computed(() => store.user)
 const selectedGuarantor = computed(() => store.selectedGuarantor)
 
 const documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS
@@ -252,6 +253,7 @@ function identificationFiles() {
 }
 
 async function remove(file: DfFile, silent = false) {
+  AnalyticsService.deleteFile('guarantor-identification')
   if (file.id) {
     if (
       files.value.length === 1 &&

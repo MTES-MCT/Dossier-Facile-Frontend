@@ -1,4 +1,4 @@
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import axios from 'axios'
 import { ToastService } from './ToastService'
 import { useLoading } from 'vue-loading-overlay'

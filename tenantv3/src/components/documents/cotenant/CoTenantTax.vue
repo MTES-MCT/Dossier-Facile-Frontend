@@ -3,7 +3,7 @@
     <DocumentDownloader
       :co-tenant-id="coTenantId"
       :documents-definitions="documentsDefinitions"
-      document-category="TAX"
+      :document-category="DocumentTypeEnum.TAX"
       dispatch-method-name="saveTenantTax"
       type-document="typeDocumentTax"
       translation-key-prefix="cotenanttax."
@@ -19,15 +19,15 @@
       </template>
       <template #after-select-block>
         <NakedCard
-          class="fr-p-md-5w fr-mb-3w fr-mt-3w"
           v-if="documentType ? documentType.key === 'other-tax' : false"
+          class="fr-p-md-5w fr-mb-3w fr-mt-3w"
         >
           <div class="fr-input-group">
             <label class="fr-label" for="customText">{{ t('cotenanttax.custom-text') }}</label>
             <textarea
+              id="customText"
               v-model="document.customText"
               class="form-control fr-input validate-required"
-              id="customText"
               name="customText"
               placeholder=""
               type="text"
@@ -56,9 +56,11 @@ import BackNext from '../../footer/BackNext.vue'
 import { UtilsService } from '@/services/UtilsService'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+import { DocumentType as DocumentTypeEnum } from '@/components/editmenu/documents/DocumentType'
 
 const documentsDefinitions = DocumentTypeConstants.TAX_DOCS
 

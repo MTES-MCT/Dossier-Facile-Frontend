@@ -1,11 +1,23 @@
 import { DocumentTypeTranslations } from '@/components/editmenu/documents/DocumentType'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
+
+declare global {
+  interface Window {
+    _paq?: (string | number | undefined)[][]
+  }
+}
 
 type EventCategory = 'prevalidation' | 'funnel' | 'contact' | 'account' | 'misc' | 'file'
 type Action = 'clic' | 'print' | 'unknown' | 'delete' | 'upload'
 const DOCUMENT_TYPES = ['identification', 'residency', 'professional', 'financial', 'tax'] as const
 const DOCUMENT_CATEGORIES = Object.values(DocumentTypeTranslations)
-type DocumentCategory = (typeof DOCUMENT_CATEGORIES)[number] | 'guarantor-residency'
+type DocumentCategoryBase = (typeof DOCUMENT_CATEGORIES)[number]
+type DocumentCategory =
+  | DocumentCategoryBase
+  | `guarantor-${DocumentCategoryBase}`
+  | `couple-${DocumentCategoryBase}`
+  | `couple-guarantor-${DocumentCategoryBase}`
+  | `cotenant-${DocumentCategoryBase}`
 
 function sendFullEvent(category: EventCategory, action: Action, name: string) {
   if (import.meta.env.VITE_MATOMO_ENABLE === 'false' || !window._paq) {
@@ -54,8 +66,8 @@ export const AnalyticsService = {
     sendEvent('misc', 'open_owner')
   },
 
-  viewFromMain() {
-    sendEvent('funnel', 'main-view-doc')
+  viewFromMain(docType: DocumentCategory) {
+    sendEvent('funnel', 'main-view-doc_' + docType)
   },
 
   editFromAccount(docType: number) {
@@ -169,3 +181,5 @@ export const AnalyticsService = {
     sendFullEvent('funnel', 'clic', `validate-tenant_funnel_${category}`)
   }
 }
+
+export type { DocumentCategory }

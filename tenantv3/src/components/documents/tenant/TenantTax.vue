@@ -7,22 +7,22 @@
           <SimpleRadioButtons
             name="application-type-selector"
             :value="taxDocument"
-            @input="onSelectChange($event)"
             :elements="mapDocuments()"
+            @input="onSelectChange($event)"
           ></SimpleRadioButtons>
         </div>
       </NakedCard>
 
       <NakedCard
-        class="fr-p-md-5w fr-mt-md-3w"
         v-if="taxDocument.key && taxDocument.key === 'other-tax'"
+        class="fr-p-md-5w fr-mt-md-3w"
       >
         <label class="fr-label" for="customText">{{ t('tax-page.custom-text') }}</label>
         <Field
           id="customText"
-          name="customText"
-          v-model="customText"
           v-slot="{ field, meta }"
+          v-model="customText"
+          name="customText"
           :rules="{
             required: true
           }"
@@ -41,7 +41,7 @@
             rows="4"
           />
         </Field>
-        <ErrorMessage name="customText" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="customText">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </NakedCard>
@@ -49,10 +49,10 @@
     </Form>
 
     <NakedCard
-      class="fr-p-md-5w fr-mt-md-3w"
       v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
+      class="fr-p-md-5w fr-mt-md-3w"
     >
-      <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
+      <div v-if="taxDocument.key === 'my-name'" class="fr-mb-3w fr-mt-3w">
         <div class="fr-mb-3w">
           <div class="fr-mb-2w" v-html="t('explanation-text.tenant.my-name')"></div>
           <WarningTaxDeclaration />
@@ -63,11 +63,12 @@
         :document-status="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
-        <ListItem 
+        <ListItem
           v-for="file in taxFiles()"
-          :key="file.id" 
-          :file="file" 
-          :watermark-url="documentWatermarkUrl" 
+          :key="file.id"
+          :file="file"
+          :watermark-url="documentWatermarkUrl"
+          doc-category="tax"
           @remove="remove(file)"
         />
       </div>
@@ -99,7 +100,7 @@
           </p>
           <hr class="mobile" />
           <div class="btn-align">
-            <DfButton @click="isWarningTaxSituationModalVisible = false" :primary="true">{{
+            <DfButton :primary="true" @click="isWarningTaxSituationModalVisible = false">{{
               t('tax-page.avis-btn')
             }}</DfButton>
           </div>
@@ -138,7 +139,7 @@ import WarningTaxDeclaration from '../../../components/documents/share/WarningTa
 import { UtilsService } from '../../../services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import { computed, onBeforeMount, ref } from 'vue'
-import useTenantStore from '../../../stores/tenant-store'
+import { useTenantStore } from '../../../stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '../../../services/ToastService'
 import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
@@ -149,7 +150,7 @@ const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const { t } = useI18n()
 
 const store = useTenantStore()
-const user = computed(() => store.userToEdit)
+const user = computed(() => store.user)
 const tenantTaxDocument = computed(() => store.getTenantTaxDocument)
 
 const documents = ref(DocumentTypeConstants.TAX_DOCS)

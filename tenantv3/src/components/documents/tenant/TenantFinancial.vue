@@ -12,9 +12,9 @@
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
         <CardRow
+          :danger="tenantFinancialDocument(f)?.documentStatus === 'DECLINED'"
           @edit="selectFinancialDocument(f)"
           @remove="removeFinancial(f)"
-          :danger="tenantFinancialDocument(f)?.documentStatus === 'DECLINED'"
         >
           <template #tag>
             <div class="fixed-width">
@@ -26,10 +26,10 @@
           </template>
           <template #text>
             <div
+              v-show="f.documentType.key !== 'no-income'"
               class="text-bold"
               :class="{ declined: tenantFinancialDocument(f)?.documentStatus }"
               :title="t('financial-page.net-monthly')"
-              v-show="f.documentType.key !== 'no-income'"
             >
               {{ f.monthlySum }} {{ t('financial-page.monthly') }}
             </div>
@@ -43,7 +43,7 @@
         </CardRow>
       </div>
       <div>
-        <button @click="addAndSelectFinancial()" v-if="!hasNoIncome()" class="add-income-btn">
+        <button v-if="!hasNoIncome()" class="add-income-btn" @click="addAndSelectFinancial()">
           {{ t('financial-page.add-income') }}
         </button>
       </div>
@@ -64,7 +64,7 @@ import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import SimulationCaf from '../share/SimulationCaf.vue'
 import { computed, onBeforeMount } from 'vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'

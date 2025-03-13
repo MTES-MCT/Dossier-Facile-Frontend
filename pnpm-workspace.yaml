@@ -6,3 +6,6 @@ packages:
   - "df-shared-next"
   - "e2e-tests"
   - "storybook"
+
+catalog:
+  axios: 1.8.2

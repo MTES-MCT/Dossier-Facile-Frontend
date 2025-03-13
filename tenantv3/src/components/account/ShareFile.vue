@@ -18,7 +18,7 @@
           <label class="fr-label fr-text--bold" for="shareType">{{
             t('sharefile.bytype-label')
           }}</label>
-          <Field id="shareType" name="shareType" v-model="shareType" v-slot="{ field, meta }">
+          <Field id="shareType" v-slot="{ field, meta }" v-model="shareType" name="shareType">
             <select
               v-bind="field"
               class="fr-select"
@@ -31,12 +31,12 @@
               <option value="resume">{{ t('sharefile.resume') }}</option>
             </select>
           </Field>
-          <ErrorMessage name="shareType" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="shareType">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
         <div class="full-mobile">
-          <Field id="shareMethod" name="shareMethod" v-model="shareMethod" v-slot="{ field, meta }">
+          <Field id="shareMethod" v-slot="{ field, meta }" v-model="shareMethod" name="shareMethod">
             <select
               v-bind="field"
               class="fr-select"
@@ -49,13 +49,13 @@
               <option value="link">{{ t('sharefile.by-link') }}</option>
             </select>
           </Field>
-          <ErrorMessage name="shareType" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="shareType">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
         <div v-if="shareMethod === 'mail'" class="full-mobile">
           <label class="fr-label" for="email">{{ t('sharefile.email-label') }}</label>
-          <Field id="email" name="email" v-model="email" v-slot="{ field, meta }" rules="required">
+          <Field id="email" v-slot="{ field, meta }" v-model="email" name="email" rules="required">
             <input
               v-bind="field"
               class="form-control validate-required fr-input"
@@ -69,7 +69,7 @@
               required
             />
           </Field>
-          <ErrorMessage name="shareType" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="shareType">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
@@ -105,7 +105,7 @@ import { AnalyticsService } from '../../services/AnalyticsService'
 import { OwnerService } from '../../services/OwnerService'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { ToastService } from '../../services/ToastService'
-import useTenantStore from '../../stores/tenant-store'
+import { useTenantStore } from '../../stores/tenant-store'
 import { computed, ref } from 'vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { useI18n } from 'vue-i18n'

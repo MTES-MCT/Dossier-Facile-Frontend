@@ -2,33 +2,33 @@
   <div>
     <Form name="form">
       <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6" v-if="isCotenant">
+        <h1 v-if="isCotenant" class="fr-h6">
           {{ t('guarantortax.title-cotenant') }}
         </h1>
-        <h1 class="fr-h6" v-else>{{ t('guarantortax.title') }}</h1>
+        <h1 v-else class="fr-h6">{{ t('guarantortax.title') }}</h1>
         <div class="fr-mt-3w">{{ t('guarantortax.situation') }}</div>
 
         <div class="fr-mt-3w">
           <SimpleRadioButtons
             name="application-type-selector"
             :value="taxDocument"
-            @input="onSelectChange($event)"
             :elements="mapDocuments()"
+            @input="onSelectChange($event)"
           ></SimpleRadioButtons>
         </div>
-        <div class="fr-mb-3w" v-if="taxDocument.key && taxDocument.key === 'other-tax'">
+        <div v-if="taxDocument.key && taxDocument.key === 'other-tax'" class="fr-mb-3w">
           <div class="fr-input-group">
             <label class="fr-label" for="customText">{{ t('guarantortax.custom-text') }}</label>
             <Field
-              name="customText"
-              v-model="customText"
               v-slot="{ field, meta }"
+              v-model="customText"
+              name="customText"
               :rules="{ required: true }"
             >
               <textarea
                 v-bind="field"
-                class="form-control fr-input validate-required"
                 id="customText"
+                class="form-control fr-input validate-required"
                 name="customText"
                 placeholder=""
                 type="text"
@@ -40,7 +40,7 @@
                 }"
                 rows="4"
               />
-              <ErrorMessage name="customText" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="customText">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </Field>
@@ -49,8 +49,8 @@
       </NakedCard>
     </Form>
     <NakedCard
-      class="fr-p-md-5w fr-mt-md-3w"
       v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
+      class="fr-p-md-5w fr-mt-md-3w"
     >
       <div class="fr-mb-3w">
         <p v-html="t(`explanation-text.${guarantorKey()}.${taxDocument.key}`)"></p>
@@ -64,12 +64,13 @@
       <WarningTaxDeclaration />
 
       <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mt-3w">
-        <ListItem 
+        <ListItem
           v-for="file in taxFiles()"
           :key="file.id"
-          :file="file" 
-          :watermark-url="documentWatermarkUrl" 
-          @remove="remove(file)" 
+          :file="file"
+          :watermark-url="documentWatermarkUrl"
+          doc-category="guarantor-tax"
+          @remove="remove(file)"
         />
       </div>
       <div class="fr-mb-3w fr-mt-3w">
@@ -99,7 +100,7 @@
           </p>
           <hr class="mobile" />
           <div class="btn-align">
-            <DfButton @click="isWarningTaxSituationModalVisible = false" :primary="true">{{
+            <DfButton :primary="true" @click="isWarningTaxSituationModalVisible = false">{{
               t('tax-page.avis-btn')
             }}</DfButton>
           </div>
@@ -138,7 +139,7 @@ import WarningTaxDeclaration from '@/components/documents/share/WarningTaxDeclar
 import { UtilsService } from '@/services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import { computed, onMounted, ref } from 'vue'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
@@ -152,9 +153,7 @@ const store = useTenantStore()
 const selectedGuarantor = computed(() => {
   return store.selectedGuarantor
 })
-const user = computed(() => {
-  return store.userToEdit
-})
+const user = computed(() => store.user)
 
 const props = withDefaults(
   defineProps<{
@@ -380,6 +379,7 @@ function taxFiles(): DfFile[] {
 }
 
 async function remove(file: DfFile, silent = false) {
+  AnalyticsService.deleteFile('guarantor-tax')
   if (file.id) {
     if (
       files.value.length === 1 &&

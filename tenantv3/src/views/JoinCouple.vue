@@ -14,7 +14,7 @@
 import InitPassword from 'df-shared-next/src/Authentification/InitPassword.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { ToastService } from '../services/ToastService'
-import useTenantStore from '../stores/tenant-store'
+import { useTenantStore } from '../stores/tenant-store'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'

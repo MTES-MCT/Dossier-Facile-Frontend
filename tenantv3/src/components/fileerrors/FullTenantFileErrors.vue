@@ -1,7 +1,7 @@
 <template>
   <TenantErrors :user="user" :keyprefix="keyprefix"></TenantErrors>
 
-  <div class="fr-mt-3w" v-for="g in user.guarantors" :key="g.id">
+  <div v-for="g in user.guarantors" :key="g.id" class="fr-mt-3w">
     <GuarantorErrors :user="user" :g="g" :keyprefix="keyprefix"></GuarantorErrors>
   </div>
 </template>

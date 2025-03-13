@@ -11,17 +11,17 @@
             <SimpleRadioButtons
               name="application-type-selector"
               :value="financialDocument.documentType"
-              @input="onSelectChange($event)"
               :elements="mapDocuments()"
+              @input="onSelectChange($event)"
             ></SimpleRadioButtons>
           </div>
         </div>
       </NakedCard>
       <NakedCard
-        class="fr-p-md-5w fr-mb-3w"
         v-if="
           financialDocument.documentType.key && financialDocument.documentType.key !== 'no-income'
         "
+        class="fr-p-md-5w fr-mb-3w"
       >
         <div>
           <div>
@@ -36,14 +36,14 @@
                 <div class="fr-input-group">
                   <label for="monthlySum" class="fr-label"> {{ getMonthlySumLabel() }} : </label>
                   <Field
-                    name="monthlySum"
                     v-slot="{ field, meta }"
+                    name="monthlySum"
                     :value="financialDocument.monthlySum"
-                    @input="financialDocument.monthlySum = $event.target.value.replace(/\s+/g, '')"
                     :rules="{
                       required: true,
                       regex: /^[0-9 ]+$/
                     }"
+                    @input="financialDocument.monthlySum = $event.target.value.replace(/\s+/g, '')"
                   >
                     <input
                       id="monthlySum"
@@ -58,18 +58,18 @@
                       required
                     />
                   </Field>
-                  <ErrorMessage name="monthlySum" v-slot="{ message }">
+                  <ErrorMessage v-slot="{ message }" name="monthlySum">
                     <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                   </ErrorMessage>
-                  <span class="fr-error-text" v-if="(financialDocument.monthlySum || 0) > 10000">
+                  <span v-if="(financialDocument.monthlySum || 0) > 10000" class="fr-error-text">
                     {{ t('financialdocumentform.high-salary') }}
                   </span>
                   <span
-                    class="fr-error-text"
                     v-if="
                       financialDocument.monthlySum !== undefined &&
                       financialDocument.monthlySum <= 0
                     "
+                    class="fr-error-text"
                   >
                     {{ t('financialdocumentform.low-salary') }}
                   </span>
@@ -79,13 +79,13 @@
           </div>
         </div>
         <div
-          class="fr-mt-3w"
           v-if="
             financialDocument.documentType.key &&
             financialDocument.documentType.key !== 'no-income' &&
             financialDocument.monthlySum !== undefined &&
             financialDocument.monthlySum >= 0
           "
+          class="fr-mt-3w"
         >
           <div>
             <div class="fr-mb-3w">
@@ -108,6 +108,7 @@
                 :key="file.id"
                 :file="file"
                 :watermark-url="documentWatermarkUrl"
+                doc-category="financial"
                 @remove="remove(financialDocument, file)"
                 @ask-confirm="AnalyticsService.deleteDocument('financial')"
                 @cancel="AnalyticsService.cancelDelete('financial')"
@@ -122,32 +123,32 @@
             </div>
             <div class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
               <input
-                type="checkbox"
                 id="noDocument"
-                value="false"
                 v-model="financialDocument.noDocument"
+                type="checkbox"
+                value="false"
               />
               <label for="noDocument">
                 {{ t(getCheckboxLabel(financialDocument.documentType.key)) }}
               </label>
             </div>
-            <div class="fr-mb-5w" v-if="financialDocument.noDocument">
+            <div v-if="financialDocument.noDocument" class="fr-mb-5w">
               <div class="fr-input-group">
                 <label class="fr-label" for="customText">
                   {{ t(`financialdocumentform.customText-${financialDocument.documentType.key}`) }}
                 </label>
                 <Field
-                  name="customText"
                   v-slot="{ field, meta }"
                   v-model="financialDocument.customText"
+                  name="customText"
                   :rules="{
                     required: true
                   }"
                 >
                   <textarea
                     v-bind="field"
-                    class="form-control fr-input validate-required"
                     id="customText"
+                    class="form-control fr-input validate-required"
                     placeholder=""
                     type="text"
                     maxlength="2000"
@@ -160,7 +161,7 @@
                   />
                   <span>{{ financialDocument.customText.length }} / 2000</span>
                 </Field>
-                <ErrorMessage name="customText" v-slot="{ message }">
+                <ErrorMessage v-slot="{ message }" name="customText">
                   <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
               </div>
@@ -179,11 +180,11 @@
               {{ t('financialdocumentform.has-no-income') }}
             </label>
             <textarea
+              id="customTextNoDocument"
               v-model="financialDocument.customText"
               maxlength="2000"
               rows="3"
               class="form-control fr-input validate-required"
-              id="customTextNoDocument"
               name="customText"
               placeholder=""
               type="text"
@@ -232,16 +233,14 @@ import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { UtilsService } from '@/services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import { useI18n } from 'vue-i18n'
-import useTenantStore from '@/stores/tenant-store'
+import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref, toRaw } from 'vue'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 
 const store = useTenantStore()
-const user = computed(() => {
-  return store.userToEdit
-})
+const user = computed(() => store.user)
 const financialDocumentSelected = computed(() => {
   return store.financialDocumentSelected
 })
