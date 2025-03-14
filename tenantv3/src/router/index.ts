@@ -430,7 +430,7 @@ export const router = createRouter({
           children: FINANCIAL_ROUTES,
           beforeEnter: (to) => {
             const store = useTenantStore()
-            const doc = store.tenantFinancialDocuments.find((d) => d.id === Number(to.params.docId))
+            const doc = store.financialDocuments.find((d) => d.id === Number(to.params.docId))
             if (!doc) {
               return { name: 'TenantFinancial' }
             }

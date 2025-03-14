@@ -6,7 +6,16 @@
   />
   <BackLinkRow label="Vous ne touchez pas encore l’APL" @click="router.push(parent)" />
   <p class="fr-mb-1w">Saisissez le montant de vos revenus mensuels nets moyens&nbsp;:</p>
-  <input placeholder="Montant en euros" name="monthlySum" class="fr-input fr-mb-2w" required />
+  <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_APL_NOT_YET">
+    <template #incomeFilled>
+      <p>
+        Veuillez fournir une copie d’écran de la
+        <a href="https://www.service-public.fr/particuliers/vosdroits/R2972" target="_blank"
+          >simulation CAF d’aide au logement</a
+        >.
+      </p>
+    </template>
+  </UploadFilesFinancial>
   <FinancialFooter />
 </template>
 
@@ -15,6 +24,7 @@ import BackLinkRow from '../common/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import FinancialFooter from './FinancialFooter.vue'
 import { useParentRoute } from '../guarantorResidency/useParentRoute'
+import UploadFilesFinancial from './UploadFilesFinancial.vue'
 
 const router = useRouter()
 const parent = useParentRoute()

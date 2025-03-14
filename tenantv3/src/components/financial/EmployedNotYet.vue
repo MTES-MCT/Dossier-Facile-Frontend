@@ -6,17 +6,30 @@
     Saisissez votre <strong>revenu mensuel net moyen avant prélèvement à la source</strong>, sans
     virgule :
   </p>
-  <input placeholder="Montant en euros" name="monthlySum" class="fr-input fr-mb-2w" required />
-  <div class="fr-alert fr-alert--warning">
-    <p>
-      <strong>Le montant saisi doit être réaliste.</strong>
-    </p>
-    <p>
-      Par exemple : si votre contrat indique un montant de 30000€ par an, votre salaire net mensuel
-      est de 30000/12x0,75=1875€ net par mois.
-    </p>
-    <p><strong>Notre équipe refuse automatiquement les revenus surévalués.</strong></p>
-  </div>
+  <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_NOT_YET">
+    <template #emptyIncome>
+      <div class="fr-alert fr-alert--warning">
+        <p>Le montant saisi doit être réaliste.</p>
+        <p>
+          Par exemple : si votre contrat indique un montant de 30000€ par an, votre salaire net
+          mensuel est de 30000/12x0,75=1875€ net par mois.
+        </p>
+        <p><strong>Notre équipe refuse automatiquement les revenus surévalués.</strong></p>
+      </div>
+    </template>
+    <template #incomeFilled>
+      <p>
+        Veuillez fournir
+        <strong>la page de votre contrat qui indique votre rémunération à venir</strong>.
+      </p>
+      <div class="fr-alert fr-alert--info fr-mb-3w">
+        <p>
+          Si vous ne savez pas extraire une page de votre contrat, vous pouvez fournir une copie
+          d’écran de cette page.
+        </p>
+      </div>
+    </template>
+  </UploadFilesFinancial>
   <FinancialFooter />
 </template>
 
@@ -25,6 +38,7 @@ import BackLinkRow from '../common/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import FinancialFooter from './FinancialFooter.vue'
 import { useParentRoute } from '../guarantorResidency/useParentRoute'
+import UploadFilesFinancial from './UploadFilesFinancial.vue'
 
 const router = useRouter()
 const parent = useParentRoute()

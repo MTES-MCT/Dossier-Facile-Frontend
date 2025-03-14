@@ -6,7 +6,18 @@
     Saisissez votre <strong>revenu mensuel net moyen avant prélèvement à la source</strong>, sans
     virgule&nbsp;:
   </p>
-  <input placeholder="Montant en euros" name="monthlySum" class="fr-input fr-mb-2w" required />
+  <UploadFilesFinancial
+    category="SOCIAL_SERVICE"
+    step="SOCIAL_SERVICE_FRANCE_TRAVAIL_LESS_3_MONTHS"
+  >
+    <template #incomeFilled>
+      <p>
+        Veuillez fournir
+        <strong>toutes les attestations de paiement France Travail dont vous disposez</strong> (une
+        ou deux attestations).
+      </p>
+    </template>
+  </UploadFilesFinancial>
   <FinancialFooter />
 </template>
 
@@ -15,6 +26,7 @@ import BackLinkRow from '../common/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import FinancialFooter from './FinancialFooter.vue'
 import { useParentRoute } from '../guarantorResidency/useParentRoute'
+import UploadFilesFinancial from './UploadFilesFinancial.vue'
 
 const router = useRouter()
 const parent = useParentRoute()

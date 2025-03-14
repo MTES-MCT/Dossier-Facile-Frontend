@@ -6,7 +6,11 @@
     @click="router.push(parent)"
   />
   <p class="fr-mb-1w">Saisissez le montant de vos revenus mensuels nets moyens&nbsp;:</p>
-  <input placeholder="Montant en euros" name="monthlySum" class="fr-input fr-mb-2w" required />
+  <UploadFilesFinancial category="PENSION" step="PENSION_DISABILITY_NOT_YET">
+    <template #incomeFilled>
+      <p>Veuillez fournir une attestation de pension d’invalidité.</p>
+    </template>
+  </UploadFilesFinancial>
   <FinancialFooter />
 </template>
 
@@ -15,6 +19,7 @@ import BackLinkRow from '../common/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import FinancialFooter from './FinancialFooter.vue'
 import { useParentRoute } from '../guarantorResidency/useParentRoute'
+import UploadFilesFinancial from './UploadFilesFinancial.vue'
 
 const router = useRouter()
 const parent = useParentRoute()

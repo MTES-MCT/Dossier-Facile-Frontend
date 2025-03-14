@@ -6,7 +6,11 @@
   />
   <BackLinkRow label="Vous ne touchez pas encore l’AAH" @click="router.push(parent)" />
   <p class="fr-mb-1w">Saisissez le montant de vos revenus mensuels nets moyens&nbsp;:</p>
-  <input placeholder="Montant en euros" name="monthlySum" class="fr-input fr-mb-2w" required />
+  <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_AAH_NOT_YET">
+    <template #incomeFilled>
+      <p>Veuillez fournir la notification de décision de la MDPH.</p>
+    </template>
+  </UploadFilesFinancial>
   <FinancialFooter />
 </template>
 
@@ -15,6 +19,7 @@ import BackLinkRow from '../common/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import FinancialFooter from './FinancialFooter.vue'
 import { useParentRoute } from '../guarantorResidency/useParentRoute'
+import UploadFilesFinancial from './UploadFilesFinancial.vue'
 
 const router = useRouter()
 const parent = useParentRoute()

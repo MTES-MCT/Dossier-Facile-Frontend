@@ -5,16 +5,28 @@
     Saisissez votre <strong>revenu mensuel net moyen avant prélèvement à la source</strong>, sans
     virgule :
   </p>
-  <input placeholder="Montant en euros" name="monthlySum" class="fr-input fr-mb-2w" required />
-  <div class="fr-alert fr-alert--warning">
-    <p>
-      <strong>Le montant saisi doit être réaliste.</strong>
-    </p>
-    <p>Veuillez faire une moyenne honnête de vos revenus.</p>
-    <p>
-      <strong>Notre équipe refuse automatiquement les revenus surévalués.</strong>
-    </p>
-  </div>
+  <UploadFilesFinancial category="SALARY" step="SALARY_INTERMITTENT">
+    <template #emptyIncome>
+      <div class="fr-alert fr-alert--warning">
+        <p>
+          <strong>Le montant saisi doit être réaliste.</strong>
+        </p>
+        <p>Veuillez faire une moyenne honnête de vos revenus.</p>
+        <p>
+          <strong>Notre équipe refuse automatiquement les revenus surévalués.</strong>
+        </p>
+      </div>
+    </template>
+    <template #incomeFilled>
+      <p>
+        Veuillez fournir vos
+        <strong>3 derniers justificatifs de déclaration de situation mensuelle</strong>. Si vous ne
+        les avez pas, vous pouvez fournir vos 3 dernières attestations de paiement France Travail et
+        vos bulletins de salaire de ces 3 derniers mois. Veuillez noter que ces documents sont plus
+        difficiles à lire pour un propriétaire lorsqu’ils sont trop nombreux.
+      </p>
+    </template>
+  </UploadFilesFinancial>
   <FinancialFooter />
 </template>
 
@@ -23,6 +35,7 @@ import BackLinkRow from '../common/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import FinancialFooter from './FinancialFooter.vue'
 import { useParentRoute } from '../guarantorResidency/useParentRoute'
+import UploadFilesFinancial from './UploadFilesFinancial.vue'
 
 const router = useRouter()
 const parent = useParentRoute()

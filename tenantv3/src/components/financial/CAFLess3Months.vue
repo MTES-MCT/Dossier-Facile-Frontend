@@ -4,9 +4,16 @@
     label="Vous touchez une aide de la CAF ou de la MSA"
     @click="router.push(grandparent)"
   />
-  <BackLinkRow label="Depuis plus de 3 mois" @click="router.push(parent)" />
+  <BackLinkRow label="Depuis moins de 3 mois" @click="router.push(parent)" />
   <p class="fr-mb-1w">Saisissez le montant de vos revenus mensuels nets moyens&nbsp;:</p>
-  <input placeholder="Montant en euros" name="monthlySum" class="fr-input fr-mb-2w" required />
+  <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_CAF_MORE_3_MONTHS">
+    <template #incomeFilled>
+      <p>
+        Veuillez fournir <strong>tous les justificatifs de versement dont vous disposez</strong> (un
+        ou deux justificatifs).
+      </p>
+    </template>
+  </UploadFilesFinancial>
   <FinancialFooter />
 </template>
 
@@ -15,6 +22,7 @@ import BackLinkRow from '../common/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import FinancialFooter from './FinancialFooter.vue'
 import { useParentRoute } from '../guarantorResidency/useParentRoute'
+import UploadFilesFinancial from './UploadFilesFinancial.vue'
 
 const router = useRouter()
 const parent = useParentRoute()

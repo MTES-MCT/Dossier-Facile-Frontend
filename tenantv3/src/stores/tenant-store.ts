@@ -164,6 +164,9 @@ export const useTenantStore = defineStore('tenant', {
     guarantors(state: State): Guarantor[] {
       return state.user.guarantors
     },
+    financialDocuments(state) {
+      return state.user.documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
+    },
     tenantFinancialDocuments(state: State): FinancialDocument[] {
       const fDocs = state.user.documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
       return fDocs.sort((a, b) => (a.id || 0) - (b.id || 0)).map(toFinancialDoc)

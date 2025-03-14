@@ -6,11 +6,20 @@
     Saisissez votre <strong>revenu mensuel net moyen avant prélèvement à la source</strong>, sans
     virgule :
   </p>
-  <input placeholder="Montant en euros" name="monthlySum" class="fr-input fr-mb-2w" required />
-  <div class="fr-alert fr-alert--warning">
-    <p>Le montant saisi doit être réaliste.</p>
-    <p>Notre équipe refuse automatiquement les revenus surévalués.</p>
-  </div>
+  <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_LESS_3_MONTHS">
+    <template #emptyIncome>
+      <div class="fr-alert fr-alert--warning">
+        <p>Le montant saisi doit être réaliste.</p>
+        <p>Notre équipe refuse automatiquement les revenus surévalués.</p>
+      </div>
+    </template>
+    <template #incomeFilled>
+      <p>
+        Veuillez fournir <strong>tous les bulletins de salaire dont vous disposez</strong> (un ou
+        deux bulletins).
+      </p>
+    </template>
+  </UploadFilesFinancial>
   <FinancialFooter />
 </template>
 
@@ -19,6 +28,7 @@ import BackLinkRow from '../common/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import FinancialFooter from './FinancialFooter.vue'
 import { useParentRoute } from '../guarantorResidency/useParentRoute'
+import UploadFilesFinancial from './UploadFilesFinancial.vue'
 
 const router = useRouter()
 const parent = useParentRoute()
