@@ -7,24 +7,21 @@ import type { User } from 'df-shared-next/src/models/User'
 const $loading = useLoading({})
 
 export const RegisterService = {
-  deleteFile(id: number | string, silent = false) {
+  async deleteFile(id: number | string, silent = false) {
     const loader = $loading.show()
     const url = `${import.meta.env.VITE_API_URL}/api/file/${id}`
-    return axios
-      .delete<void>(url)
-      .then(() => {
-        if (!silent) {
-          ToastService.deleteSuccess()
-        }
-      })
-      .catch(() => {
-        ToastService.deleteFailed()
-      })
-      .finally(() => {
-        loader.hide()
-        const store = useTenantStore()
-        store.loadUser()
-      })
+    try {
+      await axios.delete<void>(url)
+      if (!silent) {
+        ToastService.deleteSuccess()
+      }
+    } catch {
+      ToastService.deleteFailed()
+    } finally {
+      loader.hide()
+      const store = useTenantStore()
+      await store.loadUser()
+    }
   },
   deleteFileById(id: number) {
     const url = `${import.meta.env.VITE_API_URL}/api/file/${id}`
