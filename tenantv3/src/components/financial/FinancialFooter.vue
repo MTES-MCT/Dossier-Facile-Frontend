@@ -17,16 +17,15 @@ import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useRouter } from 'vue-router'
 
-const { onSubmit } = defineProps<{ onSubmit?: () => void }>()
+const { onSubmit } = defineProps<{ onSubmit?: () => Promise<boolean> }>()
 
 const router = useRouter()
 
-const submit = () => {
+const submit = async () => {
   AnalyticsService.validateFunnelStep('financial')
-  if (onSubmit) {
-    onSubmit()
-  } else {
-    router.push({ name: 'TenantTax' })
+  const goToRecap = onSubmit ? await onSubmit() : true
+  if (goToRecap) {
+    router.push({ name: 'TenantFinancial' })
   }
 }
 </script>

@@ -101,7 +101,7 @@ function categoryLabel(doc: DfDocument) {
 }
 
 function makeLink(doc: DfDocument) {
-  const cat = doc.documentCategory
+  const cat = doc.documentSubCategory
   if (!doc.id || !cat) {
     return '/documents-locataire/4'
   }
