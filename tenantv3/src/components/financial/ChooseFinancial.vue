@@ -25,10 +25,10 @@
 </template>
 
 <script setup lang="ts">
-import RadioList from '../common/RadioList.vue'
-import RadioListItem from '../common/RadioListItem.vue'
+import RadioList from '@/components/common/RadioList.vue'
+import RadioListItem from '@/components/common/RadioListItem.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import FinancialFooter from './FinancialFooter.vue'
+import FinancialFooter from './lib/FinancialFooter.vue'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 
