@@ -17,7 +17,10 @@
       <span class="fr-hint-text">Revenus locatifs, rente viagère…</span>
     </RadioListItem>
     <RadioListItem :to="here + '/bourse'" @click="sendEvent('grant')">Bourse</RadioListItem>
-    <RadioListItem :to="here + '/pas-de-revenus'" @click="sendEvent('no-income')"
+    <RadioListItem
+      v-if="store.financialDocuments.length === 0"
+      :to="here + '/pas-de-revenus'"
+      @click="sendEvent('no-income')"
       >Pas de revenus</RadioListItem
     >
   </RadioList>
@@ -31,7 +34,9 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import FinancialFooter from './lib/FinancialFooter.vue'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
+import { useTenantStore } from '@/stores/tenant-store'
 
+const store = useTenantStore()
 const route = useRoute()
 const here = computed(() => route.path)
 
