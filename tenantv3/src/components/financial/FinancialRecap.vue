@@ -17,11 +17,14 @@
     </div>
     <div class="fr-grid-col income-wrapper">
       <div v-for="doc of store.financialDocuments" :key="doc.id" class="income-card">
-        <div class="display--flex">
-          <span class="fr-text--lg bold">{{ categoryLabel(doc) }}</span>
-          <span class="fr-ml-auto">{{ doc.monthlySum }}€ net mensuel</span>
+        <div class="first-row">
+          <span class="fr-text--lg fr-mb-0 bold">{{ categoryLabel(doc) }}</span>
+          <span>{{ doc.monthlySum }}€ net mensuel</span>
         </div>
-        <div class="fr-ml-auto">
+        <span v-if="doc.documentCategoryStep" class="fr-text--sm fr-mb-0 text-grey">{{
+          STEP_LABEL[doc.documentCategoryStep]
+        }}</span>
+        <div class="fr-ml-auto fr-mt-2w">
           <router-link :to="makeLink(doc)" class="fr-link fr-mr-4w"
             >Modifier
             <RiEditLine size="1rem" />
@@ -95,6 +98,40 @@ const STEP_TO_PATH: { [P in DocumentCategoryStep]?: string } = {
   RENT_OTHER: 'rente/autre'
 }
 
+const STEP_LABEL: { [P in DocumentCategoryStep]?: string } = {
+  SALARY_EMPLOYED_LESS_3_MONTHS: 'Salarié',
+  SALARY_EMPLOYED_MORE_3_MONTHS: 'Salarié',
+  SALARY_EMPLOYED_NOT_YET: 'Salarié',
+  SALARY_FREELANCE_AUTOENTREPRENEUR: 'Indépendant',
+  SALARY_FREELANCE_OTHER: 'Indépendant',
+  SALARY_INTERMITTENT: 'Intermittent',
+  SALARY_ARTIST_AUTHOR: 'Artiste-auteur',
+  SALARY_UNKNOWN: 'Inconnu',
+  SOCIAL_SERVICE_CAF_LESS_3_MONTHS: 'Aide de la CAF ou de la MSA',
+  SOCIAL_SERVICE_CAF_MORE_3_MONTHS: 'Aide de la CAF ou de la MSA',
+  SOCIAL_SERVICE_FRANCE_TRAVAIL_LESS_3_MONTHS: 'Aide de France Travail',
+  SOCIAL_SERVICE_FRANCE_TRAVAIL_MORE_3_MONTHS: 'Aide de France Travail',
+  SOCIAL_SERVICE_FRANCE_TRAVAIL_NOT_YET: 'Aide de France Travail',
+  SOCIAL_SERVICE_APL_LESS_3_MONTHS: 'Aide personnalisée au logement (APL)',
+  SOCIAL_SERVICE_APL_MORE_3_MONTHS: 'Aide personnalisée au logement (APL)',
+  SOCIAL_SERVICE_APL_NOT_YET: 'Aide personnalisée au logement (APL)',
+  SOCIAL_SERVICE_AAH_LESS_3_MONTHS: 'Allocation aux adultes handicapés (AAH)',
+  SOCIAL_SERVICE_AAH_MORE_3_MONTHS: 'Allocation aux adultes handicapés (AAH)',
+  SOCIAL_SERVICE_AAH_NOT_YET: 'Allocation aux adultes handicapés (AAH)',
+  SOCIAL_SERVICE_OTHER: 'Autre type d’aide',
+  PENSION_STATEMENT: 'Retraite',
+  PENSION_NO_STATEMENT: 'Retraite',
+  PENSION_DISABILITY_LESS_3_MONTHS: 'Pension d’invalidité',
+  PENSION_DISABILITY_MORE_3_MONTHS: 'Pension d’invalidité',
+  PENSION_DISABILITY_NOT_YET: 'Pension d’invalidité',
+  PENSION_ALIMONY: 'Pension alimentaire',
+  PENSION_UNKNOWN: 'Inconnu',
+  RENT_RENTAL_RECEIPT: 'Revenus locatifs',
+  RENT_RENTAL_NO_RECEIPT: 'Revenus locatifs',
+  RENT_ANNUITY_LIFE: 'Rente viagère',
+  RENT_OTHER: 'Autre type de rente'
+}
+
 function categoryLabel(doc: DfDocument) {
   const key = doc.documentSubCategory?.toLowerCase().replaceAll('_', '-') || ''
   return t(`documents.${key}`)
@@ -142,5 +179,16 @@ function deleteDoc(f: DfDocument) {
   border: 1px solid #ddd;
   display: flex;
   flex-direction: column;
+  .first-row {
+    display: flex;
+    flex-direction: column;
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
+.text-grey {
+  color: var(--text-mention-grey);
 }
 </style>
