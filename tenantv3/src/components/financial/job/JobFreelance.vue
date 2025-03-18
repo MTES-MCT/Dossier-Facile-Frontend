@@ -1,6 +1,6 @@
 <template>
-  <BackLinkRow label="Revenus du travail" @click="router.push(grandparent)" />
-  <BackLinkRow label="Vous êtes indépendant" @click="router.push(parent)" />
+  <BackLinkRow label="Revenus du travail" :to="grandparent" />
+  <BackLinkRow label="Vous êtes indépendant" :to="parent" />
   <RadioList>
     <RadioListItem :to="here + '/auto-entrepreneur'">Vous êtes auto-entrepreneur</RadioListItem>
     <RadioListItem :to="here + '/autre'">Vous n’êtes pas auto-entrepreneur</RadioListItem>
@@ -11,13 +11,12 @@
 <script setup lang="ts">
 import RadioList from '@/components/common/RadioList.vue'
 import RadioListItem from '@/components/common/RadioListItem.vue'
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
-import { useRoute, useRouter } from 'vue-router'
+import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
+import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 
-const router = useRouter()
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()

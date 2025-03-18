@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow label="Vous n’avez pas de revenus" @click="router.push(parent)" />
+  <BackLinkRow label="Vous n’avez pas de revenus" :to="parent" />
   <p class="fr-mb-1w">
     Vous pouvez ajouter une explication sur votre situation ici si vous le souhaitez :
   </p>
@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
-import { useRoute, useRouter } from 'vue-router'
+import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
+import { useRoute } from 'vue-router'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import { computed, ref } from 'vue'
@@ -19,7 +19,6 @@ import { ToastService } from '@/services/ToastService'
 import { UtilsService } from '@/services/UtilsService'
 
 const route = useRoute()
-const router = useRouter()
 const parent = useParentRoute()
 const store = useTenantStore()
 

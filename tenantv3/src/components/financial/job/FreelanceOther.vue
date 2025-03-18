@@ -1,7 +1,7 @@
 <template>
-  <BackLinkRow label="Revenus du travail" @click="router.push(ancestor)" />
-  <BackLinkRow label="Vous êtes indépendant" @click="router.push(grandparent)" />
-  <BackLinkRow label="Vous n’êtes pas auto-entrepreneur" @click="router.push(parent)" />
+  <BackLinkRow label="Revenus du travail" :to="ancestor" />
+  <BackLinkRow label="Vous êtes indépendant" :to="grandparent" />
+  <BackLinkRow label="Vous n’êtes pas auto-entrepreneur" :to="parent" />
   <p class="fr-mb-1w">
     Saisissez votre <strong>revenu mensuel net moyen avant prélèvement à la source</strong>, sans
     virgule :
@@ -35,13 +35,11 @@
 </template>
 
 <script setup lang="ts">
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
-import { useRouter } from 'vue-router'
+import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 
-const router = useRouter()
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)

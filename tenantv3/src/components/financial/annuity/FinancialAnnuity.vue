@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow label="Rente" @click="router.push(parent)" />
+  <BackLinkRow label="Rente" :to="parent" />
   <p>Vous touchez :</p>
   <RadioList>
     <RadioListItem :to="here + '/revenus-locatifs'" @click="sendEvent('revenus-locatifs')"
@@ -18,14 +18,13 @@
 <script setup lang="ts">
 import RadioList from '@/components/common/RadioList.vue'
 import RadioListItem from '@/components/common/RadioListItem.vue'
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
+import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 
-const router = useRouter()
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()

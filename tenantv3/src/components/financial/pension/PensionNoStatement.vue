@@ -1,7 +1,7 @@
 <template>
-  <BackLinkRow label="Retraite ou autre pension" @click="router.push(ancestor)" />
-  <BackLinkRow label="Vous touchez une retraite" @click="router.push(grandparent)" />
-  <BackLinkRow label="Vous n’avez pas de bulletin de pension" @click="router.push(parent)" />
+  <BackLinkRow label="Retraite ou autre pension" :to="ancestor" />
+  <BackLinkRow label="Vous touchez une retraite" :to="grandparent" />
+  <BackLinkRow label="Vous n’avez pas de bulletin de pension" :to="parent" />
   <p class="fr-mb-1w">Saisissez le montant de vos revenus mensuels nets moyens&nbsp;:</p>
   <UploadFilesFinancial category="PENSION" step="PENSION_NO_STATEMENT">
     <template #incomeFilled>
@@ -20,13 +20,11 @@
 </template>
 
 <script setup lang="ts">
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
-import { useRouter } from 'vue-router'
+import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 
-const router = useRouter()
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
