@@ -24,6 +24,18 @@
         <span v-if="doc.documentCategoryStep" class="fr-text--sm fr-mb-0 text-grey">{{
           STEP_LABEL[doc.documentCategoryStep]
         }}</span>
+        <span v-if="doc.documentStatus === 'DECLINED'" class="pill declined">
+          <RiAlertFill size="1rem" />
+          Modification attendue</span
+        >
+        <span v-else-if="doc.documentStatus === 'VALIDATED'" class="pill validated">
+          <RiCheckboxCircleFill size="1rem" />
+          Validé</span
+        >
+        <span v-else-if="doc.documentStatus === 'TO_PROCESS'" class="pill to-process">
+          <RiTimeFill size="1rem" />
+          En attente de traitement</span
+        >
         <div class="fr-ml-auto fr-mt-2w">
           <router-link :to="makeLink(doc)" class="fr-link fr-mr-4w"
             >Modifier
@@ -46,9 +58,15 @@
 
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import FileStatusIcon from 'df-shared-next/src/components/FileStatusIcon.vue'
 import SimulationCaf from '../documents/share/SimulationCaf.vue'
-import { RiAddFill, RiDeleteBinLine, RiEditLine } from '@remixicon/vue'
+import {
+  RiAddFill,
+  RiAlertFill,
+  RiCheckboxCircleFill,
+  RiDeleteBinLine,
+  RiEditLine,
+  RiTimeFill
+} from '@remixicon/vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
@@ -193,5 +211,28 @@ function deleteDoc(f: DfDocument) {
 }
 .text-grey {
   color: var(--text-mention-grey);
+}
+.pill {
+  border-radius: 4px;
+  display: flex;
+  padding: 0 6px;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  width: fit-content;
+}
+.declined {
+  color: var(--text-default-warning);
+  background-color: var(--background-contrast-warning);
+}
+.validated {
+  color: var(--text-default-success);
+  background-color: var(--background-contrast-success);
+}
+.to-process {
+  color: var(--purple-text);
+  background-color: var(--background-alt-purple-glycine);
 }
 </style>
