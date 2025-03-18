@@ -1,12 +1,14 @@
 <template>
   <form class="fr-mb-2w" @submit.prevent="submit">
     <input
-      v-model.number="monthlySum"
+      v-model="sum"
+      v-bind="sumAttr"
       placeholder="Montant en euros"
       name="monthlySum"
       class="fr-input fr-mb-2w"
       required
     />
+    <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
   </form>
   <template v-if="showFiles">
     <slot name="incomeFilled"></slot>
@@ -44,6 +46,8 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { ToastService } from '@/services/ToastService'
 import { UtilsService } from '@/services/UtilsService'
 import { useRoute, useRouter } from 'vue-router'
+import { useForm } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
 
 const MAX_FILE_COUNT = 10
 
@@ -61,13 +65,29 @@ const uploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const store = useTenantStore()
 const route = useRoute()
 const router = useRouter()
+const { t } = useI18n()
 
 const document = computed(
   () =>
     store.financialDocuments.find((d) => d.id === Number(route.params.docId)) || makeNewDocument()
 )
-const monthlySum = ref(document.value.monthlySum)
 const showFiles = ref(Boolean(document.value.monthlySum))
+
+const { errors, defineField } = useForm({
+  initialValues: { sum: document.value.monthlySum?.toString() || '' },
+  validationSchema: { sum: validateSum }
+})
+const [sum, sumAttr] = defineField('sum')
+
+function validateSum(input: string) {
+  if (!input) {
+    return 'field-required'
+  }
+  if (!/^[0-9 ]+$/.test(input)) {
+    return 'regex-not-valid'
+  }
+  return true
+}
 
 function makeNewDocument() {
   const document = new DfDocument()
@@ -81,8 +101,9 @@ function makeNewDocument() {
 }
 
 function submit() {
-  document.value.monthlySum = monthlySum.value
-  showFiles.value = monthlySum.value ? monthlySum.value > 0 : false
+  const monthlySum = Number(sum.value.replace(/\s+/g, '')) || 0
+  document.value.monthlySum = monthlySum
+  showFiles.value = monthlySum > 0
 }
 
 async function addFiles(fileList: File[]) {
