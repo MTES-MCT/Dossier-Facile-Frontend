@@ -41,10 +41,12 @@
     /></router-link>
   </NakedCard>
   <SimulationCaf />
+  <FinancialFooter :to="{ name: 'TenantTax' }" />
 </template>
 
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import FileStatusIcon from 'df-shared-next/src/components/FileStatusIcon.vue'
 import SimulationCaf from '../documents/share/SimulationCaf.vue'
 import { RiAddFill, RiDeleteBinLine, RiEditLine } from '@remixicon/vue'
 import { useTenantStore } from '@/stores/tenant-store'
@@ -52,6 +54,7 @@ import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import { ToastService } from '@/services/ToastService'
 import type { DfDocument, DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
+import FinancialFooter from './lib/FinancialFooter.vue'
 const store = useTenantStore()
 const { t } = useI18n()
 

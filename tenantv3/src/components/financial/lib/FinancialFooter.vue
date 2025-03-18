@@ -15,9 +15,9 @@ import FooterContainer from '@/components/footer/FooterContainer.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { useRouter } from 'vue-router'
+import { useRouter, type RouteLocationRaw } from 'vue-router'
 
-const { onSubmit } = defineProps<{ onSubmit?: () => Promise<boolean> }>()
+const { onSubmit, to } = defineProps<{ onSubmit?: () => Promise<boolean>; to?: RouteLocationRaw }>()
 
 const router = useRouter()
 
@@ -25,7 +25,7 @@ const submit = async () => {
   AnalyticsService.validateFunnelStep('financial')
   const goToRecap = onSubmit ? await onSubmit() : true
   if (goToRecap) {
-    router.push({ name: 'TenantFinancial' })
+    router.push(to || { name: 'TenantFinancial' })
   }
 }
 </script>
