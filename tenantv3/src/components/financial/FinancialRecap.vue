@@ -1,6 +1,6 @@
 <template>
-  <h2>Vos revenus</h2>
-  <NakedCard class="fr-p-md-5w fr-mb-3w fr-grid-col">
+  <h2 class="fr-mx-3v">Vos revenus</h2>
+  <NakedCard class="fr-p-md-5w fr-mx-3v fr-mb-3w fr-grid-col">
     <div class="fr-highlight">
       <p>
         Les documents fournis permettent aux propriétaires de
@@ -52,7 +52,7 @@
       >Ajouter un revenu <RiAddFill class="tr-5"
     /></router-link>
   </NakedCard>
-  <SimulationCaf />
+  <SimulationCaf class="fr-mx-3v" />
   <FinancialFooter :to="{ name: 'TenantTax' }" />
 </template>
 
