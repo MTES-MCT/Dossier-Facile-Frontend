@@ -105,7 +105,16 @@ function makeNewDocument() {
 function submit() {
   const monthlySum = Number(sum.value.replace(/\s+/g, '')) || 0
   document.value.monthlySum = monthlySum
-  showFiles.value = monthlySum > 0
+  if (!showFiles.value) {
+    showFiles.value = monthlySum > 0
+    return
+  }
+
+  if ((document.value.files || []).length === 0) {
+    ToastService.error('financialdocumentform.missing-file')
+    return
+  }
+  router.push({ name: 'TenantTax' })
 }
 
 async function addFiles(fileList: File[]) {
