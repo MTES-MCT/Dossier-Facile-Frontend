@@ -700,41 +700,7 @@
     "size": "Poids maximal : {0}Mo"
   },
   "financialdocumentform": {
-    "title": "Vos revenus",
-    "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "monthlySum": {
-      "placeholder": "Montant en euros",
-      "label": "Indiquez le montant de vos revenus mensuels nets",
-      "label-tax": "avant prélèvement à la source (arrondi à l'euro)"
-    },
-    "delete-financial": "Supprimer ce revenu",
-    "customText-social-service": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-    "customText-salary": "Merci de bien vouloir nous expliquer pourquoi vous ne pouvez pas fournir de document justifiant votre revenu. Le message sera transmis à notre équipe de validation, qui pourra revenir vers vous à ce sujet :",
-    "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-    "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-    "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-    "income-zero": "Si vous n'avez pas de revenus, veuillez sélectionner la catégorie 'Pas de revenus'",
-    "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-    "noDocument-salary": "Je ne peux pas fournir de document permettant de justifier ces revenus ",
-    "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
-    "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
-    "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
-    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
-    "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
-    "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-    "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-    "has-no-income": "Vous avez indiqué ne pas avoir de revenus. Vous pouvez ajouter une explication sur votre situation ici si vous le souhaitez :",
-    "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
-  },
-  "financial-page": {
-    "delete-financial": "Supprimer ce revenu",
-    "register": "Enregistrer",
-    "i-have-no-income": "Je n'ai pas de revenu",
-    "title": "Récapitulatif de vos revenus",
-    "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",
-    "monthly": " € net mensuel ",
-    "net-monthly": "Net à payer mensuel",
-    "add-income": "Ajouter un nouveau revenu ?"
+    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu."
   },
   "forgottenpasswordpage": {
     "email-not-found": "Email non trouvé",

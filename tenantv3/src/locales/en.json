@@ -657,39 +657,7 @@
     "size": " Maximum size : {0}MB"
   },
   "financialdocumentform": {
-    "financial": "Proof of income",
-    "will-delete-files": "Attention, a change in your situation will result in the deletion of your documents. You will need to upload the documents corresponding to your new situation again.",
-    "monthlySum-label": "I indicate the amount of my monthly net income to be paid (before withholding tax)",
-    "monthlySum": "Amount in euros",
-    "delete-financial": "Delete this income",
-    "custom-text": "To improve your file, you can add an explanation:",
-    "customText-social-service": "To improve my file, I explain why I cannot provide my documents:",
-    "customText-salary": "To improve my file, I explain why I cannot provide my three most recent payslips:",
-    "customText-pension": "To improve my file, I explain why I cannot provide my documents:",
-    "customText-rent": "To improve my file, I explain why I cannot provide my documents:",
-    "customText-scholarship": "To improve my file, I explain why I cannot provide my documents:",
-    "income-zero": "If you don't have any income, please select 'No income'",
-    "noDocument-social": "I cannot provide proof of social benefits payment",
-    "noDocument-salary": "I cannot provide my three most recent payslips",
-    "noDocument-pension": "I cannot provide proof of pension payment",
-    "noDocument-rent": "I cannot provide proof of rent payment",
-    "noDocument-scholarship": "I cannot provide proof of scholarship award",
-    "missing-file": "You must add files to save this income.",
-    "warning-no-income-and-file": "You cannot have files and indicate that you cannot provide all the files. Please uncheck the box or delete your files.",
-    "high-salary": "You have entered a salary greater than €10,000. Are you sure you have entered your monthly salary?",
-    "low-salary": "You have entered a salary equal to €0. Are you sure you have entered your monthly salary?",
-    "has-no-income": "You indicated that you have no income",
-    "number-not-valid": "Incorrect value - enter a number without a comma"
-  },
-  "financial-page": {
-    "delete-financial": "Delete this income",
-    "register": "Register",
-    "i-have-no-income": "I have no income",
-    "title": "Summary of your income",
-    "subtitle": "Here is the list of income you have declared. You can add new income at any time if necessary.",
-    "monthly": " monthly net €",
-    "net-monthly": "Net monthly",
-    "add-income": "Add new income?"
+    "missing-file": "You must add files to save this income."
   },
   "forgottenpasswordpage": {
     "email-not-found": "Email not found",
