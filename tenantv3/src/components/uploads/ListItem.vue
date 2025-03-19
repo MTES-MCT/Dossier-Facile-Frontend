@@ -1,22 +1,30 @@
 <template>
   <div class="fr-card fr-mb-3w">
-    <div class="cursor--pointer" @click="openDoc()">
+    <div class="cursor--pointer" @click="openDoc">
       <ShowPreview :file="file"></ShowPreview>
     </div>
-    <div class="text fr-pt-1w fr-pl-2w">
+    <div class="text fr-pt-1w fr-pl-1w">
       <h3 class="fr-card__title">
-        <a href="#" @click="openDoc()">{{ getName() }}</a>
+        <button class="color--primary text-overflow" type="button" @click="openDoc">
+          {{ fileName }}
+        </button>
       </h3>
-      <div class="size">{{ getSize() }}</div>
+      <div class="size fr-pl-1w">{{ size }}</div>
       <div class="links blue-text fr-mb-1w fr-mr-2w">
-        <a v-if="file.path || file.preview" href="#" :title="t('listitem.show')" @click="openDoc()">
+        <button
+          v-if="file.path || file.preview"
+          class="btn-link"
+          type="button"
+          :title="t('listitem.show')"
+          @click="openDoc"
+        >
           <span>{{ t('listitem.see') }}</span>
           <span class="fr-fi--sm fr-icon-eye-line fr-ml-1w"></span>
-        </a>
-        <a href="#" :title="t('listitem.remove')" @click="remove()">
+        </button>
+        <button type="button" class="btn-link" :title="t('listitem.remove')" @click="remove">
           <span>{{ t('listitem.delete') }}</span>
           <span class="fr-fi--sm fr-icon-delete-line fr-ml-1w"></span>
-        </a>
+        </button>
       </div>
     </div>
     <Modal v-if="isDocModalVisible" @close="isDocModalVisible = false">
@@ -24,7 +32,7 @@
         <ShowDoc :file="file" :watermark-url="watermarkUrl"></ShowDoc>
       </template>
     </Modal>
-    <ConfirmModal v-if="confirmDeleteFile" @valid="validDeleteFile()" @cancel="cancelDeleteFile()">
+    <ConfirmModal v-if="confirmDeleteFile" @valid="validDeleteFile" @cancel="cancelDeleteFile">
       {{ t('listitem.will-delete-file') }}
     </ConfirmModal>
   </div>
@@ -38,7 +46,7 @@ import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import { AnalyticsService, type DocumentCategory } from '../../services/AnalyticsService'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { useI18n } from 'vue-i18n'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const { t } = useI18n()
 const emit = defineEmits<{ remove: []; 'ask-confirm': []; cancel: [] }>()
@@ -60,6 +68,20 @@ const props = withDefaults(
 
 const isDocModalVisible = ref(false)
 const confirmDeleteFile = ref(false)
+const fileName = computed(() => (props.file.name ? props.file.name : props.file.originalName))
+const size = computed(() => {
+  // Extract file extension from props.file.originalName and make it uppercase
+  const extension = props.file?.originalName?.split('.').pop()?.toUpperCase() || ''
+  if (props.file.size) {
+    const kb = props.file.size / 1000
+    if (kb > 1000) {
+      const mb = kb / 1000
+      return `${extension} - ${mb.toFixed(2)} ${t('listitem.mb')}`
+    }
+    return `${extension} - ${kb.toFixed(2)} ${t('listitem.kb')}`
+  }
+  return '-'
+})
 
 function remove() {
   emit('ask-confirm')
@@ -80,24 +102,6 @@ function cancelDeleteFile() {
 function openDoc() {
   AnalyticsService.viewFromMain(props.docCategory)
   isDocModalVisible.value = true
-}
-
-function getSize() {
-  // Extract file extension from props.file.originalName and make it uppercase
-  const extension = props.file?.originalName?.split('.').pop()?.toUpperCase() || ''
-  if (props.file.size) {
-    const kb = props.file.size / 1000
-    if (kb > 1000) {
-      const mb = kb / 1000
-      return `${extension} - ${mb.toFixed(2)} ${t('listitem.mb')}`
-    }
-    return `${extension} - ${kb.toFixed(2)} ${t('listitem.kb')}`
-  }
-  return '-'
-}
-
-function getName() {
-  return props.file.name ? props.file.name : props.file.originalName
 }
 </script>
 
@@ -124,15 +128,13 @@ function getName() {
 }
 
 .fr-card__title {
-  overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 16px;
   font-weight: normal;
-  max-width: 250px;
-  a {
-    background-image: none;
-    outline-width: 0;
-  }
+}
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .links {
