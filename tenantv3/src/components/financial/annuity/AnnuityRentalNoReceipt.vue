@@ -16,12 +16,10 @@
       </div>
     </template>
   </UploadFilesFinancial>
-  <FinancialFooter />
 </template>
 
 <script setup lang="ts">
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
-import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 

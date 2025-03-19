@@ -9,6 +9,7 @@
       required
     />
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
+    <FinancialFooterContent />
   </form>
   <template v-if="showFiles">
     <slot name="incomeFilled"></slot>
@@ -48,6 +49,7 @@ import { UtilsService } from '@/services/UtilsService'
 import { useRoute, useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import FinancialFooterContent from './FinancialFooterContent.vue'
 
 const MAX_FILE_COUNT = 10
 
