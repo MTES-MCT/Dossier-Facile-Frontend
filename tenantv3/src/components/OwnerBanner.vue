@@ -34,7 +34,7 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const OWNER_URL = `//${import.meta.env.VUE_APP_OWNER_URL}/creation`
+const OWNER_URL = `//${import.meta.env.VITE_OWNER_URL}/creation`
 function signal() {
   AnalyticsService.openCreateOwnerAccount()
   window.open(OWNER_URL, '_blank', 'noopener')
