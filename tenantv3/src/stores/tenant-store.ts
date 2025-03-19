@@ -631,22 +631,6 @@ export const useTenantStore = defineStore('tenant', {
     async saveTenantFinancial(formData: FormData) {
       const response = await RegisterService.saveTenantFinancial(formData)
       this.loadUserCommit(response.data)
-      const fd = this.tenantFinancialDocuments
-      if (fd === undefined) {
-        return response.data
-      }
-      if (formData.has('id')) {
-        const s = fd.find((f) => {
-          return f.id?.toString() === formData.get('id')
-        })
-        if (s !== undefined) {
-          this.selectDocumentFinancial(s)
-        } else {
-          this.selectDocumentFinancial(fd[fd.length - 1])
-        }
-      } else {
-        this.selectDocumentFinancial(fd[fd.length - 1])
-      }
       return response.data
     },
     async saveGuarantorFinancial(formData: FormData) {

@@ -416,17 +416,16 @@ export const router = createRouter({
         {
           path: '4',
           name: 'TenantFinancial',
-          // component: () => import('@/components/documents/tenant/TenantFinancial.vue')
           component: () => import('@/components/financial/FinancialRecap.vue')
         },
         {
           path: '4/ajouter',
-          component: () => import('@/components/documents/tenant/TenantFinancial2.vue'),
+          component: () => import('@/components/documents/tenant/TenantFinancial.vue'),
           children: FINANCIAL_ROUTES
         },
         {
           path: '4/:docId',
-          component: () => import('@/components/documents/tenant/TenantFinancial2.vue'),
+          component: () => import('@/components/documents/tenant/TenantFinancial.vue'),
           children: FINANCIAL_ROUTES,
           beforeEnter: (to) => {
             const store = useTenantStore()
