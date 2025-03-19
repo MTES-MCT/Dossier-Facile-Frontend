@@ -153,7 +153,7 @@ import { useI18n } from 'vue-i18n'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
 
-const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL
+const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VITE_SSO_FRANCE_CONNECT_LOGIN_URL
 
 const { t } = useI18n()
 
