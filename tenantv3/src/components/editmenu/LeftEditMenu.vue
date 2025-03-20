@@ -43,7 +43,11 @@
           <TenantDocumentLink class="ml-5" :document-type="DocumentType.IDENTITY" />
           <TenantDocumentLink class="ml-5" :document-type="DocumentType.RESIDENCY" />
           <TenantDocumentLink class="ml-5" :document-type="DocumentType.PROFESSIONAL" />
-          <TenantDocumentLink class="ml-5" :document-type="DocumentType.FINANCIAL" />
+          <TenantDocumentLink
+            class="ml-5"
+            :document-type="DocumentType.FINANCIAL"
+            :active="route.path.includes('/documents-locataire/4')"
+          />
           <TenantDocumentLink class="ml-5" :document-type="DocumentType.TAX" />
         </div>
       </div>
