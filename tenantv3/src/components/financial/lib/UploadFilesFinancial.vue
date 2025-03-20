@@ -114,7 +114,7 @@ function submit() {
     ToastService.error('financialdocumentform.missing-file')
     return
   }
-  router.push({ name: 'TenantTax' })
+  router.push({ name: 'TenantFinancial' })
 }
 
 async function addFiles(fileList: File[]) {
