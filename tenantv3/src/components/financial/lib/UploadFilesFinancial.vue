@@ -85,6 +85,9 @@ function validateSum(input: string) {
   if (!input) {
     return 'field-required'
   }
+  if (/^[0-9 ,.]+$/.test(input) && /[,.]/.test(input)) {
+    return 'round-it'
+  }
   if (!/^[0-9 ]+$/.test(input)) {
     return 'regex-not-valid'
   }
@@ -203,3 +206,14 @@ async function save() {
   }
 }
 </script>
+
+<i18n>
+{
+  "en": {
+    "round-it": "Round to the nearest euro"
+  },
+  "fr": {
+    "round-it": "Arrondir à l’euro"
+  }
+}
+</i18n>
