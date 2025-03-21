@@ -6,7 +6,7 @@
   <UploadFilesFinancial category="RENT" step="RENT_RENTAL_NO_RECEIPT">
     <template #incomeFilled>
       <p>Veuillez fournir <strong>votre dernier avis d’imposition 2023-24</strong>.</p>
-      <div class="fr-alert fr-alert--warning">
+      <div class="fr-alert fr-alert--warning fr-mb-3w">
         <p class="bold">Le montant saisi doit être réaliste.</p>
         <p>
           Par exemple : si la ligne “revenus fonciers” de votre avis d’imposition indique 12000€, le

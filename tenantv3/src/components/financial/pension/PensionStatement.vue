@@ -6,7 +6,7 @@
   <UploadFilesFinancial category="PENSION" step="PENSION_STATEMENT">
     <template #incomeFilled>
       <p>Veuillez fournir <strong>un bulletin de pension de moins de 2 ans</strong>.</p>
-      <div class="fr-alert fr-alert--warning">
+      <div class="fr-alert fr-alert--warning fr-mb-3w">
         <p class="bold">
           Notre équipe refuse automatiquement les bulletins de pension de plus de 2 ans.
         </p>
