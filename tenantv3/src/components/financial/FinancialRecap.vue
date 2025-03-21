@@ -1,19 +1,16 @@
 <template>
-  <h2 class="fr-mx-3v">Vos revenus</h2>
+  <h2 class="fr-mx-3v">{{ t('income') }}</h2>
   <NakedCard class="fr-p-md-5w fr-mx-3v fr-mb-3w fr-grid-col">
     <div class="fr-highlight">
-      <p>
-        Les documents fournis permettent aux propriétaires de
-        <strong>connaître vos moyens financiers</strong>.
-      </p>
-      <p>
-        Vous pouvez ajouter <strong>autant de revenus que vous le souhaitez</strong> : revenus du
-        travail, aides sociales, retraite, bourse...
-      </p>
-      <p>
-        Soyez réaliste :
-        <strong>notre équipe refuse automatiquement les montants surévalués</strong>.
-      </p>
+      <i18n-t keypath="documents-provided" tag="p">
+        <strong>{{ t('financial-means') }}</strong>
+      </i18n-t>
+      <i18n-t keypath="you-can-add" tag="p">
+        <strong>{{ t('as-much-income') }}</strong>
+      </i18n-t>
+      <i18n-t keypath="be-realistic" tag="p">
+        <strong>{{ t('auto-reject') }}</strong>
+      </i18n-t>
     </div>
     <div class="fr-grid-col income-wrapper">
       <div v-for="doc of store.financialDocuments" :key="doc.id" class="income-card">
@@ -49,7 +46,7 @@
       </div>
     </div>
     <router-link to="4/ajouter" class="fr-btn fr-ml-auto fr-mt-3w"
-      >Ajouter un revenu <RiAddFill class="tr-5"
+      >{{ t('add-income') }} <RiAddFill class="tr-5"
     /></router-link>
   </NakedCard>
   <SimulationCaf class="fr-mx-3v" />
@@ -236,3 +233,28 @@ function deleteDoc(f: DfDocument) {
   background-color: var(--background-alt-purple-glycine);
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "income": "Your income",
+    "documents-provided": "The documents you provide allow the owners to {0}.",
+    "financial-means": "determine your financial means",
+    "you-can-add": "You can add {0}: income from work, social benefits, pension, stock market…",
+    "as-much-income": "as much income as you like",
+    "be-realistic": "Be realistic : {0}.",
+    "auto-reject": "our team automatically rejects overstimated amounts",
+    "add-income": "Add income"
+  },
+  "fr": {
+    "income": "Vos revenus",
+    "documents-provided": "Les documents fournis permettent aux propriétaires de {0}.",
+    "financial-means": "connaître vos moyens financiers",
+    "you-can-add": "Vous pouvez ajouter {0} : revenus du travail, aides sociales, retraite, bourse…",
+    "as-much-income": "autant de revenus que vous le souhaitez",
+    "be-realistic": "Soyez réaliste : {0}.",
+    "auto-reject": "notre équipe refuse automatiquement les montants surévalués",
+    "add-income": "Ajouter un revenu"
+  }
+}
+</i18n>

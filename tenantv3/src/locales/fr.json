@@ -1396,5 +1396,20 @@
   },
   "declined-messages": {
     "header": "Message de notre équipe de validation :"
+  },
+  "form": {
+    "financial": {
+      "job-income": "Revenus du travail",
+      "social-aid": "Aide sociale",
+      "retirement-or-pension": "Retraite ou autre pension",
+      "annuity": "Rente",
+      "grant": "Bourse",
+      "no-income": "Pas de revenus",
+      "employed": "Vous êtes salarié",
+      "self-employed": "Vous êtes indépendant",
+      "auto-entrepreneur": "Vous êtes auto-entrepreneur",
+      "more-3-months": "Depuis plus de 3 mois",
+      "less-3-months": "Depuis moins de 3 mois"
+    }
   }
 }

@@ -1,26 +1,23 @@
 <template>
-  <BackLinkRow label="Revenus du travail" :to="ancestor" />
-  <BackLinkRow label="Vous êtes salarié" :to="grandparent" />
-  <BackLinkRow label="Depuis plus de 3 mois" :to="parent" />
-  <p class="fr-mb-1w">
-    Saisissez votre <strong>revenu mensuel net moyen avant prélèvement à la source</strong>, sans
-    virgule :
-  </p>
+  <BackLinkRow :label="t('form.financial.job-income')" :to="ancestor" />
+  <BackLinkRow :label="t('form.financial.employed')" :to="grandparent" />
+  <BackLinkRow :label="t('form.financial.more-3-months')" :to="parent" />
+  <EnterMonthlyIncome />
   <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_MORE_3_MONTHS">
     <template #emptyIncome>
       <AlertRealisticAmount />
     </template>
     <template #incomeFilled>
       <AlertRealisticAmount class="fr-mb-3w" />
-      <p class="fr-mb-0">
-        Veuillez fournir vos <strong>3 derniers bulletins de salaire</strong>&nbsp;:
-      </p>
+      <i18n-t keypath="please-provide" class="fr-mb-0" tag="p">
+        <strong>{{ t('last-3-pay-slips') }}</strong>
+      </i18n-t>
       <ul class="bold">
-        <li>septembre</li>
-        <li>octobre</li>
-        <li>novembre</li>
+        <li>{{ t('months.1') }}</li>
+        <li>{{ t('months.2') }}</li>
+        <li>{{ t('months.3') }}</li>
       </ul>
-      <p>Vous pouvez ajouter le bulletin de décembre si vous l’avez.</p>
+      <p>{{ t('can-add-last-month-slip') }}</p>
     </template>
   </UploadFilesFinancial>
 </template>
@@ -30,8 +27,36 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import AlertRealisticAmount from './AlertRealisticAmount.vue'
+import { useI18n } from 'vue-i18n'
+import EnterMonthlyIncome from './EnterMonthlyIncome.vue'
 
+const { t } = useI18n()
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
 </script>
+
+<i18n>
+{
+  "en": {
+    "please-provide": "Please provide your {0}:",
+    "last-3-pay-slips": "last 3 pay slips",
+    "can-add-last-month-slip": "You can add the December pay slip if you have it.",
+    "months": {
+      "1": "September",
+      "2": "October",
+      "3": "November"
+    }
+  },
+  "fr": {
+    "please-provide": "Veuillez fournir vos {0} :",
+    "last-3-pay-slips": "3 derniers bulletins de salaire",
+    "can-add-last-month-slip": "Vous pouvez ajouter le bulletin de décembre si vous l’avez.",
+    "months": {
+      "1": "septembre",
+      "2": "octobre",
+      "3": "novembre"
+    }
+  }
+}
+</i18n>

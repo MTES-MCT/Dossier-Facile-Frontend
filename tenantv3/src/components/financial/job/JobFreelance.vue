@@ -1,9 +1,9 @@
 <template>
-  <BackLinkRow label="Revenus du travail" :to="grandparent" />
-  <BackLinkRow label="Vous êtes indépendant" :to="parent" />
+  <BackLinkRow :label="t('form.financial.job-income')" :to="grandparent" />
+  <BackLinkRow :label="t('form.financial.self-employed')" :to="parent" />
   <RadioList>
-    <RadioListItem :to="here + '/auto-entrepreneur'">Vous êtes auto-entrepreneur</RadioListItem>
-    <RadioListItem :to="here + '/autre'">Vous n’êtes pas auto-entrepreneur</RadioListItem>
+    <RadioListItem :to="here + '/auto-entrepreneur'">{{ t('is-auto-entrepreneur') }}</RadioListItem>
+    <RadioListItem :to="here + '/autre'">{{ t('not-auto-entrepreneur') }}</RadioListItem>
   </RadioList>
   <FinancialFooter />
 </template>
@@ -16,9 +16,24 @@ import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 </script>
+
+<i18n>
+{
+  "en": {
+    "is-auto-entrepreneur": "You are an auto-entrepreneur",
+    "not-auto-entrepreneur": "You are not an auto-entrepreneur"
+  },
+  "fr": {
+    "is-auto-entrepreneur": "Vous êtes auto-entrepreneur",
+    "not-auto-entrepreneur": "Vous n’êtes pas auto-entrepreneur"
+  }
+}
+</i18n>

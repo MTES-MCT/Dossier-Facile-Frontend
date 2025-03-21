@@ -1,27 +1,29 @@
 <template>
   <RadioList>
     <RadioListItem :to="here + '/travail'" @click="sendEvent('job')"
-      >Revenus du travail
-      <span class="fr-hint-text">Salarié, indépendant, intermittent…</span></RadioListItem
+      >{{ t('form.financial.job-income') }}
+      <span class="fr-hint-text">{{ t('employed') }}</span></RadioListItem
     >
     <RadioListItem :to="here + '/social'" @click="sendEvent('social')"
-      >Aide sociale
-      <span class="fr-hint-text">Chômage, allocations familiales, APL, RSA…</span>
+      >{{ t('form.financial.social-aid') }}
+      <span class="fr-hint-text">{{ t('social-aid') }}</span>
     </RadioListItem>
     <RadioListItem :to="here + '/pension'" @click="sendEvent('pension')"
-      >Retraite ou autre pension
-      <span class="fr-hint-text">Pension alimentaire, d'invalidité…</span>
+      >{{ t('form.financial.retirement-or-pension') }}
+      <span class="fr-hint-text">{{ t('pension') }}</span>
     </RadioListItem>
     <RadioListItem :to="here + '/rente'" @click="sendEvent('annuity')"
-      >Rente
-      <span class="fr-hint-text">Revenus locatifs, rente viagère…</span>
+      >{{ t('form.financial.annuity') }}
+      <span class="fr-hint-text">{{ t('annuity') }}</span>
     </RadioListItem>
-    <RadioListItem :to="here + '/bourse'" @click="sendEvent('grant')">Bourse</RadioListItem>
+    <RadioListItem :to="here + '/bourse'" @click="sendEvent('grant')">{{
+      t('form.financial.grant')
+    }}</RadioListItem>
     <RadioListItem
       v-if="store.financialDocuments.length === 0"
       :to="here + '/pas-de-revenus'"
       @click="sendEvent('no-income')"
-      >Pas de revenus</RadioListItem
+      >{{ t('form.financial.no-income') }}</RadioListItem
     >
   </RadioList>
   <FinancialFooter />
@@ -35,7 +37,9 @@ import FinancialFooter from './lib/FinancialFooter.vue'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const store = useTenantStore()
 const route = useRoute()
 const here = computed(() => route.path)
@@ -43,3 +47,20 @@ const here = computed(() => route.path)
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation('financial', subcategory)
 </script>
+
+<i18n>
+{
+  "en": {
+    "employed": "Employee, self-employed, intermittent…",
+    "social-aid": "Unemployment, family allowances, APL, RSA…",
+    "pension": "Alimony, disability pension…",
+    "annuity": "Rental income, life annuity…"
+  },
+  "fr": {
+    "employed": "Salarié, indépendant, intermittent…",
+    "social-aid": "Chômage, allocations familiales, APL, RSA…",
+    "pension": "Pension alimentaire, d’invalidité…",
+    "annuity": "Revenus locatifs, rente viagère…"
+  }
+}
+</i18n>

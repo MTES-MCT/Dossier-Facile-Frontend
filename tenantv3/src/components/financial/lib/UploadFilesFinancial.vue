@@ -3,7 +3,7 @@
     <input
       v-model="sum"
       v-bind="sumAttr"
-      placeholder="Montant en euros"
+      :placeholder="t('amount')"
       name="monthlySum"
       class="fr-input fr-mb-2w"
       required
@@ -207,10 +207,12 @@ async function save() {
 <i18n>
 {
   "en": {
-    "round-it": "Round to the nearest euro"
+    "round-it": "Round to the nearest euro",
+    "amount": "Amount in euros"
   },
   "fr": {
-    "round-it": "Arrondir à l’euro"
+    "round-it": "Arrondir à l’euro",
+    "amount": "Montant en euros"
   }
 }
 </i18n>
