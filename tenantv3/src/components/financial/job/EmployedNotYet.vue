@@ -8,16 +8,10 @@
   </p>
   <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_NOT_YET">
     <template #emptyIncome>
-      <div class="fr-alert fr-alert--warning">
-        <p>Le montant saisi doit être réaliste.</p>
-        <p>
-          Par exemple : si votre contrat indique un montant de 30000€ par an, votre salaire net
-          mensuel est de 30000/12x0,75=1875€ net par mois.
-        </p>
-        <p><strong>Notre équipe refuse automatiquement les revenus surévalués.</strong></p>
-      </div>
+      <AlertEmployedNotYet />
     </template>
     <template #incomeFilled>
+      <AlertEmployedNotYet class="fr-mb-3w" />
       <p>
         Veuillez fournir
         <strong>la page de votre contrat qui indique votre rémunération à venir</strong>.
@@ -36,6 +30,7 @@
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
+import AlertEmployedNotYet from './AlertEmployedNotYet.vue'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)

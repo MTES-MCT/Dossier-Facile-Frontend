@@ -7,17 +7,10 @@
   </p>
   <UploadFilesFinancial category="SALARY" step="SALARY_ARTIST_AUTHOR">
     <template #emptyIncome>
-      <div class="fr-alert fr-alert--warning">
-        <p>
-          <strong>Le montant saisi doit être réaliste.</strong>
-        </p>
-        <p>Veuillez faire une moyenne honnête de vos revenus.</p>
-        <p>
-          <strong>Notre équipe refuse automatiquement les revenus surévalués.</strong>
-        </p>
-      </div>
+      <AlertAverageIncome />
     </template>
     <template #incomeFilled>
+      <AlertAverageIncome class="fr-mb-3w" />
       <p>
         Veuillez fournir votre <strong>déclaration de revenus et d’activité</strong> la plus
         récente. Ce document se trouve sur
@@ -33,6 +26,7 @@
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
+import AlertAverageIncome from './AlertAverageIncome.vue'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)

@@ -7,6 +7,7 @@
       name="monthlySum"
       class="fr-input fr-mb-2w"
       required
+      @input="showFiles = true"
     />
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
     <FinancialFooterContent />
@@ -108,10 +109,6 @@ function makeNewDocument() {
 function submit() {
   const monthlySum = Number(sum.value.replace(/\s+/g, '')) || 0
   document.value.monthlySum = monthlySum
-  if (!showFiles.value) {
-    showFiles.value = monthlySum > 0
-    return
-  }
 
   if ((document.value.files || []).length === 0) {
     ToastService.error('financialdocumentform.missing-file')

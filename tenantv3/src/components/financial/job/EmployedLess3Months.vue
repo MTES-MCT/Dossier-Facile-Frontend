@@ -8,12 +8,10 @@
   </p>
   <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_LESS_3_MONTHS">
     <template #emptyIncome>
-      <div class="fr-alert fr-alert--warning">
-        <p>Le montant saisi doit être réaliste.</p>
-        <p>Notre équipe refuse automatiquement les revenus surévalués.</p>
-      </div>
+      <AlertRealisticAmount />
     </template>
     <template #incomeFilled>
+      <AlertRealisticAmount class="fr-mb-3w" />
       <p>
         Veuillez fournir <strong>tous les bulletins de salaire dont vous disposez</strong> (un ou
         deux bulletins).
@@ -26,6 +24,7 @@
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
+import AlertRealisticAmount from './AlertRealisticAmount.vue'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
