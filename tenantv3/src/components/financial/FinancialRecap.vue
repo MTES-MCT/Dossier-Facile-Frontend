@@ -1,7 +1,7 @@
 <template>
   <h2 class="fr-mx-3v">{{ t('income') }}</h2>
   <NakedCard class="fr-p-md-5w fr-mx-3v fr-mb-3w fr-grid-col">
-    <div class="fr-highlight">
+    <div class="fr-highlight fr-ml-0">
       <i18n-t keypath="documents-provided" tag="p">
         <strong>{{ t('financial-means') }}</strong>
       </i18n-t>
