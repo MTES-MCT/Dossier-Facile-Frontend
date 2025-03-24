@@ -130,6 +130,9 @@ async function addFiles(fileList: File[]) {
   const nf = Array.from(fileList).map((f) => ({ name: f.name, file: f, size: f.size }))
   document.value.files?.push(...nf)
   const saveSuccess = await save()
+  if (!saveSuccess) {
+    document.value.files?.splice(-nf.length)
+  }
   if (saveSuccess && route.path.includes('/ajouter/')) {
     updateURL()
   }
