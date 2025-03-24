@@ -7,8 +7,8 @@
     <template #incomeFilled>
       <p>
         Veuillez fournir les justificatifs de versement de
-        <strong> septembre, octobre et novembre</strong>. Vous pouvez ajouter le justificatif de
-        décembre si vous l’avez.
+        <strong> {{ months[0] }}, {{ months[1] }} et {{ months[2] }}</strong
+        >. Vous pouvez ajouter le justificatif de {{ months[3] }} si vous l’avez.
       </p>
       <div class="fr-alert fr-alert--warning fr-mb-2w">
         <p>Notre équipe refuse automatiquement les dossiers avec 1 ou 2 justificatifs seulement.</p>
@@ -21,8 +21,10 @@
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
+import { lastMonths } from '../lib/lastMonths'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
+const months = lastMonths()
 </script>

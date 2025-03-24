@@ -12,9 +12,10 @@
   >
     <template #incomeFilled>
       <p>
-        Veuillez fournir les attestations de paiement France Travail de <strong>septembre</strong>,
-        <strong>octobre</strong> et <strong>novembre</strong>. Vous pouvez ajouter l’attestation de
-        décembre si vous l’avez.
+        Veuillez fournir les attestations de paiement France Travail de
+        <strong>{{ months[0] }}</strong
+        >, <strong>{{ months[1] }}</strong> et <strong>{{ months[2] }}</strong
+        >. Vous pouvez ajouter l’attestation de {{ months[3] }} si vous l’avez.
       </p>
     </template>
   </UploadFilesFinancial>
@@ -24,8 +25,10 @@
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
+import { lastMonths } from '../lib/lastMonths'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
+const months = lastMonths()
 </script>
