@@ -1,13 +1,12 @@
 <template>
-  <form class="fr-mb-2w" @submit.prevent="submit">
+  <form class="fr-mb-2w" @submit="onSubmit">
     <input
-      v-model="sum"
+      v-model="inputSum"
       v-bind="sumAttr"
       :placeholder="t('amount')"
       name="monthlySum"
       class="fr-input fr-mb-2w"
       required
-      @input="showFiles = true"
     />
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
     <FinancialFooterContent />
@@ -76,11 +75,21 @@ const document = computed(
 )
 const showFiles = ref(Boolean(document.value.monthlySum))
 
-const { errors, defineField } = useForm({
+const { errors, defineField, handleSubmit } = useForm({
   initialValues: { sum: document.value.monthlySum?.toString() || '' },
   validationSchema: { sum: validateSum }
 })
 const [sum, sumAttr] = defineField('sum')
+
+const inputSum = computed({
+  get: () => sum.value,
+  set(val) {
+    sum.value = val
+    const monthlySum = Number(sum.value.replace(/\s+/g, '')) || 0
+    document.value.monthlySum = monthlySum
+    showFiles.value = true
+  }
+})
 
 function validateSum(input: string) {
   if (!input) {
@@ -107,15 +116,14 @@ function makeNewDocument() {
 }
 
 function submit() {
-  const monthlySum = Number(sum.value.replace(/\s+/g, '')) || 0
-  document.value.monthlySum = monthlySum
-
   if ((document.value.files || []).length === 0) {
     ToastService.error('financialdocumentform.missing-file')
     return
   }
   router.push({ name: 'TenantFinancial' })
 }
+
+const onSubmit = handleSubmit(submit)
 
 async function addFiles(fileList: File[]) {
   AnalyticsService.uploadFile('financial')
@@ -158,6 +166,11 @@ async function save() {
   const financialFiles = financialDocument.files || []
 
   // Check validity
+  if (!financialDocument.monthlySum) {
+    ToastService.errorf(t('valid-monthly-sum'))
+    console.info('Save: invalid monthlySum')
+    return false
+  }
   if (financialFiles.length === 0) {
     ToastService.error('financialdocumentform.missing-file')
     financialDocument.files = []
@@ -208,11 +221,13 @@ async function save() {
 {
   "en": {
     "round-it": "Round to the nearest euro",
-    "amount": "Amount in euros"
+    "amount": "Amount in euros",
+    "valid-monthly-sum": "Please enter a valid amount"
   },
   "fr": {
     "round-it": "Arrondir à l’euro",
-    "amount": "Montant en euros"
+    "amount": "Montant en euros",
+    "valid-monthly-sum": "Merci de saisir un montant valide"
   }
 }
 </i18n>
