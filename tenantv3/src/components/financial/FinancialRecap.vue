@@ -51,6 +51,18 @@
   </NakedCard>
   <SimulationCaf class="fr-mx-3v" />
   <FinancialFooter :to="{ name: 'TenantTax' }" />
+  <ModalComponent v-if="showInfoModale" @close="showInfoModale = false">
+    <template #header>
+      <h4>{{ t('modal-title') }}</h4>
+    </template>
+    <template #body>
+      <p>{{ t('modal-text') }}</p>
+      <p>{{ t('modal-text-2') }}</p>
+    </template>
+    <template #footer>
+      <DfButton class="large-btn" primary @click="showInfoModale = false">OK</DfButton>
+    </template>
+  </ModalComponent>
 </template>
 
 <script setup lang="ts">
@@ -70,8 +82,25 @@ import { useLoading } from 'vue-loading-overlay'
 import { ToastService } from '@/services/ToastService'
 import type { DfDocument, DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import FinancialFooter from './lib/FinancialFooter.vue'
+import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
+import { onMounted, ref } from 'vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 const store = useTenantStore()
 const { t } = useI18n()
+
+const showInfoModale = ref(false)
+
+onMounted(() => {
+  if (
+    store.financialDocuments.some(
+      (doc) =>
+        doc.documentCategoryStep === 'SALARY_UNKNOWN' ||
+        doc.documentCategoryStep === 'PENSION_UNKNOWN'
+    )
+  ) {
+    showInfoModale.value = true
+  }
+})
 
 const CATEGORY_TO_PATH: Record<string, string> = {
   SALARY: 'travail',
@@ -232,6 +261,14 @@ function deleteDoc(f: DfDocument) {
   color: var(--purple-text);
   background-color: var(--background-alt-purple-glycine);
 }
+.large-btn {
+  justify-content: center;
+  flex-grow: 1;
+  @media (min-width: 768px) {
+    flex-grow: 0;
+    width: 6rem;
+  }
+}
 </style>
 
 <i18n>
@@ -244,7 +281,10 @@ function deleteDoc(f: DfDocument) {
     "as-much-income": "as much income as you like",
     "be-realistic": "Be realistic : {0}.",
     "auto-reject": "our team automatically rejects overstimated amounts",
-    "add-income": "Add income"
+    "add-income": "Add income",
+    "modal-title": "DossierFacile évolue pour mieux vous accompagner",
+    "modal-text": "En raison de l'évolution de cette étape, il est possible que certains de vos fichiers soient mal catégorisés. Nous vous invitons à vérifier et à ajuster les documents pour vous assurer qu'ils sont bien associés à la bonne catégorie.",
+    "modal-text-2": "Nous nous excusons pour la gêne occasionnée."
   },
   "fr": {
     "income": "Vos revenus",
@@ -254,7 +294,10 @@ function deleteDoc(f: DfDocument) {
     "as-much-income": "autant de revenus que vous le souhaitez",
     "be-realistic": "Soyez réaliste : {0}.",
     "auto-reject": "notre équipe refuse automatiquement les montants surévalués",
-    "add-income": "Ajouter un revenu"
+    "add-income": "Ajouter un revenu",
+    "modal-title": "DossierFacile évolue pour mieux vous accompagner",
+    "modal-text": "En raison de l'évolution de cette étape, il est possible que certains de vos fichiers soient mal catégorisés. Nous vous invitons à vérifier et à ajuster les documents pour vous assurer qu'ils sont bien associés à la bonne catégorie.",
+    "modal-text-2": "Nous nous excusons pour la gêne occasionnée."
   }
 }
 </i18n>

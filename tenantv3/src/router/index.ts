@@ -148,6 +148,10 @@ const FINANCIAL_ROUTES = [
     component: () => import('@/components/financial/job/JobArtist.vue')
   },
   {
+    path: 'travail/inconnu',
+    component: () => import('@/components/financial/job/JobUnknown.vue')
+  },
+  {
     path: 'social',
     component: () => import('@/components/financial/social/FinancialSocial.vue')
   },
@@ -250,6 +254,10 @@ const FINANCIAL_ROUTES = [
   {
     path: 'pension/alimentaire',
     component: () => import('@/components/financial/pension/PensionAlimony.vue')
+  },
+  {
+    path: 'pension/inconnu',
+    component: () => import('@/components/financial/pension/PensionUnknown.vue')
   },
   {
     path: 'rente',

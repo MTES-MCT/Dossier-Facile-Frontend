@@ -27,7 +27,7 @@
       @ask-confirm="AnalyticsService.deleteDocument('financial')"
       @cancel="AnalyticsService.cancelDelete('financial')"
     />
-    <FileUpload :current-status="uploadStatus" @add-files="addFiles" />
+    <FileUpload v-if="!noUpload" :current-status="uploadStatus" @add-files="addFiles" />
   </template>
   <slot v-else name="emptyIncome"></slot>
 </template>
@@ -53,11 +53,14 @@ import FinancialFooterContent from './FinancialFooterContent.vue'
 
 const MAX_FILE_COUNT = 10
 
-type PropsWithStep = {
+type Props = {
+  noUpload?: boolean
+}
+type PropsWithStep = Props & {
   category: 'SALARY' | 'SOCIAL_SERVICE' | 'RENT' | 'PENSION'
   step: FinancialStep
 }
-type PropsWithoutStep = {
+type PropsWithoutStep = Props & {
   category: 'SCHOLARSHIP'
 }
 
