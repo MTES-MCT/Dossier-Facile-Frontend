@@ -6,13 +6,14 @@
           <GuarantorName @on-back="goBack" @on-next="goNext"></GuarantorName>
         </div>
         <div v-if="substep === 1">
-          <GuarantorIdentification></GuarantorIdentification>
-          <GuarantorFooter @on-back="goBack" @on-next="goToResidency"></GuarantorFooter>
+          <GuarantorIdentification
+            @on-back="goBack"
+            @on-next="goToResidency"
+          ></GuarantorIdentification>
         </div>
         <GuarantorResidency v-if="substep === 2"></GuarantorResidency>
         <div v-if="substep === 3">
-          <GuarantorProfessional></GuarantorProfessional>
-          <GuarantorFooter @on-back="goToResidency" @on-next="goNext"></GuarantorFooter>
+          <GuarantorProfessional @on-back="goToResidency" @on-next="goNext"></GuarantorProfessional>
         </div>
         <div v-if="substep === 4">
           <GuarantorFinancial @on-back="goBack" @on-next="goNext"></GuarantorFinancial>

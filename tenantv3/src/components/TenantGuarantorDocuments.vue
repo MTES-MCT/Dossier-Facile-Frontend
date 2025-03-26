@@ -15,13 +15,18 @@
           <GuarantorIdentification
             :is-cotenant="true"
             :tenant-id="tenantId"
+            @on-back="goBack"
+            @on-next="goToResidency"
           ></GuarantorIdentification>
-          <GuarantorFooter @on-back="goBack" @on-next="goToResidency"></GuarantorFooter>
         </div>
         <CoupleGuarantorResidency v-if="substep === 2"></CoupleGuarantorResidency>
         <div v-if="substep === 3">
-          <GuarantorProfessional :tenant-id="tenantId" :is-cotenant="true"></GuarantorProfessional>
-          <GuarantorFooter @on-back="goToResidency" @on-next="goNext"></GuarantorFooter>
+          <GuarantorProfessional
+            :tenant-id="tenantId"
+            :is-cotenant="true"
+            @on-back="goToResidency"
+            @on-next="goNext"
+          ></GuarantorProfessional>
         </div>
         <div v-if="substep === 4">
           <GuarantorFinancial
