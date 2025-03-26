@@ -34,10 +34,7 @@ function onInitPassword(password: string) {
       router.push({ name: 'TenantName' })
     },
     (error) => {
-      if (
-        isAxiosError(error) &&
-        error.response?.data.message.includes('password recovery token or is expired')
-      ) {
+      if (isAxiosError(error) && error.code === 'ERR_BAD_REQUEST') {
         ToastService.error('joincouple.token-expired')
       } else {
         ToastService.error('joincouple.error')
