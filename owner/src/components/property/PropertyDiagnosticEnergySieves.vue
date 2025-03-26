@@ -16,7 +16,10 @@
       <p>{{ t('propertydiagnostic.details.subtitle', [letter]) }}</p>
       <ul>
         <li v-html="t('propertydiagnostic.details.list1', [getConsommation()])"></li>
-        <li v-html="t('propertydiagnostic.details.list2')"></li>
+        <li
+          v-html="t('propertydiagnostic.details.list2')"
+          v-if="hasToDisplayForbidenRentIncrease()"
+        ></li>
         <li v-html="t('propertydiagnostic.details.list3', [getForbiddenDate()])"></li>
       </ul>
       <h3 class="fr-h6">
@@ -45,6 +48,10 @@ const props = defineProps<{
 
 function goodDpe() {
   return props.letter === 'A' || props.letter === 'B' || props.letter === 'C'
+}
+
+function hasToDisplayForbidenRentIncrease() {
+  return props.letter === 'F' || props.letter === 'G'
 }
 
 function getForbiddenDate() {
