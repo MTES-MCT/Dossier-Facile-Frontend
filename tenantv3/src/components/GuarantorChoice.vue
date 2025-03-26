@@ -109,11 +109,9 @@ function setGuarantorType() {
     tmpGuarantorType.value != guarantor.value?.typeGuarantor ||
     (user.value.guarantors.length || 0) <= 0
   ) {
-    store.setGuarantorType({ typeGuarantor: tmpGuarantorType.value }).then(() => {
-      router.push({
-        name: 'GuarantorDocuments',
-        params: { substep: '0' }
-      })
+    store.setGuarantorType({ typeGuarantor: tmpGuarantorType.value }).then((data) => {
+      const guarantorId = data.guarantors.at(-1)?.id
+      router.push({ name: 'GuarantorName', params: { guarantorId } })
     })
   } else {
     router.push({

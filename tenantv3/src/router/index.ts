@@ -6,7 +6,6 @@ import { keycloak } from '../plugin/keycloak'
 import Home from '../views/HomePage.vue'
 import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
-import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL
@@ -524,34 +523,55 @@ export const router = createRouter({
       component: () => import('../views/ValidateFilePage.vue')
     },
     {
-      path: '/info-garant/:substep/:guarantorId?',
+      path: '/info-garant',
       meta: {
+        name: 'GuarantorDocuments',
         title: 'Mon garant - DossierFacile',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      beforeEnter: (to) => {
-        const store = useTenantStore()
-        const g = store.guarantors.find((g: Guarantor) => {
-          return g.id?.toString() == to.params.guarantorId
-        })
-        if (
-          (g === undefined ||
-            (g.typeGuarantor === 'NATURAL_PERSON' && (!g?.firstName || !g?.lastName))) &&
-          to.params.substep !== '0'
-        ) {
-          return { name: 'GuarantorDocuments', params: { substep: '0' } }
-        }
-      },
       component: () => import('../views/GuarantorDocumentsPage.vue'),
       children: [
         {
-          path: '',
-          name: 'GuarantorDocuments',
-          component: () => import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
+          path: '0/:guarantorId',
+          name: 'GuarantorName',
+          component: () => import('@/components/GuarantorStep0.vue')
         },
-        ...GUARANTOR_RESIDENCY_ROUTES
+        {
+          path: '1/:guarantorId',
+          name: 'GuarantorIdentification',
+          component: () => import('@/components/GuarantorStep1.vue')
+        },
+        {
+          path: '2/:guarantorId',
+          component: () => import('@/components/guarantorResidency/GuarantorResidency.vue'),
+          children: [
+            {
+              path: '',
+              name: 'GuarantorResidency',
+              component: () =>
+                import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
+            },
+            ...GUARANTOR_RESIDENCY_ROUTES
+          ]
+        },
+        {
+          path: '3/:guarantorId',
+          name: 'GuarantorProfessional',
+          component: () =>
+            import('@/components/documents/naturalGuarantor/GuarantorProfessional.vue')
+        },
+        {
+          path: '4/:guarantorId',
+          name: 'GuarantorFinancial',
+          component: () => import('@/components/documents/naturalGuarantor/GuarantorFinancial.vue')
+        },
+        {
+          path: '5/:guarantorId',
+          name: 'GuarantorTax',
+          component: () => import('@/components/documents/naturalGuarantor/GuarantorTax.vue')
+        }
       ]
     },
     {

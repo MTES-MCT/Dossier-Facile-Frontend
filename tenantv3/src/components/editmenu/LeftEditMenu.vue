@@ -72,9 +72,8 @@
               <div class="ml-5 bold">
                 <router-link
                   :to="{
-                    name: 'GuarantorDocuments',
-                    force: true,
-                    params: { substep: '0', guarantorId: g.id }
+                    name: 'GuarantorName',
+                    params: { guarantorId: g.id }
                   }"
                 >
                   <ColoredTag

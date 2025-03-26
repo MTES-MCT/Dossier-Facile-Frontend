@@ -26,6 +26,8 @@ import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import cookies from 'js-cookie'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import { GUARANTOR_ROUTES } from '@/components/documents/naturalGuarantor/guarantorRoutes'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -588,8 +590,8 @@ export const useTenantStore = defineStore('tenant', {
           return makeGuarantorResidencyLink(guarantor)
         }
         return {
-          name: 'GuarantorDocuments',
-          params: { substep, guarantorId: guarantor.id }
+          name: GUARANTOR_ROUTES[substep],
+          params: { guarantorId: guarantor.id }
         }
       }
     },

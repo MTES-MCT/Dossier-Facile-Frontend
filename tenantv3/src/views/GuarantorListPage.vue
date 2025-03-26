@@ -133,8 +133,8 @@ function getStatus(g: Guarantor) {
 async function editGuarantor(g: Guarantor) {
   store.setSelectedGuarantor(g)
   router.push({
-    name: 'GuarantorDocuments',
-    params: { substep: '0' }
+    name: 'GuarantorName',
+    params: { guarantorId: g.id }
   })
 }
 

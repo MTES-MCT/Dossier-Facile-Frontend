@@ -27,3 +27,11 @@ export const TENANT_COMPONENTS: { [type in DocumentType]?: string } = {
   FINANCIAL: 'TenantFinancial',
   TAX: 'TenantTax'
 }
+
+export const GUARANTOR_COMPONENTS: { [type in DocumentType]?: string } = {
+  IDENTITY: 'GuarantorIdentification',
+  RESIDENCY: 'GuarantorResidency',
+  PROFESSIONAL: 'GuarantorProfessional',
+  FINANCIAL: 'GuarantorFinancial',
+  TAX: 'GuarantorTax'
+}
