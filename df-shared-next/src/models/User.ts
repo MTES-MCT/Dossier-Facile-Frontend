@@ -6,6 +6,7 @@ import type { ApplicationType } from './ApplicationType'
 
 export class User {
   id!: number
+  ownerType?: 'SELF' | 'THIRD_PARTY'
   firstName?: string
   lastName?: string
   preferredName?: string

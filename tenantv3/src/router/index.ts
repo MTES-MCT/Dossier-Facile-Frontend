@@ -146,7 +146,24 @@ export const router = createRouter({
         hideFooter: true,
         skipLinks: [CONTENT, FOOTER_NAVIGATION]
       },
-      component: () => import('../views/NameInformation.vue')
+      component: () => import('../views/TenantIdentityInformation.vue'),
+      children: [
+        {
+          path: '',
+          name: 'ChooseTenantIdentity',
+          component: () => import('@/components/identity/ChooseIdentity.vue')
+        },
+        {
+          path: 'pour-moi',
+          name: 'SelfTenantIdentity',
+          component: () => import('@/components/identity/SelfIdentity.vue')
+        },
+        {
+          path: 'pour-une-autre-personne',
+          name: 'ThirdPartyTenantIdentity',
+          component: () => import('@/components/identity/ThirdPartyIdentity.vue')
+        }
+      ]
     },
     {
       path: '/type-locataire',
