@@ -4,7 +4,6 @@ import 'dayjs/locale/en'
 import 'dayjs/locale/fr'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
-import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
 import { i18n } from '../i18n'
 
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -26,7 +25,6 @@ import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import cookies from 'js-cookie'
-import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { GUARANTOR_ROUTES } from '@/components/documents/naturalGuarantor/guarantorRoutes'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
@@ -39,12 +37,8 @@ interface State {
   spouseAuthorize: boolean
   coTenantAuthorize: boolean
   coTenants: User[]
-  financialDocumentSelected: FinancialDocument
-  editFinancialDocument: boolean
   newMessage: number
   messageList: DfMessage[][]
-  guarantorFinancialDocumentSelected: FinancialDocument | undefined
-  editGuarantorFinancialDocument: boolean
   apartmentSharingLinks: ApartmentSharingLink[]
   partnerAccesses: PartnerAccess[]
 }
@@ -62,12 +56,8 @@ function defaultState(): State {
     spouseAuthorize: false,
     coTenantAuthorize: false,
     coTenants: [],
-    financialDocumentSelected: new FinancialDocument(),
-    editFinancialDocument: false,
     newMessage: 0,
     messageList: [],
-    guarantorFinancialDocumentSelected: new FinancialDocument(),
-    editGuarantorFinancialDocument: false,
     apartmentSharingLinks: [],
     partnerAccesses: []
   }
@@ -169,14 +159,10 @@ export const useTenantStore = defineStore('tenant', {
     financialDocuments(state) {
       return state.user.documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
     },
-    tenantFinancialDocuments(state: State): FinancialDocument[] {
-      const fDocs = state.user.documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
-      return fDocs.sort((a, b) => (a.id || 0) - (b.id || 0)).map(toFinancialDoc)
-    },
-    guarantorFinancialDocuments(state: State): FinancialDocument[] {
-      const docs =
+    guarantorFinancialDocuments(state) {
+      return (
         state.selectedGuarantor?.documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
-      return docs.sort((a, b) => (a.id || 0) - (b.id || 0)).map(toFinancialDoc)
+      )
     },
     getSpouse(): CoTenant | null {
       if (this.user.apartmentSharing.applicationType === 'COUPLE') {
@@ -390,22 +376,6 @@ export const useTenantStore = defineStore('tenant', {
     },
     updateUserAbroad(abroad: boolean) {
       this.user.abroad = abroad
-    },
-    selectDocumentFinancial(d: FinancialDocument | undefined) {
-      this.financialDocumentSelected = Object.assign({}, d)
-      this.editFinancialDocument = d !== undefined
-    },
-    createDocumentFinancial() {
-      this.financialDocumentSelected = Object.assign({}, new FinancialDocument())
-      this.editFinancialDocument = true
-    },
-    selectGuarantorDocumentFinancial(d: FinancialDocument | undefined) {
-      this.guarantorFinancialDocumentSelected = d
-      this.editGuarantorFinancialDocument = d !== undefined
-    },
-    createGuarantorDocumentFinancial() {
-      this.guarantorFinancialDocumentSelected = new FinancialDocument()
-      this.editGuarantorFinancialDocument = true
     },
     setPartnerAccesses(accesses: PartnerAccess[]) {
       this.partnerAccesses = accesses
@@ -638,21 +608,6 @@ export const useTenantStore = defineStore('tenant', {
     async saveGuarantorFinancial(formData: FormData) {
       const response = await RegisterService.saveGuarantorFinancial(formData)
       this.loadUserCommit(response.data)
-      const fd = this.guarantorFinancialDocuments
-      if (fd === undefined) {
-        return response.data
-      }
-      if (formData.has('id')) {
-        const s = fd.find((f) => {
-          return f.id?.toString() === formData.get('id')
-        })
-        if (s === undefined) {
-          throw new Error('Document not found')
-        }
-        this.selectGuarantorDocumentFinancial(s)
-      } else {
-        this.selectGuarantorDocumentFinancial(fd[fd.length - 1])
-      }
       return response.data
     },
     async saveTenantTax(formData: FormData) {
@@ -795,19 +750,3 @@ export const useTenantStore = defineStore('tenant', {
     }
   }
 })
-
-function toFinancialDoc(d: DfDocument): FinancialDocument {
-  return {
-    noDocument: d.noDocument || false,
-    customText: (d.customText || '').replace(/^-$/, ''),
-    monthlySum: d.monthlySum || 0,
-    id: d.id,
-    documentType: {
-      key: d.documentSubCategory?.toLowerCase().replaceAll('_', '-') || '',
-      value: d.documentSubCategory || '',
-      maxFileCount: d.documentSubCategory === 'NO_INCOME' ? 0 : 10
-    },
-    files: [],
-    fileUploadStatus: UploadStatus.STATUS_INITIAL
-  }
-}

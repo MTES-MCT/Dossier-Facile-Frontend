@@ -29,6 +29,7 @@ import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import BackLinkRow from '@/components/common/BackLinkRow.vue'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
 
 const props = defineProps<{ label: string; to: RouterLinkProps['to'] }>()
 const emit = defineEmits<{ edit: [] }>()
@@ -37,12 +38,11 @@ const route = useRoute()
 const router = useRouter()
 const store = useTenantStore()
 const { t } = useI18n()
+const { documents } = useFinancialState()
 
 const showChangeSituation = ref(false)
 
-const document = computed(() =>
-  store.financialDocuments.find((d) => d.id === Number(route.params.docId))
-)
+const document = computed(() => documents.value.find((d) => d.id === Number(route.params.docId)))
 
 const onClick = () => {
   emit('edit')

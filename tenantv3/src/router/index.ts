@@ -423,7 +423,7 @@ export const router = createRouter({
         {
           path: '4',
           name: 'TenantFinancial',
-          component: () => import('@/components/financial/FinancialRecap.vue')
+          component: () => import('@/components/financial/TenantFinancialRecap.vue')
         },
         {
           path: '4/ajouter',
@@ -565,7 +565,17 @@ export const router = createRouter({
         {
           path: '4/:guarantorId',
           name: 'GuarantorFinancial',
-          component: () => import('@/components/documents/naturalGuarantor/GuarantorFinancial.vue')
+          component: () => import('@/components/financial/GuarantorFinancialRecap.vue')
+        },
+        {
+          path: '4/:guarantorId/ajouter',
+          component: () => import('@/components/documents/naturalGuarantor/GuarantorFinancial.vue'),
+          children: FINANCIAL_ROUTES
+        },
+        {
+          path: '4/:guarantorId/:docId',
+          component: () => import('@/components/documents/naturalGuarantor/GuarantorFinancial.vue'),
+          children: FINANCIAL_ROUTES
         },
         {
           path: '5/:guarantorId',

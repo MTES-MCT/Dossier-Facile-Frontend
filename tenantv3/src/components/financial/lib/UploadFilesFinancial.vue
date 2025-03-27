@@ -22,10 +22,10 @@
       :key="file.id"
       :file="file"
       :watermark-url="document.name"
-      doc-category="financial"
+      :doc-category="state.category"
       @remove="remove(file)"
-      @ask-confirm="AnalyticsService.deleteDocument('financial')"
-      @cancel="AnalyticsService.cancelDelete('financial')"
+      @ask-confirm="AnalyticsService.deleteDocument(state.category)"
+      @cancel="AnalyticsService.cancelDelete(state.category)"
     />
     <FileUpload v-if="!noUpload" :current-status="uploadStatus" @add-files="addFiles" />
   </template>
@@ -50,6 +50,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import FinancialFooterContent from './FinancialFooterContent.vue'
+import { useFinancialState } from '../financialState'
 
 const MAX_FILE_COUNT = 10
 
@@ -72,9 +73,10 @@ const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
 
+const state = useFinancialState()
+
 const document = computed(
-  () =>
-    store.financialDocuments.find((d) => d.id === Number(route.params.docId)) || makeNewDocument()
+  () => state.documents.value.find((d) => d.id === Number(route.params.docId)) || makeNewDocument()
 )
 const showFiles = ref(Boolean(document.value.monthlySum))
 
@@ -123,13 +125,13 @@ function submit() {
     ToastService.error('financialdocumentform.missing-file')
     return
   }
-  router.push({ name: 'TenantFinancial' })
+  router.push(state.recap)
 }
 
 const onSubmit = handleSubmit(submit)
 
 async function addFiles(fileList: File[]) {
-  AnalyticsService.uploadFile('financial')
+  AnalyticsService.uploadFile(state.category)
   const nf = Array.from(fileList).map((f) => ({ name: f.name, file: f, size: f.size }))
   document.value.files?.push(...nf)
   const saveSuccess = await save()
@@ -142,14 +144,14 @@ async function addFiles(fileList: File[]) {
 }
 
 function updateURL() {
-  const docId = store.financialDocuments.at(-1)?.id
+  const docId = state.documents.value.at(-1)?.id
   if (docId) {
     router.push(route.path.replace('ajouter', String(docId)))
   }
 }
 
 async function remove(file: DfFile, silent = false) {
-  AnalyticsService.deleteFile('financial')
+  AnalyticsService.deleteFile(state.category)
   if (!file.id) {
     return
   }
@@ -203,13 +205,14 @@ async function save() {
   if (financialDocument.id) {
     formData.append('id', financialDocument.id.toString())
   }
+  state.addData?.(formData)
 
   // Upload
   uploadStatus.value = UploadStatus.STATUS_SAVING
   const $loading = useLoading()
   const loader = $loading.show()
   try {
-    await store.saveTenantFinancial(formData)
+    await store[state.action](formData)
     ToastService.saveSuccess()
     uploadStatus.value = UploadStatus.STATUS_INITIAL
     return true

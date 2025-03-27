@@ -13,7 +13,7 @@
       </i18n-t>
     </div>
     <div class="fr-grid-col income-wrapper">
-      <div v-for="doc of store.financialDocuments" :key="doc.id" class="income-card">
+      <div v-for="doc of financialDocuments" :key="doc.id" class="income-card">
         <div class="first-row">
           <span class="fr-text--lg fr-mb-0 bold">{{ categoryLabel(doc) }}</span>
           <span>{{ doc.monthlySum }}€ net mensuel</span>
@@ -45,12 +45,12 @@
         </div>
       </div>
     </div>
-    <router-link to="4/ajouter" class="fr-btn fr-ml-auto fr-mt-3w"
+    <router-link :to="here + '/ajouter'" class="fr-btn fr-ml-auto fr-mt-3w"
       >{{ t('add-income') }} <RiAddFill class="tr-5"
     /></router-link>
   </NakedCard>
   <SimulationCaf class="fr-mx-3v" />
-  <FinancialFooter :to="{ name: 'TenantTax' }" />
+  <FinancialFooter :to="state.nextStep" />
   <ModalComponent v-if="showInfoModale" @close="showInfoModale = false">
     <template #header>
       <h4>{{ t('modal-title') }}</h4>
@@ -83,16 +83,23 @@ import { ToastService } from '@/services/ToastService'
 import type { DfDocument, DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import FinancialFooter from './lib/FinancialFooter.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import { useFinancialState } from '@/components/financial/financialState'
+import { useRoute } from 'vue-router'
+
 const store = useTenantStore()
 const { t } = useI18n()
+const route = useRoute()
 
 const showInfoModale = ref(false)
+const state = useFinancialState()
+const financialDocuments = computed(() => state.documents.value)
+const here = computed(() => route.path)
 
 onMounted(() => {
   if (
-    store.financialDocuments.some(
+    financialDocuments.value.some(
       (doc) =>
         doc.documentCategoryStep === 'SALARY_UNKNOWN' ||
         doc.documentCategoryStep === 'PENSION_UNKNOWN'
@@ -187,11 +194,11 @@ function categoryLabel(doc: DfDocument) {
 function makeLink(doc: DfDocument) {
   const cat = doc.documentSubCategory
   if (!doc.id || !cat) {
-    return '/documents-locataire/4'
+    return here.value
   }
   const step = doc.documentCategoryStep && STEP_TO_PATH[doc.documentCategoryStep]
   const path = step || CATEGORY_TO_PATH[cat]
-  const link = `/documents-locataire/4/${doc.id}/${path}`
+  const link = `${here.value}/${doc.id}/${path}`
   return link
 }
 

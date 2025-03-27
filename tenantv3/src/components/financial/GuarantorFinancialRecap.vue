@@ -1,19 +1,13 @@
 <template>
-  <NakedCard class="fr-p-md-5w fr-m-3v fr-grid-col">
-    <h6>{{ t('income') }}</h6>
-    <router-view />
-  </NakedCard>
+  <FinancialRecap />
 </template>
 
 <script setup lang="ts">
-import { financialKey } from '@/components/financial/financialState'
-import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
 import { useTenantStore } from '@/stores/tenant-store'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { computed, provide } from 'vue'
-import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
+import { financialKey } from '@/components/financial/financialState'
+import FinancialRecap from '@/components/financial/FinancialRecap.vue'
+import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
 
@@ -36,14 +30,3 @@ provide(financialKey, {
   }
 })
 </script>
-
-<i18n>
-{
-  "en": {
-    "income": "Your guarantor's income",
-  },
-  "fr": {
-    "income": "Revenus de votre garant"
-  }
-}
-</i18n>

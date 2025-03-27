@@ -20,7 +20,7 @@
       t('form.financial.grant')
     }}</RadioListItem>
     <RadioListItem
-      v-if="store.financialDocuments.length === 0"
+      v-if="documents.length === 0"
       :to="here + '/pas-de-revenus'"
       @click="sendEvent('no-income')"
       >{{ t('form.financial.no-income') }}</RadioListItem
@@ -36,16 +36,15 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import FinancialFooter from './lib/FinancialFooter.vue'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
-import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from './financialState'
 
 const { t } = useI18n()
-const store = useTenantStore()
 const route = useRoute()
 const here = computed(() => route.path)
+const { category, documents } = useFinancialState()
 
-const sendEvent = (subcategory: string) =>
-  AnalyticsService.selectSituation('financial', subcategory)
+const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
 </script>
 
 <i18n>

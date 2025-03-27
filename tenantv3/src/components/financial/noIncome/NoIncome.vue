@@ -17,14 +17,14 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { useLoading } from 'vue-loading-overlay'
 import { ToastService } from '@/services/ToastService'
 import { UtilsService } from '@/services/UtilsService'
+import { useFinancialState } from '../financialState'
 
 const route = useRoute()
 const parent = useParentRoute()
 const store = useTenantStore()
+const { documents, action, addData } = useFinancialState()
 
-const document = computed(() =>
-  store.financialDocuments.find((d) => d.id === Number(route.params.docId))
-)
+const document = computed(() => documents.value.find((d) => d.id === Number(route.params.docId)))
 const customText = ref(document.value?.customText || '')
 
 async function save(): Promise<boolean> {
@@ -36,11 +36,12 @@ async function save(): Promise<boolean> {
   if (document.value?.id) {
     formData.append('id', document.value.id.toString())
   }
+  addData?.(formData)
 
   const $loading = useLoading()
   const loader = $loading.show()
   try {
-    await store.saveTenantFinancial(formData)
+    await store[action](formData)
     ToastService.saveSuccess()
     return true
   } catch (err) {

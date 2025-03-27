@@ -6,9 +6,25 @@
 </template>
 
 <script setup lang="ts">
+import { financialKey } from '@/components/financial/financialState'
+import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { computed, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
+
 const { t } = useI18n()
+const store = useTenantStore()
+
+provide(financialKey, {
+  category: 'financial',
+  textKey: 'tenant',
+  previousStep: '/documents-locataire/3',
+  nextStep: { name: 'TenantTax' },
+  recap: { name: 'TenantFinancial' },
+  documents: computed(() => store.financialDocuments),
+  userId: undefined,
+  action: 'saveTenantFinancial'
+})
 </script>
 
 <i18n>
