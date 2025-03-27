@@ -179,7 +179,10 @@ const props = defineProps<{
 
 const energyConsumption = computed(() => Number(props.dpe.consommation))
 const energyLetter = computed(() =>
-  DpeService.getEnergyConsumptionLetter(energyConsumption.value, null)
+  DpeService.getEnergyConsumptionLetter(
+    energyConsumption.value,
+    parseInt(props.dpe.surfaceHabitable || '')
+  )
 )
 
 const co2Emission = computed(() => Number(props.dpe.emission))

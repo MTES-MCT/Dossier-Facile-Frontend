@@ -69,7 +69,7 @@ const titleKey = computed(() => {
 })
 const dpe = computed(() =>
   DpeService.getGlobalLetter(
-    DpeService.getEnergyConsumptionLetter(p.value?.energyConsumption, p.value),
+    DpeService.getEnergyConsumptionLetter(p.value?.energyConsumption, p.value.livingSpace),
     DpeService.getCO2EmissionLetter(p.value?.co2Emission, p.value),
     p.value
   )

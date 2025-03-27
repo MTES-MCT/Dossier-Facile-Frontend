@@ -63,7 +63,7 @@ function updateDPE() {
   localEnergyConsumption.value = energyConsumption.value ?? 0
   energyLetter.value = DpeService.getEnergyConsumptionLetter(
     energyConsumption.value,
-    property.value
+    property.value.livingSpace
   )
   co2Letter.value = DpeService.getCO2EmissionLetter(co2Emission.value, property.value)
   globalLetter.value = DpeService.getGlobalLetter(
