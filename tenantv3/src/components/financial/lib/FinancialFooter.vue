@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit">
-    <FinancialFooterContent />
+    <FinancialFooterContent :previous-step="to ? previousStep : recap" />
   </form>
 </template>
 
@@ -13,7 +13,7 @@ import { useFinancialState } from '../financialState'
 const { onSubmit, to } = defineProps<{ onSubmit?: () => Promise<boolean>; to?: RouteLocationRaw }>()
 
 const router = useRouter()
-const { category, recap } = useFinancialState()
+const { category, previousStep, recap } = useFinancialState()
 
 const submit = async () => {
   AnalyticsService.validateFunnelStep(category)

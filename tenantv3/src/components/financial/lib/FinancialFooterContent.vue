@@ -9,14 +9,15 @@
 </template>
 
 <script setup lang="ts">
-import { useFinancialState } from '@/components/financial/financialState'
 import FooterContainer from '@/components/footer/FooterContainer.vue'
 import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
+import type { RouteLocationRaw } from 'vue-router'
+
+defineProps<{ previousStep: RouteLocationRaw }>()
 
 const { t } = useI18n()
-const { previousStep } = useFinancialState()
 </script>
 
 <style scoped>

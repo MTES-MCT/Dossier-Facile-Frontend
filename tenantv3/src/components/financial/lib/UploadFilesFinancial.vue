@@ -9,7 +9,7 @@
       required
     />
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
-    <FinancialFooterContent />
+    <FinancialFooterContent :previous-step="state.recap" />
   </form>
   <template v-if="showFiles">
     <slot name="incomeFilled"></slot>
