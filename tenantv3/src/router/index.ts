@@ -422,25 +422,29 @@ export const router = createRouter({
         },
         {
           path: '4',
-          name: 'TenantFinancial',
-          component: () => import('@/components/financial/TenantFinancialRecap.vue')
-        },
-        {
-          path: '4/ajouter',
-          component: () => import('@/components/documents/tenant/TenantFinancial.vue'),
-          children: FINANCIAL_ROUTES
-        },
-        {
-          path: '4/:docId',
-          component: () => import('@/components/documents/tenant/TenantFinancial.vue'),
-          children: FINANCIAL_ROUTES,
-          beforeEnter: (to) => {
-            const store = useTenantStore()
-            const doc = store.financialDocuments.find((d) => d.id === Number(to.params.docId))
-            if (!doc) {
-              return { name: 'TenantFinancial' }
+          component: () => import('@/components/financial/TenantFinancialProvider.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantFinancial',
+              component: () => import('@/components/financial/FinancialRecap.vue')
+            },
+            {
+              path: ':docId',
+              component: () => import('@/components/documents/tenant/TenantFinancial.vue'),
+              children: FINANCIAL_ROUTES,
+              beforeEnter: (to) => {
+                if (to.params.docId === 'ajouter') {
+                  return true
+                }
+                const store = useTenantStore()
+                const doc = store.financialDocuments.find((d) => d.id === Number(to.params.docId))
+                if (!doc) {
+                  return { name: 'TenantFinancial' }
+                }
+              }
             }
-          }
+          ]
         },
         {
           path: '5',
@@ -489,18 +493,19 @@ export const router = createRouter({
         },
         {
           path: '4',
-          name: 'CoupleFinancial',
-          component: () => import('@/components/documents/cotenant/CoupleFinancialRecap.vue')
-        },
-        {
-          path: '4/ajouter',
-          component: () => import('@/components/documents/cotenant/CoupleFinancial.vue'),
-          children: FINANCIAL_ROUTES
-        },
-        {
-          path: '4/:docId',
-          component: () => import('@/components/documents/cotenant/CoupleFinancial.vue'),
-          children: FINANCIAL_ROUTES
+          component: () => import('@/components/documents/cotenant/CoupleFinancialProvider.vue'),
+          children: [
+            {
+              path: '',
+              name: 'CoupleFinancial',
+              component: () => import('@/components/financial/FinancialRecap.vue')
+            },
+            {
+              path: ':docId',
+              component: () => import('@/components/documents/cotenant/CoupleFinancial.vue'),
+              children: FINANCIAL_ROUTES
+            }
+          ]
         },
         {
           path: '5',
@@ -606,18 +611,20 @@ export const router = createRouter({
         },
         {
           path: '4/:guarantorId',
-          name: 'GuarantorFinancial',
-          component: () => import('@/components/financial/GuarantorFinancialRecap.vue')
-        },
-        {
-          path: '4/:guarantorId/ajouter',
-          component: () => import('@/components/documents/naturalGuarantor/GuarantorFinancial.vue'),
-          children: FINANCIAL_ROUTES
-        },
-        {
-          path: '4/:guarantorId/:docId',
-          component: () => import('@/components/documents/naturalGuarantor/GuarantorFinancial.vue'),
-          children: FINANCIAL_ROUTES
+          component: () => import('@/components/financial/GuarantorFinancialProvider.vue'),
+          children: [
+            {
+              path: '',
+              name: 'GuarantorFinancial',
+              component: () => import('@/components/financial/FinancialRecap.vue')
+            },
+            {
+              path: ':docId',
+              component: () =>
+                import('@/components/documents/naturalGuarantor/GuarantorFinancial.vue'),
+              children: FINANCIAL_ROUTES
+            }
+          ]
         },
         {
           path: '5/:guarantorId',

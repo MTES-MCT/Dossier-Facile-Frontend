@@ -1,40 +1,15 @@
 <template>
   <NakedCard class="fr-p-md-5w fr-m-3v fr-grid-col">
     <h6>{{ t('income') }}</h6>
-    <router-view />
+    <RouterView />
   </NakedCard>
 </template>
 
 <script setup lang="ts">
-import { financialKey } from '@/components/financial/financialState'
-import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
-import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { computed, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-const store = useTenantStore()
-const guarantorId = useGuarantorId()
-
-provide(financialKey, {
-  category: 'guarantor-financial',
-  textKey: 'tenant',
-  documents: computed(() => store.guarantorFinancialDocuments),
-  previousStep: `/info-garant/3/${guarantorId.value}`,
-  nextStep: `/info-garant/5/${guarantorId.value}`,
-  recap: { name: 'GuarantorFinancial' },
-  userId: store.user.id,
-  action: 'saveGuarantorFinancial',
-  addData: (formData) => {
-    formData.append('guarantorId', guarantorId.value)
-    const docId = formData.get('id')
-    if (docId) {
-      formData.append('documentId', docId)
-      formData.delete('id')
-    }
-  }
-})
 </script>
 
 <i18n>

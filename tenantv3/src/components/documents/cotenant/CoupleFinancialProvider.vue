@@ -1,13 +1,13 @@
 <template>
-  <FinancialRecap />
+  <RouterView />
 </template>
 
 <script setup lang="ts">
+import { financialKey } from '@/components/financial/financialState'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed, provide } from 'vue'
-import { financialKey } from '@/components/financial/financialState'
-import FinancialRecap from '@/components/financial/FinancialRecap.vue'
 import { useRoute } from 'vue-router'
+
 const store = useTenantStore()
 const route = useRoute()
 const tenantId = computed(() => Number(route.params.tenantId))
