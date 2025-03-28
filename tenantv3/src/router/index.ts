@@ -490,7 +490,17 @@ export const router = createRouter({
         {
           path: '4',
           name: 'CoupleFinancial',
-          component: () => import('@/components/documents/cotenant/CoTenantFinancialList.vue')
+          component: () => import('@/components/documents/cotenant/CoupleFinancialRecap.vue')
+        },
+        {
+          path: '4/ajouter',
+          component: () => import('@/components/documents/cotenant/CoupleFinancial.vue'),
+          children: FINANCIAL_ROUTES
+        },
+        {
+          path: '4/:docId',
+          component: () => import('@/components/documents/cotenant/CoupleFinancial.vue'),
+          children: FINANCIAL_ROUTES
         },
         {
           path: '5',
