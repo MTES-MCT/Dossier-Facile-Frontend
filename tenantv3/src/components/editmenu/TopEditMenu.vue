@@ -39,40 +39,30 @@
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.IDENTITY"
-          :substep="1"
-          :active="getGuarantorCurrentStep(1, selectedGuarantor)"
         />
         <GuarantorDocumentLink
           id="gd2"
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.RESIDENCY"
-          :substep="2"
-          :active="getGuarantorCurrentStep(2, selectedGuarantor)"
         />
         <GuarantorDocumentLink
           id="gd3"
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.PROFESSIONAL"
-          :substep="3"
-          :active="getGuarantorCurrentStep(3, selectedGuarantor)"
         />
         <GuarantorDocumentLink
           id="gd4"
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.FINANCIAL"
-          :substep="4"
-          :active="getGuarantorCurrentStep(4, selectedGuarantor)"
         />
         <GuarantorDocumentLink
           id="gd5"
           class="ml-5 mr-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.TAX"
-          :substep="5"
-          :active="getGuarantorCurrentStep(5, selectedGuarantor)"
         />
       </div>
       <div
@@ -85,16 +75,12 @@
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.IDENTIFICATION_LEGAL_PERSON"
-          :substep="0"
-          :active="getGuarantorCurrentStep(0, undefined)"
         />
         <GuarantorDocumentLink
           id="gd1"
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.IDENTIFICATION"
-          :substep="1"
-          :active="getGuarantorCurrentStep(1, undefined)"
         />
       </div>
       <div
@@ -107,51 +93,34 @@
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
-          :substep="0"
-          :active="getGuarantorCurrentStep(0, undefined)"
         />
       </div>
     </div>
     <div v-if="step === 4 && isCouple()" id="tcontainer" class="menu-grid-row">
       <CoTenantDocumentLink
-        id="td1"
         class="ml-5"
         :co-tenant="coTenants[0]"
         :document-type="DocumentType.IDENTITY"
-        :substep="1"
-        :active="getCurrentSubStep() === 1"
       />
       <CoTenantDocumentLink
-        id="td1"
         class="ml-5"
         :co-tenant="coTenants[0]"
         :document-type="DocumentType.RESIDENCY"
-        :substep="2"
-        :active="getCurrentSubStep() === 2"
       />
       <CoTenantDocumentLink
-        id="td1"
         class="ml-5"
         :co-tenant="coTenants[0]"
         :document-type="DocumentType.PROFESSIONAL"
-        :substep="3"
-        :active="getCurrentSubStep() === 3"
       />
       <CoTenantDocumentLink
-        id="td1"
         class="ml-5"
         :co-tenant="coTenants[0]"
         :document-type="DocumentType.FINANCIAL"
-        :substep="4"
-        :active="getCurrentSubStep() === 4"
       />
       <CoTenantDocumentLink
-        id="td1"
         class="ml-5"
         :co-tenant="coTenants[0]"
         :document-type="DocumentType.TAX"
-        :substep="5"
-        :active="getCurrentSubStep() === 5"
       />
     </div>
     <div v-if="step === 5 && isCouple() && selectedGuarantor">
@@ -368,10 +337,6 @@ function getGuarantorCurrentStep(substep: number, g: Guarantor | undefined): boo
     s === substep &&
     (g === undefined || selectedGuarantor.value?.id === g.id)
   )
-}
-
-function getCurrentSubStep() {
-  return Number(route.params.substep) || 0
 }
 
 function isCouple() {

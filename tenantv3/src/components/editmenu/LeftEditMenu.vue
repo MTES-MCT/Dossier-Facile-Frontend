@@ -83,36 +83,26 @@
                 class="ml-10"
                 :guarantor="g"
                 :document-type="DocumentType.IDENTITY"
-                :substep="1"
-                :active="getGuarantorCurrentStep(1, g)"
               />
               <GuarantorDocumentLink
                 class="ml-10"
                 :guarantor="g"
                 :document-type="DocumentType.RESIDENCY"
-                :substep="2"
-                :active="getGuarantorCurrentStep(2, g)"
               />
               <GuarantorDocumentLink
                 class="ml-10"
                 :guarantor="g"
                 :document-type="DocumentType.PROFESSIONAL"
-                :substep="3"
-                :active="getGuarantorCurrentStep(3, g)"
               />
               <GuarantorDocumentLink
                 class="ml-10"
                 :guarantor="g"
                 :document-type="DocumentType.FINANCIAL"
-                :substep="4"
-                :active="getGuarantorCurrentStep(4, g)"
               />
               <GuarantorDocumentLink
                 class="ml-10"
                 :guarantor="g"
                 :document-type="DocumentType.TAX"
-                :substep="5"
-                :active="getGuarantorCurrentStep(5, g)"
               />
             </div>
           </div>
@@ -121,15 +111,11 @@
               class="ml-5"
               :guarantor="selectedGuarantor"
               :document-type="DocumentType.IDENTIFICATION_LEGAL_PERSON"
-              :substep="0"
-              :active="getGuarantorCurrentStep(0, undefined)"
             />
             <GuarantorDocumentLink
               class="ml-5"
               :guarantor="selectedGuarantor"
               :document-type="DocumentType.IDENTIFICATION"
-              :substep="1"
-              :active="getGuarantorCurrentStep(1, undefined)"
             />
           </div>
           <div v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'">
@@ -137,8 +123,6 @@
               class="ml-5"
               :guarantor="selectedGuarantor"
               :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
-              :substep="0"
-              :active="getGuarantorCurrentStep(0, undefined)"
             />
           </div>
         </div>
@@ -183,31 +167,26 @@
                 class="ml-10"
                 :co-tenant="coTenant"
                 :document-type="DocumentType.IDENTITY"
-                :active="routeMatch('CoupleIdentification')"
               />
               <CoTenantDocumentLink
                 class="ml-10"
                 :co-tenant="coTenant"
                 :document-type="DocumentType.RESIDENCY"
-                :active="routeMatch('CoupleResidency')"
               />
               <CoTenantDocumentLink
                 class="ml-10"
                 :co-tenant="coTenant"
                 :document-type="DocumentType.PROFESSIONAL"
-                :active="routeMatch('CoupleProfessional')"
               />
               <CoTenantDocumentLink
                 class="ml-10"
                 :co-tenant="coTenant"
                 :document-type="DocumentType.FINANCIAL"
-                :active="routeMatch('CoupleFinancial')"
               />
               <CoTenantDocumentLink
                 class="ml-10"
                 :co-tenant="coTenant"
                 :document-type="DocumentType.TAX"
-                :active="routeMatch('CoupleTax')"
               />
             </div>
           </div>
@@ -467,10 +446,6 @@ function getName(user: CoTenant): string {
 function makeResidencyLink(g: Guarantor) {
   const doc = g.documents?.find((d) => d.documentCategory === 'RESIDENCY')
   return makeCotenantGuarantorResidencyLink(getCoTenant(0).id, g.id!, doc)
-}
-
-function routeMatch(name: string) {
-  return route.matched.some((r) => r.name === name)
 }
 </script>
 
