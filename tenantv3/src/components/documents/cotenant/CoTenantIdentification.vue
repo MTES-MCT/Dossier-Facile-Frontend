@@ -48,13 +48,10 @@ function goToResidency() {
 
 function goToName() {
   router.push({
-    name: 'CoTenantDocuments',
+    name: 'CoupleName',
     params: {
-      substep: 0,
       tenantId: tenantId.value
     }
   })
 }
 </script>
-
-<style scoped lang="scss"></style>

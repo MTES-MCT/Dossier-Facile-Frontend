@@ -18,6 +18,7 @@ import { useTenantStore } from '@/stores/tenant-store'
 import DocumentsCard from './DocumentsCard.vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import { COUPLE_ROUTES } from '../documents/cotenant/coupleRoutes'
 
 const props = defineProps<{ tenant: CoTenant; isCotenant: boolean }>()
 
@@ -34,11 +35,10 @@ const goToStep = async (substep: number) => {
   AnalyticsService.editFromAccount(substep)
   const page: RouteLocationRaw = props.isCotenant
     ? {
-        name: 'CoTenantDocuments',
+        name: COUPLE_ROUTES[substep],
         params: {
           tenantId: props.tenant.id,
-          step: '4',
-          substep
+          step: '4'
         }
       }
     : {

@@ -85,10 +85,9 @@ function goNext() {
       throw new Error('cotenant not found for user ' + user.value.id)
     }
     router.push({
-      name: 'CoTenantDocuments',
+      name: 'CoupleName',
       params: {
         step: '4',
-        substep: '0',
         tenantId: cotenant.id.toString()
       }
     })

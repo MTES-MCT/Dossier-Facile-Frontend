@@ -9,6 +9,7 @@
 <script setup lang="ts">
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import {
+  COUPLE_COMPONENTS,
   DocumentType,
   DocumentTypeTranslations,
   GUARANTOR_COMPONENTS,
@@ -46,6 +47,9 @@ function getTargetComponent() {
   }
   if (props.personType === 'GUARANTOR') {
     return GUARANTOR_COMPONENTS[props.documentType]
+  }
+  if (props.personType === 'COTENANT') {
+    return COUPLE_COMPONENTS[props.documentType]
   }
   return componentsPerType[props.personType]
 }

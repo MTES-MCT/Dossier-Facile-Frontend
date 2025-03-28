@@ -35,3 +35,11 @@ export const GUARANTOR_COMPONENTS: { [type in DocumentType]?: string } = {
   FINANCIAL: 'GuarantorFinancial',
   TAX: 'GuarantorTax'
 }
+
+export const COUPLE_COMPONENTS: { [type in DocumentType]?: string } = {
+  IDENTITY: 'CoupleIdentification',
+  RESIDENCY: 'CoupleResidency',
+  PROFESSIONAL: 'CoupleProfessional',
+  FINANCIAL: 'CoupleFinancial',
+  TAX: 'CoupleTax'
+}

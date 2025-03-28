@@ -21,20 +21,12 @@ provide(residencyKey, {
   category: 'couple-residency',
   textKey: 'couple',
   previousStep: {
-    name: 'CoTenantDocuments',
-    params: {
-      tenantId,
-      step,
-      substep: 1
-    }
+    name: 'CoupleName',
+    params: { tenantId, step }
   },
   nextStep: {
-    name: 'CoTenantDocuments',
-    params: {
-      tenantId,
-      step,
-      substep: 3
-    }
+    name: 'CoupleProfessional',
+    params: { tenantId, step }
   },
   document: computed(() => DocumentService.getCoTenantDocument(tenantId, 'RESIDENCY')),
   userId: tenantId,

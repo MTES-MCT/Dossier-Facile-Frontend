@@ -217,9 +217,8 @@ function removeFinancial(f?: FinancialDocument) {
 
 function goToProfessional() {
   router.push({
-    name: 'CoTenantDocuments',
+    name: 'CoupleProfessional',
     params: {
-      substep: 3,
       tenantId: tenantId.value
     }
   })
@@ -231,9 +230,8 @@ function goToTax() {
     initialize()
   } else {
     router.push({
-      name: 'CoTenantDocuments',
+      name: 'CoupleTax',
       params: {
-        substep: 5,
         tenantId: tenantId.value
       }
     })

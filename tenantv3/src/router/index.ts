@@ -450,7 +450,8 @@ export const router = createRouter({
       ]
     },
     {
-      path: '/documents-colocataire/:tenantId/:step/:substep',
+      path: '/documents-colocataire/:tenantId/:step',
+      name: 'CoTenantDocuments',
       meta: {
         title: 'Édition du profil - DossierFacile',
         requiresAuth: true,
@@ -460,11 +461,42 @@ export const router = createRouter({
       component: () => import('../views/CoTenantDocument.vue'),
       children: [
         {
-          path: '',
-          name: 'CoTenantDocuments',
-          component: () => import('@/components/residency/ChooseResidency.vue')
+          path: '0',
+          name: 'CoupleName',
+          component: () => import('@/components/documents/cotenant/CoTenantName.vue')
         },
-        ...RESIDENCY_COMPONENTS
+        {
+          path: '1',
+          name: 'CoupleIdentification',
+          component: () => import('@/components/documents/cotenant/CoTenantIdentification.vue')
+        },
+        {
+          path: '2',
+          name: 'CoupleResidency',
+          component: () => import('@/components/documents/cotenant/CoupleResidency.vue'),
+          children: [
+            {
+              path: '',
+              component: () => import('@/components/residency/ChooseResidency.vue')
+            },
+            ...RESIDENCY_COMPONENTS
+          ]
+        },
+        {
+          path: '3',
+          name: 'CoupleProfessional',
+          component: () => import('@/components/documents/cotenant/CoTenantProfessional.vue')
+        },
+        {
+          path: '4',
+          name: 'CoupleFinancial',
+          component: () => import('@/components/documents/cotenant/CoTenantFinancialList.vue')
+        },
+        {
+          path: '5',
+          name: 'CoupleTax',
+          component: () => import('@/components/documents/cotenant/CoTenantTax.vue')
+        }
       ]
     },
     {

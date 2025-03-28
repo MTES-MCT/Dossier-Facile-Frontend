@@ -45,9 +45,8 @@ function goToResidency() {
 
 function goToFinancial() {
   router.push({
-    name: 'CoTenantDocuments',
+    name: 'CoupleFinancial',
     params: {
-      substep: 4,
       tenantId: tenantId.value
     }
   })

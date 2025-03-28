@@ -89,6 +89,7 @@ import { UtilsService } from '../../services/UtilsService'
 import { computed } from 'vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { useTenantStep } from '../residency/lib/useTenantStep'
+import { COUPLE_ROUTES } from '../documents/cotenant/coupleRoutes'
 
 const props = withDefaults(
   defineProps<{
@@ -113,11 +114,10 @@ const showButtons = computed(() => {
 function gotoTenantName() {
   if (props.isCotenant) {
     router.push({
-      name: 'CoTenantDocuments',
+      name: 'CoupleName',
       params: {
         tenantId: props.tenant?.id.toString(),
-        step: '4',
-        substep: '0'
+        step: '4'
       }
     })
   } else {
@@ -133,11 +133,10 @@ function setTenantStep(n: number) {
   AnalyticsService.editFromAccount(n)
   if (props.isCotenant) {
     router.push({
-      name: 'CoTenantDocuments',
+      name: COUPLE_ROUTES[n],
       params: {
         tenantId: props.tenant?.id.toString(),
-        step: '4',
-        substep: n.toString()
+        step: '4'
       }
     })
   } else {

@@ -89,10 +89,9 @@ function updateGuarantorType(value: string) {
 
 function goBack() {
   router.push({
-    name: 'CoTenantDocuments',
+    name: 'CoupleTax',
     params: {
       step: '4',
-      substep: '5',
       tenantId: getTenantId().toString()
     }
   })

@@ -93,10 +93,9 @@ function setGuarantorType() {
   if (tmpGuarantorType.value === 'NO_GUARANTOR') {
     if (user.value.applicationType === 'COUPLE') {
       router.push({
-        name: 'CoTenantDocuments',
+        name: 'CoupleName',
         params: {
           step: '4',
-          substep: '0',
           tenantId: coTenants.value[0].id.toString()
         }
       })

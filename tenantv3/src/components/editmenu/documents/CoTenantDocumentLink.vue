@@ -1,7 +1,7 @@
 <template>
   <DocumentLink
     :person-type="PersonType.COTENANT"
-    :router-params="{ substep: substep, tenantId: coTenant.id }"
+    :router-params="{ tenantId: coTenant.id }"
     :document-type="documentType"
     :status="status"
     :active="active"
@@ -22,7 +22,6 @@ import { useRoute } from 'vue-router'
 const props = defineProps<{
   coTenant: CoTenant
   documentType: DocumentType
-  substep: number
   active: boolean
 }>()
 const route = useRoute()

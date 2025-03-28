@@ -153,11 +153,10 @@
           <router-link
             class="fr-link"
             :to="{
-              name: 'CoTenantDocuments',
+              name: 'CoupleName',
               force: true,
               params: {
                 step: getStepNumber('coTenant'),
-                substep: '0',
                 tenantId: getCoTenant(0).id
               }
             }"
@@ -172,9 +171,9 @@
               <div class="ml-5 bold">
                 <router-link
                   :to="{
-                    name: 'CoTenantDocuments',
+                    name: 'CoupleName',
                     force: true,
-                    params: { substep: '0', tenantId: coTenant.id }
+                    params: { tenantId: coTenant.id }
                   }"
                 >
                   <ColoredTag
@@ -188,36 +187,31 @@
                 class="ml-10"
                 :co-tenant="coTenant"
                 :document-type="DocumentType.IDENTITY"
-                :substep="1"
-                :active="getCurrentSubStep() === 1"
+                :active="routeMatch('CoupleIdentification')"
               />
               <CoTenantDocumentLink
                 class="ml-10"
                 :co-tenant="coTenant"
                 :document-type="DocumentType.RESIDENCY"
-                :substep="2"
-                :active="getCurrentSubStep() === 2"
+                :active="routeMatch('CoupleResidency')"
               />
               <CoTenantDocumentLink
                 class="ml-10"
                 :co-tenant="coTenant"
                 :document-type="DocumentType.PROFESSIONAL"
-                :substep="3"
-                :active="getCurrentSubStep() === 3"
+                :active="routeMatch('CoupleProfessional')"
               />
               <CoTenantDocumentLink
                 class="ml-10"
                 :co-tenant="coTenant"
                 :document-type="DocumentType.FINANCIAL"
-                :substep="4"
-                :active="getCurrentSubStep() === 4"
+                :active="routeMatch('CoupleFinancial')"
               />
               <CoTenantDocumentLink
                 class="ml-10"
                 :co-tenant="coTenant"
                 :document-type="DocumentType.TAX"
-                :substep="5"
-                :active="getCurrentSubStep() === 5"
+                :active="routeMatch('CoupleTax')"
               />
             </div>
           </div>
@@ -477,6 +471,10 @@ function getName(user: CoTenant): string {
 function makeResidencyLink(g: Guarantor) {
   const doc = g.documents?.find((d) => d.documentCategory === 'RESIDENCY')
   return makeCotenantGuarantorResidencyLink(getCoTenant(0).id, g.id!, doc)
+}
+
+function routeMatch(name: string) {
+  return route.matched.some((r) => r.name === name)
 }
 </script>
 

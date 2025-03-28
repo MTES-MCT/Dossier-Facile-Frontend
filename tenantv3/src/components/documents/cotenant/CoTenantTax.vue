@@ -95,9 +95,8 @@ function enrichFormData(formData: FormData) {
 
 function goToFinancial() {
   router.push({
-    name: 'CoTenantDocuments',
+    name: 'CoupleFinancial',
     params: {
-      substep: 4,
       tenantId: tenantId.value
     }
   })

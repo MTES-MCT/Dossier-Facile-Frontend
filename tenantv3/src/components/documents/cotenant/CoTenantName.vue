@@ -139,9 +139,8 @@ function goToGuarantorChoice() {
 
 function goToIdentification() {
   router.push({
-    name: 'CoTenantDocuments',
+    name: 'CoupleIdentification',
     params: {
-      substep: 1,
       tenantId: tenantId.value
     }
   })
