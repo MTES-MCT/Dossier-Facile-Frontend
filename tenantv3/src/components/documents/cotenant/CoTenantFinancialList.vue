@@ -1,59 +1,56 @@
 <template>
-  <div>
-    <div v-if="editFinancialDocument">
-      <CoTenantFinancialForm
-        v-model="financialDocument"
-        :co-tenant-id="coTenantId"
-        :allow-no-income="allowNoIncome()"
-        @on-edit="setEditFinancialDocument"
-        @on-next="goNext"
-        @on-back="goBack"
-      ></CoTenantFinancialForm>
-    </div>
-    <div v-else>
-      <NakedCard class="fr-p-md-5w fr-mb-3w">
-        <div>
-          <h1 class="fr-h6">{{ t('cotenantfinanciallist.title') }}</h1>
-          <div>{{ t('cotenantfinanciallist.subtitle') }}</div>
-        </div>
-      </NakedCard>
-      <div v-for="f in tenantFinancialDocuments" :key="f.id">
-        <CardRow
-          :danger="documentStatus(f) === 'DECLINED'"
-          @edit="selectFinancialDocument(f)"
-          @remove="removeFinancial(f)"
-        >
-          <template #tag>
-            <div class="fixed-width">
-              <ColoredTag :text="getDocumentName(f)" :status="documentStatus(f)"></ColoredTag>
-            </div>
-          </template>
-          <template #text>
-            <div
-              v-show="f.documentType.key !== 'no-income'"
-              class="text-bold"
-              :class="{ declined: documentStatus(f) }"
-              :title="t('cotenantfinanciallist.net-monthly')"
-            >
-              {{ f.monthlySum }} {{ t('cotenantfinanciallist.monthly') }}
-            </div>
-          </template>
-          <template #bottom>
-            <AllDeclinedMessages
-              :document-denied-reasons="documentDeniedReasons(f)"
-              :document-status="documentStatus(f)"
-            ></AllDeclinedMessages>
-          </template>
-        </CardRow>
+  <CoTenantFinancialForm
+    v-if="editFinancialDocument"
+    v-model="financialDocument"
+    :co-tenant-id="tenantId"
+    :allow-no-income="allowNoIncome()"
+    @on-edit="setEditFinancialDocument"
+    @on-next="goToTax"
+    @on-back="goToProfessional"
+  ></CoTenantFinancialForm>
+  <div v-else>
+    <NakedCard class="fr-p-md-5w fr-mb-3w">
+      <div>
+        <h1 class="fr-h6">{{ t('cotenantfinanciallist.title') }}</h1>
+        <div>{{ t('cotenantfinanciallist.subtitle') }}</div>
       </div>
-      <div v-if="financialDocument.documentType.key !== 'no-income'">
-        <button class="add-income-btn" @click="addFinancialDocument()">
-          {{ t('cotenantfinanciallist.add-income') }}
-        </button>
-      </div>
-      <SimulationCaf class="fr-mt-4w" />
-      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    </NakedCard>
+    <div v-for="f in tenantFinancialDocuments" :key="f.id">
+      <CardRow
+        :danger="documentStatus(f) === 'DECLINED'"
+        @edit="selectFinancialDocument(f)"
+        @remove="removeFinancial(f)"
+      >
+        <template #tag>
+          <div class="fixed-width">
+            <ColoredTag :text="getDocumentName(f)" :status="documentStatus(f)"></ColoredTag>
+          </div>
+        </template>
+        <template #text>
+          <div
+            v-show="f.documentType.key !== 'no-income'"
+            class="text-bold"
+            :class="{ declined: documentStatus(f) }"
+            :title="t('cotenantfinanciallist.net-monthly')"
+          >
+            {{ f.monthlySum }} {{ t('cotenantfinanciallist.monthly') }}
+          </div>
+        </template>
+        <template #bottom>
+          <AllDeclinedMessages
+            :document-denied-reasons="documentDeniedReasons(f)"
+            :document-status="documentStatus(f)"
+          ></AllDeclinedMessages>
+        </template>
+      </CardRow>
     </div>
+    <div v-if="financialDocument.documentType.key !== 'no-income'">
+      <button class="add-income-btn" @click="addFinancialDocument()">
+        {{ t('cotenantfinanciallist.add-income') }}
+      </button>
+    </div>
+    <SimulationCaf class="fr-mt-4w" />
+    <ProfileFooter @on-back="goToProfessional" @on-next="goToTax"></ProfileFooter>
   </div>
 </template>
 
@@ -70,24 +67,24 @@ import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import SimulationCaf from '../share/SimulationCaf.vue'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
-import { onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '@/stores/tenant-store'
+import { useRoute, useRouter } from 'vue-router'
 
-const props = defineProps<{
-  coTenantId: number
-}>()
 const { t } = useI18n()
 const store = useTenantStore()
-const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
+const route = useRoute()
+const router = useRouter()
 
 const tenantFinancialDocuments = ref([] as FinancialDocument[])
 const tenantOriginalDocuments = ref([] as DfDocument[])
 const financialDocument = ref(new FinancialDocument())
 const editFinancialDocument = ref(false)
+const tenantId = computed(() => Number(route.params.tenantId))
 
 function getOriginalDocuments(): DfDocument[] {
-  const tenant = store.getTenant(Number(props.coTenantId))
+  const tenant = store.getTenant(tenantId.value)
 
   if (tenant.documents) {
     const docs = tenant.documents?.filter((d: DfDocument) => {
@@ -174,7 +171,7 @@ function documentStatus(f: FinancialDocument) {
 }
 
 function hasFinancial() {
-  const tenant = store.getTenant(Number(props.coTenantId))
+  const tenant = store.getTenant(tenantId.value)
   if (tenant === undefined) {
     return false
   }
@@ -218,16 +215,28 @@ function removeFinancial(f?: FinancialDocument) {
     })
 }
 
-function goBack() {
-  emit('on-back')
+function goToProfessional() {
+  router.push({
+    name: 'CoTenantDocuments',
+    params: {
+      substep: 3,
+      tenantId: tenantId.value
+    }
+  })
 }
 
-function goNext() {
+function goToTax() {
   if (editFinancialDocument.value) {
     editFinancialDocument.value = false
     initialize()
   } else {
-    emit('on-next')
+    router.push({
+      name: 'CoTenantDocuments',
+      params: {
+        substep: 5,
+        tenantId: tenantId.value
+      }
+    })
   }
 }
 

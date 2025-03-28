@@ -1,7 +1,7 @@
 <template>
   <ProfileContainer :step="getStep()">
     <div v-if="getSubStep() === 0">
-      <CoTenantName :co-tenant-id="getTenantId()" @on-next="goNext()" @on-back="goBack()" />
+      <CoTenantName />
     </div>
     <div v-if="getSubStep() === 1">
       <CoTenantIdentification></CoTenantIdentification>
@@ -11,14 +11,10 @@
       <CoTenantProfessional></CoTenantProfessional>
     </div>
     <div v-if="getSubStep() === 4">
-      <CoTenantFinancialList
-        :co-tenant-id="getTenantId()"
-        @on-next="goNext"
-        @on-back="goBack"
-      ></CoTenantFinancialList>
+      <CoTenantFinancialList></CoTenantFinancialList>
     </div>
     <div v-if="getSubStep() === 5">
-      <CoTenantTax :co-tenant-id="getTenantId()" @on-next="goNext" @on-back="goBack"></CoTenantTax>
+      <CoTenantTax></CoTenantTax>
     </div>
   </ProfileContainer>
 </template>
@@ -30,52 +26,10 @@ import CoTenantName from '../components/documents/cotenant/CoTenantName.vue'
 import CoTenantProfessional from '../components/documents/cotenant/CoTenantProfessional.vue'
 import CoTenantFinancialList from '../components/documents/cotenant/CoTenantFinancialList.vue'
 import CoTenantTax from '../components/documents/cotenant/CoTenantTax.vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import CoupleResidency from '@/components/documents/cotenant/CoupleResidency.vue'
 
-const router = useRouter()
 const route = useRoute()
-
-function goBack() {
-  if (getSubStep() > 0) {
-    router.push({
-      name: 'CoTenantDocuments',
-      params: {
-        substep: Number(getSubStep() - 1).toString(),
-        tenantId: getTenantId().toString()
-      }
-    })
-    return
-  }
-  router.push({
-    name: 'GuarantorChoice'
-  })
-}
-
-function goNext() {
-  if (getSubStep() < 5) {
-    router.push({
-      name: 'CoTenantDocuments',
-      params: {
-        substep: Number(getSubStep() + 1).toString(),
-        tenantId: getTenantId().toString()
-      }
-    })
-    return
-  } else {
-    router.push({
-      name: 'TenantGuarantors',
-      params: {
-        tenantId: getTenantId().toString(),
-        step: '5'
-      }
-    })
-  }
-}
-
-function getTenantId() {
-  return Number(route.params.tenantId)
-}
 
 function getStep() {
   return Number(route.params.step) || 0
