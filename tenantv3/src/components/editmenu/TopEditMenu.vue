@@ -13,11 +13,11 @@
     </div>
     <hr v-if="step === 2 || step === 3" />
     <div v-if="step === 2" id="tcontainer" class="menu-grid-row">
-      <TenantDocumentLink id="td1" class="ml-5" :document-type="DocumentType.IDENTITY" />
-      <TenantDocumentLink id="td2" class="ml-5" :document-type="DocumentType.RESIDENCY" />
-      <TenantDocumentLink id="td3" class="ml-5" :document-type="DocumentType.PROFESSIONAL" />
-      <TenantDocumentLink id="td4" class="ml-5" :document-type="DocumentType.FINANCIAL" />
-      <TenantDocumentLink id="td5" class="ml-5" :document-type="DocumentType.TAX" />
+      <TenantDocumentLink :document-type="DocumentType.IDENTITY" />
+      <TenantDocumentLink :document-type="DocumentType.RESIDENCY" />
+      <TenantDocumentLink :document-type="DocumentType.PROFESSIONAL" />
+      <TenantDocumentLink :document-type="DocumentType.FINANCIAL" />
+      <TenantDocumentLink :document-type="DocumentType.TAX" />
     </div>
     <h2 v-if="displayGuarantorName()" class="small-title">
       {{

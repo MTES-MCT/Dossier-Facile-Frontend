@@ -4,6 +4,7 @@
     :document-type="documentType"
     :status="status"
     :active="active"
+    class="ml-5"
   />
 </template>
 
@@ -15,12 +16,9 @@ import { PersonType } from './PersonType'
 import { computed } from 'vue'
 import { useLink } from 'vue-router'
 
-const props = defineProps<{
-  documentType: DocumentType
-  active?: boolean
-}>()
+const props = defineProps<{ documentType: DocumentType }>()
 
 const link = useLink({ to: { name: TENANT_COMPONENTS[props.documentType] } })
-const active = computed(() => props.active ?? link.isActive.value)
+const active = computed(() => link.isActive.value)
 const status = computed(() => DocumentService.tenantStatus(props.documentType) || '')
 </script>
