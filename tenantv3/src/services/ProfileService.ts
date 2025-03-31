@@ -11,6 +11,7 @@ export const ProfileService = {
   saveNames(user: User | CoTenant) {
     return axios.post<User>(`${import.meta.env.VITE_API_URL}/api/register/names`, {
       tenantId: user.id,
+      ownerType: user.ownerType,
       firstName: user.firstName,
       lastName: user.lastName,
       preferredName: user.preferredName,

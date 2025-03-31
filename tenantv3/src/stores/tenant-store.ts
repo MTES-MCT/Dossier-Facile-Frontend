@@ -1,33 +1,33 @@
 import { AuthService } from '@/services/AuthService'
+import dayjs from 'dayjs'
+import 'dayjs/locale/en'
+import 'dayjs/locale/fr'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
 import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
 import { i18n } from '../i18n'
-import dayjs from 'dayjs'
-import 'dayjs/locale/fr'
-import 'dayjs/locale/en'
 
-import { User } from 'df-shared-next/src/models/User'
-import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { defineStore, type StoreActions } from 'pinia'
-import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import { keycloak } from '../plugin/keycloak'
 import { DocumentTypeConstants } from '@/components/documents/share/DocumentTypeConstants'
-import { DocumentType } from 'df-shared-next/src/models/Document'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { UtilsService } from '@/services/UtilsService'
 import { ProfileService } from '@/services/ProfileService'
+import { UtilsService } from '@/services/UtilsService'
+import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { DocumentType } from 'df-shared-next/src/models/Document'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import { User } from 'df-shared-next/src/models/User'
+import { defineStore, type StoreActions } from 'pinia'
+import { keycloak } from '../plugin/keycloak'
 
-import * as Sentry from '@sentry/vue'
-import { MessageService } from '@/services/MessageService'
-import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
-import { RegisterService } from '@/services/RegisterService'
-import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
-import { PartnerAccessService } from '@/services/PartnerAccessService'
-import cookies from 'js-cookie'
-import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
+import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { MessageService } from '@/services/MessageService'
+import { PartnerAccessService } from '@/services/PartnerAccessService'
+import { RegisterService } from '@/services/RegisterService'
+import * as Sentry from '@sentry/vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
+import cookies from 'js-cookie'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -456,6 +456,9 @@ export const useTenantStore = defineStore('tenant', {
     updateUserPreferredname(preferredname: string) {
       this.user.preferredName = preferredname
     },
+    updateUserOwnerType(ownerType: 'SELF' | 'THIRD_PARTY') {
+      this.user.ownerType = ownerType
+    },
     updateUserZipcode(zipcode: string) {
       this.user.zipCode = zipcode
     },
@@ -555,15 +558,16 @@ export const useTenantStore = defineStore('tenant', {
       )
     },
     setNames(user: CoTenant) {
-      if (user.firstName && !user.franceConnect) {
+      if (user.firstName) {
         user.firstName = UtilsService.capitalize(user.firstName)
       }
-      if (user.lastName && !user.franceConnect) {
+      if (user.lastName) {
         user.lastName = UtilsService.capitalize(user.lastName)
       }
-      if (user.preferredName && !user.franceConnect) {
+      if (user.preferredName) {
         user.preferredName = UtilsService.capitalize(user.preferredName)
       }
+
       return ProfileService.saveNames(user).then(
         (response) => {
           return this.loadUserCommit(response.data)
@@ -905,7 +909,7 @@ export const useTenantStore = defineStore('tenant', {
         !this.user.lastName ||
         (!this.user.zipCode && this.user.documents.length == 0)
       ) {
-        return { name: 'TenantName' }
+        return { name: 'ChooseTenantIdentity' }
       }
       if (!this.user.applicationType) {
         return { name: 'TenantType' }
@@ -949,7 +953,7 @@ export const useTenantStore = defineStore('tenant', {
         return { name: 'ValidateFile' }
       }
 
-      return { name: 'TenantName' }
+      return { name: 'ChooseTenantIdentity' }
     },
     updateSelectedGuarantor(tenantId: number) {
       let guarantors

@@ -1,19 +1,13 @@
 <template>
-  <BackLinkRow :label="t('third-party-identity')" @click="onClick" />
+  <IndetityBackLinkRow :label="t('third-party-identity')" />
   <IdentityForm text-key="third-party" />
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
-import { useRouter } from 'vue-router'
+import IndetityBackLinkRow from './lib/IdentityBackLinkRow.vue'
 import IdentityForm from './IdentityForm.vue'
 const { t } = useI18n()
-const router = useRouter()
-
-const onClick = () => {
-  router.back()
-}
 </script>
 
 <i18n>
