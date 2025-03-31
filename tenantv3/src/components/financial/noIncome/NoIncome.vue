@@ -1,8 +1,6 @@
 <template>
-  <BackLinkRow label="Vous n’avez pas de revenus" :to="parent" />
-  <p class="fr-mb-1w">
-    Vous pouvez ajouter une explication sur votre situation ici si vous le souhaitez :
-  </p>
+  <BackLinkRow :label="t('no-income')" :to="parent" />
+  <p class="fr-mb-1w">{{ t('can-add-explanation') }}</p>
   <textarea v-model="customText" class="fr-input fr-mb-2w" />
   <FinancialFooter :on-submit="save" />
 </template>
@@ -18,7 +16,9 @@ import { useLoading } from 'vue-loading-overlay'
 import { ToastService } from '@/services/ToastService'
 import { UtilsService } from '@/services/UtilsService'
 import { useFinancialState } from '../financialState'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const route = useRoute()
 const parent = useParentRoute()
 const store = useTenantStore()
@@ -52,3 +52,16 @@ async function save(): Promise<boolean> {
   }
 }
 </script>
+
+<i18n>
+{
+  "en": {
+    "no-income": "You have no income",
+    "can-add-explanation": "You can add an explanation of your situation here if you wish:"
+  },
+  "fr": {
+    "no-income": "Vous n’avez pas de revenus",
+    "can-add-explanation": "Vous pouvez ajouter une explication sur votre situation ici si vous le souhaitez :"
+  }
+}
+</i18n>
