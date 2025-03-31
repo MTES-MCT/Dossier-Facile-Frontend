@@ -1,82 +1,78 @@
 <template>
-  <div>
-    <Form name="tenantGuarantorNameForm" @submit="save">
-      <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6">{{ t('tenantguarantorname.title') }}</h1>
-        <div class="fr-alert fr-alert--info">
-          <p v-html="t('tenantguarantorchoice.two-guarantors-warning')"></p>
-        </div>
-        <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
-          <div class="fr-col-12 fr-mb-3w">
-            <div class="fr-input-group">
-              <label class="fr-label" for="lastname"
-                >{{ t('tenantguarantorname.lastname') }} :</label
-              >
-              <Field
-                v-slot="{ field, meta }"
-                v-model="lastName"
+  <Form name="tenantGuarantorNameForm" @submit="save">
+    <NakedCard class="fr-p-md-5w">
+      <h1 class="fr-h6">{{ t('tenantguarantorname.title') }}</h1>
+      <div class="fr-alert fr-alert--info">
+        <p v-html="t('tenantguarantorchoice.two-guarantors-warning')"></p>
+      </div>
+      <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
+        <div class="fr-col-12 fr-mb-3w">
+          <div class="fr-input-group">
+            <label class="fr-label" for="lastname">{{ t('tenantguarantorname.lastname') }} :</label>
+            <Field
+              v-slot="{ field, meta }"
+              v-model="lastName"
+              name="lastname"
+              :rules="{
+                required: true,
+                onlyAlpha: true
+              }"
+            >
+              <input
+                v-bind="field"
+                id="lastname"
+                class="form-control fr-input validate-required"
+                :class="{
+                  'fr-input--valid': meta.valid,
+                  'fr-input--error': !meta.valid
+                }"
                 name="lastname"
-                :rules="{
-                  required: true,
-                  onlyAlpha: true
-                }"
-              >
-                <input
-                  v-bind="field"
-                  id="lastname"
-                  class="form-control fr-input validate-required"
-                  :class="{
-                    'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid
-                  }"
-                  name="lastname"
-                  :placeholder="t('tenantguarantorname.lastname-placeholder')"
-                  type="text"
-                  required
-                />
-              </Field>
-              <ErrorMessage v-slot="{ message }" name="lastname">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-              </ErrorMessage>
-            </div>
-          </div>
-          <div class="fr-col-12 fr-mb-3w">
-            <div class="fr-input-group">
-              <label for="firstname" class="fr-label"
-                >{{ t('tenantguarantorname.firstname') }} :</label
-              >
-              <Field
-                v-slot="{ field, meta }"
-                v-model="firstName"
-                name="firstname"
-                :rules="{
-                  required: true,
-                  onlyAlpha: true
-                }"
-              >
-                <input
-                  id="firstname"
-                  :placeholder="t('tenantguarantorname.firstname-placeholder')"
-                  type="text"
-                  v-bind="field"
-                  class="validate-required form-control fr-input"
-                  :class="{
-                    'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid
-                  }"
-                  required
-                />
-              </Field>
-              <ErrorMessage v-slot="{ message }" name="firstname">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-              </ErrorMessage>
-            </div>
+                :placeholder="t('tenantguarantorname.lastname-placeholder')"
+                type="text"
+                required
+              />
+            </Field>
+            <ErrorMessage v-slot="{ message }" name="lastname">
+              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+            </ErrorMessage>
           </div>
         </div>
-      </NakedCard>
-      <GuarantorFooter @on-back="goBack"></GuarantorFooter>
-    </Form>
-  </div>
+        <div class="fr-col-12 fr-mb-3w">
+          <div class="fr-input-group">
+            <label for="firstname" class="fr-label"
+              >{{ t('tenantguarantorname.firstname') }} :</label
+            >
+            <Field
+              v-slot="{ field, meta }"
+              v-model="firstName"
+              name="firstname"
+              :rules="{
+                required: true,
+                onlyAlpha: true
+              }"
+            >
+              <input
+                id="firstname"
+                :placeholder="t('tenantguarantorname.firstname-placeholder')"
+                type="text"
+                v-bind="field"
+                class="validate-required form-control fr-input"
+                :class="{
+                  'fr-input--valid': meta.valid,
+                  'fr-input--error': !meta.valid
+                }"
+                required
+              />
+            </Field>
+            <ErrorMessage v-slot="{ message }" name="firstname">
+              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+            </ErrorMessage>
+          </div>
+        </div>
+      </div>
+    </NakedCard>
+    <GuarantorFooter @on-back="goBack"></GuarantorFooter>
+  </Form>
 </template>
 
 <script setup lang="ts">
@@ -151,5 +147,3 @@ function goBack() {
   emit('on-back')
 }
 </script>
-
-<style scoped lang="scss"></style>

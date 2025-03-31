@@ -256,10 +256,9 @@ function setAddGuarantorStep() {
           guarantors.value = store.getTenant(props.tenant?.id).guarantors
           const g = guarantors.value[guarantors.value.length - 1]
           router.push({
-            name: 'TenantGuarantorDocuments',
+            name: 'TenantGuarantorName',
             params: {
               step: '5',
-              substep: '0',
               tenantId: props.tenant.id.toString(),
               guarantorId: g.id?.toString()
             }

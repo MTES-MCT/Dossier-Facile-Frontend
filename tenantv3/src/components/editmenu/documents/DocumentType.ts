@@ -46,3 +46,14 @@ export const COUPLE_COMPONENTS: { [type in DocumentType]?: string } = {
   FINANCIAL: 'CoupleFinancial',
   TAX: 'CoupleTax'
 }
+
+export const TENANT_GUARANTOR_COMPONENTS: { [type in DocumentType]: string } = {
+  IDENTITY: 'TenantGuarantorIdentification',
+  RESIDENCY: 'TenantGuarantorResidency',
+  PROFESSIONAL: 'TenantGuarantorProfessional',
+  FINANCIAL: 'TenantGuarantorFinancial',
+  TAX: 'TenantGuarantorTax',
+  IDENTIFICATION: 'TenantGuarantorIdentification',
+  IDENTIFICATION_LEGAL_PERSON: 'TenantGuarantorName',
+  GUARANTEE_PROVIDER_CERTIFICATE: 'TenantGuarantorName'
+}

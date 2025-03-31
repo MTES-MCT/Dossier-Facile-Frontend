@@ -6,3 +6,12 @@ export const GUARANTOR_ROUTES = [
   'GuarantorFinancial',
   'GuarantorTax'
 ]
+
+export const TENANT_GUARANTOR_ROUTES = [
+  'TenantGuarantorName',
+  'TenantGuarantorIdentification',
+  'TenantGuarantorResidency',
+  'TenantGuarantorProfessional',
+  'TenantGuarantorFinancial',
+  'TenantGuarantorTax'
+]

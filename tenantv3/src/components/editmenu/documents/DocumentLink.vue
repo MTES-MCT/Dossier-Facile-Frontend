@@ -13,7 +13,8 @@ import {
   DocumentType,
   DocumentTypeTranslations,
   GUARANTOR_COMPONENTS,
-  TENANT_COMPONENTS
+  TENANT_COMPONENTS,
+  TENANT_GUARANTOR_COMPONENTS
 } from './DocumentType'
 import { useI18n } from 'vue-i18n'
 import type { PersonType } from './PersonType'
@@ -50,6 +51,9 @@ function getTargetComponent() {
   }
   if (props.personType === 'COTENANT') {
     return COUPLE_COMPONENTS[props.documentType]
+  }
+  if (props.personType === 'COTENANT_GUARANTOR') {
+    return TENANT_GUARANTOR_COMPONENTS[props.documentType]
   }
   return componentsPerType[props.personType]
 }

@@ -53,10 +53,9 @@ function getTenantId(): number {
 
 function onEdit(g: Guarantor) {
   router.push({
-    name: 'TenantGuarantorDocuments',
+    name: 'TenantGuarantorName',
     params: {
       step: getStep().toString(),
-      substep: '0',
       tenantId: getTenantId().toString(),
       guarantorId: g.id?.toString()
     }
@@ -76,10 +75,9 @@ function updateGuarantorType(value: string) {
     }
 
     router.push({
-      name: 'TenantGuarantorDocuments',
+      name: 'TenantGuarantorName',
       params: {
         step: getStep().toString(),
-        substep: '0',
         tenantId: getTenantId().toString(),
         guarantorId: guarantorId
       }

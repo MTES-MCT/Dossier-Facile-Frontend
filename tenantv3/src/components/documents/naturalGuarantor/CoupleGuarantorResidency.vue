@@ -34,21 +34,19 @@ provide(residencyKey, {
   category: 'couple-guarantor-residency',
   textKey: 'couple',
   previousStep: {
-    name: 'TenantGuarantorDocuments',
+    name: 'TenantGuarantorIdentification',
     params: {
       tenantId,
       guarantorId: guarantorId.value,
-      step,
-      substep: 1
+      step
     }
   },
   nextStep: {
-    name: 'TenantGuarantorDocuments',
+    name: 'TenantGuarantorProfessional',
     params: {
       tenantId,
       guarantorId: guarantorId.value,
-      step,
-      substep: 3
+      step
     }
   },
   document,

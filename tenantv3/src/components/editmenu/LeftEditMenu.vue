@@ -219,11 +219,10 @@
               <div class="ml-5 bold">
                 <router-link
                   :to="{
-                    name: 'TenantGuarantorDocuments',
+                    name: 'TenantGuarantorName',
                     force: true,
                     params: {
-                      step: getStepNumber('coTenantGuarantor'),
-                      substep: '0',
+                      step: 5,
                       tenantId: getCoTenant(0).id,
                       guarantorId: g.id
                     }
@@ -241,16 +240,12 @@
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.IDENTITY"
-                :substep="1"
-                :active="getGuarantorCurrentStep(1, g)"
               />
               <CoTenantGuarantorDocumentLink
                 class="ml-10"
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.RESIDENCY"
-                :substep="2"
-                :active="getGuarantorCurrentStep(2, g)"
                 :to="makeResidencyLink(g)"
               />
               <CoTenantGuarantorDocumentLink
@@ -258,24 +253,18 @@
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.PROFESSIONAL"
-                :substep="3"
-                :active="getGuarantorCurrentStep(3, g)"
               />
               <CoTenantGuarantorDocumentLink
                 class="ml-10"
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.FINANCIAL"
-                :substep="4"
-                :active="getGuarantorCurrentStep(4, g)"
               />
               <CoTenantGuarantorDocumentLink
                 class="ml-10"
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.TAX"
-                :substep="5"
-                :active="getGuarantorCurrentStep(5, g)"
               />
             </div>
           </div>
@@ -285,16 +274,12 @@
               :guarantor="selectedGuarantor"
               :co-tenant="getCoTenant(0)"
               :document-type="DocumentType.IDENTIFICATION_LEGAL_PERSON"
-              :substep="0"
-              :active="getGuarantorCurrentStep(0, selectedGuarantor)"
             />
             <CoTenantGuarantorDocumentLink
               class="ml-5"
               :guarantor="selectedGuarantor"
               :co-tenant="getCoTenant(0)"
               :document-type="DocumentType.IDENTIFICATION"
-              :substep="1"
-              :active="getGuarantorCurrentStep(1, selectedGuarantor)"
             />
           </div>
           <div v-if="selectedGuarantor?.typeGuarantor === 'ORGANISM'">
@@ -303,8 +288,6 @@
               :guarantor="selectedGuarantor"
               :co-tenant="getCoTenant(0)"
               :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
-              :substep="0"
-              :active="getGuarantorCurrentStep(0, selectedGuarantor)"
             />
           </div>
         </div>

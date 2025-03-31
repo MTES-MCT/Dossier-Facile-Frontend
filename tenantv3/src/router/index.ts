@@ -634,21 +634,60 @@ export const router = createRouter({
       ]
     },
     {
-      path: '/info-garant-locataire/:tenantId/:guarantorId/:step/:substep?',
+      path: '/info-garant-locataire/:tenantId/:guarantorId/:step',
       meta: {
         title: 'Édition du garant du locataire - DossierFacile',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
+      name: 'TenantGuarantorDocuments',
       component: () => import('../views/TenantGuarantorDocumentsPage.vue'),
       children: [
         {
-          path: '',
-          name: 'TenantGuarantorDocuments',
-          component: () => import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
+          path: '0',
+          name: 'TenantGuarantorName',
+          component: () =>
+            import('@/components/documents/naturalGuarantor/TenantGuarantorStep0.vue')
         },
-        ...GUARANTOR_RESIDENCY_ROUTES
+        {
+          path: '1',
+          name: 'TenantGuarantorIdentification',
+          component: () =>
+            import('@/components/documents/naturalGuarantor/TenantGuarantorStep1.vue')
+        },
+        {
+          path: '2',
+          component: () =>
+            import('@/components/documents/naturalGuarantor/CoupleGuarantorResidency.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantGuarantorResidency',
+              component: () =>
+                import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
+            },
+            ...GUARANTOR_RESIDENCY_ROUTES
+          ]
+        },
+        {
+          path: '3',
+          name: 'TenantGuarantorProfessional',
+          component: () =>
+            import('@/components/documents/naturalGuarantor/GuarantorProfessional.vue'),
+          props: { isCotenant: true }
+        },
+        {
+          path: '4',
+          name: 'TenantGuarantorFinancial',
+          component: () => import('@/components/documents/naturalGuarantor/GuarantorFinancial.vue')
+        },
+        {
+          path: '5',
+          name: 'TenantGuarantorTax',
+          component: () => import('@/components/documents/naturalGuarantor/GuarantorTax.vue'),
+          props: { isCotenant: true }
+        }
       ]
     },
     {
