@@ -146,6 +146,21 @@ export const router = createRouter({
         hideFooter: true,
         skipLinks: [CONTENT, FOOTER_NAVIGATION]
       },
+      beforeEnter: (to) => {
+        if (to.name === 'TenantName') {
+          const store = useTenantStore()
+          const ownerType = store.user.ownerType
+          if (ownerType === undefined) {
+            return { name: 'ChooseTenantIdentity' }
+          }
+          if (ownerType === 'SELF') {
+            return { name: 'SelfTenantIdentity' }
+          }
+          if (ownerType === 'THIRD_PARTY') {
+            return { name: 'ThirdPartyTenantIdentity' }
+          }
+        }
+      },
       component: () => import('../views/TenantIdentityInformation.vue'),
       children: [
         {

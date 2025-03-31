@@ -1,19 +1,14 @@
 <template>
-  <BackLinkRow :label="t('self-identity')" @click="onClick" />
+  <IndetityBackLinkRow :label="t('self-identity')" />
   <IdentityForm text-key="self" />
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
-import { useRouter } from 'vue-router'
 import IdentityForm from './IdentityForm.vue'
-const { t } = useI18n()
-const router = useRouter()
+import IndetityBackLinkRow from './lib/IdentityBackLinkRow.vue'
 
-const onClick = () => {
-  router.back()
-}
+const { t } = useI18n()
 </script>
 
 <i18n>

@@ -31,11 +31,3 @@ const getTextKey = () => {
   }
 }
 </script>
-
-<style lang="scss">
-.ml {
-  @media all and (min-width: 1024px) {
-    margin-left: 10%;
-  }
-}
-</style>

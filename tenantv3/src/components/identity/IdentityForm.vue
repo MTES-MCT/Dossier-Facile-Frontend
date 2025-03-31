@@ -1,11 +1,11 @@
 <template>
   <h6>{{ t(textKey + '.title') }}</h6>
-  <Form @submit="onSubmit">
+  <Form v-slot="{ meta }" @submit="onSubmit">
     <div>
       <label class="fr-label" for="lastname">{{ t('common.last-name-label') }}</label>
       <Field
-        v-slot="{ field, meta }"
-        v-model.trim="lastName"
+        v-slot="{ field }"
+        v-model.trim="lastname"
         name="lastname"
         :rules="{
           required: true
@@ -18,6 +18,7 @@
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid
           }"
+          :disabled="isInputDisabled"
           type="text"
         />
       </Field>
@@ -27,19 +28,19 @@
     </div>
     <div class="fr-mt-1w">
       <button
-        v-if="!displayPreferredNameField"
+        v-if="!displayPreferrednameField"
         class="fr-link fr-icon-add-line fr-link--icon-right"
         href="#"
-        @click="displayPreferredNameField = true"
+        @click="displayPreferrednameField = true"
       >
         {{ t('common.add-prefered-name') }}
       </button>
     </div>
-    <div v-if="displayPreferredNameField" class="fr-mt-3w">
+    <div v-if="displayPreferrednameField" class="fr-mt-3w">
       <label class="fr-label" for="preferredName">{{ t('common.preferred-name-label') }}</label>
       <div class="field-with-button fr-mt-1w">
         <div class="fr-input-wrap">
-          <Field v-slot="{ field }" v-model.trim="preferredName" name="preferredName">
+          <Field v-slot="{ field }" v-model.trim="preferredname" name="preferredName">
             <input v-bind="field" class="form-control fr-input" type="text" />
           </Field>
         </div>
@@ -47,7 +48,7 @@
           <button
             class="fr-btn fr-btn--tertiary fr-icon-close-line"
             type="button"
-            @click="displayPreferredNameField = false"
+            @click="onDeletePreferredName"
           >
             {{ t('common.delete-preferred-name') }}
           </button>
@@ -57,8 +58,8 @@
     <div class="fr-mt-3w">
       <label class="fr-label" for="firstName">{{ t('common.first-name-label') }}</label>
       <Field
-        v-slot="{ field, meta }"
-        v-model.trim="firstName"
+        v-slot="{ field }"
+        v-model.trim="firstname"
         name="firstName"
         :rules="{
           required: true
@@ -71,6 +72,7 @@
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid
           }"
+          :disabled="isInputDisabled"
           type="text"
         />
       </Field>
@@ -91,43 +93,117 @@
         class="fr-fieldset"
         aria-labelledby="checkboxes-legend checkboxes-messages"
       >
-        <div class="fr-fieldset__element">
-          <div class="fr-checkbox-group">
-            <input
-              id="third-party-consent-checkbox"
-              name="third-party-consent-checkbox"
-              type="checkbox"
-              aria-describedby="third-party-consent-checkbox-message"
-            />
-            <label class="fr-label" for="third-party-consent-checkbox">
-              {{ t('third-party.checkbox-label', { lastName: lastName }) }}
-            </label>
+        <Field
+          v-model.trim="thirdPartyConsent"
+          type="checkbox"
+          name="thirdPartyConsent"
+          :rules="{
+            required: true
+          }"
+        >
+          <div class="fr-fieldset__element">
+            <div class="fr-checkbox-group">
+              <input
+                id="third-party-consent-checkbox"
+                name="third-party-consent-checkbox"
+                type="checkbox"
+                aria-describedby="third-party-consent-checkbox-message"
+                @change="onCheckboxChange"
+              />
+              <label class="fr-label" for="third-party-consent-checkbox">
+                {{ t('third-party.checkbox-label', { lastName: lastname }) }}
+              </label>
+            </div>
           </div>
-        </div>
+        </Field>
       </fieldset>
     </div>
+    <ProfileFooter :show-back="false" :disabled="!meta.valid"></ProfileFooter>
   </Form>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import ProfileFooter from '../footer/ProfileFooter.vue'
 import { useI18n } from 'vue-i18n'
+import { useTenantStore } from '@/stores/tenant-store'
+import { UtilsService } from '@/services/UtilsService'
+import { AnalyticsService } from '@/services/AnalyticsService'
+import { router } from '@/router'
+import { useLoading } from 'vue-loading-overlay'
 
-defineProps<{
+const props = defineProps<{
   textKey: 'self' | 'third-party'
 }>()
 
+const $loading = useLoading({})
 const { t } = useI18n()
+const store = useTenantStore()
 
-const lastName = ref('')
-const firstName = ref('')
-const preferredName = ref('')
+const lastname = ref('')
+const firstname = ref('')
+const preferredname = ref('')
 const postalCode = ref('')
-const displayPreferredNameField = ref(false)
+const thirdPartyConsent = ref(false)
+const displayPreferrednameField = ref(false)
+
+const isInputDisabled = computed(() => {
+  const franceConnect = user.value?.franceConnect
+  if (props.textKey === 'self') {
+    return franceConnect || false
+  }
+  return false
+})
+
+const onCheckboxChange = () => {
+  thirdPartyConsent.value = !thirdPartyConsent.value
+}
+
+onBeforeMount(() => {
+  firstname.value = user.value?.firstName || ''
+  lastname.value = user.value?.lastName || ''
+  preferredname.value = UtilsService.capitalize(user.value?.preferredName || '')
+  postalCode.value = user.value?.zipCode || ''
+  displayPreferrednameField.value = preferredname.value !== ''
+})
+
+const user = computed(() => store.user)
+
+const onDeletePreferredName = () => {
+  preferredname.value = ''
+  displayPreferrednameField.value = false
+}
 
 const onSubmit = () => {
-  console.log('submit')
+  if (!lastname.value || !firstname.value) {
+    return
+  }
+  const loader = $loading.show()
+  store.updateUserFirstname(firstname.value)
+  store.updateUserLastname(lastname.value)
+  store.updateUserPreferredname(preferredname.value)
+  store.updateUserZipcode(postalCode.value)
+  if (props.textKey === 'self') {
+    store.updateUserOwnerType('SELF')
+  } else {
+    store.updateUserOwnerType('THIRD_PARTY')
+  }
+
+  store
+    .setNames(user.value)
+    .then(
+      () => {
+        AnalyticsService.confirmName()
+        router.push({ name: 'TenantType' })
+      },
+      (error) => {
+        console.dir(error)
+      }
+    )
+    .finally(() => {
+      loader.hide()
+    })
 }
 </script>
 
