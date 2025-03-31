@@ -16,30 +16,30 @@
       <div v-for="doc of financialDocuments" :key="doc.id" class="income-card">
         <div class="first-row">
           <span class="fr-text--lg fr-mb-0 bold">{{ categoryLabel(doc) }}</span>
-          <span>{{ doc.monthlySum }}€ net mensuel</span>
+          <span>{{ doc.monthlySum }}€ {{ t('net-per-month') }}</span>
         </div>
         <span v-if="doc.documentCategoryStep" class="fr-text--sm fr-mb-0 text-grey">{{
           STEP_LABEL[doc.documentCategoryStep]
         }}</span>
         <span v-if="doc.documentStatus === 'DECLINED'" class="pill declined">
           <RiAlertFill size="1rem" />
-          Modification attendue</span
+          {{ t('declined') }}</span
         >
         <span v-else-if="doc.documentStatus === 'VALIDATED'" class="pill validated">
           <RiCheckboxCircleFill size="1rem" />
-          Validé</span
+          {{ t('validated') }}</span
         >
         <span v-else-if="doc.documentStatus === 'TO_PROCESS'" class="pill to-process">
           <RiTimeFill size="1rem" />
-          En attente de traitement</span
+          {{ t('to-process') }}</span
         >
         <div class="fr-ml-auto fr-mt-2w">
           <router-link :to="makeLink(doc)" class="fr-link fr-mr-4w"
-            >Modifier
+            >{{ t('edit') }}
             <RiEditLine size="1rem" />
           </router-link>
           <button type="button" class="btn-link color--primary" @click="deleteDoc(doc)">
-            Supprimer
+            {{ t('delete') }}
             <RiDeleteBinLine size="1rem" />
           </button>
         </div>
@@ -291,7 +291,13 @@ function deleteDoc(f: DfDocument) {
     "add-income": "Add income",
     "modal-title": "DossierFacile évolue pour mieux vous accompagner",
     "modal-text": "En raison de l'évolution de cette étape, il est possible que certains de vos fichiers soient mal catégorisés. Nous vous invitons à vérifier et à ajuster les documents pour vous assurer qu'ils sont bien associés à la bonne catégorie.",
-    "modal-text-2": "Nous nous excusons pour la gêne occasionnée."
+    "modal-text-2": "Nous nous excusons pour la gêne occasionnée.",
+    "net-per-month": "net per month",
+    "declined": "Change expected",
+    "validated": "Validated",
+    "to-process": "Waiting to be processed",
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "fr": {
     "income": "Vos revenus",
@@ -304,7 +310,13 @@ function deleteDoc(f: DfDocument) {
     "add-income": "Ajouter un revenu",
     "modal-title": "DossierFacile évolue pour mieux vous accompagner",
     "modal-text": "En raison de l'évolution de cette étape, il est possible que certains de vos fichiers soient mal catégorisés. Nous vous invitons à vérifier et à ajuster les documents pour vous assurer qu'ils sont bien associés à la bonne catégorie.",
-    "modal-text-2": "Nous nous excusons pour la gêne occasionnée."
+    "modal-text-2": "Nous nous excusons pour la gêne occasionnée.",
+    "net-per-month": "net mensuel",
+    "declined": "Modification attendue",
+    "validated": "Validé",
+    "to-process": "En attente de traitement",
+    "edit": "Modifier",
+    "delete": "Supprimer"
   }
 }
 </i18n>

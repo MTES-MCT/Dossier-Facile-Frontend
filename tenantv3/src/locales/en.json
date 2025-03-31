@@ -1368,7 +1368,8 @@
       "self-employed": "You are self-employed",
       "auto-entrepreneur": "You are an auto-entrepreneur",
       "more-3-months": "For over 3 months",
-      "less-3-months": "For less than 3 months"
+      "less-3-months": "For less than 3 months",
+      "enter-monthly-income": "Enter your average net monthly income:"
     }
   }
 }

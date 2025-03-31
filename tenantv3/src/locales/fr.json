@@ -1409,7 +1409,8 @@
       "self-employed": "Vous êtes indépendant",
       "auto-entrepreneur": "Vous êtes auto-entrepreneur",
       "more-3-months": "Depuis plus de 3 mois",
-      "less-3-months": "Depuis moins de 3 mois"
+      "less-3-months": "Depuis moins de 3 mois",
+      "enter-monthly-income": "Saisissez le montant de vos revenus mensuels nets moyens :"
     }
   }
 }
