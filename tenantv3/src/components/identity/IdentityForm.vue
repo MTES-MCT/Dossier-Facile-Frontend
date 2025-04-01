@@ -123,7 +123,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import ProfileFooter from '../footer/ProfileFooter.vue'
 import { useI18n } from 'vue-i18n'
@@ -141,10 +141,13 @@ const $loading = useLoading({})
 const { t } = useI18n()
 const store = useTenantStore()
 
-const lastname = ref('')
-const firstname = ref('')
-const preferredname = ref('')
-const postalCode = ref('')
+const user = computed(() => store.user)
+
+const lastname = ref(user.value?.lastName || '')
+const firstname = ref(user.value?.firstName || '')
+const preferredname = ref(UtilsService.capitalize(user.value?.preferredName || ''))
+const postalCode = ref(user.value?.zipCode || '')
+
 const thirdPartyConsent = ref(false)
 const displayPreferrednameField = ref(false)
 
@@ -160,16 +163,6 @@ const onCheckboxChange = () => {
   thirdPartyConsent.value = !thirdPartyConsent.value
 }
 
-onBeforeMount(() => {
-  firstname.value = user.value?.firstName || ''
-  lastname.value = user.value?.lastName || ''
-  preferredname.value = UtilsService.capitalize(user.value?.preferredName || '')
-  postalCode.value = user.value?.zipCode || ''
-  displayPreferrednameField.value = preferredname.value !== ''
-})
-
-const user = computed(() => store.user)
-
 const onDeletePreferredName = () => {
   preferredname.value = ''
   displayPreferrednameField.value = false
@@ -180,14 +173,15 @@ const onSubmit = () => {
     return
   }
   const loader = $loading.show()
-  store.updateUserFirstname(firstname.value)
-  store.updateUserLastname(lastname.value)
-  store.updateUserPreferredname(preferredname.value)
-  store.updateUserZipcode(postalCode.value)
+
+  store.user.firstName = firstname.value
+  store.user.lastName = lastname.value
+  store.user.preferredName = preferredname.value
+  store.user.zipCode = postalCode.value
   if (props.textKey === 'self') {
-    store.updateUserOwnerType('SELF')
+    store.user.ownerType = 'SELF'
   } else {
-    store.updateUserOwnerType('THIRD_PARTY')
+    store.user.ownerType = 'THIRD_PARTY'
   }
 
   store

@@ -1,12 +1,12 @@
 <template>
-  <IndetityBackLinkRow :label="t('self-identity')" />
+  <IdentityBackLinkRow :label="t('self-identity')" />
   <IdentityForm text-key="self" />
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import IdentityForm from './IdentityForm.vue'
-import IndetityBackLinkRow from './lib/IdentityBackLinkRow.vue'
+import IdentityBackLinkRow from './lib/IdentityBackLinkRow.vue'
 
 const { t } = useI18n()
 </script>

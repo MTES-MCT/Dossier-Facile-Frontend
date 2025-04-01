@@ -456,9 +456,6 @@ export const useTenantStore = defineStore('tenant', {
     updateUserPreferredname(preferredname: string) {
       this.user.preferredName = preferredname
     },
-    updateUserOwnerType(ownerType: 'SELF' | 'THIRD_PARTY') {
-      this.user.ownerType = ownerType
-    },
     updateUserZipcode(zipcode: string) {
       this.user.zipCode = zipcode
     },

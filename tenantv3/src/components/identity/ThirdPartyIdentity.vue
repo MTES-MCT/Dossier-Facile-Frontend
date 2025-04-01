@@ -1,11 +1,11 @@
 <template>
-  <IndetityBackLinkRow :label="t('third-party-identity')" />
+  <IdentityBackLinkRow :label="t('third-party-identity')" />
   <IdentityForm text-key="third-party" />
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import IndetityBackLinkRow from './lib/IdentityBackLinkRow.vue'
+import IdentityBackLinkRow from './lib/IdentityBackLinkRow.vue'
 import IdentityForm from './IdentityForm.vue'
 const { t } = useI18n()
 </script>
