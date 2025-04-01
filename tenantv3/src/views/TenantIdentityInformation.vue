@@ -11,20 +11,20 @@
 
 <script setup lang="ts">
 import TenanIdentity from '../components/identity/TenantIdentity.vue'
-import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import PrepareDocument from '@/components/identity/PrepareDocument.vue'
 
-const routeur = useRouter()
+const currentRoute = useRoute()
 
 const hasToDisplayInformations = () => {
   return (
-    routeur.currentRoute.value.path === '/nom-locataire/pour-moi' ||
-    routeur.currentRoute.value.path === '/nom-locataire/pour-une-autre-personne'
+    currentRoute.path === '/nom-locataire/pour-moi' ||
+    currentRoute.path === '/nom-locataire/pour-une-autre-personne'
   )
 }
 
 const getTextKey = () => {
-  if (routeur.currentRoute.value.path === '/nom-locataire/pour-moi') {
+  if (currentRoute.path === '/nom-locataire/pour-moi') {
     return 'self'
   } else {
     return 'third-party'
