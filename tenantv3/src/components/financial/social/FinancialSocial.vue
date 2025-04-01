@@ -1,23 +1,25 @@
 <template>
-  <BackLinkRow label="Aide sociale" :to="parent" />
-  <p>Vous touchez :</p>
+  <BackLinkRow :label="t('form.financial.social-aid')" :to="parent" />
+  <p>{{ t('you-receive') }}</p>
   <RadioList>
     <RadioListItem :to="here + '/caf'" @click="sendEvent('caf')"
-      >une aide de la CAF ou de la MSA
-      <span class="fr-hint-text">RSA, prime d’activité…</span>
+      >{{ t('form.financial.social.caf') }}
+      <span class="fr-hint-text">{{ t('rsa') }}</span>
     </RadioListItem>
     <RadioListItem :to="here + '/france-travail'" @click="sendEvent('france-travail')"
-      >une aide de France Travail
-      <span class="fr-hint-text">chômage, aide au retour à l’emploi (ARE)…</span>
+      >{{ t('form.financial.social.france-travail') }}
+      <span class="fr-hint-text">{{ t('unemployment') }}</span>
     </RadioListItem>
     <RadioListItem :to="here + '/apl'" @click="sendEvent('apl')"
-      >l’aide personnalisée au logement (APL)
-      <span class="fr-hint-text">ou bien vous allez la toucher</span>
+      >{{ t('form.financial.social.apl') }}
+      <span class="fr-hint-text">{{ t('or-you-will') }}</span>
     </RadioListItem>
-    <RadioListItem :to="here + '/aah'" @click="sendEvent('aah')"
-      >l’allocation aux adultes handicapés (AAH)</RadioListItem
-    >
-    <RadioListItem :to="here + '/autre'" @click="sendEvent('other')">une autre aide</RadioListItem>
+    <RadioListItem :to="here + '/aah'" @click="sendEvent('aah')">{{
+      t('form.financial.social.aah')
+    }}</RadioListItem>
+    <RadioListItem :to="here + '/autre'" @click="sendEvent('other')">{{
+      t('form.financial.social.other')
+    }}</RadioListItem>
   </RadioList>
   <FinancialFooter />
 </template>
@@ -31,7 +33,9 @@ import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()
@@ -39,3 +43,20 @@ const parent = useParentRoute()
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation2('financial', 'social', subCategory)
 </script>
+
+<i18n>
+{
+  "en": {
+    "you-receive": "You receive:",
+    "rsa": "RSA, activity allowance…",
+    "unemployment": "unemployment, back-to-work assistance…",
+    "or-you-will": "or you're about to receive it"
+  },
+  "fr": {
+    "you-receive": "Vous recevez :",
+    "rsa": "RSA, prime d’activité…",
+    "unemployment": "chômage, aide au retour à l’emploi (ARE)…",
+    "or-you-will": "ou bien vous allez la toucher"
+  }
+}
+</i18n>

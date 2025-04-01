@@ -1369,7 +1369,15 @@
       "auto-entrepreneur": "You are an auto-entrepreneur",
       "more-3-months": "For over 3 months",
       "less-3-months": "For less than 3 months",
-      "enter-monthly-income": "Enter your average net monthly income:"
+      "enter-monthly-income": "Enter your average net monthly income:",
+      "you-receive": "You receive {0}",
+      "social": {
+        "caf": "aid from the CAF or the MSA",
+        "france-travail": "aid from France Travail",
+        "apl": "personalized housing assistance (APL)",
+        "aah": "the disabled adults allowance (AAH)",
+        "other": "another aid"
+      }
     }
   }
 }

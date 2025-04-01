@@ -1410,7 +1410,15 @@
       "auto-entrepreneur": "Vous êtes auto-entrepreneur",
       "more-3-months": "Depuis plus de 3 mois",
       "less-3-months": "Depuis moins de 3 mois",
-      "enter-monthly-income": "Saisissez le montant de vos revenus mensuels nets moyens :"
+      "enter-monthly-income": "Saisissez le montant de vos revenus mensuels nets moyens :",
+      "you-receive": "Vous touchez {0}",
+      "social": {
+        "caf": "une aide de la CAF ou de la MSA",
+        "france-travail": "une aide de France Travail",
+        "apl": "l’aide personnalisée au logement (APL)",
+        "aah": "l’allocation aux adultes handicapés (AAH)",
+        "other": "une autre aide"
+      }
     }
   }
 }

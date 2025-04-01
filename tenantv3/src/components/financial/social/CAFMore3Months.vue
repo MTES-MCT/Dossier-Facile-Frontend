@@ -1,17 +1,21 @@
 <template>
-  <BackLinkRow label="Aide sociale" :to="ancestor" />
-  <BackLinkRow label="Vous touchez une aide de la CAF ou de la MSA" :to="grandparent" />
-  <BackLinkRow label="Depuis plus de 3 mois" :to="parent" />
-  <p class="fr-mb-1w">Saisissez le montant de vos revenus mensuels nets moyens&nbsp;:</p>
+  <BackLinkRow :label="t('form.financial.social-aid')" :to="ancestor" />
+  <BackLinkRow
+    :label="t('form.financial.you-receive', [t('form.financial.social.caf')])"
+    :to="grandparent"
+  />
+  <BackLinkRow :label="t('form.financial.more-3-months')" :to="parent" />
+  <p class="fr-mb-1w">{{ t('form.financial.enter-monthly-income') }}</p>
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_CAF_MORE_3_MONTHS">
     <template #incomeFilled>
-      <p>
-        Veuillez fournir les justificatifs de versement de
-        <strong> {{ months[0] }}, {{ months[1] }} et {{ months[2] }}</strong
-        >. Vous pouvez ajouter le justificatif de {{ months[3] }} si vous l’avez.
-      </p>
+      <i18n-t tag="p" keypath="please-provide">
+        <template #months>
+          <strong>{{ t('months', [...months.slice(0, 3)]) }}</strong>
+        </template>
+        <template #month>{{ months[3] }}</template>
+      </i18n-t>
       <div class="fr-alert fr-alert--warning fr-mb-2w">
-        <p>Notre équipe refuse automatiquement les dossiers avec 1 ou 2 justificatifs seulement.</p>
+        <p>{{ t('auto-reject') }}</p>
       </div>
     </template>
   </UploadFilesFinancial>
@@ -22,9 +26,26 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { lastMonths } from '../lib/lastMonths'
+import { useI18n } from 'vue-i18n'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
 const months = lastMonths()
+const { t } = useI18n()
 </script>
+
+<i18n>
+{
+  "en": {
+    "please-provide": "Please provide proof of payment for {months}. You can add the {month} receipt if you have it.",
+    "months": "{0}, {1} and {2}",
+    "auto-reject": "Our team automatically refuses applications with only 1 or 2 supporting documents."
+  },
+  "fr": {
+    "please-provide": "Veuillez fournir les justificatifs de versement de {months}. Vous pouvez ajouter le justificatif de {month} si vous l’avez.",
+    "months": "{0}, {1} et {2}",
+    "auto-reject": "Notre équipe refuse automatiquement les dossiers avec 1 ou 2 justificatifs seulement."
+  }
+}
+</i18n>
