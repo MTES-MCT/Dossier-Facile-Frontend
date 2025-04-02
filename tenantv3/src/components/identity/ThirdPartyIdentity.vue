@@ -1,12 +1,16 @@
 <template>
-  <IdentityBackLinkRow :label="t('third-party-identity')" />
+  <IdentityBackLinkRow
+    :label="t('third-party-identity')"
+    @click="AnalyticsService.tenantIdentityModifyThirdParty()"
+  />
   <IdentityForm text-key="third-party" />
 </template>
 
 <script setup lang="ts">
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { useI18n } from 'vue-i18n'
-import IdentityBackLinkRow from './lib/IdentityBackLinkRow.vue'
 import IdentityForm from './IdentityForm.vue'
+import IdentityBackLinkRow from './lib/IdentityBackLinkRow.vue'
 const { t } = useI18n()
 </script>
 

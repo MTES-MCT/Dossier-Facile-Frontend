@@ -1,9 +1,13 @@
 <template>
-  <IdentityBackLinkRow :label="t('self-identity')" />
+  <IdentityBackLinkRow
+    :label="t('self-identity')"
+    @click="AnalyticsService.tenantIdentityModifySelf()"
+  />
   <IdentityForm text-key="self" />
 </template>
 
 <script setup lang="ts">
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { useI18n } from 'vue-i18n'
 import IdentityForm from './IdentityForm.vue'
 import IdentityBackLinkRow from './lib/IdentityBackLinkRow.vue'

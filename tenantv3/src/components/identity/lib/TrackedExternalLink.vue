@@ -1,5 +1,9 @@
 <template>
-  <a :href="externalDoc.url" target="_blank" @click="onExternalLinkClicked">
+  <a
+    :href="externalDoc.url"
+    target="_blank"
+    @click="AnalyticsService.tenantIdentityOpenExternalDoc(props.externalDoc)"
+  >
     <slot> </slot>
   </a>
 </template>
@@ -11,8 +15,4 @@ import type { ExternalDocumentation } from './ExternalDocumentation'
 const props = defineProps<{
   externalDoc: ExternalDocumentation
 }>()
-
-const onExternalLinkClicked = () => {
-  AnalyticsService.tenantIdentityOpenExternalDoc(props.externalDoc)
-}
 </script>
