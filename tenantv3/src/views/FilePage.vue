@@ -33,7 +33,9 @@
               <button
                 :id="`tabpanel-${k}`"
                 class="fr-tabs__tab fr-tabs__tab--icon-right"
-                :class="{ 'fr-fi-icon-fc-right': tenant.franceConnect }"
+                :class="{
+                  'fr-fi-icon-fc-right': tenant.franceConnect && tenant.ownerType === 'SELF'
+                }"
                 :tabindex="tabIndex === k ? 0 : -1"
                 role="tab"
                 aria-selected="false"
