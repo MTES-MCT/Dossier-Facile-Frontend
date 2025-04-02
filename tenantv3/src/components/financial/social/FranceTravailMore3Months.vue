@@ -5,9 +5,7 @@
     :to="grandparent"
   />
   <BackLinkRow :label="t('form.financial.more-3-months')" :to="parent" />
-  <i18n-t tag="p" keypath="enter-income" class="fr-mb-1w">
-    <strong>{{ t('monthly-income') }}</strong>
-  </i18n-t>
+  <EnterMonthlyIncome />
   <UploadFilesFinancial
     category="SOCIAL_SERVICE"
     step="SOCIAL_SERVICE_FRANCE_TRAVAIL_MORE_3_MONTHS"
@@ -29,6 +27,7 @@ import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { lastMonths } from '../lib/lastMonths'
 import { useI18n } from 'vue-i18n'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
@@ -40,14 +39,10 @@ const { t } = useI18n()
 <i18n>
 {
   "en": {
-    "enter-income": "Enter your {0}, without commas:",
-    "monthly-income":"average net monthly income before withholding tax",
     "please-provide": "Please provide France Travail payment certificates for {months}. You can add the {month} attestation if you have it.",
     "months": "{0}, {1} et {2}",
   },
   "fr": {
-    "enter-income": "Saisissez votre {0}, sans virgule :",
-    "monthly-income":"revenu mensuel net moyen avant prélèvement à la source",
     "please-provide": "Veuillez fournir les attestations de paiement France Travail de {months}. Vous pouvez ajouter l’attestation de {month} si vous l’avez.",
     "months": "{0}, {1} et {2}",
   }

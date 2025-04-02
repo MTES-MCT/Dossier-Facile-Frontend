@@ -22,7 +22,7 @@ import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import AlertRealisticAmount from './AlertRealisticAmount.vue'
 import { useI18n } from 'vue-i18n'
-import EnterMonthlyIncome from './EnterMonthlyIncome.vue'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 
 const { t } = useI18n()
 const parent = useParentRoute()

@@ -35,14 +35,10 @@ const { t } = useI18n()
 <i18n>
 {
   "en": {
-    "enter-income": "Enter your {0}, without commas:",
-    "monthly-income":"average net monthly income before withholding tax",
     "please-provide": "Please provide proof of payment for {months}. You can add the {month} receipt if you have it.",
     "months": "{0}, {1} and {2}",
   },
   "fr": {
-    "enter-income": "Saisissez votre {0}, sans virgule :",
-    "monthly-income":"revenu mensuel net moyen avant prélèvement à la source",
     "please-provide": "Veuillez fournir les justificatifs de versement de {months}. Vous pouvez ajouter le justificatif de {month} si vous l’avez.",
     "months": "{0}, {1} et {2}",
   }

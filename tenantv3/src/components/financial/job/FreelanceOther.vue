@@ -34,7 +34,7 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import AlertRealisticAmount from './AlertRealisticAmount.vue'
-import EnterMonthlyIncome from './EnterMonthlyIncome.vue'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
