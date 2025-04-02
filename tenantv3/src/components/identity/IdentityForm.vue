@@ -143,9 +143,22 @@ const store = useTenantStore()
 
 const user = computed(() => store.user)
 
-const lastname = ref(user.value?.lastName || '')
-const firstname = ref(user.value?.firstName || '')
-const preferredname = ref(UtilsService.capitalize(user.value?.preferredName || ''))
+const placeHolderIdentity = {
+  lastName: user.value?.lastName || '',
+  firstName: user.value?.firstName || '',
+  preferredName: UtilsService.capitalize(user.value?.preferredName || '')
+}
+
+if (props.textKey === 'self' && user.value?.franceConnectIdentity) {
+  placeHolderIdentity.lastName = user.value.franceConnectIdentity.lastName
+  placeHolderIdentity.firstName = user.value.franceConnectIdentity.firstName
+  placeHolderIdentity.preferredName = user.value.franceConnectIdentity.preferredName || ''
+}
+
+const lastname = ref(placeHolderIdentity.lastName)
+const firstname = ref(placeHolderIdentity.firstName)
+const preferredname = ref(placeHolderIdentity.preferredName)
+
 const postalCode = ref(user.value?.zipCode || '')
 
 const thirdPartyConsent = ref(false)

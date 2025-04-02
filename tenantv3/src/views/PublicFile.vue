@@ -220,10 +220,7 @@ const fileNotFound = ref(false)
 const route = useRoute()
 
 function franceConnectTenantCount() {
-  return (
-    user.value?.tenants?.filter((t) => t.franceConnect == true && t.ownerType === 'SELF').length ||
-    0
-  )
+  return user.value?.tenants?.filter((t) => t.franceConnect && t.ownerType === 'SELF').length || 0
 }
 
 function isTaxChecked() {
