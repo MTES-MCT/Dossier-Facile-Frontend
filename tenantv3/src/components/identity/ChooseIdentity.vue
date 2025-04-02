@@ -1,10 +1,16 @@
 <template>
   <RadioList>
-    <RadioListItem :to="'nom-locataire/pour-moi'">
+    <RadioListItem
+      :to="'nom-locataire/pour-moi'"
+      @click="AnalyticsService.tenantIdentitySelectSelf()"
+    >
       {{ t('identity.self') }}
       <HintText>{{ t('identity.self-hint') }}</HintText>
     </RadioListItem>
-    <RadioListItem :to="'nom-locataire/pour-une-autre-personne'">
+    <RadioListItem
+      :to="'nom-locataire/pour-une-autre-personne'"
+      @click="AnalyticsService.tenantIdentitySelectThirdParty()"
+    >
       {{ t('identity.third-party') }}
       <HintText>{{ t('identity.third-party-hint') }}</HintText>
     </RadioListItem>
@@ -16,6 +22,7 @@ import { useI18n } from 'vue-i18n'
 import RadioList from '../common/RadioList.vue'
 import RadioListItem from '../common/RadioListItem.vue'
 import HintText from '../common/HintText.vue'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
 </script>

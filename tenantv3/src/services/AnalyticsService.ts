@@ -55,6 +55,22 @@ export const AnalyticsService = {
     )
   },
 
+  tenantIdentitySelectSelf() {
+    sendFullEvent('funnel', 'clic', 'tenant_identity_self')
+  },
+
+  tenantIdentitySelectThirdParty() {
+    sendFullEvent('funnel', 'clic', 'tenant_identity_third_party')
+  },
+
+  tenantIdentityModifySelf() {
+    sendFullEvent('funnel', 'clic', 'modify_tenant_identity_self')
+  },
+
+  tenantIdentityModifyThirdParty() {
+    sendFullEvent('funnel', 'clic', 'modify_tenant_identity_third_party')
+  },
+
   warningRentReceipts() {
     sendFullEvent('prevalidation', 'print', 'pv_warning_quittance')
   },
