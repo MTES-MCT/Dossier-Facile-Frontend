@@ -1,11 +1,11 @@
 <template>
-  <BackLinkRow :label="t('scholarship')" :to="parent" />
-  <i18n-t tag="p" class="fr-mb-1w" keypath="enter-income">
+  <BackLinkRow :label="t('scholarship.' + textKey)" :to="parent" />
+  <i18n-t tag="p" class="fr-mb-1w" :keypath="'enter-income-' + suffix">
     <strong>{{ t('net-income') }}</strong>
   </i18n-t>
   <UploadFilesFinancial category="SCHOLARSHIP">
     <template #incomeFilled>
-      <i18n-t tag="p" keypath="please-provide">
+      <i18n-t tag="p" :keypath="'please-provide-' + suffix">
         <strong>{{ t('award-notice') }}</strong>
       </i18n-t>
     </template>
@@ -17,25 +17,41 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
 
 const parent = useParentRoute()
 const { t } = useI18n()
+const { suffix, textKey } = useFinancialState()
 </script>
 
 <i18n>
 {
   "en": {
-    "scholarship": "You have a scholarship",
-    "enter-income": "Enter your {0}:",
+    "scholarship": {
+      "tenant": "You have a scholarship",
+      "guarantor": "Your guarantor has a scholarship",
+      "couple": "Your spouse has a scholarship",
+      "couple-guarantor": "Their guarantor has a scholarship",
+    },
+    "enter-income-tenant": "Enter your {0}:",
+    "enter-income-other": "Enter their {0}:",
     "net-income": "net monthly income",
-    "please-provide": "Please provide your {0}.",
+    "please-provide-tenant": "Please provide your {0}.",
+    "please-provide-other": "Please provide their {0}.",
     "award-notice": "most recent notice of award"
   },
   "fr": {
-    "scholarship": "Vous êtes boursier",
-    "enter-income": "Saisissez votre {0} :",
+    "scholarship": {
+      "tenant": "Vous êtes boursier",
+      "guarantor": "Votre garant est boursier",
+      "couple": "Votre conjoint est boursier",
+      "couple-guarantor": "Son garant est boursier",
+    },
+    "enter-income-tenant": "Saisissez votre {0} :",
+    "enter-income-other": "Saisissez son {0} :",
     "net-income": "revenu mensuel net",
-    "please-provide": "Veuillez fournir votre {0}.",
+    "please-provide-tenant": "Veuillez fournir votre {0}.",
+    "please-provide-other": "Veuillez fournir son {0}.",
     "award-notice": "dernier avis d’attribution de bourse"
   }
 }

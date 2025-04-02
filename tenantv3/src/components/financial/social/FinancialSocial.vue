@@ -1,6 +1,6 @@
 <template>
   <BackLinkRow :label="t('form.financial.social-aid')" :to="parent" />
-  <p>{{ t('you-receive') }}</p>
+  <p>{{ t('you-receive.' + textKey) }}</p>
   <RadioList>
     <RadioListItem :to="here + '/caf'" @click="sendEvent('caf')"
       >{{ t('form.financial.social.caf') }}
@@ -12,7 +12,7 @@
     </RadioListItem>
     <RadioListItem :to="here + '/apl'" @click="sendEvent('apl')"
       >{{ t('form.financial.social.apl') }}
-      <span class="fr-hint-text">{{ t('or-you-will') }}</span>
+      <span class="fr-hint-text">{{ t('or-you-will-' + suffix) }}</span>
     </RadioListItem>
     <RadioListItem :to="here + '/aah'" @click="sendEvent('aah')">{{
       t('form.financial.social.aah')
@@ -34,11 +34,13 @@ import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
 
 const { t } = useI18n()
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()
+const { suffix, textKey } = useFinancialState()
 
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation2('financial', 'social', subCategory)
@@ -47,16 +49,28 @@ const sendEvent = (subCategory: string) =>
 <i18n>
 {
   "en": {
-    "you-receive": "You receive:",
+    "you-receive": {
+      "tenant": "You receive:",
+      "guarantor": "Your guarantor receive:",
+      "couple": "Your spouse receive:",
+      "couple-guarantor": "Their guarantor receive:",
+    },
     "rsa": "RSA, activity allowance…",
     "unemployment": "unemployment, back-to-work assistance…",
-    "or-you-will": "or you're about to receive it"
+    "or-you-will-tenant": "or you're about to receive it",
+    "or-you-will-other": "or they're about to receive it"
   },
   "fr": {
-    "you-receive": "Vous recevez :",
+    "you-receive": {
+      "tenant": "Vous recevez :",
+      "guarantor": "Votre garant touche :",
+      "couple": "Votre conjoint touche :",
+      "couple-guarantor": "Son garant touche :",
+    },
     "rsa": "RSA, prime d’activité…",
     "unemployment": "chômage, aide au retour à l’emploi (ARE)…",
-    "or-you-will": "ou bien vous allez la toucher"
+    "or-you-will-tenant": "ou bien vous allez la toucher",
+    "or-you-will-other": "ou bien il va la toucher"
   }
 }
 </i18n>

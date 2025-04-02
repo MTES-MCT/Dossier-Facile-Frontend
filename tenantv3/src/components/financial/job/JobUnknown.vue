@@ -2,7 +2,7 @@
   <BackLinkRow :label="t('form.financial.job-income')" :to="grandparent" />
   <BackLinkRow :label="t('unknown')" :to="parent" />
   <WarningUpdate />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncomeBeforeTax />
   <UploadFilesFinancial category="SALARY" step="SALARY_UNKNOWN" no-upload>
     <template #incomeFilled>
       <i18n-t keypath="please-provide" class="fr-mb-0" tag="p">
@@ -22,7 +22,7 @@
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
-import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
+import EnterMonthlyIncomeBeforeTax from '../lib/EnterMonthlyIncomeBeforeTax.vue'
 import { useI18n } from 'vue-i18n'
 import { lastMonths } from '../lib/lastMonths'
 import WarningUpdate from '../lib/WarningUpdate.vue'

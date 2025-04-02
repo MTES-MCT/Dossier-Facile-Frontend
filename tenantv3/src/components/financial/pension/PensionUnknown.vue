@@ -2,7 +2,7 @@
   <BackLinkRow :label="t('form.financial.retirement-or-pension')" :to="grandparent" />
   <BackLinkRow :label="t('unknown')" :to="parent" />
   <WarningUpdate />
-  <p class="fr-mb-1w">{{ t('form.financial.enter-monthly-income') }}</p>
+  <EnterMonthlyIncome />
   <UploadFilesFinancial category="PENSION" step="PENSION_UNKNOWN" no-upload>
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide"
@@ -25,6 +25,7 @@ import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import WarningUpdate from '../lib/WarningUpdate.vue'
 import { useI18n } from 'vue-i18n'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)

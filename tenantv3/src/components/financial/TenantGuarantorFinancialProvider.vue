@@ -16,7 +16,7 @@ const tenantId = computed(() => Number(route.params.tenantId))
 
 provide(financialKey, {
   category: 'couple-guarantor-financial',
-  textKey: 'couple',
+  textKey: 'couple-guarantor',
   documents: computed(() => store.guarantorFinancialDocuments),
   previousStep: {
     name: 'TenantGuarantorProfessional',

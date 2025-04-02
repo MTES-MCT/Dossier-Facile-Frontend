@@ -1,6 +1,6 @@
 <template>
   <BackLinkRow :label="t('form.financial.retirement-or-pension')" :to="parent" />
-  <p>{{ t('you-receive') }}</p>
+  <p>{{ t('you-receive.' + textKey) }}</p>
   <RadioList>
     <RadioListItem :to="here + '/retraite'" @click="sendEvent('retraite')">{{
       t('pension')
@@ -25,11 +25,13 @@ import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
 
 const { t } = useI18n()
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()
+const { textKey } = useFinancialState()
 
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation2('financial', 'pension', subCategory)
@@ -38,13 +40,23 @@ const sendEvent = (subCategory: string) =>
 <i18n>
 {
   "en": {
-    "you-receive": "You receive:",
+    "you-receive": {
+      "tenant": "You receive:",
+      "guarantor": "Your guarantor receive:",
+      "couple": "Your spouse receive:",
+      "couple-guarantor": "Their guarantor receive:",
+    },
     "pension": "a pension",
     "disability-pension": "a disability pension",
     "alimony": "alimony"
   },
   "fr": {
-    "you-receive": "Vous touchez :",
+    "you-receive": {
+      "tenant": "Vous touchez :",
+      "guarantor": "Votre garant touche :",
+      "couple": "Votre conjoint touche :",
+      "couple-guarantor": "Son garant touche :",
+    },
     "pension": "une retraite",
     "disability-pension": "une pension d’invalidité",
     "alimony": "une pension alimentaire"

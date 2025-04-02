@@ -1,7 +1,7 @@
 <template>
   <BackLinkRow :label="t('form.financial.social-aid')" :to="grandparent" />
   <BackLinkRow :label="t('form.financial.social.other')" :to="parent" />
-  <p class="fr-mb-1w">{{ t('form.financial.enter-monthly-income') }}</p>
+  <EnterMonthlyIncome />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_OTHER">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">
@@ -21,6 +21,7 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { useI18n } from 'vue-i18n'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)

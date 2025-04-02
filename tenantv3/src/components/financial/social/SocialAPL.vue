@@ -1,7 +1,7 @@
 <template>
   <BackLinkRow :label="t('form.financial.social-aid')" :to="grandparent" />
   <BackLinkRow
-    :label="t('form.financial.you-receive', [t('form.financial.social.apl')])"
+    :label="t('form.financial.you-receive.' + textKey, [t('form.financial.social.apl')])"
     :to="parent"
   />
   <RadioList>
@@ -11,7 +11,7 @@
     <RadioListItem :to="here + '/moins-3-mois'">{{
       t('form.financial.less-3-months')
     }}</RadioListItem>
-    <RadioListItem :to="here + '/pas-encore'">{{ t('not-yet') }}</RadioListItem>
+    <RadioListItem :to="here + '/pas-encore'">{{ t('not-yet-' + suffix) }}</RadioListItem>
   </RadioList>
   <FinancialFooter />
 </template>
@@ -25,21 +25,25 @@ import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
 
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const { t } = useI18n()
+const { suffix, textKey } = useFinancialState()
 </script>
 
 <i18n>
 {
   "en": {
-    "not-yet": "You're not yet receiving APL",
+    "not-yet-tenant": "You're not yet receiving APL",
+    "not-yet-other": "They're not yet receiving APL",
   },
   "fr": {
-    "not-yet": "Vous ne touchez pas encore l’APL",
+    "not-yet-tenant": "Vous ne touchez pas encore l’APL",
+    "not-yet-other": "Ne touche pas encore l’APL",
   }
 }
 </i18n>

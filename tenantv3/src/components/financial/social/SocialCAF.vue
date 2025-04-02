@@ -1,7 +1,7 @@
 <template>
   <BackLinkRow :label="t('form.financial.social-aid')" :to="grandparent" />
   <BackLinkRow
-    :label="t('form.financial.you-receive', [t('form.financial.social.caf')])"
+    :label="t('form.financial.you-receive.' + textKey, [t('form.financial.social.caf')])"
     :to="parent"
   />
   <RadioList>
@@ -24,10 +24,12 @@ import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
 
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const { t } = useI18n()
+const { textKey } = useFinancialState()
 </script>

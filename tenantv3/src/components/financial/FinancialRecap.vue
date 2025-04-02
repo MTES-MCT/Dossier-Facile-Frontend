@@ -1,6 +1,6 @@
 <template>
   <NakedCard class="fr-p-md-5w fr-mx-3v fr-mb-3w fr-grid-col">
-    <h6>{{ t('income') }}</h6>
+    <h6>{{ t('income.' + state.textKey) }}</h6>
     <div class="fr-highlight fr-ml-0">
       <i18n-t keypath="documents-provided" tag="p">
         <strong>{{ t('financial-means') }}</strong>
@@ -281,7 +281,6 @@ function deleteDoc(f: DfDocument) {
 <i18n>
 {
   "en": {
-    "income": "Your income",
     "documents-provided": "The documents you provide allow the owners to {0}.",
     "financial-means": "determine your financial means",
     "you-can-add": "You can add {0}: income from work, social benefits, pension, stock market…",
@@ -297,10 +296,15 @@ function deleteDoc(f: DfDocument) {
     "validated": "Validated",
     "to-process": "Waiting to be processed",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "income": {
+      "tenant": "Your income",
+      "couple": "Your spouse's income",
+      "guarantor": "Your guarantor's income",
+      "couple-guarantor": "Income of your spouse's guarantor"
+    }
   },
   "fr": {
-    "income": "Vos revenus",
     "documents-provided": "Les documents fournis permettent aux propriétaires de {0}.",
     "financial-means": "connaître vos moyens financiers",
     "you-can-add": "Vous pouvez ajouter {0} : revenus du travail, aides sociales, retraite, bourse…",
@@ -316,7 +320,13 @@ function deleteDoc(f: DfDocument) {
     "validated": "Validé",
     "to-process": "En attente de traitement",
     "edit": "Modifier",
-    "delete": "Supprimer"
+    "delete": "Supprimer",
+    "income": {
+      "tenant": "Vos revenus",
+      "couple": "Revenus de votre conjoint",
+      "guarantor": "Revenus de votre garant",
+      "couple-guarantor": "Revenus du garant de votre conjoint"
+    },
   }
 }
 </i18n>

@@ -1,8 +1,8 @@
 <template>
   <BackLinkRow :label="t('form.financial.job-income')" :to="ancestor" />
-  <BackLinkRow :label="t('form.financial.employed')" :to="grandparent" />
+  <BackLinkRow :label="t('form.financial.employed.' + textKey)" :to="grandparent" />
   <BackLinkRow :label="t('form.financial.less-3-months')" :to="parent" />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncomeBeforeTax />
   <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_LESS_3_MONTHS">
     <template #emptyIncome>
       <AlertRealisticAmount />
@@ -22,12 +22,14 @@ import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import AlertRealisticAmount from './AlertRealisticAmount.vue'
 import { useI18n } from 'vue-i18n'
-import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
+import EnterMonthlyIncomeBeforeTax from '../lib/EnterMonthlyIncomeBeforeTax.vue'
+import { useFinancialState } from '../financialState'
 
 const { t } = useI18n()
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
+const { textKey } = useFinancialState()
 </script>
 
 <i18n>

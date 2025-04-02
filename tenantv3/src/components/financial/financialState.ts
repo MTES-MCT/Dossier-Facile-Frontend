@@ -8,7 +8,7 @@ type FinancialState = {
   recap: RouteLocationRaw
   documents: Ref<DfDocument[]>
   category: 'financial' | 'guarantor-financial' | 'couple-financial' | 'couple-guarantor-financial'
-  textKey: 'tenant' | 'couple'
+  textKey: 'tenant' | 'couple' | 'guarantor' | 'couple-guarantor'
   userId: number | undefined
   action: 'saveTenantFinancial' | 'saveGuarantorFinancial'
   addData?: (formData: FormData) => void
@@ -20,5 +20,6 @@ export function useFinancialState() {
   if (!financialState) {
     throw new Error('Financial state was not provided')
   }
-  return financialState
+  const suffix = financialState.textKey === 'tenant' ? 'tenant' : 'other'
+  return { ...financialState, suffix }
 }

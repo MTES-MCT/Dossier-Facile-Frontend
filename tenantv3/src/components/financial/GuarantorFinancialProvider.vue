@@ -12,7 +12,7 @@ const guarantorId = useGuarantorId()
 
 provide(financialKey, {
   category: 'guarantor-financial',
-  textKey: 'tenant',
+  textKey: 'guarantor',
   documents: computed(() => store.guarantorFinancialDocuments),
   previousStep: `/info-garant/3/${guarantorId.value}`,
   nextStep: `/info-garant/5/${guarantorId.value}`,

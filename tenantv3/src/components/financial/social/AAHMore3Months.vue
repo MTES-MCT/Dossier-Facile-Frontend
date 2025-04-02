@@ -1,14 +1,14 @@
 <template>
   <BackLinkRow :label="t('form.financial.social-aid')" :to="ancestor" />
   <BackLinkRow
-    :label="t('form.financial.you-receive', [t('form.financial.social.aah')])"
+    :label="t('form.financial.you-receive.' + textKey, [t('form.financial.social.aah')])"
     :to="grandparent"
   />
   <BackLinkRow :label="t('form.financial.more-3-months')" :to="parent" />
-  <p class="fr-mb-1w">{{ t('form.financial.enter-monthly-income') }}</p>
+  <EnterMonthlyIncome />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_AAH_MORE_3_MONTHS">
     <template #incomeFilled>
-      <i18n-t tag="p" keypath="please-provide">
+      <i18n-t tag="p" :keypath="'please-provide-' + suffix">
         <strong>{{ t('last-3-proofs') }}</strong>
       </i18n-t>
     </template>
@@ -20,21 +20,26 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
 const { t } = useI18n()
+const { suffix, textKey } = useFinancialState()
 </script>
 
 <i18n>
 {
   "en": {
-    "please-provide": "Please provide your {0}.",
+    "please-provide-tenant": "Please provide your {0}.",
+    "please-provide-other": "Please provide their {0}.",
     "last-3-proofs": "last 3 proofs of payment"
   },
   "fr": {
-    "please-provide": "Veuillez fournir vos {0}.",
+    "please-provide-tenant": "Veuillez fournir vos {0}.",
+    "please-provide-other": "Veuillez fournir ses {0}.",
     "last-3-proofs": "3 derniers justificatifs de versement"
   }
 }

@@ -1,24 +1,24 @@
 <template>
-  <i18n-t keypath="enter-income" class="fr-mb-1w" tag="p">
-    <strong>{{ t('net-income') }}</strong>
-  </i18n-t>
+  <p class="fr-mb-1w">{{ t('enter-income-' + suffix) }}</p>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
 
 const { t } = useI18n()
+const { suffix } = useFinancialState()
 </script>
 
 <i18n>
 {
   "en": {
-    "enter-income": "Enter your {0}, without comma:",
-    "net-income":"average net monthly income before withholding tax"
+    "enter-income-tenant": "Enter your average net monthly income:",
+    "enter-income-other": "Enter their average net monthly income:",
   },
   "fr": {
-    "enter-income": "Saisissez votre {0}, sans virgule :",
-    "net-income":"revenu mensuel net moyen avant prélèvement à la source"
+    "enter-income-tenant": "Saisissez le montant de vos revenus mensuels nets moyens :",
+    "enter-income-other": "Saisissez le montant de ses revenus mensuels nets moyens :",
   }
 }
 </i18n>

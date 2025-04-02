@@ -1,6 +1,6 @@
 <template>
   <BackLinkRow :label="t('form.financial.job-income')" :to="parent" />
-  <p>{{ t('you-are') }}</p>
+  <p>{{ t('you-are.' + textKey) }}</p>
   <RadioList>
     <RadioListItem :to="here + '/salarie'" @click="sendEvent('employed')">{{
       t('employee')
@@ -28,11 +28,13 @@ import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
 
 const { t } = useI18n()
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()
+const { textKey } = useFinancialState()
 
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation2('financial', 'travail', subCategory)
@@ -41,14 +43,24 @@ const sendEvent = (subCategory: string) =>
 <i18n>
 {
   "en": {
-    "you-are": "You are:",
+    "you-are": {
+      "tenant": "You are:",
+      "couple": "Your spouse's situation:",
+      "guarantor": "Your guarantor's situation:",
+      "couple-guarantor": "The situation of their guarantor:"
+    },
     "employee": "employee",
     "freelance": "self-employed",
     "intermittent": "intermittent",
     "artist-author": "artist-author"
   },
   "fr": {
-    "you-are": "Vous êtes :",
+    "you-are": {
+      "tenant": "Vous êtes :",
+      "couple": "La situation de votre conjoint :",
+      "guarantor": "La situation de votre garant :",
+      "couple-guarantor": "La situation de son garant :"
+    },
     "employee": "salarié",
     "freelance": "indépendant",
     "intermittent": "intermittent",

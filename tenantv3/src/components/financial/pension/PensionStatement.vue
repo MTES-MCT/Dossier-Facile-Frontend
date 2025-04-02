@@ -1,8 +1,8 @@
 <template>
   <BackLinkRow :label="t('form.financial.retirement-or-pension')" :to="ancestor" />
-  <BackLinkRow :label="t('you-receive')" :to="grandparent" />
-  <BackLinkRow :label="t('pension-statement')" :to="parent" />
-  <p class="fr-mb-1w">{{ t('form.financial.enter-monthly-income') }}</p>
+  <BackLinkRow :label="t('you-receive.' + textKey)" :to="grandparent" />
+  <BackLinkRow :label="t('pension-statement.' + textKey)" :to="parent" />
+  <EnterMonthlyIncome />
   <UploadFilesFinancial category="PENSION" step="PENSION_STATEMENT">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide"
@@ -24,18 +24,31 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { useI18n } from 'vue-i18n'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
+import { useFinancialState } from '../financialState'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
 const { t } = useI18n()
+const { textKey } = useFinancialState()
 </script>
 
 <i18n>
 {
   "en": {
-    "you-receive": "You receive a pension",
-    "pension-statement": "You have a pension statement",
+    "you-receive": {
+      "tenant": "You receive a pension",
+      "guarantor": "Your guarantor receives a pension",
+      "couple": "Your spouse receives a pension",
+      "couple-guarantor": "Their guarantor receives a pension",
+    },
+    "pension-statement": {
+      "tenant": "You have a pension statement",
+      "guarantor": "Your guarantor has a pension statement",
+      "couple": "Your spouse has a pension statement",
+      "couple-guarantor": "Their guarantor has a pension statement",
+    },
     "please-provide": "Please provide {0}.",
     "recent-statement": "a pension statement less than 2 years old",
     "auto-reject": "Our team automatically rejects pension slips older than 2 years.",
@@ -43,8 +56,18 @@ const { t } = useI18n()
     "no-statement": "you do not have a pension statement"
   },
   "fr": {
-    "you-receive": "Vous touchez une retraite",
-    "pension-statement": "Vous avez un bulletin de pension",
+    "you-receive": {
+      "tenant": "Vous touchez une retraite",
+      "guarantor": "Votre garant touche une retraite",
+      "couple": "Votre conjoint touche une retraite",
+      "couple-guarantor": "Son garant touche une retraite",
+    },
+    "pension-statement": {
+      "tenant": "Vous avez un bulletin de pension",
+      "guarantor": "Votre garant a un bulletin de pension",
+      "couple": "Votre conjoint a un bulletin de pension",
+      "couple-guarantor": "Son garant a un bulletin de pension",
+    },
     "please-provide": "Veuillez fournir {0}.",
     "recent-statement": "un bulletin de pension de moins de 2 ans",
     "auto-reject": "Notre équipe refuse automatiquement les bulletins de pension de plus de 2 ans.",

@@ -1,11 +1,11 @@
 <template>
   <BackLinkRow :label="t('form.financial.social-aid')" :to="ancestor" />
   <BackLinkRow
-    :label="t('form.financial.you-receive', [t('form.financial.social.caf')])"
+    :label="t('form.financial.you-receive.' + textKey, [t('form.financial.social.caf')])"
     :to="grandparent"
   />
   <BackLinkRow :label="t('form.financial.more-3-months')" :to="parent" />
-  <p class="fr-mb-1w">{{ t('form.financial.enter-monthly-income') }}</p>
+  <EnterMonthlyIncome />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_CAF_MORE_3_MONTHS">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">
@@ -27,12 +27,15 @@ import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { lastMonths } from '../lib/lastMonths'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
 const months = lastMonths()
 const { t } = useI18n()
+const { textKey } = useFinancialState()
 </script>
 
 <i18n>

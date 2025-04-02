@@ -1,6 +1,6 @@
 <template>
   <BackLinkRow :label="t('form.financial.retirement-or-pension')" :to="grandparent" />
-  <BackLinkRow :label="t('you-receive')" :to="parent" />
+  <BackLinkRow :label="t('you-receive.' + textKey)" :to="parent" />
   <RadioList>
     <RadioListItem :to="here + '/plus-3-mois'">{{
       t('form.financial.more-3-months')
@@ -8,7 +8,7 @@
     <RadioListItem :to="here + '/moins-3-mois'">{{
       t('form.financial.less-3-months')
     }}</RadioListItem>
-    <RadioListItem :to="here + '/pas-encore'">{{ t('not-yet') }}</RadioListItem>
+    <RadioListItem :to="here + '/pas-encore'">{{ t('not-yet.' + textKey) }}</RadioListItem>
   </RadioList>
   <FinancialFooter />
 </template>
@@ -22,23 +22,45 @@ import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
 
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const { t } = useI18n()
+const { textKey } = useFinancialState()
 </script>
 
 <i18n>
 {
   "en": {
-    "you-receive": "You receive a disability pension",
-    "not-yet": "You are not yet receiving a disability pension"
+    "you-receive": {
+      "tenant": "You receive a disability pension",
+      "guarantor": "Your guarantor receives a disability pension",
+      "couple": "Your spouse receives a disability pension",
+      "couple-guarantor": "Their guarantor receives a disability pension",
+    },
+    "not-yet": {
+      "tenant": "You are not yet receiving a disability pension",
+      "guarantor": "Your guarantor is not yet receiving a disability pension",
+      "couple": "Your spouse is not yet receiving a disability pension",
+      "couple-guarantor": "Their guarantor is not yet receiving a disability pension",
+    }
   },
   "fr": {
-    "you-receive": "Vous touchez une pension d’invalidité",
-    "not-yet": "Vous ne touchez pas encore de pension d’invalidité"
+    "you-receive": {
+      "tenant": "Vous touchez une pension d’invalidité",
+      "guarantor": "Votre garant touche une pension d’invalidité",
+      "couple": "Votre conjoint touche une pension d’invalidité",
+      "couple-guarantor": "Son garant touche une pension d’invalidité"
+    },
+    "not-yet": {
+      "tenant": "Vous touchez pas encore de pension d’invalidité",
+      "guarantor": "Votre garant ne touche pas encore de pension d’invalidité",
+      "couple": "Votre conjoint ne touche pas encore de pension d’invalidité",
+      "couple-guarantor": "Son garant ne touche pas encore de pension d’invalidité"
+    },
   }
 }
 </i18n>

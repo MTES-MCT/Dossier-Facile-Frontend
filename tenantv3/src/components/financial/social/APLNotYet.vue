@@ -1,11 +1,11 @@
 <template>
   <BackLinkRow :label="t('form.financial.social-aid')" :to="ancestor" />
   <BackLinkRow
-    :label="t('form.financial.you-receive', [t('form.financial.social.apl')])"
+    :label="t('form.financial.you-receive.' + textKey, [t('form.financial.social.apl')])"
     :to="grandparent"
   />
-  <BackLinkRow :label="t('not-yet')" :to="parent" />
-  <p class="fr-mb-1w">{{ t('form.financial.enter-monthly-income') }}</p>
+  <BackLinkRow :label="t('not-yet-' + suffix)" :to="parent" />
+  <EnterMonthlyIncome />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_APL_NOT_YET">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">
@@ -22,22 +22,27 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { useI18n } from 'vue-i18n'
+import { useFinancialState } from '../financialState'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
 const { t } = useI18n()
+const { suffix, textKey } = useFinancialState()
 </script>
 
 <i18n>
 {
   "en": {
-    "not-yet": "You're not yet receiving APL",
+    "not-yet-tenant": "You're not yet receiving APL",
+    "not-yet-other": "They're not yet receiving APL",
     "please-provide": "Please provide a screenshot of the {0}.",
     "simulation": "CAF housing assistance simulation"
   },
   "fr": {
-    "not-yet": "Vous ne touchez pas encore l’APL",
+    "not-yet-tenant": "Vous ne touchez pas encore l’APL",
+    "not-yet-other": "Ne touche pas encore l’APL",
     "please-provide": "Veuillez fournir une copie d’écran de la {0}.",
     "simulation": "simulation CAF d’aide au logement"
   }

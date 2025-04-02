@@ -1405,13 +1405,26 @@
       "annuity": "Rente",
       "grant": "Bourse",
       "no-income": "Pas de revenus",
-      "employed": "Vous êtes salarié",
-      "self-employed": "Vous êtes indépendant",
-      "auto-entrepreneur": "Vous êtes auto-entrepreneur",
+      "employed": {
+        "tenant": "Vous êtes salarié",
+        "guarantor": "Votre garant est salarié",
+        "couple": "Votre conjoint est salarié",
+        "couple-guarantor": "Son garant est salarié"
+      },
+      "self-employed": {
+        "tenant": "Vous êtes indépendant",
+        "guarantor": "Votre garant est indépendant",
+        "couple": "Votre conjoint est indépendant",
+        "couple-guarantor": "Son garant est indépendant"
+      },
       "more-3-months": "Depuis plus de 3 mois",
       "less-3-months": "Depuis moins de 3 mois",
-      "enter-monthly-income": "Saisissez le montant de vos revenus mensuels nets moyens :",
-      "you-receive": "Vous touchez {0}",
+      "you-receive": {
+        "tenant": "Vous touchez {0}",
+        "guarantor": "Votre garant touche {0}",
+        "couple": "Votre conjoint touche {0}",
+        "couple-guarantor": "Son garant touche {0}"
+      },
       "social": {
         "caf": "une aide de la CAF ou de la MSA",
         "france-travail": "une aide de France Travail",
