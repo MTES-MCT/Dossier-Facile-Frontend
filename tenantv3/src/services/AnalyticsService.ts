@@ -1,4 +1,5 @@
 import { DocumentTypeTranslations } from '@/components/editmenu/documents/DocumentType'
+import type { ExternalDocumentation } from '@/components/identity/lib/ExternalDocumentation'
 import { useTenantStore } from '@/stores/tenant-store'
 
 declare global {
@@ -44,6 +45,14 @@ export const AnalyticsService = {
       tag = 'pv_print_checked_' + documentType
     }
     sendFullEvent('prevalidation', 'print', tag)
+  },
+
+  tenantIdentityOpenExternalDoc(externalDocumentation: ExternalDocumentation) {
+    sendFullEvent(
+      'funnel',
+      'clic',
+      'tenant_identity_open_external_doc_' + externalDocumentation.title
+    )
   },
 
   warningRentReceipts() {

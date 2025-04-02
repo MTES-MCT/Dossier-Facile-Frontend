@@ -7,60 +7,39 @@
     <p class="text-bold">{{ t(textKey + '.list-title') }}</p>
     <ul class="fr-mb-2w">
       <li class="fr-mb-1w">
-        <a
-          href="https://aide.dossierfacile.logement.gouv.fr/fr/article/1-piece-identite-1j6eask/"
-          target="_blank"
-        >
+        <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.IDENTITY">
           {{ t('common.identity-card') }}
-        </a>
+        </TrackedExternalLink>
       </li>
       <li class="fr-mb-1w">
-        <a
-          href="https://aide.dossierfacile.logement.gouv.fr/fr/article/2-justificatif-domicile-bon-paiement-loyers-1ftrkb8/"
-          target="_blank"
-        >
+        <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.RESIDENCY">
           {{ t('common.residency') }}
-        </a>
+        </TrackedExternalLink>
       </li>
       <li class="fr-mb-1w">
-        <a
-          href="https://aide.dossierfacile.logement.gouv.fr/fr/article/3-justificatifs-de-situation-professionnelle-rpepjc/"
-          target="_blank"
-        >
+        <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.PROFESSIONAL">
           {{ t('common.professional') }}
-        </a>
+        </TrackedExternalLink>
       </li>
       <li class="fr-mb-1w">
-        <a
-          href="https://aide.dossierfacile.logement.gouv.fr/fr/article/4-justificatifs-ressources-1uyf090/"
-          target="_blank"
-        >
+        <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.FINANCIAL">
           {{ t('common.financial') }}
-        </a>
+        </TrackedExternalLink>
       </li>
       <li>
-        <a
-          href="https://aide.dossierfacile.logement.gouv.fr/fr/article/5-avis-dimposition-eg82wt/"
-          target="_blank"
-        >
+        <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.TAX">
           {{ t('common.tax') }}
-        </a>
+        </TrackedExternalLink>
       </li>
     </ul>
-    <a
-      href="https://aide.dossierfacile.logement.gouv.fr/fr/category/justificatifs-ye12ln/"
-      target="_blank"
-    >
+    <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.GENERAL_HELP">
       {{ t('common.online-help-details') }}
-    </a>
+    </TrackedExternalLink>
     <hr class="fr-mt-3w" />
     <p class="text-bold">{{ t('common.guarantor-title') }}</p>
-    <a
-      href="https://aide.dossierfacile.logement.gouv.fr/fr/article/6-les-justificatifs-du-ou-des-garants-1nt94gc/"
-      target="_blank"
-    >
+    <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.GUARANTOR_HELP">
       {{ t('common.online-help') }}
-    </a>
+    </TrackedExternalLink>
     <div v-if="textKey === 'third-party'">
       <hr class="fr-mt-3w" />
       <div class="fr-highlight">
@@ -75,6 +54,8 @@
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { useI18n } from 'vue-i18n'
+import TrackedExternalLink from './lib/TrackedExternalLink.vue'
+import { EXTERNAL_DOCUMENTATIONS } from './lib/ExternalDocumentation'
 
 defineProps<{
   textKey: 'self' | 'third-party'
