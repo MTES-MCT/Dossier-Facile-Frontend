@@ -554,14 +554,15 @@ export const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    setNames(user: CoTenant) {
-      if (user.firstName) {
+    async setNames(user: CoTenant) {
+      // If the user is franceconnected we can not modify the names, so we don't capitalize them
+      if (user.firstName && !this.isFranceConnected) {
         user.firstName = UtilsService.capitalize(user.firstName)
       }
-      if (user.lastName) {
+      if (user.lastName && !this.isFranceConnected) {
         user.lastName = UtilsService.capitalize(user.lastName)
       }
-      if (user.preferredName) {
+      if (user.preferredName && !this.isFranceConnected) {
         user.preferredName = UtilsService.capitalize(user.preferredName)
       }
 
