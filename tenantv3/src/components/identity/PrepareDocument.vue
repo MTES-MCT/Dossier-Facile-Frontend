@@ -42,7 +42,7 @@
     </TrackedExternalLink>
     <div v-if="textKey === 'third-party'">
       <hr class="fr-mt-3w" />
-      <div class="fr-highlight">
+      <div class="fr-highlight fr-ml-0">
         <p>
           {{ t('third-party.highlight') }}
         </p>
