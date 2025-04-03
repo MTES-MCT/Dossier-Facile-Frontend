@@ -123,7 +123,7 @@
                             {{ UtilsService.tenantFullName(tenant) }}
                             <span
                               :class="{
-                                'fr-fi-icon-fc': tenant.franceConnect
+                                'fr-fi-icon-fc': tenant.franceConnect && tenant.ownerType === 'SELF'
                               }"
                             ></span>
                           </div>

@@ -81,7 +81,7 @@
       </ErrorMessage>
     </div>
     <div class="fr-mt-3w">
-      <label class="fr-label" for="postalCode">{{ t('common.postal-code-label') }}</label>
+      <label class="fr-label" for="postalCode">{{ t(textKey + '.postal-code-label') }}</label>
       <Field v-slot="{ field }" v-model.trim="postalCode" name="postalCode">
         <input v-bind="field" class="form-control fr-input" type="text" />
       </Field>
@@ -111,7 +111,7 @@
                 @change="onCheckboxChange"
               />
               <label class="fr-label" for="third-party-consent-checkbox">
-                {{ t('third-party.checkbox-label', { lastName: lastname }) }}
+                {{ t('third-party.checkbox-label', { lastName: lastname, firstName: firstname }) }}
               </label>
             </div>
           </div>
@@ -146,7 +146,8 @@ const user = computed(() => store.user)
 const placeHolderIdentity = {
   lastName: user.value?.lastName || '',
   firstName: user.value?.firstName || '',
-  preferredName: UtilsService.capitalize(user.value?.preferredName || '')
+  preferredName: UtilsService.capitalize(user.value?.preferredName || ''),
+  postalCode: user.value?.zipCode || ''
 }
 
 // If we show the form for self identity and the user is france connected we have to set the form
@@ -161,6 +162,7 @@ if (props.textKey === 'third-party' && user.value?.ownerType === 'SELF') {
   placeHolderIdentity.lastName = ''
   placeHolderIdentity.firstName = ''
   placeHolderIdentity.preferredName = ''
+  placeHolderIdentity.postalCode = ''
 }
 
 // If we show the form for self identity but before we have third party identity we remove all data from the form
@@ -172,13 +174,14 @@ if (
   placeHolderIdentity.lastName = ''
   placeHolderIdentity.firstName = ''
   placeHolderIdentity.preferredName = ''
+  placeHolderIdentity.postalCode = ''
 }
 
 const lastname = ref(placeHolderIdentity.lastName)
 const firstname = ref(placeHolderIdentity.firstName)
 const preferredname = ref(placeHolderIdentity.preferredName)
 
-const postalCode = ref(user.value?.zipCode || '')
+const postalCode = ref(placeHolderIdentity.postalCode)
 
 const thirdPartyConsent = ref(false)
 const displayPreferrednameField = ref(false)
@@ -242,14 +245,15 @@ const onSubmit = () => {
       preferred-name-label: "Preferred Name",
       delete-preferred-name: "Delete preferred name",
       first-name-label: "First Name *",
-      postal-code-label: "Postal Code (only if you reside in France)"
     },
     self: {
-      title: "Your Identity"
+      title: "Your Identity",
+      postal-code-label: "Postal Code (only if you reside in France)"
     },
     third-party: {
       title: "Beneficiary's Identity",
-      checkbox-label: "I certify that I have obtained {lastName}'s consent to create and submit this file on their behalf. I attest that the information provided is accurate and that the documents submitted were obtained with their consent.*"
+      checkbox-label: "I certify that I have obtained {lastName}'s consent to create and submit this file on their behalf. I attest that the information provided is accurate and that the documents submitted were obtained with their consent.*",
+      postal-code-label: "Postal Code (only if he reside in France)"
     }
   },
   "fr": {
@@ -259,14 +263,15 @@ const onSubmit = () => {
       preferred-name-label: "Nom d'usage",
       delete-preferred-name: "Supprimer le nom d'usage",
       first-name-label: "Prénom *",
-      postal-code-label: "Code postal (uniquement si vous résidez en France)"
     },
     self: {
-      title: "Votre identité"
+      title: "Votre identité",
+      postal-code-label: "Code postal (uniquement si vous résidez en France)"
     },
     third-party: {
       title: "Identité du bénéficiaire",
-      checkbox-label: "Je certifie avoir obtenu l'accord de {lastName} pour constituer et soumettre ce dossier en son nom. J'atteste que les informations fournies sont exactes et que les documents transmis ont été obtenus avec son consentement.*"
+      checkbox-label: "Je certifie avoir obtenu l'accord de {lastName} {firstName} pour constituer et soumettre ce dossier en son nom. J'atteste que les informations fournies sont exactes et que les documents transmis ont été obtenus avec son consentement.*",
+      postal-code-label: "Code postal (uniquement si il réside en France)"
     }
   }
 }
