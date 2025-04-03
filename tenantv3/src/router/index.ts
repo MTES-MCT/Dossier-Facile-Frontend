@@ -147,8 +147,14 @@ export const router = createRouter({
         skipLinks: [CONTENT, FOOTER_NAVIGATION]
       },
       beforeEnter: (to) => {
+        const store = useTenantStore()
+
+        // If user has been invited to an application we force self identity
+        if (store.user.tenantType !== 'CREATE' && to.name !== 'SelfTenantIdentity') {
+          return { name: 'SelfTenantIdentity' }
+        }
+
         if (to.name === 'TenantName') {
-          const store = useTenantStore()
           const ownerType = store.user.ownerType
           if (ownerType === undefined) {
             return { name: 'ChooseTenantIdentity' }

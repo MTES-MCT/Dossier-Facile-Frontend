@@ -907,7 +907,7 @@ export const useTenantStore = defineStore('tenant', {
         !this.user.lastName ||
         (!this.user.zipCode && this.user.documents.length == 0)
       ) {
-        return { name: 'ChooseTenantIdentity' }
+        return { name: 'TenantName' }
       }
       if (!this.user.applicationType) {
         return { name: 'TenantType' }
@@ -951,7 +951,7 @@ export const useTenantStore = defineStore('tenant', {
         return { name: 'ValidateFile' }
       }
 
-      return { name: 'ChooseTenantIdentity' }
+      return { name: 'TenantName' }
     },
     updateSelectedGuarantor(tenantId: number) {
       let guarantors
