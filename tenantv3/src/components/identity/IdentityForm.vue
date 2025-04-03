@@ -149,10 +149,29 @@ const placeHolderIdentity = {
   preferredName: UtilsService.capitalize(user.value?.preferredName || '')
 }
 
+// If we show the form for self identity and the user is france connected we have to set the form
 if (props.textKey === 'self' && user.value?.franceConnectIdentity) {
   placeHolderIdentity.lastName = user.value.franceConnectIdentity.lastName
   placeHolderIdentity.firstName = user.value.franceConnectIdentity.firstName
   placeHolderIdentity.preferredName = user.value.franceConnectIdentity.preferredName || ''
+}
+
+// If we show the form for third party but before we have the self identity we remove all data from the form
+if (props.textKey === 'third-party' && user.value?.ownerType === 'SELF') {
+  placeHolderIdentity.lastName = ''
+  placeHolderIdentity.firstName = ''
+  placeHolderIdentity.preferredName = ''
+}
+
+// If we show the form for self identity but before we have third party identity we remove all data from the form
+if (
+  props.textKey === 'self' &&
+  user.value?.ownerType === 'THIRD_PARTY' &&
+  !user.value.franceConnect
+) {
+  placeHolderIdentity.lastName = ''
+  placeHolderIdentity.firstName = ''
+  placeHolderIdentity.preferredName = ''
 }
 
 const lastname = ref(placeHolderIdentity.lastName)
