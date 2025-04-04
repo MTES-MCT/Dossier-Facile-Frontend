@@ -44,9 +44,7 @@ const route = useRoute()
 const here = computed(() => route.path)
 const { category, documents } = useFinancialState()
 
-const showNoIncome = computed(
-  () => documents.value.length === 0 && !category.startsWith('guarantor')
-)
+const showNoIncome = computed(() => documents.value.length === 0 && !category.includes('guarantor'))
 const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
 </script>
 
