@@ -463,54 +463,12 @@
     "field-required": "Ce champ est requis"
   },
   "cotenantfinancialform": {
-    "title": "Revenus de votre conjoint",
-    "tenant": "Locataire",
-    "owner": "Propriétaire",
-    "guest": "Hébergé·e gratuitement",
-    "guest-parents": "Chez ses parents",
-    "files": "Documents",
-    "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à sa situation.",
-    "salary": "Revenus professionnels",
-    "social-service": "Prestations sociales",
-    "rent": "Rentes",
-    "pension": "Pensions",
-    "scholarship": "Bourses",
-    "no-income": "Pas de revenus",
-    "monthlySum": {
-      "placeholder": "Montant en euros",
-      "label": "Indiquez le montant de ses revenus mensuels nets (arrondi à l'euro)",
-      "label-tax": "avant prélèvement à la source"
-    },
-    "noDocument-social-service": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-    "noDocument-salary": "Je ne peux pas fournir ses trois derniers bulletins de salaire ",
-    "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
-    "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
-    "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
     "customText-social-service": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
     "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon conjoint :",
     "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
     "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
     "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
-    "customText-undefined": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs",
-    "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-    "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-    "has-no-income": "Vous avez indiqué que votre conjoint n'a pas de revenus. Vous pouvez ajouter une explication sur sa situation ici si vous le souhaitez :",
-    "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
-    "delete-financial": "Supprimer ce revenu",
-    "field-required": "Ce champ est requis",
-    "register": "Enregistrer",
-    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
-    "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
-  },
-  "cotenantfinanciallist": {
-    "delete-financial": "Supprimer ce revenu",
-    "register": "Enregistrer",
-    "i-have-no-income": "Je n'ai pas de revenu",
-    "title": "Récapitulatif des revenus de votre conjoint",
-    "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",
-    "monthly": " € net mensuel ",
-    "net-monthly": "Net à payer mensuel",
-    "add-income": "Ajouter un nouveau revenu ?"
+    "customText-undefined": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs"
   },
   "cotenantidentification": {
     "title": "La pièce d'identité de votre conjoint",
@@ -600,7 +558,6 @@
     "title": "Aide",
     "paragraph1": "Si votre pièce est trop lourde, nous vous conseillons de scanner votre pièce (avec une application gratuite pour smartphone par exemple).<br> Si cela ne suffit pas, contactez-nous par mail à l’adresse <a href='mailto:contact{'@'}dossierfacile.logement.gouv.fr'>contact{'@'}dossierfacile.logement.gouv.fr</a>, nous nous efforcerons de répondre au plus vite !"
   },
-  "documentinsert": {},
   "fileerrors": {
     "IDENTIFICATION": "Pièce d'identité",
     "RESIDENCY": "Justificatif de situation d'hébergement",
@@ -752,39 +709,6 @@
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
     "validate-file": "Étape suivante - Valider le dossier"
   },
-  "guarantordocumentspage": {},
-  "guarantorfinancialdocumentform": {
-    "title": {
-      "guarantor": "Revenus de votre garant",
-      "cotenant-guarantor": "Revenus de son garant"
-    },
-    "monthlySum": {
-      "placeholder": "Montant en euros",
-      "label": "Indiquez le montant de ses revenus mensuels nets",
-      "label-tax": "avant prélèvement à la source (arrondi à l'euro)"
-    },
-    "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-    "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-    "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
-    "delete-financial": "Supprimer ce revenu",
-    "field-required": "Ce champ est requis",
-    "register": "Enregistrer",
-    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
-    "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
-  },
-  "guarantorfinancial": {
-    "delete-financial": "Supprimer ce revenu",
-    "register": "Enregistrer",
-    "select-label": "Attention, veuillez renseigner uniquement vos propres revenus.",
-    "i-have-no-income": "Je n'ai pas de revenu",
-    "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
-    "title": "Récapitulatif des revenus du garant",
-    "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",
-    "monthly": " € net mensuel ",
-    "net-monthly": "Net à payer mensuel",
-    "add-income": "Ajouter un nouveau revenu ?"
-  },
-  "guarantorfooter": {},
   "guarantoridentification": {
     "identity-card": "Carte d’identité française",
     "passport": "Passeport français",
@@ -1157,7 +1081,6 @@
     "avis-btn": "Déposer votre avis d’imposition",
     "avis-link-to-doc": "Besoin d'aide ? Consultez notre aide en ligne"
   },
-  "tenantdocument": {},
   "tenantguarantorchoice": {
     "identification": "Pièce d’identité",
     "residency": "Justificatif de situation d'hébergement",
@@ -1190,7 +1113,6 @@
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
     "validate-file": "Étape suivante - Valider le dossier"
   },
-  "tenantguarantordocumentspage": {},
   "tenantguarantorlist": {
     "my-guarantor": "Les garants de mon conjoint",
     "add-new-guarantor": "Ajouter un nouveau garant ?",
@@ -1214,7 +1136,6 @@
     "field-required": "Ce champ est requis",
     "title": "Identité de son garant"
   },
-  "tenantguarantorspage": {},
   "tenantinformationform": {
     "title": "Constituez-vous un dossier de location afin d'habiter :",
     "confirm": "Confirmer",
