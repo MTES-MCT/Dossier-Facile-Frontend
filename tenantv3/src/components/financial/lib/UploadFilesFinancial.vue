@@ -7,6 +7,7 @@
       name="monthlySum"
       class="fr-input fr-mb-2w"
       required
+      autocomplete="off"
     />
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
     <FinancialFooterContent :previous-step="state.recap" />
@@ -105,6 +106,9 @@ function validateSum(input: string) {
   }
   if (!/^[0-9 ]+$/.test(input)) {
     return 'regex-not-valid'
+  }
+  if (Number(input) === 0) {
+    return 'amount-zero'
   }
   return true
 }
@@ -231,12 +235,14 @@ async function save() {
   "en": {
     "round-it": "Round to the nearest euro",
     "amount": "Amount in euros",
-    "valid-monthly-sum": "Please enter a valid amount"
+    "valid-monthly-sum": "Please enter a valid amount",
+    "amount-zero": "You have entered an amount of 0€. Are you sure you have entered your monthly income?"
   },
   "fr": {
     "round-it": "Arrondir à l’euro",
     "amount": "Montant en euros",
-    "valid-monthly-sum": "Merci de saisir un montant valide"
+    "valid-monthly-sum": "Merci de saisir un montant valide",
+    "amount-zero": "Vous avez saisi un montant à 0€. Êtes-vous sûr d’avoir saisi votre revenu mensuel ?"
   }
 }
 </i18n>
