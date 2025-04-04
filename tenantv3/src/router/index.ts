@@ -476,11 +476,11 @@ export const router = createRouter({
         },
         {
           path: '2',
-          name: 'CoupleResidency',
           component: () => import('@/components/documents/cotenant/CoupleResidency.vue'),
           children: [
             {
               path: '',
+              name: 'CoupleResidency',
               component: () => import('@/components/residency/ChooseResidency.vue')
             },
             ...RESIDENCY_COMPONENTS
