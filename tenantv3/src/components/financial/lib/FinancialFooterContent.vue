@@ -4,7 +4,7 @@
       <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
       <span class="desktop">{{ t('back') }}</span>
     </router-link>
-    <DfButton primary data-cy="next-btn">{{ t('next') }}</DfButton>
+    <DfButton primary data-cy="next-btn" class="next-btn">{{ t('next') }}</DfButton>
   </FooterContainer>
 </template>
 
@@ -26,6 +26,13 @@ const { t } = useI18n()
   justify-content: space-around;
   align-items: center;
   gap: 1rem;
+}
+.next-btn {
+  @media (max-width: 768px) {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>
 
