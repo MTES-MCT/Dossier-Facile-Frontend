@@ -15,7 +15,7 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
-import { useParentRoute } from '../../guarantorResidency/useParentRoute'
+import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useI18n } from 'vue-i18n'
 import { useFinancialState } from '../financialState'
 

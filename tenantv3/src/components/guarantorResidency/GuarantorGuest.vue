@@ -22,7 +22,7 @@ import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
-import { useParentRoute } from './useParentRoute'
+import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
 
 const { t } = useI18n()

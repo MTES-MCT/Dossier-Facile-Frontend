@@ -9,7 +9,7 @@
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useRoute } from 'vue-router'
 import FinancialFooter from '../lib/FinancialFooter.vue'
-import { useParentRoute } from '../../guarantorResidency/useParentRoute'
+import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { computed, ref } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useLoading } from 'vue-loading-overlay'

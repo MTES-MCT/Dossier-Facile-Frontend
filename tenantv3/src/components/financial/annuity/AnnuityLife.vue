@@ -13,11 +13,11 @@
 
 <script setup lang="ts">
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
-import { useParentRoute } from '../../guarantorResidency/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { useI18n } from 'vue-i18n'
 import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { useFinancialState } from '../financialState'
+import { useParentRoute } from '@/components/common/lib/useParentRoute'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)

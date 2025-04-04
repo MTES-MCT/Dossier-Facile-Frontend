@@ -8,7 +8,7 @@
         v-if="isPreviewPdfLoaded"
         :page="0"
         :source="pdfPreviewContent"
-        width="96"
+        :width="96"
       ></vue-pdf-embed>
       <div v-else>{{ t('showdoc.loading') }}</div>
     </div>

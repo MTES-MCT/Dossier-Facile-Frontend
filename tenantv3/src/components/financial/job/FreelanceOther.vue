@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
-import { useParentRoute } from '../../guarantorResidency/useParentRoute'
+import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import AlertRealisticAmount from './AlertRealisticAmount.vue'
 import EnterMonthlyIncomeBeforeTax from '../lib/EnterMonthlyIncomeBeforeTax.vue'
