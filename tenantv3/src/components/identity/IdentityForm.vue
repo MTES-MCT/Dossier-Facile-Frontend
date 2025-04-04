@@ -13,6 +13,7 @@
       >
         <input
           v-bind="field"
+          id="lastname"
           class="validate-required form-control fr-input"
           :class="{
             'fr-input--valid': meta.valid,
@@ -41,7 +42,7 @@
       <div class="field-with-button fr-mt-1w">
         <div class="fr-input-wrap">
           <Field v-slot="{ field }" v-model.trim="preferredname" name="preferredName">
-            <input v-bind="field" class="form-control fr-input" type="text" />
+            <input v-bind="field" id="preferredName" class="form-control fr-input" type="text" />
           </Field>
         </div>
         <div class="fr-ml-1w">
@@ -56,7 +57,7 @@
       </div>
     </div>
     <div class="fr-mt-3w">
-      <label class="fr-label" for="firstName">{{ t('common.first-name-label') }}</label>
+      <label class="fr-label" for="firstname">{{ t('common.first-name-label') }}</label>
       <Field
         v-slot="{ field }"
         v-model.trim="firstname"
@@ -67,6 +68,7 @@
       >
         <input
           v-bind="field"
+          id="firstname"
           class="validate-required form-control fr-input"
           :class="{
             'fr-input--valid': meta.valid,
