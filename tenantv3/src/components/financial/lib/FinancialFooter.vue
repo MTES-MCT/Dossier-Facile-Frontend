@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit">
-    <FinancialFooterContent :previous-step="to ? previousStep : recap" />
+    <FinancialFooterContent :previous-step="to ? previousStep : recap" :disabled="disabled" />
   </form>
 </template>
 
@@ -10,7 +10,11 @@ import { useRouter, type RouteLocationRaw } from 'vue-router'
 import FinancialFooterContent from './FinancialFooterContent.vue'
 import { useFinancialState } from '../financialState'
 
-const { onSubmit, to } = defineProps<{ onSubmit?: () => Promise<boolean>; to?: RouteLocationRaw }>()
+const { onSubmit, to, disabled } = defineProps<{
+  onSubmit?: () => Promise<boolean>
+  to?: RouteLocationRaw
+  disabled?: boolean
+}>()
 
 const router = useRouter()
 const { category, previousStep, recap } = useFinancialState()

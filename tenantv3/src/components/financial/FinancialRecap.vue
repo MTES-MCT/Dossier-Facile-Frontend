@@ -50,7 +50,7 @@
     /></router-link>
   </NakedCard>
   <SimulationCaf class="fr-mx-3v" />
-  <FinancialFooter :to="state.nextStep" />
+  <FinancialFooter :to="state.nextStep" :disabled="financialDocuments.length === 0" />
   <ModalComponent v-if="showInfoModale" @close="showInfoModale = false">
     <template #header>
       <h4>{{ t('modal-title') }}</h4>

@@ -4,7 +4,9 @@
       <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
       <span class="desktop">{{ t('back') }}</span>
     </router-link>
-    <DfButton primary data-cy="next-btn" class="next-btn">{{ t('next') }}</DfButton>
+    <DfButton primary data-cy="next-btn" class="next-btn" :disabled="disabled">{{
+      t('next')
+    }}</DfButton>
   </FooterContainer>
 </template>
 
@@ -15,7 +17,7 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 import type { RouteLocationRaw } from 'vue-router'
 
-defineProps<{ previousStep: RouteLocationRaw }>()
+defineProps<{ previousStep: RouteLocationRaw; disabled?: boolean }>()
 
 const { t } = useI18n()
 </script>
