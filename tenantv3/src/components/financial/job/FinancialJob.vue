@@ -1,17 +1,17 @@
 <template>
-  <BackLinkRow :label="t('form.financial.job-income')" :to="parent" />
+  <BackLinkRow :label="t('form.financial.job-income')" :to="parent" category="travail" />
   <p>{{ t('you-are.' + textKey) }}</p>
   <RadioList>
-    <RadioListItem :to="here + '/salarie'" @click="sendEvent('employed')">{{
+    <RadioListItem :to="here + '/salarie'" @click="sendEvent('salarie')">{{
       t('employee')
     }}</RadioListItem>
-    <RadioListItem :to="here + '/independant'" @click="sendEvent('freelance')">{{
+    <RadioListItem :to="here + '/independant'" @click="sendEvent('independant')">{{
       t('freelance')
     }}</RadioListItem>
     <RadioListItem :to="here + '/intermittent'" @click="sendEvent('intermittent')">{{
       t('intermittent')
     }}</RadioListItem>
-    <RadioListItem :to="here + '/artiste-auteur'" @click="sendEvent('artist-author')">{{
+    <RadioListItem :to="here + '/artiste-auteur'" @click="sendEvent('artiste-auteur')">{{
       t('artist-author')
     }}</RadioListItem>
   </RadioList>
@@ -34,10 +34,10 @@ const { t } = useI18n()
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()
-const { textKey } = useFinancialState()
+const { category, textKey } = useFinancialState()
 
 const sendEvent = (subCategory: string) =>
-  AnalyticsService.selectSituation2('financial', 'travail', subCategory)
+  AnalyticsService.selectSituation2(category, 'travail', subCategory)
 </script>
 
 <i18n>

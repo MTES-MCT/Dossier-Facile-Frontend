@@ -45,7 +45,10 @@
         </div>
       </div>
     </div>
-    <router-link :to="here + '/ajouter'" class="fr-btn fr-ml-auto fr-mt-3w"
+    <router-link
+      :to="here + '/ajouter'"
+      class="fr-btn fr-ml-auto fr-mt-3w"
+      @click="AnalyticsService.addIncome(state.category)"
       >{{ t('add-income') }} <RiAddFill class="tr-5"
     /></router-link>
   </NakedCard>
@@ -87,6 +90,7 @@ import { computed, onMounted, ref } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useFinancialState } from '@/components/financial/financialState'
 import { useRoute } from 'vue-router'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
 const store = useTenantStore()
 const { t } = useI18n()
@@ -206,6 +210,7 @@ function deleteDoc(f: DfDocument) {
   if (f.id === undefined) {
     return
   }
+  AnalyticsService.deleteIncome(state.category)
   const $loading = useLoading()
   const loader = $loading.show()
   store

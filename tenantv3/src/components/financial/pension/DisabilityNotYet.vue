@@ -1,7 +1,22 @@
 <template>
-  <BackLinkRow :label="t('form.financial.retirement-or-pension')" :to="ancestor" />
-  <BackLinkRow :label="t('you-receive.' + textKey)" :to="grandparent" />
-  <BackLinkRow :label="t('not-yet.' + textKey)" :to="parent" />
+  <BackLinkRow
+    :label="t('form.financial.retirement-or-pension')"
+    :to="ancestor"
+    category="pension"
+  />
+  <BackLinkRow
+    :label="t('you-receive.' + textKey)"
+    :to="grandparent"
+    category="pension"
+    step="invalidite"
+  />
+  <BackLinkRow
+    :label="t('not-yet.' + textKey)"
+    :to="parent"
+    category="pension"
+    step="invalidite"
+    substep="pas-encore"
+  />
   <EnterMonthlyIncome />
   <UploadFilesFinancial category="PENSION" step="PENSION_DISABILITY_NOT_YET">
     <template #incomeFilled>

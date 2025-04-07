@@ -1,7 +1,18 @@
 <template>
-  <BackLinkRow :label="t('form.financial.job-income')" :to="ancestor" />
-  <BackLinkRow :label="t('form.financial.self-employed.' + textKey)" :to="grandparent" />
-  <BackLinkRow :label="t('not-auto-entrepreneur.' + textKey)" :to="parent" />
+  <BackLinkRow :label="t('form.financial.job-income')" :to="ancestor" category="travail" />
+  <BackLinkRow
+    :label="t('form.financial.self-employed.' + textKey)"
+    :to="grandparent"
+    category="travail"
+    step="independant"
+  />
+  <BackLinkRow
+    :label="t('not-auto-entrepreneur.' + textKey)"
+    :to="parent"
+    category="travail"
+    step="independant"
+    substep="autre"
+  />
   <EnterMonthlyIncomeBeforeTax />
   <UploadFilesFinancial category="SALARY" step="SALARY_FREELANCE_OTHER">
     <template #emptyIncome>

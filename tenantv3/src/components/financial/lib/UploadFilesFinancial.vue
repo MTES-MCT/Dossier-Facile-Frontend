@@ -8,6 +8,7 @@
       class="fr-input fr-mb-2w"
       required
       autocomplete="off"
+      @blur="AnalyticsService.writeText(state.category)"
     />
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
     <FinancialFooterContent :previous-step="state.recap" />
@@ -135,7 +136,7 @@ function submit() {
 const onSubmit = handleSubmit(submit)
 
 async function addFiles(fileList: File[]) {
-  AnalyticsService.uploadFile(state.category)
+  AnalyticsService.uploadFile(state.category, props.category, document.value.documentCategoryStep)
   const nf = Array.from(fileList).map((f) => ({ name: f.name, file: f, size: f.size }))
   document.value.files?.push(...nf)
   const saveSuccess = await save()

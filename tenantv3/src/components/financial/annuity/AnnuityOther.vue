@@ -1,6 +1,6 @@
 <template>
-  <BackLinkRow :label="t('form.financial.annuity')" :to="grandparent" />
-  <BackLinkRow :label="t('you-receive.' + textKey)" :to="parent" />
+  <BackLinkRow :label="t('form.financial.annuity')" :to="grandparent" category="rente" />
+  <BackLinkRow :label="t('you-receive.' + textKey)" :to="parent" category="rente" step="autre" />
   <EnterMonthlyIncome />
   <UploadFilesFinancial category="RENT" step="RENT_OTHER">
     <template #incomeFilled>

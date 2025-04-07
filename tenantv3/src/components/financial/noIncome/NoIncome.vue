@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :label="t('no-income')" :to="parent" />
+  <BackLinkRow :label="t('no-income')" :to="parent" category="pas-de-revenus" />
   <p class="fr-mb-1w">{{ t('can-add-explanation') }}</p>
   <textarea v-model="customText" class="fr-input fr-mb-2w" />
   <FinancialFooter :on-submit="save" />

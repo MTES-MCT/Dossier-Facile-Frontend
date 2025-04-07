@@ -1,6 +1,11 @@
 <template>
-  <BackLinkRow :label="t('form.financial.social-aid')" :to="grandparent" />
-  <BackLinkRow :label="t('form.financial.social.other')" :to="parent" />
+  <BackLinkRow :label="t('form.financial.social-aid')" :to="grandparent" category="social" />
+  <BackLinkRow
+    :label="t('form.financial.social.other')"
+    :to="parent"
+    category="social"
+    step="autre"
+  />
   <EnterMonthlyIncome />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_OTHER">
     <template #incomeFilled>

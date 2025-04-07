@@ -1,6 +1,6 @@
 <template>
-  <BackLinkRow :label="t('form.financial.job-income')" :to="grandparent" />
-  <BackLinkRow :label="t('unknown')" :to="parent" />
+  <BackLinkRow :label="t('form.financial.job-income')" :to="grandparent" category="travail" />
+  <BackLinkRow :label="t('unknown')" :to="parent" category="travail" step="inconnu" />
   <WarningUpdate />
   <EnterMonthlyIncomeBeforeTax />
   <UploadFilesFinancial category="SALARY" step="SALARY_UNKNOWN" no-upload>

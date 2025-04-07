@@ -1,6 +1,11 @@
 <template>
-  <BackLinkRow :label="t('form.financial.job-income')" :to="grandparent" />
-  <BackLinkRow :label="t('artist-author.' + textKey)" :to="parent" />
+  <BackLinkRow :label="t('form.financial.job-income')" :to="grandparent" category="travail" />
+  <BackLinkRow
+    :label="t('artist-author.' + textKey)"
+    :to="parent"
+    category="travail"
+    step="artiste-auteur"
+  />
   <EnterMonthlyIncomeBeforeTax />
   <UploadFilesFinancial category="SALARY" step="SALARY_ARTIST_AUTHOR">
     <template #emptyIncome>

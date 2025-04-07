@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :label="t('scholarship.' + textKey)" :to="parent" />
+  <BackLinkRow :label="t('scholarship.' + textKey)" :to="parent" category="bourse" />
   <i18n-t tag="p" class="fr-mb-1w" :keypath="'enter-income-' + suffix">
     <strong>{{ t('net-income') }}</strong>
   </i18n-t>

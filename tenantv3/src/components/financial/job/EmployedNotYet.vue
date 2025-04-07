@@ -1,7 +1,18 @@
 <template>
-  <BackLinkRow :label="t('form.financial.job-income')" :to="ancestor" />
-  <BackLinkRow :label="t('form.financial.employed.' + textKey)" :to="grandparent" />
-  <BackLinkRow :label="t('not-yet-started')" :to="parent" />
+  <BackLinkRow :label="t('form.financial.job-income')" :to="ancestor" category="travail" />
+  <BackLinkRow
+    :label="t('form.financial.employed.' + textKey)"
+    :to="grandparent"
+    category="travail"
+    step="salarie"
+  />
+  <BackLinkRow
+    :label="t('not-yet-started')"
+    :to="parent"
+    category="travail"
+    step="salarie"
+    substep="pas-encore"
+  />
   <EnterMonthlyIncomeBeforeTax />
   <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_NOT_YET">
     <template #emptyIncome>

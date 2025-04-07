@@ -1,7 +1,18 @@
 <template>
-  <BackLinkRow :label="t('form.financial.annuity')" :to="ancestor" />
-  <BackLinkRow :label="t('rental-income.' + textKey)" :to="grandparent" />
-  <BackLinkRow :label="t('no-receipt.' + textKey)" :to="parent" />
+  <BackLinkRow :label="t('form.financial.annuity')" :to="ancestor" category="rente" />
+  <BackLinkRow
+    :label="t('rental-income.' + textKey)"
+    :to="grandparent"
+    category="rente"
+    step="revenus-locatifs"
+  />
+  <BackLinkRow
+    :label="t('no-receipt.' + textKey)"
+    :to="parent"
+    category="rente"
+    step="revenus-locatifs"
+    substep="pas-de-quittance"
+  />
   <EnterMonthlyIncome />
   <UploadFilesFinancial category="RENT" step="RENT_RENTAL_NO_RECEIPT">
     <template #incomeFilled>

@@ -1,9 +1,18 @@
 <template>
-  <BackLinkRow :label="t('form.financial.annuity')" :to="grandparent" />
-  <BackLinkRow :label="t('rental-income.' + textKey)" :to="parent" />
+  <BackLinkRow :label="t('form.financial.annuity')" :to="grandparent" category="rente" />
+  <BackLinkRow
+    :label="t('rental-income.' + textKey)"
+    :to="parent"
+    category="rente"
+    step="revenus-locatifs"
+  />
   <RadioList>
-    <RadioListItem :to="here + '/quittance'">{{ t('have-receipt.' + textKey) }}</RadioListItem>
-    <RadioListItem :to="here + '/pas-de-quittance'">{{ t('no-receipt.' + textKey) }}</RadioListItem>
+    <RadioListItem :to="here + '/quittance'" @click="sendEvent('quittance')">{{
+      t('have-receipt.' + textKey)
+    }}</RadioListItem>
+    <RadioListItem :to="here + '/pas-de-quittance'" @click="sendEvent('pas-de-quittance')">{{
+      t('no-receipt.' + textKey)
+    }}</RadioListItem>
   </RadioList>
   <FinancialFooter />
 </template>
@@ -18,13 +27,17 @@ import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useI18n } from 'vue-i18n'
 import { useFinancialState } from '../financialState'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
 const route = useRoute()
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const here = computed(() => route.path)
-const { textKey } = useFinancialState()
+const { category, textKey } = useFinancialState()
+
+const sendEvent = (subCategory: string) =>
+  AnalyticsService.selectSituation3(category, 'rente', 'revenus-locatifs', subCategory)
 </script>
 
 <i18n>

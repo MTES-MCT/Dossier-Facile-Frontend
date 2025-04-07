@@ -1,6 +1,10 @@
 <template>
-  <BackLinkRow :label="t('form.financial.retirement-or-pension')" :to="grandparent" />
-  <BackLinkRow :label="t('unknown')" :to="parent" />
+  <BackLinkRow
+    :label="t('form.financial.retirement-or-pension')"
+    :to="grandparent"
+    category="pension"
+  />
+  <BackLinkRow :label="t('unknown')" :to="parent" category="pension" step="inconnu" />
   <WarningUpdate />
   <EnterMonthlyIncome />
   <UploadFilesFinancial category="PENSION" step="PENSION_UNKNOWN" no-upload>

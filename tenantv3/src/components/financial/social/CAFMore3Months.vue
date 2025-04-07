@@ -1,10 +1,18 @@
 <template>
-  <BackLinkRow :label="t('form.financial.social-aid')" :to="ancestor" />
+  <BackLinkRow :label="t('form.financial.social-aid')" :to="ancestor" category="social" />
   <BackLinkRow
     :label="t('form.financial.you-receive.' + textKey, [t('form.financial.social.caf')])"
     :to="grandparent"
+    category="social"
+    step="caf"
   />
-  <BackLinkRow :label="t('form.financial.more-3-months')" :to="parent" />
+  <BackLinkRow
+    :label="t('form.financial.more-3-months')"
+    :to="parent"
+    category="social"
+    step="caf"
+    substep="plus-3-mois"
+  />
   <EnterMonthlyIncome />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_CAF_MORE_3_MONTHS">
     <template #incomeFilled>

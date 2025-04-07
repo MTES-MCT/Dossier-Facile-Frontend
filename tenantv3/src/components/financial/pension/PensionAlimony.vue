@@ -1,6 +1,15 @@
 <template>
-  <BackLinkRow :label="t('form.financial.retirement-or-pension')" :to="grandparent" />
-  <BackLinkRow :label="t('you-receive.' + textKey)" :to="parent" />
+  <BackLinkRow
+    :label="t('form.financial.retirement-or-pension')"
+    :to="grandparent"
+    category="pension"
+  />
+  <BackLinkRow
+    :label="t('you-receive.' + textKey)"
+    :to="parent"
+    category="pension"
+    step="alimentaire"
+  />
   <EnterMonthlyIncome />
   <UploadFilesFinancial category="PENSION" step="PENSION_ALIMONY">
     <template #incomeFilled>

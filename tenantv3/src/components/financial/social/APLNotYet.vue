@@ -1,10 +1,18 @@
 <template>
-  <BackLinkRow :label="t('form.financial.social-aid')" :to="ancestor" />
+  <BackLinkRow :label="t('form.financial.social-aid')" :to="ancestor" category="social" />
   <BackLinkRow
     :label="t('form.financial.you-receive.' + textKey, [t('form.financial.social.apl')])"
     :to="grandparent"
+    category="social"
+    step="apl"
   />
-  <BackLinkRow :label="t('not-yet-' + suffix)" :to="parent" />
+  <BackLinkRow
+    :label="t('not-yet-' + suffix)"
+    :to="parent"
+    category="social"
+    step="apl"
+    substep="pas-encore"
+  />
   <EnterMonthlyIncome />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_APL_NOT_YET">
     <template #incomeFilled>

@@ -9,7 +9,7 @@ declare global {
 }
 
 type EventCategory = 'prevalidation' | 'funnel' | 'contact' | 'account' | 'misc' | 'file'
-type Action = 'clic' | 'print' | 'unknown' | 'delete' | 'upload'
+type Action = 'clic' | 'print' | 'unknown' | 'delete' | 'upload' | 'write'
 const DOCUMENT_TYPES = ['identification', 'residency', 'professional', 'financial', 'tax'] as const
 const DOCUMENT_CATEGORIES = Object.values(DocumentTypeTranslations)
 type DocumentCategoryBase = (typeof DOCUMENT_CATEGORIES)[number]
@@ -175,11 +175,27 @@ export const AnalyticsService = {
   selectSituation2(category: DocumentCategory, sub1Category: string, sub2Category: string) {
     sendFullEvent('funnel', 'clic', `${category}_${sub1Category}_${sub2Category}`)
   },
+  selectSituation3(
+    category: DocumentCategory,
+    sub1Category: string,
+    sub2Category: string,
+    sub3Category: string
+  ) {
+    sendFullEvent('funnel', 'clic', `${category}_${sub1Category}_${sub2Category}_${sub3Category}`)
+  },
   editSituation(category: DocumentCategory, subCategory: string) {
     sendFullEvent('funnel', 'clic', `modify_${category}_${subCategory}`)
   },
   editSituation2(category: DocumentCategory, subCategory: string, categoryStep: string) {
     sendFullEvent('funnel', 'clic', `modify_${category}_${subCategory}_${categoryStep}`)
+  },
+  editSituation3(
+    category: DocumentCategory,
+    subCategory: string,
+    categoryStep: string,
+    substep: string
+  ) {
+    sendFullEvent('funnel', 'clic', `modify_${category}_${subCategory}_${categoryStep}_${substep}`)
   },
   selectPrecariousness() {
     sendFullEvent('funnel', 'clic', 'select-precariousness')
@@ -204,6 +220,15 @@ export const AnalyticsService = {
   },
   validateFunnelStep(category: DocumentCategory) {
     sendFullEvent('funnel', 'clic', `validate-tenant_funnel_${category}`)
+  },
+  addIncome(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `add-revenu_${category}`)
+  },
+  deleteIncome(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `delete-revenu_${category}`)
+  },
+  writeText(category: DocumentCategory) {
+    sendFullEvent('funnel', 'write', `text_${category}`)
   }
 }
 

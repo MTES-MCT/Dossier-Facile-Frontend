@@ -1,6 +1,11 @@
 <template>
-  <BackLinkRow :label="t('form.financial.job-income')" :to="grandparent" />
-  <BackLinkRow :label="t('intermittent.' + textKey)" :to="parent" />
+  <BackLinkRow :label="t('form.financial.job-income')" :to="grandparent" category="travail" />
+  <BackLinkRow
+    :label="t('intermittent.' + textKey)"
+    :to="parent"
+    category="travail"
+    step="intermittent"
+  />
   <EnterMonthlyIncomeBeforeTax />
   <UploadFilesFinancial category="SALARY" step="SALARY_INTERMITTENT">
     <template #emptyIncome>

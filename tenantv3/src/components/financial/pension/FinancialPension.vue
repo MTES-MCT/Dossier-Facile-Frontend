@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :label="t('form.financial.retirement-or-pension')" :to="parent" />
+  <BackLinkRow :label="t('form.financial.retirement-or-pension')" :to="parent" category="pension" />
   <p>{{ t('you-receive.' + textKey) }}</p>
   <RadioList>
     <RadioListItem :to="here + '/retraite'" @click="sendEvent('retraite')">{{
@@ -31,10 +31,10 @@ const { t } = useI18n()
 const route = useRoute()
 const here = computed(() => route.path)
 const parent = useParentRoute()
-const { textKey } = useFinancialState()
+const { category, textKey } = useFinancialState()
 
 const sendEvent = (subCategory: string) =>
-  AnalyticsService.selectSituation2('financial', 'pension', subCategory)
+  AnalyticsService.selectSituation2(category, 'pension', subCategory)
 </script>
 
 <i18n>
