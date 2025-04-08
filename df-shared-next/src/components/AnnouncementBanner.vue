@@ -8,6 +8,10 @@ const DOMAIN = `${import.meta.env.VITE_COOKIE_DOMAIN}`
 const announcementClosedCookieKey = `announcement-closed-${btoa(MESSAGE)}`
 const announcementClosed = ref(false)
 
+const { isDisplayed = true } = defineProps<{
+  isDisplayed?: boolean
+}>()
+
 onMounted(() => {
   if (cookies.get(announcementClosedCookieKey) === 'true') {
     announcementClosed.value = true
@@ -16,7 +20,7 @@ onMounted(() => {
 
 function isVisible() {
   const isMessageSet = MESSAGE.trim().length > 0
-  return isMessageSet && !announcementClosed.value
+  return isMessageSet && !announcementClosed.value && isDisplayed
 }
 
 function createAnnouncementClosedCookie() {

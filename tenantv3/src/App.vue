@@ -38,6 +38,10 @@ function onLoginTenant() {
 function onCreateOwner() {
   window.location.href = OWNER_URL
 }
+
+function hasToDisplayAnnoncement() {
+  return store.user.ownerType === 'THIRD_PARTY'
+}
 </script>
 
 <template>
@@ -54,7 +58,7 @@ function onCreateOwner() {
   </MyHeader>
   <div id="content">
     <DeleteAccount></DeleteAccount>
-    <Announcement></Announcement>
+    <Announcement :is-displayed="hasToDisplayAnnoncement()"></Announcement>
     <main role="main">
       <div class="page">
         <RouterView />
