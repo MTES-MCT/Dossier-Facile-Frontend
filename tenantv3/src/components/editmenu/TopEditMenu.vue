@@ -139,8 +139,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.IDENTITY"
-          :substep="1"
-          :active="getGuarantorCurrentStep(1, selectedGuarantor)"
         />
         <CoTenantGuarantorDocumentLink
           id="gd2"
@@ -148,8 +146,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.RESIDENCY"
-          :substep="2"
-          :active="getGuarantorCurrentStep(2, selectedGuarantor)"
         />
         <CoTenantGuarantorDocumentLink
           id="gd3"
@@ -157,8 +153,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.PROFESSIONAL"
-          :substep="3"
-          :active="getGuarantorCurrentStep(3, selectedGuarantor)"
         />
         <CoTenantGuarantorDocumentLink
           id="gd4"
@@ -166,8 +160,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.FINANCIAL"
-          :substep="4"
-          :active="getGuarantorCurrentStep(4, selectedGuarantor)"
         />
         <CoTenantGuarantorDocumentLink
           id="gd5"
@@ -175,8 +167,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.TAX"
-          :substep="5"
-          :active="getGuarantorCurrentStep(5, selectedGuarantor)"
         />
       </div>
       <div
@@ -190,8 +180,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.IDENTIFICATION_LEGAL_PERSON"
-          :substep="0"
-          :active="getGuarantorCurrentStep(0, selectedGuarantor)"
         />
         <CoTenantGuarantorDocumentLink
           id="gd1"
@@ -199,8 +187,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.IDENTIFICATION"
-          :substep="1"
-          :active="getGuarantorCurrentStep(1, selectedGuarantor)"
         />
       </div>
       <div
@@ -214,8 +200,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="getCoTenant(0)"
           :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
-          :substep="0"
-          :active="getGuarantorCurrentStep(0, selectedGuarantor)"
         />
       </div>
     </div>
@@ -223,7 +207,6 @@
 </template>
 
 <script setup lang="ts">
-import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { User } from 'df-shared-next/src/models/User'
 import TenantDocumentLink from './documents/TenantDocumentLink.vue'
 import GuarantorDocumentLink from './documents/GuarantorDocumentLink.vue'
@@ -328,15 +311,6 @@ function getStepTitle() {
     return t('validate-file')
   }
   return ''
-}
-
-function getGuarantorCurrentStep(substep: number, g: Guarantor | undefined): boolean {
-  const s = Number(route.params.substep) || 0
-  return (
-    (props.step === 3 || props.step === 5) &&
-    s === substep &&
-    (g === undefined || selectedGuarantor.value?.id === g.id)
-  )
 }
 
 function isCouple() {
