@@ -11,6 +11,8 @@ describe("alone tenant scenario", () => {
     cy.tenantLogin(user.username);
     cy.rejectCookies();
 
+    cy.contains("Pour vous").click();
+
     cy.get("#lastname").should("have.value", user.lastname);
     cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
     cy.clickOnNext();

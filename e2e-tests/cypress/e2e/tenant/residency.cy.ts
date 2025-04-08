@@ -18,6 +18,7 @@ describe(
 
       cy.tenantLogin(username);
       cy.rejectCookies();
+      cy.contains("Pour vous").click();
 
       createCotenant();
       createGuarantor();
