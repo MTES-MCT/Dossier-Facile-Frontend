@@ -38,7 +38,7 @@
             >{{ t('edit') }}
             <RiEditLine size="1rem" />
           </router-link>
-          <button type="button" class="btn-link color--primary" @click="deleteDoc(doc)">
+          <button type="button" class="btn-link color--primary" @click="showDeleteModale(doc)">
             {{ t('delete') }}
             <RiDeleteBinLine size="1rem" />
           </button>
@@ -64,6 +64,21 @@
     </template>
     <template #footer>
       <DfButton class="large-btn" primary @click="showInfoModale = false">OK</DfButton>
+    </template>
+  </ModalComponent>
+  <ModalComponent v-if="docToDelete" @close="hideDeleteModale">
+    <template #body>
+      <p class="fr-m-0">{{ t('sure-to-delete') }}</p>
+    </template>
+    <template #footer>
+      <ul class="fr-btns-group fr-btns-group--inline-md btns-group">
+        <li>
+          <DfButton primary @click="deleteDoc">{{ t('delete') }}</DfButton>
+        </li>
+        <li>
+          <DfButton @click="hideDeleteModale">{{ t('cancel') }}</DfButton>
+        </li>
+      </ul>
     </template>
   </ModalComponent>
 </template>
@@ -97,6 +112,7 @@ const { t } = useI18n()
 const route = useRoute()
 
 const showInfoModale = ref(false)
+const docToDelete = ref<DfDocument>()
 const state = useFinancialState()
 const financialDocuments = computed(() => state.documents.value)
 const here = computed(() => route.path)
@@ -206,15 +222,27 @@ function makeLink(doc: DfDocument) {
   return link
 }
 
-function deleteDoc(f: DfDocument) {
-  if (f.id === undefined) {
+function showDeleteModale(doc: DfDocument) {
+  docToDelete.value = doc
+  AnalyticsService.deleteIncome(state.category, 'ask')
+}
+
+function hideDeleteModale() {
+  docToDelete.value = undefined
+  AnalyticsService.deleteIncome(state.category, 'cancel')
+}
+
+function deleteDoc() {
+  const id = docToDelete.value?.id
+  if (id === undefined) {
     return
   }
-  AnalyticsService.deleteIncome(state.category)
+  docToDelete.value = undefined
+  AnalyticsService.deleteIncome(state.category, 'confirm')
   const $loading = useLoading()
   const loader = $loading.show()
   store
-    .deleteDocument(f.id)
+    .deleteDocument(id)
     .catch(() => {
       ToastService.error()
     })
@@ -281,6 +309,10 @@ function deleteDoc(f: DfDocument) {
     width: 6rem;
   }
 }
+.btns-group {
+  flex: 1;
+  justify-content: flex-end;
+}
 </style>
 
 <i18n>
@@ -307,7 +339,9 @@ function deleteDoc(f: DfDocument) {
       "couple": "Your spouse's income",
       "guarantor": "Your guarantor's income",
       "couple-guarantor": "Income of your spouse's guarantor"
-    }
+    },
+    "sure-to-delete": "Are you sure you want to delete this income?",
+    "cancel": "Cancel"
   },
   "fr": {
     "documents-provided": "Les documents fournis permettent aux propriétaires de {0}.",
@@ -332,6 +366,8 @@ function deleteDoc(f: DfDocument) {
       "guarantor": "Revenus de votre garant",
       "couple-guarantor": "Revenus du garant de votre conjoint"
     },
+    "sure-to-delete": "Êtes-vous sûr de vouloir supprimer ce revenu ?",
+    "cancel": "Annuler"
   }
 }
 </i18n>

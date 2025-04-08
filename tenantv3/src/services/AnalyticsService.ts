@@ -224,8 +224,9 @@ export const AnalyticsService = {
   addIncome(category: DocumentCategory) {
     sendFullEvent('funnel', 'clic', `add-revenu_${category}`)
   },
-  deleteIncome(category: DocumentCategory) {
-    sendFullEvent('funnel', 'clic', `delete-revenu_${category}`)
+  deleteIncome(category: DocumentCategory, step: 'ask' | 'confirm' | 'cancel') {
+    const suffix = step === 'ask' ? '' : `-${step}`
+    sendFullEvent('funnel', 'clic', `delete-revenu${suffix}_${category}`)
   },
   writeText(category: DocumentCategory) {
     sendFullEvent('funnel', 'write', `text_${category}`)
