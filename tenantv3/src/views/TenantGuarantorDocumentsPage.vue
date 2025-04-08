@@ -51,7 +51,7 @@ function goToRoute(offset: number) {
     return
   }
   router.push({
-    name: 'TenantGuarantorDocuments',
+    name,
     params: {
       step: route.params.step,
       tenantId: route.params.tenantId,
