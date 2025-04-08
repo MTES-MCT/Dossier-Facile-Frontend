@@ -83,7 +83,11 @@ function goBack() {
 }
 
 function goNext() {
-  updateSubstep(substep.value + 1)
+  if (substep.value < 5) {
+    updateSubstep(substep.value + 1)
+  } else {
+    nextStep()
+  }
 }
 
 function nextStep() {
