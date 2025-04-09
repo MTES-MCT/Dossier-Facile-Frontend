@@ -109,6 +109,7 @@
                 name="third-party-consent-checkbox"
                 type="checkbox"
                 aria-describedby="third-party-consent-checkbox-message"
+                :checked="thirdPartyConsent"
                 @change="onCheckboxChange"
               />
               <label class="fr-label" for="third-party-consent-checkbox">
@@ -184,8 +185,11 @@ const preferredname = ref(placeHolderIdentity.preferredName)
 
 const postalCode = ref(placeHolderIdentity.postalCode)
 
-const thirdPartyConsent = ref(false)
-const displayPreferrednameField = ref(false)
+const thirdPartyConsent = ref(
+  user.value?.ownerType === 'THIRD_PARTY' && placeHolderIdentity.firstName !== ''
+)
+
+const displayPreferrednameField = ref(placeHolderIdentity.preferredName !== '')
 
 const isInputDisabled = computed(() => {
   const franceConnect = user.value?.franceConnect
