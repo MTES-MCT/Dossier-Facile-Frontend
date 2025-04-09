@@ -1,5 +1,5 @@
 <template>
-  <h6>{{ t(textKey + '.title') }}</h6>
+  <h2 class="fr-h6">{{ t(textKey + '.title') }}</h2>
   <Form v-slot="{ meta }" @submit="onSubmit">
     <div>
       <label class="fr-label" for="lastname">{{ t('common.last-name-label') }}</label>

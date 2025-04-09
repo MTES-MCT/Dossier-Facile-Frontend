@@ -1,6 +1,6 @@
 <template>
   <NakedCard class="fr-p-md-5w fr-grid-col">
-    <h4>{{ t('title') }}</h4>
+    <h1 class="fr-h4">{{ t('title') }}</h1>
     <p>{{ t('description') }}</p>
     <router-view />
   </NakedCard>

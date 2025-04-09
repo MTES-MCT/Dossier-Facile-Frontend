@@ -1,6 +1,6 @@
 <template>
   <NakedCard class="fr-mt-3v fr-p-md-5w fr-mb-12w">
-    <h4>{{ t(textKey + '.title') }}</h4>
+    <h2 class="fr-h4">{{ t(textKey + '.title') }}</h2>
     <div class="fr-alert fr-alert--info fr-mb-3w">
       <p>{{ t('common.information-block') }}</p>
     </div>
