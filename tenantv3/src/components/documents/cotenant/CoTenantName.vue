@@ -68,7 +68,6 @@ import { User } from 'df-shared-next/src/models/User'
 import FooterContainer from '../../footer/FooterContainer.vue'
 import BackNext from '../../footer/BackNext.vue'
 import RequiredFieldsInstruction from 'df-shared-next/src/components/form/RequiredFieldsInstruction.vue'
-import TextField from 'df-shared-next/src/components/form/TextField.vue'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { computed, onBeforeMount, ref } from 'vue'
@@ -77,6 +76,7 @@ import { Form } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { useRoute, useRouter } from 'vue-router'
+import TextField from '@/components/form/TextField.vue'
 
 const selectedCoTenant = ref<CoTenant>(new User())
 const { t } = useI18n()

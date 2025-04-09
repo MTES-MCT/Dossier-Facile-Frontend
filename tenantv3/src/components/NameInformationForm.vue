@@ -104,12 +104,12 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import ProfileFooter from './footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { UtilsService } from '@/services/UtilsService'
-import TextField from 'df-shared-next/src/components/form/TextField.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useLoading } from 'vue-loading-overlay'
 import { useI18n } from 'vue-i18n'
+import TextField from './form/TextField.vue'
 
 const { t } = useI18n()
 const store = useTenantStore()
