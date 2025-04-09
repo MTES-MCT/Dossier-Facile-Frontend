@@ -39,7 +39,8 @@ describe(
     });
 
     it("add residency documents for guarantor", () => {
-      cy.visit("/info-garant/0");
+      cy.visit("/liste-garants");
+      cy.get('button[title="Modifier"]').click();
       clickOnMenuItem("Situation d'hébergement");
 
       testGuarantorResidencyStep();

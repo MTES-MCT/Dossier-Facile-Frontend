@@ -58,16 +58,15 @@ Cypress.Commands.add("selectProfessionalStatusStep", (professionalStatus: string
     .clickOnNext();
 });
 
-Cypress.Commands.add("addFinancialResource", (resourceType: string, monthlySum: string) => {
-  cy.contains(resourceType).click();
-  cy.get("#monthlySum")
-    .type(monthlySum)
-    .uploadDocument()
-    .clickOnNext();
-  cy.get(".fr-tag")
-    .contains(resourceType)
-    .should("be.visible");
-});
+Cypress.Commands.add("addFinancialResource", (steps: string[], monthlySum: string) => {
+  cy.contains("Ajouter un revenu").click();
+  for (const step of steps) {
+    cy.contains(step).click();
+  }
+  cy.get('[data-cy="monthlySum"]').type(monthlySum);
+  cy.uploadDocument();
+  cy.clickOnNext();
+})
 
 Cypress.Commands.add("validationStep", () => {
   cy.get('label[for="declaration"]').click();

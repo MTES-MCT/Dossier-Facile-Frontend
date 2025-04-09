@@ -33,9 +33,19 @@ describe("alone tenant scenario", () => {
     cy.selectProfessionalStatusStep("CDI");
 
     cy.expectPath("/documents-locataire/4");
-    cy.addFinancialResource("Revenus professionnels", "2000");
-    cy.get(".add-income-btn").click();
-    cy.addFinancialResource("Rentes", "500");
+
+    cy.addFinancialResource(
+      ["Revenus du travail", "salarié", "Depuis plus de 3 mois"],
+      "2000"
+    );
+
+    cy.addFinancialResource(
+      ["Rente", "des revenus locatifs", "Vous avez une quittance"],
+      "500"
+    );
+
+    cy.contains("Rentes");
+    cy.contains("Revenus professionnels");
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
@@ -73,7 +83,15 @@ function createGuarantor(firstname: string, lastname: string) {
   cy.selectProfessionalStatusStep("Retraite");
 
   cy.expectPath("/info-garant/4");
-  cy.addFinancialResource("Pension", "2000");
+  cy.addFinancialResource(
+    [
+      "Retraite ou autre pension",
+      "une retraite",
+      "Votre garant a un bulletin de pension",
+    ],
+    "2000"
+  );
+
   cy.clickOnNext();
 
   cy.expectPath("/info-garant/5");

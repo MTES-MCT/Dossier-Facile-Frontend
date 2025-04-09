@@ -32,7 +32,10 @@ describe("couple tenant scenario", () => {
     cy.selectProfessionalStatusStep("CDD");
 
     cy.expectPath("/documents-locataire/4");
-    cy.addFinancialResource("Revenus professionnels", "1000");
+    cy.addFinancialResource(
+      ["Revenus du travail", "salarié", "Depuis moins de 3 mois"],
+      "1000"
+    );
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
@@ -67,13 +70,8 @@ describe("couple tenant scenario", () => {
     cy.selectProfessionalStatusStep("Études");
 
     cy.expectPath("/4/4");
-    cy.contains("Bourses").click();
-    cy.get("#monthlySum").type("2000");
-    cy.get("#noDocument").click({ force: true });
-    cy.get("#customText").type("Test text");
 
-    cy.clickOnNext();
-
+    cy.addFinancialResource(["Bourse"], "2000");
     cy.clickOnNext();
 
     cy.expectPath("/4/5");
