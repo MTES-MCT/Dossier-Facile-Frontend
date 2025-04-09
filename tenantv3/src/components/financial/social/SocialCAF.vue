@@ -14,7 +14,7 @@
       t('form.financial.less-3-months')
     }}</RadioListItem>
   </RadioList>
-  <FinancialFooter />
+  <FinancialFooter disabled />
 </template>
 
 <script setup lang="ts">

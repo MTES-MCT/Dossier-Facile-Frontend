@@ -19,7 +19,7 @@
       t('no-statement.' + textKey)
     }}</RadioListItem>
   </RadioList>
-  <FinancialFooter />
+  <FinancialFooter disabled />
 </template>
 
 <script setup lang="ts">

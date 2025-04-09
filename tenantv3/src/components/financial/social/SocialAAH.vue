@@ -17,7 +17,7 @@
       t('not-yet-' + suffix)
     }}</RadioListItem>
   </RadioList>
-  <FinancialFooter />
+  <FinancialFooter disabled />
 </template>
 
 <script setup lang="ts">

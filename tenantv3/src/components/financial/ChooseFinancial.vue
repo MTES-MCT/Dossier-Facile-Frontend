@@ -26,7 +26,7 @@
       >{{ t('form.financial.no-income') }}</RadioListItem
     >
   </RadioList>
-  <FinancialFooter />
+  <FinancialFooter disabled />
 </template>
 
 <script setup lang="ts">

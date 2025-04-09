@@ -14,7 +14,7 @@
       t('no-receipt.' + textKey)
     }}</RadioListItem>
   </RadioList>
-  <FinancialFooter />
+  <FinancialFooter disabled />
 </template>
 
 <script setup lang="ts">

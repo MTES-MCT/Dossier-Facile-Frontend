@@ -8,10 +8,11 @@
       class="fr-input fr-mb-2w"
       required
       autocomplete="off"
+      data-cy="monthlySum"
       @blur="AnalyticsService.writeText(state.category)"
     />
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
-    <FinancialFooterContent :previous-step="state.recap" />
+    <FinancialFooterContent :previous-step="state.recap" :disabled="document.files?.length === 0" />
   </form>
   <template v-if="showFiles">
     <slot name="incomeFilled"></slot>

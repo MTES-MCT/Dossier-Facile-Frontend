@@ -12,7 +12,7 @@
       t('other-pension')
     }}</RadioListItem>
   </RadioList>
-  <FinancialFooter />
+  <FinancialFooter disabled />
 </template>
 
 <script setup lang="ts">
