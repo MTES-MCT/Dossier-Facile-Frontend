@@ -179,6 +179,14 @@ if (
   placeHolderIdentity.postalCode = ''
 }
 
+// If for the first time we show the form for third party identity we remove the data
+if (props.textKey === 'third-party' && user.value?.ownerType === undefined) {
+  placeHolderIdentity.lastName = ''
+  placeHolderIdentity.firstName = ''
+  placeHolderIdentity.preferredName = ''
+  placeHolderIdentity.postalCode = ''
+}
+
 const lastname = ref(placeHolderIdentity.lastName)
 const firstname = ref(placeHolderIdentity.firstName)
 const preferredname = ref(placeHolderIdentity.preferredName)
