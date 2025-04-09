@@ -3,14 +3,7 @@
   <Form v-slot="{ meta }" @submit="onSubmit">
     <div>
       <label class="fr-label" for="lastname">{{ t('common.last-name-label') }}</label>
-      <Field
-        v-slot="{ field }"
-        v-model.trim="lastname"
-        name="lastname"
-        :rules="{
-          required: true
-        }"
-      >
+      <Field v-slot="{ field }" v-model.trim="lastname" name="lastname" rules="required|onlyAlpha">
         <input
           v-bind="field"
           id="lastname"
@@ -41,7 +34,12 @@
       <label class="fr-label" for="preferredName">{{ t('common.preferred-name-label') }}</label>
       <div class="field-with-button fr-mt-1w">
         <div class="fr-input-wrap">
-          <Field v-slot="{ field }" v-model.trim="preferredname" name="preferredName">
+          <Field
+            v-slot="{ field }"
+            v-model.trim="preferredname"
+            name="preferredName"
+            rules="onlyAlpha"
+          >
             <input v-bind="field" id="preferredName" class="form-control fr-input" type="text" />
           </Field>
         </div>
@@ -62,9 +60,7 @@
         v-slot="{ field }"
         v-model.trim="firstname"
         name="firstName"
-        :rules="{
-          required: true
-        }"
+        rules="required|onlyAlpha"
       >
         <input
           v-bind="field"
@@ -84,9 +80,12 @@
     </div>
     <div class="fr-mt-3w">
       <label class="fr-label" for="postalCode">{{ t(textKey + '.postal-code-label') }}</label>
-      <Field v-slot="{ field }" v-model.trim="postalCode" name="postalCode">
+      <Field v-slot="{ field }" v-model.trim="postalCode" name="postalCode" rules="zipcode">
         <input v-bind="field" class="form-control fr-input" type="text" />
       </Field>
+      <ErrorMessage v-slot="{ message }" name="postalCode">
+        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+      </ErrorMessage>
     </div>
     <div class="fr-mt-3w">
       <fieldset
