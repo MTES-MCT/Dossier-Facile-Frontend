@@ -40,14 +40,6 @@
     <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.GUARANTOR_HELP">
       {{ t('common.online-help') }}
     </TrackedExternalLink>
-    <div v-if="textKey === 'third-party'">
-      <hr class="fr-mt-3w" />
-      <div class="fr-highlight fr-ml-0">
-        <p>
-          {{ t('third-party.highlight') }}
-        </p>
-      </div>
-    </div>
   </NakedCard>
 </template>
 
@@ -80,12 +72,11 @@ const { t } = useI18n()
     },
     "self": {
       "title": "Prepare your documents",
-      "list-title": "Your supporting documents:",
+      "list-title": "Your supporting documents:"
     },
     "third-party": {
       "title": "Prepare the tenant's documents",
-      "list-title": "The tenant's supporting documents:",
-      "highlight": "If you want to create a file for another child or another person, you will need to create a second account with a different email address."
+      "list-title": "The tenant's supporting documents:"
     }
   },
   "fr": {
@@ -102,12 +93,11 @@ const { t } = useI18n()
     },
     "self": {
       "title": "Préparer vos documents",
-      "list-title": "Vos pièces justificatives :",
+      "list-title": "Vos pièces justificatives :"
     },
     "third-party": {
       "title": "Préparer les documents du futur locataire",
-      "list-title": "Les pièces justificatives du futur locataire :",
-      "highlight": " Si vous souhaitez créer un dossier pour un autre enfant ou une autre personne, vous devrez créer un second compte avec une adresse e-mail différente."
+      "list-title": "Les pièces justificatives du futur locataire :"
     }
   }
 }
