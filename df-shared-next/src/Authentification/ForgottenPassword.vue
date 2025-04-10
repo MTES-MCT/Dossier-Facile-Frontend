@@ -10,7 +10,6 @@
             <div class="fr-input-group">
               <label class="fr-label" for="email">{{ t('email') }}</label>
               <Field
-                id="email"
                 name="email"
                 v-model="user.email"
                 v-slot="{ field, meta }"
@@ -21,6 +20,7 @@
               >
                 <input
                   v-bind="field"
+                  id="email"
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
