@@ -25,6 +25,7 @@
         v-if="!displayPreferrednameField"
         class="fr-link fr-icon-add-line fr-link--icon-right"
         href="#"
+        type="button"
         @click="displayPreferrednameField = true"
       >
         {{ t('common.add-prefered-name') }}
