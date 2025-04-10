@@ -49,4 +49,16 @@ describe("basic owner scenario", () => {
     cy.get(".modal").contains("Valider").click();
     cy.wait("@deleteProperty").its("response.statusCode").should("eq", 200);
   });
+
+  it("should error on invalid password token", () => {
+    cy.visit(Cypress.env("ownerUrl") + "/modifier-mot-de-passe/bad_token");
+    cy.rejectCookies();
+    const password = "password1!";
+    cy.get("#password").type(password);
+    cy.get("#confirm-password").type(password);
+    cy.contains("Valider").click();
+    cy.contains(
+      "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
+    );
+  });
 });
