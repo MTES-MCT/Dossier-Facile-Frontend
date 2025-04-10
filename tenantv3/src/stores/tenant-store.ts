@@ -622,6 +622,19 @@ export const useTenantStore = defineStore('tenant', {
       this.loadUserCommit(response.data)
       return response.data
     },
+    getTenantNameRoute() {
+      const ownerType = this.user.ownerType
+
+      if (ownerType === undefined) {
+        return { name: 'ChooseTenantIdentity' }
+      }
+      if (ownerType === 'SELF') {
+        return { name: 'SelfTenantIdentity' }
+      }
+      if (ownerType === 'THIRD_PARTY') {
+        return { name: 'ThirdPartyTenantIdentity' }
+      }
+    },
     firstProfilePage() {
       if (this.user.documents === undefined) {
         return
@@ -631,7 +644,7 @@ export const useTenantStore = defineStore('tenant', {
         !this.user.lastName ||
         (!this.user.zipCode && this.user.documents.length == 0)
       ) {
-        return { name: 'TenantName' }
+        return this.getTenantNameRoute()
       }
       if (!this.user.applicationType) {
         return { name: 'TenantType' }
@@ -675,7 +688,7 @@ export const useTenantStore = defineStore('tenant', {
         return { name: 'ValidateFile' }
       }
 
-      return { name: 'TenantName' }
+      return this.getTenantNameRoute()
     },
     updateSelectedGuarantor(tenantId: number) {
       let guarantors

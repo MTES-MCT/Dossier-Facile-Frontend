@@ -24,7 +24,6 @@
       <button
         v-if="!displayPreferrednameField"
         class="fr-link fr-icon-add-line fr-link--icon-right"
-        href="#"
         type="button"
         @click="displayPreferrednameField = true"
       >
@@ -160,28 +159,16 @@ if (props.textKey === 'self' && user.value?.franceConnectIdentity) {
   placeHolderIdentity.preferredName = user.value.franceConnectIdentity.preferredName || ''
 }
 
-// If we show the form for third party but before we have the self identity we remove all data from the form
-if (props.textKey === 'third-party' && user.value?.ownerType === 'SELF') {
-  placeHolderIdentity.lastName = ''
-  placeHolderIdentity.firstName = ''
-  placeHolderIdentity.preferredName = ''
-  placeHolderIdentity.postalCode = ''
-}
-
-// If we show the form for self identity but before we have third party identity we remove all data from the form
 if (
-  props.textKey === 'self' &&
-  user.value?.ownerType === 'THIRD_PARTY' &&
-  !user.value.franceConnect
+  // If we show the form for third party but before we have the self identity we remove all data from the form
+  (props.textKey === 'third-party' && user.value?.ownerType === 'SELF') ||
+  // If we show the form for self identity but before we have third party identity we remove all data from the form
+  (props.textKey === 'self' &&
+    user.value?.ownerType === 'THIRD_PARTY' &&
+    !user.value.franceConnect) ||
+  // If for the first time we show the form for third party identity we remove the data
+  (props.textKey === 'third-party' && user.value?.ownerType === undefined)
 ) {
-  placeHolderIdentity.lastName = ''
-  placeHolderIdentity.firstName = ''
-  placeHolderIdentity.preferredName = ''
-  placeHolderIdentity.postalCode = ''
-}
-
-// If for the first time we show the form for third party identity we remove the data
-if (props.textKey === 'third-party' && user.value?.ownerType === undefined) {
   placeHolderIdentity.lastName = ''
   placeHolderIdentity.firstName = ''
   placeHolderIdentity.preferredName = ''
