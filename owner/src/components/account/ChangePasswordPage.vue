@@ -28,10 +28,7 @@ function onChangePassword(password: string) {
       router.push({ name: 'Dashboard' })
     },
     (error: unknown) => {
-      if (
-        isAxiosError(error) &&
-        error.response?.data.message.includes('password recovery token or is expired')
-      ) {
+      if (isAxiosError(error) && error.code === 'ERR_BAD_REQUEST') {
         toast.error(t('changepasswordpage.token-expired').toString(), {
           timeout: 7000
         })
