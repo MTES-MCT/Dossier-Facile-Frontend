@@ -59,7 +59,7 @@ Cypress.Commands.add("selectProfessionalStatusStep", (professionalStatus: string
 });
 
 Cypress.Commands.add("addFinancialResource", (steps: string[], monthlySum: string) => {
-  cy.contains("Ajouter un revenu").click();
+  cy.contains("Déclarer ses ressources").click();
   for (const step of steps) {
     cy.contains(step).click();
   }

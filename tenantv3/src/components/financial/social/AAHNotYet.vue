@@ -41,12 +41,12 @@ const { suffix, textKey } = useFinancialState()
   "en": {
     "not-yet-tenant": "You're not yet receiving AAH",
     "not-yet-other": "They're not yet receiving AAH",
-    "please-provide": "Please provide notification of the MDPH's decision.",
+    "please-provide": "Please provide notification of the decision of the MDPH (Maison Départementale pour les Personnes Handicapées).",
   },
   "fr": {
     "not-yet-tenant": "Vous ne touchez pas encore l’AAH",
     "not-yet-other": "Ne touche pas encore l’AAH",
-    "please-provide": "Veuillez fournir la notification de décision de la MDPH.",
+    "please-provide": "Veuillez fournir la notification de décision de la MDPH (Maison Départementale pour les Personnes Handicapées).",
   }
 }
 </i18n>
