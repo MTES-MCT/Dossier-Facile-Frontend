@@ -10,13 +10,13 @@
   },
   "dependencies": {
     "axe-core": "^4.10.3",
-    "cypress": "14.2.1",
+    "cypress": "14.3.0",
     "cypress-axe": "^1.5.0",
     "cypress-wait-until": "3.0.2",
     "df-shared-next": "workspace:*",
     "owner": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "5.8.2"
+    "typescript": "5.8.3"
   }
 }
