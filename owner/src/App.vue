@@ -12,6 +12,8 @@ import useOwnerStore from './store/owner-store'
 import DeleteAccount from './components/DeleteAccount.vue'
 import cookies from 'js-cookie'
 
+const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
+
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 
 const store = useOwnerStore()
@@ -56,7 +58,7 @@ function onLogout() {
   </MyHeader>
   <div id="content">
     <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>
-    <Announcement></Announcement>
+    <Announcement :message="MESSAGE"></Announcement>
     <main role="main">
       <div class="page fr-background-alt--blue-france">
         <router-view />
