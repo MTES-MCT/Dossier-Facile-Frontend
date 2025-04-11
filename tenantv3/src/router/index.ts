@@ -318,14 +318,7 @@ export const router = createRouter({
     },
     {
       path: '/profile',
-      name: 'Profile',
-      meta: {
-        title: 'Édition du profil - DossierFacile',
-        requiresAuth: true,
-        hideFooter: true,
-        skipLinks: [CONTENT, FOOTER_NAVIGATION]
-      },
-      component: () => import('../views/NameInformation.vue')
+      redirect: '/nom-locataire'
     },
     {
       path: '/nom-locataire',
