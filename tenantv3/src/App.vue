@@ -12,6 +12,8 @@ import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import cookies from 'js-cookie'
 
+const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
+
 const store = useTenantStore()
 const router = useRouter()
 const route = useRoute()
@@ -26,6 +28,8 @@ onBeforeMount(() => {
   const store = useTenantStore()
   store.setLang(lang)
 })
+
+const announcementMessage = computed(() => MESSAGE.replace('[[tenantId]]', `${store.user.id}`))
 
 function onLogout() {
   store.logout(true)
@@ -58,7 +62,10 @@ function hasToDisplayAnnoncement() {
   </MyHeader>
   <div id="content">
     <DeleteAccount></DeleteAccount>
-    <Announcement :is-displayed="hasToDisplayAnnoncement()"></Announcement>
+    <Announcement
+      :is-displayed="hasToDisplayAnnoncement()"
+      :message="announcementMessage"
+    ></Announcement>
     <main role="main">
       <div class="page">
         <RouterView />

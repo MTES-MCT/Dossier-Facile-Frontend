@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import cookies from 'js-cookie'
+import cookies from 'js-cookie';
+import { onMounted, ref } from 'vue';
 
-const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
 const DOMAIN = `${import.meta.env.VITE_COOKIE_DOMAIN}`
 
-const announcementClosedCookieKey = `announcement-closed-${btoa(MESSAGE)}`
 const announcementClosed = ref(false)
 
-const { isDisplayed = true } = defineProps<{
+const { isDisplayed = true, message } = defineProps<{
   isDisplayed?: boolean
+  message: string
 }>()
+
+const announcementClosedCookieKey = `announcement-closed-${btoa(message)}`
 
 onMounted(() => {
   if (cookies.get(announcementClosedCookieKey) === 'true') {
@@ -19,7 +20,7 @@ onMounted(() => {
 })
 
 function isVisible() {
-  const isMessageSet = MESSAGE.trim().length > 0
+  const isMessageSet = message.trim().length > 0
   return isMessageSet && !announcementClosed.value && isDisplayed
 }
 
@@ -43,7 +44,7 @@ function closeAnnouncement() {
 <template>
   <div class="announcement fr-pt-2w fr-pb-2w" v-if="isVisible()">
     <div class="fr-container message">
-      <span v-html="MESSAGE"></span>
+      <span v-html="message"></span>
       <button
         title="Fermer l'annonce"
         class="fr-btn--close close"
