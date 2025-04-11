@@ -46,6 +46,7 @@
       </div>
     </div>
     <router-link
+      v-if="showAddIncome"
       :to="here + '/ajouter'"
       class="fr-btn fr-ml-auto fr-mt-3w"
       @click="AnalyticsService.addIncome(state.category)"
@@ -116,6 +117,9 @@ const docToDelete = ref<DfDocument>()
 const state = useFinancialState()
 const financialDocuments = computed(() => state.documents.value)
 const here = computed(() => route.path)
+const showAddIncome = computed(
+  () => !financialDocuments.value.some((d) => d.documentSubCategory === 'NO_INCOME')
+)
 
 onMounted(() => {
   if (
