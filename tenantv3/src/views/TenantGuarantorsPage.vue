@@ -53,10 +53,9 @@ function getTenantId(): number {
 
 function onEdit(g: Guarantor) {
   router.push({
-    name: 'TenantGuarantorDocuments',
+    name: 'TenantGuarantorName',
     params: {
       step: getStep().toString(),
-      substep: '0',
       tenantId: getTenantId().toString(),
       guarantorId: g.id?.toString()
     }
@@ -76,10 +75,9 @@ function updateGuarantorType(value: string) {
     }
 
     router.push({
-      name: 'TenantGuarantorDocuments',
+      name: 'TenantGuarantorName',
       params: {
         step: getStep().toString(),
-        substep: '0',
         tenantId: getTenantId().toString(),
         guarantorId: guarantorId
       }
@@ -89,10 +87,9 @@ function updateGuarantorType(value: string) {
 
 function goBack() {
   router.push({
-    name: 'CoTenantDocuments',
+    name: 'CoupleTax',
     params: {
       step: '4',
-      substep: '5',
       tenantId: getTenantId().toString()
     }
   })

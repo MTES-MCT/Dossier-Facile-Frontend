@@ -35,10 +35,7 @@ declare namespace Cypress {
 
     selectProfessionalStatusStep(professionalStatus: string): Chainable<void>;
 
-    addFinancialResource(
-      resourceType: string,
-      monthlySum: string
-    ): Chainable<void>;
+    addFinancialResource(steps: string[], monthlySum: string): Chainable<void>;
 
     validationStep(): Chainable<void>;
     rejectCookies(): Chainable<void>;

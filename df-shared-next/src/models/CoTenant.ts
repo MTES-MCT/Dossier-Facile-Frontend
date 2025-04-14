@@ -4,6 +4,7 @@ import type { TenantFileStatus } from './TenantFileStatus'
 
 export type CoTenant = {
   id: number
+  ownerType?: 'SELF' | 'THIRD_PARTY'
   firstName?: string
   lastName?: string
   preferredName?: string

@@ -1,185 +1,32 @@
 <template>
-  <div>
-    <div v-if="editFinancialDocument">
-      <GuarantorFinancialDocumentForm :tenant-id="tenantId"></GuarantorFinancialDocumentForm>
-    </div>
-    <div v-if="!editFinancialDocument">
-      <NakedCard class="fr-p-md-5w fr-mb-3w">
-        <div>
-          <h1 class="fr-h6">{{ t('guarantorfinancial.title') }}</h1>
-          <div>{{ t('guarantorfinancial.subtitle') }}</div>
-        </div>
-      </NakedCard>
-      <div v-for="(f, k) in financialDocuments" :key="k">
-        <CardRow
-          :danger="guarantorFinancialDocument(f)?.documentStatus === 'DECLINED'"
-          @edit="selectFinancialDocument(f)"
-          @remove="removeFinancial(f)"
-        >
-          <template #tag>
-            <div class="fixed-width">
-              <ColoredTag
-                :text="getDocumentName(f)"
-                :status="guarantorFinancialDocument(f)?.documentStatus"
-              ></ColoredTag>
-            </div>
-          </template>
-          <template #text>
-            <div
-              v-show="f.documentType.key !== 'no-income'"
-              class="text-bold"
-              :title="t('guarantorfinancial.net-monthly')"
-            >
-              {{ f.monthlySum }} {{ t('guarantorfinancial.monthly') }}
-            </div>
-          </template>
-          <template #bottom>
-            <AllDeclinedMessages
-              :user-id="store.user?.id"
-              :document="f"
-              :document-denied-reasons="documentDeniedReasons(f)"
-              :document-status="documentStatus(f)"
-            ></AllDeclinedMessages>
-          </template>
-        </CardRow>
-      </div>
-      <div>
-        <button v-if="!hasNoIncome()" class="add-income-btn" @click="addAndSelectFinancial()">
-          {{ t('guarantorfinancial.add-income') }}
-        </button>
-      </div>
-      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
-    </div>
-  </div>
+  <NakedCard class="fr-p-md-5w fr-m-3v fr-grid-col">
+    <h6>{{ t('income.' + textKey) }}</h6>
+    <RouterView />
+  </NakedCard>
 </template>
 
 <script setup lang="ts">
-import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
-import { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import ProfileFooter from '../../footer/ProfileFooter.vue'
+import { useFinancialState } from '@/components/financial/financialState'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import CardRow from 'df-shared-next/src/components/CardRow.vue'
-import GuarantorFinancialDocumentForm from './GuarantorFinancialDocumentForm.vue'
-import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
-import { useTenantStore } from '@/stores/tenant-store'
-import { computed, onBeforeMount } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ToastService } from '@/services/ToastService'
-import { useLoading } from 'vue-loading-overlay'
 
 const { t } = useI18n()
-
-const store = useTenantStore()
-const editFinancialDocument = computed(() => store.getEditGuarantorFinancialDocument)
-const financialDocuments = computed(() => store.guarantorFinancialDocuments)
-
-const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
-
-defineProps<{ tenantId?: number }>()
-
-onBeforeMount(() => {
-  initialize()
-})
-
-function initialize() {
-  store.selectGuarantorDocumentFinancial(undefined)
-  if (financialDocuments.value.length === 0) {
-    addAndSelectFinancial()
-  }
-}
-
-function documentDeniedReasons(f: FinancialDocument) {
-  return guarantorFinancialDocument(f)?.documentDeniedReasons
-}
-
-function documentStatus(f: FinancialDocument) {
-  return guarantorFinancialDocument(f)?.documentStatus
-}
-
-function guarantorFinancialDocument(f: FinancialDocument) {
-  return store.getGuarantorDocuments?.find((d: DfDocument) => {
-    return d.id === f.id
-  })
-}
-
-async function addAndSelectFinancial() {
-  await store.createGuarantorDocumentFinancial()
-}
-
-function removeFinancial(f: DfDocument) {
-  if (!f.id) {
-    return
-  }
-  const $loading = useLoading({})
-  const loader = $loading.show()
-  store
-    .deleteDocument(f.id)
-    .then(null, () => {
-      ToastService.error()
-    })
-    .finally(() => {
-      loader.hide()
-      initialize()
-    })
-  store.selectGuarantorDocumentFinancial(undefined)
-}
-
-function hasNoIncome() {
-  return (
-    financialDocuments.value.length > 0 &&
-    financialDocuments.value.find((f) => {
-      return f.documentType && f.documentType.key !== 'no-income'
-    }) === undefined
-  )
-}
-
-function goBack() {
-  emit('on-back')
-}
-
-function goNext() {
-  emit('on-next')
-}
-
-async function selectFinancialDocument(f: FinancialDocument) {
-  await store.selectGuarantorDocumentFinancial(f)
-}
-
-function getDocumentName(document: FinancialDocument): string {
-  return t(`documents.${document.documentType.key}`).toString()
-}
+const { textKey } = useFinancialState()
 </script>
 
-<style scoped lang="scss">
-.fr-tag {
-  background-color: #2a7ffe;
-  color: var(--text-inverted-grey);
-  max-width: 210px;
-}
-
-.add-income-btn {
-  border-radius: 0.5rem;
-  padding: 1.75rem;
-  color: var(--primary);
-  border: 1px solid var(--primary);
-  font-size: 16px;
-  background: var(--blue-france-925);
-  &:hover {
-    background: var(--blue-france-hover);
-  }
-  &:active {
-    background: var(--blue-france-active);
-  }
-  margin: 0.5rem 1rem;
-  width: calc(100% - 2rem);
-  @media (min-width: 768px) {
-    margin: 0.5rem 0;
-    width: calc(100%);
+<i18n>
+{
+  "en": {
+    "income": {
+      "guarantor": "Your guarantor's income",
+      "couple-guarantor": "Income of your spouse's guarantor"
+    }
+  },
+  "fr": {
+    "income": {
+      "guarantor": "Revenus de votre garant",
+      "couple-guarantor": "Revenus du garant de votre conjoint"
+    }
   }
 }
-
-.fixed-width {
-  width: 180px;
-}
-</style>
+</i18n>

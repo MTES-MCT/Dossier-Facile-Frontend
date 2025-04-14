@@ -26,7 +26,7 @@ import UploadFiles from '@/components/residency/lib/UploadFiles.vue'
 import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { useParentRoute } from './useParentRoute'
+import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
 import { taxYear } from '@/components/residency/lib/taxYear'
 const { t } = useI18n()

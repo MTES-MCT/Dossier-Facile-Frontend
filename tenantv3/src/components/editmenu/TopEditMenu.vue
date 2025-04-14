@@ -13,11 +13,11 @@
     </div>
     <hr v-if="step === 2 || step === 3" />
     <div v-if="step === 2" id="tcontainer" class="menu-grid-row">
-      <TenantDocumentLink id="td1" class="ml-5" :document-type="DocumentType.IDENTITY" />
-      <TenantDocumentLink id="td2" class="ml-5" :document-type="DocumentType.RESIDENCY" />
-      <TenantDocumentLink id="td3" class="ml-5" :document-type="DocumentType.PROFESSIONAL" />
-      <TenantDocumentLink id="td4" class="ml-5" :document-type="DocumentType.FINANCIAL" />
-      <TenantDocumentLink id="td5" class="ml-5" :document-type="DocumentType.TAX" />
+      <TenantDocumentLink :document-type="DocumentType.IDENTITY" />
+      <TenantDocumentLink :document-type="DocumentType.RESIDENCY" />
+      <TenantDocumentLink :document-type="DocumentType.PROFESSIONAL" />
+      <TenantDocumentLink :document-type="DocumentType.FINANCIAL" />
+      <TenantDocumentLink :document-type="DocumentType.TAX" />
     </div>
     <h2 v-if="displayGuarantorName()" class="small-title">
       {{
@@ -39,40 +39,30 @@
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.IDENTITY"
-          :substep="1"
-          :active="getGuarantorCurrentStep(1, selectedGuarantor)"
         />
         <GuarantorDocumentLink
           id="gd2"
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.RESIDENCY"
-          :substep="2"
-          :active="getGuarantorCurrentStep(2, selectedGuarantor)"
         />
         <GuarantorDocumentLink
           id="gd3"
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.PROFESSIONAL"
-          :substep="3"
-          :active="getGuarantorCurrentStep(3, selectedGuarantor)"
         />
         <GuarantorDocumentLink
           id="gd4"
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.FINANCIAL"
-          :substep="4"
-          :active="getGuarantorCurrentStep(4, selectedGuarantor)"
         />
         <GuarantorDocumentLink
           id="gd5"
           class="ml-5 mr-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.TAX"
-          :substep="5"
-          :active="getGuarantorCurrentStep(5, selectedGuarantor)"
         />
       </div>
       <div
@@ -85,16 +75,12 @@
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.IDENTIFICATION_LEGAL_PERSON"
-          :substep="0"
-          :active="getGuarantorCurrentStep(0, undefined)"
         />
         <GuarantorDocumentLink
           id="gd1"
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.IDENTIFICATION"
-          :substep="1"
-          :active="getGuarantorCurrentStep(1, undefined)"
         />
       </div>
       <div
@@ -107,51 +93,34 @@
           class="ml-5"
           :guarantor="selectedGuarantor"
           :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
-          :substep="0"
-          :active="getGuarantorCurrentStep(0, undefined)"
         />
       </div>
     </div>
     <div v-if="step === 4 && isCouple()" id="tcontainer" class="menu-grid-row">
       <CoTenantDocumentLink
-        id="td1"
         class="ml-5"
         :co-tenant="coTenants[0]"
         :document-type="DocumentType.IDENTITY"
-        :substep="1"
-        :active="getCurrentSubStep() === 1"
       />
       <CoTenantDocumentLink
-        id="td1"
         class="ml-5"
         :co-tenant="coTenants[0]"
         :document-type="DocumentType.RESIDENCY"
-        :substep="2"
-        :active="getCurrentSubStep() === 2"
       />
       <CoTenantDocumentLink
-        id="td1"
         class="ml-5"
         :co-tenant="coTenants[0]"
         :document-type="DocumentType.PROFESSIONAL"
-        :substep="3"
-        :active="getCurrentSubStep() === 3"
       />
       <CoTenantDocumentLink
-        id="td1"
         class="ml-5"
         :co-tenant="coTenants[0]"
         :document-type="DocumentType.FINANCIAL"
-        :substep="4"
-        :active="getCurrentSubStep() === 4"
       />
       <CoTenantDocumentLink
-        id="td1"
         class="ml-5"
         :co-tenant="coTenants[0]"
         :document-type="DocumentType.TAX"
-        :substep="5"
-        :active="getCurrentSubStep() === 5"
       />
     </div>
     <div v-if="step === 5 && isCouple() && selectedGuarantor">
@@ -170,8 +139,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.IDENTITY"
-          :substep="1"
-          :active="getGuarantorCurrentStep(1, selectedGuarantor)"
         />
         <CoTenantGuarantorDocumentLink
           id="gd2"
@@ -179,8 +146,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.RESIDENCY"
-          :substep="2"
-          :active="getGuarantorCurrentStep(2, selectedGuarantor)"
         />
         <CoTenantGuarantorDocumentLink
           id="gd3"
@@ -188,8 +153,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.PROFESSIONAL"
-          :substep="3"
-          :active="getGuarantorCurrentStep(3, selectedGuarantor)"
         />
         <CoTenantGuarantorDocumentLink
           id="gd4"
@@ -197,8 +160,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.FINANCIAL"
-          :substep="4"
-          :active="getGuarantorCurrentStep(4, selectedGuarantor)"
         />
         <CoTenantGuarantorDocumentLink
           id="gd5"
@@ -206,8 +167,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.TAX"
-          :substep="5"
-          :active="getGuarantorCurrentStep(5, selectedGuarantor)"
         />
       </div>
       <div
@@ -221,8 +180,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.IDENTIFICATION_LEGAL_PERSON"
-          :substep="0"
-          :active="getGuarantorCurrentStep(0, selectedGuarantor)"
         />
         <CoTenantGuarantorDocumentLink
           id="gd1"
@@ -230,8 +187,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="coTenants[0]"
           :document-type="DocumentType.IDENTIFICATION"
-          :substep="1"
-          :active="getGuarantorCurrentStep(1, selectedGuarantor)"
         />
       </div>
       <div
@@ -245,8 +200,6 @@
           :guarantor="selectedGuarantor"
           :co-tenant="getCoTenant(0)"
           :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
-          :substep="0"
-          :active="getGuarantorCurrentStep(0, selectedGuarantor)"
         />
       </div>
     </div>
@@ -254,7 +207,6 @@
 </template>
 
 <script setup lang="ts">
-import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { User } from 'df-shared-next/src/models/User'
 import TenantDocumentLink from './documents/TenantDocumentLink.vue'
 import GuarantorDocumentLink from './documents/GuarantorDocumentLink.vue'
@@ -359,19 +311,6 @@ function getStepTitle() {
     return t('validate-file')
   }
   return ''
-}
-
-function getGuarantorCurrentStep(substep: number, g: Guarantor | undefined): boolean {
-  const s = Number(route.params.substep) || 0
-  return (
-    (props.step === 3 || props.step === 5) &&
-    s === substep &&
-    (g === undefined || selectedGuarantor.value?.id === g.id)
-  )
-}
-
-function getCurrentSubStep() {
-  return Number(route.params.substep) || 0
 }
 
 function isCouple() {

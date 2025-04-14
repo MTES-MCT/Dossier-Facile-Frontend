@@ -85,10 +85,9 @@ function goNext() {
       throw new Error('cotenant not found for user ' + user.value.id)
     }
     router.push({
-      name: 'CoTenantDocuments',
+      name: 'CoupleName',
       params: {
         step: '4',
-        substep: '0',
         tenantId: cotenant.id.toString()
       }
     })
@@ -133,8 +132,8 @@ function getStatus(g: Guarantor) {
 async function editGuarantor(g: Guarantor) {
   store.setSelectedGuarantor(g)
   router.push({
-    name: 'GuarantorDocuments',
-    params: { substep: '0' }
+    name: 'GuarantorName',
+    params: { guarantorId: g.id }
   })
 }
 

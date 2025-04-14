@@ -1,7 +1,7 @@
 <template>
   <div>
     <DocumentDownloader
-      :co-tenant-id="coTenantId"
+      :co-tenant-id="tenantId"
       :documents-definitions="documentsDefinitions"
       :document-category="DocumentTypeEnum.TAX"
       dispatch-method-name="saveTenantTax"
@@ -40,7 +40,7 @@
       </template>
     </DocumentDownloader>
     <FooterContainer>
-      <BackNext :show-back="true" @on-next="goNext" @on-back="goBack"> </BackNext>
+      <BackNext :show-back="true" @on-next="goNext" @on-back="goToFinancial"> </BackNext>
     </FooterContainer>
   </div>
 </template>
@@ -57,24 +57,24 @@ import { UtilsService } from '@/services/UtilsService'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { useTenantStore } from '@/stores/tenant-store'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { DocumentType as DocumentTypeEnum } from '@/components/editmenu/documents/DocumentType'
+import { useRoute, useRouter } from 'vue-router'
 
 const documentsDefinitions = DocumentTypeConstants.TAX_DOCS
 
-const props = defineProps<{
-  coTenantId: number
-}>()
-const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()
 const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
 
 const documentType = ref(new DocumentType())
 const showDownloader = ref(false)
 const forceShowDownloader = ref(false)
 const document = ref(new DfDocument())
+const tenantId = computed(() => Number(route.params.tenantId))
 
 function changeDocument(docType: DocumentType, doc: DfDocument) {
   if (docType) {
@@ -93,12 +93,17 @@ function enrichFormData(formData: FormData) {
   }
 }
 
-function goBack() {
-  emit('on-back')
+function goToFinancial() {
+  router.push({
+    name: 'CoupleFinancial',
+    params: {
+      tenantId: tenantId.value
+    }
+  })
 }
 
 function getRegisteredDoc() {
-  const coTenant = store.getTenant(Number(props.coTenantId))
+  const coTenant = store.getTenant(tenantId.value)
   if (coTenant.documents !== null) {
     const doc = coTenant.documents?.find((d: DfDocument) => {
       return d.documentCategory === 'TAX'
@@ -106,6 +111,16 @@ function getRegisteredDoc() {
     return doc
   }
   return undefined
+}
+
+function goToGuarantors() {
+  router.push({
+    name: 'TenantGuarantors',
+    params: {
+      tenantId: tenantId.value,
+      step: '5'
+    }
+  })
 }
 
 function goNext() {
@@ -128,7 +143,7 @@ function goNext() {
     documentType.value?.value === d?.documentSubCategory &&
     document.value.customText === d?.customText
   ) {
-    emit('on-next')
+    goToGuarantors()
     return true
   }
 
@@ -136,7 +151,7 @@ function goNext() {
   if (document.value.id && document.value.id > 0) {
     formData.append('id', document.value.id.toString())
   }
-  formData.append('tenantId', props.coTenantId.toString())
+  formData.append('tenantId', String(tenantId.value))
   const $loading = useLoading({})
   const loader = $loading.show()
 
@@ -144,7 +159,7 @@ function goNext() {
     .saveTenantTax(formData)
     .then(() => {
       ToastService.saveSuccess()
-      emit('on-next')
+      goToGuarantors()
     })
     .catch((err) => {
       UtilsService.handleCommonSaveError(err)

@@ -6,7 +6,6 @@ import { keycloak } from '../plugin/keycloak'
 import Home from '../views/HomePage.vue'
 import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
-import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL
@@ -102,6 +101,197 @@ const GUARANTOR_RESIDENCY_ROUTES = [
   }
 ]
 
+const FINANCIAL_ROUTES = [
+  {
+    path: '',
+    component: () => import('@/components/financial/ChooseFinancial.vue')
+  },
+  {
+    path: 'travail',
+    component: () => import('@/components/financial/job/FinancialJob.vue')
+  },
+  {
+    path: 'travail/salarie',
+    component: () => import('@/components/financial/job/JobEmployed.vue')
+  },
+  {
+    path: 'travail/salarie/plus-3-mois',
+    component: () => import('@/components/financial/job/EmployedMore3Months.vue')
+  },
+  {
+    path: 'travail/salarie/moins-3-mois',
+    component: () => import('@/components/financial/job/EmployedLess3Months.vue')
+  },
+  {
+    path: 'travail/salarie/pas-encore',
+    component: () => import('@/components/financial/job/EmployedNotYet.vue')
+  },
+  {
+    path: 'travail/independant',
+    component: () => import('@/components/financial/job/JobFreelance.vue')
+  },
+  {
+    path: 'travail/independant/auto-entrepreneur',
+    component: () => import('@/components/financial/job/AutoEntrepreneur.vue')
+  },
+  {
+    path: 'travail/independant/autre',
+    component: () => import('@/components/financial/job/FreelanceOther.vue')
+  },
+  {
+    path: 'travail/intermittent',
+    component: () => import('@/components/financial/job/JobIntermittent.vue')
+  },
+  {
+    path: 'travail/artiste-auteur',
+    component: () => import('@/components/financial/job/JobArtist.vue')
+  },
+  {
+    path: 'travail/inconnu',
+    component: () => import('@/components/financial/job/JobUnknown.vue')
+  },
+  {
+    path: 'social',
+    component: () => import('@/components/financial/social/FinancialSocial.vue')
+  },
+  {
+    path: 'social/caf',
+    component: () => import('@/components/financial/social/SocialCAF.vue')
+  },
+  {
+    path: 'social/caf/plus-3-Mois',
+    component: () => import('@/components/financial/social/CAFMore3Months.vue')
+  },
+  {
+    path: 'social/caf/moins-3-Mois',
+    component: () => import('@/components/financial/social/CAFLess3Months.vue')
+  },
+  {
+    path: 'social/france-travail',
+    component: () => import('@/components/financial/social/SocialFranceTravail.vue')
+  },
+  {
+    path: 'social/france-travail/plus-3-mois',
+    component: () => import('@/components/financial/social/FranceTravailMore3Months.vue')
+  },
+  {
+    path: 'social/france-travail/moins-3-mois',
+    component: () => import('@/components/financial/social/FranceTravailLess3Months.vue')
+  },
+  {
+    path: 'social/france-travail/pas-encore',
+    component: () => import('@/components/financial/social/FranceTravailNotYet.vue')
+  },
+  {
+    path: 'social/apl',
+    component: () => import('@/components/financial/social/SocialAPL.vue')
+  },
+  {
+    path: 'social/apl/plus-3-mois',
+    component: () => import('@/components/financial/social/APLMore3Months.vue')
+  },
+  {
+    path: 'social/apl/moins-3-mois',
+    component: () => import('@/components/financial/social/APLLess3Months.vue')
+  },
+  {
+    path: 'social/apl/pas-encore',
+    component: () => import('@/components/financial/social/APLNotYet.vue')
+  },
+  {
+    path: 'social/aah',
+    component: () => import('@/components/financial/social/SocialAAH.vue')
+  },
+  {
+    path: 'social/aah/plus-3-mois',
+    component: () => import('@/components/financial/social/AAHMore3Months.vue')
+  },
+  {
+    path: 'social/aah/moins-3-mois',
+    component: () => import('@/components/financial/social/AAHLess3Months.vue')
+  },
+  {
+    path: 'social/aah/pas-encore',
+    component: () => import('@/components/financial/social/AAHNotYet.vue')
+  },
+  {
+    path: 'social/autre',
+    component: () => import('@/components/financial/social/SocialAutre.vue')
+  },
+  {
+    path: 'pension',
+    component: () => import('@/components/financial/pension/FinancialPension.vue')
+  },
+  {
+    path: 'pension/retraite',
+    component: () => import('@/components/financial/pension/PensionRetirement.vue')
+  },
+  {
+    path: 'pension/retraite/bulletin',
+    component: () => import('@/components/financial/pension/PensionStatement.vue')
+  },
+  {
+    path: 'pension/retraite/pas-de-bulletin',
+    component: () => import('@/components/financial/pension/PensionNoStatement.vue')
+  },
+  {
+    path: 'pension/invalidite',
+    component: () => import('@/components/financial/pension/PensionDisability.vue')
+  },
+  {
+    path: 'pension/invalidite/plus-3-mois',
+    component: () => import('@/components/financial/pension/DisabilityMore3Months.vue')
+  },
+  {
+    path: 'pension/invalidite/moins-3-mois',
+    component: () => import('@/components/financial/pension/DisabilityLess3Months.vue')
+  },
+  {
+    path: 'pension/invalidite/pas-encore',
+    component: () => import('@/components/financial/pension/DisabilityNotYet.vue')
+  },
+  {
+    path: 'pension/alimentaire',
+    component: () => import('@/components/financial/pension/PensionAlimony.vue')
+  },
+  {
+    path: 'pension/inconnu',
+    component: () => import('@/components/financial/pension/PensionUnknown.vue')
+  },
+  {
+    path: 'rente',
+    component: () => import('@/components/financial/annuity/FinancialAnnuity.vue')
+  },
+  {
+    path: 'rente/revenus-locatifs',
+    component: () => import('@/components/financial/annuity/AnnuityRentalIncome.vue')
+  },
+  {
+    path: 'rente/revenus-locatifs/quittance',
+    component: () => import('@/components/financial/annuity/AnnuityRentalReceipt.vue')
+  },
+  {
+    path: 'rente/revenus-locatifs/pas-de-quittance',
+    component: () => import('@/components/financial/annuity/AnnuityRentalNoReceipt.vue')
+  },
+  {
+    path: 'rente/viagere',
+    component: () => import('@/components/financial/annuity/AnnuityLife.vue')
+  },
+  {
+    path: 'rente/autre',
+    component: () => import('@/components/financial/annuity/AnnuityOther.vue')
+  },
+  {
+    path: 'bourse',
+    component: () => import('@/components/financial/scholarship/HasGrant.vue')
+  },
+  {
+    path: 'pas-de-revenus',
+    component: () => import('@/components/financial/noIncome/NoIncome.vue')
+  }
+]
+
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -128,14 +318,7 @@ export const router = createRouter({
     },
     {
       path: '/profile',
-      name: 'Profile',
-      meta: {
-        title: 'Édition du profil - DossierFacile',
-        requiresAuth: true,
-        hideFooter: true,
-        skipLinks: [CONTENT, FOOTER_NAVIGATION]
-      },
-      component: () => import('../views/NameInformation.vue')
+      redirect: '/nom-locataire'
     },
     {
       path: '/nom-locataire',
@@ -146,7 +329,45 @@ export const router = createRouter({
         hideFooter: true,
         skipLinks: [CONTENT, FOOTER_NAVIGATION]
       },
-      component: () => import('../views/NameInformation.vue')
+      beforeEnter: (to) => {
+        const store = useTenantStore()
+
+        // If user has been invited to an application we force self identity
+        if (store.user.tenantType !== 'CREATE' && to.name !== 'SelfTenantIdentity') {
+          return { name: 'SelfTenantIdentity' }
+        }
+
+        if (to.name === 'TenantName') {
+          const ownerType = store.user.ownerType
+          if (ownerType === undefined) {
+            return { name: 'ChooseTenantIdentity' }
+          }
+          if (ownerType === 'SELF') {
+            return { name: 'SelfTenantIdentity' }
+          }
+          if (ownerType === 'THIRD_PARTY') {
+            return { name: 'ThirdPartyTenantIdentity' }
+          }
+        }
+      },
+      component: () => import('../views/TenantIdentityInformation.vue'),
+      children: [
+        {
+          path: '',
+          name: 'ChooseTenantIdentity',
+          component: () => import('@/components/identity/ChooseIdentity.vue')
+        },
+        {
+          path: 'pour-moi',
+          name: 'SelfTenantIdentity',
+          component: () => import('@/components/identity/SelfIdentity.vue')
+        },
+        {
+          path: 'pour-une-autre-personne',
+          name: 'ThirdPartyTenantIdentity',
+          component: () => import('@/components/identity/ThirdPartyIdentity.vue')
+        }
+      ]
     },
     {
       path: '/type-locataire',
@@ -194,8 +415,29 @@ export const router = createRouter({
         },
         {
           path: '4',
-          name: 'TenantFinancial',
-          component: () => import('@/components/documents/tenant/TenantFinancial.vue')
+          component: () => import('@/components/financial/TenantFinancialProvider.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantFinancial',
+              component: () => import('@/components/financial/FinancialRecap.vue')
+            },
+            {
+              path: ':docId',
+              component: () => import('@/components/documents/tenant/TenantFinancial.vue'),
+              children: FINANCIAL_ROUTES,
+              beforeEnter: (to) => {
+                if (to.params.docId === 'ajouter') {
+                  return true
+                }
+                const store = useTenantStore()
+                const doc = store.financialDocuments.find((d) => d.id === Number(to.params.docId))
+                if (!doc) {
+                  return { name: 'TenantFinancial' }
+                }
+              }
+            }
+          ]
         },
         {
           path: '5',
@@ -205,7 +447,8 @@ export const router = createRouter({
       ]
     },
     {
-      path: '/documents-colocataire/:tenantId/:step/:substep',
+      path: '/documents-colocataire/:tenantId/:step',
+      name: 'CoTenantDocuments',
       meta: {
         title: 'Édition du profil - DossierFacile',
         requiresAuth: true,
@@ -215,11 +458,53 @@ export const router = createRouter({
       component: () => import('../views/CoTenantDocument.vue'),
       children: [
         {
-          path: '',
-          name: 'CoTenantDocuments',
-          component: () => import('@/components/residency/ChooseResidency.vue')
+          path: '0',
+          name: 'CoupleName',
+          component: () => import('@/components/documents/cotenant/CoTenantName.vue')
         },
-        ...RESIDENCY_COMPONENTS
+        {
+          path: '1',
+          name: 'CoupleIdentification',
+          component: () => import('@/components/documents/cotenant/CoTenantIdentification.vue')
+        },
+        {
+          path: '2',
+          component: () => import('@/components/documents/cotenant/CoupleResidency.vue'),
+          children: [
+            {
+              path: '',
+              name: 'CoupleResidency',
+              component: () => import('@/components/residency/ChooseResidency.vue')
+            },
+            ...RESIDENCY_COMPONENTS
+          ]
+        },
+        {
+          path: '3',
+          name: 'CoupleProfessional',
+          component: () => import('@/components/documents/cotenant/CoTenantProfessional.vue')
+        },
+        {
+          path: '4',
+          component: () => import('@/components/documents/cotenant/CoupleFinancialProvider.vue'),
+          children: [
+            {
+              path: '',
+              name: 'CoupleFinancial',
+              component: () => import('@/components/financial/FinancialRecap.vue')
+            },
+            {
+              path: ':docId',
+              component: () => import('@/components/documents/cotenant/CoupleFinancial.vue'),
+              children: FINANCIAL_ROUTES
+            }
+          ]
+        },
+        {
+          path: '5',
+          name: 'CoupleTax',
+          component: () => import('@/components/documents/cotenant/CoTenantTax.vue')
+        }
       ]
     },
     {
@@ -278,52 +563,136 @@ export const router = createRouter({
       component: () => import('../views/ValidateFilePage.vue')
     },
     {
-      path: '/info-garant/:substep/:guarantorId?',
+      path: '/info-garant',
       meta: {
+        name: 'GuarantorDocuments',
         title: 'Mon garant - DossierFacile',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      beforeEnter: (to) => {
-        const store = useTenantStore()
-        const g = store.guarantors.find((g: Guarantor) => {
-          return g.id?.toString() == to.params.guarantorId
-        })
-        if (
-          (g === undefined ||
-            (g.typeGuarantor === 'NATURAL_PERSON' && (!g?.firstName || !g?.lastName))) &&
-          to.params.substep !== '0'
-        ) {
-          return { name: 'GuarantorDocuments', params: { substep: '0' } }
-        }
-      },
       component: () => import('../views/GuarantorDocumentsPage.vue'),
       children: [
         {
-          path: '',
-          name: 'GuarantorDocuments',
-          component: () => import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
+          path: '0/:guarantorId',
+          name: 'GuarantorName',
+          component: () => import('@/components/GuarantorStep0.vue')
         },
-        ...GUARANTOR_RESIDENCY_ROUTES
+        {
+          path: '1/:guarantorId',
+          name: 'GuarantorIdentification',
+          component: () => import('@/components/GuarantorStep1.vue')
+        },
+        {
+          path: '2/:guarantorId',
+          component: () => import('@/components/guarantorResidency/GuarantorResidency.vue'),
+          children: [
+            {
+              path: '',
+              name: 'GuarantorResidency',
+              component: () =>
+                import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
+            },
+            ...GUARANTOR_RESIDENCY_ROUTES
+          ]
+        },
+        {
+          path: '3/:guarantorId',
+          name: 'GuarantorProfessional',
+          component: () =>
+            import('@/components/documents/naturalGuarantor/GuarantorProfessional.vue')
+        },
+        {
+          path: '4/:guarantorId',
+          component: () => import('@/components/financial/GuarantorFinancialProvider.vue'),
+          children: [
+            {
+              path: '',
+              name: 'GuarantorFinancial',
+              component: () => import('@/components/financial/FinancialRecap.vue')
+            },
+            {
+              path: ':docId',
+              component: () =>
+                import('@/components/documents/naturalGuarantor/GuarantorFinancial.vue'),
+              children: FINANCIAL_ROUTES
+            }
+          ]
+        },
+        {
+          path: '5/:guarantorId',
+          name: 'GuarantorTax',
+          component: () => import('@/components/documents/naturalGuarantor/GuarantorTax.vue')
+        }
       ]
     },
     {
-      path: '/info-garant-locataire/:tenantId/:guarantorId/:step/:substep?',
+      path: '/info-garant-locataire/:tenantId/:guarantorId/:step',
       meta: {
         title: 'Édition du garant du locataire - DossierFacile',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
+      name: 'TenantGuarantorDocuments',
       component: () => import('../views/TenantGuarantorDocumentsPage.vue'),
       children: [
         {
-          path: '',
-          name: 'TenantGuarantorDocuments',
-          component: () => import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
+          path: '0',
+          name: 'TenantGuarantorName',
+          component: () =>
+            import('@/components/documents/naturalGuarantor/TenantGuarantorStep0.vue')
         },
-        ...GUARANTOR_RESIDENCY_ROUTES
+        {
+          path: '1',
+          name: 'TenantGuarantorIdentification',
+          component: () =>
+            import('@/components/documents/naturalGuarantor/TenantGuarantorStep1.vue')
+        },
+        {
+          path: '2',
+          component: () =>
+            import('@/components/documents/naturalGuarantor/CoupleGuarantorResidency.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantGuarantorResidency',
+              component: () =>
+                import('@/components/guarantorResidency/ChooseGuarantorResidency.vue')
+            },
+            ...GUARANTOR_RESIDENCY_ROUTES
+          ]
+        },
+        {
+          path: '3',
+          name: 'TenantGuarantorProfessional',
+          component: () =>
+            import('@/components/documents/naturalGuarantor/GuarantorProfessional.vue'),
+          props: { isCotenant: true }
+        },
+        {
+          path: '4',
+          component: () => import('@/components/financial/TenantGuarantorFinancialProvider.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantGuarantorFinancial',
+              component: () => import('@/components/financial/FinancialRecap.vue')
+            },
+            {
+              path: ':docId',
+              component: () =>
+                import('@/components/documents/naturalGuarantor/GuarantorFinancial.vue'),
+              children: FINANCIAL_ROUTES
+            }
+          ]
+        },
+        {
+          path: '5',
+          name: 'TenantGuarantorTax',
+          component: () => import('@/components/documents/naturalGuarantor/GuarantorTax.vue'),
+          props: { isCotenant: true }
+        }
       ]
     },
     {

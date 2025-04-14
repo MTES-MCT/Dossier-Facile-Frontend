@@ -421,58 +421,13 @@
     "register": "Register the document",
     "field-required": "This field is required"
   },
-  "cotenantdocument": {
-    "list1": "Proof of accommodation",
-    "list2": "Copy of the ID document of the host",
-    "list3": "Proof of address of the host dated within the last 3 months"
-  },
   "cotenantfinancialform": {
-    "title": "Proof of Income",
-    "tenant": "Tenant",
-    "owner": "Owner",
-    "guest": "Free Accommodation",
-    "guest-parents": "Living with Parents",
-    "files": "Documents",
-    "will-delete-files": "Attention, a change in situation will result in the deletion of your proofs. You will need to upload the proofs corresponding to the new situation.",
-    "salary": "Professional Income",
-    "social-service": "Social Benefits",
-    "rent": "Rentals",
-    "pension": "Pensions",
-    "scholarship": "Scholarships",
-    "no-income": "No Income",
-    "monthlySum": "Amount in Euros",
-    "monthlySum-label": "I indicate the amount of their monthly net income to be paid (before withholding tax)",
-    "noDocument-social-service": "I cannot provide proof of social benefit payments",
-    "noDocument-salary": "I cannot provide their last three payslips",
-    "noDocument-pension": "I cannot provide proof of pension payments",
-    "noDocument-rent": "I cannot provide proof of rental payments",
-    "noDocument-scholarship": "I cannot provide proof of scholarship allocation",
     "customText-social-service": "To improve my application, I explain why I cannot provide my partner's proof of benefits:",
     "customText-salary": "To improve my application, I explain why I cannot provide my partner's last three payslips or financial statements:",
     "customText-pension": "To improve my application, I explain why I cannot provide my partner's proof of pension payments:",
     "customText-rent": "To improve my application, I explain why I cannot provide my partner's proof of rental payments:",
     "customText-scholarship": "To improve my application, I explain why I cannot provide my partner's proof of scholarships:",
-    "customText-undefined": "To improve my application, I explain why I cannot provide the proofs:",
-    "custom-text": "To improve your application, you can add an explanation:",
-    "high-salary": "You have entered a salary greater than €10,000. Are you sure you have entered the monthly salary?",
-    "low-salary": "You have entered a salary equal to €0. Are you sure you have entered the monthly salary?",
-    "has-no-income": "You have indicated no income",
-    "number-not-valid": "Incorrect value - enter a number without commas",
-    "delete-financial": "Delete this income",
-    "field-required": "This field is required",
-    "register": "Save",
-    "missing-file": "You must add files to save this income.",
-    "warning-no-income-and-file": "You cannot have files and indicate that you cannot provide files. Please uncheck the box or delete your files."
-  },
-  "cotenantfinanciallist": {
-    "delete-financial": "Delete this income",
-    "register": "Save",
-    "i-have-no-income": "I have no income",
-    "title": "Co-tenant Income Summary",
-    "subtitle": "Here is the list of incomes you have declared. You can add new incomes at any time if necessary.",
-    "monthly": " monthly net ",
-    "net-monthly": "Net monthly pay",
-    "add-income": "Add a new income?"
+    "customText-undefined": "To improve my application, I explain why I cannot provide the proofs:"
   },
   "cotenantidentification": {
     "title": "My Co-tenant's Identification Document",
@@ -562,7 +517,6 @@
     "title": "Help",
     "paragraph1": "If your document is too large, we recommend scanning it (using a free app for smartphones, for example).<br>If that doesn't work, contact us by email at <a href='mailto:contact{'@'}dossierfacile.logement.gouv.fr'>contact{'@'}dossierfacile.logement.gouv.fr</a>, and we'll do our best to respond as quickly as possible!"
   },
-  "documentinsert": {},
   "fileerrors": {
     "IDENTIFICATION": "Proof of Identity",
     "RESIDENCY": "Proof of Residence",
@@ -657,39 +611,7 @@
     "size": " Maximum size : {0}MB"
   },
   "financialdocumentform": {
-    "financial": "Proof of income",
-    "will-delete-files": "Attention, a change in your situation will result in the deletion of your documents. You will need to upload the documents corresponding to your new situation again.",
-    "monthlySum-label": "I indicate the amount of my monthly net income to be paid (before withholding tax)",
-    "monthlySum": "Amount in euros",
-    "delete-financial": "Delete this income",
-    "custom-text": "To improve your file, you can add an explanation:",
-    "customText-social-service": "To improve my file, I explain why I cannot provide my documents:",
-    "customText-salary": "To improve my file, I explain why I cannot provide my three most recent payslips:",
-    "customText-pension": "To improve my file, I explain why I cannot provide my documents:",
-    "customText-rent": "To improve my file, I explain why I cannot provide my documents:",
-    "customText-scholarship": "To improve my file, I explain why I cannot provide my documents:",
-    "income-zero": "If you don't have any income, please select 'No income'",
-    "noDocument-social": "I cannot provide proof of social benefits payment",
-    "noDocument-salary": "I cannot provide my three most recent payslips",
-    "noDocument-pension": "I cannot provide proof of pension payment",
-    "noDocument-rent": "I cannot provide proof of rent payment",
-    "noDocument-scholarship": "I cannot provide proof of scholarship award",
-    "missing-file": "You must add files to save this income.",
-    "warning-no-income-and-file": "You cannot have files and indicate that you cannot provide all the files. Please uncheck the box or delete your files.",
-    "high-salary": "You have entered a salary greater than €10,000. Are you sure you have entered your monthly salary?",
-    "low-salary": "You have entered a salary equal to €0. Are you sure you have entered your monthly salary?",
-    "has-no-income": "You indicated that you have no income",
-    "number-not-valid": "Incorrect value - enter a number without a comma"
-  },
-  "financial-page": {
-    "delete-financial": "Delete this income",
-    "register": "Register",
-    "i-have-no-income": "I have no income",
-    "title": "Summary of your income",
-    "subtitle": "Here is the list of income you have declared. You can add new income at any time if necessary.",
-    "monthly": " monthly net €",
-    "net-monthly": "Net monthly",
-    "add-income": "Add new income?"
+    "missing-file": "You must add files to save this income."
   },
   "forgottenpasswordpage": {
     "email-not-found": "Email not found",
@@ -752,34 +674,6 @@
     "list2": "Copy of the host's identity document",
     "list3": "Proof of residence of the host, dated within the last 3 months"
   },
-  "guarantordocumentspage": {},
-  "guarantorfinancialdocumentform": {
-    "financial": "Proof of Income",
-    "monthlySum": "Amount in Euros",
-    "monthlySum-label": "I indicate the amount of their monthly net income to be paid (before withholding tax)",
-    "high-salary": "You have entered a salary greater than €10,000. Are you sure you have entered the monthly salary?",
-    "low-salary": "You have entered a salary equal to €0. Are you sure you have entered the monthly salary?",
-    "number-not-valid": "Incorrect value - enter a number without a comma",
-    "delete-financial": "Delete this income",
-    "field-required": "This field is required",
-    "register": "Register",
-    "select-label": "Please provide only the guarantor's income.",
-    "missing-file": "You must add files to save this income.",
-    "warning-no-income-and-file": "You cannot have files and indicate that you cannot provide all the files. Please uncheck the box or delete your files."
-  },
-  "guarantorfinancial": {
-    "delete-financial": "Delete this income",
-    "register": "Register",
-    "select-label": "Please provide only your own income.",
-    "i-have-no-income": "I have no income",
-    "warning-no-income-and-file": "You cannot have files and indicate that you cannot provide all the files. Please uncheck the box or delete your files.",
-    "title": "Summary of Guarantor's Income",
-    "subtitle": "Here is the list of income you have declared. You can add new income at any time if necessary.",
-    "monthly": " monthly net €",
-    "net-monthly": "Net Monthly",
-    "add-income": "Add new income?"
-  },
-  "guarantorfooter": {},
   "guarantoridentification": {
     "identity-card": "French Identity Card",
     "passport": "French Passport",
@@ -1154,7 +1048,6 @@
     "avis-btn": "Submit a valid document",
     "avis-link-to-doc": "Need help ? Go to documentation"
   },
-  "tenantdocument": {},
   "tenantguarantorchoice": {
     "cotenant-guarantor": "His/her guarantor",
     "identification": "Identification Document",
@@ -1187,7 +1080,6 @@
     "will-delete-guarantor": "Are you sure you want to change the guarantor type?",
     "validate-file": "Next Step - Validate the file"
   },
-  "tenantguarantordocumentspage": {},
   "tenantguarantorlist": {
     "my-guarantor": "My Spouse's Guarantors",
     "add-new-guarantor": "Add a New Guarantor?",
@@ -1212,7 +1104,6 @@
     "title": "Spouse's Guarantor Identity",
     "subtitle": "Please provide the last name and first name of the guarantor"
   },
-  "tenantguarantorspage": {},
   "tenantinformationform": {
     "title": "Create a Rental Application to Live:",
     "confirm": "Confirm",
@@ -1387,5 +1278,42 @@
   },
   "declined-messages": {
     "header": "Message from our validation team:"
+  },
+  "form": {
+    "financial": {
+      "job-income": "Income from work",
+      "social-aid": "Social aid",
+      "retirement-or-pension": "Retirement or other pension",
+      "annuity": "Annuity",
+      "grant": "Scholarship",
+      "no-income": "No income",
+      "employed": {
+        "tenant": "You are an employee",
+        "guarantor": "Your guarantor is an employee",
+        "couple": "Your spouse is an employee",
+        "couple-guarantor": "Their guarantor is an employee"
+      },
+      "self-employed": {
+        "tenant": "You are self-employed",
+        "guarantor": "Your guarantor is self-employed",
+        "couple": "Your spouse is self-employed",
+        "couple-guarantor": "Their guarantor is self-employed"
+      },
+      "more-3-months": "For over 3 months",
+      "less-3-months": "For less than 3 months",
+      "you-receive": {
+        "tenant": "You receive {0}",
+        "guarantor": "Your guarantor receives {0}",
+        "couple": "Your spouse receives {0}",
+        "couple-guarantor": "Their guarantor receives {0}"
+      },
+      "social": {
+        "caf": "aid from the CAF or the MSA",
+        "france-travail": "aid from France Travail",
+        "apl": "personalized housing assistance (APL)",
+        "aah": "the disabled adults allowance (AAH)",
+        "other": "another aid"
+      }
+    }
   }
 }

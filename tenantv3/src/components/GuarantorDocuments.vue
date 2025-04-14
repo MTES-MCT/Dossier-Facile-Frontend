@@ -1,44 +1,14 @@
 <template>
   <div class="fr-mb-15w">
-    <div>
-      <div v-if="guarantor?.typeGuarantor === 'NATURAL_PERSON'">
-        <div v-if="substep === 0">
-          <GuarantorName @on-back="goBack" @on-next="goNext"></GuarantorName>
-        </div>
-        <div v-if="substep === 1">
-          <GuarantorIdentification></GuarantorIdentification>
-          <GuarantorFooter @on-back="goBack" @on-next="goToResidency"></GuarantorFooter>
-        </div>
-        <GuarantorResidency v-if="substep === 2"></GuarantorResidency>
-        <div v-if="substep === 3">
-          <GuarantorProfessional></GuarantorProfessional>
-          <GuarantorFooter @on-back="goToResidency" @on-next="goNext"></GuarantorFooter>
-        </div>
-        <div v-if="substep === 4">
-          <GuarantorFinancial @on-back="goBack" @on-next="goNext"></GuarantorFinancial>
-        </div>
-        <div v-if="substep === 5">
-          <GuarantorTax @on-back="goBack" @on-next="nextStep"></GuarantorTax>
-        </div>
-      </div>
-      <div v-if="guarantor?.typeGuarantor === 'ORGANISM'">
-        <OrganismCert :guarantor="guarantor"></OrganismCert>
-        <GuarantorFooter @on-back="goBack" @on-next="nextStep"></GuarantorFooter>
-      </div>
-      <div v-if="guarantor?.typeGuarantor === 'LEGAL_PERSON'">
-        <div v-if="substep === 0">
-          <CorporationIdentification
-            @on-back="goBack"
-            @on-next="goNext"
-          ></CorporationIdentification>
-        </div>
-        <div v-if="substep === 1">
-          <RepresentativeIdentification
-            @on-back="goBack"
-            @on-next="nextStep"
-          ></RepresentativeIdentification>
-        </div>
-      </div>
+    <RouterView
+      v-if="['NATURAL_PERSON', 'LEGAL_PERSON'].includes(guarantor?.typeGuarantor || '')"
+      v-slot="{ Component }"
+    >
+      <component :is="Component" @on-back="goBack" @on-next="goNext"></component>
+    </RouterView>
+    <div v-if="guarantor?.typeGuarantor === 'ORGANISM'">
+      <OrganismCert :guarantor="guarantor"></OrganismCert>
+      <GuarantorFooter @on-back="goBack" @on-next="nextStep"></GuarantorFooter>
     </div>
     <ConfirmModal v-if="changeGuarantorVisible" @valid="validSelect()" @cancel="undoSelect()">
       <span>{{ t('guarantordocuments.will-delete-guarantor') }}</span>
@@ -47,40 +17,26 @@
 </template>
 
 <script setup lang="ts">
-import GuarantorIdentification from './documents/naturalGuarantor/GuarantorIdentification.vue'
-import GuarantorName from './documents/naturalGuarantor/GuarantorName.vue'
-import RepresentativeIdentification from './documents/legalPersonGuarantor/RepresentativeIdentification.vue'
-import CorporationIdentification from './documents/legalPersonGuarantor/CorporationIdentification.vue'
 import OrganismCert from './documents/organismGuarantor/OrganismCert.vue'
-import GuarantorProfessional from './documents/naturalGuarantor/GuarantorProfessional.vue'
-import GuarantorFinancial from './documents/naturalGuarantor/GuarantorFinancial.vue'
-import GuarantorTax from './documents/naturalGuarantor/GuarantorTax.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import GuarantorFooter from './footer/GuarantorFooter.vue'
 import { UtilsService } from '@/services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { ToastService } from '@/services/ToastService'
 import { useI18n } from 'vue-i18n'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
-import GuarantorResidency from '@/components/guarantorResidency/GuarantorResidency.vue'
+import { GUARANTOR_ROUTES } from './documents/naturalGuarantor/guarantorRoutes'
 
 const { t } = useI18n()
 const store = useTenantStore()
+const route = useRoute()
+const router = useRouter()
+
 const guarantor = computed(() => store.selectedGuarantor)
 const user = computed(() => store.user)
-
-const props = withDefaults(
-  defineProps<{
-    substep: number
-  }>(),
-  {
-    substep: 0
-  }
-)
-
-const router = useRouter()
+const substep = computed(() => Number(route.path.split('/')[2]) || 0)
 
 const changeGuarantorVisible = ref(false)
 
@@ -92,10 +48,12 @@ onBeforeMount(() => {
 })
 
 function updateSubstep(s: number) {
-  router.push({
-    name: 'GuarantorDocuments',
-    params: { substep: props.substep === s ? '0' : s.toString() }
-  })
+  if (GUARANTOR_ROUTES[s] === 'GuarantorResidency' && guarantor.value) {
+    const path = makeGuarantorResidencyLink(guarantor.value)
+    router.push(path)
+  } else {
+    router.push({ name: GUARANTOR_ROUTES[s] })
+  }
 }
 
 function validSelect() {
@@ -117,28 +75,18 @@ function undoSelect() {
 }
 
 function goBack() {
-  if (props.substep > 0) {
-    router.push({
-      name: 'GuarantorDocuments',
-      params: { substep: (props.substep - 1).toString() }
-    })
+  if (substep.value > 0) {
+    updateSubstep(substep.value - 1)
   } else {
-    router.push({
-      name: 'GuarantorList'
-    })
+    router.push({ name: 'GuarantorList' })
   }
 }
 
 function goNext() {
-  updateSubstep(props.substep + 1)
-}
-
-function goToResidency() {
-  if (guarantor.value) {
-    const path = makeGuarantorResidencyLink(guarantor.value)
-    router.push(path)
+  if (substep.value < 5) {
+    updateSubstep(substep.value + 1)
   } else {
-    updateSubstep(2)
+    nextStep()
   }
 }
 

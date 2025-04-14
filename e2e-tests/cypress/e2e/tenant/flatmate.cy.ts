@@ -11,7 +11,7 @@ describe("flatmate tenant scenario", () => {
   it("validate file", () => {
     cy.tenantLogin(user.username);
     cy.rejectCookies();
-    cy.wait(1000);
+    cy.contains("Pour vous").click();
 
     cy.get("#lastname").should("have.value", user.lastname);
     cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
@@ -39,7 +39,14 @@ describe("flatmate tenant scenario", () => {
     cy.selectProfessionalStatusStep("Stage");
 
     cy.expectPath("/documents-locataire/4");
-    cy.addFinancialResource("Pensions", "500");
+    cy.addFinancialResource(
+      [
+        "Retraite ou autre pension",
+        "une retraite",
+        "Vous n’avez pas de bulletin de pension",
+      ],
+      "500"
+    );
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");

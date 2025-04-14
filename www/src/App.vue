@@ -10,6 +10,7 @@ import { onBeforeMount } from 'vue'
 import Cookies from 'js-cookie'
 import i18n from './i18n'
 
+const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
 
@@ -35,7 +36,7 @@ onBeforeMount(() => {
     <WwwMenu />
   </MyHeader>
   <div id="content">
-    <Announcement></Announcement>
+    <Announcement :message="MESSAGE"></Announcement>
     <main class="page" role="main">
       <RouterView />
       <FollowSocials />

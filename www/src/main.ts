@@ -7,7 +7,6 @@ import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 import * as Sentry from '@sentry/vue'
 
 import routes from './router/index'
-import { BrowserTracing } from '@sentry/browser'
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
@@ -24,19 +23,15 @@ export const createApp = ViteSSG(App, { routes }, async ({ app, router, isClient
   Sentry.init({
     app,
     dsn: 'https://6705728c765748949f37aead7a739c40@sentry.incubateur.net/97',
-    integrations: [
-      new BrowserTracing({
-        routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-        tracePropagationTargets: [
-          'localhost',
-          'www-preprod.dossierfacile.fr',
-          'www.dossierfacile.logement.gouv.fr',
-          /^\//
-        ]
-      })
-    ],
+    integrations: [Sentry.browserTracingIntegration({ router })],
     environment: ENVIRONMENT,
-    tracesSampleRate: 0.05
+    tracesSampleRate: 0.05,
+    tracePropagationTargets: [
+      'localhost',
+      'www-preprod.dossierfacile.fr',
+      'www.dossierfacile.logement.gouv.fr',
+      /^\//
+    ]
   })
   app.use(pinia)
   app.use(i18n)

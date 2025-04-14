@@ -6,12 +6,11 @@
     <div class="field-with-button">
       <div class="fr-input-wrap">
         <Field
-          v-if="!textarea"
+          v-slot="{ field, meta }"
           :name="name"
           :value="modelValue"
-          @input="updateModel($event)"
-          v-slot="{ field, meta }"
           :rules="getValidationRules()"
+          @input="updateModel($event)"
         >
           <input
             v-bind="field"
@@ -24,40 +23,12 @@
             type="text"
             :disabled="disabled"
           />
-          <ErrorMessage :name="name" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
-        </Field>
-        <Field
-          v-else
-          :name="name"
-          :value="modelValue"
-          @input="updateModel($event)"
-          v-slot="{ field, meta }"
-          :rules="{
-            required: true
-          }"
-        >
-          <textarea
-            v-bind="field"
-            :id="name"
-            type="text"
-            :value="modelValue"
-            class="validate-required form-control fr-input"
-            :class="{
-              'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid
-            }"
-            :disabled="disabled"
-            maxlength="2000"
-            rows="4"
-          />
-          <ErrorMessage :name="name" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" :name="name">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </Field>
       </div>
-      <div class="fr-ml-1w" v-if="$slots.right">
+      <div v-if="$slots.right" class="fr-ml-1w">
         <slot name="right"></slot>
       </div>
     </div>
@@ -66,8 +37,8 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import FieldLabel from './FieldLabel.vue'
 import { Field, ErrorMessage } from 'vee-validate'
+import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 
 const { t } = useI18n()
 
@@ -81,13 +52,11 @@ const props = withDefaults(
     validationRules?: string
     required?: boolean
     disabled?: boolean
-    textarea?: boolean
   }>(),
   {
     validationRules: '',
     required: false,
-    disabled: false,
-    textarea: false
+    disabled: false
   }
 )
 

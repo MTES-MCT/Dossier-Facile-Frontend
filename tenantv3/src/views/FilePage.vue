@@ -33,7 +33,9 @@
               <button
                 :id="`tabpanel-${k}`"
                 class="fr-tabs__tab fr-tabs__tab--icon-right"
-                :class="{ 'fr-fi-icon-fc-right': tenant.franceConnect }"
+                :class="{
+                  'fr-fi-icon-fc-right': tenant.franceConnect && tenant.ownerType === 'SELF'
+                }"
                 :tabindex="tabIndex === k ? 0 : -1"
                 role="tab"
                 aria-selected="false"
@@ -248,7 +250,7 @@ const showProgressBar = ref(false)
 const fileNotFound = ref(false)
 
 function franceConnectTenantCount() {
-  return user.value?.tenants?.filter((t) => t.franceConnect).length
+  return user.value?.tenants?.filter((t) => t.franceConnect && t.ownerType === 'SELF').length
 }
 
 function isTaxChecked() {

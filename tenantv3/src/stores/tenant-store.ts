@@ -1,33 +1,34 @@
 import { AuthService } from '@/services/AuthService'
+import dayjs from 'dayjs'
+import 'dayjs/locale/en'
+import 'dayjs/locale/fr'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
-import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
 import { i18n } from '../i18n'
-import dayjs from 'dayjs'
-import 'dayjs/locale/fr'
-import 'dayjs/locale/en'
 
-import { User } from 'df-shared-next/src/models/User'
-import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { defineStore, type StoreActions } from 'pinia'
-import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import { keycloak } from '../plugin/keycloak'
-import { DocumentTypeConstants } from '@/components/documents/share/DocumentTypeConstants'
-import { DocumentType } from 'df-shared-next/src/models/Document'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { UtilsService } from '@/services/UtilsService'
 import { ProfileService } from '@/services/ProfileService'
+import { UtilsService } from '@/services/UtilsService'
+import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import { User } from 'df-shared-next/src/models/User'
+import { defineStore, type StoreActions } from 'pinia'
+import { keycloak } from '../plugin/keycloak'
 
-import * as Sentry from '@sentry/vue'
-import { MessageService } from '@/services/MessageService'
-import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
-import { RegisterService } from '@/services/RegisterService'
-import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
-import { PartnerAccessService } from '@/services/PartnerAccessService'
-import cookies from 'js-cookie'
-import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
+import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { MessageService } from '@/services/MessageService'
+import { PartnerAccessService } from '@/services/PartnerAccessService'
+import { RegisterService } from '@/services/RegisterService'
+import * as Sentry from '@sentry/vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
+import cookies from 'js-cookie'
+import {
+  GUARANTOR_ROUTES,
+  TENANT_GUARANTOR_ROUTES
+} from '@/components/documents/naturalGuarantor/guarantorRoutes'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -39,12 +40,8 @@ interface State {
   spouseAuthorize: boolean
   coTenantAuthorize: boolean
   coTenants: User[]
-  financialDocumentSelected: FinancialDocument
-  editFinancialDocument: boolean
   newMessage: number
   messageList: DfMessage[][]
-  guarantorFinancialDocumentSelected: FinancialDocument | undefined
-  editGuarantorFinancialDocument: boolean
   apartmentSharingLinks: ApartmentSharingLink[]
   partnerAccesses: PartnerAccess[]
 }
@@ -62,12 +59,8 @@ function defaultState(): State {
     spouseAuthorize: false,
     coTenantAuthorize: false,
     coTenants: [],
-    financialDocumentSelected: new FinancialDocument(),
-    editFinancialDocument: false,
     newMessage: 0,
     messageList: [],
-    guarantorFinancialDocumentSelected: new FinancialDocument(),
-    editGuarantorFinancialDocument: false,
     apartmentSharingLinks: [],
     partnerAccesses: []
   }
@@ -89,7 +82,6 @@ export type DispatchNames = (typeof DISPATCH_NAMES)[number]
 export const useTenantStore = defineStore('tenant', {
   state: (): State => ({ ...initialStore }),
   getters: {
-    getUser: (state: State) => state.user,
     getTenantDocuments(state: State): DfDocument[] {
       return state.user.documents || []
     },
@@ -164,87 +156,16 @@ export const useTenantStore = defineStore('tenant', {
         })
         .map((u) => ({ ...u }))
     },
-    getNewMessage(state: State): number {
-      return state.newMessage
-    },
     guarantors(state: State): Guarantor[] {
       return state.user.guarantors
     },
-    getMessages(state: State): DfMessage[][] {
-      return state.messageList
+    financialDocuments(state) {
+      return state.user.documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
     },
-    tenantFinancialDocuments(state: State): FinancialDocument[] {
-      const financialDocuments: FinancialDocument[] = []
-      if (state.user.documents !== null) {
-        const docs = state.user.documents?.filter((d: DfDocument) => {
-          return d.documentCategory === 'FINANCIAL'
-        })
-        if (docs !== undefined && docs.length > 0) {
-          docs
-            .sort((a: DfDocument, b: DfDocument) => {
-              return (a?.id || 0) - (b?.id || 0)
-            })
-            .forEach((d: DfDocument) => {
-              const f = new FinancialDocument()
-              f.noDocument = d.noDocument || false
-              f.customText = d.customText || ''
-              if (f.customText === '-') {
-                f.customText = ''
-              }
-              f.monthlySum = d.monthlySum || 0
-              f.id = d.id
-
-              const localDoc = DocumentTypeConstants.FINANCIAL_DOCS.find((d2: DocumentType) => {
-                return d2.value === d.documentSubCategory
-              })
-              if (localDoc !== undefined) {
-                f.documentType = localDoc
-              }
-              financialDocuments.push(f)
-            })
-        }
-      }
-      return financialDocuments
-    },
-    guarantorFinancialDocuments(state: State): FinancialDocument[] {
-      const financialdocuments: FinancialDocument[] = []
-      if (!state.selectedGuarantor) {
-        return financialdocuments
-      }
-      const g: Guarantor = state.selectedGuarantor
-      const dfDocs: DfDocument[] = g.documents || []
-      if (dfDocs !== null) {
-        const docs = dfDocs?.filter((d: DfDocument) => {
-          return d.documentCategory === 'FINANCIAL'
-        })
-        if (docs !== undefined && docs.length > 0) {
-          docs
-            .sort((a: DfDocument, b: DfDocument) => {
-              return (a?.id || 0) - (b?.id || 0)
-            })
-            .forEach((d: DfDocument) => {
-              const f = new FinancialDocument()
-              f.noDocument = d.noDocument || false
-              f.customText = d.customText || ''
-              f.monthlySum = d.monthlySum || 0
-              f.id = d.id
-
-              const localDoc = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS.find(
-                (d2: DocumentType) => {
-                  return d2.value === d.documentSubCategory
-                }
-              )
-              if (localDoc !== undefined) {
-                f.documentType = localDoc
-              }
-              financialdocuments.push(f)
-            })
-        }
-      }
-      return financialdocuments
-    },
-    getEditGuarantorFinancialDocument(state: State): boolean {
-      return state.editGuarantorFinancialDocument
+    guarantorFinancialDocuments(state) {
+      return (
+        state.selectedGuarantor?.documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
+      )
     },
     getSpouse(): CoTenant | null {
       if (this.user.apartmentSharing.applicationType === 'COUPLE') {
@@ -353,9 +274,6 @@ export const useTenantStore = defineStore('tenant', {
         (g.typeGuarantor === 'ORGANISM' &&
           UtilsService.isGuarantorDocumentValid('GUARANTEE_PROVIDER_CERTIFICATE', g))
       )
-    },
-    getApartmentSharingLinks(state: State): ApartmentSharingLink[] {
-      return state.apartmentSharingLinks
     }
   },
   actions: {
@@ -462,22 +380,6 @@ export const useTenantStore = defineStore('tenant', {
     updateUserAbroad(abroad: boolean) {
       this.user.abroad = abroad
     },
-    selectDocumentFinancial(d: FinancialDocument | undefined) {
-      this.financialDocumentSelected = Object.assign({}, d)
-      this.editFinancialDocument = d !== undefined
-    },
-    createDocumentFinancial() {
-      this.financialDocumentSelected = Object.assign({}, new FinancialDocument())
-      this.editFinancialDocument = true
-    },
-    selectGuarantorDocumentFinancial(d: FinancialDocument | undefined) {
-      this.guarantorFinancialDocumentSelected = d
-      this.editGuarantorFinancialDocument = d !== undefined
-    },
-    createGuarantorDocumentFinancial() {
-      this.guarantorFinancialDocumentSelected = new FinancialDocument()
-      this.editGuarantorFinancialDocument = true
-    },
     setPartnerAccesses(accesses: PartnerAccess[]) {
       this.partnerAccesses = accesses
     },
@@ -510,72 +412,43 @@ export const useTenantStore = defineStore('tenant', {
           window.location.replace(MAIN_URL)
         })
     },
-    deleteAccount() {
+    async deleteAccount() {
       const isFC = this.user.franceConnect
-      return AuthService.deleteAccount().then(
-        (response) => {
-          this.logoutCommit()
-          this.initState()
-          if (isFC) {
-            window.location.replace('https://fcp.integ01.dev-franceconnect.fr/api/v1/logout')
-            return
-          } else {
-            window.location.replace(MAIN_URL)
-          }
-          return Promise.resolve(response)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+      await AuthService.deleteAccount()
+      this.logoutCommit()
+      this.initState()
+      const url = isFC ? 'https://fcp.integ01.dev-franceconnect.fr/api/v1/logout' : MAIN_URL
+      window.location.replace(url)
     },
-    unlinkFranceConnect(user: User) {
+    async unlinkFranceConnect(user: User) {
       if (!user.franceConnect) {
-        return Promise.reject(new Error('Account is not a FranceConnect Account'))
+        throw new Error('Account is not a FranceConnect Account')
       }
-      return ProfileService.unlinkFranceConnect().then(
-        () => {
-          // token should be stay alive for allowing the reset password on KC
-          return this.unlinkFCSuccess()
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+      await ProfileService.unlinkFranceConnect()
+      return this.unlinkFCSuccess()
     },
-    loadUser() {
-      return AuthService.loadUser().then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async loadUser() {
+      const response = await AuthService.loadUser()
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    setNames(user: CoTenant) {
-      if (user.firstName && !user.franceConnect) {
+    async setNames(user: CoTenant) {
+      // If the user is franceconnected we can not modify the names, so we don't capitalize them
+      if (user.firstName && !this.isFranceConnected) {
         user.firstName = UtilsService.capitalize(user.firstName)
       }
-      if (user.lastName && !user.franceConnect) {
+      if (user.lastName && !this.isFranceConnected) {
         user.lastName = UtilsService.capitalize(user.lastName)
       }
-      if (user.preferredName && !user.franceConnect) {
+      if (user.preferredName && !this.isFranceConnected) {
         user.preferredName = UtilsService.capitalize(user.preferredName)
       }
-      return ProfileService.saveNames(user).then(
-        (response) => {
-          return this.loadUserCommit(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+      const response = await ProfileService.saveNames(user)
+      this.loadUserCommit(response.data)
     },
     async setCoTenants(data: Parameters<typeof ProfileService.saveCoTenants>[number]) {
       const response = await ProfileService.saveCoTenants(data)
-      return this.loadUserCommit(response.data)
+      this.loadUserCommit(response.data)
     },
     setLang(lang: 'fr' | 'en') {
       i18n.global.locale.value = lang
@@ -593,104 +466,55 @@ export const useTenantStore = defineStore('tenant', {
         sameSite: 'None'
       })
     },
-    validateFile(data: { honorDeclaration: boolean; clarification: string | undefined }) {
-      return ProfileService.validateFile(data.honorDeclaration, data.clarification).then(
-        () => {
-          AnalyticsService.validateFile()
-          return Promise.resolve()
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async validateFile(data: { honorDeclaration: boolean; clarification: string | undefined }) {
+      await ProfileService.validateFile(data.honorDeclaration, data.clarification)
+      AnalyticsService.validateFile()
     },
-    addNaturalGuarantor() {
-      return ProfileService.setGuarantorType({
+    async addNaturalGuarantor() {
+      const response = await ProfileService.setGuarantorType({
         typeGuarantor: 'NATURAL_PERSON'
-      }).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          if (this.user.guarantors === undefined) {
-            return Promise.reject(new Error('No guarantors found'))
-          }
-          const pageData = this.setGuarantorPage(
-            this.user.guarantors[this.user.guarantors.length - 1],
-            0
-          )
-          return Promise.resolve(pageData)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
+      })
+      this.loadUserCommit(response.data)
+      if (this.user.guarantors === undefined) {
+        throw new Error('No guarantors found')
+      }
+      const pageData = this.setGuarantorPage(
+        this.user.guarantors[this.user.guarantors.length - 1],
+        0
       )
+      return pageData
     },
     async deleteAllGuarantors() {
       if (this.user.guarantors === undefined) {
-        return Promise.resolve()
+        return
       }
       const promises = this.user.guarantors.map(async (g: Guarantor) => {
         await ProfileService.deleteGuarantor(g)
       })
-      return Promise.all(promises).then(
-        () => {
-          return this.loadUser()
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+      await Promise.all(promises)
+      return await this.loadUser()
     },
-    deleteGuarantor(g: Guarantor) {
-      return ProfileService.deleteGuarantor(g).then(
-        async (response) => {
-          await this.loadUser()
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async deleteGuarantor(g: Guarantor) {
+      const response = await ProfileService.deleteGuarantor(g)
+      await this.loadUser()
+      return response.data
     },
-    setGuarantorType(guarantorType: GuarantorType) {
-      return ProfileService.setGuarantorType(guarantorType).then(
-        async (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async setGuarantorType(guarantorType: GuarantorType) {
+      const response = await ProfileService.setGuarantorType(guarantorType)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    createPasswordCouple({ token, password }: { token: string; password: string }) {
-      return AuthService.createPasswordCouple({ token, password }).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async createPasswordCouple({ token, password }: { token: string; password: string }) {
+      const response = await AuthService.createPasswordCouple({ token, password })
+      this.loadUserCommit(response.data)
     },
-    createPasswordGroup({ token, password }: { token: string; password: string }) {
-      return AuthService.createPasswordGroup({ token, password }).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async createPasswordGroup({ token, password }: { token: string; password: string }) {
+      const response = await AuthService.createPasswordGroup({ token, password })
+      this.loadUserCommit(response.data)
     },
-    deleteDocument(docId: number) {
-      return ProfileService.deleteDocument(docId).then(
-        () => {
-          return this.loadUser()
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async deleteDocument(docId: number) {
+      await ProfileService.deleteDocument(docId)
+      return await this.loadUser()
     },
     updateMessages() {
       if (keycloak.authenticated) {
@@ -705,13 +529,12 @@ export const useTenantStore = defineStore('tenant', {
         }
       }
     },
-    sendMessage(message: string, tenantId: number) {
-      return MessageService.postMessage({
+    async sendMessage(message: string, tenantId: number) {
+      await MessageService.postMessage({
         tenantId: tenantId,
         messageBody: message
-      }).then(() => {
-        this.updateMessages()
       })
+      this.updateMessages()
     },
     deleteCoTenant(tenant: CoTenant) {
       if (tenant.id && tenant.id > 0) {
@@ -727,10 +550,9 @@ export const useTenantStore = defineStore('tenant', {
       this.setSelectedGuarantor(guarantor)
       if (tenantId && tenantId != this.user.id) {
         return {
-          name: 'TenantGuarantorDocuments',
+          name: TENANT_GUARANTOR_ROUTES[substep],
           params: {
             step: '5',
-            substep: substep,
             tenantId: tenantId,
             guarantorId: guarantor.id
           }
@@ -740,161 +562,78 @@ export const useTenantStore = defineStore('tenant', {
           return makeGuarantorResidencyLink(guarantor)
         }
         return {
-          name: 'GuarantorDocuments',
-          params: { substep, guarantorId: guarantor.id }
+          name: GUARANTOR_ROUTES[substep],
+          params: { guarantorId: guarantor.id }
         }
       }
     },
-    saveTenantIdentification(formData: FormData) {
-      return RegisterService.saveTenantIdentification(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async saveTenantIdentification(formData: FormData) {
+      const response = await RegisterService.saveTenantIdentification(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    saveGuarantorName(formData: FormData) {
-      return RegisterService.saveGuarantorName(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async saveGuarantorName(formData: FormData) {
+      const response = await RegisterService.saveGuarantorName(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    saveGuarantorIdentification(formData: FormData) {
-      return RegisterService.saveGuarantorIdentification(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async saveGuarantorIdentification(formData: FormData) {
+      const response = await RegisterService.saveGuarantorIdentification(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    saveTenantResidency(formData: FormData) {
-      return RegisterService.saveTenantResidency(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async saveTenantResidency(formData: FormData) {
+      const response = await RegisterService.saveTenantResidency(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    saveGuarantorResidency(formData: FormData) {
-      return RegisterService.saveGuarantorResidency(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async saveGuarantorResidency(formData: FormData) {
+      const response = await RegisterService.saveGuarantorResidency(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    saveTenantProfessional(formData: FormData) {
-      return RegisterService.saveTenantProfessional(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async saveTenantProfessional(formData: FormData) {
+      const response = await RegisterService.saveTenantProfessional(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    saveGuarantorProfessional(formData: FormData) {
-      return RegisterService.saveGuarantorProfessional(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async saveGuarantorProfessional(formData: FormData) {
+      const response = await RegisterService.saveGuarantorProfessional(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    saveTenantFinancial(formData: FormData) {
-      return RegisterService.saveTenantFinancial(formData).then(
-        async (response) => {
-          this.loadUserCommit(response.data)
-          const fd = this.tenantFinancialDocuments
-          if (fd === undefined) {
-            return Promise.resolve(response.data)
-          }
-          if (formData.has('id')) {
-            const s = fd.find((f) => {
-              return f.id?.toString() === formData.get('id')
-            })
-            if (s !== undefined) {
-              this.selectDocumentFinancial(s)
-            } else {
-              this.selectDocumentFinancial(fd[fd.length - 1])
-            }
-          } else {
-            this.selectDocumentFinancial(fd[fd.length - 1])
-          }
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async saveTenantFinancial(formData: FormData) {
+      const response = await RegisterService.saveTenantFinancial(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    saveGuarantorFinancial(formData: FormData) {
-      return RegisterService.saveGuarantorFinancial(formData)
-        .then(async (response) => {
-          this.loadUserCommit(response.data)
-          const fd = this.guarantorFinancialDocuments
-          if (fd === undefined) {
-            return Promise.resolve(response.data)
-          }
-          if (formData.has('id')) {
-            const s = fd.find((f) => {
-              return f.id?.toString() === formData.get('id')
-            })
-            if (s === undefined) {
-              return Promise.reject(new Error('Document not found'))
-            }
-            this.selectGuarantorDocumentFinancial(s)
-          } else {
-            this.selectGuarantorDocumentFinancial(fd[fd.length - 1])
-          }
-          return Promise.resolve(response.data)
-        })
-        .catch((error) => {
-          return Promise.reject(error)
-        })
+    async saveGuarantorFinancial(formData: FormData) {
+      const response = await RegisterService.saveGuarantorFinancial(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    saveTenantTax(formData: FormData) {
-      return RegisterService.saveTenantTax(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async saveTenantTax(formData: FormData) {
+      const response = await RegisterService.saveTenantTax(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
-    saveGuarantorTax(formData: FormData) {
-      return RegisterService.saveGuarantorTax(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async saveGuarantorTax(formData: FormData) {
+      const response = await RegisterService.saveGuarantorTax(formData)
+      this.loadUserCommit(response.data)
+      return response.data
+    },
+    getTenantNameRoute() {
+      const ownerType = this.user.ownerType
+
+      if (ownerType === undefined) {
+        return { name: 'ChooseTenantIdentity' }
+      }
+      if (ownerType === 'SELF') {
+        return { name: 'SelfTenantIdentity' }
+      }
+      if (ownerType === 'THIRD_PARTY') {
+        return { name: 'ThirdPartyTenantIdentity' }
+      }
     },
     firstProfilePage() {
       if (this.user.documents === undefined) {
@@ -905,7 +644,7 @@ export const useTenantStore = defineStore('tenant', {
         !this.user.lastName ||
         (!this.user.zipCode && this.user.documents.length == 0)
       ) {
-        return { name: 'TenantName' }
+        return this.getTenantNameRoute()
       }
       if (!this.user.applicationType) {
         return { name: 'TenantType' }
@@ -949,7 +688,7 @@ export const useTenantStore = defineStore('tenant', {
         return { name: 'ValidateFile' }
       }
 
-      return { name: 'TenantName' }
+      return this.getTenantNameRoute()
     },
     updateSelectedGuarantor(tenantId: number) {
       let guarantors
@@ -974,17 +713,11 @@ export const useTenantStore = defineStore('tenant', {
       }
       return MessageService.markMessagesAsRead(tenantId)
     },
-    loadApartmentSharingLinks() {
-      return ApartmentSharingLinkService.getLinks().then(
-        (response) => {
-          const links = response.data.links || []
-          this.setApartmentSharingLinks(links)
-          return Promise.resolve(links)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async loadApartmentSharingLinks() {
+      const response = await ApartmentSharingLinkService.getLinks()
+      const links = response.data.links || []
+      this.setApartmentSharingLinks(links)
+      return links
     },
     deleteApartmentSharingLink(linkToDelete: ApartmentSharingLink) {
       ApartmentSharingLinkService.deleteLink(linkToDelete).then(() => {
@@ -993,14 +726,7 @@ export const useTenantStore = defineStore('tenant', {
       })
     },
     async resendApartmentSharingLink(linkToResend: ApartmentSharingLink) {
-      await ApartmentSharingLinkService.resendLink(linkToResend).then(
-        (response) => {
-          return Promise.resolve(response)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+      await ApartmentSharingLinkService.resendLink(linkToResend)
     },
 
     async updateApartmentSharingLinkStatus(linkToUpdate: ApartmentSharingLink, enabled: boolean) {
@@ -1013,17 +739,11 @@ export const useTenantStore = defineStore('tenant', {
       })
       this.setApartmentSharingLinks(updatedLinks)
     },
-    loadPartnerAccesses() {
-      return PartnerAccessService.getPartners().then(
-        (response) => {
-          const accesses = response.data || []
-          this.setPartnerAccesses(accesses)
-          return Promise.resolve(accesses)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async loadPartnerAccesses() {
+      const response = await PartnerAccessService.getPartners()
+      const accesses = response.data || []
+      this.setPartnerAccesses(accesses)
+      return accesses
     },
     revokePartnerAccess(accessToRevoke: PartnerAccess) {
       PartnerAccessService.revokeAccess(accessToRevoke).then(() => {
@@ -1038,16 +758,10 @@ export const useTenantStore = defineStore('tenant', {
       }
       throw new Error('Invalid method name: ' + name)
     },
-    commentAnalysis(formData: unknown) {
-      return RegisterService.commentAnalysis(formData).then(
-        (response) => {
-          this.loadUserCommit(response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+    async commentAnalysis(formData: unknown) {
+      const response = await RegisterService.commentAnalysis(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     }
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <ProfileContainer :step="3">
-    <GuarantorDocuments :substep="getStep()"></GuarantorDocuments>
+    <GuarantorDocuments></GuarantorDocuments>
   </ProfileContainer>
 </template>
 
@@ -29,10 +29,6 @@ watch(route, () => {
     }
   }
 })
-
-function getStep() {
-  return Number(route.params.substep) || 0
-}
 </script>
 
 <style lang="scss" scoped>

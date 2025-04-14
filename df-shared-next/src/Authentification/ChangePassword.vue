@@ -10,7 +10,6 @@
             <div class="fr-input-group">
               <label class="fr-label" for="password">{{ t('password') }}</label>
               <Field
-                id="password"
                 name="password"
                 v-model="password"
                 v-slot="{ field, meta }"
@@ -18,6 +17,7 @@
               >
                 <input
                   v-bind="field"
+                  id="password"
                   class="form-control validate-required fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
@@ -38,7 +38,6 @@
             <div class="fr-input-group">
               <label class="fr-label" for="confirm-password"> {{ t('confirm-password') }}</label>
               <Field
-                id="confirm-password"
                 name="confirm-password"
                 v-model="confirm"
                 v-slot="{ field, meta }"
@@ -49,6 +48,7 @@
               >
                 <input
                   v-bind="field"
+                  id="confirm-password"
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,

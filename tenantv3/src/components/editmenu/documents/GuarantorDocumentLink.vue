@@ -2,7 +2,7 @@
   <DocumentLink
     :person-type="PersonType.GUARANTOR"
     :to="to"
-    :router-params="{ substep: substep, guarantorId: guarantor.id }"
+    :router-params="{ guarantorId: guarantor.id }"
     :document-type="documentType"
     :status="status"
     :active="active"
@@ -13,16 +13,15 @@
 import DocumentLink from './DocumentLink.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { DocumentService } from '@/services/DocumentService'
-import { DocumentType } from './DocumentType'
+import { DocumentType, GUARANTOR_COMPONENTS } from './DocumentType'
 import { PersonType } from './PersonType'
 import { computed } from 'vue'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
+import { useLink } from 'vue-router'
 
 const props = defineProps<{
   guarantor: Guarantor
   documentType: DocumentType
-  substep: number
-  active: boolean
 }>()
 
 const to = computed(() =>
@@ -32,4 +31,12 @@ const to = computed(() =>
 const status = computed(
   () => DocumentService.guarantorStatus(props.documentType, props.guarantor) || ''
 )
+
+const link = useLink({
+  to: {
+    name: GUARANTOR_COMPONENTS[props.documentType],
+    params: { guarantorId: props.guarantor.id }
+  }
+})
+const active = computed(() => link.isActive.value)
 </script>

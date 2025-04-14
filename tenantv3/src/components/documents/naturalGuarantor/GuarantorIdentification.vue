@@ -52,6 +52,7 @@
         ></FileUpload>
       </div>
     </NakedCard>
+    <GuarantorFooter @on-back="$emit('on-back')" @on-next="$emit('on-next')"></GuarantorFooter>
   </div>
 </template>
 
@@ -75,6 +76,7 @@ import { ToastService } from '../../../services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '../../../services/AnalyticsService'
+import GuarantorFooter from '@/components/footer/GuarantorFooter.vue'
 
 const { t } = useI18n()
 
@@ -93,6 +95,7 @@ const props = withDefaults(
     isCotenant: false
   }
 )
+defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref([] as DfFile[])

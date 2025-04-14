@@ -16,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import RadioList from './lib/RadioList.vue'
+import RadioList from '@/components/common/RadioList.vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
-import RadioListItem from './lib/RadioListItem.vue'
+import RadioListItem from '@/components/common/RadioListItem.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'

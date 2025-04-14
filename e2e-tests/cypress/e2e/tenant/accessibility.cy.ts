@@ -10,7 +10,7 @@ describe("accessibility checks", () => {
   it("funnel accessibility", () => {
     cy.tenantLogin(username);
     cy.rejectCookies();
-    cy.wait(3000);
+    cy.contains("Pour vous").click();
     cy.testAccessibility();
     cy.clickOnNext();
 
@@ -32,7 +32,10 @@ describe("accessibility checks", () => {
     cy.selectProfessionalStatusStep("CDI");
 
     cy.testAccessibility();
-    cy.addFinancialResource("Revenus professionnels", "2000");
+    cy.addFinancialResource(
+      ["Revenus du travail", "salarié", "Depuis moins de 3 mois"],
+      "2000"
+    );
 
     cy.testAccessibility();
     cy.clickOnNext();
@@ -58,7 +61,10 @@ describe("accessibility checks", () => {
     cy.selectProfessionalStatusStep("Retraite");
 
     cy.testAccessibility();
-    cy.addFinancialResource("Pension", "2000");
+    cy.addFinancialResource(
+      ["Retraite ou autre pension", "une pension alimentaire"],
+      "2000"
+    );
 
     cy.testAccessibility();
     cy.clickOnNext();

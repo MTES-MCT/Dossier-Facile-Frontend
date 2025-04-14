@@ -187,8 +187,6 @@ function addMail() {
   if (newRoommate.value !== '') {
     if (user.value.email !== newRoommate.value) {
       const coTenant = new User()
-      coTenant.firstName = newRoommate.value.replace(/[^a-zA-Z]/g, '')
-      coTenant.lastName = newRoommate.value.replace(/[^a-zA-Z]/g, '')
       coTenant.email = newRoommate.value
       store.createCoTenant(newRoommate.value)
       const newCoTenants = [...props.modelValue, coTenant]

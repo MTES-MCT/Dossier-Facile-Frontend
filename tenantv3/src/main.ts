@@ -189,7 +189,7 @@ keycloak
     app.use(LoadingPlugin)
 
     app.use(Vue3Toastify, {
-      autoClose: 6000,
+      autoClose: 10_000,
       theme: 'colored',
       clearOnUrlChange: false
     } satisfies ToastContainerOptions)

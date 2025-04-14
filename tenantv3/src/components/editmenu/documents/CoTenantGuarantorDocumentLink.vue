@@ -3,7 +3,6 @@
     :person-type="PersonType.COTENANT_GUARANTOR"
     :router-params="{
       step: 5,
-      substep: substep,
       tenantId: coTenant.id,
       guarantorId: guarantor.id
     }"
@@ -18,22 +17,27 @@
 import DocumentLink from './DocumentLink.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { DocumentService } from '@/services/DocumentService'
-import { DocumentType } from './DocumentType'
+import { DocumentType, TENANT_GUARANTOR_COMPONENTS } from './DocumentType'
 import { PersonType } from './PersonType'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { computed } from 'vue'
-import type { RouteLocationRaw } from 'vue-router'
+import { useLink, type RouteLocationRaw } from 'vue-router'
 
 const props = defineProps<{
   guarantor: Guarantor
   coTenant: CoTenant
   documentType: DocumentType
-  substep: number
-  active: boolean
   to?: RouteLocationRaw
 }>()
 
 const status = computed(
   () => DocumentService.guarantorStatus(props.documentType, props.guarantor) || ''
 )
+const link = useLink({
+  to: {
+    name: TENANT_GUARANTOR_COMPONENTS[props.documentType],
+    params: { guarantorId: props.guarantor.id, tenantId: props.coTenant.id }
+  }
+})
+const active = computed(() => link.isActive.value)
 </script>

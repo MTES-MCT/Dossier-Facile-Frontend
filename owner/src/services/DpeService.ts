@@ -499,12 +499,11 @@ const areaDpeMatching = [
 ]
 
 const DpeService = {
-  getEnergyConsumptionLetterSmallArea(energyConsumption: number, property: Property) {
-    let area = property.livingSpace
+  getEnergyConsumptionLetterSmallArea(energyConsumption: number, area: number) {
     if (area <= 8) {
       area = 8
     }
-    const dpeValues = areaDpeMatching.find((r) => r.area === area)
+    const dpeValues = areaDpeMatching.find((r) => r.area === Math.floor(area))
     if (energyConsumption <= 0) {
       return 'G'
     }
@@ -531,12 +530,12 @@ const DpeService = {
     }
     return 'G'
   },
-  getEnergyConsumptionLetter(energyConsumption: number | undefined, property: Property | null) {
+  getEnergyConsumptionLetter(energyConsumption: number | undefined, area: number | null) {
     if (energyConsumption === undefined || energyConsumption <= 0) {
       return '-'
     }
-    if (property && property.livingSpace <= 40) {
-      return this.getEnergyConsumptionLetterSmallArea(energyConsumption, property)
+    if (area && area <= 40) {
+      return this.getEnergyConsumptionLetterSmallArea(energyConsumption, area)
     }
 
     // Check house size
@@ -563,12 +562,11 @@ const DpeService = {
     }
     return '-'
   },
-  getCO2EmissionLetterSmallArea(co2Emission: number, property: Property) {
-    let area = property.livingSpace
+  getCO2EmissionLetterSmallArea(co2Emission: number, area: number) {
     if (area <= 8) {
       area = 8
     }
-    const dpeValues = areaDpeMatching.find((r) => r.area === area)
+    const dpeValues = areaDpeMatching.find((r) => r.area === Math.floor(area))
     if (co2Emission <= 0) {
       return 'G'
     }
@@ -605,7 +603,7 @@ const DpeService = {
     }
 
     if (property && property.livingSpace <= 40) {
-      return this.getCO2EmissionLetterSmallArea(co2Emission, property)
+      return this.getCO2EmissionLetterSmallArea(co2Emission, property.livingSpace)
     }
 
     if (co2Emission <= 6) {

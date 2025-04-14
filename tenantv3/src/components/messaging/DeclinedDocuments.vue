@@ -1,6 +1,6 @@
 <template>
   <div class="tenant-list">
-    <DocumentsCard :tenant="tenant" @substep="goToStep" />
+    <DocumentsCard :tenant="tenant" @substep="goToTenantStep" />
     <DocumentsCard
       v-for="guarantor of tenant.guarantors"
       :key="guarantor.id"
@@ -12,17 +12,20 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter, type RouteLocationRaw } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import DocumentsCard from './DocumentsCard.vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import { COUPLE_ROUTES } from '../documents/cotenant/coupleRoutes'
+import { useTenantStep } from '../residency/lib/useTenantStep'
 
 const props = defineProps<{ tenant: CoTenant; isCotenant: boolean }>()
 
 const router = useRouter()
 const store = useTenantStore()
+const { goToStep } = useTenantStep()
 
 const goToGuarantorStep = async (guarantor: Guarantor, substep: number) => {
   AnalyticsService.editFromAccount(substep)
@@ -30,22 +33,24 @@ const goToGuarantorStep = async (guarantor: Guarantor, substep: number) => {
   router.push(page)
 }
 
-const goToStep = async (substep: number) => {
+const goToTenantStep = async (substep: number) => {
   AnalyticsService.editFromAccount(substep)
-  const page: RouteLocationRaw = props.isCotenant
-    ? {
-        name: 'CoTenantDocuments',
-        params: {
-          tenantId: props.tenant.id,
-          step: '4',
-          substep
-        }
+  if (props.isCotenant) {
+    router.push({
+      name: COUPLE_ROUTES[substep],
+      params: {
+        tenantId: props.tenant.id,
+        step: '4'
       }
-    : {
-        name: 'TenantDocuments',
-        params: { substep }
-      }
-  router.push(page)
+    })
+    return
+  }
+
+  if (substep === 0) {
+    router.push({ name: 'TenantName' })
+  } else {
+    goToStep(substep - 1)
+  }
 }
 </script>
 

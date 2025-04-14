@@ -80,7 +80,7 @@ import { User } from 'df-shared-next/src/models/User'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { AnalyticsService } from '../../services/AnalyticsService'
 import GuarantorsSection from '../../components/account/GuarantorsSection.vue'
-import RowListItem from '../../components/documents/RowListItem.vue'
+import RowListItem from '../documents/RowListItem.vue'
 import FileRowListItem from '../../components/documents/FileRowListItem.vue'
 import { DocumentTypeConstants } from '../../components/documents/share/DocumentTypeConstants'
 import { useRouter } from 'vue-router'
@@ -89,6 +89,7 @@ import { UtilsService } from '../../services/UtilsService'
 import { computed } from 'vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { useTenantStep } from '../residency/lib/useTenantStep'
+import { COUPLE_ROUTES } from '../documents/cotenant/coupleRoutes'
 
 const props = withDefaults(
   defineProps<{
@@ -113,11 +114,10 @@ const showButtons = computed(() => {
 function gotoTenantName() {
   if (props.isCotenant) {
     router.push({
-      name: 'CoTenantDocuments',
+      name: 'CoupleName',
       params: {
         tenantId: props.tenant?.id.toString(),
-        step: '4',
-        substep: '0'
+        step: '4'
       }
     })
   } else {
@@ -133,11 +133,10 @@ function setTenantStep(n: number) {
   AnalyticsService.editFromAccount(n)
   if (props.isCotenant) {
     router.push({
-      name: 'CoTenantDocuments',
+      name: COUPLE_ROUTES[n],
       params: {
         tenantId: props.tenant?.id.toString(),
-        step: '4',
-        substep: n.toString()
+        step: '4'
       }
     })
   } else {

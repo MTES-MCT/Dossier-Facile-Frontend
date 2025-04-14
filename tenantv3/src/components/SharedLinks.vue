@@ -141,7 +141,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const store = useTenantStore()
-const links = computed(() => store.getApartmentSharingLinks)
+const links = computed(() => store.apartmentSharingLinks)
 const { t } = useI18n()
 dayjs.extend(relativeTime)
 

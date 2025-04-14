@@ -36,6 +36,7 @@ import UpdateComponent from './UpdateComponent.vue'
 import { UtilsService } from '../../services/UtilsService'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { useTenantStep } from '../residency/lib/useTenantStep'
+import { COUPLE_ROUTES } from '../documents/cotenant/coupleRoutes'
 
 const store = useTenantStore()
 const { t } = useI18n()
@@ -78,8 +79,8 @@ function isDocumentValid(docType: string) {
 function openTenant(substep: number) {
   if (props.keyprefix === 'tenant') {
     router.push({
-      name: 'CoTenantDocuments',
-      params: { substep: substep + 1, tenantId: props.user.id.toString(), step: '4' }
+      name: COUPLE_ROUTES[substep + 1],
+      params: { tenantId: props.user.id.toString(), step: '4' }
     })
     return
   }
