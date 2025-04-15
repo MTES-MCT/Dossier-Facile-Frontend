@@ -5,6 +5,18 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ t('blog-title') }}</h1>
           <BlogExtractTile
+            title="Dossier de location : Comment éviter les arnaques à la location : guide complet pour les propriétaires ?"
+            :image="article13Img"
+            publication-date="10 avril 2025"
+            path="/blog/eviter-les-arnaques-location"
+          >
+            <template #extract>
+              <p>
+                La location d'un bien immobilier est une excellente manière de générer des revenus, mais elle comporte aussi certains risques, notamment celui des arnaques. Faux locataires, faux paiements, ou encore escroqueries sur les plateformes de location en ligne
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="Dossier de location : Comment monter son dossier de location en tant qu'auto-entrepreneur ?"
             :image="article19Img"
             publication-date="17 février 2025"
@@ -457,7 +469,6 @@ import article12Img from '../../assets/images/blog-article12.webp'
 import article13Img from '../../assets/images/blog-article13.webp'
 import article14Img from '../../assets/images/blog-article14.webp'
 import article15Img from '../../assets/images/blog-article15.webp'
-import article16Img from '../../assets/images/blog-article16.webp'
 import article17Img from '../../assets/images/blog-article17.webp'
 import article18Img from '../../assets/images/blog-article18.webp'
 import article19Img from '../../assets/images/blog-article19.webp'
