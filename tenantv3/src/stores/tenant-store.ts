@@ -604,13 +604,23 @@ export const useTenantStore = defineStore('tenant', {
     },
     async saveTenantFinancial(formData: FormData) {
       const response = await RegisterService.saveTenantFinancial(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasValidFinancialDoc(response.data.documents, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        // workaround for bad transaction handling in backend: refetch data
+        return await this.loadUser()
+      }
     },
     async saveGuarantorFinancial(formData: FormData) {
       const response = await RegisterService.saveGuarantorFinancial(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasValidFinancialDoc(this.selectedGuarantor?.documents, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        // workaround for bad transaction handling in backend: refetch data
+        return await this.loadUser()
+      }
     },
     async saveTenantTax(formData: FormData) {
       const response = await RegisterService.saveTenantTax(formData)
@@ -765,3 +775,15 @@ export const useTenantStore = defineStore('tenant', {
     }
   }
 })
+
+function hasValidFinancialDoc(documents: DfDocument[] | undefined, formData: FormData) {
+  const financialDocs = documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
+  const id = formData.has('id') ? Number(formData.get('id')) : null
+  const doc = financialDocs.find(
+    (d: DfDocument) =>
+      d.documentSubCategory === formData.get('typeDocumentFinancial') &&
+      d.documentCategoryStep === formData.get('categoryStep') &&
+      (!id || d.id === id)
+  )
+  return doc !== undefined
+}
