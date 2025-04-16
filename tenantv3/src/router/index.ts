@@ -668,7 +668,7 @@ export const router = createRouter({
           name: 'TenantGuarantorProfessional',
           component: () =>
             import('@/components/documents/naturalGuarantor/GuarantorProfessional.vue'),
-          props: { isCotenant: true }
+          props: (route) => ({ isCotenant: true, tenantId: Number(route.params.tenantId) })
         },
         {
           path: '4',
@@ -691,7 +691,7 @@ export const router = createRouter({
           path: '5',
           name: 'TenantGuarantorTax',
           component: () => import('@/components/documents/naturalGuarantor/GuarantorTax.vue'),
-          props: { isCotenant: true }
+          props: (route) => ({ isCotenant: true, tenantId: Number(route.params.tenantId) })
         }
       ]
     },
