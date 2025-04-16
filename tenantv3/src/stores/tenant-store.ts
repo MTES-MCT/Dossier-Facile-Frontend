@@ -569,8 +569,12 @@ export const useTenantStore = defineStore('tenant', {
     },
     async saveTenantIdentification(formData: FormData) {
       const response = await RegisterService.saveTenantIdentification(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('IDENTIFICATION', response.data, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        return await this.loadUser()
+      }
     },
     async saveGuarantorName(formData: FormData) {
       const response = await RegisterService.saveGuarantorName(formData)
@@ -579,48 +583,86 @@ export const useTenantStore = defineStore('tenant', {
     },
     async saveGuarantorIdentification(formData: FormData) {
       const response = await RegisterService.saveGuarantorIdentification(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('IDENTIFICATION', response.data, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        return await this.loadUser()
+      }
     },
     async saveTenantResidency(formData: FormData) {
       const response = await RegisterService.saveTenantResidency(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('RESIDENCY', response.data, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        return await this.loadUser()
+      }
     },
     async saveGuarantorResidency(formData: FormData) {
       const response = await RegisterService.saveGuarantorResidency(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('RESIDENCY', response.data, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        return await this.loadUser()
+      }
     },
     async saveTenantProfessional(formData: FormData) {
       const response = await RegisterService.saveTenantProfessional(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('PROFESSIONAL', response.data, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        return await this.loadUser()
+      }
     },
     async saveGuarantorProfessional(formData: FormData) {
       const response = await RegisterService.saveGuarantorProfessional(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('PROFESSIONAL', response.data, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        return await this.loadUser()
+      }
     },
     async saveTenantFinancial(formData: FormData) {
       const response = await RegisterService.saveTenantFinancial(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('FINANCIAL', response.data, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        // workaround for bad transaction handling in backend: refetch data
+        return await this.loadUser()
+      }
     },
     async saveGuarantorFinancial(formData: FormData) {
       const response = await RegisterService.saveGuarantorFinancial(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('FINANCIAL', response.data, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        // workaround for bad transaction handling in backend: refetch data
+        return await this.loadUser()
+      }
     },
     async saveTenantTax(formData: FormData) {
       const response = await RegisterService.saveTenantTax(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('TAX', response.data, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        return await this.loadUser()
+      }
     },
     async saveGuarantorTax(formData: FormData) {
       const response = await RegisterService.saveGuarantorTax(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('TAX', response.data, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        return await this.loadUser()
+      }
     },
     getTenantNameRoute() {
       const ownerType = this.user.ownerType
@@ -765,3 +807,32 @@ export const useTenantStore = defineStore('tenant', {
     }
   }
 })
+
+// TODO: remove after proper fix on backend
+function hasMatchingDoc(
+  category: 'IDENTIFICATION' | 'FINANCIAL' | 'PROFESSIONAL' | 'RESIDENCY' | 'TAX',
+  userData: User,
+  formData: FormData
+) {
+  const tenantData = formData.has('tenantId')
+    ? userData.apartmentSharing.tenants.find((t) => t.id === Number(formData.get('tenantId')))
+    : userData
+  let documents = tenantData?.documents
+  if (formData.has('guarantorId')) {
+    const guarantor = tenantData?.guarantors.find(
+      (g) => g.id === Number(formData.get('guarantorId'))
+    )
+    documents = guarantor?.documents
+  }
+  const docs = documents?.filter((d) => d.documentCategory === category) ?? []
+  const id = formData.has('id') ? Number(formData.get('id')) : null
+  const subCategory = `typeDocument${category[0]}${category.slice(1).toLowerCase()}`
+  const hasStep = ['FINANCIAL', 'RESIDENCY'].includes(category)
+  const doc = docs.find(
+    (d: DfDocument) =>
+      d.documentSubCategory === formData.get(subCategory) &&
+      (!hasStep || d.documentCategoryStep === formData.get('categoryStep')) &&
+      (!id || d.id === id)
+  )
+  return doc !== undefined
+}
