@@ -776,6 +776,7 @@ export const useTenantStore = defineStore('tenant', {
   }
 })
 
+// TODO: remove after proper fix on backend
 function hasValidFinancialDoc(documents: DfDocument[] | undefined, formData: FormData) {
   const financialDocs = documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
   const id = formData.has('id') ? Number(formData.get('id')) : null
