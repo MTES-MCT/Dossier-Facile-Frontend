@@ -584,13 +584,21 @@ export const useTenantStore = defineStore('tenant', {
     },
     async saveTenantResidency(formData: FormData) {
       const response = await RegisterService.saveTenantResidency(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('RESIDENCY', response.data.documents, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        return await this.loadUser()
+      }
     },
     async saveGuarantorResidency(formData: FormData) {
       const response = await RegisterService.saveGuarantorResidency(formData)
-      this.loadUserCommit(response.data)
-      return response.data
+      if (hasMatchingDoc('RESIDENCY', this.selectedGuarantor?.documents, formData)) {
+        this.loadUserCommit(response.data)
+        return response.data
+      } else {
+        return await this.loadUser()
+      }
     },
     async saveTenantProfessional(formData: FormData) {
       const response = await RegisterService.saveTenantProfessional(formData)
@@ -604,7 +612,7 @@ export const useTenantStore = defineStore('tenant', {
     },
     async saveTenantFinancial(formData: FormData) {
       const response = await RegisterService.saveTenantFinancial(formData)
-      if (hasValidFinancialDoc(response.data.documents, formData)) {
+      if (hasMatchingDoc('FINANCIAL', response.data.documents, formData)) {
         this.loadUserCommit(response.data)
         return response.data
       } else {
@@ -614,7 +622,7 @@ export const useTenantStore = defineStore('tenant', {
     },
     async saveGuarantorFinancial(formData: FormData) {
       const response = await RegisterService.saveGuarantorFinancial(formData)
-      if (hasValidFinancialDoc(this.selectedGuarantor?.documents, formData)) {
+      if (hasMatchingDoc('FINANCIAL', this.selectedGuarantor?.documents, formData)) {
         this.loadUserCommit(response.data)
         return response.data
       } else {
@@ -777,12 +785,17 @@ export const useTenantStore = defineStore('tenant', {
 })
 
 // TODO: remove after proper fix on backend
-function hasValidFinancialDoc(documents: DfDocument[] | undefined, formData: FormData) {
-  const financialDocs = documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
+function hasMatchingDoc(
+  category: 'FINANCIAL' | 'RESIDENCY',
+  documents: DfDocument[] | undefined,
+  formData: FormData
+) {
+  const docs = documents?.filter((d) => d.documentCategory === category) ?? []
   const id = formData.has('id') ? Number(formData.get('id')) : null
-  const doc = financialDocs.find(
+  const subCategory = category === 'FINANCIAL' ? 'typeDocumentFinancial' : 'typeDocumentResidency'
+  const doc = docs.find(
     (d: DfDocument) =>
-      d.documentSubCategory === formData.get('typeDocumentFinancial') &&
+      d.documentSubCategory === formData.get(subCategory) &&
       d.documentCategoryStep === formData.get('categoryStep') &&
       (!id || d.id === id)
   )
