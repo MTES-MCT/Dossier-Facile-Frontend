@@ -11,13 +11,15 @@ import { useI18n } from 'vue-i18n'
 import { computed, provide } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { mainActivityKey } from '@/components/mainActivity/lib/mainActivityState'
+import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
 const { t } = useI18n()
 const store = useTenantStore()
+const residencyLink = useResidencyLink()
 
 provide(mainActivityKey, {
   category: 'professional',
   textKey: 'tenant',
-  previousStep: '/documents-locataire/2', // Todo: update
+  previousStep: residencyLink.value,
   nextStep: { name: 'TenantFinancial' },
   document: computed(() => store.getTenantProfessionalDocument),
   userId: undefined
