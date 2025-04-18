@@ -410,8 +410,74 @@ export const router = createRouter({
         },
         {
           path: '3',
-          name: 'TenantProfessional',
-          component: () => import('@/components/documents/tenant/TenantProfessional.vue')
+          component: () => import('@/components/documents/tenant/TenantMainActivity.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantProfessional',
+              component: () => import('@/components/mainActivity/ChooseActivity.vue')
+            },
+            {
+              path: 'cdi',
+              component: () => import('@/components/mainActivity/ActivityCDI.vue')
+            },
+            {
+              path: 'cdd',
+              component: () => import('@/components/mainActivity/ActivityCDD.vue')
+            },
+            {
+              path: 'public',
+              component: () => import('@/components/mainActivity/ActivityPublic.vue')
+            },
+            {
+              path: 'independant',
+              component: () => import('@/components/mainActivity/ActivitySelfEmployed.vue')
+            },
+            {
+              path: 'retraite',
+              component: () => import('@/components/mainActivity/ActivityRetired.vue')
+            },
+            {
+              path: 'chomage',
+              component: () => import('@/components/mainActivity/ActivityUnemployed.vue')
+            },
+            {
+              path: 'etudes',
+              component: () => import('@/components/mainActivity/ActivityStudies.vue')
+            },
+            {
+              path: 'alternance',
+              component: () => import('@/components/mainActivity/ActivityAlternating.vue')
+            },
+            {
+              path: 'stage',
+              component: () => import('@/components/mainActivity/ActivityStage.vue')
+            },
+            {
+              path: 'interimaire',
+              component: () => import('@/components/mainActivity/ActivityCTT.vue')
+            },
+            {
+              path: 'intermittence',
+              component: () => import('@/components/mainActivity/ActivityIntermittent.vue')
+            },
+            {
+              path: 'artiste-auteur',
+              component: () => import('@/components/mainActivity/ActivityArtistAuthor.vue')
+            },
+            {
+              path: 'parent-au-foyer',
+              component: () => import('@/components/mainActivity/ActivityStayAtHomeParent.vue')
+            },
+            {
+              path: 'sans-activite',
+              component: () => import('@/components/mainActivity/ActivityNoActivity.vue')
+            },
+            {
+              path: 'autre',
+              component: () => import('@/components/mainActivity/ActivityOther.vue')
+            }
+          ]
         },
         {
           path: '4',
