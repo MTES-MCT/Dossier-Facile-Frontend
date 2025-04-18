@@ -1,4 +1,5 @@
 import { useTenantStore } from '@/stores/tenant-store'
+import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { computed } from 'vue'
 
 const CATEGORY_TO_PATH: Record<string, string> = {
@@ -20,8 +21,7 @@ const CATEGORY_TO_PATH: Record<string, string> = {
   UNEMPLOYED: 'chomage'
 }
 
-export function makeActivityLink(category: string | undefined) {
-  const path = '/documents-locataire/3'
+export function makeActivityLink(category: string | undefined, path = '/documents-locataire/3') {
   if (!category || !(category in CATEGORY_TO_PATH)) {
     return path
   }
@@ -35,4 +35,9 @@ export function useMainActivityLink() {
     return makeActivityLink(document?.documentSubCategory)
   })
   return link
+}
+
+export function makeGuarantorActivityLink(guarantor: Guarantor) {
+  const document = guarantor.documents?.find((d) => d.documentCategory === 'PROFESSIONAL')
+  return makeActivityLink(document?.documentSubCategory, `/info-garant/3/${guarantor.id}`)
 }

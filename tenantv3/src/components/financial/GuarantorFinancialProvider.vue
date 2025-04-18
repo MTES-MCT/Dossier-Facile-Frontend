@@ -7,14 +7,18 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { computed, provide } from 'vue'
 import { financialKey } from '@/components/financial/financialState'
 import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
+import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
+const mainActivityLink = computed(() =>
+  store.selectedGuarantor ? makeGuarantorActivityLink(store.selectedGuarantor) : '/liste-garants'
+)
 
 provide(financialKey, {
   category: 'guarantor-financial',
   textKey: 'guarantor',
   documents: computed(() => store.guarantorFinancialDocuments),
-  previousStep: `/info-garant/3/${guarantorId.value}`,
+  previousStep: mainActivityLink.value,
   nextStep: `/info-garant/5/${guarantorId.value}`,
   recap: { name: 'GuarantorFinancial' },
   userId: store.user.id,

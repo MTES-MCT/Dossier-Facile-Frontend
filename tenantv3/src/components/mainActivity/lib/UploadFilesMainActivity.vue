@@ -38,10 +38,7 @@ import type { MainActivityCategory } from '@/components/documents/share/Document
 import { useMainActivityState } from './mainActivityState'
 import MainActivityFooter from './MainActivityFooter.vue'
 
-const props = defineProps<{
-  category: MainActivityCategory
-  guarantor?: boolean
-}>()
+const props = defineProps<{ category: MainActivityCategory }>()
 
 const MAX_FILE_COUNT = 20
 
@@ -96,8 +93,7 @@ async function save(): Promise<boolean> {
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
   const $loading = useLoading()
   const loader = $loading.show()
-  const action = props.guarantor ? 'saveGuarantorProfessional' : 'saveTenantProfessional'
-  return await store[action](formData)
+  return await store[mainActivityState.action](formData)
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL

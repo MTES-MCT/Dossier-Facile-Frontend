@@ -18,15 +18,22 @@ import { PersonType } from './PersonType'
 import { computed } from 'vue'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { useLink } from 'vue-router'
+import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 
 const props = defineProps<{
   guarantor: Guarantor
   documentType: DocumentType
 }>()
 
-const to = computed(() =>
-  props.documentType === 'RESIDENCY' ? makeGuarantorResidencyLink(props.guarantor) : undefined
-)
+const to = computed(() => {
+  if (props.documentType === 'RESIDENCY') {
+    return makeGuarantorResidencyLink(props.guarantor)
+  }
+  if (props.documentType === 'PROFESSIONAL') {
+    return makeGuarantorActivityLink(props.guarantor)
+  }
+  return undefined
+})
 
 const status = computed(
   () => DocumentService.guarantorStatus(props.documentType, props.guarantor) || ''

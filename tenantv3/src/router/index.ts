@@ -292,6 +292,69 @@ const FINANCIAL_ROUTES = [
   }
 ]
 
+const MAIN_ACTIVITY_ROUTES = [
+  {
+    path: 'cdi',
+    component: () => import('@/components/mainActivity/ActivityCDI.vue')
+  },
+  {
+    path: 'cdd',
+    component: () => import('@/components/mainActivity/ActivityCDD.vue')
+  },
+  {
+    path: 'public',
+    component: () => import('@/components/mainActivity/ActivityPublic.vue')
+  },
+  {
+    path: 'independant',
+    component: () => import('@/components/mainActivity/ActivitySelfEmployed.vue')
+  },
+  {
+    path: 'retraite',
+    component: () => import('@/components/mainActivity/ActivityRetired.vue')
+  },
+  {
+    path: 'chomage',
+    component: () => import('@/components/mainActivity/ActivityUnemployed.vue')
+  },
+  {
+    path: 'etudes',
+    component: () => import('@/components/mainActivity/ActivityStudies.vue')
+  },
+  {
+    path: 'alternance',
+    component: () => import('@/components/mainActivity/ActivityAlternating.vue')
+  },
+  {
+    path: 'stage',
+    component: () => import('@/components/mainActivity/ActivityStage.vue')
+  },
+  {
+    path: 'interimaire',
+    component: () => import('@/components/mainActivity/ActivityCTT.vue')
+  },
+  {
+    path: 'intermittence',
+    component: () => import('@/components/mainActivity/ActivityIntermittent.vue')
+  },
+  {
+    path: 'artiste-auteur',
+    component: () => import('@/components/mainActivity/ActivityArtistAuthor.vue')
+  },
+  {
+    path: 'parent-au-foyer',
+    component: () => import('@/components/mainActivity/ActivityStayAtHomeParent.vue')
+  },
+  {
+    path: 'sans-activite',
+    component: () => import('@/components/mainActivity/ActivityNoActivity.vue')
+  },
+  {
+    path: 'autre',
+    component: () => import('@/components/mainActivity/ActivityOther.vue')
+  }
+]
+
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -417,66 +480,7 @@ export const router = createRouter({
               name: 'TenantProfessional',
               component: () => import('@/components/mainActivity/ChooseActivity.vue')
             },
-            {
-              path: 'cdi',
-              component: () => import('@/components/mainActivity/ActivityCDI.vue')
-            },
-            {
-              path: 'cdd',
-              component: () => import('@/components/mainActivity/ActivityCDD.vue')
-            },
-            {
-              path: 'public',
-              component: () => import('@/components/mainActivity/ActivityPublic.vue')
-            },
-            {
-              path: 'independant',
-              component: () => import('@/components/mainActivity/ActivitySelfEmployed.vue')
-            },
-            {
-              path: 'retraite',
-              component: () => import('@/components/mainActivity/ActivityRetired.vue')
-            },
-            {
-              path: 'chomage',
-              component: () => import('@/components/mainActivity/ActivityUnemployed.vue')
-            },
-            {
-              path: 'etudes',
-              component: () => import('@/components/mainActivity/ActivityStudies.vue')
-            },
-            {
-              path: 'alternance',
-              component: () => import('@/components/mainActivity/ActivityAlternating.vue')
-            },
-            {
-              path: 'stage',
-              component: () => import('@/components/mainActivity/ActivityStage.vue')
-            },
-            {
-              path: 'interimaire',
-              component: () => import('@/components/mainActivity/ActivityCTT.vue')
-            },
-            {
-              path: 'intermittence',
-              component: () => import('@/components/mainActivity/ActivityIntermittent.vue')
-            },
-            {
-              path: 'artiste-auteur',
-              component: () => import('@/components/mainActivity/ActivityArtistAuthor.vue')
-            },
-            {
-              path: 'parent-au-foyer',
-              component: () => import('@/components/mainActivity/ActivityStayAtHomeParent.vue')
-            },
-            {
-              path: 'sans-activite',
-              component: () => import('@/components/mainActivity/ActivityNoActivity.vue')
-            },
-            {
-              path: 'autre',
-              component: () => import('@/components/mainActivity/ActivityOther.vue')
-            }
+            ...MAIN_ACTIVITY_ROUTES
           ]
         },
         {
@@ -664,9 +668,16 @@ export const router = createRouter({
         },
         {
           path: '3/:guarantorId',
-          name: 'GuarantorProfessional',
           component: () =>
-            import('@/components/documents/naturalGuarantor/GuarantorProfessional.vue')
+            import('@/components/documents/naturalGuarantor/GuarantorProfessional.vue'),
+          children: [
+            {
+              path: '',
+              name: 'GuarantorProfessional',
+              component: () => import('@/components/mainActivity/ChooseActivity.vue')
+            },
+            ...MAIN_ACTIVITY_ROUTES
+          ]
         },
         {
           path: '4/:guarantorId',
@@ -731,10 +742,16 @@ export const router = createRouter({
         },
         {
           path: '3',
-          name: 'TenantGuarantorProfessional',
           component: () =>
-            import('@/components/documents/naturalGuarantor/GuarantorProfessional.vue'),
-          props: (route) => ({ isCotenant: true, tenantId: Number(route.params.tenantId) })
+            import('@/components/documents/naturalGuarantor/TenantGuarantorProfessional.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantGuarantorProfessional',
+              component: () => import('@/components/mainActivity/ChooseActivity.vue')
+            },
+            ...MAIN_ACTIVITY_ROUTES
+          ]
         },
         {
           path: '4',

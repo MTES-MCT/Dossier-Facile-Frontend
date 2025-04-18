@@ -22,7 +22,8 @@ provide(mainActivityKey, {
   previousStep: residencyLink.value,
   nextStep: { name: 'TenantFinancial' },
   document: computed(() => store.getTenantProfessionalDocument),
-  userId: undefined
+  userId: undefined,
+  action: 'saveTenantProfessional'
 })
 </script>
 
