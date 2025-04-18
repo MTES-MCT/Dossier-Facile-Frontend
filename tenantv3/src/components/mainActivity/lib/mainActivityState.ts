@@ -15,6 +15,7 @@ type MainActivityState = {
     | 'couple-guarantor-professional'
   textKey: 'tenant' | 'couple' | 'guarantor' | 'couple-guarantor'
   userId: number | undefined
+  action: 'saveTenantProfessional' | 'saveGuarantorProfessional'
   addData?: (formData: FormData) => void
 }
 export const mainActivityKey = Symbol() as InjectionKey<MainActivityState>

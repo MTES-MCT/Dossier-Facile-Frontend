@@ -1,6 +1,6 @@
 <template>
   <NakedCard class="fr-p-md-5w fr-m-3v fr-grid-col">
-    <h6>{{ t('main-activity') }}</h6>
+    <h2 class="fr-h6">{{ t('main-activity') }}</h2>
     <RouterView />
   </NakedCard>
 </template>
@@ -12,18 +12,27 @@ import { computed, provide } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { mainActivityKey } from '@/components/mainActivity/lib/mainActivityState'
 import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
+import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
+import { useRoute } from 'vue-router'
 const { t } = useI18n()
 const store = useTenantStore()
+const route = useRoute()
 const residencyLink = useResidencyLink()
+const guarantorId = useGuarantorId()
+const tenantId = computed(() => Number(route.params.tenantId))
 
 provide(mainActivityKey, {
-  category: 'professional',
-  textKey: 'tenant',
+  category: 'couple-guarantor-professional',
+  textKey: 'couple-guarantor',
   previousStep: residencyLink.value,
-  nextStep: { name: 'TenantFinancial' },
-  document: computed(() => store.getTenantProfessionalDocument),
-  userId: undefined,
-  action: 'saveTenantProfessional'
+  nextStep: { name: 'TenantGuarantorFinancial' },
+  document: computed(() => store.getGuarantorProfessionalDocument),
+  userId: store.user.id,
+  action: 'saveGuarantorProfessional',
+  addData: (formData) => {
+    formData.append('tenantId', tenantId.value.toString())
+    formData.append('guarantorId', guarantorId.value)
+  }
 })
 </script>
 
