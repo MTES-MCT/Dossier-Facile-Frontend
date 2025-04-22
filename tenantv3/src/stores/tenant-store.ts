@@ -365,21 +365,6 @@ export const useTenantStore = defineStore('tenant', {
     updateCoTenantAuthorize(authorize: boolean) {
       this.coTenantAuthorize = authorize
     },
-    updateUserFirstname(firstname: string) {
-      this.user.firstName = firstname
-    },
-    updateUserLastname(lastname: string) {
-      this.user.lastName = lastname
-    },
-    updateUserPreferredname(preferredname: string) {
-      this.user.preferredName = preferredname
-    },
-    updateUserZipcode(zipcode: string) {
-      this.user.zipCode = zipcode
-    },
-    updateUserAbroad(abroad: boolean) {
-      this.user.abroad = abroad
-    },
     setPartnerAccesses(accesses: PartnerAccess[]) {
       this.partnerAccesses = accesses
     },

@@ -82,7 +82,6 @@ import { AnalyticsService } from '../../services/AnalyticsService'
 import GuarantorsSection from '../../components/account/GuarantorsSection.vue'
 import RowListItem from '../documents/RowListItem.vue'
 import FileRowListItem from '../../components/documents/FileRowListItem.vue'
-import { DocumentTypeConstants } from '../../components/documents/share/DocumentTypeConstants'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { UtilsService } from '../../services/UtilsService'
@@ -160,9 +159,9 @@ function documents(g: CoTenant, docType: string): DfDocument[] {
 
 function getProfessionalSubCategory(u: CoTenant): string {
   const professionalDocument = document(u, 'PROFESSIONAL')
-  const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
-    (doc) => doc.value === professionalDocument?.documentSubCategory
-  )?.key
+  const translationKey = professionalDocument?.documentSubCategory
+    ?.toLowerCase()
+    .replaceAll('_', '-')
   return t(translationKey || '')
 }
 </script>
