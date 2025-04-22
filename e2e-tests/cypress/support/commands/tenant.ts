@@ -52,10 +52,8 @@ Cypress.Commands.add("selectResidencyStep", (residencyLabel: string,  step2Label
 });
 
 Cypress.Commands.add("selectProfessionalStatusStep", (professionalStatus: string) => {
-  cy.get("#select")
-    .select(professionalStatus)
-    .uploadDocument()
-    .clickOnNext();
+    cy.contains(professionalStatus).click();
+    cy.uploadDocument().clickOnNext();
 });
 
 Cypress.Commands.add("addFinancialResource", (steps: string[], monthlySum: string) => {
