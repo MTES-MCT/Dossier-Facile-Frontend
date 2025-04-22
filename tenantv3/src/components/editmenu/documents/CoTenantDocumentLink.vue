@@ -18,6 +18,7 @@ import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { computed } from 'vue'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import { useLink, useRoute } from 'vue-router'
+import { makeActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 
 const props = defineProps<{
   coTenant: CoTenant
@@ -35,10 +36,15 @@ const link = useLink({
 const active = computed(() => link.isActive.value)
 
 const to = computed(() => {
-  if (props.documentType !== 'RESIDENCY') {
-    return undefined
-  }
   const step = route.params.step
-  return makeResidencyLink(props.coTenant, `/documents-colocataire/${props.coTenant.id}/${step}/2`)
+  const path = `/documents-colocataire/${props.coTenant.id}/${step}`
+  if (props.documentType === 'RESIDENCY') {
+    return makeResidencyLink(props.coTenant, `${path}/2`)
+  }
+  if (props.documentType === 'PROFESSIONAL') {
+    const document = props.coTenant.documents?.find((d) => d.documentCategory === 'PROFESSIONAL')
+    return makeActivityLink(document?.documentSubCategory, `${path}/3`)
+  }
+  return undefined
 })
 </script>

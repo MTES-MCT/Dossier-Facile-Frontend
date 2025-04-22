@@ -551,8 +551,15 @@ export const router = createRouter({
         },
         {
           path: '3',
-          name: 'CoupleProfessional',
-          component: () => import('@/components/documents/cotenant/CoTenantProfessional.vue')
+          component: () => import('@/components/documents/cotenant/CoupleProfessional.vue'),
+          children: [
+            {
+              path: '',
+              name: 'CoupleProfessional',
+              component: () => import('@/components/mainActivity/ChooseActivity.vue')
+            },
+            ...MAIN_ACTIVITY_ROUTES
+          ]
         },
         {
           path: '4',
