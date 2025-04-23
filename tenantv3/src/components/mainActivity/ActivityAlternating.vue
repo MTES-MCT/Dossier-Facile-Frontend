@@ -43,7 +43,7 @@ const parent = useParentRoute()
       "tenant": "{0} by you and your employer.",
       "couple": "{0} by your spouse and their employer.",
       "guarantor": "{0} by your guarantor and their employer.",
-      "couple-guarantor": "{0} by the guarantor and their employer.",
+      "couple-guarantor": "{0} by their guarantor and their employer.",
     },
     "signed": "signed"
   },
@@ -59,7 +59,7 @@ const parent = useParentRoute()
       "tenant": "{0} par vous et votre employeur.",
       "couple": "{0} par votre conjoint et son employeur.",
       "guarantor": "{0} par votre garant et son employeur.",
-      "couple-guarantor": "{0} par le garant et son employeur.",
+      "couple-guarantor": "{0} par son garant et son employeur.",
     },
     "signed": "signé"
   }
