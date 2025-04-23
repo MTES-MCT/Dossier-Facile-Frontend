@@ -1,7 +1,5 @@
 <template>
-  <i18n-t tag="p" :keypath="textKey + '.desc'">
-    <RouterLink :to="nextStep">{{ t('income') }}</RouterLink>
-  </i18n-t>
+  <p>{{ t(textKey + '.desc') }}</p>
   <RadioList>
     <RadioListItem :to="here + '/cdi'" @click="sendEvent('cdi')">{{
       t('activity.cdi')
@@ -69,7 +67,7 @@ import { useRoute } from 'vue-router'
 import MainActivityFooter from './lib/MainActivityFooter.vue'
 
 const { t } = useI18n()
-const { category, textKey, nextStep } = useMainActivityState()
+const { category, textKey } = useMainActivityState()
 const route = useRoute()
 
 const here = computed(() => route.path)
@@ -84,7 +82,6 @@ const showAll = () => {
 <i18n>
 {
   "en": {
-    "income": "Income",
     "activity": {
       "cdi": "Permanent Contract",
       "cdd": "Fixed-term Contract",
@@ -104,20 +101,19 @@ const showAll = () => {
       "other": "Autre"
     },
     "tenant": {
-      "desc": "Do you have several activities? Please select your main activity below. You can add different types of income in the {0} section.",
+      "desc": "Do you have several activities? Please select your main activity below. You can add different types of income in the Income section.",
     },
     "couple": {
-      "desc": "Does your spouse have several activities? Please select their main activity below. You can add different types of income in the {0} section.",
+      "desc": "Does your spouse have several activities? Please select their main activity below. You can add different types of income in the Income section.",
     },
     "guarantor": {
-      "desc": "Does your guarantor have several activities? Please select their main activity below. You can add different types of income in the {0} section.",
+      "desc": "Does your guarantor have several activities? Please select their main activity below. You can add different types of income in the Income section.",
     },
     "couple-guarantor": {
-      "desc": "Does your spouse's guarantor have several activities? Please select their main activity below. You can add different types of income in the {0} section.",
+      "desc": "Does your spouse's guarantor have several activities? Please select their main activity below. You can add different types of income in the Income section.",
     }
   },
   "fr": {
-    "income": "Revenus",
     "activity": {
       "cdi": "CDI",
       "cdd": "CDD",
@@ -137,16 +133,16 @@ const showAll = () => {
       "other": "Autre"
     },
     "tenant": {
-      "desc": "Vous avez plusieurs activités ? Veuillez choisir votre activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique {0}."
+      "desc": "Vous avez plusieurs activités ? Veuillez choisir votre activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique Revenus."
     },
     "guarantor": {
-      "desc": "Votre garant a plusieurs activités ? Veuillez choisir son activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique {0}.",
+      "desc": "Votre garant a plusieurs activités ? Veuillez choisir son activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique Revenus.",
     },
     "couple": {
-      "desc": "Votre conjoint a plusieurs activités ? Veuillez choisir son activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique {0}."
+      "desc": "Votre conjoint a plusieurs activités ? Veuillez choisir son activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique Revenus."
     },
     "couple-guarantor": {
-      "desc": "Le garant de votre conjoint a plusieurs activités ? Veuillez choisir son activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique {0}."
+      "desc": "Le garant de votre conjoint a plusieurs activités ? Veuillez choisir son activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique Revenus."
     }
   }
 }
