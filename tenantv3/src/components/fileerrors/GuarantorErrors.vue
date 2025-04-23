@@ -128,8 +128,8 @@ function documentsGuarantorFilled(g: Guarantor) {
   return store.guarantorDocumentsFilled(g)
 }
 
-async function openGuarantor(g: Guarantor, substep: number) {
-  const page = await store.setGuarantorPage(g, substep, props.user.id)
+function openGuarantor(g: Guarantor, substep: number) {
+  const page = store.setGuarantorPage(g, substep, props.user.id)
   router.push(page)
 }
 </script>

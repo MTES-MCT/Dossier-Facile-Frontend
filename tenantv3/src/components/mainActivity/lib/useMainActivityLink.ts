@@ -41,3 +41,9 @@ export function makeGuarantorActivityLink(guarantor: Guarantor) {
   const document = guarantor.documents?.find((d) => d.documentCategory === 'PROFESSIONAL')
   return makeActivityLink(document?.documentSubCategory, `/info-garant/3/${guarantor.id}`)
 }
+
+export function makeGuarantorCoupleActivityLink(g: Guarantor, tenantId: number) {
+  const doc = g.documents?.find((d) => d.documentCategory === 'PROFESSIONAL')
+  const path = `/info-garant-locataire/${tenantId}/${g.id}/5/3`
+  return makeActivityLink(doc?.documentSubCategory, path)
+}

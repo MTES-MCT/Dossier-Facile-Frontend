@@ -15,7 +15,10 @@ import { User } from 'df-shared-next/src/models/User'
 import { defineStore, type StoreActions } from 'pinia'
 import { keycloak } from '../plugin/keycloak'
 
-import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
+import {
+  makeCotenantGuarantorResidencyLink,
+  makeGuarantorResidencyLink
+} from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { MessageService } from '@/services/MessageService'
@@ -29,6 +32,10 @@ import {
   GUARANTOR_ROUTES,
   TENANT_GUARANTOR_ROUTES
 } from '@/components/documents/naturalGuarantor/guarantorRoutes'
+import {
+  makeGuarantorActivityLink,
+  makeGuarantorCoupleActivityLink
+} from '@/components/mainActivity/lib/useMainActivityLink'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -527,13 +534,20 @@ export const useTenantStore = defineStore('tenant', {
       }
       this.deleteRoommates(tenant.email)
     },
-    async setGuarantorPage(
+    setGuarantorPage(
       guarantor: Guarantor,
       substep: number,
       tenantId: number | undefined = undefined
     ) {
       this.setSelectedGuarantor(guarantor)
       if (tenantId && tenantId != this.user.id) {
+        if (substep === 2 && guarantor.id) {
+          const doc = guarantor?.documents?.find((d) => d.documentCategory === 'RESIDENCY')
+          return makeCotenantGuarantorResidencyLink(tenantId, guarantor.id, doc)
+        }
+        if (substep === 3 && guarantor.id) {
+          return makeGuarantorCoupleActivityLink(guarantor, tenantId)
+        }
         return {
           name: TENANT_GUARANTOR_ROUTES[substep],
           params: {
@@ -542,14 +556,16 @@ export const useTenantStore = defineStore('tenant', {
             guarantorId: guarantor.id
           }
         }
-      } else {
-        if (substep === 2) {
-          return makeGuarantorResidencyLink(guarantor)
-        }
-        return {
-          name: GUARANTOR_ROUTES[substep],
-          params: { guarantorId: guarantor.id }
-        }
+      }
+      if (substep === 2) {
+        return makeGuarantorResidencyLink(guarantor)
+      }
+      if (substep === 3) {
+        return makeGuarantorActivityLink(guarantor)
+      }
+      return {
+        name: GUARANTOR_ROUTES[substep],
+        params: { guarantorId: guarantor.id }
       }
     },
     async saveTenantIdentification(formData: FormData) {

@@ -27,9 +27,9 @@ const router = useRouter()
 const store = useTenantStore()
 const { goToStep } = useTenantStep()
 
-const goToGuarantorStep = async (guarantor: Guarantor, substep: number) => {
+const goToGuarantorStep = (guarantor: Guarantor, substep: number) => {
   AnalyticsService.editFromAccount(substep)
-  const page = await store.setGuarantorPage(guarantor, substep, props.tenant.id)
+  const page = store.setGuarantorPage(guarantor, substep, props.tenant.id)
   router.push(page)
 }
 

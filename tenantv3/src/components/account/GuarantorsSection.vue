@@ -225,9 +225,9 @@ function documents(g: Guarantor, docType: string): DfDocument[] {
   )
 }
 
-async function setGuarantorSubStep(n: number, g: Guarantor) {
+function setGuarantorSubStep(n: number, g: Guarantor) {
   AnalyticsService.editFromAccount(n)
-  const page = await store.setGuarantorPage(g, n, props.tenant?.id)
+  const page = store.setGuarantorPage(g, n, props.tenant?.id)
   router.push(page)
 }
 
