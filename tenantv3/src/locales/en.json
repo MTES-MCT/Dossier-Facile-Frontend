@@ -149,23 +149,6 @@
   },
   "explanation-text": {
     "tenant": {
-      "professional": {
-        "alternation": "Thank you for adding your current or upcoming <strong>apprenticeship or professionalization contract</strong> here. It must be <strong>complete</strong> and <strong>signed</strong> by all parties involved (you, your supervisor, the employer, etc.)",
-        "cdd": "<p>Thank you for adding your <strong>employment contract</strong> here. It must be <strong>current or upcoming</strong> (completed fixed-term contracts are not accepted), <strong>complete</strong> (all pages), and <strong>signed</strong> by you and your employer.</p><p>Tips: Do not unnecessarily overload your file with additional documents; the complete contract is sufficient.</p>If you do not have your employment contract, you can add a <strong>employer's attestation</strong> issued within the last 3 months.",
-        "cdi": "<p>Thank you for adding your current or upcoming <strong>employment contract</strong> here. It must be <strong>complete</strong> (all pages) and <strong>signed</strong> by you and your employer.</p><p>Tips: Do not unnecessarily overload your file with additional documents; the complete contract is sufficient.</p>If you do not have your employment contract, you can add a <strong>employer's attestation</strong> issued within the last 3 months.",
-        "cdi-trial": "<p>Thank you for adding your current or upcoming <strong>employment contract</strong> here. It must be <strong>complete</strong> (all pages) and <strong>signed</strong> by you and your employer.</p><p>Tips: Do not unnecessarily overload your file with additional documents; the complete contract is sufficient.</p>If you do not have your employment contract, you can add a <strong>employer's attestation</strong> issued within the last 3 months.",
-        "ctt": "<p>Thank you for adding your current or upcoming <strong>employment contract</strong> here. It must be <strong>complete</strong> (all pages) and <strong>signed</strong> by you and your employer.</p><p>If you do not have your employment contract, you can add an <strong>employer's attestation</strong> specifying the job position, proposed salary, expected start date, and duration of the contract.</p><p>Tips: You can also add your employment certificates from the last 3 months or more if you have them. This will help a landlord ensure the regularity and recurrence of your assignments.</p>",
-        "other": "<p>If your current activity does not correspond to any of the choices on this list, you can add a <strong>sworn statement</strong> explaining your situation here.</p><p>Tips: You can use this <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>model sworn statement</a>.</p>",
-        "independent": "<p>Thank you for adding one of the following documents here:</p><ul><li>your <strong>professional card</strong> (liberal profession)</li><li>a <strong>K extract or K bis extract⁽¹⁾</strong> issued within the last 3 months</li><li>a <strong>SIRENE directory situation certificate⁽²⁾</strong> issued within the last 3 months</li><li>a <strong>registration certificate⁽³⁾</strong> in the National Business Register</li><li>a <strong>income certificate</strong> for the current year issued by an accountant</li></ul><p>⁽¹⁾ Learn how to obtain a <a href='https://entreprendre.service-public.fr/vosdroits/F21000#:~:text=Comment%20l%27obtenir%20%3F,son%20K%20ou%20Kbis%20numérique.' target='_blank' rel='noopener'>K extract or K bis extract</a><br>⁽²⁾ Learn how to obtain a <a href='https://entreprendre.service-public.fr/vosdroits/R17969' target='_blank' rel='noopener'>SIRENE directory situation certificate</a><br>⁽³⁾ Learn how to obtain a <a href='https://entreprendre.service-public.fr/vosdroits/R19859' target='_blank' rel='noopener'>registration certificate</a><br></p><p>Note: These procedures are completely free of charge.</p>",
-        "internship": "<p>Thank you for adding your current or upcoming <strong>internship agreement</strong> here. It must be <strong>complete</strong> (all pages) and <strong>signed</strong> by all parties involved (you, your supervisor, the employer, etc.)</p><p>Tips: Do not unnecessarily overload your file with additional documents; the complete agreement is sufficient.</p>",
-        "public": "<p>Thank you for adding your current or upcoming <strong>appointment order</strong> here.</p><p>If you do not have your appointment order, you can add an <strong>employer's attestation</strong> issued within the last 3 months.</p>",
-        "retired": "<p>Thank you for adding one of the following documents here:</p><li>a <strong>pension statement</strong> or a <strong>pension payment attestation</strong> issued within the last 2 years</li><li>a <strong>pension entitlement attestation</strong></li><li>your <strong>retirement pension certificate</strong></li><li>your most recent or penultimate <strong>complete income tax notice</strong> (all pages)</li></ul><p>Tips: The pension statement is the most suitable document here. Only add your income tax notice if you have no other document from the list.</p>",
-        "salary": "salary",
-        "scholarship": "<p>Thank you for adding one of the following documents here:</p><ul><li>your <strong>student card</strong></li><li>a <strong>certificate of enrollment</strong></li></ul><p>The document must include your name, the name of the institution, and the current academic year.</p>",
-        "unemployed": "<p>Thank you for adding one of the following documents:</p><ul><li>An unemployment situation notice (Pôle emploi⁽¹⁾) issued within the last 3 months</li><li>A certificate of eligibility for unemployment benefits (ARE)</li></ul><p>⁽¹⁾ Learn <a href='https://www.pole-emploi.fr/candidat/vos-services-en-ligne/les-pas-a-pas-les-videos-qui-vou/comment-obtenir-une-attestation.html' target='_blank' rel='noopener'>how to obtain your unemployment situation notice</a> on the Pôle emploi website.</p>",
-        "student": "<p>Thank you for adding one of the following documents:</p><ul><li>Your student card</li><li>A certificate of enrollment</li><li>The ParcoursSup registration certificate</li></ul><p>The document must include your name, the name of the institution, and the current academic year.</p>",
-        "no-activity": "<p>If you are disabled and receive the disabled adults' allowance (AAH), please add here <strong>a disability pension payment attestation</strong>⁽¹⁾ from the CAF less than 3 months old.</p><p>⁽¹⁾ find out how to obtain a <a href='https://www.ameli.fr/roubaix-tourcoing/assure/adresses-et-contacts/l-obtention-d-un-document/obtenir-une-attestation/obtenir-une-attestation-de-paiement-de-pension-d-invalidite-ou-de-rente' target='_blank' rel='noopener'>payment certificate from the CAF</a>.</p><p>If you're unemployed and don't receive any income, you can add a <strong>sworn statement</strong> explaining your situation here.</p><p>Tip: you can use this <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>model of sworn statement</a></p>"
-      },
       "guarantor_salary": "I add the three latest salary slips from my guarantor, an employer's attestation, proof of payment of internship allowances, a financial statement, or a tax assessment in their name, complete and issued within the last 2 years.",
       "guest": "Please add <strong>a solemn declaration</strong> of free accommodation (we recommend using the attestation template available on the <a target='_blank' rel='noopener' title='site to generate an attestation' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a> website).",
       "guest-company": "<p>Please add here <b>a certificate from your employer</b> indicating that you have company-provided housing.<br>If you don't have one, you can upload a payslip showing the company housing or a sworn employment contract explaining your situation (we recommend using the certificate template available on the <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank' rel='noopener'>service-public.fr</a> website).</p>",
@@ -450,21 +433,6 @@
     "subtitle": "Please provide the information of the person whose name will appear on the lease agreement.",
     "franceconnect-account": "This account is identified with FranceConnect, and the names cannot be edited."
   },
-  "cotenantprofessional": {
-    "title": "Your Co-tenant's Current Employment Situation",
-    "cdi": "Permanent Contract",
-    "cdi-trial": "Permanent Contract (Trial Period)",
-    "cdd": "Fixed-Term Contract",
-    "alternation": "Apprenticeship",
-    "internship": "Internship",
-    "student": "Studies",
-    "public": "Public Service",
-    "ctt": "Temporary Work Contract",
-    "retired": "Retired",
-    "unemployed": "Unemployed",
-    "independent": "Self-Employed",
-    "other": "Other"
-  },
   "cotenanttax": {
     "title": "My Co-tenant's Tax Notice",
     "my-name": "I have a tax notice in my co-tenant's name",
@@ -708,26 +676,6 @@
     "title": "Guarantor's Identity",
     "subtitle": "I provide the last name and first name of my guarantor"
   },
-  "guarantorprofessional": {
-    "title": "Proof of Professional Status",
-    "title-cotenant": "Proof of Professional Status",
-    "cdi": "Permanent Contract",
-    "cdi-trial": "Permanent Contract (Trial Period)",
-    "cdd": "Fixed-Term Contract",
-    "alternation": "Apprenticeship/Training",
-    "internship": "Internship",
-    "student": "Student",
-    "public": "Public Service",
-    "ctt": "Temporary Work Contract",
-    "retired": "Retired",
-    "unemployed": "Unemployed",
-    "independent": "Self-employed",
-    "other": "Other",
-    "will-delete-files": "Attention, a change in your situation will result in the deletion of your documents. You will need to upload the corresponding documents again.",
-    "register": "Save",
-    "select-label": "Current professional status of my guarantor:",
-    "select-label-cotenant": "Current professional status of their guarantor:"
-  },
   "guarantorresidency": {
     "tenant": "Tenant",
     "owner": "Owner",
@@ -903,22 +851,6 @@
     "nodocument": "do not send any document",
     "masecurite": "Ma Sécurité",
     "signal-btn": "Report a listing"
-  },
-  "professional-page": {
-    "cdi": "Permanent contract",
-    "cdi-trial": "Permanent contract (trial period)",
-    "cdd": "Fixed-term contract",
-    "alternation": "Apprenticeship",
-    "internship": "Internship",
-    "student": "Studies",
-    "public": "Public service",
-    "ctt": "Temporary work",
-    "retired": "Retirement",
-    "unemployed": "Unemployment",
-    "independent": "Self-employed",
-    "other": "Other",
-    "will-delete-files": "Attention, changing your situation will delete your supporting documents. You will need to upload the documents corresponding to your new situation again.",
-    "select-label": "Your current employment situation:"
   },
   "profilefooter": {
     "back": "Back",

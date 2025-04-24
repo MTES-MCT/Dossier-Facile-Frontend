@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+import { makeActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { residencyKey } from '@/components/residency/residencyState'
 import { DocumentService } from '@/services/DocumentService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
@@ -17,6 +18,13 @@ const route = useRoute()
 
 const tenantId = Number(route.params.tenantId)
 const step = route.params.step
+
+const mainActivityLink = computed(() => {
+  const document = DocumentService.getCoTenantDocument(tenantId, 'PROFESSIONAL')
+  const path = `/documents-colocataire/${tenantId}/${step}/3`
+  return makeActivityLink(document?.documentSubCategory, path)
+})
+
 provide(residencyKey, {
   category: 'couple-residency',
   textKey: 'couple',
@@ -24,10 +32,7 @@ provide(residencyKey, {
     name: 'CoupleName',
     params: { tenantId, step }
   },
-  nextStep: {
-    name: 'CoupleProfessional',
-    params: { tenantId, step }
-  },
+  nextStep: mainActivityLink.value,
   document: computed(() => DocumentService.getCoTenantDocument(tenantId, 'RESIDENCY')),
   userId: tenantId,
   addData: (formData) => {

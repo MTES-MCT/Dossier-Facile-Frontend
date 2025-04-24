@@ -253,6 +253,7 @@
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.PROFESSIONAL"
+                :to="makeProfessionalLink(g)"
               />
               <CoTenantGuarantorDocumentLink
                 class="ml-10"
@@ -328,6 +329,7 @@ import { useI18n } from 'vue-i18n'
 import { DocumentType } from './documents/DocumentType'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { makeCotenantGuarantorResidencyLink } from '../guarantorResidency/makeGuarantorResidencyLink'
+import { makeGuarantorCoupleActivityLink } from '../mainActivity/lib/useMainActivityLink'
 
 const store = useTenantStore()
 const route = useRoute()
@@ -429,6 +431,10 @@ function getName(user: CoTenant): string {
 function makeResidencyLink(g: Guarantor) {
   const doc = g.documents?.find((d) => d.documentCategory === 'RESIDENCY')
   return makeCotenantGuarantorResidencyLink(getCoTenant(0).id, g.id!, doc)
+}
+
+function makeProfessionalLink(g: Guarantor) {
+  return makeGuarantorCoupleActivityLink(g, coTenants.value[0].id)
 }
 </script>
 

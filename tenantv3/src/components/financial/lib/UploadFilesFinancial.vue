@@ -150,6 +150,8 @@ async function addFiles(fileList: File[]) {
 }
 
 function updateURL() {
+  // Sort documents by id to have newest one at end
+  state.documents.value.sort((a, b) => (a.id || 0) - (b.id || 0))
   const docId = state.documents.value.at(-1)?.id
   if (docId) {
     router.push(route.path.replace('ajouter', String(docId)))
@@ -170,7 +172,8 @@ async function remove(file: DfFile, silent = false) {
   const docId = document.value.id
   await RegisterService.deleteFile(file.id, silent)
   if (docId && !document.value.id) {
-    router.push(route.path.replace(`/${docId}/`, '/ajouter/'))
+    await router.push(route.path.replace(`/${docId}/`, '/ajouter/'))
+    document.value.monthlySum = Number(sum.value.replace(/\s+/g, '') || 0)
   }
 }
 

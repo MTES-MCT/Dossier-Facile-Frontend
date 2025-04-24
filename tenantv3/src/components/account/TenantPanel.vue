@@ -27,7 +27,7 @@
           :document="document(props.tenant, 'RESIDENCY')"
           :can-edit="showButtons"
           :enable-download="showButtons"
-          @click-edit="setTenantStep(2)"
+          @click-edit="goToResidency"
         />
         <FileRowListItem
           :label="t('tenantpanel.professional')"
@@ -35,7 +35,7 @@
           :document="document(props.tenant, 'PROFESSIONAL')"
           :can-edit="showButtons"
           :enable-download="showButtons"
-          @click-edit="setTenantStep(3)"
+          @click-edit="goToMainActivity"
         />
         <span v-if="documents(props.tenant, 'FINANCIAL').length > 1">
           <FileRowListItem
@@ -82,7 +82,6 @@ import { AnalyticsService } from '../../services/AnalyticsService'
 import GuarantorsSection from '../../components/account/GuarantorsSection.vue'
 import RowListItem from '../documents/RowListItem.vue'
 import FileRowListItem from '../../components/documents/FileRowListItem.vue'
-import { DocumentTypeConstants } from '../../components/documents/share/DocumentTypeConstants'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { UtilsService } from '../../services/UtilsService'
@@ -90,6 +89,10 @@ import { computed } from 'vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { useTenantStep } from '../residency/lib/useTenantStep'
 import { COUPLE_ROUTES } from '../documents/cotenant/coupleRoutes'
+import { DocumentService } from '@/services/DocumentService'
+import { useTenantStore } from '@/stores/tenant-store'
+import { makeActivityLink } from '../mainActivity/lib/useMainActivityLink'
+import { makeResidencyLink } from '../residency/lib/useResidencyLink'
 
 const props = withDefaults(
   defineProps<{
@@ -106,6 +109,7 @@ const props = withDefaults(
 const router = useRouter()
 const { t } = useI18n()
 const { goToStep } = useTenantStep()
+const store = useTenantStore()
 
 const showButtons = computed(() => {
   return !props.isCotenant || props.isCouple
@@ -127,6 +131,25 @@ function gotoTenantName() {
 
 function goToValidationPage() {
   router.push({ name: 'ValidateFile' })
+}
+
+function goToResidency() {
+  AnalyticsService.editFromAccount(2)
+  const tenant = props.isCotenant ? props.tenant : store.user
+  const path = props.isCotenant
+    ? `/documents-colocataire/${props.tenant.id}/4/2`
+    : '/documents-locataire/2'
+  router.push(makeResidencyLink(tenant, path))
+}
+
+function goToMainActivity() {
+  AnalyticsService.editFromAccount(3)
+  const tenant = props.isCotenant ? props.tenant : store.user
+  const doc = DocumentService.hasDoc('PROFESSIONAL', tenant)
+  const path = props.isCotenant
+    ? `/documents-colocataire/${props.tenant.id}/4/3`
+    : '/documents-locataire/3'
+  router.push(makeActivityLink(doc?.documentSubCategory, path))
 }
 
 function setTenantStep(n: number) {
@@ -160,9 +183,9 @@ function documents(g: CoTenant, docType: string): DfDocument[] {
 
 function getProfessionalSubCategory(u: CoTenant): string {
   const professionalDocument = document(u, 'PROFESSIONAL')
-  const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
-    (doc) => doc.value === professionalDocument?.documentSubCategory
-  )?.key
+  const translationKey = professionalDocument?.documentSubCategory
+    ?.toLowerCase()
+    .replaceAll('_', '-')
   return t(translationKey || '')
 }
 </script>

@@ -75,7 +75,8 @@ const confirm = async () => {
   if (docId) {
     await store.deleteDocument(docId)
   }
-  router.push(props.to)
+  const to = typeof props.to === 'string' ? props.to.replace(`/${docId}/`, '/ajouter/') : props.to
+  router.push(to)
 }
 
 const ignore = () => {

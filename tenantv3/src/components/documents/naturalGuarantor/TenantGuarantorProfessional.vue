@@ -11,24 +11,26 @@ import { useI18n } from 'vue-i18n'
 import { computed, provide } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { mainActivityKey } from '@/components/mainActivity/lib/mainActivityState'
+import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
-import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
+import { useRoute } from 'vue-router'
 const { t } = useI18n()
 const store = useTenantStore()
+const route = useRoute()
+const residencyLink = useResidencyLink()
 const guarantorId = useGuarantorId()
-const residencyLink = computed(() => {
-  return store.guarantor ? makeGuarantorResidencyLink(store.guarantor) : '/liste-garants'
-})
+const tenantId = computed(() => Number(route.params.tenantId))
 
 provide(mainActivityKey, {
-  category: 'guarantor-professional',
-  textKey: 'guarantor',
+  category: 'couple-guarantor-professional',
+  textKey: 'couple-guarantor',
   previousStep: residencyLink.value,
-  nextStep: { name: 'GuarantorFinancial' },
+  nextStep: { name: 'TenantGuarantorFinancial' },
   document: computed(() => store.getGuarantorProfessionalDocument),
-  userId: undefined,
+  userId: store.user.id,
   action: 'saveGuarantorProfessional',
   addData: (formData) => {
+    formData.append('tenantId', tenantId.value.toString())
     formData.append('guarantorId', guarantorId.value)
   }
 })

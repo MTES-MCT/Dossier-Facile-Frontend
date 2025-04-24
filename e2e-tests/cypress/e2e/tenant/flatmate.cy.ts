@@ -36,6 +36,7 @@ describe("flatmate tenant scenario", () => {
     );
 
     cy.expectPath("/documents-locataire/3");
+    cy.contains("Autres activités…").click();
     cy.selectProfessionalStatusStep("Stage");
 
     cy.expectPath("/documents-locataire/4");
