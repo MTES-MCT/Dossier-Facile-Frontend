@@ -150,6 +150,8 @@ async function addFiles(fileList: File[]) {
 }
 
 function updateURL() {
+  // Sort documents by id to have newest one at end
+  state.documents.value.sort((a, b) => (a.id || 0) - (b.id || 0))
   const docId = state.documents.value.at(-1)?.id
   if (docId) {
     router.push(route.path.replace('ajouter', String(docId)))
