@@ -172,7 +172,8 @@ async function remove(file: DfFile, silent = false) {
   const docId = document.value.id
   await RegisterService.deleteFile(file.id, silent)
   if (docId && !document.value.id) {
-    router.push(route.path.replace(`/${docId}/`, '/ajouter/'))
+    await router.push(route.path.replace(`/${docId}/`, '/ajouter/'))
+    document.value.monthlySum = Number(sum.value.replace(/\s+/g, '') || 0)
   }
 }
 
