@@ -17,6 +17,7 @@
   <template v-if="showFiles">
     <slot name="incomeFilled"></slot>
     <AllDeclinedMessages
+      :document="document"
       :document-denied-reasons="document.documentDeniedReasons"
       :document-status="document.documentStatus"
     />
@@ -81,6 +82,7 @@ const state = useFinancialState()
 const document = computed(
   () => state.documents.value.find((d) => d.id === Number(route.params.docId)) || makeNewDocument()
 )
+
 const showFiles = ref(Boolean(document.value.monthlySum))
 
 const { errors, defineField, handleSubmit } = useForm({

@@ -59,6 +59,7 @@
         </div>
       </div>
       <AllDeclinedMessages
+        :document="tenantTaxDocument"
         :document-denied-reasons="tenantTaxDocument?.documentDeniedReasons"
         :document-status="documentStatus"
       ></AllDeclinedMessages>
