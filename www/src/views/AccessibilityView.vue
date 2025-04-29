@@ -123,19 +123,11 @@
                 Ministère de la Transition écologique,<br />
                 Direction générale de l’Aménagement, du Logement et de la Nature,<br />
                 Direction de l’habitat, de l’urbanisme et des paysages,<br />
-                Service DossierFacile
-              </span>
-            </p>
-
-            <p>
-              Envoyer un courrier : <br />
-              1 place Carpeaux<br />
-              92800 Puteaux<br />
-              France
-            </p>
-            <p>
-              Contacter par téléphone : <br />
-              <a href="tel:+33 1 40 81 21 22">+33 1 40 81 21 22</a>
+                Service DossierFacile </span
+              ><br />
+              <a href="mailto:contact@dossierfacile.logement.gouv.fr"
+                >contact@dossierfacile.logement.gouv.fr</a
+              >
             </p>
 
             <h2>Voie de recours</h2>
