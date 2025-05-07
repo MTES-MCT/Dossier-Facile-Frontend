@@ -110,6 +110,7 @@ import { useToast } from 'vue-toastification'
 import router from '../../router'
 import ProfileFooter from '../footer/ProfileFooter.vue'
 import useOwnerStore from '../../store/owner-store'
+import { isAxiosError } from 'axios'
 
 const { t } = useI18n()
 const store = useOwnerStore()
@@ -134,7 +135,7 @@ function onSubmit() {
       router.push({ name: 'PropertyName' })
     })
     .catch((err) => {
-      if (err.response.data.message.includes('email_exists')) {
+      if (isAxiosError(err) && err.response?.data.message?.includes('email_exists')) {
         toast.error(t('nameinformationform.email-exists').toString(), {
           timeout: 7000
         })
