@@ -169,6 +169,7 @@ import { enUS, fr } from 'date-fns/locale'
 import DpeService from '../../services/DpeService'
 import useOwnerStore from '../../store/owner-store'
 import { type AdemeApiResult } from 'df-shared-next/src/models/AdemeApiResult'
+import { Property } from 'df-shared-next/src/models/Property'
 
 const { t, locale } = useI18n()
 const store = useOwnerStore()
@@ -186,7 +187,12 @@ const energyLetter = computed(() =>
 )
 
 const co2Emission = computed(() => Number(props.dpe.emission))
-const co2Letter = computed(() => DpeService.getCO2EmissionLetter(co2Emission.value, null))
+const co2Letter = computed(() => {
+  const property = new Property()
+  property.ademeApiResult = props.dpe
+  property.livingSpace = parseInt(props.dpe.surfaceHabitable || '')
+  return DpeService.getCO2EmissionLetter(co2Emission.value, property)
+})
 
 function deleteDpe() {
   store.deleteDpe()
