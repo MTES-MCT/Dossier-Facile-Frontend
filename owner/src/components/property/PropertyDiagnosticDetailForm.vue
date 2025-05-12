@@ -65,7 +65,11 @@ function updateDPE() {
     energyConsumption.value,
     property.value.livingSpace
   )
-  co2Letter.value = DpeService.getCO2EmissionLetter(co2Emission.value, property.value)
+  co2Letter.value = DpeService.getCO2EmissionLetter(
+    co2Emission.value,
+    property.value.livingSpace,
+    property.value.ademeApiResult?.etiquetteEmission
+  )
   globalLetter.value = DpeService.getGlobalLetter(
     energyLetter.value,
     co2Letter.value,
