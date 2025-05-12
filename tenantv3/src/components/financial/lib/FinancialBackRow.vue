@@ -31,6 +31,7 @@ import BackLinkRow from '@/components/common/BackLinkRow.vue'
 import { useI18n } from 'vue-i18n'
 import { useFinancialState } from '../financialState'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { updateFinancialURL } from './updateFinancialUrl'
 
 const props = defineProps<{
   label: string
@@ -75,7 +76,7 @@ const confirm = async () => {
   if (docId) {
     await store.deleteDocument(docId)
   }
-  const to = typeof props.to === 'string' ? props.to.replace(`/${docId}/`, '/ajouter/') : props.to
+  const to = typeof props.to === 'string' ? updateFinancialURL(props.to, docId) : props.to
   router.push(to)
 }
 
