@@ -5,6 +5,18 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ t('blog-title') }}</h1>
           <BlogExtractTile
+            title="Étudiant étranger et recherche de logement : guide pratique"
+            :image="article24Img"
+            publication-date="12 mai 2025"
+            path="/blog/etudiant-etranger-logement"
+          >
+            <template #extract>
+              <p>
+                Guide pratique pour les étudiants étrangers à la recherche d'un logement en France : conseils, démarches, solutions pour le garant, prévention des arnaques et aides au logement. Simplifiez vos démarches avec DossierFacile.
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="Dossier de location : Comment éviter les arnaques à la location : guide complet pour les propriétaires ?"
             :image="article13Img"
             publication-date="10 avril 2025"
