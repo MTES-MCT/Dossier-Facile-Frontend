@@ -71,7 +71,7 @@ export const UtilsService = {
     if (isAxiosError(err) && err.response?.data?.message == null) {
       return
     }
-    if (isAxiosError(err) && err.response?.data.message.includes('NumberOfPages')) {
+    if (isAxiosError(err) && err.response?.data.message?.includes('NumberOfPages')) {
       ToastService.saveFailedNumPages()
     } else {
       ToastService.saveFailed()

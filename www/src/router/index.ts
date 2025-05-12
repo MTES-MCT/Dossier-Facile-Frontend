@@ -152,6 +152,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage27.vue')
   },
   {
+    path: '/blog/etudiant-etranger-logement',
+    name: 'Article28',
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/ArticlePage28.vue')
+  },
+  {
     path: '/information',
     name: 'Information',
     component: () => import(/* webpackChunkName: "information" */ '../views/InformationView.vue')
