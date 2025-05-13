@@ -64,7 +64,7 @@
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
-            <button class="fr-btn" type="submit">
+            <button :disabled="isDisabled" class="fr-btn" type="submit">
               {{ t('submit') }}
             </button>
           </div>
@@ -81,6 +81,8 @@ import { Form, Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { generatePasswordPlaceholder } from '../services/UtilsService'
 import '../validators/validationRules'
+
+withDefaults(defineProps<{ isDisabled?: boolean }>(), { isDisabled: false })
 
 defineRule('strength', (_value: unknown, [score]: number[]) => {
   if (score < 2) {
