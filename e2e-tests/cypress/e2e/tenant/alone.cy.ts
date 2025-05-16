@@ -39,6 +39,12 @@ describe("alone tenant scenario", () => {
       "2000"
     );
 
+    // Check that updating the monthly income is persisted
+    cy.contains("Modifier").click();
+    cy.get('[data-cy="monthlySum"]').clear().type("2500{enter}");
+    cy.reload();
+    cy.contains("2500€ net mensuel").should("exist");
+
     cy.addFinancialResource(
       ["Rente", "des revenus locatifs", "Vous avez une quittance"],
       "500"
