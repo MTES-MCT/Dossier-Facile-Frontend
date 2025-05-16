@@ -1,7 +1,7 @@
 <template>
   <DocumentLink
     :person-type="PersonType.COTENANT"
-    :router-params="{ tenantId: coTenant.id }"
+    :router-params="{ tenantId: coTenant.id, step: 4 }"
     :document-type="documentType"
     :status="status"
     :active="active"
@@ -31,7 +31,10 @@ const status = computed(
 )
 
 const link = useLink({
-  to: { name: COUPLE_COMPONENTS[props.documentType], params: { tenantId: props.coTenant.id } }
+  to: {
+    name: COUPLE_COMPONENTS[props.documentType],
+    params: { tenantId: props.coTenant.id, step: 4 }
+  }
 })
 const active = computed(() => link.isActive.value)
 
