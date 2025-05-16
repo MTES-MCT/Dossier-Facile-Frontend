@@ -1222,6 +1222,7 @@
       "annuity": "Rente",
       "grant": "Bourse",
       "no-income": "Pas de revenus",
+      "amount-saved": "Le montant a bien été modifié",
       "employed": {
         "tenant": "Vous êtes salarié",
         "guarantor": "Votre garant est salarié",
