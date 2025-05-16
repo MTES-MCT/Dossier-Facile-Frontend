@@ -89,6 +89,8 @@ const { errors, defineField, handleSubmit } = useForm({
 })
 const [sum, sumAttr] = defineField('sum')
 
+let monthlySumChanged = false
+
 const inputSum = computed({
   get: () => sum.value,
   set(val) {
@@ -96,6 +98,7 @@ const inputSum = computed({
     const monthlySum = Number(sum.value.replace(/\s+/g, '')) || 0
     document.value.monthlySum = monthlySum
     showFiles.value = true
+    monthlySumChanged = true
   }
 })
 
@@ -126,12 +129,14 @@ function makeNewDocument() {
   return document
 }
 
-function submit() {
+async function submit() {
   if ((document.value.files || []).length === 0) {
     ToastService.error('financialdocumentform.missing-file')
     return
   }
-  router.push(state.recap)
+  if (monthlySumChanged ? await save('form.financial.amount-saved') : true) {
+    router.push(state.recap)
+  }
 }
 
 const onSubmit = handleSubmit(submit)
@@ -177,7 +182,7 @@ async function remove(file: DfFile, silent = false) {
   }
 }
 
-async function save() {
+async function save(successMsgKey = 'save-success') {
   const formData = new FormData()
   const financialDocument = document.value
   const financialFiles = financialDocument.files || []
@@ -222,8 +227,9 @@ async function save() {
   const loader = $loading.show()
   try {
     await store[state.action](formData)
-    ToastService.saveSuccess()
+    ToastService.success(successMsgKey)
     uploadStatus.value = UploadStatus.STATUS_INITIAL
+    monthlySumChanged = false
     return true
   } catch (err) {
     uploadStatus.value = UploadStatus.STATUS_FAILED
