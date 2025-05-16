@@ -153,7 +153,7 @@
                   :to="{
                     name: 'CoupleName',
                     force: true,
-                    params: { tenantId: coTenant.id }
+                    params: { tenantId: coTenant.id, step: 4 }
                   }"
                 >
                   <ColoredTag

@@ -1219,6 +1219,7 @@
       "annuity": "Annuity",
       "grant": "Scholarship",
       "no-income": "No income",
+      "amount-saved": "The amount has been changed",
       "employed": {
         "tenant": "You are an employee",
         "guarantor": "Your guarantor is an employee",
