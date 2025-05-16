@@ -19,7 +19,7 @@
               {{ t(titleKey) }}
               {{
                 !p.dpeNotRequired
-                  ? t('propertycontainer.rentdpe') + dpe
+                  ? `${t('propertycontainer.rentdpe')} ${dpe}`
                   : t('propertycontainer.no-dpe-required')
               }}
               {{ t('propertycontainer.rent1') }}
