@@ -593,17 +593,21 @@ const DpeService = {
     }
     return 'G'
   },
-  getCO2EmissionLetter(co2Emission: number | undefined, property: Property | null) {
-    if (property?.ademeApiResult?.etiquetteEmission) {
-      return property.ademeApiResult.etiquetteEmission
+  getCO2EmissionLetter(
+    co2Emission: number | undefined,
+    surface: number | undefined,
+    etiquetteEmission?: string
+  ) {
+    if (etiquetteEmission) {
+      return etiquetteEmission
     }
 
     if (co2Emission === undefined) {
       return '-'
     }
 
-    if (property && property.livingSpace <= 40) {
-      return this.getCO2EmissionLetterSmallArea(co2Emission, property.livingSpace)
+    if (surface && surface <= 40) {
+      return this.getCO2EmissionLetterSmallArea(co2Emission, surface)
     }
 
     if (co2Emission <= 6) {

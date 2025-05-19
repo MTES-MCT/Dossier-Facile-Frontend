@@ -178,15 +178,15 @@ const props = defineProps<{
 }>()
 
 const energyConsumption = computed(() => Number(props.dpe.consommation))
+const surface = computed(() => parseInt(props.dpe.surfaceHabitable || ''))
 const energyLetter = computed(() =>
-  DpeService.getEnergyConsumptionLetter(
-    energyConsumption.value,
-    parseInt(props.dpe.surfaceHabitable || '')
-  )
+  DpeService.getEnergyConsumptionLetter(energyConsumption.value, surface.value)
 )
 
 const co2Emission = computed(() => Number(props.dpe.emission))
-const co2Letter = computed(() => DpeService.getCO2EmissionLetter(co2Emission.value, null))
+const co2Letter = computed(() =>
+  DpeService.getCO2EmissionLetter(co2Emission.value, surface.value, props.dpe.etiquetteEmission)
+)
 
 function deleteDpe() {
   store.deleteDpe()
