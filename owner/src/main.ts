@@ -4,7 +4,6 @@ import Toast from 'vue-toastification'
 import { configure, defineRule } from 'vee-validate'
 import { createPinia } from 'pinia'
 import * as Sentry from '@sentry/vue'
-import { BrowserTracing } from '@sentry/tracing'
 import App from './App.vue'
 import router from './router'
 import { i18n } from './i18n'
@@ -104,16 +103,12 @@ function mountApp(ownerAuthenticated: boolean) {
     app,
     dsn: 'https://33392525504b4dfdaa6623cc1aa56df9@sentry.incubateur.net/99',
     environment: ENVIRONMENT,
-    integrations: [
-      new BrowserTracing({
-        routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-        tracingOrigins: [
-          'localhost',
-          'proprietaire-dev.dossierfacile.fr',
-          'proprietaire.dossierfacile.logement.gouv.fr',
-          /^\//
-        ]
-      })
+    integrations: [Sentry.browserTracingIntegration({ router })],
+    tracePropagationTargets: [
+      'localhost',
+      'proprietaire-preprod.dossierfacile.fr',
+      'proprietaire.dossierfacile.logement.gouv.fr',
+      /^\//
     ],
     // Set tracesSampleRate to 1.0 to capture 100%
     // of transactions for performance monitoring.

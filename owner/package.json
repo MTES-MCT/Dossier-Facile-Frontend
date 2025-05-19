@@ -19,7 +19,6 @@
   "dependencies": {
     "@gouvfr/dsfr": "catalog:",
     "@remixicon/vue": "4.5.0",
-    "@sentry/tracing": "7.119.2",
     "@sentry/vite-plugin": "catalog:",
     "@sentry/vue": "catalog:",
     "@types/js-cookie": "3.0.6",
