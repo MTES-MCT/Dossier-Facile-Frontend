@@ -156,7 +156,7 @@ useHead({
 </script>
 
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
+@use 'df-shared-next/src/scss/_variables.scss';
 
 a {
   color: var(--light-blue);
