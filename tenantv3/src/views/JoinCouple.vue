@@ -53,7 +53,7 @@ function onInitPassword(password: string) {
 }
 
 async function logout() {
-  await store.logout(false)
+  await store.logout()
 }
 
 function redirect() {
