@@ -381,20 +381,12 @@ export const useTenantStore = defineStore('tenant', {
       )
       this.apartmentSharingLinks = sortedLinks
     },
-    logout(redirect: boolean = true) {
-      const isFC = this.user.franceConnect
-      return AuthService.logout()
+    logout() {
+      return keycloak
+        .logout()
         .then(async () => {
           this.logoutCommit()
           this.initState()
-          if (isFC) {
-            window.location.replace(FC_LOGOUT_URL)
-            return
-          } else if (redirect) {
-            window.location.replace(MAIN_URL)
-            return
-          }
-          location.reload()
         })
         .catch(async () => {
           console.log('Fail to logout - logout keycloak - force redirect')
