@@ -28,8 +28,8 @@
     "vue3-toastify": "0.2.8"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "4.0.0",
-    "@fullhuman/vue-cli-plugin-purgecss": "5.0.0",
+    "@fullhuman/postcss-purgecss": "7.0.2",
+    "@fullhuman/vue-cli-plugin-purgecss": "7.0.2",
     "@intlify/unplugin-vue-i18n": "catalog:",
     "@rushstack/eslint-patch": "1.11.0",
     "@tsconfig/node18": "18.2.4",
