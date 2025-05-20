@@ -20,19 +20,21 @@ declare global {
 
 export const createApp = ViteSSG(App, { routes }, async ({ app, router, isClient }) => {
   const pinia = createPinia()
-  Sentry.init({
-    app,
-    dsn: 'https://6705728c765748949f37aead7a739c40@sentry.incubateur.net/97',
-    integrations: [Sentry.browserTracingIntegration({ router })],
-    environment: ENVIRONMENT,
-    tracesSampleRate: 0.05,
-    tracePropagationTargets: [
-      'localhost',
-      'www-preprod.dossierfacile.fr',
-      'www.dossierfacile.logement.gouv.fr',
-      /^\//
-    ]
-  })
+  if (import.meta.env.PROD) {
+    Sentry.init({
+      app,
+      dsn: 'https://6705728c765748949f37aead7a739c40@sentry.incubateur.net/97',
+      integrations: [Sentry.browserTracingIntegration({ router })],
+      environment: ENVIRONMENT,
+      tracesSampleRate: 0.05,
+      tracePropagationTargets: [
+        'localhost',
+        'www-preprod.dossierfacile.fr',
+        'www.dossierfacile.logement.gouv.fr',
+        /^\//
+      ]
+    })
+  }
   app.use(pinia)
   app.use(i18n)
   app.use(Vue3Toastify, {

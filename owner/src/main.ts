@@ -99,22 +99,24 @@ const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT || 'dev'
 function mountApp(ownerAuthenticated: boolean) {
   const app = createApp(App)
 
-  Sentry.init({
-    app,
-    dsn: 'https://33392525504b4dfdaa6623cc1aa56df9@sentry.incubateur.net/99',
-    environment: ENVIRONMENT,
-    integrations: [Sentry.browserTracingIntegration({ router })],
-    tracePropagationTargets: [
-      'localhost',
-      'proprietaire-preprod.dossierfacile.fr',
-      'proprietaire.dossierfacile.logement.gouv.fr',
-      /^\//
-    ],
-    // Set tracesSampleRate to 1.0 to capture 100%
-    // of transactions for performance monitoring.
-    // We recommend adjusting this value in production
-    tracesSampleRate: 0.05
-  })
+  if (import.meta.env.PROD) {
+    Sentry.init({
+      app,
+      dsn: 'https://33392525504b4dfdaa6623cc1aa56df9@sentry.incubateur.net/99',
+      environment: ENVIRONMENT,
+      integrations: [Sentry.browserTracingIntegration({ router })],
+      tracePropagationTargets: [
+        'localhost',
+        'proprietaire-preprod.dossierfacile.fr',
+        'proprietaire.dossierfacile.logement.gouv.fr',
+        /^\//
+      ],
+      // Set tracesSampleRate to 1.0 to capture 100%
+      // of transactions for performance monitoring.
+      // We recommend adjusting this value in production
+      tracesSampleRate: 0.05
+    })
+  }
 
   app.use(createPinia())
   app.use(router)
