@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "tsc": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
+    "lint": "eslint . --fix",
     "format": "prettier --write src/"
   },
   "dependencies": {
@@ -23,13 +23,11 @@
     "vue-i18n": "catalog:"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "1.10.4",
     "@types/js-cookie": "3.0.6",
-    "@vue/eslint-config-prettier": "10.0.0",
-    "@vue/eslint-config-typescript": "12.0.0",
+    "@vue/eslint-config-prettier": "catalog:",
+    "@vue/eslint-config-typescript": "catalog:",
     "eslint": "catalog:",
-    "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-vue": "9.32.0",
+    "eslint-plugin-vue": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",

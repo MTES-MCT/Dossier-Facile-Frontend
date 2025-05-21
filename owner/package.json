@@ -14,7 +14,7 @@
     "tsc": "vue-tsc --noEmit -p tsconfig.app.json",
     "preview": "vite preview",
     "format": "prettier --write src/",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore"
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "@gouvfr/dsfr": "catalog:",
@@ -38,12 +38,11 @@
     "@intlify/unplugin-vue-i18n": "catalog:",
     "@tsconfig/node18": "catalog:",
     "@types/node": "catalog:",
-    "@typescript-eslint/eslint-plugin": "5.57.0",
-    "@typescript-eslint/parser": "5.57.0",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/tsconfig": "catalog:",
+    "@vue/eslint-config-prettier": "catalog:",
+    "@vue/eslint-config-typescript": "catalog:",
     "eslint": "catalog:",
-    "eslint-plugin-import": "2.31.0",
     "eslint-plugin-vue": "catalog:",
     "sass": "1.89.0",
     "typescript": "catalog:",
