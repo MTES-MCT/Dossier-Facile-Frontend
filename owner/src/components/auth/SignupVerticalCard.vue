@@ -38,9 +38,9 @@
               <label class="fr-label" for="email">{{ t('register.email') }}</label>
               <Field
                 id="email"
-                name="email"
-                v-model="email"
                 v-slot="{ field, meta }"
+                v-model="email"
+                name="email"
                 :rules="{ email: true, required: true }"
               >
                 <input
@@ -55,7 +55,7 @@
                   autocomplete="email"
                 />
               </Field>
-              <ErrorMessage name="email" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="email">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -65,9 +65,9 @@
               <label class="fr-label" for="password">{{ t('register.password') }}</label>
               <Field
                 id="password"
-                name="password"
-                v-model="password"
                 v-slot="{ field, meta }"
+                v-model="password"
+                name="password"
                 :rules="{ required: true, strength: score }"
               >
                 <input
@@ -82,8 +82,8 @@
                   autocomplete="new-password"
                 />
               </Field>
-              <PasswordMeter @score="setScore" :password="password || ''" />
-              <ErrorMessage class="error-with-password-meter" name="password" v-slot="{ message }">
+              <PasswordMeter :password="password || ''" @score="setScore" />
+              <ErrorMessage v-slot="{ message }" class="error-with-password-meter" name="password">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -94,9 +94,9 @@
                 {{ t('register.confirm-password-short') }}</label
               >
               <Field
-                name="confirm-password"
-                v-model="confirm"
                 v-slot="{ field, meta }"
+                v-model="confirm"
+                name="confirm-password"
                 :rules="{
                   required: true,
                   confirm: [password, confirm]
@@ -114,7 +114,7 @@
                   autocomplete="new-password"
                 />
               </Field>
-              <ErrorMessage name="confirm-password" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="confirm-password">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>

@@ -1,6 +1,6 @@
 <template>
   <form name="form" @submit.prevent="validDelete">
-    <Modal @close="undoSelect()" id="modal-delete-account">
+    <Modal id="modal-delete-account" @close="undoSelect()">
       <template #header>
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">

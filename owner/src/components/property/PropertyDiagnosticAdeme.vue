@@ -6,7 +6,7 @@
       <PropertyDiagnosticEnergySieves
         :letter="dpe?.etiquetteBilan || '-'"
       ></PropertyDiagnosticEnergySieves>
-      <PropertyDiagnosticExpiryWarning class="fr-mt-3w" v-if="dpe?.statut === 'EXPIRE'">
+      <PropertyDiagnosticExpiryWarning v-if="dpe?.statut === 'EXPIRE'" class="fr-mt-3w">
       </PropertyDiagnosticExpiryWarning>
     </div>
   </PropertyPage>

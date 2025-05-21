@@ -175,14 +175,6 @@
   </BlogArticle>
 </template>
 
-<style scoped lang="scss">
-.img-center {
-  max-width: 800px;
-  max-height: 533px;
-  width: 100%;
-  height: auto;
-}
-</style>
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
@@ -204,3 +196,11 @@ useHead({
   ]
 })
 </script>
+<style scoped lang="scss">
+.img-center {
+  max-width: 800px;
+  max-height: 533px;
+  width: 100%;
+  height: auto;
+}
+</style>

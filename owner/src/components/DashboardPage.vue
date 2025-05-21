@@ -64,7 +64,7 @@ function openProperty(p: Property) {
           {{ t('dashboard.my-properties') }}
         </h2>
         <div>
-          <DfButton @click="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
+          <DfButton :title="t('dashboard.add-property')" :primary="true" @click="addProperty">{{
             t('dashboard.add-property')
           }}</DfButton>
         </div>
@@ -80,7 +80,7 @@ function openProperty(p: Property) {
             <th class="desktop">{{ t('dashboard.rent') }}</th>
             <th></th>
           </tr>
-          <tr class="clickable" v-for="p in properties" :key="p.name" @click="openProperty(p)">
+          <tr v-for="p in properties" :key="p.name" class="clickable" @click="openProperty(p)">
             <td class="desktop blue-text inline-block">
               <div class="fr-m-1v icon-container">
                 <RiHome4Fill v-if="p.type === 'HOUSE'" />
@@ -109,17 +109,17 @@ function openProperty(p: Property) {
             </td>
             <td class="fr-pr-2w">
               <button
+                v-if="p.validated"
                 class="consult-icon"
                 :title="t('dashboard.consult')"
-                v-if="p.validated"
                 @click="consultProperty(p.id)"
               >
                 >
               </button>
               <button
+                v-if="!p.validated"
                 class="fr-btn fr-btn--secondary"
                 :title="t('dashboard.edit-title')"
-                v-if="!p.validated"
                 @click="editProperty(p.id)"
               >
                 {{ t('dashboard.edit') }}

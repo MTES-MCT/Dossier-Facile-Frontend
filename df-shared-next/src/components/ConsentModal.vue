@@ -33,8 +33,8 @@
                     />
                     <div class="fr-btns-group--inline fr-ml-auto">
                       <button
-                        type="button"
                         id="consent-service__tout-accepter"
+                        type="button"
                         class="fr-btn"
                         aria-controls="fr-consent-modal"
                         @click="acceptAll"
@@ -42,8 +42,8 @@
                         {{ t('accept-all') }}
                       </button>
                       <button
-                        type="button"
                         id="consent-service__tout-refuser"
+                        type="button"
                         class="fr-btn fr-btn--secondary"
                         aria-controls="fr-consent-modal"
                         @click="rejectAll"
@@ -65,10 +65,10 @@
                     <div class="fr-consent-service__radios">
                       <div class="fr-radio-group">
                         <input
+                          id="consent-finality-0-accept"
                           checked
                           disabled
                           type="radio"
-                          id="consent-finality-0-accept"
                           name="consent-finality-0"
                         />
                         <label class="fr-label" for="consent-finality-0-accept">
@@ -77,9 +77,9 @@
                       </div>
                       <div class="fr-radio-group">
                         <input
+                          id="consent-finality-0-refuse"
                           disabled
                           type="radio"
-                          id="consent-finality-0-refuse"
                           name="consent-finality-0"
                         />
                         <label class="fr-label" for="consent-finality-0-refuse">
@@ -104,9 +104,9 @@
                     <div class="fr-consent-service__radios">
                       <div class="fr-radio-group">
                         <input
+                          id="consent-finality-1-accept"
                           v-model="crispChoice"
                           type="radio"
-                          id="consent-finality-1-accept"
                           name="consent-finality-1"
                           :value="true"
                         />
@@ -116,9 +116,9 @@
                       </div>
                       <div class="fr-radio-group">
                         <input
+                          id="consent-finality-1-refuse"
                           v-model="crispChoice"
                           type="radio"
-                          id="consent-finality-1-refuse"
                           name="consent-finality-1"
                           :value="false"
                         />
@@ -144,9 +144,9 @@
                     <div class="fr-consent-service__radios">
                       <div class="fr-radio-group">
                         <input
+                          id="consent-finality-2-accept"
                           v-model="matomoChoice"
                           type="radio"
-                          id="consent-finality-2-accept"
                           name="consent-finality-2"
                           :value="true"
                         />
@@ -156,9 +156,9 @@
                       </div>
                       <div class="fr-radio-group">
                         <input
+                          id="consent-finality-2-refuse"
                           v-model="matomoChoice"
                           type="radio"
-                          id="consent-finality-2-refuse"
                           name="consent-finality-2"
                           :value="false"
                         />

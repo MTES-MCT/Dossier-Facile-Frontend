@@ -46,10 +46,10 @@
       </ul>
       <a
         class="fr-btn"
-        @click="accordionClicked('contact_need_information')"
         href="https://aide.dossierfacile.logement.gouv.fr/fr/"
         rel="noopener"
         target="_blank"
+        @click="accordionClicked('contact_need_information')"
         >Consulter notre aide en ligne</a
       >
     </div>
@@ -57,25 +57,25 @@
     <div class="fr-background-alt--blue-france fr-p-3w">
       <h2 class="fr-text-title--blue-france fr-h6">Quelle est votre situation ?</h2>
       <fieldset
-        class="fr-fieldset"
         id="radio-rich-inline"
+        class="fr-fieldset"
         aria-labelledby="radio-rich-inline-legend radio-rich-inline-messages"
       >
         <legend
-          class="fr-fieldset__legend--regular fr-fieldset__legend"
           id="radio-rich-inline-legend"
+          class="fr-fieldset__legend--regular fr-fieldset__legend"
         >
           Vous avez créé :
         </legend>
         <div class="fr-fieldset__element fr-fieldset__element--inline">
           <div class="fr-radio-group fr-radio-rich">
             <input
-              type="radio"
               id="radio-rich-inline-1"
-              name="radio-rich-inline"
               v-model="contactFormData.profile"
-              @change="onProfileChange"
+              type="radio"
+              name="radio-rich-inline"
               value="tenant"
+              @change="onProfileChange"
             />
             <label class="fr-label" for="radio-rich-inline-1"> Un dossier locataire </label>
             <div class="fr-radio-rich__img">
@@ -105,12 +105,12 @@
         <div class="fr-fieldset__element fr-fieldset__element--inline">
           <div class="fr-radio-group fr-radio-rich">
             <input
-              type="radio"
               id="radio-rich-inline-2"
-              name="radio-rich-inline"
               v-model="contactFormData.profile"
-              @change="onProfileChange"
+              type="radio"
+              name="radio-rich-inline"
               value="owner"
+              @change="onProfileChange"
             />
             <label class="fr-label" for="radio-rich-inline-2"> Un compte propriétaire </label>
             <div class="fr-radio-rich__img">
@@ -137,7 +137,7 @@
             </div>
           </div>
         </div>
-        <div class="fr-messages-group" id="radio-rich-inline-messages" aria-live="assertive"></div>
+        <div id="radio-rich-inline-messages" class="fr-messages-group" aria-live="assertive"></div>
       </fieldset>
     </div>
 
@@ -156,15 +156,15 @@
         <section class="fr-accordion fr-accordion--form">
           <h3 class="fr-accordion__title">
             <button
-              @click="accordionClicked('contact_dont_find_question')"
               class="fr-accordion__btn fr-background-default--grey fr-text-title--grey"
               aria-expanded="false"
               aria-controls="accordion-form"
+              @click="accordionClicked('contact_dont_find_question')"
             >
               Je ne trouve pas la réponse à ma question
             </button>
           </h3>
-          <div class="fr-collapse" id="accordion-form">
+          <div id="accordion-form" class="fr-collapse">
             <p>
               Si votre question ne figure pas dans cette liste, vous pouvez contacter notre équipe
               d’assistance en utilisant ce formulaire.
@@ -177,9 +177,9 @@
                 <div class="fr-col-12 fr-col-md-6 fr-pr-md-3w fr-mb-3w position--relative">
                   <Field
                     id="firstname"
-                    name="firstname"
-                    v-model="contactFormData.firstname"
                     v-slot="{ field, meta }"
+                    v-model="contactFormData.firstname"
+                    name="firstname"
                     :rules="{
                       required: true
                     }"
@@ -206,7 +206,7 @@
                         autocomplete="given-name"
                         class="validate-required form-control fr-input"
                       />
-                      <ErrorMessage name="firstname" v-slot="{ message }">
+                      <ErrorMessage v-slot="{ message }" name="firstname">
                         <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                       </ErrorMessage>
                     </div>
@@ -215,9 +215,9 @@
                 <div class="fr-col-12 fr-col-md-6 fr-mb-3w position--relative">
                   <Field
                     id="lastname"
-                    name="lastname"
-                    v-model="contactFormData.lastname"
                     v-slot="{ field, meta }"
+                    v-model="contactFormData.lastname"
+                    name="lastname"
                     :rules="{
                       required: true
                     }"
@@ -233,18 +233,18 @@
                       </FieldLabel>
                       <input
                         v-bind="field"
+                        id="lastname"
                         class="form-control fr-input validate-required"
                         :class="{
                           'fr-input--valid': meta.valid,
                           'fr-input--error': !meta.valid
                         }"
-                        id="lastname"
                         name="lastname"
                         autocomplete="family-name"
                         :placeholder="t('lastname')"
                         type="text"
                       />
-                      <ErrorMessage name="lastname" v-slot="{ message }">
+                      <ErrorMessage v-slot="{ message }" name="lastname">
                         <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                       </ErrorMessage>
                     </div>
@@ -253,9 +253,9 @@
                 <div class="fr-col-12 fr-mb-3w position--relative">
                   <Field
                     id="email"
-                    name="email"
-                    v-model="contactFormData.email"
                     v-slot="{ field, meta }"
+                    v-model="contactFormData.email"
+                    name="email"
                     :rules="{
                       email: true,
                       required: true
@@ -272,19 +272,19 @@
                       </FieldLabel>
                       <input
                         v-bind="field"
+                        id="email"
+                        v-model="contactFormData.email"
                         class="validate-required form-control fr-input"
                         :class="{
                           'fr-input--valid': meta.valid,
                           'fr-input--error': !meta.valid
                         }"
-                        v-model="contactFormData.email"
-                        id="email"
                         name="email"
                         autocomplete="email"
                         :placeholder="t('email')"
                         type="text"
                       />
-                      <ErrorMessage name="email" v-slot="{ message }">
+                      <ErrorMessage v-slot="{ message }" name="email">
                         <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                       </ErrorMessage>
                     </div>
@@ -293,9 +293,9 @@
                 <div class="fr-col-12 fr-mb-3w position--relative">
                   <Field
                     id="subject"
-                    name="subject"
-                    v-model="contactFormData.subject"
                     v-slot="{ field, meta }"
+                    v-model="contactFormData.subject"
+                    name="subject"
                     :rules="{
                       required: true
                     }"
@@ -311,18 +311,18 @@
                       </FieldLabel>
                       <input
                         v-bind="field"
+                        id="subject"
                         class="form-control fr-input validate-required"
                         :class="{
                           'fr-input--valid': meta.valid,
                           'fr-input--error': !meta.valid
                         }"
-                        id="subject"
                         name="subject"
                         autocomplete="off"
                         :placeholder="t('subject')"
                         type="text"
                       />
-                      <ErrorMessage name="subject" v-slot="{ message }">
+                      <ErrorMessage v-slot="{ message }" name="subject">
                         <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                       </ErrorMessage>
                     </div>
@@ -331,9 +331,9 @@
                 <div class="fr-col-12 fr-mb-3w position--relative">
                   <Field
                     id="message"
-                    name="message"
-                    v-model="contactFormData.message"
                     v-slot="{ field, meta }"
+                    v-model="contactFormData.message"
+                    name="message"
                     :rules="{
                       required: true
                     }"
@@ -349,18 +349,18 @@
                       </FieldLabel>
                       <textarea
                         v-bind="field"
+                        id="message"
                         class="form-control fr-input validate-required"
                         :class="{
                           'fr-input--valid': meta.valid,
                           'fr-input--error': !meta.valid
                         }"
-                        id="message"
                         name="message"
                         autocomplete="off"
                         :placeholder="t('message')"
                         type="textarea"
                       />
-                      <ErrorMessage class="fr-error-text" name="message" v-slot="{ message }">
+                      <ErrorMessage v-slot="{ message }" class="fr-error-text" name="message">
                         <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                       </ErrorMessage>
                     </div>
@@ -369,8 +369,8 @@
                 <div class="fr-background-alt--blue-france fr-p-2w fr-col-12 fr-mb-3w">
                   <div class="fr-checkbox-group">
                     <Field
-                      name="acceptCgu"
                       id="acceptCgu"
+                      name="acceptCgu"
                       type="checkbox"
                       rules="isTrue"
                       :value="true"
@@ -378,7 +378,7 @@
                     <label for="acceptCgu">
                       <div>{{ t('accept-cgu') }} <span style="color: red"> *</span></div>
                     </label>
-                    <ErrorMessage class="fr-error-text" name="acceptCgu" v-slot="{ message }">
+                    <ErrorMessage v-slot="{ message }" class="fr-error-text" name="acceptCgu">
                       <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                     </ErrorMessage>
                   </div>

@@ -11,18 +11,18 @@
       </div>
       <div class="btn-container">
         <button
-          @click="edit()"
           :title="t('edit')"
           class="fr-p-1w fr-mr-2w icon-btn"
           :class="{ danger: danger, 'color--primary': !danger }"
+          @click="edit()"
         >
           <RiPencilLine />
         </button>
         <button
           :title="t('remove')"
-          @click="remove()"
           class="fr-p-1w icon-btn"
           :class="{ danger: danger, 'color--primary': !danger }"
+          @click="remove()"
         >
           <RiDeleteBin2Fill />
         </button>

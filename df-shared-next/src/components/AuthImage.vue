@@ -1,5 +1,5 @@
 <template>
-  <img :alt="alt" :src="imageData" v-if="!error" />
+  <img v-if="!error" :alt="alt" :src="imageData" />
   <div v-else>
     {{ error }}
   </div>

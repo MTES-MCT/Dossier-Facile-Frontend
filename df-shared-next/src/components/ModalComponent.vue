@@ -10,15 +10,15 @@
         class="fr-btn--close fr-btn fr-mr-1w"
         title="Fermer la fenêtre modale"
         aria-label="Fermer la fenêtre modale"
-        @click="close()"
         type="button"
+        @click="close()"
       >
         Fermer
       </button>
-      <header class="modal-header" :id="titleId">
+      <header :id="titleId" class="modal-header">
         <slot name="header"><span style="visibility: hidden">title</span></slot>
       </header>
-      <section class="modal-body" :id="descriptionId">
+      <section :id="descriptionId" class="modal-body">
         <slot name="body"> </slot>
       </section>
       <!-- TODO add  v-if="!!this.$slots['footer']" -->

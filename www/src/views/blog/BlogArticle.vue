@@ -25,13 +25,6 @@
   </section>
 </template>
 
-<style scoped lang="scss">
-@use 'df-shared-next/src/scss/_variables.scss';
-
-a {
-  color: var(--light-blue);
-}
-</style>
 <script setup lang="ts">
 import ShareArticle from './ShareArticle.vue'
 
@@ -46,3 +39,10 @@ const props = withDefaults(
   }
 )
 </script>
+<style scoped lang="scss">
+@use 'df-shared-next/src/scss/_variables.scss';
+
+a {
+  color: var(--light-blue);
+}
+</style>

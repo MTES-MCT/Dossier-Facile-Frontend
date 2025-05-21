@@ -8,7 +8,7 @@
         <p v-html="t('propertydiagnostic.details.good-dpe', [letter])"></p>
       </div>
     </div>
-    <div class="fr-background-contrast--blue-france fr-mt-3w fr-p-3w" v-if="getForbiddenDate()">
+    <div v-if="getForbiddenDate()" class="fr-background-contrast--blue-france fr-mt-3w fr-p-3w">
       <div class="title-icon-container">
         <h2 class="fr-h6">{{ t('propertydiagnostic.details.title') }}</h2>
         <img alt="France Renov" src="../../assets/FranceRenov.svg" class="france_renov" />
@@ -17,8 +17,8 @@
       <ul>
         <li v-html="t('propertydiagnostic.details.list1', [getConsommation()])"></li>
         <li
-          v-html="t('propertydiagnostic.details.list2')"
           v-if="hasToDisplayForbidenRentIncrease()"
+          v-html="t('propertydiagnostic.details.list2')"
         ></li>
         <li v-html="t('propertydiagnostic.details.list3', [getForbiddenDate()])"></li>
       </ul>

@@ -3,7 +3,7 @@
     <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">
       Voir le fil d’Ariane
     </button>
-    <div class="fr-collapse" id="breadcrumb-1">
+    <div id="breadcrumb-1" class="fr-collapse">
       <ol class="fr-breadcrumb__list">
         <li><a class="fr-breadcrumb__link" href="/">Accueil</a></li>
         <li>

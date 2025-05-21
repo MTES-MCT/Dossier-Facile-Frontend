@@ -58,9 +58,9 @@ function onBack() {
         >
         <Field
           id="living-space"
-          name="living-space"
-          v-model="livingSpace"
           v-slot="{ field, meta }"
+          v-model="livingSpace"
+          name="living-space"
           :rules="{
             required: true,
             positive: true
@@ -77,7 +77,7 @@ function onBack() {
             type="number"
           />
         </Field>
-        <ErrorMessage name="living-space" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="living-space">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </p>

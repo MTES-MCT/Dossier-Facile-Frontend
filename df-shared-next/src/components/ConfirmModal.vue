@@ -15,7 +15,7 @@
               <slot></slot>
             </p>
             <div class="align--right">
-              <DfButton type="submit" class="fr-mr-3w" @click="validSelect()" :primary="true">{{
+              <DfButton type="submit" class="fr-mr-3w" :primary="true" @click="validSelect()">{{
                 validateBtnText ? validateBtnText : t('validate')
               }}</DfButton>
               <DfButton class="fr-mr-3w" @click="undoSelect()">{{

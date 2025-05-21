@@ -50,9 +50,9 @@ function onBack() {
         <label class="fr-label" for="name">{{ t('propertyname.name-label') }} :</label>
         <Field
           id="name"
-          name="name"
-          v-model="name"
           v-slot="{ field, meta }"
+          v-model="name"
+          name="name"
           :rules="{
             required: true
           }"
@@ -68,7 +68,7 @@ function onBack() {
             type="text"
           />
         </Field>
-        <ErrorMessage name="name" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="name">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </p>

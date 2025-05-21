@@ -11,9 +11,9 @@
                 >{{ t('nameinformationform.lastname') }} :</label
               >
               <Field
-                name="lastname"
-                v-model.trim="lastname"
                 v-slot="{ field, meta }"
+                v-model.trim="lastname"
+                name="lastname"
                 :rules="{
                   required: true
                 }"
@@ -30,7 +30,7 @@
                   type="text"
                 />
               </Field>
-              <ErrorMessage name="lastname" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="lastname">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -41,9 +41,9 @@
                 >{{ t('nameinformationform.firstname') }} :</label
               >
               <Field
-                name="firstname"
-                v-model.trim="firstname"
                 v-slot="{ field, meta }"
+                v-model.trim="firstname"
+                name="firstname"
                 :rules="{
                   required: true
                 }"
@@ -60,7 +60,7 @@
                   type="text"
                 />
               </Field>
-              <ErrorMessage name="firstname" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="firstname">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -70,9 +70,9 @@
               <label for="email" class="fr-label">{{ t('nameinformationform.email') }} :</label>
               <Field
                 id="email"
-                name="email"
-                v-model="email"
                 v-slot="{ field, meta }"
+                v-model="email"
+                name="email"
                 :rules="{
                   email: true,
                   required: true
@@ -89,7 +89,7 @@
                   type="email"
                 />
               </Field>
-              <ErrorMessage name="email" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="email">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>

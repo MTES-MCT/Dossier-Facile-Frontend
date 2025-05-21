@@ -32,14 +32,14 @@ function onBack() {
     <div
       class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0"
     >
-      <div class="fr-col-12 max-600 ml" v-if="skipForm">
+      <div v-if="skipForm" class="fr-col-12 max-600 ml">
         <slot></slot>
       </div>
-      <div class="fr-col-12 max-600 ml" v-if="!skipForm">
+      <div v-if="!skipForm" class="fr-col-12 max-600 ml">
         <Form @submit="onSubmit">
           <slot></slot>
           <FooterContainer>
-            <BackNext @on-back="onBack" :show-back="true"></BackNext>
+            <BackNext :show-back="true" @on-back="onBack"></BackNext>
           </FooterContainer>
         </Form>
       </div>

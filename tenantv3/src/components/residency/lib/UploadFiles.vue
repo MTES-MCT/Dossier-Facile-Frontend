@@ -57,7 +57,7 @@ const files = ref<{ name: string; file: File; size: number; id?: string; path?: 
 const store = useTenantStore()
 const residencyState = useResidencyState()
 
-// eslint-disable-next-line vue/no-dupe-keys
+ 
 const category = residencyState.category
 const tenantResidencyDocument = residencyState.document
 const documentStatus = computed(() => tenantResidencyDocument.value?.documentStatus)

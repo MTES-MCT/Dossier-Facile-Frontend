@@ -3,7 +3,7 @@
     <div class="fr-grid-row fr-mt-3w fr-grid-row--gutters stretch">
       <div class="fr-col-12 fr-col-md-7">
         <NakedCard class="bg-purple-var fr-p-5w h-100">
-          <Form @submit="onSubmit" class="h-100 fr-grid-col">
+          <Form class="h-100 fr-grid-col" @submit="onSubmit">
             <h2 class="fr-h4">
               {{ t('connectproperty.apply-existing-account') }}
             </h2>
@@ -11,10 +11,10 @@
 
             <div class="bg-purple fr-checkbox-group">
               <Field
-                name="authorize"
                 id="authorize"
-                type="checkbox"
                 v-model="authorize"
+                name="authorize"
+                type="checkbox"
                 rules="isTrue"
                 :value="true"
               />
@@ -23,7 +23,7 @@
                   {{ t('connectproperty.authorize', [p.ownerName, p.address]) }}
                 </div></label
               >
-              <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" class="fr-error-text" name="authorize">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>

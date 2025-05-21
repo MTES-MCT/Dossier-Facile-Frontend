@@ -46,8 +46,8 @@
           </VGouvFrModal>
           <button
             :title="t('consultproperty.update-btn')"
-            @click="editProperty()"
             class="fr-btn btn--white fr-btn--secondary"
+            @click="editProperty()"
           >
             {{ t('consultproperty.modify-property') }}
           </button>
@@ -95,8 +95,8 @@
         <div class="delete-btn-container">
           <button
             class="fr-btn fr-btn--secondary"
-            @click="confirmDeleteApplicants = true"
             :disabled="selectedApplicants.length <= 0"
+            @click="confirmDeleteApplicants = true"
           >
             {{ t('consultproperty.delete-applicants') }}
           </button>
@@ -112,59 +112,59 @@
           <thead>
             <tr>
               <th></th>
-              <th @click="sortTable('lastUpdateDate')" class="desktop">
+              <th class="desktop" @click="sortTable('lastUpdateDate')">
                 {{ t('consultproperty.date') }}
                 <div
-                  class="arrow"
                   v-if="'lastUpdateDate' == sortColumn"
+                  class="arrow"
                   :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
               <th @click="sortTable('tenantName')">
                 {{ t('consultproperty.tenant-name') }}
                 <div
-                  class="arrow"
                   v-if="'tenantName' == sortColumn"
+                  class="arrow"
                   :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
-              <th @click="sortTable('tenantType')" class="desktop">
+              <th class="desktop" @click="sortTable('tenantType')">
                 {{ t('consultproperty.tenant-type') }}
                 <div
-                  class="arrow"
                   v-if="'tenantType' == sortColumn"
+                  class="arrow"
                   :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
               <th @click="sortTable('tenantSalary')">
                 {{ t('consultproperty.tenant-salary') }}
                 <div
-                  class="arrow"
                   v-if="'tenantSalary' == sortColumn"
+                  class="arrow"
                   :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
-              <th @click="sortTable('guarantorSalary')" class="desktop">
+              <th class="desktop" @click="sortTable('guarantorSalary')">
                 {{ t('consultproperty.guarantor-salary') }}
                 <div
-                  class="arrow"
                   v-if="'guarantorSalary' == sortColumn"
+                  class="arrow"
                   :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
               <th @click="sortTable('rate')">
                 {{ t('consultproperty.rate') }}
                 <div
-                  class="arrow"
                   v-if="'rate' == sortColumn"
+                  class="arrow"
                   :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
               <th @click="sortTable('status')">
                 {{ t('consultproperty.status') }}
                 <div
-                  class="arrow"
                   v-if="'status' == sortColumn"
+                  class="arrow"
                   :class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
@@ -174,13 +174,13 @@
             <tr :class="getTenantClass(tenant)">
               <td class="w30">
                 <input
-                  :value="tenant.id.toString()"
                   :id="tenant.id.toString()"
-                  type="checkbox"
                   v-model="selectedApplicants"
+                  :value="tenant.id.toString()"
+                  type="checkbox"
                 />
               </td>
-              <td @click="setShowTenant(tenant, k)" class="desktop">
+              <td class="desktop" @click="setShowTenant(tenant, k)">
                 <time>{{ formatDate(tenant.lastUpdateDate || new Date()) }}</time>
               </td>
               <td @click="setShowTenant(tenant, k)">

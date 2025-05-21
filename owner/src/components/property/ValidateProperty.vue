@@ -74,15 +74,15 @@ function onBack() {
         <p>{{ t('validateproperty.validate-subtitle') }}</p>
         <div class="bg-purple fr-checkbox-group">
           <Field
-            name="authorize"
             id="authorize"
-            type="checkbox"
             v-model="authorize"
+            name="authorize"
+            type="checkbox"
             rules="isTrue"
             :value="true"
           />
           <label for="authorize"><div v-html="t('validateproperty.authorize')"></div></label>
-          <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" class="fr-error-text" name="authorize">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>

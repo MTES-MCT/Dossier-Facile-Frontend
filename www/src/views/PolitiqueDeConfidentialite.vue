@@ -330,9 +330,9 @@
               </p>
               <p>
                 <input
-                  type="checkbox"
                   id="consentRemoved"
                   v-model="consentRemoved"
+                  type="checkbox"
                   @change="changeConsentRemoved"
                 />
                 <span v-if="consentRemoved">

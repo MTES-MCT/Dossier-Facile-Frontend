@@ -1,5 +1,5 @@
 <template>
-  <HelpAccordion @accordion-clicked="emit('accordion-clicked', $event)" :elements="elements" />
+  <HelpAccordion :elements="elements" @accordion-clicked="emit('accordion-clicked', $event)" />
 </template>
 
 <script setup lang="ts">

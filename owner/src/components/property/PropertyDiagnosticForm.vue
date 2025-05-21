@@ -19,7 +19,7 @@
     <div class="fr-input-group fr-mt-3w">
       <Form ref="dpeform" @submit="search">
         <label class="fr-label" for="dpe">{{ t('propertydiagnostic.dpe-label') }}</label>
-        <Field id="dpe" name="dpe" v-model="dpe" v-slot="{ field, meta }">
+        <Field id="dpe" v-slot="{ field, meta }" v-model="dpe" name="dpe">
           <div class="input-btn-container">
             <input
               v-bind="field"
@@ -36,7 +36,7 @@
             </button>
           </div>
         </Field>
-        <ErrorMessage name="dpe" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="dpe">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </Form>
@@ -55,7 +55,7 @@
             }}
           </button>
         </h3>
-        <div class="fr-collapse" id="noDPE">
+        <div id="noDPE" class="fr-collapse">
           <p>{{ t('propertydiagnostic.no-dpe-text') }}</p>
           <div class="fr-highlight">
             <ul>
@@ -76,7 +76,7 @@
     </div>
     <Form @submit="onSubmit">
       <FooterContainer>
-        <BackNext @on-back="onBack" :show-back="true"></BackNext>
+        <BackNext :show-back="true" @on-back="onBack"></BackNext>
       </FooterContainer>
     </Form>
   </NakedCard>

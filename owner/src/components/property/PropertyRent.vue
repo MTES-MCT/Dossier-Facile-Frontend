@@ -65,9 +65,9 @@ function onBack() {
         <label class="fr-label" for="rent">{{ t('propertyrent.monthly-rent') }} :</label>
         <Field
           id="rent"
-          name="rent"
-          v-model="rent"
           v-slot="{ field, meta }"
+          v-model="rent"
+          name="rent"
           :rules="{
             required: true,
             positive: true
@@ -84,7 +84,7 @@ function onBack() {
             type="number"
           />
         </Field>
-        <ErrorMessage name="rent" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="rent">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </p>
@@ -92,9 +92,9 @@ function onBack() {
         <label class="fr-label" for="charges">{{ t('propertyrent.monthly-charges') }} :</label>
         <Field
           id="charges"
-          name="charges"
-          v-model="charges"
           v-slot="{ field, meta }"
+          v-model="charges"
+          name="charges"
           :rules="{
             required: true,
             positiveOrNull: true
@@ -111,7 +111,7 @@ function onBack() {
             type="number"
           />
         </Field>
-        <ErrorMessage name="charges" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="charges">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </p>

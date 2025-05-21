@@ -82,7 +82,7 @@
       </div>
     </div>
     <!-- Navigation principale -->
-    <div class="fr-header__menu fr-modal" id="modal-dc">
+    <div id="modal-dc" class="fr-header__menu fr-modal">
       <div class="fr-container">
         <button class="fr-btn--close fr-btn" aria-controls="modal-dc" title="fermer">Fermer</button>
         <div class="fr-header__menu-links" style="display: none"></div>
@@ -149,7 +149,7 @@
             </li>
           </ul>
         </div>
-        <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
+        <nav id="navigation-832" class="fr-nav" role="navigation" aria-label="Menu principal">
           <slot></slot>
         </nav>
       </div>
