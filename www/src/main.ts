@@ -11,6 +11,7 @@ import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
+const IS_CLIENT = !import.meta.env.SSR
 
 declare global {
   interface Window {
@@ -18,9 +19,9 @@ declare global {
   }
 }
 
-export const createApp = ViteSSG(App, { routes }, async ({ app, router, isClient }) => {
+export const createApp = ViteSSG(App, { routes }, ({ app, router }) => {
   const pinia = createPinia()
-  if (import.meta.env.PROD) {
+  if (IS_CLIENT && import.meta.env.PROD) {
     Sentry.init({
       app,
       dsn: 'https://6705728c765748949f37aead7a739c40@sentry.incubateur.net/97',
@@ -42,7 +43,7 @@ export const createApp = ViteSSG(App, { routes }, async ({ app, router, isClient
     theme: 'colored',
     clearOnUrlChange: false
   } satisfies ToastContainerOptions)
-  app.use(ConsentPlugin, { matomo: isClient, crisp: isClient && CRISP_ENABLED === 'true' })
+  app.use(ConsentPlugin, { matomo: IS_CLIENT, crisp: IS_CLIENT && CRISP_ENABLED === 'true' })
 
   router.beforeEach((to, from, next) => {
     if (
