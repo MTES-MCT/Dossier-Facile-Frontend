@@ -32,7 +32,7 @@
     "pinia": "3.0.1",
     "vee-validate": "4.15.0",
     "vue": "3.5.13",
-    "vue-i18n": "11.1.1",
+    "vue-i18n": "11.1.2",
     "vue-loading-overlay": "6.0.6",
     "vue-pdf-embed": "1.2.1",
     "vue-router": "4.5.0",
