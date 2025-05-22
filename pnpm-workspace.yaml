@@ -10,9 +10,9 @@ packages:
 catalog:
   # dependencies
   axios: 1.9.0
-  "@gouvfr/dsfr": 1.11.2
-  "@sentry/vue": 9.20.0
-  "@sentry/vite-plugin": 3.4.0
+  "@gouvfr/dsfr": 1.13.2
+  "@sentry/vue": 9.22.0
+  "@sentry/vite-plugin": 3.5.0
   pinia: 3.0.2
   vee-validate: 4.15.0
   vue: 3.5.14
@@ -31,7 +31,7 @@ catalog:
   "@vue/tsconfig": 0.7.0
   "@tsconfig/node18": 18.2.4
   "@vitejs/plugin-vue": 5.2.4
-  "@types/node": 22.15.19
+  "@types/node": 22.15.21
   "@vitest/eslint-plugin": 1.2.0
   "@vue/eslint-config-prettier": 10.2.0
   "@vue/eslint-config-typescript": 14.5.0
