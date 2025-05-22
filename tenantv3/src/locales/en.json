@@ -1180,6 +1180,7 @@
       "never": "Never",
       "no-shared-file": "No shared files yet",
       "resend": "Resend",
+      "resend-too-many": "Cannot resend invitation link: a previous link was generated less than an hour ago. Please try again later.",
       "resend-success": "Your file has been resent",
       "resend-failed": "resend Failed! Try again later"
     }
