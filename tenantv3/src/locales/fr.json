@@ -1176,6 +1176,7 @@
       "never": "Jamais",
       "no-shared-file": "Aucun dossier partagé pour l'instant",
       "resend": "Renvoyer",
+      "resend-too-many": "Impossible de renvoyer un lien d’invitation : un précédent lien a été généré il y a moins d’une heure. Veuillez réessayer ultérieurement.",
       "resend-success": "Votre dossier a été renvoyé",
       "resend-failed": "Echec de l'envoi. Veuillez ré-essayer plus tard"
     }
