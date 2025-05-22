@@ -131,7 +131,7 @@ function getStatus(g: Guarantor) {
 
 async function editGuarantor(g: Guarantor) {
   store.setSelectedGuarantor(g)
-  router.push({
+  await router.push({
     name: 'GuarantorName',
     params: { guarantorId: g.id }
   })

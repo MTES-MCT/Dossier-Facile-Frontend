@@ -9,6 +9,7 @@
 import { makeActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { residencyKey } from '@/components/residency/residencyState'
 import { DocumentService } from '@/services/DocumentService'
+import { UtilsService } from '@/services/UtilsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { computed, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -17,7 +18,7 @@ const { t } = useI18n()
 const route = useRoute()
 
 const tenantId = Number(route.params.tenantId)
-const step = route.params.step
+const step = UtilsService.getParam(route.params.step)
 
 const mainActivityLink = computed(() => {
   const document = DocumentService.getCoTenantDocument(tenantId, 'PROFESSIONAL')

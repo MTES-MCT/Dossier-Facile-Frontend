@@ -45,11 +45,14 @@ const emit = defineEmits<{ 'add-files': [files: File[]] }>()
 
 const uploadForm = useTemplateRef('uploadForm')
 
-const props = withDefaults(defineProps<{ currentStatus: number; page?: number; size?: number }>(), {
-  currentStatus: UploadStatus.STATUS_INITIAL,
-  page: 0,
-  size: 10
-})
+const props = withDefaults(
+  defineProps<{ currentStatus?: number; page?: number; size?: number }>(),
+  {
+    currentStatus: UploadStatus.STATUS_INITIAL,
+    page: 0,
+    size: 10
+  }
+)
 
 const isSaving = computed(() => props.currentStatus === UploadStatus.STATUS_SAVING)
 const sizeLimit = computed(() => (props.size > 0 ? t('fileupload.size', [props.size]) : ''))

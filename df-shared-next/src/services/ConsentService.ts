@@ -68,6 +68,7 @@ export const getAll = (): ConsentServices | null => {
     }
     throw new Error('invalid consent cookie')
   } catch (err) {
+    console.error(err)
     return null
   }
 }

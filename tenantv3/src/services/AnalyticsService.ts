@@ -1,4 +1,7 @@
-import { DocumentTypeTranslations } from '@/components/editmenu/documents/DocumentType'
+import {
+  DocumentTypeTranslations,
+  type DocumentType
+} from '@/components/editmenu/documents/DocumentType'
 import type { ExternalDocumentation } from '@/components/identity/lib/ExternalDocumentation'
 import { useTenantStore } from '@/stores/tenant-store'
 
@@ -11,8 +14,7 @@ declare global {
 type EventCategory = 'prevalidation' | 'funnel' | 'contact' | 'account' | 'misc' | 'file'
 type Action = 'clic' | 'print' | 'unknown' | 'delete' | 'upload' | 'write'
 const DOCUMENT_TYPES = ['identification', 'residency', 'professional', 'financial', 'tax'] as const
-const DOCUMENT_CATEGORIES = Object.values(DocumentTypeTranslations)
-type DocumentCategoryBase = (typeof DOCUMENT_CATEGORIES)[number]
+type DocumentCategoryBase = (typeof DocumentTypeTranslations)[DocumentType]
 type DocumentCategory =
   | DocumentCategoryBase
   | `guarantor-${DocumentCategoryBase}`

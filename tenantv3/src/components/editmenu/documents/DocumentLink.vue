@@ -17,7 +17,7 @@ import {
   TENANT_GUARANTOR_COMPONENTS
 } from './DocumentType'
 import { useI18n } from 'vue-i18n'
-import type { PersonType } from './PersonType'
+import { PersonType } from './PersonType'
 import type { RouteLocationRaw, RouteParamsRawGeneric } from 'vue-router'
 import { computed } from 'vue'
 import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
@@ -45,16 +45,16 @@ const componentsPerType: { [type in PersonType]: string } = {
 const text = computed(() => t(DocumentTypeTranslations[props.documentType]))
 
 function getTargetComponent() {
-  if (props.personType === 'TENANT') {
+  if (props.personType === PersonType.TENANT) {
     return TENANT_COMPONENTS[props.documentType]
   }
-  if (props.personType === 'GUARANTOR') {
+  if (props.personType === PersonType.GUARANTOR) {
     return GUARANTOR_COMPONENTS[props.documentType]
   }
-  if (props.personType === 'COTENANT') {
+  if (props.personType === PersonType.COTENANT) {
     return COUPLE_COMPONENTS[props.documentType]
   }
-  if (props.personType === 'COTENANT_GUARANTOR') {
+  if (props.personType === PersonType.COTENANT_GUARANTOR) {
     return TENANT_GUARANTOR_COMPONENTS[props.documentType]
   }
   return componentsPerType[props.personType]

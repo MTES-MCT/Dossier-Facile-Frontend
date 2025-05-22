@@ -45,7 +45,7 @@ import { onMounted, ref } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    percentage: number
+    percentage?: number
     color?: string
     errorColor?: string
     state?: string

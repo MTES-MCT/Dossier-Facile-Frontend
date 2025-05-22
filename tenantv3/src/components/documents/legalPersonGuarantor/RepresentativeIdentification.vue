@@ -191,7 +191,7 @@ function save() {
         ToastService.saveSuccess()
         return Promise.resolve(true)
       })
-      .catch((err: unknown) => {
+      .catch((err: Error) => {
         fileUploadStatus.value = UploadStatus.STATUS_FAILED
         ToastService.saveFailed()
         return Promise.reject(err)

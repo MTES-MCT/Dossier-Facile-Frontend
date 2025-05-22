@@ -154,17 +154,17 @@ function getUrl() {
   return `${TENANT_URL}/public-file/${user.value.apartmentSharing?.tokenPublic}`
 }
 
-function copyLink() {
+async function copyLink() {
   const url = getUrl()
 
   try {
-    navigator.clipboard.writeText(url)
+    await navigator.clipboard.writeText(url)
     ToastService.success('account.copied')
     AnalyticsService.copyLink(shareType.value === 'full' ? 'full' : 'resume')
   } catch (err) {
     ToastService.error('unable-to-coy')
     alert('Oops, unable to copy')
-    throw new Error('Unable to copy')
+    throw new Error('Unable to copy', { cause: err })
   }
 }
 </script>

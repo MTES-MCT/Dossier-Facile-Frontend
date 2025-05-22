@@ -47,7 +47,7 @@ const hasDeclinedDocuments = computed(() => declinedDocuments.value.length > 0)
 const buttonText = (doc: DfDocument) =>
   `${doc.documentStatus ? t('update') : t('add')} ${getTranslation(doc.documentCategory, 'documents.')}`
 
-const goToDoc = async (doc: DocumentCategory | undefined) => {
+const goToDoc = (doc: DocumentCategory | undefined) => {
   const substep = {
     IDENTIFICATION: 1,
     RESIDENCY: 2,

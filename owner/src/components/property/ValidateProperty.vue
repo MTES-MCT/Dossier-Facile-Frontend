@@ -45,14 +45,14 @@ const hasErrors = computed(
     )
 )
 
-async function onSubmit() {
+function onSubmit() {
   if (hasErrors.value) {
     toast.error(t('validateproperty.try-again').toString(), {
       timeout: 7000
     })
     return
   }
-  await store.setPropertyValidated(true)
+  store.setPropertyValidated(true)
   store.saveProperty().then(() => {
     router.push({ name: 'Dashboard' })
   })

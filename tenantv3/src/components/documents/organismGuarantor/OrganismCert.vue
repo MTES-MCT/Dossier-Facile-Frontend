@@ -190,10 +190,10 @@ function save(files: File[]) {
   const $loading = useLoading({})
   const loader = $loading.show()
   RegisterService.saveOrganismIdentification(formData)
-    .then(async (response) => {
+    .then((response) => {
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       ToastService.saveSuccess()
-      await store.loadUserCommit(response.data)
+      store.loadUserCommit(response.data)
       loadDocument()
     })
     .catch(() => {

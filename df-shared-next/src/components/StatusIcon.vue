@@ -23,7 +23,7 @@ import { computed } from 'vue'
 const props = withDefaults(
   defineProps<{
     status: string
-    warn: boolean
+    warn?: boolean
   }>(),
   {
     warn: false

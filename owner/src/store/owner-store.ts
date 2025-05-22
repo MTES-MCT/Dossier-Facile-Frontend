@@ -170,7 +170,7 @@ const useOwnerStore = defineStore('owner', {
     },
     logout(redirect = true) {
       return AuthService.logout()
-        .then(async () => {
+        .then(() => {
           this.logoutCommit()
           this.initState()
           if (redirect) {
@@ -179,7 +179,7 @@ const useOwnerStore = defineStore('owner', {
           }
           window.location.reload()
         })
-        .catch(async () => {
+        .catch(() => {
           this.logoutCommit()
           this.initState()
           window.location.replace(MAIN_URL)
@@ -193,7 +193,7 @@ const useOwnerStore = defineStore('owner', {
     },
     changePassword({ token, password }: { token: string; password: string }) {
       return AuthService.changePassword({ token, password }).then(
-        async (response) => {
+        (response) => {
           this.loadUserCommit(response.data)
         },
         (error: Error) => Promise.reject(error)

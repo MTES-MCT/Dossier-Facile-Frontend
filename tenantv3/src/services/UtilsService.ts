@@ -107,5 +107,8 @@ export const UtilsService = {
     return user.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType
     })
+  },
+  getParam(param: string | string[]) {
+    return Array.isArray(param) ? param[0] : param
   }
 }

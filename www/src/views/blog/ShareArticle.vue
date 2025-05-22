@@ -68,7 +68,7 @@ const { t } = useI18n()
 const props = withDefaults(
   defineProps<{
     title: string
-    hashtags: string
+    hashtags?: string
   }>(),
   {
     hashtags: ''
@@ -107,9 +107,13 @@ function getMailtoLink() {
   return `mailto:?subject=${subject}&body=${body}`
 }
 
-function copyToClipboard() {
-  navigator.clipboard.writeText(articleUrl.value)
-  toast.success(t('copy-success'))
+async function copyToClipboard() {
+  try {
+    await navigator.clipboard.writeText(articleUrl.value)
+    toast.success(t('copy-success'))
+  } catch (error) {
+    console.error(error)
+  }
 }
 </script>
 

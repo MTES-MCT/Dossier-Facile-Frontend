@@ -14,15 +14,10 @@ apiService.interceptors.request.use(
     return config
   },
 
-  (error) => Promise.reject(error),
+  (error: Error) => Promise.reject(error),
   { synchronous: true }
 )
 apiService.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-      console.log('err')
-    }
-    return Promise.reject(error)
-  }
+  (error: Error) => Promise.reject(error)
 )

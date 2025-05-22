@@ -26,10 +26,10 @@ const props = defineProps<{
 }>()
 
 const to = computed(() => {
-  if (props.documentType === 'RESIDENCY') {
+  if (props.documentType === DocumentType.RESIDENCY) {
     return makeGuarantorResidencyLink(props.guarantor)
   }
-  if (props.documentType === 'PROFESSIONAL') {
+  if (props.documentType === DocumentType.PROFESSIONAL) {
     return makeGuarantorActivityLink(props.guarantor)
   }
   return undefined
