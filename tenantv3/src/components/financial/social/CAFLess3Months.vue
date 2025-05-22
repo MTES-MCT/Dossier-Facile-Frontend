@@ -14,7 +14,7 @@
     substep="moins-3-mois"
   />
   <EnterMonthlyIncome />
-  <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_CAF_MORE_3_MONTHS">
+  <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_CAF_LESS_3_MONTHS">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">
         <strong>{{ t('any-docs') }}</strong>
