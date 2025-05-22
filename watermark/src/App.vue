@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import HeaderComponent from './components/HeaderComponent.vue'
-import FooterComponent from './components/FooterComponent.vue'
+import HeaderComponent from "./components/HeaderComponent.vue";
+import FooterComponent from "./components/FooterComponent.vue";
 </script>
 
 <template>
@@ -12,6 +12,6 @@ import FooterComponent from './components/FooterComponent.vue'
 </template>
 
 <style lang="scss">
-@import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
-@import 'df-shared-next/src/scss/_main.scss';
+@use "df-shared-next/src/scss/_main.scss";
+@import "@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
 </style>
