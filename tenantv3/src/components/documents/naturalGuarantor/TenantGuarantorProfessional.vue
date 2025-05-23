@@ -12,16 +12,23 @@ import { useI18n } from 'vue-i18n'
 import { computed, provide } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { mainActivityKey } from '@/components/mainActivity/lib/mainActivityState'
-import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
 import { useRoute } from 'vue-router'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
+import { makeCotenantGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 const { t } = useI18n()
 const store = useTenantStore()
 const route = useRoute()
-const residencyLink = useResidencyLink()
 const guarantorId = useGuarantorId()
 const tenantId = computed(() => Number(route.params.tenantId))
+
+const residencyLink = computed(() => {
+  const coTenants = store.user.apartmentSharing?.tenants.filter((t) => t.id != store.user.id)
+  const coTenant = coTenants?.find((r) => r.id === tenantId.value)
+  const guarantor = coTenant?.guarantors?.find((g) => g.id === Number(guarantorId.value))
+  const document = guarantor?.documents?.find((d) => d.documentCategory === 'RESIDENCY')
+  return makeCotenantGuarantorResidencyLink(tenantId.value, Number(guarantorId.value), document)
+})
 
 provide(mainActivityKey, {
   category: 'couple-guarantor-professional',
