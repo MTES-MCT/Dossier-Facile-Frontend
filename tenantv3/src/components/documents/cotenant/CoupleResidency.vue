@@ -32,7 +32,7 @@ provide(residencyKey, {
   category: 'couple-residency',
   textKey: 'couple',
   previousStep: {
-    name: 'CoupleName',
+    name: 'CoupleIdentification',
     params: { tenantId, step }
   },
   nextStep: mainActivityLink.value,
