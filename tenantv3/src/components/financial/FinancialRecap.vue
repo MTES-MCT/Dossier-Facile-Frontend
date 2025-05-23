@@ -1,5 +1,5 @@
 <template>
-  <NakedCard class="fr-p-md-5w fr-mx-3v fr-mb-3w fr-grid-col">
+  <NakedCard class="fr-p-md-5w fr-m-3v fr-mb-3w fr-grid-col">
     <GuarantorBadge v-if="state.textKey.endsWith('guarantor')" />
     <TenantBadge v-else />
     <h6>{{ t('income.' + state.textKey) }}</h6>
@@ -10,7 +10,7 @@
       <i18n-t keypath="you-can-add" tag="p">
         <strong>{{ t('as-much-income') }}</strong>
       </i18n-t>
-      <i18n-t keypath="be-realistic" tag="p">
+      <i18n-t keypath="be-realistic" tag="p" class="fr-mb-0">
         <strong>{{ t('auto-reject') }}</strong>
       </i18n-t>
     </div>

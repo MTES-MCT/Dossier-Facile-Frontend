@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NakedCard class="fr-p-md-5w">
+    <NakedCard class="fr-p-md-5w fr-m-3v">
       <TenantBadge />
       <h1 class="fr-h6">
         {{ t('identification-page.select-label') }}
@@ -16,7 +16,7 @@
     </NakedCard>
     <NakedCard
       v-if="identificationDocument.key || identificationFiles().length > 0"
-      class="fr-p-md-5w fr-mt-md-3w"
+      class="fr-p-md-5w fr-m-3v fr-mt-md-3w"
     >
       <div class="fr-mb-3w">
         <p v-html="t(`explanation-text.tenant.${identificationDocument.key}`)"></p>

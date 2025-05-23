@@ -1,7 +1,7 @@
 <template>
   <div class="fr-mb-5w">
     <Form name="form" @submit="goNext">
-      <NakedCard class="fr-p-md-5w">
+      <NakedCard class="fr-p-md-5w fr-m-3v">
         <TenantBadge />
         <h1 class="fr-h6">{{ t('tax-page.title') }}</h1>
         <div class="fr-mt-3w">
@@ -16,7 +16,7 @@
 
       <NakedCard
         v-if="taxDocument.key && taxDocument.key === 'other-tax'"
-        class="fr-p-md-5w fr-mt-md-3w"
+        class="fr-p-md-5w fr-mt-md-3w fr-m-3v"
       >
         <label class="fr-label" for="customText">{{ t('tax-page.custom-text') }}</label>
         <Field
@@ -51,7 +51,7 @@
 
     <NakedCard
       v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
-      class="fr-p-md-5w fr-mt-md-3w"
+      class="fr-p-md-5w fr-mt-md-3w fr-m-3v"
     >
       <div v-if="taxDocument.key === 'my-name'" class="fr-mb-3w fr-mt-3w">
         <div class="fr-mb-3w">

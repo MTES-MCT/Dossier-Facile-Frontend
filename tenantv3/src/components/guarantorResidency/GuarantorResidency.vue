@@ -1,5 +1,5 @@
 <template>
-  <NakedCard class="fr-p-md-5w">
+  <NakedCard class="fr-p-md-5w fr-m-3v">
     <GuarantorBadge />
     <h6>{{ t('guarantor-residency-situation') }}</h6>
     <router-view />

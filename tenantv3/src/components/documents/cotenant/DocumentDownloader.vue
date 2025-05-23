@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NakedCard class="fr-p-md-5w">
+    <NakedCard class="fr-p-md-5w fr-m-3v">
       <TenantBadge />
       <h1 class="fr-h6">
         <slot name="title"></slot>

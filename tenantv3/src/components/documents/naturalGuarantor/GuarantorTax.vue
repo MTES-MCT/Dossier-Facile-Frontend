@@ -1,7 +1,7 @@
 <template>
   <div>
     <Form name="form">
-      <NakedCard class="fr-p-md-5w">
+      <NakedCard class="fr-p-md-5w fr-m-3v">
         <GuarantorBadge />
         <h1 v-if="isCotenant" class="fr-h6">
           {{ t('guarantortax.title-cotenant') }}
