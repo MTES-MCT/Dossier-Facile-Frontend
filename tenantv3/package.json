@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@gouvfr/dsfr": "catalog:",
+    "@gouvminint/vue-dsfr": "8.4.0",
     "@remixicon/vue": "4.6.0",
     "@sentry/vite-plugin": "catalog:",
     "@sentry/vue": "catalog:",
