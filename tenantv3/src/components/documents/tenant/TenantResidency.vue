@@ -1,5 +1,6 @@
 <template>
   <NakedCard class="fr-p-md-5w fr-m-3v fr-grid-col">
+    <TenantBadge />
     <h6>{{ t('residency-situation') }}</h6>
     <router-view />
   </NakedCard>
@@ -12,6 +13,7 @@ import { residencyKey } from '@/components/residency/residencyState'
 import { computed, provide } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useMainActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
+import TenantBadge from '@/components/common/TenantBadge.vue'
 const { t } = useI18n()
 const store = useTenantStore()
 const mainActivityLink = useMainActivityLink()

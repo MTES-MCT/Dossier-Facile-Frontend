@@ -1,11 +1,13 @@
 <template>
   <NakedCard class="fr-p-md-5w fr-grid-col">
+    <TenantBadge />
     <h6>{{ t('residency-situation') }}</h6>
     <router-view />
   </NakedCard>
 </template>
 
 <script setup lang="ts">
+import TenantBadge from '@/components/common/TenantBadge.vue'
 import { makeActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { residencyKey } from '@/components/residency/residencyState'
 import { DocumentService } from '@/services/DocumentService'

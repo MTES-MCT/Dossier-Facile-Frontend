@@ -2,6 +2,7 @@
   <div>
     <Form name="form">
       <NakedCard class="fr-p-md-5w">
+        <GuarantorBadge />
         <h1 v-if="isCotenant" class="fr-h6">
           {{ t('guarantortax.title-cotenant') }}
         </h1>
@@ -145,6 +146,7 @@ import { ToastService } from '@/services/ToastService'
 import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { RiAlarmWarningLine } from '@remixicon/vue'
+import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 

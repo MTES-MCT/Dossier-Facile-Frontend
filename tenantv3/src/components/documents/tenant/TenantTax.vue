@@ -2,6 +2,7 @@
   <div class="fr-mb-5w">
     <Form name="form" @submit="goNext">
       <NakedCard class="fr-p-md-5w">
+        <TenantBadge />
         <h1 class="fr-h6">{{ t('tax-page.title') }}</h1>
         <div class="fr-mt-3w">
           <SimpleRadioButtons
@@ -146,6 +147,7 @@ import { ToastService } from '../../../services/ToastService'
 import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { RiAlarmWarningLine } from '@remixicon/vue'
+import TenantBadge from '@/components/common/TenantBadge.vue'
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const { t } = useI18n()

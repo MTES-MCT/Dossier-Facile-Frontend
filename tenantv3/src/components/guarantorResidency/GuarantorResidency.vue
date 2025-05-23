@@ -1,5 +1,6 @@
 <template>
   <NakedCard class="fr-p-md-5w">
+    <GuarantorBadge />
     <h6>{{ t('guarantor-residency-situation') }}</h6>
     <router-view />
   </NakedCard>
@@ -13,6 +14,7 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { useGuarantorId } from './useGuarantorId'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
+import GuarantorBadge from '../common/GuarantorBadge.vue'
 
 const { t } = useI18n()
 const store = useTenantStore()

@@ -2,6 +2,7 @@
   <div>
     <Form name="guarantorNameForm" @submit="save">
       <NakedCard class="fr-p-md-5w">
+        <GuarantorBadge />
         <h1 class="fr-h6">{{ t('guarantorname.title') }}</h1>
         <div class="fr-alert fr-alert--info">
           <p v-html="t('guarantorchoice.two-guarantors-warning')"></p>
@@ -82,6 +83,7 @@ import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 
 const store = useTenantStore()
 const selectedGuarantor = computed(() => store.selectedGuarantor)

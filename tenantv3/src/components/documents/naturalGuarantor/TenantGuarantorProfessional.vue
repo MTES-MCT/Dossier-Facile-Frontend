@@ -1,5 +1,6 @@
 <template>
   <NakedCard class="fr-p-md-5w fr-m-3v fr-grid-col">
+    <GuarantorBadge />
     <h2 class="fr-h6">{{ t('main-activity') }}</h2>
     <RouterView />
   </NakedCard>
@@ -14,6 +15,7 @@ import { mainActivityKey } from '@/components/mainActivity/lib/mainActivityState
 import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
 import { useRoute } from 'vue-router'
+import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 const { t } = useI18n()
 const store = useTenantStore()
 const route = useRoute()

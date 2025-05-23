@@ -1,6 +1,7 @@
 <template>
   <div>
     <NakedCard class="fr-p-md-5w">
+      <TenantBadge />
       <h1 class="fr-h6">
         {{ t('identification-page.select-label') }}
       </h1>
@@ -75,6 +76,7 @@ import { useI18n } from 'vue-i18n'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import ProfileFooter from '@/components/footer/ProfileFooter.vue'
+import TenantBadge from '@/components/common/TenantBadge.vue'
 
 defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const store = useTenantStore()

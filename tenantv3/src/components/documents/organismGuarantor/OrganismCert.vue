@@ -1,6 +1,7 @@
 <template>
   <div>
     <NakedCard class="fr-p-md-5w">
+      <GuarantorBadge />
       <h1 class="fr-h6">
         {{ getTitle() }}
       </h1>
@@ -67,6 +68,7 @@ import { DocumentType } from 'df-shared-next/src/models/Document'
 import { DocumentTypeConstants } from '../../documents/share/DocumentTypeConstants'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { AnalyticsService } from '../../../services/AnalyticsService'
+import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 
 const props = defineProps<{
   tenantId?: number

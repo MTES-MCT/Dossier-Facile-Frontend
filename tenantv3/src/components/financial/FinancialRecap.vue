@@ -1,5 +1,7 @@
 <template>
   <NakedCard class="fr-p-md-5w fr-mx-3v fr-mb-3w fr-grid-col">
+    <GuarantorBadge v-if="state.textKey.endsWith('guarantor')" />
+    <TenantBadge v-else />
     <h6>{{ t('income.' + state.textKey) }}</h6>
     <div class="fr-highlight fr-ml-0">
       <i18n-t keypath="documents-provided" tag="p">
@@ -107,6 +109,8 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useFinancialState } from '@/components/financial/financialState'
 import { useRoute } from 'vue-router'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import TenantBadge from '../common/TenantBadge.vue'
+import GuarantorBadge from '../common/GuarantorBadge.vue'
 
 const store = useTenantStore()
 const { t } = useI18n()

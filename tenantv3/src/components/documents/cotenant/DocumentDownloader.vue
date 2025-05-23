@@ -1,35 +1,34 @@
 <template>
   <div>
     <NakedCard class="fr-p-md-5w">
-      <div>
-        <h1 class="fr-h6">
-          <slot name="title"></slot>
-        </h1>
-        <slot name="description"></slot>
+      <TenantBadge />
+      <h1 class="fr-h6">
+        <slot name="title"></slot>
+      </h1>
+      <slot name="description"></slot>
 
-        <div class="fr-mt-3w">
-          <div v-if="listType == 'dropDownList'">
-            <select
-              id="select"
-              :value="document.key"
-              class="fr-select fr-mb-3w fr-mt-3w"
-              as="select"
-              @change="onSelectChange($event.target)"
-            >
-              <option v-if="!document.key" selected disabled></option>
-              <option v-for="d in documentsDefinitions" :key="d.key" :value="d.key">
-                {{ t(translationKeyPrefix + d.key) }}
-              </option>
-            </select>
-          </div>
-          <SimpleRadioButtons
-            v-if="listType !== 'dropDownList'"
-            name="application-type-selector"
-            :value="document"
-            :elements="mapDocuments()"
-            @input="onEventChange"
-          ></SimpleRadioButtons>
+      <div class="fr-mt-3w">
+        <div v-if="listType == 'dropDownList'">
+          <select
+            id="select"
+            :value="document.key"
+            class="fr-select fr-mb-3w fr-mt-3w"
+            as="select"
+            @change="onSelectChange($event.target)"
+          >
+            <option v-if="!document.key" selected disabled></option>
+            <option v-for="d in documentsDefinitions" :key="d.key" :value="d.key">
+              {{ t(translationKeyPrefix + d.key) }}
+            </option>
+          </select>
         </div>
+        <SimpleRadioButtons
+          v-if="listType !== 'dropDownList'"
+          name="application-type-selector"
+          :value="document"
+          :elements="mapDocuments()"
+          @input="onEventChange"
+        ></SimpleRadioButtons>
       </div>
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
@@ -210,6 +209,7 @@ import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
 import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import TenantBadge from '@/components/common/TenantBadge.vue'
 
 const { t } = useI18n()
 const store = useTenantStore()
