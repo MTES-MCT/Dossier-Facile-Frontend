@@ -1,15 +1,16 @@
 <template>
-  <p class="fr-badge fr-badge--sm fr-mb-1w">{{ t('tenant-file') }}</p>
+  <DsfrBadge :label="t('tenant-file')" class="tenant-badge fr-mb-1w" no-icon small />
 </template>
 
 <script setup lang="ts">
+import { DsfrBadge } from '@gouvminint/vue-dsfr'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 </script>
 
 <style scoped>
-.fr-badge {
+.tenant-badge {
   color: var(--light-options-illustration-color-sun-default-yellow-tournesol-sun-407, #716043);
   background: var(--light-options-illustration-color-950-default-yellow-tournesol-950, #feecc2);
 }
