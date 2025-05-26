@@ -2,7 +2,7 @@
 
 Cypress.Commands.add("tenantLogin", (username: string) => {
   cy.visit(Cypress.env("tenantUrl"));
-  cy.contains("Se connecter").click();
+  cy.contains("Espace locataire").click();
   cy.loginWithFC(username);
   cy.visit(Cypress.env("tenantUrl"));
 });
