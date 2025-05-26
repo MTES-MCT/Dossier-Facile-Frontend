@@ -27,7 +27,9 @@ Cypress.Commands.add("deleteAccount", (username: string, type: UserType) => {
       ? Cypress.env("tenantUrl")
       : Cypress.env("ownerUrl")
   );
-  cy.contains("Se connecter").click();
+  cy.contains(
+    type === UserType.TENANT ? "Espace locataire" : "Se connecter"
+  ).click();
   cy.loginWithFC(username);
 
   cy.intercept("DELETE", "**/deleteAccount").as("deleteAccount");
