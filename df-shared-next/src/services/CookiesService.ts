@@ -10,9 +10,14 @@ export const CookiesService = {
   },
   getJsonCookie(name: string) {
     const base64 = cookies.get(name)
-    if (base64 != undefined) {
+    if (base64) {
       const json = atob(base64)
-      return JSON.parse(json)
+      try {
+        return JSON.parse(json)
+      } catch (error) {
+        console.info(`Invalid cookie [${name}] value: [${base64}]`)
+        console.error(error)
+      }
     }
   },
   deleteCookie(name: string) {
