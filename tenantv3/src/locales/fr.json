@@ -1173,7 +1173,8 @@
       "no-shared-file": "Aucun dossier partagé pour l'instant",
       "resend": "Renvoyer",
       "resend-success": "Envoi réussi.",
-      "resend-failed": "Echec de l'envoi. Veuillez ré-essayer plus tard"
+      "resend-failed": "Echec de l'envoi. Veuillez ré-essayer plus tard",
+      "resend-too-many": "Impossible de renvoyer un lien d’invitation : un précédent lien a été généré il y a moins d’une heure. Veuillez réessayer ultérieurement."
     }
   },
   "partners-page": {

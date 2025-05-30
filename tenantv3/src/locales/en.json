@@ -1177,7 +1177,8 @@
       "no-shared-file": "No shared files yet",
       "resend": "Resend",
       "resend-success": "Resend succeed.",
-      "resend-failed": "resend Failed! Try again later"
+      "resend-failed": "resend Failed! Try again later",
+      "resend-too-many": "Cannot resend invitation link: a previous link was generated less than an hour ago. Please try again later."
     }
   },
   "partners-page": {
