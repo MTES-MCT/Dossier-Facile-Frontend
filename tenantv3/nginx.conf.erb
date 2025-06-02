@@ -1,5 +1,10 @@
 root /app/dist;
 
+include mime.types;
+types {
+    application/javascript js mjs;
+}
+
 location / {
     index index.html;
     # Manage route
