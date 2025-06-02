@@ -42,6 +42,7 @@ describe("alone tenant scenario", () => {
     // Check that updating the monthly income is persisted
     cy.contains("Modifier").click();
     cy.get('[data-cy="monthlySum"]').clear().type("2500{enter}");
+    cy.location("pathname").should("equal", "/documents-locataire/4");
     cy.reload();
     cy.contains("2500€ net mensuel").should("exist");
 
