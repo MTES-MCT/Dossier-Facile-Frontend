@@ -42,7 +42,7 @@ function closeAnnouncement() {
 </script>
 
 <template>
-  <div class="announcement fr-pt-2w fr-pb-2w" v-if="isVisible()">
+  <div v-if="isVisible()" class="announcement fr-pt-2w fr-pb-2w">
     <div class="fr-container message">
       <span v-html="message"></span>
       <button

@@ -1,5 +1,5 @@
 <template>
-  <HelpAccordion @accordion-clicked="accordionClicked" :elements="elements" />
+  <HelpAccordion :elements="elements" @accordion-clicked="accordionClicked" />
 </template>
 
 <script setup lang="ts">

@@ -168,7 +168,7 @@ const store = useTenantStore()
 const user = computed(() => store.user)
 const coTenantAuthorize = computed(() => store.coTenantAuthorize)
 
-const props = withDefaults(defineProps<{ modelValue: CoTenant[] }>(), {
+const props = withDefaults(defineProps<{ modelValue?: CoTenant[] }>(), {
   modelValue: () => []
 })
 

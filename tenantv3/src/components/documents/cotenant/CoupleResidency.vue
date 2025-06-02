@@ -1,14 +1,17 @@
 <template>
-  <NakedCard class="fr-p-md-5w fr-grid-col">
+  <NakedCard class="fr-p-md-5w fr-m-3v fr-grid-col">
+    <TenantBadge />
     <h6>{{ t('residency-situation') }}</h6>
     <router-view />
   </NakedCard>
 </template>
 
 <script setup lang="ts">
+import TenantBadge from '@/components/common/TenantBadge.vue'
 import { makeActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { residencyKey } from '@/components/residency/residencyState'
 import { DocumentService } from '@/services/DocumentService'
+import { UtilsService } from '@/services/UtilsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { computed, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -17,7 +20,7 @@ const { t } = useI18n()
 const route = useRoute()
 
 const tenantId = Number(route.params.tenantId)
-const step = route.params.step
+const step = UtilsService.getParam(route.params.step)
 
 const mainActivityLink = computed(() => {
   const document = DocumentService.getCoTenantDocument(tenantId, 'PROFESSIONAL')
@@ -29,7 +32,7 @@ provide(residencyKey, {
   category: 'couple-residency',
   textKey: 'couple',
   previousStep: {
-    name: 'CoupleName',
+    name: 'CoupleIdentification',
     params: { tenantId, step }
   },
   nextStep: mainActivityLink.value,

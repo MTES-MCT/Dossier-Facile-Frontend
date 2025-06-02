@@ -3,11 +3,11 @@
     <div class="fr-container">
       <Breadcrumb :current-page="t('contact.title')" />
       <ContactForm
+        :user="user"
+        profile="owner"
         @on-profile-change="profileChanged"
         @on-send-message="contactMessageSent"
         @on-accordion-clicked="accordionClicked"
-        :user="user"
-        profile="owner"
       />
     </div>
   </div>

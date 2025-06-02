@@ -8,7 +8,7 @@
     {{ currentLanguage.code }}
     <span class="fr-hidden-lg"> - {{ currentLanguage.name }}</span>
   </button>
-  <div class="fr-collapse fr-translate__menu fr-menu" id="select-language">
+  <div id="select-language" class="fr-collapse fr-translate__menu fr-menu">
     <ul class="fr-menu__list">
       <li v-for="language in availableLanguages" :key="language.id">
         <a

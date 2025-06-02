@@ -33,7 +33,7 @@ const goToGuarantorStep = (guarantor: Guarantor, substep: number) => {
   router.push(page)
 }
 
-const goToTenantStep = async (substep: number) => {
+const goToTenantStep = (substep: number) => {
   AnalyticsService.editFromAccount(substep)
   if (props.isCotenant) {
     router.push({

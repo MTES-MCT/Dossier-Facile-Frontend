@@ -34,10 +34,10 @@
     </li>
     <li class="fr-nav__item">
       <router-link
+        id="contact-us"
         to="/contact"
         :aria-current="currentPage === 'Contact' ? 'page' : undefined"
         class="fr-nav__link"
-        id="contact-us"
       >
         <span class="fr-icon-mail-line fr-icon--sm" aria-hidden="true"></span>
         {{ t('contact-us') }}

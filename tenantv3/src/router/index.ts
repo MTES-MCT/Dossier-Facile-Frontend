@@ -891,7 +891,7 @@ export const router = createRouter({
   }
 })
 
-async function keepGoing(to: RouteLocationNormalized, next: NavigationGuardNext) {
+function keepGoing(to: RouteLocationNormalized, next: NavigationGuardNext) {
   document.title = to.meta?.title
   if (to.meta?.description) {
     const tag = document.querySelector('meta[name="description"]')

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "tsc": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
+    "lint": "eslint . --fix",
     "format": "prettier --write src/"
   },
   "dependencies": {
@@ -16,23 +16,21 @@
     "vue-matomo": "4.2.0"
   },
   "peerDependencies": {
-    "@gouvfr/dsfr": "1.11.2",
+    "@gouvfr/dsfr": "catalog:",
     "axios": "catalog:",
-    "vee-validate": "4.15.0",
-    "vue": "3.5.13",
-    "vue-i18n": "11.0.1"
+    "vee-validate": "catalog:",
+    "vue": "catalog:",
+    "vue-i18n": "catalog:"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "1.10.4",
     "@types/js-cookie": "3.0.6",
-    "@vue/eslint-config-prettier": "10.0.0",
-    "@vue/eslint-config-typescript": "12.0.0",
-    "eslint": "8.57.1",
-    "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-vue": "9.32.0",
-    "prettier": "3.4.2",
-    "typescript": "5.7.2",
-    "vite": "6.0.7",
-    "vue-tsc": "2.2.0"
+    "@vue/eslint-config-prettier": "catalog:",
+    "@vue/eslint-config-typescript": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-vue": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue-tsc": "catalog:"
   }
 }

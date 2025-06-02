@@ -24,13 +24,13 @@ const { t } = useI18n()
 
 <template>
   <div>
-    <div v-for="l in letters" class="container fr-mb-1v" :class="l" :key="l">
+    <div v-for="l in letters" :key="l" class="container fr-mb-1v" :class="l">
       <span class="rectangle" :class="l">{{ l }}</span>
       <span class="arrow-right"></span>
       <LeftDpeArrow
+        v-if="!$props.short && $props.letter === l"
         :label="t('dpe.kwhpy')"
         :consumption="consumption"
-        v-if="!$props.short && $props.letter === l"
       ></LeftDpeArrow>
     </div>
     <span v-if="!$props.short" class="small-text" v-html="t('dpe.energy-consumption')"></span>

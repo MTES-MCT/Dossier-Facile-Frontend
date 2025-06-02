@@ -101,9 +101,9 @@ function clickItem(data: Address) {
         <label class="fr-label" for="address">{{ t('propertyaddress.address-label') }} :</label>
         <Field
           id="address"
-          name="address"
-          v-model="address"
           v-slot="{ field, meta }"
+          v-model="address"
+          name="address"
           :rules="{
             required: true
           }"
@@ -117,17 +117,17 @@ function clickItem(data: Address) {
               'fr-input--error': !meta.valid
             }"
             :placeholder="'42 rue de la paix'"
+            autocomplete="off"
+            type="text"
             @input="handleInput"
             @focus="displayResults"
             @blur="hideResults"
-            autocomplete="off"
-            type="text"
           />
         </Field>
         <div
+          v-if="shouldShowResults"
           :style="{ width: inputWidth + 'px' }"
           class="results-container"
-          v-if="shouldShowResults"
         >
           <div
             v-for="(item, k) in addresses"
@@ -139,7 +139,7 @@ function clickItem(data: Address) {
             {{ item.properties.label }}
           </div>
         </div>
-        <ErrorMessage name="address" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="address">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </div>

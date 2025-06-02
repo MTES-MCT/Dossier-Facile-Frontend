@@ -1,5 +1,5 @@
 <template>
-  <fieldset class="fr-fieldset" :id="name">
+  <fieldset :id="name" class="fr-fieldset">
     <legend class="fr-fieldset__legend">
       <slot></slot>
     </legend>
@@ -14,11 +14,11 @@
         />
         <label class="fr-label" :for="element.id">
           {{ t(element.labelKey) }}
-          <span class="fr-hint-text" v-if="element.description">
+          <span v-if="element.description" class="fr-hint-text">
             {{ t(element.description) }}
           </span>
         </label>
-        <div class="fr-radio-rich__img" v-if="getIconCount(element) > 0">
+        <div v-if="getIconCount(element) > 0" class="fr-radio-rich__img">
           <div class="icon-container">
             <span
               v-for="i in getIconCount(element)"

@@ -2,6 +2,7 @@
   <div>
     <Form name="form" @submit="goNext">
       <NakedCard class="fr-p-md-5w">
+        <GuarantorBadge />
         <Field
           v-slot="{ field, meta }"
           v-model="firstName"
@@ -105,6 +106,7 @@ import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
+import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 
 const { t } = useI18n()
 const documents = DocumentTypeConstants.REPRESENTATIVE_IDENTIFICATION
@@ -191,7 +193,7 @@ function save() {
         ToastService.saveSuccess()
         return Promise.resolve(true)
       })
-      .catch((err: unknown) => {
+      .catch((err: Error) => {
         fileUploadStatus.value = UploadStatus.STATUS_FAILED
         ToastService.saveFailed()
         return Promise.reject(err)

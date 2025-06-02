@@ -44,9 +44,9 @@
               <label class="fr-label" for="email">{{ t('register.email') }}</label>
               <Field
                 id="email"
-                name="email"
-                v-model="email"
                 v-slot="{ field, meta }"
+                v-model="email"
+                name="email"
                 :rules="{ email: true, required: true }"
               >
                 <input
@@ -61,7 +61,7 @@
                   autocomplete="email"
                 />
               </Field>
-              <ErrorMessage name="email" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="email">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -71,9 +71,9 @@
               <label class="fr-label" for="password">{{ t('register.password') }}</label>
               <Field
                 id="password"
-                name="password"
-                v-model="password"
                 v-slot="{ field, meta }"
+                v-model="password"
+                name="password"
                 :rules="{ required: true, strength: score }"
               >
                 <input
@@ -88,8 +88,8 @@
                   autocomplete="new-password"
                 />
               </Field>
-              <PasswordMeter @score="setScore" :password="password || ''" />
-              <ErrorMessage name="password" v-slot="{ message }">
+              <PasswordMeter :password="password || ''" @score="setScore" />
+              <ErrorMessage v-slot="{ message }" name="password">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -101,9 +101,9 @@
               >
               <Field
                 id="confirm-password"
-                name="confirm-password"
-                v-model="confirm"
                 v-slot="{ field, meta }"
+                v-model="confirm"
+                name="confirm-password"
                 :rules="{
                   required: true,
                   confirm: [password, confirm]
@@ -120,7 +120,7 @@
                   autocomplete="new-password"
                 />
               </Field>
-              <ErrorMessage name="confirm-password" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="confirm-password">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
@@ -128,9 +128,9 @@
 
           <div class="fr-col-12 fr-mb-3w">
             <div class="bg-purple fr-checkbox-group">
-              <Field name="terms" id="terms" type="checkbox" rules="isTrue" :value="true" />
+              <Field id="terms" name="terms" type="checkbox" rules="isTrue" :value="true" />
               <label for="terms"><div v-html="t('register.accept-cgu')"></div></label>
-              <ErrorMessage class="fr-error-text" name="terms" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" class="fr-error-text" name="terms">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>

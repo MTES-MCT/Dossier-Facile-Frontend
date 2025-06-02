@@ -53,10 +53,10 @@ function onBack() {
       <p class="fr-mb-md-7w">{{ t('propertytype.type-subtitle') }}</p>
       <div>
         <Field
-          name="type"
           id="type-apartment"
-          type="radio"
           v-model="type"
+          name="type"
+          type="radio"
           rules="hasValue"
           :value="'APARTMENT'"
         />
@@ -75,10 +75,10 @@ function onBack() {
           </div>
         </label>
         <Field
-          name="type"
           id="type-house"
-          type="radio"
           v-model="type"
+          name="type"
+          type="radio"
           rules="hasValue"
           :value="'HOUSE'"
         />
@@ -95,10 +95,10 @@ function onBack() {
           </div>
         </label>
         <Field
-          name="type"
           id="type-other"
-          type="radio"
           v-model="type"
+          name="type"
+          type="radio"
           rules="hasValue"
           :value="'OTHER'"
         />
@@ -114,7 +114,7 @@ function onBack() {
             <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.other') }}</div>
           </div>
         </label>
-        <ErrorMessage name="type" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="type">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </div>

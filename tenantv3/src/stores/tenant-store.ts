@@ -12,7 +12,7 @@ import { UtilsService } from '@/services/UtilsService'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { User } from 'df-shared-next/src/models/User'
-import { defineStore, type StoreActions } from 'pinia'
+import { defineStore } from 'pinia'
 import { keycloak } from '../plugin/keycloak'
 
 import {
@@ -76,15 +76,7 @@ function defaultState(): State {
 
 const initialStore = defaultState()
 
-type ActionNames = keyof StoreActions<ReturnType<typeof useTenantStore>>
-const DISPATCH_NAMES = [
-  'saveTenantFinancial',
-  'saveTenantIdentification',
-  'saveTenantProfessional',
-  'saveTenantResidency',
-  'saveTenantTax'
-] satisfies ActionNames[]
-export type DispatchNames = (typeof DISPATCH_NAMES)[number]
+export type DispatchNames = 'saveTenantTax' | 'saveTenantIdentification'
 
 export const useTenantStore = defineStore('tenant', {
   state: (): State => ({ ...initialStore }),
@@ -384,7 +376,7 @@ export const useTenantStore = defineStore('tenant', {
     logout(redirect: boolean = true) {
       const isFC = this.user.franceConnect
       return AuthService.logout()
-        .then(async () => {
+        .then(() => {
           this.logoutCommit()
           this.initState()
           if (isFC) {

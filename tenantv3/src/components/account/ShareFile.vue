@@ -31,9 +31,6 @@
               <option value="resume">{{ t('sharefile.resume') }}</option>
             </select>
           </Field>
-          <ErrorMessage v-slot="{ message }" name="shareType">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
         </div>
         <div class="full-mobile">
           <Field id="shareMethod" v-slot="{ field, meta }" v-model="shareMethod" name="shareMethod">
@@ -49,13 +46,16 @@
               <option value="link">{{ t('sharefile.by-link') }}</option>
             </select>
           </Field>
-          <ErrorMessage v-slot="{ message }" name="shareType">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
         </div>
-        <div v-if="shareMethod === 'mail'" class="full-mobile">
+        <div v-if="shareMethod === 'mail'" class="full-mobile relative-container">
           <label class="fr-label" for="email">{{ t('sharefile.email-label') }}</label>
-          <Field id="email" v-slot="{ field, meta }" v-model="email" name="email" rules="required">
+          <Field
+            id="email"
+            v-slot="{ field, meta }"
+            v-model="email"
+            name="email"
+            rules="email|required"
+          >
             <input
               v-bind="field"
               class="form-control validate-required fr-input"
@@ -66,11 +66,12 @@
               :placeholder="`${t('sharefile.email-placeholder')}`"
               type="email"
               autocomplete="email"
-              required
             />
           </Field>
-          <ErrorMessage v-slot="{ message }" name="shareType">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <ErrorMessage v-slot="{ message }" name="email">
+            <span role="alert" class="fr-error-text custom-position-relative">{{
+              t(message || '')
+            }}</span>
           </ErrorMessage>
         </div>
         <div v-if="shareMethod === 'link'" class="full-mobile">
@@ -153,17 +154,17 @@ function getUrl() {
   return `${TENANT_URL}/public-file/${user.value.apartmentSharing?.tokenPublic}`
 }
 
-function copyLink() {
+async function copyLink() {
   const url = getUrl()
 
   try {
-    navigator.clipboard.writeText(url)
+    await navigator.clipboard.writeText(url)
     ToastService.success('account.copied')
     AnalyticsService.copyLink(shareType.value === 'full' ? 'full' : 'resume')
   } catch (err) {
     ToastService.error('unable-to-coy')
     alert('Oops, unable to copy')
-    throw new Error('Unable to copy')
+    throw new Error('Unable to copy', { cause: err })
   }
 }
 </script>
@@ -178,5 +179,15 @@ function copyLink() {
 
 select {
   min-width: 200px;
+}
+
+@media (min-width: 768px) {
+  .custom-position-relative {
+    position: absolute;
+  }
+
+  .relative-container {
+    position: relative;
+  }
 }
 </style>

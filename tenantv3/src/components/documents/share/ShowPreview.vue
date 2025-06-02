@@ -17,12 +17,12 @@
 
 <script setup lang="ts">
 import { DfFile } from 'df-shared-next/src/models/DfFile'
-import VuePdfEmbed from 'vue-pdf-embed'
 import AuthImage from 'df-shared-next/src/components/AuthImage.vue'
 import { ImageService } from '../../../services/ImageService'
 import axios from 'axios'
-import { ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+const VuePdfEmbed = defineAsyncComponent(() => import('@/components/vue-pdf'))
 
 const { t } = useI18n()
 

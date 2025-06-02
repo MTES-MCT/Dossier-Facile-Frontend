@@ -62,7 +62,7 @@ import { useI18n } from 'vue-i18n'
 const props = withDefaults(
   defineProps<{
     tenantId: number
-    isCotenant: boolean
+    isCotenant?: boolean
   }>(),
   {
     isCotenant: false

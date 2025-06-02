@@ -244,23 +244,6 @@
   </BlogArticle>
 </template>
 
-<style scoped lang="scss">
-.img-center {
-  max-width: 553px;
-  max-height: 311px;
-  width: 100%;
-  height: auto;
-}
-
-ul > li:before {
-  content: '\2610';
-  margin-right: 5px;
-}
-
-ul > li {
-  list-style: none;
-}
-</style>
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
@@ -282,3 +265,20 @@ useHead({
   ]
 })
 </script>
+<style scoped lang="scss">
+.img-center {
+  max-width: 553px;
+  max-height: 311px;
+  width: 100%;
+  height: auto;
+}
+
+ul > li:before {
+  content: '\2610';
+  margin-right: 5px;
+}
+
+ul > li {
+  list-style: none;
+}
+</style>

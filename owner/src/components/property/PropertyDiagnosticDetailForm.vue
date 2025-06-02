@@ -129,9 +129,9 @@ function getLetterStyle() {
         >
         <Field
           id="energy"
-          name="energy"
-          v-model="energyConsumption"
           v-slot="{ field, meta }"
+          v-model="energyConsumption"
+          name="energy"
           :rules="{
             required: !dpeNotRequired,
             positive: !dpeNotRequired
@@ -148,7 +148,7 @@ function getLetterStyle() {
             type="number"
           />
         </Field>
-        <ErrorMessage name="energy" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="energy">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </p>
@@ -158,9 +158,9 @@ function getLetterStyle() {
         >
         <Field
           id="co2"
-          name="co2"
-          v-model="co2Emission"
           v-slot="{ field, meta }"
+          v-model="co2Emission"
+          name="co2"
           :rules="{
             required: !dpeNotRequired,
             positiveOrNull: !dpeNotRequired
@@ -177,7 +177,7 @@ function getLetterStyle() {
             type="number"
           />
         </Field>
-        <ErrorMessage name="co2" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="co2">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </p>
@@ -187,9 +187,9 @@ function getLetterStyle() {
         >
         <Field
           id="dpeDate"
-          name="dpeDate"
-          v-model="dpeDate"
           v-slot="{ field, meta }"
+          v-model="dpeDate"
+          name="dpeDate"
           :rules="{
             required: !dpeNotRequired,
             positiveOrNull: !dpeNotRequired,
@@ -208,7 +208,7 @@ function getLetterStyle() {
             type="date"
           />
         </Field>
-        <ErrorMessage name="dpeDate" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="dpeDate">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </p>
@@ -216,15 +216,15 @@ function getLetterStyle() {
       <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
         <div class="fr-checkbox-group bg-purple">
           <Field
+            v-slot="{ field, meta }"
             name="dpeNotRequired"
             :model-value="dpeNotRequired"
             :value="true"
-            @change="updateDpeNotRequired"
-            v-slot="{ field, meta }"
             type="checkbox"
             :rules="{
               isTrue: !dpeDate || !energyConsumption || !co2Emission
             }"
+            @change="updateDpeNotRequired"
           >
             <input
               id="dpeNotRequired"
@@ -237,7 +237,7 @@ function getLetterStyle() {
             />
             <label for="dpeNotRequired" v-html="t('propertydiagnostic.no-dpe')"></label>
           </Field>
-          <ErrorMessage name="authorize" v-slot="{ message }">
+          <ErrorMessage v-slot="{ message }" name="authorize">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
@@ -245,6 +245,9 @@ function getLetterStyle() {
 
       <div class="flex-end">
         <Button
+          :title="t('register-btn')"
+          :primary="false"
+          type="submit"
           @click="
             validate().then((result) => {
               if (result.valid) {
@@ -254,13 +257,10 @@ function getLetterStyle() {
               }
             })
           "
-          :title="t('register-btn')"
-          :primary="false"
-          type="submit"
           >{{ t('register-btn') }}</Button
         >
       </div>
-      <div class="fr-p-md-5w fr-mt-3w" v-if="localCo2Emission > 0 && localEnergyConsumption > 0">
+      <div v-if="localCo2Emission > 0 && localEnergyConsumption > 0" class="fr-p-md-5w fr-mt-3w">
         <h2 class="fr-h4">
           {{ t('propertydiagnostic.detail-title') }} :
           <span class="letter-color" :style="getLetterStyle()">{{ globalLetter }}</span>

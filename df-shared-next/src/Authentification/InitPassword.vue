@@ -5,9 +5,9 @@
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <Field
-              name="password"
-              v-model="password"
               v-slot="{ field, meta }"
+              v-model="password"
+              name="password"
               :rules="`required|strength:${score}`"
             >
               <label class="fr-label" for="password">{{ t('password') }}</label>
@@ -25,17 +25,17 @@
                 autocomplete="username"
                 required
               />
-              <PasswordMeter @score="setScore" :password="password || ''" />
+              <PasswordMeter :password="password || ''" @score="setScore" />
             </Field>
-            <ErrorMessage name="password" v-slot="{ message }">
+            <ErrorMessage v-slot="{ message }" name="password">
               <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
             </ErrorMessage>
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <Field
-              name="confirm-password"
-              v-model="confirm"
               v-slot="{ field, meta }"
+              v-model="confirm"
+              name="confirm-password"
               :rules="{
                 required: true,
                 confirm: [password, confirm]
@@ -56,7 +56,7 @@
                   autocomplete="username"
                   required
                 />
-                <ErrorMessage name="confirm-password" v-slot="{ message }">
+                <ErrorMessage v-slot="{ message }" name="confirm-password">
                   <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
               </div>

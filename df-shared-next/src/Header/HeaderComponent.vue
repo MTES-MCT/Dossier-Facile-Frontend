@@ -43,9 +43,9 @@
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton :primary="true" :title="t('signup')" size="small" @click="onLogin">
+                  <DfButton :primary="true" :title="signupText" size="small" @click="onLogin">
                     <RiAccountCircleLine aria-hidden="true" />
-                    {{ t('signup') }}
+                    {{ signupText }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
@@ -82,7 +82,7 @@
       </div>
     </div>
     <!-- Navigation principale -->
-    <div class="fr-header__menu fr-modal" id="modal-dc">
+    <div id="modal-dc" class="fr-header__menu fr-modal">
       <div class="fr-container">
         <button class="fr-btn--close fr-btn" aria-controls="modal-dc" title="fermer">Fermer</button>
         <div class="fr-header__menu-links" style="display: none"></div>
@@ -103,13 +103,13 @@
             <li v-if="!loggedIn">
               <DfButton
                 class="fr-ml-3"
-                :title="t('signup')"
+                :title="signupText"
                 :primary="false"
                 size="small"
                 @click="onLogin"
               >
                 <RiAccountCircleLine aria-hidden="true" />
-                {{ t('signup') }}
+                {{ signupText }}
               </DfButton>
             </li>
 
@@ -149,7 +149,7 @@
             </li>
           </ul>
         </div>
-        <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
+        <nav id="navigation-832" class="fr-nav" role="navigation" aria-label="Menu principal">
           <slot></slot>
         </nav>
       </div>
@@ -166,11 +166,12 @@ import {
 } from '@remixicon/vue'
 import DfButton from '../Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
 const { t } = useI18n()
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     loggedIn?: boolean
     lang?: string
@@ -191,6 +192,8 @@ const emit = defineEmits<{
   'on-access-owner': []
   'on-logout': []
 }>()
+
+const signupText = computed(() => (props.type === 'tenant' ? t('tenant') : t('signup')))
 
 function onLogin() {
   emit('on-login')

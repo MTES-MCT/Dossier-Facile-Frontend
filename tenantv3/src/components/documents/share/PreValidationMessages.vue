@@ -8,7 +8,7 @@
       </template>
       <p v-else>{{ t('prevalidation.force-message') }}</p>
     </template>
-    <div class="form-container">
+    <div v-if="!isSingleValidationRuleWithoutForm" class="form-container">
       <Form name="form" class="fr-grid-col" @submit="commentAnalysis">
         <Field
           v-slot="{ field, meta }"
@@ -35,6 +35,9 @@
         <DfButton class="fr-mt-2w fr-ml-auto" type="submit" primary>{{ t('register') }}</DfButton>
       </Form>
     </div>
+    <DfButton v-else class="fr-mt-2w fr-ml-auto" type="button" primary @click="commentAnalysis">{{
+      customRegisterButtonLabel
+    }}</DfButton>
   </div>
 </template>
 <script setup lang="ts">
@@ -64,6 +67,14 @@ const props = defineProps<{
   document?: DfDocument
 }>()
 
+const isSingleValidationRuleWithoutForm = computed(() => {
+  return brokenRules.value.length === 1 && brokenRules.value[0].rule === 'R_BLURRY_FILE'
+})
+
+const customRegisterButtonLabel = computed(() =>
+  isSingleValidationRuleWithoutForm.value ? t(`register.${brokenRules.value[0].rule}`) : ''
+)
+
 const brokenRules = computed(() => {
   return props.document?.documentAnalysisReport?.brokenRules || []
 })
@@ -72,7 +83,9 @@ function commentAnalysis() {
   const params = {
     documentId: props.document?.id,
     tenantId: props.userId,
-    comment: comment.value
+    comment: isSingleValidationRuleWithoutForm.value
+      ? 'Je certifie que le document est lisible'
+      : comment.value
   }
 
   store.commentAnalysis(params).then(() => {
@@ -82,7 +95,12 @@ function commentAnalysis() {
 
 const isRuleWithCustomText = (rule: string | undefined) =>
   rule &&
-  ['R_RENT_RECEIPT_NAME', 'R_RENT_RECEIPT_MONTHS', 'R_RENT_RECEIPT_NB_DOCUMENTS'].includes(rule)
+  [
+    'R_RENT_RECEIPT_NAME',
+    'R_RENT_RECEIPT_MONTHS',
+    'R_RENT_RECEIPT_NB_DOCUMENTS',
+    'R_BLURRY_FILE'
+  ].includes(rule)
 </script>
 
 <style scoped>
@@ -110,7 +128,14 @@ const isRuleWithCustomText = (rule: string | undefined) =>
       "R_RENT_RECEIPT_MONTHS": {
         "p1": "Notre outil détecte des quittances trop anciennes.",
         "p2": "Si notre outil fait erreur (par exemple, si une seule quittance correspond à plusieurs mois), vous pouvez expliquer le problème ci-dessous."
+      },
+      "R_BLURRY_FILE": {
+        "p1": "Notre système a détecté un flou qui pourrait empêcher la validation de votre document par notre équipe.",
+        "p2": "Si vous le jugez suffisamment lisible, validez-le. Sinon veuillez le remplacer."
       }
+    },
+    "register": {
+      "R_BLURRY_FILE": "Valider ce document comme lisible",
     }
   },
   "en": {
@@ -127,7 +152,14 @@ const isRuleWithCustomText = (rule: string | undefined) =>
       "R_RENT_RECEIPT_MONTHS": {
         "p1": "Our tool detects receipts that are too old.",
         "p2": "If our tool makes a mistake (for example, if a single receipt covers several months), you can explain the problem below."
-      }
+      },
+      "R_BLURRY_FILE": {
+        "p1": "Our system has detected a blur that could prevent your document from being validated by our team.",
+        "p2": "If you consider it sufficiently readable, validate it. Otherwise, please replace it.",
+      },
+    },
+    "register": {
+      "R_BLURRY_FILE": "Validate this document as readable",
     }
   }
 }

@@ -2,6 +2,7 @@
   <div>
     <Form name="form" @submit="goNext">
       <NakedCard class="fr-p-md-5w">
+        <GuarantorBadge />
         <Field
           v-slot="{ field, meta }"
           v-model="organismName"
@@ -89,6 +90,7 @@ import GuarantorFooter from '../../footer/GuarantorFooter.vue'
 import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 
 const store = useTenantStore()
 const { t } = useI18n()
@@ -165,7 +167,7 @@ function save() {
         ToastService.saveSuccess()
         return Promise.resolve(true)
       })
-      .catch((err: unknown) => {
+      .catch((err: Error) => {
         fileUploadStatus.value = UploadStatus.STATUS_FAILED
         ToastService.saveFailed()
         return Promise.reject(err)
@@ -189,7 +191,7 @@ function save() {
       ToastService.saveSuccess()
       return Promise.resolve(true)
     })
-    .catch((err: unknown) => {
+    .catch((err: Error) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
       ToastService.saveFailed()
       return Promise.reject(err)

@@ -23,11 +23,11 @@ Cypress.Commands.add("deleteAccount", (username: string, type: UserType) => {
   ignoreErrorsOnSsoPage();
 
   cy.visit(
-    type === UserType.TENANT
-      ? Cypress.env("tenantUrl")
-      : Cypress.env("ownerUrl")
+    type === UserType.TENANT ? Cypress.env("mainUrl") : Cypress.env("ownerUrl")
   );
-  cy.contains("Se connecter").click();
+  cy.contains(
+    type === UserType.TENANT ? "Espace locataire" : "Se connecter"
+  ).click();
   cy.loginWithFC(username);
 
   cy.intercept("DELETE", "**/deleteAccount").as("deleteAccount");

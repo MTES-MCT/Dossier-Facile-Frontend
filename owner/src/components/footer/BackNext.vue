@@ -6,8 +6,8 @@
         class="fr-mr-2w px40"
         :secondary="true"
         :btn-type="'button'"
-        @click="backAction()"
         :aria-label="t('backnext.back-aria-label')"
+        @click="backAction()"
       >
         <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
         <span class="desktop">{{ t('backnext.back') }}</span>

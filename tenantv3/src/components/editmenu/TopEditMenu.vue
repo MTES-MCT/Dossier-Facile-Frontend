@@ -217,6 +217,7 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { DocumentType } from './documents/DocumentType'
+import { UtilsService } from '@/services/UtilsService'
 
 const store = useTenantStore()
 const selectedGuarantor = computed(() => store.selectedGuarantor)
@@ -228,7 +229,7 @@ const { t } = useI18n()
 
 const props = withDefaults(
   defineProps<{
-    step: number
+    step?: number
   }>(),
   {
     step: 0
@@ -236,9 +237,10 @@ const props = withDefaults(
 )
 
 onMounted(() => {
-  const tel = document.getElementById('td' + route.params.substep)
+  const substep = UtilsService.getParam(route.params.substep)
+  const tel = document.getElementById('td' + substep)
   tel?.scrollIntoView()
-  const gel = document.getElementById('gd' + route.params.substep)
+  const gel = document.getElementById('gd' + substep)
   gel?.scrollIntoView()
 })
 
@@ -260,7 +262,7 @@ function getClass(s: number) {
     res += ' small '
   }
   if (props.step === 2 && s === 1) {
-    res += ` rad${route.params.substep} `
+    res += ` rad${UtilsService.getParam(route.params.substep)} `
   }
   if (getStep(s)) {
     return res + 'active'

@@ -134,7 +134,7 @@ onBeforeMount(() => {
   }
 })
 
-async function handleOthersInformation() {
+function handleOthersInformation() {
   if (hasNothingToSave()) {
     router.push({ name: 'TenantIdentification' })
     return

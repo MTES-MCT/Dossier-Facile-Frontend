@@ -46,7 +46,7 @@ onBeforeMount(() => {
 </template>
 
 <style lang="scss">
-@import 'df-shared-next/src/scss/_main.scss';
+@use 'df-shared-next/src/scss/_main.scss';
 @import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
 @import '@gouvfr/dsfr/dist/utility/colors/colors.min.css';
 @import 'vue3-toastify/dist/index.css';

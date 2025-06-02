@@ -108,8 +108,6 @@ useHead({
 </script>
 
 <style scoped lang="scss">
-@import 'df-shared-next/src/scss/_variables.scss';
-
 .s0-background {
   width: 100%;
   top: 0;

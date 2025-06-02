@@ -10,8 +10,8 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    diameter: string
-    border: string
+    diameter?: string
+    border?: string
   }>(),
   {
     diameter: '48px',

@@ -1,6 +1,6 @@
 <template>
   <Form name="coTenantNameForm" @submit="save">
-    <NakedCard class="fr-p-md-5w">
+    <NakedCard class="fr-p-md-5w fr-m-3v">
       <h1 class="fr-h6">{{ t('cotenantname.title') }}</h1>
       <div>
         {{ t('cotenantname.subtitle') }}

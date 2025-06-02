@@ -339,7 +339,7 @@ const { t } = useI18n()
 
 const props = withDefaults(
   defineProps<{
-    step: number
+    step?: number
   }>(),
   {
     step: 0

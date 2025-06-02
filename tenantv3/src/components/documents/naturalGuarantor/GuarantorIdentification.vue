@@ -1,20 +1,19 @@
 <template>
   <div>
-    <NakedCard class="fr-p-md-5w">
-      <div>
-        <h1 v-if="isCotenant" class="fr-h6">
-          {{ t('guarantoridentification.title-cotenant') }}
-        </h1>
-        <h1 v-else class="fr-h6">{{ t('guarantoridentification.title') }}</h1>
+    <NakedCard class="fr-p-md-5w fr-m-3v">
+      <GuarantorBadge />
+      <h1 v-if="isCotenant" class="fr-h6">
+        {{ t('guarantoridentification.title-cotenant') }}
+      </h1>
+      <h1 v-else class="fr-h6">{{ t('guarantoridentification.title') }}</h1>
 
-        <div class="fr-mt-3w">
-          <SimpleRadioButtons
-            name="application-type-selector"
-            :value="identificationDocument"
-            :elements="mapDocuments()"
-            @input="onSelectChange($event)"
-          ></SimpleRadioButtons>
-        </div>
+      <div class="fr-mt-3w">
+        <SimpleRadioButtons
+          name="application-type-selector"
+          :value="identificationDocument"
+          :elements="mapDocuments()"
+          @input="onSelectChange($event)"
+        ></SimpleRadioButtons>
       </div>
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
@@ -22,7 +21,7 @@
     </ConfirmModal>
     <NakedCard
       v-if="identificationDocument.key || identificationFiles().length > 0"
-      class="fr-p-md-5w fr-mt-md-3w"
+      class="fr-p-md-5w fr-mt-md-3w fr-m-3v"
     >
       <div class="fr-mb-3w">
         <p v-html="t(`explanation-text.${guarantorKey()}.${identificationDocument.key}`)"></p>
@@ -77,6 +76,7 @@ import { useLoading } from 'vue-loading-overlay'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import GuarantorFooter from '@/components/footer/GuarantorFooter.vue'
+import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 
 const { t } = useI18n()
 

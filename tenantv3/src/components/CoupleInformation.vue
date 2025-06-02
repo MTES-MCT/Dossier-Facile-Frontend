@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NakedCard class="fr-p-md-5w fr-mb-2w">
+    <NakedCard class="fr-p-md-5w fr-m-3v fr-mb-2w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
           <h1 class="fr-h6">

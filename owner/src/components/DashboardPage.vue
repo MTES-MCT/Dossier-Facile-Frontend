@@ -64,67 +64,69 @@ function openProperty(p: Property) {
           {{ t('dashboard.my-properties') }}
         </h2>
         <div>
-          <DfButton @click="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
+          <DfButton :title="t('dashboard.add-property')" :primary="true" @click="addProperty">{{
             t('dashboard.add-property')
           }}</DfButton>
         </div>
       </div>
 
       <table aria-labelledby="my-properties-title">
-        <tr>
-          <th class="desktop">{{ t('dashboard.type') }}</th>
-          <th>{{ t('dashboard.name') }}</th>
-          <th class="desktop">{{ t('dashboard.address') }}</th>
-          <th>{{ t('dashboard.applicant') }}</th>
-          <th class="desktop">{{ t('dashboard.rent') }}</th>
-          <th></th>
-        </tr>
-        <tr class="clickable" v-for="p in properties" :key="p.name" @click="openProperty(p)">
-          <td class="desktop blue-text inline-block">
-            <div class="fr-m-1v icon-container">
-              <RiHome4Fill v-if="p.type === 'HOUSE'" />
-              <RiBuilding4Line v-else-if="p.type === 'APARTMENT'" />
-              <RiCommunityFill v-else />
-            </div>
-          </td>
-          <td class="blue-grey">{{ p.name }}</td>
-          <td class="desktop blue-grey">{{ p.address }}</td>
-          <td class="blue-grey">
-            <span class="tag">
+        <tbody>
+          <tr>
+            <th class="desktop">{{ t('dashboard.type') }}</th>
+            <th>{{ t('dashboard.name') }}</th>
+            <th class="desktop">{{ t('dashboard.address') }}</th>
+            <th>{{ t('dashboard.applicant') }}</th>
+            <th class="desktop">{{ t('dashboard.rent') }}</th>
+            <th></th>
+          </tr>
+          <tr v-for="p in properties" :key="p.name" class="clickable" @click="openProperty(p)">
+            <td class="desktop blue-text inline-block">
+              <div class="fr-m-1v icon-container">
+                <RiHome4Fill v-if="p.type === 'HOUSE'" />
+                <RiBuilding4Line v-else-if="p.type === 'APARTMENT'" />
+                <RiCommunityFill v-else />
+              </div>
+            </td>
+            <td class="blue-grey">{{ p.name }}</td>
+            <td class="desktop blue-grey">{{ p.address }}</td>
+            <td class="blue-grey">
+              <span class="tag">
+                {{
+                  t('dashboard.applicants', {
+                    count: p.propertyApartmentSharingCount
+                  })
+                }}
+              </span>
+            </td>
+            <td class="desktop text--light-blue">
               {{
-                t('dashboard.applicants', {
-                  count: p.propertyApartmentSharingCount
+                t('dashboard.rent-cost', {
+                  rent: p.rentCost,
+                  charges: p.chargesCost
                 })
               }}
-            </span>
-          </td>
-          <td class="desktop text--light-blue">
-            {{
-              t('dashboard.rent-cost', {
-                rent: p.rentCost,
-                charges: p.chargesCost
-              })
-            }}
-          </td>
-          <td class="fr-pr-2w">
-            <button
-              class="consult-icon"
-              :title="t('dashboard.consult')"
-              v-if="p.validated"
-              @click="consultProperty(p.id)"
-            >
+            </td>
+            <td class="fr-pr-2w">
+              <button
+                v-if="p.validated"
+                class="consult-icon"
+                :title="t('dashboard.consult')"
+                @click="consultProperty(p.id)"
               >
-            </button>
-            <button
-              class="fr-btn fr-btn--secondary"
-              :title="t('dashboard.edit-title')"
-              v-if="!p.validated"
-              @click="editProperty(p.id)"
-            >
-              {{ t('dashboard.edit') }}
-            </button>
-          </td>
-        </tr>
+                >
+              </button>
+              <button
+                v-if="!p.validated"
+                class="fr-btn fr-btn--secondary"
+                :title="t('dashboard.edit-title')"
+                @click="editProperty(p.id)"
+              >
+                {{ t('dashboard.edit') }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </NakedCard>
     <div class="fr-container--fluid fr-mt-2w">

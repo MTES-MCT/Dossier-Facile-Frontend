@@ -49,10 +49,10 @@ function onLogout() {
   <MyHeader
     type="owner"
     :logged-in="isLoggedIn"
+    :show-accessibility="false"
     @on-login="onLogin"
     @on-access-tenant="goToTenant"
     @on-logout="onLogout"
-    :show-accessibility="false"
   >
     <OwnerMenu />
   </MyHeader>

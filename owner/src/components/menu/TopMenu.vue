@@ -107,8 +107,8 @@ function getClass(s: number) {
       <div class="hline" :class="getClass(2)"></div>
     </div>
     <hr v-if="step === 1" />
-    <div class="menu-grid-row" v-if="step === 1" ref="tcontainer">
-      <div class="ml-5" ref="td0">
+    <div v-if="step === 1" ref="tcontainer" class="menu-grid-row">
+      <div ref="td0" class="ml-5">
         <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
           <ColoredTag
             :text="propertyName ? propertyName : t('topmenu.property-name')"
@@ -116,17 +116,17 @@ function getClass(s: number) {
           ></ColoredTag>
         </router-link>
       </div>
-      <div class="ml-5" ref="td1">
+      <div ref="td1" class="ml-5">
         <router-link :to="{ name: 'PropertyType', params: getParams }" class="fr-link">
           <ColoredTag :text="t('topmenu.property-type')" :status="typeStatus"></ColoredTag>
         </router-link>
       </div>
-      <div class="ml-5" ref="td2">
+      <div ref="td2" class="ml-5">
         <router-link :to="{ name: 'PropertyAddress', params: getParams }" class="fr-link">
           <ColoredTag :text="t('topmenu.property-address')" :status="addressStatus"></ColoredTag>
         </router-link>
       </div>
-      <div class="ml-5" ref="td3">
+      <div ref="td3" class="ml-5">
         <router-link :to="{ name: 'PropertyFurniture', params: getParams }" class="fr-link">
           <ColoredTag
             :text="t('topmenu.property-furniture')"
@@ -134,12 +134,12 @@ function getClass(s: number) {
           ></ColoredTag>
         </router-link>
       </div>
-      <div class="ml-5" ref="td4">
+      <div ref="td4" class="ml-5">
         <router-link :to="{ name: 'PropertyLivingSpace', params: getParams }" class="fr-link">
           <ColoredTag :text="t('property-living-space')" :status="livingSpaceStatus"></ColoredTag>
         </router-link>
       </div>
-      <div class="ml-5" ref="td5">
+      <div ref="td5" class="ml-5">
         <router-link :to="{ name: 'PropertyRent', params: getParams }" class="fr-link">
           <ColoredTag
             :text="t('topmenu.monthly-rent-and-charges')"
@@ -147,7 +147,7 @@ function getClass(s: number) {
           ></ColoredTag>
         </router-link>
       </div>
-      <div class="ml-5" ref="td6">
+      <div ref="td6" class="ml-5">
         <router-link :to="{ name: 'PropertyDiagnostic', params: getParams }" class="fr-link">
           <ColoredTag :text="t('topmenu.diagnostic')" :status="diagnosticStatus"></ColoredTag>
         </router-link>

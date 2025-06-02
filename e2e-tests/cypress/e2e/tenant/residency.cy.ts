@@ -123,8 +123,10 @@ describe(
       );
       cy.contains("Votre conjoint est dans une situation précaire").click();
       cy.contains("Valider votre situation d'hébergement").should("be.enabled");
-      cy.clickOnNext().expectPath("/3");
+      cy.clickOnNext();
+      cy.url().should("match", /\/3$/);
       cy.contains("Retour").click();
+      cy.expectPath("/2/other-residency");
       getInputByLabel("Votre conjoint est dans une situation précaire").should(
         "be.checked"
       );

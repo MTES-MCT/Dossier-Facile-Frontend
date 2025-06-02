@@ -9,16 +9,16 @@
       <a
         target="_blank"
         rel="noopener noreferrer"
-        @click="AnalyticsService.dpeEvent('dpe_know_more')"
         href="https://www.service-public.fr/particuliers/vosdroits/F16096"
+        @click="AnalyticsService.dpeEvent('dpe_know_more')"
         >{{ t('propertydiagnosticexpirywarning.know-more') }}</a
       >
       <a
         target="_blank"
         rel="noopener noreferrer"
         class="fr-btn fr-btn--secondary fr-ml-3w"
-        @click="redirectFranceRenov"
         href="#"
+        @click="redirectFranceRenov"
         >{{ t('propertydiagnosticexpirywarning.find-inspector') }}</a
       >
     </div>

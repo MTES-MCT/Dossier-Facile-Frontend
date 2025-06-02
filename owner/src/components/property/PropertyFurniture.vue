@@ -51,10 +51,10 @@ function onBack() {
       <p>{{ t('propertyfurniture.furniture-subtitle') }}</p>
       <p>
         <Field
-          name="furniture"
           id="furniture-house"
-          type="radio"
           v-model="furniture"
+          name="furniture"
+          type="radio"
           rules="hasValue"
           :value="'UNFURNISHED'"
         />
@@ -73,10 +73,10 @@ function onBack() {
           </div>
         </label>
         <Field
-          name="furniture"
           id="furniture-apartment"
-          type="radio"
           v-model="furniture"
+          name="furniture"
+          type="radio"
           rules="hasValue"
           :value="'FURNISHED'"
         />
@@ -99,7 +99,7 @@ function onBack() {
             </div>
           </div>
         </label>
-        <ErrorMessage name="furniture" v-slot="{ message }">
+        <ErrorMessage v-slot="{ message }" name="furniture">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </p>

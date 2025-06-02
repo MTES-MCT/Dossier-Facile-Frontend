@@ -10,10 +10,10 @@
       </div>
       <div>
         <Button
-          @click="deleteDpe"
           :title="t('propertydiagnosticresult.dpe.delete')"
           :tertiary-no-outline="true"
           class="fr-icon-delete-fill fr-btn--icon-right"
+          @click="deleteDpe"
           >{{ t('propertydiagnosticresult.dpe.delete') }}</Button
         >
       </div>
@@ -25,15 +25,15 @@
           <strong>{{ dpe.adresse }}, {{ dpe.codePostal }} {{ dpe.commune }}</strong>
         </div>
         <DpeDiagram
-          class="fr-col-3 fr-col-lg-2"
           v-if="dpe?.statut !== 'EXPIRE'"
+          class="fr-col-3 fr-col-lg-2"
           :short="true"
           :letter="energyLetter"
           :consumption="energyConsumption"
         ></DpeDiagram>
         <DpeCo2Diagram
-          class="fr-col-3 fr-col-lg-2"
           v-if="dpe?.statut !== 'EXPIRE'"
+          class="fr-col-3 fr-col-lg-2"
           :short="true"
           :letter="co2Letter"
           :consumption="co2Emission"
@@ -68,7 +68,7 @@
           </div>
         </div>
         <div class="break"></div>
-        <div class="flex--1 fr-mt-2w" v-if="dpe.statut === 'REMPLACE'">
+        <div v-if="dpe.statut === 'REMPLACE'" class="flex--1 fr-mt-2w">
           <div class="label">
             {{ t('propertydiagnosticresult.dpe.replacement-number') }}
           </div>
@@ -79,7 +79,7 @@
       </div>
       <hr />
     </div>
-    <div class="dpe-replaced-container" v-if="dpe.statut === 'REMPLACE'">
+    <div v-if="dpe.statut === 'REMPLACE'" class="dpe-replaced-container">
       <div class="display--flex">
         <div class="flex--1">
           <div class="label">
@@ -131,7 +131,7 @@
       </div>
       <hr />
     </div>
-    <div class="property-result-details-container" v-if="dpe?.statut !== 'EXPIRE'">
+    <div v-if="dpe?.statut !== 'EXPIRE'" class="property-result-details-container">
       <div class="label">
         {{ t('propertydiagnosticresult.dpe.energetic-performance') }}
       </div>

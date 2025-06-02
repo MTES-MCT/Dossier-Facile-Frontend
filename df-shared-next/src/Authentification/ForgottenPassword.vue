@@ -10,9 +10,9 @@
             <div class="fr-input-group">
               <label class="fr-label" for="email">{{ t('email') }}</label>
               <Field
-                name="email"
-                v-model="user.email"
                 v-slot="{ field, meta }"
+                v-model="user.email"
+                name="email"
                 :rules="{
                   email: true,
                   required: true
@@ -30,7 +30,7 @@
                   type="email"
                 />
               </Field>
-              <ErrorMessage name="email" v-slot="{ message }">
+              <ErrorMessage v-slot="{ message }" name="email">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>

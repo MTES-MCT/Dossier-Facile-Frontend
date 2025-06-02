@@ -4,12 +4,12 @@
       :class="`fr-btn ` + typeClass + sizeClass + iconClass"
       :disabled="disabled"
       :title="iconOnly ? label : undefined"
-      @click="pushClick"
       :type="btnType"
       :aria-label="ariaLabel"
+      @click="pushClick"
     >
       <template v-if="!$slots.default">
-        <span class="sr-only" v-if="iconOnly">{{ label }}</span>
+        <span v-if="iconOnly" class="sr-only">{{ label }}</span>
         <template v-else>
           {{ label }}
         </template>

@@ -22,8 +22,8 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    allowList: string[]
-    blockList: string[]
+    allowList?: string[]
+    blockList?: string[]
   }>(),
   {
     allowList: () => [],

@@ -1,7 +1,7 @@
 <template>
   <div class="fr-tag" :class="getClasses()">
     <StatusIcon v-if="status && !hideIcon" :status="status" :warn="warn"></StatusIcon>
-    <span class="fr-text--xs" v-if="label">{{ label }}&nbsp;:&nbsp;</span>
+    <span v-if="label" class="fr-text--xs">{{ label }}&nbsp;:&nbsp;</span>
     {{ text }}
   </div>
 </template>

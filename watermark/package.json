@@ -14,25 +14,25 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore"
   },
   "dependencies": {
-    "@gouvfr/dsfr": "1.11.2",
+    "@gouvfr/dsfr": "catalog:",
     "@sentry/tracing": "7.119.2",
-    "@sentry/vite-plugin": "2.22.7",
-    "@sentry/vue": "7.119.2",
+    "@sentry/vite-plugin": "catalog:",
+    "@sentry/vue": "catalog:",
     "axios": "catalog:",
     "df-shared-next": "workspace:*",
-    "vue": "3.5.13",
-    "vue-i18n": "11.0.1",
-    "vue-router": "4.5.0",
+    "vue": "catalog:",
+    "vue-i18n": "catalog:",
+    "vue-router": "catalog:",
     "vue-toastification": "2.0.0-rc.5"
   },
   "devDependencies": {
-    "@intlify/unplugin-vue-i18n": "6.0.3",
-    "@vitejs/plugin-vue": "5.2.1",
-    "sass": "1.79.4",
-    "typescript": "5.7.2",
-    "vite": "6.0.7",
-    "vite-plugin-pwa": "0.21.1",
-    "vue-tsc": "2.2.0"
+    "@intlify/unplugin-vue-i18n": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "sass": "1.89.0",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-pwa": "1.0.0",
+    "vue-tsc": "catalog:"
   },
   "eslintConfig": {
     "no-param-reassign": [

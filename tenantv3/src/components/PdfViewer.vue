@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { defineAsyncComponent, ref } from 'vue'
-const VuePdfEmbed = defineAsyncComponent(() => import('vue-pdf-embed'))
+const VuePdfEmbed = defineAsyncComponent(() => import('@/components/vue-pdf'))
 
 const pdfcontent = ref()
 

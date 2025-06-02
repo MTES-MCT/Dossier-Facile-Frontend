@@ -52,7 +52,7 @@ function showDeleteAccountModal() {
         {{ t('menu.help') }}
       </a>
     </li>
-    <li class="fr-nav__item break" v-if="isLoggedIn">
+    <li v-if="isLoggedIn" class="fr-nav__item break">
       <button
         class="fr-nav__btn"
         aria-expanded="false"
@@ -63,7 +63,7 @@ function showDeleteAccountModal() {
       >
         {{ t('menu.account') }}
       </button>
-      <div class="fr-collapse fr-menu" id="menu-774">
+      <div id="menu-774" class="fr-collapse fr-menu">
         <ul class="fr-menu__list">
           <li>
             <a
