@@ -11,7 +11,7 @@ export default defineConfig({
     retries: {
       runMode: 5,
     },
-    excludeSpecPattern: "**/accessibility.cy.ts"
+    excludeSpecPattern: "**/accessibility.cy.ts",
   },
   env: {
     configName: "preprod",
@@ -20,6 +20,8 @@ export default defineConfig({
     tenantUser: "thibault",
     ownerUrl: "https://proprietaire-preprod.dossierfacile.fr",
     ownerUser: "william",
+    testmailTag: "preprod-test",
+    testmailEndpoint: "https://api.testmail.app/api/json",
   },
   chromeWebSecurity: false,
 });

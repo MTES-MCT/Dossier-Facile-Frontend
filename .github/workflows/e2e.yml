@@ -36,6 +36,10 @@ jobs:
           install: false
           config-file: cypress-preprod.config.ts
           browser: chrome
+          env: configFile=ci
+        env:
+          CYPRESS_TESTMAIL_API_KEY: ${{ secrets.CYPRESS_TESTMAIL_API_KEY }}
+          CYPRESS_TESTMAIL_NAMESPACE: ${{ vars.CYPRESS_TESTMAIL_NAMESPACE }}
       - name: Upload screenshot
         uses: actions/upload-artifact@v4
         if: failure()
