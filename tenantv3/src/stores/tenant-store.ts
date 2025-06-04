@@ -684,6 +684,9 @@ export const useTenantStore = defineStore('tenant', {
       }
       if (this.user.guarantors) {
         for (const g of this.user.guarantors) {
+          if (g.typeGuarantor === 'NATURAL_PERSON' && (!g.firstName || !g.lastName)) {
+            return this.setGuarantorPage(g, 0)
+          }
           if (!UtilsService.guarantorHasDoc('IDENTIFICATION', g)) {
             return this.setGuarantorPage(g, 1)
           }
