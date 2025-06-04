@@ -38,7 +38,7 @@ import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import cookies from 'js-cookie'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
-const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
+const LOGOUT_REDIRECT_URL = import.meta.env.VITE_LOGOUT_REDIRECT_URL
 
 interface State {
   user: User
@@ -374,7 +374,7 @@ export const useTenantStore = defineStore('tenant', {
       this.apartmentSharingLinks = sortedLinks
     },
     logout() {
-      return keycloak.logout().then(() => {
+      return keycloak.logout({ redirectUri: LOGOUT_REDIRECT_URL }).then(() => {
         this.logoutCommit()
         this.initState()
       })
