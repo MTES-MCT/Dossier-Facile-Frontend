@@ -16,9 +16,17 @@ import { defineStore } from 'pinia'
 import { keycloak } from '../plugin/keycloak'
 
 import {
+  GUARANTOR_ROUTES,
+  TENANT_GUARANTOR_ROUTES
+} from '@/components/documents/naturalGuarantor/guarantorRoutes'
+import {
   makeCotenantGuarantorResidencyLink,
   makeGuarantorResidencyLink
 } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
+import {
+  makeGuarantorActivityLink,
+  makeGuarantorCoupleActivityLink
+} from '@/components/mainActivity/lib/useMainActivityLink'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { MessageService } from '@/services/MessageService'
@@ -28,14 +36,6 @@ import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import cookies from 'js-cookie'
-import {
-  GUARANTOR_ROUTES,
-  TENANT_GUARANTOR_ROUTES
-} from '@/components/documents/naturalGuarantor/guarantorRoutes'
-import {
-  makeGuarantorActivityLink,
-  makeGuarantorCoupleActivityLink
-} from '@/components/mainActivity/lib/useMainActivityLink'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -374,19 +374,10 @@ export const useTenantStore = defineStore('tenant', {
       this.apartmentSharingLinks = sortedLinks
     },
     logout() {
-      return keycloak
-        .logout()
-        .then(async () => {
-          this.logoutCommit()
-          this.initState()
-        })
-        .catch(async () => {
-          console.log('Fail to logout - logout keycloak - force redirect')
-          await keycloak.logout()
-          this.logoutCommit()
-          this.initState()
-          window.location.replace(MAIN_URL)
-        })
+      return keycloak.logout().then(() => {
+        this.logoutCommit()
+        this.initState()
+      })
     },
     async deleteAccount() {
       const isFC = this.user.franceConnect
