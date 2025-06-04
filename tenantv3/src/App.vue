@@ -36,7 +36,7 @@ const validatedMessage = computed(() =>
 )
 
 function onLogout() {
-  store.logout(true)
+  store.logout()
 }
 
 function onLoginTenant() {
