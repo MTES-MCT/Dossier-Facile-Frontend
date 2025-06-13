@@ -162,8 +162,7 @@ async function copyLink() {
     ToastService.success('account.copied')
     AnalyticsService.copyLink(shareType.value === 'full' ? 'full' : 'resume')
   } catch (err) {
-    ToastService.error('unable-to-coy')
-    alert('Oops, unable to copy')
+    ToastService.error('unable-to-copy')
     throw new Error('Unable to copy', { cause: err })
   }
 }

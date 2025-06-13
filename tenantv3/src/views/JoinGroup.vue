@@ -47,7 +47,7 @@ function onInitPassword(password: string) {
       if (error.code == 'ERR_BAD_REQUEST') {
         ToastService.error('joingroup.bad-request')
       } else {
-        ToastService.error('joingroup.error' + ' ' + error.code)
+        ToastService.error('joingroup.error')
       }
     }
   )
