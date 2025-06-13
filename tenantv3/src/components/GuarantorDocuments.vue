@@ -10,26 +10,19 @@
       <OrganismCert :guarantor="guarantor"></OrganismCert>
       <GuarantorFooter @on-back="goBack" @on-next="nextStep"></GuarantorFooter>
     </div>
-    <ConfirmModal v-if="changeGuarantorVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ t('guarantordocuments.will-delete-guarantor') }}</span>
-    </ConfirmModal>
   </div>
 </template>
 
 <script setup lang="ts">
 import OrganismCert from './documents/organismGuarantor/OrganismCert.vue'
-import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import GuarantorFooter from './footer/GuarantorFooter.vue'
 import { UtilsService } from '@/services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ToastService } from '@/services/ToastService'
-import { useI18n } from 'vue-i18n'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { GUARANTOR_ROUTES } from './documents/naturalGuarantor/guarantorRoutes'
 
-const { t } = useI18n()
 const store = useTenantStore()
 const route = useRoute()
 const router = useRouter()
@@ -37,8 +30,6 @@ const router = useRouter()
 const guarantor = computed(() => store.selectedGuarantor)
 const user = computed(() => store.user)
 const substep = computed(() => Number(route.path.split('/')[2]) || 0)
-
-const changeGuarantorVisible = ref(false)
 
 onBeforeMount(() => {
   const currentGuarantor = guarantor.value?.typeGuarantor
@@ -54,24 +45,6 @@ function updateSubstep(s: number) {
   } else {
     router.push({ name: GUARANTOR_ROUTES[s] })
   }
-}
-
-function validSelect() {
-  store.deleteAllGuarantors().then(
-    () => {
-      changeGuarantorVisible.value = false
-      if (!user.value.guarantors.length || 0 >= 1) {
-        router.push({ name: 'GuarantorChoice' })
-      }
-    },
-    () => {
-      ToastService.error()
-    }
-  )
-}
-
-function undoSelect() {
-  changeGuarantorVisible.value = false
 }
 
 function goBack() {
