@@ -332,6 +332,7 @@ export const useTenantStore = defineStore('tenant', {
       }
       this.selectedGuarantor = new Guarantor()
       Sentry.setUser({ id: this.user.id })
+      window._paq?.push(['setUserId', this.user.id])
     },
     setSelectedGuarantor(guarantor: Guarantor | undefined) {
       this.selectedGuarantor = guarantor
