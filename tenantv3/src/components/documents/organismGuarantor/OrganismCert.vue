@@ -69,6 +69,7 @@ import { DocumentTypeConstants } from '../../documents/share/DocumentTypeConstan
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
+import { UtilsService } from '@/services/UtilsService'
 
 const props = defineProps<{
   tenantId?: number
@@ -198,9 +199,9 @@ function save(files: File[]) {
       store.loadUserCommit(response.data)
       loadDocument()
     })
-    .catch(() => {
+    .catch((error) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      ToastService.saveFailed()
+      UtilsService.handleCommonSaveError(error)
     })
     .finally(() => {
       loader.hide()
