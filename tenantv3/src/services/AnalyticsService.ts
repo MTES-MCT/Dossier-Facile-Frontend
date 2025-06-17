@@ -3,7 +3,6 @@ import {
   type DocumentType
 } from '@/components/editmenu/documents/DocumentType'
 import type { ExternalDocumentation } from '@/components/identity/lib/ExternalDocumentation'
-import { useTenantStore } from '@/stores/tenant-store'
 
 declare global {
   interface Window {
@@ -26,8 +25,7 @@ function sendFullEvent(category: EventCategory, action: Action, name: string) {
   if (import.meta.env.VITE_MATOMO_ENABLE === 'false' || !window._paq) {
     return
   }
-  const tenantStore = useTenantStore()
-  window._paq.push(['trackEvent', category, action, name, tenantStore.user.id])
+  window._paq.push(['trackEvent', category, action, name])
 }
 
 function sendEvent(category: EventCategory, name: string) {
