@@ -1248,5 +1248,8 @@
         "other": "another aid"
       }
     }
+  },
+  "errors": {
+    "invalid-file-extension": "This extension is not valid. Only .jpg, .png, .pdf or .heic are accepted"
   }
 }
