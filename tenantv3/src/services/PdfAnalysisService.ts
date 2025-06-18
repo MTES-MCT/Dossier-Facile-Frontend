@@ -31,6 +31,9 @@ export const PdfAnalysisService = {
   },
 
   async includesRejectedTaxDocuments(files: File[]): Promise<boolean> {
+    if (files.length === 0) {
+      return false
+    }
     const timeout = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
     try {
       return await Promise.race([
