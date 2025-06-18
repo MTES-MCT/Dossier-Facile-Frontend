@@ -1250,6 +1250,7 @@
     }
   },
   "errors": {
-    "invalid-file-extension": "This extension is not valid. Only .jpg, .png, .pdf or .heic are accepted"
+    "invalid-file-extension": "This extension is not valid. Only .jpg, .png, .pdf or .heic are accepted",
+    "no-file": "Add at least one file to continue"
   }
 }

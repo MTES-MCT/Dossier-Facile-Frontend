@@ -77,6 +77,9 @@ export const UtilsService = {
       } else if (message.includes('invalid file extension')) {
         ToastService.error('errors.invalid-file-extension')
         hasSpecificMessage = true
+      } else if (message.includes('number of document')) {
+        ToastService.error('errors.no-file')
+        hasSpecificMessage = true
       }
     }
     if (!hasSpecificMessage) {
