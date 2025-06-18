@@ -5,6 +5,18 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ t('blog-title') }}</h1>
           <BlogExtractTile
+            title="2 millions de comptes créés sur DossierFacile : une nouvelle étape majeure !"
+            :image="article29Img"
+            publication-date="13 juin 2025"
+            path="/blog/2-millions-comptes-dossierfacile"
+          >
+            <template #extract>
+              <p>
+                DossierFacile franchit un cap symbolique avec plus de 2 millions de comptes créés. Une confiance renouvelée dans le service public et une adoption accélérée qui démontrent l'efficacité d'une startup d'État au service de l'intérêt général.
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="Étudiant étranger et recherche de logement : guide pratique"
             :image="article24Img"
             publication-date="12 mai 2025"
@@ -490,6 +502,7 @@ import article22Img from '../../assets/images/blog-article22.webp'
 import article23Img from '../../assets/images/blog-article23.webp'
 import article24Img from '../../assets/images/blog-article24.webp'
 import article25Img from '../../assets/images/blog-article25.webp'
+import article29Img from '../../assets/images/blog-article29.png'
 
 import { useHead } from '@unhead/vue'
 
