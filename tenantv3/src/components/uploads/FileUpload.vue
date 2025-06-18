@@ -64,12 +64,15 @@ function filesChange(e: Event) {
   for (const file of files) {
     if (file.size > props.size * 1024 * 1024) {
       ToastService.errorf(t('fileupload.file-too-big', [props.size]))
+      break
     }
   }
   const fileList = files.filter((f) => {
     return f.size < props.size * 1024 * 1024
   })
-  emit('add-files', fileList)
+  if (fileList.length > 0) {
+    emit('add-files', fileList)
+  }
   uploadForm.value?.reset()
 }
 </script>
