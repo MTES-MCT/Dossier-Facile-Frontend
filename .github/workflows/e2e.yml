@@ -36,6 +36,10 @@ jobs:
           install: false
           config-file: cypress-preprod.config.ts
           browser: chrome
+          env: configFile=ci
+        env:
+          CYPRESS_TESTMAIL_API_KEY: ${{ secrets.CYPRESS_TESTMAIL_API_KEY }}
+          CYPRESS_TESTMAIL_NAMESPACE: ${{ vars.CYPRESS_TESTMAIL_NAMESPACE }}
       - name: Upload screenshot
         uses: actions/upload-artifact@v4
         if: failure()
@@ -50,3 +54,18 @@ jobs:
           name: cypress-videos
           path: e2e-tests/cypress/videos
           retention-days: 1
+      - name: Mattermost alert
+        uses: mattermost/action-mattermost-notify@master
+        if: failure()
+        with:
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+          PAYLOAD: |-
+            {
+              "attachments": [
+                {
+                  "text": "[dossierfacile-preprod] e2e test failed\n[Failed workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                  "color": "#FF8000",
+                  "fallback": "[dossierfacile-preprod] e2e test failed"
+                }
+              ]
+            }

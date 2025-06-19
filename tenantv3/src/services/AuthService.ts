@@ -6,10 +6,6 @@ import { CookiesService } from 'df-shared-next/src/services/CookiesService'
 const API_URL = `${import.meta.env.VITE_API_URL}/api/`
 
 export const AuthService = {
-  logout() {
-    return axios.post<void>(API_URL + 'user/logout')
-  },
-
   deleteAccount() {
     return axios.delete<void>(API_URL + 'user/deleteAccount')
   },

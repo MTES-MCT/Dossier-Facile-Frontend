@@ -168,22 +168,11 @@ const useOwnerStore = defineStore('owner', {
         (error: Error) => Promise.reject(error)
       )
     },
-    logout(redirect = true) {
-      return AuthService.logout()
-        .then(() => {
-          this.logoutCommit()
-          this.initState()
-          if (redirect) {
-            window.location.replace(MAIN_URL)
-            return
-          }
-          window.location.reload()
-        })
-        .catch(() => {
-          this.logoutCommit()
-          this.initState()
-          window.location.replace(MAIN_URL)
-        })
+    logout() {
+      return keycloak.logout().then(() => {
+        this.logoutCommit()
+        this.initState()
+      })
     },
     resetPassword(user: User) {
       return AuthService.resetPassword(user).then(

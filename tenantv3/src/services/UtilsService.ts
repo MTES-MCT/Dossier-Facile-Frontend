@@ -68,12 +68,21 @@ export const UtilsService = {
     )
   },
   handleCommonSaveError(err: unknown) {
-    if (isAxiosError(err) && err.response?.data?.message == null) {
-      return
+    let hasSpecificMessage = false
+    if (isAxiosError(err)) {
+      const message: string = err.response?.data.message ?? ''
+      if (message.includes('NumberOfPages')) {
+        ToastService.saveFailedNumPages()
+        hasSpecificMessage = true
+      } else if (message.includes('invalid file extension')) {
+        ToastService.error('errors.invalid-file-extension')
+        hasSpecificMessage = true
+      } else if (message.includes('number of document')) {
+        ToastService.error('errors.no-file')
+        hasSpecificMessage = true
+      }
     }
-    if (isAxiosError(err) && err.response?.data.message?.includes('NumberOfPages')) {
-      ToastService.saveFailedNumPages()
-    } else {
+    if (!hasSpecificMessage) {
       ToastService.saveFailed()
     }
   },

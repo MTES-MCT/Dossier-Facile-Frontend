@@ -163,7 +163,8 @@ function updateSharedLinkStatus(link: ApartmentSharingLink, enabled: boolean) {
   store
     .updateApartmentSharingLinkStatus(link, enabled)
     .then(() => {
-      ToastService.saveSuccess()
+      const messageKey = enabled ? 'sharing-page.shared' : 'sharing-page.disabled'
+      ToastService.success(messageKey)
     })
     .catch(() => {
       ToastService.saveFailed()

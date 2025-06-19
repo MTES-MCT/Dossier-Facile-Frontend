@@ -346,21 +346,22 @@ async function save(force = false) {
     formData.append('tenantId', props.tenantId.toString())
   }
   showLoader()
-  await store
+  return await store
     .saveGuarantorTax(formData)
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       ToastService.saveSuccess()
+      return true
     })
     .catch((err) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
       UtilsService.handleCommonSaveError(err)
+      return false
     })
     .finally(() => {
       hideLoader()
     })
-  return true
 }
 
 function taxFiles(): DfFile[] {

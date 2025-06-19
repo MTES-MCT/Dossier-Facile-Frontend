@@ -1,9 +1,9 @@
-import * as pdfjsLib from 'pdfjs-dist/webpack'
 import { AnalyticsService } from './AnalyticsService'
 
 export const PdfAnalysisService = {
   async readPdfFirstPage(file: File): Promise<string> {
     try {
+      const pdfjsLib = await import('pdfjs-dist/webpack')
       const loadingTask = pdfjsLib.getDocument(await file.arrayBuffer())
       const pdf = await loadingTask.promise
       const page = await pdf.getPage(1)
@@ -31,6 +31,9 @@ export const PdfAnalysisService = {
   },
 
   async includesRejectedTaxDocuments(files: File[]): Promise<boolean> {
+    if (files.length === 0) {
+      return false
+    }
     const timeout = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
     try {
       return await Promise.race([

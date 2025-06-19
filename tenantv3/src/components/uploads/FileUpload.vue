@@ -58,18 +58,24 @@ const isSaving = computed(() => props.currentStatus === UploadStatus.STATUS_SAVI
 const sizeLimit = computed(() => (props.size > 0 ? t('fileupload.size', [props.size]) : ''))
 const pagesLimit = computed(() => (props.page > 0 ? t('fileupload.pages', [props.page]) : ''))
 
+const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'application/pdf', 'image/heif']
+
+const isTooBig = (file: File) => file.size > props.size * 1024 * 1024
+const hasValidExtension = (file: File) => ALLOWED_FILE_TYPES.includes(file.type)
+
 function filesChange(e: Event) {
   const inputFiles = e.target instanceof HTMLInputElement ? e.target.files : null
   const files = inputFiles ? [...inputFiles] : []
-  for (const file of files) {
-    if (file.size > props.size * 1024 * 1024) {
-      ToastService.errorf(t('fileupload.file-too-big', [props.size]))
-    }
+  if (files.some(isTooBig)) {
+    ToastService.errorf(t('fileupload.file-too-big', [props.size]))
   }
-  const fileList = files.filter((f) => {
-    return f.size < props.size * 1024 * 1024
-  })
-  emit('add-files', fileList)
+  if (!files.every(hasValidExtension)) {
+    ToastService.error('errors.invalid-file-extension')
+  }
+  const fileList = files.filter((f) => !isTooBig(f) && hasValidExtension(f))
+  if (fileList.length > 0) {
+    emit('add-files', fileList)
+  }
   uploadForm.value?.reset()
 }
 </script>

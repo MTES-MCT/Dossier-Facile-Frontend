@@ -32,10 +32,11 @@
   "other-tax": "Autre situation",
   "visale": "Garantie Visale",
   "other-guarantee": "Autre organisme",
+  "file-saved": "Votre fichier est enregistré",
   "save-success": "Enregistrement réussi",
   "save-failed": "Erreur lors de l'enregistrement",
   "save-failed-num-pages": "Nombre de pages maximum atteint, veuillez en supprimer",
-  "delete-success": "Suppression réussie",
+  "delete-success": "Votre fichier est supprimé",
   "delete-failed": "Erreur lors de la suppression",
   "max-file-default": "Nombre de fichier maximum atteint, veuillez en supprimer",
   "max-file": "Nombre de fichiers maximum atteint (actuellement : {0} / maximum : {1}), veuillez en supprimer",
@@ -344,7 +345,7 @@
     "OTHER": "Autre",
     "no-income": "ne pas avoir de revenu",
     "income": "avoir un revenu net mensuel de {0}€",
-    "copied": "Copié !",
+    "copied": "Lien copié",
     "ALONE": "seul·e",
     "couple-with": "en couple avec {0}",
     "group-with": "en colocation avec {0}",
@@ -694,6 +695,7 @@
     "organism-identification": "Certificat de l'organisme",
     "delete-guarantor": "Supprimer ce garant",
     "confirm-delete-guarantor": "Êtes-vous sur de vouloir supprimer ce garant ?",
+    "guarantor-deleted": "Votre garant est supprimé",
     "add-guarantor": "Ajouter un garant ?",
     "visale-title": "Connaissez-vous Visale ?",
     "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
@@ -929,7 +931,7 @@
     "by-link": "Par lien",
     "email-label": "Email du bailleur :",
     "email-placeholder": "bailleur{'@'}exemple.com",
-    "sent-success": "Votre dossier a bien été partagé",
+    "sent-success": "Votre dossier est envoyé par mail",
     "view": {
       "title": "Voir votre dossier",
       "text": "Vous souhaitez voir votre dossier avant de le partager ?",
@@ -1148,6 +1150,8 @@
   },
   "sharing-page": {
     "title": "Vos candidatures",
+    "shared": "Votre dossier est partagé",
+    "disabled": "Votre partage est désactivé",
     "file-not-ready": {
       "title": "Votre dossier {0}",
       "status": {
@@ -1172,7 +1176,7 @@
       "never": "Jamais",
       "no-shared-file": "Aucun dossier partagé pour l'instant",
       "resend": "Renvoyer",
-      "resend-success": "Envoi réussi.",
+      "resend-success": "Votre dossier a été renvoyé",
       "resend-failed": "Echec de l'envoi. Veuillez ré-essayer plus tard"
     }
   },
@@ -1251,5 +1255,9 @@
         "other": "une autre aide"
       }
     }
+  },
+  "errors": {
+    "invalid-file-extension": "Cette extension n'est pas valide. Seuls les fichiers en .jpg, .png, .pdf ou .heic sont acceptés",
+    "no-file": "Ajouter au moins un fichier pour pouvoir continuer"
   }
 }

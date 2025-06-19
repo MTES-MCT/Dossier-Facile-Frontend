@@ -39,7 +39,7 @@ function goToTenant() {
 }
 
 function onLogout() {
-  store.logout(true)
+  store.logout()
 }
 </script>
 
