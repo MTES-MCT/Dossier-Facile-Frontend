@@ -57,7 +57,6 @@ const files = ref<{ name: string; file: File; size: number; id?: string; path?: 
 const store = useTenantStore()
 const residencyState = useResidencyState()
 
- 
 const category = residencyState.category
 const tenantResidencyDocument = residencyState.document
 const documentStatus = computed(() => tenantResidencyDocument.value?.documentStatus)
@@ -112,7 +111,7 @@ async function save(): Promise<boolean> {
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-      ToastService.saveSuccess()
+      ToastService.success('file-saved')
       return true
     })
     .catch((err) => {

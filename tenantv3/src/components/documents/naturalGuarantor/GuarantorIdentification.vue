@@ -230,7 +230,7 @@ function save() {
     .then(() => {
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       files.value = []
-      ToastService.saveSuccess()
+      ToastService.success('file-saved')
     })
     .catch((err) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED

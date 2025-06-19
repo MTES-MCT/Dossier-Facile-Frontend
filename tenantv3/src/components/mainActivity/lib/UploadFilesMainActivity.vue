@@ -97,7 +97,7 @@ async function save(): Promise<boolean> {
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-      ToastService.saveSuccess()
+      ToastService.success('file-saved')
       return true
     })
     .catch((err) => {

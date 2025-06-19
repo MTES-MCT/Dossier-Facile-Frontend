@@ -32,10 +32,11 @@
   "other-tax": "Other",
   "visale": "Visale guarantee",
   "other-guarantee": "Other guarantee",
+  "file-saved": "Your file is saved",
   "save-success": "Save successful",
   "save-failed": "Error while saving",
   "save-failed-num-pages": "Maximum number of pages reached, please delete some",
-  "delete-success": "Deletion successful",
+  "delete-success": "Your file is deleted",
   "delete-failed": "Error while deleting",
   "max-file-default": "Maximum number of files reached, please delete some",
   "max-file": "Maximum number of files reached (currently: {0} / maximum: {1}), please delete some",
@@ -340,7 +341,7 @@
     "OTHER": "Other",
     "no-income": "have no income",
     "income": "have a monthly net income of {0}€",
-    "copied": "Copied!",
+    "copied": "Link copied",
     "ALONE": "alone",
     "couple-with": "coupled with {0}",
     "group-with": "sharing with {0}",
@@ -693,6 +694,7 @@
     "organism-identification": "Organization Certificate",
     "delete-guarantor": "Delete this guarantor",
     "confirm-delete-guarantor": "Are you sure you want to delete this guarantor?",
+    "guarantor-deleted": "Your guarantor is deleted",
     "add-guarantor": "Add a Guarantor?",
     "visale-title": "Do you know about Visale?",
     "visale-text": "Visale is the guarantor for your future accommodation if you are between 18 and 30 years old OR if you are over 30 years old and employed (subject to conditions).",
@@ -927,7 +929,7 @@
     "by-link": "By link",
     "email-label": "Landlord's Email:",
     "email-placeholder": "landlord{'@'}example.com",
-    "sent-success": "Your file has been successfully shared",
+    "sent-success": "Your file has been sent by mail",
     "view": {
       "title": "See your file",
       "text": "See your DossierFacile before to share it ?",
@@ -1152,6 +1154,8 @@
   },
   "sharing-page": {
     "title": "Your applications",
+    "shared": "Your file is shared",
+    "disabled": "Your sharing is disabled",
     "file-not-ready": {
       "title": "Your file {0}",
       "status": {
@@ -1176,7 +1180,7 @@
       "never": "Never",
       "no-shared-file": "No shared files yet",
       "resend": "Resend",
-      "resend-success": "Resend succeed.",
+      "resend-success": "Your file has been resent",
       "resend-failed": "resend Failed! Try again later"
     }
   },

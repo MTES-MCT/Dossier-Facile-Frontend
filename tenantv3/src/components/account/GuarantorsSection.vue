@@ -291,7 +291,7 @@ function removeSelectedGuarantor() {
   }
   store.deleteGuarantor(selectedGuarantor).then(
     () => {
-      ToastService.deleteSuccess()
+      ToastService.success('guarantorssection.guarantor-deleted')
       guarantors.value = guarantors.value.filter((g) => g.id != selectedGuarantor?.id)
       closeConfirmModal()
     },
