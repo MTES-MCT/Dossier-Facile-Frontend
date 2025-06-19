@@ -37,8 +37,6 @@ function defaultState(): State {
 const initialStore = defaultState()
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL?.toString()}`
 
-const LOGOUT_REDIRECT_URL = import.meta.env.VITE_LOGOUT_REDIRECT_URL
-
 const useOwnerStore = defineStore('owner', {
   state: (): State => ({ ...initialStore }),
   getters: {
@@ -171,7 +169,7 @@ const useOwnerStore = defineStore('owner', {
       )
     },
     logout() {
-      return keycloak.logout({ redirectUri: LOGOUT_REDIRECT_URL }).then(() => {
+      return keycloak.logout().then(() => {
         this.logoutCommit()
         this.initState()
       })
