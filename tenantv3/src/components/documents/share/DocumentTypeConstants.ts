@@ -170,3 +170,11 @@ export type MainActivityCategory =
   | 'STAY_AT_HOME_PARENT'
   | 'NO_ACTIVITY'
   | 'OTHER'
+
+export type IdentityCategory =
+  | 'FRENCH_IDENTITY_CARD'
+  | 'FRENCH_PASSPORT'
+  | 'FRENCH_RESIDENCE_PERMIT'
+  | 'DRIVERS_LICENSE'
+  | 'FRANCE_IDENTITE'
+  | 'OTHER_IDENTIFICATION'

@@ -455,9 +455,43 @@ export const router = createRouter({
       component: () => import('@/views/TenantDocument.vue'),
       children: [
         {
-          path: '1',
-          name: 'TenantIdentification',
+          path: '0',
           component: () => import('@/components/documents/tenant/TenantIdentification.vue')
+        },
+        {
+          path: '1',
+          component: () => import('@/components/identityDocument/TenantIdentification.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantIdentification',
+              component: () => import('@/components/identityDocument/ChooseIdentityDocument.vue')
+            },
+            {
+              path: 'carte',
+              component: () => import('@/components/identityDocument/IdentityCard.vue')
+            },
+            {
+              path: 'passeport',
+              component: () => import('@/components/identityDocument/IdentityPassport.vue')
+            },
+            {
+              path: 'titre-sejour',
+              component: () => import('@/components/identityDocument/ResidencyPermit.vue')
+            },
+            {
+              path: 'permis-conduire',
+              component: () => import('@/components/identityDocument/DriversLicence.vue')
+            },
+            {
+              path: 'france-identite',
+              component: () => import('@/components/identityDocument/FranceIdentite.vue')
+            },
+            {
+              path: 'autre',
+              component: () => import('@/components/identityDocument/IdentityOther.vue')
+            }
+          ]
         },
         {
           path: '2',
