@@ -66,21 +66,21 @@ function showDeleteAccountModal() {
       <div id="menu-774" class="fr-collapse fr-menu">
         <ul class="fr-menu__list">
           <li>
-            <a
+            <RouterLink
               class="fr-nav__link"
-              href="/proprietaire"
+              to="/proprietaire"
               target="_self"
               :aria-current="currentPage === 'AccountName' ? 'page' : undefined"
-              >{{ t('menu.personal-data') }}</a
+              >{{ t('menu.personal-data') }}</RouterLink
             >
           </li>
           <li>
-            <a
+            <RouterLink
               class="fr-nav__link"
-              href="/"
+              to="/"
               target="_self"
               :aria-current="currentPage === 'Dashboard' ? 'page' : undefined"
-              >{{ t('menu.dashboard') }}</a
+              >{{ t('menu.dashboard') }}</RouterLink
             >
           </li>
           <li>
