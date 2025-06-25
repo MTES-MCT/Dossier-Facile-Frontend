@@ -28,6 +28,7 @@
       <HintText>{{ t('other-examples') }}</HintText>
     </RadioListItem>
   </RadioList>
+  <IdentificationFooter />
 </template>
 
 <script setup lang="ts">
@@ -38,6 +39,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import HintText from '../common/HintText.vue'
+import IdentificationFooter from './lib/IdentificationFooter.vue'
 
 const { t } = useI18n()
 const route = useRoute()

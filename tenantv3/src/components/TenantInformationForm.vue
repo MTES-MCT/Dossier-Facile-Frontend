@@ -106,9 +106,11 @@ import { useRouter } from 'vue-router'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { isAxiosError } from 'axios'
+import { useIdentityDocumentLink } from './identityDocument/lib/identityDocumentLink'
 
 const router = useRouter()
 const store = useTenantStore()
+const identificationLink = useIdentityDocumentLink()
 const user = computed(() => store.user)
 const roommates = computed(() => store.getRoommates)
 const coTenantAuthorize = computed(() => store.coTenantAuthorize)
@@ -136,7 +138,7 @@ onBeforeMount(() => {
 
 function handleOthersInformation() {
   if (hasNothingToSave()) {
-    router.push({ name: 'TenantIdentification' })
+    router.push(identificationLink.value)
     return
   }
 
@@ -162,7 +164,7 @@ function handleOthersInformation() {
       if (applicationType.value === 'GROUP') {
         ToastService.success('tenantinformationform.roommates-saved')
       }
-      router.push({ name: 'TenantIdentification' })
+      router.push(identificationLink.value)
     },
     (error: unknown) => {
       loader.hide()
@@ -215,7 +217,7 @@ function authorize() {
   if (applicationType.value === 'GROUP' && !localCoTenantAuthorize.value) {
     return
   }
-  router.push({ name: 'TenantIdentification' })
+  router.push(identificationLink.value)
 }
 
 function goBack() {
