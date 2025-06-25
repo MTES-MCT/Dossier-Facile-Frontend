@@ -22,10 +22,13 @@ import type { RouteLocationRaw, RouteParamsRawGeneric } from 'vue-router'
 import { computed } from 'vue'
 import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import { useMainActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
+import { useIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
 
 const { t } = useI18n()
 const residencyLink = useResidencyLink()
 const mainActivityLink = useMainActivityLink()
+const identificationLink = useIdentityDocumentLink()
+
 const props = defineProps<{
   personType: PersonType
   to?: RouteLocationRaw
@@ -70,6 +73,9 @@ const to = computed(() => {
   }
   if (name === 'TenantProfessional') {
     return mainActivityLink.value
+  }
+  if (name === 'TenantIdentification') {
+    return identificationLink.value
   }
   return {
     name,

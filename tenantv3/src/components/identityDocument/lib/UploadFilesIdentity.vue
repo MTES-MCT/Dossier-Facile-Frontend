@@ -18,7 +18,7 @@
     />
   </div>
   <FileUpload :current-status="fileUploadStatus" :page="4" @add-files="addFiles"></FileUpload>
-  <ProfileFooter />
+  <IdentificationFooter />
 </template>
 
 <script setup lang="ts">
@@ -35,7 +35,7 @@ import { UtilsService } from '@/services/UtilsService'
 import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import type { IdentityCategory } from '@/components/documents/share/DocumentTypeConstants'
-import ProfileFooter from '@/components/footer/ProfileFooter.vue'
+import IdentificationFooter from './IdentificationFooter.vue'
 
 const props = defineProps<{ category: IdentityCategory }>()
 

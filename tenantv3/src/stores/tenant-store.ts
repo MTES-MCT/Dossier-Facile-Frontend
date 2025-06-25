@@ -36,6 +36,7 @@ import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import cookies from 'js-cookie'
+import { makeIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || ''
@@ -667,7 +668,7 @@ export const useTenantStore = defineStore('tenant', {
         return { name: 'TenantType' }
       }
       if (!this.hasDoc('IDENTIFICATION')) {
-        return { name: 'TenantIdentification' }
+        return makeIdentityDocumentLink(this.getTenantIdentificationDocument)
       }
       if (!this.isTenantDocumentValid('RESIDENCY')) {
         return makeResidencyLink(this.user)
