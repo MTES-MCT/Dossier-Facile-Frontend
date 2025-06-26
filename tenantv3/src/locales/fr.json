@@ -35,13 +35,14 @@
   "file-saved": "Votre fichier est enregistré",
   "save-success": "Enregistrement réussi",
   "save-failed": "Erreur lors de l'enregistrement",
-  "save-failed-num-pages": "Nombre de pages maximum atteint, veuillez en supprimer",
+  "save-failed-num-pages": "Le nombre total de pages dépasse la limite autorisée. Veuillez supprimer des pages.",
   "delete-success": "Votre fichier est supprimé",
-  "delete-failed": "Erreur lors de la suppression",
+  "delete-file-failed": "Impossible de supprimer le fichier. Veuillez réessayer.",
+  "add-file-failed": "Impossible d’ajouter le fichier. Veuillez réessayer.",
   "max-file-default": "Nombre de fichier maximum atteint, veuillez en supprimer",
-  "max-file": "Nombre de fichiers maximum atteint (actuellement : {0} / maximum : {1}), veuillez en supprimer",
+  "max-file": "Nombre maximum de fichiers atteint ({0} sur {1}). Veuillez supprimer un fichier avant d’en ajouter un nouveau.",
   "error": "Une erreur est survenue",
-  "unable-to-copy": "Impossible de copier",
+  "unable-to-copy": "Impossible de copier. Veuillez réessayer.",
   "strength-not-valid": "Le mot de passe est trop simple",
   "confirm-not-valid": "Le mot de passe ne correspond pas",
   "email-not-valid": "Email non valide",
@@ -77,7 +78,6 @@
   "VALIDATED": "Vérifié",
   "DECLINED": "Modification demandée",
   "INCOMPLETE": "Non terminé",
-  "try-again": "Une erreur est survenue, veuillez réessayer plus tard.",
   "example-prefix": "Ex : ",
   "next-step": "Passer à l'étape suivante",
   "add-new-documents": "Ajouter de nouveaux documents",
@@ -387,11 +387,6 @@
     "continue": "Continuer",
     "continue-aria-label": "Enregistrer les informations et continuer"
   },
-  "changepasswordpage": {
-    "error": "Erreur",
-    "password-update": "Le mot de passe a été mis à jour",
-    "token-expired": "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
-  },
   "confirmaccount": {
     "action-confirmed": "Votre action a bien été prise en compte.",
     "token-err": "Une erreur est survenue, si vous avez déjà confirmé votre compte vous pouvez vous connecter, sinon vous pouvez lancer la procédure de <a href='/forgotten-password'>changement de mot de passe</a>"
@@ -474,7 +469,7 @@
     "cancel": "Annuler",
     "title": "Suppression de compte",
     "confirm-delete": "Veuillez confirmer la suppression complète du compte",
-    "try-again": "Une erreur est survenue, veuillez réessayer plus tard."
+    "try-again": "Impossible de supprimer votre compte. Veuillez réessayer. Si le problème persiste, contactez-nous."
   },
   "documentdownloader": {
     "files": "Documents",
@@ -543,7 +538,8 @@
     "organism": "Certificat de l'organisme",
     "identification-legal-person": "Identification de la personne morale",
     "and": " et ",
-    "download-failed": "Echec du téléchargement. Ressayez dans quelques minutes.",
+    "download-failed": "Le téléchargement du dossier a échoué. Veuillez réessayer. Si le problème persiste, contactez-nous.",
+    "download-failed-try-later": "Le téléchargement du dossier a échoué. Veuillez réessayer plus tard. Si le problème persiste, contactez-nous.",
     "download-disabled-title": "Le dossier pourra être téléchargé lorsque celui-ci aura été entièrement vérifié par DossierFacile.",
     "not-found": {
       "title": "Dossier introuvable",
@@ -588,9 +584,6 @@
     "pages": "{0} pages maximum",
     "size": "Poids maximal : {0}Mo"
   },
-  "financialdocumentform": {
-    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu."
-  },
   "forgottenpasswordpage": {
     "email-not-found": "Email non trouvé",
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
@@ -608,6 +601,7 @@
     "guarantor": "Garant",
     "validate": "Valider",
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
+    "change-guarantor-failed": "Impossible de valider le type de garant. Veuillez réessayer.",
     "validate-file": "Étape suivante - Valider le dossier",
     "natural-person": {
       "label": "Une personne",
@@ -625,7 +619,7 @@
     "optional-guarantor": "Ajouter un garant n’est pas obligatoire. Si vous n'avez pas de garant, vous pouvez sélectionner <em>pas de garant</em> en bas de la page pour passer à l'étape suivante.",
     "two-guarantors-warning": "Si vous avez 2 garants, ajoutez-les l'un après l'autre.<br/><strong>Les documents de vos 2 garants ne doivent pas être mélangés</strong>.",
     "no-guarantor": "Vous n'avez pas de garant",
-    "type-required": "Veuillez sélectionner un choix",
+    "type-required": "Sélectionnez un choix pour continuer.",
     "visale-title": "Connaissez-vous Visale ?",
     "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
     "visale-btn": "Découvrir Visale"
@@ -696,6 +690,7 @@
     "delete-guarantor": "Supprimer ce garant",
     "confirm-delete-guarantor": "Êtes-vous sur de vouloir supprimer ce garant ?",
     "guarantor-deleted": "Votre garant est supprimé",
+    "guarantor-delete-failed": "Impossible de supprimer ce garant. Veuillez réessayer.",
     "add-guarantor": "Ajouter un garant ?",
     "visale-title": "Connaissez-vous Visale ?",
     "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
@@ -736,18 +731,16 @@
     "cancel": "Annuler"
   },
   "joincouple": {
-    "error": "Erreur",
-    "password-update": "Le mot de passe a été mis à jour",
+    "password-created": "Le mot de passe a bien été enregistré.",
     "title": "Création du mot de passe",
     "already-logged": "Vous êtes déjà en mode connecté, voulez-vous vous déconnecter pour créer ce compte ?",
-    "token-expired": "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
+    "token-expired": "Le lien est expiré ou incorrect. Contactez-nous pour obtenir de l’aide."
   },
   "joingroup": {
-    "error": "Erreur",
-    "password-update": "Le mot de passe a été mis à jour",
+    "password-created": "Le mot de passe a bien été enregistré.",
     "title": "Création du mot de passe",
     "already-logged": "Vous êtes déjà en mode connecté, voulez-vous vous déconnecter pour créer ce compte ?",
-    "bad-request": "Le token dans l'url fourni semble incorrect"
+    "bad-request": "Le lien est expiré ou incorrect. Contactez-nous pour obtenir de l’aide."
   },
   "listitem": {
     "FRENCH_IDENTITY_CARD": "Carte d'identité française",
@@ -912,7 +905,6 @@
     "invite-sent": "Invitation envoyée",
     "my-roommates": "Mes colocataires",
     "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente de la votre.",
-    "email-exists-2": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
     "more-information": "En quoi cette information nous est utile ?",
     "require-accept": "Vous devez accepter la déclaration"
   },
@@ -932,6 +924,7 @@
     "email-label": "Email du bailleur :",
     "email-placeholder": "bailleur{'@'}exemple.com",
     "sent-success": "Votre dossier est envoyé par mail",
+    "sent-failed": "Le partage par e-mail a échoué. Veuillez réessayer.",
     "view": {
       "title": "Voir votre dossier",
       "text": "Vous souhaitez voir votre dossier avant de le partager ?",
@@ -995,10 +988,11 @@
     "optional-guarantor": "Ajouter un garant n’est pas obligatoire. Si votre conjoint n'a pas de garant, vous pouvez sélectionner <em>pas de garant</em> en bas de la page pour passer à l'étape suivante.",
     "two-guarantors-warning": "Si votre conjoint a 2 garants, ajoutez-les l'un après l'autre. <strong>Les documents de ses 2 garants ne doivent pas être mélangés</strong>.",
     "no-guarantor": "Votre conjoint n'a pas de garant",
-    "type-required": "Veuillez sélectionner un choix",
+    "type-required": "Sélectionnez un choix pour continuer.",
     "visale-title": "Connaissez-vous Visale ?",
     "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
-    "visale-btn": "Découvrir Visale"
+    "visale-btn": "Découvrir Visale",
+    "try-again": "Impossible de valider le type de garant. Veuillez réessayer."
   },
   "tenantguarantordocuments": {
     "identification": "Pièce d’identité",
@@ -1046,13 +1040,13 @@
     "roommate": "En colocation",
     "remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
     "remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de celui de votre conjoint·e",
-    "error": "Une erreur est survenue",
     "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés.<br/>Je consens aussi au fait que mon partenaire puisse partager les pièces de notre dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
     "acceptAuthorCoTenant": "<div>J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.<br/>Je consens aussi au fait que les autres membres de ma colocation puissent partager les pièces de mon dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.<span style='color: red'> *</span></div>",
     "validate": "Valider",
-    "roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été\najoutés et une invitation de création de compte leur a été envoyée.",
-    "couple-saved": "Votre conjoint·e a bien été ajouté·e.\nSi un e-mail a été fourni, une invitation de création de compte lui a été envoyée.",
-    "email-exists": "Cette adresse email est déjà utilisée sur DossierFacile.\nRenseignez une adresse email différente.",
+    "roommates-saved": "Vos colocataires ont bien été ajoutés. Une invitation de création de compte leur a été envoyée.",
+    "couple-saved": "Votre conjoint a été ajouté.",
+    "couple-saved-with-mail": "Votre conjoint a été ajouté. Une invitation à créer un compte lui a été envoyée.",
+    "email-exists": "Cette adresse email est déjà enregistrée sur DossierFacile. Veuillez en renseigner une différente.",
     "roommate-email-required": "Vous devez saisir l'adresse email d'au moins un colocataire.",
     "couple-email-required": "Vous devez saisir l'adresse email de votre conjoint·e",
     "will-delete-couple": "Cette action va supprimer le dossier de votre conjoint·e",
@@ -1176,9 +1170,11 @@
       "never": "Jamais",
       "no-shared-file": "Aucun dossier partagé pour l'instant",
       "resend": "Renvoyer",
-      "resend-too-many": "Impossible de renvoyer un lien d’invitation : un précédent lien a été généré il y a moins d’une heure. Veuillez réessayer ultérieurement.",
+      "resend-too-many": "Impossible de renvoyer un lien d’invitation : un précédent lien a été généré il y a moins d’une heure. Veuillez réessayer plus tard.",
       "resend-success": "Votre dossier a été renvoyé",
-      "resend-failed": "Echec de l'envoi. Veuillez ré-essayer plus tard"
+      "resend-failed": "Impossible d’envoyer la demande. Veuillez réessayer plus tard.",
+      "enable-failed": "Impossible d’activer le partage de ce dossier. Veuillez réessayer.",
+      "disable-failed": "Impossible de désactiver le partage de ce dossier. Veuillez réessayer."
     }
   },
   "partners-page": {
@@ -1259,6 +1255,7 @@
   },
   "errors": {
     "invalid-file-extension": "Cette extension n'est pas valide. Seuls les fichiers en .jpg, .png, .pdf ou .heic sont acceptés",
-    "no-file": "Ajouter au moins un fichier pour pouvoir continuer"
+    "no-file": "Ajoutez au moins un fichier pour continuer",
+    "submit-failed": "Impossible d’envoyer le formulaire. Veuillez réessayer."
   }
 }

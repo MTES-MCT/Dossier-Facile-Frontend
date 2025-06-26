@@ -296,7 +296,7 @@ function removeSelectedGuarantor() {
       closeConfirmModal()
     },
     () => {
-      ToastService.deleteFailed()
+      ToastService.error('guarantorssection.guarantor-delete-failed')
       closeConfirmModal()
     }
   )

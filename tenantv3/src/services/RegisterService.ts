@@ -16,7 +16,7 @@ export const RegisterService = {
         ToastService.deleteSuccess()
       }
     } catch {
-      ToastService.deleteFailed()
+      ToastService.deleteFileFailed()
     } finally {
       loader.hide()
       const store = useTenantStore()

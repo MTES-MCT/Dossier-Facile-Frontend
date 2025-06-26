@@ -319,7 +319,7 @@ function retryDownload(remainingCount: number) {
       retryDownload(remainingCount - 1)
     } else {
       showProgressBar.value = false
-      ToastService.error('file.download-failed')
+      ToastService.error('file.download-failed-try-later')
     }
   }, 15000)
 }
@@ -336,7 +336,7 @@ function downloadFile(url: string) {
     })
     .catch((error) => {
       console.error(error)
-      ToastService.error()
+      ToastService.error('file.download-failed')
     })
     .finally(() => (showProgressBar.value = false))
 }
@@ -353,7 +353,7 @@ function download() {
       })
       .catch(() => {
         showProgressBar.value = false
-        ToastService.error()
+        ToastService.error('file.download-failed')
       })
   }
 }

@@ -91,6 +91,7 @@ import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
+import { UtilsService } from '@/services/UtilsService'
 
 const store = useTenantStore()
 const { t } = useI18n()
@@ -164,12 +165,11 @@ function save() {
         files.value = []
         fileUploadStatus.value = UploadStatus.STATUS_INITIAL
         store.loadUser()
-        ToastService.saveSuccess()
         return Promise.resolve(true)
       })
       .catch((err: Error) => {
         fileUploadStatus.value = UploadStatus.STATUS_FAILED
-        ToastService.saveFailed()
+        UtilsService.handleCommonSaveError(err)
         return Promise.reject(err)
       })
       .finally(() => {
@@ -193,7 +193,7 @@ function save() {
     })
     .catch((err: Error) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      ToastService.saveFailed()
+      ToastService.error('add-file-failed')
       return Promise.reject(err)
     })
     .finally(() => {
