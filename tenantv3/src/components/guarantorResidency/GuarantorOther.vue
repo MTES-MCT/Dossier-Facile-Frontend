@@ -47,9 +47,9 @@ import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useField } from 'vee-validate'
 import { useTenantStore } from '@/stores/tenant-store'
-import { ToastService } from '@/services/ToastService'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
+import { UtilsService } from '@/services/UtilsService'
 
 const { t } = useI18n()
 const checkboxId = useId()
@@ -80,8 +80,7 @@ async function submit() {
     await store.saveGuarantorResidency(formData)
     return true
   } catch (error) {
-    console.error(error)
-    ToastService.error()
+    UtilsService.handleCommonSaveError(error)
     return false
   }
 }

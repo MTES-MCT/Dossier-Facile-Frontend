@@ -103,7 +103,7 @@ function confirmGuarantorTypeChange() {
       selectType(checkedGuarantorType.value)
     },
     () => {
-      ToastService.error()
+      ToastService.error('guarantorchoice.change-guarantor-failed')
     }
   )
 }

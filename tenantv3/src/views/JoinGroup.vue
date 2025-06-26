@@ -35,7 +35,7 @@ function onInitPassword(password: string) {
   const token = route.params.token.toString()
   store.createPasswordGroup({ token, password }).then(
     () => {
-      ToastService.success('joingroup.password-update')
+      ToastService.success('joingroup.password-created')
       router.push({ name: 'TenantName' })
       loader.hide()
       isLoading.value = false
@@ -47,7 +47,7 @@ function onInitPassword(password: string) {
       if (error.code == 'ERR_BAD_REQUEST') {
         ToastService.error('joingroup.bad-request')
       } else {
-        ToastService.error('joingroup.error')
+        ToastService.error('errors.submit-failed')
       }
     }
   )

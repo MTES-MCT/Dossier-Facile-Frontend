@@ -106,7 +106,7 @@ function setGuarantorType() {
           emit('on-select', tmpGuarantorType.value)
         },
         () => {
-          ToastService.error('try-again')
+          ToastService.error('tenantguarantorchoice.try-again')
         }
       )
   }

@@ -26,8 +26,8 @@ export const ToastService = {
   noFileError() {
     toast.error(i18n.global.t('errors.no-file'))
   },
-  deleteFailed() {
-    toast.error(i18n.global.t('delete-failed'))
+  deleteFileFailed() {
+    toast.error(i18n.global.t('delete-file-failed'))
   },
   deleteSuccess() {
     toast.success(i18n.global.t('delete-success'))

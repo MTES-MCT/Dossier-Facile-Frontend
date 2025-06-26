@@ -190,12 +190,11 @@ function save() {
         files.value = []
         fileUploadStatus.value = UploadStatus.STATUS_INITIAL
         store.loadUser()
-        ToastService.saveSuccess()
         return Promise.resolve(true)
       })
       .catch((err: Error) => {
         fileUploadStatus.value = UploadStatus.STATUS_FAILED
-        ToastService.saveFailed()
+        ToastService.error('errors.submit-failed')
         return Promise.reject(err)
       })
       .finally(() => {
@@ -225,7 +224,7 @@ function save() {
     })
     .catch(() => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      ToastService.saveFailed()
+      ToastService.error('add-file-failed')
       return Promise.reject(new Error('Save: upload failed'))
     })
     .finally(() => {

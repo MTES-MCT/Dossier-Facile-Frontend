@@ -127,7 +127,7 @@ function save() {
     })
     .catch(() => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      ToastService.saveFailed()
+      ToastService.error('errors.submit-failed')
     })
     .finally(() => {
       loader.hide()
