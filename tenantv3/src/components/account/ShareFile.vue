@@ -139,7 +139,7 @@ function sendMail() {
       store.loadApartmentSharingLinks()
     })
     .catch(() => {
-      ToastService.error()
+      ToastService.error('sharefile.sent-failed')
     })
 }
 

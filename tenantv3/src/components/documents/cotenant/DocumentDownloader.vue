@@ -481,7 +481,7 @@ function remove(file: DfFile) {
       })
       .catch((err) => {
         console.log('Unable to delete last element?', err)
-        ToastService.saveFailed()
+        ToastService.error('delete-file-failed')
       })
       .finally(() => {
         hideLoader()

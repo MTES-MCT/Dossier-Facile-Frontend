@@ -207,7 +207,7 @@ function sendFile() {
       })
     })
     .catch(() => {
-      ToastService.error()
+      ToastService.error('errors.submit-failed')
     })
     .finally(() => {
       loader.hide()

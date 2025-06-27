@@ -252,7 +252,7 @@ function deleteDoc() {
   store
     .deleteDocument(id)
     .catch(() => {
-      ToastService.error()
+      ToastService.errorf(t('delete-failed'))
     })
     .finally(() => {
       loader.hide()
@@ -349,6 +349,7 @@ function deleteDoc() {
       "couple-guarantor": "Income of your spouse's guarantor"
     },
     "sure-to-delete": "Are you sure you want to delete this income?",
+    "delete-failed": "Unable to delete this income. Please try again.",
     "cancel": "Cancel"
   },
   "fr": {
@@ -375,6 +376,7 @@ function deleteDoc() {
       "couple-guarantor": "Revenus du garant de votre conjoint"
     },
     "sure-to-delete": "Êtes-vous sûr de vouloir supprimer ce revenu ?",
+    "delete-failed": "Impossible de supprimer ce revenu. Veuillez réessayer",
     "cancel": "Annuler"
   }
 }

@@ -333,7 +333,7 @@ function downloadZip() {
     })
     .catch((error) => {
       console.error(error)
-      ToastService.error()
+      ToastService.error('file.download-failed')
     })
 }
 
