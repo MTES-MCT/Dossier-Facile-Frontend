@@ -166,7 +166,7 @@ function handleOthersInformation() {
     },
     (error: unknown) => {
       loader.hide()
-      if (isAxiosError(error) && error.response?.data.message?.includes('are already being used')) {
+      if (isAxiosError(error) && error.status === 409) {
         ToastService.error('tenantinformationform.email-exists')
         return
       } else {

@@ -20,6 +20,9 @@
           <div v-if="showEmailExists" class="fr-callout">
             <p class="fr-mb-1w" v-html="t('roommatesinformation.email-exists')"></p>
           </div>
+          <div v-if="showRootMateAlreadyExists" class="fr-callout">
+            <p class="fr-mb-1w" v-html="t('roommatesinformation.co-tenant-already-exists')"></p>
+          </div>
           <div v-if="modelValue.length > 0">
             <div v-for="(roommate, key) in modelValue" :key="key" class="fr-mb-1w">
               <NakedCard>
@@ -175,6 +178,7 @@ const props = withDefaults(defineProps<{ modelValue?: CoTenant[] }>(), {
 const authorize = ref(false)
 const newRoommate = ref('')
 const showEmailExists = ref(false)
+const showRootMateAlreadyExists = ref(false)
 
 const invalidEmail = useFieldError('email')
 
@@ -185,6 +189,12 @@ onMounted(() => {
 function addMail() {
   showEmailExists.value = false
   if (newRoommate.value !== '') {
+    if (isEmailAlreadyExists(newRoommate.value)) {
+      showRootMateAlreadyExists.value = true
+      return
+    } else {
+      showRootMateAlreadyExists.value = false
+    }
     if (user.value.email !== newRoommate.value) {
       const coTenant = new User()
       coTenant.email = newRoommate.value
@@ -196,6 +206,10 @@ function addMail() {
       showEmailExists.value = true
     }
   }
+}
+
+function isEmailAlreadyExists(email: string): boolean {
+  return props.modelValue.some((tenant) => tenant.email === email)
 }
 
 function remove(tenant: CoTenant) {

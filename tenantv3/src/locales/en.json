@@ -902,6 +902,7 @@
     "invite-sent": "Invitation sent",
     "my-roommates": "My roommates",
     "email-exists": "You cannot associate two accounts with the same email address! <br>Please provide a different email address.",
+    "co-tenant-already-exists": "An account already exists with this email address. Please enter a different address.",
     "more-information": "Why is this information useful to us?",
     "require-accept": "You must accept the declaration"
   },

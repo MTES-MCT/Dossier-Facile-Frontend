@@ -413,8 +413,9 @@ export const useTenantStore = defineStore('tenant', {
       this.loadUserCommit(response.data)
     },
     async setCoTenants(data: Parameters<typeof ProfileService.saveCoTenants>[number]) {
-      const response = await ProfileService.saveCoTenants(data)
-      this.loadUserCommit(response.data)
+      return ProfileService.saveCoTenants(data).then((response) => {
+        this.loadUserCommit(response.data)
+      })
     },
     setLang(lang: 'fr' | 'en') {
       i18n.global.locale.value = lang
