@@ -905,6 +905,7 @@
     "invite-sent": "Invitation envoyée",
     "my-roommates": "Mes colocataires",
     "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente de la votre.",
+    "co-tenant-already-exists": "Un compte existe déjà avec cette adresse email. Veuillez renseigner une autre adresse.",
     "more-information": "En quoi cette information nous est utile ?",
     "require-accept": "Vous devez accepter la déclaration"
   },
