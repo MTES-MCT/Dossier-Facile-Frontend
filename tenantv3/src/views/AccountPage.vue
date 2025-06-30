@@ -245,7 +245,7 @@ onMounted(() => {
   }
   // reload processTime after 10 seconds if date is still missing
   reloadExpectedProcessTimeIntervalId = setInterval(() => {
-    if (!expectedDate.value) {
+    if (!expectedDate.value && user.value && user.value.id) {
       loadExpectedProcessingTime(user.value.id)
     } else if (reloadExpectedProcessTimeIntervalId) {
       clearInterval(reloadExpectedProcessTimeIntervalId)
