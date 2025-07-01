@@ -15,7 +15,6 @@ export const MatomoPlugin = {
       trackerFileName: 'matomo',
       router: app.config.globalProperties.$router,
       domains: '*.dossierfacile.logement.gouv.fr',
-      cookieDomain: '*.dossierfacile.logement.gouv.fr',
       userId: undefined,
       enableLinkTracking: true,
       trackInitialView: true,
