@@ -1,6 +1,6 @@
 const AnalyticsService = {
   sendEvent(name: string, data: { event_category: string; event_label?: string }) {
-    if (!import.meta.env.VITE_MATOMO_ENABLE || !window._paq) {
+    if (!window._paq) {
       return
     }
     window._paq.push(['trackEvent', data.event_category, name, data.event_label])
