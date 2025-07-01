@@ -4,12 +4,12 @@ import type { App } from 'vue'
 export const MatomoPlugin = {
   install(app: App) {
     const options = {
-      host: import.meta.env.VITE_MATOMO_URL,
-      siteId: import.meta.env.VITE_MATOMO_SITE_ID,
+      host: 'https://stats.beta.gouv.fr',
+      siteId: 32,
       trackerFileName: 'matomo',
       router: app.config.globalProperties.$router,
-      domains: import.meta.env.VITE_MATOMO_DOMAIN,
-      cookieDomain: import.meta.env.VITE_MATOMO_DOMAIN,
+      domains: '*.dossierfacile.logement.gouv.fr',
+      cookieDomain: '*.dossierfacile.logement.gouv.fr',
       userId: undefined,
       enableLinkTracking: true,
       trackInitialView: true
