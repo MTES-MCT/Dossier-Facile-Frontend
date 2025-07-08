@@ -53,7 +53,7 @@ function hasToDisplayAnnoncement() {
 </script>
 
 <template>
-  <div class="background" />
+  <div class="cdn-background"></div>
   <ConsentHandler />
   <TenantSkipLinks />
   <MyHeader

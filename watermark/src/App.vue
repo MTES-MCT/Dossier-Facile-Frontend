@@ -4,7 +4,7 @@ import FooterComponent from "./components/FooterComponent.vue";
 </script>
 
 <template>
-  <div class="background" />
+  <div class="cdn-background"></div>
   <HeaderComponent />
   <main class="fr-container fr-mt-3w fr-mb-3w" role="main">
     <router-view />

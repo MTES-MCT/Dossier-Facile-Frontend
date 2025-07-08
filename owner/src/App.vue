@@ -44,7 +44,7 @@ function onLogout() {
 </script>
 
 <template>
-  <div class="background" />
+  <div class="cdn-background"></div>
   <ConsentHandler />
   <SkipLinks />
   <MyHeader
