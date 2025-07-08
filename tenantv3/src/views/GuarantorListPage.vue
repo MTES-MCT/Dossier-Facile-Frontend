@@ -146,7 +146,7 @@ function removeGuarantor(g: Guarantor) {
       isRemoveGuarantor.value = false
     },
     () => {
-      ToastService.error()
+      ToastService.error('guarantorssection.guarantor-delete-failed')
     }
   )
 }

@@ -30,6 +30,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
+  <div class="background" />
   <ConsentHandler />
   <SkipLinks />
   <MyHeader @on-login="onLoginTenant" @on-access-owner="onCreateOwner">

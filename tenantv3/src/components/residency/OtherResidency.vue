@@ -83,7 +83,7 @@ const submit = () => {
     .then(goNext)
     .catch((err) => {
       console.error(err)
-      ToastService.error()
+      ToastService.error('errors.submit-failed')
     })
 }
 </script>

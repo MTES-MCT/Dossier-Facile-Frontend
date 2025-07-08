@@ -35,7 +35,7 @@ function onInitPassword(password: string) {
   const loader = $loading.show()
   store.createPasswordCouple({ token, password }).then(
     () => {
-      ToastService.success('joincouple.password-update')
+      ToastService.success('joincouple.password-created')
       router.push({ name: 'TenantName' })
       loader.hide()
       isLoading.value = false
@@ -46,7 +46,7 @@ function onInitPassword(password: string) {
       if (isAxiosError(error) && error.code === 'ERR_BAD_REQUEST') {
         ToastService.error('joincouple.token-expired')
       } else {
-        ToastService.error('joincouple.error')
+        ToastService.error('errors.submit-failed')
       }
     }
   )

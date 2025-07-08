@@ -42,3 +42,21 @@ Les pull requests sont possibles. Pour des changements majeurs, veuillez d'abord
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+### ⚠️ IMPORTANT : Limites d'utilisation
+Bien que ce code soit distribué sous licence open source MIT, certains éléments contenus dans ce repository sont protégés et leur réutilisation est strictement interdite :
+
+### Marque DossierFacile
+Ce repository utilise le nom et le logo de [DossierFacile](https://www.dossierfacile.logement.gouv.fr/), qui constituent une marque déposée de l'État français. Toute utilisation de cette marque en dehors du contexte officiel est interdite.
+
+### Système de Design de l'État Français (DSFR)
+Ce repository met en oeuvre le [Système de Design de l'État Français (DSFR)](https://www.systeme-de-design.gouv.fr/). **Il est formellement interdit à tout autre acteur d'utiliser le DSFR pour des sites web ou des applications**. Le DSFR représente l'identité numérique de l'État français.
+
+### Sanctions légales
+En cas d'usage non autorisé, vous vous exposez à des poursuites légales, notamment sur la base des articles suivants :
+- Usurpation des symboles de la République française ([art. 444-1 Code pénal](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006418825))
+- Contrefaçon ([art. L335-2 Code de la propriété intellectuelle](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032655082))
+- Entrave au fonctionnement d'un système automatisé de traitement de données de l'État ([art. 323-2 Code pénal](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030939443))
+- Escroquerie ([art. 313-2 du Code pénal](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000049531795))
+
+**Recommandation** : Si vous souhaitez réutiliser ce code, supprimez ou remplacez tous les éléments liés à la marque DossierFacile et au DSFR avant déploiement.

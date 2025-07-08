@@ -35,11 +35,12 @@
   "file-saved": "Your file is saved",
   "save-success": "Save successful",
   "save-failed": "Error while saving",
-  "save-failed-num-pages": "Maximum number of pages reached, please delete some",
+  "save-failed-num-pages": "The total number of pages exceeds the authorised limit. Please delete some pages.",
   "delete-success": "Your file is deleted",
-  "delete-failed": "Error while deleting",
+  "delete-file-failed": "Unable to delete the file. Please try again.",
+  "add-file-failed": "Unable to add the file. Please try again.",
   "max-file-default": "Maximum number of files reached, please delete some",
-  "max-file": "Maximum number of files reached (currently: {0} / maximum: {1}), please delete some",
+  "max-file": "Maximum number of files reached ({0} out of {1}). Please delete a file before adding a new one.",
   "error": "An error occurred",
   "unable-to-copy": "unable to copy",
   "strength-not-valid": "The password is too weak",
@@ -77,7 +78,6 @@
   "VALIDATED": "Verified",
   "DECLINED": "Modification Requested",
   "INCOMPLETE": "Incomplete",
-  "try-again": "An error occurred, please try again later.",
   "example-prefix": "E.g., ",
   "next-step": "Go to the next step",
   "add-new-documents": "Add new documents",
@@ -383,11 +383,6 @@
     "continue": "Continue",
     "continue-aria-label": "Save and continue"
   },
-  "changepasswordpage": {
-    "error": "Error",
-    "password-update": "The password has been updated",
-    "token-expired": "The link has expired, please start the forgot password procedure"
-  },
   "confirmaccount": {
     "action-confirmed": "Your action has been taken account.",
     "token-err": "An error occurred, if you have already confirmed your account you can log in, otherwise you can start the <a href='/forgotten-password'>password reset procedure</a>"
@@ -470,7 +465,7 @@
     "cancel": "Cancel",
     "title": "Account Deletion",
     "confirm-delete": "Please confirm the complete deletion of the account",
-    "try-again": "An error occurred, please try again later."
+    "try-again": "Unable to delete your account. Please try again. If the problem persists, please contact us."
   },
   "documentdownloader": {
     "files": "Documents",
@@ -539,7 +534,8 @@
     "organism": "Organization's certificate",
     "identification-legal-person": "Legal entity identification",
     "and": " and ",
-    "download-failed": "Download failed. Please try again in a few minutes.",
+    "download-failed": "File download failed. Please try again. If the problem persists, please contact us.",
+    "download-failed-try-later": "File download failed. Please try again later. If the problem persists, please contact us.",
     "download-disabled-title": "The file will be available for download once it has been fully verified by DossierFacile.",
     "not-found": "The file was not found. Please check the provided link."
   },
@@ -579,9 +575,6 @@
     "pages": "Maximum {0} pages",
     "size": " Maximum size : {0}MB"
   },
-  "financialdocumentform": {
-    "missing-file": "You must add files to save this income."
-  },
   "forgottenpasswordpage": {
     "email-not-found": "Email not found",
     "mail-sent": "An email has been sent to the provided address.",
@@ -604,6 +597,7 @@
     "guarantor": "Guarantor",
     "validate": "Validate",
     "will-delete-guarantor": "Do you really want to change the type of guarantor?",
+    "change-guarantor-failed": "Unable to validate the type of guarantor. Please try again.",
     "validate-file": "Next Step - Validate Application",
     "natural-person": {
       "label": "A person",
@@ -624,7 +618,7 @@
     "ask-guarantor": "Your guarantor is:",
     "optional-guarantor": "Adding a guarantor is not mandatory. If you don't have a guarantor, you can select <em>no guarantor</em> at the bottom of the page to proceed to the next step.",
     "two-guarantors-warning": "If you have 2 guarantors, add them one after the other. <strong>The documents of your 2 guarantors should not be mixed</strong>.",
-    "type-required": "Please select an option",
+    "type-required": "Select an option to continue",
     "visale-title": "Do you know about Visale?",
     "visale-text": "Visale is the guarantor for your future accommodation if you are between 18 and 30 years old OR if you are over 30 years old and employed (subject to conditions).",
     "visale-btn": "Discover Visale"
@@ -695,6 +689,7 @@
     "delete-guarantor": "Delete this guarantor",
     "confirm-delete-guarantor": "Are you sure you want to delete this guarantor?",
     "guarantor-deleted": "Your guarantor is deleted",
+    "guarantor-delete-failed": "Unable to delete this guarantor. Please try again.",
     "add-guarantor": "Add a Guarantor?",
     "visale-title": "Do you know about Visale?",
     "visale-text": "Visale is the guarantor for your future accommodation if you are between 18 and 30 years old OR if you are over 30 years old and employed (subject to conditions).",
@@ -732,19 +727,16 @@
     "cancel": "Cancel"
   },
   "joincouple": {
-    "error": "Error",
-    "password-update": "The password has been updated",
+    "password-created": "The password has been saved",
     "title": "Create Password",
     "already-logged": "You are already in connected mode. Do you want to log out to create this account?",
-    "token-expired": "The link has expired. Please initiate the forgot password procedure again."
+    "token-expired": "The link has expired or is incorrect. Please contact us for assistance."
   },
   "joingroup": {
-    "error": "Error",
-    "password-update": "The password has been updated",
+    "password-created": "The password has been saved",
     "title": "Create Password",
     "already-logged": "You are already in connected mode. Do you want to log out to create this account?",
-    "bad-request": "Provided token in URL sounds wrong",
-    "token-expired": "The link has expired. Please initiate the forgot password procedure again."
+    "bad-request": "The link has expired or is incorrect. Please contact us for assistance."
   },
   "listitem": {
     "FRENCH_IDENTITY_CARD": "French Identity Card",
@@ -910,7 +902,7 @@
     "invite-sent": "Invitation sent",
     "my-roommates": "My roommates",
     "email-exists": "You cannot associate two accounts with the same email address! <br>Please provide a different email address.",
-    "email-exists-2": "This email address is already used on DossierFacile. <br>Please provide a different email address.",
+    "co-tenant-already-exists": "An account already exists with this email address. Please enter a different address.",
     "more-information": "Why is this information useful to us?",
     "require-accept": "You must accept the declaration"
   },
@@ -930,6 +922,7 @@
     "email-label": "Landlord's Email:",
     "email-placeholder": "landlord{'@'}example.com",
     "sent-success": "Your file has been sent by mail",
+    "sent-failed": "Email sharing failed. Please try again.",
     "view": {
       "title": "See your file",
       "text": "See your DossierFacile before to share it ?",
@@ -998,10 +991,11 @@
     "ask-guarantor": "Their guarantor is:",
     "optional-guarantor": "Adding a guarantor is not mandatory. If your partner doesn't have a guarantor, you can select <em>no guarantor</em> at the bottom of the page to proceed to the next step.",
     "two-guarantors-warning": "If your partner has 2 guarantors, add them one after the other. <strong>The documents of the 2 guarantors must not be mixed</strong>.",
-    "type-required": "Please select an option",
+    "type-required": "Select an option to continue",
     "visale-title": "Are you familiar with Visale?",
     "visale-text": "Visale is the guarantor for your future accommodation if you are between 18 and 30 years old OR if you are over 30 and employed (subject to conditions).",
-    "visale-btn": "Discover Visale"
+    "visale-btn": "Discover Visale",
+    "try-again": "Unable to validate the type of guarantor. Please try again."
   },
   "tenantguarantordocuments": {
     "identification": "Identification Document",
@@ -1054,9 +1048,10 @@
     "acceptAuthorSpouse": "I accept that my partner has access to my documents as well as those of my guarantor, if applicable, once both our applications are validated",
     "acceptAuthorCoTenant": "I accept that the other members of my co-tenancy have access to my documents as well as those of my guarantor, if applicable, once all co-tenancy applications are validated",
     "validate": "Validate",
-    "roommates-saved": "Invitation sent to your roommates. Your roommates have been successfully\nadded, and an account creation invitation has been sent to them.",
-    "couple-saved": "Your spouse has been successfully added.\nIf an email has been provided, an account creation invitation has been sent to them.",
-    "email-exists": "This email address is already in use on DossierFacile.\nPlease provide a different email address.",
+    "roommates-saved": "Your roommates have been successfully added. An account creation invitation has been sent to them.",
+    "couple-saved": "Your spouse has been added.",
+    "couple-saved-with-mail": "Your spouse has been added. An account creation invitation has been sent to them.",
+    "email-exists": "This email address is already registered on DossierFacile. Please enter a different one.",
     "roommate-email-required": "You must enter the email address of at least one roommate.",
     "couple-email-required": "You must enter the email address of your spouse.",
     "will-delete-couple": "This action will delete your spouse's application",
@@ -1180,8 +1175,11 @@
       "never": "Never",
       "no-shared-file": "No shared files yet",
       "resend": "Resend",
+      "resend-too-many": "Cannot resend invitation link: a previous link was generated less than an hour ago. Please try again later.",
       "resend-success": "Your file has been resent",
-      "resend-failed": "resend Failed! Try again later"
+      "resend-failed": "resend Failed! Try again later",
+      "enable-failed": "Unable to enable sharing of this file. Please try again.",
+      "disable-failed": "Unable to disable sharing of this file. Please try again."
     }
   },
   "partners-page": {
@@ -1255,6 +1253,7 @@
   },
   "errors": {
     "invalid-file-extension": "This extension is not valid. Only .jpg, .png, .pdf or .heic are accepted",
-    "no-file": "Add at least one file to continue"
+    "no-file": "Add at least one file to continue",
+    "submit-failed": "Unable to send the form. Please try again."
   }
 }

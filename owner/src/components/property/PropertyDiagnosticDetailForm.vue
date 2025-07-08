@@ -10,8 +10,10 @@ import { useRoute } from 'vue-router'
 import AnalyticsService from '../../services/AnalyticsService'
 import DpeService from '../../services/DpeService'
 import useOwnerStore from '../../store/owner-store'
+import { useToast } from 'vue-toastification'
 
 const { t } = useI18n()
+const toast = useToast()
 
 const route = useRoute()
 const store = useOwnerStore()
@@ -104,9 +106,16 @@ onMounted(() => {
 function register() {
   AnalyticsService.dpeEvent('dpe_manual_information')
   store.setAdemeNumber('')
-  store.saveProperty().then(() => {
-    updateDPE()
-  })
+  store
+    .saveProperty()
+    .then(() => {
+      updateDPE()
+      toast.success(t('save-success'))
+    })
+    .catch((error) => {
+      console.error(error)
+      toast.error(t('save-failure'))
+    })
 }
 
 function getLetterStyle() {
@@ -118,7 +127,7 @@ function getLetterStyle() {
 
 <template>
   <NakedCard class="fr-mt-3w">
-    <Form v-slot="{ validate }">
+    <Form @submit="register">
       <h3 class="fr-h6 small-text">
         {{ t('propertydiagnostic.detail-form-title') }}
       </h3>
@@ -244,21 +253,9 @@ function getLetterStyle() {
       </div>
 
       <div class="flex-end">
-        <Button
-          :title="t('register-btn')"
-          :primary="false"
-          type="submit"
-          @click="
-            validate().then((result) => {
-              if (result.valid) {
-                register()
-              } else if (!dpeNotRequired) {
-                register()
-              }
-            })
-          "
-          >{{ t('register-btn') }}</Button
-        >
+        <Button :title="t('register-btn')" :primary="false" type="submit">{{
+          t('register-btn')
+        }}</Button>
       </div>
       <div v-if="localCo2Emission > 0 && localEnergyConsumption > 0" class="fr-p-md-5w fr-mt-3w">
         <h2 class="fr-h4">
@@ -305,3 +302,16 @@ function getLetterStyle() {
   flex: 1;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "save-success": "Your EPC information has been correctly recorded",
+    "save-failure": "Unable to save your EPC information"
+  },
+  "fr": {
+    "save-success": "Vos informations DPE ont bien été enregistrées",
+    "save-failure": "Impossible de sauvegarder vos informations DPE"
+  }
+}
+</i18n>

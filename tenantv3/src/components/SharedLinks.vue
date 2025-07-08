@@ -128,17 +128,18 @@
 </template>
 
 <script setup lang="ts">
+import { isAxiosError } from 'axios'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import Button from 'df-shared-next/src/Button/DfButton.vue'
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import Toggle from 'df-shared-next/src/components/ToggleComponent.vue'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
-import Button from 'df-shared-next/src/Button/DfButton.vue'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
-import { ToastService } from '../services/ToastService'
-import { useTenantStore } from '../stores/tenant-store'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { ToastService } from '../services/ToastService'
+import { useTenantStore } from '../stores/tenant-store'
 
 const store = useTenantStore()
 const links = computed(() => store.apartmentSharingLinks)
@@ -154,7 +155,11 @@ function resendLink(link: ApartmentSharingLink) {
     .then(() => {
       ToastService.success('sharing-page.shared-links.resend-success')
     })
-    .catch(() => {
+    .catch((e) => {
+      if (isAxiosError(e) && e.status === 429) {
+        ToastService.error('sharing-page.shared-links.resend-too-many')
+        return
+      }
       ToastService.error('sharing-page.shared-links.resend-failed')
     })
 }
@@ -167,7 +172,8 @@ function updateSharedLinkStatus(link: ApartmentSharingLink, enabled: boolean) {
       ToastService.success(messageKey)
     })
     .catch(() => {
-      ToastService.saveFailed()
+      const messageKey = enabled ? 'enable-failed' : 'disable-failed'
+      ToastService.error(`sharing-page.shared-links.${messageKey}`)
     })
 }
 

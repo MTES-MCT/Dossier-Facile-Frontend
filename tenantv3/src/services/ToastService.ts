@@ -20,12 +20,14 @@ export const ToastService = {
   saveSuccess() {
     toast.success(i18n.global.t('save-success'))
   },
-
   maxFileError(value: number, max: number) {
     toast.error(i18n.global.t('max-file', [value, max]))
   },
-  deleteFailed() {
-    toast.error(i18n.global.t('delete-failed'))
+  noFileError() {
+    toast.error(i18n.global.t('errors.no-file'))
+  },
+  deleteFileFailed() {
+    toast.error(i18n.global.t('delete-file-failed'))
   },
   deleteSuccess() {
     toast.success(i18n.global.t('delete-success'))

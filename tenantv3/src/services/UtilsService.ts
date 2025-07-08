@@ -77,13 +77,16 @@ export const UtilsService = {
       } else if (message.includes('invalid file extension')) {
         ToastService.error('errors.invalid-file-extension')
         hasSpecificMessage = true
-      } else if (message.includes('number of document')) {
+      } else if (
+        message.includes('number of document must be at least 1') ||
+        message.includes('number of document must be between 1')
+      ) {
         ToastService.error('errors.no-file')
         hasSpecificMessage = true
       }
     }
     if (!hasSpecificMessage) {
-      ToastService.saveFailed()
+      ToastService.error('add-file-failed')
     }
   },
   tenantFullName(user: CoTenant) {

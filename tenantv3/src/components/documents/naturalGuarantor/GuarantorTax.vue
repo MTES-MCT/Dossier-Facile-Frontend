@@ -319,6 +319,12 @@ async function save(force = false) {
     formData.append('noDocument', 'true')
   }
 
+  if (formData.get('noDocument') === 'false' && newFiles.length <= 0 && taxFiles().length <= 0) {
+    ToastService.noFileError()
+    hideLoader()
+    return false
+  }
+
   if (force) {
     formData.append('avisDetected', 'true')
   } else {

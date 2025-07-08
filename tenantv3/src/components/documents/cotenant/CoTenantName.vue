@@ -126,7 +126,7 @@ function save() {
       goToIdentification()
     })
     .catch(() => {
-      ToastService.saveFailed()
+      ToastService.error('errors.submit-failed')
     })
     .finally(() => {
       loader.hide()

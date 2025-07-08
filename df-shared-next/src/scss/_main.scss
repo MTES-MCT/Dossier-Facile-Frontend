@@ -7,9 +7,17 @@
   flex-direction: column;
 }
 
-body {
-  color: var(--g700);
-  min-width: 350px;
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://cdn.dossierfacile.logement.gouv.fr/images/background.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 9999;
+  pointer-events: none;
 }
 
 .color--primary {

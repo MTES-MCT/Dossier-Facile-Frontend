@@ -133,7 +133,7 @@ function makeNewDocument() {
 
 async function submit() {
   if ((document.value.files || []).length === 0) {
-    ToastService.error('financialdocumentform.missing-file')
+    ToastService.error('errors.no-file')
     return
   }
   if (monthlySumChanged ? await save('form.financial.amount-saved') : true) {
@@ -196,7 +196,7 @@ async function save(successMsgKey = 'save-success') {
     return false
   }
   if (financialFiles.length === 0) {
-    ToastService.error('financialdocumentform.missing-file')
+    ToastService.error('errors.no-file')
     financialDocument.files = []
     console.info('Save: no files')
     return false
@@ -254,7 +254,7 @@ async function save(successMsgKey = 'save-success') {
   "fr": {
     "round-it": "Arrondir à l’euro",
     "amount": "Montant en euros",
-    "valid-monthly-sum": "Merci de saisir un montant valide",
+    "valid-monthly-sum": "Veuillez saisir un montant valide",
     "amount-zero": "Vous avez saisi un montant à 0€. Êtes-vous sûr d’avoir saisi votre revenu mensuel ?"
   }
 }

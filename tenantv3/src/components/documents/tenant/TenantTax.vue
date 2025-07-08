@@ -306,6 +306,7 @@ async function save(force = false): Promise<boolean> {
     if (taxDocument.value.maxFileCount && taxFiles().length > taxDocument.value.maxFileCount) {
       ToastService.maxFileError(taxFiles().length, taxDocument.value.maxFileCount)
       files.value = []
+      hideLoader()
       return false
     }
 
@@ -328,6 +329,12 @@ async function save(force = false): Promise<boolean> {
     formData.append('noDocument', 'false')
   } else {
     formData.append('noDocument', 'true')
+  }
+
+  if (formData.get('noDocument') === 'false' && newFiles.length <= 0 && taxFiles().length <= 0) {
+    ToastService.noFileError()
+    hideLoader()
+    return false
   }
 
   formData.append('typeDocumentTax', taxDocument.value.value)

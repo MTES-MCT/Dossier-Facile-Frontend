@@ -80,6 +80,7 @@
               >
                 <input
                   v-bind="field"
+                  disabled
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,

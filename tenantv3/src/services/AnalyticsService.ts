@@ -22,7 +22,7 @@ type DocumentCategory =
   | `cotenant-${DocumentCategoryBase}`
 
 function sendFullEvent(category: EventCategory, action: Action, name: string) {
-  if (import.meta.env.VITE_MATOMO_ENABLE === 'false' || !window._paq) {
+  if (!window._paq) {
     return
   }
   window._paq.push(['trackEvent', category, action, name])

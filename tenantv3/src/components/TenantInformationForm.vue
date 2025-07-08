@@ -156,20 +156,21 @@ function handleOthersInformation() {
       AnalyticsService.confirmType()
       loader.hide()
       if (applicationType.value === 'COUPLE') {
-        ToastService.info('tenantinformationform.couple-saved')
+        const messageKey = coTenants.value[0]?.email ? 'couple-saved-with-mail' : 'couple-saved'
+        ToastService.success(`tenantinformationform.${messageKey}`)
       }
       if (applicationType.value === 'GROUP') {
-        ToastService.info('tenantinformationform.roommates-saved')
+        ToastService.success('tenantinformationform.roommates-saved')
       }
       router.push({ name: 'TenantIdentification' })
     },
     (error: unknown) => {
       loader.hide()
-      if (isAxiosError(error) && error.response?.data.message?.includes('are already being used')) {
+      if (isAxiosError(error) && error.status === 409) {
         ToastService.error('tenantinformationform.email-exists')
         return
       } else {
-        ToastService.error('tenantinformationform.error')
+        ToastService.error('errors.submit-failed')
         return
       }
     }
