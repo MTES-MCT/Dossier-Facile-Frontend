@@ -893,7 +893,8 @@
   },
   "roommatesinformation": {
     "roommateEmail": "Add a roommate's email address",
-    "acceptAuthor": "I accept that other members of my shared housing have access to my documents and those of my guarantor, if applicable, once all the shared files have been validated",
+    "acceptAuthor": "I accept that other members of my shared housing have access to my documents and those of my guarantor, if applicable, once all the shared files have been validated.",
+    "acceptAuthor-2": "I also agree that the other members of my shared housing can share the documents in my file with landlords, lessors or property services that are partners of DossierFacile.",
     "delete": "Delete",
     "field-required": "This field is required",
     "title": "Who will be your roommates?",
@@ -901,7 +902,8 @@
     "invite-waiting": "Invitation waiting to be sent",
     "invite-sent": "Invitation sent",
     "my-roommates": "My roommates",
-    "email-exists": "You cannot associate two accounts with the same email address! <br>Please provide a different email address.",
+    "email-exists": "You cannot associate two accounts with the same email address!",
+    "email-exists-2": "Please provide a different email address.",
     "co-tenant-already-exists": "An account already exists with this email address. Please enter a different address.",
     "more-information": "Why is this information useful to us?",
     "require-accept": "You must accept the declaration"

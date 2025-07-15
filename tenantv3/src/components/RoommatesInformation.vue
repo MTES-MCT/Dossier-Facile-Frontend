@@ -18,10 +18,17 @@
         </div>
         <div class="fr-col-12 fr-mt-2w">
           <div v-if="showEmailExists" class="fr-callout">
-            <p class="fr-mb-1w" v-html="t('roommatesinformation.email-exists')"></p>
+            <p>
+              {{ t('roommatesinformation.email-exists') }}
+            </p>
+            <p class="fr-mb-1w">
+              {{ t('roommatesinformation.email-exists-2') }}
+            </p>
           </div>
           <div v-if="showRootMateAlreadyExists" class="fr-callout">
-            <p class="fr-mb-1w" v-html="t('roommatesinformation.co-tenant-already-exists')"></p>
+            <p class="fr-mb-1w">
+              {{ t('roommatesinformation.co-tenant-already-exists') }}
+            </p>
           </div>
           <div v-if="modelValue.length > 0">
             <div v-for="(roommate, key) in modelValue" :key="key" class="fr-mb-1w">
@@ -132,7 +139,10 @@
               }"
               @change="updateAuthorize()"
             />
-            <label for="authorize" v-html="t('roommatesinformation.acceptAuthor')"> </label>
+            <label for="authorize">
+              <p class="fr-mb-0">{{ t('roommatesinformation.acceptAuthor') }}</p>
+              <p>{{ t('roommatesinformation.acceptAuthor-2') }}<span style="color: red">*</span></p>
+            </label>
           </Field>
           <ErrorMessage v-slot="{ message }" name="authorize">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>

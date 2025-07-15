@@ -896,7 +896,8 @@
   },
   "roommatesinformation": {
     "roommateEmail": "Ajouter l’adresse email d'un colocataire",
-    "acceptAuthor": "<div>J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.<br/>Je consens aussi au fait que les autres membres de ma colocation puissent partager les pièces de mon dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.<span style='color: red'> *</span></div>",
+    "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.",
+    "acceptAuthor-2": "Je consens aussi au fait que les autres membres de ma colocation puissent partager les pièces de mon dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
     "delete": "Supprimer",
     "field-required": "Ce champ est requis",
     "title": "Qui seront vos colocataires ?",
@@ -904,7 +905,8 @@
     "invite-waiting": "Invitation en attente d'envoi",
     "invite-sent": "Invitation envoyée",
     "my-roommates": "Mes colocataires",
-    "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente de la votre.",
+    "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email !",
+    "email-exists-2": "Renseignez une adresse email différente de la votre.",
     "co-tenant-already-exists": "Un compte existe déjà avec cette adresse email. Veuillez renseigner une autre adresse.",
     "more-information": "En quoi cette information nous est utile ?",
     "require-accept": "Vous devez accepter la déclaration"
