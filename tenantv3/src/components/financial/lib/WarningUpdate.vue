@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-alert fr-alert--warning fr-mb-3w">
+  <div class="fr-alert fr-alert--info fr-mb-3w">
     <p>{{ t('warning-update') }}</p>
   </div>
 </template>

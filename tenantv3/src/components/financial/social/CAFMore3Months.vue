@@ -22,7 +22,7 @@
         </template>
         <template #month>{{ months[3] }}</template>
       </i18n-t>
-      <div class="fr-alert fr-alert--warning fr-mb-2w">
+      <div class="fr-alert fr-alert--info fr-mb-2w">
         <p>{{ t('auto-reject') }}</p>
       </div>
     </template>
