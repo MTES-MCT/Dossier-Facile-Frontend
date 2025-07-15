@@ -51,8 +51,10 @@
       v-if="showAddIncome"
       :to="here + '/ajouter'"
       class="fr-btn fr-ml-auto fr-mt-3w"
+      :class="{ 'fr-btn--secondary': financialDocuments.length > 0 }"
       @click="AnalyticsService.addIncome(state.category)"
-      >{{ t('add-income') }} <RiAddFill class="tr-5"
+      >{{ t(financialDocuments.length > 0 ? 'add-another-income' : 'add-income') }}
+      <RiAddFill class="tr-5" size="20"
     /></router-link>
   </NakedCard>
   <SimulationCaf class="fr-mx-3v" />
@@ -335,6 +337,7 @@ function deleteDoc() {
     "be-realistic": "Be realistic : {0}.",
     "auto-reject": "our team automatically rejects overstimated amounts",
     "add-income": "Declare resources",
+    "add-another-income": "Add another income",
     "modal-title": "DossierFacile évolue pour mieux vous accompagner",
     "modal-text": "En raison de l'évolution de cette étape, il est possible que certains de vos fichiers soient mal catégorisés. Nous vous invitons à vérifier et à ajuster les documents pour vous assurer qu'ils sont bien associés à la bonne catégorie.",
     "modal-text-2": "Nous nous excusons pour la gêne occasionnée.",
@@ -363,6 +366,7 @@ function deleteDoc() {
     "be-realistic": "Soyez réaliste : {0}.",
     "auto-reject": "notre équipe refuse automatiquement les montants surévalués",
     "add-income": "Déclarer ses ressources",
+    "add-another-income": "Ajouter une autre ressource",
     "modal-title": "DossierFacile évolue pour mieux vous accompagner",
     "modal-text": "En raison de l'évolution de cette étape, il est possible que certains de vos fichiers soient mal catégorisés. Nous vous invitons à vérifier et à ajuster les documents pour vous assurer qu'ils sont bien associés à la bonne catégorie.",
     "modal-text-2": "Nous nous excusons pour la gêne occasionnée.",
