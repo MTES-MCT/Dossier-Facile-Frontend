@@ -1,6 +1,8 @@
 <template>
   <form @submit.prevent="submit">
-    <FinancialFooterContent :previous-step="to ? previousStep : recap" :disabled="disabled" />
+    <FinancialFooterContent :previous-step="to ? previousStep : recap" :disabled="disabled">
+      <slot></slot>
+    </FinancialFooterContent>
   </form>
 </template>
 

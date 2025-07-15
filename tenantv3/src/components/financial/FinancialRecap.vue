@@ -56,7 +56,9 @@
     /></router-link>
   </NakedCard>
   <SimulationCaf class="fr-mx-3v" />
-  <FinancialFooter :to="state.nextStep" :disabled="financialDocuments.length === 0" />
+  <FinancialFooter :to="state.nextStep" :disabled="financialDocuments.length === 0">
+    {{ t('confirm-step') }}
+  </FinancialFooter>
   <ModalComponent v-if="showInfoModale" @close="showInfoModale = false">
     <template #header>
       <h4>{{ t('modal-title') }}</h4>
@@ -350,7 +352,8 @@ function deleteDoc() {
     },
     "sure-to-delete": "Are you sure you want to delete this income?",
     "delete-failed": "Unable to delete this income. Please try again.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "confirm-step": "Confirm your income step"
   },
   "fr": {
     "documents-provided": "Les documents fournis permettent aux propriétaires de {0}.",
@@ -377,7 +380,8 @@ function deleteDoc() {
     },
     "sure-to-delete": "Êtes-vous sûr de vouloir supprimer ce revenu ?",
     "delete-failed": "Impossible de supprimer ce revenu. Veuillez réessayer",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "confirm-step": "Valider l’étape de vos revenus"
   }
 }
 </i18n>
