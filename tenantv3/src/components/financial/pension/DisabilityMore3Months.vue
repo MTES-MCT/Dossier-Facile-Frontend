@@ -17,7 +17,7 @@
     step="invalidite"
     substep="plus-3-mois"
   />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncome :amount="1200" />
   <UploadFilesFinancial category="PENSION" step="PENSION_DISABILITY_MORE_3_MONTHS">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide"

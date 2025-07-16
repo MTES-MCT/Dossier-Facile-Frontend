@@ -17,7 +17,7 @@
         </div>
         <div v-else>
           <p class="fr-mb-3v">{{ t('fileupload.drag-and-drop-files') }}</p>
-          <p class="text-small fr-mb-3v">
+          <p class="text-small text-grey fr-mb-3v">
             {{ t('fileupload.files-format') }}<br />
             {{ sizeLimit }}<br v-if="sizeLimit" />
             {{ pagesLimit }}
@@ -104,7 +104,6 @@ function filesChange(e: Event) {
 .text-small {
   font-size: 0.75rem;
   line-height: 1.25rem;
-  color: var(--text-mention-grey);
 }
 
 .label-btn {

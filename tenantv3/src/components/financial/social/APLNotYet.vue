@@ -13,7 +13,7 @@
     step="apl"
     substep="pas-encore"
   />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncome :amount="300" />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_APL_NOT_YET">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">

@@ -13,7 +13,7 @@
     step="salarie"
     substep="plus-3-mois"
   />
-  <EnterMonthlyIncomeBeforeTax />
+  <EnterMonthlyIncome before-tax />
   <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_MORE_3_MONTHS">
     <template #emptyIncome>
       <AlertRealisticAmount />
@@ -39,7 +39,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import AlertRealisticAmount from './AlertRealisticAmount.vue'
 import { useI18n } from 'vue-i18n'
-import EnterMonthlyIncomeBeforeTax from '../lib/EnterMonthlyIncomeBeforeTax.vue'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { lastMonths } from '../lib/lastMonths'
 import { useFinancialState } from '../financialState'
 

@@ -13,7 +13,7 @@
     step="aah"
     substep="pas-encore"
   />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncome :amount="1200" />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_AAH_NOT_YET">
     <template #incomeFilled>
       <p>{{ t('please-provide') }}</p>

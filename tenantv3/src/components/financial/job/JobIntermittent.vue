@@ -6,7 +6,7 @@
     category="travail"
     step="intermittent"
   />
-  <EnterMonthlyIncomeBeforeTax />
+  <EnterMonthlyIncome before-tax />
   <UploadFilesFinancial category="SALARY" step="SALARY_INTERMITTENT">
     <template #emptyIncome>
       <AlertAverageIncome />
@@ -25,7 +25,7 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import AlertAverageIncome from './AlertAverageIncome.vue'
-import EnterMonthlyIncomeBeforeTax from '../lib/EnterMonthlyIncomeBeforeTax.vue'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { useI18n } from 'vue-i18n'
 import { useFinancialState } from '../financialState'
 

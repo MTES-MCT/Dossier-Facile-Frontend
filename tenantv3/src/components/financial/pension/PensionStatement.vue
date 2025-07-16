@@ -17,7 +17,7 @@
     step="retraite"
     substep="bulletin"
   />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncome :amount="1200" />
   <UploadFilesFinancial category="PENSION" step="PENSION_STATEMENT">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide"

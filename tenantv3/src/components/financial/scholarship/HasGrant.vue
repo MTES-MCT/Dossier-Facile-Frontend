@@ -1,8 +1,9 @@
 <template>
   <BackLinkRow :label="t('scholarship.' + textKey)" :to="parent" category="bourse" />
-  <i18n-t tag="p" class="fr-mb-1w" :keypath="'enter-income-' + suffix">
+  <i18n-t tag="p" class="fr-mb-0" :keypath="'enter-income-' + suffix">
     <strong>{{ t('net-income') }}</strong>
   </i18n-t>
+  <p class="text-grey fr-text--xs fr-mb-2w">{{ t('example') }}300</p>
   <UploadFilesFinancial category="SCHOLARSHIP">
     <template #incomeFilled>
       <i18n-t tag="p" :keypath="'please-provide-' + suffix">
@@ -38,7 +39,8 @@ const { suffix, textKey } = useFinancialState()
     "net-income": "net monthly income",
     "please-provide-tenant": "Please provide your {0}.",
     "please-provide-other": "Please provide their {0}.",
-    "award-notice": "most recent notice of award"
+    "award-notice": "most recent notice of award",
+    "example": "Example: "
   },
   "fr": {
     "scholarship": {
@@ -52,7 +54,8 @@ const { suffix, textKey } = useFinancialState()
     "net-income": "revenu mensuel net",
     "please-provide-tenant": "Veuillez fournir votre {0}.",
     "please-provide-other": "Veuillez fournir son {0}.",
-    "award-notice": "dernier avis d’attribution de bourse"
+    "award-notice": "dernier avis d’attribution de bourse",
+    "example": "Exemple: "
   }
 }
 </i18n>

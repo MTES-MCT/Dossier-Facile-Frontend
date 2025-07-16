@@ -6,7 +6,7 @@
   />
   <BackLinkRow :label="t('unknown')" :to="parent" category="pension" step="inconnu" />
   <WarningUpdate />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncome :amount="1200" />
   <UploadFilesFinancial category="PENSION" step="PENSION_UNKNOWN" no-upload>
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide"

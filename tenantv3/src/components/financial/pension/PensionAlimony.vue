@@ -10,7 +10,7 @@
     category="pension"
     step="alimentaire"
   />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncome :amount="300" />
   <UploadFilesFinancial category="PENSION" step="PENSION_ALIMONY">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide"

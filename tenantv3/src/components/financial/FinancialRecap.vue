@@ -287,9 +287,6 @@ function deleteDoc() {
     }
   }
 }
-.text-grey {
-  color: var(--text-mention-grey);
-}
 .pill {
   border-radius: 4px;
   display: flex;
