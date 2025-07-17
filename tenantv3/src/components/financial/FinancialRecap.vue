@@ -19,7 +19,7 @@
         v-for="doc of sortedFinancialDocs"
         :key="doc.id"
         class="income-card"
-        :class="{ duplicate: duplicates.includes(doc.id) }"
+        :class="{ duplicate: doc.id && duplicateIds.has(doc.id) }"
       >
         <div class="first-row">
           <span class="fr-text--lg fr-mb-0 bold">{{ categoryLabel(doc) }}</span>
@@ -52,7 +52,7 @@
         </div>
       </div>
     </div>
-    <div v-if="duplicates.length > 0" class="duplicate-alert fr-text--xs">
+    <div v-if="duplicateIds.size > 0" class="duplicate-alert fr-text--xs">
       <RiAlertFill size="1rem" style="flex-shrink: 0" />
       <span>{{ t('duplicate-alert') }}</span>
     </div>
@@ -112,7 +112,7 @@
       <p class="bold fr-mb-0">{{ t('seem-duplicates') }}</p>
       <i18n-t tag="p" keypath="resources-added" class="fr-mb-0">
         <template #times>
-          <strong>{{ duplicates.length }} {{ t('times') }}</strong>
+          <strong>{{ duplicateIds.size }} {{ t('times') }}</strong>
         </template>
         <template #resource>
           <strong>{{ STEP_LABEL[firstDuplicate.documentCategoryStep] }}</strong>
@@ -179,37 +179,32 @@ const here = computed(() => route.path)
 const showAddIncome = computed(
   () => !financialDocuments.value.some((d) => d.documentSubCategory === 'NO_INCOME')
 )
-const duplicates = computed(() => {
-  const size = financialDocuments.value.length
-  for (let i = 0; i < size; i++) {
-    const leftDoc = financialDocuments.value[i]
-    const results = [leftDoc.id]
-    for (let j = i + 1; j < size; j++) {
-      const rightDoc = financialDocuments.value[j]
-      if (
-        leftDoc.documentSubCategory === rightDoc.documentSubCategory &&
-        leftDoc.monthlySum === rightDoc.monthlySum
-      ) {
-        results.push(rightDoc.id)
-      }
+const duplicateIds = computed(() => {
+  const seen = new Map<string, number[]>()
+  for (const doc of financialDocuments.value) {
+    const key = `${doc.documentSubCategory}-${doc.monthlySum}`
+    if (!seen.has(key)) {
+      seen.set(key, [])
     }
-    if (results.length > 1) {
-      return results
-    }
+    seen.get(key)?.push(doc.id || 0)
   }
-  return []
+  const firstGroup = Array.from(seen.entries()).filter(([, ids]) => ids.length > 1)[0]
+  return new Set(firstGroup?.[1] || [])
 })
 const sortedFinancialDocs = computed(() =>
   // put duplicates first
-  financialDocuments.value
-    .slice()
-    .sort((a, b) =>
-      duplicates.value.includes(a.id) ? (duplicates.value.includes(b.id) ? 0 : -1) : 1
-    )
+  financialDocuments.value.slice().sort((a, b) => {
+    const aIsDup = a.id && duplicateIds.value.has(a.id)
+    const bIsDup = b.id && duplicateIds.value.has(b.id)
+    if (aIsDup && !bIsDup) return -1
+    if (!aIsDup && bIsDup) return 1
+    return 0
+  })
 )
-const firstDuplicate = computed(() =>
-  financialDocuments.value.find((doc) => doc.id === duplicates.value[0])
-)
+const firstDuplicate = computed(() => {
+  const [firstId] = duplicateIds.value
+  return financialDocuments.value.find((doc) => doc.id === firstId)
+})
 
 onMounted(() => {
   if (
@@ -346,7 +341,7 @@ function deleteDoc() {
 }
 
 function submit() {
-  if (duplicates.value.length > 0) {
+  if (duplicateIds.value.size > 0) {
     showDuplicatesModale.value = true
     return false
   }
