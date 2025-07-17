@@ -67,7 +67,11 @@
     /></router-link>
   </NakedCard>
   <SimulationCaf class="fr-mx-3v" />
-  <FinancialFooter :to="state.nextStep" :disabled="financialDocuments.length === 0">
+  <FinancialFooter
+    :to="state.nextStep"
+    :disabled="financialDocuments.length === 0"
+    :on-submit="submit"
+  >
     {{ t('confirm-step') }}
   </FinancialFooter>
   <ModalComponent v-if="showInfoModale" @close="showInfoModale = false">
@@ -97,6 +101,42 @@
       </ul>
     </template>
   </ModalComponent>
+  <ModalComponent
+    v-if="showDuplicatesModale && firstDuplicate?.documentCategoryStep"
+    @close="showDuplicatesModale = false"
+  >
+    <template #header>
+      <h2 class="fr-h3">{{ t('duplicate-resource') }}</h2>
+    </template>
+    <template #body>
+      <p class="bold fr-mb-0">{{ t('seem-duplicates') }}</p>
+      <i18n-t tag="p" keypath="resources-added" class="fr-mb-0">
+        <template #times>
+          <strong>{{ duplicates.length }} {{ t('times') }}</strong>
+        </template>
+        <template #resource>
+          <strong>{{ STEP_LABEL[firstDuplicate.documentCategoryStep] }}</strong>
+        </template>
+        <template #amount>
+          <strong>{{ firstDuplicate.monthlySum }}€</strong>
+        </template>
+      </i18n-t>
+      <i18n-t tag="p" keypath="remember-combine-docs">
+        <strong>{{ t('remember') }}</strong>
+      </i18n-t>
+      <p>{{ t('recommend-check') }}</p>
+    </template>
+    <template #footer>
+      <ul class="fr-btns-group fr-btns-group--inline-md btns-group">
+        <li>
+          <DfButton primary @click="showDuplicatesModale = false">{{ t('check-income') }}</DfButton>
+        </li>
+        <li>
+          <DfButton @click="router.push(state.nextStep)">{{ t('go-next-step') }}</DfButton>
+        </li>
+      </ul>
+    </template>
+  </ModalComponent>
 </template>
 
 <script setup lang="ts">
@@ -120,7 +160,7 @@ import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { computed, onMounted, ref } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useFinancialState } from '@/components/financial/financialState'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import TenantBadge from '../common/TenantBadge.vue'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
@@ -128,8 +168,10 @@ import GuarantorBadge from '../common/GuarantorBadge.vue'
 const store = useTenantStore()
 const { t } = useI18n()
 const route = useRoute()
+const router = useRouter()
 
 const showInfoModale = ref(false)
+const showDuplicatesModale = ref(false)
 const docToDelete = ref<DfDocument>()
 const state = useFinancialState()
 const financialDocuments = computed(() => state.documents.value)
@@ -164,6 +206,9 @@ const sortedFinancialDocs = computed(() =>
     .sort((a, b) =>
       duplicates.value.includes(a.id) ? (duplicates.value.includes(b.id) ? 0 : -1) : 1
     )
+)
+const firstDuplicate = computed(() =>
+  financialDocuments.value.find((doc) => doc.id === duplicates.value[0])
 )
 
 onMounted(() => {
@@ -299,6 +344,14 @@ function deleteDoc() {
       loader.hide()
     })
 }
+
+function submit() {
+  if (duplicates.value.length > 0) {
+    showDuplicatesModale.value = true
+    return false
+  }
+  return true
+}
 </script>
 
 <style scoped>
@@ -401,7 +454,16 @@ function deleteDoc() {
     "delete-failed": "Unable to delete this income. Please try again.",
     "cancel": "Cancel",
     "confirm-step": "Confirm your income step",
-    "duplicate-alert": "These resources appear identical. Remember to combine all the supporting documents from the same source in a single declaration."
+    "duplicate-alert": "These resources appear identical. Remember to combine all the supporting documents from the same source in a single declaration.",
+    "duplicate-resource": "Duplicate resource added",
+    "seem-duplicates": "Some of the resources added seem to be duplicates.",
+    "times": "times",
+    "resources-added": "You have added {times} your resource {resource} amounting to {amount}.",
+    "remember": "Remember:",
+    "remember-combine-docs": "{0} for each source of income, remember to combine all the supporting documents in a single declaration.",
+    "recommend-check": "We recommend that you check your files before completing this step.",
+    "check-income": "Check my income",
+    "go-next-step": "Go to next step"
   },
   "fr": {
     "documents-provided": "Les documents fournis permettent aux propriétaires de {0}.",
@@ -431,7 +493,16 @@ function deleteDoc() {
     "delete-failed": "Impossible de supprimer ce revenu. Veuillez réessayer",
     "cancel": "Annuler",
     "confirm-step": "Valider l’étape de vos revenus",
-    "duplicate-alert": "Ces ressources paraissent identiques. Pensez à regrouper tous les justificatifs d’une même source dans une seule déclaration."
+    "duplicate-alert": "Ces ressources paraissent identiques. Pensez à regrouper tous les justificatifs d’une même source dans une seule déclaration.",
+    "duplicate-resource": "Ressource ajoutée en double",
+    "seem-duplicates": "Certaines ressources ajoutées semblent être en double.",
+    "times": "fois",
+    "resources-added": "Vous avez ajouté {times} votre ressource {resource} pour un montant de {amount}.",
+    "remember": "Rappel :",
+    "remember-combine-docs": "{0} pour chaque source de revenus, pensez à regrouper tous les justificatifs dans une seule déclaration. ",
+    "recommend-check": "Nous vous recommandons de vérifier vos fichiers avant de valider cette étape.",
+    "check-income": "Vérifier mes revenus",
+    "go-next-step": "Passer à l’étape suivante"
   }
 }
 </i18n>

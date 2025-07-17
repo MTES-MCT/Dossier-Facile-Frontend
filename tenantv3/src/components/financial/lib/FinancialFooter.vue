@@ -13,7 +13,7 @@ import FinancialFooterContent from './FinancialFooterContent.vue'
 import { useFinancialState } from '../financialState'
 
 const { onSubmit, to, disabled } = defineProps<{
-  onSubmit?: () => Promise<boolean>
+  onSubmit?: () => Promise<boolean> | boolean
   to?: RouteLocationRaw
   disabled?: boolean
 }>()
