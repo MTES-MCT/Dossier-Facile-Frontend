@@ -17,6 +17,7 @@
   <UploadFilesFinancial
     category="SOCIAL_SERVICE"
     step="SOCIAL_SERVICE_FRANCE_TRAVAIL_MORE_3_MONTHS"
+    :min-files="3"
   >
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">

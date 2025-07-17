@@ -18,7 +18,7 @@
     substep="plus-3-mois"
   />
   <EnterMonthlyIncome :amount="1200" />
-  <UploadFilesFinancial category="PENSION" step="PENSION_DISABILITY_MORE_3_MONTHS">
+  <UploadFilesFinancial category="PENSION" step="PENSION_DISABILITY_MORE_3_MONTHS" :min-files="3">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide"
         ><strong>{{ t('last-3-proofs-' + suffix) }}</strong></i18n-t

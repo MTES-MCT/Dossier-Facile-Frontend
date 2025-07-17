@@ -14,7 +14,7 @@
     substep="plus-3-mois"
   />
   <EnterMonthlyIncome before-tax />
-  <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_MORE_3_MONTHS">
+  <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_MORE_3_MONTHS" :min-files="3">
     <template #emptyIncome>
       <AlertRealisticAmount />
     </template>

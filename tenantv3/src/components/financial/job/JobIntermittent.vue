@@ -7,7 +7,7 @@
     step="intermittent"
   />
   <EnterMonthlyIncome before-tax />
-  <UploadFilesFinancial category="SALARY" step="SALARY_INTERMITTENT">
+  <UploadFilesFinancial category="SALARY" step="SALARY_INTERMITTENT" :min-files="3">
     <template #emptyIncome>
       <AlertAverageIncome />
     </template>
