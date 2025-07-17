@@ -15,7 +15,12 @@
       </i18n-t>
     </div>
     <div class="fr-grid-col income-wrapper">
-      <div v-for="doc of financialDocuments" :key="doc.id" class="income-card">
+      <div
+        v-for="doc of sortedFinancialDocs"
+        :key="doc.id"
+        class="income-card"
+        :class="{ duplicate: duplicates.includes(doc.id) }"
+      >
         <div class="first-row">
           <span class="fr-text--lg fr-mb-0 bold">{{ categoryLabel(doc) }}</span>
           <span>{{ doc.monthlySum }}€ {{ t('net-per-month') }}</span>
@@ -46,6 +51,10 @@
           </button>
         </div>
       </div>
+    </div>
+    <div v-if="duplicates.length > 0" class="duplicate-alert fr-text--xs">
+      <RiAlertFill size="1rem" style="flex-shrink: 0" />
+      <span>{{ t('duplicate-alert') }}</span>
     </div>
     <router-link
       v-if="showAddIncome"
@@ -127,6 +136,34 @@ const financialDocuments = computed(() => state.documents.value)
 const here = computed(() => route.path)
 const showAddIncome = computed(
   () => !financialDocuments.value.some((d) => d.documentSubCategory === 'NO_INCOME')
+)
+const duplicates = computed(() => {
+  const size = financialDocuments.value.length
+  for (let i = 0; i < size; i++) {
+    const leftDoc = financialDocuments.value[i]
+    const results = [leftDoc.id]
+    for (let j = i + 1; j < size; j++) {
+      const rightDoc = financialDocuments.value[j]
+      if (
+        leftDoc.documentSubCategory === rightDoc.documentSubCategory &&
+        leftDoc.monthlySum === rightDoc.monthlySum
+      ) {
+        results.push(rightDoc.id)
+      }
+    }
+    if (results.length > 1) {
+      return results
+    }
+  }
+  return []
+})
+const sortedFinancialDocs = computed(() =>
+  // put duplicates first
+  financialDocuments.value
+    .slice()
+    .sort((a, b) =>
+      duplicates.value.includes(a.id) ? (duplicates.value.includes(b.id) ? 0 : -1) : 1
+    )
 )
 
 onMounted(() => {
@@ -322,6 +359,16 @@ function deleteDoc() {
   flex: 1;
   justify-content: flex-end;
 }
+.duplicate {
+  border-color: #d64f00;
+}
+.duplicate-alert {
+  color: #b34000;
+  display: flex;
+  gap: 4px;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
 </style>
 
 <i18n>
@@ -353,7 +400,8 @@ function deleteDoc() {
     "sure-to-delete": "Are you sure you want to delete this income?",
     "delete-failed": "Unable to delete this income. Please try again.",
     "cancel": "Cancel",
-    "confirm-step": "Confirm your income step"
+    "confirm-step": "Confirm your income step",
+    "duplicate-alert": "These resources appear identical. Remember to combine all the supporting documents from the same source in a single declaration."
   },
   "fr": {
     "documents-provided": "Les documents fournis permettent aux propriétaires de {0}.",
@@ -382,7 +430,8 @@ function deleteDoc() {
     "sure-to-delete": "Êtes-vous sûr de vouloir supprimer ce revenu ?",
     "delete-failed": "Impossible de supprimer ce revenu. Veuillez réessayer",
     "cancel": "Annuler",
-    "confirm-step": "Valider l’étape de vos revenus"
+    "confirm-step": "Valider l’étape de vos revenus",
+    "duplicate-alert": "Ces ressources paraissent identiques. Pensez à regrouper tous les justificatifs d’une même source dans une seule déclaration."
   }
 }
 </i18n>
