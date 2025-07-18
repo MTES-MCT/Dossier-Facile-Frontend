@@ -3,7 +3,7 @@
   <i18n-t tag="p" class="fr-mb-0" :keypath="'enter-income-' + suffix">
     <strong>{{ t('net-income') }}</strong>
   </i18n-t>
-  <p class="text-grey fr-text--xs fr-mb-2w">{{ t('example') }}300</p>
+  <p class="text-grey fr-text--xs fr-mb-1w">{{ t('example') }}300</p>
   <UploadFilesFinancial category="SCHOLARSHIP">
     <template #incomeFilled>
       <i18n-t tag="p" :keypath="'please-provide-' + suffix">
@@ -55,7 +55,7 @@ const { suffix, textKey } = useFinancialState()
     "please-provide-tenant": "Veuillez fournir votre {0}.",
     "please-provide-other": "Veuillez fournir son {0}.",
     "award-notice": "dernier avis d’attribution de bourse",
-    "example": "Exemple: "
+    "example": "Exemple : "
   }
 }
 </i18n>

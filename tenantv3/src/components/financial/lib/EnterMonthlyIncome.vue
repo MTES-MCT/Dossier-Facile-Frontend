@@ -3,7 +3,7 @@
     <strong>{{ t('net-income') }}</strong>
   </i18n-t>
   <p v-else class="fr-mb-0">{{ t('enter-avg-income-' + suffix) }}</p>
-  <p class="text-grey fr-text--xs fr-mb-2w">{{ t('example') }}{{ amount }}</p>
+  <p class="text-grey fr-text--xs fr-mb-1w">{{ t('example') }}{{ amount }}</p>
 </template>
 
 <script setup lang="ts">
@@ -32,7 +32,7 @@ const { suffix } = useFinancialState()
     "enter-income-tenant": "Saisissez votre {0}, sans virgule :",
     "enter-income-other": "Saisissez son {0}, sans virgule :",
     "net-income":"revenu mensuel net moyen avant prélèvement à la source",
-    "example": "Exemple: "
+    "example": "Exemple : "
   }
 }
 </i18n>

@@ -36,11 +36,13 @@
   <slot v-else name="emptyIncome"></slot>
   <ModalComponent v-if="showInsufficientModal" @close="showInsufficientModal = false">
     <template #header>
-      <h2 class="fr-h3">{{ t('insufficient-number-of-docs') }}</h2>
+      <h2 class="fr-h3 fr-mb-0">{{ t('insufficient-number-of-docs') }}</h2>
     </template>
     <template #body>
-      <p>{{ t('you-added-docs', [minFiles]) }}</p>
-      <p>{{ t('for-complete-file', [minFiles]) }}</p>
+      <i18n-t tag="p" keypath="you-added-docs" class="fr-mb-2w">
+        <strong>{{ t('less-than-x-docs', [minFiles]) }}</strong>
+      </i18n-t>
+      <p class="fr-mb-0">{{ t('for-complete-file', [minFiles]) }}</p>
     </template>
     <template #footer>
       <ul class="fr-btns-group fr-btns-group--inline-md btns-group">
@@ -284,7 +286,8 @@ async function save(successMsgKey = 'save-success') {
     "valid-monthly-sum": "Please enter a valid amount",
     "amount-zero": "You have entered an amount of 0€. Are you sure you have entered your monthly income?",
     "insufficient-number-of-docs": "Insufficient number of supporting documents",
-    "you-added-docs": "You have added fewer than {0} supporting documents.",
+    "you-added-docs": "You have added {0}.",
+    "less-than-x-docs": "fewer than {0} supporting documents",
     "for-complete-file": "For a complete file, we recommend you add {0}.",
     "add-more-docs": "Add more documents",
     "go-next-step": "Go to next step"
@@ -295,7 +298,8 @@ async function save(successMsgKey = 'save-success') {
     "valid-monthly-sum": "Veuillez saisir un montant valide",
     "amount-zero": "Vous avez saisi un montant à 0€. Êtes-vous sûr d’avoir saisi votre revenu mensuel ?",
     "insufficient-number-of-docs": "Nombre de justificatifs insuffisant",
-    "you-added-docs": "Vous avez ajouté moins de {0} justificatifs.",
+    "you-added-docs": "Vous avez ajouté {0}.",
+    "less-than-x-docs": "moins de {0} justificatifs",
     "for-complete-file": "Pour un dossier complet, nous vous recommandons d’en ajouter {0}.",
     "add-more-docs": "Ajouter d’autres documents",
     "go-next-step": "Passer à l’étape suivante"
