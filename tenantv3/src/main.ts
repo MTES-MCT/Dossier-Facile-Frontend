@@ -118,6 +118,12 @@ defineRule('positiveOrNull', (value: unknown) => {
   }
   return true
 })
+defineRule('notBlank', (value: unknown) => {
+  if (!value || (typeof value === 'string' && value.trim().length === 0)) {
+    return 'field-required'
+  }
+  return true
+})
 
 configure({
   validateOnInput: true
