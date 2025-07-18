@@ -13,7 +13,7 @@
               v-slot="{ field, meta }"
               v-model="lastName"
               name="lastname"
-              :rules="{ required: true, onlyAlpha: true }"
+              rules="notBlank|onlyAlpha"
             >
               <div class="fr-input-group">
                 <label class="fr-label" for="lastname">{{ t('guarantorname.lastname') }} :</label>
@@ -41,7 +41,7 @@
               v-slot="{ field, meta }"
               v-model="firstName"
               name="firstname"
-              :rules="{ required: true, onlyAlpha: true }"
+              rules="notBlank|onlyAlpha"
             >
               <div class="fr-input-group">
                 <label for="firstname" class="fr-label">{{ t('guarantorname.firstname') }} :</label>
