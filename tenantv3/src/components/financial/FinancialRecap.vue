@@ -15,6 +15,10 @@
       </i18n-t>
     </div>
     <div class="fr-grid-col income-wrapper">
+      <div v-if="duplicateIds.size > 0" class="duplicate-alert fr-text--xs">
+        <RiAlertFill size="1rem" style="flex-shrink: 0" />
+        <span>{{ t('duplicate-alert') }}</span>
+      </div>
       <div
         v-for="doc of sortedFinancialDocs"
         :key="doc.id"
@@ -51,10 +55,6 @@
           </button>
         </div>
       </div>
-    </div>
-    <div v-if="duplicateIds.size > 0" class="duplicate-alert fr-text--xs">
-      <RiAlertFill size="1rem" style="flex-shrink: 0" />
-      <span>{{ t('duplicate-alert') }}</span>
     </div>
     <router-link
       v-if="showAddIncome"
@@ -106,7 +106,7 @@
     @close="showDuplicatesModale = false"
   >
     <template #header>
-      <h2 class="fr-h3">{{ t('duplicate-resource') }}</h2>
+      <h2 class="fr-h3 fr-mb-0">{{ t('duplicate-resource') }}</h2>
     </template>
     <template #body>
       <p class="bold fr-mb-0">{{ t('seem-duplicates') }}</p>
@@ -121,10 +121,10 @@
           <strong>{{ firstDuplicate.monthlySum }}€</strong>
         </template>
       </i18n-t>
-      <i18n-t tag="p" keypath="remember-combine-docs">
+      <i18n-t tag="p" keypath="remember-combine-docs" class="fr-mb-2w">
         <strong>{{ t('remember') }}</strong>
       </i18n-t>
-      <p>{{ t('recommend-check') }}</p>
+      <p class="fr-mb-0">{{ t('recommend-check') }}</p>
     </template>
     <template #footer>
       <ul class="fr-btns-group fr-btns-group--inline-md btns-group">
@@ -414,8 +414,7 @@ function submit() {
   color: #b34000;
   display: flex;
   gap: 4px;
-  margin-top: 1rem;
-  margin-bottom: 0;
+  margin-bottom: -0.5rem;
 }
 </style>
 
