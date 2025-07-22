@@ -1,6 +1,6 @@
 <template>
   <FooterContainer class="identification-footer">
-    <RouterLink :to="{ name: 'TenantType' }" class="fr-btn fr-btn--secondary">
+    <RouterLink :to="previousStep" class="fr-btn fr-btn--secondary">
       <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
       <span class="desktop">{{ t('profilefooter.back') }}</span>
     </RouterLink>
@@ -12,20 +12,20 @@
 
 <script setup lang="ts">
 import FooterContainer from '@/components/footer/FooterContainer.vue'
-import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { useIdentificationState } from './identityDocumentState'
 
 const { t } = useI18n()
 const router = useRouter()
-const residencyLink = useResidencyLink()
+const { previousStep, nextStep, category } = useIdentificationState()
 
 const submit = () => {
-  AnalyticsService.validateFunnelStep('identification')
-  router.push(residencyLink.value)
+  AnalyticsService.validateFunnelStep(category)
+  router.push(nextStep)
 }
 </script>
 

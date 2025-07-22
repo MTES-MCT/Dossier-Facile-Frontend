@@ -23,6 +23,33 @@ declare module 'vue-router' {
   }
 }
 
+const IDENTIFICATION_ROUTES = [
+  {
+    path: 'carte',
+    component: () => import('@/components/identityDocument/IdentityCard.vue')
+  },
+  {
+    path: 'passeport',
+    component: () => import('@/components/identityDocument/IdentityPassport.vue')
+  },
+  {
+    path: 'titre-sejour',
+    component: () => import('@/components/identityDocument/ResidencyPermit.vue')
+  },
+  {
+    path: 'permis-conduire',
+    component: () => import('@/components/identityDocument/DriversLicence.vue')
+  },
+  {
+    path: 'france-identite',
+    component: () => import('@/components/identityDocument/FranceIdentite.vue')
+  },
+  {
+    path: 'autre',
+    component: () => import('@/components/identityDocument/IdentityOther.vue')
+  }
+]
+
 const RESIDENCY_COMPONENTS = [
   {
     path: 'tenant',
@@ -455,10 +482,6 @@ export const router = createRouter({
       component: () => import('@/views/TenantDocument.vue'),
       children: [
         {
-          path: '0',
-          component: () => import('@/components/documents/tenant/TenantIdentification.vue')
-        },
-        {
           path: '1',
           component: () => import('@/components/identityDocument/TenantIdentification.vue'),
           children: [
@@ -467,30 +490,7 @@ export const router = createRouter({
               name: 'TenantIdentification',
               component: () => import('@/components/identityDocument/ChooseIdentityDocument.vue')
             },
-            {
-              path: 'carte',
-              component: () => import('@/components/identityDocument/IdentityCard.vue')
-            },
-            {
-              path: 'passeport',
-              component: () => import('@/components/identityDocument/IdentityPassport.vue')
-            },
-            {
-              path: 'titre-sejour',
-              component: () => import('@/components/identityDocument/ResidencyPermit.vue')
-            },
-            {
-              path: 'permis-conduire',
-              component: () => import('@/components/identityDocument/DriversLicence.vue')
-            },
-            {
-              path: 'france-identite',
-              component: () => import('@/components/identityDocument/FranceIdentite.vue')
-            },
-            {
-              path: 'autre',
-              component: () => import('@/components/identityDocument/IdentityOther.vue')
-            }
+            ...IDENTIFICATION_ROUTES
           ]
         },
         {
@@ -691,8 +691,15 @@ export const router = createRouter({
         },
         {
           path: '1/:guarantorId',
-          name: 'GuarantorIdentification',
-          component: () => import('@/components/GuarantorStep1.vue')
+          component: () => import('@/components/GuarantorStep1.vue'),
+          children: [
+            {
+              path: '',
+              name: 'GuarantorIdentification',
+              component: () => import('@/components/identityDocument/ChooseIdentityDocument.vue')
+            },
+            ...IDENTIFICATION_ROUTES
+          ]
         },
         {
           path: '2/:guarantorId',

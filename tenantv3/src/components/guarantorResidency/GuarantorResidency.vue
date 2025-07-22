@@ -15,10 +15,16 @@ import { useGuarantorId } from './useGuarantorId'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
+import { makeGuarantorIdentityDocumentLink } from '../identityDocument/lib/identityDocumentLink'
 
 const { t } = useI18n()
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
+const identityDocumentLink = computed(() =>
+  store.selectedGuarantor
+    ? makeGuarantorIdentityDocumentLink(store.selectedGuarantor)
+    : '/liste-garants'
+)
 const mainActivityLink = computed(() =>
   store.selectedGuarantor ? makeGuarantorActivityLink(store.selectedGuarantor) : '/liste-garants'
 )
@@ -26,7 +32,7 @@ const mainActivityLink = computed(() =>
 provide(residencyKey, {
   category: 'guarantor-residency',
   textKey: 'tenant',
-  previousStep: `/info-garant/1/${guarantorId.value}`,
+  previousStep: identityDocumentLink.value,
   nextStep: mainActivityLink.value,
   document: computed(() => store.getGuarantorResidencyDocument),
   userId: store.user.id,

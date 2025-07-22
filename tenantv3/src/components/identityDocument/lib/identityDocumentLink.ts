@@ -1,6 +1,7 @@
 import type { IdentityCategory } from '@/components/documents/share/DocumentTypeConstants'
 import { useTenantStore } from '@/stores/tenant-store'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { computed } from 'vue'
 
 const IDENTIFICATION_PATH = '/documents-locataire/1'
@@ -25,9 +26,13 @@ function identityDocumentToPath(doc: DfDocument | undefined) {
   return `/${CATEGORY_TO_PATH[category]}`
 }
 
-export function makeIdentityDocumentLink(doc: DfDocument | undefined) {
-  const path = identityDocumentToPath(doc)
-  return `${IDENTIFICATION_PATH}${path}`
+export function makeIdentityDocumentLink(doc: DfDocument | undefined, path = IDENTIFICATION_PATH) {
+  return `${path}${identityDocumentToPath(doc)}`
+}
+
+export function makeGuarantorIdentityDocumentLink(guarantor: Guarantor) {
+  const document = guarantor.documents?.find((d) => d.documentCategory === 'IDENTIFICATION')
+  return makeIdentityDocumentLink(document, `/info-garant/1/${guarantor.id}`)
 }
 
 export function useIdentityDocumentLink() {

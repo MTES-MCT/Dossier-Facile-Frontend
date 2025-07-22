@@ -1,6 +1,6 @@
 <template>
   <AllDeclinedMessages
-    :user-id="store.user.id"
+    :user-id="identityState.userId"
     :document="identityDocument"
     :document-denied-reasons="identityDocument?.documentDeniedReasons"
     :document-status="documentStatus"
@@ -13,8 +13,8 @@
       :watermark-url="documentWatermarkUrl"
       doc-category="identification"
       @remove="remove(file)"
-      @ask-confirm="AnalyticsService.deleteDocument('identification')"
-      @cancel="AnalyticsService.cancelDelete('identification')"
+      @ask-confirm="AnalyticsService.deleteDocument(identityState.category)"
+      @cancel="AnalyticsService.cancelDelete(identityState.category)"
     />
   </div>
   <FileUpload :current-status="fileUploadStatus" :page="4" @add-files="addFiles"></FileUpload>
@@ -36,6 +36,7 @@ import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import type { IdentityCategory } from '@/components/documents/share/DocumentTypeConstants'
 import IdentificationFooter from './IdentificationFooter.vue'
+import { useIdentificationState } from './identityDocumentState'
 
 const props = defineProps<{ category: IdentityCategory }>()
 
@@ -45,8 +46,9 @@ const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
 
 const store = useTenantStore()
+const identityState = useIdentificationState()
 
-const identityDocument = computed(() => store.getTenantIdentificationDocument)
+const identityDocument = identityState.document
 const documentStatus = computed(() => identityDocument.value?.documentStatus)
 
 const identificationFiles = computed(() => {
@@ -85,13 +87,12 @@ async function save(): Promise<boolean> {
   }
 
   formData.append('typeDocumentIdentification', props.category)
-  // identityState?.addData?.(formData)
+  identityState.addData?.(formData)
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
   const $loading = useLoading()
   const loader = $loading.show()
-  return await store
-    .saveTenantIdentification(formData)
+  return await store[identityState.action](formData)
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
@@ -109,7 +110,7 @@ async function save(): Promise<boolean> {
 }
 
 function addFiles(fileList: File[]) {
-  AnalyticsService.uploadFile('identification', props.category)
+  AnalyticsService.uploadFile(identityState.category, props.category)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
@@ -118,7 +119,7 @@ function addFiles(fileList: File[]) {
 }
 
 async function remove(file: DfFile, silent = false) {
-  AnalyticsService.deleteFile('identification')
+  AnalyticsService.deleteFile(identityState.category)
   if (file.id) {
     if (
       identityDocument.value?.files?.length === 1 &&

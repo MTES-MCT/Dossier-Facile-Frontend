@@ -1,8 +1,10 @@
 <template>
   <BackLinkRow :label="t('other-doc')" :to="parent" category="other" />
-  <p>{{ t('add-valid-doc') }}</p>
+  <i18n-t :keypath="'add-valid-doc-' + textKey" tag="p"
+    ><strong>{{ t('valid-doc') }}</strong></i18n-t
+  >
   <DsfrAlert type="info" small class="fr-mb-3w">
-    <i18n-t keypath="if-visa" tag="p">
+    <i18n-t :keypath="'if-visa-' + textKey" tag="p">
       <strong>{{ t('a-visa') }}</strong>
     </i18n-t>
   </DsfrAlert>
@@ -15,23 +17,31 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import BackLinkRow from './lib/IdentityBackRow.vue'
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
 import UploadFilesIdentity from './lib/UploadFilesIdentity.vue'
+import { useIdentificationState } from './lib/identityDocumentState'
 
 const parent = useParentRoute()
 const { t } = useI18n()
+const { textKey } = useIdentificationState()
 </script>
 
 <i18n>
 {
   "en": {
     "other-doc": "Other document",
-    "add-valid-doc": "Make sure your document is valid.",
-    "if-visa": "If you hold {0}, be sure to enclose your valid passport.",
+    "add-valid-doc-tenant": "Make sure your document is {0}.",
+    "add-valid-doc-guarantor": "Make sure your guarantor's document is {0}.",
+    "valid-doc": "valid",
+    "if-visa-tenant": "If you hold {0}, be sure to enclose your valid passport.",
+    "if-visa-guarantor": "If your guarantor holds {0}, be sure to enclose their valid passport.",
     "a-visa": "a visa"
   },
   "fr": {
     "other-doc": "Autre document",
-    "add-valid-doc": "Assurez-vous que votre document est en cours de validité.",
-    "if-visa": "Si vous êtes titulaire {0}, assurez-vous de joindre votre passeport en cours de validité.",
+    "add-valid-doc-tenant": "Assurez-vous que votre document est {0}.",
+    "add-valid-doc-guarantor": "Assurez-vous que le document de votre garant est {0}.",
+    "valid-doc": "en cours de validité",
+    "if-visa-tenant": "Si vous êtes titulaire {0}, assurez-vous de joindre votre passeport en cours de validité.",
+    "if-visa-guarantor": "Si votre garant est titulaire {0}, assurez-vous de joindre son passeport en cours de validité.",
     "a-visa": "d’un visa"
   }
 }

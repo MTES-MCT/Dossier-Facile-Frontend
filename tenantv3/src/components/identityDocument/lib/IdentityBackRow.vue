@@ -23,13 +23,14 @@
 
 <script setup lang="ts">
 import { useRouter, type RouteLocationRaw } from 'vue-router'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import BackLinkRow from '@/components/common/BackLinkRow.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
+import { useIdentificationState } from './identityDocumentState'
 
 const props = defineProps<{
   label: string
@@ -45,13 +46,13 @@ const props = defineProps<{
 const router = useRouter()
 const { t } = useI18n()
 const store = useTenantStore()
+const identificationState = useIdentificationState()
 
 const showChangeSituation = ref(false)
-const document = computed(() => store.getTenantIdentificationDocument)
 
 const onClick = () => {
-  AnalyticsService.editSituation('identification', props.category)
-  if (document.value?.documentCategory) {
+  AnalyticsService.editSituation(identificationState.category, props.category)
+  if (identificationState.document.value?.documentCategory) {
     showChangeSituation.value = true
   } else {
     router.push(props.to)
@@ -59,11 +60,10 @@ const onClick = () => {
 }
 
 const confirm = async () => {
-  const docId = document.value?.id
+  const docId = identificationState.document.value?.id
   if (docId) {
     await store.deleteDocument(docId)
   }
-  // const to = typeof props.to === 'string' ? updateFinancialURL(props.to, docId) : props.to
   router.push(props.to)
 }
 

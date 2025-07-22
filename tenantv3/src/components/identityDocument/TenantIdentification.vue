@@ -12,6 +12,23 @@
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { useI18n } from 'vue-i18n'
 import TenantBadge from '@/components/common/TenantBadge.vue'
+import { computed, provide } from 'vue'
+import { useTenantStore } from '@/stores/tenant-store'
+import { idDocKey } from '@/components/identityDocument/lib/identityDocumentState'
+import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
+
+const store = useTenantStore()
+const residencyLink = useResidencyLink()
+
+provide(idDocKey, {
+  category: 'identification',
+  textKey: 'tenant',
+  previousStep: { name: 'TenantType' },
+  nextStep: residencyLink.value,
+  document: computed(() => store.getTenantIdentificationDocument),
+  action: 'saveTenantIdentification',
+  userId: store.user.id
+})
 
 const { t } = useI18n()
 </script>
