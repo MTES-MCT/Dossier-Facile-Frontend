@@ -2,7 +2,7 @@ import { User } from 'df-shared-next/src/models/User'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { ToastService } from './ToastService'
-import { isAxiosError } from 'axios'
+import { isAxiosError, type AxiosResponseHeaders, type RawAxiosResponseHeaders } from 'axios'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 export const UtilsService = {
@@ -122,5 +122,19 @@ export const UtilsService = {
   },
   getParam(param: string | string[]) {
     return Array.isArray(param) ? param[0] : param
+  },
+  getFileNameFromHeaders(
+    headers: RawAxiosResponseHeaders | AxiosResponseHeaders | undefined,
+    defaultValue: string
+  ): string {
+    let fileName = defaultValue
+    if (headers?.['content-disposition']) {
+      const disposition = headers['content-disposition']
+      const match = disposition.match(/filename="?([^"]+)"?/)
+      if (match?.[1]) {
+        fileName = match[1]
+      }
+    }
+    return fileName
   }
 }
