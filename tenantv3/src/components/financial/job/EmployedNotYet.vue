@@ -13,7 +13,7 @@
     step="salarie"
     substep="pas-encore"
   />
-  <EnterMonthlyIncomeBeforeTax />
+  <EnterMonthlyIncome before-tax />
   <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_NOT_YET">
     <template #emptyIncome>
       <AlertEmployedNotYet />
@@ -36,7 +36,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import AlertEmployedNotYet from './AlertEmployedNotYet.vue'
 import { useI18n } from 'vue-i18n'
-import EnterMonthlyIncomeBeforeTax from '../lib/EnterMonthlyIncomeBeforeTax.vue'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { useFinancialState } from '../financialState'
 
 const { t } = useI18n()

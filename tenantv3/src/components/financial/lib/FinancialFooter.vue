@@ -1,6 +1,8 @@
 <template>
   <form @submit.prevent="submit">
-    <FinancialFooterContent :previous-step="to ? previousStep : recap" :disabled="disabled" />
+    <FinancialFooterContent :previous-step="to ? previousStep : recap" :disabled="disabled">
+      <slot></slot>
+    </FinancialFooterContent>
   </form>
 </template>
 
@@ -11,7 +13,7 @@ import FinancialFooterContent from './FinancialFooterContent.vue'
 import { useFinancialState } from '../financialState'
 
 const { onSubmit, to, disabled } = defineProps<{
-  onSubmit?: () => Promise<boolean>
+  onSubmit?: () => Promise<boolean> | boolean
   to?: RouteLocationRaw
   disabled?: boolean
 }>()

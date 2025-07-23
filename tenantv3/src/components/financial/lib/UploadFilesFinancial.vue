@@ -34,6 +34,29 @@
     <FileUpload v-if="!noUpload" :current-status="uploadStatus" @add-files="addFiles" />
   </template>
   <slot v-else name="emptyIncome"></slot>
+  <ModalComponent v-if="showInsufficientModal" @close="showInsufficientModal = false">
+    <template #header>
+      <h2 class="fr-h3 fr-mb-0">{{ t('insufficient-number-of-docs') }}</h2>
+    </template>
+    <template #body>
+      <i18n-t tag="p" keypath="you-added-docs" class="fr-mb-2w">
+        <strong>{{ t('less-than-x-docs', [minFiles]) }}</strong>
+      </i18n-t>
+      <p class="fr-mb-0">{{ t('for-complete-file', [minFiles]) }}</p>
+    </template>
+    <template #footer>
+      <ul class="fr-btns-group fr-btns-group--inline-md btns-group">
+        <li>
+          <DfButton primary @click="showInsufficientModal = false">{{
+            t('add-more-docs')
+          }}</DfButton>
+        </li>
+        <li>
+          <DfButton @click="goNext">{{ t('go-next-step') }}</DfButton>
+        </li>
+      </ul>
+    </template>
+  </ModalComponent>
 </template>
 
 <script setup lang="ts">
@@ -55,11 +78,14 @@ import { useForm } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import FinancialFooterContent from './FinancialFooterContent.vue'
 import { useFinancialState } from '../financialState'
+import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
+import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 
 const MAX_FILE_COUNT = 10
 
 type Props = {
   noUpload?: boolean
+  minFiles?: number
 }
 type PropsWithStep = Props & {
   category: 'SALARY' | 'SOCIAL_SERVICE' | 'RENT' | 'PENSION'
@@ -72,6 +98,7 @@ type PropsWithoutStep = Props & {
 const props = defineProps<PropsWithStep | PropsWithoutStep>()
 
 const uploadStatus = ref(UploadStatus.STATUS_INITIAL)
+const showInsufficientModal = ref(false)
 const store = useTenantStore()
 const route = useRoute()
 const router = useRouter()
@@ -131,14 +158,22 @@ function makeNewDocument() {
   return document
 }
 
+async function goNext() {
+  if (monthlySumChanged ? await save('form.financial.amount-saved') : true) {
+    router.push(state.recap)
+  }
+}
+
 async function submit() {
   if ((document.value.files || []).length === 0) {
     ToastService.error('errors.no-file')
     return
   }
-  if (monthlySumChanged ? await save('form.financial.amount-saved') : true) {
-    router.push(state.recap)
+  if ((document.value.files?.length || 0) < (props.minFiles || 0)) {
+    showInsufficientModal.value = true
+    return
   }
+  await goNext()
 }
 
 const onSubmit = handleSubmit(submit)
@@ -249,13 +284,25 @@ async function save(successMsgKey = 'save-success') {
     "round-it": "Round to the nearest euro",
     "amount": "Amount in euros",
     "valid-monthly-sum": "Please enter a valid amount",
-    "amount-zero": "You have entered an amount of 0€. Are you sure you have entered your monthly income?"
+    "amount-zero": "You have entered an amount of 0€. Are you sure you have entered your monthly income?",
+    "insufficient-number-of-docs": "Insufficient number of supporting documents",
+    "you-added-docs": "You have added {0}.",
+    "less-than-x-docs": "fewer than {0} supporting documents",
+    "for-complete-file": "For a complete file, we recommend you add {0}.",
+    "add-more-docs": "Add more documents",
+    "go-next-step": "Go to next step"
   },
   "fr": {
     "round-it": "Arrondir à l’euro",
     "amount": "Montant en euros",
     "valid-monthly-sum": "Veuillez saisir un montant valide",
-    "amount-zero": "Vous avez saisi un montant à 0€. Êtes-vous sûr d’avoir saisi votre revenu mensuel ?"
+    "amount-zero": "Vous avez saisi un montant à 0€. Êtes-vous sûr d’avoir saisi votre revenu mensuel ?",
+    "insufficient-number-of-docs": "Nombre de justificatifs insuffisant",
+    "you-added-docs": "Vous avez ajouté {0}.",
+    "less-than-x-docs": "moins de {0} justificatifs",
+    "for-complete-file": "Pour un dossier complet, nous vous recommandons d’en ajouter {0}.",
+    "add-more-docs": "Ajouter d’autres documents",
+    "go-next-step": "Passer à l’étape suivante"
   }
 }
 </i18n>

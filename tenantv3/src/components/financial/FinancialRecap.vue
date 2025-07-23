@@ -15,7 +15,16 @@
       </i18n-t>
     </div>
     <div class="fr-grid-col income-wrapper">
-      <div v-for="doc of financialDocuments" :key="doc.id" class="income-card">
+      <div v-if="duplicateIds.size > 0" class="duplicate-alert fr-text--xs">
+        <RiAlertFill size="1rem" style="flex-shrink: 0" />
+        <span>{{ t('duplicate-alert') }}</span>
+      </div>
+      <div
+        v-for="doc of sortedFinancialDocs"
+        :key="doc.id"
+        class="income-card"
+        :class="{ duplicate: doc.id && duplicateIds.has(doc.id) }"
+      >
         <div class="first-row">
           <span class="fr-text--lg fr-mb-0 bold">{{ categoryLabel(doc) }}</span>
           <span>{{ doc.monthlySum }}€ {{ t('net-per-month') }}</span>
@@ -51,12 +60,20 @@
       v-if="showAddIncome"
       :to="here + '/ajouter'"
       class="fr-btn fr-ml-auto fr-mt-3w"
+      :class="{ 'fr-btn--secondary': financialDocuments.length > 0 }"
       @click="AnalyticsService.addIncome(state.category)"
-      >{{ t('add-income') }} <RiAddFill class="tr-5"
+      >{{ t(financialDocuments.length > 0 ? 'add-another-income' : 'add-income') }}
+      <RiAddFill class="tr-5" size="20"
     /></router-link>
   </NakedCard>
   <SimulationCaf class="fr-mx-3v" />
-  <FinancialFooter :to="state.nextStep" :disabled="financialDocuments.length === 0" />
+  <FinancialFooter
+    :to="state.nextStep"
+    :disabled="financialDocuments.length === 0"
+    :on-submit="submit"
+  >
+    {{ t('confirm-step') }}
+  </FinancialFooter>
   <ModalComponent v-if="showInfoModale" @close="showInfoModale = false">
     <template #header>
       <h4>{{ t('modal-title') }}</h4>
@@ -84,6 +101,42 @@
       </ul>
     </template>
   </ModalComponent>
+  <ModalComponent
+    v-if="showDuplicatesModale && firstDuplicate?.documentCategoryStep"
+    @close="showDuplicatesModale = false"
+  >
+    <template #header>
+      <h2 class="fr-h3 fr-mb-0">{{ t('duplicate-resource') }}</h2>
+    </template>
+    <template #body>
+      <p class="bold fr-mb-0">{{ t('seem-duplicates') }}</p>
+      <i18n-t tag="p" keypath="resources-added" class="fr-mb-0">
+        <template #times>
+          <strong>{{ duplicateIds.size }} {{ t('times') }}</strong>
+        </template>
+        <template #resource>
+          <strong>{{ STEP_LABEL[firstDuplicate.documentCategoryStep] }}</strong>
+        </template>
+        <template #amount>
+          <strong>{{ firstDuplicate.monthlySum }}€</strong>
+        </template>
+      </i18n-t>
+      <i18n-t tag="p" keypath="remember-combine-docs" class="fr-mb-2w">
+        <strong>{{ t('remember') }}</strong>
+      </i18n-t>
+      <p class="fr-mb-0">{{ t('recommend-check') }}</p>
+    </template>
+    <template #footer>
+      <ul class="fr-btns-group fr-btns-group--inline-md btns-group">
+        <li>
+          <DfButton primary @click="showDuplicatesModale = false">{{ t('check-income') }}</DfButton>
+        </li>
+        <li>
+          <DfButton @click="router.push(state.nextStep)">{{ t('go-next-step') }}</DfButton>
+        </li>
+      </ul>
+    </template>
+  </ModalComponent>
 </template>
 
 <script setup lang="ts">
@@ -107,7 +160,7 @@ import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { computed, onMounted, ref } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useFinancialState } from '@/components/financial/financialState'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import TenantBadge from '../common/TenantBadge.vue'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
@@ -115,8 +168,10 @@ import GuarantorBadge from '../common/GuarantorBadge.vue'
 const store = useTenantStore()
 const { t } = useI18n()
 const route = useRoute()
+const router = useRouter()
 
 const showInfoModale = ref(false)
+const showDuplicatesModale = ref(false)
 const docToDelete = ref<DfDocument>()
 const state = useFinancialState()
 const financialDocuments = computed(() => state.documents.value)
@@ -124,6 +179,32 @@ const here = computed(() => route.path)
 const showAddIncome = computed(
   () => !financialDocuments.value.some((d) => d.documentSubCategory === 'NO_INCOME')
 )
+const duplicateIds = computed(() => {
+  const seen = new Map<string, number[]>()
+  for (const doc of financialDocuments.value) {
+    const key = `${doc.documentSubCategory}-${doc.monthlySum}`
+    if (!seen.has(key)) {
+      seen.set(key, [])
+    }
+    seen.get(key)?.push(doc.id || 0)
+  }
+  const firstGroup = Array.from(seen.entries()).filter(([, ids]) => ids.length > 1)[0]
+  return new Set(firstGroup?.[1] || [])
+})
+const sortedFinancialDocs = computed(() =>
+  // put duplicates first
+  financialDocuments.value.slice().sort((a, b) => {
+    const aIsDup = a.id && duplicateIds.value.has(a.id)
+    const bIsDup = b.id && duplicateIds.value.has(b.id)
+    if (aIsDup && !bIsDup) return -1
+    if (!aIsDup && bIsDup) return 1
+    return 0
+  })
+)
+const firstDuplicate = computed(() => {
+  const [firstId] = duplicateIds.value
+  return financialDocuments.value.find((doc) => doc.id === firstId)
+})
 
 onMounted(() => {
   if (
@@ -258,6 +339,14 @@ function deleteDoc() {
       loader.hide()
     })
 }
+
+function submit() {
+  if (duplicateIds.value.size > 0) {
+    showDuplicatesModale.value = true
+    return false
+  }
+  return true
+}
 </script>
 
 <style scoped>
@@ -282,9 +371,6 @@ function deleteDoc() {
       justify-content: space-between;
     }
   }
-}
-.text-grey {
-  color: var(--text-mention-grey);
 }
 .pill {
   border-radius: 4px;
@@ -321,6 +407,15 @@ function deleteDoc() {
   flex: 1;
   justify-content: flex-end;
 }
+.duplicate {
+  border-color: #d64f00;
+}
+.duplicate-alert {
+  color: #b34000;
+  display: flex;
+  gap: 4px;
+  margin-bottom: -0.5rem;
+}
 </style>
 
 <i18n>
@@ -333,6 +428,7 @@ function deleteDoc() {
     "be-realistic": "Be realistic : {0}.",
     "auto-reject": "our team automatically rejects overstimated amounts",
     "add-income": "Declare resources",
+    "add-another-income": "Add another income",
     "modal-title": "DossierFacile évolue pour mieux vous accompagner",
     "modal-text": "En raison de l'évolution de cette étape, il est possible que certains de vos fichiers soient mal catégorisés. Nous vous invitons à vérifier et à ajuster les documents pour vous assurer qu'ils sont bien associés à la bonne catégorie.",
     "modal-text-2": "Nous nous excusons pour la gêne occasionnée.",
@@ -350,7 +446,18 @@ function deleteDoc() {
     },
     "sure-to-delete": "Are you sure you want to delete this income?",
     "delete-failed": "Unable to delete this income. Please try again.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "confirm-step": "Confirm your income step",
+    "duplicate-alert": "These resources appear identical. Remember to combine all the supporting documents from the same source in a single declaration.",
+    "duplicate-resource": "Duplicate resource added",
+    "seem-duplicates": "Some of the resources added seem to be duplicates.",
+    "times": "times",
+    "resources-added": "You have added {times} your resource {resource} amounting to {amount}.",
+    "remember": "Remember:",
+    "remember-combine-docs": "{0} for each source of income, remember to combine all the supporting documents in a single declaration.",
+    "recommend-check": "We recommend that you check your files before completing this step.",
+    "check-income": "Check my income",
+    "go-next-step": "Go to next step"
   },
   "fr": {
     "documents-provided": "Les documents fournis permettent aux propriétaires de {0}.",
@@ -360,6 +467,7 @@ function deleteDoc() {
     "be-realistic": "Soyez réaliste : {0}.",
     "auto-reject": "notre équipe refuse automatiquement les montants surévalués",
     "add-income": "Déclarer ses ressources",
+    "add-another-income": "Ajouter une autre ressource",
     "modal-title": "DossierFacile évolue pour mieux vous accompagner",
     "modal-text": "En raison de l'évolution de cette étape, il est possible que certains de vos fichiers soient mal catégorisés. Nous vous invitons à vérifier et à ajuster les documents pour vous assurer qu'ils sont bien associés à la bonne catégorie.",
     "modal-text-2": "Nous nous excusons pour la gêne occasionnée.",
@@ -377,7 +485,18 @@ function deleteDoc() {
     },
     "sure-to-delete": "Êtes-vous sûr de vouloir supprimer ce revenu ?",
     "delete-failed": "Impossible de supprimer ce revenu. Veuillez réessayer",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "confirm-step": "Valider l’étape de vos revenus",
+    "duplicate-alert": "Ces ressources paraissent identiques. Pensez à regrouper tous les justificatifs d’une même source dans une seule déclaration.",
+    "duplicate-resource": "Ressource ajoutée en double",
+    "seem-duplicates": "Certaines ressources ajoutées semblent être en double.",
+    "times": "fois",
+    "resources-added": "Vous avez ajouté {times} votre ressource {resource} pour un montant de {amount}.",
+    "remember": "Rappel :",
+    "remember-combine-docs": "{0} pour chaque source de revenus, pensez à regrouper tous les justificatifs dans une seule déclaration. ",
+    "recommend-check": "Nous vous recommandons de vérifier vos fichiers avant de valider cette étape.",
+    "check-income": "Vérifier mes revenus",
+    "go-next-step": "Passer à l’étape suivante"
   }
 }
 </i18n>

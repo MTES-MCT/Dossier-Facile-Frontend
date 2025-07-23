@@ -13,7 +13,7 @@
     step="aah"
     substep="moins-3-mois"
   />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncome :amount="1200" />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_AAH_LESS_3_MONTHS">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">

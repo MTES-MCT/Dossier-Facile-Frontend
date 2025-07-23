@@ -13,8 +13,12 @@
     step="caf"
     substep="plus-3-mois"
   />
-  <EnterMonthlyIncome />
-  <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_CAF_MORE_3_MONTHS">
+  <EnterMonthlyIncome :amount="500" />
+  <UploadFilesFinancial
+    category="SOCIAL_SERVICE"
+    step="SOCIAL_SERVICE_CAF_MORE_3_MONTHS"
+    :min-files="3"
+  >
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">
         <template #months>
@@ -22,7 +26,7 @@
         </template>
         <template #month>{{ months[3] }}</template>
       </i18n-t>
-      <div class="fr-alert fr-alert--warning fr-mb-2w">
+      <div class="fr-alert fr-alert--info fr-mb-2w">
         <p>{{ t('auto-reject') }}</p>
       </div>
     </template>

@@ -13,7 +13,7 @@
     step="revenus-locatifs"
     substep="pas-de-quittance"
   />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncome :amount="1200" />
   <UploadFilesFinancial category="RENT" step="RENT_RENTAL_NO_RECEIPT">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide"

@@ -17,13 +17,13 @@
     step="retraite"
     substep="bulletin"
   />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncome :amount="1200" />
   <UploadFilesFinancial category="PENSION" step="PENSION_STATEMENT">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide"
         ><strong>{{ t('recent-statement') }}</strong></i18n-t
       >
-      <div class="fr-alert fr-alert--warning fr-mb-3w">
+      <div class="fr-alert fr-alert--info fr-mb-3w">
         <p class="bold">{{ t('auto-reject') }}</p>
         <i18n-t tag="p" keypath="if-no">
           <RouterLink to="pas-de-bulletin">{{ t('no-statement') }}</RouterLink

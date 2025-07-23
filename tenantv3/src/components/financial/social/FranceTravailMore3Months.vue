@@ -13,10 +13,11 @@
     step="france-travail"
     substep="plus-3-mois"
   />
-  <EnterMonthlyIncomeBeforeTax />
+  <EnterMonthlyIncome before-tax :amount="1200" />
   <UploadFilesFinancial
     category="SOCIAL_SERVICE"
     step="SOCIAL_SERVICE_FRANCE_TRAVAIL_MORE_3_MONTHS"
+    :min-files="3"
   >
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">
@@ -35,7 +36,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { lastMonths } from '../lib/lastMonths'
 import { useI18n } from 'vue-i18n'
-import EnterMonthlyIncomeBeforeTax from '../lib/EnterMonthlyIncomeBeforeTax.vue'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { useFinancialState } from '../financialState'
 
 const parent = useParentRoute()

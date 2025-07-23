@@ -13,7 +13,7 @@
     step="france-travail"
     substep="pas-encore"
   />
-  <EnterMonthlyIncomeBeforeTax />
+  <EnterMonthlyIncome before-tax :amount="1200" />
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_FRANCE_TRAVAIL_NOT_YET">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">
@@ -28,7 +28,7 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { useI18n } from 'vue-i18n'
-import EnterMonthlyIncomeBeforeTax from '../lib/EnterMonthlyIncomeBeforeTax.vue'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { useFinancialState } from '../financialState'
 
 const parent = useParentRoute()

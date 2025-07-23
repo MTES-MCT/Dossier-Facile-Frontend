@@ -13,7 +13,7 @@
     step="independant"
     substep="auto-entrepreneur"
   />
-  <EnterMonthlyIncomeBeforeTax />
+  <EnterMonthlyIncome before-tax />
   <UploadFilesFinancial category="SALARY" step="SALARY_FREELANCE_AUTOENTREPRENEUR">
     <template #emptyIncome>
       <AlertAutoEntrepreneur />
@@ -45,7 +45,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import AlertAutoEntrepreneur from './AlertAutoEntrepreneur.vue'
 import { useI18n } from 'vue-i18n'
-import EnterMonthlyIncomeBeforeTax from '../lib/EnterMonthlyIncomeBeforeTax.vue'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { useFinancialState } from '../financialState'
 
 const { t } = useI18n()

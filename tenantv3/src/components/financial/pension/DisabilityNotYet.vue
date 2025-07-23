@@ -17,7 +17,7 @@
     step="invalidite"
     substep="pas-encore"
   />
-  <EnterMonthlyIncome />
+  <EnterMonthlyIncome :amount="1200" />
   <UploadFilesFinancial category="PENSION" step="PENSION_DISABILITY_NOT_YET">
     <template #incomeFilled>
       <p>{{ t('please-provide') }}</p>

@@ -13,8 +13,12 @@
     step="apl"
     substep="plus-3-mois"
   />
-  <EnterMonthlyIncome />
-  <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_APL_MORE_3_MONTHS">
+  <EnterMonthlyIncome :amount="300" />
+  <UploadFilesFinancial
+    category="SOCIAL_SERVICE"
+    step="SOCIAL_SERVICE_APL_MORE_3_MONTHS"
+    :min-files="3"
+  >
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">
         <template #months>

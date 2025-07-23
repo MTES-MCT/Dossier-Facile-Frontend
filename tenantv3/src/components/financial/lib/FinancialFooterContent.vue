@@ -4,9 +4,9 @@
       <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
       <span class="desktop">{{ t('back') }}</span>
     </router-link>
-    <DfButton primary data-cy="next-btn" class="next-btn" :disabled="disabled">{{
-      t('next')
-    }}</DfButton>
+    <DfButton primary data-cy="next-btn" class="next-btn" :disabled="disabled">
+      <slot>{{ t('next') }}</slot>
+    </DfButton>
   </FooterContainer>
 </template>
 

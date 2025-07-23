@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-alert fr-alert--warning">
+  <div class="fr-alert fr-alert--info">
     <p :class="pclass">{{ t('realistic-amount') }}</p>
     <slot></slot>
     <p :class="pclass">{{ t('auto-reject') }}</p>
