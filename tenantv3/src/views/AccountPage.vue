@@ -328,7 +328,8 @@ function downloadZip() {
       const blob = new Blob([response.data], { type: 'application/zip' })
       const link = window.document.createElement('a')
       link.href = window.URL.createObjectURL(blob)
-      link.download = 'dossierFacile.zip'
+      const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.zip')
+      link.download = fileName
       link.click()
     })
     .catch((error) => {

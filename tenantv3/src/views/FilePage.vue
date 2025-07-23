@@ -330,8 +330,9 @@ function downloadFile(url: string) {
       const blob = new Blob([response.data], { type: 'application/pdf' })
       const link = window.document.createElement('a')
       link.href = window.URL.createObjectURL(blob)
-      const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
-      link.download = 'dossierFacile-' + token + '.pdf'
+      // Récupère le nom du fichier depuis le header Content-Disposition
+      const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.pdf')
+      link.download = fileName
       link.click()
     })
     .catch((error) => {
