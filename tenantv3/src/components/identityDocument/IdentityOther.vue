@@ -30,18 +30,22 @@ const { textKey } = useIdentificationState()
     "other-doc": "Other document",
     "add-valid-doc-tenant": "Make sure your document is {0}.",
     "add-valid-doc-guarantor": "Make sure your guarantor's document is {0}.",
+    "add-valid-doc-couple": "Make sure your spouse's document is {0}.",
     "valid-doc": "valid",
     "if-visa-tenant": "If you hold {0}, be sure to enclose your valid passport.",
     "if-visa-guarantor": "If your guarantor holds {0}, be sure to enclose their valid passport.",
+    "if-visa-couple": "If your spouse holds {0}, be sure to enclose their valid passport.",
     "a-visa": "a visa"
   },
   "fr": {
     "other-doc": "Autre document",
     "add-valid-doc-tenant": "Assurez-vous que votre document est {0}.",
     "add-valid-doc-guarantor": "Assurez-vous que le document de votre garant est {0}.",
+    "add-valid-doc-couple": "Assurez-vous que le document de votre conjoint est {0}.",
     "valid-doc": "en cours de validité",
     "if-visa-tenant": "Si vous êtes titulaire {0}, assurez-vous de joindre votre passeport en cours de validité.",
     "if-visa-guarantor": "Si votre garant est titulaire {0}, assurez-vous de joindre son passeport en cours de validité.",
+    "if-visa-couple": "Si votre conjoint est titulaire {0}, assurez-vous de joindre son passeport en cours de validité.",
     "a-visa": "d’un visa"
   }
 }

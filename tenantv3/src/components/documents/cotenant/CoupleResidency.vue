@@ -8,6 +8,7 @@
 
 <script setup lang="ts">
 import TenantBadge from '@/components/common/TenantBadge.vue'
+import { makeIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
 import { makeActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { residencyKey } from '@/components/residency/residencyState'
 import { DocumentService } from '@/services/DocumentService'
@@ -22,6 +23,12 @@ const route = useRoute()
 const tenantId = Number(route.params.tenantId)
 const step = UtilsService.getParam(route.params.step)
 
+const identityDocumentLink = computed(() => {
+  const document = DocumentService.getCoTenantDocument(tenantId, 'IDENTIFICATION')
+  const path = `/documents-colocataire/${tenantId}/${step}/1`
+  return makeIdentityDocumentLink(document, path)
+})
+
 const mainActivityLink = computed(() => {
   const document = DocumentService.getCoTenantDocument(tenantId, 'PROFESSIONAL')
   const path = `/documents-colocataire/${tenantId}/${step}/3`
@@ -31,10 +38,7 @@ const mainActivityLink = computed(() => {
 provide(residencyKey, {
   category: 'couple-residency',
   textKey: 'couple',
-  previousStep: {
-    name: 'CoupleIdentification',
-    params: { tenantId, step }
-  },
+  previousStep: identityDocumentLink.value,
   nextStep: mainActivityLink.value,
   document: computed(() => DocumentService.getCoTenantDocument(tenantId, 'RESIDENCY')),
   userId: tenantId,

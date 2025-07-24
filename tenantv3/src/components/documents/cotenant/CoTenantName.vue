@@ -77,6 +77,9 @@ import { useI18n } from 'vue-i18n'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { useRoute, useRouter } from 'vue-router'
 import TextField from '@/components/form/TextField.vue'
+import { makeIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
+import { DocumentService } from '@/services/DocumentService'
+import { UtilsService } from '@/services/UtilsService'
 
 const selectedCoTenant = ref<CoTenant>(new User())
 const { t } = useI18n()
@@ -138,12 +141,10 @@ function goToGuarantorChoice() {
 }
 
 function goToIdentification() {
-  router.push({
-    name: 'CoupleIdentification',
-    params: {
-      tenantId: tenantId.value
-    }
-  })
+  const doc = DocumentService.getCoTenantDocument(tenantId.value, 'IDENTIFICATION')
+  const step = UtilsService.getParam(route.params.step)
+  const link = makeIdentityDocumentLink(doc, `/documents-colocataire/${tenantId.value}/${step}/1`)
+  router.push(link)
 }
 </script>
 

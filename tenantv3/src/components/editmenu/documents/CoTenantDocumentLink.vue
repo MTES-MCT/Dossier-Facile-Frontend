@@ -20,6 +20,7 @@ import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import { useLink, useRoute } from 'vue-router'
 import { makeActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { UtilsService } from '@/services/UtilsService'
+import { makeIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
 
 const props = defineProps<{
   coTenant: CoTenant
@@ -42,6 +43,10 @@ const active = computed(() => link.isActive.value)
 const to = computed(() => {
   const step = UtilsService.getParam(route.params.step)
   const path = `/documents-colocataire/${props.coTenant.id}/${step}`
+  if (props.documentType === DocumentType.IDENTITY) {
+    const document = props.coTenant.documents?.find((d) => d.documentCategory === 'IDENTIFICATION')
+    return makeIdentityDocumentLink(document, `${path}/1`)
+  }
   if (props.documentType === DocumentType.RESIDENCY) {
     return makeResidencyLink(props.coTenant, `${path}/2`)
   }

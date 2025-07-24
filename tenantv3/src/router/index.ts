@@ -568,8 +568,16 @@ export const router = createRouter({
         },
         {
           path: '1',
-          name: 'CoupleIdentification',
-          component: () => import('@/components/documents/cotenant/CoTenantIdentification.vue')
+          component: () =>
+            import('@/components/documents/cotenant/CoupleIdentificationProvider.vue'),
+          children: [
+            {
+              path: '',
+              name: 'CoupleIdentification',
+              component: () => import('@/components/identityDocument/ChooseIdentityDocument.vue')
+            },
+            ...IDENTIFICATION_ROUTES
+          ]
         },
         {
           path: '2',
