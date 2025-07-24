@@ -778,9 +778,16 @@ export const router = createRouter({
         },
         {
           path: '1',
-          name: 'TenantGuarantorIdentification',
           component: () =>
-            import('@/components/documents/naturalGuarantor/TenantGuarantorStep1.vue')
+            import('@/components/documents/naturalGuarantor/TenantGuarantorStep1.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantGuarantorIdentification',
+              component: () => import('@/components/identityDocument/ChooseIdentityDocument.vue')
+            },
+            ...IDENTIFICATION_ROUTES
+          ]
         },
         {
           path: '2',

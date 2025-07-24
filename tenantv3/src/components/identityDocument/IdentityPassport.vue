@@ -32,22 +32,26 @@ const { textKey } = useIdentificationState()
     "add-passport-tenant": "Be sure to enclose your French or foreign passport:",
     "add-passport-guarantor": "Be sure to enclose your guarantor's French or foreign passport:",
     "add-passport-couple": "Be sure to enclose your spouse's French or foreign passport:",
+    "add-passport-couple-guarantor": "Be sure to enclose their guarantor's French or foreign passport:",
     "valid": "valid",
     "pages-2-3": "pages 2 and 3 to show signature",
     "if-visa-tenant": "If you hold {0}, be sure to enclose your valid passport.",
     "if-visa-guarantor": "If your guarantor holds {0}, be sure to enclose their valid passport.",
     "if-visa-couple": "If your spouse holds {0}, be sure to enclose their valid passport.",
+    "if-visa-couple-guarantor": "If their guarantor holds {0}, be sure to enclose their valid passport.",
     "a-visa": "a visa"
   },
   "fr": {
     "add-passport-tenant": "Assurez-vous de joindre votre passeport français ou étranger :",
     "add-passport-guarantor": "Assurez-vous de joindre le passeport français ou étranger de votre garant :",
     "add-passport-couple": "Assurez-vous de joindre le passeport français ou étranger de votre conjoint :",
+    "add-passport-couple-guarantor": "Assurez-vous de joindre le passeport français ou étranger de son garant :",
     "valid": "en cours de validité",
     "pages-2-3": "les pages 2 et 3 pour faire apparaître la signature",
     "if-visa-tenant": "Si vous êtes titulaire {0}, assurez-vous de joindre votre passeport en cours de validité.",
     "if-visa-guarantor": "Si votre garant est titulaire {0}, assurez-vous de joindre son passeport en cours de validité.",
     "if-visa-couple": "Si votre conjoint est titulaire {0}, assurez-vous de joindre son passeport en cours de validité.",
+    "if-visa-couple-guarantor": "Si son garant est titulaire {0}, assurez-vous de joindre son passeport en cours de validité.",
     "a-visa": "d’un visa"
   }
 }

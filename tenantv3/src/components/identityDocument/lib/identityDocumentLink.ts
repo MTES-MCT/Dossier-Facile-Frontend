@@ -35,6 +35,11 @@ export function makeGuarantorIdentityDocumentLink(guarantor: Guarantor) {
   return makeIdentityDocumentLink(document, `/info-garant/1/${guarantor.id}`)
 }
 
+export function makeSpouseGuarantorIdDocLink(g: Guarantor, tenantId: number) {
+  const doc = g.documents?.find((d) => d.documentCategory === 'IDENTIFICATION')
+  return makeIdentityDocumentLink(doc, `/info-garant-locataire/${tenantId}/${g.id}/5/1`)
+}
+
 export function useIdentityDocumentLink() {
   const store = useTenantStore()
   const doc = store.getTenantIdentificationDocument

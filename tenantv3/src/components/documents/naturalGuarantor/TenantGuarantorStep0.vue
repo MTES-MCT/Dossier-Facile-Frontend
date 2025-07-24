@@ -4,7 +4,6 @@
     :tenant-id="tenantId"
     :guarantor="guarantor"
     @on-back="$emit('on-back')"
-    @on-next="$emit('on-next')"
   ></TenantGuarantorName>
   <CorporationIdentification
     v-if="guarantor?.typeGuarantor === 'LEGAL_PERSON'"

@@ -238,6 +238,7 @@
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.IDENTITY"
+                :to="makeSpouseGuarantorIdDocLink(g, getCoTenant(0).id)"
               />
               <CoTenantGuarantorDocumentLink
                 class="ml-10"
@@ -328,7 +329,10 @@ import { DocumentType } from './documents/DocumentType'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { makeCotenantGuarantorResidencyLink } from '../guarantorResidency/makeGuarantorResidencyLink'
 import { makeGuarantorCoupleActivityLink } from '../mainActivity/lib/useMainActivityLink'
-import { useIdentityDocumentLink } from '../identityDocument/lib/identityDocumentLink'
+import {
+  makeSpouseGuarantorIdDocLink,
+  useIdentityDocumentLink
+} from '../identityDocument/lib/identityDocumentLink'
 
 const store = useTenantStore()
 const route = useRoute()

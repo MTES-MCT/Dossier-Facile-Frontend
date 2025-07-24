@@ -32,6 +32,7 @@ const { textKey } = useIdentificationState()
     "add-id-card-tenant": "Be sure to enclose your residence permit:",
     "add-id-card-guarantor": "Be sure to enclose your guarantor's residence permit:",
     "add-id-card-couple": "Be sure to enclose your spouse's residence permit:",
+    "add-id-card-couple-guarantor": "Be sure to enclose their guarantor's residence permit:",
     "valid": "valid",
     "both-sides": "both sides",
     "permit-list": "List of residence permits"
@@ -40,6 +41,7 @@ const { textKey } = useIdentificationState()
     "add-id-card-tenant": "Assurez-vous de joindre votre carte ou titre de séjour :",
     "add-id-card-guarantor": "Assurez-vous de joindre la carte ou titre de séjour de votre garant :",
     "add-id-card-couple": "Assurez-vous de joindre la carte ou titre de séjour de votre conjoint :",
+    "add-id-card-couple-guarantor": "Assurez-vous de joindre la carte ou titre de séjour de son garant :",
     "valid": "en cours de validité",
     "both-sides": "recto-verso",
     "permit-list": "Liste de carte ou titre de séjour"
