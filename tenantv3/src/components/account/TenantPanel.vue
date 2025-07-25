@@ -20,7 +20,7 @@
           :document="document(props.tenant, 'IDENTIFICATION')"
           :can-edit="showButtons"
           :enable-download="showButtons"
-          @click-edit="setTenantStep(1)"
+          @click-edit="goToIdentityDocument"
         />
         <FileRowListItem
           :label="t('tenantpanel.residency')"
@@ -93,6 +93,7 @@ import { DocumentService } from '@/services/DocumentService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { makeActivityLink } from '../mainActivity/lib/useMainActivityLink'
 import { makeResidencyLink } from '../residency/lib/useResidencyLink'
+import { makeIdentityDocumentLink } from '../identityDocument/lib/identityDocumentLink'
 
 const props = withDefaults(
   defineProps<{
@@ -131,6 +132,16 @@ function gotoTenantName() {
 
 function goToValidationPage() {
   router.push({ name: 'ValidateFile' })
+}
+
+function goToIdentityDocument() {
+  AnalyticsService.editFromAccount(1)
+  const tenant = props.isCotenant ? props.tenant : store.user
+  const path = props.isCotenant
+    ? `/documents-colocataire/${props.tenant.id}/4/1`
+    : '/documents-locataire/1'
+  const doc = tenant.documents?.find((d) => d.documentCategory === 'IDENTIFICATION')
+  router.push(makeIdentityDocumentLink(doc, path))
 }
 
 function goToResidency() {

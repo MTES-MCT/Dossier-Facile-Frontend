@@ -38,7 +38,8 @@ import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import cookies from 'js-cookie'
 import {
   makeGuarantorIdentityDocumentLink,
-  makeIdentityDocumentLink
+  makeIdentityDocumentLink,
+  makeSpouseGuarantorIdDocLink
 } from '@/components/identityDocument/lib/identityDocumentLink'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
@@ -520,6 +521,9 @@ export const useTenantStore = defineStore('tenant', {
     ) {
       this.setSelectedGuarantor(guarantor)
       if (tenantId && tenantId != this.user.id) {
+        if (substep === 1 && guarantor.id) {
+          return makeSpouseGuarantorIdDocLink(guarantor, tenantId)
+        }
         if (substep === 2 && guarantor.id) {
           const doc = guarantor?.documents?.find((d) => d.documentCategory === 'RESIDENCY')
           return makeCotenantGuarantorResidencyLink(tenantId, guarantor.id, doc)
