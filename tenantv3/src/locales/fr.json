@@ -412,14 +412,6 @@
     "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
     "customText-undefined": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs"
   },
-  "cotenantidentification": {
-    "title": "La pièce d'identité de votre conjoint",
-    "description": "Veillez à ajouter le recto et le verso.",
-    "identity-card": "Carte d’identité française",
-    "passport": "Passeport français",
-    "permit": "Titre de séjour français",
-    "other": "Autre"
-  },
   "cotenantname": {
     "lastname": "Nom de naissance",
     "firstname": "Prénom",
@@ -634,21 +626,6 @@
     "validate": "Valider",
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
     "validate-file": "Étape suivante - Valider le dossier"
-  },
-  "guarantoridentification": {
-    "identity-card": "Carte d’identité française",
-    "passport": "Passeport français",
-    "permit": "Titre de séjour français",
-    "other": "Autre",
-    "files": "Documents",
-    "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
-    "register": "Enregistrer la pièce",
-    "title": "J’ajoute la pièce d’identité, en cours de validité, de mon garant",
-    "title-cotenant": "J’ajoute la pièce d’identité, en cours de validité, de son garant",
-    "select-label": "Veuillez à ajouter le recto et le verso !",
-    "validate": "Valider",
-    "cancel": "Annuler",
-    "field-required": "Ce champ est requis"
   },
   "guarantorlistpage": {
     "my-guarantor": "Mes garants",
@@ -875,11 +852,7 @@
   },
   "representativeidentification": {
     "organism-name": "Nom du représentant de la personne morale",
-    "organism-name-placeholder": "Nom",
-    "identity-card": "Carte d’identité française",
-    "passport": "Passeport français",
-    "permit": "Titre de séjour français",
-    "other": "Autre"
+    "organism-name-placeholder": "Nom"
   },
   "residency-page": {
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",

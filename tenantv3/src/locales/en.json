@@ -408,14 +408,6 @@
     "customText-scholarship": "To improve my application, I explain why I cannot provide my partner's proof of scholarships:",
     "customText-undefined": "To improve my application, I explain why I cannot provide the proofs:"
   },
-  "cotenantidentification": {
-    "title": "My Co-tenant's Identification Document",
-    "description": "Please add the front and back.",
-    "identity-card": "French ID Card",
-    "passport": "French Passport",
-    "permit": "French Residence Permit",
-    "other": "Other"
-  },
   "cotenantname": {
     "lastname": "Last Name",
     "firstname": "First Name",
@@ -637,21 +629,6 @@
     "list2": "Copy of the host's identity document",
     "list3": "Proof of residence of the host, dated within the last 3 months"
   },
-  "guarantoridentification": {
-    "identity-card": "French Identity Card",
-    "passport": "French Passport",
-    "permit": "French Residence Permit",
-    "other": "Other",
-    "files": "Documents",
-    "will-delete-files": "Attention, a change in your situation will result in the deletion of the documents. You will need to upload the documents again.",
-    "register": "Save Document",
-    "title": "I am adding the valid identification document of my guarantor",
-    "title-cotenant": "I am adding the valid identification document of their guarantor",
-    "select-label": "Please add the front and back!",
-    "validate": "Validate",
-    "cancel": "Cancel",
-    "field-required": "This field is required"
-  },
   "guarantorlistpage": {
     "my-guarantor": "My Guarantors",
     "add-new-guarantor": "Add a New Guarantor?",
@@ -872,11 +849,7 @@
   },
   "representativeidentification": {
     "organism-name": "Name of the representative of the legal entity",
-    "organism-name-placeholder": "Name",
-    "identity-card": "French Identity Card",
-    "passport": "French Passport",
-    "permit": "French Residence Permit",
-    "other": "Other"
+    "organism-name-placeholder": "Name"
   },
   "residency-page": {
     "will-delete-files": "Attention, changing your situation will delete your supporting documents. You will need to upload the documents corresponding to your new situation again.",
