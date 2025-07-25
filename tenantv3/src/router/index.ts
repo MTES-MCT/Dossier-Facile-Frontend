@@ -6,6 +6,7 @@ import { keycloak } from '../plugin/keycloak'
 import Home from '../views/HomePage.vue'
 import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
+import { clearAllToasts } from '@/components/toast/toastUtils'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL
@@ -1026,3 +1027,5 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
   }
   keepGoing(to, next)
 })
+
+router.afterEach(clearAllToasts)

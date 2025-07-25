@@ -11,6 +11,7 @@ import DeleteAccount from './components/DeleteAccount.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import cookies from 'js-cookie'
+import ToastContainer from '@/components/toast/ToastContainer.vue'
 
 const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
 const MESSAGE_FOR_VALIDATED = `${import.meta.env.VITE_MESSAGE_FOR_VALIDATED || ''}`
@@ -65,22 +66,20 @@ function hasToDisplayAnnoncement() {
   >
     <TenantMenu />
   </MyHeader>
+  <Announcement
+    :is-displayed="hasToDisplayAnnoncement()"
+    :message="announcementMessage"
+  ></Announcement>
+  <Announcement v-if="store.user.status === 'VALIDATED'" :message="validatedMessage"></Announcement>
   <div id="content">
     <DeleteAccount></DeleteAccount>
-    <Announcement
-      :is-displayed="hasToDisplayAnnoncement()"
-      :message="announcementMessage"
-    ></Announcement>
-    <Announcement
-      v-if="store.user.status === 'VALIDATED'"
-      :message="validatedMessage"
-    ></Announcement>
     <main role="main">
       <div class="page">
         <RouterView />
       </div>
       <FollowSocials v-if="!isFunnel" />
     </main>
+    <ToastContainer />
   </div>
   <Footer v-if="!isFunnel" />
 </template>
@@ -93,6 +92,7 @@ function hasToDisplayAnnoncement() {
   flex: auto;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .page {
