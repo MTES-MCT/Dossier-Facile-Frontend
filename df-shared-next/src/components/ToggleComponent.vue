@@ -41,7 +41,7 @@ const props = withDefaults(
     uncheckedLabel: ''
   }
 )
-const emit = defineEmits<{ update: [checked: boolean] }>()
+const emit = defineEmits<{ update: [checked: HTMLInputElement] }>()
 
 const inputId = computed(() => {
   return `toggle-${props.id}`
@@ -52,6 +52,6 @@ const hintId = computed(() => {
 })
 
 function updateValue(event: Event) {
-  emit('update', (event.target as HTMLInputElement).checked)
+  emit('update', event.target as HTMLInputElement)
 }
 </script>

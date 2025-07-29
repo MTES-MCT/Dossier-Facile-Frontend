@@ -711,13 +711,13 @@
     "password-created": "Le mot de passe a bien été enregistré.",
     "title": "Création du mot de passe",
     "already-logged": "Vous êtes déjà en mode connecté, voulez-vous vous déconnecter pour créer ce compte ?",
-    "token-expired": "Le lien est expiré ou incorrect. Contactez-nous pour obtenir de l’aide."
+    "token-expired": "Vous avez déjà utilisé ce lien pour créer un mot de passe. Si vous n’arrivez pas à vous connecter, cliquez sur « Mot de passe oublié » depuis la page de connexion. Si le problème persiste, contactez-nous pour obtenir de l’aide."
   },
   "joingroup": {
     "password-created": "Le mot de passe a bien été enregistré.",
     "title": "Création du mot de passe",
     "already-logged": "Vous êtes déjà en mode connecté, voulez-vous vous déconnecter pour créer ce compte ?",
-    "bad-request": "Le lien est expiré ou incorrect. Contactez-nous pour obtenir de l’aide."
+    "bad-request": "Vous avez déjà utilisé ce lien pour créer un mot de passe. Si vous n’arrivez pas à vous connecter, cliquez sur « Mot de passe oublié » depuis la page de connexion. Si le problème persiste, contactez-nous pour obtenir de l’aide."
   },
   "listitem": {
     "FRENCH_IDENTITY_CARD": "Carte d'identité française",

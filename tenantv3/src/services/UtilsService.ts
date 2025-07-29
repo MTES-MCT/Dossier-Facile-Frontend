@@ -1,9 +1,10 @@
 import { User } from 'df-shared-next/src/models/User'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { ToastService } from './ToastService'
 import { isAxiosError, type AxiosResponseHeaders, type RawAxiosResponseHeaders } from 'axios'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { toast } from '@/components/toast/toastUtils'
+import { i18n } from '@/i18n'
 
 export const UtilsService = {
   getLastAddedGuarantor(user: User) {
@@ -67,26 +68,26 @@ export const UtilsService = {
       user.apartmentSharing?.tokenPublic !== ''
     )
   },
-  handleCommonSaveError(err: unknown) {
+  handleCommonSaveError(err: unknown, elt?: HTMLElement | null) {
     let hasSpecificMessage = false
     if (isAxiosError(err)) {
       const message: string = err.response?.data.message ?? ''
       if (message.includes('NumberOfPages')) {
-        ToastService.saveFailedNumPages()
+        toast.error(i18n.global.t('save-failed-num-pages'), elt)
         hasSpecificMessage = true
       } else if (message.includes('invalid file extension')) {
-        ToastService.error('errors.invalid-file-extension')
+        toast.error(i18n.global.t('errors.invalid-file-extension'), elt)
         hasSpecificMessage = true
       } else if (
         message.includes('number of document must be at least 1') ||
         message.includes('number of document must be between 1')
       ) {
-        ToastService.error('errors.no-file')
+        toast.error(i18n.global.t('errors.no-file'), elt)
         hasSpecificMessage = true
       }
     }
     if (!hasSpecificMessage) {
-      ToastService.error('add-file-failed')
+      toast.error(i18n.global.t('add-file-failed'), elt)
     }
   },
   tenantFullName(user: CoTenant) {

@@ -51,11 +51,11 @@ import { AnalyticsService } from '../services/AnalyticsService'
 import GuarantorFooter from './footer/GuarantorFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import GuarantorTypeSelector from '@/components/GuarantorTypeSelector.vue'
-import { ToastService } from '@/services/ToastService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount, onUpdated, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -86,7 +86,10 @@ function goBack() {
 
 function setGuarantorType() {
   if (!tmpGuarantorType.value) {
-    ToastService.error('guarantorchoice.type-required')
+    toast.error(
+      t('guarantorchoice.type-required'),
+      document.getElementById('natural-person-choice')
+    )
     return
   }
   AnalyticsService.addGuarantor(tmpGuarantorType.value || '')

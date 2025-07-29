@@ -1,6 +1,7 @@
 <template>
   <div class="v-gouv-fr-button">
     <button
+      ref="btn"
       :class="`fr-btn ` + typeClass + sizeClass + iconClass"
       :disabled="disabled"
       :title="iconOnly ? label : undefined"
@@ -19,7 +20,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -52,6 +53,9 @@ const props = withDefaults(
   }
 )
 const emit = defineEmits<{ click: [event: MouseEvent] }>()
+
+const button = useTemplateRef('btn')
+defineExpose({ button })
 
 //gets type class (primary or secondary)
 const typeClass = computed(() => {

@@ -1,8 +1,8 @@
 import { useTenantStore } from '@/stores/tenant-store'
 import axios from 'axios'
-import { ToastService } from './ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import type { User } from 'df-shared-next/src/models/User'
+import { toast } from '@/components/toast/toastUtils'
 
 const $loading = useLoading({})
 
@@ -13,10 +13,10 @@ export const RegisterService = {
     try {
       await axios.delete<void>(url)
       if (!silent) {
-        ToastService.deleteSuccess()
+        toast.deleteSuccess()
       }
     } catch {
-      ToastService.deleteFileFailed()
+      toast.deleteFileFailed()
     } finally {
       loader.hide()
       const store = useTenantStore()

@@ -76,7 +76,12 @@
         <ApplicationTypeSelector @selected="updateApplicationType"></ApplicationTypeSelector>
       </NakedCard>
       <Form name="form" @submit="handleOthersInformation">
-        <CoupleInformation v-if="applicationType === 'COUPLE'" v-model="coTenants" class="fr-mt-2w">
+        <CoupleInformation
+          v-if="applicationType === 'COUPLE'"
+          ref="couple-info"
+          v-model="coTenants"
+          class="fr-mt-2w"
+        >
         </CoupleInformation>
         <RoommatesInformation
           v-if="applicationType === 'GROUP'"
@@ -84,7 +89,7 @@
           class="fr-mt-2w"
         >
         </RoommatesInformation>
-        <ProfileFooter @on-back="goBack"></ProfileFooter>
+        <ProfileFooter ref="footer" @on-back="goBack"></ProfileFooter>
       </Form>
     </div>
   </div>
@@ -97,9 +102,8 @@ import { AnalyticsService } from '../services/AnalyticsService'
 import ProfileFooter from './footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ApplicationTypeSelector from '../components/ApplicationTypeSelector.vue'
-import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useRouter } from 'vue-router'
@@ -107,10 +111,14 @@ import { Form, Field, ErrorMessage } from 'vee-validate'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { isAxiosError } from 'axios'
 import { useIdentityDocumentLink } from './identityDocument/lib/identityDocumentLink'
+import { getNextBtnInFooter, toast } from './toast/toastUtils'
 
 const router = useRouter()
 const store = useTenantStore()
 const identificationLink = useIdentityDocumentLink()
+const footer = useTemplateRef('footer')
+const coupleInfo = useTemplateRef('couple-info')
+
 const user = computed(() => store.user)
 const roommates = computed(() => store.getRoommates)
 const coTenantAuthorize = computed(() => store.coTenantAuthorize)
@@ -159,20 +167,20 @@ function handleOthersInformation() {
       loader.hide()
       if (applicationType.value === 'COUPLE') {
         const messageKey = coTenants.value[0]?.email ? 'couple-saved-with-mail' : 'couple-saved'
-        ToastService.success(`tenantinformationform.${messageKey}`)
+        toast.keep.success(t(`tenantinformationform.${messageKey}`), getNextBtnInFooter)
       }
       if (applicationType.value === 'GROUP') {
-        ToastService.success('tenantinformationform.roommates-saved')
+        toast.keep.success(t('tenantinformationform.roommates-saved'), getNextBtnInFooter)
       }
       router.push(identificationLink.value)
     },
     (error: unknown) => {
       loader.hide()
       if (isAxiosError(error) && error.status === 409) {
-        ToastService.error('tenantinformationform.email-exists')
+        toast.error(t('tenantinformationform.email-exists'), coupleInfo.value?.emailInput)
         return
       } else {
-        ToastService.error('errors.submit-failed')
+        toast.error(t('errors.submit-failed'), footer.value?.nextBtn)
         return
       }
     }

@@ -17,12 +17,17 @@
       @cancel="AnalyticsService.cancelDelete(identityState.category)"
     />
   </div>
-  <FileUpload :current-status="fileUploadStatus" :page="4" @add-files="addFiles"></FileUpload>
+  <FileUpload
+    ref="file-upload"
+    :current-status="fileUploadStatus"
+    :page="4"
+    @add-files="addFiles"
+  ></FileUpload>
   <IdentificationFooter />
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
 import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
@@ -32,11 +37,12 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { RegisterService } from '@/services/RegisterService'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { UtilsService } from '@/services/UtilsService'
-import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import type { IdentityCategory } from '@/components/documents/share/DocumentTypeConstants'
 import IdentificationFooter from './IdentificationFooter.vue'
 import { useIdentificationState } from './identityDocumentState'
+import { toast } from '@/components/toast/toastUtils'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{ category: IdentityCategory }>()
 
@@ -47,6 +53,8 @@ const files = ref<{ name: string; file: File; size: number; id?: string; path?: 
 
 const store = useTenantStore()
 const identityState = useIdentificationState()
+const fileUpload = useTemplateRef('file-upload')
+const { t } = useI18n()
 
 const identityDocument = identityState.document
 const documentStatus = computed(() => identityDocument.value?.documentStatus)
@@ -76,7 +84,11 @@ async function save(): Promise<boolean> {
   }
 
   if (identificationFiles.value.length > MAX_FILE_COUNT) {
-    ToastService.maxFileError(identificationFiles.value.length, MAX_FILE_COUNT)
+    toast.maxFileError(
+      identificationFiles.value.length,
+      MAX_FILE_COUNT,
+      fileUpload.value?.inputFile
+    )
     files.value = []
     return false
   }
@@ -96,12 +108,12 @@ async function save(): Promise<boolean> {
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-      ToastService.success('file-saved')
+      toast.success(t('file-saved'), fileUpload.value?.inputFile)
       return true
     })
     .catch((err) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      UtilsService.handleCommonSaveError(err)
+      UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
       return false
     })
     .finally(() => {

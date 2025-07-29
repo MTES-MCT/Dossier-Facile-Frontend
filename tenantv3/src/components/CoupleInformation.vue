@@ -102,6 +102,7 @@
             }"
           >
             <input
+              ref="email-input"
               v-bind="field"
               class="validate-required form-control fr-input"
               :class="{
@@ -159,7 +160,7 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import VGouvFrModal from 'df-shared-next/src/GouvFr/VGouvFrModal.vue'
 import CoupleInformationHelp from './helps/CoupleInformationHelp.vue'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
@@ -176,6 +177,9 @@ const emit = defineEmits<{ 'update:modelValue': [coTenants: CoTenant[]] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
+const emailInput = useTemplateRef('email-input')
+
+defineExpose({ emailInput })
 const user = computed(() => store.user)
 
 const coTenant = ref<CoTenant>(new User())

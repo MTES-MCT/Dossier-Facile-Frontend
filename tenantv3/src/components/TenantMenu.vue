@@ -72,10 +72,10 @@
           </li>
           <li>
             <DfButton
+              id="delete-account-btn"
               class="fr-nav__link"
               data-fr-opened="false"
               aria-controls="modal-delete-account"
-              style="visibility: none"
             >
               {{ t('menu.deleteAccount') }}
             </DfButton>

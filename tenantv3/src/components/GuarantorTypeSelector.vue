@@ -8,6 +8,7 @@
     />
     <ConfirmModal
       v-if="confirmGuarantorChangeModal"
+      ref="modal"
       @valid="confirmGuarantorTypeChange()"
       @cancel="undoGuarantorTypeChange()"
     >
@@ -19,15 +20,16 @@
 <script setup lang="ts">
 import RichRadioButtons from 'df-shared-next/src/Button/RichRadioButtons.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import { ToastService } from '@/services/ToastService'
 import { useTenantStore } from '@/stores/tenant-store'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const guarantor = computed(() => store.guarantor)
+const modal = useTemplateRef('modal')
 
 const props = withDefaults(
   defineProps<{
@@ -103,7 +105,7 @@ function confirmGuarantorTypeChange() {
       selectType(checkedGuarantorType.value)
     },
     () => {
-      ToastService.error('guarantorchoice.change-guarantor-failed')
+      toast.error(t('guarantorchoice.change-guarantor-failed'), modal.value?.validateBtn?.button)
     }
   )
 }

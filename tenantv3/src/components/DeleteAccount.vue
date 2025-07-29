@@ -17,7 +17,12 @@
           style="visibility: none"
           >{{ t('deleteaccount.cancel') }}</DfButton
         >
-        <DfButton :primary="true" :disabled="isLoading" @click="validSelect()">
+        <DfButton
+          aria-controls="modal-delete-account"
+          :primary="true"
+          :disabled="isLoading"
+          @click="deleteAccount"
+        >
           <span class="mobile">{{ t('deleteaccount.validate-mobile') }}</span>
           <span class="desktop">{{ t('deleteaccount.validate') }}</span>
         </DfButton>
@@ -32,10 +37,10 @@ import { AnalyticsService } from '../services/AnalyticsService'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
-import { ToastService } from '@/services/ToastService'
 import { RiCloseCircleLine } from '@remixicon/vue'
 import { useLoading } from 'vue-loading-overlay'
 import { ref } from 'vue'
+import { toast } from './toast/toastUtils'
 const $loading = useLoading({})
 const isLoading = ref(false)
 
@@ -43,7 +48,7 @@ const store = useTenantStore()
 
 const { t } = useI18n()
 
-function validSelect() {
+function deleteAccount() {
   const loader = $loading.show()
   isLoading.value = true
   store.deleteAccount().then(
@@ -53,7 +58,7 @@ function validSelect() {
       // We don't set isLoading to false here because we want to keep the loading state until user is redirected
     },
     () => {
-      ToastService.error('deleteaccount.try-again')
+      toast.error(t('deleteaccount.try-again'), document.getElementById('delete-account-btn'))
       loader.hide()
       isLoading.value = false
     }

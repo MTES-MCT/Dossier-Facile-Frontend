@@ -707,13 +707,13 @@
     "password-created": "The password has been saved",
     "title": "Create Password",
     "already-logged": "You are already in connected mode. Do you want to log out to create this account?",
-    "token-expired": "The link has expired or is incorrect. Please contact us for assistance."
+    "token-expired": "You have already used this link to create a password. If you are unable to log in, click on ’Forgot your password’ on the login page. If the problem persists, please contact us for assistance."
   },
   "joingroup": {
     "password-created": "The password has been saved",
     "title": "Create Password",
     "already-logged": "You are already in connected mode. Do you want to log out to create this account?",
-    "bad-request": "The link has expired or is incorrect. Please contact us for assistance."
+    "bad-request": "You have already used this link to create a password. If you are unable to log in, click on ’Forgot your password’ on the login page. If the problem persists, please contact us for assistance."
   },
   "listitem": {
     "FRENCH_IDENTITY_CARD": "French Identity Card",

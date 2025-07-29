@@ -1,6 +1,7 @@
 <template>
   <form class="fr-mb-2w" @submit="onSubmit">
     <input
+      ref="inputSumElt"
       v-model="inputSum"
       v-bind="sumAttr"
       :placeholder="t('amount')"
@@ -31,7 +32,12 @@
       @ask-confirm="AnalyticsService.deleteDocument(state.category)"
       @cancel="AnalyticsService.cancelDelete(state.category)"
     />
-    <FileUpload v-if="!noUpload" :current-status="uploadStatus" @add-files="addFiles" />
+    <FileUpload
+      v-if="!noUpload"
+      ref="fileUpload"
+      :current-status="uploadStatus"
+      @add-files="addFiles"
+    />
   </template>
   <slot v-else name="emptyIncome"></slot>
   <ModalComponent v-if="showInsufficientModal" @close="showInsufficientModal = false">
@@ -65,7 +71,7 @@ import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessage
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
 import { DfDocument, type FinancialStep } from 'df-shared-next/src/models/DfDocument'
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { RegisterService } from '@/services/RegisterService'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
@@ -80,6 +86,7 @@ import FinancialFooterContent from './FinancialFooterContent.vue'
 import { useFinancialState } from '../financialState'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import { toast } from '@/components/toast/toastUtils'
 
 const MAX_FILE_COUNT = 10
 
@@ -104,6 +111,8 @@ const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
 
+const inputSumElt = useTemplateRef('inputSumElt')
+const fileUpload = useTemplateRef('fileUpload')
 const state = useFinancialState()
 
 const document = computed(
@@ -226,7 +235,7 @@ async function save(successMsgKey = 'save-success') {
 
   // Check validity
   if (!financialDocument.monthlySum) {
-    ToastService.errorf(t('valid-monthly-sum'))
+    toast.error(t('valid-monthly-sum'), inputSumElt.value)
     console.info('Save: invalid monthlySum')
     return false
   }
@@ -264,7 +273,7 @@ async function save(successMsgKey = 'save-success') {
   const loader = $loading.show()
   try {
     await store[state.action](formData)
-    ToastService.success(successMsgKey)
+    toast.success(t(successMsgKey), fileUpload.value?.inputFile)
     uploadStatus.value = UploadStatus.STATUS_INITIAL
     monthlySumChanged = false
     return true

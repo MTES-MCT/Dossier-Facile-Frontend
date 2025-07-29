@@ -25,7 +25,7 @@ import { alerts, removeToast } from './toastUtils'
   gap: 1rem;
   padding: 1rem;
   list-style: none;
-  z-index: 750;
+  z-index: 10000;
 }
 
 .toast-container > li {

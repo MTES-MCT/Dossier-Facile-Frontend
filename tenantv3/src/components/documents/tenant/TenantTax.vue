@@ -77,6 +77,7 @@
       <div v-if="taxDocument.key === 'my-name'">
         <div class="fr-mb-3w">
           <FileUpload
+            ref="fileUpload"
             :current-status="fileUploadStatus"
             @add-files="addFiles"
             @reset-files="resetFiles"
@@ -140,14 +141,14 @@ import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import WarningTaxDeclaration from '../../../components/documents/share/WarningTaxDeclaration.vue'
 import { UtilsService } from '../../../services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '../../../stores/tenant-store'
 import { useI18n } from 'vue-i18n'
-import { ToastService } from '../../../services/ToastService'
 import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { RiAlarmWarningLine } from '@remixicon/vue'
 import TenantBadge from '@/components/common/TenantBadge.vue'
+import { toast } from '@/components/toast/toastUtils'
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 const { t } = useI18n()
@@ -168,6 +169,7 @@ const isDocDeleteVisible = ref(false)
 const isWarningTaxSituationModalVisible = ref(false)
 const newFiles = ref([] as File[])
 
+const fileUpload = useTemplateRef('fileUpload')
 const $loading = useLoading({})
 let loader: ActiveLoader | undefined
 
@@ -304,7 +306,11 @@ async function save(force = false): Promise<boolean> {
   })
   if (newFiles.length) {
     if (taxDocument.value.maxFileCount && taxFiles().length > taxDocument.value.maxFileCount) {
-      ToastService.maxFileError(taxFiles().length, taxDocument.value.maxFileCount)
+      toast.maxFileError(
+        taxFiles.length,
+        taxDocument.value.maxFileCount,
+        fileUpload.value?.inputFile
+      )
       files.value = []
       hideLoader()
       return false
@@ -332,7 +338,7 @@ async function save(force = false): Promise<boolean> {
   }
 
   if (formData.get('noDocument') === 'false' && newFiles.length <= 0 && taxFiles().length <= 0) {
-    ToastService.noFileError()
+    toast.error(t('errors.no-file'), fileUpload.value?.inputFile)
     hideLoader()
     return false
   }
@@ -362,7 +368,7 @@ async function save(force = false): Promise<boolean> {
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-      ToastService.saveSuccess()
+      toast.success(t('save-success'), fileUpload.value?.inputFile)
       return true
     })
     .catch((err) => {

@@ -52,7 +52,7 @@
                 <Button class="fr-mr-2w" @click="deleteSharedLink(link)">
                   {{ t('sharing-page.shared-links.delete') }}
                 </Button>
-                <Button :disabled="!link.enabled" @click="resendLink(link)">
+                <Button :disabled="!link.enabled" @click="resendLink(link, $event.currentTarget)">
                   {{ t('sharing-page.shared-links.resend') }}
                 </Button>
               </div>
@@ -111,7 +111,7 @@
                 <Button
                   :disabled="!link.enabled"
                   class="fr-btn--tertiary"
-                  @click="resendLink(link)"
+                  @click="resendLink(link, $event.currentTarget)"
                 >
                   {{ t('sharing-page.shared-links.resend') }}
                 </Button>
@@ -138,8 +138,8 @@ import Toggle from 'df-shared-next/src/components/ToggleComponent.vue'
 import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ToastService } from '../services/ToastService'
 import { useTenantStore } from '../stores/tenant-store'
+import { toast } from '@/components/toast/toastUtils'
 
 const store = useTenantStore()
 const links = computed(() => store.apartmentSharingLinks)
@@ -149,31 +149,32 @@ dayjs.extend(relativeTime)
 function deleteSharedLink(link: ApartmentSharingLink) {
   store.deleteApartmentSharingLink(link)
 }
-function resendLink(link: ApartmentSharingLink) {
+function resendLink(link: ApartmentSharingLink, button: HTMLElement) {
   store
     .resendApartmentSharingLink(link)
     .then(() => {
-      ToastService.success('sharing-page.shared-links.resend-success')
+      toast.success(t('sharing-page.shared-links.resend-success'), button)
     })
     .catch((e) => {
       if (isAxiosError(e) && e.status === 429) {
-        ToastService.error('sharing-page.shared-links.resend-too-many')
+        toast.error(t('sharing-page.shared-links.resend-too-many'), button)
         return
       }
-      ToastService.error('sharing-page.shared-links.resend-failed')
+      toast.error(t('sharing-page.shared-links.resend-failed'), button)
     })
 }
 
-function updateSharedLinkStatus(link: ApartmentSharingLink, enabled: boolean) {
+function updateSharedLinkStatus(link: ApartmentSharingLink, toggleElt: HTMLInputElement) {
+  const enabled = toggleElt.checked
   store
     .updateApartmentSharingLinkStatus(link, enabled)
     .then(() => {
       const messageKey = enabled ? 'sharing-page.shared' : 'sharing-page.disabled'
-      ToastService.success(messageKey)
+      toast.success(t(messageKey), toggleElt)
     })
     .catch(() => {
       const messageKey = enabled ? 'enable-failed' : 'disable-failed'
-      ToastService.error(`sharing-page.shared-links.${messageKey}`)
+      toast.error(t(`sharing-page.shared-links.${messageKey}`), toggleElt)
     })
 }
 
