@@ -53,14 +53,14 @@ const { suffix, textKey } = useFinancialState()
     "please-provide": "Please provide {0}.",
     "contract-page-tenant": "the page of your contract indicating your future remuneration",
     "contract-page-other": "the page of their contract indicating their future remuneration",
-    "if-you-dont-know": "If you don't know how to extract a page from your contract, you can provide a screenshot of that page."
+    "if-you-dont-know": "If you don't know how to extract a page from your contract, you can provide a screenshot of the contract page showing the start date and salary."
   },
   "fr": {
     "not-yet-started": "Pas encore commencé ou depuis moins d’un mois",
     "please-provide": "Veuillez fournir {0}.",
     "contract-page-tenant": "la page de votre contrat qui indique votre rémunération à venir",
     "contract-page-other": "la page de son contrat qui indique sa rémunération à venir",
-    "if-you-dont-know": "Si vous ne savez pas extraire une page de votre contrat, vous pouvez fournir une copie d’écran de cette page."
+    "if-you-dont-know": "Si vous ne savez pas extraire une page de votre contrat, vous pouvez fournir une copie d’écran de la page du contrat avec la date de début et le salaire."
   }
 }
 </i18n>
