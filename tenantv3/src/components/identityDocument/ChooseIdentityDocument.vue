@@ -25,7 +25,6 @@
     </RadioListItem>
     <RadioListItem :to="here + '/autre'" @click="sendEvent('other')"
       >{{ t('other-doc') }}
-      <HintText>{{ t('other-examples') }}</HintText>
     </RadioListItem>
   </RadioList>
   <IdentificationFooter />
@@ -57,7 +56,6 @@ const sendEvent = (subcategory: string) =>
     "other-doc": "Other document",
     "french-or-foreign": "French or foreign",
     "french-or-foreign-f": "French or foreign",
-    "other-examples": "Visa, resident card, national card…"
   },
   "fr": {
     "submit-identity-document": "Déposez une pièce d’identité {0}",
@@ -65,7 +63,6 @@ const sendEvent = (subcategory: string) =>
     "other-doc": "Autre document",
     "french-or-foreign": "Français ou étranger",
     "french-or-foreign-f": "Française ou étrangère",
-    "other-examples": "Visa, carte de résident, carte de ressortissant…"
   }
 }
 </i18n>
