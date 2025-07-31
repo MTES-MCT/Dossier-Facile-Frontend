@@ -56,6 +56,7 @@
         <div v-if="documentFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem
             v-for="file in documentFiles()"
+            ref="list-item"
             :key="file.id"
             :file="file"
             :doc-category="analyticDocType"
@@ -66,6 +67,7 @@
 
         <div class="fr-mb-3w">
           <FileUpload
+            ref="file-upload"
             :current-status="fileUploadStatus"
             :page="4"
             @add-files="addFiles"
@@ -185,7 +187,6 @@ import {
   DocumentTypeTranslations
 } from '@/components/editmenu/documents/DocumentType'
 import { RegisterService } from '@/services/RegisterService'
-import { ToastService } from '@/services/ToastService'
 import { UtilsService } from '@/services/UtilsService'
 import { useTenantStore, type DispatchNames } from '@/stores/tenant-store'
 import { RiAlarmWarningLine } from '@remixicon/vue'
@@ -201,7 +202,7 @@ import { DocumentType } from 'df-shared-next/src/models/Document'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { User } from 'df-shared-next/src/models/User'
 import { ErrorMessage, Field } from 'vee-validate'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { AnalyticsService, type DocumentCategory } from '../../../services/AnalyticsService'
@@ -210,6 +211,7 @@ import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import TenantBadge from '@/components/common/TenantBadge.vue'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -251,6 +253,9 @@ const noDocument = ref(false)
 const showIsNoDocumentAndFiles = ref(false)
 const newFiles = ref([] as File[])
 const isWarningTaxSituationModalVisible = ref(false)
+
+const fileUpload = useTemplateRef('file-upload')
+const listItem = useTemplateRef('list-item')
 
 const emit = defineEmits<{
   'on-change-document': [doc: DocumentType, dfDoc: DfDocument]
@@ -416,7 +421,7 @@ function saveNewFiles() {
   }
   const futurLength = filesToAdd.length + documentFiles().length
   if (document.value.maxFileCount && futurLength > document.value.maxFileCount) {
-    ToastService.maxFileError(futurLength, document.value.maxFileCount)
+    toast.maxFileError(futurLength, document.value.maxFileCount, fileUpload.value?.inputFile)
     return
   }
   const formData = _buildFormData(filesToAdd)
@@ -429,11 +434,11 @@ function saveNewFiles() {
     .then(() => {
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       loadDocument(true)
-      ToastService.saveSuccess()
+      toast.success(t('save-success'), fileUpload.value?.inputFile)
     })
     .catch((err: unknown) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      UtilsService.handleCommonSaveError(err)
+      UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
     })
     .finally(() => {
       hideLoader()
@@ -477,11 +482,12 @@ function remove(file: DfFile) {
           AnalyticsService.removeDeniedDocument(dfDocument.value.documentSubCategory || '')
         }
 
-        ToastService.saveSuccess()
+        toast.success(t('save-success'), fileUpload.value?.inputFile)
       })
       .catch((err) => {
         console.log('Unable to delete last element?', err)
-        ToastService.error('delete-file-failed')
+        const index = (dfDocument.value.files || []).findIndex((f) => f.id === file.id)
+        toast.error(t('delete-file-failed'), listItem.value?.at(index)?.removeButton)
       })
       .finally(() => {
         hideLoader()

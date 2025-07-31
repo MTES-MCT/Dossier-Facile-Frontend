@@ -34,6 +34,7 @@
         </div>
         <div class="fr-mt-3w fr-mb-3w">
           <FileUpload
+            ref="file-upload"
             :current-status="fileUploadStatus"
             @add-files="addFiles"
             @reset-files="resetFiles"
@@ -58,10 +59,9 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '../../../stores/tenant-store'
-import { ToastService } from '../../../services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
 import { DocumentType } from 'df-shared-next/src/models/Document'
@@ -70,6 +70,7 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 import { UtilsService } from '@/services/UtilsService'
+import { toast } from '@/components/toast/toastUtils'
 
 const props = defineProps<{
   tenantId?: number
@@ -79,6 +80,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const store = useTenantStore()
+const fileUpload = useTemplateRef('file-upload')
 const user = computed(() => store.user)
 
 const MAX_FILE_COUNT = 5
@@ -195,13 +197,13 @@ function save(files: File[]) {
   RegisterService.saveOrganismIdentification(formData)
     .then((response) => {
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-      ToastService.saveSuccess()
+      toast.success(t('save-success'), fileUpload.value?.inputFile)
       store.loadUserCommit(response.data)
       loadDocument()
     })
     .catch((error) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      UtilsService.handleCommonSaveError(error)
+      UtilsService.handleCommonSaveError(error, fileUpload.value?.inputFile)
     })
     .finally(() => {
       loader.hide()
@@ -254,7 +256,7 @@ function loadDocument() {
 }
 
 function displayTooManyFilesToast() {
-  ToastService.maxFileError(files.value.length, MAX_FILE_COUNT)
+  toast.maxFileError(files.value.length, MAX_FILE_COUNT, fileUpload.value?.inputFile)
 }
 
 function documentTypes() {

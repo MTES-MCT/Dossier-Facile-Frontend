@@ -38,10 +38,11 @@ import type { DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import { RegisterService } from '@/services/RegisterService'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { UtilsService } from '@/services/UtilsService'
-import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import type { ResidencyCategory } from '@/components/documents/share/DocumentTypeConstants'
 import { useResidencyState } from '../residencyState'
+import { toast } from '@/components/toast/toastUtils'
+import { useI18n } from 'vue-i18n'
 
 const {
   maxFileCount = 10,
@@ -61,6 +62,7 @@ const files = ref<{ name: string; file: File; size: number; id?: string; path?: 
 const store = useTenantStore()
 const residencyState = useResidencyState()
 const fileUpload = useTemplateRef('file-upload')
+const { t } = useI18n()
 
 defineExpose({ inputFile: computed(() => fileUpload.value?.inputFile) })
 
@@ -94,7 +96,7 @@ async function save(): Promise<boolean> {
   }
 
   if (residencyFiles.value.length > maxFileCount) {
-    ToastService.maxFileError(residencyFiles.value.length, maxFileCount)
+    toast.maxFileError(residencyFiles.value.length, maxFileCount, fileUpload.value?.inputFile)
     files.value = []
     return false
   }
@@ -118,12 +120,12 @@ async function save(): Promise<boolean> {
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-      ToastService.success('file-saved')
+      toast.success(t('file-saved'), fileUpload.value?.inputFile)
       return true
     })
     .catch((err) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      UtilsService.handleCommonSaveError(err)
+      UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
       return false
     })
     .finally(() => {

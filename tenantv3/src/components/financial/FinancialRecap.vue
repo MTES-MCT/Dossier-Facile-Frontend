@@ -49,7 +49,12 @@
             >{{ t('edit') }}
             <RiEditLine size="1rem" />
           </router-link>
-          <button type="button" class="btn-link color--primary" @click="showDeleteModale(doc)">
+          <button
+            ref="delete-btn"
+            type="button"
+            class="btn-link color--primary"
+            @click="showDeleteModale(doc)"
+          >
             {{ t('delete') }}
             <RiDeleteBinLine size="1rem" />
           </button>
@@ -153,23 +158,24 @@ import {
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
-import { ToastService } from '@/services/ToastService'
 import type { DfDocument, DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import FinancialFooter from './lib/FinancialFooter.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, useTemplateRef } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useFinancialState } from '@/components/financial/financialState'
 import { useRoute, useRouter } from 'vue-router'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import TenantBadge from '../common/TenantBadge.vue'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
+import { toast } from '@/components/toast/toastUtils'
 
 const store = useTenantStore()
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
+const deleteBtn = useTemplateRef('delete-btn')
 const showInfoModale = ref(false)
 const showDuplicatesModale = ref(false)
 const docToDelete = ref<DfDocument>()
@@ -333,7 +339,8 @@ function deleteDoc() {
   store
     .deleteDocument(id)
     .catch(() => {
-      ToastService.errorf(t('delete-failed'))
+      const index = sortedFinancialDocs.value.findIndex((d) => d.id === id)
+      toast.error(t('delete-failed'), deleteBtn.value?.at(index))
     })
     .finally(() => {
       loader.hide()

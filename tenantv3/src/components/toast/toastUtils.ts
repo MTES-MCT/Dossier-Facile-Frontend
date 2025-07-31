@@ -45,7 +45,9 @@ export function clearAllToasts() {
 }
 
 export const getNextBtnInFooter = () =>
-  document.querySelector<HTMLButtonElement>('#footer-navigation button.fr-btn')
+  document.querySelector<HTMLButtonElement>(
+    '#footer-navigation button.fr-btn:not(.fr-btn--secondary)'
+  )
 
 export const toast = {
   error(label: string, elt: MaybeElement) {

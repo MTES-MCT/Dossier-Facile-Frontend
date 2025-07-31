@@ -9,6 +9,7 @@
           </DfButton>
           <DfButton
             v-else
+            ref="download-button"
             :disabled="!user || user.status !== 'VALIDATED'"
             :title="t('file.download-disabled-title')"
             :primary="true"
@@ -235,11 +236,11 @@ import OwnerBanner from '../components/OwnerBanner.vue'
 import FileHeader from '../components/FileHeader.vue'
 import RowListItem from '@/components/documents/RowListItem.vue'
 import FileNotFound from '@/views/FileNotFound.vue'
-import { ToastService } from '@/services/ToastService'
 import { useI18n } from 'vue-i18n'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -248,6 +249,7 @@ const user = ref(new FileUser())
 const tabIndex = ref(0)
 const showProgressBar = ref(false)
 const fileNotFound = ref(false)
+const downloadButton = useTemplateRef('download-button')
 
 function franceConnectTenantCount() {
   return user.value?.tenants?.filter((t) => t.franceConnect && t.ownerType === 'SELF').length
@@ -319,7 +321,7 @@ function retryDownload(remainingCount: number) {
       retryDownload(remainingCount - 1)
     } else {
       showProgressBar.value = false
-      ToastService.error('file.download-failed-try-later')
+      toast.error(t('file.download-failed-try-later'), downloadButton.value?.button)
     }
   }, 15000)
 }
@@ -337,7 +339,7 @@ function downloadFile(url: string) {
     })
     .catch((error) => {
       console.error(error)
-      ToastService.error('file.download-failed')
+      toast.error(t('file.download-failed'), downloadButton.value?.button)
     })
     .finally(() => (showProgressBar.value = false))
 }
@@ -354,7 +356,7 @@ function download() {
       })
       .catch(() => {
         showProgressBar.value = false
-        ToastService.error('file.download-failed')
+        toast.error(t('file.download-failed'), downloadButton.value?.button)
       })
   }
 }

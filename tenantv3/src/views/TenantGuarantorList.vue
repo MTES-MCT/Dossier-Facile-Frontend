@@ -5,7 +5,7 @@
         {{ t('tenantguarantorlist.my-guarantor') }}
       </h1>
       <div v-for="g in guarantors" :key="g.id">
-        <CardRow @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
+        <CardRow ref="card-row" @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
           <template #tag>
             <div class="text-bold">{{ getGuarantorName(g) }}</div>
           </template>
@@ -39,11 +39,11 @@ import CardRow from 'df-shared-next/src/components/CardRow.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import { ToastService } from '@/services/ToastService'
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
+import { toast } from '@/components/toast/toastUtils'
 
 const props = defineProps<{
   guarantors: Guarantor[]
@@ -60,6 +60,7 @@ const emit = defineEmits<{
 }>()
 
 const isRemoveGuarantor = ref(false)
+const cardRow = useTemplateRef('card-row')
 
 function getGuarantorName(g: Guarantor) {
   if (g.firstName || g.lastName) {
@@ -121,7 +122,11 @@ function removeGuarantor(g: Guarantor) {
       emit('on-delete', g)
     })
     .catch(() => {
-      ToastService.error('guarantorssection.guarantor-delete-failed')
+      const index = props.guarantors.findIndex((v) => v.id === g.id)
+      toast.error(
+        t('guarantorssection.guarantor-delete-failed'),
+        cardRow.value?.at(index)?.removeBtn
+      )
     })
     .finally(() => {
       isRemoveGuarantor.value = false

@@ -77,7 +77,6 @@ import { RegisterService } from '@/services/RegisterService'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { useLoading } from 'vue-loading-overlay'
 import { useTenantStore } from '@/stores/tenant-store'
-import { ToastService } from '@/services/ToastService'
 import { UtilsService } from '@/services/UtilsService'
 import { useRoute, useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
@@ -175,7 +174,7 @@ async function goNext() {
 
 async function submit() {
   if ((document.value.files || []).length === 0) {
-    ToastService.error('errors.no-file')
+    toast.error(t('errors.no-file'), fileUpload.value?.inputFile)
     return
   }
   if ((document.value.files?.length || 0) < (props.minFiles || 0)) {
@@ -240,13 +239,13 @@ async function save(successMsgKey = 'save-success') {
     return false
   }
   if (financialFiles.length === 0) {
-    ToastService.error('errors.no-file')
+    toast.error(t('errors.no-file'), fileUpload.value?.inputFile)
     financialDocument.files = []
     console.info('Save: no files')
     return false
   }
   if (financialFiles.length > MAX_FILE_COUNT) {
-    ToastService.maxFileError(financialFiles.length, MAX_FILE_COUNT)
+    toast.maxFileError(financialFiles.length, MAX_FILE_COUNT, fileUpload.value?.inputFile)
     console.info('Save: too many files')
     return false
   }

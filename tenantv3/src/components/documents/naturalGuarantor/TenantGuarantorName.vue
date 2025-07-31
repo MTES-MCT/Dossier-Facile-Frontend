@@ -71,7 +71,7 @@
         </div>
       </div>
     </NakedCard>
-    <GuarantorFooter @on-back="goBack"></GuarantorFooter>
+    <GuarantorFooter ref="footer" @on-back="goBack"></GuarantorFooter>
   </Form>
 </template>
 
@@ -81,14 +81,14 @@ import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { UtilsService } from '../../../services/UtilsService'
 import GuarantorFooter from '../../footer/GuarantorFooter.vue'
-import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { makeSpouseGuarantorIdDocLink } from '@/components/identityDocument/lib/identityDocumentLink'
 import { useRouter } from 'vue-router'
+import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 
@@ -99,6 +99,7 @@ const props = defineProps<{
 const emit = defineEmits<{ 'on-back': [] }>()
 const store = useTenantStore()
 const router = useRouter()
+const footer = useTemplateRef('footer')
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const firstName = ref<string | undefined>('')
@@ -139,12 +140,12 @@ function save() {
   store
     .saveGuarantorName(formData)
     .then(() => {
-      ToastService.saveSuccess()
+      toast.keep.success(t('save-success'), getNextBtnInFooter)
       next()
     })
     .catch(() => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      ToastService.error('errors.submit-failed')
+      toast.error(t('errors.submit-failed'), footer.value?.button)
     })
     .finally(() => {
       loader.hide()
