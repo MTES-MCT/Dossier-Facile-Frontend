@@ -71,6 +71,7 @@ function hasToDisplayAnnoncement() {
     :message="announcementMessage"
   ></Announcement>
   <Announcement v-if="store.user.status === 'VALIDATED'" :message="validatedMessage"></Announcement>
+  <ToastContainer />
   <div id="content">
     <DeleteAccount></DeleteAccount>
     <main role="main">
@@ -79,7 +80,6 @@ function hasToDisplayAnnoncement() {
       </div>
       <FollowSocials v-if="!isFunnel" />
     </main>
-    <ToastContainer />
   </div>
   <Footer v-if="!isFunnel" />
 </template>
