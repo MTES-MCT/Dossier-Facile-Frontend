@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import cookies from 'js-cookie';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const DOMAIN = `${import.meta.env.VITE_COOKIE_DOMAIN}`
 
 const announcementClosed = ref(false)
 
-const { isDisplayed = true, message } = defineProps<{
-  isDisplayed?: boolean
-  message: string
-}>()
+const { message } = defineProps<{ message: string }>()
 
 const announcementClosedCookieKey = `announcement-closed-${btoa(message)}`
 
@@ -19,10 +16,10 @@ onMounted(() => {
   }
 })
 
-function isVisible() {
+const isVisible = computed(() => {
   const isMessageSet = message.trim().length > 0
-  return isMessageSet && !announcementClosed.value && isDisplayed
-}
+  return isMessageSet && !announcementClosed.value
+})
 
 function createAnnouncementClosedCookie() {
   const expirationDate = new Date()
@@ -42,7 +39,7 @@ function closeAnnouncement() {
 </script>
 
 <template>
-  <div v-if="isVisible()" class="announcement fr-pt-2w fr-pb-2w">
+  <div v-if="isVisible" class="announcement fr-pt-2w fr-pb-2w">
     <div class="fr-container message">
       <span v-html="message"></span>
       <button
