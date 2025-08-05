@@ -4,17 +4,17 @@ describe("alone tenant scenario", () => {
   const user = getTenantUser();
 
   beforeEach("reset account", () => {
-    cy.deleteAccount(user.username, UserType.TENANT);
+    cy.deleteAccount(user.username, user.password, UserType.TENANT);
   });
 
   it("validate file", () => {
-    cy.tenantLogin(user.username);
+    cy.tenantLogin(user.username, user.password);
     cy.rejectCookies();
 
     cy.contains("Pour vous").click();
 
-    cy.get("#lastname").should("have.value", user.lastname);
-    cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
+    cy.verifyTenantIdentity(user.firstname, user.lastname);
+
     cy.clickOnNext();
 
     cy.expectPath("/type-locataire");
