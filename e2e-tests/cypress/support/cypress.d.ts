@@ -2,13 +2,19 @@
 
 declare namespace Cypress {
   interface Chainable {
-    tenantLogin(username: string): Chainable<void>;
+    tenantLoginWithFC(username: string, password: string): Chainable<void>;
 
-    ownerLogin(username: string): Chainable<void>;
+    ownerLoginWithFC(username: string, password: string): Chainable<void>;
 
-    loginWithFC(username: string): Chainable<void>;
+    loginWithFC(username: string, password: string): Chainable<void>;
 
-    deleteAccount(username: string, type: number): Chainable<void>;
+    verifyTenantIdentity(firstname: string, lastname: string): Chainable<void>;
+
+    loginWithFCAndDeleteAccount(
+      username: string,
+      passowrd: string,
+      type: number
+    ): Chainable<void>;
 
     uploadDocument(numberOfFiles?: number): Chainable<void>;
 
@@ -32,6 +38,8 @@ declare namespace Cypress {
       step2Label?: string,
       numberOfFiles?: number
     ): Chainable<void>;
+
+    verifyErrorToastMessage(message: string): Chainable<void>;
 
     selectProfessionalStatusStep(professionalStatus: string): Chainable<void>;
 

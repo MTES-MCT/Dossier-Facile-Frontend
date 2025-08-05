@@ -8,7 +8,13 @@ describe("change password scenario", () => {
     cy.get("#password").type(password);
     cy.get("#confirm-password").type(password);
     cy.contains("Valider").click();
-    cy.contains("Le lien est expiré ou incorrect");
+
+    cy.verifyErrorToastMessage(
+      "Vous avez déjà utilisé ce lien pour créer un mot de passe."
+    );
+
+    // Vérifier que l'input password a le focus
+    cy.get("#password").should("be.focused");
   });
 
   it("Join couple - should error on invalid password token", () => {
@@ -18,6 +24,12 @@ describe("change password scenario", () => {
     cy.get("#password").type(password);
     cy.get("#confirm-password").type(password);
     cy.contains("Valider").click();
-    cy.contains("Le lien est expiré ou incorrect");
+
+    cy.verifyErrorToastMessage(
+      "Vous avez déjà utilisé ce lien pour créer un mot de passe."
+    );
+
+    // Vérifier que l'input password a le focus
+    cy.get("#password").should("be.focused");
   });
 });

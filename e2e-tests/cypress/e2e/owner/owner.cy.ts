@@ -5,11 +5,11 @@ describe("basic owner scenario", () => {
   const propertyName = "Appartement 123";
 
   beforeEach("reset account", () => {
-    cy.deleteAccount(user.username, UserType.OWNER);
+    cy.deleteAccount(user.username, user.password, UserType.OWNER);
   });
 
   it("create a property", () => {
-    cy.ownerLogin(user.username);
+    cy.ownerLogin(user.username, user.password);
     cy.rejectCookies();
 
     cy.get("button").contains("Ajouter une propriété").click();
