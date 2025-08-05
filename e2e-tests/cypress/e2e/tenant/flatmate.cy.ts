@@ -5,16 +5,16 @@ describe("flatmate tenant scenario", () => {
   const flatmateEmail = `coloc-${Math.floor(Math.random() * 10000)}@yopmail.fr`;
 
   beforeEach("reset account", () => {
-    cy.deleteAccount(user.username, UserType.TENANT);
+    cy.deleteAccount(user.username, user.password, UserType.TENANT);
   });
 
   it("validate file", () => {
-    cy.tenantLogin(user.username);
+    cy.tenantLogin(user.username, user.password);
     cy.rejectCookies();
     cy.contains("Pour vous").click();
 
-    cy.get("#lastname").should("have.value", user.lastname);
-    cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
+    cy.verifyTenantIdentity(user.firstname, user.lastname);
+
     cy.clickOnNext();
 
     cy.wait(200);
@@ -27,7 +27,7 @@ describe("flatmate tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");
-    cy.simpleUploadDocumentStep("Titre de séjour français");
+    cy.simpleUploadDocumentStep("Carte ou titre de séjour");
 
     cy.expectPath("/documents-locataire/2");
     cy.selectResidencyStep(

@@ -1,14 +1,14 @@
 import { getTenantUser, UserType } from "../../support/users";
 
 describe("accessibility checks", () => {
-  const username = getTenantUser().username;
+  const user = getTenantUser();
 
   beforeEach("reset account", () => {
-    cy.deleteAccount(username, UserType.TENANT);
+    cy.deleteAccount(user.username, user.password, UserType.TENANT);
   });
 
   it("funnel accessibility", () => {
-    cy.tenantLogin(username);
+    cy.tenantLogin(user.username, user.password);
     cy.rejectCookies();
     cy.contains("Pour vous").click();
     cy.testAccessibility();
