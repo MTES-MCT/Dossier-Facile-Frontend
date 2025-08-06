@@ -19,6 +19,7 @@ import { computed } from 'vue'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { useLink } from 'vue-router'
 import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
+import { makeGuarantorIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
 
 const props = defineProps<{
   guarantor: Guarantor
@@ -26,6 +27,9 @@ const props = defineProps<{
 }>()
 
 const to = computed(() => {
+  if (props.documentType === DocumentType.IDENTITY) {
+    return makeGuarantorIdentityDocumentLink(props.guarantor)
+  }
   if (props.documentType === DocumentType.RESIDENCY) {
     return makeGuarantorResidencyLink(props.guarantor)
   }

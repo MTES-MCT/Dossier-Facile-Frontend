@@ -36,6 +36,11 @@ import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import cookies from 'js-cookie'
+import {
+  makeGuarantorIdentityDocumentLink,
+  makeIdentityDocumentLink,
+  makeSpouseGuarantorIdDocLink
+} from '@/components/identityDocument/lib/identityDocumentLink'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const LOGOUT_REDIRECT_URL = import.meta.env.VITE_LOGOUT_REDIRECT_URL
@@ -516,6 +521,9 @@ export const useTenantStore = defineStore('tenant', {
     ) {
       this.setSelectedGuarantor(guarantor)
       if (tenantId && tenantId != this.user.id) {
+        if (substep === 1 && guarantor.id) {
+          return makeSpouseGuarantorIdDocLink(guarantor, tenantId)
+        }
         if (substep === 2 && guarantor.id) {
           const doc = guarantor?.documents?.find((d) => d.documentCategory === 'RESIDENCY')
           return makeCotenantGuarantorResidencyLink(tenantId, guarantor.id, doc)
@@ -531,6 +539,9 @@ export const useTenantStore = defineStore('tenant', {
             guarantorId: guarantor.id
           }
         }
+      }
+      if (substep === 1) {
+        return makeGuarantorIdentityDocumentLink(guarantor)
       }
       if (substep === 2) {
         return makeGuarantorResidencyLink(guarantor)
@@ -668,7 +679,7 @@ export const useTenantStore = defineStore('tenant', {
         return { name: 'TenantType' }
       }
       if (!this.hasDoc('IDENTIFICATION')) {
-        return { name: 'TenantIdentification' }
+        return makeIdentityDocumentLink(this.getTenantIdentificationDocument)
       }
       if (!this.isTenantDocumentValid('RESIDENCY')) {
         return makeResidencyLink(this.user)

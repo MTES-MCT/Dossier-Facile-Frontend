@@ -96,6 +96,7 @@
         </div>
       </div>
       <ProfileFooter
+        ref="footer"
         :disabled="hasErrors()"
         :next-label="t('validatefile.validate')"
         @on-back="goBack()"
@@ -124,9 +125,8 @@ import FileErrors from './fileerrors/FileErrors.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { useLoading } from 'vue-loading-overlay'
 import { useTenantStore } from '../stores/tenant-store'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, useTemplateRef } from 'vue'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { ToastService } from '../services/ToastService'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Form, Field, ErrorMessage } from 'vee-validate'
@@ -135,6 +135,7 @@ import { User } from 'df-shared-next/src/models/User'
 import { UtilsService } from '../services/UtilsService'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 
@@ -147,6 +148,7 @@ const router = useRouter()
 const precision = ref('')
 const declaration = ref(false)
 const declaration2 = ref(false)
+const footer = useTemplateRef('footer')
 
 onMounted(() => {
   if (user.value.honorDeclaration) {
@@ -207,7 +209,7 @@ function sendFile() {
       })
     })
     .catch(() => {
-      ToastService.error('errors.submit-failed')
+      toast.error(t('errors.submit-failed'), footer.value?.nextBtn)
     })
     .finally(() => {
       loader.hide()

@@ -22,6 +22,7 @@ import { computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { GUARANTOR_ROUTES } from './documents/naturalGuarantor/guarantorRoutes'
+import { makeGuarantorIdentityDocumentLink } from './identityDocument/lib/identityDocumentLink'
 
 const store = useTenantStore()
 const route = useRoute()
@@ -39,7 +40,10 @@ onBeforeMount(() => {
 })
 
 function updateSubstep(s: number) {
-  if (GUARANTOR_ROUTES[s] === 'GuarantorResidency' && guarantor.value) {
+  if (GUARANTOR_ROUTES[s] === 'GuarantorIdentification' && guarantor.value) {
+    const path = makeGuarantorIdentityDocumentLink(guarantor.value)
+    router.push(path)
+  } else if (GUARANTOR_ROUTES[s] === 'GuarantorResidency' && guarantor.value) {
     const path = makeGuarantorResidencyLink(guarantor.value)
     router.push(path)
   } else {

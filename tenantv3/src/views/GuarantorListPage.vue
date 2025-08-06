@@ -5,7 +5,7 @@
         {{ t('guarantorlistpage.my-guarantor') }}
       </h1>
       <div v-for="g in user.guarantors" :key="g.id">
-        <CardRow @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
+        <CardRow ref="card-row" @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
           <template #tag>
             <div class="text-bold">{{ getGuarantorName(g) }}</div>
           </template>
@@ -42,10 +42,10 @@ import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { useTenantStore } from '@/stores/tenant-store'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { ToastService } from '@/services/ToastService'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -53,6 +53,7 @@ const user = computed(() => store.user)
 const router = useRouter()
 
 const isRemoveGuarantor = ref(false)
+const cardRow = useTemplateRef('card-row')
 
 onBeforeMount(() => {
   store.setSelectedGuarantor(undefined)
@@ -138,17 +139,25 @@ async function editGuarantor(g: Guarantor) {
 }
 
 function removeGuarantor(g: Guarantor) {
-  store.deleteGuarantor(g).then(
-    () => {
-      if (!user.value.guarantors?.length || 0 >= 1) {
-        router.push({ name: 'GuarantorChoice' })
+  store
+    .deleteGuarantor(g)
+    .then(
+      () => {
+        if (!user.value.guarantors?.length || 0 >= 1) {
+          router.push({ name: 'GuarantorChoice' })
+        }
+      },
+      () => {
+        const index = user.value.guarantors.findIndex((v) => v.id === g.id)
+        toast.error(
+          t('guarantorssection.guarantor-delete-failed'),
+          cardRow.value?.at(index)?.removeBtn
+        )
       }
+    )
+    .finally(() => {
       isRemoveGuarantor.value = false
-    },
-    () => {
-      ToastService.error('guarantorssection.guarantor-delete-failed')
-    }
-  )
+    })
 }
 
 function hasOneNaturalGuarantor() {

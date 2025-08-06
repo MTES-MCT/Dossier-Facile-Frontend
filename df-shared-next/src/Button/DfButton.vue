@@ -1,10 +1,18 @@
 <template>
-  <button :disabled="props.disabled" :class="classes()" class="fr-btn" :title="props.title">
+  <button
+    ref="button"
+    :disabled="props.disabled"
+    :class="classes()"
+    class="fr-btn"
+    :title="props.title"
+  >
     <slot></slot>
   </button>
 </template>
 
 <script setup lang="ts">
+import { useTemplateRef } from 'vue'
+
 const props = withDefaults(
   defineProps<{
     title?: string
@@ -25,6 +33,9 @@ const props = withDefaults(
     title: undefined
   }
 )
+
+const button = useTemplateRef('button')
+defineExpose({ button })
 
 function classes() {
   return {

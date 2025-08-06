@@ -69,6 +69,7 @@
                       v-html="t('account.download-not-validated-text')"
                     ></p>
                     <a
+                      ref="download-zip"
                       href="#"
                       :title="t('account.download-not-validated-title')"
                       class="download-link"
@@ -212,15 +213,15 @@ import FakeAnnouncement from '../components/FakeAnnouncement.vue'
 import PartnersSection from '../components/account/PartnersSection.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue'
 import { useTenantStore } from '../stores/tenant-store'
 import { useRouter } from 'vue-router'
 import { ProfileService } from '../services/ProfileService'
-import { ToastService } from '../services/ToastService'
 import dayjs, { Dayjs } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useI18n } from 'vue-i18n'
 import { RiDownloadLine, RiTimeLine, RiShareLine, RiEyeLine } from '@remixicon/vue'
+import { toast } from '@/components/toast/toastUtils'
 const { t } = useI18n()
 
 const FORCE_FAKE_ANNOUNCEMENT_VISIBILITY =
@@ -233,6 +234,8 @@ const tabIndex = ref(0)
 const router = useRouter()
 dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
+const downloadZipElt = useTemplateRef('download-zip')
+
 let reloadExpectedProcessTimeIntervalId: number | null = null
 
 onMounted(() => {
@@ -328,12 +331,13 @@ function downloadZip() {
       const blob = new Blob([response.data], { type: 'application/zip' })
       const link = window.document.createElement('a')
       link.href = window.URL.createObjectURL(blob)
-      link.download = 'dossierFacile.zip'
+      const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.zip')
+      link.download = fileName
       link.click()
     })
     .catch((error) => {
       console.error(error)
-      ToastService.error('file.download-failed')
+      toast.error(t('file.download-failed'), downloadZipElt.value)
     })
 }
 

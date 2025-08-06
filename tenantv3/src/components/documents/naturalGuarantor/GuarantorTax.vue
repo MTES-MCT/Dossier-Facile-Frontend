@@ -76,6 +76,7 @@
       </div>
       <div class="fr-mb-3w fr-mt-3w">
         <FileUpload
+          ref="file-upload"
           :current-status="fileUploadStatus"
           @add-files="addFiles"
           @reset-files="resetFiles"
@@ -139,14 +140,14 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import WarningTaxDeclaration from '@/components/documents/share/WarningTaxDeclaration.vue'
 import { UtilsService } from '@/services/UtilsService'
 import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
-import { ToastService } from '@/services/ToastService'
 import { useLoading, type ActiveLoader } from 'vue-loading-overlay'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { RiAlarmWarningLine } from '@remixicon/vue'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
+import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
@@ -168,6 +169,7 @@ const props = withDefaults(
   }
 )
 
+const fileUpload = useTemplateRef('file-upload')
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref([] as DfFile[])
 const taxDocument = ref(new DocumentType())
@@ -293,7 +295,11 @@ async function save(force = false) {
   })
   if (newFiles.length) {
     if (taxDocument.value.maxFileCount && taxFiles().length > taxDocument.value.maxFileCount) {
-      ToastService.maxFileError(taxFiles().length, taxDocument.value.maxFileCount)
+      toast.maxFileError(
+        taxFiles().length,
+        taxDocument.value.maxFileCount,
+        fileUpload.value?.inputFile
+      )
       files.value = []
       return false
     }
@@ -320,7 +326,7 @@ async function save(force = false) {
   }
 
   if (formData.get('noDocument') === 'false' && newFiles.length <= 0 && taxFiles().length <= 0) {
-    ToastService.noFileError()
+    toast.error(t('errors.no-file'), fileUpload.value?.inputFile)
     hideLoader()
     return false
   }
@@ -357,7 +363,7 @@ async function save(force = false) {
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-      ToastService.saveSuccess()
+      toast.keep.success(t('save-success'), getNextBtnInFooter)
       return true
     })
     .catch((err) => {

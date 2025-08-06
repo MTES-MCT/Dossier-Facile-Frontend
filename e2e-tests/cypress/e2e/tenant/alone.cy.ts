@@ -38,10 +38,13 @@ describe("alone tenant scenario", () => {
       ["Revenus du travail", "salarié", "Depuis plus de 3 mois"],
       "2000"
     );
+    cy.contains("Nombre de justificatifs insuffisant").should("exist");
+    cy.contains("Passer à l’étape suivante").click();
 
     // Check that updating the monthly income is persisted
     cy.contains("Modifier").click();
     cy.get('[data-cy="monthlySum"]').clear().type("2500{enter}");
+    cy.contains("Passer à l’étape suivante").click();
     cy.location("pathname").should("equal", "/documents-locataire/4");
     cy.reload();
     cy.contains("2500€ net mensuel").should("exist");

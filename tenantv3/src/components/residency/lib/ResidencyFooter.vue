@@ -5,7 +5,7 @@
       <span class="desktop">{{ t('profilefooter.back') }}</span>
     </router-link>
     <form @submit.prevent="submit">
-      <DfButton :disabled="disabled" primary data-cy="next-btn">{{
+      <DfButton ref="submit-button" :disabled="disabled" primary data-cy="next-btn">{{
         t('validate-residency')
       }}</DfButton>
     </form>
@@ -17,7 +17,7 @@ import FooterContainer from '@/components/footer/FooterContainer.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { RiArrowLeftSLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { computed } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useResidencyState } from '../residencyState'
@@ -33,6 +33,8 @@ const residencyState = useResidencyState()
 const disabled = computed(() =>
   enabled == null ? residencyState.document.value == undefined : !enabled
 )
+const submitBtn = useTemplateRef('submit-button')
+defineExpose({ submit: computed(() => submitBtn.value?.button) })
 
 const submit = () => {
   AnalyticsService.validateFunnelStep(residencyState.category)

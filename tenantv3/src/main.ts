@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 
 import App from './App.vue'
 import { router } from './router'
@@ -195,12 +194,6 @@ keycloak
     app.use(router)
     app.use(i18n)
     app.use(LoadingPlugin)
-
-    app.use(Vue3Toastify, {
-      autoClose: 10_000,
-      theme: 'colored',
-      clearOnUrlChange: false
-    } satisfies ToastContainerOptions)
     app.use(ConsentPlugin, { matomo: true, crisp: CRISP_ENABLED === 'true' })
     app.mount('#app')
   })

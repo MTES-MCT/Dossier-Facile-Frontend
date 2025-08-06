@@ -15,9 +15,14 @@
               <slot></slot>
             </p>
             <div class="align--right">
-              <DfButton type="submit" class="fr-mr-3w" :primary="true" @click="validSelect()">{{
-                validateBtnText ? validateBtnText : t('validate')
-              }}</DfButton>
+              <DfButton
+                ref="validate-btn"
+                type="submit"
+                class="fr-mr-3w"
+                :primary="true"
+                @click="validSelect()"
+                >{{ validateBtnText ? validateBtnText : t('validate') }}</DfButton
+              >
               <DfButton class="fr-mr-3w" @click="undoSelect()">{{
                 cancelBtnText ? cancelBtnText : t('cancel')
               }}</DfButton>
@@ -33,6 +38,7 @@
 import Modal from './ModalComponent.vue'
 import DfButton from '../Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
+import { useTemplateRef } from 'vue'
 
 const { t } = useI18n()
 
@@ -43,6 +49,9 @@ const props = defineProps<{
   cancelBtnText?: string
   emitClose?: boolean
 }>()
+
+const validateBtn = useTemplateRef('validate-btn')
+defineExpose({ validateBtn })
 
 function validSelect() {
   emit('valid')

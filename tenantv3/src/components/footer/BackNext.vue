@@ -19,6 +19,7 @@
       <div class="fr-grid-row flex-1">
         <slot v-if="!isMobile()" name="additionalButton"></slot>
         <v-gouv-fr-button
+          ref="next-btn"
           class="next-btn"
           :secondary="false"
           :label="nextLabel ? nextLabel : t('backnext.continue')"
@@ -38,6 +39,7 @@ import VGouvFrButton from 'df-shared-next/src/Button/VGouvFrButton.vue'
 import { UtilsService } from '../../services/UtilsService'
 import { useI18n } from 'vue-i18n'
 import { RiArrowLeftSLine } from '@remixicon/vue'
+import { useTemplateRef } from 'vue'
 
 const { t } = useI18n()
 
@@ -48,6 +50,9 @@ withDefaults(defineProps<{ showBack?: boolean; disabled?: boolean; nextLabel?: s
 })
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
+
+const nextBtn = useTemplateRef('next-btn')
+defineExpose({ nextBtn })
 
 function isMobile() {
   return UtilsService.isMobile()

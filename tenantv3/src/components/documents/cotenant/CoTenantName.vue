@@ -68,7 +68,6 @@ import { User } from 'df-shared-next/src/models/User'
 import FooterContainer from '../../footer/FooterContainer.vue'
 import BackNext from '../../footer/BackNext.vue'
 import RequiredFieldsInstruction from 'df-shared-next/src/components/form/RequiredFieldsInstruction.vue'
-import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
@@ -77,6 +76,10 @@ import { useI18n } from 'vue-i18n'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { useRoute, useRouter } from 'vue-router'
 import TextField from '@/components/form/TextField.vue'
+import { makeIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
+import { DocumentService } from '@/services/DocumentService'
+import { UtilsService } from '@/services/UtilsService'
+import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
 
 const selectedCoTenant = ref<CoTenant>(new User())
 const { t } = useI18n()
@@ -122,11 +125,11 @@ function save() {
   store
     .setNames(selectedCoTenant.value)
     .then(() => {
-      ToastService.saveSuccess()
+      toast.keep.success(t('save-success'), getNextBtnInFooter)
       goToIdentification()
     })
     .catch(() => {
-      ToastService.error('errors.submit-failed')
+      toast.error(t('errors.submit-failed'), getNextBtnInFooter())
     })
     .finally(() => {
       loader.hide()
@@ -138,12 +141,10 @@ function goToGuarantorChoice() {
 }
 
 function goToIdentification() {
-  router.push({
-    name: 'CoupleIdentification',
-    params: {
-      tenantId: tenantId.value
-    }
-  })
+  const doc = DocumentService.getCoTenantDocument(tenantId.value, 'IDENTIFICATION')
+  const step = UtilsService.getParam(route.params.step)
+  const link = makeIdentityDocumentLink(doc, `/documents-colocataire/${tenantId.value}/${step}/1`)
+  router.push(link)
 }
 </script>
 

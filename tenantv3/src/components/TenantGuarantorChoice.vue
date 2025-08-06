@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <GuarantorFooter @on-back="goBack" @on-next="setGuarantorType"></GuarantorFooter>
+      <GuarantorFooter ref="footer" @on-back="goBack" @on-next="setGuarantorType"></GuarantorFooter>
     </div>
   </div>
 </template>
@@ -54,10 +54,10 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
 import GuarantorFooter from './footer/GuarantorFooter.vue'
 import GuarantorTypeSelector from '@/components/GuarantorTypeSelector.vue'
-import { ToastService } from '@/services/ToastService'
-import { onBeforeMount, onUpdated, ref } from 'vue'
+import { onBeforeMount, onUpdated, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
+import { toast } from './toast/toastUtils'
 
 const props = withDefaults(
   defineProps<{
@@ -69,6 +69,7 @@ const props = withDefaults(
   }
 )
 const emit = defineEmits<{ 'on-back': []; 'on-select': [guarantorType: string] }>()
+const footer = useTemplateRef('footer')
 const store = useTenantStore()
 const { t } = useI18n()
 
@@ -89,7 +90,10 @@ function scrollToEnd() {
 
 function setGuarantorType() {
   if (!tmpGuarantorType.value) {
-    ToastService.error('tenantguarantorchoice.type-required')
+    toast.error(
+      t('tenantguarantorchoice.type-required'),
+      document.getElementById('natural-person-choice')
+    )
     return
   }
   AnalyticsService.addGuarantor(tmpGuarantorType.value)
@@ -106,7 +110,7 @@ function setGuarantorType() {
           emit('on-select', tmpGuarantorType.value)
         },
         () => {
-          ToastService.error('tenantguarantorchoice.try-again')
+          toast.error(t('tenantguarantorchoice.try-again'), footer.value?.button)
         }
       )
   }

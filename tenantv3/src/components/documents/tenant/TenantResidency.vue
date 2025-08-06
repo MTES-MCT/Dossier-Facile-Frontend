@@ -14,14 +14,16 @@ import { computed, provide } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useMainActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import TenantBadge from '@/components/common/TenantBadge.vue'
+import { useIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
 const { t } = useI18n()
 const store = useTenantStore()
+const identityDocumentLink = useIdentityDocumentLink()
 const mainActivityLink = useMainActivityLink()
 
 provide(residencyKey, {
   category: 'residency',
   textKey: 'tenant',
-  previousStep: '/documents-locataire/1',
+  previousStep: identityDocumentLink.value,
   nextStep: mainActivityLink.value,
   document: computed(() => store.getTenantResidencyDocument),
   userId: undefined

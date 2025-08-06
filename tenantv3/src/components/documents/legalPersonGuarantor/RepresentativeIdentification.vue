@@ -73,6 +73,7 @@
           </div>
           <div class="fr-mb-3w">
             <FileUpload
+              ref="file-upload"
               :current-status="fileUploadStatus"
               @add-files="addFiles"
               @reset-files="resetFiles"
@@ -94,12 +95,11 @@ import { DocumentType } from 'df-shared-next/src/models/Document'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { ErrorMessage, Field, Form } from 'vee-validate'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import { AnalyticsService, type DocumentCategory } from '../../../services/AnalyticsService'
 import { RegisterService } from '../../../services/RegisterService'
-import { ToastService } from '../../../services/ToastService'
 import { useTenantStore } from '../../../stores/tenant-store'
 import GuarantorFooter from '../../footer/GuarantorFooter.vue'
 import FileUpload from '../../uploads/FileUpload.vue'
@@ -107,6 +107,7 @@ import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const documents = DocumentTypeConstants.REPRESENTATIVE_IDENTIFICATION
@@ -124,6 +125,7 @@ const identificationDocument = ref(new DocumentType())
 const files = ref([] as File[])
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const firstName = ref('')
+const fileUpload = useTemplateRef('file-upload')
 
 onBeforeMount(() => {
   firstName.value = guarantor.value?.firstName || ''
@@ -194,7 +196,7 @@ function save() {
       })
       .catch((err: Error) => {
         fileUploadStatus.value = UploadStatus.STATUS_FAILED
-        ToastService.error('errors.submit-failed')
+        toast.error(t('errors.submit-failed'), fileUpload.value?.inputFile)
         return Promise.reject(err)
       })
       .finally(() => {
@@ -203,7 +205,7 @@ function save() {
   }
 
   if (listFiles().length > MAX_FILE_COUNT) {
-    ToastService.maxFileError(listFiles().length, MAX_FILE_COUNT)
+    toast.maxFileError(listFiles().length, MAX_FILE_COUNT, fileUpload.value?.inputFile)
     return Promise.reject(new Error('Save: too many files'))
   }
   Array.from(Array(files.value.length).keys()).forEach((x) => {
@@ -219,12 +221,12 @@ function save() {
     .then(() => {
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       store.loadUser()
-      ToastService.saveSuccess()
+      toast.success(t('save-success'), fileUpload.value?.inputFile)
       return Promise.resolve(true)
     })
     .catch(() => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      ToastService.error('add-file-failed')
+      toast.error(t('add-file-failed'), fileUpload.value?.inputFile)
       return Promise.reject(new Error('Save: upload failed'))
     })
     .finally(() => {

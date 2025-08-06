@@ -13,13 +13,13 @@
 <script setup lang="ts">
 import InitPassword from 'df-shared-next/src/Authentification/InitPassword.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import { ToastService } from '../services/ToastService'
 import { useTenantStore } from '../stores/tenant-store'
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { isAxiosError } from 'axios'
 import { useLoading } from 'vue-loading-overlay'
+import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -35,7 +35,7 @@ function onInitPassword(password: string) {
   const loader = $loading.show()
   store.createPasswordCouple({ token, password }).then(
     () => {
-      ToastService.success('joincouple.password-created')
+      toast.keep.success(t('joincouple.password-created'), getNextBtnInFooter)
       router.push({ name: 'TenantName' })
       loader.hide()
       isLoading.value = false
@@ -44,9 +44,9 @@ function onInitPassword(password: string) {
       loader.hide()
       isLoading.value = false
       if (isAxiosError(error) && error.code === 'ERR_BAD_REQUEST') {
-        ToastService.error('joincouple.token-expired')
+        toast.error(t('joincouple.token-expired'), document.getElementById('password'))
       } else {
-        ToastService.error('errors.submit-failed')
+        toast.error(t('errors.submit-failed'), document.getElementById('password'))
       }
     }
   )

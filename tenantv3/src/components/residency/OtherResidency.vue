@@ -39,20 +39,20 @@
       </template>
     </i18n-t>
   </div>
-  <ResidencyFooter :on-submit="submit" :enabled="isPrecarious" />
+  <ResidencyFooter ref="footer" :on-submit="submit" :enabled="isPrecarious" />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import { useTenantStore } from '@/stores/tenant-store'
-import { ToastService } from '@/services/ToastService'
 import { RiPhoneFill } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useResidencyState } from './residencyState'
+import { toast } from '@/components/toast/toastUtils'
 
 const CUSTOM_TEXT =
   "Le candidat indique qu'il n'est pas en mesure de fournir de quittance de logement pour ces 3 derniers mois"
@@ -60,6 +60,7 @@ const CUSTOM_TEXT =
 const router = useRouter()
 const store = useTenantStore()
 const { t } = useI18n()
+const footer = useTemplateRef('footer')
 const residencyState = useResidencyState()
 const { category, textKey } = residencyState
 
@@ -83,7 +84,7 @@ const submit = () => {
     .then(goNext)
     .catch((err) => {
       console.error(err)
-      ToastService.error('errors.submit-failed')
+      toast.error(t('errors.submit-failed'), footer.value?.submit)
     })
 }
 </script>

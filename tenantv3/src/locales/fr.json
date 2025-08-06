@@ -7,7 +7,7 @@
   "partner-link-title": "Devenir partenaire (Nouvelle fenêtre)",
   "identity-card": "Carte d’identité",
   "passport": "Passeport",
-  "permit": "Titre de séjour français",
+  "permit": "Carte ou titre de séjour",
   "drivers-license": "Permis de conduire",
   "france-identite": "France Identité",
   "other": "Autre",
@@ -412,14 +412,6 @@
     "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
     "customText-undefined": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs"
   },
-  "cotenantidentification": {
-    "title": "La pièce d'identité de votre conjoint",
-    "description": "Veillez à ajouter le recto et le verso.",
-    "identity-card": "Carte d’identité française",
-    "passport": "Passeport français",
-    "permit": "Titre de séjour français",
-    "other": "Autre"
-  },
   "cotenantname": {
     "lastname": "Nom de naissance",
     "firstname": "Prénom",
@@ -635,21 +627,6 @@
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
     "validate-file": "Étape suivante - Valider le dossier"
   },
-  "guarantoridentification": {
-    "identity-card": "Carte d’identité française",
-    "passport": "Passeport français",
-    "permit": "Titre de séjour français",
-    "other": "Autre",
-    "files": "Documents",
-    "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
-    "register": "Enregistrer la pièce",
-    "title": "J’ajoute la pièce d’identité, en cours de validité, de mon garant",
-    "title-cotenant": "J’ajoute la pièce d’identité, en cours de validité, de son garant",
-    "select-label": "Veuillez à ajouter le recto et le verso !",
-    "validate": "Valider",
-    "cancel": "Annuler",
-    "field-required": "Ce champ est requis"
-  },
   "guarantorlistpage": {
     "my-guarantor": "Mes garants",
     "add-new-guarantor": "Ajouter un nouveau garant ?",
@@ -734,13 +711,13 @@
     "password-created": "Le mot de passe a bien été enregistré.",
     "title": "Création du mot de passe",
     "already-logged": "Vous êtes déjà en mode connecté, voulez-vous vous déconnecter pour créer ce compte ?",
-    "token-expired": "Le lien est expiré ou incorrect. Contactez-nous pour obtenir de l’aide."
+    "token-expired": "Vous avez déjà utilisé ce lien pour créer un mot de passe. Si vous n’arrivez pas à vous connecter, cliquez sur « Mot de passe oublié » depuis la page de connexion. Si le problème persiste, contactez-nous pour obtenir de l’aide."
   },
   "joingroup": {
     "password-created": "Le mot de passe a bien été enregistré.",
     "title": "Création du mot de passe",
     "already-logged": "Vous êtes déjà en mode connecté, voulez-vous vous déconnecter pour créer ce compte ?",
-    "bad-request": "Le lien est expiré ou incorrect. Contactez-nous pour obtenir de l’aide."
+    "bad-request": "Vous avez déjà utilisé ce lien pour créer un mot de passe. Si vous n’arrivez pas à vous connecter, cliquez sur « Mot de passe oublié » depuis la page de connexion. Si le problème persiste, contactez-nous pour obtenir de l’aide."
   },
   "listitem": {
     "FRENCH_IDENTITY_CARD": "Carte d'identité française",
@@ -875,11 +852,7 @@
   },
   "representativeidentification": {
     "organism-name": "Nom du représentant de la personne morale",
-    "organism-name-placeholder": "Nom",
-    "identity-card": "Carte d’identité française",
-    "passport": "Passeport français",
-    "permit": "Titre de séjour français",
-    "other": "Autre"
+    "organism-name-placeholder": "Nom"
   },
   "residency-page": {
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",

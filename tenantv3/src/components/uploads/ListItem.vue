@@ -21,7 +21,13 @@
           <span>{{ t('listitem.see') }}</span>
           <span class="fr-fi--sm fr-icon-eye-line fr-ml-1w"></span>
         </button>
-        <button type="button" class="btn-link" :title="t('listitem.remove')" @click="remove">
+        <button
+          ref="remove-btn"
+          type="button"
+          class="btn-link"
+          :title="t('listitem.remove')"
+          @click="remove"
+        >
           <span>{{ t('listitem.delete') }}</span>
           <span class="fr-fi--sm fr-icon-delete-line fr-ml-1w"></span>
         </button>
@@ -46,7 +52,7 @@ import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import { AnalyticsService, type DocumentCategory } from '../../services/AnalyticsService'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { useI18n } from 'vue-i18n'
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 
 const { t } = useI18n()
 const emit = defineEmits<{ remove: []; 'ask-confirm': []; cancel: [] }>()
@@ -65,6 +71,9 @@ const props = withDefaults(
     percentage: 0
   }
 )
+
+const removeButton = useTemplateRef('remove-btn')
+defineExpose({ removeButton })
 
 const isDocModalVisible = ref(false)
 const confirmDeleteFile = ref(false)

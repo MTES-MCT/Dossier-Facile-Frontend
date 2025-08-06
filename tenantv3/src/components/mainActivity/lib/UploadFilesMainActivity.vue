@@ -17,12 +17,16 @@
       @cancel="AnalyticsService.cancelDelete(stateCategory)"
     />
   </div>
-  <FileUpload :current-status="fileUploadStatus" @add-files="addFiles"></FileUpload>
+  <FileUpload
+    ref="file-upload"
+    :current-status="fileUploadStatus"
+    @add-files="addFiles"
+  ></FileUpload>
   <MainActivityFooter />
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
 import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
@@ -32,11 +36,12 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { RegisterService } from '@/services/RegisterService'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { UtilsService } from '@/services/UtilsService'
-import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import type { MainActivityCategory } from '@/components/documents/share/DocumentTypeConstants'
 import { useMainActivityState } from './mainActivityState'
 import MainActivityFooter from './MainActivityFooter.vue'
+import { toast } from '@/components/toast/toastUtils'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{ category: MainActivityCategory }>()
 
@@ -45,8 +50,10 @@ const MAX_FILE_COUNT = 20
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
 
+const fileUpload = useTemplateRef('file-upload')
 const store = useTenantStore()
 const mainActivityState = useMainActivityState()
+const { t } = useI18n()
 
 const stateCategory = mainActivityState.category
 const mainActivityDocument = mainActivityState.document
@@ -77,7 +84,7 @@ async function save(): Promise<boolean> {
   }
 
   if (professionalFiles.value.length > MAX_FILE_COUNT) {
-    ToastService.maxFileError(professionalFiles.value.length, MAX_FILE_COUNT)
+    toast.maxFileError(professionalFiles.value.length, MAX_FILE_COUNT, fileUpload.value?.inputFile)
     files.value = []
     return false
   }
@@ -97,7 +104,7 @@ async function save(): Promise<boolean> {
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-      ToastService.success('file-saved')
+      toast.success(t('file-saved'), fileUpload.value?.inputFile)
       return true
     })
     .catch((err) => {

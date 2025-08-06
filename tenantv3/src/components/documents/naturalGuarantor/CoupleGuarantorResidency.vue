@@ -15,6 +15,7 @@ import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
 import { useRoute } from 'vue-router'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
+import { makeSpouseGuarantorIdDocLink } from '@/components/identityDocument/lib/identityDocumentLink'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -32,17 +33,21 @@ const document = computed(() => {
   return guarantor?.documents?.find((d) => d.documentCategory === 'RESIDENCY')
 })
 
+const identificationLink = computed(() => {
+  const { guarantorId } = route.params
+  const tenantId = Number(route.params.tenantId)
+  const coTenants = store.user.apartmentSharing?.tenants.filter((t) => t.id != store.user.id)
+  const coTenant = coTenants?.find((r) => r.id === tenantId)
+  const guarantor = coTenant?.guarantors?.find((g) => g.id === Number(guarantorId))
+  return guarantor
+    ? makeSpouseGuarantorIdDocLink(guarantor, tenantId)
+    : `/garants-locataire/${tenantId}/5`
+})
+
 provide(residencyKey, {
   category: 'couple-guarantor-residency',
   textKey: 'couple',
-  previousStep: {
-    name: 'TenantGuarantorIdentification',
-    params: {
-      tenantId,
-      guarantorId: guarantorId.value,
-      step
-    }
-  },
+  previousStep: identificationLink.value,
   nextStep: {
     name: 'TenantGuarantorProfessional',
     params: {

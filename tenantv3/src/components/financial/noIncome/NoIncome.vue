@@ -1,7 +1,7 @@
 <template>
   <BackLinkRow :label="t('no-income')" :to="parent" category="pas-de-revenus" />
   <p class="fr-mb-1w">{{ t('can-add-explanation') }}</p>
-  <textarea v-model="customText" class="fr-input fr-mb-2w" />
+  <textarea ref="custom-text" v-model="customText" class="fr-input fr-mb-2w" />
   <FinancialFooter :on-submit="save" />
 </template>
 
@@ -10,13 +10,13 @@ import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useRoute } from 'vue-router'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useLoading } from 'vue-loading-overlay'
-import { ToastService } from '@/services/ToastService'
 import { UtilsService } from '@/services/UtilsService'
 import { useFinancialState } from '../financialState'
 import { useI18n } from 'vue-i18n'
+import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -26,6 +26,7 @@ const { documents, action, addData } = useFinancialState()
 
 const document = computed(() => documents.value.find((d) => d.id === Number(route.params.docId)))
 const customText = ref(document.value?.customText || '')
+const customTextElt = useTemplateRef('custom-text')
 
 async function save(): Promise<boolean> {
   const formData = new FormData()
@@ -42,10 +43,10 @@ async function save(): Promise<boolean> {
   const loader = $loading.show()
   try {
     await store[action](formData)
-    ToastService.saveSuccess()
+    toast.keep.success(t('save-success'), getNextBtnInFooter)
     return true
   } catch (err) {
-    UtilsService.handleCommonSaveError(err)
+    UtilsService.handleCommonSaveError(err, customTextElt.value)
     return false
   } finally {
     loader.hide()

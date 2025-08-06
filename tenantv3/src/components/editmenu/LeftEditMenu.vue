@@ -33,9 +33,7 @@
       <div class="step" :class="getClass(getStepNumber('documents'))">
         <div class="step-number">{{ getStepNumber('documents') }}</div>
         <div class="step-title">
-          <router-link class="fr-link" :to="{ name: 'TenantIdentification', force: true }"
-            >{{ t('my-document') }}
-          </router-link>
+          <router-link class="fr-link" :to="idDocLink">{{ t('my-document') }} </router-link>
         </div>
       </div>
       <div class="vline" :class="getClass(getStepNumber('documents'))">
@@ -240,6 +238,7 @@
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.IDENTITY"
+                :to="makeSpouseGuarantorIdDocLink(g, getCoTenant(0).id)"
               />
               <CoTenantGuarantorDocumentLink
                 class="ml-10"
@@ -330,12 +329,17 @@ import { DocumentType } from './documents/DocumentType'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { makeCotenantGuarantorResidencyLink } from '../guarantorResidency/makeGuarantorResidencyLink'
 import { makeGuarantorCoupleActivityLink } from '../mainActivity/lib/useMainActivityLink'
+import {
+  makeSpouseGuarantorIdDocLink,
+  useIdentityDocumentLink
+} from '../identityDocument/lib/identityDocumentLink'
 
 const store = useTenantStore()
 const route = useRoute()
 const selectedGuarantor = computed(() => store.selectedGuarantor)
 const user = computed(() => store.user)
 const { t } = useI18n()
+const idDocLink = useIdentityDocumentLink()
 
 const props = withDefaults(
   defineProps<{

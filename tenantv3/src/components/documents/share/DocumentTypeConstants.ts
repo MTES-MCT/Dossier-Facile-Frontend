@@ -1,66 +1,4 @@
 export const DocumentTypeConstants = {
-  IDENTIFICATION_DOCS: [
-    {
-      key: 'identity-card',
-      value: 'FRENCH_IDENTITY_CARD',
-      maxFileCount: 5
-    },
-    {
-      key: 'passport',
-      value: 'FRENCH_PASSPORT',
-      maxFileCount: 5
-    },
-    {
-      key: 'permit',
-      value: 'FRENCH_RESIDENCE_PERMIT',
-      maxFileCount: 5
-    },
-    {
-      key: 'drivers-license',
-      value: 'DRIVERS_LICENSE'
-    },
-    {
-      key: 'france-identite',
-      value: 'FRANCE_IDENTITE'
-    },
-    {
-      key: 'other',
-      value: 'OTHER_IDENTIFICATION',
-      maxFileCount: 5
-    }
-  ],
-
-  GUARANTOR_IDENTIFICATION_DOCS: [
-    {
-      key: 'identity-card',
-      value: 'FRENCH_IDENTITY_CARD',
-      maxFileCount: 5
-    },
-    {
-      key: 'passport',
-      value: 'FRENCH_PASSPORT',
-      maxFileCount: 5
-    },
-    {
-      key: 'permit',
-      value: 'FRENCH_RESIDENCE_PERMIT',
-      maxFileCount: 5
-    },
-    {
-      key: 'drivers-license',
-      value: 'DRIVERS_LICENSE'
-    },
-    {
-      key: 'france-identite',
-      value: 'FRANCE_IDENTITE'
-    },
-    {
-      key: 'other',
-      value: 'OTHER_IDENTIFICATION',
-      maxFileCount: 5
-    }
-  ],
-
   TAX_DOCS: [
     {
       key: 'my-name',
@@ -170,3 +108,11 @@ export type MainActivityCategory =
   | 'STAY_AT_HOME_PARENT'
   | 'NO_ACTIVITY'
   | 'OTHER'
+
+export type IdentityCategory =
+  | 'FRENCH_IDENTITY_CARD'
+  | 'FRENCH_PASSPORT'
+  | 'FRENCH_RESIDENCE_PERMIT'
+  | 'DRIVERS_LICENSE'
+  | 'FRANCE_IDENTITE'
+  | 'OTHER_IDENTIFICATION'

@@ -275,7 +275,7 @@ export const DocumentService = {
     }
     return status
   },
-  getCoTenantDocument(coTenantId: number, documentCategory: string) {
+  getCoTenantDocument(coTenantId: number, documentCategory: DocumentCategory) {
     const store = useTenantStore()
     const coTenant = store.getTenant(coTenantId)
     return coTenant.documents?.find((d) => d.documentCategory === documentCategory)

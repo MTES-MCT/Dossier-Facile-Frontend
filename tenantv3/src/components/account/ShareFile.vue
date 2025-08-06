@@ -78,7 +78,7 @@
           <input class="fr-input" type="text" read-only :value="getUrl()" />
         </div>
         <div class="full-mobile">
-          <DfButton class="full-mobile" type="submit" :primary="true">{{
+          <DfButton ref="button" class="full-mobile" type="submit" :primary="true">{{
             shareMethod === 'mail' ? t('sharefile.share-btn-email') : t('sharefile.share-btn-copy')
           }}</DfButton>
         </div>
@@ -105,16 +105,17 @@
 import { AnalyticsService } from '../../services/AnalyticsService'
 import { OwnerService } from '../../services/OwnerService'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { ToastService } from '../../services/ToastService'
 import { useTenantStore } from '../../stores/tenant-store'
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { RiEyeLine } from '@remixicon/vue'
+import { toast } from '../toast/toastUtils'
 
 const store = useTenantStore()
 const user = computed(() => store.user)
 const { t } = useI18n()
+const button = useTemplateRef('button')
 
 const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`
 const shareType = ref('full')
@@ -134,12 +135,12 @@ function sendMail() {
   AnalyticsService.shareByMail(shareType.value === 'full' ? 'full' : 'resume')
   OwnerService.sendFileByMail(email.value, shareType.value)
     .then(() => {
-      ToastService.success('sharefile.sent-success')
+      toast.success(t('sharefile.sent-success'), button.value?.button)
       email.value = ''
       store.loadApartmentSharingLinks()
     })
     .catch(() => {
-      ToastService.error('sharefile.sent-failed')
+      toast.error(t('sharefile.sent-failed'), button.value?.button)
     })
 }
 
@@ -159,10 +160,10 @@ async function copyLink() {
 
   try {
     await navigator.clipboard.writeText(url)
-    ToastService.success('account.copied')
+    toast.success(t('account.copied'), button.value?.button)
     AnalyticsService.copyLink(shareType.value === 'full' ? 'full' : 'resume')
   } catch (err) {
-    ToastService.error('unable-to-copy')
+    toast.error(t('unable-to-copy'), button.value?.button)
     throw new Error('Unable to copy', { cause: err })
   }
 }

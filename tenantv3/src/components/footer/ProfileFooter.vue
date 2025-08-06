@@ -2,6 +2,7 @@
   <div>
     <FooterContainer>
       <BackNext
+        ref="back-next"
         :show-back="showBack"
         :next-label="nextLabel"
         :disabled="disabled"
@@ -15,6 +16,7 @@
 <script setup lang="ts">
 import FooterContainer from './FooterContainer.vue'
 import BackNext from './BackNext.vue'
+import { computed, useTemplateRef } from 'vue'
 
 withDefaults(
   defineProps<{
@@ -30,6 +32,8 @@ withDefaults(
 )
 
 const emit = defineEmits<{ 'on-next': []; 'on-back': [] }>()
+const backNext = useTemplateRef('back-next')
+defineExpose({ nextBtn: computed(() => backNext.value?.nextBtn?.button) })
 
 function nextAction() {
   emit('on-next')

@@ -6,6 +6,7 @@ import { keycloak } from '../plugin/keycloak'
 import Home from '../views/HomePage.vue'
 import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
+import { clearAllToasts } from '@/components/toast/toastUtils'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL
@@ -22,6 +23,33 @@ declare module 'vue-router' {
     title: string
   }
 }
+
+const IDENTIFICATION_ROUTES = [
+  {
+    path: 'carte',
+    component: () => import('@/components/identityDocument/IdentityCard.vue')
+  },
+  {
+    path: 'passeport',
+    component: () => import('@/components/identityDocument/IdentityPassport.vue')
+  },
+  {
+    path: 'titre-sejour',
+    component: () => import('@/components/identityDocument/ResidencyPermit.vue')
+  },
+  {
+    path: 'permis-conduire',
+    component: () => import('@/components/identityDocument/DriversLicence.vue')
+  },
+  {
+    path: 'france-identite',
+    component: () => import('@/components/identityDocument/FranceIdentite.vue')
+  },
+  {
+    path: 'autre',
+    component: () => import('@/components/identityDocument/IdentityOther.vue')
+  }
+]
 
 const RESIDENCY_COMPONENTS = [
   {
@@ -456,8 +484,15 @@ export const router = createRouter({
       children: [
         {
           path: '1',
-          name: 'TenantIdentification',
-          component: () => import('@/components/documents/tenant/TenantIdentification.vue')
+          component: () => import('@/components/identityDocument/TenantIdentification.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantIdentification',
+              component: () => import('@/components/identityDocument/ChooseIdentityDocument.vue')
+            },
+            ...IDENTIFICATION_ROUTES
+          ]
         },
         {
           path: '2',
@@ -534,8 +569,16 @@ export const router = createRouter({
         },
         {
           path: '1',
-          name: 'CoupleIdentification',
-          component: () => import('@/components/documents/cotenant/CoTenantIdentification.vue')
+          component: () =>
+            import('@/components/documents/cotenant/CoupleIdentificationProvider.vue'),
+          children: [
+            {
+              path: '',
+              name: 'CoupleIdentification',
+              component: () => import('@/components/identityDocument/ChooseIdentityDocument.vue')
+            },
+            ...IDENTIFICATION_ROUTES
+          ]
         },
         {
           path: '2',
@@ -657,8 +700,15 @@ export const router = createRouter({
         },
         {
           path: '1/:guarantorId',
-          name: 'GuarantorIdentification',
-          component: () => import('@/components/GuarantorStep1.vue')
+          component: () => import('@/components/GuarantorStep1.vue'),
+          children: [
+            {
+              path: '',
+              name: 'GuarantorIdentification',
+              component: () => import('@/components/identityDocument/ChooseIdentityDocument.vue')
+            },
+            ...IDENTIFICATION_ROUTES
+          ]
         },
         {
           path: '2/:guarantorId',
@@ -729,9 +779,16 @@ export const router = createRouter({
         },
         {
           path: '1',
-          name: 'TenantGuarantorIdentification',
           component: () =>
-            import('@/components/documents/naturalGuarantor/TenantGuarantorStep1.vue')
+            import('@/components/documents/naturalGuarantor/TenantGuarantorStep1.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantGuarantorIdentification',
+              component: () => import('@/components/identityDocument/ChooseIdentityDocument.vue')
+            },
+            ...IDENTIFICATION_ROUTES
+          ]
         },
         {
           path: '2',
@@ -970,3 +1027,5 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
   }
   keepGoing(to, next)
 })
+
+router.afterEach(clearAllToasts)

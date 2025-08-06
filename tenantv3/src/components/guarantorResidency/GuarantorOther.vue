@@ -13,7 +13,7 @@
     >
   </i18n-t>
 
-  <UploadFiles category="OTHER_RESIDENCY" guarantor />
+  <UploadFiles ref="upload-files" category="OTHER_RESIDENCY" guarantor />
 
   <div class="fr-checkbox-group fr-mb-2w">
     <input :id="checkboxId" v-model="noDoc" type="checkbox" />
@@ -42,7 +42,7 @@
 import { useI18n } from 'vue-i18n'
 import UploadFiles from '@/components/residency/lib/UploadFiles.vue'
 import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
-import { ref, useId } from 'vue'
+import { ref, useId, useTemplateRef } from 'vue'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useField } from 'vee-validate'
@@ -56,6 +56,8 @@ const checkboxId = useId()
 const store = useTenantStore()
 const parentRoute = useParentRoute()
 const { addData, category, textKey } = useResidencyState()
+const uploadFiles = useTemplateRef('upload-files')
+
 const initialText = store.getGuarantorResidencyDocument?.customText || ''
 const { errorMessage, meta, value, validate } = useField<string>(
   'customText',
@@ -80,7 +82,7 @@ async function submit() {
     await store.saveGuarantorResidency(formData)
     return true
   } catch (error) {
-    UtilsService.handleCommonSaveError(error)
+    UtilsService.handleCommonSaveError(error, uploadFiles.value?.inputFile)
     return false
   }
 }

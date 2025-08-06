@@ -17,8 +17,8 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import { useRoute, useRouter } from 'vue-router'
-import { ToastService } from '../services/ToastService'
 import { useTenantStore } from '../stores/tenant-store'
+import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -35,7 +35,7 @@ function onInitPassword(password: string) {
   const token = route.params.token.toString()
   store.createPasswordGroup({ token, password }).then(
     () => {
-      ToastService.success('joingroup.password-created')
+      toast.keep.success(t('joingroup.password-created'), getNextBtnInFooter)
       router.push({ name: 'TenantName' })
       loader.hide()
       isLoading.value = false
@@ -45,9 +45,9 @@ function onInitPassword(password: string) {
       isLoading.value = false
       console.log('Erreur ' + error.message)
       if (error.code == 'ERR_BAD_REQUEST') {
-        ToastService.error('joingroup.bad-request')
+        toast.error(t('joingroup.bad-request'), document.getElementById('password'))
       } else {
-        ToastService.error('errors.submit-failed')
+        toast.error(t('errors.submit-failed'), document.getElementById('password'))
       }
     }
   )

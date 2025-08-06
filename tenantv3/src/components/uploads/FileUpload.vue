@@ -5,6 +5,7 @@
       <div class="dropbox">
         <input
           id="file"
+          ref="inputFile"
           type="file"
           multiple
           :disabled="isSaving"
@@ -35,15 +36,18 @@
 </template>
 
 <script setup lang="ts">
-import { ToastService } from '@/services/ToastService'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { computed, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const emit = defineEmits<{ 'add-files': [files: File[]] }>()
 
 const uploadForm = useTemplateRef('uploadForm')
+const inputFile = useTemplateRef('inputFile')
+
+defineExpose({ inputFile })
 
 const props = withDefaults(
   defineProps<{ currentStatus?: number; page?: number; size?: number }>(),
@@ -67,10 +71,10 @@ function filesChange(e: Event) {
   const inputFiles = e.target instanceof HTMLInputElement ? e.target.files : null
   const files = inputFiles ? [...inputFiles] : []
   if (files.some(isTooBig)) {
-    ToastService.errorf(t('fileupload.file-too-big', [props.size]))
+    toast.error(t('fileupload.file-too-big', [props.size]), inputFile.value)
   }
   if (!files.every(hasValidExtension)) {
-    ToastService.error('errors.invalid-file-extension')
+    toast.error(t('errors.invalid-file-extension'), inputFile.value)
   }
   const fileList = files.filter((f) => !isTooBig(f) && hasValidExtension(f))
   if (fileList.length > 0) {

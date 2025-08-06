@@ -32,7 +32,9 @@
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </Field>
-        <DfButton class="fr-mt-2w fr-ml-auto" type="submit" primary>{{ t('register') }}</DfButton>
+        <DfButton ref="submit-btn" class="fr-mt-2w fr-ml-auto" type="submit" primary>{{
+          t('register')
+        }}</DfButton>
       </Form>
     </div>
     <DfButton v-else class="fr-mt-2w fr-ml-auto" type="button" primary @click="commentAnalysis">{{
@@ -42,18 +44,19 @@
 </template>
 <script setup lang="ts">
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '../../../stores/tenant-store'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { ToastService } from '../../../services/ToastService'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const store = useTenantStore()
 
 const comment = ref('')
+const submitButton = useTemplateRef('submit-btn')
 
 onMounted(() => {
   comment.value = props.document?.documentAnalysisReport?.comment || ''
@@ -89,7 +92,7 @@ function commentAnalysis() {
   }
 
   store.commentAnalysis(params).then(() => {
-    ToastService.saveSuccess()
+    toast.success(t('save-success'), submitButton.value?.button)
   })
 }
 

@@ -26,6 +26,7 @@
             <label class="fr-label" for="customText">{{ t('cotenanttax.custom-text') }}</label>
             <textarea
               id="customText"
+              ref="custom-text"
               v-model="document.customText"
               class="form-control fr-input validate-required"
               name="customText"
@@ -54,14 +55,14 @@ import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import FooterContainer from '../../footer/FooterContainer.vue'
 import BackNext from '../../footer/BackNext.vue'
 import { UtilsService } from '@/services/UtilsService'
-import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import { useTenantStore } from '@/stores/tenant-store'
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { DocumentType as DocumentTypeEnum } from '@/components/editmenu/documents/DocumentType'
 import { useRoute, useRouter } from 'vue-router'
+import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
 
 const documentsDefinitions = DocumentTypeConstants.TAX_DOCS
 
@@ -69,6 +70,7 @@ const store = useTenantStore()
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
+const customText = useTemplateRef('custom-text')
 
 const documentType = ref(new DocumentType())
 const showDownloader = ref(false)
@@ -131,7 +133,7 @@ function goNext() {
       formData.append('customText', document.value.customText)
     } else {
       // TODO : replace by form and validation
-      ToastService.error('cotenanttax.custom-text-required')
+      toast.error(t('cotenanttax.custom-text-required'), customText.value)
       return
     }
   }
@@ -158,7 +160,7 @@ function goNext() {
   store
     .saveTenantTax(formData)
     .then(() => {
-      ToastService.saveSuccess()
+      toast.keep.success(t('save-success'), getNextBtnInFooter)
       goToGuarantors()
     })
     .catch((err) => {

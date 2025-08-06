@@ -59,6 +59,7 @@
           </div>
           <div class="fr-mt-3w fr-mb-3w">
             <FileUpload
+              ref="file-upload"
               :current-status="fileUploadStatus"
               @add-files="addFiles"
               @reset-files="resetFiles"
@@ -73,7 +74,6 @@
 
 <script setup lang="ts">
 import { DocumentTypeTranslations } from '@/components/editmenu/documents/DocumentType'
-import { ToastService } from '@/services/ToastService'
 import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
@@ -81,7 +81,7 @@ import { DfFile } from 'df-shared-next/src/models/DfFile'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { ErrorMessage, Field, Form } from 'vee-validate'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import { AnalyticsService, type DocumentCategory } from '../../../services/AnalyticsService'
@@ -92,6 +92,7 @@ import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 import { UtilsService } from '@/services/UtilsService'
+import { toast } from '@/components/toast/toastUtils'
 
 const store = useTenantStore()
 const { t } = useI18n()
@@ -104,6 +105,7 @@ const props = defineProps<{
 const organismName = ref('')
 
 const files = ref([] as DfFile[])
+const fileUpload = useTemplateRef('file-upload')
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
@@ -188,12 +190,12 @@ function save() {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       store.loadUser()
-      ToastService.saveSuccess()
+      toast.success(t('save-success'), fileUpload.value?.inputFile)
       return Promise.resolve(true)
     })
     .catch((err: Error) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      ToastService.error('add-file-failed')
+      toast.error(t('add-file-failed'), fileUpload.value?.inputFile)
       return Promise.reject(err)
     })
     .finally(() => {

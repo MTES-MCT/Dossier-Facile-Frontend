@@ -19,6 +19,7 @@
           <RiPencilLine />
         </button>
         <button
+          ref="remove-btn"
           :title="t('remove')"
           class="fr-p-1w icon-btn"
           :class="{ danger: danger, 'color--primary': !danger }"
@@ -38,11 +39,15 @@
 import { useI18n } from 'vue-i18n'
 import NakedCard from './NakedCard.vue'
 import { RiDeleteBin2Fill, RiPencilLine } from '@remixicon/vue'
+import { useTemplateRef } from 'vue'
 
 const { t } = useI18n()
 
 withDefaults(defineProps<{ danger?: boolean }>(), { danger: false })
 const emit = defineEmits<{ edit: []; remove: [] }>()
+
+const removeBtn = useTemplateRef('remove-btn')
+defineExpose({ removeBtn })
 
 function edit() {
   emit('edit')

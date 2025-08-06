@@ -11,9 +11,9 @@ import DeleteAccount from './components/DeleteAccount.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import cookies from 'js-cookie'
+import ToastContainer from '@/components/toast/ToastContainer.vue'
 
 const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
-const MESSAGE_FOR_VALIDATED = `${import.meta.env.VITE_MESSAGE_FOR_VALIDATED || ''}`
 
 const store = useTenantStore()
 const router = useRouter()
@@ -31,9 +31,6 @@ onBeforeMount(() => {
 })
 
 const announcementMessage = computed(() => MESSAGE.replace('[[tenantId]]', `${store.user.id}`))
-const validatedMessage = computed(() =>
-  MESSAGE_FOR_VALIDATED.replace('[[tenantId]]', `${store.user.id}`)
-)
 
 function onLogout() {
   store.logout()
@@ -47,9 +44,7 @@ function onCreateOwner() {
   window.location.href = OWNER_URL
 }
 
-function hasToDisplayAnnoncement() {
-  return store.user.ownerType === 'THIRD_PARTY'
-}
+const hasToDisplayAnnoncement = computed(() => store.user.status !== 'INCOMPLETE')
 </script>
 
 <template>
@@ -65,16 +60,10 @@ function hasToDisplayAnnoncement() {
   >
     <TenantMenu />
   </MyHeader>
+  <Announcement v-if="hasToDisplayAnnoncement" :message="announcementMessage"></Announcement>
+  <ToastContainer />
   <div id="content">
     <DeleteAccount></DeleteAccount>
-    <Announcement
-      :is-displayed="hasToDisplayAnnoncement()"
-      :message="announcementMessage"
-    ></Announcement>
-    <Announcement
-      v-if="store.user.status === 'VALIDATED'"
-      :message="validatedMessage"
-    ></Announcement>
     <main role="main">
       <div class="page">
         <RouterView />
@@ -87,12 +76,12 @@ function hasToDisplayAnnoncement() {
 
 <style lang="scss">
 @use 'df-shared-next/src/scss/_main.scss';
-@import 'vue3-toastify/dist/index.css';
 
 #content {
   flex: auto;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .page {
