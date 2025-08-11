@@ -1,9 +1,9 @@
 <template>
-  <div class="fr-col-md-3 fr-col-6 justify-content-center">
-    <div class="fr-background-alt--grey logo-container">
+  <div class="fr-col-md-3 fr-col-6">
+    <div class="logo-container" :class="logoClass">
       <a
         :href="href"
-        :title="getTitle()"
+        :title="linkTitle"
         class="logo-link"
         rel="nofollow"
         :target="href === '#' ? '' : '_blank'"
@@ -11,7 +11,7 @@
         <img
           :alt="name"
           :height="height"
-          :src="getImage()"
+          :src="image"
           :width="width"
           loading="lazy"
           class="partner-logo"
@@ -22,35 +22,28 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 const props = withDefaults(
   defineProps<{
     name: string
-    image?: string
+    image: string
     href: string
     width?: string
     height?: string
     title?: string
+    logoClass?: string
   }>(),
   {
     width: '60',
     height: '60',
-    image: '',
     title: ''
   }
 )
 
-function getTitle() {
-  if (props.title) {
-    return props.title
-  }
-  return 'aller sur le site « ' + props.name + ' » (nouvelle fenêtre)'
-}
-
-function getImage() {
-  if (props.image) {
-    return props.image
-  }
-}
+const linkTitle = computed(
+  () => props.title ?? `aller sur le site « ${props.name} » (nouvelle fenêtre)`
+)
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -69,5 +62,6 @@ a[target='_blank'].logo-link::after {
   align-items: center;
   justify-content: center;
   height: 180px;
+  background-color: white;
 }
 </style>

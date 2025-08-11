@@ -8,6 +8,7 @@
       <div class="fr-grid-row fr-grid-row--gutters">
         <template v-for="partner in partners" :key="partner.name">
           <LogoPartnerComponent
+            logo-class="fr-background-alt--grey"
             :image="partner.image"
             :height="partner.height"
             :href="partner.href"
@@ -37,5 +38,5 @@ const props = withDefaults(
   }
 )
 
-const partners = computed(() => PARTNERS.splice(0, props.limit))
+const partners = computed(() => PARTNERS.slice(0, props.limit))
 </script>
