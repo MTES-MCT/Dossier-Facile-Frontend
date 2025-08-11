@@ -110,17 +110,6 @@ export const UtilsService = {
     const lastName = this.capitalize(user.lastName || '')
     return firstName + '\xa0' + lastName
   },
-  hasBrokenRules(documents: DfDocument[]): boolean {
-    const documentsDenied = documents.find(
-      (doc) => doc.documentAnalysisReport?.analysisStatus === 'DENIED'
-    )
-    return documentsDenied !== undefined
-  },
-  getTenantDocumentByType(user: CoTenant, docType: string): DfDocument | undefined {
-    return user.documents?.find((d: DfDocument) => {
-      return d.documentCategory === docType
-    })
-  },
   getParam(param: string | string[]) {
     return Array.isArray(param) ? param[0] : param
   },
