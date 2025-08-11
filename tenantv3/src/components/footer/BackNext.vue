@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div class="fr-grid-row space-around fr-mb-1w footer-btn">
-      <slot v-if="isMobile()" name="additionalButton"></slot>
-    </div>
+    <div class="fr-grid-row space-around fr-mb-1w footer-btn"></div>
     <div class="fr-grid-row btn-spacing footer-btn">
       <v-gouv-fr-button
         v-if="showBack"
@@ -17,7 +15,6 @@
       </v-gouv-fr-button>
       <div v-if="!showBack"></div>
       <div class="fr-grid-row flex-1">
-        <slot v-if="!isMobile()" name="additionalButton"></slot>
         <v-gouv-fr-button
           ref="next-btn"
           class="next-btn"
@@ -36,7 +33,6 @@
 
 <script setup lang="ts">
 import VGouvFrButton from 'df-shared-next/src/Button/VGouvFrButton.vue'
-import { UtilsService } from '../../services/UtilsService'
 import { useI18n } from 'vue-i18n'
 import { RiArrowLeftSLine } from '@remixicon/vue'
 import { useTemplateRef } from 'vue'
@@ -53,10 +49,6 @@ const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 const nextBtn = useTemplateRef('next-btn')
 defineExpose({ nextBtn })
-
-function isMobile() {
-  return UtilsService.isMobile()
-}
 
 function backAction() {
   emit('on-back')

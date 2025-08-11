@@ -11,16 +11,22 @@
       {{ t(`fileerrors.${keyprefix}-invalid-document`) }}
     </div>
     <div
-      v-for="(v, k) in ['IDENTIFICATION', 'RESIDENCY', 'PROFESSIONAL', 'FINANCIAL', 'TAX']"
+      v-for="(category, k) in [
+        'IDENTIFICATION',
+        'RESIDENCY',
+        'PROFESSIONAL',
+        'FINANCIAL',
+        'TAX'
+      ] as const"
       :key="k"
     >
-      <div v-if="!isDocumentValid(v)">
+      <div v-if="!isDocumentValid(category)">
         <UpdateComponent
           :user-id="user.id"
-          :broken-rules="getDocumentBrokenRules(v)"
-          :document="getDocument(v)"
+          :broken-rules="getDocumentBrokenRules(category)"
+          :document="getDocument(category)"
           @on-update="openTenant(k)"
-          >{{ t(`fileerrors.${v}`) }}</UpdateComponent
+          >{{ t(`fileerrors.${category}`) }}</UpdateComponent
         >
       </div>
     </div>
@@ -33,10 +39,11 @@ import { useTenantStore } from '../../stores/tenant-store'
 import { useRouter } from 'vue-router'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import UpdateComponent from './UpdateComponent.vue'
-import { UtilsService } from '../../services/UtilsService'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { useTenantStep } from '../residency/lib/useTenantStep'
 import { COUPLE_ROUTES } from '../documents/cotenant/coupleRoutes'
+import { DocumentService } from '@/services/DocumentService'
+import type { DocumentCategory } from 'df-shared-next/src/models/DfDocument'
 
 const store = useTenantStore()
 const { t } = useI18n()
@@ -61,14 +68,13 @@ function allTenantDocumentsPreValidated() {
   return true
 }
 
-function getDocument(docType: string) {
-  return UtilsService.getTenantDocumentByType(props.user, docType)
+function getDocument(docType: DocumentCategory) {
+  return DocumentService.getDoc(docType, props.user.documents)
 }
 
-function getDocumentBrokenRules(docType: string) {
+function getDocumentBrokenRules(docType: DocumentCategory) {
   return (
-    UtilsService.getTenantDocumentByType(props.user, docType)?.documentAnalysisReport
-      ?.brokenRules || []
+    DocumentService.getDoc(docType, props.user.documents)?.documentAnalysisReport?.brokenRules || []
   )
 }
 

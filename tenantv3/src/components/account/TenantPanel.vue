@@ -156,7 +156,7 @@ function goToResidency() {
 function goToMainActivity() {
   AnalyticsService.editFromAccount(3)
   const tenant = props.isCotenant ? props.tenant : store.user
-  const doc = DocumentService.hasDoc('PROFESSIONAL', tenant)
+  const doc = DocumentService.getDoc('PROFESSIONAL', tenant.documents)
   const path = props.isCotenant
     ? `/documents-colocataire/${props.tenant.id}/4/3`
     : '/documents-locataire/3'
