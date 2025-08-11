@@ -32,6 +32,9 @@ import omnireaUrl from '../assets/logos/omnirea.webp'
 import eonImmobilierUrl from '../assets/logos/eon_immobilier.webp'
 import immojeuneUrl from '../assets/logos/immojeune.webp'
 import myappartUrl from '../assets/logos/myappart.png'
+import laforetUrl from '../assets/logos/laforet.webp'
+import ouestfranceImmoUrl from '../assets/logos/ouestfrance-immo.svg'
+import figaroImmoUrl from '../assets/logos/figaro-immobilier.svg'
 
 interface Partner {
   name: string
@@ -102,6 +105,41 @@ export const PARTNERS: Partner[] = [
     width: '144'
   },
   {
+    image: laforetUrl,
+    height: '60',
+    name: 'Laforêt',
+    href: 'https://www.laforet.com/',
+    width: '300'
+  },
+  {
+    image: ouestfranceImmoUrl,
+    height: '60',
+    name: 'Ouestfrance-immo',
+    href: 'https://www.ouestfrance-immo.com/',
+    width: '250'
+  },
+  {
+    image: unDeuxTroisLogerUrl,
+    height: '60',
+    href: 'https://www.123loger.com/',
+    name: '123Loger',
+    width: '60'
+  },
+  {
+    image: figaroImmoUrl,
+    height: '60',
+    name: 'Figaro immobilier',
+    href: 'https://immobilier.lefigaro.fr/',
+    width: '200'
+  },
+  {
+    image: myappartUrl,
+    href: 'https://www.my-appart.fr',
+    name: 'MyAppart',
+    height: '93',
+    width: '248'
+  },
+  {
     image: fasttUrl,
     height: '60',
     href: 'https://www.fastt.org/',
@@ -149,13 +187,6 @@ export const PARTNERS: Partner[] = [
     href: 'https://www.gererseul.com/',
     name: 'gererseul – ma gestion locative',
     width: '200'
-  },
-  {
-    image: unDeuxTroisLogerUrl,
-    height: '60',
-    href: 'https://www.123loger.com/',
-    name: '123Loger',
-    width: '60'
   },
   {
     image: superimmoUrl,
@@ -268,12 +299,5 @@ export const PARTNERS: Partner[] = [
     href: 'https://www.immojeune.com',
     name: 'Immmojeune',
     width: '144'
-  },
-  {
-    image: myappartUrl,
-    href: 'https://www.my-appart.fr',
-    name: 'MyAppart',
-    height: '93',
-    width: '248'
   }
 ]
