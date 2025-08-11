@@ -207,27 +207,23 @@
     </section>
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <AllPartnersComponent :limit="8"></AllPartnersComponent>
-      <div class="text-center fr-mt-5w fr-mb-5w">
-        <p>
-          <a href="/partenaires" class="fr-btn fr-mt-2w">
-            <span class="text-center full-width">
-              {{ t('all-partners') }}
-            </span>
-          </a>
-        </p>
-      </div>
+      <p class="text-center fr-mt-5w fr-mb-5w">
+        <RouterLink to="/partenaires" class="fr-btn fr-mt-2w">
+          <span class="text-center full-width">
+            {{ t('all-partners') }}
+          </span>
+        </RouterLink>
+      </p>
     </section>
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w institutional-section">
       <AllInstitutionalPartnersComponent :limit="8"></AllInstitutionalPartnersComponent>
-      <div class="text-center fr-mt-5w fr-mb-5w">
-        <p>
-          <a href="/partenaires" class="fr-btn fr-mt-2w">
-            <span class="text-center full-width">
-              {{ t('all-partners') }}
-            </span>
-          </a>
-        </p>
-      </div>
+      <p class="text-center fr-mt-5w fr-mb-5w">
+        <RouterLink to="/partenaires" class="fr-btn fr-mt-2w">
+          <span class="text-center full-width">
+            {{ t('all-partners') }}
+          </span>
+        </RouterLink>
+      </p>
     </section>
   </div>
 </template>
