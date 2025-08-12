@@ -2,7 +2,6 @@ import visaleUrl from '../assets/logos/visale.webp'
 import anilUrl from '../assets/logos/anil.webp'
 import unmlUrl from '../assets/logos/UNML.webp'
 import cllajUrl from '../assets/logos/CLLAJ.webp'
-import fuUrl from '../assets/logos/FranceUniversites.webp'
 
 import papUrl from '../assets/logos/pap.webp'
 import locserviceUrl from '../assets/logos/loc_service.webp'
@@ -32,6 +31,13 @@ import omnireaUrl from '../assets/logos/omnirea.webp'
 import eonImmobilierUrl from '../assets/logos/eon_immobilier.webp'
 import immojeuneUrl from '../assets/logos/immojeune.webp'
 import myappartUrl from '../assets/logos/myappart.png'
+import laforetUrl from '../assets/logos/laforet.webp'
+import ouestfranceImmoUrl from '../assets/logos/ouestfrance-immo.svg'
+import figaroImmoUrl from '../assets/logos/figaro-immobilier.svg'
+import cnousUrl from '../assets/logos/Crous.png'
+import dgesipUrl from '../assets/logos/dgesip.png'
+import servicePublicUrl from '../assets/logos/Service-public.fr.png'
+import ministereInterieurUrl from '../assets/logos/Ministère_de_l_Intérieur.png'
 
 interface Partner {
   name: string
@@ -43,18 +49,46 @@ interface Partner {
 
 export const INSTITUTIONAL_PARTNERS: Partner[] = [
   {
+    image: cnousUrl,
+    name: 'CNOUS',
+    href: 'https://www.lescrous.fr/les-crous/le-cnous/',
+    height: '120',
+    width: '120'
+  },
+  {
+    image: dgesipUrl,
+    name: 'DGESIP',
+    href: 'https://www.enseignementsup-recherche.gouv.fr/fr/direction-generale-de-l-enseignement-superieur-et-de-l-insertion-professionnelle-dgesip-83714',
+    height: '180',
+    width: '180'
+  },
+  {
+    image: anilUrl,
+    href: 'https://www.anil.org/votre-projet/vous-etes-locataire/se-loger/dans-le-prive/',
+    height: '80',
+    width: '80',
+    name: 'ANIL, l’agence nationale pour l’information sur le logement'
+  },
+  {
+    image: servicePublicUrl,
+    name: 'Service Public',
+    href: 'https://www.service-public.fr/particuliers/vosdroits/R51424',
+    height: '120',
+    width: '280'
+  },
+  {
+    image: ministereInterieurUrl,
+    name: 'Ministère de l’intérieur',
+    href: 'https://www.masecurite.interieur.gouv.fr/fr/fiches-pratiques/habitation/eviter-faux-dossiers-location-grace-dossierfacile?hl=dossierfacile',
+    height: '150',
+    width: '200'
+  },
+  {
     image: visaleUrl,
     height: '48',
     href: 'https://www.visale.fr/',
     name: 'visale.fr - connecte emploi et logement',
     width: '150'
-  },
-  {
-    image: anilUrl,
-    href: 'https://www.anil.org/',
-    height: '80',
-    width: '80',
-    name: 'ANIL, l’agence nationale pour l’information sur le logement'
   },
   {
     image: unmlUrl,
@@ -65,17 +99,10 @@ export const INSTITUTIONAL_PARTNERS: Partner[] = [
   },
   {
     image: cllajUrl,
-    href: 'https://www.uncllaj.org/',
+    href: 'https://www.projet-toit.fr/mon-dossier-de-location/',
     name: 'Comités Locaux pour le Logement Autonome des Jeunes',
     height: '60',
     width: '137'
-  },
-  {
-    image: fuUrl,
-    href: 'https://franceuniversites.fr/',
-    name: 'France Universités',
-    height: '60',
-    width: '194'
   }
 ]
 
@@ -100,6 +127,41 @@ export const PARTNERS: Partner[] = [
     href: 'https://www.locservice.fr/',
     name: 'locservice.fr - location et colocation entre particuliers',
     width: '144'
+  },
+  {
+    image: laforetUrl,
+    height: '60',
+    name: 'Laforêt',
+    href: 'https://www.laforet.com/',
+    width: '300'
+  },
+  {
+    image: ouestfranceImmoUrl,
+    height: '60',
+    name: 'Ouestfrance-immo',
+    href: 'https://www.ouestfrance-immo.com/',
+    width: '250'
+  },
+  {
+    image: unDeuxTroisLogerUrl,
+    height: '60',
+    href: 'https://www.123loger.com/',
+    name: '123Loger',
+    width: '60'
+  },
+  {
+    image: figaroImmoUrl,
+    height: '60',
+    name: 'Figaro immobilier',
+    href: 'https://immobilier.lefigaro.fr/',
+    width: '200'
+  },
+  {
+    image: myappartUrl,
+    href: 'https://www.my-appart.fr',
+    name: 'MyAppart',
+    height: '93',
+    width: '248'
   },
   {
     image: fasttUrl,
@@ -149,13 +211,6 @@ export const PARTNERS: Partner[] = [
     href: 'https://www.gererseul.com/',
     name: 'gererseul – ma gestion locative',
     width: '200'
-  },
-  {
-    image: unDeuxTroisLogerUrl,
-    height: '60',
-    href: 'https://www.123loger.com/',
-    name: '123Loger',
-    width: '60'
   },
   {
     image: superimmoUrl,
@@ -268,12 +323,5 @@ export const PARTNERS: Partner[] = [
     href: 'https://www.immojeune.com',
     name: 'Immmojeune',
     width: '144'
-  },
-  {
-    image: myappartUrl,
-    href: 'https://www.my-appart.fr',
-    name: 'MyAppart',
-    height: '93',
-    width: '248'
   }
 ]

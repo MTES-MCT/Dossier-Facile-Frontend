@@ -6,7 +6,7 @@
     <div class="fr-container">
       <div class="fr-grid-row fr-grid-row--gutters">
         <template v-for="partner in partners" :key="partner.name">
-          <LogoInstitutionalPartnerComponent
+          <LogoPartnerComponent
             :image="partner.image"
             :height="partner.height"
             :href="partner.href"
@@ -21,9 +21,9 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import LogoInstitutionalPartnerComponent from './LogoInstitutionalPartnerComponent.vue'
 import { INSTITUTIONAL_PARTNERS } from '../models/PartnerModel'
 import { computed } from 'vue'
+import LogoPartnerComponent from './LogoPartnerComponent.vue'
 
 const { t } = useI18n()
 
@@ -36,5 +36,5 @@ const props = withDefaults(
   }
 )
 
-const partners = computed(() => INSTITUTIONAL_PARTNERS.splice(0, props.limit))
+const partners = computed(() => INSTITUTIONAL_PARTNERS.slice(0, props.limit))
 </script>
