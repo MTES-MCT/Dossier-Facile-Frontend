@@ -25,7 +25,6 @@ import jsoftUrl from '../assets/logos/jsoft.webp'
 import pdpUrl from '../assets/logos/partir_de_paris.webp'
 import pautionsUrl from '../assets/logos/pautions.webp'
 import jinkaUrl from '../assets/logos/jinka.webp'
-import lokappyUrl from '../assets/logos/lokappy.webp'
 import immopadUrl from '../assets/logos/immopad.webp'
 import omnireaUrl from '../assets/logos/omnirea.webp'
 import eonImmobilierUrl from '../assets/logos/eon_immobilier.webp'
@@ -60,7 +59,7 @@ export const INSTITUTIONAL_PARTNERS: Partner[] = [
     name: 'DGESIP',
     href: 'https://www.enseignementsup-recherche.gouv.fr/fr/direction-generale-de-l-enseignement-superieur-et-de-l-insertion-professionnelle-dgesip-83714',
     height: '180',
-    width: '180'
+    width: '220'
   },
   {
     image: anilUrl,
@@ -73,8 +72,8 @@ export const INSTITUTIONAL_PARTNERS: Partner[] = [
     image: servicePublicUrl,
     name: 'Service Public',
     href: 'https://www.service-public.fr/particuliers/vosdroits/R51424',
-    height: '120',
-    width: '280'
+    height: '93',
+    width: '270'
   },
   {
     image: ministereInterieurUrl,
@@ -302,13 +301,6 @@ export const PARTNERS: Partner[] = [
     name: 'Pautions',
     height: '55',
     width: '232'
-  },
-  {
-    image: lokappyUrl,
-    height: '60',
-    href: 'https://lokappy.co/',
-    name: 'lokappy',
-    width: '231'
   },
   {
     image: eonImmobilierUrl,
