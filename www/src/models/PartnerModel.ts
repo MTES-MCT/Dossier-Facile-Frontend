@@ -25,7 +25,6 @@ import jsoftUrl from '../assets/logos/jsoft.webp'
 import pdpUrl from '../assets/logos/partir_de_paris.webp'
 import pautionsUrl from '../assets/logos/pautions.webp'
 import jinkaUrl from '../assets/logos/jinka.webp'
-import lokappyUrl from '../assets/logos/lokappy.webp'
 import immopadUrl from '../assets/logos/immopad.webp'
 import omnireaUrl from '../assets/logos/omnirea.webp'
 import eonImmobilierUrl from '../assets/logos/eon_immobilier.webp'
@@ -302,13 +301,6 @@ export const PARTNERS: Partner[] = [
     name: 'Pautions',
     height: '55',
     width: '232'
-  },
-  {
-    image: lokappyUrl,
-    height: '60',
-    href: 'https://lokappy.co/',
-    name: 'lokappy',
-    width: '231'
   },
   {
     image: eonImmobilierUrl,
