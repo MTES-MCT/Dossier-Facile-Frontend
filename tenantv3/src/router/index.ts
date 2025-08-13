@@ -545,9 +545,52 @@ export const router = createRouter({
           ]
         },
         {
-          path: '5',
-          name: 'TenantTax',
+          path: '6',
+          name: 'OldTenantTax',
           component: () => import('@/components/documents/tenant/TenantTax.vue')
+        },
+        {
+          path: '5',
+          component: () => import('@/components/tax/TenantTax.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantTax',
+              component: () => import('@/components/tax/HasTaxChoice.vue')
+            },
+            {
+              path: 'avec-avis',
+              component: () => import('@/components/tax/TaxCountryChoice.vue')
+            },
+            {
+              path: 'avec-avis/francais',
+              component: () => import('@/components/tax/FrenchTaxForm.vue')
+            },
+            {
+              path: 'avec-avis/etranger',
+              component: () => import('@/components/tax/ForeignTaxForm.vue')
+            },
+            {
+              path: 'sans-avis',
+              component: () => import('@/components/tax/NoTaxChoice.vue')
+            },
+            {
+              path: 'sans-avis/sans-declaration',
+              component: () => import('@/components/tax/NoDeclarationTaxForm.vue')
+            },
+            {
+              path: 'sans-avis/parents',
+              component: () => import('@/components/tax/ParentsTaxForm.vue')
+            },
+            {
+              path: 'sans-avis/pas-recu',
+              component: () => import('@/components/tax/NotReceivedTaxForm.vue')
+            },
+            {
+              path: 'sans-avis/autre',
+              component: () => import('@/components/tax/OtherSituationTaxForm.vue')
+            }
+          ]
         }
       ]
     },

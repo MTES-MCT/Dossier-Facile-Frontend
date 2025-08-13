@@ -116,3 +116,11 @@ export type IdentityCategory =
   | 'DRIVERS_LICENSE'
   | 'FRANCE_IDENTITE'
   | 'OTHER_IDENTIFICATION'
+
+export type TaxCategory = 'MY_NAME' | 'MY_PARENTS' | 'OTHER_TAX'
+
+export type TaxCategoryStep =
+  | 'TAX_FOREIGN_NOTICE'
+  | 'TAX_FRENCH_NOTICE'
+  | 'TAX_NOT_RECEIVED'
+  | 'TAX_NO_DECLARATION'

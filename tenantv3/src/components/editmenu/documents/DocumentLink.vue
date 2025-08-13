@@ -23,11 +23,13 @@ import { computed } from 'vue'
 import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import { useMainActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { useIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
+import { useTaxLink } from '@/components/tax/lib/taxLink'
 
 const { t } = useI18n()
 const residencyLink = useResidencyLink()
 const mainActivityLink = useMainActivityLink()
 const identificationLink = useIdentityDocumentLink()
+const taxLink = useTaxLink()
 
 const props = defineProps<{
   personType: PersonType
@@ -76,6 +78,9 @@ const to = computed(() => {
   }
   if (name === 'TenantIdentification') {
     return identificationLink.value
+  }
+  if (name === 'TenantTax') {
+    return taxLink.value
   }
   return {
     name,
