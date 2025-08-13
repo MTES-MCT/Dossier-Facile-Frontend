@@ -56,6 +56,7 @@ import { computed, onBeforeMount, onUpdated, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { toast } from '@/components/toast/toastUtils'
+import { makeTaxLink } from '@/components/tax/lib/taxLink'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -81,7 +82,7 @@ onBeforeMount(() => {
 })
 
 function goBack() {
-  router.push({ name: 'TenantTax' })
+  router.push(makeTaxLink(store.getTenantTaxDocument))
 }
 
 function setGuarantorType() {

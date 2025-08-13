@@ -48,7 +48,13 @@ export type FinancialStep =
   | 'RENT_ANNUITY_LIFE'
   | 'RENT_OTHER'
 
-export type DocumentCategoryStep = ResidencyStep | FinancialStep
+export type TaxCategoryStep =
+  | 'TAX_FOREIGN_NOTICE'
+  | 'TAX_FRENCH_NOTICE'
+  | 'TAX_NOT_RECEIVED'
+  | 'TAX_NO_DECLARATION'
+
+export type DocumentCategoryStep = ResidencyStep | FinancialStep | TaxCategoryStep
 
 export class DfDocument {
   id?: number
