@@ -36,7 +36,6 @@
               'fr-input--error': !meta.valid
             }"
             placeholder=""
-            type="text"
             required
             maxlength="2000"
             rows="4"
@@ -80,7 +79,6 @@
             ref="fileUpload"
             :current-status="fileUploadStatus"
             @add-files="addFiles"
-            @reset-files="resetFiles"
           ></FileUpload>
         </div>
       </div>
@@ -278,10 +276,6 @@ function saveNewFiles(force: boolean) {
   })
   files.value = [...files.value, ...nf]
   save(force)
-}
-
-function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 
 async function goNext() {

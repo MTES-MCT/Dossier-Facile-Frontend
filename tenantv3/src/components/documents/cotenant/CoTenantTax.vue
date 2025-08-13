@@ -31,7 +31,6 @@
               class="form-control fr-input validate-required"
               name="customText"
               placeholder=""
-              type="text"
               required
               maxlength="2000"
               rows="4"

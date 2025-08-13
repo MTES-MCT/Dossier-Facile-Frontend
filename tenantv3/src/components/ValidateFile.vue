@@ -79,7 +79,6 @@
                     'fr-input--error': !meta.valid
                   }"
                   :placeholder="t('validatefile.placeholder')"
-                  type="text"
                   maxlength="2000"
                   rows="3"
                   v-bind="field"
