@@ -12,7 +12,6 @@
     <div v-show="guarantors && guarantors.length > 0">
       <TenantGuarantorList
         :guarantors="guarantors"
-        :substep="getStep()"
         @on-edit="onEdit"
         @on-back="goBack"
         @on-next="goNext"

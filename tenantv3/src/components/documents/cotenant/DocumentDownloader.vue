@@ -13,7 +13,6 @@
             id="select"
             :value="document.key"
             class="fr-select fr-mb-3w fr-mt-3w"
-            as="select"
             @change="onSelectChange($event.target)"
           >
             <option v-if="!document.key" selected disabled></option>
@@ -71,7 +70,6 @@
             :current-status="fileUploadStatus"
             :page="4"
             @add-files="addFiles"
-            @reset-files="resetFiles"
           ></FileUpload>
         </div>
       </div>
@@ -116,7 +114,6 @@
               }"
               name="customText"
               placeholder=""
-              type="text"
               maxlength="2000"
               rows="3"
               required
@@ -462,10 +459,6 @@ function _buildFormData(filesToAdd: { file: File; name: string }[]): FormData {
   formData.append('avisDetected', 'false')
 
   return formData
-}
-
-function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 
 function remove(file: DfFile) {

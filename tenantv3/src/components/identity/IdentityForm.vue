@@ -96,7 +96,6 @@
       >
         <Field
           v-model.trim="thirdPartyConsent"
-          type="checkbox"
           name="thirdPartyConsent"
           :rules="{
             required: true

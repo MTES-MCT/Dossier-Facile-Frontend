@@ -23,7 +23,6 @@
       <div v-if="!isDocumentValid(category)">
         <UpdateComponent
           :user-id="user.id"
-          :broken-rules="getDocumentBrokenRules(category)"
           :document="getDocument(category)"
           @on-update="openTenant(k)"
           >{{ t(`fileerrors.${category}`) }}</UpdateComponent
@@ -70,12 +69,6 @@ function allTenantDocumentsPreValidated() {
 
 function getDocument(docType: DocumentCategory) {
   return DocumentService.getDoc(docType, props.user.documents)
-}
-
-function getDocumentBrokenRules(docType: DocumentCategory) {
-  return (
-    DocumentService.getDoc(docType, props.user.documents)?.documentAnalysisReport?.brokenRules || []
-  )
 }
 
 function isDocumentValid(docType: string) {

@@ -18,7 +18,6 @@
         >
           <textarea
             v-bind="field"
-            type="text"
             :value="comment"
             class="validate-required form-control fr-input"
             :class="{

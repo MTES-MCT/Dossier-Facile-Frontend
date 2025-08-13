@@ -10,11 +10,9 @@
               v-slot="{ field, meta }"
               v-model="declaration"
               name="declaration"
-              type="checkbox"
               :rules="{
                 isTrue: true
               }"
-              :value="true"
             >
               <input
                 id="declaration"
@@ -37,11 +35,9 @@
                 v-slot="{ field, meta }"
                 v-model="declaration2"
                 name="declaration2"
-                type="checkbox"
                 :rules="{
                   isTrue: true
                 }"
-                :value="true"
               >
                 <input
                   id="declaration2"
@@ -79,7 +75,6 @@
                     'fr-input--error': !meta.valid
                   }"
                   :placeholder="t('validatefile.placeholder')"
-                  type="text"
                   maxlength="2000"
                   rows="3"
                   v-bind="field"

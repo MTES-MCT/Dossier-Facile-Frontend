@@ -129,7 +129,6 @@
             v-slot="{ field, meta }"
             v-model="authorize"
             name="authorize"
-            type="checkbox"
             rules="isTrue"
             :value="true"
           >

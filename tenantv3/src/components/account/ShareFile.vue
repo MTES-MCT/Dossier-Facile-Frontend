@@ -75,7 +75,7 @@
           </ErrorMessage>
         </div>
         <div v-if="shareMethod === 'link'" class="full-mobile">
-          <input class="fr-input" type="text" read-only :value="getUrl()" />
+          <input class="fr-input" type="text" readonly :value="getUrl()" />
         </div>
         <div class="full-mobile">
           <DfButton ref="button" class="full-mobile" type="submit" :primary="true">{{

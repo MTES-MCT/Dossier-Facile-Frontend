@@ -9,9 +9,7 @@
                 v-slot="{ field, meta }"
                 v-model="localSpouseAuthorize"
                 name="authorize"
-                type="checkbox"
                 :rules="{ isTrue: true }"
-                :value="true"
               >
                 <div class="fr-checkbox-group bg-purple">
                   <input
@@ -39,9 +37,7 @@
                 v-slot="{ field, meta }"
                 v-model="localCoTenantAuthorize"
                 name="authorize"
-                type="checkbox"
                 :rules="{ isTrue: true }"
-                :value="true"
               >
                 <div class="fr-checkbox-group bg-purple">
                   <input
@@ -76,12 +72,7 @@
         <ApplicationTypeSelector @selected="updateApplicationType"></ApplicationTypeSelector>
       </NakedCard>
       <Form name="form" @submit="handleOthersInformation">
-        <CoupleInformation
-          v-if="applicationType === 'COUPLE'"
-          ref="couple-info"
-          v-model="coTenants"
-          class="fr-mt-2w"
-        >
+        <CoupleInformation v-if="applicationType === 'COUPLE'" ref="couple-info" class="fr-mt-2w">
         </CoupleInformation>
         <RoommatesInformation
           v-if="applicationType === 'GROUP'"

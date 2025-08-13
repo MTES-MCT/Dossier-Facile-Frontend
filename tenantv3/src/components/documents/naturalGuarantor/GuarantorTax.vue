@@ -32,7 +32,6 @@
                 class="form-control fr-input validate-required"
                 name="customText"
                 placeholder=""
-                type="text"
                 required
                 maxlength="2000"
                 :class="{
@@ -79,7 +78,6 @@
           ref="file-upload"
           :current-status="fileUploadStatus"
           @add-files="addFiles"
-          @reset-files="resetFiles"
         ></FileUpload>
       </div>
     </NakedCard>
@@ -278,10 +276,6 @@ function saveNewFiles(force: boolean) {
   })
   files.value = [...files.value, ...nf]
   save(force)
-}
-
-function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 
 async function save(force = false) {
