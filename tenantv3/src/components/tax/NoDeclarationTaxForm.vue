@@ -1,7 +1,7 @@
 <template>
   <p>{{ t('your-situation') }}</p>
-  <BackLinkRow :label="t('you-have-no-tax-notice')" @click="backTwoSteps" />
-  <BackLinkRow :label="t('no-declaration')" @click="backOneStep" />
+  <BackLinkRow :label="t('you-have-no-tax-notice')" :to="grandParent" />
+  <BackLinkRow :label="t('no-declaration')" :to="parent" />
 
   <form class="fr-mb-3w">
     <div class="fr-checkbox-group fr-checkbox-group--sm">
@@ -21,37 +21,24 @@
 </template>
 
 <script setup lang="ts">
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
+import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
-import { useTaxState } from '@/components/tax/lib/taxState'
-import { AnalyticsService } from '@/services/AnalyticsService'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { ref, useId } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { RiEyeLine } from '@remixicon/vue'
 import MandatoryDeclarationInfo from './lib/MandatoryDeclarationInfo.vue'
 import FirstDeclarationInfo from './lib/FirstDeclarationInfo.vue'
+import { useTaxState } from './lib/taxState'
 
 const { t } = useI18n()
-const router = useRouter()
-const taxState = useTaxState()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
 const formId = useId()
+const { document } = useTaxState()
 
-const attestChecked = ref(taxState.document.value?.documentCategoryStep === 'TAX_NO_DECLARATION')
-
-function backOneStep() {
-  AnalyticsService.editSituation2(taxState.category, 'with-tax', 'foreign')
-  router.push(parent.value)
-}
-
-function backTwoSteps() {
-  AnalyticsService.editSituation2(taxState.category, 'with-tax', 'foreign')
-  router.push(grandParent.value)
-}
+const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NO_DECLARATION')
 </script>
 
 <i18n>

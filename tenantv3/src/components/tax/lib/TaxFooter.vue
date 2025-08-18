@@ -16,7 +16,6 @@
 import type { TaxCategory } from '@/components/documents/share/DocumentTypeConstants'
 import FooterContainer from '@/components/footer/FooterContainer.vue'
 import { useTaxState } from '@/components/tax/lib/taxState'
-import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { UtilsService } from '@/services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
@@ -54,15 +53,13 @@ async function save(category: TaxCategory, step?: TaxStep) {
   }
   addData?.(formData)
 
-  return await store[action](formData)
-    .then(() => {
-      toast.keep.success(t('file-saved'), getNextBtnInFooter)
-      return true
-    })
-    .catch((err) => {
-      UtilsService.handleCommonSaveError(err, nextBtn.value?.button)
-      return false
-    })
+  try {
+    await store[action](formData)
+    return true
+  } catch (error) {
+    UtilsService.handleCommonSaveError(error, nextBtn.value?.button)
+    return false
+  }
 }
 
 const submit = async () => {

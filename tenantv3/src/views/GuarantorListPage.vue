@@ -46,6 +46,7 @@ import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { toast } from '@/components/toast/toastUtils'
+import { makeTaxLink } from '@/components/tax/lib/taxLink'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -71,7 +72,7 @@ function getGuarantorName(g: Guarantor) {
 
 function goBack() {
   if (user.value?.guarantors && user.value?.guarantors.length > 0) {
-    router.push({ name: 'TenantTax' })
+    router.push(makeTaxLink(store.getTenantTaxDocument))
     return
   }
   router.push({

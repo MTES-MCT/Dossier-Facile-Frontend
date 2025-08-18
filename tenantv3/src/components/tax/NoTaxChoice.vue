@@ -1,6 +1,6 @@
 <template>
   <p>{{ t('choose-situation') }}</p>
-  <BackLinkRow :label="t('you-have-no-tax-notice')" @click="back" />
+  <BackLinkRow :label="t('you-have-no-tax-notice')" :to="parent" />
   <RadioList>
     <RadioListItem :to="here + '/parents'" @click="sendEvent('parents')"
       >{{ t('parents') }}
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
+import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import HintText from '@/components/common/HintText.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import RadioList from '@/components/common/RadioList.vue'
@@ -34,12 +34,11 @@ import { useTaxState } from '@/components/tax/lib/taxState'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import JointTaxInfo from './lib/JointTaxInfo.vue'
 
 const { t } = useI18n()
 const route = useRoute()
-const router = useRouter()
 const taxState = useTaxState()
 const parent = useParentRoute()
 
@@ -47,11 +46,6 @@ const here = computed(() => route.path)
 
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation2(taxState.category, 'no-tax', subcategory)
-
-function back() {
-  AnalyticsService.editSituation(taxState.category, 'no-tax')
-  router.push(parent.value)
-}
 </script>
 
 <i18n>
