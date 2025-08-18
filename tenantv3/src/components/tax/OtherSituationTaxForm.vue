@@ -1,7 +1,7 @@
 <template>
   <p>{{ t('your-situation') }}</p>
-  <BackLinkRow :label="t('you-have-no-tax-notice')" @click="backTwoSteps" />
-  <BackLinkRow :label="t('other-situation')" @click="backOneStep" />
+  <BackLinkRow :label="t('you-have-no-tax-notice')" :to="grandParent" />
+  <BackLinkRow :label="t('other-situation')" :to="parent" />
 
   <p>{{ t('this-situation') }}</p>
 
@@ -21,20 +21,17 @@
 </template>
 
 <script setup lang="ts">
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
+import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { useTaxState } from '@/components/tax/lib/taxState'
-import { AnalyticsService } from '@/services/AnalyticsService'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
-import { computed, ref, useId } from 'vue'
+import { ref, useId } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import JointTaxInfo from './lib/JointTaxInfo.vue'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 
 const { t } = useI18n()
-const router = useRouter()
 const taxState = useTaxState()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
@@ -42,16 +39,6 @@ const formId = useId()
 
 const explanation = ref(taxState.document.value?.customText || '')
 const showUpload = ref((taxState.document.value?.files?.length || 0) > 0)
-
-function backOneStep() {
-  AnalyticsService.editSituation2(taxState.category, 'with-tax', 'foreign')
-  router.push(parent.value)
-}
-
-function backTwoSteps() {
-  AnalyticsService.editSituation2(taxState.category, 'with-tax', 'foreign')
-  router.push(grandParent.value)
-}
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
   <p>{{ t('your-situation') }}</p>
-  <BackLinkRow :label="t('you-have-a-tax-notice')" @click="backTwoSteps" />
-  <BackLinkRow :label="t('french')" @click="backOneStep" />
+  <BackLinkRow :label="t('you-have-a-tax-notice')" :to="grandParent" />
+  <BackLinkRow :label="t('french')" :to="parent" />
   <i18n-t tag="p" keypath="add-tax-notice">
     <strong>{{ t('this-year-tax', [taxYear, taxYear - 1]) }}</strong>
   </i18n-t>
@@ -42,14 +42,11 @@
 </template>
 
 <script setup lang="ts">
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
+import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
-import { useTaxState } from '@/components/tax/lib/taxState'
-import { AnalyticsService } from '@/services/AnalyticsService'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { RiAlertLine, RiEyeLine } from '@remixicon/vue'
 import { taxYear } from './lib/taxYear'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
@@ -59,22 +56,10 @@ import avisKO from '@/assets/exemple avis ko.png'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 
 const { t } = useI18n()
-const router = useRouter()
-const taxState = useTaxState()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
 
 const showModal = ref(false)
-
-function backOneStep() {
-  AnalyticsService.editSituation2(taxState.category, 'with-tax', 'french')
-  router.push(parent.value)
-}
-
-function backTwoSteps() {
-  AnalyticsService.editSituation2(taxState.category, 'with-tax', 'french')
-  router.push(grandParent.value)
-}
 </script>
 
 <style scoped>

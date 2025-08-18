@@ -1,7 +1,7 @@
 <template>
   <p>{{ t('your-situation') }}</p>
-  <BackLinkRow :label="t('you-have-a-tax-notice')" @click="backTwoSteps" />
-  <BackLinkRow :label="t('foreign')" @click="backOneStep" />
+  <BackLinkRow :label="t('you-have-a-tax-notice')" :to="grandParent" />
+  <BackLinkRow :label="t('foreign')" :to="parent" />
   <p class="text-bold">{{ t('add-last-tax-notice') }}</p>
   <p>
     {{ t('doc-must-contain') }}
@@ -21,31 +21,16 @@
 </template>
 
 <script setup lang="ts">
-import BackLinkRow from '@/components/common/BackLinkRow.vue'
+import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
-import { useTaxState } from '@/components/tax/lib/taxState'
-import { AnalyticsService } from '@/services/AnalyticsService'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { RiInformationFill } from '@remixicon/vue'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 
 const { t } = useI18n()
-const router = useRouter()
-const taxState = useTaxState()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
-
-function backOneStep() {
-  AnalyticsService.editSituation2(taxState.category, 'with-tax', 'foreign')
-  router.push(parent.value)
-}
-
-function backTwoSteps() {
-  AnalyticsService.editSituation2(taxState.category, 'with-tax', 'foreign')
-  router.push(grandParent.value)
-}
 </script>
 
 <i18n>
