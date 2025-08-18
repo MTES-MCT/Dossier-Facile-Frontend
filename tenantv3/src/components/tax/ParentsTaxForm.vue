@@ -8,9 +8,7 @@
     <label :for="formId">{{ t('i-attest') }}</label>
   </form>
 
-  <DfButton v-if="attestChecked" class="mx-auto fr-mb-3w"
-    >{{ t('see-in-file') }} <RiEyeLine class="fr-ml-1v"
-  /></DfButton>
+  <StatementPreview v-if="attestChecked"> "{{ t('i-have-no-tax') }}". </StatementPreview>
 
   <MandatoryDeclarationInfo />
   <FirstDeclarationInfo />
@@ -24,10 +22,9 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { useI18n } from 'vue-i18n'
 import { ref, useId } from 'vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { RiEyeLine } from '@remixicon/vue'
 import MandatoryDeclarationInfo from './lib/MandatoryDeclarationInfo.vue'
 import FirstDeclarationInfo from './lib/FirstDeclarationInfo.vue'
+import StatementPreview from '@/components/tax/lib/StatementPreview.vue'
 
 const { t } = useI18n()
 const parent = useParentRoute()
@@ -52,14 +49,14 @@ const attestChecked = ref(false)
     "you-have-no-tax-notice": "You have no tax notice",
     "parents-declaration": "You are registered on your parents' tax return",
     "i-attest": "I hereby certify that my situation is accurate, and I understand that this information will be visible in my file.",
-    "see-in-file": "See the certificate in my file",
+    "i-have-no-tax": "I am parts of my parents's tax household and do not have a tax assessment notice in my own name."
   },
   "fr": {
     "your-situation": "Votre situation :",
     "you-have-no-tax-notice": "Vous n’avez pas d’avis d’impôt",
     "parents-declaration": "Vous êtes inscrit sur la déclaration d’impôt de vos parents",
     "i-attest": "J’atteste sur l’honneur que ma situation est exacte, et je comprends que cette information sera visible dans mon dossier.",
-    "see-in-file": "Voir l’attestation dans mon dossier",
+    "i-have-no-tax": "Je suis rattaché·e au foyer fiscal de mes parents et ne dispose pas d’un avis à mon nom propre."
   }
 }
 </i18n>

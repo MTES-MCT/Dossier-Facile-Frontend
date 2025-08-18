@@ -15,9 +15,7 @@
     <label :for="formId">{{ t('i-attest') }}</label>
   </form>
 
-  <DfButton v-if="attestChecked" class="mx-auto fr-mb-3w"
-    >{{ t('see-in-file') }} <RiEyeLine class="fr-ml-1v"
-  /></DfButton>
+  <StatementPreview v-if="attestChecked"> "{{ t('i-cant-provide') }}" </StatementPreview>
 
   <JointTaxInfo :parent="grandParent" class="fr-mt-3w" />
 
@@ -31,8 +29,7 @@ import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { useI18n } from 'vue-i18n'
 import { ref, useId } from 'vue'
 import JointTaxInfo from './lib/JointTaxInfo.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { RiEyeLine } from '@remixicon/vue'
+import StatementPreview from '@/components/tax/lib/StatementPreview.vue'
 
 const { t } = useI18n()
 const parent = useParentRoute()
@@ -60,7 +57,7 @@ const attestChecked = ref(false)
     "i-attest": "I hereby certify that I cannot provide a document, and I understand that this information will be visible in my file.",
     "tax-not-available": "You made {0} recently, the tax notice is not yet available",
     "first-declaration": "your first return",
-    "see-in-file": "See the certificate in my file",
+    "i-cant-provide": "I am unable to provide a tax notice because I have not yet received it (e.g., recent first filing, processing in progress)."
   },
   "fr": {
     "your-situation": "Votre situation :",
@@ -70,7 +67,8 @@ const attestChecked = ref(false)
     "i-attest": "J’atteste sur l’honneur ne pas pouvoir fournir de document, et je comprends que cette information sera visible dans mon dossier.",
     "tax-not-available": "Vous avez fait {0} récemment, l’avis d’impôt n’est pas encore disponible.",
     "first-declaration": "votre première déclaration",
-    "see-in-file": "Voir l’attestation dans mon dossier",
+    "i-cant-provide": "Je ne suis pas en mesure de fournir un avis d’imposition car je n’ai pas encore reçu mon avis
+    (ex. : première déclaration récente, traitement en cours)."
   }
 }
 </i18n>
