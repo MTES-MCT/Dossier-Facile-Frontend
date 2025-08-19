@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user.ownerType === 'SELF'">
     <div class="hr-container fr-my-3w">
       <hr/>
       <span class="hr-text"><strong>{{ t('or-label') }}</strong></span>
@@ -34,9 +34,13 @@
 import { useI18n } from 'vue-i18n'
 import { DsfrBadge, DsfrAccordion, DsfrAccordionsGroup } from '@gouvminint/vue-dsfr'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { useTenantStore } from '@/stores/tenant-store'
+import { computed } from 'vue'
 
 const { t } = useI18n()
-const PNDS_URL: string = `${import.meta.env.VITE_PNDS_BASE_URL}/api/public/redirect/activite_professionnelle`
+const PNDS_URL = `${import.meta.env.VITE_PNDS_BASE_URL}/api/public/redirect/activite_professionnelle`
+const store = useTenantStore()
+const user = computed(() => store.user)
 
 const trackAttestationClick = (): void => {
   AnalyticsService.openAttestationMesDroitsSociaux()
