@@ -589,6 +589,10 @@ export const router = createRouter({
             {
               path: 'sans-avis/autre',
               component: () => import('@/components/tax/OtherSituationTaxForm.vue')
+            },
+            {
+              path: 'non-renseigne',
+              component: () => import('@/components/tax/UnknownTaxStatus.vue')
             }
           ]
         }
