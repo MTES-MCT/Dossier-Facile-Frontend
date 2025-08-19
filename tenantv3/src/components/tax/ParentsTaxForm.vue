@@ -4,8 +4,10 @@
   <BackLinkRow :label="t('parents-declaration')" :to="parent" />
 
   <form class="honor-declaration-form">
-    <input :id="formId" v-model="attestChecked" type="checkbox" class="fr-mx-2v fr-my-1v" />
-    <label :for="formId">{{ t('i-attest') }}</label>
+    <div class="fr-checkbox-group fr-checkbox-group--sm">
+      <input :id="formId" v-model="attestChecked" type="checkbox" class="fr-mx-2v fr-my-1v" />
+      <label class="fr-label" :for="formId">{{ t('i-attest') }}</label>
+    </div>
   </form>
 
   <StatementPreview v-if="attestChecked"> "{{ t('i-have-no-tax') }}". </StatementPreview>
