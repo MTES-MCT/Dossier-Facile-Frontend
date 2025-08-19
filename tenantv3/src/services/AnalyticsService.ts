@@ -165,6 +165,9 @@ export const AnalyticsService = {
   openMaSecurite() {
     sendEvent('funnel', 'open-ma_securite')
   },
+  openAttestationMesDroitsSociaux() {
+    sendFullEvent('funnel', 'clic', 'open-attestation_mes_droits_sociaux')
+  },
 
   selectSituation(category: DocumentCategory, subCategory: string) {
     sendFullEvent('funnel', 'clic', `${category}_${subCategory}`)

@@ -15,6 +15,7 @@
       </i18n-t>
     </li>
   </ul>
+  <AttestationMesDroitsSociaux v-if="suffix === 'tenant'"/>
   <UploadFilesMainActivity category="INTERNSHIP" />
 </template>
 
@@ -24,6 +25,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useMainActivityState } from '@/components/mainActivity/lib/mainActivityState'
 import { useI18n } from 'vue-i18n'
 import UploadFilesMainActivity from './lib/UploadFilesMainActivity.vue'
+import AttestationMesDroitsSociaux from './lib/AttestationMesDroitsSociaux.vue'
 const { t } = useI18n()
 const { suffix, textKey } = useMainActivityState()
 const parent = useParentRoute()
