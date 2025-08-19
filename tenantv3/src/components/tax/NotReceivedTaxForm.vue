@@ -19,7 +19,7 @@
 
   <JointTaxInfo :parent="grandParent" class="fr-mt-3w" />
 
-  <TaxFooter category="OTHER_TAX" step="TAX_NOT_RECEIVED" />
+  <TaxFooter category="OTHER_TAX" step="TAX_NOT_RECEIVED" :next-disabled="!attestChecked" />
 </template>
 
 <script setup lang="ts">

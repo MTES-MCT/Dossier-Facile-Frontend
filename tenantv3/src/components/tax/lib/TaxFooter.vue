@@ -5,7 +5,7 @@
       <span class="desktop">{{ t('profilefooter.back') }}</span>
     </RouterLink>
     <form @submit.prevent="submit">
-      <DfButton ref="next-btn" primary data-cy="next-btn">{{
+      <DfButton ref="next-btn" primary data-cy="next-btn" :disabled="nextDisabled">{{
         t('profilefooter.continue')
       }}</DfButton>
     </form>
@@ -27,7 +27,12 @@ import { useRouter } from 'vue-router'
 
 type TaxStep = 'TAX_NOT_RECEIVED' | 'TAX_NO_DECLARATION'
 
-const props = defineProps<{ category?: TaxCategory; step?: TaxStep; explanation?: string }>()
+const props = defineProps<{
+  category?: TaxCategory
+  step?: TaxStep
+  explanation?: string
+  nextDisabled?: boolean
+}>()
 
 const { t } = useI18n()
 const router = useRouter()

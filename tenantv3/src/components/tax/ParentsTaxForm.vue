@@ -13,7 +13,7 @@
   <MandatoryDeclarationInfo />
   <FirstDeclarationInfo />
 
-  <TaxFooter category="MY_PARENTS" />
+  <TaxFooter category="MY_PARENTS" :next-disabled="!attestChecked" />
 </template>
 
 <script setup lang="ts">

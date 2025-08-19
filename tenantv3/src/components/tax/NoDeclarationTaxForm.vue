@@ -13,7 +13,7 @@
   <MandatoryDeclarationInfo />
   <FirstDeclarationInfo />
 
-  <TaxFooter category="OTHER_TAX" step="TAX_NO_DECLARATION" />
+  <TaxFooter category="OTHER_TAX" step="TAX_NO_DECLARATION" :next-disabled="!attestChecked" />
 </template>
 
 <script setup lang="ts">
