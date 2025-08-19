@@ -4,7 +4,6 @@
     <strong>{{ t('appointment-order') }}</strong>
   </i18n-t>
   <p>{{ t('if-no-doc-' + suffix) }}</p>
-  <AttestationMesDroitsSociaux v-if="suffix === 'tenant'"/>
   <UploadFilesMainActivity category="PUBLIC" />
 </template>
 
@@ -14,7 +13,6 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useMainActivityState } from '@/components/mainActivity/lib/mainActivityState'
 import { useI18n } from 'vue-i18n'
 import UploadFilesMainActivity from './lib/UploadFilesMainActivity.vue'
-import AttestationMesDroitsSociaux from './lib/AttestationMesDroitsSociaux.vue'
 const { t } = useI18n()
 const { suffix } = useMainActivityState()
 const parent = useParentRoute()
