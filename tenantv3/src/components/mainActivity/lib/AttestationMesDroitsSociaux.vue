@@ -1,41 +1,44 @@
 <template>
-  <div class="hr-container fr-my-3w">
-    <hr/>
-    <span class="hr-text"><strong>{{ t('or-label') }}</strong></span>
-  </div>
-  <div class="fr-mb-3w card-border">
-    <div class="fr-grid-row fr-grid-row--left fr-grid-row--middle">
-      <DsfrBadge type="new" :label="t('badge-new')" />
-      <strong class="fr-ml-2w">{{ t('title') }}</strong>
+  <div>
+    <div class="hr-container fr-my-3w">
+      <hr/>
+      <span class="hr-text"><strong>{{ t('or-label') }}</strong></span>
     </div>
-    <div class="fr-mt-3w">
-      <p>
-        <span aria-hidden="true" class="fr-mr-1w fr-icon-links-line fr-icon--sm"></span>
-        <strong>{{ t('desc') }}</strong>
-      </p>
-      <p>{{ t('desc2') }}</p>
-      <a class="fr-btn fr-btn--secondary" :href="PNDS_URL" target="_blank" rel="noopener noreferrer" @click="trackAttestationClick">{{ t('button') }}</a>
+    <div class="fr-mb-3w card-border">
+      <div class="fr-grid-row fr-grid-row--left fr-grid-row--middle">
+        <DsfrBadge type="new" :label="t('badge-new')" />
+        <strong class="fr-ml-2w">{{ t('title') }}</strong>
+      </div>
+      <div class="fr-mt-3w">
+        <p>
+          <span aria-hidden="true" class="fr-mr-1w fr-icon-links-line fr-icon--sm"></span>
+          <strong>{{ t('desc') }}</strong>
+        </p>
+        <p>{{ t('desc2') }}</p>
+        <a class="fr-btn fr-btn--secondary" :href="PNDS_URL" target="_blank" rel="noopener noreferrer" @click="trackAttestationClick">{{ t('button') }}</a>
+      </div>
+      <DsfrAccordionsGroup>
+        <DsfrAccordion class="fr-mt-3w" :title="t('accordion-title')">
+          <ol>
+            <li>{{ t('accordion-item-1') }}</li>
+            <li>{{ t('accordion-item-2') }}</li>
+            <li>{{ t('accordion-item-3') }}</li>
+          </ol>
+        </DsfrAccordion>
+      </DsfrAccordionsGroup>
     </div>
-    <DsfrAccordion class="fr-mt-3w">
-      <template #title>{{ t('accordion-title') }}</template>
-      <ol>
-        <li>{{ t('accordion-item-1') }}</li>
-        <li>{{ t('accordion-item-2') }}</li>
-        <li>{{ t('accordion-item-3') }}</li>
-      </ol>
-    </DsfrAccordion>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { DsfrBadge, DsfrAccordion } from '@gouvminint/vue-dsfr'
+import { DsfrBadge, DsfrAccordion, DsfrAccordionsGroup } from '@gouvminint/vue-dsfr'
 import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
-const PNDS_URL = `${import.meta.env.VITE_PNDS_BASE_URL}/api/public/redirect/activite_professionnelle`
+const PNDS_URL: string = `${import.meta.env.VITE_PNDS_BASE_URL}/api/public/redirect/activite_professionnelle`
 
-const trackAttestationClick = () => {
+const trackAttestationClick = (): void => {
   AnalyticsService.openAttestationMesDroitsSociaux()
 }
 </script>
