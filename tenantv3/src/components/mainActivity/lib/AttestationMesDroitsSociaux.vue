@@ -14,7 +14,7 @@
         <strong>{{ t('desc') }}</strong>
       </p>
       <p>{{ t('desc2') }}</p>
-      <a class="fr-btn fr-btn--secondary" :href="PNDS_URL" target="_blank" rel="noopener noreferrer">{{ t('button') }}</a>
+      <a class="fr-btn fr-btn--secondary" :href="PNDS_URL" target="_blank" rel="noopener noreferrer" @click="trackAttestationClick">{{ t('button') }}</a>
     </div>
     <DsfrAccordion class="fr-mt-3w">
       <template #title>{{ t('accordion-title') }}</template>
@@ -30,10 +30,14 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { DsfrBadge, DsfrAccordion } from '@gouvminint/vue-dsfr'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
 const PNDS_URL = `${import.meta.env.VITE_PNDS_BASE_URL}/api/public/redirect/activite_professionnelle`
 
+const trackAttestationClick = () => {
+  AnalyticsService.openAttestationMesDroitsSociaux()
+}
 </script>
 
 <style scoped>
