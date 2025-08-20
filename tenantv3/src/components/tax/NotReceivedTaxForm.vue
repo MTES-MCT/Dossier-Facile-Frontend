@@ -1,12 +1,12 @@
 <template>
-  <p>{{ t('your-situation') }}</p>
-  <BackLinkRow :label="t('you-have-no-tax-notice')" :to="grandParent" />
-  <BackLinkRow :label="t('not-received')" :to="parent" />
+  <p>{{ t(textKey + '.your-situation') }}</p>
+  <BackLinkRow :label="t(textKey + '.have-no-tax-notice')" :to="grandParent" />
+  <BackLinkRow :label="t(textKey + '.not-received')" :to="parent" />
 
   <p class="text-bold fr-mb-0">{{ t('only-this-case') }}</p>
   <ul class="fr-mb-3w">
-    <i18n-t tag="li" keypath="tax-not-available">
-      <strong>{{ t('first-declaration') }}</strong>
+    <i18n-t tag="li" :keypath="textKey + '.tax-not-available'">
+      <strong>{{ t(textKey + '.first-declaration') }}</strong>
     </i18n-t>
   </ul>
 
@@ -38,7 +38,7 @@ const { t } = useI18n()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
 const formId = useId()
-const { document } = useTaxState()
+const { document, textKey } = useTaxState()
 
 const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NOT_RECEIVED')
 </script>
@@ -46,25 +46,42 @@ const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NOT_RECE
 <i18n>
 {
   "en": {
-    "your-situation": "Your situation:",
-    "you-have-no-tax-notice": "You have no tax notice",
-    "not-received": "You have not yet received your tax notice",
-    "only-this-case": "Only the following cases are concerned:",
     "i-attest": "I hereby certify that I cannot provide a document, and I understand that this information will be visible in my file.",
-    "tax-not-available": "You made {0} recently, the tax notice is not yet available",
-    "first-declaration": "your first return",
-    "i-cant-provide": "I am unable to provide a tax notice because I have not yet received it (e.g., recent first filing, processing in progress)."
+    "i-cant-provide": "I am unable to provide a tax notice because I have not yet received it (e.g., recent first filing, processing in progress).",
+    "only-this-case": "Only the following cases are concerned:",
+    "tenant": {
+      "your-situation": "Your situation:",
+      "have-no-tax-notice": "You have no tax notice",
+      "not-received": "You have not yet received your tax notice",
+      "tax-not-available": "You made {0} recently, the tax notice is not yet available",
+      "first-declaration": "your first return",
+    },
+    "guarantor": {
+      "your-situation": "Your guarantor's situation:",
+      "have-no-tax-notice": "Your guarantor has no tax notice",
+      "not-received": "Your guarantor has not yet received their tax notice",
+      "tax-not-available": "Your guarantor made {0} recently, the tax notice is not yet available",
+      "first-declaration": "their first return",
+    }
   },
   "fr": {
-    "your-situation": "Votre situation :",
-    "you-have-no-tax-notice": "Vous n’avez pas d’avis d’impôt",
-    "not-received": "Vous n’avez pas encore reçu votre avis d’impôt",
-    "only-this-case": "Seuls les cas suivants sont concernés :",
     "i-attest": "J’atteste sur l’honneur ne pas pouvoir fournir de document, et je comprends que cette information sera visible dans mon dossier.",
-    "tax-not-available": "Vous avez fait {0} récemment, l’avis d’impôt n’est pas encore disponible.",
-    "first-declaration": "votre première déclaration",
-    "i-cant-provide": "Je ne suis pas en mesure de fournir un avis d’imposition car je n’ai pas encore reçu mon avis
-    (ex. : première déclaration récente, traitement en cours)."
+    "i-cant-provide": "Je ne suis pas en mesure de fournir un avis d’imposition car je n’ai pas encore reçu mon avis (ex. : première déclaration récente, traitement en cours).",
+    "only-this-case": "Seuls les cas suivants sont concernés :",
+    "tenant": {
+      "your-situation": "Votre situation :",
+      "have-no-tax-notice": "Vous n’avez pas d’avis d’impôt",
+      "not-received": "Vous n’avez pas encore reçu votre avis d’impôt",
+      "tax-not-available": "Vous avez fait {0} récemment, l’avis d’impôt n’est pas encore disponible.",
+      "first-declaration": "votre première déclaration",
+    },
+    "guarantor": {
+      "your-situation": "La situation de votre garant :",
+      "have-no-tax-notice": "Votre garant n’a pas d’avis d’impôt",
+      "not-received": "Votre garant n’a pas encore reçu son avis d’impôt",
+      "tax-not-available": "Votre garant a fait {0} récemment, l’avis d’impôt n’est pas encore disponible.",
+      "first-declaration": "sa première déclaration",
+    }
   }
 }
 </i18n>

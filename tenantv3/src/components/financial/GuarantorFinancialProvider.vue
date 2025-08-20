@@ -8,10 +8,14 @@ import { computed, provide } from 'vue'
 import { financialKey } from '@/components/financial/financialState'
 import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
 import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
+import { makeGuarantorTaxLink } from '../tax/lib/taxLink'
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
 const mainActivityLink = computed(() =>
   store.selectedGuarantor ? makeGuarantorActivityLink(store.selectedGuarantor) : '/liste-garants'
+)
+const taxLink = computed(() =>
+  store.guarantor ? makeGuarantorTaxLink(store.guarantor) : `/info-garant/5/${guarantorId.value}`
 )
 
 provide(financialKey, {
@@ -19,7 +23,7 @@ provide(financialKey, {
   textKey: 'guarantor',
   documents: computed(() => store.guarantorFinancialDocuments),
   previousStep: mainActivityLink.value,
-  nextStep: `/info-garant/5/${guarantorId.value}`,
+  nextStep: taxLink.value,
   recap: { name: 'GuarantorFinancial' },
   userId: store.user.id,
   action: 'saveGuarantorFinancial',

@@ -20,6 +20,7 @@ import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/make
 import { useLink } from 'vue-router'
 import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { makeGuarantorIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
+import { makeGuarantorTaxLink } from '@/components/tax/lib/taxLink'
 
 const props = defineProps<{
   guarantor: Guarantor
@@ -35,6 +36,9 @@ const to = computed(() => {
   }
   if (props.documentType === DocumentType.PROFESSIONAL) {
     return makeGuarantorActivityLink(props.guarantor)
+  }
+  if (props.documentType === DocumentType.TAX) {
+    return makeGuarantorTaxLink(props.guarantor)
   }
   return undefined
 })

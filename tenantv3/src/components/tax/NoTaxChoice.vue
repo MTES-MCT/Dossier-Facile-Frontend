@@ -1,17 +1,17 @@
 <template>
-  <p>{{ t('choose-situation') }}</p>
-  <BackLinkRow :label="t('you-have-no-tax-notice')" :to="parent" />
+  <p>{{ t(textKey + '.choose-situation') }}</p>
+  <BackLinkRow :label="t(textKey + '.have-no-tax-notice')" :to="parent" />
   <RadioList>
     <RadioListItem :to="here + '/parents'" @click="sendEvent('parents')"
-      >{{ t('parents') }}
+      >{{ t(textKey + '.parents') }}
       <HintText>{{ t('parents-text') }}</HintText>
     </RadioListItem>
     <RadioListItem :to="here + '/sans-declaration'" @click="sendEvent('no-declaration')"
-      >{{ t('no-declaration') }}
+      >{{ t(textKey + '.no-declaration') }}
       <HintText>{{ t('no-declaration-text') }}</HintText>
     </RadioListItem>
     <RadioListItem :to="here + '/pas-recu'" @click="sendEvent('not-received')"
-      >{{ t('not-received') }}
+      >{{ t(textKey + '.not-received') }}
       <HintText>{{ t('not-received-text') }}</HintText>
     </RadioListItem>
     <RadioListItem :to="here + '/autre'" @click="sendEvent('other')"
@@ -41,6 +41,7 @@ const { t } = useI18n()
 const route = useRoute()
 const taxState = useTaxState()
 const parent = useParentRoute()
+const { textKey } = useTaxState()
 
 const here = computed(() => route.path)
 
@@ -51,28 +52,46 @@ const sendEvent = (subcategory: string) =>
 <i18n>
 {
   "en": {
-    "choose-situation": "Select the situation that applies to you:",
-    "you-have-no-tax-notice": "You have no tax notice",
-    "parents": "You are registered on your parents' tax return",
     "parents-text": "Student, dependent on the parents",
-    "no-declaration": "You have not yet made your first tax return",
     "no-declaration-text": "First job",
-    "not-received": "You have not yet received your tax notice",
     "not-received-text": "First tax return",
     "other-situation": "Other situation",
     "other-situation-text": "European official, foreign student",
+    "tenant": {
+      "choose-situation": "Select the situation that applies to you:",
+      "you-have-no-tax-notice": "You have no tax notice",
+      "parents": "You are registered on your parents' tax return",
+      "no-declaration": "You have not yet made your first tax return",
+      "not-received": "You have not yet received your tax notice",
+    },
+    "guarantor": {
+      "choose-situation": "Select the situation of your guarantor:",
+      "you-have-no-tax-notice": "Your guarantor has no tax notice",
+      "parents": "Your guarantor is registered on their parents' tax return",
+      "no-declaration": "Your guarantor has not yet made their first tax return",
+      "not-received": "Your guarantor has not yet received their tax notice",
+    }
   },
   "fr": {
-    "choose-situation": "Choisissez la situation qui correspond à votre cas :",
-    "you-have-no-tax-notice": "Vous n’avez pas d’avis d’impôt",
-    "parents": "Vous êtes inscrit sur la déclaration d’impôt de vos parents",
     "parents-text": "Étudiant, à charge des parents",
-    "no-declaration": "Vous n’avez pas encore fait votre première déclaration",
     "no-declaration-text": "Premier emploi",
-    "not-received": "Vous n’avez pas encore reçu votre avis d’impôt",
     "not-received-text": "Première déclaration",
     "other-situation": "Autre situation",
     "other-situation-text": "Fonctionnaire européen, étudiant étranger",
+    "tenant": {
+      "choose-situation": "Choisissez la situation qui correspond à votre cas :",
+      "have-no-tax-notice": "Vous n’avez pas d’avis d’impôt",
+      "parents": "Vous êtes inscrit sur la déclaration d’impôt de vos parents",
+      "no-declaration": "Vous n’avez pas encore fait votre première déclaration",
+      "not-received": "Vous n’avez pas encore reçu votre avis d’impôt",
+    },
+    "guarantor": {
+      "choose-situation": "Choisissez la situation de votre garant :",
+      "have-no-tax-notice": "Votre garant n’a pas d’avis d’impôt",
+      "parents": "Votre garant est inscrit sur la déclaration d’impôt de ses parents",
+      "no-declaration": "Votre garant n’a pas encore fait sa première déclaration",
+      "not-received": "Votre garant n’a pas encore reçu son avis d’impôt",
+    }
   }
 }
 </i18n>
