@@ -10,9 +10,11 @@
               v-slot="{ field, meta }"
               v-model="declaration"
               name="declaration"
+              type="checkbox"
               :rules="{
                 isTrue: true
               }"
+              :value="true"
             >
               <input
                 id="declaration"
@@ -35,9 +37,11 @@
                 v-slot="{ field, meta }"
                 v-model="declaration2"
                 name="declaration2"
+                type="checkbox"
                 :rules="{
                   isTrue: true
                 }"
+                :value="true"
               >
                 <input
                   id="declaration2"

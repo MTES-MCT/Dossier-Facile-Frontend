@@ -9,7 +9,9 @@
                 v-slot="{ field, meta }"
                 v-model="localSpouseAuthorize"
                 name="authorize"
+                type="checkbox"
                 :rules="{ isTrue: true }"
+                :value="true"
               >
                 <div class="fr-checkbox-group bg-purple">
                   <input
@@ -37,7 +39,9 @@
                 v-slot="{ field, meta }"
                 v-model="localCoTenantAuthorize"
                 name="authorize"
+                type="checkbox"
                 :rules="{ isTrue: true }"
+                :value="true"
               >
                 <div class="fr-checkbox-group bg-purple">
                   <input
