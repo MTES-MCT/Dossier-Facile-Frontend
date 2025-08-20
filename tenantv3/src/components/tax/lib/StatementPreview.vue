@@ -29,11 +29,20 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useTaxState } from './taxState'
 
 const store = useTenantStore()
 const { t } = useI18n()
+const { category } = useTaxState()
 
-const name = computed(() => UtilsService.tenantFullName(store.user))
+const name = computed(() => {
+  switch (category) {
+    case 'tax':
+      return UtilsService.tenantFullName(store.user)
+    case 'guarantor-tax':
+      return store.guarantor ? UtilsService.guarantorFullName(store.guarantor) : ''
+  }
+})
 const date = dayjs().format('DD/MM/YYYY')
 
 const showPreview = ref(false)

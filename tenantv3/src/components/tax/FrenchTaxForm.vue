@@ -1,8 +1,8 @@
 <template>
-  <p>{{ t('your-situation') }}</p>
-  <BackLinkRow :label="t('you-have-a-tax-notice')" :to="grandParent" />
+  <p>{{ t(textKey + '.your-situation') }}</p>
+  <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="grandParent" />
   <BackLinkRow :label="t('french')" :to="parent" />
-  <i18n-t tag="p" keypath="add-tax-notice">
+  <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
     <strong>{{ t('this-year-tax', [taxYear, taxYear - 1]) }}</strong>
   </i18n-t>
   <p>
@@ -10,7 +10,7 @@
     {{ t('does-not-replace') }}
   </p>
   <div class="fr-highlight fr-ml-0 fr-mb-3w">
-    <i18n-t tag="p" keypath="download-tax-notice" class="fr-mb-0">
+    <i18n-t tag="p" :keypath="textKey + '.download-tax-notice'" class="fr-mb-0">
       <a href="https://www.impots.gouv.fr" target="_blank">impots.gouv.fr</a>
     </i18n-t>
   </div>
@@ -54,10 +54,12 @@ import { ref } from 'vue'
 import avisOK from '@/assets/exemple avis ok.png'
 import avisKO from '@/assets/exemple avis ko.png'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
+import { useTaxState } from './lib/taxState'
 
 const { t } = useI18n()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
+const { textKey } = useTaxState()
 
 const showModal = ref(false)
 </script>
@@ -85,15 +87,23 @@ const showModal = ref(false)
 <i18n>
 {
   "en": {
-    "your-situation": "Your situation:",
-    "you-have-a-tax-notice": "You have a tax notice",
     "french": "french",
-    "add-tax-notice": "Add your {0}. All pages are mandatory, even if the amount to be paid is 0€.",
     "this-year-tax": "{0} income tax notice of {1} or full non-taxation",
     "warning": "Warning:",
     "does-not-replace": "The declarative notice of situation does not replace a tax notice.",
-    "download-tax-notice": "Download your tax notice from your space on {0}",
     "see-which-doc": "See which document to choose?",
+    "tenant": {
+      "your-situation": "Your situation:",
+      "have-a-tax-notice": "You have a tax notice",
+      "add-tax-notice": "Add your {0}. All pages are mandatory, even if the amount to be paid is 0€.",
+      "download-tax-notice": "Download your tax notice from your space on {0}",
+    },
+    "guarantor": {
+      "your-situation": "Your guarantor's situation:",
+      "have-a-tax-notice": "Your guarantor has a tax notice",
+      "add-tax-notice": "Add the {0} of your guarantor. All pages are mandatory, even if the amount to be paid is 0€.",
+      "download-tax-notice": "Download their tax notice from their space on {0}",
+    },
     "modal": {
       "pay-attention-to-title": "Pay attention to the document title.",
       "refused-doc": "Document refused",
@@ -103,15 +113,23 @@ const showModal = ref(false)
     }
   },
   "fr": {
-    "your-situation": "Votre situation :",
-    "you-have-a-tax-notice": "Vous avez un avis d’impôt",
     "french": "français",
-    "add-tax-notice": "Ajoutez votre {0}. Toutes les pages sont obligatoires, même si le montant à payer est de 0 €.",
     "this-year-tax": "avis d'impôt {0} sur les revenus de {1} ou de non-imposition complet",
     "warning": "Attention :",
     "does-not-replace": "L’avis de situation déclarative ne remplace pas un avis d’impôt.",
-    "download-tax-notice": "Téléchargez votre avis d’impôt depuis votre espace sur {0}",
     "see-which-doc": "Voir quel document choisir ?",
+    "tenant": {
+      "your-situation": "Votre situation :",
+      "you-have-a-tax-notice": "Vous avez un avis d’impôt",
+      "add-tax-notice": "Ajoutez votre {0}. Toutes les pages sont obligatoires, même si le montant à payer est de 0 €.",
+      "download-tax-notice": "Téléchargez votre avis d’impôt depuis votre espace sur {0}",
+    },
+    "guarantor": {
+      "your-situation": "La situation de votre garant :",
+      "have-a-tax-notice": "Votre garant a un avis d’impôt",
+      "add-tax-notice": "Ajoutez l’{0} de votre garant. Toutes les pages sont obligatoires, même si le montant à payer est de 0 €.",
+      "download-tax-notice": "Téléchargez son avis d’impôt depuis son espace sur {0}",
+    },
     "modal": {
       "pay-attention-to-title": "Faites attention au titre du document.",
       "refused-doc": "Document refusé",

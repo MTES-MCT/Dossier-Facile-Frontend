@@ -1,7 +1,7 @@
 <template>
-  <p>{{ t('your-situation') }}</p>
-  <BackLinkRow :label="t('you-have-no-tax-notice')" :to="grandParent" />
-  <BackLinkRow :label="t('no-declaration')" :to="parent" />
+  <p>{{ t(textKey + '.your-situation') }}</p>
+  <BackLinkRow :label="t(textKey + '.have-no-tax-notice')" :to="grandParent" />
+  <BackLinkRow :label="t(textKey + '.no-declaration')" :to="parent" />
 
   <form class="honor-declaration-form">
     <div class="fr-checkbox-group fr-checkbox-group--sm">
@@ -27,11 +27,13 @@ import { ref, useId } from 'vue'
 import MandatoryDeclarationInfo from './lib/MandatoryDeclarationInfo.vue'
 import FirstDeclarationInfo from './lib/FirstDeclarationInfo.vue'
 import StatementPreview from '@/components/tax/lib/StatementPreview.vue'
+import { useTaxState } from './lib/taxState'
 
 const { t } = useI18n()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
 const formId = useId()
+const { textKey } = useTaxState()
 
 const attestChecked = ref(false)
 </script>
@@ -47,18 +49,32 @@ const attestChecked = ref(false)
 <i18n>
 {
   "en": {
-    "your-situation": "Your situation:",
-    "you-have-no-tax-notice": "You have no tax notice",
-    "no-declaration": "You have not yet made your first declaration",
     "i-attest": "I hereby certify that I cannot provide a document, and I understand that this information will be visible in my file.",
-    "i-cant-provide": "I am unable to provide a tax notice because I have not yet filed my first tax return."
+    "i-cant-provide": "I am unable to provide a tax notice because I have not yet filed my first tax return.",
+    "tenant": {
+      "your-situation": "Your situation:",
+      "have-no-tax-notice": "You have no tax notice",
+      "no-declaration": "You have not yet made your first declaration",
+    },
+    "guarantor": {
+      "your-situation": "Your guarantor's situation:",
+      "have-no-tax-notice": "Your guarantor has no tax notice",
+      "no-declaration": "Your guarantor has not yet made their first declaration",
+    }
   },
   "fr": {
-    "your-situation": "Votre situation :",
-    "you-have-no-tax-notice": "Vous n’avez pas d’avis d’impôt",
-    "no-declaration": "Vous n’avez pas encore fait votre première déclaration",
     "i-attest": "J’atteste sur l’honneur ne pas pouvoir fournir de document, et je comprends que cette information sera visible dans mon dossier.",
-    "i-cant-provide": "Je ne suis pas en mesure de fournir un avis d’imposition car je n’ai pas encore effectué ma première déclaration."
+    "i-cant-provide": "Je ne suis pas en mesure de fournir un avis d’imposition car je n’ai pas encore effectué ma première déclaration.",
+    "tenant": {
+      "your-situation": "Votre situation :",
+      "have-no-tax-notice": "Vous n’avez pas d’avis d’impôt",
+      "no-declaration": "Vous n’avez pas encore fait votre première déclaration",
+    },
+    "guarantor": {
+      "your-situation": "La situation de votre garant :",
+      "have-no-tax-notice": "Votre garant n’a pas d’avis d’impôt",
+      "no-declaration": "Votre garant n’a pas encore fait sa première déclaration",
+    }
   }
 }
 </i18n>

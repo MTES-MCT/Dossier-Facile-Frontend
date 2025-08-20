@@ -1,6 +1,6 @@
 <template>
-  <p>{{ t('choose-situation') }}</p>
-  <BackLinkRow :label="t('you-have-a-tax-notice')" :to="parent" />
+  <p>{{ t(textKey + '.choose-situation') }}</p>
+  <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="parent" />
   <RadioList>
     <RadioListItem :to="here + '/francais'" @click="sendEvent('french')"
       >{{ t('french-notice') }}
@@ -31,6 +31,7 @@ const { t } = useI18n()
 const route = useRoute()
 const taxState = useTaxState()
 const parent = useParentRoute()
+const { textKey } = useTaxState()
 
 const here = computed(() => route.path)
 
@@ -41,20 +42,32 @@ const sendEvent = (subcategory: string) =>
 <i18n>
 {
   "en": {
-    "choose-situation": "Select the situation that applies to you:",
-    "you-have-a-tax-notice": "You have a tax notice",
     "french-notice": "a french tax notice",
     "foreign-notice": "a foreign tax notice",
     "french-examples": "Single, married, civil partnership, divorced, etc.",
-    "foreign-examples": "Expatriate, "
+    "foreign-examples": "Expatriate, ",
+    "tenant": {
+      "choose-situation": "Select the situation that applies to you:",
+      "have-a-tax-notice": "You have a tax notice",
+    },
+    "guarantor": {
+      "choose-situation": "Select the situation of your guarantor:",
+      "have-a-tax-notice": "Your guarantor has a tax notice",
+    }
   },
   "fr": {
-    "you-have-a-tax-notice": "Vous avez un avis d’impôt",
-    "choose-situation": "Choisissez la situation qui correspond à votre cas :",
     "french-notice": "un avis d’impôt français",
     "foreign-notice": "un avis d’impôt étranger",
     "french-examples": "Célibataire, marié, pacsé, divorcé, …",
-    "foreign-examples": "Expatrié, "
+    "foreign-examples": "Expatrié, ",
+    "tenant": {
+      "have-a-tax-notice": "Vous avez un avis d’impôt",
+      "choose-situation": "Choisissez la situation qui correspond à votre cas :",
+    },
+    "guarantor": {
+      "have-a-tax-notice": "Votre garant a un avis d’impôt",
+      "choose-situation": "Choisissez la situation de votre garant :",
+    }
   }
 }
 </i18n>
