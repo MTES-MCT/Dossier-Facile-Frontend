@@ -1,10 +1,7 @@
-import type {
-  TaxCategory,
-  TaxCategoryStep
-} from '@/components/documents/share/DocumentTypeConstants'
+import type { TaxCategory } from '@/components/documents/share/DocumentTypeConstants'
 import { DocumentService } from '@/services/DocumentService'
 import { useTenantStore } from '@/stores/tenant-store'
-import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import type { DfDocument, TaxCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { computed } from 'vue'
 
@@ -39,7 +36,7 @@ function taxToPath(doc: DfDocument | undefined) {
   }
   const step = doc.documentCategoryStep
   if (isCategoryStep(step)) {
-    return STEP_TO_PATH[step]
+    return `/${STEP_TO_PATH[step]}`
   }
   return `/${CATEGORY_TO_PATH[category]}`
 }
