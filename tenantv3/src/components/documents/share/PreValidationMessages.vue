@@ -1,6 +1,6 @@
 <template>
-  <div v-if="brokenRules && brokenRules.length > 0" class="rules-container">
-    <template v-for="(b, k) in brokenRules" :key="k">
+  <div v-if="failedRules && failedRules.length > 0" class="rules-container">
+    <template v-for="(b, k) in failedRules" :key="k">
       <h6>{{ b.message }}</h6>
       <template v-if="isRuleWithCustomText(b.rule)">
         <p>{{ t(`prevalidation.${b.rule}.p1`) }}</p>
@@ -59,7 +59,7 @@ const submitButton = useTemplateRef('submit-btn')
 
 onMounted(() => {
   comment.value = props.document?.documentAnalysisReport?.comment || ''
-  if (brokenRules.value.find((r) => r.rule === 'R_RENT_RECEIPT_NB_DOCUMENTS')) {
+  if (failedRules.value.find((r) => r.rule === 'R_RENT_RECEIPT_NB_DOCUMENTS')) {
     AnalyticsService.warningRentReceipts()
   }
 })
@@ -70,15 +70,15 @@ const props = defineProps<{
 }>()
 
 const isSingleValidationRuleWithoutForm = computed(() => {
-  return brokenRules.value.length === 1 && brokenRules.value[0].rule === 'R_BLURRY_FILE'
+  return failedRules.value.length === 1 && failedRules.value[0].rule === 'R_BLURRY_FILE'
 })
 
 const customRegisterButtonLabel = computed(() =>
-  isSingleValidationRuleWithoutForm.value ? t(`register.${brokenRules.value[0].rule}`) : ''
+  isSingleValidationRuleWithoutForm.value ? t(`register.${failedRules.value[0].rule}`) : ''
 )
 
-const brokenRules = computed(() => {
-  return props.document?.documentAnalysisReport?.brokenRules || []
+const failedRules = computed(() => {
+  return props.document?.documentAnalysisReport?.failedRules || []
 })
 
 function commentAnalysis() {
