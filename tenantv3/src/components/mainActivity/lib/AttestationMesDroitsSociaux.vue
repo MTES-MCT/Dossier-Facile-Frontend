@@ -5,24 +5,26 @@
       <span class="hr-text"><strong>{{ t('or-label') }}</strong></span>
     </div>
     <div class="fr-mb-3w card-border">
-      <div class="fr-grid-row fr-grid-row--left fr-grid-row--middle">
-        <DsfrBadge type="new" :label="t('badge-new')" />
+      <div class="fr-grid-row space-between">
+        <DsfrBadge type="new" :label="t('badge-new')" small/>
         <strong class="fr-ml-2w">{{ t('title') }}</strong>
       </div>
       <div class="fr-mt-3w">
         <p>
-          <span aria-hidden="true" class="fr-mr-1w fr-icon-links-line fr-icon--sm"></span>
+          <span aria-hidden="true" class="fr-mr-1w fr-icon-links-line fr-icon--sm color--primary"></span>
           <strong>{{ t('desc') }}</strong>
         </p>
         <p>{{ t('desc2') }}</p>
-        <a class="fr-btn fr-btn--secondary" :href="PNDS_URL" target="_blank" rel="noopener noreferrer" @click="trackAttestationClick">{{ t('button') }}</a>
+        <div class="fr-grid-row fr-grid-row--center">
+          <a class="fr-btn fr-btn--secondary" :href="PNDS_URL" target="_blank" rel="noopener noreferrer" @click="trackAttestationClick">{{ t('button') }}</a>
+        </div>
       </div>
       <DsfrAccordionsGroup>
         <DsfrAccordion class="fr-mt-3w" :title="t('accordion-title')">
-          <ol>
-            <li>{{ t('accordion-item-1') }}</li>
-            <li>{{ t('accordion-item-2') }}</li>
-            <li>{{ t('accordion-item-3') }}</li>
+          <ol class="fr-p-0 fr-m-0">
+            <li class="fr-mt-1w">{{ t('accordion-item-1') }}</li>
+            <li class="fr-mt-1w">{{ t('accordion-item-2') }}</li>
+            <li class="fr-mt-1w">{{ t('accordion-item-3') }}</li>
           </ol>
         </DsfrAccordion>
       </DsfrAccordionsGroup>
@@ -65,6 +67,34 @@ const trackAttestationClick = (): void => {
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 0 1rem;
+}
+
+ol li {
+  counter-increment: item;
+  position: relative;
+  padding-left: 2rem;
+}
+
+ol li::marker {
+  content: none;
+}
+
+ol li::before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.rem;
+  font-weight: 500;
 }
 </style>
 
