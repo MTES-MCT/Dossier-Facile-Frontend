@@ -5,11 +5,15 @@ describe("flatmate tenant scenario", () => {
   const flatmateEmail = `coloc-${Math.floor(Math.random() * 10000)}@yopmail.fr`;
 
   beforeEach("reset account", () => {
-    cy.deleteAccount(user.username, user.password, UserType.TENANT);
+    cy.loginWithFCAndDeleteAccount(
+      user.username,
+      user.password,
+      UserType.TENANT
+    );
   });
 
   it("validate file", () => {
-    cy.tenantLogin(user.username, user.password);
+    cy.tenantLoginWithFC(user.username, user.password);
     cy.rejectCookies();
     cy.contains("Pour vous").click();
 

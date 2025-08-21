@@ -4,11 +4,15 @@ describe("accessibility checks", () => {
   const user = getTenantUser();
 
   beforeEach("reset account", () => {
-    cy.deleteAccount(user.username, user.password, UserType.TENANT);
+    cy.loginWithFCAndDeleteAccount(
+      user.username,
+      user.password,
+      UserType.TENANT
+    );
   });
 
   it("funnel accessibility", () => {
-    cy.tenantLogin(user.username, user.password);
+    cy.tenantLoginWithFC(user.username, user.password);
     cy.rejectCookies();
     cy.contains("Pour vous").click();
     cy.testAccessibility();

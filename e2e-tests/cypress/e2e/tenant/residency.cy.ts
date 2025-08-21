@@ -14,9 +14,13 @@ describe(
     before("reset account, login and setup", () => {
       cy.clearAllCookies();
       const user = getTenantUser();
-      cy.deleteAccount(user.username, user.password, UserType.TENANT);
+      cy.loginWithFCAndDeleteAccount(
+        user.username,
+        user.password,
+        UserType.TENANT
+      );
 
-      cy.tenantLogin(user.username, user.password);
+      cy.tenantLoginWithFC(user.username, user.password);
       cy.rejectCookies();
       cy.contains("Pour vous").click();
 
