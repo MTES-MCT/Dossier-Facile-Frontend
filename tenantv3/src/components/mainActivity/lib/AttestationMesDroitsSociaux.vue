@@ -93,7 +93,7 @@ ol li::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.rem;
+  font-size: 0.9rem;
   font-weight: 500;
 }
 </style>
