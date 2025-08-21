@@ -1,11 +1,5 @@
+import { getInputByLabel } from "../../support/commands/global";
 import { getTenantUser, UserType } from "../../support/users";
-
-function getInputByLabel(label: string) {
-  return cy
-    .contains(label)
-    .invoke("attr", "for")
-    .then((id) => cy.get("#" + id));
-}
 
 describe(
   "residency category",

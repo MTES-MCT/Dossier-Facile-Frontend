@@ -45,7 +45,8 @@ describe("accessibility checks", () => {
     cy.clickOnNext();
 
     cy.testAccessibility();
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
+    cy.contains("Vous avez un avis d’impôt").click();
+    cy.simpleUploadDocumentStep("un avis d’impôt français");
 
     cy.testAccessibility();
     cy.contains("Une personne").click().clickOnNext();
@@ -74,9 +75,8 @@ describe("accessibility checks", () => {
     cy.clickOnNext();
 
     cy.testAccessibility();
-    cy.simpleUploadDocumentStep(
-      "Votre garant a un avis d'imposition à son nom"
-    );
+    cy.contains("Votre garant a un avis d’impôt").click();
+    cy.simpleUploadDocumentStep("un avis d’impôt français");
 
     cy.testAccessibility();
     cy.clickOnNext();

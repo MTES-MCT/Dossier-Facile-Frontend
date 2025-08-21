@@ -55,9 +55,11 @@ describe("flatmate tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
-    cy.contains("Vous êtes rattaché fiscalement à vos parents")
-      .click()
-      .clickOnNext();
+    cy.contains("Vous n’avez pas d’avis d’impôt").click();
+    cy.contains(
+      "Vous êtes inscrit sur la déclaration d’impôt de vos parents"
+    ).click();
+    cy.contains("J’atteste sur l’honneur ne pas pouvoir").click().clickOnNext();
 
     cy.expectPath("/choix-garant");
     cy.contains("Une personne morale").click({ force: true }).clickOnNext();

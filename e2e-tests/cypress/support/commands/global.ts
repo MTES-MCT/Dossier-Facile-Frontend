@@ -89,3 +89,10 @@ function ignoreErrorsOnSsoPage() {
     });
   }
 }
+
+export function getInputByLabel(label: string) {
+  return cy
+    .contains(label)
+    .invoke("attr", "for")
+    .then((id) => cy.get("#" + id));
+}

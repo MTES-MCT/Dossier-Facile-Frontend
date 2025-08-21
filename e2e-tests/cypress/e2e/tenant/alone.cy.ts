@@ -63,7 +63,8 @@ describe("alone tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
+    cy.contains("Vous avez un avis d’impôt").click();
+    cy.simpleUploadDocumentStep("un avis d’impôt français");
 
     cy.expectPath("/choix-garant");
     cy.contains("Une personne").click().clickOnNext();
@@ -109,7 +110,8 @@ function createGuarantor(firstname: string, lastname: string) {
   cy.clickOnNext();
 
   cy.expectPath("/info-garant/5");
-  cy.simpleUploadDocumentStep("Votre garant a un avis d'imposition à son nom");
+  cy.contains("Votre garant a un avis d’impôt").click();
+  cy.simpleUploadDocumentStep("un avis d’impôt français");
 
   cy.expectPath("/liste-garants");
   cy.get("#step-content")
