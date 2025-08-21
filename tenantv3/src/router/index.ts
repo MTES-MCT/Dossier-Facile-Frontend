@@ -584,11 +584,6 @@ export const router = createRouter({
           ]
         },
         {
-          path: '6',
-          name: 'OldTenantTax',
-          component: () => import('@/components/documents/tenant/TenantTax.vue')
-        },
-        {
           path: '5',
           component: () => import('@/components/tax/TenantTax.vue'),
           children: [

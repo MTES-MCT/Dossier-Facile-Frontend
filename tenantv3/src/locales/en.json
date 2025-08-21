@@ -421,19 +421,6 @@
     "subtitle": "Please provide the information of the person whose name will appear on the lease agreement.",
     "franceconnect-account": "This account is identified with FranceConnect, and the names cannot be edited."
   },
-  "cotenanttax": {
-    "title": "My Co-tenant's Tax Notice",
-    "my-name": "I have a tax notice in my co-tenant's name",
-    "my-parents": "My co-tenant is financially dependent on their parents",
-    "less-than-year": "My co-tenant has been in France for less than a year",
-    "other-tax": "Other",
-    "accept-verification": "I agree that DossierFacile may perform an automated verification of my guarantor's tax document with the tax authorities",
-    "custom-text": "To improve your application, please explain below why you don't receive a tax notice. Your explanation will be added to your application:",
-    "situation": "What is their tax situation?",
-    "warning-no-accepted-doc": "Attention, the declarative statement of tax situation is not accepted.",
-    "goto-documentation": "View documentation",
-    "custom-text-required": "Please fill in the explanation field"
-  },
   "coupleinformationhelp": {
     "paragraph1": "By providing your co-tenant's email address, they will be invited to contribute to the creation of your joint application. With their own email and password, they will have the ability to log into your joint application and add, modify, or delete any document, both their personal documents and yours.",
     "paragraph2": "Attention! Your personal documents and their personal documents will be processed separately by DossierFacile. You can submit and have them validated independently. However, your joint application will only be validated as a whole once both your documents and their documents have been validated by DossierFacile. You will then have a single shared link for your entire joint application.",
@@ -458,16 +445,6 @@
     "title": "Account Deletion",
     "confirm-delete": "Please confirm the complete deletion of the account",
     "try-again": "Unable to delete your account. Please try again. If the problem persists, please contact us."
-  },
-  "documentdownloader": {
-    "files": "Documents",
-    "will-delete-files": "Warning, a change in your situation will delete the supporting documents. You will need to upload the documents again.",
-    "register": "Save Document",
-    "validate": "Validate",
-    "cancel": "Cancel",
-    "field-required": "This field is required",
-    "warning-no-document-and-files": "You cannot have files selected and indicate that you cannot provide all the files. Please uncheck the box or remove your files.",
-    "noDocument-default": "I cannot provide the requested documents"
   },
   "documenthelp": {
     "title": "Help",
@@ -680,21 +657,6 @@
     "VALIDATED": "is verified",
     "DECLINED": "requires modification",
     "INCOMPLETE": "is incomplete"
-  },
-  "guarantortax": {
-    "custom-text": "To improve your application, please explain below why you do not receive a tax notice. Your explanation will be added to your application:",
-    "files": "Documents",
-    "register": "Save",
-    "field-required": "This field is required",
-    "will-delete-files": "Attention, a change in your situation will result in the deletion of your documents. You will need to upload the corresponding documents again.",
-    "title": "Tax Notice of my Guarantor",
-    "title-cotenant": "Tax Notice of their Guarantor",
-    "situation": "What is their tax situation?",
-    "warning-no-accepted-doc": "Attention, the declaration of tax situation is not accepted.",
-    "goto-documentation": "View documentation",
-    "my-name-cotenant": "I have a tax notice in the guarantor's name",
-    "less-than-year-cotenant": "The guarantor has been in France for less than a year",
-    "other-tax-cotenant": "Other"
   },
   "identification-page": {
     "files": "Documents",
@@ -930,25 +892,6 @@
     "title": "Help",
     "paragraph1": "You can now <b>download a tax notice from <a target='_blank' href='https://www.impots.gouv.fr'>www.impots.gouv.fr</a></b>",
     "paragraph2": "If your document is too large, we recommend scanning it (using a free smartphone application, for example).<br> If that doesn't work, contact us by email at <a href='mailto:contact{'@'}dossierfacile.logement.gouv.fr'>contact{'@'}dossierfacile.logement.gouv.fr</a>, and we will do our best to respond as quickly as possible!"
-  },
-  "tax-page": {
-    "my-name": "You have a tax notice in your name",
-    "my-parents": "You are tax dependant on your parents",
-    "less-than-year": "You have been in France for less than a year",
-    "other-tax": "Other",
-    "accept-verification": "I agree that DossierFacile performs an automated verification of my tax notice with the tax authorities",
-    "custom-text": "To improve your file, please explain below why you don't receive a tax notice. Your explanation will be added to your file:",
-    "files": "Documents",
-    "register": "Register",
-    "field-required": "This field is required",
-    "will-delete-files": "Attention, changing your situation will delete your supporting documents. You will need to upload the documents corresponding to your new situation again.",
-    "title": "My tax notice",
-    "warning-no-accepted-doc": "Warning, the declarative situation notice is not accepted.",
-    "goto-documentation": "View documentation",
-    "avis-detected": "Declarative Situation Notice Detected",
-    "avis-text1": "You have provided a declarative statement notice (see document title). This document is not valid. Please replace it with your tax assessment notice.",
-    "avis-btn": "Submit a valid document",
-    "avis-link-to-doc": "Need help ? Go to documentation"
   },
   "tenantguarantorchoice": {
     "cotenant-guarantor": "His/her guarantor",

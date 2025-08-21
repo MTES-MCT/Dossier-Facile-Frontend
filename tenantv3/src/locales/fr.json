@@ -425,19 +425,6 @@
     "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location.",
     "franceconnect-account": "Ce compte est identifié avec FranceConnect, les noms et prénoms ne sont pas éditables."
   },
-  "cotenanttax": {
-    "title": "L'avis d'imposition de votre conjoint",
-    "my-name": "Votre conjoint a un avis d’imposition à son nom",
-    "my-parents": "Votre conjoint est rattaché fiscalement à ses parents",
-    "less-than-year": "Votre conjoint est en France depuis moins d'un an",
-    "other-tax": "Autre situation",
-    "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de la fiche d'imposition de mon garant auprès des services des impôts",
-    "custom-text": "Merci d’expliquer ici la raison pour laquelle vous ne pouvez pas fournir d’avis d’imposition. Votre explication sera ajoutée à votre dossier :",
-    "situation": "Quelle est sa situation fiscale ?",
-    "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
-    "goto-documentation": "Consulter la documentation",
-    "custom-text-required": "Veuillez remplir le champs d'explication"
-  },
   "coupleinformationhelp": {
     "paragraph1": "En renseignant l’adresse email de votre conjoint, celui-ci sera invité à contribuer à la constitution de votre dossier commun. Avec ses propres identifiants email et mot de passe, il aura la possibilité de se connecter à votre dossier commun et d'ajouter, modifier ou supprimer toute pièce du dossier, ses pièces personnelles comme les vôtres.",
     "paragraph2": "Attention ! Vos pièces personnelles et ses pièces personnelles seront traitées séparément par DossierFacile. Vous pouvez ainsi les déposer et les faire valider indépendamment. Néanmoins, votre dossier commun ne sera validé dans son ensemble que lorsque vos pièces et ses pièces auront été validées par DossierFacile. Vous disposerez alors d'un unique lien de partage pour l'ensemble de votre dossier commun.",
@@ -462,16 +449,6 @@
     "title": "Suppression de compte",
     "confirm-delete": "Veuillez confirmer la suppression complète du compte",
     "try-again": "Impossible de supprimer votre compte. Veuillez réessayer. Si le problème persiste, contactez-nous."
-  },
-  "documentdownloader": {
-    "files": "Documents",
-    "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
-    "register": "Enregistrer la pièce",
-    "validate": "Valider",
-    "cancel": "Annuler",
-    "field-required": "Ce champ est requis",
-    "warning-no-document-and-files": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
-    "noDocument-default": "Je ne peux pas fournir les justificatifs demandés"
   },
   "documenthelp": {
     "title": "Aide",
@@ -681,24 +658,6 @@
     "VALIDATED": "est vérifié",
     "DECLINED": "nécessite une modification",
     "INCOMPLETE": "est non terminé"
-  },
-  "guarantortax": {
-    "custom-text": "Merci d’expliquer ici la raison pour laquelle vous ne pouvez pas fournir d’avis d’imposition. Votre explication sera ajoutée à votre dossier :",
-    "files": "Documents",
-    "register": "Enregistrer",
-    "field-required": "Ce champ est requis",
-    "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "title": "L'avis d'imposition de votre garant",
-    "title-cotenant": "L'avis d'imposition de son garant",
-    "situation": "Quelle est sa situation fiscale ?",
-    "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
-    "goto-documentation": "Consulter la documentation",
-    "my-name": "Votre garant a un avis d'imposition à son nom",
-    "less-than-year": "Votre garant est en France depuis moins d'un an",
-    "other-tax": "Autre situation",
-    "my-name-cotenant": "Son garant a un avis d'imposition à son nom",
-    "less-than-year-cotenant": "Son garant est en France depuis moins d'un an",
-    "other-tax-cotenant": "Autre situation"
   },
   "identification-page": {
     "files": "Documents",
@@ -933,20 +892,6 @@
     "title": "Aide",
     "paragraph1": "Vous pouvez désormais <b>télécharger un avis d’imposition sur <a target='_blank' href='https://www.impots.gouv.fr'>www.impots.gouv.fr</a></b>",
     "paragraph2": "Si votre pièce est trop lourde, nous vous conseillons de scanner votre pièce (avec une application gratuite pour smartphone par exemple).<br> Si cela ne suffit pas, contactez-nous par mail à l’adresse <a href='mailto:contact{'@'}dossierfacile.logement.gouv.fr'>contact{'@'}dossierfacile.logement.gouv.fr</a>, nous nous efforcerons de répondre au plus vite !"
-  },
-  "tax-page": {
-    "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-    "custom-text": "Merci d’expliquer ici la raison pour laquelle vous ne pouvez pas fournir d’avis d’imposition. Votre explication sera ajoutée à votre dossier :",
-    "files": "Documents",
-    "register": "Enregistrer",
-    "field-required": "Ce champ est requis",
-    "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "title": "Votre avis d'imposition",
-    "warning-no-accepted-doc": "<p><strong>L’avis de situation déclarative n’est pas un avis d’imposition, il sera donc systématiquement refusé.</strong></p><p>Regardez bien le titre du document que vous transmettez ! Il s’agit d’une <a href='https://aide.dossierfacile.logement.gouv.fr/fr/article/5-avis-dimposition-eg82wt/' target='_blank' rel='noopener'>erreur très courante</a>.</p>",
-    "avis-detected": "Avis de situation déclarative détecté",
-    "avis-text1": "Vous avez fourni un avis de situation déclarative (voir titre du document). Ce document n’est pas valide. Merci de le remplacer par votre avis d’imposition.",
-    "avis-btn": "Déposer votre avis d’imposition",
-    "avis-link-to-doc": "Besoin d'aide ? Consultez notre aide en ligne"
   },
   "tenantguarantorchoice": {
     "identification": "Pièce d’identité",

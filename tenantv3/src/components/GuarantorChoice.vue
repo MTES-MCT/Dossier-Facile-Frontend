@@ -129,21 +129,9 @@ function gotoVisale() {
 </script>
 
 <style scoped lang="scss">
-.remark {
-  background-color: #e5e5f4;
-  padding: 1rem;
-  border-radius: 0.25rem;
-}
-
 .logo-visale {
   width: 138px;
   height: 45px;
   margin-bottom: 1rem;
-}
-
-.width--fit-content {
-  @media all and (min-width: 768px) {
-    width: fit-content;
-  }
 }
 </style>
