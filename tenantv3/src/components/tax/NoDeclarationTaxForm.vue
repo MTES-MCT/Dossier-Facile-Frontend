@@ -57,7 +57,12 @@ const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NO_DECLA
       "your-situation": "Your spouse's situation:",
       "have-no-tax-notice": "Your spouse has no tax notice",
       "no-declaration": "Your spouse has not yet made their first declaration",
-    }
+    },
+    "couple-guarantor": {
+      "your-situation": "Their guarantor's situation:",
+      "have-no-tax-notice": "Their guarantor has no tax notice",
+      "no-declaration": "Their guarantor has not yet made their first declaration",
+    },
   },
   "fr": {
     "i-attest": "J’atteste sur l’honneur ne pas pouvoir fournir de document, et je comprends que cette information sera visible dans mon dossier.",
@@ -76,7 +81,12 @@ const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NO_DECLA
       "your-situation": "La situation de votre conjoint :",
       "have-no-tax-notice": "Votre conjoint n’a pas d’avis d’impôt",
       "no-declaration": "Votre conjoint n’a pas encore fait sa première déclaration",
-    }
+    },
+    "couple-guarantor": {
+      "your-situation": "La situation de son garant :",
+      "have-no-tax-notice": "Son garant n’a pas d’avis d’impôt",
+      "no-declaration": "Son garant n’a pas encore fait sa première déclaration",
+    },
   }
 }
 </i18n>

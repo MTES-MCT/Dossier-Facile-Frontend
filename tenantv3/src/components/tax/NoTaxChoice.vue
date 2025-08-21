@@ -77,7 +77,14 @@ const sendEvent = (subcategory: string) =>
       "parents": "Your spouse is registered on their parents' tax return",
       "no-declaration": "Your spouse has not yet made their first tax return",
       "not-received": "Your spouse has not yet received their tax notice",
-    }
+    },
+    "couple-guarantor": {
+      "choose-situation": "Select the situation of their guarantor:",
+      "you-have-no-tax-notice": "Their guarantor has no tax notice",
+      "parents": "Their guarantor is registered on their parents' tax return",
+      "no-declaration": "Their guarantor has not yet made their first tax return",
+      "not-received": "Their guarantor has not yet received their tax notice",
+    },
   },
   "fr": {
     "parents-text": "Étudiant, à charge des parents",
@@ -105,7 +112,14 @@ const sendEvent = (subcategory: string) =>
       "parents": "Votre conjoint est inscrit sur la déclaration d’impôt de ses parents",
       "no-declaration": "Votre conjoint n’a pas encore fait sa première déclaration",
       "not-received": "Votre conjoint n’a pas encore reçu son avis d’impôt",
-    }
+    },
+    "couple-guarantor": {
+      "choose-situation": "Choisissez la situation de son garant :",
+      "have-no-tax-notice": "Son garant n’a pas d’avis d’impôt",
+      "parents": "Son garant est inscrit sur la déclaration d’impôt de ses parents",
+      "no-declaration": "Son garant n’a pas encore fait sa première déclaration",
+      "not-received": "Son garant n’a pas encore reçu son avis d’impôt",
+    },
   }
 }
 </i18n>

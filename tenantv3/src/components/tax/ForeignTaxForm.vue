@@ -63,7 +63,14 @@ const { textKey } = useTaxState()
       "add-last-tax-notice": "Add their last tax notice issued by their country of residence.",
       "personal-information": "Their personal information",
       "declared-income": "Their declared income",
-    }
+    },
+    "couple-guarantor": {
+      "your-situation": "Their guarantor's situation:",
+      "have-a-tax-notice": "Their guarantor has a tax notice",
+      "add-last-tax-notice": "Add their last tax notice issued by their country of residence.",
+      "personal-information": "Their personal information",
+      "declared-income": "Their declared income",
+    },
   },
   "fr": {
     "foreign": "étranger",
@@ -91,7 +98,14 @@ const { textKey } = useTaxState()
       "add-last-tax-notice": "Ajoutez le dernier avis d’imposition de votre conjoint délivré par son pays de résidence.",
       "personal-information": "Ses informations personnelles",
       "declared-income": "Ses revenus déclarés",
-    }
+    },
+    "couple-guarantor": {
+      "your-situation": "La situation de son garant :",
+      "have-a-tax-notice": "Son garant a un avis d’impôt",
+      "add-last-tax-notice": "Ajoutez le dernier avis d’imposition de son garant délivré par son pays de résidence.",
+      "personal-information": "Ses informations personnelles",
+      "declared-income": "Ses revenus déclarés",
+    },
   }
 }
 </i18n>

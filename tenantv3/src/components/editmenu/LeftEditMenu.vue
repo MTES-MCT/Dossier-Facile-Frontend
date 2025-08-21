@@ -265,6 +265,7 @@
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.TAX"
+                :to="makeTaxLink(g)"
               />
             </div>
           </div>
@@ -333,6 +334,7 @@ import {
   makeSpouseGuarantorIdDocLink,
   useIdentityDocumentLink
 } from '../identityDocument/lib/identityDocumentLink'
+import { makeSpouseGuarantorTaxLink } from '../tax/lib/taxLink'
 
 const store = useTenantStore()
 const route = useRoute()
@@ -439,6 +441,10 @@ function makeResidencyLink(g: Guarantor) {
 
 function makeProfessionalLink(g: Guarantor) {
   return makeGuarantorCoupleActivityLink(g, coTenants.value[0].id)
+}
+
+function makeTaxLink(g: Guarantor) {
+  return makeSpouseGuarantorTaxLink(g, coTenants.value[0].id)
 }
 </script>
 

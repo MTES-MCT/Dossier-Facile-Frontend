@@ -57,7 +57,11 @@ const sendEvent = (subcategory: string) =>
     "couple": {
       "choose-situation": "Select the situation of your spouse:",
       "have-a-tax-notice": "Your spouse has a tax notice",
-    }
+    },
+    "couple-guarantor": {
+      "choose-situation": "Select the situation of their guarantor:",
+      "have-a-tax-notice": "Their guarantor has a tax notice",
+    },
   },
   "fr": {
     "french-notice": "un avis d’impôt français",
@@ -75,7 +79,11 @@ const sendEvent = (subcategory: string) =>
     "couple": {
       "have-a-tax-notice": "Votre conjoint a un avis d’impôt",
       "choose-situation": "Choisissez la situation de votre conjoint :",
-    }
+    },
+    "couple-guarantor": {
+      "have-a-tax-notice": "Son garant a un avis d’impôt",
+      "choose-situation": "Choisissez la situation de son garant :",
+    },
   }
 }
 </i18n>

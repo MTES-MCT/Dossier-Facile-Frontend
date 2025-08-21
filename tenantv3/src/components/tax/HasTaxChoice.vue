@@ -52,7 +52,12 @@ const sendEvent = (subcategory: string) => AnalyticsService.selectSituation('tax
       "choose-situation": "Select the situation of your spouse:",
       "have-a-tax-notice": "Your spouse has a tax notice",
       "have-no-tax-notice": "Your spouse doesn't have a tax notice",
-    }
+    },
+    "couple-guarantor": {
+      "choose-situation": "Select the situation of their guarantor:",
+      "have-a-tax-notice": "Their guarantor has a tax notice",
+      "have-no-tax-notice": "Their guarantor doesn't have a tax notice",
+    },
   },
   "fr": {
     "french-or-foreign": "Français ou étranger",
@@ -71,6 +76,11 @@ const sendEvent = (subcategory: string) => AnalyticsService.selectSituation('tax
       "choose-situation": "Choisissez la situation de votre conjoint :",
       "have-a-tax-notice": "Votre conjoint a un avis d’impôt",
       "have-no-tax-notice": "Votre conjoint n’a pas d’avis d’impôt",
+    },
+    "couple-guarantor": {
+      "choose-situation": "Choisissez la situation de son garant :",
+      "have-a-tax-notice": "Son garant a un avis d’impôt",
+      "have-no-tax-notice": "Son garant n’a pas d’avis d’impôt",
     }
   }
 }

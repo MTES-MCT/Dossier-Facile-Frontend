@@ -26,7 +26,10 @@ const { textKey } = useTaxState()
     },
     "couple": {
       "declaration-text": "The declaration is mandatory from 18 years old if your spouse has income (salaries, internships, allowances...) and they are no longer attached to their parents' tax household.",
-    }
+    },
+    "couple-guarantor": {
+      "declaration-text": "The declaration is mandatory from 18 years old if their guarantor has income (salaries, internships, allowances...) and they are no longer attached to their parents' tax household.",
+    },
   },
   "fr": {
     "mandatory-declaration": "Déclaration obligatoire dès 18 ans",
@@ -38,7 +41,10 @@ const { textKey } = useTaxState()
     },
     "couple": {
       "declaration-text": "La déclaration est obligatoire dès 18 ans si votre conjoint a des revenus (salaires, stages, allocations...) et qu’il n’est plus rattaché au foyer fiscal de ses parents.",
-    }
+    },
+    "couple-guarantor": {
+      "declaration-text": "La déclaration est obligatoire dès 18 ans si son garant a des revenus (salaires, stages, allocations...) et qu’il n’est plus rattaché au foyer fiscal de ses parents.",
+    },
   }
 }
 </i18n>

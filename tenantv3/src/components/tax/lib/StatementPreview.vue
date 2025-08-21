@@ -40,6 +40,7 @@ const name = computed(() => {
     case 'tax':
       return UtilsService.tenantFullName(store.user)
     case 'guarantor-tax':
+    case 'couple-guarantor-tax':
       return store.guarantor ? UtilsService.guarantorFullName(store.guarantor) : ''
     case 'couple-tax':
       const tenant = store.coTenants.at(0)

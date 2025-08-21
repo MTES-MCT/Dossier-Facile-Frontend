@@ -75,7 +75,13 @@ const showUpload = ref((document.value?.files?.length || 0) > 0)
       "have-no-tax-notice": "Your spouse has no tax notice",
       "describe-situation": "Describe their situation. The explanation will be added to your file.",
       "you-can-add-docs": "You can add any document that can demonstrate or justify their situation.",
-    }
+    },
+    "couple-guarantor": {
+      "your-situation": "Their guarantor's situation:",
+      "have-no-tax-notice": "Their guarantor has no tax notice",
+      "describe-situation": "Describe their situation. The explanation will be added to your file.",
+      "you-can-add-docs": "You can add any document that can demonstrate or justify their situation.",
+    },
   },
   "fr": {
     "other-situation": "Autre situation",
@@ -98,7 +104,13 @@ const showUpload = ref((document.value?.files?.length || 0) > 0)
       "have-no-tax-notice": "Votre conjoint n’a pas d’avis d’impôt",
       "describe-situation": "Décrivez sa situation. L’explication sera ajoutée à votre dossier.",
       "you-can-add-docs": "Vous pouvez ajouter tout document pouvant démontrer ou justifier sa situation.",
-    }
+    },
+    "couple-guarantor": {
+      "your-situation": "La situation de son garant :",
+      "have-no-tax-notice": "Son garant n’a pas d’avis d’impôt",
+      "describe-situation": "Décrivez sa situation. L’explication sera ajoutée à votre dossier.",
+      "you-can-add-docs": "Vous pouvez ajouter tout document pouvant démontrer ou justifier sa situation.",
+    },
   }
 }
 </i18n>

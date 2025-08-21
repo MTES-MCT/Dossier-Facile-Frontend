@@ -51,12 +51,17 @@ const attestChecked = ref(document.value?.documentSubCategory === 'MY_PARENTS')
     "guarantor": {
       "your-situation": "Your guarantor's situation:",
       "have-no-tax-notice": "Your guarantor has no tax notice",
-      "parents-declaration": "Your guarantor is registered on your parents' tax return",
+      "parents-declaration": "Your guarantor is registered on their parents' tax return",
     },
     "couple": {
       "your-situation": "Your spouse's situation:",
       "have-no-tax-notice": "Your spouse has no tax notice",
-      "parents-declaration": "Your spouse is registered on your parents' tax return",
+      "parents-declaration": "Your spouse is registered on their parents' tax return",
+    },
+    "couple-guarantor": {
+      "your-situation": "Their guarantor's situation:",
+      "have-no-tax-notice": "Their guarantor has no tax notice",
+      "parents-declaration": "Their guarantor is registered on their parents' tax return",
     },
   },
   "fr": {
@@ -76,6 +81,11 @@ const attestChecked = ref(document.value?.documentSubCategory === 'MY_PARENTS')
       "your-situation": "La situation de votre conjoint :",
       "have-no-tax-notice": "Votre conjoint n’a pas d’avis d’impôt",
       "parents-declaration": "Votre conjoint est inscrit sur la déclaration d’impôt de ses parents",
+    },
+    "couple-guarantor": {
+      "your-situation": "La situation de son garant :",
+      "have-no-tax-notice": "Son garant n’a pas d’avis d’impôt",
+      "parents-declaration": "Son garant est inscrit sur la déclaration d’impôt de ses parents",
     },
   }
 }

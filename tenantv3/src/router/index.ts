@@ -901,9 +901,15 @@ export const router = createRouter({
         },
         {
           path: '5',
-          name: 'TenantGuarantorTax',
-          component: () => import('@/components/documents/naturalGuarantor/GuarantorTax.vue'),
-          props: (route) => ({ isCotenant: true, tenantId: Number(route.params.tenantId) })
+          component: () => import('@/components/tax/SpouseGuarantorTax.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantGuarantorTax',
+              component: () => import('@/components/tax/HasTaxChoice.vue')
+            },
+            ...TAX_ROUTES
+          ]
         }
       ]
     },
