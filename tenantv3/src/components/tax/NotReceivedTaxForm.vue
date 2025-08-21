@@ -62,6 +62,13 @@ const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NOT_RECE
       "not-received": "Your guarantor has not yet received their tax notice",
       "tax-not-available": "Your guarantor made {0} recently, the tax notice is not yet available",
       "first-declaration": "their first return",
+    },
+    "couple": {
+      "your-situation": "Your spouse's situation:",
+      "have-no-tax-notice": "Your spouse has no tax notice",
+      "not-received": "Your spouse has not yet received their tax notice",
+      "tax-not-available": "Your spouse made {0} recently, the tax notice is not yet available",
+      "first-declaration": "their first return",
     }
   },
   "fr": {
@@ -80,6 +87,13 @@ const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NOT_RECE
       "have-no-tax-notice": "Votre garant n’a pas d’avis d’impôt",
       "not-received": "Votre garant n’a pas encore reçu son avis d’impôt",
       "tax-not-available": "Votre garant a fait {0} récemment, l’avis d’impôt n’est pas encore disponible.",
+      "first-declaration": "sa première déclaration",
+    },
+    "couple": {
+      "your-situation": "La situation de votre conjoint :",
+      "have-no-tax-notice": "Votre conjoint n’a pas d’avis d’impôt",
+      "not-received": "Votre conjoint n’a pas encore reçu son avis d’impôt",
+      "tax-not-available": "Votre conjoint a fait {0} récemment, l’avis d’impôt n’est pas encore disponible.",
       "first-declaration": "sa première déclaration",
     }
   }

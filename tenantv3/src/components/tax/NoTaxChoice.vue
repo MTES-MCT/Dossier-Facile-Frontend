@@ -70,6 +70,13 @@ const sendEvent = (subcategory: string) =>
       "parents": "Your guarantor is registered on their parents' tax return",
       "no-declaration": "Your guarantor has not yet made their first tax return",
       "not-received": "Your guarantor has not yet received their tax notice",
+    },
+    "couple": {
+      "choose-situation": "Select the situation of your spouse:",
+      "you-have-no-tax-notice": "Your spouse has no tax notice",
+      "parents": "Your spouse is registered on their parents' tax return",
+      "no-declaration": "Your spouse has not yet made their first tax return",
+      "not-received": "Your spouse has not yet received their tax notice",
     }
   },
   "fr": {
@@ -91,6 +98,13 @@ const sendEvent = (subcategory: string) =>
       "parents": "Votre garant est inscrit sur la déclaration d’impôt de ses parents",
       "no-declaration": "Votre garant n’a pas encore fait sa première déclaration",
       "not-received": "Votre garant n’a pas encore reçu son avis d’impôt",
+    },
+    "couple": {
+      "choose-situation": "Choisissez la situation de votre conjoint :",
+      "have-no-tax-notice": "Votre conjoint n’a pas d’avis d’impôt",
+      "parents": "Votre conjoint est inscrit sur la déclaration d’impôt de ses parents",
+      "no-declaration": "Votre conjoint n’a pas encore fait sa première déclaration",
+      "not-received": "Votre conjoint n’a pas encore reçu son avis d’impôt",
     }
   }
 }

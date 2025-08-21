@@ -21,6 +21,7 @@ import { useLink, useRoute } from 'vue-router'
 import { makeActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { UtilsService } from '@/services/UtilsService'
 import { makeIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
+import { makeTaxLink } from '@/components/tax/lib/taxLink'
 
 const props = defineProps<{
   coTenant: CoTenant
@@ -53,6 +54,10 @@ const to = computed(() => {
   if (props.documentType === DocumentType.PROFESSIONAL) {
     const document = props.coTenant.documents?.find((d) => d.documentCategory === 'PROFESSIONAL')
     return makeActivityLink(document?.documentSubCategory, `${path}/3`)
+  }
+  if (props.documentType === DocumentType.TAX) {
+    const document = DocumentService.getDoc('TAX', props.coTenant.documents)
+    return makeTaxLink(document, `${path}/5`)
   }
   return undefined
 })

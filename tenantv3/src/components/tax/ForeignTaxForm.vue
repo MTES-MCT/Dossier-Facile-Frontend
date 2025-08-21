@@ -56,6 +56,13 @@ const { textKey } = useTaxState()
       "add-last-tax-notice": "Add their last tax notice issued by their country of residence.",
       "personal-information": "Their personal information",
       "declared-income": "Their declared income",
+    },
+    "couple": {
+      "your-situation": "Your spouse's situation:",
+      "have-a-tax-notice": "Your spouse has a tax notice",
+      "add-last-tax-notice": "Add their last tax notice issued by their country of residence.",
+      "personal-information": "Their personal information",
+      "declared-income": "Their declared income",
     }
   },
   "fr": {
@@ -75,6 +82,13 @@ const { textKey } = useTaxState()
       "your-situation": "La situation de votre garant :",
       "have-a-tax-notice": "Votre garant a un avis d’impôt",
       "add-last-tax-notice": "Ajoutez le dernier avis d’imposition de votre garant délivré par son pays de résidence.",
+      "personal-information": "Ses informations personnelles",
+      "declared-income": "Ses revenus déclarés",
+    },
+    "couple": {
+      "your-situation": "La situation de votre conjoint :",
+      "have-a-tax-notice": "Votre conjoint a un avis d’impôt",
+      "add-last-tax-notice": "Ajoutez le dernier avis d’imposition de votre conjoint délivré par son pays de résidence.",
       "personal-information": "Ses informations personnelles",
       "declared-income": "Ses revenus déclarés",
     }

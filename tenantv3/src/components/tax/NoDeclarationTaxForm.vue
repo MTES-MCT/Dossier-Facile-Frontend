@@ -52,6 +52,11 @@ const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NO_DECLA
       "your-situation": "Your guarantor's situation:",
       "have-no-tax-notice": "Your guarantor has no tax notice",
       "no-declaration": "Your guarantor has not yet made their first declaration",
+    },
+    "couple": {
+      "your-situation": "Your spouse's situation:",
+      "have-no-tax-notice": "Your spouse has no tax notice",
+      "no-declaration": "Your spouse has not yet made their first declaration",
     }
   },
   "fr": {
@@ -66,6 +71,11 @@ const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NO_DECLA
       "your-situation": "La situation de votre garant :",
       "have-no-tax-notice": "Votre garant n’a pas d’avis d’impôt",
       "no-declaration": "Votre garant n’a pas encore fait sa première déclaration",
+    },
+    "couple": {
+      "your-situation": "La situation de votre conjoint :",
+      "have-no-tax-notice": "Votre conjoint n’a pas d’avis d’impôt",
+      "no-declaration": "Votre conjoint n’a pas encore fait sa première déclaration",
     }
   }
 }

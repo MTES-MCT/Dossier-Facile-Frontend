@@ -99,6 +99,12 @@ const showModal = ref(false)
       "add-tax-notice": "Add the {0} of your guarantor. All pages are mandatory, even if the amount to be paid is 0€.",
       "download-tax-notice": "Download their tax notice from their space on {0}",
     },
+    "couple": {
+      "your-situation": "Your spouse's situation:",
+      "have-a-tax-notice": "Your spouse has a tax notice",
+      "add-tax-notice": "Add the {0} of your spouse. All pages are mandatory, even if the amount to be paid is 0€.",
+      "download-tax-notice": "Download their tax notice from their space on {0}",
+    },
     "modal": {
       "sample-docs": "Sample documents",
       "pay-attention-to-title": "Pay attention to the document title.",
@@ -124,6 +130,12 @@ const showModal = ref(false)
       "your-situation": "La situation de votre garant :",
       "have-a-tax-notice": "Votre garant a un avis d’impôt",
       "add-tax-notice": "Ajoutez l’{0} de votre garant. Toutes les pages sont obligatoires, même si le montant à payer est de 0 €.",
+      "download-tax-notice": "Téléchargez son avis d’impôt depuis son espace sur {0}",
+    },
+    "couple": {
+      "your-situation": "La situation de votre conjoint :",
+      "have-a-tax-notice": "Votre conjoint a un avis d’impôt",
+      "add-tax-notice": "Ajoutez l’{0} de votre conjoint. Toutes les pages sont obligatoires, même si le montant à payer est de 0 €.",
       "download-tax-notice": "Téléchargez son avis d’impôt depuis son espace sur {0}",
     },
     "modal": {

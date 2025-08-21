@@ -4,7 +4,7 @@
       <TenantGuarantorChoice
         :tenant-id="getTenantId()"
         :is-cotenant="true"
-        @on-back="goBack"
+        @on-back="goToSpouseTax"
         @on-select="updateGuarantorType"
       ></TenantGuarantorChoice>
     </div>
@@ -13,7 +13,7 @@
       <TenantGuarantorList
         :guarantors="guarantors"
         @on-edit="onEdit"
-        @on-back="goBack"
+        @on-back="goToSpouseTax"
         @on-next="goNext"
       ></TenantGuarantorList>
     </div>
@@ -28,6 +28,8 @@ import TenantGuarantorList from './TenantGuarantorList.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { DocumentService } from '@/services/DocumentService'
+import { makeTaxLink } from '@/components/tax/lib/taxLink'
 
 const store = useTenantStore()
 const coTenants = computed(() => store.coTenants)
@@ -84,14 +86,11 @@ function updateGuarantorType(value: string) {
   }
 }
 
-function goBack() {
-  router.push({
-    name: 'CoupleTax',
-    params: {
-      step: '4',
-      tenantId: getTenantId().toString()
-    }
-  })
+function goToSpouseTax() {
+  const tenantId = getTenantId()
+  const document = DocumentService.getCoTenantDocument(tenantId, 'TAX')
+  const path = `/documents-colocataire/${tenantId}/4/5`
+  router.push(makeTaxLink(document, path))
 }
 
 function goNext() {

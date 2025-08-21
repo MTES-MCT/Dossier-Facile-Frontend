@@ -673,8 +673,15 @@ export const router = createRouter({
         },
         {
           path: '5',
-          name: 'CoupleTax',
-          component: () => import('@/components/documents/cotenant/CoTenantTax.vue')
+          component: () => import('@/components/tax/SpouseTax.vue'),
+          children: [
+            {
+              path: '',
+              name: 'CoupleTax',
+              component: () => import('@/components/tax/HasTaxChoice.vue')
+            },
+            ...TAX_ROUTES
+          ]
         }
       ]
     },

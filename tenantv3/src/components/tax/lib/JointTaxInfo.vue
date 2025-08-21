@@ -47,6 +47,11 @@ const { textKey } = useTaxState()
         "if-married": "If your guarantor is married or is in a civil partnership: ",
         "if-separated": "If your guarantor is separated or divorced: ",
         "have-notice": "Your guarantor has a tax notice"
+      },
+      "couple": {
+        "if-married": "If your spouse is married or is in a civil partnership: ",
+        "if-separated": "If your spouse is separated or divorced: ",
+        "have-notice": "Your spouse has a tax notice"
       }
     }
   },
@@ -65,6 +70,11 @@ const { textKey } = useTaxState()
         "if-married": "Si votre garant est marié ou pacsé : ",
         "if-separated": "Si votre garant est séparé ou divorcé : ",
         "have-notice": "Votre garant a un avis d’impôt",
+      },
+      "couple": {
+        "if-married": "Si votre conjoint est marié ou pacsé : ",
+        "if-separated": "Si votre conjoint est séparé ou divorcé : ",
+        "have-notice": "Votre conjoint a un avis d’impôt",
       }
     }
   }

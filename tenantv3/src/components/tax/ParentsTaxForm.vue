@@ -10,7 +10,7 @@
     </div>
   </form>
 
-  <StatementPreview v-if="attestChecked"> "{{ t(textKey + '.i-have-no-tax') }}". </StatementPreview>
+  <StatementPreview v-if="attestChecked"> "{{ t('i-have-no-tax') }}". </StatementPreview>
 
   <MandatoryDeclarationInfo />
   <FirstDeclarationInfo />
@@ -42,34 +42,41 @@ const attestChecked = ref(document.value?.documentSubCategory === 'MY_PARENTS')
 {
   "en": {
     "i-attest": "I hereby certify that I am unable to provide any document, and I understand that this information will be visible in my file.",
+    "i-have-no-tax": "I am parts of my parents's tax household and do not have a tax assessment notice in my own name.",
     "tenant": {
       "your-situation": "Your situation:",
       "have-no-tax-notice": "You have no tax notice",
       "parents-declaration": "You are registered on your parents' tax return",
-      "i-have-no-tax": "I am parts of my parents's tax household and do not have a tax assessment notice in my own name."
     },
     "guarantor": {
-      "your-situation": "Your situation:",
-      "have-no-tax-notice": "You have no tax notice",
-      "parents-declaration": "You are registered on your parents' tax return",
-      "i-attest": "I hereby certify that my situation is accurate, and I understand that this information will be visible in my file.",
-      "i-have-no-tax": "I am parts of my parents's tax household and do not have a tax assessment notice in my own name."
-    }
+      "your-situation": "Your guarantor's situation:",
+      "have-no-tax-notice": "Your guarantor has no tax notice",
+      "parents-declaration": "Your guarantor is registered on your parents' tax return",
+    },
+    "couple": {
+      "your-situation": "Your spouse's situation:",
+      "have-no-tax-notice": "Your spouse has no tax notice",
+      "parents-declaration": "Your spouse is registered on your parents' tax return",
+    },
   },
   "fr": {
     "i-attest": "J’atteste sur l’honneur ne pas pouvoir fournir de document, et je comprends que cette information sera visible dans mon dossier.",
+    "i-have-no-tax": "Je suis rattaché·e au foyer fiscal de mes parents et ne dispose pas d’un avis à mon nom propre.",
     "tenant": {
       "your-situation": "Votre situation :",
       "have-no-tax-notice": "Vous n’avez pas d’avis d’impôt",
       "parents-declaration": "Vous êtes inscrit sur la déclaration d’impôt de vos parents",
-      "i-have-no-tax": "Je suis rattaché·e au foyer fiscal de mes parents et ne dispose pas d’un avis à mon nom propre."
     },
     "guarantor": {
       "your-situation": "La situation de votre garant :",
       "have-no-tax-notice": "Votre garant n’a pas d’avis d’impôt",
       "parents-declaration": "Votre garant est inscrit sur la déclaration d’impôt de ses parents",
-      "i-have-no-tax": "Je suis rattaché·e au foyer fiscal de mes parents et ne dispose pas d’un avis à mon nom propre."
-    }
+    },
+    "couple": {
+      "your-situation": "La situation de votre conjoint :",
+      "have-no-tax-notice": "Votre conjoint n’a pas d’avis d’impôt",
+      "parents-declaration": "Votre conjoint est inscrit sur la déclaration d’impôt de ses parents",
+    },
   }
 }
 </i18n>
