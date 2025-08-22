@@ -35,7 +35,7 @@
   "file-saved": "Votre fichier est enregistré",
   "save-success": "Enregistrement réussi",
   "save-failed": "Erreur lors de l'enregistrement",
-  "save-failed-num-pages": "Le nombre total de pages dépasse la limite autorisée. Veuillez supprimer des pages.",
+  "save-failed-num-pages": "Le nombre total de pages déposées sur la catégorie « {0} » dépasse la limite autorisée. Veuillez supprimer des pages.",
   "delete-success": "Votre fichier est supprimé",
   "delete-file-failed": "Impossible de supprimer le fichier. Veuillez réessayer.",
   "add-file-failed": "Impossible d’ajouter le fichier. Veuillez réessayer.",

@@ -68,12 +68,13 @@ export const UtilsService = {
       user.apartmentSharing?.tokenPublic !== ''
     )
   },
-  handleCommonSaveError(err: unknown, elt?: HTMLElement | null) {
+  handleCommonSaveError(err: unknown, elt?: HTMLElement | null, documentCategory?: string) {
     let hasSpecificMessage = false
     if (isAxiosError(err)) {
       const message: string = err.response?.data.message ?? ''
       if (message.includes('NumberOfPages')) {
-        toast.error(i18n.global.t('save-failed-num-pages'), elt)
+        const category = documentCategory ? i18n.global.t(documentCategory.toLowerCase()) : 'unknown'
+        toast.error(i18n.global.t('save-failed-num-pages', [category]), elt)
         hasSpecificMessage = true
       } else if (message.includes('invalid file extension')) {
         toast.error(i18n.global.t('errors.invalid-file-extension'), elt)

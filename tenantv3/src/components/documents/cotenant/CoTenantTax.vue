@@ -164,7 +164,7 @@ function goNext() {
       goToGuarantors()
     })
     .catch((err) => {
-      UtilsService.handleCommonSaveError(err)
+      UtilsService.handleCommonSaveError(err, undefined, 'TAX')
     })
     .finally(() => {
       loader.hide()
