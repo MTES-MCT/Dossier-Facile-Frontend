@@ -35,7 +35,7 @@
   "file-saved": "Your file is saved",
   "save-success": "Save successful",
   "save-failed": "Error while saving",
-  "save-failed-num-pages": "The total number of pages exceeds the authorised limit. Please delete some pages.",
+  "save-failed-num-pages": "The total number of pages uploaded for the category « {0} » exceeds the authorised limit. Please delete some pages.",
   "delete-success": "Your file is deleted",
   "delete-file-failed": "Unable to delete the file. Please try again.",
   "add-file-failed": "Unable to add the file. Please try again.",

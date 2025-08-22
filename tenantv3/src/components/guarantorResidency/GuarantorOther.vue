@@ -82,7 +82,7 @@ async function submit() {
     await store.saveGuarantorResidency(formData)
     return true
   } catch (error) {
-    UtilsService.handleCommonSaveError(error, uploadFiles.value?.inputFile)
+    UtilsService.handleCommonSaveError(error, uploadFiles.value?.inputFile, 'RESIDENCY')
     return false
   }
 }

@@ -46,7 +46,7 @@ async function save(): Promise<boolean> {
     toast.keep.success(t('save-success'), getNextBtnInFooter)
     return true
   } catch (err) {
-    UtilsService.handleCommonSaveError(err, customTextElt.value)
+    UtilsService.handleCommonSaveError(err, customTextElt.value, 'FINANCIAL')
     return false
   } finally {
     loader.hide()
