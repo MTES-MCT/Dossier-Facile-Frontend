@@ -41,6 +41,7 @@ import {
   makeIdentityDocumentLink,
   makeSpouseGuarantorIdDocLink
 } from '@/components/identityDocument/lib/identityDocumentLink'
+import { makeGuarantorTaxLink, makeSpouseGuarantorTaxLink } from '@/components/tax/lib/taxLink'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const LOGOUT_REDIRECT_URL = import.meta.env.VITE_LOGOUT_REDIRECT_URL
@@ -531,6 +532,9 @@ export const useTenantStore = defineStore('tenant', {
         if (substep === 3 && guarantor.id) {
           return makeGuarantorCoupleActivityLink(guarantor, tenantId)
         }
+        if (substep === 5 && guarantor.id) {
+          return makeSpouseGuarantorTaxLink(guarantor, tenantId)
+        }
         return {
           name: TENANT_GUARANTOR_ROUTES[substep],
           params: {
@@ -548,6 +552,9 @@ export const useTenantStore = defineStore('tenant', {
       }
       if (substep === 3) {
         return makeGuarantorActivityLink(guarantor)
+      }
+      if (substep === 5) {
+        return makeGuarantorTaxLink(guarantor)
       }
       return {
         name: GUARANTOR_ROUTES[substep],

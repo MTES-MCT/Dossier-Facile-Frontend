@@ -62,7 +62,7 @@
           :document="document(props.tenant, 'TAX')"
           :can-edit="showButtons"
           :enable-download="showButtons"
-          @click-edit="setTenantStep(5)"
+          @click-edit="goToTax"
         />
       </ul>
     </div>
@@ -94,6 +94,7 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { makeActivityLink } from '../mainActivity/lib/useMainActivityLink'
 import { makeResidencyLink } from '../residency/lib/useResidencyLink'
 import { makeIdentityDocumentLink } from '../identityDocument/lib/identityDocumentLink'
+import { makeTaxLink } from '../tax/lib/taxLink'
 
 const props = withDefaults(
   defineProps<{
@@ -161,6 +162,16 @@ function goToMainActivity() {
     ? `/documents-colocataire/${props.tenant.id}/4/3`
     : '/documents-locataire/3'
   router.push(makeActivityLink(doc?.documentSubCategory, path))
+}
+
+function goToTax() {
+  AnalyticsService.editFromAccount(5)
+  const tenant = props.isCotenant ? props.tenant : store.user
+  const doc = DocumentService.getDoc('TAX', tenant.documents)
+  const path = props.isCotenant
+    ? `/documents-colocataire/${props.tenant.id}/4/5`
+    : '/documents-locataire/5'
+  router.push(makeTaxLink(doc, path))
 }
 
 function setTenantStep(n: number) {
