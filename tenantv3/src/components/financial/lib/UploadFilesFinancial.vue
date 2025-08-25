@@ -278,7 +278,7 @@ async function save(successMsgKey = 'save-success') {
     return true
   } catch (err) {
     uploadStatus.value = UploadStatus.STATUS_FAILED
-    UtilsService.handleCommonSaveError(err)
+    UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
     return false
   } finally {
     loader.hide()

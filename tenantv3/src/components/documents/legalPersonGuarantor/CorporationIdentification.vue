@@ -170,7 +170,7 @@ function save() {
       })
       .catch((err: Error) => {
         fileUploadStatus.value = UploadStatus.STATUS_FAILED
-        UtilsService.handleCommonSaveError(err)
+        UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
         return Promise.reject(err)
       })
       .finally(() => {

@@ -68,7 +68,7 @@ export const UtilsService = {
       user.apartmentSharing?.tokenPublic !== ''
     )
   },
-  handleCommonSaveError(err: unknown, elt?: HTMLElement | null) {
+  handleCommonSaveError(err: unknown, elt: HTMLElement | null | undefined) {
     let hasSpecificMessage = false
     if (isAxiosError(err)) {
       const message: string = err.response?.data.message ?? ''
