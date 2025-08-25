@@ -37,6 +37,9 @@ import cnousUrl from '../assets/logos/Crous.png'
 import dgesipUrl from '../assets/logos/dgesip.png'
 import servicePublicUrl from '../assets/logos/Service-public.fr.png'
 import ministereInterieurUrl from '../assets/logos/Ministère_de_l_Intérieur.png'
+import lokavizUrl from '../assets/logos/lokaviz.png'
+import ministerLogementUrl from '../assets/logos/Ministère_du_Logement_et_de_la_Rénovation_urbaine.png'
+import filigraneFacileUrl from '../assets/logos/FiligraneFacile.png'
 
 interface Partner {
   name: string
@@ -102,6 +105,20 @@ export const INSTITUTIONAL_PARTNERS: Partner[] = [
     name: 'Comités Locaux pour le Logement Autonome des Jeunes',
     height: '60',
     width: '137'
+  },
+  {
+    image: ministerLogementUrl,
+    href: 'https://www.ecologie.gouv.fr/dossiers/comment-faciliter-lacces-logement',
+    name: 'Ministère du logement et de la rénovation urbaine',
+    width: '250',
+    height: '179'
+  },
+  {
+    image: filigraneFacileUrl,
+    href: 'https://filigrane.beta.gouv.fr/',
+    name: 'Filigrane facile',
+    width: '250',
+    height: '73'
   }
 ]
 
@@ -154,6 +171,13 @@ export const PARTNERS: Partner[] = [
     name: 'Figaro immobilier',
     href: 'https://immobilier.lefigaro.fr/',
     width: '200'
+  },
+  {
+    image: lokavizUrl,
+    href: 'https://www.lokaviz.fr/',
+    name: 'Lokaviz',
+    width: '250',
+    height: '60'
   },
   {
     image: myappartUrl,
