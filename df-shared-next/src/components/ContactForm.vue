@@ -375,7 +375,7 @@
                       :value="true"
                     />
                     <label for="acceptCgu">
-                      <div>{{ t('accept-cgu') }} <span style="color: red"> *</span></div>
+                      <div>{{ t('accept-cgu') }} <span class="color--required"> *</span></div>
                     </label>
                     <ErrorMessage v-slot="{ message }" class="fr-error-text" name="acceptCgu">
                       <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>

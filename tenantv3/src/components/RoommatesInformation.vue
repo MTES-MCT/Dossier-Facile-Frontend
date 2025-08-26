@@ -141,7 +141,9 @@
             />
             <label for="authorize">
               <p class="fr-mb-0">{{ t('roommatesinformation.acceptAuthor') }}</p>
-              <p>{{ t('roommatesinformation.acceptAuthor-2') }}<span style="color: red">*</span></p>
+              <p>
+                {{ t('roommatesinformation.acceptAuthor-2') }}<span class="color--required">*</span>
+              </p>
             </label>
           </Field>
           <ErrorMessage v-slot="{ message }" name="authorize">
