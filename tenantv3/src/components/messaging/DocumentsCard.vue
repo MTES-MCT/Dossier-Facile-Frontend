@@ -101,7 +101,8 @@ const goToDoc = (doc: DocumentCategory | undefined) => {
           "financial": "le justificatif de ressources",
           "tax": "l'avis d'imposition",
           "guarantee-provider-certificate": "le certificat de garantie",
-          "identification-legal-person": "l'identité de la personne morale"
+          "identification-legal-person": "l'identité de la personne morale",
+          "identity-represent": "l'identité du représentant",
         }
     },
     "en": {
@@ -117,7 +118,8 @@ const goToDoc = (doc: DocumentCategory | undefined) => {
           "financial": "Proof of Financial Resources",
           "tax": "Tax Notice",
           "guarantee-provider-certificate": "Warranty Certificate",
-          "identification-legal-person": "Legal Entity Identification"
+          "identification-legal-person": "Legal Entity Identification",
+          "identity-represent": "representative identity",
         }
     }
 }
