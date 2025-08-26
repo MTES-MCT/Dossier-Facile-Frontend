@@ -56,9 +56,9 @@ const goToDoc = (doc: DocumentCategory | undefined) => {
     TAX: 5,
     GUARANTEE_PROVIDER_CERTIFICATE: 0,
     IDENTIFICATION_LEGAL_PERSON: 0,
-    NULL: 0
+    NULL: -1
   }[doc || 'NULL']
-  if (substep === 0) {
+  if (substep === -1) {
     console.warn('Invalid document type', doc)
     return
   }
