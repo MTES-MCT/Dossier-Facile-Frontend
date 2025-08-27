@@ -295,7 +295,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article24.webp'
 
-const title = 'Étudiant étranger et recherche de logement : guide pratique'
+const title = 'Étudiant étranger et recherche de logement : guide pratique - DossierFacile'
 const description =
   "Guide pratique pour les étudiants étrangers à la recherche d'un logement en France : conseils, démarches, solutions pour le garant, prévention des arnaques et aides au logement. Simplifiez vos démarches avec DossierFacile."
 

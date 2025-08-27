@@ -112,7 +112,7 @@ import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article25.webp'
 
 const title =
-  'Dossier de location : Comment choisir son garant et les documents à fournir pour votre dossier locatif'
+  'Dossier de location : Comment choisir son garant et les documents à fournir pour votre dossier locatif - DossierFacile'
 const description =
   'Guide complet sur les documents à fournir pour votre garant dans un dossier de location. Découvrez les justificatifs nécessaires pour constituer un dossier locataire solide avec garant, que ce soit pour une personne physique, Visale ou une entreprise.'
 

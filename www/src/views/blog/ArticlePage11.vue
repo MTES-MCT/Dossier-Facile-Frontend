@@ -129,7 +129,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article11.webp'
 
-const title = 'La caution locative : changements en vue pour 2022'
+const title = 'La caution locative : changements en vue pour 2022 - DossierFacile'
 const description =
   "La caution est une personne ou un organisme qui s'engage par écrit, à trun acte de cautio nnement, à payer votre loyer si vous ne le faites pas. Il s’agit le plus souvent d’un parent ou d’un proche. Si la caution ne rembourse pas les dettes locatives"
 useHead({

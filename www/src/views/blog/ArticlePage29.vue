@@ -165,7 +165,8 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article29.png'
 
-const title = '2 millions de comptes créés sur DossierFacile : une nouvelle étape majeure !'
+const title =
+  '2 millions de comptes créés sur DossierFacile : une nouvelle étape majeure ! - DossierFacile'
 const description =
   "DossierFacile franchit un cap symbolique avec plus de 2 millions de comptes créés. Une confiance renouvelée dans le service public et une adoption accélérée qui démontrent l'efficacité d'une startup d'État au service de l'intérêt général."
 

@@ -233,7 +233,7 @@ import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article13.webp'
 
 const title =
-  'Dossier de location : Comment éviter les arnaques à la location : guide complet pour les propriétaires ?'
+  'Dossier de location : Comment éviter les arnaques à la location : guide complet pour les propriétaires ? - DossierFacile'
 const description =
   "La location d'un bien immobilier est une excellente manière de générer des revenus, mais elle comporte aussi certains risques, notamment celui des arnaques. Faux locataires, faux paiements, ou encore escroqueries sur les plateformes de location en ligne"
 

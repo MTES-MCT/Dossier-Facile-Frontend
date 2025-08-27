@@ -174,7 +174,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article24.webp'
 
-const title = 'Guide étape par étape pour trouver un appartement idéal'
+const title = 'Guide étape par étape pour trouver un appartement idéal - DossierFacile'
 const description =
   "Trouver un appartement idéal n'est pas facile. Il faut chercher, comparer, visiter, négocier... " +
   'Heureusement, nous avons créé un guide étape par étape pour vous simplifier la vie. ' +

@@ -159,7 +159,8 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article13.webp'
 
-const title = 'L’usurpation d’identité en France : comment la prévenir et comment agir ?'
+const title =
+  'L’usurpation d’identité en France : comment la prévenir et comment agir ? - DossierFacile'
 const description =
   'L’usurpation d’identité consiste à utiliser, sans votre accord, des informations permettant de vous identifier.'
 useHead({

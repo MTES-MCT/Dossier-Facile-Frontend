@@ -182,7 +182,7 @@ import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article25.webp'
 
 const title =
-  "Dossier de location : Comment monter son dossier de location en tant qu'auto-entrepreneur ?"
+  "Dossier de location : Comment monter son dossier de location en tant qu'auto-entrepreneur ? - DossierFacile"
 const description =
   'Être auto-entrepreneur est une aventure excitante, mais cela peut parfois rendre certaines démarches, comme louer un logement, un peu plus complexes'
 

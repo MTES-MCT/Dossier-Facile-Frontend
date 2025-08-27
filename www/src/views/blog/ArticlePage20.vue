@@ -124,7 +124,7 @@ import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article20.webp'
 
 const title =
-  'DossierFacile lance FiligraneFacile, le service permettant d’ajouter un filigrane à n’importe quel document !'
+  'DossierFacile lance FiligraneFacile, le service permettant d’ajouter un filigrane à n’importe quel document ! - DossierFacile'
 const description =
   'Logement, travail, assurance... Nous envoyons tous les jours des documents personnels dans la nature, sans les protéger.'
 useHead({
