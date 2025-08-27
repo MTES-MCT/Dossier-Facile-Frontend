@@ -10,11 +10,7 @@
       Comment faire pour l’intégrer à son dossier de location ? Découvrez nos réponses à toutes vos
       questions.
     </p>
-    <img
-      alt="Deux mains qui lisent des documents"
-      class="img-center"
-      src="../../assets/images/blog-article18.webp"
-    />
+    <img alt="" class="img-center" src="../../assets/images/blog-article18.webp" />
     <br />
 
     <h2 class="fr-h6">Garant ou caution ?</h2>

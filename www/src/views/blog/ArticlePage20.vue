@@ -10,10 +10,7 @@
       usurper notre identité, et on a vite fait de se retrouver avec des crédits dans tous les sens
       qu'on n’a jamais contractés.
     </p>
-    <img
-      alt="Une carte d'identité avec un filigrane"
-      src="../../assets/images/blog-article20.webp"
-    />
+    <img alt="" src="../../assets/images/blog-article20.webp" />
     <br />
 
     <h2 class="fr-h6">Un service plébiscité depuis juillet 2023</h2>

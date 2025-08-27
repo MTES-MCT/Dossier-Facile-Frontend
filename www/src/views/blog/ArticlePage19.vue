@@ -10,11 +10,7 @@
       déconvenues, nous vous avons préparé un petit récapitulatif des étapes, pour ne rien oublier.
       Suivez le guide !
     </p>
-    <img
-      alt="Une personne donne des clés à une autre personne"
-      class="img-center"
-      src="../../assets/images/blog-article19.webp"
-    />
+    <img alt="" class="img-center" src="../../assets/images/blog-article19.webp" />
     <br />
 
     <h2 class="fr-h6">

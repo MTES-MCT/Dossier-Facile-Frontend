@@ -11,11 +11,7 @@
       vie. Quel que soit votre profil, vous y trouverez des conseils utiles, des astuces et des
       exemples. Suivez le guide !
     </p>
-    <img
-      class="fr-mb-3w"
-      alt="Aperçu du site DossierFacile"
-      src="../../assets/images/blog-article24.webp"
-    />
+    <img class="fr-mb-3w" alt="" src="../../assets/images/blog-article24.webp" />
 
     <h2 class="fr-h6">1. Bien définir ses critères de recherche🧐📝</h2>
     <p class="mb-0">

@@ -12,11 +12,7 @@
       transparentes. Dans cet article, nous allons explorer des techniques pour repérer les signes
       de potentielles falsifications.
     </p>
-    <img
-      class="fr-mb-3w"
-      alt="Aperçu du site DossierFacile"
-      src="../../assets/images/blog-article23.webp"
-    />
+    <img class="fr-mb-3w" alt="" src="../../assets/images/blog-article23.webp" />
     <h2 class="fr-h6">1. Vérifiez la cohérence des montants</h2>
     <p>
       Les fausses fiches de paie peuvent contenir des montants irréalistes ou incohérents. Comparez
