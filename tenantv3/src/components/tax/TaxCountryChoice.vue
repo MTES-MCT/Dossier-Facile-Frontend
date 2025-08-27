@@ -45,7 +45,7 @@ const sendEvent = (subcategory: string) =>
     "french-notice": "a french tax notice",
     "foreign-notice": "a foreign tax notice",
     "french-examples": "Single, married, civil partnership, divorced, etc.",
-    "foreign-examples": "Expatriate",
+    "foreign-examples": "Expatriate, third-country national",
     "tenant": {
       "choose-situation": "Select the situation that applies to you:",
       "have-a-tax-notice": "You have a tax notice",
@@ -67,7 +67,7 @@ const sendEvent = (subcategory: string) =>
     "french-notice": "un avis d’impôt français",
     "foreign-notice": "un avis d’impôt étranger",
     "french-examples": "Célibataire, marié, pacsé, divorcé, …",
-    "foreign-examples": "Expatrié",
+    "foreign-examples": "Expatrié, ressortissant d’un pays tiers",
     "tenant": {
       "have-a-tax-notice": "Vous avez un avis d’impôt",
       "choose-situation": "Choisissez la situation qui correspond à votre cas :",
