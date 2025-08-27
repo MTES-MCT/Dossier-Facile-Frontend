@@ -12,7 +12,7 @@
     >
   </i18n-t>
   <div class="display--flex blue-text fr-mb-2w">
-    <RiInformationLine />
+    <RiInformationLine aria-hidden="true" />
     <button type="button" class="fi-btn" @click="showFIModal = true">
       {{ t('see-example') }}
     </button>

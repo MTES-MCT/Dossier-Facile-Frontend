@@ -37,7 +37,11 @@
                   <div class="fr-col-10">
                     <div class="fr-grid-row nowrap">
                       <div class="center-icon fr-mr-1w">
-                        <RiUserFill class="color--white round-icon icon" size="32px" />
+                        <RiUserFill
+                          class="color--white round-icon icon"
+                          size="32px"
+                          aria-hidden="true"
+                        />
                       </div>
                       <div class="fr-grid-col overflow--hidden max-content">
                         <div :title="roommate.email" class="overflow--hidden">
@@ -64,7 +68,11 @@
                       type="button"
                       @click="remove(roommate)"
                     >
-                      <RiDeleteBin2Fill class="color--primary icon" size="32px" />
+                      <RiDeleteBin2Fill
+                        class="color--primary icon"
+                        size="32px"
+                        aria-hidden="true"
+                      />
                     </button>
                   </div>
                 </div>

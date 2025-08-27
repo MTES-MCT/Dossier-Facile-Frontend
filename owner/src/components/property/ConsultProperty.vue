@@ -208,9 +208,17 @@
               </td>
               <td @click="setShowTenant(tenant, k)">
                 <div class="tag" :class="getTenantClass(tenant)">
-                  <RiCloseCircleFill v-if="tenant.status === 'DECLINED'" size="18px" />
-                  <RiCheckboxCircleLine v-else-if="tenant.status === 'VALIDATED'" size="18px" />
-                  <RiTimeLine v-else size="18px" />
+                  <RiCloseCircleFill
+                    v-if="tenant.status === 'DECLINED'"
+                    size="18px"
+                    aria-hidden="true"
+                  />
+                  <RiCheckboxCircleLine
+                    v-else-if="tenant.status === 'VALIDATED'"
+                    size="18px"
+                    aria-hidden="true"
+                  />
+                  <RiTimeLine v-else size="18px" aria-hidden="true" />
                   <span class="fr-ml-1v">
                     {{ t(tenant.status || '') }}
                   </span>
@@ -432,7 +440,8 @@ function getRateClass(applicant: Applicant) {
   left: 0;
   background-size: cover !important;
   background-position: 50% 40% !important;
-  background-image: linear-gradient(0deg, rgba(22, 22, 22, 0.7), rgba(22, 22, 22, 0.7)),
+  background-image:
+    linear-gradient(0deg, rgba(22, 22, 22, 0.7), rgba(22, 22, 22, 0.7)),
     url('../../assets/salon.webp');
   background-color: #314467;
   z-index: 0;

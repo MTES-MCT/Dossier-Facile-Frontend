@@ -1,7 +1,7 @@
 <template>
   <FooterContainer class="residency-footer">
     <router-link :to="residencyState.previousStep" class="fr-btn fr-btn--secondary">
-      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
+      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" aria-hidden="true" />
       <span class="desktop">{{ t('backnext.back') }}</span>
     </router-link>
     <form @submit.prevent="submit">

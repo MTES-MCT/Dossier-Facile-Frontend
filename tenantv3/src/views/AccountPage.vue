@@ -75,7 +75,7 @@
                       class="download-link"
                       @click="downloadZip"
                       >{{ t('account.download-zip') }}
-                      <RiDownloadLine size="18px" />
+                      <RiDownloadLine size="18px" aria-hidden="true" />
                     </a>
                   </div>
                 </div>

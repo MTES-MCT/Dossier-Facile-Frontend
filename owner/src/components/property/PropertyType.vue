@@ -67,7 +67,7 @@ function onBack() {
         >
           <div class="fr-grid-col">
             <div class="icon-container desktop">
-              <RiBuilding4Line size="36px" class="icon-color" />
+              <RiBuilding4Line size="36px" class="icon-color" aria-hidden="true" />
             </div>
             <div class="fr-mb-md-5w fr-m-2w">
               {{ t('propertytype.apartment') }}
@@ -89,7 +89,7 @@ function onBack() {
         >
           <div class="fr-grid-col">
             <div class="icon-container desktop">
-              <RiHome4Fill size="36px" class="icon-color" />
+              <RiHome4Fill size="36px" class="icon-color" aria-hidden="true" />
             </div>
             <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.house') }}</div>
           </div>
@@ -109,7 +109,7 @@ function onBack() {
         >
           <div class="fr-grid-col">
             <div class="icon-container desktop">
-              <RiCommunityFill size="36px" class="icon-color" />
+              <RiCommunityFill size="36px" class="icon-color" aria-hidden="true" />
             </div>
             <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.other') }}</div>
           </div>

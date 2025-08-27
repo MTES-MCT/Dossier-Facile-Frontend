@@ -24,7 +24,7 @@
     </template>
     <template #body>
       <p>
-        <RiAlertLine class="color--primary fr-mr-1v align-v" />
+        <RiAlertLine class="color--primary fr-mr-1v align-v" aria-hidden="true" />
         {{ t('modal.pay-attention-to-title') }}
       </p>
       <h3 class="fr-h4 fr-text-default--warning fr-mb-1w">{{ t('modal.refused-doc') }}</h3>

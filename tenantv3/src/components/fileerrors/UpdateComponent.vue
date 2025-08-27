@@ -7,7 +7,7 @@
       <!-- TODO : bouton voir -->
       <DfButton class="update-btn" @click="$emit('on-update')">
         <span class="desktop">{{ t('fileerrors.update') }}</span>
-        <RiPencilLine size="1rem" class="color--primary mobile" />
+        <RiPencilLine size="1rem" class="color--primary mobile" aria-hidden="true" />
       </DfButton>
     </div>
     <PreValidationMessages :user-id="userId" :document="document" />

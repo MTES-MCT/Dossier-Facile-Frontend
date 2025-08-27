@@ -7,24 +7,41 @@
     <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
       <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">
-          <RiCheckboxCircleLine v-if="dossierStatus === 'VALIDATED'" class="text-success" />
+          <RiCheckboxCircleLine
+            v-if="dossierStatus === 'VALIDATED'"
+            class="text-success"
+            aria-hidden="true"
+          />
           <RiTimeFill
             v-else-if="dossierStatus === 'TO_PROCESS'"
             class="fr-mb-2w bloc-warning-icon status-toprocess"
           />
-          <RiCloseCircleFill v-else class="fr-mb-2w bloc-warning-icon status-incomplete" />
+          <RiCloseCircleFill
+            v-else
+            class="fr-mb-2w bloc-warning-icon status-incomplete"
+            aria-hidden="true"
+          />
 
           <p>{{ t('filereinsurance.documents-' + dossierStatus) }}</p>
         </NakedCard>
       </div>
       <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">
-          <RiCheckboxCircleLine v-if="dossierStatus === 'VALIDATED'" class="text-success" />
+          <RiCheckboxCircleLine
+            v-if="dossierStatus === 'VALIDATED'"
+            class="text-success"
+            aria-hidden="true"
+          />
           <RiTimeFill
             v-else-if="dossierStatus === 'TO_PROCESS'"
             class="fr-mb-2w bloc-warning-icon status-toprocess"
+            aria-hidden="true"
           />
-          <RiCloseCircleFill v-else class="fr-mb-2w bloc-warning-icon status-incomplete" />
+          <RiCloseCircleFill
+            v-else
+            class="fr-mb-2w bloc-warning-icon status-incomplete"
+            aria-hidden="true"
+          />
           <p>{{ t('filereinsurance.file-' + dossierStatus) }}</p>
         </NakedCard>
       </div>

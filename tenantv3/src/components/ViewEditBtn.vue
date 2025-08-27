@@ -1,10 +1,10 @@
 <template>
   <div class="display--flex">
     <button v-if="canView" class="fr-btn fr-btn--secondary icon-btn" title="View" @click="view">
-      <RiEyeLine size="26px" class="color--primary icons" />
+      <RiEyeLine size="26px" class="color--primary icons" aria-hidden="true" />
     </button>
     <button class="fr-btn fr-btn--secondary icon-btn" title="Edit" @click="edit">
-      <RiPencilLine size="26px" class="color--primary icons" />
+      <RiPencilLine size="26px" class="color--primary icons" aria-hidden="true" />
     </button>
   </div>
 </template>
