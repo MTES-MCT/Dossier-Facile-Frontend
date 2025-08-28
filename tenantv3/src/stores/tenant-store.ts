@@ -522,44 +522,9 @@ export const useTenantStore = defineStore('tenant', {
     ) {
       this.setSelectedGuarantor(guarantor)
       if (tenantId && tenantId != this.user.id) {
-        if (substep === 1 && guarantor.id) {
-          return makeSpouseGuarantorIdDocLink(guarantor, tenantId)
-        }
-        if (substep === 2 && guarantor.id) {
-          const doc = guarantor?.documents?.find((d) => d.documentCategory === 'RESIDENCY')
-          return makeCotenantGuarantorResidencyLink(tenantId, guarantor.id, doc)
-        }
-        if (substep === 3 && guarantor.id) {
-          return makeGuarantorCoupleActivityLink(guarantor, tenantId)
-        }
-        if (substep === 5 && guarantor.id) {
-          return makeSpouseGuarantorTaxLink(guarantor, tenantId)
-        }
-        return {
-          name: TENANT_GUARANTOR_ROUTES[substep],
-          params: {
-            step: '5',
-            tenantId: tenantId,
-            guarantorId: guarantor.id
-          }
-        }
+        return getSpouseGuarantorLink(guarantor, tenantId, substep)
       }
-      if (substep === 1) {
-        return makeGuarantorIdentityDocumentLink(guarantor)
-      }
-      if (substep === 2) {
-        return makeGuarantorResidencyLink(guarantor)
-      }
-      if (substep === 3) {
-        return makeGuarantorActivityLink(guarantor)
-      }
-      if (substep === 5) {
-        return makeGuarantorTaxLink(guarantor)
-      }
-      return {
-        name: GUARANTOR_ROUTES[substep],
-        params: { guarantorId: guarantor.id }
-      }
+      return getGuarantorLink(guarantor, substep)
     },
     async saveTenantIdentification(formData: FormData) {
       const response = await RegisterService.saveTenantIdentification(formData)
@@ -832,4 +797,47 @@ function hasMatchingDoc(
       (!id || d.id === id)
   )
   return doc !== undefined
+}
+
+function getSpouseGuarantorLink(guarantor: Guarantor, tenantId: number, substep: number) {
+  if (substep === 1 && guarantor.id) {
+    return makeSpouseGuarantorIdDocLink(guarantor, tenantId)
+  }
+  if (substep === 2 && guarantor.id) {
+    const doc = guarantor?.documents?.find((d) => d.documentCategory === 'RESIDENCY')
+    return makeCotenantGuarantorResidencyLink(tenantId, guarantor.id, doc)
+  }
+  if (substep === 3 && guarantor.id) {
+    return makeGuarantorCoupleActivityLink(guarantor, tenantId)
+  }
+  if (substep === 5 && guarantor.id) {
+    return makeSpouseGuarantorTaxLink(guarantor, tenantId)
+  }
+  return {
+    name: TENANT_GUARANTOR_ROUTES[substep],
+    params: {
+      step: '5',
+      tenantId: tenantId,
+      guarantorId: guarantor.id
+    }
+  }
+}
+
+function getGuarantorLink(guarantor: Guarantor, substep: number) {
+  if (substep === 1) {
+    return makeGuarantorIdentityDocumentLink(guarantor)
+  }
+  if (substep === 2) {
+    return makeGuarantorResidencyLink(guarantor)
+  }
+  if (substep === 3) {
+    return makeGuarantorActivityLink(guarantor)
+  }
+  if (substep === 5) {
+    return makeGuarantorTaxLink(guarantor)
+  }
+  return {
+    name: GUARANTOR_ROUTES[substep],
+    params: { guarantorId: guarantor.id }
+  }
 }
