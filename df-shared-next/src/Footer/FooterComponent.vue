@@ -9,7 +9,6 @@
           </p>
           <a class="fr-footer__brand-link" href="https://beta.gouv.fr/">
             <img
-              svg-inline
               src="./logo-betagouvfr.svg"
               class="logo-beta"
               aria-label="Accueil - beta.gouv.fr"

@@ -24,6 +24,45 @@ declare module 'vue-router' {
   }
 }
 
+const TAX_ROUTES = [
+  {
+    path: 'avec-avis',
+    component: () => import('@/components/tax/TaxCountryChoice.vue')
+  },
+  {
+    path: 'avec-avis/francais',
+    component: () => import('@/components/tax/FrenchTaxForm.vue')
+  },
+  {
+    path: 'avec-avis/etranger',
+    component: () => import('@/components/tax/ForeignTaxForm.vue')
+  },
+  {
+    path: 'sans-avis',
+    component: () => import('@/components/tax/NoTaxChoice.vue')
+  },
+  {
+    path: 'sans-avis/sans-declaration',
+    component: () => import('@/components/tax/NoDeclarationTaxForm.vue')
+  },
+  {
+    path: 'sans-avis/parents',
+    component: () => import('@/components/tax/ParentsTaxForm.vue')
+  },
+  {
+    path: 'sans-avis/pas-recu',
+    component: () => import('@/components/tax/NotReceivedTaxForm.vue')
+  },
+  {
+    path: 'sans-avis/autre',
+    component: () => import('@/components/tax/OtherSituationTaxForm.vue')
+  },
+  {
+    path: 'non-renseigne',
+    component: () => import('@/components/tax/UnknownTaxStatus.vue')
+  }
+]
+
 const IDENTIFICATION_ROUTES = [
   {
     path: 'carte',
@@ -546,8 +585,15 @@ export const router = createRouter({
         },
         {
           path: '5',
-          name: 'TenantTax',
-          component: () => import('@/components/documents/tenant/TenantTax.vue')
+          component: () => import('@/components/tax/TenantTax.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantTax',
+              component: () => import('@/components/tax/HasTaxChoice.vue')
+            },
+            ...TAX_ROUTES
+          ]
         }
       ]
     },
@@ -622,8 +668,15 @@ export const router = createRouter({
         },
         {
           path: '5',
-          name: 'CoupleTax',
-          component: () => import('@/components/documents/cotenant/CoTenantTax.vue')
+          component: () => import('@/components/tax/SpouseTax.vue'),
+          children: [
+            {
+              path: '',
+              name: 'CoupleTax',
+              component: () => import('@/components/tax/HasTaxChoice.vue')
+            },
+            ...TAX_ROUTES
+          ]
         }
       ]
     },
@@ -755,8 +808,15 @@ export const router = createRouter({
         },
         {
           path: '5/:guarantorId',
-          name: 'GuarantorTax',
-          component: () => import('@/components/documents/naturalGuarantor/GuarantorTax.vue')
+          component: () => import('@/components/tax/GuarantorTax.vue'),
+          children: [
+            {
+              path: '',
+              name: 'GuarantorTax',
+              component: () => import('@/components/tax/HasTaxChoice.vue')
+            },
+            ...TAX_ROUTES
+          ]
         }
       ]
     },
@@ -836,9 +896,15 @@ export const router = createRouter({
         },
         {
           path: '5',
-          name: 'TenantGuarantorTax',
-          component: () => import('@/components/documents/naturalGuarantor/GuarantorTax.vue'),
-          props: (route) => ({ isCotenant: true, tenantId: Number(route.params.tenantId) })
+          component: () => import('@/components/tax/SpouseGuarantorTax.vue'),
+          children: [
+            {
+              path: '',
+              name: 'TenantGuarantorTax',
+              component: () => import('@/components/tax/HasTaxChoice.vue')
+            },
+            ...TAX_ROUTES
+          ]
         }
       ]
     },

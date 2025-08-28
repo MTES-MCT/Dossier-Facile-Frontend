@@ -358,7 +358,6 @@
                         name="message"
                         autocomplete="off"
                         :placeholder="t('message')"
-                        type="textarea"
                       />
                       <ErrorMessage v-slot="{ message }" class="fr-error-text" name="message">
                         <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>

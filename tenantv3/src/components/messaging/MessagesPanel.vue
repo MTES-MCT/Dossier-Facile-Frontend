@@ -51,7 +51,6 @@
             autocomplete="off"
             rows="4"
             name="sendMessage"
-            type="text"
           />
         </div>
 

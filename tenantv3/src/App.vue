@@ -53,7 +53,6 @@ const hasToDisplayAnnoncement = computed(() => store.user.status !== 'INCOMPLETE
   <TenantSkipLinks />
   <MyHeader
     :logged-in="isLoggedIn"
-    :show-accessibility="isFunnel"
     @on-login-tenant="onLoginTenant"
     @on-create-owner="onCreateOwner"
     @on-logout="onLogout"

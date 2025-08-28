@@ -28,7 +28,6 @@
       class="form-control fr-input validate-required"
       :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
       name="customText"
-      type="text"
       maxlength="2000"
       rows="3"
       required

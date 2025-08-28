@@ -46,6 +46,7 @@ import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { toast } from '@/components/toast/toastUtils'
+import { makeTaxLink } from '@/components/tax/lib/taxLink'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -71,7 +72,7 @@ function getGuarantorName(g: Guarantor) {
 
 function goBack() {
   if (user.value?.guarantors && user.value?.guarantors.length > 0) {
-    router.push({ name: 'TenantTax' })
+    router.push(makeTaxLink(store.getTenantTaxDocument))
     return
   }
   router.push({
@@ -176,74 +177,6 @@ function addNaturalGuarantor() {
 </script>
 
 <style scoped lang="scss">
-h2 {
-  font-size: 1rem;
-  margin: 0.5rem;
-  display: inline-block;
-  align-self: center;
-}
-
-.icon {
-  align-self: center;
-}
-
-.document-title {
-  border: 1px solid #ececec;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  cursor: pointer;
-  display: flex;
-}
-
-.selected {
-  background-color: var(--secondary);
-}
-
-.check {
-  padding: 0.5rem;
-  margin-left: auto;
-  color: green;
-}
-
-.buttons {
-  justify-content: space-between;
-}
-
-.guarantorselected {
-  background-color: var(--light-blue-transparent);
-}
-
-.title-bar {
-  display: flex;
-  align-items: center;
-  span {
-    padding: 0.5rem;
-    line-height: 1rem;
-  }
-}
-
-.btn-group {
-  width: fit-content;
-}
-
-h2 {
-  line-height: 1.5rem;
-}
-
-.card {
-  padding: 1rem;
-}
-
-.card-container {
-  @media all and (min-width: 992px) {
-    width: 100%;
-  }
-}
-
-.small-font {
-  font-size: 14px;
-}
-
 .add-guarantor-btn {
   border-radius: 0.5rem;
   padding: 1.75rem;

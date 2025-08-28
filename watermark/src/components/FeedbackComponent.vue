@@ -79,9 +79,12 @@ function dislike() {
 }
 
 .like {
+  display: inline-flex;
+  align-items: center;
   background-color: rgb(184, 254, 201);
   color: rgb(24, 117, 60);
   padding: 0.5rem;
+  margin-top: 1rem;
   margin-right: 1rem;
   &:before {
     content: "";
@@ -95,6 +98,8 @@ function dislike() {
 }
 
 .dislike {
+  display: inline-flex;
+  align-items: center;
   background-color: #ffe9e6;
   color: #9c0400;
   padding: 0.5rem;

@@ -1,14 +1,18 @@
 import { getTenantUser, UserType } from "../../support/users";
 
 describe("accessibility checks", () => {
-  const username = getTenantUser().username;
+  const user = getTenantUser();
 
   beforeEach("reset account", () => {
-    cy.deleteAccount(username, UserType.TENANT);
+    cy.loginWithFCAndDeleteAccount(
+      user.username,
+      user.password,
+      UserType.TENANT
+    );
   });
 
   it("funnel accessibility", () => {
-    cy.tenantLogin(username);
+    cy.tenantLoginWithFC(user.username, user.password);
     cy.rejectCookies();
     cy.contains("Pour vous").click();
     cy.testAccessibility();
@@ -41,7 +45,8 @@ describe("accessibility checks", () => {
     cy.clickOnNext();
 
     cy.testAccessibility();
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
+    cy.contains("Vous avez un avis d’impôt").click();
+    cy.simpleUploadDocumentStep("un avis d’impôt français");
 
     cy.testAccessibility();
     cy.contains("Une personne").click().clickOnNext();
@@ -70,9 +75,8 @@ describe("accessibility checks", () => {
     cy.clickOnNext();
 
     cy.testAccessibility();
-    cy.simpleUploadDocumentStep(
-      "Votre garant a un avis d'imposition à son nom"
-    );
+    cy.contains("Votre garant a un avis d’impôt").click();
+    cy.simpleUploadDocumentStep("un avis d’impôt français");
 
     cy.testAccessibility();
     cy.clickOnNext();

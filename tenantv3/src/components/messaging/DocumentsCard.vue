@@ -56,9 +56,9 @@ const goToDoc = (doc: DocumentCategory | undefined) => {
     TAX: 5,
     GUARANTEE_PROVIDER_CERTIFICATE: 0,
     IDENTIFICATION_LEGAL_PERSON: 0,
-    NULL: 0
+    NULL: -1
   }[doc || 'NULL']
-  if (substep === 0) {
+  if (substep === -1) {
     console.warn('Invalid document type', doc)
     return
   }
@@ -101,7 +101,8 @@ const goToDoc = (doc: DocumentCategory | undefined) => {
           "financial": "le justificatif de ressources",
           "tax": "l'avis d'imposition",
           "guarantee-provider-certificate": "le certificat de garantie",
-          "identification-legal-person": "l'identité de la personne morale"
+          "identification-legal-person": "l'identité de la personne morale",
+          "identity-represent": "l'identité du représentant",
         }
     },
     "en": {
@@ -117,7 +118,8 @@ const goToDoc = (doc: DocumentCategory | undefined) => {
           "financial": "Proof of Financial Resources",
           "tax": "Tax Notice",
           "guarantee-provider-certificate": "Warranty Certificate",
-          "identification-legal-person": "Legal Entity Identification"
+          "identification-legal-person": "Legal Entity Identification",
+          "identity-represent": "representative identity",
         }
     }
 }

@@ -42,12 +42,7 @@
               pièce recto-verso !
             </b>
           </label>
-          <select
-            id="selectID"
-            v-model="identificationDocument"
-            class="fr-select fr-mb-3w"
-            as="select"
-          >
+          <select id="selectID" v-model="identificationDocument" class="fr-select fr-mb-3w">
             <option v-if="!identificationDocument" selected disabled></option>
             <option v-for="d in documents" :key="d.key" :value="d">
               {{ t(d.key) }}
@@ -76,7 +71,6 @@
               ref="file-upload"
               :current-status="fileUploadStatus"
               @add-files="addFiles"
-              @reset-files="resetFiles"
             ></FileUpload>
           </div>
         </div>
@@ -242,10 +236,6 @@ function goNext() {
   save().then(() => {
     emit('on-next')
   })
-}
-
-function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 
 function remove(file: DfFile) {

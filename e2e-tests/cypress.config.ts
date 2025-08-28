@@ -8,7 +8,7 @@ export default defineConfig({
     defaultCommandTimeout: 5000,
     setupNodeEvents(on) {
       on("task", log());
-    }
+    },
   },
   env: {
     configName: "local",
@@ -20,5 +20,5 @@ export default defineConfig({
   },
   viewportWidth: 1200,
   viewportHeight: 800,
-  chromeWebSecurity: false
+  chromeWebSecurity: false,
 });

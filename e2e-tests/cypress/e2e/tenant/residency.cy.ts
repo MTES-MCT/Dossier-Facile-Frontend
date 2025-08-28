@@ -1,11 +1,5 @@
+import { getInputByLabel } from "../../support/commands/global";
 import { getTenantUser, UserType } from "../../support/users";
-
-function getInputByLabel(label: string) {
-  return cy
-    .contains(label)
-    .invoke("attr", "for")
-    .then((id) => cy.get("#" + id));
-}
 
 describe(
   "residency category",
@@ -13,10 +7,14 @@ describe(
   () => {
     before("reset account, login and setup", () => {
       cy.clearAllCookies();
-      const username = getTenantUser().username;
-      cy.deleteAccount(username, UserType.TENANT);
+      const user = getTenantUser();
+      cy.loginWithFCAndDeleteAccount(
+        user.username,
+        user.password,
+        UserType.TENANT
+      );
 
-      cy.tenantLogin(username);
+      cy.tenantLoginWithFC(user.username, user.password);
       cy.rejectCookies();
       cy.contains("Pour vous").click();
 
@@ -68,7 +66,7 @@ describe(
       getInputByLabel("Vous êtes dans une situation précaire").should(
         "be.checked"
       );
-      cy.contains("Modifier").click();
+      cy.contains("Modifier").click({ force: true });
       cy.contains("Modifier votre situation").click();
 
       // Should not be able to continue without uploading a file
@@ -79,13 +77,13 @@ describe(
       cy.contains("Valider votre situation d'hébergement").should(
         "be.disabled"
       );
-      cy.contains("Modifier").click();
+      cy.contains("Modifier").click({ force: true });
 
       // Should upload a file and continue
       cy.contains("Propriétaire").click();
       cy.uploadDocument(1).clickOnNext();
       goBackToResidency();
-      cy.contains("Modifier").click();
+      cy.contains("Modifier").click({ force: true });
       cy.contains("Modifier votre situation").click();
     }
 
@@ -97,7 +95,7 @@ describe(
       cy.get("textarea[name=customText]").type("Test");
       cy.uploadDocument(1).clickOnNext().expectPath("/3");
       cy.contains("Retour").click();
-      cy.contains("Modifier").click();
+      cy.contains("Modifier").click({ force: true });
       cy.contains("Modifier votre situation").click();
 
       // Should be able to continue without uploading a file
@@ -109,7 +107,7 @@ describe(
       cy.contains("Propriétaire").click();
       cy.uploadDocument(1).clickOnNext();
       goBackToResidency();
-      cy.contains("Modifier").click();
+      cy.contains("Modifier").click({ force: true });
       cy.contains("Modifier votre situation").click();
     }
 
@@ -130,12 +128,12 @@ describe(
       getInputByLabel("Votre conjoint est dans une situation précaire").should(
         "be.checked"
       );
-      cy.contains("Modifier").click();
+      cy.contains("Modifier").click({ force: true });
       cy.contains("Modifier votre situation").click();
 
       // Should be able to go back
       cy.contains("Locataire").click();
-      cy.contains("Modifier").click();
+      cy.contains("Modifier").click({ force: true });
       cy.expectPath("/2");
 
       // Should upload a file and continue

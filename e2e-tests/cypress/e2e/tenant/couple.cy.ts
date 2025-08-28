@@ -1,14 +1,19 @@
+import { getInputByLabel } from "../../support/commands/global";
 import { getTenantUser, UserType } from "../../support/users";
 
 describe("couple tenant scenario", () => {
   const user = getTenantUser();
 
   beforeEach("reset account", () => {
-    cy.deleteAccount(user.username, UserType.TENANT);
+    cy.loginWithFCAndDeleteAccount(
+      user.username,
+      user.password,
+      UserType.TENANT
+    );
   });
 
   it("validate file", () => {
-    cy.tenantLogin(user.username);
+    cy.tenantLoginWithFC(user.username, user.password);
     cy.rejectCookies();
     cy.contains("Pour vous").click();
     cy.clickOnNext();
@@ -39,9 +44,11 @@ describe("couple tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
-    cy.contains("Vous êtes rattaché fiscalement à vos parents")
-      .click()
-      .clickOnNext();
+    cy.contains("Vous n’avez pas d’avis d’impôt").click();
+    cy.contains(
+      "Vous êtes inscrit sur la déclaration d’impôt de vos parents"
+    ).click();
+    cy.contains("J’atteste sur l’honneur ne pas pouvoir").click().clickOnNext();
 
     cy.expectPath("/choix-garant");
     cy.contains("Un organisme").click().clickOnNext();
@@ -75,8 +82,9 @@ describe("couple tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/4/5");
-    cy.contains("Autre").click();
-    cy.get("#customText").type("...");
+    cy.contains("Votre conjoint n’a pas d’avis d’impôt").click();
+    cy.contains("Autre situation").click();
+    getInputByLabel("Décrivez sa situation").type("...");
     cy.clickOnNext();
 
     cy.expectPath("/garants-locataire");

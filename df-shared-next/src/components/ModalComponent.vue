@@ -15,7 +15,7 @@
       >
         Fermer
       </button>
-      <header :id="titleId" class="modal-header">
+      <header :id="titleId" class="modal-header" v-show="slots.header">
         <slot name="header"><span style="visibility: hidden">title</span></slot>
       </header>
       <section :id="descriptionId" class="modal-body">
@@ -30,9 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import { useId } from 'vue'
+import { useId, useSlots } from 'vue'
 
 const emit = defineEmits<{ close: [] }>()
+
+const slots = useSlots()
 
 const descriptionId = useId()
 const titleId = `${descriptionId}-title`

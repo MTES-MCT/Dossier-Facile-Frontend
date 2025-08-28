@@ -68,7 +68,7 @@ export const UtilsService = {
       user.apartmentSharing?.tokenPublic !== ''
     )
   },
-  handleCommonSaveError(err: unknown, elt?: HTMLElement | null) {
+  handleCommonSaveError(err: unknown, elt: HTMLElement | null | undefined) {
     let hasSpecificMessage = false
     if (isAxiosError(err)) {
       const message: string = err.response?.data.message ?? ''
@@ -109,17 +109,6 @@ export const UtilsService = {
     const firstName = this.capitalize(user.firstName || '')
     const lastName = this.capitalize(user.lastName || '')
     return firstName + '\xa0' + lastName
-  },
-  hasBrokenRules(documents: DfDocument[]): boolean {
-    const documentsDenied = documents.find(
-      (doc) => doc.documentAnalysisReport?.analysisStatus === 'DENIED'
-    )
-    return documentsDenied !== undefined
-  },
-  getTenantDocumentByType(user: CoTenant, docType: string): DfDocument | undefined {
-    return user.documents?.find((d: DfDocument) => {
-      return d.documentCategory === docType
-    })
   },
   getParam(param: string | string[]) {
     return Array.isArray(param) ? param[0] : param

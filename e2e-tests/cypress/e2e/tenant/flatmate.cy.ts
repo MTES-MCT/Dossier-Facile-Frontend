@@ -5,16 +5,20 @@ describe("flatmate tenant scenario", () => {
   const flatmateEmail = `coloc-${Math.floor(Math.random() * 10000)}@yopmail.fr`;
 
   beforeEach("reset account", () => {
-    cy.deleteAccount(user.username, UserType.TENANT);
+    cy.loginWithFCAndDeleteAccount(
+      user.username,
+      user.password,
+      UserType.TENANT
+    );
   });
 
   it("validate file", () => {
-    cy.tenantLogin(user.username);
+    cy.tenantLoginWithFC(user.username, user.password);
     cy.rejectCookies();
     cy.contains("Pour vous").click();
 
-    cy.get("#lastname").should("have.value", user.lastname);
-    cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
+    cy.verifyTenantIdentity(user.firstname, user.lastname);
+
     cy.clickOnNext();
 
     cy.wait(200);
@@ -27,7 +31,7 @@ describe("flatmate tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");
-    cy.simpleUploadDocumentStep("Titre de séjour français");
+    cy.simpleUploadDocumentStep("Carte ou titre de séjour");
 
     cy.expectPath("/documents-locataire/2");
     cy.selectResidencyStep(
@@ -51,9 +55,11 @@ describe("flatmate tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
-    cy.contains("Vous êtes rattaché fiscalement à vos parents")
-      .click()
-      .clickOnNext();
+    cy.contains("Vous n’avez pas d’avis d’impôt").click();
+    cy.contains(
+      "Vous êtes inscrit sur la déclaration d’impôt de vos parents"
+    ).click();
+    cy.contains("J’atteste sur l’honneur ne pas pouvoir").click().clickOnNext();
 
     cy.expectPath("/choix-garant");
     cy.contains("Une personne morale").click({ force: true }).clickOnNext();

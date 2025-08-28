@@ -4,17 +4,21 @@ describe("alone tenant scenario", () => {
   const user = getTenantUser();
 
   beforeEach("reset account", () => {
-    cy.deleteAccount(user.username, UserType.TENANT);
+    cy.loginWithFCAndDeleteAccount(
+      user.username,
+      user.password,
+      UserType.TENANT
+    );
   });
 
   it("validate file", () => {
-    cy.tenantLogin(user.username);
+    cy.tenantLoginWithFC(user.username, user.password);
     cy.rejectCookies();
 
     cy.contains("Pour vous").click();
 
-    cy.get("#lastname").should("have.value", user.lastname);
-    cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
+    cy.verifyTenantIdentity(user.firstname, user.lastname);
+
     cy.clickOnNext();
 
     cy.expectPath("/type-locataire");
@@ -59,7 +63,8 @@ describe("alone tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
+    cy.contains("Vous avez un avis d’impôt").click();
+    cy.simpleUploadDocumentStep("un avis d’impôt français");
 
     cy.expectPath("/choix-garant");
     cy.contains("Une personne").click().clickOnNext();
@@ -105,7 +110,8 @@ function createGuarantor(firstname: string, lastname: string) {
   cy.clickOnNext();
 
   cy.expectPath("/info-garant/5");
-  cy.simpleUploadDocumentStep("Votre garant a un avis d'imposition à son nom");
+  cy.contains("Votre garant a un avis d’impôt").click();
+  cy.simpleUploadDocumentStep("un avis d’impôt français");
 
   cy.expectPath("/liste-garants");
   cy.get("#step-content")

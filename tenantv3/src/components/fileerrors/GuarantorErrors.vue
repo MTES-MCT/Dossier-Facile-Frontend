@@ -45,14 +45,14 @@
         <UpdateComponent
           :document="getDocument(g, 'IDENTIFICATION')"
           @on-update="openGuarantor(g, 1)"
-          >{{ t('fileerrors.corporation-identification') }}</UpdateComponent
+          >{{ t('fileerrors.representative-identification') }}</UpdateComponent
         >
       </div>
       <div v-if="!isGuarantorDocumentValid('IDENTIFICATION_LEGAL_PERSON')">
         <UpdateComponent
           :document="getDocument(g, 'IDENTIFICATION_LEGAL_PERSON')"
-          @on-update="openGuarantor(g, 2)"
-          >{{ t('fileerrors.representative-identification') }}</UpdateComponent
+          @on-update="openGuarantor(g, 0)"
+          >{{ t('fileerrors.corporation-identification') }}</UpdateComponent
         >
       </div>
     </NakedCard>

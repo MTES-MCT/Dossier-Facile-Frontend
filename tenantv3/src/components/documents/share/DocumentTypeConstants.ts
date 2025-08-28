@@ -1,45 +1,4 @@
 export const DocumentTypeConstants = {
-  TAX_DOCS: [
-    {
-      key: 'my-name',
-      value: 'MY_NAME',
-      maxFileCount: 5
-    },
-    {
-      key: 'my-parents',
-      value: 'MY_PARENTS',
-      maxFileCount: 0
-    },
-    {
-      key: 'less-than-year',
-      value: 'LESS_THAN_YEAR',
-      maxFileCount: 0
-    },
-    {
-      key: 'other-tax',
-      value: 'OTHER_TAX',
-      maxFileCount: 0
-    }
-  ],
-
-  GUARANTOR_TAX_DOCS: [
-    {
-      key: 'my-name',
-      value: 'MY_NAME',
-      maxFileCount: 5
-    },
-    {
-      key: 'less-than-year',
-      value: 'LESS_THAN_YEAR',
-      maxFileCount: 0
-    },
-    {
-      key: 'other-tax',
-      value: 'OTHER_TAX',
-      maxFileCount: 0
-    }
-  ],
-
   GUARANTOR_ORGANISM_DOCS: [
     {
       key: 'visale',
@@ -116,3 +75,5 @@ export type IdentityCategory =
   | 'DRIVERS_LICENSE'
   | 'FRANCE_IDENTITE'
   | 'OTHER_IDENTIFICATION'
+
+export type TaxCategory = 'MY_NAME' | 'MY_PARENTS' | 'OTHER_TAX'

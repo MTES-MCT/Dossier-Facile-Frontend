@@ -37,7 +37,6 @@
             ref="file-upload"
             :current-status="fileUploadStatus"
             @add-files="addFiles"
-            @reset-files="resetFiles"
           ></FileUpload>
         </div>
       </div>
@@ -208,10 +207,6 @@ function save(files: File[]) {
     .finally(() => {
       loader.hide()
     })
-}
-
-function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 
 async function removeAllFiles() {

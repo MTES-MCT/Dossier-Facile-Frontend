@@ -8,11 +8,22 @@ import { computed, provide } from 'vue'
 import { financialKey } from '@/components/financial/financialState'
 import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
 import { useRoute } from 'vue-router'
+import { makeSpouseGuarantorTaxLink } from '../tax/lib/taxLink'
 
 const store = useTenantStore()
 const route = useRoute()
 const guarantorId = useGuarantorId()
 const tenantId = computed(() => Number(route.params.tenantId))
+
+const taxLink = computed(() => {
+  if (!store.guarantor) {
+    return {
+      name: 'TenantGuarantorTax',
+      params: { tenantId: tenantId.value, guarantorId: guarantorId.value }
+    }
+  }
+  return makeSpouseGuarantorTaxLink(store.guarantor, store.coTenants[0].id)
+})
 
 provide(financialKey, {
   category: 'couple-guarantor-financial',
@@ -22,10 +33,7 @@ provide(financialKey, {
     name: 'TenantGuarantorProfessional',
     params: { tenantId: tenantId.value, guarantorId: guarantorId.value }
   },
-  nextStep: {
-    name: 'TenantGuarantorTax',
-    params: { tenantId: tenantId.value, guarantorId: guarantorId.value }
-  },
+  nextStep: taxLink.value,
   recap: { name: 'TenantGuarantorFinancial' },
   userId: store.user.id,
   action: 'saveGuarantorFinancial',

@@ -40,7 +40,6 @@
             <router-link
               class="fr-nav__link"
               to="/account"
-              target="_self"
               :aria-current="currentPage === 'Account' ? 'page' : undefined"
             >
               {{ t('menu.file') }}
@@ -54,7 +53,6 @@
             <router-link
               class="fr-nav__link"
               to="/partners"
-              target="_self"
               :aria-current="currentPage === 'PartnerAccessPage' ? 'page' : undefined"
             >
               {{ t('menu.shared') }}
@@ -64,7 +62,6 @@
             <router-link
               class="fr-nav__link"
               to="/applications"
-              target="_self"
               :aria-current="currentPage === 'SharingPage' ? 'page' : undefined"
             >
               {{ t('menu.applications') }}

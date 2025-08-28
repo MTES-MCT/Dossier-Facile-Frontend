@@ -109,7 +109,7 @@ async function save(): Promise<boolean> {
     })
     .catch((err) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      UtilsService.handleCommonSaveError(err)
+      UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
       return false
     })
     .finally(() => {

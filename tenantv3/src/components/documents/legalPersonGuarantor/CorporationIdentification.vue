@@ -62,7 +62,6 @@
               ref="file-upload"
               :current-status="fileUploadStatus"
               @add-files="addFiles"
-              @reset-files="resetFiles"
             ></FileUpload>
           </div>
         </div>
@@ -171,7 +170,7 @@ function save() {
       })
       .catch((err: Error) => {
         fileUploadStatus.value = UploadStatus.STATUS_FAILED
-        UtilsService.handleCommonSaveError(err)
+        UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
         return Promise.reject(err)
       })
       .finally(() => {
@@ -201,10 +200,6 @@ function save() {
     .finally(() => {
       loader.hide()
     })
-}
-
-function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 
 function remove(file: DfFile) {
