@@ -1,25 +1,18 @@
 <script setup lang="ts">
 import { computed, onBeforeMount } from 'vue'
-import MyHeader from 'df-shared-next/src/Header/HeaderComponent.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
 import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
-import { useRouter } from 'vue-router'
-import OwnerMenu from './components/OwnerMenu.vue'
 import useOwnerStore from './store/owner-store'
 import DeleteAccount from './components/DeleteAccount.vue'
 import cookies from 'js-cookie'
+import OwnerHeader from './components/OwnerHeader.vue'
 
 const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
 
-const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
-
 const store = useOwnerStore()
-const router = useRouter()
-
-const isLoggedIn = computed(() => store.isLoggedIn)
 
 const hasFooter = computed(() => store.hasFooter)
 
@@ -29,34 +22,13 @@ onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
   store.setLang(lang)
 })
-
-function onLogin() {
-  router.push({ name: 'Dashboard' })
-}
-
-function goToTenant() {
-  window.location.href = TENANT_URL
-}
-
-function onLogout() {
-  store.logout()
-}
 </script>
 
 <template>
   <div class="cdn-background"></div>
   <ConsentHandler />
   <SkipLinks />
-  <MyHeader
-    type="owner"
-    :logged-in="isLoggedIn"
-    :show-accessibility="false"
-    @on-login="onLogin"
-    @on-access-tenant="goToTenant"
-    @on-logout="onLogout"
-  >
-    <OwnerMenu />
-  </MyHeader>
+  <OwnerHeader />
   <div id="content">
     <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>
     <Announcement :message="MESSAGE"></Announcement>

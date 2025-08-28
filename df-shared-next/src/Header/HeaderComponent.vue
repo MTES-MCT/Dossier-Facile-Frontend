@@ -37,44 +37,41 @@
             <div class="fr-header__tools-links">
               <ul class="fr-btns-group">
                 <li v-if="loggedIn">
-                  <DfButton :small="true" :primary="false" @click="onLogout">
-                    <RiAccountCircleLine aria-hidden="true" />
+                  <DfButton type="button" @click="$emit('on-logout')">
+                    <RiAccountCircleLine aria-hidden="true" class="fr-mr-1v" />
                     {{ t('logout') }}
                   </DfButton>
                 </li>
-                <li v-if="!loggedIn">
-                  <DfButton :primary="true" :title="signupText" size="small" @click="onLogin">
-                    <RiAccountCircleLine aria-hidden="true" />
-                    {{ signupText }}
-                  </DfButton>
-                </li>
-                <li v-if="!loggedIn">
-                  <DfButton
-                    v-if="type == 'tenant'"
-                    size="small"
-                    :title="t('owner')"
-                    @click="onAccessOwner"
-                  >
-                    <RiCommunityLine aria-hidden="true" />
-                    {{ t('owner') }}
-                  </DfButton>
-                  <DfButton v-else size="small" :title="t('tenant')" @click="onAccessTenant">
-                    <RiUserStarLine aria-hidden="true" />
-                    {{ t('tenant') }}
-                  </DfButton>
-                </li>
-                <li v-if="!loggedIn">
-                  <a
-                    class="fr-external-link fr-btn fr-btn--sm"
-                    href="https://partenaire.dossierfacile.logement.gouv.fr/devenir-partenaire-1/pourquoi-devenir-partenaire-dossierfacile"
-                    target="_blank"
-                    rel="noopener"
-                    :title="t('partner-link-title')"
-                  >
-                    <RiHomeHeartLine aria-hidden="true" />
-                    {{ t('partner') }}
-                  </a>
-                </li>
+                <template v-else>
+                  <li>
+                    <slot name="login">
+                      <a :href="TENANT_URL" class="fr-btn fr-btn--sm">
+                        <RiAccountCircleLine aria-hidden="true" class="fr-mr-1v" />
+                        {{ t('tenant') }}
+                      </a>
+                    </slot>
+                  </li>
+                  <li>
+                    <slot name="other">
+                      <a :href="OWNER_URL" class="fr-btn fr-btn--sm">
+                        <RiCommunityLine aria-hidden="true" class="fr-mr-1v" />
+                        {{ t('owner') }}
+                      </a>
+                    </slot>
+                  </li>
+                  <li>
+                    <a
+                      class="fr-external-link fr-btn fr-btn--sm"
+                      :href="PARTNER_URL"
+                      target="_blank"
+                      rel="noopener"
+                      :title="t('partner-link-title')"
+                    >
+                      <RiHomeHeartLine aria-hidden="true" class="fr-mr-1v" />
+                      {{ t('partner') }}
+                    </a>
+                  </li>
+                </template>
               </ul>
             </div>
           </div>
@@ -89,64 +86,41 @@
         <div class="fr-header__menu-links-hack">
           <ul class="fr-btns-group">
             <li v-if="loggedIn">
-              <DfButton
-                :title="t('logout')"
-                class="fr-ml-3"
-                :primary="false"
-                size="small"
-                @click="onLogout"
-              >
-                <RiAccountCircleLine aria-hidden="true" />
+              <DfButton type="button" class="fr-ml-3" size="small" @click="$emit('on-logout')">
+                <RiAccountCircleLine aria-hidden="true" class="fr-mr-1v" />
                 {{ t('logout') }}
               </DfButton>
             </li>
-            <li v-if="!loggedIn">
-              <DfButton
-                class="fr-ml-3"
-                :title="signupText"
-                :primary="false"
-                size="small"
-                @click="onLogin"
-              >
-                <RiAccountCircleLine aria-hidden="true" />
-                {{ signupText }}
-              </DfButton>
-            </li>
-
-            <li v-if="!loggedIn">
-              <DfButton
-                v-if="type == 'tenant'"
-                size="small"
-                class="fr-ml-3"
-                :title="t('owner')"
-                @click="onAccessOwner"
-              >
-                <RiCommunityLine aria-hidden="true" />
-                {{ t('owner') }}
-              </DfButton>
-              <DfButton
-                v-else
-                size="small"
-                class="fr-ml-3"
-                :title="t('tenant')"
-                @click="onAccessTenant"
-              >
-                <RiUserStarLine aria-hidden="true" />
-                {{ t('tenant') }}
-              </DfButton>
-            </li>
-            <li v-if="!loggedIn">
-              <a
-                class="fr-external-link fr-btn fr-btn--sm"
-                href="https://partenaire.dossierfacile.logement.gouv.fr/devenir-partenaire-1/pourquoi-devenir-partenaire-dossierfacile"
-                target="_blank"
-                rel="noopener"
-                :title="t('partner-link-title')"
-              >
-                <RiHomeHeartLine aria-hidden="true" />
-                {{ t('partner') }}
-              </a>
-            </li>
+            <template v-else>
+              <li>
+                <slot name="login">
+                  <a :href="TENANT_URL" class="fr-btn fr-btn--sm">
+                    <RiAccountCircleLine aria-hidden="true" class="fr-mr-1v" />
+                    {{ t('tenant') }}
+                  </a>
+                </slot>
+              </li>
+              <li>
+                <slot name="other">
+                  <a :href="OWNER_URL" class="fr-btn fr-btn--sm">
+                    <RiCommunityLine aria-hidden="true" class="fr-mr-1v" />
+                    {{ t('owner') }}
+                  </a>
+                </slot>
+              </li>
+              <li>
+                <a
+                  class="fr-external-link fr-btn fr-btn--sm fr-btn--secondary"
+                  :href="PARTNER_URL"
+                  target="_blank"
+                  rel="noopener"
+                  :title="t('partner-link-title')"
+                >
+                  <RiHomeHeartLine aria-hidden="true" class="fr-mr-1v" />
+                  {{ t('partner') }}
+                </a>
+              </li>
+            </template>
           </ul>
         </div>
         <nav id="navigation-832" class="fr-nav" role="navigation" aria-label="Menu principal">
@@ -158,58 +132,20 @@
 </template>
 
 <script setup lang="ts">
-import {
-  RiAccountCircleLine,
-  RiCommunityLine,
-  RiHomeHeartLine,
-  RiUserStarLine
-} from '@remixicon/vue'
+import { RiAccountCircleLine, RiCommunityLine, RiHomeHeartLine } from '@remixicon/vue'
 import DfButton from '../Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
-import { computed } from 'vue'
 
 const { t } = useI18n()
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
+const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}/login`
+const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
+const PARTNER_URL =
+  'https://partenaire.dossierfacile.logement.gouv.fr/devenir-partenaire-1/pourquoi-devenir-partenaire-dossierfacile'
 
-const props = withDefaults(
-  defineProps<{
-    loggedIn?: boolean
-    lang?: string
-    showAccessibility?: boolean
-    type?: string
-  }>(),
-  {
-    loggedIn: false,
-    lang: 'fr',
-    showAccessibility: false,
-    type: 'tenant'
-  }
-)
+withDefaults(defineProps<{ loggedIn?: boolean }>(), { loggedIn: false })
 
-const emit = defineEmits<{
-  'on-login': []
-  'on-access-tenant': []
-  'on-access-owner': []
-  'on-logout': []
-}>()
-
-const signupText = computed(() => (props.type === 'tenant' ? t('tenant') : t('signup')))
-
-function onLogin() {
-  emit('on-login')
-}
-
-function onLogout() {
-  emit('on-logout')
-}
-
-function onAccessTenant() {
-  emit('on-access-tenant')
-}
-
-function onAccessOwner() {
-  emit('on-access-owner')
-}
+defineEmits<{ 'on-logout': [] }>()
 </script>
 
 <style lang="scss" scoped>
@@ -219,7 +155,7 @@ function onAccessOwner() {
   height: 89px;
 }
 
-.fr-btn--secondary {
+:deep(.fr-btn--secondary) {
   box-shadow: none;
 }
 
@@ -238,27 +174,12 @@ li {
     display: none;
   }
 }
-.fr-header .remixicon {
-  margin-right: 0.25rem;
-}
-.fr-header {
-  .fr-links-group {
-    li {
-      margin-right: 0;
-      margin-left: 0;
-      .fr-btn {
-        margin-right: 0;
-      }
-    }
-  }
-}
 </style>
 
 <i18n>
 {
   "en": {
     "logout": "Logout",
-    "signup": "Sign-in",
     "owner": "Owner area",
     "tenant": "Tenant area",
     "partner": "Become partner",
@@ -266,7 +187,6 @@ li {
   },
   "fr": {
     "logout": "Se déconnecter",
-    "signup": "Se connecter",
     "owner": "Espace propriétaire",
     "tenant": "Espace locataire",
     "partner": "Devenir partenaire",
