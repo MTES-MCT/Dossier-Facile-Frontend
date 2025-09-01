@@ -1,16 +1,11 @@
 <template>
-  <div id="funnel-menu" class="left-edit-menu fr-pt-7w fr-pb-12w">
-    <div class="inner-left-edit">
-      <div class="step" :class="getClass(getStepNumber('information'))">
-        <div class="step-number">{{ getStepNumber('information') }}</div>
-        <div class="step-title">
-          <router-link :to="{ name: 'TenantName', force: true }" class="fr-link">
-            {{ t('personal-information') }}
-          </router-link>
-        </div>
-      </div>
-      <div class="vline" :class="getClass(getStepNumber('information'))">
-        <div class="ml-5">
+  <ol id="funnel-menu" class="left-edit-menu fr-pt-7w fr-pb-12w">
+    <li class="step" :class="{ active: isActive('information') }">
+      <router-link :to="{ name: 'TenantName', force: true }" class="step-title">
+        {{ t('personal-information') }}
+      </router-link>
+      <ul class="vline">
+        <li class="ml-5">
           <router-link :to="{ name: 'TenantName', force: true }">
             <ColoredTag
               :label="t('lefteditmenu.identity')"
@@ -18,8 +13,8 @@
               status="NAME"
             />
           </router-link>
-        </div>
-        <div v-if="user.applicationType" class="ml-5">
+        </li>
+        <li v-if="user.applicationType" class="ml-5">
           <router-link :to="{ name: 'TenantType', force: true }">
             <ColoredTag
               :label="t('lefteditmenu.file-type')"
@@ -28,289 +23,224 @@
               :active="step < 2"
             ></ColoredTag>
           </router-link>
-        </div>
-      </div>
-      <div class="step" :class="getClass(getStepNumber('documents'))">
-        <div class="step-number">{{ getStepNumber('documents') }}</div>
-        <div class="step-title">
-          <router-link class="fr-link" :to="idDocLink">{{ t('my-document') }} </router-link>
-        </div>
-      </div>
-      <div class="vline" :class="getClass(getStepNumber('documents'))">
-        <div v-if="step === 2">
-          <TenantDocumentLink :document-type="DocumentType.IDENTITY" />
-          <TenantDocumentLink :document-type="DocumentType.RESIDENCY" />
-          <TenantDocumentLink :document-type="DocumentType.PROFESSIONAL" />
-          <TenantDocumentLink :document-type="DocumentType.FINANCIAL" />
-          <TenantDocumentLink :document-type="DocumentType.TAX" />
-        </div>
-      </div>
-      <div class="step" :class="getClass(getStepNumber('guarantor'))">
-        <div class="step-number">{{ getStepNumber('guarantor') }}</div>
-        <div class="step-title">
-          <router-link class="fr-link" :to="getGuarantorLink()"
-            >{{ t('my-guarantor') }}
-          </router-link>
-        </div>
-      </div>
-      <div class="vline" :class="getClass(getStepNumber('guarantor'))">
-        <div v-if="step === getStepNumber('guarantor') && selectedGuarantor">
-          <div
-            v-if="
-              selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
-              selectedGuarantor.firstName !== undefined &&
-              selectedGuarantor.lastName !== undefined
-            "
-          >
-            <div v-for="(g, k) in user.guarantors" :key="k">
-              <div class="ml-5 bold">
-                <router-link
-                  :to="{
-                    name: 'GuarantorName',
-                    params: { guarantorId: g.id }
-                  }"
-                >
-                  <ColoredTag
-                    :text="`${g.firstName} ${g.lastName}`"
-                    status="NONE"
-                    :active="getGuarantorCurrentStep(0, g)"
-                  ></ColoredTag>
-                </router-link>
-              </div>
-              <GuarantorDocumentLink
-                class="ml-10"
-                :guarantor="g"
-                :document-type="DocumentType.IDENTITY"
-              />
-              <GuarantorDocumentLink
-                class="ml-10"
-                :guarantor="g"
-                :document-type="DocumentType.RESIDENCY"
-              />
-              <GuarantorDocumentLink
-                class="ml-10"
-                :guarantor="g"
-                :document-type="DocumentType.PROFESSIONAL"
-              />
-              <GuarantorDocumentLink
-                class="ml-10"
-                :guarantor="g"
-                :document-type="DocumentType.FINANCIAL"
-              />
-              <GuarantorDocumentLink
-                class="ml-10"
-                :guarantor="g"
-                :document-type="DocumentType.TAX"
-              />
-            </div>
-          </div>
-          <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
+        </li>
+      </ul>
+    </li>
+    <li class="step" :class="{ active: isActive('documents') }">
+      <router-link class="step-title" :to="idDocLink">{{ t('my-document') }} </router-link>
+      <ul v-if="step === 2" class="vline">
+        <li v-for="docType of TENANT_DOCUMENTS" :key="docType">
+          <TenantDocumentLink :document-type="docType" />
+        </li>
+      </ul>
+    </li>
+    <li class="step" :class="{ active: isActive('guarantor') }">
+      <router-link class="step-title" :to="getGuarantorLink()"
+        >{{ t('my-guarantor') }}
+      </router-link>
+      <ul v-if="step === getStepNumber('guarantor') && selectedGuarantor" class="vline">
+        <template
+          v-if="
+            selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
+            selectedGuarantor.firstName !== undefined &&
+            selectedGuarantor.lastName !== undefined
+          "
+        >
+          <template v-for="(g, k) in user.guarantors" :key="k">
+            <li class="ml-5 bold">
+              <router-link
+                :to="{
+                  name: 'GuarantorName',
+                  params: { guarantorId: g.id }
+                }"
+              >
+                <ColoredTag
+                  :text="`${g.firstName} ${g.lastName}`"
+                  status="NONE"
+                  :active="getGuarantorCurrentStep(0, g)"
+                ></ColoredTag>
+              </router-link>
+            </li>
+            <li v-for="docType of TENANT_DOCUMENTS" :key="docType" class="ml-10">
+              <GuarantorDocumentLink :guarantor="g" :document-type="docType" />
+            </li>
+          </template>
+        </template>
+        <template v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
+          <li class="ml-5">
             <GuarantorDocumentLink
-              class="ml-5"
               :guarantor="selectedGuarantor"
               :document-type="DocumentType.IDENTIFICATION_LEGAL_PERSON"
             />
+          </li>
+          <li class="ml-5">
             <GuarantorDocumentLink
-              class="ml-5"
               :guarantor="selectedGuarantor"
               :document-type="DocumentType.IDENTIFICATION"
             />
-          </div>
-          <div v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'">
-            <GuarantorDocumentLink
-              class="ml-5"
-              :guarantor="selectedGuarantor"
-              :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
-            />
-          </div>
-        </div>
-      </div>
-      <div v-if="isCouple()" class="step" :class="getClass(getStepNumber('coTenant'))">
-        <div class="step-number">{{ getStepNumber('coTenant') }}</div>
-        <div class="step-title">
-          <router-link
-            class="fr-link"
-            :to="{
-              name: 'CoupleName',
-              force: true,
-              params: {
-                step: getStepNumber('coTenant'),
-                tenantId: getCoTenant(0).id
-              }
-            }"
-            >{{ t('my-cotenant') }}
-          </router-link>
-        </div>
-      </div>
-      <div v-if="isCouple()" class="vline" :class="getClass(getStepNumber('coTenant'))">
-        <div v-if="step === getStepNumber('coTenant')">
-          <div>
-            <div v-for="(coTenant, k) in coTenants" :key="k">
-              <div class="ml-5 bold">
-                <router-link
-                  :to="{
-                    name: 'CoupleName',
-                    force: true,
-                    params: { tenantId: coTenant.id, step: 4 }
-                  }"
-                >
-                  <ColoredTag
-                    :text="getName(coTenant)"
-                    status="NONE"
-                    :active="getCurrentSubStep() == 0"
-                  ></ColoredTag>
-                </router-link>
-              </div>
-              <CoTenantDocumentLink
-                class="ml-10"
-                :co-tenant="coTenant"
-                :document-type="DocumentType.IDENTITY"
-              />
-              <CoTenantDocumentLink
-                class="ml-10"
-                :co-tenant="coTenant"
-                :document-type="DocumentType.RESIDENCY"
-              />
-              <CoTenantDocumentLink
-                class="ml-10"
-                :co-tenant="coTenant"
-                :document-type="DocumentType.PROFESSIONAL"
-              />
-              <CoTenantDocumentLink
-                class="ml-10"
-                :co-tenant="coTenant"
-                :document-type="DocumentType.FINANCIAL"
-              />
-              <CoTenantDocumentLink
-                class="ml-10"
-                :co-tenant="coTenant"
-                :document-type="DocumentType.TAX"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-if="isCouple()" class="step" :class="getClass(getStepNumber('coTenantGuarantor'))">
-        <div class="step-number">
-          {{ getStepNumber('coTenantGuarantor') }}
-        </div>
-        <div class="step-title">
-          <router-link
-            class="fr-link"
-            :to="getTenantGuarantorLink(getCoTenant(0), getStepNumber('coTenantGuarantor'))"
-          >
-            {{ t('my-cotenant-guarantor') }}
-          </router-link>
-        </div>
-      </div>
-      <div v-if="isCouple()" class="vline" :class="getClass(getStepNumber('coTenantGuarantor'))">
-        <div v-if="step === getStepNumber('coTenantGuarantor')">
-          <div
-            v-if="
-              selectedGuarantor &&
-              selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
-              selectedGuarantor.firstName !== undefined &&
-              selectedGuarantor.lastName !== undefined
-            "
-          >
-            <div v-for="(g, k) in getCoTenant(0).guarantors" :key="k">
-              <div class="ml-5 bold">
-                <router-link
-                  :to="{
-                    name: 'TenantGuarantorName',
-                    force: true,
-                    params: {
-                      step: 5,
-                      tenantId: getCoTenant(0).id,
-                      guarantorId: g.id
-                    }
-                  }"
-                >
-                  <ColoredTag
-                    :text="`${g.firstName} ${g.lastName}`"
-                    status="NONE"
-                    :active="getGuarantorCurrentStep(0, g)"
-                  ></ColoredTag>
-                </router-link>
-              </div>
+          </li>
+        </template>
+        <li v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'" class="ml-5">
+          <GuarantorDocumentLink
+            :guarantor="selectedGuarantor"
+            :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
+          />
+        </li>
+      </ul>
+    </li>
+    <li v-if="isCouple()" class="step" :class="{ active: isActive('coTenant') }">
+      <router-link
+        class="step-title"
+        :to="{
+          name: 'CoupleName',
+          force: true,
+          params: {
+            step: getStepNumber('coTenant'),
+            tenantId: getCoTenant(0).id
+          }
+        }"
+        >{{ t('my-cotenant') }}
+      </router-link>
+      <ul v-if="step === getStepNumber('coTenant')" class="vline">
+        <template v-for="(coTenant, k) in coTenants" :key="k">
+          <li class="ml-5 bold">
+            <router-link
+              :to="{
+                name: 'CoupleName',
+                force: true,
+                params: { tenantId: coTenant.id, step: 4 }
+              }"
+            >
+              <ColoredTag
+                :text="getName(coTenant)"
+                status="NONE"
+                :active="getCurrentSubStep() == 0"
+              ></ColoredTag>
+            </router-link>
+          </li>
+          <li v-for="docType in TENANT_DOCUMENTS" :key="docType" class="ml-10">
+            <CoTenantDocumentLink :co-tenant="coTenant" :document-type="docType" />
+          </li>
+        </template>
+      </ul>
+    </li>
+
+    <li v-if="isCouple()" class="step" :class="{ active: isActive('coTenantGuarantor') }">
+      <router-link
+        class="step-title"
+        :to="getTenantGuarantorLink(getCoTenant(0), getStepNumber('coTenantGuarantor'))"
+      >
+        {{ t('my-cotenant-guarantor') }}
+      </router-link>
+      <ul v-if="step === getStepNumber('coTenantGuarantor')" class="vline">
+        <template
+          v-if="
+            selectedGuarantor &&
+            selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
+            selectedGuarantor.firstName !== undefined &&
+            selectedGuarantor.lastName !== undefined
+          "
+        >
+          <template v-for="(g, k) in getCoTenant(0).guarantors" :key="k">
+            <li class="ml-5 bold">
+              <router-link
+                :to="{
+                  name: 'TenantGuarantorName',
+                  force: true,
+                  params: {
+                    step: 5,
+                    tenantId: getCoTenant(0).id,
+                    guarantorId: g.id
+                  }
+                }"
+              >
+                <ColoredTag
+                  :text="`${g.firstName} ${g.lastName}`"
+                  status="NONE"
+                  :active="getGuarantorCurrentStep(0, g)"
+                ></ColoredTag>
+              </router-link>
+            </li>
+            <li class="ml-10">
               <CoTenantGuarantorDocumentLink
-                class="ml-10"
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.IDENTITY"
                 :to="makeSpouseGuarantorIdDocLink(g, getCoTenant(0).id)"
               />
+            </li>
+            <li class="ml-10">
               <CoTenantGuarantorDocumentLink
-                class="ml-10"
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.RESIDENCY"
                 :to="makeResidencyLink(g)"
               />
+            </li>
+            <li class="ml-10">
               <CoTenantGuarantorDocumentLink
-                class="ml-10"
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.PROFESSIONAL"
                 :to="makeProfessionalLink(g)"
               />
+            </li>
+            <li class="ml-10">
               <CoTenantGuarantorDocumentLink
-                class="ml-10"
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.FINANCIAL"
               />
+            </li>
+            <li class="ml-10">
               <CoTenantGuarantorDocumentLink
-                class="ml-10"
                 :guarantor="g"
                 :co-tenant="getCoTenant(0)"
                 :document-type="DocumentType.TAX"
                 :to="makeTaxLink(g)"
               />
-            </div>
-          </div>
-          <div v-if="selectedGuarantor?.typeGuarantor === 'LEGAL_PERSON'">
+            </li>
+          </template>
+        </template>
+        <template v-if="selectedGuarantor?.typeGuarantor === 'LEGAL_PERSON'">
+          <li class="ml-5">
             <CoTenantGuarantorDocumentLink
-              class="ml-5"
               :guarantor="selectedGuarantor"
               :co-tenant="getCoTenant(0)"
               :document-type="DocumentType.IDENTIFICATION_LEGAL_PERSON"
             />
+          </li>
+          <li class="ml-5">
             <CoTenantGuarantorDocumentLink
-              class="ml-5"
               :guarantor="selectedGuarantor"
               :co-tenant="getCoTenant(0)"
               :document-type="DocumentType.IDENTIFICATION"
             />
-          </div>
-          <div v-if="selectedGuarantor?.typeGuarantor === 'ORGANISM'">
-            <CoTenantGuarantorDocumentLink
-              class="ml-5"
-              :guarantor="selectedGuarantor"
-              :co-tenant="getCoTenant(0)"
-              :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="step" :class="getClass(getStepNumber('validate'))">
-        <div class="step-number">{{ getStepNumber('validate') }}</div>
-        <div class="step-title">
-          <router-link
-            class="fr-link"
-            :to="{
-              name: 'ValidateFileStep',
-              force: true,
-              params: { step: getStepNumber('validate') }
-            }"
-            >{{ t('validate-file') }}
-          </router-link>
-        </div>
-      </div>
+          </li>
+        </template>
+        <li v-if="selectedGuarantor?.typeGuarantor === 'ORGANISM'" class="ml-5">
+          <CoTenantGuarantorDocumentLink
+            :guarantor="selectedGuarantor"
+            :co-tenant="getCoTenant(0)"
+            :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
+          />
+        </li>
+      </ul>
+    </li>
+    <li class="step" :class="{ active: isActive('validate') }">
+      <router-link
+        class="step-title"
+        :to="{
+          name: 'ValidateFileStep',
+          force: true,
+          params: { step: getStepNumber('validate') }
+        }"
+        >{{ t('validate-file') }}
+      </router-link>
+    </li>
 
-      <div class="spacer"></div>
-    </div>
-  </div>
+    <div class="spacer"></div>
+  </ol>
 </template>
 
 <script setup lang="ts">
@@ -343,14 +273,15 @@ const user = computed(() => store.user)
 const { t } = useI18n()
 const idDocLink = useIdentityDocumentLink()
 
-const props = withDefaults(
-  defineProps<{
-    step?: number
-  }>(),
-  {
-    step: 0
-  }
-)
+const { step = 0 } = defineProps<{ step?: number }>()
+
+const TENANT_DOCUMENTS = [
+  DocumentType.IDENTITY,
+  DocumentType.RESIDENCY,
+  DocumentType.PROFESSIONAL,
+  DocumentType.FINANCIAL,
+  DocumentType.TAX
+]
 
 const coTenants = computed(() => {
   const c = user.value.apartmentSharing?.tenants?.filter((r) => {
@@ -362,17 +293,12 @@ const coTenants = computed(() => {
   return c
 })
 
-function getClass(s: number) {
-  if (s <= props.step) {
-    return 'active'
-  }
-  return ''
-}
+const isActive = (name: string) => getStepNumber(name) <= step
 
 function getGuarantorCurrentStep(substep: number, g: Guarantor | undefined): boolean {
   const s = Number(route.params.substep) || 0
   return (
-    (props.step === 3 || props.step === 5) &&
+    (step === 3 || step === 5) &&
     s === substep &&
     (g === undefined || selectedGuarantor.value?.id === g.id)
   )
@@ -452,79 +378,87 @@ function makeTaxLink(g: Guarantor) {
 <style scoped lang="scss">
 .left-edit-menu {
   background-color: var(--background-default-grey);
-  @media all and (max-width: 768px) {
-    display: none;
-  }
-}
-
-.inner-left-edit {
   min-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   padding-left: 10px;
+  --border-color: var(--g400-t);
+  @media all and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .vline {
-  margin-left: 23px;
-  border-left: 1px solid var(--g400-t);
-  z-index: 0;
+  list-style: none;
+  padding-left: 0;
+  padding-block: 1rem;
+  margin-block: 0;
+  margin-left: 18px;
+  border-left: 1px solid var(--border-color);
   min-height: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-  &.active {
-    border-left: 1px solid var(--primary);
+  & li {
+    padding-bottom: 0;
   }
+}
+
+.active {
+  --border-color: var(--primary);
 }
 
 .step {
   display: flex;
-  align-items: center;
-  height: 3rem;
+  flex-direction: column;
+  counter-increment: step;
+  position: relative;
+  padding-bottom: 0;
 }
-
-.step-number {
+.step::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 5px;
   background-color: white;
   border: 1px solid var(--g400-t);
-  margin: 0 5px;
   border-radius: 50%;
   height: 2.25rem;
   width: 2.25rem;
-  min-width: 2.25rem;
-  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.active .step-number {
+.step.active::before {
   background-color: var(--primary);
   color: white;
 }
 
 .step-title {
-  padding: 5px 5px 0;
+  margin-left: 2.75rem;
+  margin-block: 0.8rem;
+  color: var(--g800-plain);
+  font-size: 14px;
+  display: flex;
+  width: fit-content;
+  align-items: center;
 }
 
-.hidden {
-  visibility: hidden;
+.step:has(.step-title:only-child):not(:last-of-type)::after {
+  content: '';
+  height: 1.25rem;
+  border-left: 1px solid var(--border-color);
+  margin-left: 18px;
 }
 
 .ml-5 {
   margin-left: -1rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
 
 .ml-10 {
   margin-left: 0.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.fr-link {
-  width: fit-content;
-  color: var(--g800-plain);
-  font-size: 14px;
 }
 
 [href] {
