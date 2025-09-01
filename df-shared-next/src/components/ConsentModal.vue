@@ -35,6 +35,7 @@
                       <button
                         id="consent-service__tout-accepter"
                         type="button"
+                        :title="t('accept-all-title')"
                         class="fr-btn"
                         aria-controls="fr-consent-modal"
                         @click="acceptAll"
@@ -44,6 +45,7 @@
                       <button
                         id="consent-service__tout-refuser"
                         type="button"
+                        :title="t('reject-all-title')"
                         class="fr-btn fr-btn--secondary"
                         aria-controls="fr-consent-modal"
                         @click="rejectAll"
@@ -251,7 +253,9 @@ const confirm = () => {
     "accept": "Accept",
     "reject": "Reject",
     "accept-all": "Accept all",
+    "accept-all-title": "Accept preferences for all services",
     "reject-all": "Reject all",
+    "reject-all-title": "Reject preferences for all services",
     "mandatory-cookies": "Mandatory cookies",
     "mandatory-cookies-desc": "This site uses cookies which are necessary for its proper operation and which cannot be deactivated.",
     "confirm-choices": "Confirm choices",
@@ -265,7 +269,9 @@ const confirm = () => {
     "accept": "Accepter",
     "reject": "Refuser",
     "accept-all": "Tout accepter",
+    "accept-all-title": "Accepter les préférences pour tous les services",
     "reject-all": "Tout refuser",
+    "reject-all-title": "Refuser les préférences pour tous les services",
     "mandatory-cookies": "Cookies obligatoires",
     "mandatory-cookies-desc": "Ce site utilise des cookies nécessaires à son bon fonctionnement qui ne peuvent pas être désactivés.",
     "confirm-choices": "Confirmer vos choix",
