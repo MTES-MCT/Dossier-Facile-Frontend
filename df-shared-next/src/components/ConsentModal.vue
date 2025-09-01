@@ -175,20 +175,16 @@
                   </fieldset>
                 </div>
                 <!-- Bouton de confirmation/fermeture -->
-                <ul
-                  class="fr-consent-manager__buttons fr-btns-group fr-btns-group--right fr-btns-group--inline-sm"
-                >
-                  <li>
-                    <button
-                      type="button"
-                      class="fr-btn"
-                      aria-controls="fr-consent-modal"
-                      @click="confirm"
-                    >
-                      {{ t('confirm-choices') }}
-                    </button>
-                  </li>
-                </ul>
+                <footer>
+                  <button
+                    type="button"
+                    class="fr-btn large-btn"
+                    aria-controls="fr-consent-modal"
+                    @click="confirm"
+                  >
+                    {{ t('confirm-choices') }}
+                  </button>
+                </footer>
               </div>
             </div>
           </div>
@@ -242,6 +238,18 @@ const confirm = () => {
   gap: 1rem;
   padding: 0 0 1.5rem 0;
   margin: 0;
+}
+footer {
+  display: flex;
+  justify-content: end;
+}
+.large-btn {
+  justify-content: center;
+  width: fit-content;
+  flex-grow: 1;
+  @media (min-width: 768px) {
+    flex-grow: 0;
+  }
 }
 </style>
 
