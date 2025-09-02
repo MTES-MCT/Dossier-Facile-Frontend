@@ -171,7 +171,7 @@ function onBack() {
 }
 
 input[type='radio'] {
-  visibility: hidden;
+  clip-path: polygon(0 0);
 }
 
 .icon-container {
