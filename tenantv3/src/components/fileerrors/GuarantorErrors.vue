@@ -1,76 +1,72 @@
 <template>
-  <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
+  <template v-if="g.typeGuarantor === 'NATURAL_PERSON'">
     <NakedCard v-if="!documentsGuarantorFilled(g) || !namesGuarantorFilled(g)" class="fr-p-md-5w">
-      <div v-if="!namesGuarantorFilled(g)">
+      <template v-if="!namesGuarantorFilled(g)">
         <div class="fr-text--bold">
           {{ t(`fileerrors.${keyprefix}-invalid-names-guarantor`) }}
         </div>
         <UpdateComponent :user-id="user.id" @on-update="openGuarantor(g, 0)">{{
           t('fileerrors.user-names')
         }}</UpdateComponent>
-      </div>
+      </template>
       <div v-if="!documentsGuarantorFilled(g)" class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-document-guarantor`) }}
       </div>
 
-      <div
+      <template
         v-for="(v, k) in ['IDENTIFICATION', 'RESIDENCY', 'PROFESSIONAL', 'FINANCIAL', 'TAX']"
         :key="k"
       >
-        <div v-if="!isGuarantorDocumentValid(v)">
-          <UpdateComponent
-            :document="getDocument(g, v)"
-            :user-id="user.id"
-            @on-update="openGuarantor(g, k + 1)"
-            >{{ t(`fileerrors.${v}`) }}</UpdateComponent
-          >
-        </div>
-      </div>
+        <UpdateComponent
+          v-if="!isGuarantorDocumentValid(v)"
+          :document="getDocument(g, v)"
+          :user-id="user.id"
+          @on-update="openGuarantor(g, k + 1)"
+          >{{ t(`fileerrors.${v}`) }}</UpdateComponent
+        >
+      </template>
     </NakedCard>
-  </div>
-  <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
+  </template>
+  <template v-if="g.typeGuarantor === 'LEGAL_PERSON'">
     <NakedCard v-if="!documentsGuarantorFilled(g) || !namesGuarantorFilled(g)" class="fr-p-5w">
-      <div v-if="!namesGuarantorFilled(g)">
+      <template v-if="!namesGuarantorFilled(g)">
         <div class="fr-text--bold">
           {{ t(`fileerrors.${keyprefix}-invalid-names-guarantor`) }}
         </div>
         <UpdateComponent @on-update="openGuarantor(g, 0)">{{
           t('fileerrors.user-names')
         }}</UpdateComponent>
-      </div>
+      </template>
       <div class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-document-guarantor`) }}
       </div>
-      <div v-if="!isGuarantorDocumentValid('IDENTIFICATION')">
-        <UpdateComponent
-          :document="getDocument(g, 'IDENTIFICATION')"
-          @on-update="openGuarantor(g, 1)"
-          >{{ t('fileerrors.representative-identification') }}</UpdateComponent
-        >
-      </div>
-      <div v-if="!isGuarantorDocumentValid('IDENTIFICATION_LEGAL_PERSON')">
-        <UpdateComponent
-          :document="getDocument(g, 'IDENTIFICATION_LEGAL_PERSON')"
-          @on-update="openGuarantor(g, 0)"
-          >{{ t('fileerrors.corporation-identification') }}</UpdateComponent
-        >
-      </div>
+      <UpdateComponent
+        v-if="!isGuarantorDocumentValid('IDENTIFICATION')"
+        :document="getDocument(g, 'IDENTIFICATION')"
+        @on-update="openGuarantor(g, 1)"
+        >{{ t('fileerrors.representative-identification') }}</UpdateComponent
+      >
+      <UpdateComponent
+        v-if="!isGuarantorDocumentValid('IDENTIFICATION_LEGAL_PERSON')"
+        :document="getDocument(g, 'IDENTIFICATION_LEGAL_PERSON')"
+        @on-update="openGuarantor(g, 0)"
+        >{{ t('fileerrors.corporation-identification') }}</UpdateComponent
+      >
     </NakedCard>
-  </div>
-  <div v-if="g.typeGuarantor === 'ORGANISM'">
+  </template>
+  <template v-if="g.typeGuarantor === 'ORGANISM'">
     <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
       <div class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-document-guarantor`) }}
       </div>
-      <div v-if="!isGuarantorDocumentValid('GUARANTEE_PROVIDER_CERTIFICATE')">
-        <UpdateComponent
-          :document="getDocument(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
-          @on-update="openGuarantor(g, 1)"
-          >{{ t('fileerrors.organism-cert') }}</UpdateComponent
-        >
-      </div>
+      <UpdateComponent
+        v-if="!isGuarantorDocumentValid('GUARANTEE_PROVIDER_CERTIFICATE')"
+        :document="getDocument(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
+        @on-update="openGuarantor(g, 1)"
+        >{{ t('fileerrors.organism-cert') }}</UpdateComponent
+      >
     </NakedCard>
-  </div>
+  </template>
 </template>
 
 <script setup lang="ts">

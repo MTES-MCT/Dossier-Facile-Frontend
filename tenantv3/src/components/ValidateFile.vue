@@ -1,121 +1,113 @@
 <template>
-  <div>
-    <Form name="form" @submit="sendFile">
-      <div v-if="!hasErrors()">
-        <NakedCard class="fr-p-md-5w fr-mb-3w">
-          <h1 class="fr-h6">{{ t('validatefile.title') }}</h1>
-          <p>{{ getCheckboxInstructions() }}<span class="color--required"> *</span></p>
-          <div class="fr-checkbox-group bg-purple fr-mb-3w">
-            <Field
-              v-slot="{ field, meta }"
-              v-model="declaration"
-              name="declaration"
+  <Form name="form" @submit="sendFile">
+    <template v-if="!hasErrors()">
+      <NakedCard class="fr-p-md-5w fr-mb-3w">
+        <h1 class="fr-h6">{{ t('validatefile.title') }}</h1>
+        <p>{{ getCheckboxInstructions() }}<span class="color--required"> *</span></p>
+        <div class="fr-checkbox-group bg-purple fr-mb-3w">
+          <Field
+            v-slot="{ field, meta }"
+            v-model="declaration"
+            name="declaration"
+            type="checkbox"
+            :rules="{
+              isTrue: true
+            }"
+            :value="true"
+          >
+            <input
+              id="declaration"
               type="checkbox"
-              :rules="{
-                isTrue: true
+              :class="{
+                'fr-input--valid': meta.valid,
+                'fr-input--error': !meta.valid
               }"
-              :value="true"
-            >
-              <input
-                id="declaration"
-                type="checkbox"
-                :class="{
-                  'fr-input--valid': meta.valid,
-                  'fr-input--error': !meta.valid
-                }"
-                v-bind="field"
-              />
-            </Field>
-            <label for="declaration" v-html="t('validatefile.declaration')"> </label>
-            <ErrorMessage v-slot="{ message }" name="declaration">
-              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-            </ErrorMessage>
-          </div>
-          <div v-if="hasGuarantors()">
-            <div class="fr-checkbox-group bg-purple fr-mb-3w">
-              <Field
-                v-slot="{ field, meta }"
-                v-model="declaration2"
-                name="declaration2"
-                type="checkbox"
-                :rules="{
-                  isTrue: true
-                }"
-                :value="true"
-              >
-                <input
-                  id="declaration2"
-                  type="checkbox"
-                  :class="{
-                    'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid
-                  }"
-                  v-bind="field"
-                />
-              </Field>
-              <label for="declaration2">{{
-                user.guarantors.length > 1
-                  ? t('validatefile.declaration2-plural')
-                  : t('validatefile.declaration2')
-              }}</label>
-              <ErrorMessage v-slot="{ message }" name="declaration2">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-              </ErrorMessage>
-            </div>
-          </div>
-        </NakedCard>
-
-        <div v-if="user.tenantType === 'CREATE'">
-          <NakedCard class="fr-px-5w fr-py-3w fr-mb-2w">
-            <p>
-              <label for="precision" class="fr-label">
-                {{ t('validatefile.precision') }}
-              </label>
-              <Field id="precision" v-slot="{ field, meta }" v-model="precision" name="precision">
-                <textarea
-                  id="precision"
-                  :class="{
-                    'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid
-                  }"
-                  :placeholder="t('validatefile.placeholder')"
-                  maxlength="2000"
-                  rows="3"
-                  v-bind="field"
-                  name="precision"
-                  class="validate-required form-control fr-input"
-                />
-              </Field>
-              <span>{{ precision.length }} / 2000</span>
-              <ErrorMessage v-slot="{ message }" name="precision">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-              </ErrorMessage>
-            </p>
-          </NakedCard>
+              v-bind="field"
+            />
+          </Field>
+          <label for="declaration" v-html="t('validatefile.declaration')"> </label>
+          <ErrorMessage v-slot="{ message }" name="declaration">
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          </ErrorMessage>
         </div>
-      </div>
-      <ProfileFooter
-        ref="footer"
-        :disabled="hasErrors()"
-        :next-label="t('validatefile.validate')"
-        @on-back="goBack()"
-      >
-      </ProfileFooter>
-    </Form>
-    <div v-if="hasErrors()">
-      <NakedCard class="fr-px-5w fr-py-3w">
-        <div>
-          <h6 class="fr-h6 color--secondary">
-            {{ t('validatefile.validation-error-title') }}
-          </h6>
-          <p>
-            {{ t('validatefile.validation-error-description') }}
-          </p>
+        <div v-if="hasGuarantors()" class="fr-checkbox-group bg-purple fr-mb-3w">
+          <Field
+            v-slot="{ field, meta }"
+            v-model="declaration2"
+            name="declaration2"
+            type="checkbox"
+            :rules="{
+              isTrue: true
+            }"
+            :value="true"
+          >
+            <input
+              id="declaration2"
+              type="checkbox"
+              :class="{
+                'fr-input--valid': meta.valid,
+                'fr-input--error': !meta.valid
+              }"
+              v-bind="field"
+            />
+          </Field>
+          <label for="declaration2">{{
+            user.guarantors.length > 1
+              ? t('validatefile.declaration2-plural')
+              : t('validatefile.declaration2')
+          }}</label>
+          <ErrorMessage v-slot="{ message }" name="declaration2">
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          </ErrorMessage>
         </div>
       </NakedCard>
-      <FileErrors></FileErrors>
-    </div>
-  </div>
+
+      <NakedCard v-if="user.tenantType === 'CREATE'" class="fr-px-5w fr-py-3w fr-mb-2w">
+        <p>
+          <label for="precision" class="fr-label">
+            {{ t('validatefile.precision') }}
+          </label>
+          <Field id="precision" v-slot="{ field, meta }" v-model="precision" name="precision">
+            <textarea
+              id="precision"
+              :class="{
+                'fr-input--valid': meta.valid,
+                'fr-input--error': !meta.valid
+              }"
+              :placeholder="t('validatefile.placeholder')"
+              maxlength="2000"
+              rows="3"
+              v-bind="field"
+              name="precision"
+              class="validate-required form-control fr-input"
+            />
+          </Field>
+          <span>{{ precision.length }} / 2000</span>
+          <ErrorMessage v-slot="{ message }" name="precision">
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          </ErrorMessage>
+        </p>
+      </NakedCard>
+    </template>
+    <ProfileFooter
+      ref="footer"
+      :disabled="hasErrors()"
+      :next-label="t('validatefile.validate')"
+      @on-back="goBack()"
+    >
+    </ProfileFooter>
+  </Form>
+  <template v-if="hasErrors()">
+    <NakedCard class="fr-px-5w fr-py-3w">
+      <h6 class="fr-h6 color--secondary">
+        {{ t('validatefile.validation-error-title') }}
+      </h6>
+      <p>
+        {{ t('validatefile.validation-error-description') }}
+      </p>
+    </NakedCard>
+    <FileErrors></FileErrors>
+  </template>
 </template>
 
 <script setup lang="ts">
