@@ -6,19 +6,17 @@
       </div>
       <img alt="logo caf" class="logo-caf" src="../../../assets/caf.svg" />
     </div>
-    <div>
-      <div>{{ t('simulationcaf.simulation-caf-text') }}</div>
-      <div class="body-btn-container">
-        <button
-          type="button"
-          :aria-label="t('simulationcaf.btn-caf')"
-          :title="t('simulationcaf.btn-caf')"
-          class="fr-btn fr-btn--secondary"
-          @click="openSimulationCAF()"
-        >
-          {{ t('simulationcaf.btn-caf') }}
-        </button>
-      </div>
+    <p class="fr-mb-0">{{ t('simulationcaf.simulation-caf-text') }}</p>
+    <div class="body-btn-container">
+      <button
+        type="button"
+        :aria-label="t('simulationcaf.btn-caf')"
+        :title="t('simulationcaf.btn-caf')"
+        class="fr-btn fr-btn--secondary"
+        @click="openSimulationCAF()"
+      >
+        {{ t('simulationcaf.btn-caf') }}
+      </button>
     </div>
   </div>
 </template>

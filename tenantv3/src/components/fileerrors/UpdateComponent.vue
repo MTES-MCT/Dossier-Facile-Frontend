@@ -1,9 +1,7 @@
 <template>
   <div class="update-component">
     <div class="fr-grid-row file-item">
-      <div>
-        <slot></slot>
-      </div>
+      <p class="fr-mb-0"><slot></slot></p>
       <!-- TODO : bouton voir -->
       <DfButton class="update-btn" @click="$emit('on-update')">
         <span class="desktop">{{ t('fileerrors.update') }}</span>

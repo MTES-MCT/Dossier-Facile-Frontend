@@ -2,16 +2,16 @@
   <template v-if="g.typeGuarantor === 'NATURAL_PERSON'">
     <NakedCard v-if="!documentsGuarantorFilled(g) || !namesGuarantorFilled(g)" class="fr-p-md-5w">
       <template v-if="!namesGuarantorFilled(g)">
-        <div class="fr-text--bold">
+        <p class="fr-text--bold">
           {{ t(`fileerrors.${keyprefix}-invalid-names-guarantor`) }}
-        </div>
+        </p>
         <UpdateComponent :user-id="user.id" @on-update="openGuarantor(g, 0)">{{
           t('fileerrors.user-names')
         }}</UpdateComponent>
       </template>
-      <div v-if="!documentsGuarantorFilled(g)" class="fr-text--bold">
+      <p v-if="!documentsGuarantorFilled(g)" class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-document-guarantor`) }}
-      </div>
+      </p>
 
       <template
         v-for="(v, k) in ['IDENTIFICATION', 'RESIDENCY', 'PROFESSIONAL', 'FINANCIAL', 'TAX']"
@@ -30,16 +30,16 @@
   <template v-if="g.typeGuarantor === 'LEGAL_PERSON'">
     <NakedCard v-if="!documentsGuarantorFilled(g) || !namesGuarantorFilled(g)" class="fr-p-5w">
       <template v-if="!namesGuarantorFilled(g)">
-        <div class="fr-text--bold">
+        <p class="fr-text--bold">
           {{ t(`fileerrors.${keyprefix}-invalid-names-guarantor`) }}
-        </div>
+        </p>
         <UpdateComponent @on-update="openGuarantor(g, 0)">{{
           t('fileerrors.user-names')
         }}</UpdateComponent>
       </template>
-      <div class="fr-text--bold">
+      <p class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-document-guarantor`) }}
-      </div>
+      </p>
       <UpdateComponent
         v-if="!isGuarantorDocumentValid('IDENTIFICATION')"
         :document="getDocument(g, 'IDENTIFICATION')"
@@ -56,9 +56,9 @@
   </template>
   <template v-if="g.typeGuarantor === 'ORGANISM'">
     <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
-      <div class="fr-text--bold">
+      <p class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-document-guarantor`) }}
-      </div>
+      </p>
       <UpdateComponent
         v-if="!isGuarantorDocumentValid('GUARANTEE_PROVIDER_CERTIFICATE')"
         :document="getDocument(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"

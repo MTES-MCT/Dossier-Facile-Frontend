@@ -63,30 +63,28 @@
       </NakedCard>
 
       <NakedCard v-if="user.tenantType === 'CREATE'" class="fr-px-5w fr-py-3w fr-mb-2w">
-        <p>
-          <label for="precision" class="fr-label">
-            {{ t('validatefile.precision') }}
-          </label>
-          <Field id="precision" v-slot="{ field, meta }" v-model="precision" name="precision">
-            <textarea
-              id="precision"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              :placeholder="t('validatefile.placeholder')"
-              maxlength="2000"
-              rows="3"
-              v-bind="field"
-              name="precision"
-              class="validate-required form-control fr-input"
-            />
-          </Field>
-          <span>{{ precision.length }} / 2000</span>
-          <ErrorMessage v-slot="{ message }" name="precision">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
-        </p>
+        <label for="precision" class="fr-label">
+          {{ t('validatefile.precision') }}
+        </label>
+        <Field id="precision" v-slot="{ field, meta }" v-model="precision" name="precision">
+          <textarea
+            id="precision"
+            :class="{
+              'fr-input--valid': meta.valid,
+              'fr-input--error': !meta.valid
+            }"
+            :placeholder="t('validatefile.placeholder')"
+            maxlength="2000"
+            rows="3"
+            v-bind="field"
+            name="precision"
+            class="validate-required form-control fr-input"
+          />
+        </Field>
+        <span>{{ precision.length }} / 2000</span>
+        <ErrorMessage v-slot="{ message }" name="precision">
+          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+        </ErrorMessage>
       </NakedCard>
     </template>
     <ProfileFooter

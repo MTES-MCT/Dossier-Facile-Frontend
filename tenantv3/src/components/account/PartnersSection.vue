@@ -13,12 +13,10 @@
               src="../../assets/anil.png"
               height="80px"
             />
-            <div>
-              <h3 class="fr-h5">{{ t('partnerssection.anil-title') }}</h3>
-            </div>
-            <div class="fr-m-0 fr-py-2w">
+            <h3 class="fr-h5">{{ t('partnerssection.anil-title') }}</h3>
+            <p class="fr-m-0 fr-py-2w">
               {{ t('partnerssection.anil-text') }}
-            </div>
+            </p>
           </div>
           <div class="service-box-btn">
             <a
@@ -41,13 +39,10 @@
               class="fr-pl-2w fr-pb-2w"
               src="../../assets/mes-droits-sociaux.png"
             />
-
-            <div>
-              <h3 class="fr-h5">{{ t('partnerssection.mds-title') }}</h3>
-            </div>
-            <div class="fr-m-0 fr-py-2w">
+            <h3 class="fr-h5">{{ t('partnerssection.mds-title') }}</h3>
+            <p class="fr-m-0 fr-py-2w">
               {{ t('partnerssection.mds-text') }}
-            </div>
+            </p>
           </div>
           <div class="service-box-btn">
             <a
@@ -71,12 +66,10 @@
               src="../../assets/police_nationale.svg"
             />
 
-            <div>
-              <h3 class="fr-h5">
-                {{ t('partnerssection.signal-title') }}
-              </h3>
-            </div>
-            <div class="fr-m-0 fr-py-2w">
+            <h3 class="fr-h5">
+              {{ t('partnerssection.signal-title') }}
+            </h3>
+            <p class="fr-m-0 fr-py-2w">
               <i18n-t keypath="partnerssection.signal-text">
                 <template #nodocument>
                   <span style="font-weight: bold">{{ t('partnerssection.nodocument') }}</span>
@@ -91,7 +84,7 @@
                   >
                 </template>
               </i18n-t>
-            </div>
+            </p>
           </div>
           <div class="service-box-btn">
             <a
