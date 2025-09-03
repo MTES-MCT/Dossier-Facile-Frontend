@@ -159,7 +159,10 @@
         <div class="fr-footer__bottom-copy">
           <p>
             Sauf mention contraire, tous les contenus de ce site sont sous
-            <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank"
+            <a
+              href="https://github.com/etalab/licence-ouverte/blob/master/LO.md"
+              title="licence etalab-2.0 - Ouvre une nouvelle fenêtre"
+              target="_blank"
               >licence etalab-2.0</a
             >
           </p>

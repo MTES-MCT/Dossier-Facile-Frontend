@@ -2,15 +2,19 @@
   <DsfrAccordionsGroup @update:model-value="accordionClicked">
     <AccordionItem :title="t('title-1')">
       <i18n-t tag="p" keypath="content-1">
-        <a href="https://locataire.dossierfacile.fr/messaging" target="_blank">{{
-          t('your-messaging')
-        }}</a>
+        <a
+          href="https://locataire.dossierfacile.fr/messaging"
+          :title="`${t('your-messaging')} - ${t('new-window')}`"
+          target="_blank"
+          >{{ t('your-messaging') }}</a
+        >
       </i18n-t>
       <div class="fr-highlight">
         <i18n-t tag="p" keypath="highlight-1">
           <template #correct-df>
             <a
               :href="`${HELP_URL}article/pourquoi-modifier-mon-dossier-et-comment-le-faire-493qkc/`"
+              :title="`${t('correct-df')} - ${t('new-window')}`"
               target="_blank"
               >{{ t('correct-df') }}</a
             >
@@ -18,12 +22,18 @@
           <template #tutorial>
             <a
               :href="`${HELP_URL}article/pourquoi-modifier-mon-dossier-et-comment-le-faire-493qkc/`"
+              :title="`${t('video-tutorial')} - ${t('new-window')}`"
               target="_blank"
               >{{ t('video-tutorial') }}</a
             >
           </template>
           <template #online-help>
-            <a :href="HELP_URL" target="_blank">{{ t('online-help') }}</a>
+            <a
+              :href="HELP_URL"
+              :title="`${t('online-help')} - ${t('new-window')}`"
+              target="_blank"
+              >{{ t('online-help') }}</a
+            >
           </template>
         </i18n-t>
       </div>
@@ -36,33 +46,48 @@
           <template #create-rental>
             <a
               :href="`${HELP_URL}article/comment-constituer-un-dossier-de-location-en-famille-ou-entre-amies-ow7uhc/`"
+              :title="`${t('create-rental')} - ${t('new-window')}`"
               target="_blank"
               >{{ t('create-rental') }}</a
             >
           </template>
           <template #online-help>
-            <a :href="HELP_URL" target="_blank">{{ t('online-help') }}</a>
+            <a
+              :href="HELP_URL"
+              :title="`${t('online-help')} - ${t('new-window')}`"
+              target="_blank"
+              >{{ t('online-help') }}</a
+            >
           </template>
         </i18n-t>
       </div>
     </AccordionItem>
     <AccordionItem :title="t('title-3')">
       <i18n-t tag="p" keypath="content-3">
-        <a href="https://locataire.dossierfacile.logement.gouv.fr/applications" target="_blank">{{
-          t('share-file')
-        }}</a>
+        <a
+          href="https://locataire.dossierfacile.logement.gouv.fr/applications"
+          :title="`${t('share-file')} - ${t('new-window')}`"
+          target="_blank"
+          >{{ t('share-file') }}</a
+        >
       </i18n-t>
       <div class="fr-highlight">
         <i18n-t tag="p" keypath="highlight-3">
           <template #view>
             <a
               :href="`${HELP_URL}article/comment-visualiser-et-partager-son-dossier-valide-1orckmm/#2-comment-partager-par-mail-son-dossierfacile-sans-justificatif-avec-un-proprietaire-ou-un-bailleur`"
+              :title="`${t('view-file')} - ${t('new-window')}`"
               target="_blank"
               >{{ t('view-file') }}</a
             >
           </template>
           <template #online-help>
-            <a :href="HELP_URL" target="_blank">{{ t('online-help') }}</a>
+            <a
+              :href="HELP_URL"
+              :title="`${t('online-help')} - ${t('new-window')}`"
+              target="_blank"
+              >{{ t('online-help') }}</a
+            >
           </template>
         </i18n-t>
       </div>
@@ -74,12 +99,18 @@
           <template #separate-accounts>
             <a
               :href="`${HELP_URL}article/utilisation-de-franceconnect-dans-dossierfacile-p7fiv0/#2-dissocier-votre-compte-dossierfacile-de-votre-compte-franceconnect-pour-changer-lidentite-du-titulaire-du-dossier`"
+              :title="`${t('separate-accounts')} - ${t('new-window')}`"
               target="_blank"
               >{{ t('separate-accounts') }}</a
             >
           </template>
           <template #online-help>
-            <a :href="HELP_URL" target="_blank">{{ t('online-help') }}</a>
+            <a
+              :href="HELP_URL"
+              :title="`${t('online-help')} - ${t('new-window')}`"
+              target="_blank"
+              >{{ t('online-help') }}</a
+            >
           </template>
         </i18n-t>
       </div>
@@ -91,12 +122,18 @@
           <template #what-is-df>
             <a
               :href="`${HELP_URL}article/dossierfacile-simplifiez-votre-dossier-de-location-dvw117/#1-ce-que-dossierfacile-ne-fait-pas`"
+              :title="`${t('what-is-df')} - ${t('new-window')}`"
               target="_blank"
               >{{ t('what-is-df') }}</a
             >
           </template>
           <template #online-help>
-            <a :href="HELP_URL" target="_blank">{{ t('online-help') }}</a>
+            <a
+              :href="HELP_URL"
+              :title="`${t('online-help')} - ${t('new-window')}`"
+              target="_blank"
+              >{{ t('online-help') }}</a
+            >
           </template>
         </i18n-t>
       </div>
@@ -153,7 +190,8 @@ function accordionClicked(index: number) {
     "title-5": "Where are your rental property listings?",
     "content-5": "DossierFacile does not offer properties for rent. DossierFacile only helps you create a clear, complete, and coherent digital rental file that you can then send to different landlords.",
     "highlight-5": "Need more information? Check out the {what-is-df} page in our {online-help}.",
-    "what-is-df": "What is DossierFacile?"
+    "what-is-df": "What is DossierFacile?",
+    "new-window": "Open in a new window"
   },
   "fr": {
     "title-1" : "Pourquoi mon dossier a-t-il été refusé ?",
@@ -180,7 +218,8 @@ function accordionClicked(index: number) {
     "title-5" : "Où sont vos offres de logement en location ?",
     "content-5": "DossierFacile ne propose pas de logements. DossierFacile vous aide seulement à constituer un dossier de location numérique clair, complet et cohérent que vous pouvez ensuite envoyer à différents propriétaires.",
     "highlight-5": "Vous avez besoin de plus d’informations ? Consultez la page {what-is-df} de notre {online-help}.",
-    "what-is-df": "DossierFacile c’est quoi ?"
+    "what-is-df": "DossierFacile c’est quoi ?",
+    "new-window": "Ouvre une nouvelle fenêtre"
   }
 }
 </i18n>

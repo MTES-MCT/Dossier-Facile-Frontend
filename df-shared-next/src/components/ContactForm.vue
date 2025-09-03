@@ -11,6 +11,7 @@
           de la documentation, comme
           <a
             href="https://aide.dossierfacile.logement.gouv.fr/fr/article/liste-des-documents-a-fournir-scnv25/"
+            title="Liste des documents à fournir - Ouvre une nouvelle fenêtre"
             rel="noopener"
             target="_blank"
             >la liste des documents à fournir</a
@@ -21,6 +22,7 @@
           des tutoriels : comment créer un
           <a
             href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-de-location-en-couple-26ajqi/"
+            title="Comment constituer un dossier de location en couple - Ouvre une nouvelle fenêtre"
             rel="noopener"
             target="_blank"
             >DossierFacile en couple ?</a
@@ -28,6 +30,7 @@
           Comment créer un
           <a
             href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-de-location-en-famille-ou-entre-amies-ow7uhc/"
+            title="Comment constituer un dossier de location en colocation - Ouvre une nouvelle fenêtre"
             rel="noopener"
             target="_blank"
             >DossierFacile en colocation ?</a
@@ -37,6 +40,7 @@
           des informations plus générales, à propos de la
           <a
             href="https://aide.dossierfacile.logement.gouv.fr/fr/article/gestion-des-donnees-et-securite-new-1d3d36d/"
+            title="Sécurité de vos documents - Ouvre une nouvelle fenêtre"
             rel="noopener"
             target="_blank"
             >sécurité de vos documents</a
@@ -47,6 +51,7 @@
       <a
         class="fr-btn"
         href="https://aide.dossierfacile.logement.gouv.fr/fr/"
+        title="Consulter notre aide en ligne - Ouvre une nouvelle fenêtre"
         rel="noopener"
         target="_blank"
         @click="accordionClicked('contact_need_information')"
@@ -383,7 +388,7 @@
                   </div>
                 </div>
                 <div class="fr-col-12 fr-mb-3w text-right">
-                  <DfButton class="" :primary="true" type="submit">{{ t('submit') }}</DfButton>
+                  <DfButton primary type="submit">{{ t('submit') }}</DfButton>
                 </div>
               </div>
             </Form>
@@ -403,16 +408,14 @@
               {{ t('message-sent-text') }}
             </div>
             <div class="fr-pb-4w text-center">
-              <DfButton class="" :primary="true">
-                <a
-                  class="fr-external-link"
-                  href="https://aide.dossierfacile.logement.gouv.fr/fr/"
-                  title="Documentation DossierFacile"
-                  target="_blank"
-                  rel="noreferrer noopener "
-                  >{{ t('consult-our-documentation') }}</a
-                >
-              </DfButton>
+              <a
+                class="fr-btn fr-external-link"
+                href="https://aide.dossierfacile.logement.gouv.fr/fr/"
+                title="Documentation DossierFacile - Ouvre une nouvelle fenêtre"
+                target="_blank"
+                rel="noreferrer noopener "
+                >{{ t('consult-our-documentation') }}</a
+              >
             </div>
           </div>
         </template>

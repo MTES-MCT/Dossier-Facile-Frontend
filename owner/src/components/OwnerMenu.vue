@@ -44,7 +44,8 @@ function showDeleteAccountModal() {
     </li>
     <li class="fr-nav__item">
       <a
-        :href="`${DOCS_URL}`"
+        :href="DOCS_URL"
+        :title="`${t('menu.help')} - ${t('new-window')}`"
         class="fr-nav__link fr-external-link"
         target="_blank"
         rel="noreferrer"
@@ -132,10 +133,12 @@ function showDeleteAccountModal() {
 <i18n>
 {
   "en": {
-    "partners": "Partners"
+    "partners": "Partners",
+    "new-window": "Open in a new window"
   },
   "fr": {
-    "partners": "Partenaires"
+    "partners": "Partenaires",
+    "new-window": "Ouvre une nouvelle fenêtre"
   }
 }
 </i18n>
