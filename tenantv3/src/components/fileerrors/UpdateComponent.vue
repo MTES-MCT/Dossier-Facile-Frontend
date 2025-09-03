@@ -1,9 +1,9 @@
 <template>
   <div class="update-component">
     <div class="fr-grid-row file-item">
-      <p class="fr-mb-0"><slot></slot></p>
+      <p :id class="fr-mb-0"><slot></slot></p>
       <!-- TODO : bouton voir -->
-      <DfButton class="update-btn" @click="$emit('on-update')">
+      <DfButton class="update-btn" :aria-describedby="id" @click="$emit('on-update')">
         <span class="desktop">{{ t('fileerrors.update') }}</span>
         <RiPencilLine size="1rem" class="color--primary mobile" aria-hidden="true" />
       </DfButton>
@@ -18,10 +18,13 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { RiPencilLine } from '@remixicon/vue'
 import PreValidationMessages from '../documents/share/PreValidationMessages.vue'
-const { t } = useI18n()
+import { useId } from 'vue'
 
 defineEmits<{ 'on-update': [] }>()
 defineProps<{ userId?: number; document?: DfDocument }>()
+
+const { t } = useI18n()
+const id = useId()
 </script>
 
 <style scoped>
