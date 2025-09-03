@@ -35,3 +35,4 @@ catalog:
   "@vitest/eslint-plugin": 1.3.4
   "@vue/eslint-config-prettier": 10.2.0
   "@vue/eslint-config-typescript": 14.6.0
+  "@gouvminint/vue-dsfr": 8.4.0
