@@ -16,6 +16,7 @@
           :hreflang="language.id"
           :lang="language.id"
           href="#"
+          :title="getTitle(language)"
           :aria-current="currentLanguage.code === language.code ? 'page' : undefined"
           @click="selectLanguage(language)"
           >{{ language.code }} - {{ language.name }}</a
@@ -31,14 +32,16 @@ const FRENCH = {
   id: 'fr',
   code: 'FR',
   name: 'Français',
-  selectLabel: 'Sélectionner une langue'
+  selectLabel: 'Sélectionner une langue',
+  selected: 'Langue sélectionnée actuellement'
 } as const
 
 const ENGLISH = {
   id: 'en',
   code: 'EN',
   name: 'English',
-  selectLabel: 'Select a language'
+  selectLabel: 'Select a language',
+  selected: 'Currently selected language'
 } as const
 
 const props = withDefaults(defineProps<{ initialLanguage?: string }>(), {
@@ -63,10 +66,16 @@ function selectLanguage(l: AvailableLanguage) {
   currentLanguage.value = availableLanguages.find((language) => language.id === l.id) || FRENCH
 }
 
+function getTitle(l: AvailableLanguage) {
+  const selected = currentLanguage.value.code === l.code ? l.selected : ''
+  return `${currentLanguage.value.selectLabel} : ${selected} ${l.code} - ${l.name}`
+}
+
 interface Language {
   id: string
   code: string
   name: string
   selectLabel: string
+  selected: string
 }
 </script>
