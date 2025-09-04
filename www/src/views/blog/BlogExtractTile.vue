@@ -1,13 +1,13 @@
 <template>
-  <article class="fr-mb-3w">
+  <li class="fr-mb-3w">
     <div class="fr-card fr-enlarge-link fr-card--horizontal fr-card--horizontal-tier">
       <div class="fr-card__body">
         <div class="fr-card__content">
           <router-link :to="path" class="fr-card__title color--secondary">
             {{ title }}
           </router-link>
-          <p class="fr-card__desc">
-            <slot name="extract"></slot>
+          <p class="fr-card__desc fr-text--md">
+            <slot></slot>
           </p>
           <p class="fr-card__detail">{{ publicationDate }}</p>
         </div>
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-  </article>
+  </li>
 </template>
 
 <script setup lang="ts">
