@@ -531,7 +531,8 @@
   },
   "filerowlistitem": {
     "edit": "Update",
-    "see": "See"
+    "see": "See",
+    "see-title": "See - Open in a new window"
   },
   "fileupload": {
     "drag-and-drop-files": "Drag and drop your documents:",

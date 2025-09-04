@@ -540,7 +540,8 @@
   },
   "filerowlistitem": {
     "edit": "Mettre à jour",
-    "see": "Voir"
+    "see": "Voir",
+    "see-title": "Voir - Ouvre une nouvelle fenêtre"
   },
   "fileupload": {
     "drag-and-drop-files": "Glissez et déposez vos documents :",
