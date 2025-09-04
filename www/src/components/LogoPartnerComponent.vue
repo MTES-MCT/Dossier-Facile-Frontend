@@ -1,23 +1,21 @@
 <template>
-  <div class="fr-col-md-3 fr-col-6">
-    <div class="logo-container" :class="logoClass">
-      <a
-        :href="href"
-        :title="linkTitle"
-        class="logo-link"
-        rel="nofollow"
-        :target="href === '#' ? '' : '_blank'"
-      >
-        <img
-          :alt="name"
-          :height="height"
-          :src="image"
-          :width="width"
-          loading="lazy"
-          class="partner-logo"
-        />
-      </a>
-    </div>
+  <div class="logo-container" :class="logoClass">
+    <a
+      :href="href"
+      :title="linkTitle"
+      class="logo-link"
+      rel="nofollow"
+      :target="href === '#' ? '' : '_blank'"
+    >
+      <img
+        :alt="name"
+        :height="height"
+        :src="image"
+        :width="width"
+        loading="lazy"
+        class="partner-logo"
+      />
+    </a>
   </div>
 </template>
 
@@ -36,7 +34,9 @@ const props = withDefaults(
   }>(),
   {
     width: '60',
-    height: '60'
+    height: '60',
+    title: undefined,
+    logoClass: ''
   }
 )
 

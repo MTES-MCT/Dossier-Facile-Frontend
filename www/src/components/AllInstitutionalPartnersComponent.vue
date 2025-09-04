@@ -4,8 +4,8 @@
       {{ t('s6.title') }}
     </h2>
     <div class="fr-container">
-      <div class="fr-grid-row fr-grid-row--gutters">
-        <template v-for="partner in partners" :key="partner.name">
+      <ul class="fr-grid-row fr-grid-row--gutters hidden-list">
+        <li v-for="partner in partners" :key="partner.name" class="fr-col-md-3 fr-col-6">
           <LogoPartnerComponent
             :image="partner.image"
             :height="partner.height"
@@ -13,8 +13,8 @@
             :name="partner.name"
             :width="partner.width"
           />
-        </template>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -38,3 +38,10 @@ const props = withDefaults(
 
 const partners = computed(() => INSTITUTIONAL_PARTNERS.slice(0, props.limit))
 </script>
+
+<style scoped>
+.hidden-list {
+  list-style: none;
+  padding: 0;
+}
+</style>
