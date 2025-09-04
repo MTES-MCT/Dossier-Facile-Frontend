@@ -4,7 +4,7 @@
       <div class="header-title">
         {{ t('simulationcaf.simulation-caf-title') }}
       </div>
-      <img alt="logo caf" class="logo-caf" src="../../../assets/caf.svg" />
+      <img alt="Allocations Familiales" class="logo-caf" src="../../../assets/caf.svg" />
     </div>
     <p class="fr-mb-0">{{ t('simulationcaf.simulation-caf-text') }}</p>
     <div class="body-btn-container">
