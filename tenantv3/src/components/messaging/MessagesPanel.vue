@@ -20,11 +20,11 @@
         >
           <div class="message" v-html="addIcons(m.messageBody)" />
           <div v-if="m.typeMessage === 'FROM_TENANT'" class="avatar tenant">
-            <RiUserFill size="46" color="#000091" />
+            <RiUserFill size="46" color="#000091" aria-hidden="true" />
             <span>{{ t('you') }}</span>
           </div>
           <div v-else-if="m.typeMessage === 'TO_TENANT'" class="avatar operator">
-            <RiGroupFill size="46" color="#000091" />
+            <RiGroupFill size="46" color="#000091" aria-hidden="true" />
             <span>{{ t('team-df') }}</span>
           </div>
         </div>

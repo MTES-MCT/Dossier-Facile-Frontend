@@ -2,7 +2,7 @@
   <DSFRSimpleModal modal-id="modal-delete-account">
     <template #header>
       <span class="display--flex align-items--center">
-        <RiCloseCircleLine class="text-danger fr-mr-1w bold-icon" size="24" />
+        <RiCloseCircleLine class="text-danger fr-mr-1w bold-icon" size="24" aria-hidden="true" />
         {{ t('deleteaccount.title') }}
       </span>
     </template>

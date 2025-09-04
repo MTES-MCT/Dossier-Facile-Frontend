@@ -89,7 +89,7 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
 
-const title = 'Créez votre dossier de location en ligne avec DossierFacile'
+const title = 'Créez votre dossier de location en ligne avec DossierFacile - DossierFacile'
 const description =
   'DossierFacile est le service public gratuit qui vous permet de constituer un dossier locataire numérique fiable et sécurisé. Notre plateforme vous accompagne pour créer un dossier de logement complet qui répond aux attentes des propriétaires'
 

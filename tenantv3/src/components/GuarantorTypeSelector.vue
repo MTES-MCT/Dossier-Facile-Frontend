@@ -5,7 +5,9 @@
       name="guarantor-type-selector"
       :elements="guarantorTypeOptions"
       @input="onButtonSelected"
-    />
+    >
+      <slot></slot>
+    </RichRadioButtons>
     <ConfirmModal
       v-if="confirmGuarantorChangeModal"
       ref="modal"

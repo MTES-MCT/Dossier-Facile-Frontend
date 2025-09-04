@@ -1,7 +1,7 @@
 <template>
   <FooterContainer class="footer">
     <router-link :to="previousStep" class="fr-btn fr-btn--secondary">
-      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
+      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" aria-hidden="true" />
       <span class="desktop">{{ t('back') }}</span>
     </router-link>
     <DfButton primary data-cy="next-btn" class="next-btn" :disabled="disabled">

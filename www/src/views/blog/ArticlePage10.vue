@@ -138,7 +138,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article10.webp'
 
-const title = 'Quand les journalistes parlent de DossierFacile'
+const title = 'Quand les journalistes parlent de DossierFacile - DossierFacile'
 const description =
   'Constituer son dossier de location est une étape indispensable pour trouver le logement de ses rêves et pourtant c’est un parcours semé d’embûches'
 useHead({

@@ -5,7 +5,11 @@
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <h4 class="fr-col-10 title">
-              <RiCloseCircleLine class="text-danger fr-mr-1w bold-icon" size="38px" />
+              <RiCloseCircleLine
+                class="text-danger fr-mr-1w bold-icon"
+                size="38px"
+                aria-hidden="true"
+              />
               {{ t('deleteaccount.title') }}
             </h4>
           </div>

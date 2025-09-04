@@ -160,7 +160,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article15.webp'
 
-const title = 'Passoires thermiques : top départ du gel des loyers'
+const title = 'Passoires thermiques : top départ du gel des loyers - DossierFacile'
 const description =
   'Depuis le 24 août 2022, les propriétaires bailleurs de logements « passoires énergétiques » sont obligés de réaliser des travaux s’ils veulent augmenter les loyers.'
 useHead({

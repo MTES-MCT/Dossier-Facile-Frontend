@@ -1,6 +1,6 @@
 <template>
   <DfButton class="mx-auto fr-mb-3w" @click="showPreview = true"
-    >{{ t('see-in-file') }} <RiEyeLine class="fr-ml-1v"
+    >{{ t('see-in-file') }} <RiEyeLine class="fr-ml-1v" aria-hidden="true"
   /></DfButton>
   <ModalComponent v-if="showPreview" @close="showPreview = false">
     <template #body>

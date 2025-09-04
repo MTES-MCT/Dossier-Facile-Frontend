@@ -41,12 +41,15 @@ function closeAnnouncement() {
 <template>
   <div v-if="isVisible" class="announcement fr-pt-2w fr-pb-2w">
     <div class="fr-container message">
-      <span v-html="message"></span>
+      <p class="fr-mb-0" v-html="message"></p>
       <button
+        type="button"
         title="Fermer l'annonce"
         class="fr-btn--close close"
         @click="closeAnnouncement()"
-      ></button>
+      >
+      <span class="sr-only">Fermer l'annonce</span>
+    </button>
     </div>
   </div>
 </template>

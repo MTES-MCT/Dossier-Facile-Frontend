@@ -54,7 +54,7 @@
                 </p>
               </div>
               <div class="fr-tile__img">
-                <RiCheckboxCircleLine class="purpose-icon" />
+                <RiCheckboxCircleLine class="purpose-icon" aria-hidden="true" />
               </div>
             </div>
           </div>
@@ -71,7 +71,7 @@
                 </p>
               </div>
               <div class="fr-tile__img">
-                <RiEye2Line class="purpose-icon" />
+                <RiEye2Line class="purpose-icon" aria-hidden="true" />
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@
                 </p>
               </div>
               <div class="fr-tile__img">
-                <RiTimerFlashLine class="purpose-icon" />
+                <RiTimerFlashLine class="purpose-icon" aria-hidden="true" />
               </div>
             </div>
           </div>
@@ -149,7 +149,11 @@
           <div class="fr-col-12 fr-col-md-3 fr-grid-col fr-p-2w">
             <div class="fr-grid-row howto">
               <div class="fr-col-12 howto-title">
-                <RiCheckboxCircleLine size="19px" class="fr-mt-1v no-shrink bold-icon" />
+                <RiCheckboxCircleLine
+                  size="19px"
+                  class="fr-mt-1v no-shrink bold-icon"
+                  aria-hidden="true"
+                />
                 {{ t('landing.howto.add-property.title') }}
               </div>
               <div class="fr-col-12">
@@ -168,7 +172,7 @@
           <div class="fr-col-12 fr-col-md-3 fr-grid-col fr-p-2w">
             <div class="fr-grid-row howto">
               <div class="fr-col-12 howto-title">
-                <RiEye2Line size="19px" class="fr-mt-1v no-shrink bold-icon" />
+                <RiEye2Line size="19px" class="fr-mt-1v no-shrink bold-icon" aria-hidden="true" />
                 {{ t('landing.howto.invite-tenant.title') }}
               </div>
               <div class="fr-col-12">
@@ -187,7 +191,11 @@
           <div class="fr-col-12 fr-col-md-3 fr-grid-col fr-p-2w">
             <div class="fr-grid-row howto">
               <div class="fr-col-12 howto-title">
-                <RiTimerFlashLine size="19px" class="fr-mt-1v no-shrink bold-icon" />
+                <RiTimerFlashLine
+                  size="19px"
+                  class="fr-mt-1v no-shrink bold-icon"
+                  aria-hidden="true"
+                />
                 {{ t('landing.howto.manage-tenant.title') }}
               </div>
               <div class="fr-col-12">

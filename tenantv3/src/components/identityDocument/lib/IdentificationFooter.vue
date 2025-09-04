@@ -1,7 +1,7 @@
 <template>
   <FooterContainer class="identification-footer">
     <RouterLink :to="previousStep" class="fr-btn fr-btn--secondary">
-      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
+      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" aria-hidden="true" />
       <span class="desktop">{{ t('profilefooter.back') }}</span>
     </RouterLink>
     <form @submit.prevent="submit">

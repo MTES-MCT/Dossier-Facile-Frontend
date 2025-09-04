@@ -3,16 +3,16 @@
     <NakedCard class="fr-p-md-5w">
       <GuarantorBadge />
       <h1 class="fr-h6">
-        {{ getTitle() }}
+        {{ title }}
       </h1>
-      <div class="fr-mt-3w">
-        <SimpleRadioButtons
-          name="organism-type-selector"
-          :value="selectedDocumentType"
-          :elements="documentTypes()"
-          @input="onSelectChange($event)"
-        ></SimpleRadioButtons>
-      </div>
+      <SimpleRadioButtons
+        name="organism-type-selector"
+        :value="selectedDocumentType"
+        :elements="documentTypes()"
+        @input="onSelectChange($event)"
+      >
+        <span class="sr-only">{{ title }}</span>
+      </SimpleRadioButtons>
     </NakedCard>
     <NakedCard v-if="selectedDocumentType.key || files.length > 0" class="fr-p-md-5w fr-mt-md-3w">
       <div>
@@ -101,10 +101,10 @@ onBeforeMount(() => {
   loadDocument()
 })
 
-function getTitle() {
+const title = computed(() => {
   const userType = props.isCotenant ? 'cotenant' : 'tenant'
   return t(`explanation-text.${userType}.organism-guarantor`)
-}
+})
 
 function guarantorId() {
   if (props.guarantor) {

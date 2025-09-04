@@ -2,7 +2,7 @@
 import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
-import MyHeader from 'df-shared-next/src/Header/HeaderComponent.vue'
+import HeaderComponent from 'df-shared-next/src/Header/HeaderComponent.vue'
 import WwwMenu from './components/WwwMenu.vue'
 import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
@@ -11,16 +11,6 @@ import Cookies from 'js-cookie'
 import i18n from './i18n'
 
 const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
-const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
-const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
-
-function onCreateOwner() {
-  window.location.href = OWNER_URL
-}
-
-function onLoginTenant() {
-  window.location.replace(`${TENANT_URL}/login`)
-}
 
 onBeforeMount(() => {
   const lang = Cookies.get('lang') === 'en' ? 'en' : 'fr'
@@ -33,9 +23,9 @@ onBeforeMount(() => {
   <div class="cdn-background"></div>
   <ConsentHandler />
   <SkipLinks />
-  <MyHeader @on-login="onLoginTenant" @on-access-owner="onCreateOwner">
+  <HeaderComponent>
     <WwwMenu />
-  </MyHeader>
+  </HeaderComponent>
   <div id="content">
     <Announcement :message="MESSAGE"></Announcement>
     <main class="page" role="main">

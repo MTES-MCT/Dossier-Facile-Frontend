@@ -14,6 +14,7 @@
           }"
           :disabled="isInputDisabled"
           type="text"
+          autocomplete="family-name"
         />
       </Field>
       <ErrorMessage v-slot="{ message }" name="lastname">
@@ -72,6 +73,7 @@
           }"
           :disabled="isInputDisabled"
           type="text"
+          autocomplete="given-name"
         />
       </Field>
       <ErrorMessage v-slot="{ message }" name="firstName">
@@ -81,7 +83,13 @@
     <div class="fr-mt-3w">
       <label class="fr-label" for="postalCode">{{ t(textKey + '.postal-code-label') }}</label>
       <Field v-slot="{ field }" v-model.trim="postalCode" name="postalCode" rules="zipcode">
-        <input v-bind="field" class="form-control fr-input" type="text" />
+        <input
+          v-bind="field"
+          id="postalCode"
+          class="form-control fr-input"
+          type="text"
+          autocomplete="postal-code"
+        />
       </Field>
       <ErrorMessage v-slot="{ message }" name="postalCode">
         <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>

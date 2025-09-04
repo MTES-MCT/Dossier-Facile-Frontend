@@ -16,7 +16,7 @@
           :class="{ danger: danger, 'color--primary': !danger }"
           @click="edit()"
         >
-          <RiPencilLine />
+          <RiPencilLine aria-hidden="true" />
         </button>
         <button
           ref="remove-btn"
@@ -25,7 +25,7 @@
           :class="{ danger: danger, 'color--primary': !danger }"
           @click="remove()"
         >
-          <RiDeleteBin2Fill />
+          <RiDeleteBin2Fill aria-hidden="true" />
         </button>
       </div>
     </div>

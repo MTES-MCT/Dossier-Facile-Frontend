@@ -10,11 +10,7 @@
       déconvenues, nous vous avons préparé un petit récapitulatif des étapes, pour ne rien oublier.
       Suivez le guide !
     </p>
-    <img
-      alt="Une personne donne des clés à une autre personne"
-      class="img-center"
-      src="../../assets/images/blog-article19.webp"
-    />
+    <img alt="" class="img-center" src="../../assets/images/blog-article19.webp" />
     <br />
 
     <h2 class="fr-h6">
@@ -249,7 +245,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article19.webp'
 
-const title = 'Tout ce que vous devez savoir avant de quitter votre logement'
+const title = 'Tout ce que vous devez savoir avant de quitter votre logement - DossierFacile'
 const description =
   'Déménager, c’est souvent le parcours du combattant… Pour éviter le stress et les déconvenues, nous vous avons préparé un petit récapitulatif des étapes'
 useHead({

@@ -9,7 +9,7 @@
         :aria-label="t('backnext.back-aria-label')"
         @click="backAction()"
       >
-        <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" />
+        <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" aria-hidden="true" />
         <span class="desktop">{{ t('backnext.back') }}</span>
       </VGouvFrButton>
       <div v-if="!showBack"></div>

@@ -237,7 +237,7 @@ import { useI18n } from 'vue-i18n'
 import { useHead } from '@unhead/vue'
 import image from '../assets/icons/justif.webp'
 
-const title = 'DossierFacile, le dossier de location numérique de l’État'
+const title = 'Accueil - DossierFacile, le dossier de location numérique de l’État'
 const description =
   "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
 useHead({

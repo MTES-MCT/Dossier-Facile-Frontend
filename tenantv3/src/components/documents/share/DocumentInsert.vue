@@ -86,7 +86,7 @@ ul li {
 .times:before {
   content: '\d7';
   display: inline-block;
-  color: red;
+  color: #ce0500;
   padding: 0 6px 0 0;
 }
 

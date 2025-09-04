@@ -16,15 +16,12 @@
           </div>
         </NakedCard>
         <NakedCard class="fr-p-md-5w fr-mt-md-3w">
-          <div class="fr-mb-2w">
-            {{ t('tenantguarantorchoice.ask-guarantor') }}
-          </div>
-
           <GuarantorTypeSelector
             :local-storage-key="`cotenantGuarantorType_${tenantId}`"
             :is-cotenant="isCotenant"
             @selected="tmpGuarantorType = $event"
           >
+            <span style="font-weight: normal">{{ t('tenantguarantorchoice.ask-guarantor') }}</span>
           </GuarantorTypeSelector>
         </NakedCard>
         <div v-if="tmpGuarantorType === 'NO_GUARANTOR'" class="bg-purple fr-mt-3w fr-mb-5w fr-p-5w">

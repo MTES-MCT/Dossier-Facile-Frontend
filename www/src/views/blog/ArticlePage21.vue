@@ -11,10 +11,7 @@
       collectivités, autres organismes publics) disponibles en France pour t’accompagner dans ta
       quête de logement.
     </p>
-    <img
-      alt="Une carte d'identité avec un filigrane"
-      src="../../assets/images/blog-article21.webp"
-    />
+    <img alt="" src="../../assets/images/blog-article21.webp" />
     <br />
     <h2 class="fr-h6">1. Les Aides Financières</h2>
     <h3 class="fr-h7">a. Aides au Logement</h3>
@@ -285,7 +282,8 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article21.webp'
 
-const title = 'Le Guide Complet des Aides pour les Étudiant·e·s en Recherche de Logements en France'
+const title =
+  'Le Guide Complet des Aides pour les Étudiant·e·s en Recherche de Logements en France - DossierFacile'
 const description =
   ' Voici un guide exhaustif des aides publiques (État, collectivités, autres organismes publics) disponibles en France pour t’accompagner dans ta quête de logement'
 

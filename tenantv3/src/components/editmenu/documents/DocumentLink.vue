@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <router-link :to="to">
-      <ColoredTag :text="text" :status="status" :active="active"></ColoredTag>
-    </router-link>
-  </div>
+  <router-link :to="to">
+    <ColoredTag :text="text" :status="status" :active="active"></ColoredTag>
+  </router-link>
 </template>
 
 <script setup lang="ts">

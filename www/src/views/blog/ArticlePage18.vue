@@ -10,11 +10,7 @@
       Comment faire pour l’intégrer à son dossier de location ? Découvrez nos réponses à toutes vos
       questions.
     </p>
-    <img
-      alt="Deux mains qui lisent des documents"
-      class="img-center"
-      src="../../assets/images/blog-article18.webp"
-    />
+    <img alt="" class="img-center" src="../../assets/images/blog-article18.webp" />
     <br />
 
     <h2 class="fr-h6">Garant ou caution ?</h2>
@@ -180,7 +176,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article18.webp'
 
-const title = 'Un garant ? Qui ? Comment ? Pourquoi ?'
+const title = 'Un garant ? Qui ? Comment ? Pourquoi ? - DossierFacile'
 const description =
   'Qui peut se porter garant ? Qu’est-ce qu’une garantie de loyer impayé ? Comment faire pour l’intégrer à son dossier de location ?'
 useHead({

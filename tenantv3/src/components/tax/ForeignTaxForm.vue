@@ -12,7 +12,7 @@
     <li>{{ t('fiscal-year') }}</li>
   </ul>
   <p class="display--flex text-bold fr-mb-1w">
-    <RiInformationFill class="color--primary fr-mr-1v" />
+    <RiInformationFill class="color--primary fr-mr-1v" aria-hidden="true" />
     {{ t('mandatory-translation') }}
   </p>
   <p>{{ t('add-french-translation') }}</p>

@@ -962,7 +962,7 @@
     "remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
     "remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de celui de votre conjoint·e",
     "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés.<br/>Je consens aussi au fait que mon partenaire puisse partager les pièces de notre dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
-    "acceptAuthorCoTenant": "<div>J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.<br/>Je consens aussi au fait que les autres membres de ma colocation puissent partager les pièces de mon dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.<span style='color: red'> *</span></div>",
+    "acceptAuthorCoTenant": "<div>J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.<br/>Je consens aussi au fait que les autres membres de ma colocation puissent partager les pièces de mon dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.<span style='color: #ce0500'> *</span></div>",
     "validate": "Valider",
     "roommates-saved": "Vos colocataires ont bien été ajoutés. Une invitation de création de compte leur a été envoyée.",
     "couple-saved": "Votre conjoint a été ajouté.",

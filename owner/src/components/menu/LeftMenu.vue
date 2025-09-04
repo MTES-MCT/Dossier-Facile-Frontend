@@ -10,10 +10,7 @@ const { t } = useI18n()
 const store = useOwnerStore()
 const route = useRoute()
 
-function getName() {
-  return `${store.getUser?.lastName} ${store.getUser?.firstName}`
-}
-
+const userName = computed(() => `${store.getUser?.lastName} ${store.getUser?.firstName}`)
 const propertyName = computed(() => store.getPropertyToEdit?.name)
 
 const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS'))
@@ -32,90 +29,87 @@ const livingSpaceStatus = computed(() =>
 )
 
 const id = Number(route.params.id)
-const getParams = id ? { id } : {}
+const params = id ? { id } : {}
 </script>
 
 <template>
   <nav class="left-edit-menu">
-    <div class="inner-left-edit fr-pt-7w fr-pt-7w fr-pb-12w">
-      <div class="active step">
-        <div class="step-number">1</div>
-        <div class="step-title">
-          <router-link :to="{ name: 'AccountName' }" class="fr-link">
-            {{ t('leftmenu.personal-information') }}</router-link
-          >
-        </div>
-      </div>
-      <div class="vline">
-        <div class="ml-5">
-          <router-link :to="{ name: 'AccountName' }" class="fr-link">
-            <ColoredTag :text="getName()" status="NAME"></ColoredTag
-          ></router-link>
-        </div>
-      </div>
-      <div class="active step">
-        <div class="step-number">2</div>
-        <div class="step-title">
-          <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
-            {{ t('leftmenu.add-property') }}</router-link
-          >
-        </div>
-      </div>
-      <div class="vline">
-        <div class="ml-5">
-          <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
-            <ColoredTag
-              :text="propertyName ? propertyName : t('leftmenu.property-name')"
-              :status="propertyName ? 'FILLED' : 'EMPTY'"
-            ></ColoredTag>
-          </router-link>
-        </div>
-        <div class="ml-5">
-          <router-link :to="{ name: 'PropertyType', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('leftmenu.property-type')" :status="typeStatus"></ColoredTag>
-          </router-link>
-        </div>
-        <div class="ml-5">
-          <router-link :to="{ name: 'PropertyAddress', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('leftmenu.property-address')" :status="addressStatus"></ColoredTag>
-          </router-link>
-        </div>
-        <div class="ml-5">
-          <router-link :to="{ name: 'PropertyFurniture', params: getParams }" class="fr-link">
-            <ColoredTag
-              :text="t('leftmenu.property-furniture')"
-              :status="furnitureStatus"
-            ></ColoredTag>
-          </router-link>
-        </div>
-        <div class="ml-5">
-          <router-link :to="{ name: 'PropertyLivingSpace', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('property-living-space')" :status="livingSpaceStatus"></ColoredTag>
-          </router-link>
-        </div>
-        <div class="ml-5">
-          <router-link :to="{ name: 'PropertyRent', params: getParams }" class="fr-link">
-            <ColoredTag
-              :text="t('leftmenu.monthly-rent-and-charges')"
-              :status="rentStatus"
-            ></ColoredTag>
-          </router-link>
-        </div>
-        <div class="ml-5">
-          <router-link :to="{ name: 'PropertyDiagnostic', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('leftmenu.diagnostic')" :status="diagnosticStatus"></ColoredTag>
-          </router-link>
-        </div>
-      </div>
-      <div class="active step">
-        <div class="step-number">3</div>
-        <div class="step-title">
-          <router-link :to="{ name: 'ValidateProperty', params: getParams }" class="fr-link">
-            {{ t('leftmenu.validate-property') }}</router-link
-          >
-        </div>
-      </div>
-    </div>
+    <ol class="inner-left-edit fr-pt-7w fr-pb-12w">
+      <li class="step">
+        <router-link :to="{ name: 'AccountName' }" class="step-title fr-link">
+          {{ t('leftmenu.personal-information') }}</router-link
+        >
+        <ul class="vline">
+          <li>
+            <router-link :to="{ name: 'AccountName' }" class="fr-link">
+              <ColoredTag :text="userName" status="NAME"></ColoredTag
+            ></router-link>
+          </li>
+        </ul>
+      </li>
+      <li class="step">
+        <router-link :to="{ name: 'PropertyName', params }" class="step-title fr-link">
+          {{ t('leftmenu.add-property') }}</router-link
+        >
+        <ul class="vline">
+          <li>
+            <router-link :to="{ name: 'PropertyName', params }" class="fr-link">
+              <ColoredTag
+                :text="propertyName ? propertyName : t('leftmenu.property-name')"
+                :status="propertyName ? 'FILLED' : 'EMPTY'"
+              ></ColoredTag>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'PropertyType', params }" class="fr-link">
+              <ColoredTag :text="t('leftmenu.property-type')" :status="typeStatus"></ColoredTag>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'PropertyAddress', params }" class="fr-link">
+              <ColoredTag
+                :text="t('leftmenu.property-address')"
+                :status="addressStatus"
+              ></ColoredTag>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'PropertyFurniture', params }" class="fr-link">
+              <ColoredTag
+                :text="t('leftmenu.property-furniture')"
+                :status="furnitureStatus"
+              ></ColoredTag>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'PropertyLivingSpace', params }" class="fr-link">
+              <ColoredTag
+                :text="t('property-living-space')"
+                :status="livingSpaceStatus"
+              ></ColoredTag>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'PropertyRent', params }" class="fr-link">
+              <ColoredTag
+                :text="t('leftmenu.monthly-rent-and-charges')"
+                :status="rentStatus"
+              ></ColoredTag>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'PropertyDiagnostic', params }" class="fr-link">
+              <ColoredTag :text="t('leftmenu.diagnostic')" :status="diagnosticStatus"></ColoredTag>
+            </router-link>
+          </li>
+        </ul>
+      </li>
+      <li class="step">
+        <router-link :to="{ name: 'ValidateProperty', params }" class="step-title fr-link">
+          {{ t('leftmenu.validate-property') }}</router-link
+        >
+      </li>
+    </ol>
   </nav>
 </template>
 
@@ -136,48 +130,54 @@ const getParams = id ? { id } : {}
 }
 
 .vline {
-  margin-left: 23px;
+  list-style: none;
+  padding-left: 0;
+  padding-block: 1rem;
+  margin-block: 0;
+  margin-left: 18px;
   border-left: 1px solid var(--g400-t);
-  z-index: 0;
   min-height: 25px;
-  &.active {
-    border-left: 1px solid var(--primary);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  & li {
+    margin-left: -1rem;
+    padding-bottom: 0;
   }
 }
 
 .step {
   display: flex;
-  align-items: center;
-  height: 3rem;
+  flex-direction: column;
+  counter-increment: step;
+  position: relative;
+  padding-bottom: 0;
 }
-
-.step-number {
-  background-color: white;
+.step::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 5px;
+  background-color: var(--primary);
+  color: white;
   border: 1px solid var(--g400-t);
-  margin: 0 5px;
   border-radius: 50%;
   height: 2.25rem;
   width: 2.25rem;
-  min-width: 2.25rem;
-  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.active .step-number {
-  background-color: var(--primary);
-  color: white;
-}
-
 .step-title {
-  padding: 5px 5px 0;
-}
-
-.ml-5 {
-  margin-left: -1rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-left: 2.75rem;
+  margin-block: 0.8rem;
+  color: var(--g800-plain);
+  font-size: 14px;
+  display: flex;
+  width: fit-content;
+  align-items: center;
 }
 
 [href] {
@@ -186,8 +186,6 @@ const getParams = id ? { id } : {}
 }
 
 .fr-link {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   color: var(--g800-plain);
   font-size: 14px;

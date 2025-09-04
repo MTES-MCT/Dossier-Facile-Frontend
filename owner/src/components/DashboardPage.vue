@@ -83,9 +83,9 @@ function openProperty(p: Property) {
           <tr v-for="p in properties" :key="p.name" class="clickable" @click="openProperty(p)">
             <td class="desktop blue-text inline-block">
               <div class="fr-m-1v icon-container">
-                <RiHome4Fill v-if="p.type === 'HOUSE'" />
-                <RiBuilding4Line v-else-if="p.type === 'APARTMENT'" />
-                <RiCommunityFill v-else />
+                <RiHome4Fill v-if="p.type === 'HOUSE'" aria-hidden="true" />
+                <RiBuilding4Line v-else-if="p.type === 'APARTMENT'" aria-hidden="true" />
+                <RiCommunityFill v-else aria-hidden="true" />
               </div>
             </td>
             <td class="blue-grey">{{ p.name }}</td>

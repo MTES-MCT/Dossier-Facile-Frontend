@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { RouterView, useRoute, useRouter } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import { useTenantStore } from './stores/tenant-store'
 import { computed, onBeforeMount } from 'vue'
 import TenantSkipLinks from './components/TenantSkipLinks.vue'
-import TenantMenu from './components/TenantMenu.vue'
-import MyHeader from './components/HeaderComponent.vue'
 import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import DeleteAccount from './components/DeleteAccount.vue'
@@ -12,17 +10,14 @@ import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import cookies from 'js-cookie'
 import ToastContainer from '@/components/toast/ToastContainer.vue'
+import TenantHeader from './components/TenantHeader.vue'
 
 const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
 
 const store = useTenantStore()
-const router = useRouter()
 const route = useRoute()
 
 const isFunnel = computed(() => route.meta.hideFooter)
-const isLoggedIn = computed(() => store.isLoggedIn)
-
-const OWNER_URL = `//${import.meta.env.VITE_OWNER_URL}`
 
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
@@ -32,18 +27,6 @@ onBeforeMount(() => {
 
 const announcementMessage = computed(() => MESSAGE.replace('[[tenantId]]', `${store.user.id}`))
 
-function onLogout() {
-  store.logout()
-}
-
-function onLoginTenant() {
-  router.push('/login')
-}
-
-function onCreateOwner() {
-  window.location.href = OWNER_URL
-}
-
 const hasToDisplayAnnoncement = computed(() => store.user.status !== 'INCOMPLETE')
 </script>
 
@@ -51,14 +34,7 @@ const hasToDisplayAnnoncement = computed(() => store.user.status !== 'INCOMPLETE
   <div class="cdn-background"></div>
   <ConsentHandler />
   <TenantSkipLinks />
-  <MyHeader
-    :logged-in="isLoggedIn"
-    @on-login-tenant="onLoginTenant"
-    @on-create-owner="onCreateOwner"
-    @on-logout="onLogout"
-  >
-    <TenantMenu />
-  </MyHeader>
+  <TenantHeader />
   <Announcement v-if="hasToDisplayAnnoncement" :message="announcementMessage"></Announcement>
   <ToastContainer />
   <div id="content">

@@ -14,7 +14,7 @@ const props = defineProps<{ title: string; to: RouterLinkProps['to'] }>()
     <router-link class="fr-btn update-btn fr-btn--secondary" :to="props.to">
       <div class="desktop">{{ t('updaterowbtn.update') }}</div>
       <div class="mobile">
-        <RiPencilLine size="16px" />
+        <RiPencilLine size="16px" aria-hidden="true" />
       </div>
     </router-link>
   </div>

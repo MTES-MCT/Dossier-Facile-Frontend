@@ -1,16 +1,16 @@
 <template>
   <NakedCard v-if="!allTenantDocumentsPreValidated() || !namesFilled()" class="fr-mt-3w fr-p-md-5w">
-    <div v-if="!namesFilled()">
+    <template v-if="!namesFilled()">
       <div class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-names`) }}
       </div>
       <UpdateComponent @on-update="openTenant(-1)">{{ t('fileerrors.update') }}</UpdateComponent>
-    </div>
+    </template>
 
     <div v-if="!allTenantDocumentsPreValidated()" class="fr-text--bold">
       {{ t(`fileerrors.${keyprefix}-invalid-document`) }}
     </div>
-    <div
+    <template
       v-for="(category, k) in [
         'IDENTIFICATION',
         'RESIDENCY',
@@ -20,15 +20,14 @@
       ] as const"
       :key="k"
     >
-      <div v-if="!isDocumentValid(category)">
-        <UpdateComponent
-          :user-id="user.id"
-          :document="getDocument(category)"
-          @on-update="openTenant(k)"
-          >{{ t(`fileerrors.${category}`) }}</UpdateComponent
-        >
-      </div>
-    </div>
+      <UpdateComponent
+        v-if="!isDocumentValid(category)"
+        :user-id="user.id"
+        :document="getDocument(category)"
+        @on-update="openTenant(k)"
+        >{{ t(`fileerrors.${category}`) }}</UpdateComponent
+      >
+    </template>
   </NakedCard>
 </template>
 

@@ -35,6 +35,7 @@
                       <button
                         id="consent-service__tout-accepter"
                         type="button"
+                        :title="t('accept-all-title')"
                         class="fr-btn"
                         aria-controls="fr-consent-modal"
                         @click="acceptAll"
@@ -44,6 +45,7 @@
                       <button
                         id="consent-service__tout-refuser"
                         type="button"
+                        :title="t('reject-all-title')"
                         class="fr-btn fr-btn--secondary"
                         aria-controls="fr-consent-modal"
                         @click="rejectAll"
@@ -173,20 +175,16 @@
                   </fieldset>
                 </div>
                 <!-- Bouton de confirmation/fermeture -->
-                <ul
-                  class="fr-consent-manager__buttons fr-btns-group fr-btns-group--right fr-btns-group--inline-sm"
-                >
-                  <li>
-                    <button
-                      type="button"
-                      class="fr-btn"
-                      aria-controls="fr-consent-modal"
-                      @click="confirm"
-                    >
-                      {{ t('confirm-choices') }}
-                    </button>
-                  </li>
-                </ul>
+                <footer>
+                  <button
+                    type="button"
+                    class="fr-btn large-btn"
+                    aria-controls="fr-consent-modal"
+                    @click="confirm"
+                  >
+                    {{ t('confirm-choices') }}
+                  </button>
+                </footer>
               </div>
             </div>
           </div>
@@ -241,6 +239,18 @@ const confirm = () => {
   padding: 0 0 1.5rem 0;
   margin: 0;
 }
+footer {
+  display: flex;
+  justify-content: end;
+}
+.large-btn {
+  justify-content: center;
+  width: fit-content;
+  flex-grow: 1;
+  @media (min-width: 768px) {
+    flex-grow: 0;
+  }
+}
 </style>
 
 <i18n>
@@ -251,7 +261,9 @@ const confirm = () => {
     "accept": "Accept",
     "reject": "Reject",
     "accept-all": "Accept all",
+    "accept-all-title": "Accept preferences for all services",
     "reject-all": "Reject all",
+    "reject-all-title": "Reject preferences for all services",
     "mandatory-cookies": "Mandatory cookies",
     "mandatory-cookies-desc": "This site uses cookies which are necessary for its proper operation and which cannot be deactivated.",
     "confirm-choices": "Confirm choices",
@@ -265,7 +277,9 @@ const confirm = () => {
     "accept": "Accepter",
     "reject": "Refuser",
     "accept-all": "Tout accepter",
+    "accept-all-title": "Accepter les préférences pour tous les services",
     "reject-all": "Tout refuser",
+    "reject-all-title": "Refuser les préférences pour tous les services",
     "mandatory-cookies": "Cookies obligatoires",
     "mandatory-cookies-desc": "Ce site utilise des cookies nécessaires à son bon fonctionnement qui ne peuvent pas être désactivés.",
     "confirm-choices": "Confirmer vos choix",

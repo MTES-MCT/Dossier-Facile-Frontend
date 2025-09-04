@@ -134,7 +134,7 @@ function getLetterStyle() {
       <p>
         <label class="fr-label" for="rent"
           >{{ t('propertydiagnostic.energy-consumption') }}
-          <span style="color: red">*</span> :</label
+          <span class="color--required">*</span> :</label
         >
         <Field
           id="energy"
@@ -163,7 +163,8 @@ function getLetterStyle() {
       </p>
       <p>
         <label class="fr-label" for="charges"
-          >{{ t('propertydiagnostic.co2-emission') }} <span style="color: red">*</span> :</label
+          >{{ t('propertydiagnostic.co2-emission') }}
+          <span class="color--required">*</span> :</label
         >
         <Field
           id="co2"
@@ -192,7 +193,7 @@ function getLetterStyle() {
       </p>
       <p>
         <label class="fr-label" for="charges"
-          >{{ t('propertydiagnostic.date-dpe') }} <span style="color: red">*</span> :</label
+          >{{ t('propertydiagnostic.date-dpe') }} <span class="color--required">*</span> :</label
         >
         <Field
           id="dpeDate"

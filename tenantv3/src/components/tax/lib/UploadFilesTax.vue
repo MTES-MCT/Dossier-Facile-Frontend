@@ -27,7 +27,7 @@
     <template #body>
       <div class="fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
         <h1 class="fr-h4 display--flex align-items--center">
-          <RiAlarmWarningLine class="bold-icon fr-mr-1w" />
+          <RiAlarmWarningLine class="bold-icon fr-mr-1w" aria-hidden="true" />
           {{ t('avis-detected') }}
         </h1>
         <p>

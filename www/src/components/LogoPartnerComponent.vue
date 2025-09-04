@@ -63,4 +63,8 @@ a[target='_blank'].logo-link::after {
   height: 180px;
   background-color: white;
 }
+
+.partner-logo {
+  object-fit: contain;
+}
 </style>

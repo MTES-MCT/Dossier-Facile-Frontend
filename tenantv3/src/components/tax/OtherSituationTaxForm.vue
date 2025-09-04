@@ -8,7 +8,7 @@
   <form class="honor-declaration-form">
     <label :for="formId"
       >{{ t(textKey + '.describe-situation') }}
-      <span class="fr-ml-1v" style="color: red">*</span>
+      <span class="fr-ml-1v color--required">*</span>
     </label>
     <textarea :id="formId" v-model="explanation" class="fr-input" />
   </form>

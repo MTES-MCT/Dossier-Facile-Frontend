@@ -50,16 +50,13 @@
             </ul>
 
             <h2>Contenus non accessibles</h2>
-            <table>
-              <caption>
-                Liste des critères non conformes :
-              </caption>
-              <th></th>
-              <tr v-for="criteria in nonCompliantCriteria" :key="criteria.id">
-                <td class="text-bold">{{ criteria.id }}</td>
-                <td>{{ criteria.title }}</td>
-              </tr>
-            </table>
+            <p class="fr-mb-0">Liste des critères non conformes :</p>
+            <ul>
+              <li v-for="criteria in nonCompliantCriteria" :key="criteria.id">
+                <span class="text-bold fr-mr-1w align-number">{{ criteria.id }}</span>
+                <span>{{ criteria.title }}</span>
+              </li>
+            </ul>
 
             <br />
 
@@ -322,20 +319,11 @@ const pagesVerified = [
 </script>
 
 <style scoped lang="scss">
-table {
-  border-collapse: collapse;
-}
-
-td {
-  border: 1px solid #dddddd;
-  padding: 0.5em;
-}
-
 ul {
   margin-bottom: 1em;
 }
 
-caption {
-  text-align: start;
+.align-number {
+  font-variant-numeric: tabular-nums;
 }
 </style>

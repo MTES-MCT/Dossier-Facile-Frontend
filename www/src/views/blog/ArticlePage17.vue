@@ -76,7 +76,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article17.webp'
 
-const title = "Que vérifier lors de la visite d'un logement ?"
+const title = "Que vérifier lors de la visite d'un logement ? - DossierFacile"
 const description =
   'Lorsque vous voulez emménager dans un nouveau logement, il y a de nombreuses choses à vérifier lors de la visite d’un bien.'
 useHead({

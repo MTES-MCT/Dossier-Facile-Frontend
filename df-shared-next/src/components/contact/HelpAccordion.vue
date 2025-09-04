@@ -8,7 +8,7 @@
           :aria-controls="e.id"
           @click="accordionClicked(e.tag)"
         >
-          <RiArrowRightLine class="circle fr-p-1v" />{{ e.title }}
+          <RiArrowRightLine class="circle fr-p-1v" aria-hidden="true" />{{ e.title }}
         </button>
       </h3>
       <div :id="e.id" class="fr-collapse">

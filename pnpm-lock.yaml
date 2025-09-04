@@ -9,6 +9,9 @@ catalogs:
     '@gouvfr/dsfr':
       specifier: 1.13.2
       version: 1.13.2
+    '@gouvminint/vue-dsfr':
+      specifier: 8.4.0
+      version: 8.4.0
     '@intlify/unplugin-vue-i18n':
       specifier: 6.0.8
       version: 6.0.8
@@ -91,6 +94,9 @@ importers:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
         version: 1.13.2
+      '@gouvminint/vue-dsfr':
+        specifier: 'catalog:'
+        version: 8.4.0(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.4.0
         version: 4.4.0(vue@3.5.18(typescript@5.9.2))
@@ -348,7 +354,7 @@ importers:
         specifier: 'catalog:'
         version: 1.13.2
       '@gouvminint/vue-dsfr':
-        specifier: 8.4.0
+        specifier: 'catalog:'
         version: 8.4.0(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.6.0
@@ -5525,8 +5531,8 @@ packages:
   vue-component-type-helpers@2.2.0:
     resolution: {integrity: sha512-cYrAnv2me7bPDcg9kIcGwjJiSB6Qyi08+jLDo9yuvoFQjzHiPTzML7RnkJB1+3P6KMsX/KbCD4QE3Tv/knEllw==}
 
-  vue-component-type-helpers@3.0.4:
-    resolution: {integrity: sha512-WtR3kPk8vqKYfCK/HGyT47lK/T3FaVyWxaCNuosaHYE8h9/k0lYRZ/PI/+T/z2wP+uuNKmL6z30rOcBboOu/YA==}
+  vue-component-type-helpers@3.0.6:
+    resolution: {integrity: sha512-6CRM8X7EJqWCJOiKPvSLQG+hJPb/Oy2gyJx3pLjUEhY7PuaCthQu3e0zAGI1lqUBobrrk9IT0K8sG2GsCluxoQ==}
 
   vue-docgen-api@4.79.2:
     resolution: {integrity: sha512-n9ENAcs+40awPZMsas7STqjkZiVlIjxIKgiJr5rSohDP0/JCrD9VtlzNojafsA1MChm/hz2h3PDtUedx3lbgfA==}
@@ -7619,7 +7625,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.18(typescript@5.9.2)
-      vue-component-type-helpers: 3.0.4
+      vue-component-type-helpers: 3.0.6
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     dependencies:
@@ -11160,7 +11166,7 @@ snapshots:
 
   vue-component-type-helpers@2.2.0: {}
 
-  vue-component-type-helpers@3.0.4: {}
+  vue-component-type-helpers@3.0.6: {}
 
   vue-docgen-api@4.79.2(vue@3.5.18(typescript@5.9.2)):
     dependencies:

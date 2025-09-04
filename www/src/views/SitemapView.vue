@@ -36,7 +36,7 @@
 import { useHead } from '@unhead/vue'
 
 useHead({
-  title: 'DossierFacile, le dossier de location numérique de l’État'
+  title: 'Plan du site - DossierFacile, le dossier de location numérique de l’État'
 })
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 const OWNER_URL = import.meta.env.VITE_OWNER_URL

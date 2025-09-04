@@ -50,7 +50,7 @@
             aria-controls="noDPE"
             @click="AnalyticsService.dpeEvent('dpe_no_number')"
           >
-            <RiArrowRightLine size="22px" class="circle fr-p-1v" />{{
+            <RiArrowRightLine size="22px" class="circle fr-p-1v" aria-hidden="true" />{{
               t('propertydiagnostic.no-dpe-btn')
             }}
           </button>
