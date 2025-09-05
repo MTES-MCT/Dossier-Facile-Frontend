@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h6>{{ t('roommatesinformation.title') }}</h6>
+          <h2 class="fr-h6">{{ t('roommatesinformation.title') }}</h2>
           <v-gouv-fr-modal class="fr-link fr-link--sm">
             <template #button>
               {{ t('roommatesinformation.more-information') }}

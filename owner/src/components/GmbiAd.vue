@@ -10,7 +10,7 @@ const { t } = useI18n()
   <NakedCard class="fr-pl-3w fr-pr-3w">
     <div style="display: flex; justify-content: space-between">
       <div>
-        <h6>{{ t('gmbi-ad.title') }}</h6>
+        <h2 class="fr-h6">{{ t('gmbi-ad.title') }}</h2>
         <a href="https://cfspart.impots.gouv.fr/enp/gmbi.do">
           <DfButton class="gmbi-button" :primary="true"
             >{{ t('gmbi-ad.call-to-action') }}

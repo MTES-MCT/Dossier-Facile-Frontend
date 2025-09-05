@@ -88,7 +88,7 @@ function onBack() {
         </div>
       </div>
       <div v-else>
-        <h6 class="color--red">{{ t('validateproperty.error-title') }}</h6>
+        <h2 class="fr-h6 color--red">{{ t('validateproperty.error-title') }}</h2>
         <p>
           {{ t('validateproperty.property-not-valid') }}
         </p>

@@ -8,51 +8,65 @@
     <img alt="" class="img-center" src="../../assets/images/blog-article17.webp" />
     <br />
 
-    <h6>1. Le quartier</h6>
-    <p>
-      Avant la visite, faites un tour dans le quartier pour évaluer d’éventuelles nuisances sonores,
-      telles que les commerces et les routes passantes.
-    </p>
+    <ol>
+      <li>
+        <h2 class="fr-h6">Le quartier</h2>
+        <p>
+          Avant la visite, faites un tour dans le quartier pour évaluer d’éventuelles nuisances
+          sonores, telles que les commerces et les routes passantes.
+        </p>
+      </li>
 
-    <h6>2. L'isolation phonique et thermique</h6>
-    <p>
-      Il est essentiel de contrôler l'isolation phonique et thermique du logement. N'hésitez pas à
-      demander le DPE (Diagnostic de Performance Énergétique) pour savoir si le logement est une
-      passoire thermique, car
-      <a href="/blog/passoires-thermiques-top-depart-du-gel-des-loyers"
-        >à partir de 2023, ces derniers ne pourront plus être loués</a
-      >.
-    </p>
+      <li>
+        <h2 class="fr-h6">L'isolation phonique et thermique</h2>
+        <p>
+          Il est essentiel de contrôler l'isolation phonique et thermique du logement. N'hésitez pas
+          à demander le DPE (Diagnostic de Performance Énergétique) pour savoir si le logement est
+          une passoire thermique, car
+          <a href="/blog/passoires-thermiques-top-depart-du-gel-des-loyers"
+            >à partir de 2023, ces derniers ne pourront plus être loués</a
+          >.
+        </p>
+      </li>
 
-    <h6>3. Les équipements</h6>
-    <p>
-      Demandez si l'électricité, l'eau chaude et le chauffage sont compris dans le loyer. Vous
-      pouvez également demander les anciennes factures du précédent locataire pour vous faire une
-      idée plus précise. N'oubliez pas de demander comment le lieu est chauffé (électrique, gaz,
-      fioul) et si le chauffage est collectif ou non. Concernant l'eau chaude et la pression de
-      l'eau, vous pouvez ouvrir plusieurs robinets simultanément afin de vérifier le bon débit et le
-      bon fonctionnement de l'eau chaude.
-    </p>
+      <li>
+        <h2 class="fr-h6">Les équipements</h2>
+        <p>
+          Demandez si l'électricité, l'eau chaude et le chauffage sont compris dans le loyer. Vous
+          pouvez également demander les anciennes factures du précédent locataire pour vous faire
+          une idée plus précise. N'oubliez pas de demander comment le lieu est chauffé (électrique,
+          gaz, fioul) et si le chauffage est collectif ou non. Concernant l'eau chaude et la
+          pression de l'eau, vous pouvez ouvrir plusieurs robinets simultanément afin de vérifier le
+          bon débit et le bon fonctionnement de l'eau chaude.
+        </p>
+      </li>
 
-    <h6>4. L'état général du logement</h6>
-    <p>
-      Assurez-vous qu'il n'y a pas de moisissures apparentes, signe d'une mauvaise ventilation. Pour
-      vérifier l'insonorisation du bien, essayez de le visiter en fin de journée, quand il y a le
-      plus de monde présent dans l'immeuble.
-    </p>
+      <li>
+        <h2 class="fr-h6">L'état général du logement</h2>
+        <p>
+          Assurez-vous qu'il n'y a pas de moisissures apparentes, signe d'une mauvaise ventilation.
+          Pour vérifier l'insonorisation du bien, essayez de le visiter en fin de journée, quand il
+          y a le plus de monde présent dans l'immeuble.
+        </p>
+      </li>
 
-    <h6>5. Les conditions de location</h6>
-    <p>
-      Vérifiez si le logement est loué meublé ou non meublé, ainsi que si les animaux sont acceptés
-      et, le cas échéant, lesquels. Renseignez-vous également sur la présence d'une place de
-      stationnement privée.
-    </p>
+      <li>
+        <h2 class="fr-h6">Les conditions de location</h2>
+        <p>
+          Vérifiez si le logement est loué meublé ou non meublé, ainsi que si les animaux sont
+          acceptés et, le cas échéant, lesquels. Renseignez-vous également sur la présence d'une
+          place de stationnement privée.
+        </p>
+      </li>
 
-    <h6>6. Le montant des charges</h6>
-    <p>
-      Demandez le montant des charges afin d'évaluer au mieux le coût total de votre futur logement
-      et d'éviter les mauvaises surprises.
-    </p>
+      <li>
+        <h2 class="fr-h6">Le montant des charges</h2>
+        <p>
+          Demandez le montant des charges afin d'évaluer au mieux le coût total de votre futur
+          logement et d'éviter les mauvaises surprises.
+        </p>
+      </li>
+    </ol>
 
     <p>
       Enfin, si vous êtes éligible aux APL (Aides Personnalisées au Logement), n'hésitez pas à

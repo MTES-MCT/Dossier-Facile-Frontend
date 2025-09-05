@@ -1,7 +1,7 @@
 <template>
   <div v-if="failedRules && failedRules.length > 0" class="rules-container">
     <template v-for="(b, k) in failedRules" :key="k">
-      <h6>{{ b.message }}</h6>
+      <p class="fr-h6">{{ b.message }}</p>
       <template v-if="isRuleWithCustomText(b.rule)">
         <p>{{ t(`prevalidation.${b.rule}.p1`) }}</p>
         <p>{{ t(`prevalidation.${b.rule}.p2`) }}</p>

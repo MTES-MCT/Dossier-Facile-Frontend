@@ -2,7 +2,7 @@
   <NakedCard class="fr-p-md-5w fr-m-3v fr-mb-3w fr-grid-col">
     <GuarantorBadge v-if="state.textKey.endsWith('guarantor')" />
     <TenantBadge v-else />
-    <h6>{{ t('income.' + state.textKey) }}</h6>
+    <h1 class="fr-h6">{{ t('income.' + state.textKey) }}</h1>
     <div class="fr-highlight fr-ml-0">
       <i18n-t keypath="documents-provided" tag="p">
         <strong>{{ t('financial-means') }}</strong>
@@ -26,7 +26,7 @@
         :class="{ duplicate: doc.id && duplicateIds.has(doc.id) }"
       >
         <div class="first-row">
-          <span class="fr-text--lg fr-mb-0 bold">{{ categoryLabel(doc) }}</span>
+          <h2 class="fr-text--lg fr-mb-0">{{ categoryLabel(doc) }}</h2>
           <span>{{ doc.monthlySum }}€ {{ t('net-per-month') }}</span>
         </div>
         <span v-if="doc.documentCategoryStep" class="fr-text--sm fr-mb-0 text-grey">{{
