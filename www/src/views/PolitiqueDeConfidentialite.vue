@@ -5,9 +5,7 @@
         <div class="fr-container">
           <div class="fr-grid-row height-40">
             <div class="fr-col-md-12">
-              <div>
-                <h1 class="fr-h1 color--white">Politique de confidentialité</h1>
-              </div>
+              <h1 class="fr-h1 color--white">Politique de confidentialité</h1>
             </div>
           </div>
         </div>
@@ -86,8 +84,10 @@
           est investi le responsable de traitement au sens de l’article 6-1 e) du RGPD.
         </p>
 
-        <h2 class="fr-h3">5. Pendant combien de temps conservons-nous ces données ?</h2>
-        <table>
+        <h2 id="keep-data" class="fr-h3">
+          5. Pendant combien de temps conservons-nous ces données ?
+        </h2>
+        <table aria-describedby="keep-data">
           <thead>
             <tr>
               <th>Catégorie de données</th>
@@ -195,7 +195,9 @@
           </li>
         </ul>
 
-        <h2 class="fr-h3">9. Qui nous aide à traiter les données à caractère personnel ?</h2>
+        <h2 id="third-party" class="fr-h3">
+          9. Qui nous aide à traiter les données à caractère personnel ?
+        </h2>
         <p>
           Certaines des données sont envoyées à d’autres acteurs, appelés “sous-traitants”, pour
           qu’ils nous aident à les manipuler. Conformément à l’article 28 du RGPD, nous nous
@@ -203,7 +205,7 @@
           données et qu’ils apportent des garanties suffisantes en matière de sécurité des données.
         </p>
         <div class="table-wrapper">
-          <table class="fr-mb-3w">
+          <table class="fr-mb-3w" aria-describedby="third-party">
             <thead>
               <tr>
                 <th>Sous-traitant</th>
@@ -248,9 +250,9 @@
           </table>
         </div>
 
-        <h2 class="fr-h3">10. Cookies</h2>
+        <h2 id="cookies" class="fr-h3">10. Cookies</h2>
         <div class="table-wrapper">
-          <table>
+          <table aria-describedby="cookies">
             <thead>
               <tr>
                 <th>Nom du cookie</th>
@@ -287,23 +289,25 @@
           but de collecter des informations relatives à votre navigation et de vous adresser des
           services adaptés à votre terminal (ordinateur, mobile ou tablette).
         </p>
-        <p>
+        <p class="fr-mb-1w">
           En application de l’article 5(3) de la directive 2002/58/CE modifiée concernant le
           traitement des données à caractère personnel et la protection de la vie privée dans le
           secteur des communications électroniques, transposée à l’article 82 de la loi n°78-17 du 6
           janvier 1978 relative à l’informatique, aux fichiers et aux libertés, les traceurs ou
           cookies suivent deux régimes distincts :
         </p>
-        <p>
-          - Les cookies strictement nécessaires au service ou ayant pour finalité exclusive de
-          faciliter la communication par voie électronique sont dispensés de consentement préalable
-          au titre de l’article 82 de la loi n°78-17 du 6 janvier 1978.
-        </p>
-        <p>
-          - Les cookies n’étant pas strictement nécessaires au service ou n’ayant pas pour finalité
-          exclusive de faciliter la communication par voie électronique doivent être consenti par
-          l’utilisateur.
-        </p>
+        <ul class="fr-mb-2w">
+          <li>
+            Les cookies strictement nécessaires au service ou ayant pour finalité exclusive de
+            faciliter la communication par voie électronique sont dispensés de consentement
+            préalable au titre de l’article 82 de la loi n°78-17 du 6 janvier 1978.
+          </li>
+          <li>
+            Les cookies n’étant pas strictement nécessaires au service ou n’ayant pas pour finalité
+            exclusive de faciliter la communication par voie électronique doivent être consenti par
+            l’utilisateur.
+          </li>
+        </ul>
         <p>
           Ce consentement de la personne concernée pour une ou plusieurs finalités spécifiques
           constitue une base légale au sens du RGPD et doit être entendu au sens de l'article 6-a du
@@ -316,20 +320,21 @@
           “mode exempté” ne nécessitant pas le recueil du consentement des utilisateurs conformément
           aux recommandations de la CNIL.
         </p>
-        <p>
+        <label for="consentRemoved">
           Vous pouvez décider de ne jamais être suivi, même de manière anonyme sur DossierFacile :
-        </p>
-        <p>
+        </label>
+        <p class="fr-mt-1w">
           <input
             id="consentRemoved"
             v-model="consentRemoved"
             type="checkbox"
+            aria-describedby="consent-text"
             @change="changeConsentRemoved"
           />
-          <span v-if="consentRemoved">
+          <span v-if="consentRemoved" id="consent-text">
             Vous n'êtes actuellement pas suivi‧e. Cookie d’exclusion installé
           </span>
-          <span v-else> Vous n'êtes actuellement pas exclu‧e. </span>
+          <span v-else id="consent-text"> Vous n'êtes actuellement pas exclu‧e. </span>
         </p>
         <p>
           À tout moment, vous pouvez refuser l’utilisation des cookies et désactiver le dépôt sur
