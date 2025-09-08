@@ -4,60 +4,67 @@
     <div class="fr-container position--relative mt-100 fr-mb-5w">
       <div class="fr-grid-row space-between fr-mb-3w">
         <div ref="headContainer" class="head-container">
-          <div>
-            <router-link
-              :title="t('consultproperty.back-label')"
-              class="fr-btn btn--white fr-btn--secondary"
-              to="/"
-              >{{ t('consultproperty.back') }}</router-link
-            >
-          </div>
-          <div class="title">{{ name }}</div>
-          <div class="spacer"></div>
-          <VGouvFrModal
+          <router-link
+            :title="t('consultproperty.back-label')"
             class="fr-btn btn--white fr-btn--secondary"
-            test-id="share-property-modal"
-            @click="shareBtnClicked"
+            to="/"
+            >{{ t('consultproperty.back') }}</router-link
           >
-            <template #button>
-              {{ t('consultproperty.share-btn') }}
-            </template>
-            <template #title>
-              {{ t('consultproperty.share-modal-title') }}
-            </template>
-            <template #content>
-              <p>
-                {{ t('consultproperty.share-modal-description') }}
-              </p>
-              <div class="fr-grid-row fr-mb-3w">
-                <div class="align-self--center long-link">
-                  {{ token }}
-                </div>
-                <div>
-                  <button class="fr-btn fr-ml-5w" @click="copyToken">
-                    {{ t('consultproperty.copy-link') }}
-                  </button>
-                </div>
-              </div>
-              <p>
-                {{ t('consultproperty.share-modal-detail') }}
-              </p>
-            </template>
-          </VGouvFrModal>
-          <button
-            :title="t('consultproperty.update-btn')"
-            class="fr-btn btn--white fr-btn--secondary"
-            @click="editProperty()"
-          >
-            {{ t('consultproperty.modify-property') }}
-          </button>
-          <button
-            :title="t('consultproperty.delete-btn')"
-            class="fr-btn btn--white fr-btn--secondary"
-            @click="showDeletePropertyModal()"
-          >
-            {{ t('consultproperty.delete-property') }}
-          </button>
+          <h1 class="title fr-mr-auto">{{ name }}</h1>
+          <ul class="property-buttons">
+            <li>
+              <VGouvFrModal
+                class="fr-btn btn--white fr-btn--secondary"
+                test-id="share-property-modal"
+                @click="shareBtnClicked"
+              >
+                <template #button>
+                  {{ t('consultproperty.share-btn') }}
+                </template>
+                <template #title>
+                  {{ t('consultproperty.share-modal-title') }}
+                </template>
+                <template #content>
+                  <p>
+                    {{ t('consultproperty.share-modal-description') }}
+                  </p>
+                  <div class="fr-grid-row fr-mb-3w">
+                    <div class="align-self--center long-link">
+                      {{ token }}
+                    </div>
+                    <div>
+                      <button class="fr-btn fr-ml-5w" @click="copyToken">
+                        {{ t('consultproperty.copy-link') }}
+                      </button>
+                    </div>
+                  </div>
+                  <p>
+                    {{ t('consultproperty.share-modal-detail') }}
+                  </p>
+                </template>
+              </VGouvFrModal>
+            </li>
+            <li>
+              <button
+                type="button"
+                :title="t('consultproperty.update-btn')"
+                class="fr-btn btn--white fr-btn--secondary"
+                @click="editProperty()"
+              >
+                {{ t('consultproperty.modify-property') }}
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                :title="t('consultproperty.delete-btn')"
+                class="fr-btn btn--white fr-btn--secondary"
+                @click="showDeletePropertyModal()"
+              >
+                {{ t('consultproperty.delete-property') }}
+              </button>
+            </li>
+          </ul>
           <ConfirmModal
             v-if="confirmDeleteProperty"
             @valid="validDeleteFile()"
@@ -73,25 +80,26 @@
             <PropertyIcon :type="propertyType || ''"></PropertyIcon>
           </div>
           <div class="fr-col">
-            <div
+            <p
+              class="fr-mb-0"
               v-html="
                 `${t(titleKey)} ${t('consultproperty.rent', {
                   rentCost: p.rentCost,
                   chargesCost: p.chargesCost
                 })}`
               "
-            ></div>
+            ></p>
           </div>
         </div>
       </NakedCard>
       <NakedCard class="fr-mt-3w">
-        <h1 class="fr-h4">
+        <h2 id="verified-applicants" class="fr-h4">
           {{
             t('consultproperty.verified-applicants', {
               count: verifiedApplicantsCount
             })
           }}
-        </h1>
+        </h2>
         <div class="delete-btn-container">
           <button
             class="fr-btn fr-btn--secondary"
@@ -108,7 +116,7 @@
             {{ t('consultproperty.will-delete-applicants') }}
           </ConfirmModal>
         </div>
-        <table>
+        <table aria-describedby="verified-applicants">
           <thead>
             <tr>
               <th></th>
@@ -472,14 +480,8 @@ function getRateClass(applicant: Applicant) {
   color: white;
   font-size: 2rem;
   line-height: 2rem;
-}
-
-.left-auto {
-  margin-left: auto;
-}
-
-.md-24 {
-  width: 2rem;
+  font-weight: 400;
+  margin-block: 0;
 }
 
 table {
@@ -639,20 +641,19 @@ tr {
   text-align: right;
 }
 
-.spacer {
-  flex-grow: 1;
-}
-
 .head-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  flex-direction: row;
   gap: 1rem;
-  @media all and (max-width: 768px) {
-    flex-direction: column;
-  }
+}
+
+.property-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 </style>
 

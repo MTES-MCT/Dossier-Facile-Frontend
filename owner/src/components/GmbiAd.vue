@@ -17,7 +17,7 @@ const { t } = useI18n()
           </DfButton>
         </a>
       </div>
-      <img src="../assets/logo_GMBI.svg" alt="Logo GMBI" />
+      <img src="../assets/logo_GMBI.svg" alt="Gérer mes biens immobiliers" />
     </div>
     <div class="fr-mt-2w made-by">
       <span class="fr-text--sm">{{ t('gmbi-ad.made-by') }}</span>

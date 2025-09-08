@@ -10,9 +10,9 @@ const { t } = useI18n()
     <h2 class="fr-h6">{{ t('feedback-request.title') }}</h2>
     <div class="fr-grid-row">
       <div class="fr-col-md-8 fr-col-sm">
-        <span class="fr-text--sm">
+        <p class="fr-text--sm">
           {{ t('feedback-request.content') }}
-        </span>
+        </p>
       </div>
       <div class="fr-col-md-4 fr-col-sm">
         <a

@@ -146,7 +146,7 @@
     "share-btn": "Partager ma propriété",
     "update-btn": "Modifier ma propriété",
     "delete-btn": "Supprimer ma propriété",
-    "back-label": "Retour"
+    "back-label": "Retour vers la page précédente"
   },
   "dashboard": {
     "title": "Bon retour parmi nous, {name}",

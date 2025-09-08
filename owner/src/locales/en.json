@@ -140,7 +140,7 @@
     "share-btn": "Share my property",
     "update-btn": "Modify my property",
     "delete-btn": "Delete my property",
-    "back-label": "Back"
+    "back-label": "Back to previous page"
   },
   "dashboard": {
     "title": "Welcome back, {name}",
