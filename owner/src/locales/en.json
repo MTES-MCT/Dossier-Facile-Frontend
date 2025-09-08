@@ -431,5 +431,9 @@
   },
   "contact": {
     "title": "How can we help you?"
+  },
+  "sortby": {
+    "ascending": "Sort in ascending order",
+    "descending": "Sort in descending order"
   }
 }

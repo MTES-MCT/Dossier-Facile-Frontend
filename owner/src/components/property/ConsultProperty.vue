@@ -32,11 +32,9 @@
                     <div class="align-self--center long-link">
                       {{ token }}
                     </div>
-                    <div>
-                      <button class="fr-btn fr-ml-5w" @click="copyToken">
-                        {{ t('consultproperty.copy-link') }}
-                      </button>
-                    </div>
+                    <button class="fr-btn fr-ml-5w" @click="copyToken">
+                      {{ t('consultproperty.copy-link') }}
+                    </button>
                   </div>
                   <p>
                     {{ t('consultproperty.share-modal-detail') }}
@@ -116,138 +114,103 @@
             {{ t('consultproperty.will-delete-applicants') }}
           </ConfirmModal>
         </div>
-        <table aria-describedby="verified-applicants">
-          <thead>
-            <tr>
-              <th></th>
-              <th class="desktop" @click="sortTable('lastUpdateDate')">
-                {{ t('consultproperty.date') }}
-                <div
-                  v-if="'lastUpdateDate' == sortColumn"
-                  class="arrow"
-                  :class="ascending ? 'arrow_up' : 'arrow_down'"
-                ></div>
-              </th>
-              <th @click="sortTable('tenantName')">
-                {{ t('consultproperty.tenant-name') }}
-                <div
-                  v-if="'tenantName' == sortColumn"
-                  class="arrow"
-                  :class="ascending ? 'arrow_up' : 'arrow_down'"
-                ></div>
-              </th>
-              <th class="desktop" @click="sortTable('tenantType')">
-                {{ t('consultproperty.tenant-type') }}
-                <div
-                  v-if="'tenantType' == sortColumn"
-                  class="arrow"
-                  :class="ascending ? 'arrow_up' : 'arrow_down'"
-                ></div>
-              </th>
-              <th @click="sortTable('tenantSalary')">
-                {{ t('consultproperty.tenant-salary') }}
-                <div
-                  v-if="'tenantSalary' == sortColumn"
-                  class="arrow"
-                  :class="ascending ? 'arrow_up' : 'arrow_down'"
-                ></div>
-              </th>
-              <th class="desktop" @click="sortTable('guarantorSalary')">
-                {{ t('consultproperty.guarantor-salary') }}
-                <div
-                  v-if="'guarantorSalary' == sortColumn"
-                  class="arrow"
-                  :class="ascending ? 'arrow_up' : 'arrow_down'"
-                ></div>
-              </th>
-              <th @click="sortTable('rate')">
-                {{ t('consultproperty.rate') }}
-                <div
-                  v-if="'rate' == sortColumn"
-                  class="arrow"
-                  :class="ascending ? 'arrow_up' : 'arrow_down'"
-                ></div>
-              </th>
-              <th @click="sortTable('status')">
-                {{ t('consultproperty.status') }}
-                <div
-                  v-if="'status' == sortColumn"
-                  class="arrow"
-                  :class="ascending ? 'arrow_up' : 'arrow_down'"
-                ></div>
-              </th>
-            </tr>
-          </thead>
-          <tbody v-for="(tenant, k) in tenants" :key="k">
-            <tr :class="getTenantClass(tenant)">
-              <td class="w30">
-                <input
-                  :id="tenant.id.toString()"
-                  v-model="selectedApplicants"
-                  :value="tenant.id.toString()"
-                  type="checkbox"
-                />
-              </td>
-              <td class="desktop" @click="setShowTenant(tenant, k)">
-                <time>{{ formatDate(tenant.lastUpdateDate || new Date()) }}</time>
-              </td>
-              <td @click="setShowTenant(tenant, k)">
-                <span class="tenant-name">{{ tenant.tenantName }}</span>
-              </td>
-              <td class="desktop" @click="setShowTenant(tenant, k)">
-                <div class="tenant-type" :class="getTenantClass(tenant)">
-                  {{ t(tenant.applicationType || '') }}
-                </div>
-              </td>
-              <td @click="setShowTenant(tenant, k)">
-                <span>{{ tenant.tenantSalary }}</span>
-              </td>
-              <td class="desktop" @click="setShowTenant(tenant, k)">
-                <span>{{ tenant.guarantorSalary }}</span>
-              </td>
-              <td @click="setShowTenant(tenant, k)">
-                <div v-if="tenant.rate === -1">
-                  {{ t('consultproperty.no-income') }}
-                </div>
-                <div v-else>
-                  <span class="rate" :class="getRateClass(tenant)">{{ tenant.rate }} %</span>
-                  {{ t('consultproperty.income') }}
-                </div>
-              </td>
-              <td @click="setShowTenant(tenant, k)">
-                <div class="tag" :class="getTenantClass(tenant)">
-                  <RiCloseCircleFill
-                    v-if="tenant.status === 'DECLINED'"
-                    size="18px"
-                    aria-hidden="true"
+        <div class="table-wrapper">
+          <table aria-describedby="verified-applicants">
+            <thead>
+              <tr>
+                <th></th>
+                <th v-for="(_, col) of COLUMN_MAP" :key="col">
+                  <button
+                    type="button"
+                    class="bold"
+                    :title="buttonTitle(col)"
+                    @click="sortTable(col)"
+                  >
+                    {{ t('consultproperty.' + col) }}
+                  </button>
+                  <div
+                    v-if="col === sortColumn"
+                    class="arrow"
+                    :class="ascending ? 'arrow_up' : 'arrow_down'"
+                  ></div>
+                </th>
+              </tr>
+            </thead>
+            <tbody v-for="(tenant, k) in tenants" :key="k">
+              <tr :class="getTenantClass(tenant)">
+                <td class="w30">
+                  <input
+                    :id="tenant.id.toString()"
+                    v-model="selectedApplicants"
+                    :value="tenant.id.toString()"
+                    type="checkbox"
                   />
-                  <RiCheckboxCircleLine
-                    v-else-if="tenant.status === 'VALIDATED'"
-                    size="18px"
-                    aria-hidden="true"
-                  />
-                  <RiTimeLine v-else size="18px" aria-hidden="true" />
-                  <span class="fr-ml-1v">
-                    {{ t(tenant.status || '') }}
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr v-if="tenantIdToShow === k">
-              <td colspan="8" class="additional-td">
-                <div class="tenant-token-link fr-mb-3w fr-mt-1w">
-                  <a class="fr-btn" :href="`${TENANT_URL}/file/${tenant?.token}`" target="_blank">{{
-                    t('consultproperty.download-full-file')
-                  }}</a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                </td>
+                <td @click="setShowTenant(tenant, k)">
+                  <time>{{ formatDate(tenant.lastUpdateDate || new Date()) }}</time>
+                </td>
+                <td @click="setShowTenant(tenant, k)">
+                  <span class="tenant-name">{{ tenant.tenantName }}</span>
+                </td>
+                <td @click="setShowTenant(tenant, k)">
+                  <div class="tenant-type" :class="getTenantClass(tenant)">
+                    {{ t(tenant.applicationType || '') }}
+                  </div>
+                </td>
+                <td @click="setShowTenant(tenant, k)">
+                  <span>{{ tenant.tenantSalary }}</span>
+                </td>
+                <td @click="setShowTenant(tenant, k)">
+                  <span>{{ tenant.guarantorSalary }}</span>
+                </td>
+                <td @click="setShowTenant(tenant, k)">
+                  <div v-if="tenant.rate === -1">
+                    {{ t('consultproperty.no-income') }}
+                  </div>
+                  <div v-else>
+                    <span class="rate" :class="getRateClass(tenant)">{{ tenant.rate }} %</span>
+                    {{ t('consultproperty.income') }}
+                  </div>
+                </td>
+                <td @click="setShowTenant(tenant, k)">
+                  <div class="tag" :class="getTenantClass(tenant)">
+                    <RiCloseCircleFill
+                      v-if="tenant.status === 'DECLINED'"
+                      size="18px"
+                      aria-hidden="true"
+                    />
+                    <RiCheckboxCircleLine
+                      v-else-if="tenant.status === 'VALIDATED'"
+                      size="18px"
+                      aria-hidden="true"
+                    />
+                    <RiTimeLine v-else size="18px" aria-hidden="true" />
+                    <span class="fr-ml-1v">
+                      {{ t(tenant.status || '') }}
+                    </span>
+                  </div>
+                </td>
+              </tr>
+              <tr v-if="tenantIdToShow === k">
+                <td colspan="8" class="additional-td">
+                  <div class="tenant-token-link fr-mb-3w fr-mt-1w">
+                    <a
+                      class="fr-btn"
+                      :href="`${TENANT_URL}/file/${tenant?.token}`"
+                      target="_blank"
+                      >{{ t('consultproperty.download-full-file') }}</a
+                    >
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </NakedCard>
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -274,13 +237,26 @@ const router = useRouter()
 const store = useOwnerStore()
 const toast = useToast()
 
-const sortColumn = ref<keyof Applicant | ''>('')
+const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`
+const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
+const COLUMN_MAP = {
+  date: 'lastUpdateDate',
+  'tenant-name': 'tenantName',
+  'tenant-type': 'tenantType',
+  'tenant-salary': 'tenantSalary',
+  'guarantor-salary': 'guarantorSalary',
+  rate: 'rate',
+  status: 'status'
+} as const satisfies Record<string, keyof Applicant>
+type Column = keyof typeof COLUMN_MAP
+
+const sortColumn = ref<Column | ''>('')
 const ascending = ref(false)
 const tenantIdToShow = ref(-1)
 const selectedApplicants = ref([])
+const tenants = ref<Array<Applicant>>([])
+const id = ref(0)
 
-const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`
-const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
 const token = computed(() => {
   if (import.meta.env.VITE_NEW_SHARE_LINK === 'true') {
     return `${OWNER_URL}/candidater/${store.getPropertyToConsult?.token}`
@@ -292,15 +268,11 @@ const p = computed(() => store.getPropertyToConsult)
 const propertyType = computed(() => store.getPropertyToConsult?.type)
 const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture)
 
-const tenants = ref<Array<Applicant>>([])
-
-const id = ref(0)
-
 function getTenants(): Applicant[] {
   return UtilsService.getTenants(p.value).sort((a, b) => {
     if (sortColumn.value === '') return 0
-    const left = a[sortColumn.value]
-    const right = b[sortColumn.value]
+    const left = a[COLUMN_MAP[sortColumn.value]]
+    const right = b[COLUMN_MAP[sortColumn.value]]
     if (!left || !right) return 0
     if (left < right) {
       return ascending.value ? 1 : -1
@@ -354,7 +326,7 @@ function editProperty() {
   router.push({ name: 'PropertyName', params: { id: id.value } })
 }
 
-function sortTable(col: keyof Applicant) {
+function sortTable(col: Column) {
   if (sortColumn.value === col) {
     ascending.value = !ascending.value
   } else {
@@ -437,6 +409,10 @@ function getRateClass(applicant: Applicant) {
     return 'good'
   }
   return ''
+}
+
+function buttonTitle(key: string) {
+  return `${t('consultproperty.' + key)} - ${t('sortby.' + (ascending.value ? 'descending' : 'ascending'))}`
 }
 </script>
 
@@ -592,8 +568,11 @@ td {
   background: var(--background-default-grey);
 }
 
-tr {
+tbody > tr {
   cursor: pointer;
+}
+
+tr {
   &.validated {
     background-color: #dffdf7;
   }
@@ -624,12 +603,6 @@ tr {
   padding: 0.4rem 0.5rem;
 }
 
-.desktop {
-  display: none !important;
-  @media all and (min-width: 768px) {
-    display: table-cell !important;
-  }
-}
 .w30 {
   min-width: 30px;
   text-align: center;
@@ -655,13 +628,9 @@ tr {
   gap: 1rem;
   flex-wrap: wrap;
 }
-</style>
 
-<style lang="scss">
-.v-gouv-fr-modal {
-  > a {
-    background-image: none;
-  }
+.table-wrapper {
+  overflow-x: auto;
 }
 
 .long-link {

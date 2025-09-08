@@ -475,5 +475,9 @@
   },
   "contact": {
     "title": "Comment pouvons-nous vous aider ?"
+  },
+  "sortby": {
+    "ascending": "Trier par ordre croissant",
+    "descending": "Trier par ordre décroissant"
   }
 }
