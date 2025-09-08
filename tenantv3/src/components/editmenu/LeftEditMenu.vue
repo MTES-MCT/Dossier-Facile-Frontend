@@ -238,8 +238,6 @@
         >{{ t('validate-file') }}
       </router-link>
     </li>
-
-    <div class="spacer"></div>
   </ol>
 </template>
 
@@ -381,7 +379,6 @@ function makeTaxLink(g: Guarantor) {
   min-height: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   padding-left: 10px;
   --border-color: var(--g400-t);
   @media all and (max-width: 768px) {
