@@ -174,7 +174,7 @@
               Si votre question ne figure pas dans cette liste, vous pouvez contacter notre équipe
               d’assistance en utilisant ce formulaire.
             </p>
-            <Form name="form" @submit="submitForm">
+            <Form name="form" @submit="submitForm" @invalid-submit="onInvalidSubmit">
               <div class="fr-grid-row fr-grid-row--center">
                 <div class="fr-col-12 fr-mb-3w">
                   <RequiredFieldsInstruction></RequiredFieldsInstruction>
@@ -182,12 +182,10 @@
                 <div class="fr-col-12 fr-col-md-6 fr-pr-md-3w fr-mb-3w position--relative">
                   <Field
                     id="firstname"
-                    v-slot="{ field, meta }"
+                    v-slot="{ field, meta, errorMessage }"
                     v-model="contactFormData.firstname"
                     name="firstname"
-                    :rules="{
-                      required: true
-                    }"
+                    rules="required"
                   >
                     <div
                       :class="{
@@ -200,32 +198,32 @@
                       </FieldLabel>
                       <input
                         id="firstname"
-                        :class="{
-                          'fr-input--valid': meta.valid,
-                          'fr-input--error': !meta.valid
-                        }"
+                        :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
                         :placeholder="t('firstname')"
                         type="text"
                         v-bind="field"
                         name="firstname"
                         autocomplete="given-name"
+                        :aria-invalid="!meta.valid"
+                        aria-describedby="firstname-error"
                         class="validate-required form-control fr-input"
                       />
-                      <ErrorMessage v-slot="{ message }" name="firstname">
-                        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-                      </ErrorMessage>
+                      <span
+                        v-show="!meta.valid"
+                        id="firstname-error"
+                        :class="{ 'fr-error-text': !meta.valid && meta.touched }"
+                        >{{ t(errorMessage || '') }}</span
+                      >
                     </div>
                   </Field>
                 </div>
                 <div class="fr-col-12 fr-col-md-6 fr-mb-3w position--relative">
                   <Field
                     id="lastname"
-                    v-slot="{ field, meta }"
+                    v-slot="{ field, meta, errorMessage }"
                     v-model="contactFormData.lastname"
                     name="lastname"
-                    :rules="{
-                      required: true
-                    }"
+                    rules="required"
                   >
                     <div
                       :class="{
@@ -240,25 +238,27 @@
                         v-bind="field"
                         id="lastname"
                         class="form-control fr-input validate-required"
-                        :class="{
-                          'fr-input--valid': meta.valid,
-                          'fr-input--error': !meta.valid
-                        }"
+                        :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
+                        :aria-invalid="!meta.valid"
+                        aria-describedby="lastname-error"
                         name="lastname"
                         autocomplete="family-name"
                         :placeholder="t('lastname')"
                         type="text"
                       />
-                      <ErrorMessage v-slot="{ message }" name="lastname">
-                        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-                      </ErrorMessage>
+                      <span
+                        v-show="!meta.valid"
+                        id="lastname-error"
+                        :class="{ 'fr-error-text': !meta.valid && meta.touched }"
+                        >{{ t(errorMessage || '') }}</span
+                      >
                     </div>
                   </Field>
                 </div>
                 <div class="fr-col-12 fr-mb-3w position--relative">
                   <Field
                     id="email"
-                    v-slot="{ field, meta }"
+                    v-slot="{ field, meta, errorMessage }"
                     v-model="contactFormData.email"
                     name="email"
                     :rules="{
@@ -280,30 +280,30 @@
                         id="email"
                         v-model="contactFormData.email"
                         class="validate-required form-control fr-input"
-                        :class="{
-                          'fr-input--valid': meta.valid,
-                          'fr-input--error': !meta.valid
-                        }"
+                        :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
+                        :aria-invalid="!meta.valid"
+                        aria-describedby="email-error"
                         name="email"
                         autocomplete="email"
-                        :placeholder="t('email')"
+                        :placeholder="t('email-example')"
                         type="text"
                       />
-                      <ErrorMessage v-slot="{ message }" name="email">
-                        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-                      </ErrorMessage>
+                      <span
+                        v-show="!meta.valid && meta.touched"
+                        id="email-error"
+                        class="fr-error-text"
+                        >{{ t(errorMessage || '') }}</span
+                      >
                     </div>
                   </Field>
                 </div>
                 <div class="fr-col-12 fr-mb-3w position--relative">
                   <Field
                     id="subject"
-                    v-slot="{ field, meta }"
+                    v-slot="{ field, meta, errorMessage }"
                     v-model="contactFormData.subject"
                     name="subject"
-                    :rules="{
-                      required: true
-                    }"
+                    rules="required"
                   >
                     <div
                       :class="{
@@ -318,30 +318,30 @@
                         v-bind="field"
                         id="subject"
                         class="form-control fr-input validate-required"
-                        :class="{
-                          'fr-input--valid': meta.valid,
-                          'fr-input--error': !meta.valid
-                        }"
+                        :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
+                        :aria-invalid="!meta.valid"
+                        aria-describedby="subject-error"
                         name="subject"
                         autocomplete="off"
                         :placeholder="t('subject')"
                         type="text"
                       />
-                      <ErrorMessage v-slot="{ message }" name="subject">
-                        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-                      </ErrorMessage>
+                      <span
+                        v-show="!meta.valid"
+                        id="subject-error"
+                        :class="{ 'fr-error-text': !meta.valid && meta.touched }"
+                        >{{ t(errorMessage || '') }}</span
+                      >
                     </div>
                   </Field>
                 </div>
                 <div class="fr-col-12 fr-mb-3w position--relative">
                   <Field
                     id="message"
-                    v-slot="{ field, meta }"
+                    v-slot="{ field, meta, errorMessage }"
                     v-model="contactFormData.message"
                     name="message"
-                    :rules="{
-                      required: true
-                    }"
+                    rules="required"
                   >
                     <div
                       :class="{
@@ -356,35 +356,51 @@
                         v-bind="field"
                         id="message"
                         class="form-control fr-input validate-required"
-                        :class="{
-                          'fr-input--valid': meta.valid,
-                          'fr-input--error': !meta.valid
-                        }"
+                        :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
+                        :aria-invalid="!meta.valid"
+                        aria-describedby="message-error"
                         name="message"
                         autocomplete="off"
                         :placeholder="t('message')"
                       />
-                      <ErrorMessage v-slot="{ message }" class="fr-error-text" name="message">
-                        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-                      </ErrorMessage>
+                      <span
+                        v-show="errorMessage"
+                        id="message-error"
+                        :class="{ 'fr-error-text': !meta.valid && meta.touched }"
+                        >{{ t(errorMessage || '') }}</span
+                      >
                     </div>
                   </Field>
                 </div>
                 <div class="fr-background-alt--blue-france fr-p-2w fr-col-12 fr-mb-3w">
                   <div class="fr-checkbox-group">
                     <Field
-                      id="acceptCgu"
+                      v-slot="{ field, meta }"
                       name="acceptCgu"
                       type="checkbox"
-                      rules="isTrue"
+                      rules="required"
                       :value="true"
-                    />
-                    <label for="acceptCgu">
-                      <div>{{ t('accept-cgu') }} <span class="color--required"> *</span></div>
-                    </label>
-                    <ErrorMessage v-slot="{ message }" class="fr-error-text" name="acceptCgu">
-                      <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-                    </ErrorMessage>
+                      :unchecked-value="false"
+                    >
+                      <input
+                        id="acceptCgu"
+                        v-bind="field"
+                        name="acceptCgu"
+                        type="checkbox"
+                        aria-describedby="acceptCgu-error"
+                        :aria-invalid="!meta.valid"
+                        :value="false"
+                      />
+                      <label for="acceptCgu">
+                        <div>{{ t('accept-cgu') }} <span class="color--required"> *</span></div>
+                      </label>
+                      <span
+                        v-show="!meta.valid && meta.touched"
+                        id="acceptCgu-error"
+                        class="fr-error-text"
+                        >{{ t('field-required') }}</span
+                      >
+                    </Field>
                   </div>
                 </div>
                 <div class="fr-col-12 fr-mb-3w text-right">
@@ -451,7 +467,7 @@ import { SupportService } from '../services/SupportService'
 import { User } from '../models/User'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Form, Field, ErrorMessage } from 'vee-validate'
+import { Form, Field, type InvalidSubmissionHandler } from 'vee-validate'
 import '../validators/validationRules'
 
 const { t } = useI18n()
@@ -462,6 +478,7 @@ const props = defineProps<{
 
 const contactFormData = ref(new ContactFormData())
 const status = ref<'NEW' | 'OK' | 'KO'>('NEW')
+
 const emit = defineEmits<{
   'on-profile-change': [profile: string]
   'on-send-message': [profile: string]
@@ -501,6 +518,13 @@ function submitForm() {
       console.log(error)
       status.value = 'KO'
     })
+}
+
+const onInvalidSubmit: InvalidSubmissionHandler = (data) => {
+  const firstError = Object.keys(data.errors)[0]
+  const input = document.querySelector<HTMLElement>(`#accordion-form [name="${firstError}"]`)
+  input?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  input?.focus()
 }
 
 function closeModal() {
@@ -565,6 +589,7 @@ textarea {
     "firstname": "Firstname",
     "lastname": "Lastname",
     "email": "Email",
+    "email-example": "nom.prenom{'@'}mail.fr",
     "profile": "User's profile",
     "subject": "Subject",
     "message": "Message",
@@ -589,6 +614,7 @@ textarea {
     "firstname": "Prénom",
     "lastname": "Nom",
     "email": "Votre adresse e-mail",
+    "email-example": "nom.prenom{'@'}mail.fr",
     "profile": "Votre profil",
     "subject": "L'objet de votre message",
     "message": "Votre message",
