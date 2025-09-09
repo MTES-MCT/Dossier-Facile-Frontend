@@ -29,9 +29,8 @@ Cypress.Commands.add(
 
 Cypress.Commands.add("verifyErrorToastMessage", (message: string) => {
   cy.get(".toast-container")
-    .should("be.visible")
     .find(".fr-alert.fr-alert--error")
-    .should("exist")
+    .should("be.visible")
     .find("p")
     .should("contain", message);
 
