@@ -94,7 +94,7 @@
             <template v-else>
               <li>
                 <slot name="login">
-                  <a :href="TENANT_URL" class="fr-btn fr-btn--sm">
+                  <a :href="TENANT_URL" class="fr-btn fr-btn--sm fr-btn--secondary">
                     <RiAccountCircleLine aria-hidden="true" class="fr-mr-1v" />
                     {{ t('tenant') }}
                   </a>
@@ -102,7 +102,7 @@
               </li>
               <li>
                 <slot name="other">
-                  <a :href="OWNER_URL" class="fr-btn fr-btn--sm">
+                  <a :href="OWNER_URL" class="fr-btn fr-btn--sm fr-btn--secondary">
                     <RiCommunityLine aria-hidden="true" class="fr-mr-1v" />
                     {{ t('owner') }}
                   </a>
