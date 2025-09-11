@@ -49,60 +49,77 @@ function onBack() {
     <NakedCard class="fr-p-md-5w">
       <h1 class="fr-h4">{{ t('propertyfurniture.furniture-title') }}</h1>
       <p>{{ t('propertyfurniture.furniture-subtitle') }}</p>
-      <p>
+      <div class="buttons-wrapper">
         <Field
-          id="furniture-house"
+          v-slot="{ field }"
           v-model="furniture"
           name="furniture"
           type="radio"
           rules="hasValue"
           :value="'UNFURNISHED'"
-        />
-        <label
-          :class="{ selected: furniture === 'UNFURNISHED' }"
-          class="fr-label inline-block label"
-          for="furniture-house"
         >
-          <div class="fr-grid-col">
-            <div class="icon-container desktop">
-              <img alt="" svg-inline src="../../assets/ico_vide.svg" aria-label="icone meublé" />
+          <label
+            :class="{ selected: furniture === 'UNFURNISHED' }"
+            class="fr-label inline-block label"
+            for="furniture-house"
+          >
+            <input
+              id="furniture-house"
+              v-bind="field"
+              type="radio"
+              name="furniture"
+              :value="'UNFURNISHED'"
+            />
+            <div class="fr-grid-col">
+              <div class="icon-container desktop">
+                <img alt="" svg-inline src="../../assets/ico_vide.svg" aria-label="icone meublé" />
+              </div>
+              <div class="fr-mb-md-4w fr-m-2w">
+                {{ t('propertyfurniture.unfurnished') }}
+              </div>
             </div>
-            <div class="fr-mb-md-5w fr-m-2w">
-              {{ t('propertyfurniture.unfurnished') }}
-            </div>
-          </div>
-        </label>
+          </label>
+        </Field>
         <Field
           id="furniture-apartment"
+          v-slot="{ field }"
           v-model="furniture"
           name="furniture"
           type="radio"
           rules="hasValue"
           :value="'FURNISHED'"
-        />
-        <label
-          :class="{ selected: furniture === 'FURNISHED' }"
-          class="fr-label inline-block label"
-          for="furniture-apartment"
         >
-          <div class="fr-grid-col">
-            <div class="icon-container desktop">
-              <img
-                alt=""
-                svg-inline
-                src="../../assets/ico_meuble.svg"
-                aria-label="icone non meublé"
-              />
+          <label
+            :class="{ selected: furniture === 'FURNISHED' }"
+            class="fr-label inline-block label"
+            for="furniture-apartment"
+          >
+            <input
+              id="furniture-apartment"
+              v-bind="field"
+              type="radio"
+              name="furniture"
+              :value="'FURNISHED'"
+            />
+            <div class="fr-grid-col">
+              <div class="icon-container desktop">
+                <img
+                  alt=""
+                  svg-inline
+                  src="../../assets/ico_meuble.svg"
+                  aria-label="icone non meublé"
+                />
+              </div>
+              <div class="fr-mb-md-4w fr-m-2w">
+                {{ t('propertyfurniture.furnished') }}
+              </div>
             </div>
-            <div class="fr-mb-md-5w fr-m-2w">
-              {{ t('propertyfurniture.furnished') }}
-            </div>
-          </div>
-        </label>
+          </label>
+        </Field>
         <ErrorMessage v-slot="{ message }" name="furniture">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
-      </p>
+      </div>
     </NakedCard>
   </PropertyPage>
 </template>
@@ -138,6 +155,10 @@ function onBack() {
     }
   }
 
+  &:focus-within {
+    outline: 2px solid var(--primary);
+  }
+
   &.selected {
     background-color: var(--primary);
     color: white;
@@ -164,7 +185,7 @@ input[type='radio'] {
 }
 
 .icon-container {
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-left: 2rem;
   margin-right: 2rem;
   width: 6rem;
@@ -179,5 +200,11 @@ input[type='radio'] {
 
 .icon-color {
   color: var(--icon-color);
+}
+
+.buttons-wrapper {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 </style>
