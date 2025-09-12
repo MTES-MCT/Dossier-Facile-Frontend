@@ -12,6 +12,7 @@
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.ecologie.gouv.fr/sites/default/files/comprendre_mon_dpe.pdf"
+          :title="`${t('propertydiagnostic.understand-dpe')} - ${t('new-window')}`"
           >{{ t('propertydiagnostic.understand-dpe') }}</a
         >
       </div>

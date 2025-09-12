@@ -197,6 +197,7 @@
                     <a
                       class="fr-btn"
                       :href="`${TENANT_URL}/file/${tenant?.token}`"
+                      :title="`${t('consultproperty.download-full-file')} - ${t('new-window')}`"
                       target="_blank"
                       >{{ t('consultproperty.download-full-file') }}</a
                     >

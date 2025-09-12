@@ -131,7 +131,7 @@
                   href="https://franceconnect.gouv.fr/"
                   target="_blank"
                   rel="noopener"
-                  :title="t('register.whatis-france-connect')"
+                  :title="`${t('register.whatis-france-connect')} - ${t('new-window')}`"
                   >{{ t('register.whatis-france-connect') }}</a
                 >
               </p>

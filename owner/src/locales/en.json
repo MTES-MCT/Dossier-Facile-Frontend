@@ -19,6 +19,7 @@
   "number-not-positive": "The price must be positive",
   "number-not-positive-or-null": "The price must be greater than or equal to 0",
   "register-btn": "Register",
+  "new-window": "Open in a new window",
   "account": {
     "title": "Welcome to your owner space. Let's add your property together",
     "subtitle": "Let's start with your personal identity information."

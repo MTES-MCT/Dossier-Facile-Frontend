@@ -18,16 +18,21 @@
               <a
                 href="https://www.masecurite.interieur.gouv.fr/fr"
                 rel="noopener"
-                :title="t('fakeannouncement.link-title').toString()"
+                :title="t('fakeannouncement.link-title')"
                 target="_blank"
                 >{{ t('fakeannouncement.masecurite') }}</a
               >
             </template>
           </i18n-t>
         </p>
-        <DfButton class="fr-mr-3w" @click="signal()">{{
-          t('fakeannouncement.signal-button')
-        }}</DfButton>
+        <a
+          class="fr-btn fr-btn--secondary fr-mr-3w"
+          target="_blank"
+          href="https://www.service-public.fr/particuliers/vosdroits/N31138#2"
+          :title="`${t('fakeannouncement.signal-button')} - ${t('new-window')}`"
+          @click="AnalyticsService.openMaSecurite()"
+          >{{ t('fakeannouncement.signal-button') }}</a
+        >
       </div>
       <div class="announce-card">
         <img alt="" src="../assets/carte_annonce.svg" />
@@ -38,14 +43,9 @@
 
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { I18nT, useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-function signal() {
-  AnalyticsService.openMaSecurite()
-  window.open('https://www.service-public.fr/particuliers/vosdroits/N31138#2', '_blank', 'noopener')
-}
 </script>
 
 <style scoped lang="scss">
