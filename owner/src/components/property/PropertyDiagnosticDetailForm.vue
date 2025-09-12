@@ -245,7 +245,16 @@ function getLetterStyle() {
                 'fr-input--error': !meta.valid
               }"
             />
-            <label for="dpeNotRequired" v-html="t('propertydiagnostic.no-dpe')"></label>
+            <label for="dpeNotRequired">
+              {{ t('propertydiagnostic.no-dpe') }}
+              <a
+                class="fr-ml-1v"
+                href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006896276"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ t('propertydiagnostic.learn-more') }}</a
+              >
+            </label>
           </Field>
           <ErrorMessage v-slot="{ message }" name="authorize">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>

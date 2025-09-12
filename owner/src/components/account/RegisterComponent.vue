@@ -129,7 +129,22 @@
           <div class="fr-col-12 fr-mb-3w">
             <div class="bg-purple fr-checkbox-group">
               <Field id="terms" name="terms" type="checkbox" rules="isTrue" :value="true" />
-              <label for="terms"><div v-html="t('register.accept-cgu')"></div></label>
+              <label for="terms" class="cgu-label">
+                <i18n-t keypath="register.accept-cgu">
+                  <template #terms-of-use>
+                    <a target="_blank" href="https://www.dossierfacile.logement.gouv.fr/cgu">{{
+                      t('register.terms-of-use')
+                    }}</a>
+                  </template>
+                  <template #privacy-policy>
+                    <a
+                      target="_blank"
+                      href="https://www.dossierfacile.logement.gouv.fr/politique-de-confidentialite"
+                      >{{ t('register.privacy-policy') }}</a
+                    >
+                  </template>
+                </i18n-t>
+              </label>
               <ErrorMessage v-slot="{ message }" class="fr-error-text" name="terms">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
@@ -209,10 +224,7 @@ function setScore(s: number) {
 }
 </script>
 
-<style lang="scss">
-.fr-connect {
-  display: inline-flex;
-}
+<style scoped lang="scss">
 .full-width-btn {
   width: 100%;
   display: table-cell;
@@ -241,40 +253,7 @@ function setScore(s: number) {
   margin-left: 2rem;
 }
 
-a.zocial.franceconnect-particulier {
-  background: url(../assets/fc/franceconnect-bouton@2x.png) no-repeat left top;
-  height: 70px;
-  width: auto;
-  padding-top: 60px;
-}
-
-a.zocial.franceconnect-particulier:hover {
-  background: url(../assets/fc/franceconnect-bouton-hover@2x.png) no-repeat left top !important;
-  height: 70px;
-  width: auto;
-}
-
-a.zocial.franceconnect-particulier span {
-  display: none;
-}
-
-a#social-franceconnect-particulier {
-  background: url(../assets/fc/franceconnect-bouton.png) no-repeat left top;
-  height: 60px;
-  width: 230px;
-}
-
-a#social-franceconnect-particulier:hover {
-  background: url(../assets/fc/franceconnect-bouton-hover.png) no-repeat left top !important;
-  height: 60px;
-  width: 230px;
-}
-
-a#social-franceconnect-particulier span {
-  display: none;
-}
-
-.inline-block {
-  display: inline-block;
+.cgu-label.cgu-label {
+  display: block;
 }
 </style>

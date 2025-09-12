@@ -61,13 +61,27 @@
           <div class="fr-highlight">
             <ul>
               <li>
-                <span v-html="t('propertydiagnostic.no-dpe-list-1')"></span>
+                {{ t('propertydiagnostic.no-dpe-list-1') }}
               </li>
               <li>
-                <span v-html="t('propertydiagnostic.no-dpe-list-2')"></span>
+                <i18n-t keypath="propertydiagnostic.no-dpe-list-2">
+                  <a
+                    href="https://signal.conso.gouv.fr/fr/immobilier/faire-un-signalement"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >{{ t('propertydiagnostic.file-complaint') }}</a
+                  >
+                </i18n-t>
               </li>
               <li>
-                <span v-html="t('propertydiagnostic.no-dpe-list-3')"></span>
+                <i18n-t keypath="propertydiagnostic.no-dpe-list-3">
+                  <a
+                    href="https://www.anil.org/lanil-et-les-adil/votre-adil/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >{{ t('propertydiagnostic.contact-anil') }}</a
+                  >
+                </i18n-t>
               </li>
             </ul>
           </div>
