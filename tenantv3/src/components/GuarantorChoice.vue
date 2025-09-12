@@ -1,49 +1,49 @@
 <template>
-  <div>
-    <div>
-      <div ref="guarantorbodycontent">
-        <NakedCard class="fr-p-md-5w">
-          <div class="text-bold fr-mb-1w">
-            <h1 class="fr-h5">
-              {{ t('guarantorchoice.add-guarantor') }}
-            </h1>
-          </div>
-          <div class="fr-mt-3w">
-            <p v-html="t('guarantorchoice.optional-guarantor')"></p>
-            <div class="fr-alert fr-alert--info">
-              <p v-html="t('guarantorchoice.two-guarantors-warning')"></p>
-            </div>
-          </div>
-        </NakedCard>
-        <NakedCard class="fr-p-md-5w fr-mt-md-3w">
-          <GuarantorTypeSelector
-            :local-storage-key="`guarantorType_${user.email}`"
-            @selected="tmpGuarantorType = $event"
-          >
-            <span style="font-weight: normal">{{ t('guarantorchoice.ask-guarantor') }}</span>
-          </GuarantorTypeSelector>
-        </NakedCard>
-        <div v-if="tmpGuarantorType === 'NO_GUARANTOR'" class="bg-purple fr-mt-3w fr-p-5w">
-          <div class="fr-grid-row space-between">
-            <div class="fr-h5">{{ t('guarantorchoice.visale-title') }}</div>
-            <img alt="logo visale" class="logo-visale" src="../assets/visale.svg" />
-          </div>
-          <p>{{ t('guarantorchoice.visale-text') }}</p>
-          <div style="text-align: right">
-            <DfButton :primary="true" @click="gotoVisale()">
-              {{ t('guarantorchoice.visale-btn') }}
-            </DfButton>
-          </div>
+  <div ref="guarantorbodycontent">
+    <NakedCard class="fr-p-md-5w">
+      <div class="text-bold fr-mb-1w">
+        <h1 class="fr-h5">
+          {{ t('guarantorchoice.add-guarantor') }}
+        </h1>
+      </div>
+      <div class="fr-mt-3w">
+        <p v-html="t('guarantorchoice.optional-guarantor')"></p>
+        <div class="fr-alert fr-alert--info">
+          <p v-html="t('guarantorchoice.two-guarantors-warning')"></p>
         </div>
       </div>
-
-      <GuarantorFooter @on-back="goBack" @on-next="setGuarantorType"></GuarantorFooter>
+    </NakedCard>
+    <NakedCard class="fr-p-md-5w fr-mt-md-3w">
+      <GuarantorTypeSelector
+        :local-storage-key="`guarantorType_${user.email}`"
+        @selected="tmpGuarantorType = $event"
+      >
+        <span style="font-weight: normal">{{ t('guarantorchoice.ask-guarantor') }}</span>
+      </GuarantorTypeSelector>
+    </NakedCard>
+    <div v-if="tmpGuarantorType === 'NO_GUARANTOR'" class="bg-purple fr-mt-3w fr-p-5w">
+      <div class="fr-grid-row space-between">
+        <div class="fr-h5">{{ t('guarantorchoice.visale-title') }}</div>
+        <img alt="logo visale" class="logo-visale" src="../assets/visale.svg" />
+      </div>
+      <p>{{ t('guarantorchoice.visale-text') }}</p>
+      <div style="text-align: right">
+        <a
+          class="fr-btn"
+          href="https://www.visale.fr"
+          :title="`${t('guarantorchoice.visale-btn')} - ${t('new-window')}`"
+          target="_blank"
+        >
+          {{ t('guarantorchoice.visale-btn') }}
+        </a>
+      </div>
     </div>
   </div>
+
+  <GuarantorFooter @on-back="goBack" @on-next="setGuarantorType"></GuarantorFooter>
 </template>
 
 <script setup lang="ts">
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { AnalyticsService } from '../services/AnalyticsService'
 import GuarantorFooter from './footer/GuarantorFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
@@ -118,10 +118,6 @@ function setGuarantorType() {
       name: 'GuarantorList'
     })
   }
-}
-
-function gotoVisale() {
-  window.open('https://www.visale.fr', '_blank')
 }
 </script>
 
