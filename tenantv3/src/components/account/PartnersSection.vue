@@ -77,7 +77,7 @@
                 <template #masecurite>
                   <a
                     href="https://www.masecurite.interieur.gouv.fr/fr"
-                    :title="t('partnerssection.link-title').toString()"
+                    :title="t('partnerssection.link-title')"
                     rel="noopener"
                     target="_blank"
                     >{{ t('partnerssection.masecurite') }}</a

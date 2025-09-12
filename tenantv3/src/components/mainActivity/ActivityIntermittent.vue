@@ -7,6 +7,7 @@
     <template #link>
       <a
         href="https://www.francetravail.fr/faq/candidat/ma-recherche-demploi/laccompagnement-par-le-reseau-fr/lespace-personnel/attestation-france-travail.html"
+        :title="`${t('obtain-report')} - ${t('new-window')}`"
         target="_blank"
         >{{ t('obtain-report') }}</a
       >

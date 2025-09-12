@@ -67,6 +67,7 @@
                 <i18n-t keypath="propertydiagnostic.no-dpe-list-2">
                   <a
                     href="https://signal.conso.gouv.fr/fr/immobilier/faire-un-signalement"
+                    :title="`${t('propertydiagnostic.file-complaint')} - ${t('new-window')}`"
                     target="_blank"
                     rel="noopener noreferrer"
                     >{{ t('propertydiagnostic.file-complaint') }}</a
@@ -77,6 +78,7 @@
                 <i18n-t keypath="propertydiagnostic.no-dpe-list-3">
                   <a
                     href="https://www.anil.org/lanil-et-les-adil/votre-adil/"
+                    :title="`${t('propertydiagnostic.contact-anil')} - ${t('new-window')}`"
                     target="_blank"
                     rel="noopener noreferrer"
                     >{{ t('propertydiagnostic.contact-anil') }}</a

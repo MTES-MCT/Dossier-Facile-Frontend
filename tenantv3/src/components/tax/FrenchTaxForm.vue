@@ -11,7 +11,12 @@
   </p>
   <div class="fr-highlight fr-ml-0 fr-mb-3w">
     <i18n-t tag="p" :keypath="textKey + '.download-tax-notice'" class="fr-mb-0">
-      <a href="https://www.impots.gouv.fr" target="_blank">impots.gouv.fr</a>
+      <a
+        href="https://www.impots.gouv.fr"
+        :title="`impots.gouv.fr - ${t('new-window')}`"
+        target="_blank"
+        >impots.gouv.fr</a
+      >
     </i18n-t>
   </div>
   <DfButton class="mx-auto fr-mb-3w" @click="showModal = true"

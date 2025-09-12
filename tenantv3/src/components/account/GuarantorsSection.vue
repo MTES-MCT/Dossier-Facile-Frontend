@@ -139,7 +139,7 @@
             href="https://www.visale.fr/#!/"
             rel="noreferrer"
             target="_blank"
-            :title="t('guarantorssection.go-to-visale').toString()"
+            :title="t('guarantorssection.go-to-visale')"
           >
             <div class="fr-tile bg-purple">
               <div class="inline-block-flex space-between">
