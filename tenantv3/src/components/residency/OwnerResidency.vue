@@ -9,7 +9,12 @@
       <strong>{{ t('tax-notice', [taxYear]) }}</strong>
     </template>
     <template #link>
-      <a href="https://www.impots.gouv.fr/accueil" target="_blank">{{ t('tax-website') }}</a>
+      <a
+        href="https://www.impots.gouv.fr/accueil"
+        :title="`${t('tax-website')} - ${t('new-window')}`"
+        target="_blank"
+        >{{ t('tax-website') }}</a
+      >
     </template>
   </i18n-t>
   <div class="fr-alert fr-alert--warning fr-mb-2w">

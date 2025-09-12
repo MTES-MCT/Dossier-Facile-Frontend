@@ -5,9 +5,12 @@
     @edit="AnalyticsService.editSituation(category, 'guest-organism')"
   />
   <i18n-t keypath="please-provide" tag="p">
-    <a href="https://www.service-public.fr/simulateur/calcul/16030" target="_blank">{{
-      t('election-certificate')
-    }}</a>
+    <a
+      href="https://www.service-public.fr/simulateur/calcul/16030"
+      :title="`${t('election-certificate')} - ${t('new-window')}`"
+      target="_blank"
+      >{{ t('election-certificate') }}</a
+    >
   </i18n-t>
   <UploadFiles category="GUEST_ORGANISM" />
   <ResidencyFooter />

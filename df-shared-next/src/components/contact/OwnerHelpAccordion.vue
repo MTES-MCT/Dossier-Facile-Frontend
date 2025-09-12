@@ -6,10 +6,20 @@
       <div class="fr-highlight">
         <i18n-t tag="p" keypath="need-more-information">
           <template #faq>
-            <a :href="`${HELP_URL}category/proprietaire-cyzg3f/`" target="_blank">FAQ</a>
+            <a
+              :href="`${HELP_URL}category/proprietaire-cyzg3f/`"
+              :title="`FAQ - ${t('new-window')}`"
+              target="_blank"
+              >FAQ</a
+            >
           </template>
           <template #online-help>
-            <a :href="HELP_URL" target="_blank">{{ t('online-help') }}</a>
+            <a
+              :href="HELP_URL"
+              :title="`${t('online-help')} - ${t('new-window')}`"
+              target="_blank"
+              >{{ t('online-help') }}</a
+            >
           </template>
         </i18n-t>
       </div>
@@ -18,6 +28,7 @@
       <i18n-t tag="p" keypath="content-2">
         <a
           :href="`${HELP_URL}article/candidater-au-bien-dun-proprietaire-1u59jkz/`"
+          :title="`${t('our-help-page')} - ${t('new-window')}`"
           target="_blank"
           >{{ t('our-help-page') }}</a
         >
@@ -25,10 +36,20 @@
       <div class="fr-highlight">
         <i18n-t tag="p" keypath="need-more-information">
           <template #faq>
-            <a :href="`${HELP_URL}category/proprietaire-cyzg3f/`" target="_blank">FAQ</a>
+            <a
+              :href="`${HELP_URL}category/proprietaire-cyzg3f/`"
+              :title="`FAQ - ${t('new-window')}`"
+              target="_blank"
+              >FAQ</a
+            >
           </template>
           <template #online-help>
-            <a :href="HELP_URL" target="_blank">{{ t('online-help') }}</a>
+            <a
+              :href="HELP_URL"
+              :title="`${t('online-help')} - ${t('new-window')}`"
+              target="_blank"
+              >{{ t('online-help') }}</a
+            >
           </template>
         </i18n-t>
       </div>
@@ -36,20 +57,27 @@
     <AccordionItem :title="t('title-3')">
       <i18n-t tag="p" keypath="content-3">
         <template #owner-area>
-          <a href="https://proprietaire.dossierfacile.logement.gouv.fr/" target="_blank">{{
-            t('owner-area')
-          }}</a>
+          <a
+            href="https://proprietaire.dossierfacile.logement.gouv.fr/"
+            :title="`${t('owner-area')} - ${t('new-window')}`"
+            target="_blank"
+            >{{ t('owner-area') }}</a
+          >
         </template>
         <template #sign-in>
-          <a href="https://proprietaire.dossierfacile.logement.gouv.fr/home" target="_blank">{{
-            t('sign-in')
-          }}</a>
+          <a
+            href="https://proprietaire.dossierfacile.logement.gouv.fr/home"
+            :title="`${t('sign-in')} - ${t('new-window')}`"
+            target="_blank"
+            >{{ t('sign-in') }}</a
+          >
         </template>
       </i18n-t>
       <div class="fr-highlight">
         <i18n-t tag="p" keypath="highlight-3">
           <a
             href="https://proprietaire.dossierfacile.logement.gouv.fr/mot-de-passe-oublie"
+            :title="`${t('reset-password')} - ${t('new-window')}`"
             target="_blank"
             >{{ t('reset-password') }}</a
           >

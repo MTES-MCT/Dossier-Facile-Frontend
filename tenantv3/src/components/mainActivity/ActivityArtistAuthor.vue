@@ -8,9 +8,12 @@
           <strong>{{ t('registration-notice') }}</strong>
         </template>
         <template #link>
-          <a href="https://entreprendre.service-public.fr/vosdroits/R17969" target="_blank">{{
-            t('obtain-notice')
-          }}</a>
+          <a
+            href="https://entreprendre.service-public.fr/vosdroits/R17969"
+            :title="`${t('obtain-notice')} - ${t('new-window')}`"
+            target="_blank"
+            >{{ t('obtain-notice') }}</a
+          >
         </template>
       </i18n-t>
     </li>

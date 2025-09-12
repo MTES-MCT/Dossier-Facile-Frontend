@@ -132,14 +132,18 @@
               <label for="terms" class="cgu-label">
                 <i18n-t keypath="register.accept-cgu">
                   <template #terms-of-use>
-                    <a target="_blank" href="https://www.dossierfacile.logement.gouv.fr/cgu">{{
-                      t('register.terms-of-use')
-                    }}</a>
+                    <a
+                      target="_blank"
+                      href="https://www.dossierfacile.logement.gouv.fr/cgu"
+                      :title="`${t('register.terms-of-use')} - ${t('new-window')}`"
+                      >{{ t('register.terms-of-use') }}</a
+                    >
                   </template>
                   <template #privacy-policy>
                     <a
                       target="_blank"
                       href="https://www.dossierfacile.logement.gouv.fr/politique-de-confidentialite"
+                      :title="`${t('register.privacy-policy')} - ${t('new-window')}`"
                       >{{ t('register.privacy-policy') }}</a
                     >
                   </template>

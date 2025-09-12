@@ -1,22 +1,35 @@
 <template>
   <div v-if="user.ownerType === 'SELF'">
     <div class="hr-container fr-my-3w">
-      <hr/>
-      <span class="hr-text"><strong>{{ t('or-label') }}</strong></span>
+      <hr />
+      <span class="hr-text"
+        ><strong>{{ t('or-label') }}</strong></span
+      >
     </div>
     <div class="fr-mb-3w card-border">
       <div class="fr-grid-row space-between">
-        <DsfrBadge type="new" :label="t('badge-new')" small/>
+        <DsfrBadge type="new" :label="t('badge-new')" small />
         <strong class="fr-ml-2w">{{ t('title') }}</strong>
       </div>
       <div class="fr-mt-3w">
         <p>
-          <span aria-hidden="true" class="fr-mr-1w fr-icon-links-line fr-icon--sm color--primary"></span>
+          <span
+            aria-hidden="true"
+            class="fr-mr-1w fr-icon-links-line fr-icon--sm color--primary"
+          ></span>
           <strong>{{ t('desc') }}</strong>
         </p>
         <p>{{ t('desc2') }}</p>
         <div class="fr-grid-row fr-grid-row--center">
-          <a class="fr-btn fr-btn--secondary" :href="PNDS_URL" target="_blank" rel="noopener noreferrer" @click="trackAttestationClick">{{ t('button') }}</a>
+          <a
+            class="fr-btn fr-btn--secondary"
+            :href="PNDS_URL"
+            :title="`${t('button')} - ${t('new-window')}`"
+            target="_blank"
+            rel="noopener noreferrer"
+            @click="trackAttestationClick"
+            >{{ t('button') }}</a
+          >
         </div>
       </div>
       <DsfrAccordionsGroup>

@@ -1,9 +1,13 @@
 <template>
   <div>
     <span class="fr-h5 fr-mr-3w">{{ t('filereinsurance.title-dossier-' + dossierStatus) }}</span
-    ><a href="https://www.dossierfacile.fr" target="_blank" rel="noreferrer">{{
-      t('filereinsurance.know-more')
-    }}</a>
+    ><a
+      href="https://www.dossierfacile.fr"
+      :title="`${t('fileinsurance.know-more')} - ${t('new-window')}`"
+      target="_blank"
+      rel="noreferrer"
+      >{{ t('filereinsurance.know-more') }}</a
+    >
     <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
       <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">

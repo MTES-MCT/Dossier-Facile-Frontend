@@ -18,9 +18,12 @@
           <strong>{{ t('income-declaration') }}</strong>
         </template>
         <template #website>
-          <a href="https://www.artistes-auteurs.urssaf.fr/aa/accueil" target="_blank">{{
-            t('website-space')
-          }}</a>
+          <a
+            href="https://www.artistes-auteurs.urssaf.fr/aa/accueil"
+            :title="`${t('website-space')} - ${t('new-window')}`"
+            target="_blank"
+            >{{ t('website-space') }}</a
+          >
         </template>
       </i18n-t>
     </template>

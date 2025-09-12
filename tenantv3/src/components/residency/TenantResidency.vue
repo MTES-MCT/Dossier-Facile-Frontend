@@ -14,9 +14,12 @@
   </RadioList>
   <div class="fr-highlight">
     <i18n-t :keypath="textKey + '.no-receipts'" tag="p">
-      <a href="https://www.service-public.fr/particuliers/vosdroits/R54103" target="_blank">{{
-        t(textKey + '.receipt-model')
-      }}</a>
+      <a
+        href="https://www.service-public.fr/particuliers/vosdroits/R54103"
+        :title="`${t(textKey + '.receipt-model')} - ${t('new-window')}`"
+        target="_blank"
+        >{{ t(textKey + '.receipt-model') }}</a
+      >
     </i18n-t>
   </div>
   <ResidencyFooter />

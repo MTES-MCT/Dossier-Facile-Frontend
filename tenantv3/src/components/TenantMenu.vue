@@ -17,8 +17,9 @@
     </li>
     <li class="fr-nav__item">
       <a
-        :href="`${DOCS_URL}`"
+        :href="DOCS_URL"
         class="fr-nav__link fr-external-link"
+        :title="`${t('menu.help')} - ${t('new-window')}`"
         target="_blank"
         rel="noreferrer"
       >

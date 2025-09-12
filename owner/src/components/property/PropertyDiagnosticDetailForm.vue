@@ -250,6 +250,7 @@ function getLetterStyle() {
               <a
                 class="fr-ml-1v"
                 href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006896276"
+                :title="`${t('propertydiagnostic.learn-more')} - ${t('new-window')}`"
                 target="_blank"
                 rel="noopener noreferrer"
                 >{{ t('propertydiagnostic.learn-more') }}</a

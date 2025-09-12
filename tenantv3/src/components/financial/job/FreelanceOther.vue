@@ -32,6 +32,7 @@
       <i18n-t keypath="if-no-docs" tag="p">
         <a
           href="https://www.service-public.fr/simulateur/calcul/AttestationHonneur"
+          :title="`${t('sworn-statement')} - ${t('new-window')}`"
           target="_blank"
           >{{ t('sworn-statement') }}</a
         >

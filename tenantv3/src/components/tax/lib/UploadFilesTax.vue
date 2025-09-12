@@ -38,6 +38,7 @@
         <p class="fr-mt-2w fr-mb-0">
           <a
             href="https://aide.dossierfacile.logement.gouv.fr/fr/article/5-avis-dimposition-eg82wt/"
+            :title="`${t('avis-link-to-doc')} - ${t('new-window')}`"
             rel="noopener"
             target="_blank"
             >{{ t('avis-link-to-doc') }}</a

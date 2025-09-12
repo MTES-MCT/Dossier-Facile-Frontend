@@ -8,7 +8,10 @@
     <strong>{{ t('recent-proof') }}</strong>
   </i18n-t>
   <i18n-t keypath="advice" tag="p">
-    <a href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement" target="_blank"
+    <a
+      href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement"
+      :title="`service-public.fr - ${t('new-window')}`"
+      target="_blank"
       >service-public.fr</a
     >
   </i18n-t>

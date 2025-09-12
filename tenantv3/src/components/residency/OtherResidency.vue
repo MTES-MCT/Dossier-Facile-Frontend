@@ -33,9 +33,12 @@
         </a>
       </template>
       <template #page>
-        <a href="https://www.service-public.fr/particuliers/vosdroits/F12544" target="_blank">{{
-          t('domestic-violence-page')
-        }}</a>
+        <a
+          href="https://www.service-public.fr/particuliers/vosdroits/F12544"
+          :title="`${t('domestic-violence-page')} - ${t('new-window')}`"
+          target="_blank"
+          >{{ t('domestic-violence-page') }}</a
+        >
       </template>
     </i18n-t>
   </div>
