@@ -551,11 +551,6 @@
     "mail-sent": "An email has been sent to the provided address.",
     "clic-to-confirm": "Please click on the sent link to confirm your email address and continue with the password change."
   },
-  "guarantorchoicehelp": {
-    "paragraph1": "A guarantor is a natural or legal person who undertakes to pay the tenant's rental debts to the landlord.<br> More information at <a target='_blank' href='https://www.service-public.fr/particuliers/vosdroits/F31267'>https://www.service-public.fr/particuliers/vosdroits/F31267</a>",
-    "paragraph2": "Some organizations can also provide a guarantee. Obtain a free Visale guarantee at <a target='_blank' href='https://www.visale.fr'>www.visale.fr</a>!",
-    "paragraph3": "Attention: <b>you are not required to add a guarantor.</b> However, some landlords may require one."
-  },
   "guarantorchoice": {
     "add-guarantor": "Add a guarantor?",
     "identification": "Identification Document",
@@ -726,11 +721,6 @@
     "unlink-fc-content": "In order to make changes to your name and first name, you need to unlink your FranceConnect and DossierFacile accounts.",
     "unlink-fc-content-password-undefined": "You will then be redirected to the password update page.",
     "unlink-account-btn": "Unlink My Accounts"
-  },
-  "nameinformationhelp": {
-    "info": "If you are filling out the form on behalf of someone else, such as your child, please provide their information instead of yours.",
-    "info-fc": "The form must be in the name of the prospective tenant. If you are filling out the form on behalf of someone else, such as your child, you need to ",
-    "unlink-fc": "update this information"
   },
   "nameinformation": {
     "title": "Your Rental File in 5 Documents!",

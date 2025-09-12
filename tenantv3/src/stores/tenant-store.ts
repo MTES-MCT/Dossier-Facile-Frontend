@@ -82,8 +82,6 @@ function defaultState(): State {
 
 const initialStore = defaultState()
 
-export type DispatchNames = 'saveTenantTax' | 'saveTenantIdentification'
-
 export const useTenantStore = defineStore('tenant', {
   state: (): State => ({ ...initialStore }),
   getters: {
@@ -754,13 +752,6 @@ export const useTenantStore = defineStore('tenant', {
         const newList = this.partnerAccesses.filter((access) => access.id !== accessToRevoke.id)
         this.setPartnerAccesses(newList)
       })
-    },
-    dispatchByName<Name extends DispatchNames>(name: Name, formData: FormData) {
-      const func = this[name]
-      if (func) {
-        return func(formData)
-      }
-      throw new Error('Invalid method name: ' + name)
     },
     async commentAnalysis(formData: unknown) {
       const response = await RegisterService.commentAnalysis(formData)

@@ -560,11 +560,6 @@
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
     "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre le changement de mot de passe."
   },
-  "guarantorchoicehelp": {
-    "paragraph1": "Un garant (ou caution) est une personne physique ou morale qui s’engage envers le propriétaire du logement loué à payer les dettes locatives du locataire.<br> Plus d’informations sur <a target='_blank' href='https://www.service-public.fr/particuliers/vosdroits/F31267'>https://www.service-public.fr/particuliers/vosdroits/F31267</a>",
-    "paragraph2": "Certains organismes peuvent aussi constituer une garantie, obtenez gratuitement une garantie Visale sur <a target='_blank' href='https://www.visale.fr'>www.visale.fr</a> !",
-    "paragraph3": "Attention : vous <b>n’êtes pas obligé‧e d’ajouter un garant.</b> Cependant, certains propriétaires peuvent en exiger un."
-  },
   "guarantorchoice": {
     "add-guarantor": "Voulez-vous ajouter un garant ?",
     "representative-identification": "Identité de la personne morale",
@@ -726,11 +721,6 @@
     "unlink-fc-content": "Afin d’apporter des modifications sur vos nom et prénoms, il vous faut dissocier vos comptes FranceConnect et DossierFacile.",
     "unlink-fc-content-password-undefined": "Vous serez ensuite redirigé sur la page de mise à jour du mot de passe.",
     "unlink-account-btn": "Dissocier mes comptes"
-  },
-  "nameinformationhelp": {
-    "info": "Si vous remplissez le dossier pour le compte d'une autre personne, par exemple votre enfant, veuillez renseigner ses informations et non les vôtres.",
-    "info-fc": "Le dossier doit être au nom du futur locataire. Si vous remplissez le dossier pour le compte d'une autre personne, par exemple votre enfant, vous devez ",
-    "unlink-fc": "modifier ces informations"
   },
   "nameinformation": {
     "title": "Votre dossier de location en 5 justificatifs !",
