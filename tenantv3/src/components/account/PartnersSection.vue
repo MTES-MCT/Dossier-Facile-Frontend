@@ -89,11 +89,11 @@
           <div class="service-box-btn">
             <a
               class="fr-btn fr-mt-1w fr-ml-2w cleana"
-              href="#"
+              href="https://www.service-public.fr/particuliers/vosdroits/N31138#2"
               rel="noreferrer"
               target="_blank"
-              :title="t('partnerssection.go-to-signal').toString()"
-              @click="signal()"
+              :title="`${t('partnerssection.go-to-signal')} - ${t('new-window')}`"
+              @click="AnalyticsService.openMaSecurite()"
             >
               {{ t('partnerssection.signal-btn') }}
             </a>
@@ -109,11 +109,6 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import { I18nT, useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-
-function signal() {
-  AnalyticsService.openMaSecurite()
-  window.open('https://www.service-public.fr/particuliers/vosdroits/N31138#2', '_blank', 'noopener')
-}
 </script>
 
 <style lang="scss" scoped>

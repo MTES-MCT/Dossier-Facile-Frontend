@@ -8,15 +8,15 @@
     </div>
     <p class="fr-mb-0">{{ t('simulationcaf.simulation-caf-text') }}</p>
     <div class="body-btn-container">
-      <button
-        type="button"
-        :aria-label="t('simulationcaf.btn-caf')"
-        :title="t('simulationcaf.btn-caf')"
-        class="fr-btn fr-btn--secondary"
-        @click="openSimulationCAF()"
+      <a
+        class="fr-btn fr-btn--secondary fr-ml-auto fr-mt-2w"
+        href="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
+        :title="`${t('simulationcaf.btn-caf')} - ${t('new-window')}`"
+        target="_blank"
+        @click="AnalyticsService.openSimulationCAF()"
       >
         {{ t('simulationcaf.btn-caf') }}
-      </button>
+      </a>
     </div>
   </div>
 </template>
@@ -26,15 +26,8 @@ import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 
 const { t } = useI18n()
-
-function openSimulationCAF() {
-  AnalyticsService.openSimulationCAF()
-  window.open(
-    'https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation',
-    '_blank'
-  )
-}
 </script>
+
 <style lang="scss" scoped>
 .header {
   display: inline-flex;
@@ -50,9 +43,5 @@ function openSimulationCAF() {
 .body-btn-container {
   display: inline-flex;
   width: 100%;
-  button {
-    margin-top: 1rem;
-    margin-left: auto;
-  }
 }
 </style>

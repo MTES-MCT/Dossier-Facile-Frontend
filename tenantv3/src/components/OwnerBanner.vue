@@ -12,7 +12,14 @@
           <li>{{ t('ownerbanner.text2') }}</li>
           <li>{{ t('ownerbanner.text3') }}</li>
         </ul>
-        <DfButton :dark="true" @click="signal">{{ t('ownerbanner.btn') }}</DfButton>
+        <a
+          class="fr-btn dark"
+          :href="OWNER_URL"
+          :title="`${t('ownerbanner.btn')} - ${t('new-window')}`"
+          target="_blank"
+          @click="AnalyticsService.openCreateOwnerAccount()"
+          >{{ t('ownerbanner.btn') }}</a
+        >
       </div>
       <img class="tenant" aria-hidden="true" alt="Locataire" src="../assets/owner/Locataire.svg" />
       <img
@@ -29,16 +36,11 @@
 
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
 const OWNER_URL = `//${import.meta.env.VITE_OWNER_URL}/creation`
-function signal() {
-  AnalyticsService.openCreateOwnerAccount()
-  window.open(OWNER_URL, '_blank', 'noopener')
-}
 </script>
 
 <style scoped lang="scss">
