@@ -84,6 +84,7 @@
   "ALONE": "Single",
   "COUPLE": "Couple",
   "GROUP": "Flatshare",
+  "new-window": "Open in a new window",
   "dossier": {
     "TO_PROCESS": "Processing",
     "VALIDATED": "Verified",

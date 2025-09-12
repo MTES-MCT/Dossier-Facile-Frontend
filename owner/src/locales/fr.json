@@ -25,6 +25,7 @@
   "register-btn": "Enregistrer",
   "search": "Rechercher",
   "try-again": "Une erreur est survenue, veuillez réessayer plus tard.",
+  "new-window": "Ouvre une nouvelle fenêtre",
   "account": {
     "title": "Bienvenue dans votre espace propriétaire. Ajoutons ensemble votre propriété",
     "subtitle": "Commençons par vos informations personnelles d'identité."

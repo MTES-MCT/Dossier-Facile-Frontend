@@ -10,6 +10,7 @@
         target="_blank"
         rel="noopener noreferrer"
         href="https://www.service-public.fr/particuliers/vosdroits/F16096"
+        :title="`${t('propertydiagnosticexpirywarning.know-more')} - ${t('new-window')}`"
         @click="AnalyticsService.dpeEvent('dpe_know_more')"
         >{{ t('propertydiagnosticexpirywarning.know-more') }}</a
       >
@@ -17,8 +18,9 @@
         target="_blank"
         rel="noopener noreferrer"
         class="fr-btn fr-btn--secondary fr-ml-3w"
-        href="#"
-        @click="redirectFranceRenov"
+        href="https://www.service-public.fr/particuliers/vosdroits/R57710?utm_source=dossierfacile&utm_medium=display&utm_campaign=dossierfacile "
+        :title="`${t('propertydiagnosticexpirywarning.find-inspector')} - ${t('new-window')}`"
+        @click="AnalyticsService.dpeEvent('dpe_find_diagsnotic')"
         >{{ t('propertydiagnosticexpirywarning.find-inspector') }}</a
       >
     </div>
@@ -30,14 +32,4 @@ import { useI18n } from 'vue-i18n'
 import AnalyticsService from '../../services/AnalyticsService'
 
 const { t } = useI18n()
-
-function redirectFranceRenov($event: Event) {
-  AnalyticsService.dpeEvent('dpe_find_diagsnotic')
-  window.open(
-    'https://www.service-public.fr/particuliers/vosdroits/R57710?utm_source=dossierfacile&utm_medium=display&utm_campaign=dossierfacile ',
-    '_blank',
-    'noopener'
-  )
-  $event.preventDefault()
-}
 </script>

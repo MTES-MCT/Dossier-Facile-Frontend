@@ -28,9 +28,14 @@
       <p v-html="t('propertydiagnostic.details.france-renov-text1')"></p>
       <p v-html="t('propertydiagnostic.details.france-renov-text2')"></p>
       <div class="text-align--right">
-        <a class="fr-btn fr-btn--secondary full-mobile" href="#" @click="redirectFranceRenov">{{
-          t('propertydiagnostic.details.contact-france-renov')
-        }}</a>
+        <a
+          class="fr-btn fr-btn--secondary full-mobile"
+          href="https://france-renov.gouv.fr/espaces-conseil-fr?utm_source=dossierfacile&utm_medium=display&utm_campaign=dossierfacile"
+          :title="`${t('propertydiagnostic.details.contact-france-renov')} - ${t('new-window')}`"
+          target="_blank"
+          @click="AnalyticsService.dpeEvent('dpe_contact_FranceRenov')"
+          >{{ t('propertydiagnostic.details.contact-france-renov') }}</a
+        >
       </div>
     </div>
   </div>
@@ -78,15 +83,6 @@ function getConsommation() {
     default:
       return null
   }
-}
-
-function redirectFranceRenov() {
-  AnalyticsService.dpeEvent('dpe_contact_FranceRenov')
-  window.open(
-    'https://france-renov.gouv.fr/espaces-conseil-fr?utm_source=dossierfacile&utm_medium=display&utm_campaign=dossierfacile ',
-    '_blank',
-    'noopener'
-  )
 }
 </script>
 
