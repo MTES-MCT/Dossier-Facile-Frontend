@@ -25,7 +25,15 @@
               v-bind="field"
             />
           </Field>
-          <label for="declaration" v-html="t('validatefile.declaration')"> </label>
+          <i18n-t tag="label" for="declaration" keypath="validatefile.declaration">
+            <a
+              href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006418753"
+              :title="t('validatefile.article-title')"
+              target="_blank"
+              rel="noopener"
+              >{{ t('validatefile.article') }}</a
+            >
+          </i18n-t>
           <ErrorMessage v-slot="{ message }" name="declaration">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>

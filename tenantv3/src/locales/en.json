@@ -906,7 +906,9 @@
   "validatefile": {
     "title": "I Validate My File",
     "read-no-guarantor": "I read and check the following box to validate my file",
-    "declaration": "I declare that I am aware of Article 441-1 of the Penal Code, which penalizes forgery and the use of forgery with three years of imprisonment and a fine of 45,000 euros.",
+    "declaration": "I declare that I am aware of Article {0}, which penalizes forgery and the use of forgery with three years of imprisonment and a fine of 45,000 euros.",
+    "article": "441-1 of the Penal Code",
+    "article-title": "Article @:validatefile.article - @:new-window",
     "precision": "If I wish, I can provide specific important information about my situation to my future landlords. My text will be added at the beginning of my file:",
     "placeholder": "Enter your comment here",
     "validate": "Validate my file",
