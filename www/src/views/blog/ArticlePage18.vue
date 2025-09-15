@@ -56,7 +56,13 @@
     </p>
     <h2 class="fr-h6">Les organismes de garantie</h2>
     <p>
-      <a href="https://www.visale.fr/" target="_blank" rel="noopener">Visale</a>
+      <a
+        href="https://www.visale.fr/"
+        title="Visale - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noopener"
+        >Visale</a
+      >
       <strong> est une caution entièrement gratuite </strong> d’Action Logement, qui a pour mission
       d’aider gratuitement les jeunes et les personnes les plus précaires à accéder à la location.
       <strong>Nous vous la recommandons fortement si vous êtes éligible !</strong>
@@ -164,7 +170,13 @@
         <strong>Pas de garant ?</strong> Rien n’oblige un candidat locataire à avoir un garant.
         Néanmoins si vous ne connaissez personne pour se porter garant pour vous, on rappelle
         (encore une fois !) que
-        <a href="https://www.visale.fr/" target="_blank" rel="noopener">la garantie Visale</a>
+        <a
+          href="https://www.visale.fr/"
+          title="la garantie visale - Ouvre une nouvelle fenêtre"
+          target="_blank"
+          rel="noopener"
+          >la garantie Visale</a
+        >
         est gratuite. Alors, pourquoi ne pas en profiter ?
       </li>
     </ul>

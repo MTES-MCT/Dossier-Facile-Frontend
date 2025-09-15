@@ -151,7 +151,11 @@
     <p>
       🔗
       <strong
-        ><a href="https://www.dossierfacile.logement.gouv.fr" target="_blank" rel="noopener"
+        ><a
+          href="https://www.dossierfacile.logement.gouv.fr"
+          title="Rejoignez DossierFacile - Ouvre une nouvelle fenêtre"
+          target="_blank"
+          rel="noopener"
           >Rejoignez DossierFacile</a
         ></strong
       >

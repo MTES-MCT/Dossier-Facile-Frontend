@@ -39,8 +39,13 @@
             <h2>Résultats des tests</h2>
             <p>
               L’audit de conformité au RGAA 4.1 réalisé par la société
-              <a href="https://www.numerik-ea.fr/" target="_blank">Numerik-ea</a> révèle que 75% des
-              critères RGAA sont respectés.
+              <a
+                href="https://www.numerik-ea.fr/"
+                title="Numerik-ea - Ouvre une nouvelle fenêtre"
+                target="_blank"
+                >Numerik-ea</a
+              >
+              révèle que 75% des critères RGAA sont respectés.
             </p>
             <p>Dans le détail :</p>
             <ul>
@@ -137,12 +142,18 @@
             <p>Vous pouvez&nbsp;:</p>
             <ul>
               <li>
-                <a href="https://formulaire.defenseurdesdroits.fr/" target="_blank"
+                <a
+                  href="https://formulaire.defenseurdesdroits.fr/"
+                  title="Écrire un message au Défenseur des droits - Ouvre une nouvelle fenêtre"
+                  target="_blank"
                   >Écrire un message au Défenseur des droits</a
                 >
               </li>
               <li>
-                <a href="https://www.defenseurdesdroits.fr/saisir/delegues" target="_blank"
+                <a
+                  href="https://www.defenseurdesdroits.fr/saisir/delegues"
+                  title="Contacter le délégué du Défenseur des droits dans votre région - Ouvre une nouvelle fenêtre"
+                  target="_blank"
                   >Contacter le délégué du Défenseur des droits dans votre région</a
                 >
               </li>

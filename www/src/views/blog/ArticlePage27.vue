@@ -13,7 +13,11 @@
       comporte aussi certains risques, notamment celui des arnaques. Faux locataires, faux
       paiements, ou encore escroqueries sur les plateformes de location en ligne : les propriétaires
       doivent être particulièrement vigilants. Heureusement, il existe des outils comme
-      <a href="https://proprietaire.dossierfacile.logement.gouv.fr/" target="_blank" rel="noopener"
+      <a
+        href="https://proprietaire.dossierfacile.logement.gouv.fr/"
+        title="DossierFacile - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noopener"
         ><strong>DossierFacile</strong></a
       >, qui vous permettent de sécuriser vos démarches locatives.
     </p>
@@ -54,7 +58,11 @@
     <p>
       Par exemple, l'authenticité d'un avis d'imposition peut être vérifiée. Pour cela, il suffit de
       se rendre sur impots.gouv.fr, dans l'onglet
-      <a href="https://www.impots.gouv.fr/verifavis2-api/front" target="_blank" rel="noopener"
+      <a
+        href="https://www.impots.gouv.fr/verifavis2-api/front"
+        title="Vérifier un avis d'impôt - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noopener"
         >Vérifier un avis d'impôt</a
       >, pour entrer le numéro fiscal et la référence de l'avis qu'il a reçu.
     </p>
@@ -76,7 +84,11 @@
     <h3 class="fr-h4">Conseil DossierFacile :</h3>
     <p>
       <strong>DossierFacile</strong> vous permet de centraliser dans votre
-      <a href="https://proprietaire.dossierfacile.logement.gouv.fr/" target="_blank" rel="noopener"
+      <a
+        href="https://proprietaire.dossierfacile.logement.gouv.fr/"
+        title="espace propriétaire - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noopener"
         >espace propriétaire</a
       >
       toutes les informations relatives à votre futur locataire dans un
@@ -99,6 +111,7 @@
       des règles en vigueur. En effet, la
       <a
         href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000512228"
+        title="loi n° 70-9 du 2 janvier 1970 - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         ><strong>loi n° 70-9 du 2 janvier 1970</strong></a
@@ -156,6 +169,7 @@
       suivre les instructions de
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F920"
+        title="rédaction du bail d'habitation - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >rédaction du bail d'habitation</a
@@ -215,7 +229,11 @@
 
     <p>
       En utilisant
-      <a href="https://proprietaire.dossierfacile.logement.gouv.fr/" target="_blank" rel="noopener"
+      <a
+        href="https://proprietaire.dossierfacile.logement.gouv.fr/"
+        title="l'espace propriétaire de DossierFacile - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noopener"
         >l'espace propriétaire de <strong>DossierFacile</strong></a
       >, vous êtes <strong>protégé contre les risques de fraude</strong>, tout en gagnant du temps
       dans la gestion de vos locations.

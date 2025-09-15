@@ -29,6 +29,7 @@
       Le
       <a
         href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031444493"
+        title="décret n° 2015-1437 du 5 novembre 2015 - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >décret n° 2015-1437 du 5 novembre 2015</a
@@ -116,12 +117,19 @@
     <ul>
       <li>
         Avis d’imposition français sur les revenus (téléchargeable sur
-        <a href="https://www.impots.gouv.fr/" target="_blank" rel="noopener">impots.gouv.fr</a>).
+        <a
+          href="https://www.impots.gouv.fr/"
+          title="impots.gouv.fr - Ouvre une nouvelle fenêtre"
+          target="_blank"
+          rel="noopener"
+          >impots.gouv.fr</a
+        >).
       </li>
       <li>
         Avis d’imposition étranger, à condition que
         <a
           href="https://aide.dossierfacile.logement.gouv.fr/fr/article/simplifier-la-location-pour-les-expatries-traduction-simplifiee-en-francais-1wo4sm8/"
+          title="Avis d’imposition étranger, à condition que les parties les plus importantes soient traduites - Ouvre une nouvelle fenêtre"
           target="_blank"
           rel="noopener"
           >les parties les plus importantes soient traduites</a
@@ -132,7 +140,11 @@
     <p>
       Pour simplifier et sécuriser le processus de constitution de votre dossier de location en tant
       qu'auto-entrepreneur, vous pouvez envisager d'utiliser
-      <a href="https://www.dossierfacile.logement.gouv.fr" target="_blank" rel="noopener"
+      <a
+        href="https://www.dossierfacile.logement.gouv.fr"
+        title="DossierFacile - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noopener"
         ><strong>DossierFacile</strong></a
       >, la plateforme de l'État qui s'adapte à votre situation grâce à une vérification minutieuse
       de vos documents par des opérateurs spécialisés.
@@ -168,7 +180,11 @@
       réside dans la préparation minutieuse et la présentation claire de chaque pièce justificative.
       Assurez-vous de fournir des documents complets et à jour pour renforcer votre candidature.
       Rendez-vous sur
-      <a href="https://www.dossierfacile.logement.gouv.fr" target="_blank" rel="noopener"
+      <a
+        href="https://www.dossierfacile.logement.gouv.fr"
+        title="DossierFacile - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noopener"
         >DossierFacile</a
       >
       pour constituer votre dossier complet, conforme et cohérent!

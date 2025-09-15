@@ -20,6 +20,7 @@
       votre dossier de caution soit accepté, des pièces justificatives précises, définies par le
       <a
         href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031444493"
+        title="décret n° 2015-1437 du 5 novembre 2015 - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >décret n° 2015-1437 du 5 novembre 2015</a
@@ -57,8 +58,18 @@
 
     <h3 class="fr-h4">b. Votre garant est un organisme</h3>
     <p>
-      <a href="https://www.visale.fr/" target="_blank" rel="noopener">Visale</a> est une caution
-      entièrement gratuite d'<a href="https://www.actionlogement.fr/" target="_blank" rel="noopener"
+      <a
+        href="https://www.visale.fr/"
+        title="Visale - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noopener"
+        >Visale</a
+      >
+      est une caution entièrement gratuite d'<a
+        href="https://www.actionlogement.fr/"
+        title="Action Logement - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noopener"
         >Action Logement</a
       >, qui a pour mission d'aider gratuitement les jeunes et les personnes les plus précaires à
       accéder à la location. Nous vous la recommandons fortement si vous êtes éligible !
@@ -89,8 +100,14 @@
       Il est crucial de savoir quels documents il est interdit de demander. La vie privée du garant
       est protégée, et aucun justificatif lié à la situation personnelle, financière (relevé
       bancaire), de santé, ou antécédents judiciaires ne peut être exigé. Le service
-      <a href="https://www.dossierfacile.fr/" target="_blank" rel="noopener">DossierFacile</a> vous
-      demande uniquement les pièces obligatoires.
+      <a
+        href="https://www.dossierfacile.fr/"
+        title="DossierFacile - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noopener"
+        >DossierFacile</a
+      >
+      vous demande uniquement les pièces obligatoires.
     </p>
     <p>
       En l'absence de garant, des alternatives existent, telles que la garantie Visale, les
@@ -98,6 +115,7 @@
       ne soit plus cumulable avec une caution depuis la
       <a
         href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000020438861/"
+        title="loi Boutin de 2009 - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >loi Boutin de 2009</a

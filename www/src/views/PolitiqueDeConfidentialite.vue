@@ -350,6 +350,7 @@
           <li>
             <a
               href="https://www.cnil.fr/fr/cookies-traceurs-que-dit-la-loi"
+              title="Cookies et traceurs : que dit la loi ? - Ouvre une nouvelle fenêtre"
               target="_blank"
               rel="noreferrer noopener"
               >Cookies et traceurs : que dit la loi ?</a
@@ -358,6 +359,7 @@
           <li>
             <a
               href="https://www.cnil.fr/fr/cookies-les-outils-pour-les-maitriser"
+              title="Cookies : les outils pour les maîtriser - Ouvre une nouvelle fenêtre"
               target="_blank"
               rel="noreferrer noopener"
               >Cookies : les outils pour les maîtriser</a

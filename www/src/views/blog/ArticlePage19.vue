@@ -31,8 +31,8 @@
     <p>
       Vous pouvez ensuite suivre tous nos conseils pour trouver l’appartement de vos rêves :
       <a
-        href="https://www.dossierfacile.logement.gouv.fr/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne/
-"
+        href="https://www.dossierfacile.logement.gouv.fr/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne/"
+        title="5 conseils pour trouver l’appartement de ses rêves en région parisienne - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >5 conseils pour trouver l’appartement de ses rêves en région parisienne - DossierFacile</a
@@ -45,8 +45,8 @@
       <strong>donner congé</strong>. Vous pouvez le faire à tout moment sans avoir à avancer de
       raison. Vous pouvez utiliser
       <a
-        href="https://www.service-public.fr/simulateur/calcul/CongeLogement
-"
+        href="https://www.service-public.fr/simulateur/calcul/CongeLogement"
+        title="modèle de lettre- Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >ce modèle</a
@@ -62,8 +62,8 @@
     <p>
       👉 Utiliser
       <a
-        href="https://www.service-public.fr/simulateur/calcul/zones-tendues
-"
+        href="https://www.service-public.fr/simulateur/calcul/zones-tendues"
+        title="Simulateur - Savoir si un logement est situé en zone tendue - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >ce simulateur</a
@@ -88,8 +88,8 @@
       <li>
         <strong>Procéder par acte d’huissier.</strong> Cette méthode est rare car son coût est plus
         élevé (<a
-          href="https://www.service-public.fr/particuliers/vosdroits/F32973
-"
+          href="https://www.service-public.fr/particuliers/vosdroits/F32973"
+          title="Quel tarif s'applique en cas de recours à un huissier : environ 150€ - Ouvre une nouvelle fenêtre"
           target="_blank"
           rel="noopener"
           >comptez environ 150€</a
@@ -128,8 +128,8 @@
       Après avoir donné congé au propriétaire, vous devrez préparer votre départ. En prenant
       possession des lieux, un état des lieux d’entrée a été réalisé. Lors du départ, un
       <a
-        href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000032320564/
-"
+        href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000032320564/"
+        title="état des lieux de sortie - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >état des lieux de sortie</a
@@ -143,16 +143,16 @@
     <p>
       La liste des
       <a
-        href="https://www.service-public.fr/particuliers/vosdroits/F31697
-"
+        href="https://www.service-public.fr/particuliers/vosdroits/F31697"
+        title="réparations à la charge du locataire - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >réparations à la charge du locataire</a
       >
       est encadrée par décret et consultable sur
       <a
-        href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000006491868
-"
+        href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000006491868"
+        title="legifrance.gouv.fr - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >legifrance.gouv.fr</a
@@ -194,8 +194,8 @@
       En ultime recours, le locataire dispose d’un délai de trois ans, à compter de la date limite
       de remboursement du
       <a
-        href="https://www.service-public.fr/particuliers/vosdroits/F31269#:~:text=D%C3%A9lai-,En%20fin%20de%20bail%2C%20le%20d%C3%A9p%C3%B4t%20de%20garantie%20doit%20%C3%AAtre,amput%C3%A9%20de%20retenues%20ou%20provision.
-"
+        href="https://www.service-public.fr/particuliers/vosdroits/F31269#:~:text=D%C3%A9lai-,En%20fin%20de%20bail%2C%20le%20d%C3%A9p%C3%B4t%20de%20garantie%20doit%20%C3%AAtre,amput%C3%A9%20de%20retenues%20ou%20provision."
+        title="dépôt de garantie - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >dépôt de garantie</a

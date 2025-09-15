@@ -37,8 +37,13 @@
       </li>
       <li>
         <strong>Résidences étudiantes</strong> : logements gérés par des organismes privés ou le
-        <a href="https://trouverunlogement.lescrous.fr/" target="_blank" rel="noopener">CROUS</a>,
-        réservés aux étudiants.
+        <a
+          href="https://trouverunlogement.lescrous.fr/"
+          title="CROUS - Ouvre une nouvelle fenêtre"
+          target="_blank"
+          rel="noopener"
+          >CROUS</a
+        >, réservés aux étudiants.
       </li>
       <li>
         <strong>Colocations</strong> : idéales pour partager les frais et faire des rencontres.
@@ -115,7 +120,13 @@
     <h3>Solutions pour les étudiants étrangers :</h3>
     <ul>
       <li>
-        <a href="https://www.visale.fr/" target="_blank" rel="noopener"><strong>Visale</strong></a>
+        <a
+          href="https://www.visale.fr/"
+          title="Visale - Ouvre une nouvelle fenêtre"
+          target="_blank"
+          rel="noopener"
+          ><strong>Visale</strong></a
+        >
         : Ce service est gratuit et reconnu par de nombreux propriétaires.
       </li>
       <li>
@@ -137,6 +148,7 @@
         Vous pouvez lire notre article sur
         <a
           href="https://www.dossierfacile.logement.gouv.fr/blog/documents-garants"
+          title="comment choisir son garant et quels documents fournir pour votre dossier locatif - Ouvre une nouvelle fenêtre"
           target="_blank"
           rel="noopener"
           >comment choisir son garant et quels documents fournir pour votre dossier locatif</a
@@ -202,6 +214,7 @@
         Si possible,
         <a
           href="https://www.dossierfacile.logement.gouv.fr/blog/que-verifier-lors-de-la-visite-d-un-logement"
+          title="visitez et vérifiez le bien - Ouvre une nouvelle fenêtre"
           target="_blank"
           rel="noopener"
           >visitez et vérifiez le bien</a
@@ -231,6 +244,7 @@
         Si vous avez des doutes, vous pouvez lire le
         <a
           href="https://www.service-public.fr/particuliers/vosdroits/F920?lang=en"
+          title="guide de rédaction du bail - Ouvre une nouvelle fenêtre"
           target="_blank"
           rel="noopener"
           ><strong>guide de rédaction du bail</strong></a
@@ -254,6 +268,7 @@
       <li>
         <a
           href="https://caf.fr/allocataires/aides-et-demarches/droits-et-prestations/logement"
+          title="APL (Aide Personnalisée au Logement) - Ouvre une nouvelle fenêtre"
           target="_blank"
           rel="noopener"
           ><strong>APL (Aide Personnalisée au Logement)</strong></a
@@ -263,6 +278,7 @@
       <li>
         <a
           href="https://www.service-public.fr/particuliers/vosdroits/F1280"
+          title="Allocation logement sociale (ALS) - Ouvre une nouvelle fenêtre"
           target="_blank"
           rel="noopener"
           ><strong>Allocation logement sociale (ALS)</strong></a

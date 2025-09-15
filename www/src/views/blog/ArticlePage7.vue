@@ -24,6 +24,7 @@
         target="_blank"
         rel="noreferrer"
         href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000038834725/2019-09-01"
+        title="Loi sur la colocation - Ouvre une nouvelle fenêtre"
         >par ces termes</a
       >
       : « La colocation est définie comme la location d’un même logement par plusieurs locataires,
@@ -52,7 +53,13 @@
       Chaque colocataire peut obtenir une aide au logement pour la part de loyer dont il est
       redevable, s'il remplit les conditions pour y avoir droit. Chaque colocataire doit faire sa
       propre demande, par exemple
-      <a target="_blank" href="https://www.caf.fr/" rel="noreferrer">auprès de la Caf</a>
+      <a
+        target="_blank"
+        href="https://www.caf.fr/"
+        title="CAF - Ouvre une nouvelle fenêtre"
+        rel="noreferrer"
+        >auprès de la Caf</a
+      >
       (Caisse d’allocations familiales).
     </p>
     <h2>5. Comment réagir au départ d’un colocataire&nbsp;?</h2>
@@ -66,8 +73,9 @@
         target="_blank"
         rel="noreferrer"
         href="https://www.service-public.fr/particuliers/vosdroits/F1168#:~:text=perte%20d'emploi-,D%C3%A9lai%20de%20pr%C3%A9avis%20%3A%201%20mois.,au%20cours%20du%20m%C3%AAme%20bail"
+        title="Préavis et formalités du congé donné par le locataire - Ouvre une nouvelle fenêtre"
         >en savoir plus</a
-      >). <br />
+      >).
     </p>
     <p>
       Un avenant au bail doit être rédigé entre les colocataires qui restent et celui qui arrive,

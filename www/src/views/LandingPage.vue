@@ -102,7 +102,12 @@
                 <p>{{ t('s2.p3') }}</p>
               </li>
             </ol>
-            <a :href="DOCS_URL" target="_blank" class="fr-btn fr-btn--secondary fr-mt-2w">
+            <a
+              :href="DOCS_URL"
+              :title="`${t('docs')} - ${t('new-window')}`"
+              target="_blank"
+              class="fr-btn fr-btn--secondary fr-mt-2w"
+            >
               <span class="text-center full-width">
                 {{ t('docs') }}
               </span>
