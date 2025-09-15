@@ -7,39 +7,53 @@
     <p class="text-bold">{{ t(textKey + '.list-title') }}</p>
     <ul class="fr-mb-2w">
       <li class="fr-mb-1w">
-        <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.IDENTITY">
-          {{ t('common.identity-card') }}
-        </TrackedExternalLink>
+        <TrackedExternalLink
+          event="identity"
+          :url="`${HELP_URL}/article/1-piece-identite-1j6eask/`"
+          :label="t('common.identity-card')"
+        />
       </li>
       <li class="fr-mb-1w">
-        <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.RESIDENCY">
-          {{ t('common.residency') }}
-        </TrackedExternalLink>
+        <TrackedExternalLink
+          event="residency"
+          :url="`${HELP_URL}/article/2-justificatif-domicile-bon-paiement-loyers-1ftrkb8/`"
+          :label="t('common.residency')"
+        />
       </li>
       <li class="fr-mb-1w">
-        <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.PROFESSIONAL">
-          {{ t('common.professional') }}
-        </TrackedExternalLink>
+        <TrackedExternalLink
+          event="professional"
+          :url="`${HELP_URL}/article/3-justificatifs-de-situation-professionnelle-rpepjc/`"
+          :label="t('common.professional')"
+        />
       </li>
       <li class="fr-mb-1w">
-        <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.FINANCIAL">
-          {{ t('common.financial') }}
-        </TrackedExternalLink>
+        <TrackedExternalLink
+          event="financial"
+          :url="`${HELP_URL}/article/4-justificatifs-ressources-1uyf090/`"
+          :label="t('common.financial')"
+        />
       </li>
       <li>
-        <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.TAX">
-          {{ t('common.tax') }}
-        </TrackedExternalLink>
+        <TrackedExternalLink
+          event="tax"
+          :url="`${HELP_URL}/article/5-avis-dimposition-eg82wt/`"
+          :label="t('common.tax')"
+        />
       </li>
     </ul>
-    <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.GENERAL_HELP">
-      {{ t('common.online-help-details') }}
-    </TrackedExternalLink>
+    <TrackedExternalLink
+      event="general-help"
+      :url="`${HELP_URL}/category/justificatifs-ye12ln/`"
+      :label="t('common.online-help-details')"
+    />
     <hr class="fr-mt-3w" />
     <p class="text-bold">{{ t('common.guarantor-title') }}</p>
-    <TrackedExternalLink :external-doc="EXTERNAL_DOCUMENTATIONS.GUARANTOR_HELP">
-      {{ t('common.online-help') }}
-    </TrackedExternalLink>
+    <TrackedExternalLink
+      event="guarantor-help"
+      :url="`${HELP_URL}/article/6-les-justificatifs-du-ou-des-garants-1nt94gc/`"
+      :label="t('common.online-help')"
+    />
   </NakedCard>
 </template>
 
@@ -47,13 +61,14 @@
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { useI18n } from 'vue-i18n'
 import TrackedExternalLink from './lib/TrackedExternalLink.vue'
-import { EXTERNAL_DOCUMENTATIONS } from './lib/ExternalDocumentation'
 
 defineProps<{
   textKey: 'self' | 'third-party'
 }>()
 
 const { t } = useI18n()
+
+const HELP_URL = 'https://aide.dossierfacile.logement.gouv.fr/fr'
 </script>
 
 <i18n>
