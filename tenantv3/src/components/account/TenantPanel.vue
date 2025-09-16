@@ -5,15 +5,15 @@
       <ul class="fr-p-0">
         <RowListItem
           v-if="!isCotenant"
+          :to="{ name: 'ValidateFile' }"
           :label="t('tenantpanel.clarification-title')"
           :sub-label="'clarification' in tenant ? tenant.clarification || '' : ''"
           :can-edit="showButtons"
-          @click-edit="goToValidationPage()"
         />
         <RowListItem
+          :to="tenantNamePage"
           :label="UtilsService.tenantFullName(props.tenant)"
           :can-edit="showButtons"
-          @click-edit="gotoTenantName()"
         />
         <FileRowListItem
           :label="t('tenantpanel.identification')"
@@ -117,23 +117,19 @@ const showButtons = computed(() => {
   return !props.isCotenant || props.isCouple
 })
 
-function gotoTenantName() {
+const tenantNamePage = computed(() => {
   if (props.isCotenant) {
-    router.push({
+    return {
       name: 'CoupleName',
       params: {
         tenantId: props.tenant?.id.toString(),
         step: '4'
       }
-    })
+    }
   } else {
-    router.push({ name: 'TenantName' })
+    return { name: 'TenantName' }
   }
-}
-
-function goToValidationPage() {
-  router.push({ name: 'ValidateFile' })
-}
+})
 
 function goToIdentityDocument() {
   AnalyticsService.editFromAccount(1)

@@ -7,37 +7,30 @@
         {{ subLabel }}
       </span>
     </p>
-    <DfButton
-      v-if="canEdit"
-      class="large-btn fr-ml-auto"
+    <RouterLink
+      v-if="canEdit && to"
+      :to
+      class="fr-btn fr-btn--secondary large-btn fr-ml-auto"
       :aria-describedby="id"
-      @click="$emit('click-edit')"
     >
       <RiPencilLine class="fr-mr-1w" size="1rem" aria-hidden="true" />
       {{ t('filerowlistitem.edit') }}
-    </DfButton>
+    </RouterLink>
   </li>
 </template>
 
 <script setup lang="ts">
 import { RiPencilLine } from '@remixicon/vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useId } from 'vue'
 import { useI18n } from 'vue-i18n'
+import type { RouteLocationRaw } from 'vue-router'
 
-defineEmits<{ 'click-edit': [] }>()
-
-withDefaults(
-  defineProps<{
-    label: string
-    subLabel?: string
-    canEdit?: boolean
-  }>(),
-  {
-    canEdit: false,
-    subLabel: undefined
-  }
-)
+defineProps<{
+  label: string
+  subLabel?: string
+  to?: RouteLocationRaw
+  canEdit?: boolean
+}>()
 
 const { t } = useI18n()
 const id = useId()
