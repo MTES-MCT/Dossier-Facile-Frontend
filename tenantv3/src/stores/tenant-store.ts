@@ -513,16 +513,23 @@ export const useTenantStore = defineStore('tenant', {
       }
       this.deleteRoommates(tenant.email)
     },
+    getGuarantorPage(
+      guarantor: Guarantor,
+      substep: number,
+      tenantId: number | undefined = undefined
+    ) {
+      if (tenantId && tenantId != this.user.id) {
+        return getSpouseGuarantorLink(guarantor, tenantId, substep)
+      }
+      return getGuarantorLink(guarantor, substep)
+    },
     setGuarantorPage(
       guarantor: Guarantor,
       substep: number,
       tenantId: number | undefined = undefined
     ) {
       this.setSelectedGuarantor(guarantor)
-      if (tenantId && tenantId != this.user.id) {
-        return getSpouseGuarantorLink(guarantor, tenantId, substep)
-      }
-      return getGuarantorLink(guarantor, substep)
+      return this.getGuarantorPage(guarantor, substep, tenantId)
     },
     async saveTenantIdentification(formData: FormData) {
       const response = await RegisterService.saveTenantIdentification(formData)

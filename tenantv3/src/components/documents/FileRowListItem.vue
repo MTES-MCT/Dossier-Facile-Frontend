@@ -35,25 +35,26 @@
         {{ t('filerowlistitem.see') }}
       </a>
 
-      <DfButton
-        v-if="canEdit"
+      <RouterLink
+        v-if="canEdit && to"
+        :to
         type="button"
-        class="fr-btn--icon-left fr-icon-pencil-line"
+        class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-pencil-line"
         :aria-describedby="id"
         @click="$emit('click-edit')"
       >
         {{ t('filerowlistitem.edit') }}
-      </DfButton>
+      </RouterLink>
     </div>
   </li>
 </template>
 
 <script setup lang="ts">
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import { useI18n } from 'vue-i18n'
 import { useId } from 'vue'
+import type { RouteLocationRaw } from 'vue-router'
 
 defineEmits<{ 'click-edit': [] }>()
 
@@ -66,6 +67,7 @@ const props = withDefaults(
     tagLabel?: string
     showValidated?: boolean
     canEdit?: boolean
+    to?: RouteLocationRaw
   }>(),
   {
     subLabel: undefined,
@@ -73,7 +75,8 @@ const props = withDefaults(
     enableDownload: true,
     tagLabel: undefined,
     showValidated: false,
-    canEdit: false
+    canEdit: false,
+    to: undefined
   }
 )
 
