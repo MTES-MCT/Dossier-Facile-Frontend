@@ -21,6 +21,7 @@ declare module 'vue-router' {
     requiresAuth?: boolean
     skipLinks?: SkipLink[]
     title: string
+    analyticsIgnore?: boolean
   }
 }
 
@@ -912,7 +913,8 @@ export const router = createRouter({
       path: '/public-file/:token',
       name: 'File',
       meta: {
-        title: 'Dossier - DossierFacile'
+        title: 'Dossier - DossierFacile',
+        analyticsIgnore: true
       },
       component: () => import('../views/PublicFile.vue')
     },
@@ -920,7 +922,8 @@ export const router = createRouter({
       path: '/file/:token',
       name: 'PublicFile',
       meta: {
-        title: 'Dossier - DossierFacile'
+        title: 'Dossier - DossierFacile',
+        analyticsIgnore: true
       },
       component: () => import('../views/FilePage.vue')
     },
@@ -970,7 +973,8 @@ export const router = createRouter({
       path: '/ajout-couple/:token',
       name: 'Couple',
       meta: {
-        title: 'Confirmation de compte - DossierFacile'
+        title: 'Confirmation de compte - DossierFacile',
+        analyticsIgnore: true
       },
       component: () => import('../views/JoinCouple.vue')
     },
@@ -978,7 +982,8 @@ export const router = createRouter({
       path: '/ajout-groupe/:token',
       name: 'Group',
       meta: {
-        title: 'Confirmation de compte - DossierFacile'
+        title: 'Confirmation de compte - DossierFacile',
+        analyticsIgnore: true
       },
       component: () => import('../views/JoinGroup.vue')
     },
@@ -987,7 +992,8 @@ export const router = createRouter({
       name: 'Confirm',
       meta: {
         title: 'Conserver ses documents - DossierFacile',
-        hideForAuth: true
+        hideForAuth: true,
+        analyticsIgnore: true
       },
       component: () => import('../views/ConfirmAccount.vue')
     },
