@@ -3,10 +3,10 @@
     <div class="fr-grid-row file-item">
       <p :id class="fr-mb-0"><slot></slot></p>
       <!-- TODO : bouton voir -->
-      <DfButton class="update-btn" :aria-describedby="id" @click="$emit('on-update')">
+      <RouterLink :to class="fr-btn fr-btn--secondary update-btn" :aria-describedby="id">
         <span class="desktop">{{ t('fileerrors.update') }}</span>
         <RiPencilLine size="1rem" class="color--primary mobile" aria-hidden="true" />
-      </DfButton>
+      </RouterLink>
     </div>
     <PreValidationMessages :user-id="userId" :document="document" />
   </div>
@@ -14,14 +14,13 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { RiPencilLine } from '@remixicon/vue'
 import PreValidationMessages from '../documents/share/PreValidationMessages.vue'
 import { useId } from 'vue'
+import type { RouteLocationRaw } from 'vue-router'
 
-defineEmits<{ 'on-update': [] }>()
-defineProps<{ userId?: number; document?: DfDocument }>()
+defineProps<{ userId?: number; document?: DfDocument; to: RouteLocationRaw }>()
 
 const { t } = useI18n()
 const id = useId()

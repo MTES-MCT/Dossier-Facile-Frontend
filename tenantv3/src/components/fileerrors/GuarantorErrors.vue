@@ -5,7 +5,7 @@
         <p class="fr-text--bold">
           {{ t(`fileerrors.${keyprefix}-invalid-names-guarantor`) }}
         </p>
-        <UpdateComponent :user-id="user.id" @on-update="openGuarantor(g, 0)">{{
+        <UpdateComponent :user-id="user.id" :to="getGuarantorPage(g, 0)">{{
           t('fileerrors.user-names')
         }}</UpdateComponent>
       </template>
@@ -21,7 +21,7 @@
           v-if="!isGuarantorDocumentValid(v)"
           :document="getDocument(g, v)"
           :user-id="user.id"
-          @on-update="openGuarantor(g, k + 1)"
+          :to="getGuarantorPage(g, k + 1)"
           >{{ t(`fileerrors.${v}`) }}</UpdateComponent
         >
       </template>
@@ -33,7 +33,7 @@
         <p class="fr-text--bold">
           {{ t(`fileerrors.${keyprefix}-invalid-names-guarantor`) }}
         </p>
-        <UpdateComponent @on-update="openGuarantor(g, 0)">{{
+        <UpdateComponent :to="getGuarantorPage(g, 0)">{{
           t('fileerrors.user-names')
         }}</UpdateComponent>
       </template>
@@ -43,13 +43,13 @@
       <UpdateComponent
         v-if="!isGuarantorDocumentValid('IDENTIFICATION')"
         :document="getDocument(g, 'IDENTIFICATION')"
-        @on-update="openGuarantor(g, 1)"
+        :to="getGuarantorPage(g, 1)"
         >{{ t('fileerrors.representative-identification') }}</UpdateComponent
       >
       <UpdateComponent
         v-if="!isGuarantorDocumentValid('IDENTIFICATION_LEGAL_PERSON')"
         :document="getDocument(g, 'IDENTIFICATION_LEGAL_PERSON')"
-        @on-update="openGuarantor(g, 0)"
+        :to="getGuarantorPage(g, 0)"
         >{{ t('fileerrors.corporation-identification') }}</UpdateComponent
       >
     </NakedCard>
@@ -62,7 +62,7 @@
       <UpdateComponent
         v-if="!isGuarantorDocumentValid('GUARANTEE_PROVIDER_CERTIFICATE')"
         :document="getDocument(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
-        @on-update="openGuarantor(g, 1)"
+        :to="getGuarantorPage(g, 1)"
         >{{ t('fileerrors.organism-cert') }}</UpdateComponent
       >
     </NakedCard>
@@ -73,7 +73,6 @@
 import { User } from 'df-shared-next/src/models/User'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '../../stores/tenant-store'
-import { useRouter } from 'vue-router'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { UtilsService } from '../../services/UtilsService'
@@ -84,7 +83,6 @@ import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 const store = useTenantStore()
 const { t } = useI18n()
-const router = useRouter()
 const props = defineProps<{
   g: Guarantor
   user: User | CoTenant
@@ -124,8 +122,7 @@ function documentsGuarantorFilled(g: Guarantor) {
   return store.guarantorDocumentsFilled(g)
 }
 
-function openGuarantor(g: Guarantor, substep: number) {
-  const page = store.setGuarantorPage(g, substep, props.user.id)
-  router.push(page)
+function getGuarantorPage(g: Guarantor, substep: number) {
+  return store.getGuarantorPage(g, substep, props.user.id)
 }
 </script>
