@@ -1,12 +1,12 @@
 <template>
-  <FullTenantFileErrors :user="user" :keyprefix="'my'"></FullTenantFileErrors>
+  <FullTenantFileErrors :user="user" keyprefix="my"></FullTenantFileErrors>
 
   <template v-if="user.applicationType === 'COUPLE'">
     <FullTenantFileErrors
       v-for="(tenant, k) in coTenants"
       :key="k"
       :user="tenant"
-      :keyprefix="'tenant'"
+      keyprefix="tenant"
     ></FullTenantFileErrors>
   </template>
 </template>

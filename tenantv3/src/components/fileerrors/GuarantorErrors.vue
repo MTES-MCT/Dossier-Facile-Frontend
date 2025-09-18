@@ -86,7 +86,7 @@ const { t } = useI18n()
 const props = defineProps<{
   g: Guarantor
   user: User | CoTenant
-  keyprefix: string
+  keyprefix: 'my' | 'tenant'
 }>()
 
 onMounted(() => {

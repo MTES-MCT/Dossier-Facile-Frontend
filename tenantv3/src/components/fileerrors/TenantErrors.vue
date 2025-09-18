@@ -49,7 +49,7 @@ const { getPage } = useTenantStep()
 
 const props = defineProps<{
   user: CoTenant
-  keyprefix: string
+  keyprefix: 'my' | 'tenant'
 }>()
 
 const namePage = computed(() => {
