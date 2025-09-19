@@ -85,7 +85,7 @@ const showAll = () => {
     "activity": {
       "cdi": "Permanent Contract",
       "cdd": "Fixed-term Contract",
-      "public": "Public sector",
+      "public": "Civil servant",
       "self-employed": "Self-employed",
       "retired": "Retired",
       "unemployed": "Unemployed",
@@ -117,7 +117,7 @@ const showAll = () => {
     "activity": {
       "cdi": "CDI",
       "cdd": "CDD",
-      "public": "Fonction publique",
+      "public": "Fonctionnaire",
       "self-employed": "Indépendant",
       "retired": "Retraite",
       "unemployed": "Chômage",

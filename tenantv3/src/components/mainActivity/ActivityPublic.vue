@@ -21,7 +21,7 @@ const parent = useParentRoute()
 <i18n>
 {
   "en": {
-    "public": "Public sector",
+    "public": "Civil servant",
     "desc-public-tenant":"Please provide your current or future {0}.",
     "desc-public-other":"Please provide their current or future {0}.",
     "appointment-order": "appointment order",
@@ -29,7 +29,7 @@ const parent = useParentRoute()
     "if-no-doc-other": "If you don't have their appointment order, you can add a certificate from their employer less than 3 months old."
   },
   "fr": {
-    "public": "Fonction publique",
+    "public": "Fonctionnaire",
     "desc-public-tenant":"Veuillez fournir votre {0} en cours ou à venir.",
     "desc-public-other":"Veuillez fournir son {0} en cours ou à venir.",
     "appointment-order": "arrêté de nomination",
