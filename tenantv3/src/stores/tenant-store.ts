@@ -82,8 +82,6 @@ function defaultState(): State {
 
 const initialStore = defaultState()
 
-export type DispatchNames = 'saveTenantTax' | 'saveTenantIdentification'
-
 export const useTenantStore = defineStore('tenant', {
   state: (): State => ({ ...initialStore }),
   getters: {
@@ -515,16 +513,23 @@ export const useTenantStore = defineStore('tenant', {
       }
       this.deleteRoommates(tenant.email)
     },
+    getGuarantorPage(
+      guarantor: Guarantor,
+      substep: number,
+      tenantId: number | undefined = undefined
+    ) {
+      if (tenantId && tenantId != this.user.id) {
+        return getSpouseGuarantorLink(guarantor, tenantId, substep)
+      }
+      return getGuarantorLink(guarantor, substep)
+    },
     setGuarantorPage(
       guarantor: Guarantor,
       substep: number,
       tenantId: number | undefined = undefined
     ) {
       this.setSelectedGuarantor(guarantor)
-      if (tenantId && tenantId != this.user.id) {
-        return getSpouseGuarantorLink(guarantor, tenantId, substep)
-      }
-      return getGuarantorLink(guarantor, substep)
+      return this.getGuarantorPage(guarantor, substep, tenantId)
     },
     async saveTenantIdentification(formData: FormData) {
       const response = await RegisterService.saveTenantIdentification(formData)
@@ -754,13 +759,6 @@ export const useTenantStore = defineStore('tenant', {
         const newList = this.partnerAccesses.filter((access) => access.id !== accessToRevoke.id)
         this.setPartnerAccesses(newList)
       })
-    },
-    dispatchByName<Name extends DispatchNames>(name: Name, formData: FormData) {
-      const func = this[name]
-      if (func) {
-        return func(formData)
-      }
-      throw new Error('Invalid method name: ' + name)
     },
     async commentAnalysis(formData: unknown) {
       const response = await RegisterService.commentAnalysis(formData)

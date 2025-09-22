@@ -7,6 +7,7 @@
     <template #link>
       <a
         href="https://www.caf.fr/allocataires/caf-du-nord/offre-de-service/thematique-libre/telecharger-une-attestation"
+        :title="`${t('obtain-proof')} - ${t('new-window')}`"
         target="_blank"
         >{{ t('obtain-proof') }}</a
       >
@@ -19,6 +20,7 @@
     <template #model>
       <a
         href="https://www.service-public.fr/simulateur/calcul/AttestationHonneur"
+        :title="`${t('model')} - ${t('new-window')}`"
         target="_blank"
         >{{ t('model') }}</a
       >

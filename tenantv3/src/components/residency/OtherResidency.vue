@@ -20,7 +20,7 @@
     <i18n-t keypath="info-115" tag="p">
       <a href="tel:115" class="phone-link"
         >115
-        <RiPhoneFill size="1rem" />
+        <RiPhoneFill size="1rem" aria-hidden="true" />
       </a>
     </i18n-t>
   </div>
@@ -29,13 +29,16 @@
       <template #tel>
         <a href="tel:3919" class="phone-link">
           3919
-          <RiPhoneFill size="1rem" />
+          <RiPhoneFill size="1rem" aria-hidden="true" />
         </a>
       </template>
       <template #page>
-        <a href="https://www.service-public.fr/particuliers/vosdroits/F12544" target="_blank">{{
-          t('domestic-violence-page')
-        }}</a>
+        <a
+          href="https://www.service-public.fr/particuliers/vosdroits/F12544"
+          :title="`${t('domestic-violence-page')} - ${t('new-window')}`"
+          target="_blank"
+          >{{ t('domestic-violence-page') }}</a
+        >
       </template>
     </i18n-t>
   </div>

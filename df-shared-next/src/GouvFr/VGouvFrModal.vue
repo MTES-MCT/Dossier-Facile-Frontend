@@ -20,7 +20,7 @@
             </div>
             <div class="fr-modal__content">
               <h1 :id="titleId" class="fr-modal__title display--flex align-items--center">
-                <RiArrowRightLine />
+                <RiArrowRightLine aria-hidden="true" />
                 <slot name="title"> </slot>
               </h1>
               <slot name="content"> </slot>

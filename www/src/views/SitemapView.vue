@@ -1,32 +1,30 @@
 <template>
   <section class="fr-mb-12w">
-    <article>
-      <div>
-        <div class="fr-container fr-mt-3w">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-md-8">
-              <h1>Plan du site</h1>
-              <p><i>Dossier</i><b>Facile</b>, le dossier de location numérique de l’État.</p>
+    <article class="fr-container fr-mt-3w">
+      <div class="fr-grid-row justify-content-center">
+        <div class="fr-col-md-8">
+          <h1>Plan du site</h1>
+          <p><i>Dossier</i><b>Facile</b>, le dossier de location numérique de l’État.</p>
 
-              <h2 v-for="page in mainPages" :key="page.url" class="fr-h4">
-                <a :href="page.url">{{ page.name }}</a>
-              </h2>
+          <ul class="page-list">
+            <li v-for="page in mainPages" :key="page.url" class="fr-h4">
+              <a :href="page.url">{{ page.name }}</a>
+            </li>
+          </ul>
 
-              <h2 class="fr-h4">Autres pages</h2>
-              <ul>
-                <li v-for="page in otherPages" :key="page.url">
-                  <a :href="page.url">{{ page.name }}</a>
-                </li>
-              </ul>
+          <h2 class="fr-h4">Autres pages</h2>
+          <ul>
+            <li v-for="page in otherPages" :key="page.url">
+              <a :href="page.url">{{ page.name }}</a>
+            </li>
+          </ul>
 
-              <h2 class="fr-mt-3w fr-h4">Réseaux sociaux</h2>
-              <ul>
-                <li v-for="social in socials" :key="social.name">
-                  <a :href="social.url">{{ social.name }}</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <h2 class="fr-mt-3w fr-h4">Réseaux sociaux</h2>
+          <ul>
+            <li v-for="social in socials" :key="social.name">
+              <a :href="social.url">{{ social.name }}</a>
+            </li>
+          </ul>
         </div>
       </div>
     </article>
@@ -36,7 +34,7 @@
 import { useHead } from '@unhead/vue'
 
 useHead({
-  title: 'DossierFacile, le dossier de location numérique de l’État'
+  title: 'Plan du site - DossierFacile, le dossier de location numérique de l’État'
 })
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
@@ -127,3 +125,13 @@ const socials = [
   }
 ]
 </script>
+
+<style scoped>
+.page-list {
+  list-style: none;
+  padding-left: 0;
+  & > li {
+    padding: 0;
+  }
+}
+</style>

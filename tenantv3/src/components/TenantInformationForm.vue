@@ -73,7 +73,9 @@
         <h1 class="fr-h6">
           {{ t('tenantinformationform.title') }}
         </h1>
-        <ApplicationTypeSelector @selected="updateApplicationType"></ApplicationTypeSelector>
+        <ApplicationTypeSelector @selected="updateApplicationType">
+          <span class="sr-only">{{ t('tenantinformationform.title') }}</span>
+        </ApplicationTypeSelector>
       </NakedCard>
       <Form name="form" @submit="handleOthersInformation">
         <CoupleInformation

@@ -16,11 +16,7 @@
       >
     </p>
     <p>C’est désormais chose faite et nous vous en disons plus ci-dessous.</p>
-    <img
-      class="fr-mb-3w"
-      alt="Aperçu du site DossierFacile"
-      src="../../assets/images/blog-article22.webp"
-    />
+    <img class="fr-mb-3w" alt="" src="../../assets/images/blog-article22.webp" />
     <p>
       DossierFacile est donc enfin accessible depuis l’URL DossierFacile.logement.gouv.fr, une
       adresse qui reflète mieux notre mission de service public et notre engagement en faveur de la
@@ -84,7 +80,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article22.webp'
 
-const title = 'DossierFacile.fr devient enfin DossierFacile.logement.gouv.fr !'
+const title = 'DossierFacile.fr devient enfin DossierFacile.logement.gouv.fr ! - DossierFacile'
 const description =
   'DossierFacile est donc enfin accessible depuis l’URL DossierFacile.logement.gouv.fr, une adresse qui reflète mieux notre mission de service public'
 useHead({

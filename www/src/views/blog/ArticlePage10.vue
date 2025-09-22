@@ -22,6 +22,7 @@
       présente
       <a
         href="https://start.lesechos.fr/au-quotidien/budget-conso/rentree-universitaire-toutes-les-aides-2021-pour-les-etudiants-1345229"
+        title="Les Echos Start - Ouvre une nouvelle fenêtre"
         target="_blank"
         >Les Echos Start</a
       >
@@ -39,6 +40,7 @@
       explique le magazine
       <a
         href="https://www.capital.fr/immobilier/6-conseils-pour-denicher-son-logement-etudiant-1412317"
+        title="Capital.fr - Ouvre une nouvelle fenêtre"
         target="_blank"
         >Capital.fr</a
       >
@@ -47,7 +49,10 @@
     <p>
       Second constat alarmant : de plus en plus de propriétaires demandent aux futurs locataires des
       pièces qui dépassent le
-      <a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031444493/" target="_blank"
+      <a
+        href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031444493/"
+        title="Décret fixant la liste des pièces justificatives pouvant être demandées au candidat à la location - Ouvre une nouvelle fenêtre"
+        target="_blank"
         >cadre légal</a
       >.
       <i>
@@ -57,12 +62,14 @@
       relève
       <a
         href="https://immobilier.lefigaro.fr/annonces/edito/louer/je-prepare-mon-dossier/cheque-reservation-location-est-ce-legal"
+        title="Le Figaro Immobilier - Ouvre une nouvelle fenêtre"
         target="_blank"
         >Le Figaro Immobilier</a
       >
       dans un article de 2020.
       <a
         href="https://www.connexionfrance.com/Practical/Property/French-website-makes-rental-paperwork-easier-for-tenants-and-landlords"
+        title="The Connexion - Ouvre une nouvelle fenêtre"
         target="_blank"
         >The Connexion</a
       >, un magazine d’actualités françaises en anglais, et qui consacre ce mois-ci un plein article
@@ -78,6 +85,7 @@
       d’identité. La protection des données personnelles est au cœur du service, comme le rappelle
       <a
         href="https://www.lemonde.fr/argent/article/2021/11/29/immobilier-attention-aux-dossiers-de-location-falsifies_6103974_1657007.html"
+        title="LeMonde.fr - Ouvre une nouvelle fenêtre"
         target="_blank"
         >LeMonde.fr</a
       >
@@ -96,6 +104,7 @@
       note
       <a
         href="https://www.bfmtv.com/immobilier/location/location-cinq-conseils-pour-votre-recherche-de-logement_AN-202112010367.html"
+        title="BFM Immo - Ouvre une nouvelle fenêtre"
         target="_blank"
         >BFM Immo</a
       >
@@ -121,6 +130,7 @@
       rapporte
       <a
         href="https://www.destinationimmo.com/article-dossierfacile-la-start-up-d-etat-qui-securise-le-dossier-de-location"
+        title="destinationimmo.com - Ouvre une nouvelle fenêtre"
         target="_blank"
         >destinationimmo.com</a
       >
@@ -138,7 +148,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article10.webp'
 
-const title = 'Quand les journalistes parlent de DossierFacile'
+const title = 'Quand les journalistes parlent de DossierFacile - DossierFacile'
 const description =
   'Constituer son dossier de location est une étape indispensable pour trouver le logement de ses rêves et pourtant c’est un parcours semé d’embûches'
 useHead({

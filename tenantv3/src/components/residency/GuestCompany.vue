@@ -13,7 +13,10 @@
     <li>{{ t(textKey + '.contract') }}</li>
   </ul>
   <i18n-t :keypath="textKey + '.recommend-statement'" tag="p">
-    <a href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement" target="_blank"
+    <a
+      href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement"
+      :title="`service-public.fr - ${t('new-window')}`"
+      target="_blank"
       >service-public.fr</a
     >
   </i18n-t>

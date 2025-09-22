@@ -45,6 +45,10 @@
   color: white !important;
 }
 
+.color--required {
+  color: #ce0500;
+}
+
 .bg--orange {
   background-color: var(--salmon2);
 }
@@ -234,10 +238,6 @@ img {
 
 .mx-auto {
   margin: auto;
-}
-
-.spacer {
-  flex: auto;
 }
 
 .row {

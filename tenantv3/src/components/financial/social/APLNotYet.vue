@@ -17,9 +17,12 @@
   <UploadFilesFinancial category="SOCIAL_SERVICE" step="SOCIAL_SERVICE_APL_NOT_YET">
     <template #incomeFilled>
       <i18n-t tag="p" keypath="please-provide">
-        <a href="https://www.service-public.fr/particuliers/vosdroits/R2972" target="_blank">{{
-          t('simulation')
-        }}</a>
+        <a
+          href="https://www.service-public.fr/particuliers/vosdroits/R2972"
+          :title="`${t('simulation')} - ${t('new-window')}`"
+          target="_blank"
+          >{{ t('simulation') }}</a
+        >
       </i18n-t>
     </template>
   </UploadFilesFinancial>

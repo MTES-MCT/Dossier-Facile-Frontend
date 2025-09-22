@@ -12,6 +12,7 @@
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.ecologie.gouv.fr/sites/default/files/comprendre_mon_dpe.pdf"
+          :title="`${t('propertydiagnostic.understand-dpe')} - ${t('new-window')}`"
           >{{ t('propertydiagnostic.understand-dpe') }}</a
         >
       </div>
@@ -50,7 +51,7 @@
             aria-controls="noDPE"
             @click="AnalyticsService.dpeEvent('dpe_no_number')"
           >
-            <RiArrowRightLine size="22px" class="circle fr-p-1v" />{{
+            <RiArrowRightLine size="22px" class="circle fr-p-1v" aria-hidden="true" />{{
               t('propertydiagnostic.no-dpe-btn')
             }}
           </button>
@@ -60,13 +61,29 @@
           <div class="fr-highlight">
             <ul>
               <li>
-                <span v-html="t('propertydiagnostic.no-dpe-list-1')"></span>
+                {{ t('propertydiagnostic.no-dpe-list-1') }}
               </li>
               <li>
-                <span v-html="t('propertydiagnostic.no-dpe-list-2')"></span>
+                <i18n-t keypath="propertydiagnostic.no-dpe-list-2">
+                  <a
+                    href="https://signal.conso.gouv.fr/fr/immobilier/faire-un-signalement"
+                    :title="`${t('propertydiagnostic.file-complaint')} - ${t('new-window')}`"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >{{ t('propertydiagnostic.file-complaint') }}</a
+                  >
+                </i18n-t>
               </li>
               <li>
-                <span v-html="t('propertydiagnostic.no-dpe-list-3')"></span>
+                <i18n-t keypath="propertydiagnostic.no-dpe-list-3">
+                  <a
+                    href="https://www.anil.org/lanil-et-les-adil/votre-adil/"
+                    :title="`${t('propertydiagnostic.contact-anil')} - ${t('new-window')}`"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >{{ t('propertydiagnostic.contact-anil') }}</a
+                  >
+                </i18n-t>
               </li>
             </ul>
           </div>

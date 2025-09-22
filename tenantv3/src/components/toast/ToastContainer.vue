@@ -19,25 +19,22 @@ import { alerts, removeToast } from './toastUtils'
 .toast-container {
   position: sticky;
   top: 0;
-  right: 0;
-  width: 22rem;
+  right: 1rem;
+  width: min(22rem, calc(100% - 2rem));
   margin-left: auto;
   z-index: 10000;
 }
 
 .toast-list {
   position: absolute;
+  top: 1rem;
   margin: 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0;
   list-style: none;
   width: 100%;
-}
-
-.toast-container > li {
-  width: 20rem;
 }
 
 .toast-container .fr-alert {

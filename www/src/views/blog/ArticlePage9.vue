@@ -16,6 +16,7 @@
       Toutefois, les communes situées en zone tendue sont soumises à
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F1314"
+        title="Encadrement des loyers - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >l'encadrement des loyers</a
@@ -26,6 +27,7 @@
       Paris, Lyon et Lille font par exemple l’objet de règles spécifiques. Un
       <a
         href="https://www.service-public.fr/simulateur/calcul/zones-tendues"
+        title="Simulateur - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >simulateur</a
@@ -37,6 +39,7 @@
       Pour ce qui est de la révision du loyer, le propriétaire peut
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F1311"
+        title="Réviser le loyer - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >réviser le loyer</a
@@ -52,6 +55,7 @@
       Lorsque le locataire paie à plusieurs reprises son loyer en retard, le bailleur
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F929"
+        title="droit de ne pas renouveler le bail - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >est en droit de ne pas renouveler le bail pour motif légitime et sérieux.</a
@@ -61,6 +65,7 @@
       Le non-paiement ou le paiement partiel du loyer et des charges peut engendrer la
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F31272"
+        title="résiliation du bail par le propriétaire - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >résiliation du bail par le propriétaire et l'expulsion du locataire</a
@@ -68,6 +73,7 @@
       cas de
       <a
         href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000217471/"
+        title="logement non décent - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >logement non décent</a
@@ -80,7 +86,11 @@
       propriétaire à percevoir des amendes ou des pénalités en cas d'infraction au contrat de
       location ou au règlement de l'immeuble est abusive. Elle peut être dénoncée devant le juge des
       contentieux de la protection du
-      <a href="https://www.justice.fr/recherche/annuaires" target="_blank" rel="noreferrer"
+      <a
+        href="https://www.justice.fr/recherche/annuaires"
+        title="tribunal - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noreferrer"
         >tribunal</a
       >
       dont dépend le logement.
@@ -90,12 +100,14 @@
       doit continuer à payer le loyer et les charges ! En revanche, il peut engager les
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F31699"
+        title="travaux à la charge du propriétaire - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >démarches à sa disposition</a
       >. Seul un juge peut décider de
       <a
         href="https://consignations.caissedesdepots.fr/particulier/consignez-votre-loyer/consignez-votre-loyer-en-cas-de-litige-avec-votre-bailleur"
+        title="bloquer temporairement le versement du loyer - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >bloquer temporairement le versement du loyer (hors charges)</a
@@ -107,6 +119,7 @@
       permet pas de
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F31629"
+        title="ne pas payer le dernier mois de loyer - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >ne pas payer le dernier mois de loyer</a
@@ -122,6 +135,7 @@
       <li>
         <a
           href="https://www.service-public.fr/particuliers/vosdroits/F20752"
+          title="Titre interbancaire de paiement (TIP) - Ouvre une nouvelle fenêtre"
           target="_blank"
           rel="noreferrer"
           >Titre interbancaire de paiement (TIP) ;</a
@@ -134,17 +148,23 @@
     <p>
       Des plateformes de locations immobilières digitales, mettent également en place des moyens de
       paiement de loyer sécurisés. C’est notamment le cas de
-      <a href="https://pandaloc.com/" target="_blank" rel="noreferrer">Pandaloc</a>, qui a mis en
-      place un système de paiement 100% sécurisé et encadré par l’ACPR Banque de France. Ce système
-      permet aux propriétaires de recevoir le loyer qui leur est dû en temps et en heure et aux
-      locataires d’avoir des rappels pour effectuer le transfert mais aussi d’avoir leurs quittances
-      de loyer de façon rapide et automatique.
+      <a
+        href="https://pandaloc.com/"
+        title="Pandaloc - Ouvre une nouvelle fenêtre"
+        target="_blank"
+        rel="noreferrer"
+        >Pandaloc</a
+      >, qui a mis en place un système de paiement 100% sécurisé et encadré par l’ACPR Banque de
+      France. Ce système permet aux propriétaires de recevoir le loyer qui leur est dû en temps et
+      en heure et aux locataires d’avoir des rappels pour effectuer le transfert mais aussi d’avoir
+      leurs quittances de loyer de façon rapide et automatique.
     </p>
     <h2>La quittance de loyer</h2>
     <p>
       Le propriétaire est tenu de délivrer au locataire qui en fait la demande une
       <a
         href="https://www.inc-conso.fr/content/logement/vous-demandez-une-quittance-de-loyer-votre-proprietaire"
+        title="quittance de loyer - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >quittance de loyer</a
@@ -153,6 +173,7 @@
       locataire, en distinguant le loyer et les
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F947"
+        title="charges - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >charges</a
@@ -170,6 +191,7 @@
       solutions existent ! Vous pouvez commencer par essayer
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F1008"
+        title="trouver une solution à l'amiable avec le propriétaire - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >de trouver une solution à l'amiable avec le propriétaire</a
@@ -179,6 +201,7 @@
       En cas de difficultés persistantes, des
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F1008"
+        title="aides sociales - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noreferrer"
         >aides sociales</a

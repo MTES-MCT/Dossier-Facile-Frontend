@@ -43,7 +43,7 @@
       <a
         href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000509310/"
         target="_blank"
-        title="Loi du 6 juillet 1989"
+        title="Loi du 6 juillet 1989 - Ouvre une nouvelle fenêtre"
         rel="noopener"
         >loi du 6 juillet 1989</a
       >
@@ -85,7 +85,7 @@
       A compter du 1er janvier 2022 (
       <a
         href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000041553759&categorieLien=id"
-        title="loi 2020-105 du février 2020"
+        title="loi 2020-105 du février 2020 - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >loi n° 2020-105 du 10 février 2020</a
@@ -103,7 +103,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article12.webp'
 
-const title = 'Au secours mon ascenceur est en panne !'
+const title = 'Au secours mon ascenceur est en panne ! - DossierFacile'
 const description =
   'Vous vivez au 6e étage de l’immeuble et l’ascenseur est en panne depuis plusieurs mois ?'
 useHead({

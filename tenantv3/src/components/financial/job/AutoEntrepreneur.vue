@@ -30,9 +30,12 @@
         </i18n-t>
       </ul>
       <i18n-t keypath="docs-urssaf" tag="p">
-        <a href="https://www.autoentrepreneur.urssaf.fr/portail/accueil.html" target="_blank">{{
-          t('auto-entrepreneur-section')
-        }}</a>
+        <a
+          href="https://www.autoentrepreneur.urssaf.fr/portail/accueil.html"
+          :title="`${t('auto-entrepreneur-section')} - ${t('new-window')}`"
+          target="_blank"
+          >{{ t('auto-entrepreneur-section') }}</a
+        >
       </i18n-t>
       <p>{{ t('note') }}</p>
     </template>

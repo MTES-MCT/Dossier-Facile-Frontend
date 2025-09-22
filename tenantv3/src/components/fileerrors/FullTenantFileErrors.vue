@@ -14,6 +14,6 @@ import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 defineProps<{
   user: User | CoTenant
-  keyprefix: string
+  keyprefix: 'my' | 'tenant'
 }>()
 </script>

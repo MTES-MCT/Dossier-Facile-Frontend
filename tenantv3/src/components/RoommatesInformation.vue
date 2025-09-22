@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h6>{{ t('roommatesinformation.title') }}</h6>
+          <h2 class="fr-h6">{{ t('roommatesinformation.title') }}</h2>
           <v-gouv-fr-modal class="fr-link fr-link--sm">
             <template #button>
               {{ t('roommatesinformation.more-information') }}
@@ -37,7 +37,11 @@
                   <div class="fr-col-10">
                     <div class="fr-grid-row nowrap">
                       <div class="center-icon fr-mr-1w">
-                        <RiUserFill class="color--white round-icon icon" size="32px" />
+                        <RiUserFill
+                          class="color--white round-icon icon"
+                          size="32px"
+                          aria-hidden="true"
+                        />
                       </div>
                       <div class="fr-grid-col overflow--hidden max-content">
                         <div :title="roommate.email" class="overflow--hidden">
@@ -64,7 +68,11 @@
                       type="button"
                       @click="remove(roommate)"
                     >
-                      <RiDeleteBin2Fill class="color--primary icon" size="32px" />
+                      <RiDeleteBin2Fill
+                        class="color--primary icon"
+                        size="32px"
+                        aria-hidden="true"
+                      />
                     </button>
                   </div>
                 </div>
@@ -141,7 +149,9 @@
             />
             <label for="authorize">
               <p class="fr-mb-0">{{ t('roommatesinformation.acceptAuthor') }}</p>
-              <p>{{ t('roommatesinformation.acceptAuthor-2') }}<span style="color: red">*</span></p>
+              <p>
+                {{ t('roommatesinformation.acceptAuthor-2') }}<span class="color--required">*</span>
+              </p>
             </label>
           </Field>
           <ErrorMessage v-slot="{ message }" name="authorize">

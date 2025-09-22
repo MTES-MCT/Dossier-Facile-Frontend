@@ -15,6 +15,7 @@
         <template #link>
           <a
             href="https://services.info-retraite.fr/service/mes-attestations-de-paiement-retraite/"
+            :title="`${t('get-proof')} - ${t('new-window')}`"
             target="_blank"
             >{{ t('get-proof') }}</a
           >

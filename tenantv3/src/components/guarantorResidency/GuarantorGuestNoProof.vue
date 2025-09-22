@@ -12,6 +12,7 @@
   <i18n-t :keypath="textKey + '.please-provide'" tag="p">
     <a
       href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement"
+      :title="`${t('this-proof')} - ${t('new-window')}`"
       target="_blank"
       >{{ t('this-proof') }}</a
     >

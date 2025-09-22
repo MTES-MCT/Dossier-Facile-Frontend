@@ -10,6 +10,7 @@
         <template #link>
           <a
             href="https://www.francetravail.fr/faq/candidat/ma-recherche-demploi/laccompagnement-par-le-reseau-fr/lespace-personnel/attestation-france-travail.html"
+            :title="`${t('get-status-report-' + suffix)} - ${t('new-window')}`"
             target="_blank"
             >{{ t('get-status-report-' + suffix) }}</a
           >

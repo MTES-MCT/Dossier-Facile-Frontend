@@ -39,8 +39,13 @@
             <h2>Résultats des tests</h2>
             <p>
               L’audit de conformité au RGAA 4.1 réalisé par la société
-              <a href="https://www.numerik-ea.fr/" target="_blank">Numerik-ea</a> révèle que 75% des
-              critères RGAA sont respectés.
+              <a
+                href="https://www.numerik-ea.fr/"
+                title="Numerik-ea - Ouvre une nouvelle fenêtre"
+                target="_blank"
+                >Numerik-ea</a
+              >
+              révèle que 75% des critères RGAA sont respectés.
             </p>
             <p>Dans le détail :</p>
             <ul>
@@ -50,16 +55,13 @@
             </ul>
 
             <h2>Contenus non accessibles</h2>
-            <table>
-              <caption>
-                Liste des critères non conformes :
-              </caption>
-              <th></th>
-              <tr v-for="criteria in nonCompliantCriteria" :key="criteria.id">
-                <td class="text-bold">{{ criteria.id }}</td>
-                <td>{{ criteria.title }}</td>
-              </tr>
-            </table>
+            <p class="fr-mb-0">Liste des critères non conformes :</p>
+            <ul>
+              <li v-for="criteria in nonCompliantCriteria" :key="criteria.id">
+                <span class="text-bold fr-mr-1w align-number">{{ criteria.id }}</span>
+                <span>{{ criteria.title }}</span>
+              </li>
+            </ul>
 
             <br />
 
@@ -140,12 +142,18 @@
             <p>Vous pouvez&nbsp;:</p>
             <ul>
               <li>
-                <a href="https://formulaire.defenseurdesdroits.fr/" target="_blank"
+                <a
+                  href="https://formulaire.defenseurdesdroits.fr/"
+                  title="Écrire un message au Défenseur des droits - Ouvre une nouvelle fenêtre"
+                  target="_blank"
                   >Écrire un message au Défenseur des droits</a
                 >
               </li>
               <li>
-                <a href="https://www.defenseurdesdroits.fr/saisir/delegues" target="_blank"
+                <a
+                  href="https://www.defenseurdesdroits.fr/saisir/delegues"
+                  title="Contacter le délégué du Défenseur des droits dans votre région - Ouvre une nouvelle fenêtre"
+                  target="_blank"
                   >Contacter le délégué du Défenseur des droits dans votre région</a
                 >
               </li>
@@ -322,20 +330,11 @@ const pagesVerified = [
 </script>
 
 <style scoped lang="scss">
-table {
-  border-collapse: collapse;
-}
-
-td {
-  border: 1px solid #dddddd;
-  padding: 0.5em;
-}
-
 ul {
   margin-bottom: 1em;
 }
 
-caption {
-  text-align: start;
+.align-number {
+  font-variant-numeric: tabular-nums;
 }
 </style>

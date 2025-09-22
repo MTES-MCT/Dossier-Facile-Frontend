@@ -13,12 +13,10 @@
               src="../../assets/anil.png"
               height="80px"
             />
-            <div>
-              <h3 class="fr-h5">{{ t('partnerssection.anil-title') }}</h3>
-            </div>
-            <div class="fr-m-0 fr-py-2w">
+            <h3 class="fr-h5">{{ t('partnerssection.anil-title') }}</h3>
+            <p class="fr-m-0 fr-py-2w">
               {{ t('partnerssection.anil-text') }}
-            </div>
+            </p>
           </div>
           <div class="service-box-btn">
             <a
@@ -41,13 +39,10 @@
               class="fr-pl-2w fr-pb-2w"
               src="../../assets/mes-droits-sociaux.png"
             />
-
-            <div>
-              <h3 class="fr-h5">{{ t('partnerssection.mds-title') }}</h3>
-            </div>
-            <div class="fr-m-0 fr-py-2w">
+            <h3 class="fr-h5">{{ t('partnerssection.mds-title') }}</h3>
+            <p class="fr-m-0 fr-py-2w">
               {{ t('partnerssection.mds-text') }}
-            </div>
+            </p>
           </div>
           <div class="service-box-btn">
             <a
@@ -71,12 +66,10 @@
               src="../../assets/police_nationale.svg"
             />
 
-            <div>
-              <h3 class="fr-h5">
-                {{ t('partnerssection.signal-title') }}
-              </h3>
-            </div>
-            <div class="fr-m-0 fr-py-2w">
+            <h3 class="fr-h5">
+              {{ t('partnerssection.signal-title') }}
+            </h3>
+            <p class="fr-m-0 fr-py-2w">
               <i18n-t keypath="partnerssection.signal-text">
                 <template #nodocument>
                   <span style="font-weight: bold">{{ t('partnerssection.nodocument') }}</span>
@@ -84,23 +77,23 @@
                 <template #masecurite>
                   <a
                     href="https://www.masecurite.interieur.gouv.fr/fr"
-                    :title="t('partnerssection.link-title').toString()"
+                    :title="t('partnerssection.link-title')"
                     rel="noopener"
                     target="_blank"
                     >{{ t('partnerssection.masecurite') }}</a
                   >
                 </template>
               </i18n-t>
-            </div>
+            </p>
           </div>
           <div class="service-box-btn">
             <a
               class="fr-btn fr-mt-1w fr-ml-2w cleana"
-              href="#"
+              href="https://www.service-public.fr/particuliers/vosdroits/N31138#2"
               rel="noreferrer"
               target="_blank"
-              :title="t('partnerssection.go-to-signal').toString()"
-              @click="signal()"
+              :title="`${t('partnerssection.go-to-signal')} - ${t('new-window')}`"
+              @click="AnalyticsService.openMaSecurite()"
             >
               {{ t('partnerssection.signal-btn') }}
             </a>
@@ -116,11 +109,6 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import { I18nT, useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-
-function signal() {
-  AnalyticsService.openMaSecurite()
-  window.open('https://www.service-public.fr/particuliers/vosdroits/N31138#2', '_blank', 'noopener')
-}
 </script>
 
 <style lang="scss" scoped>

@@ -1,7 +1,7 @@
 <template>
   <NakedCard class="fr-p-md-5w fr-m-3v fr-grid-col">
     <TenantBadge />
-    <h6>{{ t('income') }}</h6>
+    <h1 class="fr-h6">{{ t('income') }}</h1>
     <RouterView />
   </NakedCard>
 </template>

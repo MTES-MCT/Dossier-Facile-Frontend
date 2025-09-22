@@ -3,6 +3,7 @@
     <i18n-t tag="p" keypath="first-declaration-info" class="fr-mb-0">
       <a
         href="https://www.impots.gouv.fr/particulier/je-declare-pour-la-premiere-fois-je-declare-chaque-annee"
+        :title="`impots.gouv.fr - ${t('i-declare-first')} - ${t('new-window')}`"
         target="_blank"
         >impots.gouv.fr - {{ t('i-declare-first') }}</a
       >

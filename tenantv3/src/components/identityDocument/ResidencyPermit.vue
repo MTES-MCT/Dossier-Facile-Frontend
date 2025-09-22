@@ -7,6 +7,7 @@
   </ul>
   <a
     href="https://www.service-public.fr/particuliers/vosdroits/N110#2_0"
+    :title="`${t('permit-list')} - ${t('new-window')}`"
     target="_blank"
     class="fr-mb-3w inline-block"
     >{{ t('permit-list') }}</a

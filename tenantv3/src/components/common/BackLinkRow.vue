@@ -1,12 +1,17 @@
 <template>
-  <p class="display--flex align-items--center">
-    <RiCheckboxCircleLine color="var(--primary)" size="20px" class="fr-mr-1w no-shrink" />
-    <span>{{ label }}</span>
+  <div class="display--flex align-items--center fr-mb-3w">
+    <RiCheckboxCircleLine
+      color="var(--primary)"
+      size="20px"
+      class="fr-mr-1w no-shrink"
+      aria-hidden="true"
+    />
+    <h2 class="fr-text--md fr-text--regular fr-mb-0">{{ label }}</h2>
     <DfButton tertiary-no-outline class="fr-ml-auto" :disabled="disabled" @click="$emit('click')">
-      {{ t('edit') }} <RiArrowGoBackLine size="1rem" class="fr-ml-1w" />
+      {{ t('edit') }} <RiArrowGoBackLine size="1rem" class="fr-ml-1w" aria-hidden="true" />
     </DfButton>
     <slot></slot>
-  </p>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -10,14 +10,14 @@ const { t } = useI18n()
   <NakedCard class="fr-pl-3w fr-pr-3w">
     <div style="display: flex; justify-content: space-between">
       <div>
-        <h6>{{ t('gmbi-ad.title') }}</h6>
+        <h2 class="fr-h6">{{ t('gmbi-ad.title') }}</h2>
         <a href="https://cfspart.impots.gouv.fr/enp/gmbi.do">
           <DfButton class="gmbi-button" :primary="true"
             >{{ t('gmbi-ad.call-to-action') }}
           </DfButton>
         </a>
       </div>
-      <img src="../assets/logo_GMBI.svg" alt="Logo GMBI" />
+      <img src="../assets/logo_GMBI.svg" alt="Gérer mes biens immobiliers" />
     </div>
     <div class="fr-mt-2w made-by">
       <span class="fr-text--sm">{{ t('gmbi-ad.made-by') }}</span>

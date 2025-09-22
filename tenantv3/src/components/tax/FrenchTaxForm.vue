@@ -11,7 +11,12 @@
   </p>
   <div class="fr-highlight fr-ml-0 fr-mb-3w">
     <i18n-t tag="p" :keypath="textKey + '.download-tax-notice'" class="fr-mb-0">
-      <a href="https://www.impots.gouv.fr" target="_blank">impots.gouv.fr</a>
+      <a
+        href="https://www.impots.gouv.fr"
+        :title="`impots.gouv.fr - ${t('new-window')}`"
+        target="_blank"
+        >impots.gouv.fr</a
+      >
     </i18n-t>
   </div>
   <DfButton class="mx-auto fr-mb-3w" @click="showModal = true"
@@ -24,7 +29,7 @@
     </template>
     <template #body>
       <p>
-        <RiAlertLine class="color--primary fr-mr-1v align-v" />
+        <RiAlertLine class="color--primary fr-mr-1v align-v" aria-hidden="true" />
         {{ t('modal.pay-attention-to-title') }}
       </p>
       <h3 class="fr-h4 fr-text-default--warning fr-mb-1w">{{ t('modal.refused-doc') }}</h3>

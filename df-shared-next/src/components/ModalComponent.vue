@@ -15,7 +15,7 @@
       >
         Fermer
       </button>
-      <header :id="titleId" class="modal-header" v-show="slots.header">
+      <header v-show="slots.header" :id="titleId" class="modal-header">
         <slot name="header"><span style="visibility: hidden">title</span></slot>
       </header>
       <section :id="descriptionId" class="modal-body">

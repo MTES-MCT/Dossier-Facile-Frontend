@@ -9,14 +9,16 @@ export function useTenantStep() {
   const router = useRouter()
   const residencyLink = useResidencyLink()
   const identityDocumentLink = useIdentityDocumentLink()
-  const goToStep = (step: number) => {
+  const getPage = (step: number) => {
     const name = routeNames[step]
     if (name === 'TenantIdentification') {
-      router.push(identityDocumentLink.value)
-      return
+      return identityDocumentLink.value
     }
-    const to = name === 'TenantResidency' ? residencyLink.value : { name }
-    router.push(to)
+    if (name === 'TenantResidency') {
+      return residencyLink.value
+    }
+    return { name }
   }
-  return { goToStep }
+  const goToStep = (step: number) => router.push(getPage(step))
+  return { getPage, goToStep }
 }

@@ -105,15 +105,15 @@
                 </p>
 
                 <ul>
-                  <li>
+                  <li class="fr-mb-2w">
                     <b> la bienveillance : </b> missionnés par l’État, notre seul objectif est de
                     vous rendre service. Vos données ne sont ni stockées, ni revendues. Nous ne
                     faisons pas non plus de publicité, afin de rendre votre expérience la plus
-                    agréable possible. <br /><br />
+                    agréable possible.
                   </li>
-                  <li>
+                  <li class="fr-mb-2w">
                     <b> la transparence : </b> de notre code source à nos chiffres, vous avez accès
-                    à tout moment aux données qui nous concernent : nous n’avons rien à cacher !<br /><br />
+                    à tout moment aux données qui nous concernent : nous n’avons rien à cacher !
                   </li>
                   <li>
                     <b> le réalisme : </b> chez DossierFacile, on ne vous promet pas la Lune, mais

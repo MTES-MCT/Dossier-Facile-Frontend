@@ -1,9 +1,12 @@
 <template>
   <BackLinkRow :label="t('no-activity')" :to="parent" category="NO_ACTIVITY" />
   <i18n-t tag="p" :keypath="'please-provide-' + suffix">
-    <a href="https://www.service-public.fr/simulateur/calcul/AttestationHonneur" target="_blank">{{
-      t('model')
-    }}</a>
+    <a
+      href="https://www.service-public.fr/simulateur/calcul/AttestationHonneur"
+      :title="`${t('model')} - ${t('new-window')}`"
+      target="_blank"
+      >{{ t('model') }}</a
+    >
   </i18n-t>
   <UploadFilesMainActivity category="NO_ACTIVITY" />
 </template>

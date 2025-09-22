@@ -3,13 +3,13 @@
     class="fr-grid-row file-list-item fr-p-3w"
     :class="{ 'not-validated': documentStatus() != 'VALIDATED' }"
   >
-    <div class="fr-col-7 fr-col-md-5 fr-mb-2w">
+    <p :id class="fr-col-7 fr-col-md-5 fr-mb-2w">
       {{ label }}
       <br />
       <span v-if="subLabel" class="fr-text--xs">
         {{ subLabel }}
       </span>
-    </div>
+    </p>
     <div class="fr-col-5 fr-col-md-3 tag-container fr-mb-2w">
       <div style="align-self: center">
         <ColoredTag :text="getTagLabel()" :status="documentStatus()"></ColoredTag>
@@ -19,34 +19,44 @@
       </div>
     </div>
     <div v-if="enableDownload || canEdit" class="fr-col-12 fr-col-md-4 fr-btns-group--right">
-      <DfButton
+      <a
         v-if="
           enableDownload &&
           document &&
           document.name &&
           (!showValidated || document.documentStatus === 'VALIDATED')
         "
-        class="fr-btn--icon-left fr-fi-eye-line fr-mr-1w"
-        @click="openDocument()"
+        :href="document.name"
+        :title="t('filerowlistitem.see-title')"
+        target="_blank"
+        :aria-describedby="id"
+        class="fr-btn fr-btn--secondary fr-btn--icon-left fr-fi-eye-line fr-mr-1w"
       >
         {{ t('filerowlistitem.see') }}
-      </DfButton>
+      </a>
 
-      <DfButton v-if="canEdit" class="fr-btn--icon-left fr-icon-pencil-line" @click="clickEdit()">
+      <RouterLink
+        v-if="canEdit && to"
+        :to
+        type="button"
+        class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-pencil-line"
+        :aria-describedby="id"
+        @click="$emit('click-edit')"
+      >
         {{ t('filerowlistitem.edit') }}
-      </DfButton>
+      </RouterLink>
     </div>
   </li>
 </template>
 
 <script setup lang="ts">
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import { useI18n } from 'vue-i18n'
+import { useId } from 'vue'
+import type { RouteLocationRaw } from 'vue-router'
 
-const { t } = useI18n()
-const emit = defineEmits<{ 'click-edit': [] }>()
+defineEmits<{ 'click-edit': [] }>()
 
 const props = withDefaults(
   defineProps<{
@@ -57,6 +67,7 @@ const props = withDefaults(
     tagLabel?: string
     showValidated?: boolean
     canEdit?: boolean
+    to?: RouteLocationRaw
   }>(),
   {
     subLabel: undefined,
@@ -64,13 +75,13 @@ const props = withDefaults(
     enableDownload: true,
     tagLabel: undefined,
     showValidated: false,
-    canEdit: false
+    canEdit: false,
+    to: undefined
   }
 )
 
-function clickEdit() {
-  emit('click-edit')
-}
+const { t } = useI18n()
+const id = useId()
 
 function getTagLabel() {
   if (props.tagLabel) {
@@ -84,10 +95,6 @@ function documentStatus() {
     return props.document.documentStatus ? props.document.documentStatus : 'EMPTY'
   }
   return 'EMPTY'
-}
-
-function openDocument() {
-  window.open(props.document?.name, '_blank')
 }
 </script>
 

@@ -18,30 +18,34 @@
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
           <ul class="without-padding">
             <FileRowListItem
+              :to="getGuarantorPage(1, g)"
               :label="t('guarantorssection.identification')"
               :document="document(g, 'IDENTIFICATION')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
-              @click-edit="setGuarantorSubStep(1, g)"
+              @click-edit="AnalyticsService.editFromAccount(1)"
             />
             <FileRowListItem
+              :to="getGuarantorPage(2, g)"
               :label="t('guarantorssection.residency')"
               :document="document(g, 'RESIDENCY')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
-              @click-edit="setGuarantorSubStep(2, g)"
+              @click-edit="AnalyticsService.editFromAccount(2)"
             />
             <FileRowListItem
+              :to="getGuarantorPage(3, g)"
               :label="t('guarantorssection.professional')"
               :document="document(g, 'PROFESSIONAL')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
-              @click-edit="setGuarantorSubStep(3, g)"
+              @click-edit="AnalyticsService.editFromAccount(3)"
             />
             <span v-if="documents(g, 'FINANCIAL').length > 1">
               <FileRowListItem
                 v-for="(doc, k) in documents(g, 'FINANCIAL')"
                 :key="doc.id"
+                :to="getGuarantorPage(4, g)"
                 :label="
                   t('guarantorssection.financial') +
                   (' ' + (k + 1) + ' - ') +
@@ -50,54 +54,59 @@
                 :document="doc"
                 :can-edit="canEdit"
                 :enable-download="enableDownload"
-                @click-edit="setGuarantorSubStep(4, g)"
+                @click-edit="AnalyticsService.editFromAccount(4)"
               />
             </span>
             <FileRowListItem
               v-else
+              :to="getGuarantorPage(4, g)"
               :label="t('guarantorssection.financial')"
               :document="document(g, 'FINANCIAL')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
-              @click-edit="setGuarantorSubStep(4, g)"
+              @click-edit="AnalyticsService.editFromAccount(4)"
             />
             <FileRowListItem
+              :to="getGuarantorPage(5, g)"
               :label="t('guarantorssection.tax')"
               :document="document(g, 'TAX')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
-              @click-edit="setGuarantorSubStep(5, g)"
+              @click-edit="AnalyticsService.editFromAccount(5)"
             />
           </ul>
         </div>
         <div v-else-if="g.typeGuarantor === 'ORGANISM'">
           <ul class="without-padding">
             <FileRowListItem
+              :to="getGuarantorPage(1, g)"
               :label="t('guarantorssection.organism-identification')"
               :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
-              @click-edit="setGuarantorSubStep(1, g)"
+              @click-edit="AnalyticsService.editFromAccount(1)"
             />
           </ul>
         </div>
         <div v-else-if="g.typeGuarantor === 'LEGAL_PERSON'">
           <ul class="without-padding">
             <FileRowListItem
+              :to="getGuarantorPage(0, g)"
               :label="t('guarantorssection.identification-legal-person')"
               :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
-              @click-edit="setGuarantorSubStep(0, g)"
+              @click-edit="AnalyticsService.editFromAccount(0)"
             />
           </ul>
           <ul class="without-padding">
             <FileRowListItem
+              :to="getGuarantorPage(1, g)"
               :label="t('guarantorssection.identity-represent')"
               :document="document(g, 'IDENTIFICATION')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
-              @click-edit="setGuarantorSubStep(1, g)"
+              @click-edit="AnalyticsService.editFromAccount(1)"
             />
           </ul>
         </div>
@@ -139,7 +148,7 @@
             href="https://www.visale.fr/#!/"
             rel="noreferrer"
             target="_blank"
-            :title="t('guarantorssection.go-to-visale').toString()"
+            :title="t('guarantorssection.go-to-visale')"
           >
             <div class="fr-tile bg-purple">
               <div class="inline-block-flex space-between">
@@ -233,10 +242,8 @@ function documents(g: Guarantor, docType: string): DfDocument[] {
   )
 }
 
-function setGuarantorSubStep(n: number, g: Guarantor) {
-  AnalyticsService.editFromAccount(n)
-  const page = store.setGuarantorPage(g, n, props.tenant?.id)
-  router.push(page)
+function getGuarantorPage(n: number, g: Guarantor) {
+  return store.getGuarantorPage(g, n, props.tenant?.id)
 }
 
 function setAddGuarantorStep() {

@@ -110,7 +110,7 @@
         directement sur le site du ministère de l'Intérieur
         <a
           href="https://www.masecurite.interieur.gouv.fr/fr"
-          title="Site de Ma Sécurité"
+          title="Site de Ma Sécurité - Ouvre une nouvelle fenêtre"
           target="_blank"
           rel="noopener"
           >Ma Sécurité
@@ -129,7 +129,7 @@
         (démarche directement en ligne, sur le site de la
         <a
           href="https://particuliers.banque-france.fr/info-banque-assurance/arnaques-les-bons-reflexes/usurpation-didentite-et-problemes-bancaires-que-faire"
-          title="Site de la banque de france"
+          title="Site de la banque de france - Ouvre une nouvelle fenêtre"
           target="_blank"
           rel="noopener"
           >Banque de France</a
@@ -159,7 +159,8 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article13.webp'
 
-const title = 'L’usurpation d’identité en France : comment la prévenir et comment agir ?'
+const title =
+  'L’usurpation d’identité en France : comment la prévenir et comment agir ? - DossierFacile'
 const description =
   'L’usurpation d’identité consiste à utiliser, sans votre accord, des informations permettant de vous identifier.'
 useHead({

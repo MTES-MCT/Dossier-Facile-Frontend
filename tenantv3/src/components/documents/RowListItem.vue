@@ -1,51 +1,39 @@
 <template>
   <li class="fr-grid-row file-list-item fr-p-3w">
-    <div class="fr-col-12 fr-col-md-10 fr-mb-2w">
-      {{ props.label }}
+    <p :id class="fr-col-12 fr-col-md-8 fr-mb-2w">
+      {{ label }}
       <br />
-      <span v-if="props.subLabel" class="fr-text--sm">
-        {{ props.subLabel }}
+      <span v-if="subLabel" class="fr-text--sm">
+        {{ subLabel }}
       </span>
-    </div>
-    <div class="mobile fr-col-12 fr-col-md-2">
-      <ul class="fr-btns-group">
-        <li>
-          <DfButton v-if="canEdit" @click="$emit('click-edit')">
-            <RiPencilLine class="fr-mr-1w" size="1rem" aria-hidden="true" />
-            {{ t('filerowlistitem.edit') }}
-          </DfButton>
-        </li>
-      </ul>
-    </div>
-    <div class="desktop fr-col-12 fr-col-md-2 fr-btns-group--right">
-      <DfButton v-if="canEdit" @click="$emit('click-edit')">
-        <RiPencilLine class="fr-mr-1w" size="1rem" aria-hidden="true" />
-        {{ t('filerowlistitem.edit') }}
-      </DfButton>
-    </div>
+    </p>
+    <RouterLink
+      v-if="canEdit && to"
+      :to
+      class="fr-btn fr-btn--secondary large-btn fr-ml-auto"
+      :aria-describedby="id"
+    >
+      <RiPencilLine class="fr-mr-1w" size="1rem" aria-hidden="true" />
+      {{ t('filerowlistitem.edit') }}
+    </RouterLink>
   </li>
 </template>
 
 <script setup lang="ts">
 import { RiPencilLine } from '@remixicon/vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import { useId } from 'vue'
 import { useI18n } from 'vue-i18n'
+import type { RouteLocationRaw } from 'vue-router'
 
-defineEmits<{ 'click-edit': [] }>()
-
-const props = withDefaults(
-  defineProps<{
-    label: string
-    subLabel?: string
-    canEdit?: boolean
-  }>(),
-  {
-    canEdit: false,
-    subLabel: undefined
-  }
-)
+defineProps<{
+  label: string
+  subLabel?: string
+  to?: RouteLocationRaw
+  canEdit?: boolean
+}>()
 
 const { t } = useI18n()
+const id = useId()
 </script>
 
 <style lang="scss">
@@ -63,9 +51,11 @@ const { t } = useI18n()
   min-height: 4rem;
 }
 
-.mobile {
-  @media all and (max-width: 768px) {
-    display: block !important;
+.large-btn {
+  justify-content: center;
+  flex-grow: 1;
+  @media (min-width: 768px) {
+    flex-grow: 0;
   }
 }
 </style>

@@ -134,7 +134,7 @@ function getLetterStyle() {
       <p>
         <label class="fr-label" for="rent"
           >{{ t('propertydiagnostic.energy-consumption') }}
-          <span style="color: red">*</span> :</label
+          <span class="color--required">*</span> :</label
         >
         <Field
           id="energy"
@@ -163,7 +163,8 @@ function getLetterStyle() {
       </p>
       <p>
         <label class="fr-label" for="charges"
-          >{{ t('propertydiagnostic.co2-emission') }} <span style="color: red">*</span> :</label
+          >{{ t('propertydiagnostic.co2-emission') }}
+          <span class="color--required">*</span> :</label
         >
         <Field
           id="co2"
@@ -192,7 +193,7 @@ function getLetterStyle() {
       </p>
       <p>
         <label class="fr-label" for="charges"
-          >{{ t('propertydiagnostic.date-dpe') }} <span style="color: red">*</span> :</label
+          >{{ t('propertydiagnostic.date-dpe') }} <span class="color--required">*</span> :</label
         >
         <Field
           id="dpeDate"
@@ -244,7 +245,17 @@ function getLetterStyle() {
                 'fr-input--error': !meta.valid
               }"
             />
-            <label for="dpeNotRequired" v-html="t('propertydiagnostic.no-dpe')"></label>
+            <label for="dpeNotRequired">
+              {{ t('propertydiagnostic.no-dpe') }}
+              <a
+                class="fr-ml-1v"
+                href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006896276"
+                :title="`${t('propertydiagnostic.learn-more')} - ${t('new-window')}`"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ t('propertydiagnostic.learn-more') }}</a
+              >
+            </label>
           </Field>
           <ErrorMessage v-slot="{ message }" name="authorize">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>

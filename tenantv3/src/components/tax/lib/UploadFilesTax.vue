@@ -27,7 +27,7 @@
     <template #body>
       <div class="fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
         <h1 class="fr-h4 display--flex align-items--center">
-          <RiAlarmWarningLine class="bold-icon fr-mr-1w" />
+          <RiAlarmWarningLine class="bold-icon fr-mr-1w" aria-hidden="true" />
           {{ t('avis-detected') }}
         </h1>
         <p>
@@ -38,6 +38,7 @@
         <p class="fr-mt-2w fr-mb-0">
           <a
             href="https://aide.dossierfacile.logement.gouv.fr/fr/article/5-avis-dimposition-eg82wt/"
+            :title="`${t('avis-link-to-doc')} - ${t('new-window')}`"
             rel="noopener"
             target="_blank"
             >{{ t('avis-link-to-doc') }}</a

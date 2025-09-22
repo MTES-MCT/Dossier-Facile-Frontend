@@ -17,6 +17,7 @@ declare module 'vue-router' {
     requireAuth?: boolean
     requiresComplete?: boolean
     title: string
+    analyticsIgnore?: boolean
   }
 }
 
@@ -59,7 +60,8 @@ const routes = [
     meta: {
       title: 'Confirmation de compte propriétaire - DossierFacile',
       requiresAuth: false,
-      hasFooter: true
+      hasFooter: true,
+      analyticsIgnore: true
     },
     component: () => import('../components/account/ConfirmAccountPage.vue')
   },
@@ -78,7 +80,8 @@ const routes = [
     name: 'ChangePassword',
     meta: {
       title: 'Nouveau mot de passe - DossierFacile',
-      hideForAuth: true
+      hideForAuth: true,
+      analyticsIgnore: true
     },
     component: () => import('../components/account/ChangePasswordPage.vue')
   },
@@ -119,7 +122,8 @@ const routes = [
       title: 'Candidater - DossierFacile',
       requiresAuth: false,
       anonymous: true,
-      hasFooter: true
+      hasFooter: true,
+      analyticsIgnore: true
     },
     component: () => import('../components/property/ConnectProperty.vue')
   },
@@ -130,7 +134,8 @@ const routes = [
       title: 'Candidater - DossierFacile',
       requiresAuth: false,
       anonymous: true,
-      hasFooter: true
+      hasFooter: true,
+      analyticsIgnore: true
     },
     component: () => import('../components/property/ConnectPropertyValidate.vue')
   },

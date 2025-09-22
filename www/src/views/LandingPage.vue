@@ -102,7 +102,12 @@
                 <p>{{ t('s2.p3') }}</p>
               </li>
             </ol>
-            <a :href="DOCS_URL" target="_blank" class="fr-btn fr-btn--secondary fr-mt-2w">
+            <a
+              :href="DOCS_URL"
+              :title="`${t('docs')} - ${t('new-window')}`"
+              target="_blank"
+              class="fr-btn fr-btn--secondary fr-mt-2w"
+            >
               <span class="text-center full-width">
                 {{ t('docs') }}
               </span>
@@ -237,7 +242,7 @@ import { useI18n } from 'vue-i18n'
 import { useHead } from '@unhead/vue'
 import image from '../assets/icons/justif.webp'
 
-const title = 'DossierFacile, le dossier de location numérique de l’État'
+const title = 'Accueil - DossierFacile, le dossier de location numérique de l’État'
 const description =
   "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
 useHead({

@@ -5,64 +5,70 @@
       <ul class="fr-p-0">
         <RowListItem
           v-if="!isCotenant"
+          :to="{ name: 'ValidateFile' }"
           :label="t('tenantpanel.clarification-title')"
           :sub-label="'clarification' in tenant ? tenant.clarification || '' : ''"
           :can-edit="showButtons"
-          @click-edit="goToValidationPage()"
         />
         <RowListItem
+          :to="tenantNamePage"
           :label="UtilsService.tenantFullName(props.tenant)"
           :can-edit="showButtons"
-          @click-edit="gotoTenantName()"
         />
         <FileRowListItem
+          :to="identityDocumentPage"
           :label="t('tenantpanel.identification')"
           :document="document(props.tenant, 'IDENTIFICATION')"
           :can-edit="showButtons"
           :enable-download="showButtons"
-          @click-edit="goToIdentityDocument"
+          @click-edit="AnalyticsService.editFromAccount(1)"
         />
         <FileRowListItem
+          :to="residencyPage"
           :label="t('tenantpanel.residency')"
           :document="document(props.tenant, 'RESIDENCY')"
           :can-edit="showButtons"
           :enable-download="showButtons"
-          @click-edit="goToResidency"
+          @click-edit="AnalyticsService.editFromAccount(2)"
         />
         <FileRowListItem
+          :to="mainActivityPage"
           :label="t('tenantpanel.professional')"
           :sub-label="getProfessionalSubCategory(props.tenant)"
           :document="document(props.tenant, 'PROFESSIONAL')"
           :can-edit="showButtons"
           :enable-download="showButtons"
-          @click-edit="goToMainActivity"
+          @click-edit="AnalyticsService.editFromAccount(3)"
         />
         <span v-if="documents(props.tenant, 'FINANCIAL').length > 1">
           <FileRowListItem
             v-for="doc in documents(props.tenant, 'FINANCIAL')"
             :key="doc.id"
+            :to="financialPage"
             :label="t('tenantpanel.financial')"
             :sub-label="t(`documents.subcategory.${doc.documentSubCategory}`)"
             :document="doc"
             :can-edit="showButtons"
             :enable-download="showButtons"
-            @click-edit="setTenantStep(4)"
+            @click-edit="AnalyticsService.editFromAccount(4)"
           />
         </span>
         <FileRowListItem
           v-else
+          :to="financialPage"
           :label="t('tenantpanel.financial')"
           :document="document(props.tenant, 'FINANCIAL')"
           :can-edit="showButtons"
           :enable-download="showButtons"
-          @click-edit="setTenantStep(4)"
+          @click-edit="AnalyticsService.editFromAccount(4)"
         />
         <FileRowListItem
+          :to="taxPage"
           :label="t('tenantpanel.tax')"
           :document="document(props.tenant, 'TAX')"
           :can-edit="showButtons"
           :enable-download="showButtons"
-          @click-edit="goToTax"
+          @click-edit="AnalyticsService.editFromAccount(5)"
         />
       </ul>
     </div>
@@ -82,13 +88,10 @@ import { AnalyticsService } from '../../services/AnalyticsService'
 import GuarantorsSection from '../../components/account/GuarantorsSection.vue'
 import RowListItem from '../documents/RowListItem.vue'
 import FileRowListItem from '../../components/documents/FileRowListItem.vue'
-import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { UtilsService } from '../../services/UtilsService'
 import { computed } from 'vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import { useTenantStep } from '../residency/lib/useTenantStep'
-import { COUPLE_ROUTES } from '../documents/cotenant/coupleRoutes'
 import { DocumentService } from '@/services/DocumentService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { makeActivityLink } from '../mainActivity/lib/useMainActivityLink'
@@ -108,86 +111,75 @@ const props = withDefaults(
   }
 )
 
-const router = useRouter()
 const { t } = useI18n()
-const { goToStep } = useTenantStep()
 const store = useTenantStore()
 
 const showButtons = computed(() => {
   return !props.isCotenant || props.isCouple
 })
 
-function gotoTenantName() {
+const tenantNamePage = computed(() => {
   if (props.isCotenant) {
-    router.push({
+    return {
       name: 'CoupleName',
       params: {
         tenantId: props.tenant?.id.toString(),
         step: '4'
       }
-    })
+    }
   } else {
-    router.push({ name: 'TenantName' })
+    return { name: 'TenantName' }
   }
-}
+})
 
-function goToValidationPage() {
-  router.push({ name: 'ValidateFile' })
-}
-
-function goToIdentityDocument() {
-  AnalyticsService.editFromAccount(1)
+const identityDocumentPage = computed(() => {
   const tenant = props.isCotenant ? props.tenant : store.user
   const path = props.isCotenant
     ? `/documents-colocataire/${props.tenant.id}/4/1`
     : '/documents-locataire/1'
   const doc = tenant.documents?.find((d) => d.documentCategory === 'IDENTIFICATION')
-  router.push(makeIdentityDocumentLink(doc, path))
-}
+  return makeIdentityDocumentLink(doc, path)
+})
 
-function goToResidency() {
-  AnalyticsService.editFromAccount(2)
+const residencyPage = computed(() => {
   const tenant = props.isCotenant ? props.tenant : store.user
   const path = props.isCotenant
     ? `/documents-colocataire/${props.tenant.id}/4/2`
     : '/documents-locataire/2'
-  router.push(makeResidencyLink(tenant, path))
-}
+  return makeResidencyLink(tenant, path)
+})
 
-function goToMainActivity() {
-  AnalyticsService.editFromAccount(3)
+const mainActivityPage = computed(() => {
   const tenant = props.isCotenant ? props.tenant : store.user
   const doc = DocumentService.getDoc('PROFESSIONAL', tenant.documents)
   const path = props.isCotenant
     ? `/documents-colocataire/${props.tenant.id}/4/3`
     : '/documents-locataire/3'
-  router.push(makeActivityLink(doc?.documentSubCategory, path))
-}
+  return makeActivityLink(doc?.documentSubCategory, path)
+})
 
-function goToTax() {
-  AnalyticsService.editFromAccount(5)
+const taxPage = computed(() => {
   const tenant = props.isCotenant ? props.tenant : store.user
   const doc = DocumentService.getDoc('TAX', tenant.documents)
   const path = props.isCotenant
     ? `/documents-colocataire/${props.tenant.id}/4/5`
     : '/documents-locataire/5'
-  router.push(makeTaxLink(doc, path))
-}
+  return makeTaxLink(doc, path)
+})
 
-function setTenantStep(n: number) {
-  AnalyticsService.editFromAccount(n)
+const financialPage = computed(() => {
   if (props.isCotenant) {
-    router.push({
-      name: COUPLE_ROUTES[n],
+    return {
+      name: 'CoupleFinancial',
       params: {
         tenantId: props.tenant?.id.toString(),
         step: '4'
       }
-    })
+    }
   } else {
-    goToStep(n - 1)
+    return { name: 'TenantFinancial' }
   }
-}
+})
 
 function document(u: CoTenant, s: string) {
   return u.documents?.find((d) => {

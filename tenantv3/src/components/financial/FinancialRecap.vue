@@ -2,7 +2,7 @@
   <NakedCard class="fr-p-md-5w fr-m-3v fr-mb-3w fr-grid-col">
     <GuarantorBadge v-if="state.textKey.endsWith('guarantor')" />
     <TenantBadge v-else />
-    <h6>{{ t('income.' + state.textKey) }}</h6>
+    <h1 class="fr-h6">{{ t('income.' + state.textKey) }}</h1>
     <div class="fr-highlight fr-ml-0">
       <i18n-t keypath="documents-provided" tag="p">
         <strong>{{ t('financial-means') }}</strong>
@@ -16,7 +16,7 @@
     </div>
     <div class="fr-grid-col income-wrapper">
       <div v-if="duplicateIds.size > 0" class="duplicate-alert fr-text--xs">
-        <RiAlertFill size="1rem" style="flex-shrink: 0" />
+        <RiAlertFill size="1rem" style="flex-shrink: 0" aria-hidden="true" />
         <span>{{ t('duplicate-alert') }}</span>
       </div>
       <div
@@ -26,28 +26,28 @@
         :class="{ duplicate: doc.id && duplicateIds.has(doc.id) }"
       >
         <div class="first-row">
-          <span class="fr-text--lg fr-mb-0 bold">{{ categoryLabel(doc) }}</span>
+          <h2 class="fr-text--lg fr-mb-0">{{ categoryLabel(doc) }}</h2>
           <span>{{ doc.monthlySum }}€ {{ t('net-per-month') }}</span>
         </div>
         <span v-if="doc.documentCategoryStep" class="fr-text--sm fr-mb-0 text-grey">{{
           STEP_LABEL[doc.documentCategoryStep]
         }}</span>
         <span v-if="doc.documentStatus === 'DECLINED'" class="pill declined">
-          <RiAlertFill size="1rem" />
+          <RiAlertFill size="1rem" aria-hidden="true" />
           {{ t('declined') }}</span
         >
         <span v-else-if="doc.documentStatus === 'VALIDATED'" class="pill validated">
-          <RiCheckboxCircleFill size="1rem" />
+          <RiCheckboxCircleFill size="1rem" aria-hidden="true" />
           {{ t('validated') }}</span
         >
         <span v-else-if="doc.documentStatus === 'TO_PROCESS'" class="pill to-process">
-          <RiTimeFill size="1rem" />
+          <RiTimeFill size="1rem" aria-hidden="true" />
           {{ t('to-process') }}</span
         >
         <div class="fr-ml-auto fr-mt-2w">
           <router-link :to="makeLink(doc)" class="fr-link fr-mr-4w"
             >{{ t('edit') }}
-            <RiEditLine size="1rem" />
+            <RiEditLine size="1rem" aria-hidden="true" />
           </router-link>
           <button
             ref="delete-btn"
@@ -56,7 +56,7 @@
             @click="showDeleteModale(doc)"
           >
             {{ t('delete') }}
-            <RiDeleteBinLine size="1rem" />
+            <RiDeleteBinLine size="1rem" aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -68,7 +68,7 @@
       :class="{ 'fr-btn--secondary': financialDocuments.length > 0 }"
       @click="AnalyticsService.addIncome(state.category)"
       >{{ t(financialDocuments.length > 0 ? 'add-another-income' : 'add-income') }}
-      <RiAddFill class="tr-5" size="20"
+      <RiAddFill class="tr-5" size="20" aria-hidden="true"
     /></router-link>
   </NakedCard>
   <SimulationCaf class="fr-mx-3v" />

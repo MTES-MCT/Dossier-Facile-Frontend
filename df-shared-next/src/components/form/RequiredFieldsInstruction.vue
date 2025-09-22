@@ -2,7 +2,7 @@
   <small>
     <i18n-t keypath="instruction">
       <template #asterix>
-        <span style="color: red">*</span>
+        <span class="color--required">*</span>
       </template>
     </i18n-t>
   </small>

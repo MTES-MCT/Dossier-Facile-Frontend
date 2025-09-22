@@ -13,9 +13,12 @@
           <strong>{{ t('kbis') }}</strong>
         </template>
         <template #link>
-          <a href="https://entreprendre.service-public.fr/vosdroits/F21000" target="_blank">{{
-            t('get-kbis')
-          }}</a>
+          <a
+            href="https://entreprendre.service-public.fr/vosdroits/F21000"
+            :title="`${t('get-kbis')} - ${t('new-window')}`"
+            target="_blank"
+            >{{ t('get-kbis') }}</a
+          >
         </template>
       </i18n-t>
     </li>
@@ -25,9 +28,12 @@
           <strong>{{ t('sirene') }}</strong>
         </template>
         <template #link>
-          <a href="https://entreprendre.service-public.fr/vosdroits/R17969" target="_blank">{{
-            t('get-sirene')
-          }}</a>
+          <a
+            href="https://entreprendre.service-public.fr/vosdroits/R17969"
+            :title="`${t('get-sirene')} - ${t('new-window')}`"
+            target="_blank"
+            >{{ t('get-sirene') }}</a
+          >
         </template>
       </i18n-t>
     </li>
@@ -37,9 +43,12 @@
           <strong>{{ t('registration') }}</strong>
         </template>
         <template #link>
-          <a href="https://entreprendre.service-public.fr/vosdroits/R19859" target="_blank">{{
-            t('get-registration-form')
-          }}</a>
+          <a
+            href="https://entreprendre.service-public.fr/vosdroits/R19859"
+            :title="`${t('get-registration-form')} - ${t('new-window')}`"
+            target="_blank"
+            >{{ t('get-registration-form') }}</a
+          >
         </template>
       </i18n-t>
     </li>

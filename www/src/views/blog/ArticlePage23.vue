@@ -12,11 +12,7 @@
       transparentes. Dans cet article, nous allons explorer des techniques pour repérer les signes
       de potentielles falsifications.
     </p>
-    <img
-      class="fr-mb-3w"
-      alt="Aperçu du site DossierFacile"
-      src="../../assets/images/blog-article23.webp"
-    />
+    <img class="fr-mb-3w" alt="" src="../../assets/images/blog-article23.webp" />
     <h2 class="fr-h6">1. Vérifiez la cohérence des montants</h2>
     <p>
       Les fausses fiches de paie peuvent contenir des montants irréalistes ou incohérents. Comparez
@@ -100,9 +96,13 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article23.webp'
 
-const title = 'DossierFacile.fr devient enfin DossierFacile.logement.gouv.fr !'
+const title = '[Propriétaires] Comment détecter une fausse fiche de paie ? - DossierFacile'
 const description =
-  'DossierFacile est donc enfin accessible depuis l’URL DossierFacile.logement.gouv.fr, une adresse qui reflète mieux notre mission de service public'
+  'Dans le monde de l’immobilier locatif, la vérification des fiches de paie est une étape cruciale ' +
+  'pour les propriétaires et les agences immobilières afin d’évaluer la solvabilité des locataires ' +
+  'potentiels. Cependant, avec l’augmentation des tentatives de fraude, la détection des fausses ' +
+  'fiches de paie est devenue une compétence essentielle pour assurer des locations transparentes. ' +
+  'Dans cet article, nous allons explorer des techniques pour repérer les signes de potentielles falsifications.'
 useHead({
   title: title,
   meta: [

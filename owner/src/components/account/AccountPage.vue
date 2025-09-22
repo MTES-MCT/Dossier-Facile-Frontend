@@ -9,8 +9,8 @@ const { t } = useI18n()
   <div class="name-container fr-container fr-container-full-size bg--grey fr-grid-row">
     <div class="fr-col-xs-12 fr-col-md-4 bg--dark-blue">
       <div class="title-container">
-        <h2>{{ t('account.title') }}</h2>
-        <h3 class="fr-h5">{{ t('account.subtitle') }}</h3>
+        <h1 class="fr-h2">{{ t('account.title') }}</h1>
+        <p class="fr-h5">{{ t('account.subtitle') }}</p>
       </div>
     </div>
     <div class="fr-col-md-8 fr-col-xs-12 fr-grid-row fr-grid-row--center d-p-200">
@@ -22,8 +22,8 @@ const { t } = useI18n()
 </template>
 
 <style scoped lang="scss">
-h3,
-h2 {
+h1,
+p {
   color: var(--text-inverted-grey);
 }
 .title-container {

@@ -14,7 +14,7 @@
       Si la caution ne rembourse pas les dettes locatives,
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F1748"
-        title="Saisie conservatoire"
+        title="Saisie conservatoire - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >les biens personnels de la caution, ses revenus</a
@@ -22,7 +22,7 @@
       et son
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F16987"
-        title="Saisie immobilière"
+        title="Saisie immobilière - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >logement</a
@@ -60,7 +60,7 @@
     <p>
       Il existe une caution gratuite proposée par Action Logement, la “<a
         href="https://www.visale.fr/"
-        title="La garantie visale"
+        title="La garantie visale - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >garantie Visale</a
@@ -68,7 +68,7 @@
 
       <a
         href="https://www.visale.fr/visale-pour-les-locataires/eligibilite/"
-        title="Eligibilité visale"
+        title="Eligibilité visale - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >Pour y avoir droit, vous devez être âgé de moins de 30 ans, ou être salarié du secteur
@@ -79,7 +79,7 @@
     <p>
       <a
         href="https://www.actionlogement.fr/"
-        title="Action Logement"
+        title="Action Logement - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
         >Action logement
@@ -129,7 +129,7 @@ import BlogArticle from '@/views/blog/BlogArticle.vue'
 import { useHead } from '@unhead/vue'
 import image from '../../assets/images/blog-article11.webp'
 
-const title = 'La caution locative : changements en vue pour 2022'
+const title = 'La caution locative : changements en vue pour 2022 - DossierFacile'
 const description =
   "La caution est une personne ou un organisme qui s'engage par écrit, à trun acte de cautio nnement, à payer votre loyer si vous ne le faites pas. Il s’agit le plus souvent d’un parent ou d’un proche. Si la caution ne rembourse pas les dettes locatives"
 useHead({

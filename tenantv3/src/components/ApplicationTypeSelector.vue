@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <RichRadioButtons
-      v-model="checkedApplicationType"
-      name="application-type-selector"
-      :elements="applicationTypeOptions"
-      @input="onChange"
-    />
-    <ConfirmModal v-if="showConfirmationModal" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ getConfirmModalContent() }}</span>
-    </ConfirmModal>
-  </div>
+  <RichRadioButtons
+    v-model="checkedApplicationType"
+    name="application-type-selector"
+    :elements="applicationTypeOptions"
+    @input="onChange"
+  >
+    <slot></slot>
+  </RichRadioButtons>
+  <ConfirmModal v-if="showConfirmationModal" @valid="validSelect()" @cancel="undoSelect()">
+    <span>{{ getConfirmModalContent() }}</span>
+  </ConfirmModal>
 </template>
 
 <script setup lang="ts">

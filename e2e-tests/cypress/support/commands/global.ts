@@ -61,18 +61,6 @@ Cypress.Commands.add("clickOnNext", () => {
 Cypress.Commands.add("testAccessibility", () => {
   cy.wait(500);
   cy.injectAxe();
-  cy.configureAxe({
-    // TODO fix disabled rules
-    rules: [
-      { id: "color-contrast", enabled: false },
-      { id: "aria-allowed-attr", enabled: false },
-      { id: "duplicate-id-aria", enabled: false },
-      { id: "region", enabled: false },
-      { id: "label", enabled: false },
-      { id: "skip-link", enabled: false },
-      { id: "page-has-heading-one", enabled: false },
-    ],
-  });
   cy.checkA11y(null, null, terminalLog);
 });
 
