@@ -19,17 +19,17 @@ describe('taxYear for tax', () => {
 })
 
 describe('taxYear for residency', () => {
-  it('Before 15/10 use the previous year', async () => {
+  it('Before 29/09 use the previous year', async () => {
     expect(getResidencyTaxYear(new Date(2025, 4, 12))).to.eq(2024)
-    expect(getResidencyTaxYear(new Date(2025, 8, 14))).to.eq(2024)
+    expect(getResidencyTaxYear(new Date(2025, 8, 28))).to.eq(2024)
   })
 
-  it('On the 15/10 use the current year', async () => {
-    expect(getResidencyTaxYear(new Date(2025, 9, 15))).to.eq(2025)
+  it('On the 29/09 use the current year', async () => {
+    expect(getResidencyTaxYear(new Date(2025, 8, 29))).to.eq(2025)
   })
 
-  it('After 15/10 use the current year', async () => {
-    expect(getResidencyTaxYear(new Date(2025, 9, 16))).to.eq(2025)
+  it('After 29/09 use the current year', async () => {
+    expect(getResidencyTaxYear(new Date(2025, 8, 30))).to.eq(2025)
     expect(getResidencyTaxYear(new Date(2025, 10, 7))).to.eq(2025)
   })
 })
