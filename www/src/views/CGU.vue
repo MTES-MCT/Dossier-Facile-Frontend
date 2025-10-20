@@ -387,7 +387,7 @@
 
         <p>
           Nous nous efforçons de garantir que les dossiers labellisés soient clairs, complets et
-          cohérents. Toutefois, malgré toute notre attention, elles peuvent encore comporter des
+          cohérents. Toutefois, malgré toute notre attention, ils peuvent encore comporter des
           erreurs ou omissions. Si vous constatez une erreur ou omission parmi ces données, nous
           vous invitons à nous la signaler par courriel à l’adresse contact@dossierfacile.fr
         </p>
