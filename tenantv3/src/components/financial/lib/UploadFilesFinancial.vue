@@ -38,6 +38,7 @@
       :current-status="uploadStatus"
       @add-files="addFiles"
     />
+    <p class="fr-message fr-message--info fr-mt-3w">{{ t('i-authorize-corrections') }}</p>
   </template>
   <slot v-else name="emptyIncome"></slot>
   <ModalComponent v-if="showInsufficientModal" @close="showInsufficientModal = false">
@@ -298,7 +299,8 @@ async function save(successMsgKey = 'save-success') {
     "less-than-x-docs": "fewer than {0} supporting documents",
     "for-complete-file": "For a complete file, we recommend you add {0}.",
     "add-more-docs": "Add more documents",
-    "go-next-step": "Go to next step"
+    "go-next-step": "Go to next step",
+    "i-authorize-corrections": "By continuing, I authorize a DossierFacile operator to correct any errors in the income amounts declared, based on the supporting documents provided, in order to ensure that my file is compliant."
   },
   "fr": {
     "round-it": "Arrondir à l’euro",
@@ -310,7 +312,8 @@ async function save(successMsgKey = 'save-success') {
     "less-than-x-docs": "moins de {0} justificatifs",
     "for-complete-file": "Pour un dossier complet, nous vous recommandons d’en ajouter {0}.",
     "add-more-docs": "Ajouter d’autres documents",
-    "go-next-step": "Passer à l’étape suivante"
+    "go-next-step": "Passer à l’étape suivante",
+    "i-authorize-corrections": "En continuant, j’autorise un opérateur DossierFacile à corriger les montants de revenus déclarés en cas d’erreur, sur la base des justificatifs fournis, afin de garantir la conformité de mon dossier."
   }
 }
 </i18n>
