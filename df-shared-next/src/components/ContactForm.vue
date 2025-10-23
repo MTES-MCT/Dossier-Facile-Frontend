@@ -162,7 +162,7 @@
           <h3 class="fr-accordion__title">
             <button
               class="fr-accordion__btn fr-background-default--grey fr-text-title--grey"
-              aria-expanded="false"
+              :aria-expanded="isFormOpen"
               aria-controls="accordion-form"
               @click="accordionClicked('contact_dont_find_question')"
             >
@@ -478,6 +478,7 @@ const props = defineProps<{
 
 const contactFormData = ref(new ContactFormData())
 const status = ref<'NEW' | 'OK' | 'KO'>('NEW')
+const isFormOpen = ref(false)
 
 const emit = defineEmits<{
   'on-profile-change': [profile: string]
@@ -495,6 +496,10 @@ onMounted(() => {
     }
     contactFormData.value.email = props.user.email
     contactFormData.value.profile = props.profile || ''
+  }
+  const searchParams = new URLSearchParams(window.location.search)
+  if (searchParams.get('open') === 'form') {
+    isFormOpen.value = true
   }
 })
 
