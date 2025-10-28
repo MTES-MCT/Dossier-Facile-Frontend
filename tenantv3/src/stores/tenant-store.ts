@@ -2,7 +2,7 @@ import { AuthService } from '@/services/AuthService'
 import dayjs from 'dayjs'
 import 'dayjs/locale/en'
 import 'dayjs/locale/fr'
-import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
+import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
 import { i18n } from '../i18n'
 

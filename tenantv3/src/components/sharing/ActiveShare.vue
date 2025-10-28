@@ -1,0 +1,120 @@
+<template>
+  <div class="display--flex align-items--center">
+    <div>
+      <p class="fr-mb-1v display--flex align-items--center">
+        <RiLinksLine
+          v-if="link.type === 'LINK'"
+          size="1rem"
+          class="blue-text"
+          title="Partage par lien"
+        />
+        <RiMailLine
+          v-else-if="link.type === 'MAIL'"
+          size="1rem"
+          class="blue-text"
+          title="Partage par email"
+        />
+        <RiHome4Line
+          v-else-if="link.type === 'OWNER'"
+          size="1rem"
+          class="blue-text"
+          title="Propriétaire DossierFacile"
+        />
+        <RiShakeHandsLine
+          v-else-if="link.type === 'PARTNER'"
+          size="1rem"
+          class="blue-text"
+          title="Partenaire"
+        />
+        <span v-if="link.type === 'PARTNER'" class="fr-ml-1v">Partage avec</span>
+        <span class="fr-ml-1v bold">
+          {{ link.title }}
+        </span>
+        <span v-if="link.type === 'MAIL'" class="fr-ml-1v">- {{ link.ownerEmail }}</span>
+      </p>
+      <p class="fr-mb-0 fr-text--xs text-grey">
+        <span class="bold">{{ t('created') }}</span>
+        <span>{{ formatDate(link.creationDate) }}</span>
+        <span class="bold border-left">{{ t('expires') }}</span>
+        <span>{{ formatDate(link.expirationDate) }}</span>
+        <span class="bold border-left">{{ t('consultations') }}</span>
+        <span>{{ t('times', [link.nbVisits]) }}</span>
+      </p>
+    </div>
+    <DsfrBadge
+      v-if="link.enabled"
+      :label="t('active-sharing')"
+      type="success"
+      small
+      class="fr-mx-auto"
+    />
+    <p v-else class="fr-badge fr-badge--sm fr-badge--new fr-badge--no-icon fr-mx-auto">
+      <RiPauseCircleFill aria-hidden="true" size="1em" class="fr-mr-1v" />
+      <span>{{ t('disabled-sharing') }}</span>
+    </p>
+    <button type="button" class="link-button blue-text">
+      {{ t('show-all') }}
+      <RiAddLine aria-hidden="true" size="1em" />
+    </button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { DsfrBadge } from '@gouvminint/vue-dsfr'
+import {
+  RiAddLine,
+  RiHome4Line,
+  RiLinksLine,
+  RiMailLine,
+  RiPauseCircleFill,
+  RiShakeHandsLine
+} from '@remixicon/vue'
+import dayjs from 'dayjs'
+import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
+import { useI18n } from 'vue-i18n'
+
+defineProps<{ link: ApartmentSharingLink }>()
+
+const { t } = useI18n()
+
+const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
+</script>
+
+<style scoped>
+.border-left {
+  margin-left: 0.5rem;
+}
+.border-left::before {
+  content: '|';
+  margin-right: 6px;
+}
+.link-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid;
+}
+</style>
+
+<i18n>
+{
+  "en": {
+    "created": "Created on: ",
+    "expires": "Expires on:",
+    "consultations": "Consultations: ",
+    "times": "{0} times",
+    "active-sharing": "Active sharing",
+    "disabled-sharing": "Disabled sharing",
+    "show-all": "Show all"
+  },
+  "fr": {
+    "created": "Créé le : ",
+    "expires": "Expire le : ",
+    "consultations": "Consultations : ",
+    "times": "{0} fois",
+    "active-sharing": "Partage actif",
+    "disabled-sharing": "Partage en pause",
+    "show-all": "Afficher tout"
+  }
+}
+</i18n>

@@ -133,7 +133,7 @@ function handleSubmit() {
 
 function sendMail() {
   AnalyticsService.shareByMail(shareType.value === 'full' ? 'full' : 'resume')
-  OwnerService.sendFileByMail(email.value, shareType.value)
+  ShareService.sendFileByMail(email.value, shareType.value)
     .then(() => {
       toast.success(t('sharefile.sent-success'), button.value?.button)
       email.value = ''

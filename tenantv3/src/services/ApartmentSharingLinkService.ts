@@ -1,4 +1,4 @@
-import {
+import type {
   ApartmentSharingLink,
   ApartmentSharingLinks
 } from 'df-shared-next/src/models/ApartmentSharingLink'

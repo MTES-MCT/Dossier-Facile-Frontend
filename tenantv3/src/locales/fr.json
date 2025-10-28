@@ -717,7 +717,7 @@
     "by-link": "Par lien",
     "email-label": "Email du bailleur :",
     "email-placeholder": "bailleur{'@'}exemple.com",
-    "sent-success": "Votre dossier est envoyé par mail",
+    "sent-success": "Votre dossier a bien été partagé par email",
     "sent-failed": "Le partage par e-mail a échoué. Veuillez réessayer.",
     "view": {
       "title": "Voir votre dossier",
