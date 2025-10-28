@@ -961,6 +961,15 @@ export const router = createRouter({
       component: () => import('../views/PartnerAccessPage.vue')
     },
     {
+      path: '/partages',
+      name: 'SharingLinksPage',
+      meta: {
+        title: 'Vos partages - DossierFacile',
+        requiresAuth: true
+      },
+      component: () => import('../views/SharingLinksPage.vue')
+    },
+    {
       path: '/messaging',
       name: 'Messages',
       meta: {

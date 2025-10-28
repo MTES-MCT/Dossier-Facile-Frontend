@@ -50,6 +50,9 @@
               </span>
             </router-link>
           </li>
+          <li>
+            <router-link class="fr-nav__link" to="/partages">Partages</router-link>
+          </li>
           <li v-if="partners.length > 0">
             <router-link
               class="fr-nav__link"
