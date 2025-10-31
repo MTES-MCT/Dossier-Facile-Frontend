@@ -1,5 +1,5 @@
 <template>
-  <NakedCard id="sharing-history" class="fr-p-3w fr-grid-col">
+  <NakedCard id="sharing-history" class="fr-p-3w">
     <h2 class="fr-h3">{{ t('title') }}</h2>
     <p>{{ t('consult-sharing-links') }}</p>
     <p class="bold fr-mb-1w">{{ t('active-shares-count', [links.length]) }}</p>
@@ -27,10 +27,12 @@
     <hr class="fr-mt-3w" />
     <h3 class="fr-h5">{{ t('suspend-access') }}</h3>
     <p>{{ t('suspend-all') }}</p>
-    <DfButton class="fr-mx-auto"
-      >{{ t('pause-all') }}
-      <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
-    </DfButton>
+    <form class="display--flex" @submit.prevent="toggleLinks">
+      <DfButton ref="toggle-btn" class="fr-mx-auto"
+        >{{ allLinksPaused ? t('enable-all') : t('pause-all') }}
+        <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
+      </DfButton>
+    </form>
   </NakedCard>
 </template>
 
@@ -41,16 +43,19 @@ import { useI18n } from 'vue-i18n'
 import ActiveShare from './ActiveShare.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { RiDeleteBin6Line, RiPauseCircleLine } from '@remixicon/vue'
-import { ref, useTemplateRef } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { toast } from '../toast/toastUtils'
 
-defineProps<{ links: ApartmentSharingLink[] }>()
+const { links } = defineProps<{ links: ApartmentSharingLink[] }>()
 const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
 const selectedLinks = ref([])
 const deleteButton = useTemplateRef('delete-btn')
+const toggleButton = useTemplateRef('toggle-btn')
+
+const allLinksPaused = computed(() => links.every((link) => !link.enabled))
 
 async function deleteLinks() {
   try {
@@ -61,6 +66,19 @@ async function deleteLinks() {
   } catch (error) {
     console.error(error)
     toast.error(t('error'), deleteButton.value?.button)
+  }
+}
+
+async function toggleLinks() {
+  const enable = allLinksPaused.value
+  const method = allLinksPaused.value ? 'enableAllLinks' : 'disableAllLinks'
+  try {
+    await ApartmentSharingLinkService[method]()
+    emit('refresh')
+    toast.success(enable ? t('reactivate-success') : t('pause-success'), toggleButton.value?.button)
+  } catch (error) {
+    console.error(error)
+    toast.error(t('error'), toggleButton.value?.button)
   }
 }
 </script>
@@ -100,7 +118,10 @@ async function deleteLinks() {
     "suspend-access": "Temporarily suspend access to your file",
     "suspend-all": "All your shares will be suspended. People with a link will no longer have access to them until you reactivate sharing.",
     "pause-all": "Pause all sharing",
-    "delete-links-success": "The shares have been successfully deleted"
+    "enable-all": "Reactivate your sharing links",
+    "delete-links-success": "The shares have been successfully deleted",
+    "pause-success": "File paused - sharing links are temporarily disabled.",
+    "reactivate-success": "Sharing links have been reactivated."
   },
   "fr": {
     "title": "Activité de vos partages",
@@ -110,8 +131,10 @@ async function deleteLinks() {
     "suspend-access": "Suspendre temporairement l’accès à votre dossier",
     "suspend-all": "Tous vos partages seront suspendus. Les personnes disposant d’un lien n’y auront plus accès tant que vous n’aurez pas réactivé le partage.",
     "pause-all": "Mettre en pause tous les partages",
-    "delete-links-success": "Les partages ont bien été supprimés"
-
+    "enable-all": "Réactiver vos liens de partage",
+    "delete-links-success": "Les partages ont bien été supprimés",
+    "pause-success": "Dossier en pause - les liens de partage sont temporairement désactivés.",
+    "reactivate-success": "Les liens de partages ont été réactivés."
   }
 }
 </i18n>

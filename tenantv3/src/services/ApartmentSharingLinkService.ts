@@ -22,5 +22,11 @@ export const ApartmentSharingLinkService = {
   },
   updateLinkStatus(link: ApartmentSharingLink, enabled: boolean) {
     return axios.put<void>(`${LINKS_API_URL}/${link.id}?enabled=${enabled}`)
+  },
+  disableAllLinks() {
+    return axios.post<void>(`${LINKS_API_URL}/disableAll`)
+  },
+  enableAllLinks() {
+    return axios.post<void>(`${LINKS_API_URL}/enableAll`)
   }
 }
