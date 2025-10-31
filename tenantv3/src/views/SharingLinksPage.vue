@@ -5,7 +5,7 @@
         <h1 class="fr-h2 fr-mb-0">{{ t('your-shares') }}</h1>
         <SharingLinksRecap :links="sharingLinks" />
         <ShareFile @refresh="refreshData" />
-        <SharingLinksHistory :links="activeLinks" />
+        <SharingLinksHistory :links="activeLinks" @refresh="refreshData" />
         <NakedCard class="fr-p-3w">
           <h2 class="fr-h3">{{ t('report-suspicious-use') }}</h2>
           <p>{{ t('if-you-are-a-victim') }}</p>

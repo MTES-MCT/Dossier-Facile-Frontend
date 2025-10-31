@@ -1,7 +1,7 @@
 <template>
   <div class="display--flex align-items--center">
     <div>
-      <p class="fr-mb-1v display--flex align-items--center">
+      <label :for="`cbl-${link.id}`" class="fr-mb-1v display--flex align-items--center">
         <RiLinksLine
           v-if="link.type === 'LINK'"
           size="1rem"
@@ -31,7 +31,7 @@
           {{ link.title }}
         </span>
         <span v-if="link.type === 'MAIL'" class="fr-ml-1v">- {{ link.ownerEmail }}</span>
-      </p>
+      </label>
       <p class="fr-mb-0 fr-text--xs text-grey">
         <span class="bold">{{ t('created') }}</span>
         <span>{{ formatDate(link.creationDate) }}</span>
