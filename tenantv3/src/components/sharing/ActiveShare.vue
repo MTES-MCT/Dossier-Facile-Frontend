@@ -60,7 +60,7 @@
         <RiAddLine v-else aria-hidden="true" size="1em" />
       </button>
     </div>
-    <SharingLinkDetails v-if="expanded" :link />
+    <SharingLinkDetails v-if="expanded" :link @refresh="emit('refresh')" />
   </div>
 </template>
 
@@ -82,6 +82,7 @@ import { useI18n } from 'vue-i18n'
 import SharingLinkDetails from './SharingLinkDetails.vue'
 
 defineProps<{ link: ApartmentSharingLink }>()
+const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
 

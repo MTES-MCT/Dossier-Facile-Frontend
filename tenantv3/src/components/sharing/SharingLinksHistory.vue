@@ -7,7 +7,7 @@
     <form class="fr-grid-col" @submit.prevent="deleteLinks">
       <ul class="share-list">
         <li v-for="link of links" :key="link.id" class="share-item">
-          <ActiveShare v-slot="{ id }" :link class="flex--1">
+          <ActiveShare v-slot="{ id }" :link class="flex--1" @refresh="emit('refresh')">
             <input
               :id
               v-model="selectedLinks"
