@@ -14,6 +14,9 @@ export const ApartmentSharingLinkService = {
   deleteLink(link: ApartmentSharingLink) {
     return axios.delete<void>(`${LINKS_API_URL}/${link.id}`)
   },
+  deleteLinks(linkIds: number[]) {
+    return axios.delete<void>(`${LINKS_API_URL}/`, { data: linkIds })
+  },
   resendLink(link: ApartmentSharingLink) {
     return axios.post<void>(`${LINKS_API_URL}/${link.id}/resend`)
   },
