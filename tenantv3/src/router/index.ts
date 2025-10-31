@@ -928,6 +928,15 @@ export const router = createRouter({
       component: () => import('../views/FilePage.vue')
     },
     {
+      path: '/mon-dossier',
+      name: 'MyFile',
+      meta: {
+        title: 'Mon Dossier - DossierFacile',
+        requiresAuth: true
+      },
+      component: () => import('../views/MyFile.vue')
+    },
+    {
       path: '/account',
       name: 'Account',
       meta: {
