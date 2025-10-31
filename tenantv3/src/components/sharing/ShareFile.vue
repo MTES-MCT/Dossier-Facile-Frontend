@@ -2,12 +2,12 @@
   <NakedCard class="fr-p-3w">
     <div class="display--flex align-items--center">
       <h2 class="fr-h3 fr-mb-0">{{ t('title') }}</h2>
-      <button type="button" class="fr-btn fr-btn--secondary fr-ml-auto">
+      <RouterLink to="/mon-dossier" class="fr-btn fr-btn--secondary fr-ml-auto">
         <span class="text-center full-width">
           {{ t('sharefile.view.button') }}
         </span>
         <RiEyeLine aria-hidden="true" class="fr-ml-1v" />
-      </button>
+      </RouterLink>
     </div>
     <p class="fr-message fr-message--info fr-mb-3w">
       <strong class="fr-mr-1v">{{ t('reminder') }}</strong>
