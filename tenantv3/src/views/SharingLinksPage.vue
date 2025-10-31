@@ -4,7 +4,7 @@
       <section class="section fr-my-5w">
         <h1 class="fr-h2 fr-mb-0">{{ t('your-shares') }}</h1>
         <SharingLinksRecap :links="sharingLinks" />
-        <ShareFile @refresh="refreshData" />
+        <ShareFile v-if="store.user.status === 'VALIDATED'" @refresh="refreshData" />
         <SharingLinksHistory :links="activeLinks" @refresh="refreshData" />
         <NakedCard class="fr-p-3w">
           <h2 class="fr-h3">{{ t('report-suspicious-use') }}</h2>
@@ -36,8 +36,10 @@ import SharingLinksRecap from '@/components/sharing/SharingLinksRecap.vue'
 import SharingLinksHistory from '@/components/sharing/SharingLinksHistory.vue'
 import DeletedSharingLinks from '@/components/sharing/DeletedSharingLinks.vue'
 import dayjs from 'dayjs'
+import { useTenantStore } from '@/stores/tenant-store'
 
 const { t } = useI18n()
+const store = useTenantStore()
 
 const sharingLinks = ref<ApartmentSharingLink[]>([])
 
