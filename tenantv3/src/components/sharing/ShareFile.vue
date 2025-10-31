@@ -2,12 +2,12 @@
   <NakedCard class="fr-p-3w">
     <div class="display--flex align-items--center">
       <h2 class="fr-h3 fr-mb-0">{{ t('title') }}</h2>
-      <RouterLink :to="getFullFileUrl()" class="fr-btn fr-btn--secondary fr-ml-auto">
+      <button type="button" class="fr-btn fr-btn--secondary fr-ml-auto">
         <span class="text-center full-width">
           {{ t('sharefile.view.button') }}
         </span>
         <RiEyeLine aria-hidden="true" class="fr-ml-1v" />
-      </RouterLink>
+      </button>
     </div>
     <p class="fr-message fr-message--info fr-mb-3w">
       <strong class="fr-mr-1v">{{ t('reminder') }}</strong>
@@ -57,6 +57,14 @@
               {{ t('generate-a-link') }}
               <RiLinksLine aria-hidden="true" size="1rem" class="fr-ml-1v" />
             </button>
+            <div v-if="fileLink.length > 0" class="generated-link fr-mt-2w">
+              <p class="fr-background-default--grey fr-p-1v fr-mb-0">{{ fileLink }}</p>
+              <button ref="copy-link" type="button" class="fr-btn" @click="copyLink">
+                {{ t('copy-link') }}
+                <RiClipboardLine aria-hidden="true" size="1em" class="fr-ml-1v" />
+              </button>
+              <LinkWarning />
+            </div>
           </DsfrTabContent>
           <DsfrTabContent tab-id="tab-1" panel-id="panel-1">
             <p class="blue-text bold">{{ t('if-share-by-email') }}</p>
@@ -93,20 +101,22 @@
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { ShareService } from '@/services/ShareService'
-import { useTenantStore } from '@/stores/tenant-store'
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { RiEyeLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
+import { RiClipboardLine, RiEyeLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DsfrTabContent, DsfrTabs } from '@gouvminint/vue-dsfr'
+import LinkWarning from './LinkWarning.vue'
 
 const emit = defineEmits<{ refresh: [] }>()
 
-const store = useTenantStore()
 const { t } = useI18n()
 
 const activeTab = ref(0)
+const fileLink = ref('')
+
+const copyLinkBtn = useTemplateRef('copy-link')
 
 const tabTitles = [
   {
@@ -121,38 +131,59 @@ const tabTitles = [
   }
 ]
 
-function submit(event: Event) {
+const toString = (value: FormDataEntryValue | null) =>
+  value && typeof value === 'string' ? value : ''
+
+async function submit(event: Event) {
   const linkForm = event.target
-  if (!(linkForm instanceof HTMLFormElement)) return
+  if (
+    !(
+      linkForm instanceof HTMLFormElement &&
+      event instanceof SubmitEvent &&
+      event.submitter instanceof HTMLButtonElement
+    )
+  ) {
+    return
+  }
   const data = new FormData(linkForm)
-  const email = data.get('email')
-  const title = data.get('name')
+  const title = toString(data.get('name'))
   const fullData = data.get('shareType') === 'full'
   const daysValid = Number(data.get('validity'))
-  if (
-    email &&
-    title &&
-    typeof email === 'string' &&
-    typeof title === 'string' &&
-    event instanceof SubmitEvent &&
-    event.submitter instanceof HTMLButtonElement &&
-    event.submitter.value === 'email'
-  ) {
+
+  if (event.submitter.value === 'email') {
+    const email = toString(data.get('email'))
+    const message = toString(data.get('message'))
     AnalyticsService.shareByMail(fullData ? 'full' : 'resume')
-    ShareService.sendFileByMail({ email, fullData, daysValid, title })
-      .then(() => {
-        toast.success(t('share-mail-success'), null)
-        linkForm.reset()
-        emit('refresh')
-      })
-      .catch(() => {
-        toast.error(t('sharefile.sent-failed'), null)
-      })
+    try {
+      await ShareService.sendFileByMail({ email, fullData, daysValid, title, message })
+      toast.success(t('share-mail-success'), null)
+      linkForm.reset()
+      emit('refresh')
+    } catch (error) {
+      console.error(error)
+      toast.error(t('sharefile.sent-failed'), null)
+    }
+  } else if (event.submitter.value === 'link') {
+    try {
+      const response = await ShareService.createLink({ title, fullData, daysValid })
+      fileLink.value = `${window.location.origin}${response.data}`
+      linkForm.reset()
+      emit('refresh')
+    } catch (error) {
+      console.error(error)
+      toast.error(t('errors.submit-failed'), null)
+    }
   }
 }
 
-function getFullFileUrl() {
-  return `/file/${store.user.apartmentSharing?.token}`
+async function copyLink() {
+  try {
+    await navigator.clipboard.writeText(fileLink.value)
+    toast.success(t('account.copied'), copyLinkBtn.value)
+  } catch (err) {
+    toast.error(t('unable-to-copy'), copyLinkBtn.value)
+    throw new Error('Unable to copy', { cause: err })
+  }
 }
 </script>
 
@@ -190,6 +221,13 @@ function getFullFileUrl() {
     margin-bottom: 1.5rem;
   }
 }
+.generated-link {
+  background-color: #ececfe;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 </style>
 
 <i18n>
@@ -214,7 +252,8 @@ function getFullFileUrl() {
     "if-share-by-email": "If you wish to share by email:",
     "reminder": "Reminder:",
     "no-accommodation": "DossierFacile does not offer accommodation.",
-    "share-mail-success": "Your file has been sent by mail"
+    "share-mail-success": "Your file has been sent by mail",
+    "copy-link": "Copy link",
   },
   "fr": {
     "title": "Partage de votre dossier",
@@ -236,7 +275,8 @@ function getFullFileUrl() {
     "if-share-by-email": "Si vous souhaitez partager par mail :",
     "reminder": "Rappel :",
     "no-accommodation": "DossierFacile ne propose pas de logement.",
-    "share-mail-success": "Votre dossier a bien été partagé par email"
+    "share-mail-success": "Votre dossier a bien été partagé par email",
+    "copy-link": "Copier le lien",
   }
 }
 </i18n>
