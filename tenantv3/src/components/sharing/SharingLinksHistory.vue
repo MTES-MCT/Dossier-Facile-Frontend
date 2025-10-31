@@ -7,15 +7,16 @@
     <form class="fr-grid-col" @submit.prevent="deleteLinks">
       <ul class="share-list">
         <li v-for="link of links" :key="link.id" class="share-item">
-          <input
-            :id="`cbl-${link.id}`"
-            v-model="selectedLinks"
-            :value="link.id"
-            type="checkbox"
-            name="selected"
-            class="checkbox"
-          />
-          <ActiveShare :link class="flex--1" />
+          <ActiveShare v-slot="{ id }" :link class="flex--1">
+            <input
+              :id
+              v-model="selectedLinks"
+              :value="link.id"
+              type="checkbox"
+              name="selected"
+              class="checkbox"
+            />
+          </ActiveShare>
         </li>
       </ul>
       <DfButton ref="delete-btn" class="fr-ml-auto" tertiary :disabled="selectedLinks.length === 0"
@@ -82,10 +83,10 @@ async function deleteLinks() {
 .share-item {
   border: 1px solid #ddd;
   border-radius: 4px;
-  padding: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 0;
 }
 </style>
 
