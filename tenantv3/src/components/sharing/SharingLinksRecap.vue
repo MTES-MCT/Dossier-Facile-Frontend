@@ -1,6 +1,6 @@
 <template>
   <NakedCard class="fr-p-3w">
-    <DsfrBadge :label="t('file-validated')" class="fr-mb-1w" type="success" small />
+    <FileStatusBadge :status="store.user.status" />
     <h2 class="fr-h3 fr-mb-1w">{{ t('title') }}</h2>
     <p>{{ t('follow-sharing-links') }}</p>
     <div class="bloc-wrapper">
@@ -27,17 +27,19 @@
 </template>
 
 <script setup lang="ts">
-import { DsfrBadge } from '@gouvminint/vue-dsfr'
+import { useTenantStore } from '@/stores/tenant-store'
 import { RiArrowDownLine } from '@remixicon/vue'
 import dayjs from 'dayjs'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import FileStatusBadge from './FileStatusBadge.vue'
 
 const { links } = defineProps<{ links: ApartmentSharingLink[] }>()
 
 const { t } = useI18n()
+const store = useTenantStore()
 
 const now = dayjs()
 
