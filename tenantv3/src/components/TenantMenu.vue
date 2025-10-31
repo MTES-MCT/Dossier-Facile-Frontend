@@ -50,23 +50,8 @@
               </span>
             </router-link>
           </li>
-          <li v-if="partners.length > 0">
-            <router-link
-              class="fr-nav__link"
-              to="/partners"
-              :aria-current="currentPage === 'PartnerAccessPage' ? 'page' : undefined"
-            >
-              {{ t('menu.shared') }}
-            </router-link>
-          </li>
           <li>
-            <router-link
-              class="fr-nav__link"
-              to="/applications"
-              :aria-current="currentPage === 'SharingPage' ? 'page' : undefined"
-            >
-              {{ t('menu.applications') }}
-            </router-link>
+            <router-link class="fr-nav__link" to="/partages">{{ t('menu.shared') }}</router-link>
           </li>
           <li>
             <DfButton
@@ -122,7 +107,6 @@ const store = useTenantStore()
 const user = computed(() => store.user)
 const isLoggedIn = computed(() => store.isLoggedIn)
 const newMessage = computed(() => store.newMessage)
-const partners = computed(() => store.partnerAccesses)
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`

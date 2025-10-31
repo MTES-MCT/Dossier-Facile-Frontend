@@ -93,4 +93,12 @@ describe("accessibility checks", () => {
 
     cy.testAccessibility();
   });
+
+  it.only("Sharing page accessibility", () => {
+    cy.tenantLoginWithFC(user.username, user.password);
+    cy.rejectCookies();
+    cy.visit(Cypress.env("tenantUrl") + "/partages");
+    cy.contains("Vos partages").should("exist");
+    cy.testAccessibility();
+  });
 });
