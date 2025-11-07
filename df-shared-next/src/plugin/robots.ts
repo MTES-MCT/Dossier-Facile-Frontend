@@ -26,14 +26,12 @@ export const createRobotsTxtPlugin = ({
       root = config.root
     },
     async closeBundle() {
-      if (environment === 'prod') {
-        return
+      if (environment === 'preprod') {
+          // overwrite a disallow-all robots.txt file for non-prod environments
+        const robotsPath = resolve(root, outDir, 'robots.txt')
+
+        await writeFile(robotsPath, disallowAllContent.join('\n'), 'utf8')
       }
-
-      // overwrite a disallow-all robots.txt file for non-prod environments
-      const robotsPath = resolve(root, outDir, 'robots.txt')
-
-      await writeFile(robotsPath, disallowAllContent.join('\n'), 'utf8')
     }
   }
 }
