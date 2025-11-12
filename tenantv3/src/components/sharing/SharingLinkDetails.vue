@@ -40,11 +40,11 @@
           <tbody>
             <tr>
               <td class="fr-text-mention--grey">{{ t('first-consultation') }}</td>
-              <td>{{ formatDate(link.creationDate) }}</td>
+              <td>{{ formatDate(link.firstVisit) }}</td>
             </tr>
             <tr>
               <td class="fr-text-mention--grey">{{ t('last-consultation') }}</td>
-              <td>{{ formatDate(link.creationDate) }}</td>
+              <td>{{ formatDate(link.lastVisit) }}</td>
             </tr>
             <tr>
               <td class="fr-text-mention--grey">{{ t('nb-consultations') }}</td>

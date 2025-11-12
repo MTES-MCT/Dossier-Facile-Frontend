@@ -99,6 +99,7 @@ describe("accessibility checks", () => {
     cy.rejectCookies();
     cy.visit(Cypress.env("tenantUrl") + "/partages");
     cy.contains("Vos partages").should("exist");
+    cy.get("h2").contains("Vos partages");
     cy.testAccessibility();
   });
 });

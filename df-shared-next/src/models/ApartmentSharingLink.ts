@@ -5,6 +5,7 @@ export type ApartmentSharingLink = {
   expirationDate: string
   fullData: boolean
   id: number
+  firstVisit: string
   lastVisit: string
   nbVisits: number
   ownerEmail: string
