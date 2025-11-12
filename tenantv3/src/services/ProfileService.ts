@@ -55,6 +55,12 @@ export const ProfileService = {
   getFile(fileUrl: string) {
     return axios.get<Blob>(fileUrl, { responseType: 'blob' })
   },
+  postCreateFullPdfForCurrentTenant() {
+    return axios.post<void>(`${import.meta.env.VITE_API_URL}/api/application/fullPdf`, {})
+  },
+  getFullPdfForCurrentTenant() {
+    return axios.get<Blob>(`${import.meta.env.VITE_API_URL}/api/application/fullPdf`, { responseType: 'blob' })
+  },
   downloadZip() {
     return axios.get<Blob>(`${import.meta.env.VITE_API_URL}/api/application/zip`, {
       responseType: 'blob'

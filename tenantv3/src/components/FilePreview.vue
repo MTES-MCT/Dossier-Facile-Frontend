@@ -294,8 +294,9 @@ function taxDocumentStatus() {
 
 function retryDownload(remainingCount: number) {
   setTimeout(() => {
-    if (user.dossierPdfDocumentStatus === 'COMPLETED' && user.dossierPdfUrl) {
-      downloadFile(user.dossierPdfUrl)
+    console.log('Retry download, remainingCount:', remainingCount)
+    if (user.dossierPdfDocumentStatus === 'COMPLETED') {
+      downloadFile()
     } else if (remainingCount > 0) {
       retryDownload(remainingCount - 1)
     } else {
@@ -305,8 +306,9 @@ function retryDownload(remainingCount: number) {
   }, 15000)
 }
 
-function downloadFile(url: string) {
-  ProfileService.getFile(url)
+function downloadFile() {
+  console.log('ProfileService.getFullPdfForCurrentTenant')
+  ProfileService.getFullPdfForCurrentTenant()
     .then((response) => {
       const blob = new Blob([response.data], { type: 'application/pdf' })
       const link = window.document.createElement('a')
@@ -325,11 +327,15 @@ function downloadFile(url: string) {
 
 function download() {
   showProgressBar.value = true
-  if (user.dossierPdfDocumentStatus === 'COMPLETED' && user.dossierPdfUrl) {
-    downloadFile(user.dossierPdfUrl)
+  console.log('user.dossierPdfUrl', user.dossierPdfUrl)
+  console.log('user.dossierPdfDocumentStatus', user.dossierPdfDocumentStatus)
+  if (user.dossierPdfDocumentStatus === 'COMPLETED') {
+    console.log('GET download')
+    downloadFile()
   } else {
+    console.log('POST download')
     const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
-    ProfileService.postCreateFullPdf(token)
+    ProfileService.postCreateFullPdfForCurrentTenant()
       .then(() => {
         retryDownload(6)
       })

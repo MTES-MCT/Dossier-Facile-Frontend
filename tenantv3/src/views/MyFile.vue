@@ -14,8 +14,8 @@ const user = computed<FileUser>(() => ({
   id: store.user.apartmentSharing.id!,
   applicationType: store.user.apartmentSharing.applicationType,
   tenants: [store.user],
-  dossierPdfUrl: store.user.apartmentSharing.dossierPdfUrl,
-  dossierPdfDocumentStatus: 'TODO',
+  //dossierPdfUrl: store.user.apartmentSharing.dossierPdfUrl,
+  dossierPdfDocumentStatus: 'COMPLETED',
   status: store.user.apartmentSharing.status,
   lastUpdateDate: store.user.lastUpdateDate
 }))
