@@ -46,6 +46,9 @@ export const ProfileService = {
   getUserByToken(token: string) {
     return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/full/${token}`)
   },
+  getCurrentTenant() {
+    return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/full`)
+  },
   getPublicUserByToken(token: string) {
     return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/light/${token}`)
   },
