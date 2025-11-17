@@ -83,7 +83,13 @@
         <p v-if="selectedShareType" class="fr-message fr-message--info fr-mt-2w fr-mb-3w">
           {{ selectedShareType === 'restricted' ? t('share-type-without-docs') : t('share-type-with-docs') }}
         </p>
-        <DsfrTabs v-model="activeTab" tab-list-name="liste d'onglets" :tab-titles>
+        <DsfrTabs 
+          ref="tabsRef"
+          v-model="activeTab" 
+          :tab-list-name="t('tab-list-name')" 
+          :tab-titles
+          @update:model-value="handleTabChange"
+        >
           <DsfrTabContent tab-id="tab-0" panel-id="panel-0">
             <button type="submit" class="fr-btn" name="action" value="link">
               {{ t('generate-a-link') }}
@@ -178,7 +184,7 @@
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { ShareService } from '@/services/ShareService'
-import { ref, useTemplateRef, computed } from 'vue'
+import { nextTick, onMounted, ref, useTemplateRef, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RiClipboardLine, RiEyeLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
@@ -259,6 +265,49 @@ const messageValidation = (value: string) => {
 }
 
 const copyLinkBtn = useTemplateRef('copy-link')
+const tabsRef = useTemplateRef('tabsRef')
+
+const handleTabChange = (newIndex: number) => {
+  activeTab.value = newIndex
+}
+
+// Ensure proper initialization for accessibility
+onMounted(async () => {
+  await nextTick()
+  activeTab.value = 0
+  
+  await nextTick()
+  
+  if (tabsRef.value?.$el) {
+    const tabButtons = tabsRef.value.$el.querySelectorAll('[role="tab"]')
+    
+    tabButtons.forEach((button: Element, index: number) => {
+      const newButton = button.cloneNode(true) as HTMLElement
+      button.parentNode?.replaceChild(newButton, button)
+      
+      newButton.addEventListener('keydown', (e: Event) => {
+        const event = e as KeyboardEvent
+        const currentIndex = Array.from(tabButtons).indexOf(button as Element)
+        
+        if (event.key === 'ArrowRight') {
+          event.preventDefault()
+          const nextIndex = (currentIndex + 1) % tabButtons.length
+          activeTab.value = nextIndex
+          ;(tabButtons[nextIndex] as HTMLElement).focus()
+        } else if (event.key === 'ArrowLeft') {
+          event.preventDefault()
+          const prevIndex = (currentIndex - 1 + tabButtons.length) % tabButtons.length
+          activeTab.value = prevIndex
+          ;(tabButtons[prevIndex] as HTMLElement).focus()
+        }
+      })
+      
+      newButton.addEventListener('click', () => {
+        activeTab.value = index
+      })
+    })
+  }
+})
 
 const tabTitles = [
   {
@@ -467,6 +516,7 @@ async function copyLink() {
 <i18n>
 {
   "en": {
+    "tab-list-name": "Tab list",
     "title": "Sharing your file",
     "share-link": "Share with a link",
     "generate-link": "Generate a link to share via email, message, or on a property platform.",
@@ -498,6 +548,7 @@ async function copyLink() {
     "share-type-with-docs": "Your complete file, with supporting documents",
   },
   "fr": {
+    "tab-list-name": "Liste d'onglets",
     "title": "Partage de votre dossier",
     "share-link": "Partager avec un lien",
     "generate-link": "Générez un lien à partager par email, message ou sur une plateforme immobilière.",
