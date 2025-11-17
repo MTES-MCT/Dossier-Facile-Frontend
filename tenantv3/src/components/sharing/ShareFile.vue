@@ -51,7 +51,13 @@
             <option value="full">{{ t('file-with-docs') }}</option>
           </select>
         </div>
-        <DsfrTabs v-model="activeTab" tab-list-name="liste d'onglets" :tab-titles>
+        <DsfrTabs 
+          ref="tabsRef"
+          v-model="activeTab" 
+          tab-list-name="liste d'onglets" 
+          :tab-titles
+          @update:model-value="handleTabChange"
+        >
           <DsfrTabContent tab-id="tab-0" panel-id="panel-0">
             <button type="submit" class="fr-btn" name="action" value="link">
               {{ t('generate-a-link') }}
@@ -101,7 +107,7 @@
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { ShareService } from '@/services/ShareService'
-import { ref, useTemplateRef } from 'vue'
+import { nextTick, onMounted, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RiClipboardLine, RiEyeLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
@@ -117,6 +123,49 @@ const activeTab = ref(0)
 const fileLink = ref('')
 
 const copyLinkBtn = useTemplateRef('copy-link')
+const tabsRef = useTemplateRef('tabsRef')
+
+const handleTabChange = (newIndex: number) => {
+  activeTab.value = newIndex
+}
+
+// Ensure proper initialization for accessibility
+onMounted(async () => {
+  await nextTick()
+  activeTab.value = 0
+  
+  await nextTick()
+  
+  if (tabsRef.value?.$el) {
+    const tabButtons = tabsRef.value.$el.querySelectorAll('[role="tab"]')
+    
+    tabButtons.forEach((button: Element, index: number) => {
+      const newButton = button.cloneNode(true) as HTMLElement
+      button.parentNode?.replaceChild(newButton, button)
+      
+      newButton.addEventListener('keydown', (e: Event) => {
+        const event = e as KeyboardEvent
+        const currentIndex = Array.from(tabButtons).indexOf(button as Element)
+        
+        if (event.key === 'ArrowRight') {
+          event.preventDefault()
+          const nextIndex = (currentIndex + 1) % tabButtons.length
+          activeTab.value = nextIndex
+          ;(tabButtons[nextIndex] as HTMLElement).focus()
+        } else if (event.key === 'ArrowLeft') {
+          event.preventDefault()
+          const prevIndex = (currentIndex - 1 + tabButtons.length) % tabButtons.length
+          activeTab.value = prevIndex
+          ;(tabButtons[prevIndex] as HTMLElement).focus()
+        }
+      })
+      
+      newButton.addEventListener('click', () => {
+        activeTab.value = index
+      })
+    })
+  }
+})
 
 const tabTitles = [
   {
