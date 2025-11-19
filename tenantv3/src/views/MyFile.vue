@@ -262,19 +262,18 @@ function isTaxChecked() {
   return user.value?.tenants?.some((t) => hasAuthenticTax(t))
 }
 
-function setUser() {
-  ProfileService.getCurrentTenant()
-    .then((d) => {
-      user.value = d.data
-      if (user.value) {
-        user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
-          return t1.tenantType === 'CREATE' && t2.tenantType !== 'CREATE' ? -1 : 1
-        })
-      }
-    })
-    .catch(() => {
-      fileNotFound.value = true
-    })
+async function setUser() {
+  try {
+    const d = await ProfileService.getCurrentTenant()
+    user.value = d.data
+    if (user.value) {
+      user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
+        return t1.tenantType === 'CREATE' && t2.tenantType !== 'CREATE' ? -1 : 1
+      })
+    }
+  } catch {
+    fileNotFound.value = true
+  }
 }
 
 onMounted(setUser)
@@ -310,10 +309,10 @@ function taxDocumentStatus() {
 
 
 function retryDownload(remainingCount: number) {
-  setTimeout(() => {
-    setUser()
+  setTimeout(async () => {
+    await setUser()
     if (user.value?.dossierPdfDocumentStatus === 'COMPLETED') {
-      downloadFile()
+      await downloadFile()
     } else if (remainingCount > 0) {
       retryDownload(remainingCount - 1)
     } else {
@@ -323,22 +322,22 @@ function retryDownload(remainingCount: number) {
   }, 15000)
 }
 
-function downloadFile() {
-  ProfileService.getFullPdfForCurrentTenant()
-    .then((response) => {
-      const blob = new Blob([response.data], { type: 'application/pdf' })
-      const link = window.document.createElement('a')
-      link.href = window.URL.createObjectURL(blob)
-      // Récupère le nom du fichier depuis le header Content-Disposition
-      const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.pdf')
-      link.download = fileName
-      link.click()
-    })
-    .catch((error) => {
-      console.error(error)
-      toast.error(t('file.download-failed'), downloadButton.value?.button)
-    })
-    .finally(() => (showProgressBar.value = false))
+async function downloadFile() {
+  try {
+    const response = await ProfileService.getFullPdfForCurrentTenant()
+    const blob = new Blob([response.data], { type: 'application/pdf' })
+    const link = window.document.createElement('a')
+    link.href = window.URL.createObjectURL(blob)
+    // Récupère le nom du fichier depuis le header Content-Disposition
+    const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.pdf')
+    link.download = fileName
+    link.click()
+  } catch (error) {
+    console.error(error)
+    toast.error(t('file.download-failed'), downloadButton.value?.button)
+  } finally {
+    showProgressBar.value = false
+  }
 }
 
 function download() {
