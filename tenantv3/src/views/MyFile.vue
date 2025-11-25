@@ -51,7 +51,6 @@
             :id="`tabpanel-${k}-panel`"
             :key="`t${k}`"
             class="fr-tabs__panel"
-            aria-selected="false"
             role="tabpanel"
             :tabindex="k"
           >
@@ -117,9 +116,11 @@
                 <div v-if="tenant.guarantors">
                   <div v-for="g in tenant.guarantors" :key="g.id">
                     <ul v-if="g.typeGuarantor === 'NATURAL_PERSON'" class="without-padding">
-                      <div>
-                        <b>{{ UtilsService.guarantorFullName(g) }}</b>
-                      </div>
+                      <li>
+                        <div>
+                          <b>{{ UtilsService.guarantorFullName(g) }}</b>
+                        </div>
+                      </li>
                       <FileRowListItem
                         :label="t('file.identification')"
                         :document="document(g, 'IDENTIFICATION')"
@@ -214,7 +215,7 @@
       <FileNotFound></FileNotFound>
     </div>
     <section class="fr-mb-7w fr-container">
-      <div class="fr-mt-3w fr-text--sm fr-label--disabled">
+      <div class="fr-mt-3w fr-text--sm disclaimer-text">
         {{ t('file.disclaimer') }}
       </div>
       <OwnerBanner></OwnerBanner>
@@ -436,5 +437,9 @@ function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
 .fr-badge {
   --text-default-grey: #fff;
   --background-contrast-grey: #1d2437;
+}
+
+.disclaimer-text {
+  color: #666666;
 }
 </style>

@@ -51,7 +51,7 @@ describe("alone tenant scenario", () => {
     cy.contains("Passer à l’étape suivante").click();
     cy.location("pathname").should("equal", "/documents-locataire/4");
     cy.reload();
-    cy.contains("2500€ net mensuel").should("exist");
+    cy.contains("2500€ net mensuel", { timeout: 10000}).should("exist");
 
     cy.addFinancialResource(
       ["Rente", "des revenus locatifs", "Vous avez une quittance"],
@@ -79,6 +79,14 @@ describe("alone tenant scenario", () => {
     cy.contains("Votre dossier est actuellement en cours de traitement").should(
       "be.visible"
     );
+
+    cy.ValidateAloneFile(Cypress.env("aloneTenantEmail"));
+
+    cy.visit(Cypress.env("tenantUrl") + "/mon-dossier");
+    cy.contains("Ce dossier a été vérifié par DossierFacile !", { timeout: 10000}).should("exist");
+    cy.contains("Télécharger le dossier complet (.pdf)").should("exist");
+    cy.testAccessibility();
+
   });
 });
 
