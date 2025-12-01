@@ -17,23 +17,54 @@
       <div class="icon">
         <RiLinksLine aria-hidden="true" />
       </div>
-      <form @submit.prevent="submit">
+      <form @submit.prevent="handleFormSubmit">
         <h3 class="fr-text--lg fr-mb-0">{{ t('share-link') }}</h3>
-        <p class="fr-text--sm">{{ t('generate-link') }}</p>
+        <p class="fr-text--sm fr-mb-2w">{{ t('generate-link') }}</p>
+        <p class="fr-text--sm fr-mb-1w">{{ t('required-inputs') }}</p>
         <div class="share-form-row">
-          <div class="fr-input-group">
-            <label class="fr-label" for="link-title">
-              {{ t('custom-link-title') }}
-              <span class="fr-hint-text">{{ t('name-link') }}</span>
-            </label>
-            <input id="link-title" class="fr-input" type="text" name="name" required />
-          </div>
-          <div class="fr-input-group">
-            <label class="fr-label" for="link-validity">
+          <Field
+            v-slot="{ field, meta }"
+            v-model="linkTitle"
+            name="name"
+            :rules="{ required: true }"
+            as="div"
+            class="field-wrapper"
+          >
+            <div
+              class="fr-input-group share-group-contents"
+              :class="{
+                'fr-input-group--error': !meta.valid && meta.touched
+              }"
+            >
+              <label class="fr-label grid-label-1" for="link-title">
+                {{ t('custom-link-title') }}
+                <span class="fr-hint-text">{{ t('name-link') }}</span>
+              </label>
+              <input
+                id="link-title"
+                v-bind="field"
+                class="fr-input grid-input-1"
+                :class="{
+                  'fr-input--error': !meta.valid && meta.touched
+                }"
+                type="text"
+                name="name"
+              />
+              <ErrorMessage v-slot="{ message }" name="name">
+                <span
+                  v-if="message"
+                  role="alert"
+                  class="fr-error-text grid-error-1"
+                >{{ t(message) }}</span>
+              </ErrorMessage>
+            </div>
+          </Field>
+          <div class="fr-input-group share-group-contents">
+            <label class="fr-label grid-label-2" for="link-validity">
               {{ t('link-validity') }}
               <span class="fr-hint-text">{{ t('link-validity-desc') }}</span>
             </label>
-            <select id="link-validity" class="fr-select align-field" name="validity">
+            <select id="link-validity" class="fr-select grid-select-2" name="validity">
               <option value="7">{{ t('x-days', [7]) }}</option>
               <option value="15">{{ t('x-days', [15]) }}</option>
               <option value="30" selected>{{ t('x-days', [30]) }}</option>
@@ -41,7 +72,7 @@
             </select>
           </div>
         </div>
-        <div class="fr-input-group">
+        <div class="fr-input-group fr-mt-3w">
           <label class="fr-label" for="link-content">
             {{ t('link-content') }}
             <span class="fr-hint-text">{{ t('link-content-desc') }}</span>
@@ -108,6 +139,7 @@ import { toast } from '@/components/toast/toastUtils'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DsfrTabContent, DsfrTabs } from '@gouvminint/vue-dsfr'
 import LinkWarning from './LinkWarning.vue'
+import { Field, ErrorMessage, useForm } from 'vee-validate'
 
 const emit = defineEmits<{ refresh: [] }>()
 
@@ -115,6 +147,9 @@ const { t } = useI18n()
 
 const activeTab = ref(0)
 const fileLink = ref('')
+const linkTitle = ref('')
+
+const { validate } = useForm()
 
 const copyLinkBtn = useTemplateRef('copy-link')
 
@@ -133,6 +168,15 @@ const tabTitles = [
 
 const toString = (value: FormDataEntryValue | null) =>
   value && typeof value === 'string' ? value : ''
+
+async function handleFormSubmit(event: Event) {
+  const validationResult = await validate()
+  if (!validationResult.valid) {
+    return
+  }
+  
+  await submit(event)
+}
 
 async function submit(event: Event) {
   const linkForm = event.target
@@ -209,16 +253,54 @@ async function copyLink() {
 }
 .share-form-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1rem;
-  .fr-input-group {
-    display: flex;
-    flex-direction: column;
-    flex: 1 0 15rem;
-  }
-  .align-field {
-    margin-top: auto;
-    margin-bottom: 1.5rem;
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+    row-gap: 0.5rem;
+    align-items: start;
+
+    .field-wrapper,
+    .share-group-contents {
+      display: contents;
+    }
+
+    .fr-label {
+      margin-bottom: 0 !important;
+      .fr-hint-text {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .fr-input,
+    .fr-select {
+      margin-top: 0 !important;
+    }
+
+    .grid-label-1 {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .grid-input-1 {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .grid-error-1 {
+      grid-column: 1;
+      grid-row: 3;
+    }
+
+    .grid-label-2 {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .grid-select-2 {
+      grid-column: 2;
+      grid-row: 2;
+    }
   }
 }
 .generated-link {
@@ -236,6 +318,7 @@ async function copyLink() {
     "title": "Sharing your file",
     "share-link": "Share with a link",
     "generate-link": "Generate a link to share via email, message, or on a property platform.",
+    "required-inputs": "Fields with * are required.",
     "custom-link-title": "Custom link title*",
     "name-link": "Give this link a name so you can easily find it in your list of shares (e.g. 'Appartement on  Rue de la République')",
     "link-validity": "Link validity period*",
@@ -254,11 +337,13 @@ async function copyLink() {
     "no-accommodation": "DossierFacile does not offer accommodation.",
     "share-mail-success": "Your file has been sent by mail",
     "copy-link": "Copy link",
+    "field-required": "This field is required",
   },
   "fr": {
     "title": "Partage de votre dossier",
     "share-link": "Partager avec un lien",
     "generate-link": "Générez un lien à partager par email, message ou sur une plateforme immobilière.",
+    "required-inputs": "Les champs avec * sont requis.",
     "custom-link-title": "Titre du lien personnalisé*",
     "name-link": "Donnez un nom à ce lien pour le retrouver facilement dans votre liste de partages (ex: 'Appartement Rue de la République')",
     "link-validity": "Durée de validité du lien*",
@@ -277,6 +362,7 @@ async function copyLink() {
     "no-accommodation": "DossierFacile ne propose pas de logement.",
     "share-mail-success": "Votre dossier a bien été partagé par email",
     "copy-link": "Copier le lien",
+    "field-required": "Ce champ est requis",
   }
 }
 </i18n>
