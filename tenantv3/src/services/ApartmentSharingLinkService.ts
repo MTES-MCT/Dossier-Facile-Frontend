@@ -23,6 +23,12 @@ export const ApartmentSharingLinkService = {
   updateLinkStatus(link: ApartmentSharingLink, enabled: boolean) {
     return axios.put<void>(`${LINKS_API_URL}/${link.id}?enabled=${enabled}`)
   },
+  updateLinkExpiration(link: ApartmentSharingLink, expirationDate: string) {
+    return axios.put<void>(`${LINKS_API_URL}/${link.id}/expiration`, { expirationDate })
+  },
+  updateLinkTitle(link: ApartmentSharingLink, title: string) {
+    return axios.put<void>(`${LINKS_API_URL}/${link.id}/title`, { title })
+  },
   disableAllLinks() {
     return axios.post<void>(`${LINKS_API_URL}/disableAll`)
   },
