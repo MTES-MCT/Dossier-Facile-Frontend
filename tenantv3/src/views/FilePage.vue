@@ -1,6 +1,10 @@
 <template>
   <div class="root" :class="{ 'blue-background': !fileNotFound }">
-    <div v-if="forbiddenFileAccess" class="modal-overlay"></div>
+    <TrigramAuthentication
+      v-if="forbiddenFileAccess"
+      :has-error="trigramError"
+      @submit="handleTrigramSubmit"
+    />
     <div v-if="!fileNotFound && !tooManyRequestsFileAccess" class="fr-container">
       <FileHeader :user="user">
         <div>
@@ -241,6 +245,7 @@ import FileHeader from '../components/FileHeader.vue'
 import RowListItem from '@/components/documents/RowListItem.vue'
 import FileNotFound from '@/views/FileNotFound.vue'
 import FileTooManyRequest from '@/views/FileTooManyRequest.vue'
+import TrigramAuthentication from '@/components/TrigramAuthentication.vue'
 import { useI18n } from 'vue-i18n'
 import { onMounted, ref, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
@@ -256,6 +261,7 @@ const showProgressBar = ref(false)
 const fileNotFound = ref(false)
 const forbiddenFileAccess = ref(false)
 const tooManyRequestsFileAccess = ref(false)
+const trigramError = ref(false)
 const downloadButton = useTemplateRef('download-button')
 
 function franceConnectTenantCount() {
@@ -271,9 +277,9 @@ function isTaxChecked() {
   return user.value?.tenants?.some((t) => hasAuthenticTax(t))
 }
 
-function setUser() {
+function setUser(trigram?: string) {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
-  ProfileService.getLinkByToken(token, 'XXX')
+  ProfileService.getLinkByToken(token, trigram)
     .then((d) => {
       user.value = d.data
       if (user.value) {
@@ -281,22 +287,37 @@ function setUser() {
           return t1.tenantType === 'CREATE' && t2.tenantType !== 'CREATE' ? -1 : 1
         })
       }
+      // Authentication successful, hide the trigram modal
+      forbiddenFileAccess.value = false
+      trigramError.value = false
     })
     .catch((error) => {
       const statusCode = error.response?.status
       if (statusCode === 404) {
         fileNotFound.value = true
+        forbiddenFileAccess.value = false
       } else if (statusCode === 429) {
         tooManyRequestsFileAccess.value = true
+        forbiddenFileAccess.value = false
       } else if (statusCode === 403) {
         forbiddenFileAccess.value = true
+        // If we were trying with a trigram, show error
+        if (trigram) {
+          trigramError.value = true
+        }
       } else {
         fileNotFound.value = true
+        forbiddenFileAccess.value = false
       }
     })
 }
 
-onMounted(setUser)
+function handleTrigramSubmit(trigram: string) {
+  trigramError.value = false
+  setUser(trigram)
+}
+
+onMounted(() => setUser())
 
 function document(u: User | Guarantor, s: string) {
   return u.documents?.find((d) => {

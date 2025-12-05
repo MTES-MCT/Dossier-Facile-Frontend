@@ -388,7 +388,17 @@
       "line1": "Pour des raisons de sécurité, l'accès à ce dossier a été temporairement bloqué après trop de tentatives d'authentification infructueuses",
       "line2": "Veuillez réessayer dans 1 heure"
     },
-    "disclaimer": "Le service fourni par DossierFacile ne saurait être assimilé à une garantie apportée par DossierFacile sur les dossiers ayant fait l’objet d’une labellisation. DossierFacile ne saurait être tenu responsable ni être engagé directement ou indirectement dans le cadre d'un litige entre un locataire et son bailleur ou tout autre intermédiaire."
+    "disclaimer": "Le service fourni par DossierFacile ne saurait être assimilé à une garantie apportée par DossierFacile sur les dossiers ayant fait l'objet d'une labellisation. DossierFacile ne saurait être tenu responsable ni être engagé directement ou indirectement dans le cadre d'un litige entre un locataire et son bailleur ou tout autre intermédiaire."
+  },
+  "trigram": {
+    "title": "Entrez les 3 premières lettres du nom de famille du locataire",
+    "alert-title": "Identifiant du dossier",
+    "alert-description": "Saisissez les <strong>3 premières lettres</strong> du nom de famille d'un des locataires.",
+    "alert-multiple": "Plusieurs locataires ? Choisissez n'importe lequel (pas les garants).",
+    "letter-label": "Lettre {0}",
+    "error-message": "Ces lettres ne correspondent pas au début du nom de famille d'un locataire de ce dossier.",
+    "examples-title": "Exemples :",
+    "support-link": "Besoin d'aide ? Contactez notre support"
   },
   "filereinsurance": {
     "documents-VALIDATED": "Le dossier contient les pièces requises",
