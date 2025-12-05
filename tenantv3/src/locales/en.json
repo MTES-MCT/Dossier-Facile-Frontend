@@ -376,7 +376,17 @@
     "download-failed": "File download failed. Please try again. If the problem persists, please contact us.",
     "download-failed-try-later": "File download failed. Please try again later. If the problem persists, please contact us.",
     "download-disabled-title": "The file will be available for download once it has been fully verified by DossierFacile.",
-    "not-found": "The file was not found. Please check the provided link."
+    "not-found": {
+      "title": "Application not available",
+      "line1": "This application is not available.",
+      "line2": "The link is incorrect or has been disabled."
+    },
+    "too-many-requests": {
+      "title": "Application access is blocked",
+      "line1": "For security reasons, access to this application has been temporarily blocked after too many unsuccessful authentication attempts",
+      "line2": "Please try again in 1 hour"
+    },
+    "disclaimer": "The service provided by DossierFacile should not be construed as a guarantee by DossierFacile regarding files that have been labeled. DossierFacile cannot be held responsible and shall not be involved, directly or indirectly, in any dispute between a tenant and their landlord or any other intermediary."
   },
   "filereinsurance": {
     "documents-VALIDATED": "The file contains the required documents",

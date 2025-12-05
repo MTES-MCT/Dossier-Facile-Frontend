@@ -1,6 +1,7 @@
 <template>
   <div class="root" :class="{ 'blue-background': !fileNotFound }">
-    <div v-if="!fileNotFound" class="fr-container">
+    <div v-if="forbiddenFileAccess" class="modal-overlay"></div>
+    <div v-if="!fileNotFound && !tooManyRequestsFileAccess" class="fr-container">
       <FileHeader :user="user">
         <div>
           <DfButton v-if="showProgressBar" :primary="true"
@@ -210,8 +211,11 @@
         </div>
       </section>
     </div>
-    <div v-if="fileNotFound" class="not-found-container fr-mt-5w">
+    <div v-if="fileNotFound && !tooManyRequestsFileAccess" class="not-found-container fr-mt-5w">
       <FileNotFound></FileNotFound>
+    </div>
+    <div v-if="tooManyRequestsFileAccess" class="too-many-requests-container fr-mt-5w">
+      <FileTooManyRequest></FileTooManyRequest>
     </div>
     <section class="fr-mb-7w fr-container">
       <div class="fr-mt-3w fr-text--sm fr-label--disabled">
@@ -236,6 +240,7 @@ import OwnerBanner from '../components/OwnerBanner.vue'
 import FileHeader from '../components/FileHeader.vue'
 import RowListItem from '@/components/documents/RowListItem.vue'
 import FileNotFound from '@/views/FileNotFound.vue'
+import FileTooManyRequest from '@/views/FileTooManyRequest.vue'
 import { useI18n } from 'vue-i18n'
 import { onMounted, ref, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
@@ -249,6 +254,8 @@ const user = ref(new FileUser())
 const tabIndex = ref(0)
 const showProgressBar = ref(false)
 const fileNotFound = ref(false)
+const forbiddenFileAccess = ref(false)
+const tooManyRequestsFileAccess = ref(false)
 const downloadButton = useTemplateRef('download-button')
 
 function franceConnectTenantCount() {
@@ -266,7 +273,7 @@ function isTaxChecked() {
 
 function setUser() {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
-  ProfileService.getUserByToken(token)
+  ProfileService.getLinkByToken(token, 'XXX')
     .then((d) => {
       user.value = d.data
       if (user.value) {
@@ -275,8 +282,17 @@ function setUser() {
         })
       }
     })
-    .catch(() => {
-      fileNotFound.value = true
+    .catch((error) => {
+      const statusCode = error.response?.status
+      if (statusCode === 404) {
+        fileNotFound.value = true
+      } else if (statusCode === 429) {
+        tooManyRequestsFileAccess.value = true
+      } else if (statusCode === 403) {
+        forbiddenFileAccess.value = true
+      } else {
+        fileNotFound.value = true
+      }
     })
 }
 

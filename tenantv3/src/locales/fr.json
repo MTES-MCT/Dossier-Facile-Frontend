@@ -381,7 +381,12 @@
     "not-found": {
       "title": "Dossier introuvable",
       "line1": "Ce dossier de location est introuvable.",
-      "line2": "Le lien est erroné ou il a été supprimé par le candidat."
+      "line2": "Le lien est erroné ou il a été désactivé par le candidat."
+    },
+    "too-many-requests": {
+      "title": "Accès au dossier bloqué",
+      "line1": "Pour des raisons de sécurité, l'accès à ce dossier a été temporairement bloqué après trop de tentatives d'authentification infructueuses",
+      "line2": "Veuillez réessayer dans 1 heure"
     },
     "disclaimer": "Le service fourni par DossierFacile ne saurait être assimilé à une garantie apportée par DossierFacile sur les dossiers ayant fait l’objet d’une labellisation. DossierFacile ne saurait être tenu responsable ni être engagé directement ou indirectement dans le cadre d'un litige entre un locataire et son bailleur ou tout autre intermédiaire."
   },
