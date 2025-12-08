@@ -374,22 +374,22 @@
     "no-dpe-required": "without EPC required"
   },
   "landing": {
-    "title": "Are you letting a property? We'll check the rental files for you.",
-    "subtitle1": "Our teams check the accuracy and completeness of the rental documentation, before or after a visit.",
-    "subtitle2": "All you have to do is choose the right candidate.",
-    "subtitle3": "A free service offered by the Ministry of Housing.",
+    "title": "Are you renting out a property? DossierFacile helps your candidates create a consistent and complete application.",
+    "subtitle1": "Our teams verify the consistency and completeness of rental documents, to provide you with a clear and complete application.",
+    "subtitle2": "A free service provided by the French Ministry of Housing.",
+    "tagline": "A free service offered by the French Ministry of Housing",
     "purpose": {
       "first": {
-        "title": "Our rental applications are comprehensive",
-        "content": "No more endless back and forth with applicants to obtain missing documents or wasted hours sorting rental applications."
+        "title": "Quick verification",
+        "content": "Each application is reviewed to ensure consistency and completeness. The landlord receives a clear file ready for review."
       },
       "second": {
-        "title": "Our rental applications are verified",
-        "content": "Rental applications are verified by our team of human operators, assisted by automated checks using government databases."
+        "title": "Simplified communication",
+        "content": "Applicants submit all their documents online. Supporting documents are centralized and presented in a structured and readable format."
       },
       "third": {
-        "title": "You just have to choose the perfect candidate",
-        "content": "Focus on what matters most. We simplify the rest. Just sign your lease!"
+        "title": "Time savings in managing applications",
+        "content": "A single link is sent to applicants. They know which documents to provide, reducing email exchanges and attachment sorting."
       }
     },
     "citation": {
@@ -412,15 +412,12 @@
         "content": "Send a link to your property to your potential tenants so they can submit their rental applications."
       },
       "manage-tenant": {
-        "title": "Receive and Centralize Rental Applications",
-        "content": "Find all your applicants in your account. Choose the ideal tenant for your rental."
+        "title": "We verify applications within 48 hours",
+        "content": "Our team analyzes the supporting documents to verify their consistency. If needed, we request additional information from applicants."
       }
     },
     "result": {
-      "title": "The rental applications from your candidates are",
-      "title1": "Comprehensive. Clear. Coherent.",
-      "title2": "and",
-      "title3": "Verified."
+      "title": "Each rental application is verified to ensure its consistency and completeness before being made available."
     }
   },
   "404": {
