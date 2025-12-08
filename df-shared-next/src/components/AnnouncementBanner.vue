@@ -39,7 +39,7 @@ function closeAnnouncement() {
 </script>
 
 <template>
-  <aside v-if="isVisible" class="announcement fr-pt-2w fr-pb-2w" role="complementary" aria-label="Annonce">
+  <aside v-if="isVisible" class="announcement fr-pt-2w fr-pb-2w" aria-label="Annonce">
     <div class="fr-container message">
       <p class="fr-mb-0" v-html="message"></p>
       <button
