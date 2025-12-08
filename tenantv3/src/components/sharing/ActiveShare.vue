@@ -123,10 +123,10 @@ const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
 const handleCopyLink = async () => {
   if (props.link.url) {
     try {
-      const fullUrl = `${window.location.origin}${props.link.url}`
+      const fullUrl = `${globalThis.location.origin}${props.link.url}`
       await navigator.clipboard.writeText(fullUrl)
       toast.success(t('link-copied'))
-    } catch (err) {
+    } catch {
       toast.error(t('copy-error'))
     }
   }

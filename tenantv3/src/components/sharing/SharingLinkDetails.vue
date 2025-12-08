@@ -10,7 +10,7 @@
               <td class="title-cell">
                 <div v-if="!isEditingTitle" class="title-display">
                   <span>{{ link.title }}</span>
-                  <button type="button" class="link-button blue-text" aria-label="Modifier le titre" @click="startEditingTitle">{{ t('update') }} <RiPencilLine aria-hidden="true" size="1em" /></button>
+                  <button type="button" class="link-button blue-text" :title="t('update-title')" @click="startEditingTitle">{{ t('update') }} <RiPencilLine aria-hidden="true" size="1em" /></button>
                 </div>
                 <div v-else class="title-edit">
                   <input
@@ -321,6 +321,7 @@ h3 {
     "general-info":"General information",
     "title-of-share": "Title of the share",
     "update": "Update",
+    "update-title": "Update the title",
     "validate": "Validate",
     "cancel": "Cancel",
     "created-on": "Created on",
@@ -339,6 +340,7 @@ h3 {
     "general-info":"Informations générales",
     "title-of-share": "Titre du partage",
     "update": "Modifier",
+    "update-title": "Modifier le titre",
     "validate": "Valider",
     "cancel": "Annuler",
     "created-on": "Créé le",
