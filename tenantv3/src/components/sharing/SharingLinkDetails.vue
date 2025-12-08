@@ -77,7 +77,7 @@
           <tbody>
             <tr>
               <td class="fr-text-mention--grey">{{ t('first-consultation') }}</td>
-              <td>{{ link.nbVisits > 0 ? formatDate(link.lastVisit) : t('no-consultation') }}</td>
+              <td>{{ link.nbVisits > 0 ? formatDate(link.firstVisit) : t('no-consultation') }}</td>
             </tr>
             <tr>
               <td class="fr-text-mention--grey">{{ t('last-consultation') }}</td>
