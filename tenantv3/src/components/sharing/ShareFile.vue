@@ -236,11 +236,32 @@ const requiredChoice = (value: string) => {
   return true
 }
 
+const EMAIL_MAX_LENGTH = 254 // RFC 5321 maximum email length
+
+const isValidEmail = (email: string): boolean => {
+  if (email.length > EMAIL_MAX_LENGTH) return false
+
+  const atIndex = email.indexOf('@')
+  if (atIndex < 1 || atIndex === email.length - 1) return false
+
+  const local = email.substring(0, atIndex)
+  const domain = email.substring(atIndex + 1)
+
+  if (local.includes(' ') || domain.includes(' ')) return false
+
+  if (domain.includes('@')) return false
+
+  const dotIndex = domain.lastIndexOf('.')
+  if (dotIndex < 1 || dotIndex === domain.length - 1) return false
+
+  return true
+}
+
 const emailValidation = (value: string) => {
   if (!value && activeTab.value === 1) {
     return t('field-required')
   }
-  if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+  if (value && !isValidEmail(value)) {
     return t('invalid-email')
   }
   return true
