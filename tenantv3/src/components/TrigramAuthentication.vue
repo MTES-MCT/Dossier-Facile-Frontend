@@ -89,7 +89,7 @@ function handleInput(index: number) {
   const value = trigram.value[index]
   
   // Only allow letters
-  const cleanedValue = value.replace(/[^a-zA-Z]/g, '').toUpperCase()
+  const cleanedValue = value.replaceAll(/[^a-zA-Z]/g, '').toUpperCase()
   trigram.value[index] = cleanedValue
 
   if (cleanedValue && index < 2) {
@@ -119,7 +119,7 @@ function handleKeydown(event: KeyboardEvent, index: number) {
 function handlePaste(event: ClipboardEvent) {
   event.preventDefault()
   const pastedText = event.clipboardData?.getData('text') || ''
-  const letters = pastedText.replace(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 3)
+  const letters = pastedText.replaceAll(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 3)
   
   for (let i = 0; i < 3; i++) {
     trigram.value[i] = letters[i] || ''

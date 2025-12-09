@@ -294,8 +294,7 @@ function setUser(trigram?: string) {
     .catch((error) => {
       const statusCode = error.response?.status
       if (statusCode === 404) {
-        fileNotFound.value = true
-        forbiddenFileAccess.value = false
+        setFileNotFound()
       } else if (statusCode === 429) {
         tooManyRequestsFileAccess.value = true
         forbiddenFileAccess.value = false
@@ -306,10 +305,14 @@ function setUser(trigram?: string) {
           trigramError.value = true
         }
       } else {
-        fileNotFound.value = true
-        forbiddenFileAccess.value = false
+        setFileNotFound()
       }
     })
+}
+
+function setFileNotFound() {
+  fileNotFound.value = true
+  forbiddenFileAccess.value = false
 }
 
 function handleTrigramSubmit(trigram: string) {
