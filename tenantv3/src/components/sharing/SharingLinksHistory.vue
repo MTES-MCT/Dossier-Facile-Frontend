@@ -113,7 +113,7 @@ async function toggleLinks() {
   "en": {
     "title": "Your sharing activity",
     "consult-sharing-links": "View your sharing activity history: access details about consultations, downloads, or pauses in your file",
-    "active-share-count": "Total number of active shares: {0}",
+    "active-shares-count": "Total number of active shares: {0}",
     "delete-selection": "Delete selection",
     "suspend-access": "Temporarily suspend access to your file",
     "suspend-all": "All your shares will be suspended. People with a link will no longer have access to them until you reactivate sharing.",

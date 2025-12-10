@@ -1,64 +1,91 @@
 <template>
   <div>
-    <div class="display--flex align-items--center fr-px-2w fr-py-1w wrap">
-      <slot :id="`cbl-${link.id}`"></slot>
-      <div class="fr-ml-2w">
-        <label :for="`cbl-${link.id}`" class="fr-mb-1v display--flex align-items--center">
-          <RiLinksLine
-            v-if="link.type === 'LINK'"
-            size="1rem"
-            class="blue-text"
-            title="Partage par lien"
-          />
-          <RiMailLine
-            v-else-if="link.type === 'MAIL'"
-            size="1rem"
-            class="blue-text"
-            title="Partage par email"
-          />
-          <RiHome4Line
-            v-else-if="link.type === 'OWNER'"
-            size="1rem"
-            class="blue-text"
-            title="Propriétaire DossierFacile"
-          />
-          <RiShakeHandsLine
-            v-else-if="link.type === 'PARTNER'"
-            size="1rem"
-            class="blue-text"
-            title="Partenaire"
-          />
-          <span v-if="link.type === 'PARTNER'" class="fr-ml-1v">Partage avec</span>
-          <span class="fr-ml-1v bold">
-            {{ link.title }}
-          </span>
-          <span v-if="link.type === 'MAIL'" class="fr-ml-1v">- {{ link.ownerEmail }}</span>
-        </label>
-        <p class="fr-mb-0 fr-text--xs text-grey">
-          <span class="bold">{{ t('created') }}</span>
-          <span>{{ formatDate(link.creationDate) }}</span>
-          <span class="bold border-left">{{ t('expires') }}</span>
-          <span>{{ formatDate(link.expirationDate) }}</span>
-          <span class="bold border-left">{{ t('consultations') }}</span>
-          <span>{{ t('times', [link.nbVisits]) }}</span>
+    <div class="share-row fr-px-2w fr-py-1w">
+      <!-- Checkbox + Infos -->
+      <div class="share-infos">
+        <slot :id="`cbl-${link.id}`"></slot>
+        <div class="share-content">
+          <label :for="`cbl-${link.id}`" class="share-title">
+            <RiLinksLine
+              v-if="link.type === 'LINK'"
+              size="1rem"
+              class="blue-text share-icon"
+              title="Partage par lien"
+            />
+            <RiMailLine
+              v-else-if="link.type === 'MAIL'"
+              size="1rem"
+              class="blue-text share-icon"
+              title="Partage par email"
+            />
+            <RiHome4Line
+              v-else-if="link.type === 'OWNER'"
+              size="1rem"
+              class="blue-text share-icon"
+              title="Propriétaire DossierFacile"
+            />
+            <RiShakeHandsLine
+              v-else-if="link.type === 'PARTNER'"
+              size="1rem"
+              class="blue-text share-icon"
+              title="Partenaire"
+            />
+            <span v-if="link.type === 'PARTNER'" class="fr-ml-1v">Partage avec</span>
+            <span class="fr-ml-1v bold">
+              {{ link.title }}
+            </span>
+            <span v-if="link.type === 'MAIL'" class="fr-ml-1v">- {{ link.ownerEmail }}</span>
+          </label>
+          <!-- Badge visible uniquement en mobile -->
+          <div class="share-badge-mobile">
+            <DsfrBadge
+              v-if="link.enabled"
+              :label="t('active-sharing')"
+              type="success"
+              small
+            />
+            <p v-else class="fr-badge fr-badge--sm fr-badge--new fr-badge--no-icon fr-mb-0">
+              <RiPauseCircleFill aria-hidden="true" size="1em" class="fr-mr-1v" />
+              <span>{{ t('disabled-sharing') }}</span>
+            </p>
+          </div>
+          <p class="fr-mb-0 fr-text--xs text-grey share-dates">
+            <span class="bold">{{ t('created') }}</span>
+            <span>{{ formatDate(link.creationDate) }}</span>
+            <span class="bold border-left">{{ t('expires') }}</span>
+            <span>{{ formatDate(link.expirationDate) }}</span>
+            <span class="bold border-left">{{ t('consultations') }}</span>
+            <span>{{ t('times', [link.nbVisits]) }}</span>
+          </p>
+        </div>
+      </div>
+      <!-- Badge visible uniquement en desktop -->
+      <div class="share-badge-desktop">
+        <DsfrBadge
+          v-if="link.enabled"
+          :label="t('active-sharing')"
+          type="success"
+          small
+        />
+        <p v-else class="fr-badge fr-badge--sm fr-badge--new fr-badge--no-icon fr-mb-0">
+          <RiPauseCircleFill aria-hidden="true" size="1em" class="fr-mr-1v" />
+          <span>{{ t('disabled-sharing') }}</span>
         </p>
       </div>
-      <DsfrBadge
-        v-if="link.enabled"
-        :label="t('active-sharing')"
-        type="success"
-        small
-        class="fr-mx-auto"
-      />
-      <p v-else class="fr-badge fr-badge--sm fr-badge--new fr-badge--no-icon fr-mx-auto">
-        <RiPauseCircleFill aria-hidden="true" size="1em" class="fr-mr-1v" />
-        <span>{{ t('disabled-sharing') }}</span>
-      </p>
-      <button type="button" class="link-button blue-text" @click="expanded = !expanded">
-        {{ expanded ? t('show-less') : t('show-all') }}
-        <RiSubtractLine v-if="expanded" aria-hidden="true" size="1em" />
-        <RiAddLine v-else aria-hidden="true" size="1em" />
-      </button>
+      <!-- Actions -->
+      <div class="share-actions">
+        <ShareActionsMenu
+          :enabled="link.enabled"
+          @copy-link="handleCopyLink"
+          @toggle-pause="handleTogglePause"
+          @delete="handleDelete"
+        />
+        <button type="button" class="link-button blue-text" @click="expanded = !expanded">
+          {{ expanded ? t('show-less') : t('show-all') }}
+          <RiSubtractLine v-if="expanded" aria-hidden="true" size="1em" />
+          <RiAddLine v-else aria-hidden="true" size="1em" />
+        </button>
+      </div>
     </div>
     <SharingLinkDetails v-if="expanded" :link @refresh="emit('refresh')" />
   </div>
@@ -80,8 +107,11 @@ import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSh
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SharingLinkDetails from './SharingLinkDetails.vue'
+import ShareActionsMenu from './ShareActionsMenu.vue'
+import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { toast } from '../toast/toastUtils'
 
-defineProps<{ link: ApartmentSharingLink }>()
+const props = defineProps<{ link: ApartmentSharingLink }>()
 const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
@@ -89,9 +119,79 @@ const { t } = useI18n()
 const expanded = ref(false)
 
 const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
+
+const handleCopyLink = async () => {
+  if (props.link.url) {
+    try {
+      const fullUrl = `${globalThis.location.origin}${props.link.url}`
+      await navigator.clipboard.writeText(fullUrl)
+      toast.success(t('link-copied'))
+    } catch {
+      toast.error(t('copy-error'))
+    }
+  }
+}
+
+const handleTogglePause = async () => {
+  try {
+    await ApartmentSharingLinkService.updateLinkStatus(props.link, !props.link.enabled)
+    emit('refresh')
+    toast.success(props.link.enabled ? t('pause-success') : t('reactivate-success'))
+  } catch (error) {
+    console.error(error)
+    toast.error(t('pause-error'))
+  }
+}
+
+const handleDelete = async () => {
+  try {
+    await ApartmentSharingLinkService.deleteLink(props.link)
+    emit('refresh')
+    toast.success(t('delete-success'))
+  } catch (error) {
+    console.error(error)
+    toast.error(t('delete-error'))
+  }
+}
 </script>
 
 <style scoped>
+/* Layout principal */
+.share-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.share-infos {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.share-content {
+  margin-left: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.share-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+}
+
+.share-icon {
+  flex-shrink: 0;
+}
+
+.share-dates {
+  margin-top: 0.25rem;
+}
+
 .border-left {
   margin-left: 0.5rem;
 }
@@ -99,14 +199,90 @@ const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
   content: '|';
   margin-right: 6px;
 }
+
+/* Badge desktop - visible par défaut */
+.share-badge-desktop {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: 0 1rem;
+}
+
+/* Badge mobile - masqué par défaut */
+.share-badge-mobile {
+  display: none;
+  margin: 0.5rem 0;
+}
+
+/* Actions */
+.share-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
 .link-button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   border-bottom: 1px solid;
+  white-space: nowrap;
 }
-.wrap {
-  flex-wrap: wrap;
+
+/* Responsive mobile */
+@media (max-width: 767px) {
+  .share-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .share-infos {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding-top: 10px;
+  }
+
+  .share-content {
+    flex: 1;
+    margin-left: 0.5rem;
+    min-width: 0;
+  }
+
+  .share-title {
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    line-height: 1.4;
+  }
+
+  /* En mobile: badge sous le titre */
+  .share-badge-desktop {
+    display: none;
+  }
+
+  /* Badge et dates à 8px du bord gauche - sortir de l'indentation */
+  .share-badge-mobile {
+    display: block;
+    margin-top: 0.25rem;
+    /* Compenser: margin-left de .share-content (0.5rem) + largeur checkbox (~32px) - 8px voulu */
+    margin-left: calc(-0.5rem - 32px + 8px);
+  }
+
+  .share-dates {
+    margin-top: 0.25rem;
+    margin-left: calc(-0.5rem - 32px + 8px);
+  }
+
+  /* Actions en bas, alignées à droite */
+  .share-actions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
 }
 </style>
 
@@ -120,7 +296,14 @@ const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
     "active-sharing": "Active sharing",
     "disabled-sharing": "Disabled sharing",
     "show-all": "Show all",
-    "show-less": "Show less"
+    "show-less": "Show less",
+    "link-copied": "Link copied",
+    "copy-error": "Error copying link",
+    "pause-success": "Sharing paused",
+    "reactivate-success": "Sharing reactivated",
+    "pause-error": "Error updating sharing status",
+    "delete-success": "Sharing deleted",
+    "delete-error": "Error deleting sharing"
   },
   "fr": {
     "created": "Créé le : ",
@@ -130,7 +313,14 @@ const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
     "active-sharing": "Partage actif",
     "disabled-sharing": "Partage en pause",
     "show-all": "Afficher tout",
-    "show-less": "Afficher moins"
+    "show-less": "Afficher moins",
+    "link-copied": "Le lien a été copié",
+    "copy-error": "Erreur lors de la copie du lien",
+    "pause-success": "Partage mis en pause",
+    "reactivate-success": "Partage réactivé",
+    "pause-error": "Erreur lors de la mise à jour du statut",
+    "delete-success": "Partage supprimé",
+    "delete-error": "Erreur lors de la suppression du partage"
   }
 }
 </i18n>

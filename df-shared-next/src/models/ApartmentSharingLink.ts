@@ -1,4 +1,5 @@
 export type ApartmentSharingLink = {
+  createdBy?: string
   creationDate: string
   deleted: boolean
   enabled: boolean
@@ -11,6 +12,7 @@ export type ApartmentSharingLink = {
   ownerEmail: string
   title: string
   type: 'MAIL' | 'LINK' | 'PARTNER' | 'OWNER'
+  url?: string
 }
 
 export type ApartmentSharingLinks = {

@@ -17,6 +17,8 @@ export default defineConfig({
     tenantUser: "elsa",
     ownerUrl: "http://localhost:3000",
     ownerUser: "laurent",
+    boUrl: "http://localhost:8081",
+    aloneTenantEmail: "ywiwyne-1268@yopmail.com",
   },
   viewportWidth: 1200,
   viewportHeight: 800,
