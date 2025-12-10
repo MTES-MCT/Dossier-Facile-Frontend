@@ -59,57 +59,27 @@
               </ErrorMessage>
             </div>
           </Field>
-          <div class="fr-input-group">
-            <label class="fr-label" for="link-validity">
-              {{ t('link-validity') }}
-              <span class="fr-hint-text">{{ t('link-validity-desc') }}</span>
-            </label>
-            <select id="link-validity" class="fr-select" name="validity">
-              <option value="7">{{ t('x-days', [7]) }}</option>
-              <option value="15">{{ t('x-days', [15]) }}</option>
-              <option value="30" selected>{{ t('x-days', [30]) }}</option>
-              <option value="90">{{ t('x-days', [90]) }}</option>
-            </select>
-          </div>
+          <DsfrSelect
+            v-model="linkValidity"
+            :label="t('link-validity')"
+            :hint="t('link-validity-desc')"
+            :options="validityOptions"
+            name="validity"
+          />
         </div>
-        <Field
-          v-slot="{ field, meta }"
-          v-model="selectedShareType"
-          name="shareType"
-          :rules="requiredChoice"
-        >
-          <div
-            class="fr-input-group fr-mt-0w link-content-group"
-            :class="{
-              'fr-input-group--error': !meta.valid && meta.touched
-            }"
-          >
-            <label class="fr-label" for="link-content">
-              {{ t('link-content') }}
-              <span class="fr-hint-text">{{ t('link-content-desc') }}</span>
-            </label>
-            <select
-              id="link-content"
-              v-bind="field"
-              class="fr-select"
-              :class="{
-                'fr-select--error': !meta.valid && meta.touched
-              }"
-              name="shareType"
-            >
-              <option value="">{{ t('select-option') }}</option>
-              <option value="restricted">{{ t('file-without-docs') }}</option>
-              <option value="full">{{ t('file-with-docs') }}</option>
-            </select>
-            <ErrorMessage v-slot="{ message }" name="shareType">
-              <span
-                v-if="message"
-                role="alert"
-                class="fr-error-text"
-              >{{ message }}</span>
-            </ErrorMessage>
-          </div>
-        </Field>
+        <div class="fr-input-group link-content-group" :class="{ 'fr-input-group--error': hasSubmitted && shareTypeError }">
+          <DsfrSelect
+            :model-value="selectedShareType"
+            :label="t('link-content')"
+            :hint="t('link-content-desc')"
+            :options="shareTypeOptions"
+            name="shareType"
+            @update:model-value="(val: string | number) => { selectedShareType = String(val) }"
+          />
+          <p v-if="hasSubmitted && shareTypeError" class="fr-error-text">
+            {{ shareTypeError }}
+          </p>
+        </div>
         <p v-if="selectedShareType" class="fr-message fr-message--info fr-mt-2w fr-mb-3w">
           {{ selectedShareType === 'restricted' ? t('share-type-without-docs') : t('share-type-with-docs') }}
         </p>
@@ -208,14 +178,14 @@
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { ShareService } from '@/services/ShareService'
-import { ref, useTemplateRef } from 'vue'
+import { ref, useTemplateRef, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RiClipboardLine, RiEyeLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { DsfrTabContent, DsfrTabs } from '@gouvminint/vue-dsfr'
+import { DsfrTabContent, DsfrTabs, DsfrSelect } from '@gouvminint/vue-dsfr'
 import LinkWarning from './LinkWarning.vue'
-import { Field, ErrorMessage, useForm } from 'vee-validate'
+import { Field, ErrorMessage, useForm, useField } from 'vee-validate'
 
 const emit = defineEmits<{ refresh: [] }>()
 
@@ -224,17 +194,31 @@ const { t } = useI18n()
 const activeTab = ref(0)
 const fileLink = ref('')
 const linkTitle = ref('')
-const selectedShareType = ref('')
+const linkValidity = ref('30')
 const linkCopied = ref(false)
+const hasSubmitted = ref(false)
 
-const { validate, resetForm } = useForm()
-
-const requiredChoice = (value: string) => {
+const { value: selectedShareType, errorMessage: shareTypeError, validate: validateShareType, resetField: resetShareType } = useField<string>('shareType', (value) => {
   if (!value) {
     return t('choice-required')
   }
   return true
-}
+}, { initialValue: '' })
+
+const shareTypeOptions = computed(() => [
+  { value: '', text: t('select-option'), disabled: true },
+  { value: 'restricted', text: t('file-without-docs') },
+  { value: 'full', text: t('file-with-docs') }
+])
+
+const validityOptions = computed(() => [
+  { value: '7', text: t('x-days', [7]) },
+  { value: '15', text: t('x-days', [15]) },
+  { value: '30', text: t('x-days', [30]) },
+  { value: '90', text: t('x-days', [90]) }
+])
+
+const { validate, resetForm } = useForm()
 
 const EMAIL_MAX_LENGTH = 254 // RFC 5321 maximum email length
 
@@ -293,8 +277,12 @@ const toString = (value: FormDataEntryValue | null) =>
   value && typeof value === 'string' ? value : ''
 
 async function handleFormSubmit(event: Event) {
-  const validationResult = await validate()
-  if (!validationResult.valid) {
+  hasSubmitted.value = true
+  const [formValidation, shareTypeValidation] = await Promise.all([
+    validate(),
+    validateShareType()
+  ])
+  if (!formValidation.valid || !shareTypeValidation.valid) {
     return
   }
   
@@ -314,8 +302,8 @@ async function submit(event: Event) {
   }
   const data = new FormData(linkForm)
   const title = toString(data.get('name'))
-  const fullData = data.get('shareType') === 'full'
-  const daysValid = Number(data.get('validity'))
+  const fullData = selectedShareType.value === 'full'
+  const daysValid = Number(linkValidity.value)
 
   if (event.submitter.value === 'email') {
     const email = toString(data.get('email'))
@@ -326,8 +314,10 @@ async function submit(event: Event) {
       toast.success(t('share-mail-success'), null)
       linkForm.reset()
       resetForm()
+      resetShareType()
+      hasSubmitted.value = false
       linkTitle.value = ''
-      selectedShareType.value = ''
+      linkValidity.value = '30'
       emit('refresh')
     } catch (error) {
       console.error(error)
@@ -339,8 +329,10 @@ async function submit(event: Event) {
       fileLink.value = `${window.location.origin}${response.data}`
       linkForm.reset()
       resetForm()
+      resetShareType()
+      hasSubmitted.value = false
       linkTitle.value = ''
-      selectedShareType.value = ''
+      linkValidity.value = '30'
       emit('refresh')
     } catch (error) {
       console.error(error)
@@ -444,7 +436,7 @@ async function copyLink() {
     flex-direction: row;
     gap: 1.5rem;
 
-    .fr-input-group {
+    > * {
       flex: 1;
     }
   }
