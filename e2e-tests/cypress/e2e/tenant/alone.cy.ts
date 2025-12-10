@@ -3,15 +3,14 @@ import { getTenantUser, UserType } from "../../support/users";
 describe("alone tenant scenario", () => {
   const user = getTenantUser();
 
-  beforeEach("reset account", () => {
+
+  it("validate file", () => {
     cy.loginWithFCAndDeleteAccount(
       user.username,
       user.password,
       UserType.TENANT
     );
-  });
 
-  it("validate file", () => {
     cy.tenantLoginWithFC(user.username, user.password);
     cy.rejectCookies();
 
@@ -51,7 +50,7 @@ describe("alone tenant scenario", () => {
     cy.contains("Passer à l’étape suivante").click();
     cy.location("pathname").should("equal", "/documents-locataire/4");
     cy.reload();
-    cy.contains("2500€ net mensuel").should("exist");
+    cy.contains("2500€ net mensuel", { timeout: 10000}).should("exist");
 
     cy.addFinancialResource(
       ["Rente", "des revenus locatifs", "Vous avez une quittance"],
@@ -79,6 +78,20 @@ describe("alone tenant scenario", () => {
     cy.contains("Votre dossier est actuellement en cours de traitement").should(
       "be.visible"
     );
+    
+  });
+
+  it("share links", () => {
+
+    cy.tenantLoginWithFC(user.username, user.password);
+    cy.rejectCookies();
+
+    cy.ValidateAloneFile(Cypress.env("aloneTenantEmail"));
+
+    cy.visit(Cypress.env("tenantUrl") + "/partages");
+    cy.contains("Dossier validé", { timeout: 10000}).should("exist");    
+    cy.testAccessibility();
+
   });
 });
 

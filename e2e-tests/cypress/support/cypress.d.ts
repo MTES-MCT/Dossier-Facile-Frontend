@@ -16,6 +16,8 @@ declare namespace Cypress {
       type: number
     ): Chainable<void>;
 
+    ValidateAloneFile(email: string): Chainable<void>
+
     uploadDocument(numberOfFiles?: number): Chainable<void>;
 
     waitUntilModalIsGone(): Chainable<void>;

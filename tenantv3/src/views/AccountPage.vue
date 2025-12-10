@@ -97,7 +97,7 @@
                     {{ t('account.share-file-button') }}
                   </span>
                 </router-link>
-                <router-link class="fr-btn update-btn fr-btn--secondary" :to="getDossierUrl()">
+                <router-link class="fr-btn update-btn fr-btn--secondary" to="/mon-dossier">
                   <RiEyeLine aria-hidden="true" />
                   <span class="text-center full-width">
                     {{ t('account.share-file-view-button') }}
@@ -275,9 +275,6 @@ watch(
   { immediate: true }
 )
 
-function getDossierUrl() {
-  return `/file/${user.value.apartmentSharing?.token}`
-}
 function loadExpectedProcessingTime(tenantId: number) {
   ProfileService.getExpectedProcessingTime(tenantId).then((response) => {
     if (response && response.data) {

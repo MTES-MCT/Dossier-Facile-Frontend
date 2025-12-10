@@ -68,6 +68,16 @@ Cypress.Commands.add("rejectCookies", () => {
   cy.contains("Tout refuser").click();
 });
 
+Cypress.Commands.add('ValidateAloneFile', (email: string) => {
+  cy.request({
+    method: 'POST',
+    url: `${Cypress.env('boUrl')}/api/testing/tenant/${email}/validate`,
+    failOnStatusCode: false
+  }).then((response) => {
+    expect(response.status).to.eq(200)
+  })
+})
+
 function ignoreErrorsOnSsoPage() {
   if (Cypress.env("configName") === "local") {
     cy.origin("https://sso-preprod.dossierfacile.fr", () => {
