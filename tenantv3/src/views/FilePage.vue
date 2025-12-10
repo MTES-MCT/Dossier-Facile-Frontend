@@ -277,8 +277,29 @@ function isTaxChecked() {
   return user.value?.tenants?.some((t) => hasAuthenticTax(t))
 }
 
+// TODO: Remove method when feature is fully rolled out
+function shouldDisplayAuthTrigramFeature(token: string) {
+  // Feature is rolled out to 0% of users by default
+  const authTrigramRolloutFeaturePercentage = Number(import.meta.env.VITE_AUTH_TRIGRAM_ROLLOUT_FEATURE_PERCENTAGE) || 0
+  // Convert token into a number by removing all non-numeric characters
+  // Take a portion of the token (ex: the first 8 characters)
+  const portion = token.replace(/-/g, '').substring(0, 8);
+  
+  // Convertir en entier (32 bits, pas de dépassement)
+  const numericValue = parseInt(portion, 16);
+
+  // Modulo 100 pour obtenir un pourcentage  
+  return numericValue % 100 < authTrigramRolloutFeaturePercentage;
+}
+
 function setUser(trigram?: string) {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
+
+  // TODO: Remove condition when feature is fully rolled out
+  if (shouldDisplayAuthTrigramFeature(token) && trigram === undefined) {
+    trigram = 'XXX'
+  }
+
   ProfileService.getLinkByToken(token, trigram)
     .then((d) => {
       user.value = d.data
@@ -301,7 +322,8 @@ function setUser(trigram?: string) {
       } else if (statusCode === 403) {
         forbiddenFileAccess.value = true
         // If we were trying with a trigram, show error
-        if (trigram) {
+        // TODO: Remove second condition "trigram !== 'XXX'" when feature is fully rolled out !
+        if (trigram && trigram !== 'XXX') {
           trigramError.value = true
         }
       } else {
