@@ -251,6 +251,7 @@ import { onMounted, ref, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -295,12 +296,18 @@ function shouldDisplayAuthTrigramFeature(token: string) {
 function testIfLinkExists() {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
 
+  // Track opening of full link
+  AnalyticsService.openFullLink()
+
   const isTrigramFeatureEnabled = shouldDisplayAuthTrigramFeature(token)
   console.log('isTrigramFeatureEnabled:', isTrigramFeatureEnabled)
+  
 
   return ProfileService.testLinkByToken(token)
     .then((d) => {
       if (isTrigramFeatureEnabled) { 
+        // Track display of trigram feature
+        AnalyticsService.displayTrigramFeature()
         forbiddenFileAccess.value = true
       } else {
         setUser()
@@ -347,6 +354,7 @@ function handleAPIError(statusCode: number, trigram?: string) {
     // If we were trying with a trigram, show error
     if (trigram) {
       trigramError.value = true
+      AnalyticsService.trigramError()
     }
   } else {
     setFileNotFound()
