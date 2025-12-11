@@ -292,44 +292,43 @@ function shouldDisplayAuthTrigramFeature(token: string) {
   return numericValue % 100 < authTrigramRolloutFeaturePercentage;
 }
 
-function setUser(trigram?: string) {
+function testIfLinkExists() {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
 
-  // TODO: Remove condition when feature is fully rolled out
-  if (shouldDisplayAuthTrigramFeature(token) && trigram === undefined) {
-    trigram = 'XXX'
-  }
+  const isTrigramFeatureEnabled = shouldDisplayAuthTrigramFeature(token)
+  console.log('isTrigramFeatureEnabled:', isTrigramFeatureEnabled)
 
-  ProfileService.getLinkByToken(token, trigram)
+  return ProfileService.testLinkByToken(token)
     .then((d) => {
-      user.value = d.data
-      if (user.value) {
-        user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
-          return t1.tenantType === 'CREATE' && t2.tenantType !== 'CREATE' ? -1 : 1
-        })
+      if (isTrigramFeatureEnabled) { 
+        forbiddenFileAccess.value = true
+      } else {
+        setUser()
       }
-      // Authentication successful, hide the trigram modal
-      forbiddenFileAccess.value = false
-      trigramError.value = false
     })
     .catch((error) => {
-      const statusCode = error.response?.status
-      if (statusCode === 404) {
-        setFileNotFound()
-      } else if (statusCode === 429) {
-        tooManyRequestsFileAccess.value = true
-        forbiddenFileAccess.value = false
-      } else if (statusCode === 403) {
-        forbiddenFileAccess.value = true
-        // If we were trying with a trigram, show error
-        // TODO: Remove second condition "trigram !== 'XXX'" when feature is fully rolled out !
-        if (trigram && trigram !== 'XXX') {
-          trigramError.value = true
-        }
-      } else {
-        setFileNotFound()
-      }
+      handleAPIError(error.response?.status)
     })
+}
+
+function setUser(trigram?: string) {
+  const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
+    
+  ProfileService.getLinkByToken(token, trigram)
+  .then((d) => {
+    user.value = d.data
+    if (user.value) {
+      user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
+        return t1.tenantType === 'CREATE' && t2.tenantType !== 'CREATE' ? -1 : 1
+      })
+    }
+    // Authentication successful, hide the trigram modal
+    forbiddenFileAccess.value = false
+    trigramError.value = false
+  })
+  .catch((error) => {
+    handleAPIError(error.response?.status, trigram)
+  })
 }
 
 function setFileNotFound() {
@@ -337,12 +336,29 @@ function setFileNotFound() {
   forbiddenFileAccess.value = false
 }
 
+function handleAPIError(statusCode: number, trigram?: string) {
+  if (statusCode === 404) {
+    setFileNotFound()
+  } else if (statusCode === 429) {
+    tooManyRequestsFileAccess.value = true
+    forbiddenFileAccess.value = false
+  } else if (statusCode === 403) {
+    forbiddenFileAccess.value = true
+    // If we were trying with a trigram, show error
+    if (trigram) {
+      trigramError.value = true
+    }
+  } else {
+    setFileNotFound()
+  }
+}
+
 function handleTrigramSubmit(trigram: string) {
   trigramError.value = false
   setUser(trigram)
 }
 
-onMounted(() => setUser())
+onMounted(() => testIfLinkExists())
 
 function document(u: User | Guarantor, s: string) {
   return u.documents?.find((d) => {

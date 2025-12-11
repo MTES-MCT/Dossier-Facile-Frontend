@@ -43,6 +43,9 @@ export const ProfileService = {
   deleteDocument(id: number) {
     return axios.delete<void>(`${import.meta.env.VITE_API_URL}/api/document/${id}`)
   },
+  testLinkByToken(token: string) {
+    return axios.head<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/full/${token}`)
+  },
   getLinkByToken(token: string, trigram?: string) {
     const headers = trigram ? { 'X-Tenant-Trigram': trigram } : {}
     
