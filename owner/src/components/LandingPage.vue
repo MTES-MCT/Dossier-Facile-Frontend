@@ -10,10 +10,9 @@
               </h1>
               <p class="text-bold color--white fr-h4">
                 {{ t('landing.subtitle1') }}
-                {{ t('landing.subtitle2') }}
               </p>
               <p class="text-bold color--white">
-                {{ t('landing.subtitle3') }}
+                {{ t('landing.subtitle2') }}
               </p>
             </div>
           </div>
@@ -215,10 +214,7 @@
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-2w">
       <div class="fr-container fr-mb-7w">
         <h2 class="fr-h2 text-center">
-          {{ t('landing.result.title') }}<br />
-          <span class="text--light-blue">{{ t('landing.result.title1') }}</span>
-          {{ t('landing.result.title2') }}
-          <span class="blue-text">{{ t('landing.result.title3') }}</span>
+          {{ t('landing.result.title') }}
         </h2>
         <div class="fr-grid-row">
           <img src="../assets/landing/screenshot-bottom.png" alt="" class="justif-img" />
