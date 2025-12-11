@@ -408,23 +408,22 @@
     "no-dpe-required": "non soumis au DPE"
   },
   "landing": {
-    "title": "Vous mettez un logement en location ? Nous vérifions les dossiers de location à votre place.",
-    "subtitle1": "Nos équipes vérifient l’exactitude et la complétude des pièces justificatives de location, avant ou après une visite.",
-    "subtitle2": "Vous n’avez plus qu’à choisir le bon candidat.",
-    "subtitle3": "Un service gratuit proposé par le Ministère du Logement.",
+    "title": "Vous proposez un logement à la location ? DossierFacile permet à vos candidats de constituer un dossier cohérent et complet.",
+    "subtitle1": "Les dossiers de location sont vérifiés afin de vous fournir des informations claires et structurées. Vous pouvez étudier les candidatures plus facilement.",
+    "subtitle2": "Un service gratuit proposé par le Ministère du Logement.",
     "tagline": "Un service gratuit proposé aux propriétaires par le Ministère du Logement",
     "purpose": {
       "first": {
-        "title": "Fini les faux dossiers",
-        "content": "Une équipe de 15 personnes vérifie chaque dossier, 5j/7. Ils sont aidés par des contrôles automatisés utilisant des bases de données de l’État. Réponse en 48h. Gratuitement."
+        "title": "Vérification dans les meilleurs délais",
+        "content": "Chaque dossier est examiné afin d’en assurer la cohérence et la complétude. Le propriétaire reçoit un dossier clair et prêt à l’étude."
       },
       "second": {
-        "title": "Fini les échanges d’e-mails",
-        "content": "Fini les allers-retours interminables avec les candidats pour obtenir des documents manquants et les heures perdues à trier les dossiers de location. Partagez-leur un unique lien."
+        "title": "Simplification des échanges",
+        "content": "Les candidats déposent l’ensemble de leurs documents en ligne. Les justificatifs sont centralisés et présentés dans un format structuré et lisible."
       },
       "third": {
-        "title": "Ne faites visiter votre bien qu’aux candidats ayant un dossier complet",
-        "content": "Trop de demandes de visite ? Demandez avant aux candidats d’importer leurs justificatifs sur Dossier Facile. Fini les visites inutiles"
+        "title": "Gain de temps dans la gestion des candidatures",
+        "content": "Un lien unique est transmis aux candidats. Ils savent quels documents fournir, ce qui limite les échanges d’e-mails et le tri des pièces jointes."
       }
     },
     "citation": {
@@ -448,14 +447,11 @@
       },
       "manage-tenant": {
         "title": "Nous vérifions les dossiers en 48h",
-        "content": "Notre équipe analyse les justificatifs pour vérifier leur exactitude. Si besoin, nous demandons aux candidats des compléments"
+        "content": "Notre équipe analyse les justificatifs pour vérifier leur cohérence. Si besoin, nous demandons aux candidats des compléments."
       }
     },
     "result": {
-      "title": "Avant ou après une visite, les dossiers de location de vos candidats sont",
-      "title1": "complets ",
-      "title2": "et",
-      "title3": "vérifiés."
+      "title": "Chaque dossier de location est vérifié pour en assurer la cohérence et la complétude avant sa mise à disposition."
     }
   },
   "gmbi-ad": {
