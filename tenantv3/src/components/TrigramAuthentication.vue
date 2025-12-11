@@ -11,24 +11,37 @@
           <p class="fr-mb-0 fr-text--sm">{{ t('trigram.alert-multiple') }}</p>
         </DsfrAlert>
 
-        <div class="trigram-inputs fr-mb-2w">
-          <input
-            v-for="(_, index) in 3"
-            :key="index"
-            ref="inputRefs"
-            v-model="trigram[index]"
-            type="text"
-            maxlength="1"
-            class="trigram-input"
-            :class="{ 'trigram-input--error': hasError }"
-            :aria-label="t('trigram.letter-label', [index + 1])"
-            @input="handleInput(index)"
-            @keydown="handleKeydown($event, index)"
-            @paste="handlePaste"
-          />
-        </div>
+        <fieldset class="trigram-fieldset">
+          <legend class="sr-only">{{ t('trigram.title') }}</legend>
+          <div class="trigram-inputs fr-mb-2w">
+            <input
+              v-for="(_, index) in 3"
+              :key="index"
+              ref="inputRefs"
+              v-model="trigram[index]"
+              type="text"
+              maxlength="1"
+              class="trigram-input"
+              :class="{ 'trigram-input--error': hasError }"
+              :aria-label="t('trigram.letter-label', [index + 1])"
+              :aria-invalid="hasError"
+              :aria-describedby="hasError ? errorMessageId : undefined"
+              :aria-required="true"
+              autocomplete="off"
+              @input="handleInput(index)"
+              @keydown="handleKeydown($event, index)"
+              @paste="handlePaste"
+            />
+          </div>
+        </fieldset>
 
-        <div v-if="hasError" class="fr-error-text text-center fr-mb-3w" role="alert">
+        <div
+          v-if="hasError"
+          :id="errorMessageId"
+          class="fr-error-text text-center fr-mb-3w"
+          role="alert"
+          aria-live="polite"
+        >
           {{ t('trigram.error-message') }}
         </div>
 
@@ -62,7 +75,7 @@
 
 <script setup lang="ts">
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
-import { ref, watch, nextTick, useTemplateRef } from 'vue'
+import { ref, watch, nextTick, useTemplateRef, onMounted, useId } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 
@@ -84,6 +97,7 @@ function handleClose() {
 
 const trigram = ref<string[]>(['', '', ''])
 const inputRefs = useTemplateRef<HTMLInputElement[]>('inputRefs')
+const errorMessageId = useId()
 
 function handleInput(index: number) {
   const value = trigram.value[index]
@@ -104,14 +118,33 @@ function handleInput(index: number) {
 }
 
 function handleKeydown(event: KeyboardEvent, index: number) {
+  // Handle Backspace: move to previous input if current is empty
   if (event.key === 'Backspace' && !trigram.value[index] && index > 0) {
-    // Move to previous input on backspace if current is empty
+    event.preventDefault()
     nextTick(() => {
       inputRefs.value?.[index - 1]?.focus()
     })
   }
 
+  // Handle ArrowLeft: move to previous input
+  if (event.key === 'ArrowLeft' && index > 0) {
+    event.preventDefault()
+    nextTick(() => {
+      inputRefs.value?.[index - 1]?.focus()
+    })
+  }
+
+  // Handle ArrowRight: move to next input
+  if (event.key === 'ArrowRight' && index < 2) {
+    event.preventDefault()
+    nextTick(() => {
+      inputRefs.value?.[index + 1]?.focus()
+    })
+  }
+
+  // Handle Enter: submit if all fields are filled
   if (event.key === 'Enter') {
+    event.preventDefault()
     checkAndSubmit()
   }
 }
@@ -148,6 +181,13 @@ function checkAndSubmit() {
     }, 1000)
   }
 }
+
+// Focus on first input when component is mounted (RGAA: focus initial)
+onMounted(() => {
+  nextTick(() => {
+    inputRefs.value?.[0]?.focus()
+  })
+})
 
 // Watch for error to reset inputs and focus (only for 3-letter trigrams)
 watch(
@@ -188,6 +228,24 @@ watch(
   gap: 1rem;
 }
 
+.trigram-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .trigram-input {
   width: 4rem;
   height: 5rem;
@@ -197,17 +255,28 @@ watch(
   border: none;
   border-bottom: 3px solid var(--grey-625-425);
   background-color: var(--background-alt-grey);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
+  // Focus visible - utiliser outline ou box-shadow avec contraste suffisant
   &:focus {
-    outline: none;
+    outline: 2px solid var(--blue-france-sun-113-625);
+    outline-offset: 2px;
+    border-bottom-color: var(--blue-france-sun-113-625);
+  }
+
+  // Focus visible en mode clavier uniquement (pas au clic)
+  &:focus-visible {
+    outline: 2px solid var(--blue-france-sun-113-625);
+    outline-offset: 2px;
     border-bottom-color: var(--blue-france-sun-113-625);
   }
 
   &--error {
     border-bottom-color: var(--error-425-625);
     
-    &:focus {
+    &:focus,
+    &:focus-visible {
+      outline-color: var(--error-425-625);
       border-bottom-color: var(--error-425-625);
     }
   }
