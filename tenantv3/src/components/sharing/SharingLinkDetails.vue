@@ -93,13 +93,24 @@
     </div>
     <div class="info">
       <LinkWarning />
-      <form class="display--flex align-items--center" @submit.prevent="pause">
-        <p class="fr-mt-1w">TODO: lien</p>
-        <DfButton ref="pause-btn" class="fr-ml-auto"
-          >{{ link.enabled ? 'Mettre en pause' : 'Réactiver' }}
-          <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
-        </DfButton>
-      </form>
+      <div v-if="link.url" class="link-row fr-mt-1w">
+        <div class="link-info">
+          <p class="fr-text-mention--grey fr-mb-0">
+            {{ link.fullData ? t('link-with-docs') : t('link-without-docs') }}
+          </p>
+          <p class="fr-mb-0">{{ fullUrl }}</p>
+        </div>
+        <div class="link-actions">
+          <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" @click="copyLink">
+            {{ t('copy-link') }}
+            <RiFileCopyLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
+          </button>
+          <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" @click="pause">
+            {{ link.enabled ? t('pause-share') : t('resume-share') }}
+            <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -109,11 +120,11 @@ import dayjs from 'dayjs'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import LinkWarning from './LinkWarning.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { RiPauseCircleLine, RiCalendarLine, RiPencilLine } from '@remixicon/vue'
+import { RiPauseCircleLine, RiCalendarLine, RiPencilLine, RiFileCopyLine } from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
-import { ref, useTemplateRef } from 'vue'
+import { ref, useTemplateRef, computed } from 'vue'
 import { VueDatePicker } from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
@@ -125,6 +136,11 @@ const pauseButton = useTemplateRef('pause-btn')
 
 const isEditingExpiration = ref(false)
 const expirationDate = ref(link.expirationDate.split('T')[0])
+
+const fullUrl = computed(() => {
+  if (!link.url) return ''
+  return `${window.location.origin}${link.url}`
+})
 
 const isEditingTitle = ref(false)
 const editedTitle = ref(link.title)
@@ -142,6 +158,16 @@ async function pause() {
   } catch (error) {
     console.error(error)
     toast.error(t('error'), pauseButton.value?.button)
+  }
+}
+
+async function copyLink() {
+  try {
+    await navigator.clipboard.writeText(fullUrl.value)
+    toast.success(t('link-copied'), null)
+  } catch (error) {
+    console.error(error)
+    toast.error(t('error'), null)
   }
 }
 
@@ -222,6 +248,27 @@ async function saveTitle() {
   background-color: white;
   border-radius: 4px;
   padding: 8px;
+}
+.link-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.link-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+  word-break: break-all;
+}
+.link-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
 }
 h3 {
   border-bottom: 1px solid var(--blue-france-sun-113-625);
@@ -312,6 +359,13 @@ h3 {
   .table tr {
     flex-wrap: wrap;
   }
+  .link-row {
+    flex-direction: column;
+  }
+  .link-actions {
+    align-items: flex-start;
+    width: 100%;
+  }
 }
 </style>
 
@@ -334,7 +388,13 @@ h3 {
     "nb-consultations": "Number of consultations",
     "no-consultation": "No consultation",
     "expiration-updated": "Expiration date updated successfully",
-    "title-updated": "Title updated successfully"
+    "title-updated": "Title updated successfully",
+    "link-with-docs": "Link to file with supporting documents",
+    "link-without-docs": "Link to file without supporting documents",
+    "copy-link": "Copy link",
+    "link-copied": "Link copied to clipboard",
+    "pause-share": "Pause share",
+    "resume-share": "Resume share"
   },
   "fr": {
     "general-info":"Informations générales",
@@ -353,7 +413,13 @@ h3 {
     "nb-consultations": "Nombre de consultations",
     "no-consultation": "Pas de consultation",
     "expiration-updated": "Date d'expiration modifiée avec succès",
-    "title-updated": "Titre modifié avec succès"
+    "title-updated": "Titre modifié avec succès",
+    "link-with-docs": "Lien du dossier avec documents justificatifs",
+    "link-without-docs": "Lien du dossier sans documents justificatifs",
+    "copy-link": "Copier le lien",
+    "link-copied": "Lien copié dans le presse-papier",
+    "pause-share": "Mettre le partage en pause",
+    "resume-share": "Réactiver le partage"
   }
 }
 </i18n>
