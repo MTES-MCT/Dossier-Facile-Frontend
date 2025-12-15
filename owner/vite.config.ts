@@ -4,6 +4,8 @@ import vue from '@vitejs/plugin-vue'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import { fileURLToPath } from 'node:url'
 
+import { createRobotsTxtPlugin } from '../df-shared-next/src/plugin/robots'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
@@ -29,6 +31,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    createRobotsTxtPlugin(),
     vueI18n({ strictMessage: false }),
     sentryVitePlugin({
       org: 'betagouv',

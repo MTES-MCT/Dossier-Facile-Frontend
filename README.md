@@ -23,6 +23,13 @@ Cloner ce repository et exécutez `pnpm install` pour installer les dépendences
 
 Dans chaque dossier `www`, `tenantv3`, `owner` et `watermark`, copier le fichier `.env.example` dans `.env.local` et modifiez les valeurs adéquates.
 
+### robots.txt behaviour
+
+The build injects a `robots.txt` file based on `VITE_ENVIRONMENT`:
+
+- `prod` keeps `public/robots.txt` (allowing the app to be indexed).
+- any other value replaces it with a disallow-all robots file at build time via `df-shared-next/src/plugin/robots`.
+
 ### Backend
 
 Assurez-vous d'avoir installé et configuré correctement la partie [backend](https://github.com/MTES-MCT/dossierfacile-backend) afin que la partie front puisse fonctionner.
