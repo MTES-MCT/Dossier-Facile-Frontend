@@ -93,7 +93,8 @@
     </div>
     <div class="info">
       <LinkWarning />
-      <div v-if="link.url" class="link-row fr-mt-1w">
+      <!-- Partage par lien -->
+      <div v-if="link.type === 'LINK' && link.url" class="link-row fr-mt-1w">
         <div class="link-info">
           <p class="fr-text-mention--grey fr-mb-0">
             {{ link.fullData ? t('link-with-docs') : t('link-without-docs') }}
@@ -111,6 +112,22 @@
           </button>
         </div>
       </div>
+      <!-- Partage par mail -->
+      <div v-else-if="link.type === 'MAIL'" class="link-row fr-mt-1w">
+        <div class="link-info">
+          <p class="fr-text-mention--grey fr-mb-0">{{ t('email-sent-to') }}</p>
+          <p class="fr-mb-0">{{ link.ownerEmail }}</p>
+        </div>
+        <div class="link-actions">
+          <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" @click="resendMail">
+            {{ t('resend-mail') }}
+            <RiSendPlaneLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
+          </button>
+          <p class="fr-text-mention--grey fr-text--sm fr-mb-0">
+            {{ t('last-sent', { date: formatDateTime(link.lastVisit || link.creationDate) }) }}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -120,7 +137,7 @@ import dayjs from 'dayjs'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import LinkWarning from './LinkWarning.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { RiPauseCircleLine, RiCalendarLine, RiPencilLine, RiFileCopyLine } from '@remixicon/vue'
+import { RiPauseCircleLine, RiCalendarLine, RiPencilLine, RiFileCopyLine, RiSendPlaneLine } from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
@@ -147,6 +164,7 @@ const editedTitle = ref(link.title)
 
 const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
 const formatDatePicker = (date: Date | string) => dayjs(date).format('DD/MM/YYYY')
+const formatDateTime = (date: string) => dayjs(date).format('D MMMM YYYY - HH[h]mm')
 
 const minDate = new Date()
 minDate.setDate(minDate.getDate() + 1)
@@ -165,6 +183,17 @@ async function copyLink() {
   try {
     await navigator.clipboard.writeText(fullUrl.value)
     toast.success(t('link-copied'), null)
+  } catch (error) {
+    console.error(error)
+    toast.error(t('error'), null)
+  }
+}
+
+async function resendMail() {
+  try {
+    await ApartmentSharingLinkService.resendLink(link)
+    toast.success(t('mail-resent'), null)
+    emit('refresh')
   } catch (error) {
     console.error(error)
     toast.error(t('error'), null)
@@ -394,7 +423,11 @@ h3 {
     "copy-link": "Copy link",
     "link-copied": "Link copied to clipboard",
     "pause-share": "Pause share",
-    "resume-share": "Resume share"
+    "resume-share": "Resume share",
+    "email-sent-to": "Email sent to",
+    "resend-mail": "Resend share by email",
+    "mail-resent": "Email resent successfully",
+    "last-sent": "Last sent: {date}"
   },
   "fr": {
     "general-info":"Informations générales",
@@ -419,7 +452,11 @@ h3 {
     "copy-link": "Copier le lien",
     "link-copied": "Lien copié dans le presse-papier",
     "pause-share": "Mettre le partage en pause",
-    "resume-share": "Réactiver le partage"
+    "resume-share": "Réactiver le partage",
+    "email-sent-to": "Envoi par email à l'adresse",
+    "resend-mail": "Renvoyer le partage par mail",
+    "mail-resent": "Email renvoyé avec succès",
+    "last-sent": "Dernier envoi : {date}"
   }
 }
 </i18n>
