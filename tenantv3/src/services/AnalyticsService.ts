@@ -229,6 +229,18 @@ export const AnalyticsService = {
   },
   writeText(category: DocumentCategory) {
     sendFullEvent('funnel', 'write', `text_${category}`)
+  },
+
+  openFullLink() {
+    sendFullEvent('file', 'print', 'full-link-opened')
+  },
+
+  displayTrigramFeature() {
+    sendFullEvent('file', 'print', 'full-link-trigram-feature')
+  },
+
+  trigramError() {
+    sendFullEvent('file', 'clic', 'full-link-trigram-error')
   }
 }
 
