@@ -47,7 +47,9 @@ export default defineConfig({
     },
     onFinished: () => {
       const baseURL = 'https://' + process.env.VITE_MAIN_URL
-      generateSiteMap({ hostname: baseURL })
+      if (process.env.VITE_ENVIRONMENT === 'prod') {
+        generateSiteMap({ hostname: baseURL })
+      }
     }
   },
   resolve: {
