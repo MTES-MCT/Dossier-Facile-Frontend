@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test": "vitest",
     "tsc": "vue-tsc --noEmit",
     "lint": "eslint . --fix",
     "format": "prettier --write src/"
@@ -32,6 +33,7 @@
     "prettier": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
+    "vitest": "catalog:",
     "vue-tsc": "catalog:"
   }
 }

@@ -234,7 +234,7 @@ function isTaxChecked() {
 
 onMounted(() => {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
-  ProfileService.getPublicUserByToken(token)
+  ProfileService.getPublicLinkByToken(token)
     .then((d) => {
       user.value = d.data
       if (user.value) {

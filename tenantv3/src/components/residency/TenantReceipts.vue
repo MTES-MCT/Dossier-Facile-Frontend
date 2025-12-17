@@ -97,7 +97,7 @@ function checkFiles() {
   router.push(nextStep)
 }
 
-const month = dayjs().subtract(dayjs().date() < 15 ? 2 : 1, 'month')
+const month = dayjs().subtract(dayjs().date() < 16 ? 2 : 1, 'month')
 const monthsLabels = [3, 2, 1].map((d) => month.subtract(d, 'month').format('MMMM'))
 </script>
 

@@ -43,10 +43,17 @@ export const ProfileService = {
   deleteDocument(id: number) {
     return axios.delete<void>(`${import.meta.env.VITE_API_URL}/api/document/${id}`)
   },
-  getUserByToken(token: string) {
-    return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/full/${token}`)
+  testLinkByToken(token: string) {
+    return axios.head<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/full/${token}`)
   },
-  getPublicUserByToken(token: string) {
+  getLinkByToken(token: string, trigram?: string) {
+    const headers = trigram ? { 'X-Tenant-Trigram': trigram } : {}
+    
+    return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/full/${token}`, {
+      headers
+    })
+  },
+  getPublicLinkByToken(token: string) {
     return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/light/${token}`)
   },
   postCreateFullPdf(token: string) {

@@ -1,6 +1,11 @@
 <template>
   <div class="root" :class="{ 'blue-background': !fileNotFound }">
-    <div v-if="!fileNotFound" class="fr-container">
+    <TrigramAuthentication
+      v-if="forbiddenFileAccess"
+      :has-error="trigramError"
+      @submit="handleTrigramSubmit"
+    />
+    <div v-if="!fileNotFound && !tooManyRequestsFileAccess" class="fr-container">
       <FileHeader :user="user">
         <div>
           <DfButton v-if="showProgressBar" :primary="true"
@@ -210,8 +215,11 @@
         </div>
       </section>
     </div>
-    <div v-if="fileNotFound" class="not-found-container fr-mt-5w">
+    <div v-if="fileNotFound && !tooManyRequestsFileAccess" class="not-found-container fr-mt-5w">
       <FileNotFound></FileNotFound>
+    </div>
+    <div v-if="tooManyRequestsFileAccess" class="too-many-requests-container fr-mt-5w">
+      <FileTooManyRequest></FileTooManyRequest>
     </div>
     <section class="fr-mb-7w fr-container">
       <div class="fr-mt-3w fr-text--sm fr-label--disabled">
@@ -236,11 +244,14 @@ import OwnerBanner from '../components/OwnerBanner.vue'
 import FileHeader from '../components/FileHeader.vue'
 import RowListItem from '@/components/documents/RowListItem.vue'
 import FileNotFound from '@/views/FileNotFound.vue'
+import FileTooManyRequest from '@/views/FileTooManyRequest.vue'
+import TrigramAuthentication from '@/components/TrigramAuthentication.vue'
 import { useI18n } from 'vue-i18n'
 import { onMounted, ref, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -249,6 +260,9 @@ const user = ref(new FileUser())
 const tabIndex = ref(0)
 const showProgressBar = ref(false)
 const fileNotFound = ref(false)
+const forbiddenFileAccess = ref(false)
+const tooManyRequestsFileAccess = ref(false)
+const trigramError = ref(false)
 const downloadButton = useTemplateRef('download-button')
 
 function franceConnectTenantCount() {
@@ -264,23 +278,95 @@ function isTaxChecked() {
   return user.value?.tenants?.some((t) => hasAuthenticTax(t))
 }
 
-function setUser() {
+// TODO: Remove method when feature is fully rolled out
+function shouldDisplayAuthTrigramFeature(token: string) {
+  // Feature is rolled out to 0% of users by default
+  const authTrigramRolloutFeaturePercentage = Number(import.meta.env.VITE_AUTH_TRIGRAM_ROLLOUT_FEATURE_PERCENTAGE) || 0
+  // Convert token into a number by removing all non-numeric characters
+  // Take a portion of the token (ex: the first 8 characters)
+  const portion = token.replace(/-/g, '').substring(0, 8);
+  
+  // Convertir en entier (32 bits, pas de dépassement)
+  const numericValue = parseInt(portion, 16);
+
+  // Modulo 100 pour obtenir un pourcentage  
+  return numericValue % 100 < authTrigramRolloutFeaturePercentage;
+}
+
+function testIfLinkExists() {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
-  ProfileService.getUserByToken(token)
+
+  // Track opening of full link
+  AnalyticsService.openFullLink()
+
+  const isTrigramFeatureEnabled = shouldDisplayAuthTrigramFeature(token)
+  console.log('isTrigramFeatureEnabled:', isTrigramFeatureEnabled)
+  
+
+  return ProfileService.testLinkByToken(token)
     .then((d) => {
-      user.value = d.data
-      if (user.value) {
-        user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
-          return t1.tenantType === 'CREATE' && t2.tenantType !== 'CREATE' ? -1 : 1
-        })
+      if (isTrigramFeatureEnabled) { 
+        // Track display of trigram feature
+        AnalyticsService.displayTrigramFeature()
+        forbiddenFileAccess.value = true
+      } else {
+        setUser()
       }
     })
-    .catch(() => {
-      fileNotFound.value = true
+    .catch((error) => {
+      handleAPIError(error.response?.status)
     })
 }
 
-onMounted(setUser)
+function setUser(trigram?: string) {
+  const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
+    
+  ProfileService.getLinkByToken(token, trigram)
+  .then((d) => {
+    user.value = d.data
+    if (user.value) {
+      user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
+        return t1.tenantType === 'CREATE' && t2.tenantType !== 'CREATE' ? -1 : 1
+      })
+    }
+    // Authentication successful, hide the trigram modal
+    forbiddenFileAccess.value = false
+    trigramError.value = false
+  })
+  .catch((error) => {
+    handleAPIError(error.response?.status, trigram)
+  })
+}
+
+function setFileNotFound() {
+  fileNotFound.value = true
+  forbiddenFileAccess.value = false
+}
+
+function handleAPIError(statusCode: number, trigram?: string) {
+  if (statusCode === 404) {
+    setFileNotFound()
+  } else if (statusCode === 429) {
+    tooManyRequestsFileAccess.value = true
+    forbiddenFileAccess.value = false
+  } else if (statusCode === 403) {
+    forbiddenFileAccess.value = true
+    // If we were trying with a trigram, show error
+    if (trigram) {
+      trigramError.value = true
+      AnalyticsService.trigramError()
+    }
+  } else {
+    setFileNotFound()
+  }
+}
+
+function handleTrigramSubmit(trigram: string) {
+  trigramError.value = false
+  setUser(trigram)
+}
+
+onMounted(() => testIfLinkExists())
 
 function document(u: User | Guarantor, s: string) {
   return u.documents?.find((d) => {
