@@ -61,10 +61,6 @@ const OWNER_URL = `//${import.meta.env.VITE_OWNER_URL}/creation`
 
 .wrapper {
   overflow: hidden;
-  margin-left: -30px;
-  padding-left: 30px;
-  margin-right: -30px;
-  padding-right: 30px;
 }
 
 .men {
