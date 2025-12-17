@@ -102,7 +102,12 @@
           <p class="fr-mb-0">{{ fullUrl }}</p>
         </div>
         <div class="link-actions">
-          <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" @click="copyLink">
+          <button
+            type="button"
+            class="fr-btn fr-btn--secondary fr-btn--sm"
+            :disabled="!link.enabled"
+            @click="copyLink"
+          >
             {{ t('copy-link') }}
             <RiFileCopyLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
           </button>

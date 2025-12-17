@@ -23,24 +23,39 @@
     </button>
     
     <div v-if="isOpen" class="dropdown-menu">
-      <button
-        type="button"
-        class="menu-item"
-        @click="handleCopyLink"
-      >
-        <RiFileCopyLine aria-hidden="true" size="16px" class="menu-icon" />
-        <span>{{ t('copy-the-link') }}</span>
-      </button>
-      
-      <button
-        type="button"
-        class="menu-item"
-        @click="handleTogglePause"
-      >
-        <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
-        <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
-        <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
-      </button>
+      <!-- Options for LINK type -->
+      <template v-if="linkType === 'LINK'">
+        <button
+          type="button"
+          class="menu-item"
+          @click="handleCopyLink"
+        >
+          <RiFileCopyLine aria-hidden="true" size="16px" class="menu-icon" />
+          <span>{{ t('copy-the-link') }}</span>
+        </button>
+        
+        <button
+          type="button"
+          class="menu-item"
+          @click="handleTogglePause"
+        >
+          <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
+          <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
+          <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
+        </button>
+      </template>
+
+      <!-- Options for MAIL type -->
+      <template v-if="linkType === 'MAIL'">
+        <button
+          type="button"
+          class="menu-item"
+          @click="handleResendMail"
+        >
+          <RiSendPlaneLine aria-hidden="true" size="16px" class="menu-icon" />
+          <span>{{ t('resend-mail') }}</span>
+        </button>
+      </template>
       
       <button
         type="button"
@@ -81,7 +96,8 @@ import {
   RiFileCopyLine,
   RiPauseCircleLine,
   RiPlayCircleLine,
-  RiDeleteBinLine
+  RiDeleteBinLine,
+  RiSendPlaneLine
 } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
@@ -89,11 +105,13 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 
 defineProps<{
   enabled?: boolean
+  linkType: 'LINK' | 'MAIL' | 'OWNER' | 'PARTNER'
 }>()
 
 const emit = defineEmits<{
   copyLink: []
   togglePause: []
+  resendMail: []
   delete: []
 }>()
 
@@ -119,6 +137,11 @@ const handleCopyLink = () => {
 
 const handleTogglePause = () => {
   emit('togglePause')
+  closeMenu()
+}
+
+const handleResendMail = () => {
+  emit('resendMail')
   closeMenu()
 }
 
@@ -267,6 +290,7 @@ onUnmounted(() => {
     "copy-the-link": "Copy the link",
     "pause-sharing": "Pause sharing",
     "reactivate-sharing": "Reactivate sharing",
+    "resend-mail": "Resend share by email",
     "delete-sharing": "Delete sharing",
     "delete-confirmation-title": "Delete confirmation",
     "delete-confirmation-message": "Are you sure you want to delete this sharing?",
@@ -278,6 +302,7 @@ onUnmounted(() => {
     "copy-the-link": "Copier le lien",
     "pause-sharing": "Mettre le partage en pause",
     "reactivate-sharing": "Réactiver le partage",
+    "resend-mail": "Renvoyer le partage par mail",
     "delete-sharing": "Supprimer le partage",
     "delete-confirmation-title": "Confirmation de suppression",
     "delete-confirmation-message": "Êtes-vous sûr de vouloir supprimer ce partage ?",
