@@ -47,7 +47,7 @@
     "@vitest/eslint-plugin": "catalog:",
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
-    "@vue/test-utils": "2.4.6",
+    "@vue/test-utils": "catalog:",
     "@vue/tsconfig": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
