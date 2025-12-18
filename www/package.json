@@ -45,7 +45,7 @@
     "eslint-plugin-vue": "catalog:",
     "jiti": "catalog:",
     "jsdom": "26.1.0",
-    "npm-run-all2": "8.0.3",
+    "npm-run-all2": "catalog:",
     "prettier": "catalog:",
     "start-server-and-test": "2.0.12",
     "typescript": "catalog:",
