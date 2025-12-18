@@ -44,7 +44,7 @@
     "@vue/eslint-config-typescript": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
-    "sass": "1.89.0",
+    "sass": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:",
