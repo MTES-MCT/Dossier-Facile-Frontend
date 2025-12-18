@@ -1,11 +1,11 @@
 <template>
-  <div class="root" :class="{ 'blue-background': !fileNotFound }">
+  <div class="root" :class="{ 'blue-background': viewState === 'fileContent' }">
     <TrigramAuthentication
-      v-if="currentView === 'trigram'"
+      v-if="viewState === 'trigram'"
       :has-error="trigramError"
       @submit="handleTrigramSubmit"
     />
-    <div v-if="currentView === 'fileContent'" class="fr-container">
+    <div v-if="viewState === 'fileContent'" class="fr-container">
       <FileHeader :user="user">
         <div>
           <DfButton v-if="showProgressBar" :primary="true"
@@ -215,13 +215,13 @@
         </div>
       </section>
     </div>
-    <div v-if="currentView === 'notFound'" class="fr-container fr-mt-5w">
+    <div v-if="viewState === 'notFound'" class="fr-container fr-mt-5w">
       <FileNotFound></FileNotFound>
     </div>
-    <div v-if="currentView === 'tooManyRequests'" class="fr-container fr-mt-5w">
+    <div v-if="viewState === 'tooManyRequests'" class="fr-container fr-mt-5w">
       <FileTooManyRequest></FileTooManyRequest>
     </div>
-    <div v-if="currentView === 'badLink'" class="fr-container fr-mt-5w">
+    <div v-if="viewState === 'badLink'" class="fr-container fr-mt-5w">
       <FileBadLink></FileBadLink>
     </div>
     <section class="fr-mb-7w fr-container">
@@ -251,11 +251,13 @@ import FileTooManyRequest from '@/views/FileTooManyRequest.vue'
 import FileBadLink from '@/views/FileBadLink.vue'
 import TrigramAuthentication from '@/components/TrigramAuthentication.vue'
 import { useI18n } from 'vue-i18n'
-import { onMounted, ref, useTemplateRef, computed } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
 import { AnalyticsService } from '@/services/AnalyticsService'
+
+type ViewState = 'fileContent' | 'trigram' | 'notFound' | 'tooManyRequests' | 'badLink'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -263,28 +265,9 @@ const route = useRoute()
 const user = ref(new FileUser())
 const tabIndex = ref(0)
 const showProgressBar = ref(false)
-const fileNotFound = ref(false)
-const forbiddenFileAccess = ref(false)
-const tooManyRequestsFileAccess = ref(false)
-const badLinkFileAccess = ref(false)
+const viewState = ref<ViewState>('fileContent')
 const trigramError = ref(false)
 const downloadButton = useTemplateRef('download-button')
-
-const currentView = computed(() => {
-  if (forbiddenFileAccess.value) {
-    return 'trigram'
-  }
-  if (badLinkFileAccess.value) {
-    return 'badLink'
-  }
-  if (tooManyRequestsFileAccess.value) {
-    return 'tooManyRequests'
-  }
-  if (fileNotFound.value) {
-    return 'notFound'
-  }
-  return 'fileContent'
-})
 
 function franceConnectTenantCount() {
   return user.value?.tenants?.filter((t) => t.franceConnect && t.ownerType === 'SELF').length
@@ -329,7 +312,7 @@ function testIfLinkExists() {
       if (isTrigramFeatureEnabled) { 
         // Track display of trigram feature
         AnalyticsService.displayTrigramFeature()
-        forbiddenFileAccess.value = true
+        viewState.value = 'trigram'
       } else {
         setUser()
       }
@@ -351,7 +334,7 @@ function setUser(trigram?: string) {
       })
     }
     // Authentication successful, hide the trigram modal
-    forbiddenFileAccess.value = false
+    viewState.value = 'fileContent'
     trigramError.value = false
   })
   .catch((error) => {
@@ -359,29 +342,27 @@ function setUser(trigram?: string) {
   })
 }
 
-function setFileNotFound() {
-  fileNotFound.value = true
-  forbiddenFileAccess.value = false
-}
-
 function handleAPIError(statusCode: number, trigram?: string) {
-  if (statusCode === 404) {
-    setFileNotFound()
-  } else if (statusCode === 400) {
-    badLinkFileAccess.value = true
-    forbiddenFileAccess.value = false
-  } else if (statusCode === 429) {
-    tooManyRequestsFileAccess.value = true
-    forbiddenFileAccess.value = false
-  } else if (statusCode === 403) {
-    forbiddenFileAccess.value = true
-    // If we were trying with a trigram, show error
-    if (trigram) {
-      trigramError.value = true
-      AnalyticsService.trigramError()
-    }
-  } else {
-    setFileNotFound()
+  switch (statusCode) {
+    case 404:
+      viewState.value = 'notFound'
+      break
+    case 400:
+      viewState.value = 'badLink'
+      break
+    case 429:
+      viewState.value = 'tooManyRequests'
+      break
+    case 403:
+      viewState.value = 'trigram'
+      // If we were trying with a trigram, show error
+      if (trigram) {
+        trigramError.value = true
+        AnalyticsService.trigramError()
+      }
+      break
+    default:
+      viewState.value = 'notFound'
   }
 }
 
