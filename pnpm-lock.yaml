@@ -43,8 +43,8 @@ catalogs:
       specifier: 0.7.0
       version: 0.7.0
     axios:
-      specifier: 1.9.0
-      version: 1.9.0
+      specifier: 1.13.2
+      version: 1.13.2
     eslint:
       specifier: 9.32.0
       version: 9.32.0
@@ -102,7 +102,7 @@ importers:
         version: 4.4.0(vue@3.5.18(typescript@5.9.2))
       axios:
         specifier: 'catalog:'
-        version: 1.9.0(debug@4.4.1)
+        version: 1.13.2(debug@4.4.1)
       buffer:
         specifier: 6.0.3
         version: 6.0.3
@@ -200,7 +200,7 @@ importers:
         version: 3.0.6
       axios:
         specifier: 'catalog:'
-        version: 1.9.0(debug@4.4.1)
+        version: 1.13.2(debug@4.4.1)
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
@@ -373,7 +373,7 @@ importers:
         version: 3.0.6
       axios:
         specifier: 'catalog:'
-        version: 1.9.0(debug@4.4.1)
+        version: 1.13.2(debug@4.4.1)
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
@@ -491,7 +491,7 @@ importers:
         version: 9.22.0(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       axios:
         specifier: 'catalog:'
-        version: 1.9.0(debug@4.4.1)
+        version: 1.13.2(debug@4.4.1)
       df-shared-next:
         specifier: workspace:*
         version: link:../df-shared-next
@@ -546,7 +546,7 @@ importers:
         version: 3.0.6
       axios:
         specifier: 'catalog:'
-        version: 1.9.0(debug@4.4.1)
+        version: 1.13.2(debug@4.4.1)
       df-shared-next:
         specifier: workspace:*
         version: link:../df-shared-next
@@ -1931,7 +1931,7 @@ packages:
     os: [win32]
 
   '@parcel/watcher@2.5.0':
-    resolution: {integrity: sha512-i0GV1yJnm2n3Yq1qw6QrUrd/LI9bE8WEBOTtOkpCXHHdyN3TAGgqAK/DAT05z4fq2x04cARXt2pDmjWjL92iTQ==}
+    resolution: {integrity: sha512-i0GV1yJnm2n3Yq1qw6QrUrd/LI9bE8WEBOTtOkpCXHHdyN3TAGgqAK/DAT05z4fq2x04cARXt2pDmjWjL92iTQ==, tarball: https://registry.npmjs.org/@parcel/watcher/-/watcher-2.5.0.tgz}
     engines: {node: '>= 10.0.0'}
 
   '@pkgjs/parseargs@0.11.0':
@@ -2952,8 +2952,8 @@ packages:
     resolution: {integrity: sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==}
     engines: {node: '>=4'}
 
-  axios@1.9.0:
-    resolution: {integrity: sha512-re4CqKTJaURpzbLHtIi6XpDv20/CnpXOtjRY5/CU32L8gU8ek9UIivcfvSWvmKEngmVbrUtPpdDwWDWL7DNHvg==}
+  axios@1.13.2:
+    resolution: {integrity: sha512-VPk9ebNqPcy5lRGuSlKx752IlDatOjT9paPlm8A7yOuW2Fbvp4X3JznJtT4f0GzGLLiWE9W8onz51SqLYwzGaA==, tarball: https://registry.npmjs.org/axios/-/axios-1.13.2.tgz}
 
   babel-plugin-polyfill-corejs2@0.4.14:
     resolution: {integrity: sha512-Co2Y9wX854ts6U8gAAPXfn0GmAyctHuK8n0Yhfjd6t30g7yvKjspvvOo9yG+z52PZRgFErt7Ka2pYnXCjLKEpg==, tarball: https://registry.npmjs.org/babel-plugin-polyfill-corejs2/-/babel-plugin-polyfill-corejs2-0.4.14.tgz}
@@ -3670,7 +3670,7 @@ packages:
     resolution: {integrity: sha512-xx560wGBk7seZ6y933idtjJQc1l+ck+pI3sKvhKozdBV1dRZoKhkW5xoCaFv9tQiX5RH1xfSxjuNu6g+lmN/gw==}
 
   follow-redirects@1.15.9:
-    resolution: {integrity: sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==}
+    resolution: {integrity: sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==, tarball: https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.9.tgz}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -3688,10 +3688,6 @@ packages:
 
   forever-agent@0.6.1:
     resolution: {integrity: sha512-j0KLYPhm6zeac4lz3oJ3o65qvgQCcPubiyotZrXqEaG4hNagNYO8qdlUrX5vwqv9ohqeT/Z3j6+yW067yWWdUw==, tarball: https://registry.npmjs.org/forever-agent/-/forever-agent-0.6.1.tgz}
-
-  form-data@4.0.2:
-    resolution: {integrity: sha512-hGfm/slu0ZabnNt4oaRZ6uREyfCj6P4fT/n6A1rGV+Z0VdGXjfOhVUpkn6qVQONHGIFwmveGXyDs75+nr6FM8w==}
-    engines: {node: '>= 6'}
 
   form-data@4.0.5:
     resolution: {integrity: sha512-8RipRLol37bNs2bhoV67fiTEvdTrbMUYcFTiy3+wuuOnUog2QBHCZWXDRijWQfAkhBj2Uf5UnVaiWwA5vdd82w==, tarball: https://registry.npmjs.org/form-data/-/form-data-4.0.5.tgz}
@@ -5000,7 +4996,7 @@ packages:
     resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
 
   source-map@0.6.1:
-    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
+    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==, tarball: https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz}
     engines: {node: '>=0.10.0'}
 
   source-map@0.8.0-beta.0:
@@ -8341,10 +8337,10 @@ snapshots:
 
   axe-core@4.10.3: {}
 
-  axios@1.9.0(debug@4.4.1):
+  axios@1.13.2(debug@4.4.1):
     dependencies:
       follow-redirects: 1.15.9(debug@4.4.1)
-      form-data: 4.0.2
+      form-data: 4.0.5
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
@@ -9242,13 +9238,6 @@ snapshots:
       signal-exit: 4.1.0
 
   forever-agent@0.6.1: {}
-
-  form-data@4.0.2:
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      es-set-tostringtag: 2.1.0
-      mime-types: 2.1.35
 
   form-data@4.0.5:
     dependencies:
@@ -11323,7 +11312,7 @@ snapshots:
 
   wait-on@8.0.3(debug@4.4.1):
     dependencies:
-      axios: 1.9.0(debug@4.4.1)
+      axios: 1.13.2(debug@4.4.1)
       joi: 17.13.3
       lodash: 4.17.21
       minimist: 1.2.8
