@@ -1,11 +1,11 @@
 <template>
   <div class="root" :class="{ 'blue-background': !fileNotFound }">
     <TrigramAuthentication
-      v-if="forbiddenFileAccess"
+      v-if="currentView === 'trigram'"
       :has-error="trigramError"
       @submit="handleTrigramSubmit"
     />
-    <div v-if="!fileNotFound && !tooManyRequestsFileAccess" class="fr-container">
+    <div v-if="currentView === 'fileContent'" class="fr-container">
       <FileHeader :user="user">
         <div>
           <DfButton v-if="showProgressBar" :primary="true"
@@ -215,11 +215,14 @@
         </div>
       </section>
     </div>
-    <div v-if="fileNotFound && !tooManyRequestsFileAccess" class="not-found-container fr-mt-5w">
+    <div v-if="currentView === 'notFound'" class="fr-container fr-mt-5w">
       <FileNotFound></FileNotFound>
     </div>
-    <div v-if="tooManyRequestsFileAccess" class="too-many-requests-container fr-mt-5w">
+    <div v-if="currentView === 'tooManyRequests'" class="fr-container fr-mt-5w">
       <FileTooManyRequest></FileTooManyRequest>
+    </div>
+    <div v-if="currentView === 'badLink'" class="fr-container fr-mt-5w">
+      <FileBadLink></FileBadLink>
     </div>
     <section class="fr-mb-7w fr-container">
       <div class="fr-mt-3w fr-text--sm fr-label--disabled">
@@ -245,9 +248,10 @@ import FileHeader from '../components/FileHeader.vue'
 import RowListItem from '@/components/documents/RowListItem.vue'
 import FileNotFound from '@/views/FileNotFound.vue'
 import FileTooManyRequest from '@/views/FileTooManyRequest.vue'
+import FileBadLink from '@/views/FileBadLink.vue'
 import TrigramAuthentication from '@/components/TrigramAuthentication.vue'
 import { useI18n } from 'vue-i18n'
-import { onMounted, ref, useTemplateRef } from 'vue'
+import { onMounted, ref, useTemplateRef, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
@@ -262,8 +266,25 @@ const showProgressBar = ref(false)
 const fileNotFound = ref(false)
 const forbiddenFileAccess = ref(false)
 const tooManyRequestsFileAccess = ref(false)
+const badLinkFileAccess = ref(false)
 const trigramError = ref(false)
 const downloadButton = useTemplateRef('download-button')
+
+const currentView = computed(() => {
+  if (forbiddenFileAccess.value) {
+    return 'trigram'
+  }
+  if (badLinkFileAccess.value) {
+    return 'badLink'
+  }
+  if (tooManyRequestsFileAccess.value) {
+    return 'tooManyRequests'
+  }
+  if (fileNotFound.value) {
+    return 'notFound'
+  }
+  return 'fileContent'
+})
 
 function franceConnectTenantCount() {
   return user.value?.tenants?.filter((t) => t.franceConnect && t.ownerType === 'SELF').length
@@ -346,6 +367,9 @@ function setFileNotFound() {
 function handleAPIError(statusCode: number, trigram?: string) {
   if (statusCode === 404) {
     setFileNotFound()
+  } else if (statusCode === 400) {
+    badLinkFileAccess.value = true
+    forbiddenFileAccess.value = false
   } else if (statusCode === 429) {
     tooManyRequestsFileAccess.value = true
     forbiddenFileAccess.value = false
@@ -517,11 +541,6 @@ function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
 .icon-dgfip {
   height: 46px;
   margin-left: 2rem;
-}
-.not-found-container {
-  width: 100vw;
-  display: flex;
-  justify-content: center;
 }
 
 .fr-badge {
