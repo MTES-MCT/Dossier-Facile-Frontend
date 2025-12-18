@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "axe-core": "^4.10.3",
-    "cypress": "14.3.0",
-    "cypress-axe": "^1.5.0",
+    "cypress": "15.8.0",
+    "cypress-axe": "^1.7.0",
     "cypress-wait-until": "3.0.2",
     "df-shared-next": "workspace:*",
     "owner": "workspace:*"
