@@ -9,7 +9,7 @@ packages:
 
 catalog:
   # dependencies
-  axios: 1.9.0
+  axios: 1.13.2
   "@gouvfr/dsfr": 1.13.2
   "@sentry/vue": 9.22.0
   "@sentry/vite-plugin": 3.5.0
