@@ -91,16 +91,10 @@
                 <span v-html="t('account.congratulations-text-2')"></span>
               </p>
               <div class="fr-col-12 fr-btns-group--left">
-                <router-link to="/applications" class="fr-btn fr-mt-2w fr-mr-2w">
+                <router-link to="/partages" class="fr-btn fr-mt-2w fr-mr-2w">
                   <RiShareLine aria-hidden="true" />
                   <span class="text-center full-width">
                     {{ t('account.share-file-button') }}
-                  </span>
-                </router-link>
-                <router-link class="fr-btn update-btn fr-btn--secondary" to="/mon-dossier">
-                  <RiEyeLine aria-hidden="true" />
-                  <span class="text-center full-width">
-                    {{ t('account.share-file-view-button') }}
                   </span>
                 </router-link>
               </div>
@@ -344,6 +338,7 @@ function goToMessaging() {
 }
 
 function canCopyLink() {
+  console.log('user.value', user.value)
   return UtilsService.canShareFile(user.value)
 }
 
