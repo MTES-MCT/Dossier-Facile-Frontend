@@ -53,7 +53,7 @@
             <span class="bold">{{ t('created') }}</span>
             <span>{{ formatDate(link.creationDate) }}</span>
             <span class="bold border-left">{{ t('expires') }}</span>
-            <span>{{ formatDate(link.expirationDate) }}</span>
+            <span>{{ link.type === 'PARTNER' ? t('never') : formatDate(link.expirationDate) }}</span>
             <span class="bold border-left">{{ t('consultations') }}</span>
             <span>{{ t('times', [link.nbVisits]) }}</span>
           </p>
@@ -304,6 +304,7 @@ const handleDelete = async () => {
   "en": {
     "created": "Created on: ",
     "expires": "Expires on:",
+    "never": "never",
     "consultations": "Consultations: ",
     "times": "{0} times",
     "active-sharing": "Active sharing",
@@ -323,6 +324,7 @@ const handleDelete = async () => {
   "fr": {
     "created": "Créé le : ",
     "expires": "Expire le : ",
+    "never": "jamais",
     "consultations": "Consultations : ",
     "times": "{0} fois",
     "active-sharing": "Partage actif",
