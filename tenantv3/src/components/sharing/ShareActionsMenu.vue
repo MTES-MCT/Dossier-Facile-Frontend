@@ -57,6 +57,8 @@
           <span>{{ t('resend-mail') }}</span>
         </button>
       </template>
+
+      <!-- Options for PARTNER/OWNER type: only delete -->
       
       <button
         type="button"

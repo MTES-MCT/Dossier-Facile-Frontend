@@ -5,7 +5,7 @@
         <h3 class="fr-text--sm blue-text fr-mb-0">{{ t('general-info') }}</h3>
         <table class="table">
           <tbody>
-            <tr :class="{ 'title-row-editing': isEditingTitle }">
+            <tr v-if="isLinkOrMail" :class="{ 'title-row-editing': isEditingTitle }">
               <td class="fr-text-mention--grey">{{ t('title-of-share') }}</td>
               <td class="title-cell">
                 <div v-if="!isEditingTitle" class="title-display">
@@ -31,7 +31,7 @@
               <td class="fr-text-mention--grey">{{ t('created-on') }}</td>
               <td>{{ formatDate(link.creationDate) }}</td>
             </tr>
-            <tr>
+            <tr v-if="isLinkOrMail">
               <td class="fr-text-mention--grey">{{ t('expires-on') }}</td>
               <td class="expiration-cell">
                 <template v-if="!isEditingExpiration">
@@ -60,11 +60,15 @@
                 </VueDatePicker>
               </td>
             </tr>
-            <tr>
-              <td class="fr-text-mention--grey">{{ t('file-type') }}</td>
-              <td>{{ link.fullData ? 'Avec justificatifs' : 'Sans justificatifs' }}</td>
+            <tr v-if="isPartnerOrOwner">
+              <td class="fr-text-mention--grey">{{ t('created-by') }}</td>
+              <td>{{ link.createdBy || '-' }}</td>
             </tr>
             <tr>
+              <td class="fr-text-mention--grey">{{ t('file-type') }}</td>
+              <td>{{ link.fullData ? t('with-docs') : t('without-docs') }}</td>
+            </tr>
+            <tr v-if="isLinkOrMail">
               <td class="fr-text-mention--grey">{{ t('created-by') }}</td>
               <td>{{ link.createdBy || '-' }}</td>
             </tr>
@@ -91,7 +95,7 @@
         </table>
       </div>
     </div>
-    <div class="info">
+    <div v-if="isLinkOrMail" class="info">
       <LinkWarning />
       <!-- Partage par lien -->
       <div v-if="link.type === 'LINK' && link.url" class="link-row fr-mt-1w">
@@ -157,12 +161,15 @@ const { t } = useI18n()
 const pauseButton = useTemplateRef('pause-btn')
 
 const isEditingExpiration = ref(false)
-const expirationDate = ref(link.expirationDate.split('T')[0])
+const expirationDate = ref(link.expirationDate ? link.expirationDate.split('T')[0] : '')
 
 const fullUrl = computed(() => {
   if (!link.url) return ''
   return `${window.location.origin}${link.url}`
 })
+
+const isLinkOrMail = computed(() => link.type === 'LINK' || link.type === 'MAIL')
+const isPartnerOrOwner = computed(() => link.type === 'PARTNER' || link.type === 'OWNER')
 
 const isEditingTitle = ref(false)
 const editedTitle = ref(link.title)
@@ -421,6 +428,8 @@ h3 {
     "last-consultation": "Last consultation",
     "nb-consultations": "Number of consultations",
     "no-consultation": "No consultation",
+    "with-docs": "With supporting documents",
+    "without-docs": "Without supporting documents",
     "expiration-updated": "Expiration date updated successfully",
     "title-updated": "Title updated successfully",
     "link-with-docs": "Link to file with supporting documents",
@@ -450,6 +459,8 @@ h3 {
     "last-consultation": "Dernière consultation",
     "nb-consultations": "Nombre de consultations",
     "no-consultation": "Pas de consultation",
+    "with-docs": "Avec justificatifs",
+    "without-docs": "Sans justificatifs",
     "expiration-updated": "Date d'expiration modifiée avec succès",
     "title-updated": "Titre modifié avec succès",
     "link-with-docs": "Lien du dossier avec documents justificatifs",
