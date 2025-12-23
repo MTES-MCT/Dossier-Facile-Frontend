@@ -338,7 +338,6 @@ function goToMessaging() {
 }
 
 function canCopyLink() {
-  console.log('user.value', user.value)
   return UtilsService.canShareFile(user.value)
 }
 
