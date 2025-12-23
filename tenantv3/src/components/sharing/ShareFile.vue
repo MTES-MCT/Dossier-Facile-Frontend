@@ -2,12 +2,6 @@
   <NakedCard class="fr-p-3w">
     <div class="header-section">
       <h2 class="fr-h3 fr-mb-0">{{ t('title') }}</h2>
-      <RouterLink to="/mon-dossier" class="fr-btn fr-btn--secondary view-file-btn">
-        <span class="text-center full-width">
-          {{ t('sharefile.view.button') }}
-        </span>
-        <RiEyeLine aria-hidden="true" class="fr-ml-1v" />
-      </RouterLink>
       <p class="fr-message fr-message--info reminder-msg">
         <span class="reminder-content">
           <strong class="fr-mr-1v">{{ t('reminder') }}</strong>
