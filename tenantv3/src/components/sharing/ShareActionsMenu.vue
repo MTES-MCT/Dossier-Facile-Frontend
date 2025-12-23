@@ -26,6 +26,7 @@
       <!-- Options for LINK type -->
       <template v-if="linkType === 'LINK'">
         <button
+          v-if="enabled"
           type="button"
           class="menu-item"
           @click="handleCopyLink"
