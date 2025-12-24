@@ -66,200 +66,50 @@ describe('SharingLinkDetails', () => {
   }
 
   describe('fields displayed based on link type', () => {
-    describe('when link type is LINK', () => {
-      it('displays title-of-share field', () => {
-        const link = createMockLink({ type: 'LINK' })
+    describe.each([
+      { type: 'LINK', props: {} },
+      { type: 'MAIL', props: { ownerEmail: 'test@test.com' } }
+    ])('when link type is $type', ({ type, props }) => {
+      it('displays related  field', () => {
+        const link = createMockLink({ type, ...props })
         const wrapper = mountComponent(link)
         expect(wrapper.text()).toContain('title-of-share')
-      })
-
-      it('displays created-on field', () => {
-        const link = createMockLink({ type: 'LINK' })
-        const wrapper = mountComponent(link)
         expect(wrapper.text()).toContain('created-on')
-      })
-
-      it('displays expires-on field', () => {
-        const link = createMockLink({ type: 'LINK' })
-        const wrapper = mountComponent(link)
         expect(wrapper.text()).toContain('expires-on')
-      })
-
-      it('displays file-type field', () => {
-        const link = createMockLink({ type: 'LINK' })
-        const wrapper = mountComponent(link)
         expect(wrapper.text()).toContain('file-type')
-      })
-
-      it('displays created-by field', () => {
-        const link = createMockLink({ type: 'LINK' })
-        const wrapper = mountComponent(link)
         expect(wrapper.text()).toContain('created-by')
-      })
-
-      it('displays usage stats section', () => {
-        const link = createMockLink({ type: 'LINK' })
-        const wrapper = mountComponent(link)
         expect(wrapper.text()).toContain('usage-stats')
         expect(wrapper.text()).toContain('first-consultation')
         expect(wrapper.text()).toContain('last-consultation')
         expect(wrapper.text()).toContain('nb-consultations')
-      })
-
-      it('displays LinkWarning component', () => {
-        const link = createMockLink({ type: 'LINK' })
-        const wrapper = mountComponent(link)
         expect(wrapper.findComponent({ name: 'LinkWarning' }).exists()).toBe(true)
       })
+      
     })
 
-    describe('when link type is MAIL', () => {
-      it('displays title-of-share field', () => {
-        const link = createMockLink({ type: 'MAIL', ownerEmail: 'test@test.com' })
-        const wrapper = mountComponent(link)
-        expect(wrapper.text()).toContain('title-of-share')
-      })
-
-      it('displays created-on field', () => {
-        const link = createMockLink({ type: 'MAIL', ownerEmail: 'test@test.com' })
-        const wrapper = mountComponent(link)
-        expect(wrapper.text()).toContain('created-on')
-      })
-
-      it('displays expires-on field', () => {
-        const link = createMockLink({ type: 'MAIL', ownerEmail: 'test@test.com' })
-        const wrapper = mountComponent(link)
-        expect(wrapper.text()).toContain('expires-on')
-      })
-
-      it('displays file-type field', () => {
-        const link = createMockLink({ type: 'MAIL', ownerEmail: 'test@test.com' })
-        const wrapper = mountComponent(link)
-        expect(wrapper.text()).toContain('file-type')
-      })
-
-      it('displays created-by field', () => {
-        const link = createMockLink({ type: 'MAIL', ownerEmail: 'test@test.com' })
-        const wrapper = mountComponent(link)
-        expect(wrapper.text()).toContain('created-by')
-      })
-
-      it('displays usage stats section', () => {
-        const link = createMockLink({ type: 'MAIL', ownerEmail: 'test@test.com' })
-        const wrapper = mountComponent(link)
-        expect(wrapper.text()).toContain('usage-stats')
-        expect(wrapper.text()).toContain('first-consultation')
-        expect(wrapper.text()).toContain('last-consultation')
-        expect(wrapper.text()).toContain('nb-consultations')
-      })
-
-      it('displays LinkWarning component', () => {
-        const link = createMockLink({ type: 'MAIL', ownerEmail: 'test@test.com' })
-        const wrapper = mountComponent(link)
-        expect(wrapper.findComponent({ name: 'LinkWarning' }).exists()).toBe(true)
-      })
-    })
-
-    describe('when link type is PARTNER', () => {
-      const partnerLink = () => createMockLink({
-        type: 'PARTNER',
+    describe.each(['PARTNER', 'OWNER'])('when link type is %s', (type) => {
+      const createLink = () => createMockLink({
+        type,
         expirationDate: undefined as unknown as string,
         url: undefined as unknown as string
       })
 
-      it('does NOT display title-of-share field', () => {
-        const wrapper = mountComponent(partnerLink())
+      it('displays related  field', () => {
+        const wrapper = mountComponent(createLink())
         expect(wrapper.text()).not.toContain('title-of-share')
-      })
-
-      it('displays created-on field', () => {
-        const wrapper = mountComponent(partnerLink())
         expect(wrapper.text()).toContain('created-on')
-      })
-
-      it('does NOT display expires-on field', () => {
-        const wrapper = mountComponent(partnerLink())
         expect(wrapper.text()).not.toContain('expires-on')
-      })
-
-      it('displays file-type field', () => {
-        const wrapper = mountComponent(partnerLink())
         expect(wrapper.text()).toContain('file-type')
-      })
-
-      it('displays created-by field', () => {
-        const wrapper = mountComponent(partnerLink())
         expect(wrapper.text()).toContain('created-by')
-      })
-
-      it('displays usage stats section', () => {
-        const wrapper = mountComponent(partnerLink())
         expect(wrapper.text()).toContain('usage-stats')
         expect(wrapper.text()).toContain('first-consultation')
         expect(wrapper.text()).toContain('last-consultation')
         expect(wrapper.text()).toContain('nb-consultations')
-      })
-
-      it('does NOT display LinkWarning component', () => {
-        const wrapper = mountComponent(partnerLink())
         expect(wrapper.findComponent({ name: 'LinkWarning' }).exists()).toBe(false)
       })
 
       it('does NOT display link actions (copy, pause buttons)', () => {
-        const wrapper = mountComponent(partnerLink())
-        expect(wrapper.find('.link-actions').exists()).toBe(false)
-        expect(wrapper.text()).not.toContain('copy-link')
-        expect(wrapper.text()).not.toContain('pause-share')
-      })
-    })
-
-    describe('when link type is OWNER', () => {
-      const ownerLink = () => createMockLink({
-        type: 'OWNER',
-        expirationDate: undefined as unknown as string,
-        url: undefined as unknown as string
-      })
-
-      it('does NOT display title-of-share field', () => {
-        const wrapper = mountComponent(ownerLink())
-        expect(wrapper.text()).not.toContain('title-of-share')
-      })
-
-      it('displays created-on field', () => {
-        const wrapper = mountComponent(ownerLink())
-        expect(wrapper.text()).toContain('created-on')
-      })
-
-      it('does NOT display expires-on field', () => {
-        const wrapper = mountComponent(ownerLink())
-        expect(wrapper.text()).not.toContain('expires-on')
-      })
-
-      it('displays file-type field', () => {
-        const wrapper = mountComponent(ownerLink())
-        expect(wrapper.text()).toContain('file-type')
-      })
-
-      it('displays created-by field', () => {
-        const wrapper = mountComponent(ownerLink())
-        expect(wrapper.text()).toContain('created-by')
-      })
-
-      it('displays usage stats section', () => {
-        const wrapper = mountComponent(ownerLink())
-        expect(wrapper.text()).toContain('usage-stats')
-        expect(wrapper.text()).toContain('first-consultation')
-        expect(wrapper.text()).toContain('last-consultation')
-        expect(wrapper.text()).toContain('nb-consultations')
-      })
-
-      it('does NOT display LinkWarning component', () => {
-        const wrapper = mountComponent(ownerLink())
-        expect(wrapper.findComponent({ name: 'LinkWarning' }).exists()).toBe(false)
-      })
-
-      it('does NOT display link actions (copy, pause buttons)', () => {
-        const wrapper = mountComponent(ownerLink())
+        const wrapper = mountComponent(createLink())
         expect(wrapper.find('.link-actions').exists()).toBe(false)
         expect(wrapper.text()).not.toContain('copy-link')
         expect(wrapper.text()).not.toContain('pause-share')
