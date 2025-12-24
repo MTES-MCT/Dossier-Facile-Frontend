@@ -82,7 +82,6 @@
           v-model="activeTab" 
           :tab-list-name="t('tab-list-name')" 
           :tab-titles
-          @update:model-value="handleTabChange"
         >
           <DsfrTabContent tab-id="tab-0" panel-id="panel-0">
             <button type="submit" class="fr-btn" name="action" value="link">
@@ -178,9 +177,9 @@
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { ShareService } from '@/services/ShareService'
-import { nextTick, onMounted, ref, useTemplateRef, computed } from 'vue'
+import { onMounted, ref, useTemplateRef, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { RiClipboardLine, RiEyeLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
+import { RiClipboardLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DsfrTabContent, DsfrTabs, DsfrSelect } from '@gouvminint/vue-dsfr'
@@ -261,60 +260,53 @@ const messageValidation = (value: string) => {
 const copyLinkBtn = useTemplateRef('copy-link')
 const tabsRef = useTemplateRef('tabsRef')
 
-const handleTabChange = (newIndex: number) => {
-  activeTab.value = newIndex
-}
 
 // Ensure proper initialization for accessibility
-onMounted(async () => {
-  await nextTick()
-  activeTab.value = 0
-  
-  await nextTick()
-  
-  if (tabsRef.value?.$el) {
-    const tabButtons = tabsRef.value.$el.querySelectorAll('[role="tab"]')
-    
-    tabButtons.forEach((button: Element, index: number) => {
-      const newButton = button.cloneNode(true) as HTMLElement
-      button.parentNode?.replaceChild(newButton, button)
+onMounted(() => {
+    activeTab.value = 0
+    if (tabsRef.value?.$el) {
+      const tabButtons = tabsRef.value.$el.querySelectorAll('[role="tab"]')
       
-      newButton.addEventListener('keydown', (e: Event) => {
-        const event = e as KeyboardEvent
-        const currentIndex = Array.from(tabButtons).indexOf(button as Element)
+      tabButtons.forEach((button: Element, index: number) => {
+        const newButton = button.cloneNode(true) as HTMLElement
+        button.parentNode?.replaceChild(newButton, button)
         
-        if (event.key === 'ArrowRight') {
-          event.preventDefault()
-          const nextIndex = (currentIndex + 1) % tabButtons.length
-          activeTab.value = nextIndex
-          ;(tabButtons[nextIndex] as HTMLElement).focus()
-        } else if (event.key === 'ArrowLeft') {
-          event.preventDefault()
-          const prevIndex = (currentIndex - 1 + tabButtons.length) % tabButtons.length
-          activeTab.value = prevIndex
-          ;(tabButtons[prevIndex] as HTMLElement).focus()
-        }
+        newButton.addEventListener('keydown', (e: Event) => {
+          const event = e as KeyboardEvent
+          const currentIndex = Array.from(tabButtons).indexOf(button as Element)
+          
+          if (event.key === 'ArrowRight') {
+            event.preventDefault()
+            const nextIndex = (currentIndex + 1) % tabButtons.length
+            activeTab.value = nextIndex
+            ;(tabButtons[nextIndex] as HTMLElement).focus()
+          } else if (event.key === 'ArrowLeft') {
+            event.preventDefault()
+            const prevIndex = (currentIndex - 1 + tabButtons.length) % tabButtons.length
+            activeTab.value = prevIndex
+            ;(tabButtons[prevIndex] as HTMLElement).focus()
+          }
+        })
+        
+        newButton.addEventListener('click', () => {
+          activeTab.value = index
+        })
       })
-      
-      newButton.addEventListener('click', () => {
-        activeTab.value = index
-      })
-    })
-  }
+    }
 })
 
-const tabTitles = [
+const tabTitles = computed(() => [
   {
-    title: 'Générer un lien',
+    title: t('tab-generate-link'),
     tabId: 'tab-0',
     panelId: 'panel-0'
   },
   {
-    title: 'Partager par email',
+    title: t('tab-share-by-email'),
     tabId: 'tab-1',
     panelId: 'panel-1'
   }
-]
+])
 
 const toString = (value: FormDataEntryValue | null) =>
   value && typeof value === 'string' ? value : ''
@@ -511,6 +503,8 @@ async function copyLink() {
 {
   "en": {
     "tab-list-name": "Tab list",
+    "tab-generate-link": "Generate a link",
+    "tab-share-by-email": "Share by email",
     "title": "Sharing your file",
     "share-link": "Share with a link",
     "generate-link": "Generate a link to share via email, message, or on a property platform.",
@@ -543,6 +537,8 @@ async function copyLink() {
   },
   "fr": {
     "tab-list-name": "Liste d'onglets",
+    "tab-generate-link": "Générer un lien",
+    "tab-share-by-email": "Partager par email",
     "title": "Partage de votre dossier",
     "share-link": "Partager avec un lien",
     "generate-link": "Générez un lien à partager par email, message ou sur une plateforme immobilière.",

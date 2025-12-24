@@ -60,15 +60,11 @@
                 </VueDatePicker>
               </td>
             </tr>
-            <tr v-if="isPartnerOrOwner">
-              <td class="fr-text-mention--grey">{{ t('created-by') }}</td>
-              <td>{{ link.createdBy || '-' }}</td>
-            </tr>
             <tr>
               <td class="fr-text-mention--grey">{{ t('file-type') }}</td>
               <td>{{ link.fullData ? t('with-docs') : t('without-docs') }}</td>
             </tr>
-            <tr v-if="isLinkOrMail">
+            <tr>
               <td class="fr-text-mention--grey">{{ t('created-by') }}</td>
               <td>{{ link.createdBy || '-' }}</td>
             </tr>
@@ -145,12 +141,11 @@
 import dayjs from 'dayjs'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import LinkWarning from './LinkWarning.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { RiPauseCircleLine, RiCalendarLine, RiPencilLine, RiFileCopyLine, RiSendPlaneLine } from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
-import { ref, useTemplateRef, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { VueDatePicker } from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
@@ -158,7 +153,6 @@ const { link } = defineProps<{ link: ApartmentSharingLink }>()
 const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
-const pauseButton = useTemplateRef('pause-btn')
 
 const isEditingExpiration = ref(false)
 const expirationDate = ref(link.expirationDate ? link.expirationDate.split('T')[0] : '')
@@ -187,7 +181,7 @@ async function pause() {
     emit('refresh')
   } catch (error) {
     console.error(error)
-    toast.error(t('error'), pauseButton.value?.button)
+    toast.error(t('error'), null)
   }
 }
 
