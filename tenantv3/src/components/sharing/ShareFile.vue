@@ -2,12 +2,6 @@
   <NakedCard class="fr-p-3w">
     <div class="header-section">
       <h2 class="fr-h3 fr-mb-0">{{ t('title') }}</h2>
-      <RouterLink to="/mon-dossier" class="fr-btn fr-btn--secondary view-file-btn">
-        <span class="text-center full-width">
-          {{ t('sharefile.view.button') }}
-        </span>
-        <RiEyeLine aria-hidden="true" class="fr-ml-1v" />
-      </RouterLink>
       <p class="fr-message fr-message--info reminder-msg">
         <span class="reminder-content">
           <strong class="fr-mr-1v">{{ t('reminder') }}</strong>
@@ -83,7 +77,12 @@
         <p v-if="selectedShareType" class="fr-message fr-message--info fr-mt-2w fr-mb-3w">
           {{ selectedShareType === 'restricted' ? t('share-type-without-docs') : t('share-type-with-docs') }}
         </p>
-        <DsfrTabs v-model="activeTab" tab-list-name="liste d'onglets" :tab-titles>
+        <DsfrTabs 
+          ref="tabsRef"
+          v-model="activeTab" 
+          :tab-list-name="t('tab-list-name')" 
+          :tab-titles
+        >
           <DsfrTabContent tab-id="tab-0" panel-id="panel-0">
             <button type="submit" class="fr-btn" name="action" value="link">
               {{ t('generate-a-link') }}
@@ -178,9 +177,9 @@
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { ShareService } from '@/services/ShareService'
-import { ref, useTemplateRef, computed } from 'vue'
+import { onMounted, ref, useTemplateRef, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { RiClipboardLine, RiEyeLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
+import { RiClipboardLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DsfrTabContent, DsfrTabs, DsfrSelect } from '@gouvminint/vue-dsfr'
@@ -259,19 +258,55 @@ const messageValidation = (value: string) => {
 }
 
 const copyLinkBtn = useTemplateRef('copy-link')
+const tabsRef = useTemplateRef('tabsRef')
 
-const tabTitles = [
+
+// Ensure proper initialization for accessibility
+onMounted(() => {
+    activeTab.value = 0
+    if (tabsRef.value?.$el) {
+      const tabButtons = tabsRef.value.$el.querySelectorAll('[role="tab"]')
+      
+      tabButtons.forEach((button: Element, index: number) => {
+        const newButton = button.cloneNode(true) as HTMLElement
+        button.parentNode?.replaceChild(newButton, button)
+        
+        newButton.addEventListener('keydown', (e: Event) => {
+          const event = e as KeyboardEvent
+          const currentIndex = Array.from(tabButtons).indexOf(button as Element)
+          
+          if (event.key === 'ArrowRight') {
+            event.preventDefault()
+            const nextIndex = (currentIndex + 1) % tabButtons.length
+            activeTab.value = nextIndex
+            ;(tabButtons[nextIndex] as HTMLElement).focus()
+          } else if (event.key === 'ArrowLeft') {
+            event.preventDefault()
+            const prevIndex = (currentIndex - 1 + tabButtons.length) % tabButtons.length
+            activeTab.value = prevIndex
+            ;(tabButtons[prevIndex] as HTMLElement).focus()
+          }
+        })
+        
+        newButton.addEventListener('click', () => {
+          activeTab.value = index
+        })
+      })
+    }
+})
+
+const tabTitles = computed(() => [
   {
-    title: 'Générer un lien',
+    title: t('tab-generate-link'),
     tabId: 'tab-0',
     panelId: 'panel-0'
   },
   {
-    title: 'Partager par email',
+    title: t('tab-share-by-email'),
     tabId: 'tab-1',
     panelId: 'panel-1'
   }
-]
+])
 
 const toString = (value: FormDataEntryValue | null) =>
   value && typeof value === 'string' ? value : ''
@@ -467,6 +502,9 @@ async function copyLink() {
 <i18n>
 {
   "en": {
+    "tab-list-name": "Tab list",
+    "tab-generate-link": "Generate a link",
+    "tab-share-by-email": "Share by email",
     "title": "Sharing your file",
     "share-link": "Share with a link",
     "generate-link": "Generate a link to share via email, message, or on a property platform.",
@@ -498,6 +536,9 @@ async function copyLink() {
     "share-type-with-docs": "Your complete file, with supporting documents",
   },
   "fr": {
+    "tab-list-name": "Liste d'onglets",
+    "tab-generate-link": "Générer un lien",
+    "tab-share-by-email": "Partager par email",
     "title": "Partage de votre dossier",
     "share-link": "Partager avec un lien",
     "generate-link": "Générez un lien à partager par email, message ou sur une plateforme immobilière.",

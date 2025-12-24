@@ -53,7 +53,7 @@
             <span class="bold">{{ t('created') }}</span>
             <span>{{ formatDate(link.creationDate) }}</span>
             <span class="bold border-left">{{ t('expires') }}</span>
-            <span>{{ formatDate(link.expirationDate) }}</span>
+            <span>{{ link.type === 'PARTNER' ? t('never') : formatDate(link.expirationDate) }}</span>
             <span class="bold border-left">{{ t('consultations') }}</span>
             <span>{{ t('times', [link.nbVisits]) }}</span>
           </p>
@@ -76,8 +76,10 @@
       <div class="share-actions">
         <ShareActionsMenu
           :enabled="link.enabled"
+          :link-type="link.type"
           @copy-link="handleCopyLink"
           @toggle-pause="handleTogglePause"
+          @resend-mail="handleResendMail"
           @delete="handleDelete"
         />
         <button type="button" class="link-button blue-text" @click="expanded = !expanded">
@@ -140,6 +142,17 @@ const handleTogglePause = async () => {
   } catch (error) {
     console.error(error)
     toast.error(t('pause-error'))
+  }
+}
+
+const handleResendMail = async () => {
+  try {
+    await ApartmentSharingLinkService.resendLink(props.link)
+    emit('refresh')
+    toast.success(t('resend-success'))
+  } catch (error) {
+    console.error(error)
+    toast.error(t('resend-error'))
   }
 }
 
@@ -291,6 +304,7 @@ const handleDelete = async () => {
   "en": {
     "created": "Created on: ",
     "expires": "Expires on:",
+    "never": "never",
     "consultations": "Consultations: ",
     "times": "{0} times",
     "active-sharing": "Active sharing",
@@ -302,12 +316,15 @@ const handleDelete = async () => {
     "pause-success": "Sharing paused",
     "reactivate-success": "Sharing reactivated",
     "pause-error": "Error updating sharing status",
+    "resend-success": "Email resent successfully",
+    "resend-error": "Error resending email",
     "delete-success": "Sharing deleted",
     "delete-error": "Error deleting sharing"
   },
   "fr": {
     "created": "Créé le : ",
     "expires": "Expire le : ",
+    "never": "jamais",
     "consultations": "Consultations : ",
     "times": "{0} fois",
     "active-sharing": "Partage actif",
@@ -319,6 +336,8 @@ const handleDelete = async () => {
     "pause-success": "Partage mis en pause",
     "reactivate-success": "Partage réactivé",
     "pause-error": "Erreur lors de la mise à jour du statut",
+    "resend-success": "Email renvoyé avec succès",
+    "resend-error": "Erreur lors de l'envoi de l'email",
     "delete-success": "Partage supprimé",
     "delete-error": "Erreur lors de la suppression du partage"
   }

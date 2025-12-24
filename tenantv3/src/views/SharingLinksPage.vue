@@ -54,8 +54,11 @@ const now = dayjs()
 const isActiveLink = (link: ApartmentSharingLink) =>
   !link.deleted && dayjs(link.expirationDate).isAfter(now)
 
-const activeLinks = computed(() => sharingLinks.value.filter(isActiveLink))
-const deletedLinks = computed(() => sharingLinks.value.filter((l) => !isActiveLink(l)))
+const sortByMostRecent = (a: ApartmentSharingLink, b: ApartmentSharingLink) =>
+  dayjs(b.creationDate).valueOf() - dayjs(a.creationDate).valueOf()
+
+const activeLinks = computed(() => sharingLinks.value.filter(isActiveLink).sort(sortByMostRecent))
+const deletedLinks = computed(() => sharingLinks.value.filter((l) => !isActiveLink(l)).sort(sortByMostRecent))
 </script>
 
 <style scoped>
