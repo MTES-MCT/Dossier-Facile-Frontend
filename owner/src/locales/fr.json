@@ -43,7 +43,17 @@
   },
   "confirmaccountpage": {
     "loading": "Veuillez patienter",
-    "error-occured": "Une erreur est survenue"
+    "error-title": "Erreur",
+    "error-occured": "Une erreur est survenue. Veuillez réessayer plus tard.",
+    "link-invalid-title": "Lien invalide ou déjà utilisé",
+    "link-invalid": "Ce lien de confirmation n'est pas valide. Cela peut se produire si :",
+    "link-invalid-reason-1": "Le lien a déjà été utilisé pour confirmer votre compte",
+    "link-invalid-reason-2": "Le lien est incorrect ou incomplet",
+    "link-invalid-hint": "Si vous avez déjà confirmé votre compte, vous pouvez vous connecter directement.",
+    "go-to-login": "Se connecter",
+    "server-error-title": "Erreur serveur",
+    "server-error": "Une erreur technique est survenue. Veuillez réessayer plus tard ou contacter le support DossierFacile si le problème persiste.",
+    "contact-support": "Contacter le support DossierFacile"
   },
   "connectproperty": {
     "title": "Consultation",
