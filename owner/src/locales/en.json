@@ -37,7 +37,17 @@
   },
   "confirmaccountpage": {
     "loading": "Please wait",
-    "error-occured": "An error occurred"
+    "error-title": "Error",
+    "error-occured": "An error occurred. Please try again later.",
+    "link-invalid-title": "Invalid or already used link",
+    "link-invalid": "This confirmation link is not valid. This can happen if:",
+    "link-invalid-reason-1": "The link has already been used to confirm your account",
+    "link-invalid-reason-2": "The link is incorrect or incomplete",
+    "link-invalid-hint": "If you have already confirmed your account, you can log in directly.",
+    "go-to-login": "Log in",
+    "server-error-title": "Server error",
+    "server-error": "A technical error occurred. Please try again later or contact DossierFacile support if the problem persists.",
+    "contact-support": "Contact DossierFacile support"
   },
   "connectproperty": {
     "title": "Consultation",
