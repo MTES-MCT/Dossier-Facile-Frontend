@@ -250,6 +250,7 @@ onUnmounted(() => {
 
 .arrow-icon {
   color: #000091;
+  pointer-events: none;
 }
 
 .dropdown-menu {
