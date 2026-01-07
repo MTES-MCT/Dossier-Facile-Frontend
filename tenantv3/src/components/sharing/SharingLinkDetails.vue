@@ -124,9 +124,18 @@
           <p class="fr-mb-0">{{ link.ownerEmail }}</p>
         </div>
         <div class="link-actions">
-          <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" @click="resendMail">
+          <button
+            type="button"
+            class="fr-btn fr-btn--secondary fr-btn--sm"
+            :disabled="!link.enabled"
+            @click="resendMail"
+          >
             {{ t('resend-mail') }}
             <RiSendPlaneLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
+          </button>
+          <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" @click="pause">
+            {{ link.enabled ? t('pause-share') : t('resume-share') }}
+            <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
           </button>
           <p class="fr-text-mention--grey fr-text--sm fr-mb-0">
             {{ t('last-sent', { date: formatDateTime(link.lastVisit || link.creationDate) }) }}

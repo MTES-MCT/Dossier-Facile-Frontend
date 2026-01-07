@@ -160,18 +160,41 @@ describe('SharingLinkDetails', () => {
     })
 
     describe('when link type is MAIL', () => {
-      it('displays resend-mail button', () => {
+      it('displays 2 buttons: resend-mail and pause-share', () => {
         const link = createMockLink({
           type: 'MAIL',
+          enabled: true,
           ownerEmail: 'owner@example.com'
         })
 
         const wrapper = mountComponent(link)
 
-        expect(wrapper.text()).not.toContain('copy-link')
-        expect(wrapper.text()).not.toContain('pause-share')
+        const buttons = wrapper.findAll('.link-actions button')
+        expect(buttons).toHaveLength(2)
 
+        expect(wrapper.text()).not.toContain('copy-link')
         expect(wrapper.text()).toContain('resend-mail')
+        expect(wrapper.text()).toContain('pause-share')
+      })
+
+      it('displays resume-share button when link is disabled', () => {
+        const link = createMockLink({
+          type: 'MAIL',
+          enabled: false,
+          ownerEmail: 'owner@example.com'
+        })
+
+        const wrapper = mountComponent(link)
+
+        const buttons = wrapper.findAll('.link-actions button')
+        expect(buttons).toHaveLength(2)
+
+        const resendButton = buttons[0]
+        expect(resendButton.text()).toContain('resend-mail')
+        expect((resendButton.element as HTMLButtonElement).disabled).toBe(true)
+
+        const pauseButton = buttons[1]
+        expect(pauseButton.text()).toContain('resume-share')
       })
     })
   })

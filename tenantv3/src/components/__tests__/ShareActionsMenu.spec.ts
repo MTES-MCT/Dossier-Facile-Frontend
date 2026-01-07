@@ -68,16 +68,33 @@ describe('ShareActionsMenu', () => {
   })
 
   describe('when link type is MAIL', () => {
-    it('displays resend-mail and delete-sharing buttons only', async () => {
-      const wrapper = mountComponent('MAIL')
+    describe('when link is enabled', () => {
+      it('displays 3 menu items: resend-mail, pause-sharing, delete-sharing', async () => {
+        const wrapper = mountComponent('MAIL', true)
 
-      await wrapper.find('.actions-button').trigger('click')
+        await wrapper.find('.actions-button').trigger('click')
 
-      const menuItems = wrapper.findAll('.menu-item')
-      expect(menuItems).toHaveLength(2)
-      expect(menuItems[0].text()).toContain('resend-mail')
-      expect(menuItems[1].text()).toContain('delete-sharing')
-      expect(wrapper.text()).not.toContain('copy-the-link')
+        const menuItems = wrapper.findAll('.menu-item')
+        expect(menuItems).toHaveLength(3)
+        expect(menuItems[0].text()).toContain('resend-mail')
+        expect(menuItems[1].text()).toContain('pause-sharing')
+        expect(menuItems[2].text()).toContain('delete-sharing')
+        expect(wrapper.text()).not.toContain('copy-the-link')
+      })
+    })
+
+    describe('when link is paused', () => {
+      it('displays 2 menu items: reactivate-sharing, delete-sharing (no resend-mail)', async () => {
+        const wrapper = mountComponent('MAIL', false)
+
+        await wrapper.find('.actions-button').trigger('click')
+
+        const menuItems = wrapper.findAll('.menu-item')
+        expect(menuItems).toHaveLength(2)
+        expect(wrapper.text()).not.toContain('resend-mail')
+        expect(menuItems[0].text()).toContain('reactivate-sharing')
+        expect(menuItems[1].text()).toContain('delete-sharing')
+      })
     })
   })
 })
