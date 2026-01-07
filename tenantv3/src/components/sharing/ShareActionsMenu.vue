@@ -49,12 +49,23 @@
       <!-- Options for MAIL type -->
       <template v-if="linkType === 'MAIL'">
         <button
+          v-if="enabled"
           type="button"
           class="menu-item"
           @click="handleResendMail"
         >
           <RiSendPlaneLine aria-hidden="true" size="16px" class="menu-icon" />
           <span>{{ t('resend-mail') }}</span>
+        </button>
+        
+        <button
+          type="button"
+          class="menu-item"
+          @click="handleTogglePause"
+        >
+          <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
+          <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
+          <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
         </button>
       </template>
 
