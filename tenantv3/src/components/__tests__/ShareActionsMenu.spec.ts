@@ -29,71 +29,53 @@ describe('ShareActionsMenu', () => {
     })
   }
 
-  describe('when link type is LINK', () => {
-    describe('when link is enabled', () => {
-      it('displays 3 menu items: copy-the-link, pause-sharing, delete-sharing', async () => {
-        const wrapper = mountComponent('LINK', true)
+  const openMenu = async (wrapper: ReturnType<typeof mountComponent>) => {
+    await wrapper.find('.actions-button').trigger('click')
+    return wrapper.findAll('.menu-item')
+  }
 
-        await wrapper.find('.actions-button').trigger('click')
+  describe.each([
+    {
+      linkType: 'LINK' as const,
+      enabled: true,
+      expectedItems: ['copy-the-link', 'pause-sharing', 'delete-sharing'],
+      notExpected: ['resend-mail']
+    },
+    {
+      linkType: 'LINK' as const,
+      enabled: false,
+      expectedItems: ['reactivate-sharing', 'delete-sharing'],
+      notExpected: ['copy-the-link', 'resend-mail']
+    },
+    {
+      linkType: 'MAIL' as const,
+      enabled: true,
+      expectedItems: ['resend-mail', 'pause-sharing', 'delete-sharing'],
+      notExpected: ['copy-the-link']
+    },
+    {
+      linkType: 'MAIL' as const,
+      enabled: false,
+      expectedItems: ['reactivate-sharing', 'delete-sharing'],
+      notExpected: ['resend-mail', 'copy-the-link']
+    }
+  ])('when linkType=$linkType and enabled=$enabled', ({ linkType, enabled, expectedItems, notExpected }) => {
+    it(`displays ${expectedItems.length} menu items: ${expectedItems.join(', ')}`, async () => {
+      const wrapper = mountComponent(linkType, enabled)
+      const menuItems = await openMenu(wrapper)
 
-        const menuItems = wrapper.findAll('.menu-item')
-        expect(menuItems).toHaveLength(3)
-        expect(menuItems[0].text()).toContain('copy-the-link')
-        expect(menuItems[1].text()).toContain('pause-sharing')
-        expect(menuItems[2].text()).toContain('delete-sharing')
-      })
-
-      it('does not display resend-mail button', async () => {
-        const wrapper = mountComponent('LINK', true)
-
-        await wrapper.find('.actions-button').trigger('click')
-
-        expect(wrapper.text()).not.toContain('resend-mail')
-      })
-    })
-
-    describe('when link is paused', () => {
-      it('displays 2 menu items: reactivate-sharing, delete-sharing (no copy-the-link)', async () => {
-        const wrapper = mountComponent('LINK', false)
-
-        await wrapper.find('.actions-button').trigger('click')
-
-        const menuItems = wrapper.findAll('.menu-item')
-        expect(menuItems).toHaveLength(2)
-        expect(wrapper.text()).not.toContain('copy-the-link')
-        expect(menuItems[0].text()).toContain('reactivate-sharing')
-        expect(menuItems[1].text()).toContain('delete-sharing')
-      })
-    })
-  })
-
-  describe('when link type is MAIL', () => {
-    describe('when link is enabled', () => {
-      it('displays 3 menu items: resend-mail, pause-sharing, delete-sharing', async () => {
-        const wrapper = mountComponent('MAIL', true)
-
-        await wrapper.find('.actions-button').trigger('click')
-
-        const menuItems = wrapper.findAll('.menu-item')
-        expect(menuItems).toHaveLength(3)
-        expect(menuItems[0].text()).toContain('resend-mail')
-        expect(menuItems[1].text()).toContain('pause-sharing')
-        expect(menuItems[2].text()).toContain('delete-sharing')
-        expect(wrapper.text()).not.toContain('copy-the-link')
+      expect(menuItems).toHaveLength(expectedItems.length)
+      expectedItems.forEach((item, index) => {
+        expect(menuItems[index].text()).toContain(item)
       })
     })
 
-    describe('when link is paused', () => {
-      it('displays 2 menu items: reactivate-sharing, delete-sharing (no resend-mail)', async () => {
-        const wrapper = mountComponent('MAIL', false)
+    it(`does not display: ${notExpected.join(', ')}`, async () => {
+      const wrapper = mountComponent(linkType, enabled)
+      await openMenu(wrapper)
 
-        await wrapper.find('.actions-button').trigger('click')
-
-        const menuItems = wrapper.findAll('.menu-item')
-        expect(menuItems).toHaveLength(2)
-        expect(wrapper.text()).not.toContain('resend-mail')
-        expect(menuItems[0].text()).toContain('reactivate-sharing')
-        expect(menuItems[1].text()).toContain('delete-sharing')
+      notExpected.forEach((item) => {
+        expect(wrapper.text()).not.toContain(item)
       })
     })
   })
