@@ -403,6 +403,16 @@ h3 {
   .table tr {
     flex-wrap: wrap;
   }
+  .title-display {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+  .expiration-cell {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
   .link-row {
     flex-direction: column;
   }
