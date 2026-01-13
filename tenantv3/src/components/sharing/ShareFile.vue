@@ -84,13 +84,15 @@
           :tab-titles
         >
           <DsfrTabContent tab-id="tab-0" panel-id="panel-0">
-            <button type="submit" class="fr-btn" name="action" value="link">
-              {{ t('generate-a-link') }}
-              <RiLinksLine aria-hidden="true" size="1rem" class="fr-ml-1v" />
-            </button>
+            <div class="generate-link-btn-wrapper">
+              <button type="submit" class="fr-btn generate-link-btn" name="action" value="link">
+                {{ t('generate-a-link') }}
+                <RiLinksLine aria-hidden="true" size="1rem" class="fr-ml-1v" />
+              </button>
+            </div>
             <div v-if="fileLink.length > 0" class="generated-link fr-mt-2w">
               <p class="fr-background-default--grey fr-p-1v fr-mb-0">{{ fileLink }}</p>
-              <button ref="copy-link" type="button" class="fr-btn" @click="copyLink">
+              <button ref="copy-link" type="button" class="fr-btn fr-btn--tertiary btn-copy" @click="copyLink">
                 {{ t('copy-link') }}
                 <RiClipboardLine aria-hidden="true" size="1em" class="fr-ml-1v" />
               </button>
@@ -500,6 +502,22 @@ async function copyLink() {
   line-height: 24px;
   margin: 0;
 }
+
+.generate-link-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.generate-link-btn {
+  width: 100%;
+  max-width: 453px;
+  justify-content: center;
+}
+
+.btn-copy {
+  background-color: rgba(0, 0, 0, 0.08);
+}
 </style>
 
 <i18n>
@@ -515,7 +533,7 @@ async function copyLink() {
     "custom-link-title": "Custom link title*",
     "name-link": "Give this link a name so you can easily find it in your list of shares (e.g. 'Appartement on  Rue de la République')",
     "link-validity": "Link validity period*",
-    "link-validity-desc": "The link remains active for the selected period. It expires automatically at the end of this period.",
+    "link-validity-desc": "The link remains active for the selected period. It expires automatically at the end of this period. You can modify it as long as the link is valid.",
     "link-content": "Content of the shared link*",
     "link-content-desc": "Indicate which parts of the file you wish to share: the complete file with supporting documents, or a simplified version that only presents your situation without supporting documents.",
     "x-days": "{0} days",
@@ -549,7 +567,7 @@ async function copyLink() {
     "custom-link-title": "Titre du lien personnalisé*",
     "name-link": "Donnez un nom à ce lien pour le retrouver facilement dans votre liste de partages (ex: 'Appartement Rue de la République')",
     "link-validity": "Durée de validité du lien*",
-    "link-validity-desc": "Le lien reste actif pendant la durée choisie. Il expire automatiquement à la fin de ce délai.",
+    "link-validity-desc": "Le lien reste actif pendant la durée choisie. Il expire automatiquement à la fin de ce délai. Vous pourrez la modifier tant que le lien est valide.",
     "link-content": "Contenu du lien partagé*",
     "link-content-desc": "Indiquez les éléments du dossier que vous souhaitez partager : le dossier complet avec justificatifs, ou une version allégée qui présente uniquement votre situation sans justificatif.",
     "x-days": "{0} jours",
