@@ -6,6 +6,7 @@ labels: a11y
 assignees: narduin
 
 ---
+**RGAA reference:** https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/#<CRITERE>
 
 **Describe the problem**
 A clear and concise description of what the issue is.
