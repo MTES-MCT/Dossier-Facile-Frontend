@@ -262,6 +262,9 @@ const tabsRef = useTemplateRef('tabsRef')
 
 
 // Ensure proper initialization for accessibility
+// This is a redundant logic that is normally handled by the DSFR tabs component
+// There is a bug regarding the focus on tabs that don't work as expected
+// This is due to a mismatch between the activeTab (DsfrTabs) and isVisible (DsfrTabs, DsfrTabItem) properties 
 onMounted(() => {
     activeTab.value = 0
     if (tabsRef.value?.$el) {
