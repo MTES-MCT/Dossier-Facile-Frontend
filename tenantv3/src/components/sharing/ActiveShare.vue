@@ -57,6 +57,13 @@
             <span class="bold border-left">{{ t('consultations') }}</span>
             <span>{{ t('times', [link.nbVisits]) }}</span>
           </p>
+          <p 
+            class="fr-badge fr-badge--sm fr-badge--no-icon fr-mb-0 full-data-badge"
+            :class="link.fullData ? 'fr-badge--info' : 'badge-without-docs'"
+          >
+            <RiInformationFill aria-hidden="true" size="12" class="fr-mr-1v info-icon" />
+            <span>{{ link.fullData ? t('with-docs') : t('without-docs') }}</span>
+          </p>
         </div>
       </div>
       <!-- Badge visible uniquement en desktop -->
@@ -98,6 +105,7 @@ import { DsfrBadge } from '@gouvminint/vue-dsfr'
 import {
   RiAddLine,
   RiHome4Line,
+  RiInformationFill,
   RiLinksLine,
   RiMailLine,
   RiPauseCircleFill,
@@ -205,6 +213,21 @@ const handleDelete = async () => {
   margin-top: 0.25rem;
 }
 
+.full-data-badge {
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  
+  .info-icon {
+    color: #0063cb;
+  }
+}
+
+.badge-without-docs {
+  background-color: #fff;
+  border: 1px solid #0063cb;
+  color: #0063cb;
+}
+
 .border-left {
   margin-left: 0.5rem;
 }
@@ -289,6 +312,10 @@ const handleDelete = async () => {
     margin-left: calc(-0.5rem - 32px + 8px);
   }
 
+  .full-data-badge {
+    margin-left: calc(-0.5rem - 32px + 8px);
+  }
+
   /* Actions en bas, alignées à droite */
   .share-actions {
     width: 100%;
@@ -319,7 +346,9 @@ const handleDelete = async () => {
     "resend-success": "Email resent successfully",
     "resend-error": "Error resending email",
     "delete-success": "Sharing deleted",
-    "delete-error": "Error deleting sharing"
+    "delete-error": "Error deleting sharing",
+    "with-docs": "Full file with supporting documents",
+    "without-docs": "File without supporting documents"
   },
   "fr": {
     "created": "Créé le : ",
@@ -339,7 +368,9 @@ const handleDelete = async () => {
     "resend-success": "Email renvoyé avec succès",
     "resend-error": "Erreur lors de l'envoi de l'email",
     "delete-success": "Partage supprimé",
-    "delete-error": "Erreur lors de la suppression du partage"
+    "delete-error": "Erreur lors de la suppression du partage",
+    "with-docs": "Dossier complet avec justificatifs",
+    "without-docs": "Dossier sans documents justificatifs"
   }
 }
 </i18n>

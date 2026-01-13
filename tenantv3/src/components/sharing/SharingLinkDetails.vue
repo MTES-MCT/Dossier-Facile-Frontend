@@ -61,10 +61,6 @@
               </td>
             </tr>
             <tr>
-              <td class="fr-text-mention--grey">{{ t('file-type') }}</td>
-              <td>{{ link.fullData ? t('with-docs') : t('without-docs') }}</td>
-            </tr>
-            <tr>
               <td class="fr-text-mention--grey">{{ t('created-by') }}</td>
               <td>{{ link.createdBy || '-' }}</td>
             </tr>
@@ -168,7 +164,7 @@ const expirationDate = ref(link.expirationDate ? link.expirationDate.split('T')[
 
 const fullUrl = computed(() => {
   if (!link.url) return ''
-  return `${window.location.origin}${link.url}`
+  return `${globalThis.location.origin}${link.url}`
 })
 
 const isLinkOrMail = computed(() => link.type === 'LINK' || link.type === 'MAIL')
@@ -197,10 +193,10 @@ async function pause() {
 async function copyLink() {
   const text = fullUrl.value
   try {
-    if (navigator.clipboard && window.isSecureContext) {
+    if (navigator.clipboard && globalThis.isSecureContext) {
       await navigator.clipboard.writeText(text)
     } else {
-      // Fallback pour anciens navigateurs
+      // Fallback for older browsers
       const textarea = document.createElement('textarea')
       textarea.value = text
       textarea.style.position = 'fixed'
@@ -208,7 +204,7 @@ async function copyLink() {
       document.body.appendChild(textarea)
       textarea.select()
       document.execCommand('copy')
-      document.body.removeChild(textarea)
+      textarea.remove()
     }
     toast.success(t('link-copied'), null)
   } catch (error) {

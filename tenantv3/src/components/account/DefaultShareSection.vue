@@ -110,7 +110,7 @@ const shareTypeOptions = computed(() => [
 
 const fullUrl = computed(() => {
   if (!generatedLink.value?.url) return ''
-  return `${window.location.origin}${generatedLink.value.url}`
+  return `${globalThis.location.origin}${generatedLink.value.url}`
 })
 
 async function getLink() {
@@ -131,7 +131,7 @@ async function getLink() {
 async function copyLink() {
   const text = fullUrl.value
   try {
-    if (navigator.clipboard && window.isSecureContext) {
+    if (navigator.clipboard && globalThis.isSecureContext) {
       await navigator.clipboard.writeText(text)
     } else {
       // Fallback for older browsers
@@ -142,7 +142,7 @@ async function copyLink() {
       document.body.appendChild(textarea)
       textarea.select()
       document.execCommand('copy')
-      document.body.removeChild(textarea)
+      textarea.remove()
     }
     linkCopied.value = true
   } catch (error) {
