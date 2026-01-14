@@ -116,11 +116,11 @@ export const AnalyticsService = {
   },
 
   getDefaultLink(type: string) {
-    sendEvent('account', 'get_default_link_' + type)
+    sendEvent('account', 'link_get_default_' + type)
   },
 
   toggleAllLinks(action: 'disable' | 'enable') {
-    sendEvent('account', 'toggle_all_links_' + action)
+    sendEvent('account', 'links_toggle_all_' + action)
   },
 
   confirmName() {
