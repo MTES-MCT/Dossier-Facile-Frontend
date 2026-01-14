@@ -69,7 +69,18 @@
         </button>
       </template>
 
-      <!-- Options for PARTNER/OWNER type: only delete -->
+      <!-- Options for OWNER/PARTNER type -->
+      <template v-if="linkType === 'OWNER' || linkType === 'PARTNER'">
+        <button
+          type="button"
+          class="menu-item"
+          @click="handleTogglePause"
+        >
+          <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
+          <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
+          <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
+        </button>
+      </template>
       
       <button
         type="button"
