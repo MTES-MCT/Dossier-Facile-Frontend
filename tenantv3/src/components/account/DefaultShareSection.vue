@@ -93,6 +93,7 @@ import {
   RiInformationLine
 } from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { toast } from '@/components/toast/toastUtils'
 
@@ -114,10 +115,12 @@ const fullUrl = computed(() => {
 })
 
 async function getLink() {
+  const fullData = selectedShareType.value === 'full'
+  AnalyticsService.getDefaultLink(fullData ? 'full' : 'resume')
+  
   loading.value = true
   linkCopied.value = false
   try {
-    const fullData = selectedShareType.value === 'full'
     const response = await ApartmentSharingLinkService.getOrCreateDefaultLink(fullData)
     generatedLink.value = response.data
   } catch (error) {
