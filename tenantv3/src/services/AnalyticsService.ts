@@ -115,6 +115,14 @@ export const AnalyticsService = {
     sendEvent('account', 'copy-link_' + full)
   },
 
+  getDefaultLink(type: string) {
+    sendEvent('account', 'get_default_link_' + type)
+  },
+
+  toggleAllLinks(action: 'disable' | 'enable') {
+    sendEvent('account', 'toggle_all_links_' + action)
+  },
+
   confirmName() {
     sendEvent('funnel', 'confirm-name')
   },

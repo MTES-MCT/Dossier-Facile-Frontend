@@ -45,6 +45,7 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { RiDeleteBin6Line, RiPauseCircleLine } from '@remixicon/vue'
 import { computed, ref, useTemplateRef } from 'vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '../toast/toastUtils'
 
 const { links } = defineProps<{ links: ApartmentSharingLink[] }>()
@@ -71,7 +72,9 @@ async function deleteLinks() {
 
 async function toggleLinks() {
   const enable = allLinksPaused.value
-  const method = allLinksPaused.value ? 'enableAllLinks' : 'disableAllLinks'
+  AnalyticsService.toggleAllLinks(enable ? 'enable' : 'disable')
+  
+  const method = enable ? 'enableAllLinks' : 'disableAllLinks'
   try {
     await ApartmentSharingLinkService[method]()
     emit('refresh')
