@@ -183,6 +183,7 @@ const closeDeleteModal = () => {
 // Activer la fermeture sur clic extérieur après un court délai
 // pour éviter que le clic initial sur "Supprimer" ne ferme la modale
 watch(isDeleteModalOpen, (newValue) => {
+  document.body.style.overflow = newValue ? 'hidden' : ''
   if (newValue) {
     setTimeout(() => {
       canCloseModalOnClickOutside.value = true
