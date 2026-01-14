@@ -116,7 +116,7 @@ const fullUrl = computed(() => {
 
 async function getLink() {
   const fullData = selectedShareType.value === 'full'
-  AnalyticsService.getDefaultLink(fullData ? 'full' : 'resume')
+  AnalyticsService.getDefaultLink(fullData ? 'full' : 'limited')
   
   loading.value = true
   linkCopied.value = false
