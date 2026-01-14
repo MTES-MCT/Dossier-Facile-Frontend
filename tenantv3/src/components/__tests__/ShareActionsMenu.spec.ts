@@ -10,7 +10,7 @@ vi.mocked(useI18n).mockReturnValue({
 } as ReturnType<typeof useI18n>)
 
 describe('ShareActionsMenu', () => {
-  const mountComponent = (linkType: 'LINK' | 'MAIL' = 'LINK', enabled = true) => {
+  const mountComponent = (linkType: 'LINK' | 'MAIL' | 'OWNER' | 'PARTNER' = 'LINK', enabled = true) => {
     return mount(ShareActionsMenu, {
       props: { enabled, linkType },
       global: {
@@ -58,6 +58,30 @@ describe('ShareActionsMenu', () => {
       enabled: false,
       expectedItems: ['reactivate-sharing', 'delete-sharing'],
       notExpected: ['resend-mail', 'copy-the-link']
+    },
+    {
+      linkType: 'OWNER' as const,
+      enabled: true,
+      expectedItems: ['pause-sharing', 'delete-sharing'],
+      notExpected: ['copy-the-link', 'resend-mail']
+    },
+    {
+      linkType: 'OWNER' as const,
+      enabled: false,
+      expectedItems: ['reactivate-sharing', 'delete-sharing'],
+      notExpected: ['copy-the-link', 'resend-mail', 'pause-sharing']
+    },
+    {
+      linkType: 'PARTNER' as const,
+      enabled: true,
+      expectedItems: ['pause-sharing', 'delete-sharing'],
+      notExpected: ['copy-the-link', 'resend-mail']
+    },
+    {
+      linkType: 'PARTNER' as const,
+      enabled: false,
+      expectedItems: ['reactivate-sharing', 'delete-sharing'],
+      notExpected: ['copy-the-link', 'resend-mail', 'pause-sharing']
     }
   ])('when linkType=$linkType and enabled=$enabled', ({ linkType, enabled, expectedItems, notExpected }) => {
     it(`displays ${expectedItems.length} menu items: ${expectedItems.join(', ')}`, async () => {
