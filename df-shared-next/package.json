@@ -32,7 +32,7 @@
     "eslint-plugin-vue": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:",
+    "vite": "7.0.8",
     "vitest": "catalog:",
     "vue-tsc": "catalog:"
   }
