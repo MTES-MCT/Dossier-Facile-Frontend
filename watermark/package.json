@@ -28,7 +28,7 @@
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
-    "sass": "1.89.0",
+    "sass": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-pwa": "1.0.0",
