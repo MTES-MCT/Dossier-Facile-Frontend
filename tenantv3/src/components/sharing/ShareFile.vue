@@ -173,6 +173,12 @@
         </DsfrTabs>
       </form>
     </div>
+    <div class="separator">
+      <div class="separator-line"></div>
+      <span class="separator-text">{{ t('or') }}</span>
+      <div class="separator-line"></div>
+    </div>
+    <DownloadPdfSection />
   </NakedCard>
 </template>
 
@@ -186,6 +192,7 @@ import { toast } from '@/components/toast/toastUtils'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DsfrTabContent, DsfrTabs, DsfrSelect } from '@gouvminint/vue-dsfr'
 import LinkWarning from './LinkWarning.vue'
+import DownloadPdfSection from './DownloadPdfSection.vue'
 import { Field, ErrorMessage, useForm, useField } from 'vee-validate'
 
 const emit = defineEmits<{ refresh: [] }>()
@@ -518,11 +525,34 @@ async function copyLink() {
 .btn-copy {
   background-color: rgba(0, 0, 0, 0.08);
 }
+
+.separator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.separator-line {
+  flex: 1;
+  height: 1px;
+  background-color: #ddd;
+  border: none;
+  margin: 0;
+}
+
+.separator-text {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+  color: #161616;
+}
 </style>
 
 <i18n>
 {
   "en": {
+    "or": "OR",
     "tab-list-name": "Tab list",
     "tab-generate-link": "Generate a link",
     "tab-share-by-email": "Share by email",
@@ -557,6 +587,7 @@ async function copyLink() {
     "share-type-with-docs": "Your complete file, with supporting documents",
   },
   "fr": {
+    "or": "OU",
     "tab-list-name": "Liste d'onglets",
     "tab-generate-link": "Générer un lien",
     "tab-share-by-email": "Partager par email",

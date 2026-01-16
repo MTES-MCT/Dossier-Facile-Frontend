@@ -59,6 +59,17 @@ export const ProfileService = {
   postCreateFullPdf(token: string) {
     return axios.post<void>(`${import.meta.env.VITE_API_URL}/api/application/fullPdf/${token}`, {})
   },
+  postCreateCurrentTenantPdf() {
+    return axios.post<void>(`${import.meta.env.VITE_API_URL}/api/application/current-tenant/fullPdf`, {})
+  },
+  getCurrentTenantPdf() {
+    return axios.get<Blob>(`${import.meta.env.VITE_API_URL}/api/application/current-tenant/fullPdf`, {
+      responseType: 'blob'
+    })
+  },
+  getCurrentTenantFullData() {
+    return axios.get<FileUser>(`${import.meta.env.VITE_API_URL}/api/application/current-tenant/full`)
+  },
   getFile(fileUrl: string) {
     return axios.get<Blob>(fileUrl, { responseType: 'blob' })
   },
