@@ -12,4 +12,5 @@ export class ApartmentSharing {
   totalSalary?: number
   totalGuarantorSalary?: number
   dossierPdfUrl?: string
+  dossierPdfDocumentStatus?: string
 }

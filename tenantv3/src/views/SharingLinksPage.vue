@@ -80,7 +80,7 @@ const deletedLinks = computed(() => sharingLinks.value.filter((l) => !isActiveLi
   "fr": {
     "your-shares": "Vos partages",
     "report-suspicious-use": "Signaler un usage suspect de vos documents",
-    "if-you-are-a-victim": "Si vous pensez être victime d’un usage frauduleux de vos documents, vous pouvez faire un signalement sur service-public.fr ou obtenir de l’aide sur des sites officiels.",
+    "if-you-are-a-victim": "Si vous pensez être victime d'un usage frauduleux de vos documents, vous pouvez faire un signalement sur service-public.fr ou obtenir de l'aide sur des sites officiels.",
     "report-issue": "Faire un signalement sur service-public.fr"
   }
 }
