@@ -34,5 +34,8 @@ export const ApartmentSharingLinkService = {
   },
   enableAllLinks() {
     return axios.post<void>(`${LINKS_API_URL}/enableAll`)
+  },
+  getOrCreateDefaultLink(fullData: boolean) {
+    return axios.put<ApartmentSharingLink>(`${LINKS_API_URL}/default`, null, { params: { fullData } })
   }
 }
