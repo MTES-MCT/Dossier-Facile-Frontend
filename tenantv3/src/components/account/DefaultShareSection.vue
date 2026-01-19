@@ -51,7 +51,7 @@
             {{ t('copy-link') }}
             <RiFileCopyLine aria-hidden="true" size="16" class="fr-ml-1v" />
           </button>
-          <a :href="fullUrl" class="fr-btn fr-btn--secondary">
+          <a :href="fullUrl" class="fr-btn fr-btn--secondary" @click="AnalyticsService.sharingSeeDefaultLink()">
             {{ t('view-file') }}
             <RiEyeLine aria-hidden="true" size="16" class="fr-ml-1v" />
           </a>
@@ -71,7 +71,7 @@
     <div class="tracking-section">
       <h3 class="fr-h6 fr-mb-2w fr-mt-0">{{ t('tracking-title') }}</h3>
       <p class="fr-mb-2w">{{ t('tracking-description') }}</p>
-      <router-link to="/partages" class="fr-btn fr-btn--secondary">
+      <router-link to="/partages" class="fr-btn fr-btn--secondary" @click="AnalyticsService.sharingGoToAll()">
         {{ t('view-shares') }}
         <RiArrowRightLine aria-hidden="true" size="16" class="fr-ml-1v" />
       </router-link>
@@ -115,13 +115,13 @@ const fullUrl = computed(() => {
 })
 
 async function getLink() {
-  const fullData = selectedShareType.value === 'full'
-  AnalyticsService.getDefaultLink(fullData ? 'full' : 'limited')
+  const isFullData = selectedShareType.value === 'full'
+  AnalyticsService.getDefaultLink(isFullData ? 'full' : 'limited')
   
   loading.value = true
   linkCopied.value = false
   try {
-    const response = await ApartmentSharingLinkService.getOrCreateDefaultLink(fullData)
+    const response = await ApartmentSharingLinkService.getOrCreateDefaultLink(isFullData)
     generatedLink.value = response.data
   } catch (error) {
     console.error(error)
@@ -132,6 +132,7 @@ async function getLink() {
 }
 
 async function copyLink() {
+  AnalyticsService.sharingCopyDefaultLink()
   const text = fullUrl.value
   try {
     if (navigator.clipboard && globalThis.isSecureContext) {

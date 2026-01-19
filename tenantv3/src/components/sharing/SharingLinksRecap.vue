@@ -18,7 +18,7 @@
       </div>
     </div>
     <p class="fr-mb-0 fr-mt-2w display--flex">
-      <a href="#sharing-history" class="blue-text fr-mx-auto"
+      <a href="#sharing-history" class="blue-text fr-mx-auto" @click="AnalyticsService.sharingGoToDetailsAll()"
         >{{ t('see-more') }}
         <RiArrowDownLine aria-hidden="true" size="1rem" />
       </a>
@@ -28,6 +28,7 @@
 
 <script setup lang="ts">
 import { useTenantStore } from '@/stores/tenant-store'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { RiArrowDownLine } from '@remixicon/vue'
 import dayjs from 'dayjs'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'

@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-type EventCategory = 'prevalidation' | 'funnel' | 'contact' | 'account' | 'misc' | 'file'
+type EventCategory = 'prevalidation' | 'funnel' | 'contact' | 'account' | 'misc' | 'file' | 'partage'
 type Action = 'clic' | 'print' | 'unknown' | 'delete' | 'upload' | 'write'
 const DOCUMENT_TYPES = ['identification', 'residency', 'professional', 'financial', 'tax'] as const
 type DocumentCategoryBase = (typeof DocumentTypeTranslations)[DocumentType]
@@ -116,11 +116,59 @@ export const AnalyticsService = {
   },
 
   getDefaultLink(type: string) {
-    sendEvent('account', 'link_get_default_' + type)
+    sendEvent('partage', 'sharing_get_default_' + type)
   },
 
-  toggleAllLinks(action: 'disable' | 'enable') {
-    sendEvent('account', 'links_toggle_all_' + action)
+  sharingToggleAllLinks(action: 'disable' | 'enable') {
+    sendEvent('partage', 'sharing_' + action + '_all')
+  },
+
+  sharingNew(type: 'link' | 'mail', content: 'full' | 'limited') {
+    sendEvent('partage', `sharing_new_${type}_${content}`)
+  },
+
+  sharingCopyNewLink() {
+    sendEvent('partage', 'sharing_copy_new_link')
+  },
+
+  sharingDownloadFull() {
+    sendEvent('partage', 'sharing_download_full')
+  },
+
+  sharingResendMail() {
+    sendEvent('partage', 'sharing_resend_mail')
+  },
+
+  sharingToggleLink(action: 'enable' | 'disable') {
+    sendEvent('partage', `sharing_${action}_link`)
+  },
+
+  sharingReportSuspiciousActivity() {
+    sendEvent('partage', 'sharing_report_suspicious_activity')
+  },
+
+  sharingGoToDetailsAll() {
+    sendEvent('partage', 'sharing_go_to_details_all')
+  },
+
+  sharingCopyDefaultLink() {
+    sendEvent('partage', 'sharing_copy_default_link')
+  },
+
+  sharingSeeDefaultLink() {
+    sendEvent('partage', 'sharing_see_default_link')
+  },
+
+  sharingGoToAll() {
+    sendEvent('partage', 'sharing_go_to_all')
+  },
+
+  sharingAction(action: 'enable' | 'disable' | 'delete' | 'copy') {
+    sendEvent('partage', `sharing_action_${action}_link`)
+  },
+
+  sharingExpandDetails() {
+    sendEvent('partage', 'sharing_expand_details')
   },
 
   confirmName() {

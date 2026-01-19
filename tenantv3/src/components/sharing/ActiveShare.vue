@@ -89,7 +89,7 @@
           @resend-mail="handleResendMail"
           @delete="handleDelete"
         />
-        <button type="button" class="link-button blue-text" @click="expanded = !expanded">
+        <button type="button" class="link-button blue-text" @click="toggleExpanded">
           {{ expanded ? t('show-less') : t('show-all') }}
           <RiSubtractLine v-if="expanded" aria-hidden="true" size="1em" />
           <RiAddLine v-else aria-hidden="true" size="1em" />
@@ -119,6 +119,7 @@ import { useI18n } from 'vue-i18n'
 import SharingLinkDetails from './SharingLinkDetails.vue'
 import ShareActionsMenu from './ShareActionsMenu.vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '../toast/toastUtils'
 
 const props = defineProps<{ link: ApartmentSharingLink }>()
@@ -127,6 +128,13 @@ const emit = defineEmits<{ refresh: [] }>()
 const { t } = useI18n()
 
 const expanded = ref(false)
+
+const toggleExpanded = () => {
+  if (!expanded.value) {
+    AnalyticsService.sharingExpandDetails()
+  }
+  expanded.value = !expanded.value
+}
 
 const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
 

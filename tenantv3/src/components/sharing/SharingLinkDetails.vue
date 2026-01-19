@@ -148,6 +148,7 @@ import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSh
 import LinkWarning from './LinkWarning.vue'
 import { RiPauseCircleLine, RiCalendarLine, RiPencilLine, RiFileCopyLine, RiSendPlaneLine } from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
@@ -181,6 +182,7 @@ const minDate = new Date()
 minDate.setDate(minDate.getDate() + 1)
 
 async function pause() {
+  AnalyticsService.sharingToggleLink(link.enabled ? 'disable' : 'enable')
   try {
     await ApartmentSharingLinkService.updateLinkStatus(link, !link.enabled)
     emit('refresh')
@@ -214,6 +216,7 @@ async function copyLink() {
 }
 
 async function resendMail() {
+  AnalyticsService.sharingResendMail()
   try {
     await ApartmentSharingLinkService.resendLink(link)
     toast.success(t('mail-resent'), null)
