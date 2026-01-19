@@ -1,16 +1,13 @@
 <template>
-  <div class="fr-card fr-mb-3w">
-    <div class="cursor--pointer" @click="openDoc">
-      <ShowPreview :file="file"></ShowPreview>
-    </div>
-    <div class="text fr-pt-1w fr-pl-1w">
-      <h3 class="fr-card__title">
-        <button class="color--primary text-overflow" type="button" @click="openDoc">
-          {{ fileName }}
-        </button>
+  <div class="fr-card">
+    <ShowPreview :file="file"></ShowPreview>
+
+    <div class="text fr-px-5v fr-py-3v">
+      <h3 class="fr-card__title text-overflow">
+        {{ fileName }}
       </h3>
-      <div class="size fr-pl-1w">{{ size }}</div>
-      <div class="links blue-text fr-mb-1w fr-mr-2w">
+      <div class="size">{{ size }}</div>
+      <div class="links blue-text fr-mt-1w">
         <button
           v-if="file.path || file.preview"
           class="btn-link"
@@ -116,14 +113,9 @@ function openDoc() {
 
 <style scoped lang="css">
 .text {
-  float: right;
-  flex: 2;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  @media (max-width: 768px) {
-    max-width: 215px;
-  }
 }
 
 .size {
@@ -133,7 +125,14 @@ function openDoc() {
 
 .fr-card {
   align-items: flex-start;
-  flex-direction: row;
+  flex-flow: row wrap;
+}
+
+.fr-card > * {
+  flex: 9999 0 auto;
+}
+.fr-card > :first-child {
+  flex: 1 0 96px;
 }
 
 .fr-card__title {
@@ -147,10 +146,8 @@ function openDoc() {
 }
 
 .links {
-  position: absolute;
-  bottom: 0;
-  right: 0;
   display: flex;
-  gap: 32px;
+  gap: 2rem;
+  justify-content: end;
 }
 </style>

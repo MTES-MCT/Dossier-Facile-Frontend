@@ -7,13 +7,9 @@
           <h4>
             {{ guarantorTitle(g) }}
           </h4>
-          <a
-            ref="delete-guarantor"
-            href=""
-            :title="t('guarantorssection.delete-guarantor')"
-            @click.prevent="openConfirmModal(g)"
-            >{{ t('guarantorssection.delete-guarantor') }}</a
-          >
+          <button ref="delete-guarantor" @click.prevent="openConfirmModal(g)">
+            {{ t('guarantorssection.delete-guarantor') }}
+          </button>
         </div>
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
           <ul class="without-padding">
