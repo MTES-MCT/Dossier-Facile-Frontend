@@ -15,6 +15,7 @@
               class="blue-text"
               target="_blank"
               :title="`${t('report-issue')} - ${t('new-window')}`"
+              @click="AnalyticsService.sharingReportSuspiciousActivity()"
               >{{ t('report-issue') }}</a
             >
           </p>
@@ -30,6 +31,7 @@ import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import ShareFile from '@/components/sharing/ShareFile.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import SharingLinksRecap from '@/components/sharing/SharingLinksRecap.vue'

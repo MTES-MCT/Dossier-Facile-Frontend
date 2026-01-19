@@ -355,6 +355,7 @@ async function submit(event: Event) {
   if (event.submitter.value === 'email') {
     const email = toString(data.get('email'))
     const message = toString(data.get('message'))
+    AnalyticsService.sharingNew('mail', fullData ? 'full' : 'limited')
     AnalyticsService.shareByMail(fullData ? 'full' : 'resume')
     try {
       await ShareService.sendFileByMail({ email, fullData, daysValid, title, message })
@@ -371,6 +372,7 @@ async function submit(event: Event) {
       toast.error(t('sharefile.sent-failed'), null)
     }
   } else if (event.submitter.value === 'link') {
+    AnalyticsService.sharingNew('link', fullData ? 'full' : 'limited')
     try {
       const response = await ShareService.createLink({ title, fullData, daysValid })
       fileLink.value = `${window.location.origin}${response.data}`
@@ -389,6 +391,7 @@ async function submit(event: Event) {
 }
 
 async function copyLink() {
+  AnalyticsService.sharingCopyNewLink()
   try {
     await navigator.clipboard.writeText(fileLink.value)
     linkCopied.value = true

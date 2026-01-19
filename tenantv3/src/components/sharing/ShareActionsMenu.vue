@@ -127,8 +127,9 @@ import {
 import { useI18n } from 'vue-i18n'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
-defineProps<{
+const props = defineProps<{
   enabled?: boolean
   linkType: 'LINK' | 'MAIL' | 'OWNER' | 'PARTNER'
 }>()
@@ -156,11 +157,13 @@ const closeMenu = () => {
 }
 
 const handleCopyLink = () => {
+  AnalyticsService.sharingAction('copy')
   emit('copyLink')
   closeMenu()
 }
 
 const handleTogglePause = () => {
+  AnalyticsService.sharingAction(props.enabled ? 'disable' : 'enable')
   emit('togglePause')
   closeMenu()
 }
@@ -192,6 +195,7 @@ watch(isDeleteModalOpen, (newValue) => {
 })
 
 const confirmDelete = () => {
+  AnalyticsService.sharingAction('delete')
   emit('delete')
   closeDeleteModal()
 }

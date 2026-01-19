@@ -48,6 +48,7 @@ import ProgressIndicator from 'df-shared-next/src/Button/ProgressIndicator.vue'
 import { ProfileService } from '@/services/ProfileService'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
 
@@ -99,6 +100,7 @@ function retryDownload(remainingCount: number) {
 }
 
 function download() {
+  AnalyticsService.sharingDownloadFull()
   showProgressBar.value = true
   if (dossierPdfDocumentStatus.value === 'COMPLETED') {
     downloadPdf()

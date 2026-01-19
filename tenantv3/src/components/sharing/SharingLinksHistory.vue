@@ -107,7 +107,7 @@ async function confirmDelete() {
 
 async function toggleLinks() {
   const enable = allLinksPaused.value
-  AnalyticsService.toggleAllLinks(enable ? 'enable' : 'disable')
+  AnalyticsService.sharingToggleAllLinks(enable ? 'enable' : 'disable')
   
   const method = enable ? 'enableAllLinks' : 'disableAllLinks'
   try {
