@@ -47,13 +47,13 @@
     "@vitest/eslint-plugin": "catalog:",
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
-    "@vue/test-utils": "2.4.6",
+    "@vue/test-utils": "catalog:",
     "@vue/tsconfig": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "jiti": "catalog:",
     "jsdom": "26.1.0",
-    "npm-run-all2": "8.0.3",
+    "npm-run-all2": "catalog:",
     "prettier": "catalog:",
     "start-server-and-test": "2.0.12",
     "typescript": "catalog:",
@@ -72,5 +72,5 @@
       }
     ]
   },
-  "packageManager": "pnpm@9.15.6+sha512.139cab068fdf0b751268179ac5f909b5be72afb4a75c513d1905d151befc8977b593d3cf8671ed83d4d6637c5c94b98ffbce108125de4a5a27a31233601a99de"
+  "packageManager": "pnpm@10.26.0"
 }

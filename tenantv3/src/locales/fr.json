@@ -388,6 +388,13 @@
       "line1": "Pour des raisons de sécurité, l'accès à ce dossier a été temporairement bloqué après trop de tentatives d'authentification infructueuses",
       "line2": "Veuillez réessayer dans 1 heure"
     },
+    "bad-link": {
+      "title": "Lien invalide",
+      "line1": "Le lien que vous avez utilisé ne correspond pas au format d'un lien DossierFacile.",
+      "line2": "Il y a probablement un problème de copier/coller. Veuillez vérifier qu'aucun caractère supplémentaire n'est présent dans le lien.",
+      "example-label": "Exemple de lien valide :",
+      "current-link-label": "Lien actuel utilisé :"
+    },
     "disclaimer": "Le service fourni par DossierFacile ne saurait être assimilé à une garantie apportée par DossierFacile sur les dossiers ayant fait l'objet d'une labellisation. DossierFacile ne saurait être tenu responsable ni être engagé directement ou indirectement dans le cadre d'un litige entre un locataire et son bailleur ou tout autre intermédiaire."
   },
   "trigram": {
