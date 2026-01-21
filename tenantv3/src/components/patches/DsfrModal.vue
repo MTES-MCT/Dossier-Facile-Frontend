@@ -11,7 +11,7 @@ import type { DsfrModalProps } from '@gouvminint/vue-dsfr'
 import { DsfrButtonGroup, useRandomId, VIcon } from '@gouvminint/vue-dsfr'
 
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
-import { computed, nextTick, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
 
 const props = withDefaults(defineProps<DsfrModalProps>(), {
   modalId: () => useRandomId('modal', 'dialog'),
@@ -62,7 +62,7 @@ watch(
 )
 
 function setAppropriateClassOnBody(on: boolean) {
-  if (typeof globalThis.window !== 'undefined') {
+  if (globalThis.window !== undefined) {
     document.body.classList.toggle('modal-open', on)
   }
 }

@@ -3,18 +3,11 @@
     <router-link :to="to" class="radio-list-item">
       <slot />
     </router-link>
-
-    <!-- <DsfrTile :title :to :description :details :horizontal>
-      <template #header>
-        <slot name="header"></slot>
-      </template>
-    </DsfrTile> -->
   </li>
 </template>
 
 <script setup lang="ts">
-import { DsfrTile } from '@gouvminint/vue-dsfr'
-import type { RouteLocationRaw, RouterLinkProps } from 'vue-router'
+import type { RouterLinkProps } from 'vue-router'
 
 interface Props {
   to: RouterLinkProps['to']
