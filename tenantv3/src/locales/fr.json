@@ -301,7 +301,7 @@
   "coupleinformation": {
     "spouseFirstName": "Prénom",
     "spouseLastName": "Nom",
-    "spouseEmail": "L’adresse email de votre conjoint·e (facultatif)",
+    "spouseEmail": "L’adresse email de votre conjoint·e",
     "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés.<br/>Je consens aussi au fait que mon partenaire puisse partager les pièces de notre dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
     "field-required": "Ce champ est requis",
     "partner-name-title": "Qui sera votre conjoint·e ?",

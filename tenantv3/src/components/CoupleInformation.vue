@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NakedCard class="fr-p-md-5w fr-m-3v fr-mb-2w">
+    <NakedCard class="fr-p-md-5w fr-mb-2w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
           <h1 class="fr-h6">
@@ -8,11 +8,10 @@
           </h1>
         </div>
         <div class="fr-col-12 fr-mb-3w">
-          <FieldLabel :required="true">
+          <FieldLabel :required="true" for-input="coTenantLastName">
             {{ t('coupleinformation.spouseLastName') }}
           </FieldLabel>
           <Field
-            id="coTenantLastName"
             v-slot="{ field, meta }"
             v-model="coTenant.lastName"
             name="coTenantLastName"
@@ -22,27 +21,30 @@
             }"
           >
             <input
+              id="coTenantLastName"
+              :aria-describedby="hasSubmited ? 'coTenantLastName-errors' : undefined"
+              :aria-invalid="hasSubmited && !meta.valid"
               v-bind="field"
               class="form-control validate-required fr-input"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
+              required
               type="text"
               :disabled="disableNameFields"
               @input="handleInput"
             />
           </Field>
-          <ErrorMessage v-slot="{ message }" name="coTenantLastName">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="coTenantLastName">
+            <span id="coTenantLastName-errors" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
         <div class="fr-col-12 fr-mb-3w">
-          <FieldLabel :required="true">
+          <FieldLabel :required="true" for-input="coTenantFirstName">
             {{ t('coupleinformation.spouseFirstName') }}
           </FieldLabel>
           <Field
-            id="coTenantFirstName"
             v-slot="{ field, meta }"
             v-model="coTenant.firstName"
             name="coTenantFirstName"
@@ -52,19 +54,23 @@
             }"
           >
             <input
+              id="coTenantFirstName"
               v-bind="field"
+              :aria-describedby="hasSubmited ? 'coTenantFirstName-errors' : undefined"
+              :aria-invalid="hasSubmited && !meta.valid"
               class="validate-required form-control fr-input"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
+              required
               type="text"
               :disabled="disableNameFields"
               @input="handleInput"
             />
           </Field>
-          <ErrorMessage v-slot="{ message }" name="coTenantFirstName">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="coTenantFirstName">
+            <span id="coTenantFirstName" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
       </div>
@@ -75,24 +81,30 @@
           <h1 class="fr-h6">
             {{ t('coupleinformation.partner-email-title') }}
           </h1>
-          <v-gouv-fr-modal class="fr-link fr-link--sm">
-            <template #button>
-              {{ t('coupleinformation.more-information') }}
+          <DsfrButton
+            @click="isModalOpened = true"
+            tertiary
+            size="sm"
+            type="button"
+            :label="t('coupleinformation.more-information')"
+          />
+          <DsfrModalPatched
+            :opened="isModalOpened"
+            :title="t('coupleinformation.more-information')"
+            icon="ri:arrow-right-line"
+            :is-alert="isAlert"
+            @close="isModalOpened = false"
+          >
+            <template #default>
+              <CoupleInformationHelp />
             </template>
-            <template #title>
-              {{ t('coupleinformation.more-information') }}
-            </template>
-            <template #content>
-              <CoupleInformationHelp></CoupleInformationHelp>
-            </template>
-          </v-gouv-fr-modal>
+          </DsfrModalPatched>
         </div>
         <div class="fr-col-12 fr-mt-3w fr-mb-3w">
           <FieldLabel for-input="email">
             {{ t('coupleinformation.spouseEmail') }}
           </FieldLabel>
           <Field
-            id="email"
             v-slot="{ field, meta }"
             v-model="coTenant.email"
             name="email"
@@ -102,55 +114,61 @@
             }"
           >
             <input
+              id="email"
               ref="email-input"
               v-bind="field"
+              :aria-describedby="hasSubmited ? 'email-errors' : undefined"
+              :aria-invalid="hasSubmited && !meta.valid"
               class="validate-required form-control fr-input"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
-              name="email"
-              placeholder="Ex : exemple@exemple.fr"
+              placeholder="nom@exemple.fr"
               type="email"
               :disabled="disableEmailField"
-              @input="handleInput"
             />
           </Field>
-          <ErrorMessage v-slot="{ message }" name="email">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="email">
+            <span id="email-errors" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
+        </div>
+      </div>
+      <div ref="checkboxauthorize" class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-12 fr-mt-3w">
+          <div class="bg-purple fr-checkbox-group">
+            <Field
+              v-slot="{ field, meta }"
+              v-model="authorize"
+              name="authorize"
+              type="checkbox"
+              :rules="{
+                required: coTenant?.email?.length > 0 ? true : false
+              }"
+              :value="true"
+            >
+              <input
+                id="authorize"
+                type="checkbox"
+                :required="coTenant?.email?.length > 0 ? true : false"
+                v-bind="field"
+                :aria-describedby="hasSubmited ? 'auth-errors' : undefined"
+                :aria-invalid="hasSubmited && !meta.valid"
+                :class="{
+                  'fr-input--valid': meta.valid,
+                  'fr-input--error': !meta.valid
+                }"
+                @change="updateAuthorize"
+              />
+              <label for="authorize" v-html="t('coupleinformation.acceptAuthor')" />
+            </Field>
+            <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="authorize">
+              <span id="auth-errors" class="fr-error-text">{{ t(message || '') }}</span>
+            </ErrorMessage>
+          </div>
         </div>
       </div>
     </NakedCard>
-    <div v-if="showCheckBox" ref="checkboxauthorize" class="fr-grid-row fr-grid-row--center">
-      <div class="fr-col-12 fr-mb-3w fr-mt-3w">
-        <div class="bg-purple fr-checkbox-group">
-          <Field
-            v-slot="{ field, meta }"
-            v-model="authorize"
-            name="authorize"
-            type="checkbox"
-            rules="isTrue"
-            :value="true"
-          >
-            <input
-              id="authorize"
-              type="checkbox"
-              v-bind="field"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              @change="updateAuthorize"
-            />
-            <label for="authorize" v-html="t('coupleinformation.acceptAuthor')"> </label>
-          </Field>
-          <ErrorMessage v-slot="{ message }" name="authorize">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -165,6 +183,14 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import DsfrModalPatched from './patches/DsfrModal.vue'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
+
+interface Props {
+  hasSubmited: Boolean
+}
+
+defineProps<Props>()
 
 defineRule('custom', (v1: string, [v2]: string[]) => {
   if (v1 === v2) {
@@ -172,8 +198,6 @@ defineRule('custom', (v1: string, [v2]: string[]) => {
   }
   return true
 })
-
-const emit = defineEmits<{ 'update:modelValue': [coTenants: CoTenant[]] }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -183,11 +207,18 @@ defineExpose({ emailInput })
 const user = computed(() => store.user)
 
 const coTenant = ref<CoTenant>(new User())
+const coTenants = defineModel<CoTenant[]>({
+  default: () => []
+})
 const authorize = ref(false)
 const showCheckBox = ref(false)
 const disableNameFields = ref(false)
 const disableEmailField = ref(false)
 const checkboxauthorize = ref()
+
+// modal logic
+const isModalOpened = ref(false)
+const isAlert = ref(false)
 
 onMounted(() => {
   if ((user.value.apartmentSharing?.tenants.length || 0) > 1) {
@@ -206,21 +237,11 @@ onMounted(() => {
   }
 })
 
-function scrollToEnd() {
-  if (!checkboxauthorize.value) {
-    return
-  }
-  checkboxauthorize.value.scrollIntoView({ behavior: 'smooth' })
-}
-
 function handleInput() {
-  emit('update:modelValue', [coTenant.value])
-  if (coTenant.value.email?.length > 0) {
-    showCheckBox.value = true
-    scrollToEnd()
-  } else {
-    showCheckBox.value = false
+  if (coTenant.value.firstName && coTenant.value.lastName) {
+    coTenants.value = [coTenant.value]
   }
+  return
 }
 
 function updateAuthorize() {
