@@ -1,5 +1,11 @@
 <template>
-  <fieldset class="fr-fieldset">
+  <ul role="list">
     <slot></slot>
-  </fieldset>
+  </ul>
 </template>
+
+<style scoped>
+ul > :deep(li + li) {
+  margin-block-start: 1rem;
+}
+</style>

@@ -87,9 +87,11 @@
               id="email"
               v-bind="field"
               :aria-describedby="
-                (hasSubmited || hasAddedEmail) && !meta.valid ? 'email-errors' : undefined
+                (hasSubmited || hasAddedEmail) && (!meta.valid || !emailIsValid)
+                  ? 'email-errors'
+                  : undefined
               "
-              :aria-invalid="(hasSubmited || hasAddedEmail) && !meta.valid"
+              :aria-invalid="(hasSubmited || hasAddedEmail) && (!meta.valid || !emailIsValid)"
               class="form-control fr-input"
               name="email"
               :required="coTenants.length ? false : true"
@@ -99,28 +101,29 @@
               }"
               placeholder="nom@exemple.fr"
               type="email"
-              @keydown.prevent.enter="addMail"
+              @keydown.prevent.enter="validateRoommateEmail"
             />
           </Field>
           <div class="email-errors">
-            <ErrorMessage v-if="hasSubmited && !hasAddedEmail" v-slot="{ message }" name="email">
+            <ErrorMessage v-if="hasSubmited || hasAddedEmail" v-slot="{ message }" name="email">
               <p class="fr-error-text">{{ t(message || '') }}</p>
             </ErrorMessage>
-            <p class="fr-error-text" v-if="hasAddedEmail && !newRoommate">
+            <p class="fr-error-text" v-if="showEmailEmpty">
               {{ t('field-required') }}
             </p>
             <p class="fr-error-text" v-if="showRoomMateAlreadyExists">
               {{ t('roommatesinformation.co-tenant-already-exists') }}
-            </p>
-            <p class="fr-error-text" v-if="showWrongFormatError">
-              {{ t('email-not-valid') }}
             </p>
             <p class="fr-error-text" v-if="showEmailExists">
               {{ t('roommatesinformation.email-exists-2') }}
             </p>
           </div>
         </div>
-        <DsfrButton secondary :label="t('roommatesinformation.add-a-roommate')" @click="addMail" />
+        <DsfrButton
+          secondary
+          :label="t('roommatesinformation.add-a-roommate')"
+          @click="validateRoommateEmail"
+        />
       </div>
       <div class="fr-mt-3w fr-checkbox-group bg-purple">
         <Field
@@ -164,10 +167,9 @@
 import { User } from 'df-shared-next/src/models/User'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import RoommatesInformationHelp from './helps/RoommatesInformationHelp.vue'
-import { UtilsService } from '../services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onMounted, ref } from 'vue'
-import { Field, ErrorMessage, defineRule } from 'vee-validate'
+import { Field, ErrorMessage, defineRule, useField, useValidateField } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { RiUserFill } from '@remixicon/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
@@ -181,7 +183,7 @@ interface Props {
 
 defineProps<Props>()
 
-defineRule('atLeastOneEmail', (email: unknown, [otherEmails]: unknown[]) => {
+defineRule('atLeastOneEmail', (email: string, [otherEmails]: string[]) => {
   if (email === '' && otherEmails === undefined) {
     return 'field-required'
   }
@@ -199,47 +201,62 @@ const coTenantAuthorize = computed(() => store.coTenantAuthorize)
 
 const authorize = ref(false)
 const newRoommate = ref('')
+// form errors
 const showEmailExists = ref(false)
+const showEmailEmpty = ref(false)
 const showRoomMateAlreadyExists = ref(false)
 const showWrongFormatError = ref(false)
+
+const emailIsValid = ref(false)
 
 // modal logic
 const isModalOpened = ref(false)
 const isAlert = ref(false)
 
 const hasAddedEmail = ref(false)
-const isEmail = (email: string) => {
-  if (email === '') return true
-  else return /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/.test(email)
-}
 
 onMounted(() => {
   authorize.value = coTenantAuthorize.value
 })
 
-function addMail() {
-  hasAddedEmail.value = true
+const validateEmailField = useValidateField('email')
+
+const validateRoommateEmail = async () => {
+  // initialize errors
+  showEmailEmpty.value = false
   showEmailExists.value = false
   showWrongFormatError.value = false
-  if (newRoommate.value !== '' && isEmail(newRoommate.value)) {
-    if (isEmailAlreadyExists(newRoommate.value)) {
-      showRoomMateAlreadyExists.value = true
-      return
-    } else {
-      showRoomMateAlreadyExists.value = false
-    }
-    if (user.value.email !== newRoommate.value) {
-      const coTenant = new User()
-      coTenant.email = newRoommate.value
-      store.createCoTenant(newRoommate.value)
-      coTenants.value = [...coTenants.value, coTenant]
-      newRoommate.value = ''
-      hasAddedEmail.value = false
-    } else {
-      showEmailExists.value = true
-    }
-  } else if (newRoommate.value && !isEmail(newRoommate.value)) {
-    showWrongFormatError.value = true
+  showRoomMateAlreadyExists.value = false
+  emailIsValid.value = false
+  hasAddedEmail.value = true
+
+  const { valid } = await validateEmailField()
+
+  if (valid) addMail()
+}
+
+async function addMail() {
+  if (!newRoommate.value.length) {
+    showEmailEmpty.value = true
+    return
+  }
+
+  if (isEmailAlreadyExists(newRoommate.value)) {
+    showRoomMateAlreadyExists.value = true
+    emailIsValid.value = false
+    return
+  }
+  if (user.value.email !== newRoommate.value) {
+		emailIsValid.value = true
+    const coTenant = new User()
+    coTenant.email = newRoommate.value
+    store.createCoTenant(newRoommate.value)
+    coTenants.value = [...coTenants.value, coTenant]
+    newRoommate.value = ''
+    hasAddedEmail.value = false
+  } else {
+    showEmailExists.value = true
+    emailIsValid.value = false
   }
 }
 
@@ -259,10 +276,6 @@ function remove(tenant: CoTenant) {
 
 function updateAuthorize() {
   store.updateCoTenantAuthorize(authorize.value)
-}
-
-function isMobile() {
-  return UtilsService.isMobile()
 }
 </script>
 
