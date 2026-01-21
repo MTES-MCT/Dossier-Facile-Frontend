@@ -70,7 +70,7 @@
             />
           </Field>
           <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="coTenantFirstName">
-            <span id="coTenantFirstName" class="fr-error-text">{{ t(message || '') }}</span>
+            <span id="coTenantFirstName-errors" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
       </div>
@@ -89,11 +89,10 @@
             :label="t('coupleinformation.more-information')"
           />
           <DsfrModalPatched
-            :opened="isModalOpened"
+            v-model:is-opened="isModalOpened"
             :title="t('coupleinformation.more-information')"
             icon="ri:arrow-right-line"
             :is-alert="isAlert"
-            @close="isModalOpened = false"
           >
             <template #default>
               <CoupleInformationHelp />
@@ -175,7 +174,6 @@
 <script setup lang="ts">
 import { User } from 'df-shared-next/src/models/User'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import VGouvFrModal from 'df-shared-next/src/GouvFr/VGouvFrModal.vue'
 import CoupleInformationHelp from './helps/CoupleInformationHelp.vue'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 import { computed, onMounted, ref, useTemplateRef } from 'vue'
@@ -187,7 +185,7 @@ import DsfrModalPatched from './patches/DsfrModal.vue'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 interface Props {
-  hasSubmited: Boolean
+  hasSubmited: boolean
 }
 
 defineProps<Props>()
@@ -241,7 +239,6 @@ function handleInput() {
   if (coTenant.value.firstName && coTenant.value.lastName) {
     coTenants.value = [coTenant.value]
   }
-  return
 }
 
 function updateAuthorize() {

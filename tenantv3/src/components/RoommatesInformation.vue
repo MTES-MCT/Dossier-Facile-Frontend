@@ -12,11 +12,10 @@
             :label="t('roommatesinformation.more-information')"
           />
           <DsfrModalPatched
-            :opened="isModalOpened"
+            v-model:is-opened="isModalOpened"
             :title="t('roommatesinformation.more-information')"
             icon="ri:arrow-right-line"
             :is-alert="isAlert"
-            @close="isModalOpened = false"
           >
             <template #default>
               <RoommatesInformationHelp />
@@ -68,11 +67,13 @@
           </div>
         </div>
         <div class="fr-col-12">
-          <label for="email" class="fr-label fr-mb-1w"
-            >{{ t('roommatesinformation.roommateEmail') }}
-            <!-- TODO: i18n -->
-            <span v-if="!coTenants.length"> (requis)</span></label
+          <FieldLabel
+            for-input="email"
+            :required="coTenants.length ? undefined : true"
+            class="fr-mb-1w"
           >
+            {{ t('roommatesinformation.roommateEmail') }}
+          </FieldLabel>
           <Field
             v-slot="{ field, meta }"
             v-model="newRoommate"
@@ -165,16 +166,17 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import RoommatesInformationHelp from './helps/RoommatesInformationHelp.vue'
 import { UtilsService } from '../services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
-import { computed, nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
-import { Field, ErrorMessage, useFieldError, defineRule } from 'vee-validate'
+import { computed, onMounted, ref } from 'vue'
+import { Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { RiUserFill } from '@remixicon/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 import DsfrModalPatched from './patches/DsfrModal.vue'
+import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 
 interface Props {
-  hasSubmited: Boolean
+  hasSubmited: boolean
 }
 
 defineProps<Props>()

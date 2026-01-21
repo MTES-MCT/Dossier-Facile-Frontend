@@ -1,8 +1,8 @@
 <template>
   <label class="fr-label" :for="props.forInput">
     <slot></slot>
-    <span v-if="props.required"> ({{ t('required') }})</span>
-    <span v-else> ({{ t('optional') }})</span>
+    <span v-if="props.required"> ({{ t('form.label.required') }})</span>
+    <span v-else> ({{ t('form.label.optional') }})</span>
     <span>&nbsp;:</span>
   </label>
 </template>
@@ -22,16 +22,3 @@ const props = withDefaults(
 )
 const { t } = useI18n()
 </script>
-
-<i18n>
-	{
-  "en": {
-    "required": "required",
-    "optional": "optional"
-  },
-  "fr": {
-    "required": "requis",
-		"optional": "facultatif"
-  }
-}
-</i18n>
