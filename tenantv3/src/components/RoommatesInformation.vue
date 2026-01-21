@@ -169,7 +169,7 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import RoommatesInformationHelp from './helps/RoommatesInformationHelp.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onMounted, ref } from 'vue'
-import { Field, ErrorMessage, defineRule, useField, useValidateField } from 'vee-validate'
+import { Field, ErrorMessage, defineRule, useValidateField } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { RiUserFill } from '@remixicon/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
@@ -247,7 +247,7 @@ async function addMail() {
     return
   }
   if (user.value.email !== newRoommate.value) {
-		emailIsValid.value = true
+    emailIsValid.value = true
     const coTenant = new User()
     coTenant.email = newRoommate.value
     store.createCoTenant(newRoommate.value)
