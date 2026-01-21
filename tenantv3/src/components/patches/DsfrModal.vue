@@ -8,16 +8,10 @@
  * I kept the original template for consistency with the doc.
  */
 import type { DsfrModalProps } from '@gouvminint/vue-dsfr'
+import { DsfrButtonGroup, useRandomId, VIcon } from '@gouvminint/vue-dsfr'
 
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
 import { computed, nextTick, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
-
-import { DsfrButtonGroup } from '@gouvminint/vue-dsfr'
-import { VIcon } from '@gouvminint/vue-dsfr'
-
-import { useRandomId } from '@gouvminint/vue-dsfr'
-
-export type { DsfrModalProps }
 
 const props = withDefaults(defineProps<DsfrModalProps>(), {
   modalId: () => useRandomId('modal', 'dialog'),
@@ -29,7 +23,7 @@ const props = withDefaults(defineProps<DsfrModalProps>(), {
   closeButtonTitle: 'Fermer la fenêtre modale'
 })
 
-const emit = defineEmits<{ (e: 'close'): void }>()
+const isOpened = defineModel('isOpened', { default: false })
 
 defineSlots<{
   /**
@@ -55,52 +49,53 @@ const { activate, deactivate } = useFocusTrap(modal, {
 })
 
 watch(
-  () => props.opened,
-  async (newValue) => {
+  () => isOpened.value,
+  (newValue) => {
     if (newValue) {
       modal.value?.showModal()
       setTimeout(() => {
         activate()
       }, 100)
-    } else {
-      deactivate()
-      modal.value?.close()
     }
     setAppropriateClassOnBody(newValue)
   }
 )
 
 function setAppropriateClassOnBody(on: boolean) {
-  if (typeof window !== 'undefined') {
+  if (typeof globalThis.window !== 'undefined') {
     document.body.classList.toggle('modal-open', on)
   }
 }
 
 onMounted(() => {
-  setAppropriateClassOnBody(props.opened)
+  setAppropriateClassOnBody(isOpened.value)
 })
 
 onBeforeUnmount(() => {
   setAppropriateClassOnBody(false)
 })
 
-async function close() {
-  await nextTick()
-  props.origin?.focus()
-  emit('close')
+const close = () => {
+  deactivate()
+  modal.value?.close()
+  isOpened.value = false
 }
 
 const dsfrIcon = computed(() => typeof props.icon === 'string' && props.icon.startsWith('fr-icon-'))
 const defaultScale = 2
-const iconProps = computed(() =>
-  dsfrIcon.value
-    ? undefined
-    : typeof props.icon === 'string'
-      ? { name: props.icon, scale: defaultScale }
-      : props.icon && typeof props.icon === 'object'
-        ? { scale: defaultScale, ...(props.icon as Record<string, any>) }
-        : undefined
-)
+const iconProps = computed(() => {
+  if (dsfrIcon.value) return undefined
+
+  if (typeof props.icon === 'string') {
+    return { name: props.icon, scale: defaultScale }
+  }
+
+  if (props.icon && typeof props.icon === 'object') {
+    return { scale: defaultScale, ...(props.icon as Record<string, any>) }
+  }
+
+  return undefined
+})
 </script>
 
 <template>
@@ -131,7 +126,7 @@ const iconProps = computed(() =>
                 :title="closeButtonTitle"
                 aria-controls="fr-modal-1"
                 type="button"
-                @click="close()"
+                @click="close"
               >
                 <span>
                   {{ closeButtonLabel }}
@@ -150,11 +145,9 @@ const iconProps = computed(() =>
                 </span>
                 {{ title }}
               </h1>
-              <!-- @slot Slot par défaut pour le contenu de la liste. Sera dans `<ul class="fr-modal__title">` -->
               <slot />
             </div>
             <div v-if="actions?.length || $slots.footer" class="fr-modal__footer">
-              <!-- @slot Slot pour le pied-de-page de la modale `<ul class="fr-modal__footer">` -->
               <slot name="footer" />
               <DsfrButtonGroup
                 v-if="actions?.length"

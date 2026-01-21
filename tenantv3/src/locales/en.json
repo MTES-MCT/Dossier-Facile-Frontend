@@ -960,6 +960,10 @@
     "header": "Message from our validation team:"
   },
   "form": {
+    "label": {
+      "required": "required",
+      "optional": "optional"
+    },
     "financial": {
       "job-income": "Income from work",
       "social-aid": "Social aid",

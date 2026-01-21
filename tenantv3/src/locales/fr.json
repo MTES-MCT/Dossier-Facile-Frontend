@@ -951,6 +951,10 @@
     "header": "Message de notre équipe de validation :"
   },
   "form": {
+    "label": {
+      "required": "requis",
+      "optional": "facultatif"
+    },
     "financial": {
       "job-income": "Revenus du travail",
       "social-aid": "Aide sociale",
