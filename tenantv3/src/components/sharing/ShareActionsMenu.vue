@@ -23,24 +23,64 @@
     </button>
     
     <div v-if="isOpen" class="dropdown-menu">
-      <button
-        type="button"
-        class="menu-item"
-        @click="handleCopyLink"
-      >
-        <RiFileCopyLine aria-hidden="true" size="16px" class="menu-icon" />
-        <span>{{ t('copy-the-link') }}</span>
-      </button>
-      
-      <button
-        type="button"
-        class="menu-item"
-        @click="handleTogglePause"
-      >
-        <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
-        <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
-        <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
-      </button>
+      <!-- Options for LINK type -->
+      <template v-if="linkType === 'LINK'">
+        <button
+          v-if="enabled"
+          type="button"
+          class="menu-item"
+          @click="handleCopyLink"
+        >
+          <RiFileCopyLine aria-hidden="true" size="16px" class="menu-icon" />
+          <span>{{ t('copy-the-link') }}</span>
+        </button>
+        
+        <button
+          type="button"
+          class="menu-item"
+          @click="handleTogglePause"
+        >
+          <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
+          <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
+          <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
+        </button>
+      </template>
+
+      <!-- Options for MAIL type -->
+      <template v-if="linkType === 'MAIL'">
+        <button
+          v-if="enabled"
+          type="button"
+          class="menu-item"
+          @click="handleResendMail"
+        >
+          <RiSendPlaneLine aria-hidden="true" size="16px" class="menu-icon" />
+          <span>{{ t('resend-mail') }}</span>
+        </button>
+        
+        <button
+          type="button"
+          class="menu-item"
+          @click="handleTogglePause"
+        >
+          <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
+          <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
+          <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
+        </button>
+      </template>
+
+      <!-- Options for OWNER/PARTNER type -->
+      <template v-if="linkType === 'OWNER' || linkType === 'PARTNER'">
+        <button
+          type="button"
+          class="menu-item"
+          @click="handleTogglePause"
+        >
+          <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
+          <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
+          <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
+        </button>
+      </template>
       
       <button
         type="button"
@@ -81,19 +121,23 @@ import {
   RiFileCopyLine,
   RiPauseCircleLine,
   RiPlayCircleLine,
-  RiDeleteBinLine
+  RiDeleteBinLine,
+  RiSendPlaneLine
 } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
-defineProps<{
+const props = defineProps<{
   enabled?: boolean
+  linkType: 'LINK' | 'MAIL' | 'OWNER' | 'PARTNER'
 }>()
 
 const emit = defineEmits<{
   copyLink: []
   togglePause: []
+  resendMail: []
   delete: []
 }>()
 
@@ -113,12 +157,19 @@ const closeMenu = () => {
 }
 
 const handleCopyLink = () => {
+  AnalyticsService.sharingAction('copy')
   emit('copyLink')
   closeMenu()
 }
 
 const handleTogglePause = () => {
+  AnalyticsService.sharingAction(props.enabled ? 'disable' : 'enable')
   emit('togglePause')
+  closeMenu()
+}
+
+const handleResendMail = () => {
+  emit('resendMail')
   closeMenu()
 }
 
@@ -135,6 +186,7 @@ const closeDeleteModal = () => {
 // Activer la fermeture sur clic extérieur après un court délai
 // pour éviter que le clic initial sur "Supprimer" ne ferme la modale
 watch(isDeleteModalOpen, (newValue) => {
+  document.body.style.overflow = newValue ? 'hidden' : ''
   if (newValue) {
     setTimeout(() => {
       canCloseModalOnClickOutside.value = true
@@ -143,6 +195,7 @@ watch(isDeleteModalOpen, (newValue) => {
 })
 
 const confirmDelete = () => {
+  AnalyticsService.sharingAction('delete')
   emit('delete')
   closeDeleteModal()
 }
@@ -213,6 +266,7 @@ onUnmounted(() => {
 
 .arrow-icon {
   color: #000091;
+  pointer-events: none;
 }
 
 .dropdown-menu {
@@ -267,6 +321,7 @@ onUnmounted(() => {
     "copy-the-link": "Copy the link",
     "pause-sharing": "Pause sharing",
     "reactivate-sharing": "Reactivate sharing",
+    "resend-mail": "Resend share by email",
     "delete-sharing": "Delete sharing",
     "delete-confirmation-title": "Delete confirmation",
     "delete-confirmation-message": "Are you sure you want to delete this sharing?",
@@ -278,6 +333,7 @@ onUnmounted(() => {
     "copy-the-link": "Copier le lien",
     "pause-sharing": "Mettre le partage en pause",
     "reactivate-sharing": "Réactiver le partage",
+    "resend-mail": "Renvoyer le partage par mail",
     "delete-sharing": "Supprimer le partage",
     "delete-confirmation-title": "Confirmation de suppression",
     "delete-confirmation-message": "Êtes-vous sûr de vouloir supprimer ce partage ?",

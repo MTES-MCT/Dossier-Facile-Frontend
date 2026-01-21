@@ -15,6 +15,7 @@
               class="blue-text"
               target="_blank"
               :title="`${t('report-issue')} - ${t('new-window')}`"
+              @click="AnalyticsService.sharingReportSuspiciousActivity()"
               >{{ t('report-issue') }}</a
             >
           </p>
@@ -30,6 +31,7 @@ import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import ShareFile from '@/components/sharing/ShareFile.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import SharingLinksRecap from '@/components/sharing/SharingLinksRecap.vue'
@@ -54,8 +56,11 @@ const now = dayjs()
 const isActiveLink = (link: ApartmentSharingLink) =>
   !link.deleted && dayjs(link.expirationDate).isAfter(now)
 
-const activeLinks = computed(() => sharingLinks.value.filter(isActiveLink))
-const deletedLinks = computed(() => sharingLinks.value.filter((l) => !isActiveLink(l)))
+const sortByMostRecent = (a: ApartmentSharingLink, b: ApartmentSharingLink) =>
+  dayjs(b.creationDate).valueOf() - dayjs(a.creationDate).valueOf()
+
+const activeLinks = computed(() => sharingLinks.value.filter(isActiveLink).sort(sortByMostRecent))
+const deletedLinks = computed(() => sharingLinks.value.filter((l) => !isActiveLink(l)).sort(sortByMostRecent))
 </script>
 
 <style scoped>
@@ -77,7 +82,7 @@ const deletedLinks = computed(() => sharingLinks.value.filter((l) => !isActiveLi
   "fr": {
     "your-shares": "Vos partages",
     "report-suspicious-use": "Signaler un usage suspect de vos documents",
-    "if-you-are-a-victim": "Si vous pensez être victime d’un usage frauduleux de vos documents, vous pouvez faire un signalement sur service-public.fr ou obtenir de l’aide sur des sites officiels.",
+    "if-you-are-a-victim": "Si vous pensez être victime d'un usage frauduleux de vos documents, vous pouvez faire un signalement sur service-public.fr ou obtenir de l'aide sur des sites officiels.",
     "report-issue": "Faire un signalement sur service-public.fr"
   }
 }

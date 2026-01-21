@@ -5,7 +5,7 @@
         <h3 class="fr-text--sm blue-text fr-mb-0">{{ t('general-info') }}</h3>
         <table class="table">
           <tbody>
-            <tr :class="{ 'title-row-editing': isEditingTitle }">
+            <tr v-if="isLinkOrMail" :class="{ 'title-row-editing': isEditingTitle }">
               <td class="fr-text-mention--grey">{{ t('title-of-share') }}</td>
               <td class="title-cell">
                 <div v-if="!isEditingTitle" class="title-display">
@@ -31,7 +31,7 @@
               <td class="fr-text-mention--grey">{{ t('created-on') }}</td>
               <td>{{ formatDate(link.creationDate) }}</td>
             </tr>
-            <tr>
+            <tr v-if="isLinkOrMail">
               <td class="fr-text-mention--grey">{{ t('expires-on') }}</td>
               <td class="expiration-cell">
                 <template v-if="!isEditingExpiration">
@@ -61,10 +61,6 @@
               </td>
             </tr>
             <tr>
-              <td class="fr-text-mention--grey">{{ t('file-type') }}</td>
-              <td>{{ link.fullData ? 'Avec justificatifs' : 'Sans justificatifs' }}</td>
-            </tr>
-            <tr>
               <td class="fr-text-mention--grey">{{ t('created-by') }}</td>
               <td>{{ link.createdBy || '-' }}</td>
             </tr>
@@ -91,15 +87,57 @@
         </table>
       </div>
     </div>
-    <div class="info">
+    <div v-if="isLinkOrMail" class="info">
       <LinkWarning />
-      <form class="display--flex align-items--center" @submit.prevent="pause">
-        <p class="fr-mt-1w">TODO: lien</p>
-        <DfButton ref="pause-btn" class="fr-ml-auto"
-          >{{ link.enabled ? 'Mettre en pause' : 'Réactiver' }}
-          <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
-        </DfButton>
-      </form>
+      <!-- Partage par lien -->
+      <div v-if="link.type === 'LINK' && link.url" class="link-row fr-mt-1w">
+        <div class="link-info">
+          <p class="fr-text-mention--grey fr-mb-0">
+            {{ link.fullData ? t('link-with-docs') : t('link-without-docs') }}
+          </p>
+          <p class="fr-mb-0">{{ fullUrl }}</p>
+        </div>
+        <div class="link-actions">
+          <button
+            type="button"
+            class="fr-btn fr-btn--secondary fr-btn--sm"
+            :disabled="!link.enabled"
+            @click="copyLink"
+          >
+            {{ t('copy-link') }}
+            <RiFileCopyLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
+          </button>
+          <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" @click="pause">
+            {{ link.enabled ? t('pause-share') : t('resume-share') }}
+            <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
+          </button>
+        </div>
+      </div>
+      <!-- Partage par mail -->
+      <div v-else-if="link.type === 'MAIL'" class="link-row fr-mt-1w">
+        <div class="link-info">
+          <p class="fr-text-mention--grey fr-mb-0">{{ t('email-sent-to') }}</p>
+          <p class="fr-mb-0">{{ link.ownerEmail }}</p>
+        </div>
+        <div class="link-actions">
+          <button
+            type="button"
+            class="fr-btn fr-btn--secondary fr-btn--sm"
+            :disabled="!link.enabled"
+            @click="resendMail"
+          >
+            {{ t('resend-mail') }}
+            <RiSendPlaneLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
+          </button>
+          <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" @click="pause">
+            {{ link.enabled ? t('pause-share') : t('resume-share') }}
+            <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
+          </button>
+          <p class="fr-text-mention--grey fr-text--sm fr-mb-0">
+            {{ t('last-sent', { date: formatDateTime(link.lastVisit || link.creationDate) }) }}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -108,12 +146,12 @@
 import dayjs from 'dayjs'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import LinkWarning from './LinkWarning.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { RiPauseCircleLine, RiCalendarLine, RiPencilLine } from '@remixicon/vue'
+import { RiPauseCircleLine, RiCalendarLine, RiPencilLine, RiFileCopyLine, RiSendPlaneLine } from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
-import { ref, useTemplateRef } from 'vue'
+import { ref, computed } from 'vue'
 import { VueDatePicker } from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
@@ -121,27 +159,71 @@ const { link } = defineProps<{ link: ApartmentSharingLink }>()
 const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
-const pauseButton = useTemplateRef('pause-btn')
 
 const isEditingExpiration = ref(false)
-const expirationDate = ref(link.expirationDate.split('T')[0])
+const expirationDate = ref(link.expirationDate ? link.expirationDate.split('T')[0] : '')
+
+const fullUrl = computed(() => {
+  if (!link.url) return ''
+  return `${globalThis.location.origin}${link.url}`
+})
+
+const isLinkOrMail = computed(() => link.type === 'LINK' || link.type === 'MAIL')
+const isPartnerOrOwner = computed(() => link.type === 'PARTNER' || link.type === 'OWNER')
 
 const isEditingTitle = ref(false)
 const editedTitle = ref(link.title)
 
 const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
 const formatDatePicker = (date: Date | string) => dayjs(date).format('DD/MM/YYYY')
+const formatDateTime = (date: string) => dayjs(date).format('D MMMM YYYY - HH[h]mm')
 
 const minDate = new Date()
 minDate.setDate(minDate.getDate() + 1)
 
 async function pause() {
+  AnalyticsService.sharingToggleLink(link.enabled ? 'disable' : 'enable')
   try {
     await ApartmentSharingLinkService.updateLinkStatus(link, !link.enabled)
     emit('refresh')
   } catch (error) {
     console.error(error)
-    toast.error(t('error'), pauseButton.value?.button)
+    toast.error(t('error'), null)
+  }
+}
+
+async function copyLink() {
+  const text = fullUrl.value
+  try {
+    if (navigator.clipboard && globalThis.isSecureContext) {
+      await navigator.clipboard.writeText(text)
+    } else {
+      // Fallback for older browsers
+      const textarea = document.createElement('textarea')
+      textarea.value = text
+      textarea.style.position = 'fixed'
+      textarea.style.opacity = '0'
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy')
+      textarea.remove()
+    }
+    toast.success(t('link-copied'), null)
+  } catch (error) {
+    console.error(error)
+    toast.error(t('error'), null)
+  }
+}
+
+async function resendMail() {
+  AnalyticsService.sharingResendMail()
+  try {
+    await ApartmentSharingLinkService.resendLink(link)
+    toast.success(t('mail-resent'), null)
+    emit('refresh')
+  } catch (error) {
+    console.error(error)
+    toast.error(t('error'), null)
   }
 }
 
@@ -222,6 +304,27 @@ async function saveTitle() {
   background-color: white;
   border-radius: 4px;
   padding: 8px;
+}
+.link-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.link-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+  word-break: break-all;
+}
+.link-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
 }
 h3 {
   border-bottom: 1px solid var(--blue-france-sun-113-625);
@@ -312,6 +415,23 @@ h3 {
   .table tr {
     flex-wrap: wrap;
   }
+  .title-display {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+  .expiration-cell {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+  .link-row {
+    flex-direction: column;
+  }
+  .link-actions {
+    align-items: flex-start;
+    width: 100%;
+  }
 }
 </style>
 
@@ -333,8 +453,20 @@ h3 {
     "last-consultation": "Last consultation",
     "nb-consultations": "Number of consultations",
     "no-consultation": "No consultation",
+    "with-docs": "With supporting documents",
+    "without-docs": "Without supporting documents",
     "expiration-updated": "Expiration date updated successfully",
-    "title-updated": "Title updated successfully"
+    "title-updated": "Title updated successfully",
+    "link-with-docs": "Link to file with supporting documents",
+    "link-without-docs": "Link to file without supporting documents",
+    "copy-link": "Copy link",
+    "link-copied": "Link copied to clipboard",
+    "pause-share": "Pause share",
+    "resume-share": "Resume share",
+    "email-sent-to": "Email sent to",
+    "resend-mail": "Resend share by email",
+    "mail-resent": "Email resent successfully",
+    "last-sent": "Last sent: {date}"
   },
   "fr": {
     "general-info":"Informations générales",
@@ -352,8 +484,20 @@ h3 {
     "last-consultation": "Dernière consultation",
     "nb-consultations": "Nombre de consultations",
     "no-consultation": "Pas de consultation",
+    "with-docs": "Avec justificatifs",
+    "without-docs": "Sans justificatifs",
     "expiration-updated": "Date d'expiration modifiée avec succès",
-    "title-updated": "Titre modifié avec succès"
+    "title-updated": "Titre modifié avec succès",
+    "link-with-docs": "Lien du dossier avec documents justificatifs",
+    "link-without-docs": "Lien du dossier sans documents justificatifs",
+    "copy-link": "Copier le lien",
+    "link-copied": "Lien copié dans le presse-papier",
+    "pause-share": "Mettre le partage en pause",
+    "resume-share": "Réactiver le partage",
+    "email-sent-to": "Envoi par email à l'adresse",
+    "resend-mail": "Renvoyer le partage par mail",
+    "mail-resent": "Email renvoyé avec succès",
+    "last-sent": "Dernier envoi : {date}"
   }
 }
 </i18n>

@@ -53,9 +53,16 @@
             <span class="bold">{{ t('created') }}</span>
             <span>{{ formatDate(link.creationDate) }}</span>
             <span class="bold border-left">{{ t('expires') }}</span>
-            <span>{{ formatDate(link.expirationDate) }}</span>
+            <span>{{ link.type === 'PARTNER' ? t('never') : formatDate(link.expirationDate) }}</span>
             <span class="bold border-left">{{ t('consultations') }}</span>
             <span>{{ t('times', [link.nbVisits]) }}</span>
+          </p>
+          <p 
+            class="fr-badge fr-badge--sm fr-badge--no-icon fr-mb-0 full-data-badge"
+            :class="link.fullData ? 'fr-badge--info' : 'badge-without-docs'"
+          >
+            <RiInformationFill aria-hidden="true" size="12" class="fr-mr-1v info-icon" />
+            <span>{{ link.fullData ? t('with-docs') : t('without-docs') }}</span>
           </p>
         </div>
       </div>
@@ -76,11 +83,13 @@
       <div class="share-actions">
         <ShareActionsMenu
           :enabled="link.enabled"
+          :link-type="link.type"
           @copy-link="handleCopyLink"
           @toggle-pause="handleTogglePause"
+          @resend-mail="handleResendMail"
           @delete="handleDelete"
         />
-        <button type="button" class="link-button blue-text" @click="expanded = !expanded">
+        <button type="button" class="link-button blue-text" @click="toggleExpanded">
           {{ expanded ? t('show-less') : t('show-all') }}
           <RiSubtractLine v-if="expanded" aria-hidden="true" size="1em" />
           <RiAddLine v-else aria-hidden="true" size="1em" />
@@ -96,6 +105,7 @@ import { DsfrBadge } from '@gouvminint/vue-dsfr'
 import {
   RiAddLine,
   RiHome4Line,
+  RiInformationFill,
   RiLinksLine,
   RiMailLine,
   RiPauseCircleFill,
@@ -109,6 +119,7 @@ import { useI18n } from 'vue-i18n'
 import SharingLinkDetails from './SharingLinkDetails.vue'
 import ShareActionsMenu from './ShareActionsMenu.vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '../toast/toastUtils'
 
 const props = defineProps<{ link: ApartmentSharingLink }>()
@@ -117,6 +128,13 @@ const emit = defineEmits<{ refresh: [] }>()
 const { t } = useI18n()
 
 const expanded = ref(false)
+
+const toggleExpanded = () => {
+  if (!expanded.value) {
+    AnalyticsService.sharingExpandDetails()
+  }
+  expanded.value = !expanded.value
+}
 
 const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
 
@@ -140,6 +158,17 @@ const handleTogglePause = async () => {
   } catch (error) {
     console.error(error)
     toast.error(t('pause-error'))
+  }
+}
+
+const handleResendMail = async () => {
+  try {
+    await ApartmentSharingLinkService.resendLink(props.link)
+    emit('refresh')
+    toast.success(t('resend-success'))
+  } catch (error) {
+    console.error(error)
+    toast.error(t('resend-error'))
   }
 }
 
@@ -190,6 +219,21 @@ const handleDelete = async () => {
 
 .share-dates {
   margin-top: 0.25rem;
+}
+
+.full-data-badge {
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  
+  .info-icon {
+    color: #0063cb;
+  }
+}
+
+.badge-without-docs {
+  background-color: #fff;
+  border: 1px solid #0063cb;
+  color: #0063cb;
 }
 
 .border-left {
@@ -276,6 +320,10 @@ const handleDelete = async () => {
     margin-left: calc(-0.5rem - 32px + 8px);
   }
 
+  .full-data-badge {
+    margin-left: calc(-0.5rem - 32px + 8px);
+  }
+
   /* Actions en bas, alignées à droite */
   .share-actions {
     width: 100%;
@@ -291,6 +339,7 @@ const handleDelete = async () => {
   "en": {
     "created": "Created on: ",
     "expires": "Expires on:",
+    "never": "never",
     "consultations": "Consultations: ",
     "times": "{0} times",
     "active-sharing": "Active sharing",
@@ -302,12 +351,17 @@ const handleDelete = async () => {
     "pause-success": "Sharing paused",
     "reactivate-success": "Sharing reactivated",
     "pause-error": "Error updating sharing status",
+    "resend-success": "Email resent successfully",
+    "resend-error": "Error resending email",
     "delete-success": "Sharing deleted",
-    "delete-error": "Error deleting sharing"
+    "delete-error": "Error deleting sharing",
+    "with-docs": "Full file with supporting documents",
+    "without-docs": "File without supporting documents"
   },
   "fr": {
     "created": "Créé le : ",
     "expires": "Expire le : ",
+    "never": "jamais",
     "consultations": "Consultations : ",
     "times": "{0} fois",
     "active-sharing": "Partage actif",
@@ -319,8 +373,12 @@ const handleDelete = async () => {
     "pause-success": "Partage mis en pause",
     "reactivate-success": "Partage réactivé",
     "pause-error": "Erreur lors de la mise à jour du statut",
+    "resend-success": "Email renvoyé avec succès",
+    "resend-error": "Erreur lors de l'envoi de l'email",
     "delete-success": "Partage supprimé",
-    "delete-error": "Erreur lors de la suppression du partage"
+    "delete-error": "Erreur lors de la suppression du partage",
+    "with-docs": "Dossier complet avec justificatifs",
+    "without-docs": "Dossier sans documents justificatifs"
   }
 }
 </i18n>
