@@ -11,8 +11,8 @@ minimumReleaseAge: 2880 ## 48h
 
 catalog:
   # dependencies
-  axios: 1.13.2
-  "@gouvfr/dsfr": 1.13.2
+  axios: 1.9.0
+  "@gouvfr/dsfr": 1.14.3
   "@sentry/vue": 9.22.0
   "@sentry/vite-plugin": 3.5.0
   pinia: 3.0.2
@@ -39,5 +39,4 @@ catalog:
   "@vitest/eslint-plugin": 1.5.2
   "@vue/eslint-config-prettier": 10.2.0
   "@vue/eslint-config-typescript": 14.6.0
-  "@vue/test-utils": 2.4.6
-  "@gouvminint/vue-dsfr": 8.4.0
+  "@gouvminint/vue-dsfr": 8.13.1

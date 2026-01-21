@@ -1,181 +1,183 @@
 <template>
   <div>
     <NakedCard class="fr-p-md-5w">
-      <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-grid-row cotenant-container">
         <div class="fr-col-12">
           <h2 class="fr-h6">{{ t('roommatesinformation.title') }}</h2>
-          <v-gouv-fr-modal class="fr-link fr-link--sm">
-            <template #button>
-              {{ t('roommatesinformation.more-information') }}
+          <DsfrButton
+            @click="isModalOpened = true"
+            tertiary
+            size="sm"
+            type="button"
+            :label="t('roommatesinformation.more-information')"
+          />
+          <DsfrModalPatched
+            :opened="isModalOpened"
+            :title="t('roommatesinformation.more-information')"
+            icon="ri:arrow-right-line"
+            :is-alert="isAlert"
+            @close="isModalOpened = false"
+          >
+            <template #default>
+              <RoommatesInformationHelp />
             </template>
-            <template #title>
-              {{ t('roommatesinformation.more-information') }}
-            </template>
-            <template #content>
-              <RoommatesInformationHelp></RoommatesInformationHelp>
-            </template>
-          </v-gouv-fr-modal>
+          </DsfrModalPatched>
         </div>
-        <div class="fr-col-12 fr-mt-2w">
-          <div v-if="showEmailExists" class="fr-callout">
-            <p>
-              {{ t('roommatesinformation.email-exists') }}
-            </p>
-            <p class="fr-mb-1w">
-              {{ t('roommatesinformation.email-exists-2') }}
-            </p>
-          </div>
-          <div v-if="showRootMateAlreadyExists" class="fr-callout">
-            <p class="fr-mb-1w">
-              {{ t('roommatesinformation.co-tenant-already-exists') }}
-            </p>
-          </div>
-          <div v-if="modelValue.length > 0">
-            <div v-for="(roommate, key) in modelValue" :key="key" class="fr-mb-1w">
-              <NakedCard>
-                <div class="fr-grid-row bg--white">
-                  <div class="fr-col-10">
-                    <div class="fr-grid-row nowrap">
-                      <div class="center-icon fr-mr-1w">
-                        <RiUserFill
-                          class="color--white round-icon icon"
-                          size="32px"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div class="fr-grid-col overflow--hidden max-content">
-                        <div :title="roommate.email" class="overflow--hidden">
-                          <b>
-                            {{ roommate.email }}
-                          </b>
-                        </div>
-                        <div class="small-text">
-                          {{
-                            t(
-                              roommate.id
-                                ? 'roommatesinformation.invite-sent'
-                                : 'roommatesinformation.invite-waiting'
-                            )
-                          }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="fr-col-2 center-icon">
-                    <button
-                      class="fr-btn fr-btn--secondary icon-btn"
-                      :title="t('roommatesinformation.delete')"
-                      type="button"
-                      @click="remove(roommate)"
-                    >
-                      <RiDeleteBin2Fill
-                        class="color--primary icon"
+        <div v-if="coTenants.length > 0" class="fr-col-12 fr-mt-2w">
+          <div v-for="(roommate, key) in coTenants" :key="key" class="fr-mb-1w">
+            <NakedCard>
+              <div class="fr-grid-row bg--white">
+                <div class="fr-col-10">
+                  <div class="fr-grid-row nowrap">
+                    <div class="center-icon fr-mr-1w">
+                      <RiUserFill
+                        class="color--white round-icon icon"
                         size="32px"
                         aria-hidden="true"
                       />
-                    </button>
+                    </div>
+                    <div class="fr-grid-col overflow--hidden max-content">
+                      <div :title="roommate.email" class="overflow--hidden">
+                        <b>
+                          {{ roommate.email }}
+                        </b>
+                      </div>
+                      <div class="small-text">
+                        {{
+                          t(
+                            roommate.id
+                              ? 'roommatesinformation.invite-sent'
+                              : 'roommatesinformation.invite-waiting'
+                          )
+                        }}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </NakedCard>
-            </div>
+                <div class="fr-col-2 center-icon">
+                  <DsfrButton
+                    :label="t('roommatesinformation.delete')"
+                    icon="ri:delete-bin-2-fill"
+                    icon-only
+                    secondary
+                    @click="remove(roommate)"
+                  />
+                </div>
+              </div>
+            </NakedCard>
           </div>
         </div>
-        <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
-          <label class="fr-label fr-mb-1w">{{ t('roommatesinformation.roommateEmail') }}</label>
+        <div class="fr-col-12">
+          <label for="email" class="fr-label fr-mb-1w"
+            >{{ t('roommatesinformation.roommateEmail') }}
+            <!-- TODO: i18n -->
+            <span v-if="!coTenants.length"> (requis)</span></label
+          >
           <Field
-            id="email"
             v-slot="{ field, meta }"
             v-model="newRoommate"
             name="email"
             :rules="{
               email: true,
-              atLeastOneEmail: modelValue
+              atLeastOneEmail: coTenants
             }"
           >
             <input
+              id="email"
               v-bind="field"
+              :aria-describedby="
+                (hasSubmited || hasAddedEmail) && !meta.valid ? 'email-errors' : undefined
+              "
+              :aria-invalid="(hasSubmited || hasAddedEmail) && !meta.valid"
               class="form-control fr-input"
               name="email"
+              :required="coTenants.length ? false : true"
               :class="{
                 'fr-input--valid': meta.valid,
                 'fr-input--error': !meta.valid
               }"
-              placeholder="Ex : exemple@exemple.fr"
+              placeholder="nom@exemple.fr"
               type="email"
+              @keydown.prevent.enter="addMail"
             />
           </Field>
-          <ErrorMessage v-slot="{ message }" name="email">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
-        </div>
-
-        <div class="fr-col-12 fr-col-xl-5 btn-container">
-          <div class="fr-grid-row fr-grid-row--right">
-            <v-gouv-fr-button
-              class="full-width-xs"
-              :full-width="isMobile()"
-              :secondary="true"
-              :label="t('roommatesinformation.add-a-roommate')"
-              :btn-type="'button'"
-              :disabled="invalidEmail != null || !newRoommate || false"
-              @click="addMail"
-            ></v-gouv-fr-button>
+          <div class="email-errors">
+            <ErrorMessage v-if="hasSubmited && !hasAddedEmail" v-slot="{ message }" name="email">
+              <p class="fr-error-text">{{ t(message || '') }}</p>
+            </ErrorMessage>
+            <p class="fr-error-text" v-if="hasAddedEmail && !newRoommate">
+              {{ t('field-required') }}
+            </p>
+            <p class="fr-error-text" v-if="showRoomMateAlreadyExists">
+              {{ t('roommatesinformation.co-tenant-already-exists') }}
+            </p>
+            <p class="fr-error-text" v-if="showWrongFormatError">
+              {{ t('email-not-valid') }}
+            </p>
+            <p class="fr-error-text" v-if="showEmailExists">
+              {{ t('roommatesinformation.email-exists-2') }}
+            </p>
           </div>
         </div>
+        <DsfrButton secondary :label="t('roommatesinformation.add-a-roommate')" @click="addMail" />
+      </div>
+      <div class="fr-mt-3w fr-checkbox-group bg-purple">
+        <Field
+          v-slot="{ field, meta }"
+          v-model="authorize"
+          name="authorize"
+          type="checkbox"
+          :rules="{
+            isTrue: true
+          }"
+          :value="true"
+        >
+          <input
+            id="authorize"
+            type="checkbox"
+            v-bind="field"
+            :aria-describedby="hasSubmited ? 'auth-errors' : undefined"
+            :aria-invalid="hasSubmited && !meta.valid"
+            :class="{
+              'fr-input--valid': meta.valid,
+              'fr-input--error': !meta.valid
+            }"
+            @blur="updateAuthorize()"
+          />
+          <label for="authorize">
+            <p class="fr-mb-0">{{ t('roommatesinformation.acceptAuthor') }}</p>
+            <p>
+              {{ t('roommatesinformation.acceptAuthor-2') }}<span class="color--required">*</span>
+            </p>
+          </label>
+        </Field>
+        <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="authorize">
+          <span id="auth-errors" class="fr-error-text">{{ t(message || '') }}</span>
+        </ErrorMessage>
       </div>
     </NakedCard>
-    <div class="fr-grid-row fr-grid-row--center">
-      <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
-        <div class="fr-checkbox-group bg-purple">
-          <Field
-            v-slot="{ field, meta }"
-            v-model="authorize"
-            name="authorize"
-            type="checkbox"
-            :rules="{
-              isTrue: true
-            }"
-            :value="true"
-          >
-            <input
-              id="authorize"
-              type="checkbox"
-              v-bind="field"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              @change="updateAuthorize()"
-            />
-            <label for="authorize">
-              <p class="fr-mb-0">{{ t('roommatesinformation.acceptAuthor') }}</p>
-              <p>
-                {{ t('roommatesinformation.acceptAuthor-2') }}<span class="color--required">*</span>
-              </p>
-            </label>
-          </Field>
-          <ErrorMessage v-slot="{ message }" name="authorize">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { User } from 'df-shared-next/src/models/User'
-import VGouvFrButton from 'df-shared-next/src/Button/VGouvFrButton.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import RoommatesInformationHelp from './helps/RoommatesInformationHelp.vue'
-import VGouvFrModal from 'df-shared-next/src/GouvFr/VGouvFrModal.vue'
 import { UtilsService } from '../services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { Field, ErrorMessage, useFieldError, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
-import { RiDeleteBin2Fill, RiUserFill } from '@remixicon/vue'
+import { RiUserFill } from '@remixicon/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
+import DsfrModalPatched from './patches/DsfrModal.vue'
+
+interface Props {
+  hasSubmited: Boolean
+}
+
+defineProps<Props>()
 
 defineRule('atLeastOneEmail', (email: unknown, [otherEmails]: unknown[]) => {
   if (email === '' && otherEmails === undefined) {
@@ -184,66 +186,71 @@ defineRule('atLeastOneEmail', (email: unknown, [otherEmails]: unknown[]) => {
   return true
 })
 
-const emit = defineEmits<{ 'update:modelValue': [CoTenant[]] }>()
+const coTenants = defineModel<CoTenant[]>({
+  default: () => []
+})
 
 const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const coTenantAuthorize = computed(() => store.coTenantAuthorize)
 
-const props = withDefaults(defineProps<{ modelValue?: CoTenant[] }>(), {
-  modelValue: () => []
-})
-
 const authorize = ref(false)
 const newRoommate = ref('')
 const showEmailExists = ref(false)
-const showRootMateAlreadyExists = ref(false)
+const showRoomMateAlreadyExists = ref(false)
+const showWrongFormatError = ref(false)
 
-const invalidEmail = useFieldError('email')
+// modal logic
+const isModalOpened = ref(false)
+const isAlert = ref(false)
+
+const hasAddedEmail = ref(false)
+const isEmail = (email: string) => {
+  if (email === '') return true
+  else return /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/.test(email)
+}
 
 onMounted(() => {
   authorize.value = coTenantAuthorize.value
 })
 
 function addMail() {
+  hasAddedEmail.value = true
   showEmailExists.value = false
-  if (newRoommate.value !== '') {
+  showWrongFormatError.value = false
+  if (newRoommate.value !== '' && isEmail(newRoommate.value)) {
     if (isEmailAlreadyExists(newRoommate.value)) {
-      showRootMateAlreadyExists.value = true
+      showRoomMateAlreadyExists.value = true
       return
     } else {
-      showRootMateAlreadyExists.value = false
+      showRoomMateAlreadyExists.value = false
     }
     if (user.value.email !== newRoommate.value) {
       const coTenant = new User()
       coTenant.email = newRoommate.value
       store.createCoTenant(newRoommate.value)
-      const newCoTenants = [...props.modelValue, coTenant]
-      emit('update:modelValue', newCoTenants)
+      coTenants.value = [...coTenants.value, coTenant]
       newRoommate.value = ''
+      hasAddedEmail.value = false
     } else {
       showEmailExists.value = true
     }
+  } else if (newRoommate.value && !isEmail(newRoommate.value)) {
+    showWrongFormatError.value = true
   }
 }
 
 function isEmailAlreadyExists(email: string): boolean {
-  return props.modelValue.some((tenant) => tenant.email === email)
+  return coTenants.value.some((tenant) => tenant.email === email)
 }
 
 function remove(tenant: CoTenant) {
   if (tenant.id) {
     store.deleteCoTenant(tenant)
-    emit(
-      'update:modelValue',
-      props.modelValue.filter((t) => t.email != tenant.email)
-    )
+    coTenants.value = coTenants.value.filter((t) => t.email !== tenant.email)
   } else {
-    emit(
-      'update:modelValue',
-      props.modelValue.filter((t) => t.email != tenant.email)
-    )
+    coTenants.value = coTenants.value.filter((t) => t.email !== tenant.email)
   }
   return false
 }
@@ -258,17 +265,14 @@ function isMobile() {
 </script>
 
 <style scoped lang="scss">
+.cotenant-container {
+  gap: 1rem;
+}
+
 .overflow--hidden {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.fr-btn {
-  box-shadow: none;
-  --color-hover: none;
-  --color-active: none;
-  padding: 0;
 }
 
 .icon-btn {
@@ -329,12 +333,6 @@ function isMobile() {
 
   @media all and (max-width: 420px) {
     max-width: 200px;
-  }
-}
-
-.btn-container {
-  @media all and (min-width: 1248px) {
-    margin-top: 3rem;
   }
 }
 </style>

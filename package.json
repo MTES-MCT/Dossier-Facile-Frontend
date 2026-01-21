@@ -1,29 +1,29 @@
 {
-  "name": "dossierfacile",
-  "private": true,
-  "license": "MIT",
-  "version": "3.3.7",
-  "description": "Frontend for DossierFacile",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:MTES-MCT/Dossier-Facile-Frontend.git"
-  },
-  "engines": {
-    "node": "22.x",
-    "pnpm": "^10.26.0"
-  },
-  "packageManager": "pnpm@10.26.0",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "cypress",
-      "@parcel/watcher",
-      "@sentry/cli",
-      "esbuild"
-    ],
-    "overrides": {
-      "glob": "13.0.0",
-      "systeminformation": "5.27.14",
-      "js-yaml": "4.1.1"
-    }
-  }
+	"name": "dossierfacile",
+	"private": true,
+	"license": "MIT",
+	"version": "3.3.7",
+	"description": "Frontend for DossierFacile",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:MTES-MCT/Dossier-Facile-Frontend.git"
+	},
+	"engines": {
+		"node": "22.x",
+		"pnpm": "^10.26.0"
+	},
+	"packageManager": "pnpm@10.26.0",
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"cypress",
+			"@parcel/watcher",
+			"@sentry/cli",
+			"esbuild"
+		],
+		"overrides": {
+			"glob": "13.0.0",
+			"systeminformation": "5.27.14",
+			"js-yaml": "4.1.1"
+		}
+	}
 }

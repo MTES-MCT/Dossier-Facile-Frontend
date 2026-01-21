@@ -77,17 +77,19 @@
           <span class="sr-only">{{ t('tenantinformationform.title') }}</span>
         </ApplicationTypeSelector>
       </NakedCard>
-      <Form name="form" @submit="handleOthersInformation">
+      <Form name="form" @submit="handleOthersInformation" @invalid-submit="hasSubmited = true">
         <CoupleInformation
           v-if="applicationType === 'COUPLE'"
           ref="couple-info"
           v-model="coTenants"
+          :has-submited
           class="fr-mt-2w"
         >
         </CoupleInformation>
         <RoommatesInformation
           v-if="applicationType === 'GROUP'"
           v-model="coTenants"
+          :has-submited
           class="fr-mt-2w"
         >
         </RoommatesInformation>
@@ -130,6 +132,8 @@ const { t } = useI18n()
 
 const coTenants = ref<CoTenant[]>([])
 const applicationType = ref('')
+
+const hasSubmited = ref(false)
 
 const localCoTenantAuthorize = ref(false)
 const localSpouseAuthorize = ref(false)
