@@ -1,12 +1,10 @@
 <template>
-  <div class="fr-highlight fr-m-0">
-    <i18n-t keypath="submit-identity-document" tag="p">
-      <strong>{{ t('valid-doc') }}</strong>
-    </i18n-t>
-  </div>
   <RadioList>
-    <RadioListItem :to="here + '/carte'" @click="sendEvent('identity-card')"
-      >{{ t('identity-card') }}
+    <p>
+      {{ t('submit-identity-document') }} <strong>{{ t('valid-doc') }}</strong>
+    </p>
+    <RadioListItem :to="here + '/carte'" @click="sendEvent('identity-card')">
+      {{ t('identity-card') }}
       <HintText>{{ t('french-or-foreign-f') }}</HintText>
     </RadioListItem>
     <RadioListItem :to="here + '/passeport'" @click="sendEvent('passport')"
