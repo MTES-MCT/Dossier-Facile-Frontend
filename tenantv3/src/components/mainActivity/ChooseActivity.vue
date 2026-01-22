@@ -1,54 +1,6 @@
 <template>
   <p>{{ t(textKey + '.desc') }}</p>
-  <RadioList>
-    <RadioListItem :to="here + '/cdi'" @click="sendEvent('cdi')">{{
-      t('activity.cdi')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/cdd'" @click="sendEvent('cdd')">{{
-      t('activity.cdd')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/public'" @click="sendEvent('public')">{{
-      t('activity.public')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/independant'" @click="sendEvent('independent')">{{
-      t('activity.self-employed')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/retraite'" @click="sendEvent('retired')">{{
-      t('activity.retired')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/chomage'" @click="sendEvent('unemployed')">{{
-      t('activity.unemployed')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/etudes'" @click="sendEvent('student')">{{
-      t('activity.student')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/alternance'" @click="sendEvent('alternation')">{{
-      t('activity.alternation')
-    }}</RadioListItem>
-    <template v-if="showAllItems">
-      <RadioListItem :to="here + '/stage'" @click="sendEvent('stage')">{{
-        t('activity.stage')
-      }}</RadioListItem>
-      <RadioListItem :to="here + '/interimaire'" @click="sendEvent('ctt')">{{
-        t('activity.ctt')
-      }}</RadioListItem>
-      <RadioListItem :to="here + '/intermittence'" @click="sendEvent('intermittent')">{{
-        t('activity.intermittent')
-      }}</RadioListItem>
-      <RadioListItem :to="here + '/artiste-auteur'" @click="sendEvent('artist-author')">{{
-        t('activity.artist-author')
-      }}</RadioListItem>
-      <RadioListItem :to="here + '/parent-au-foyer'" @click="sendEvent('stay-at-home-parent')">{{
-        t('activity.stay-at-home-parent')
-      }}</RadioListItem>
-      <RadioListItem :to="here + '/sans-activite'" @click="sendEvent('no-activity')">{{
-        t('activity.no-activity')
-      }}</RadioListItem>
-      <RadioListItem :to="here + '/autre'" @click="sendEvent('other')">{{
-        t('activity.other')
-      }}</RadioListItem>
-    </template>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <DfButton v-if="!showAllItems" class="fr-ml-auto" @click="showAll">{{
     t('activity.show-more')
   }}</DfButton>
@@ -56,13 +8,12 @@
 </template>
 
 <script setup lang="ts">
-import RadioList from '@/components/common/RadioList.vue'
+import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { showAllItems, useMainActivityState } from '@/components/mainActivity/lib/mainActivityState'
-import { computed } from 'vue'
+import { computed, type ComputedRef } from 'vue'
 import { useRoute } from 'vue-router'
 import MainActivityFooter from './lib/MainActivityFooter.vue'
 
@@ -72,11 +23,97 @@ const route = useRoute()
 
 const here = computed(() => route.path)
 
-const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
 const showAll = () => {
   AnalyticsService.selectOther(category)
   showAllItems.value = true
 }
+
+const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
+
+const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+  {
+    to: `${here.value}/cdi`,
+    title: t('activity.cdi'),
+    event: 'cdi'
+  },
+  {
+    to: `${here.value}/cdd`,
+    title: t('activity.cdd'),
+    event: 'cdd'
+  },
+  {
+    to: `${here.value}/public`,
+    title: t('activity.public'),
+    event: 'public'
+  },
+  {
+    to: `${here.value}/independant`,
+    title: t('activity.self-employed'),
+    event: 'independent'
+  },
+  {
+    to: `${here.value}/retraite`,
+    title: t('activity.retired'),
+    event: 'retired'
+  },
+  {
+    to: `${here.value}/chomage`,
+    title: t('activity.unemployed'),
+    event: 'unemployed'
+  },
+  {
+    to: `${here.value}/etudes`,
+    title: t('activity.student'),
+    event: 'student'
+  },
+  {
+    to: `${here.value}/alternance`,
+    title: t('activity.alternation'),
+    event: 'alternation'
+  },
+  {
+    to: `${here.value}/stage`,
+    title: t('activity.stage'),
+    event: 'stage',
+    condition: showAllItems.value
+  },
+  {
+    to: `${here.value}/interimaire`,
+    title: t('activity.ctt'),
+    event: 'ctt',
+    condition: showAllItems.value
+  },
+  {
+    to: `${here.value}/intermittence`,
+    title: t('activity.intermittent'),
+    event: 'intermittent',
+    condition: showAllItems.value
+  },
+  {
+    to: `${here.value}/artiste-auteur`,
+    title: t('activity.artist-author'),
+    event: 'artist-author',
+    condition: showAllItems.value
+  },
+  {
+    to: `${here.value}/parent-au-foyer`,
+    title: t('activity.stay-at-home-parent'),
+    event: 'stay-at-home-parent',
+    condition: showAllItems.value
+  },
+  {
+    to: `${here.value}/sans-activite`,
+    title: t('activity.no-activity'),
+    event: 'no-activity',
+    condition: showAllItems.value
+  },
+  {
+    to: `${here.value}/autre`,
+    title: t('activity.other'),
+    event: 'other',
+    condition: showAllItems.value
+  }
+])
 </script>
 
 <i18n>
