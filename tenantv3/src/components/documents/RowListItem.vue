@@ -36,7 +36,7 @@ const { t } = useI18n()
 const id = useId()
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .file-list-item {
   display: flex;
   justify-content: space-between;
@@ -54,7 +54,7 @@ const id = useId()
 .large-btn {
   justify-content: center;
   flex-grow: 1;
-  @media (min-width: 768px) {
+  @media screen and (min-width: 768px) {
     flex-grow: 0;
   }
 }

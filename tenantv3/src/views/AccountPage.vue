@@ -157,7 +157,7 @@
                   </div>
                 </div>
               </section>
-              <TenantPanel v-else :tenant="user" class="fr-p-4w bg-white" :is-cotenant="false" />
+              <TenantPanel v-else :tenant="user" class="fr-p-2w bg-white" :is-cotenant="false" />
             </div>
             <PartnersSection />
 

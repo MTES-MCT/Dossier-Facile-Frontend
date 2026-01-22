@@ -39,7 +39,7 @@
         <ul class="fr-menu__list">
           <li>
             <router-link
-              class="fr-nav__link"
+              class="fr-nav__link link-account"
               to="/account"
               :aria-current="currentPage === 'Account' ? 'page' : undefined"
             >
@@ -181,5 +181,9 @@ function changeLang(lang: 'fr' | 'en') {
   &.fr-btn--secondary {
     box-shadow: none;
   }
+}
+.link-account {
+  flex-wrap: wrap;
+  column-gap: 0.5rem;
 }
 </style>

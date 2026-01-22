@@ -5,7 +5,7 @@
       <LeftEditMenu :step="step" class="fr-col-md-4 fr-col-xl-3" />
       <div
         id="step-content"
-        class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-0 fr-grid-row fr-pb-10w flex--1"
+        class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-0 fr-grid-row fr-pb-10w flex--1 step-content"
       >
         <div class="max-600 ml fr-col-12">
           <slot></slot>
@@ -23,6 +23,9 @@ defineProps<{ step: number }>()
 </script>
 
 <style lang="scss" scoped>
+:where(.step-content) {
+  max-inline-size: 100%;
+}
 .ml {
   @media all and (min-width: 1024px) {
     margin-left: 10%;
