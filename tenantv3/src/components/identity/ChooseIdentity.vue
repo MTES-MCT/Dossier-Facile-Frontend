@@ -1,10 +1,10 @@
 <template>
-  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
+  <RadioList :list-items="optionLinks" @analytics:bare="sendEvent" />
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import RadioList, { type optionLink } from '../common/RadioList.vue'
+import RadioList, { type OptionLink } from '../common/RadioList.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { computed, type ComputedRef } from 'vue'
 import { useRoute } from 'vue-router'
@@ -17,7 +17,7 @@ const here = computed(() => route.path)
 // WARN: both options send the same analytics
 const sendEvent = () => AnalyticsService.tenantIdentitySelectSelf()
 
-const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {
     to: `${here.value}/pour-moi`,
     title: t('identity.self'),
