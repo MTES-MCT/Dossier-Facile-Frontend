@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
-import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { useTaxState } from '@/components/tax/lib/taxState'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -29,7 +29,7 @@ const here = computed(() => route.path)
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation2(taxState.category, 'no-tax', subcategory)
 
-const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {
     to: `${here.value}/parents`,
     title: t(textKey + '.parents'),

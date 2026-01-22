@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
@@ -19,7 +19,7 @@ const here = computed(() => route.path)
 
 const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
 
-const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {
     to: `${here.value}/tenant`,
     title: t('residency.tenant'),

@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useI18n } from 'vue-i18n'
@@ -62,7 +62,7 @@ const { category, textKey } = useResidencyState()
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation2(category, 'tenant', subCategory)
 
-const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {
     to: `${here.value}/receipts`,
     title: t(textKey + '.have-receipts'),

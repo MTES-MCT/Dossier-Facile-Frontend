@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useI18n } from 'vue-i18n'
@@ -28,7 +28,7 @@ const showAll = () => {
   showAllItems.value = true
 }
 
-const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {
     to: `${here.value}/tenant`,
     title: t('residency.tenant'),

@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import FinancialFooter from './lib/FinancialFooter.vue'
 import { useRoute } from 'vue-router'
 import { computed, type ComputedRef } from 'vue'
@@ -18,7 +18,7 @@ const { category, documents } = useFinancialState()
 
 const showNoIncome = computed(() => documents.value.length === 0 && !category.includes('guarantor'))
 
-const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {
     to: `${here.value}/travail`,
     title: t('form.financial.job-income'),

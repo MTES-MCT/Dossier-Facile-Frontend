@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useRoute } from 'vue-router'
@@ -25,7 +25,7 @@ const { category, textKey } = useFinancialState()
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation2(category, 'rente', subCategory)
 
-const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {
     to: `${here.value}/revenus-locatifs`,
     title: t('rental-income'),

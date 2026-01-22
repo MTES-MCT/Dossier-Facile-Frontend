@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { DsfrCard } from '@gouvminint/vue-dsfr'
 
-export interface optionLink {
+export interface OptionLink {
   to: string
   title: string
   event?: string
@@ -39,7 +39,7 @@ type AnalyticsEmits = {
 const emit = defineEmits<AnalyticsEmits>()
 
 interface Props {
-  listItems: optionLink[]
+  listItems: OptionLink[]
 }
 defineProps<Props>()
 

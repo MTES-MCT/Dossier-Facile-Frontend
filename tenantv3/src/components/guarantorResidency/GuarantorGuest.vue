@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -29,7 +29,7 @@ const here = computed(() => route.path)
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation2(category, 'guest', subcategory)
 
-const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {
     to: `${here.value}/proof`,
     title: t(textKey + '.proof'),

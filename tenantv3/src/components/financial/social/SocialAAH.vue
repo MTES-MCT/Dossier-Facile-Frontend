@@ -11,15 +11,16 @@
 </template>
 
 <script setup lang="ts">
-import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
+import RadioList from '@/components/common/RadioList.vue'
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useRoute } from 'vue-router'
-import { computed, type ComputedRef } from 'vue'
+import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useI18n } from 'vue-i18n'
 import { useFinancialState } from '../financialState'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { useSocialOptionLinks } from './lib/useSocialOptionLinks'
 
 const route = useRoute()
 const here = computed(() => route.path)
@@ -28,26 +29,11 @@ const grandparent = useParentRoute(2)
 const { t } = useI18n()
 const { category, suffix, textKey } = useFinancialState()
 
+// WARN: subcategory 2 is caf not aah ?
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation3(category, 'social', 'caf', subCategory)
 
-const optionLinks: ComputedRef<optionLink[]> = computed(() => [
-  {
-    to: `${here.value}/plus-3-mois`,
-    title: t('form.financial.more-3-months'),
-    event: 'plus-3-mois'
-  },
-  {
-    to: `${here.value}/moins-3-mois`,
-    title: t('form.financial.less-3-months'),
-    event: 'moins-3-mois'
-  },
-  {
-    to: `${here.value}/pas-encore`,
-    title: t('not-yet-' + suffix),
-    event: 'pas-encore'
-  }
-])
+const optionLinks = useSocialOptionLinks(here, suffix)
 </script>
 
 <i18n>

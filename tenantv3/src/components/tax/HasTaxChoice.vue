@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { computed, type ComputedRef } from 'vue'
@@ -21,7 +21,7 @@ const here = computed(() => route.path)
 
 const sendEvent = (subcategory: string) => AnalyticsService.selectSituation('tax', subcategory)
 
-const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {
     to: `${here.value}/avec-avis`,
     title: t(textKey + '.have-a-tax-notice'),
