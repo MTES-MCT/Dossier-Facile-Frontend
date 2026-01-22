@@ -1,30 +1,16 @@
 <template>
   <BackLinkRow :label="t('form.financial.job-income')" :to="parent" category="travail" />
   <p>{{ t('you-are.' + textKey) }}</p>
-  <RadioList>
-    <RadioListItem :to="here + '/salarie'" @click="sendEvent('salarie')">{{
-      t('employee')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/independant'" @click="sendEvent('independant')">{{
-      t('freelance')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/intermittent'" @click="sendEvent('intermittent')">{{
-      t('intermittent')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/artiste-auteur'" @click="sendEvent('artiste-auteur')">{{
-      t('artist-author')
-    }}</RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <FinancialFooter disabled />
 </template>
 
 <script setup lang="ts">
-import RadioList from '@/components/common/RadioList.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
+import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { computed, type ComputedRef } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useI18n } from 'vue-i18n'
@@ -38,6 +24,29 @@ const { category, textKey } = useFinancialState()
 
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation2(category, 'travail', subCategory)
+
+const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+  {
+    to: `${here.value}/salarie`,
+    title: t('employee'),
+    event: 'salarie'
+  },
+  {
+    to: `${here.value}/independant`,
+    title: t('freelance'),
+    event: 'independant'
+  },
+  {
+    to: `${here.value}/intermittent`,
+    title: t('intermittent'),
+    event: 'intermittent'
+  },
+  {
+    to: `${here.value}/artiste-auteur`,
+    title: t('artist-author'),
+    event: 'artiste-auteur'
+  }
+])
 </script>
 
 <i18n>

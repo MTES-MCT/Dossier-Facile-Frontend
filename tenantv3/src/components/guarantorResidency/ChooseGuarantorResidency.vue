@@ -1,33 +1,15 @@
 <template>
-  <RadioList>
-    <RadioListItem :to="here + '/tenant'" @click="sendEvent('tenant')">{{
-      t('residency.tenant')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/owner'" @click="sendEvent('owner')">{{
-      t('residency.owner')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/guest'" @click="sendEvent('guest')"
-      >{{ t('residency.guest') }}
-      <span class="fr-hint-text">{{ t('residency.guest-subtext') }}</span>
-    </RadioListItem>
-    <RadioListItem :to="here + '/guest-company'" @click="sendEvent('guest-company')">{{
-      t('residency.guest-company')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/other'" @click="sendEvent('other')"
-      >{{ t('residency.other') }}
-    </RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <GuarantorResidencyFooter />
 </template>
 
 <script setup lang="ts">
-import RadioList from '@/components/common/RadioList.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
+import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { computed, type ComputedRef } from 'vue'
 import { useResidencyState } from '../residency/residencyState'
 
 const { t } = useI18n()
@@ -36,6 +18,35 @@ const { category } = useResidencyState()
 const here = computed(() => route.path)
 
 const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
+
+const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+  {
+    to: `${here.value}/tenant`,
+    title: t('residency.tenant'),
+    event: 'tenant'
+  },
+  {
+    to: `${here.value}/owner`,
+    title: t('residency.owner'),
+    event: 'owner'
+  },
+  {
+    to: `${here.value}/guest`,
+    title: t('residency.guest'),
+    event: 'guest',
+    description: t('residency.guest-subtext')
+  },
+  {
+    to: `${here.value}/guest-company`,
+    title: t('residency.guest-company'),
+    event: 'guest-company'
+  },
+  {
+    to: `${here.value}/other`,
+    title: t('residency.other'),
+    event: 'other'
+  }
+])
 </script>
 
 <i18n>

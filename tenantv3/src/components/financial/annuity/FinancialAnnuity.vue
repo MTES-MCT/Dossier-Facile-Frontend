@@ -1,27 +1,16 @@
 <template>
   <BackLinkRow :label="t('form.financial.annuity')" :to="parent" category="rente" />
   <p>{{ t('you-receive.' + textKey) }}</p>
-  <RadioList>
-    <RadioListItem :to="here + '/revenus-locatifs'" @click="sendEvent('revenus-locatifs')">{{
-      t('rental-income')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/viagere'" @click="sendEvent('viagere')">{{
-      t('life-annuity')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/autre'" @click="sendEvent('autre')">{{
-      t('other-pension')
-    }}</RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <FinancialFooter disabled />
 </template>
 
 <script setup lang="ts">
-import RadioList from '@/components/common/RadioList.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
+import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { computed, type ComputedRef } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useI18n } from 'vue-i18n'
@@ -35,6 +24,24 @@ const { category, textKey } = useFinancialState()
 
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation2(category, 'rente', subCategory)
+
+const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+  {
+    to: `${here.value}/revenus-locatifs`,
+    title: t('rental-income'),
+    event: 'revenus-locatifs'
+  },
+  {
+    to: `${here.value}/viagere`,
+    title: t('life-annuity'),
+    event: 'viagere'
+  },
+  {
+    to: `${here.value}/autre`,
+    title: t('other-pension'),
+    event: 'autre'
+  }
+])
 </script>
 
 <i18n>

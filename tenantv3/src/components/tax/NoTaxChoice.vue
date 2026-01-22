@@ -1,38 +1,19 @@
 <template>
   <p>{{ t(textKey + '.choose-situation') }}</p>
   <BackLinkRow :label="t(textKey + '.have-no-tax-notice')" :to="parent" />
-  <RadioList>
-    <RadioListItem :to="here + '/parents'" @click="sendEvent('parents')"
-      >{{ t(textKey + '.parents') }}
-      <HintText>{{ t('parents-text') }}</HintText>
-    </RadioListItem>
-    <RadioListItem :to="here + '/sans-declaration'" @click="sendEvent('no-declaration')"
-      >{{ t(textKey + '.no-declaration') }}
-      <HintText>{{ t('no-declaration-text') }}</HintText>
-    </RadioListItem>
-    <RadioListItem :to="here + '/pas-recu'" @click="sendEvent('not-received')"
-      >{{ t(textKey + '.not-received') }}
-      <HintText>{{ t('not-received-text') }}</HintText>
-    </RadioListItem>
-    <RadioListItem :to="here + '/autre'" @click="sendEvent('other')"
-      >{{ t('other-situation') }}
-      <HintText>{{ t('other-situation-text') }}</HintText>
-    </RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <JointTaxInfo :parent="parent" />
   <TaxFooter />
 </template>
 
 <script setup lang="ts">
 import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
-import HintText from '@/components/common/HintText.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
-import RadioList from '@/components/common/RadioList.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
+import RadioList, { type optionLink } from '@/components/common/RadioList.vue'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { useTaxState } from '@/components/tax/lib/taxState'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { computed } from 'vue'
+import { computed, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import JointTaxInfo from './lib/JointTaxInfo.vue'
@@ -47,6 +28,33 @@ const here = computed(() => route.path)
 
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation2(taxState.category, 'no-tax', subcategory)
+
+const optionLinks: ComputedRef<optionLink[]> = computed(() => [
+  {
+    to: `${here.value}/parents`,
+    title: t(textKey + '.parents'),
+    event: 'parents',
+    description: t('parents-text')
+  },
+  {
+    to: `${here.value}/sans-declaration`,
+    title: t(textKey + '.no-declaration'),
+    event: 'no-declaration',
+    description: t('no-declaration-text')
+  },
+  {
+    to: `${here.value}/pas-recu`,
+    title: t(textKey + '.not-received'),
+    event: 'not-received',
+    description: t('not-received-text')
+  },
+  {
+    to: `${here.value}/autre`,
+    title: t('other-situation'),
+    event: 'other',
+    description: t('other-situation-text')
+  }
+])
 </script>
 
 <i18n>
