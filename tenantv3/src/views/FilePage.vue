@@ -266,6 +266,7 @@ const user = ref(new FileUser())
 const tabIndex = ref(0)
 const showProgressBar = ref(false)
 const viewState = ref<ViewState>('fileContent')
+const trigramValue = ref('')
 const trigramError = ref(false)
 const downloadButton = useTemplateRef('download-button')
 
@@ -282,47 +283,24 @@ function isTaxChecked() {
   return user.value?.tenants?.some((t) => hasAuthenticTax(t))
 }
 
-// TODO: Remove method when feature is fully rolled out
-function shouldDisplayAuthTrigramFeature(token: string) {
-  // Feature is rolled out to 0% of users by default
-  const authTrigramRolloutFeaturePercentage = Number(import.meta.env.VITE_AUTH_TRIGRAM_ROLLOUT_FEATURE_PERCENTAGE) || 0
-  // Convert token into a number by removing all non-numeric characters
-  // Take a portion of the token (ex: the first 8 characters)
-  const portion = token.replace(/-/g, '').substring(0, 8);
-  
-  // Convertir en entier (32 bits, pas de dépassement)
-  const numericValue = parseInt(portion, 16);
-
-  // Modulo 100 pour obtenir un pourcentage  
-  return numericValue % 100 < authTrigramRolloutFeaturePercentage;
-}
-
 function testIfLinkExists() {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
 
   // Track opening of full link
   AnalyticsService.openFullLink()
 
-  const isTrigramFeatureEnabled = shouldDisplayAuthTrigramFeature(token)
-  console.log('isTrigramFeatureEnabled:', isTrigramFeatureEnabled)
-  
-
   return ProfileService.testLinkByToken(token)
     .then((d) => {
-      if (isTrigramFeatureEnabled) { 
-        // Track display of trigram feature
-        AnalyticsService.displayTrigramFeature()
-        viewState.value = 'trigram'
-      } else {
-        setUser()
-      }
+      // Track display of trigram feature
+      AnalyticsService.displayTrigramFeature()
+      viewState.value = 'trigram'
     })
     .catch((error) => {
       handleAPIError(error.response?.status)
     })
 }
 
-function setUser(trigram?: string) {
+function setUser(trigram: string) {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
     
   ProfileService.getLinkByToken(token, trigram)
@@ -335,6 +313,7 @@ function setUser(trigram?: string) {
     }
     // Authentication successful, hide the trigram modal
     viewState.value = 'fileContent'
+    trigramValue.value = trigram
     trigramError.value = false
   })
   .catch((error) => {
@@ -405,7 +384,7 @@ function taxDocumentStatus() {
 
 function retryDownload(remainingCount: number) {
   setTimeout(() => {
-    setUser()
+    setUser(trigramValue.value)
     if (user.value?.dossierPdfDocumentStatus === 'COMPLETED' && user.value?.dossierPdfUrl) {
       downloadFile(user.value?.dossierPdfUrl)
     } else if (remainingCount > 0) {
