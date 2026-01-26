@@ -1,5 +1,5 @@
 <template>
-  <RadioList :list-items="optionLinks" />
+  <RadioList :list-items="optionLinks" @analytics="sendEvent"/>
   <FinancialFooter disabled />
 </template>
 
@@ -10,6 +10,7 @@ import { useRoute } from 'vue-router'
 import { computed, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useFinancialState } from './financialState'
+import { AnalyticsService } from "@/services/AnalyticsService"
 
 const { t } = useI18n()
 const route = useRoute()
@@ -17,6 +18,8 @@ const here = computed(() => route.path)
 const { category, documents } = useFinancialState()
 
 const showNoIncome = computed(() => documents.value.length === 0 && !category.includes('guarantor'))
+
+const sendEvent = (subcategory: string) => AnalyticsService.selectSituation(category, subcategory)
 
 const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {

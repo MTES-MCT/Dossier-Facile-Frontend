@@ -72,7 +72,6 @@ const router = useRouter()
 const firstName = ref('')
 const lastName = ref('')
 const preferredName = ref('')
-const displayPreferredNameField = ref(false)
 const tenantId = computed(() => Number(route.params.tenantId))
 
 onBeforeMount(() => {
@@ -80,13 +79,7 @@ onBeforeMount(() => {
   firstName.value = selectedCoTenant.value?.firstName || ''
   lastName.value = selectedCoTenant.value?.lastName || ''
   preferredName.value = selectedCoTenant.value?.preferredName || ''
-  displayPreferredNameField.value = preferredName.value !== ''
 })
-
-function deletePreferredName() {
-  preferredName.value = ''
-  displayPreferredNameField.value = false
-}
 
 function save() {
   if (

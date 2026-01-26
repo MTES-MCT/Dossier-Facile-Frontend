@@ -1,5 +1,5 @@
 <template>
-  <RadioList :list-items="optionLinks" @analytics:bare="sendEvent" />
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
 </template>
 
 <script setup lang="ts">
@@ -14,19 +14,27 @@ const { t } = useI18n()
 const route = useRoute()
 const here = computed(() => route.path)
 
-// WARN: both options send the same analytics
-const sendEvent = () => AnalyticsService.tenantIdentitySelectSelf()
+// analytics based on different funtions, not params.
+const sendEvent = (type: string) => {
+	if (type === 'self') {
+		AnalyticsService.tenantIdentitySelectSelf()
+	} else {
+		AnalyticsService.tenantIdentitySelectThirdParty()
+	}
+}
 
 const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   {
     to: `${here.value}/pour-moi`,
     title: t('identity.self'),
-    description: t('identity.self-hint')
+    description: t('identity.self-hint'),
+		event: 'self'
   },
   {
     to: `${here.value}/pour-une-autre-personne`,
     title: t('identity.third-party'),
-    description: t('identity.third-party-hint')
+    description: t('identity.third-party-hint'),
+		event: 'third'
   }
 ])
 </script>

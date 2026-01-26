@@ -9,16 +9,16 @@
         </div>
         <div class="fr-mt-4w">
           <TextField
+            v-model.trim="lastName"
             :field-label="t('guarantorname.lastname')"
             name="lastname"
-            v-model.trim="lastName"
             validation-rules="required|onlyAlpha"
           />
 
           <TextField
+            v-model.trim="firstName"
             :field-label="t('guarantorname.firstname')"
             name="firstname"
-            v-model.trim="firstName"
             validation-rules="required|onlyAlpha"
           />
         </div>

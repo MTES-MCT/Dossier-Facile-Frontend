@@ -1,15 +1,7 @@
 <template>
   <ul role="list">
-    <li v-for="(item, idx) of listItems" :key="idx" v-show="item.condition ?? true">
-      <div v-if="item.event" @click.capture="triggerAnalytics(item.event)">
-        <DsfrCard
-          :link="item.to"
-          :title="item.title"
-          :description="item.description ?? ''"
-          title-tag="h2"
-        />
-      </div>
-      <div v-else @click.capture="triggerAnalytics()">
+    <li v-for="(item, idx) of listItems" v-show="item.condition ?? true" :key="idx">
+      <div @click.capture="triggerAnalytics(item.event)">
         <DsfrCard
           :link="item.to"
           :title="item.title"
@@ -24,16 +16,15 @@
 <script setup lang="ts">
 import { DsfrCard } from '@gouvminint/vue-dsfr'
 
-export interface OptionLink {
+export type OptionLink = {
   to: string
   title: string
-  event?: string
+  event: string
   condition?: boolean
   description?: string
 }
 
 type AnalyticsEmits = {
-  (e: 'analytics:bare'): void
   (e: 'analytics', payload: string): void
 }
 const emit = defineEmits<AnalyticsEmits>()
@@ -44,10 +35,7 @@ interface Props {
 defineProps<Props>()
 
 // pass the analytics back to the parent with correct dynamic values
-const triggerAnalytics = (value?: string) => {
-  if (value) emit('analytics', value)
-  else emit('analytics:bare')
-}
+const triggerAnalytics = (value: string) => emit('analytics', value)
 </script>
 
 <style scoped>

@@ -29,9 +29,8 @@ const grandparent = useParentRoute(2)
 const { t } = useI18n()
 const { category, suffix, textKey } = useFinancialState()
 
-// WARN: subcategory 2 is caf not aah ?
 const sendEvent = (subCategory: string) =>
-  AnalyticsService.selectSituation3(category, 'social', 'caf', subCategory)
+  AnalyticsService.selectSituation3(category, 'social', 'aah', subCategory)
 
 const optionLinks = useSocialOptionLinks(here, suffix)
 </script>
