@@ -7,64 +7,20 @@
         <div class="fr-alert fr-alert--info">
           <p v-html="t('guarantorchoice.two-guarantors-warning')"></p>
         </div>
-        <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
-          <div class="fr-col-12 fr-mb-3w">
-            <Field
-              v-slot="{ field, meta }"
-              v-model="lastName"
-              name="lastname"
-              rules="notBlank|onlyAlpha"
-            >
-              <div class="fr-input-group">
-                <label class="fr-label" for="lastname">{{ t('guarantorname.lastname') }} :</label>
-                <input
-                  v-bind="field"
-                  id="lastname"
-                  class="form-control fr-input validate-required"
-                  name="lastname"
-                  :placeholder="t('guarantorname.lastname-placeholder')"
-                  type="text"
-                  :class="{
-                    'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid
-                  }"
-                  required
-                />
-                <ErrorMessage v-slot="{ message }" name="lastname">
-                  <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-                </ErrorMessage>
-              </div>
-            </Field>
-          </div>
-          <div class="fr-col-12 fr-mb-3w">
-            <Field
-              v-slot="{ field, meta }"
-              v-model="firstName"
-              name="firstname"
-              rules="notBlank|onlyAlpha"
-            >
-              <div class="fr-input-group">
-                <label for="firstname" class="fr-label">{{ t('guarantorname.firstname') }} :</label>
-                <input
-                  id="firstname"
-                  :placeholder="t('guarantorname.firstname-placeholder')"
-                  type="text"
-                  v-bind="field"
-                  name="firstname"
-                  class="validate-required form-control fr-input"
-                  :class="{
-                    'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid
-                  }"
-                  required
-                />
+        <div class="fr-mt-4w">
+          <TextField
+            :field-label="t('guarantorname.lastname')"
+            name="lastname"
+            v-model.trim="lastName"
+            validation-rules="required|onlyAlpha"
+          />
 
-                <ErrorMessage v-slot="{ message }" name="firstname">
-                  <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-                </ErrorMessage>
-              </div>
-            </Field>
-          </div>
+          <TextField
+            :field-label="t('guarantorname.firstname')"
+            name="firstname"
+            v-model.trim="firstName"
+            validation-rules="required|onlyAlpha"
+          />
         </div>
       </NakedCard>
       <GuarantorFooter ref="footer" @on-back="goBack"></GuarantorFooter>
@@ -81,9 +37,10 @@ import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
-import { Form, Field, ErrorMessage } from 'vee-validate'
+import { Form } from 'vee-validate'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
+import TextField from '@/components/form/TextField.vue'
 
 const store = useTenantStore()
 const footer = useTemplateRef('footer')
@@ -139,5 +96,3 @@ function goBack() {
   emit('on-back')
 }
 </script>
-
-<style scoped lang="scss"></style>
