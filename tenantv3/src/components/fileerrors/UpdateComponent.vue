@@ -27,10 +27,6 @@ const id = useId()
 </script>
 
 <style scoped>
-.update-component {
-  padding: 1rem;
-}
-
 .file-item {
   display: flex;
   justify-content: space-between;

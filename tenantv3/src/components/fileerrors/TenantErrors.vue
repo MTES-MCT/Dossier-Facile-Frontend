@@ -1,33 +1,25 @@
 <template>
   <NakedCard v-if="!allTenantDocumentsPreValidated() || !namesFilled()" class="fr-mt-3w fr-p-md-5w">
     <template v-if="!namesFilled()">
-      <div class="fr-text--bold">
+      <h2 class="fr-h6">
         {{ t(`fileerrors.${keyprefix}-invalid-names`) }}
-      </div>
+      </h2>
       <UpdateComponent :to="namePage">{{ t('fileerrors.update') }}</UpdateComponent>
     </template>
 
-    <div v-if="!allTenantDocumentsPreValidated()" class="fr-text--bold">
+    <h2 v-if="!allTenantDocumentsPreValidated()" class="fr-h6">
       {{ t(`fileerrors.${keyprefix}-invalid-document`) }}
-    </div>
-    <template
-      v-for="(category, k) in [
-        'IDENTIFICATION',
-        'RESIDENCY',
-        'PROFESSIONAL',
-        'FINANCIAL',
-        'TAX'
-      ] as const"
-      :key="k"
-    >
-      <UpdateComponent
-        v-if="!isDocumentValid(category)"
-        :to="getTenantPage(k)"
-        :user-id="user.id"
-        :document="getDocument(category)"
-        >{{ t(`fileerrors.${category}`) }}</UpdateComponent
-      >
-    </template>
+    </h2>
+    <ul>
+      <li v-for="[key, value] of invalidCategories" :key="value.step">
+        <UpdateComponent
+          :to="getTenantPage(value.step)"
+          :user-id="user.id"
+          :document="getDocument(key)"
+          >{{ t(`fileerrors.${key}`) }}</UpdateComponent
+        >
+      </li>
+    </ul>
   </NakedCard>
 </template>
 
@@ -62,19 +54,48 @@ const namePage = computed(() => {
   return { name: 'TenantName' }
 })
 
+const allCategories = ['IDENTIFICATION', 'RESIDENCY', 'PROFESSIONAL', 'FINANCIAL', 'TAX'] as const
+
 function namesFilled() {
   const u = props.user
   return u?.firstName && u?.lastName
 }
 
 function allTenantDocumentsPreValidated() {
-  for (const v of ['IDENTIFICATION', 'RESIDENCY', 'PROFESSIONAL', 'FINANCIAL', 'TAX']) {
+  for (const v of allCategories) {
     if (!isDocumentValid(v)) {
       return false
     }
   }
   return true
 }
+
+type CategoriesMap = Map<
+  DocumentCategory,
+  {
+    isValid: boolean
+    step: number
+  }
+>
+
+const invalidCategories = computed(() => {
+  const categoriesStatus: CategoriesMap = new Map()
+  // map each category to its status (true/false) and step
+  allCategories.forEach((cat, idx) =>
+    categoriesStatus.set(cat, {
+      isValid: isDocumentValid(cat),
+      step: idx
+    })
+  )
+  // remove true (valid) categories
+  for (const [key, value] of categoriesStatus) {
+    if (value.isValid) {
+      categoriesStatus.delete(key)
+    }
+  }
+
+  return categoriesStatus
+})
 
 function getDocument(docType: DocumentCategory) {
   return DocumentService.getDoc(docType, props.user.documents)
