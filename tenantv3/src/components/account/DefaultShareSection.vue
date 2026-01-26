@@ -51,7 +51,7 @@
             {{ t('copy-link') }}
             <RiFileCopyLine aria-hidden="true" size="16" class="fr-ml-1v" />
           </button>
-          <a :href="fullUrl" class="fr-btn fr-btn--secondary" @click="AnalyticsService.sharingSeeDefaultLink()">
+          <a :href="fullUrl" class="fr-btn fr-btn--secondary btn-view-file" target="_blank" rel="noopener" @click="AnalyticsService.sharingSeeDefaultLink()">
             {{ t('view-file') }}
             <RiEyeLine aria-hidden="true" size="16" class="fr-ml-1v" />
           </a>
@@ -226,6 +226,10 @@ async function copyLink() {
 
 .btn-copy {
   background: var(--light-decisions-background-background-transparent-active, rgba(0, 0, 0, 0.08));
+}
+
+.btn-view-file::after {
+  display: none !important;
 }
 
 .link-copied-message {
