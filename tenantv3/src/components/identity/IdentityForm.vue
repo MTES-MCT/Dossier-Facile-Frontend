@@ -2,34 +2,34 @@
   <h2 class="fr-h6">{{ t(textKey + '.title') }}</h2>
   <Form v-slot="{ meta }" class="fr-input-group" @submit="onSubmit">
     <TextField
+      v-model.trim="lastname"
       :field-label="t('common.last-name-label')"
       name="lastname"
-      v-model.trim="lastname"
       autocomplete="family-name"
       validation-rules="required|onlyAlpha"
       :disabled="isInputDisabled"
     />
 
     <TextField
+      v-model.trim="preferredname"
       :field-label="t('common.preferred-name-label')"
       name="preferredName"
-      v-model.trim="preferredname"
       autocomplete="given-name"
       validation-rules="onlyAlpha"
     />
     <TextField
+      v-model.trim="firstname"
       :field-label="t('common.first-name-label')"
       name="firstName"
-      v-model.trim="firstname"
       autocomplete="given-name"
       validation-rules="required|onlyAlpha"
       :disabled="isInputDisabled"
     />
 
     <TextField
+      v-model.trim="postalCode"
       :field-label="t(textKey + '.postal-code-label')"
       name="postalCode"
-      v-model.trim="postalCode"
       autocomplete="postal-code"
       validation-rules="zipcode"
     />
@@ -118,8 +118,6 @@ const thirdPartyConsent = ref(
   user.value?.ownerType === 'THIRD_PARTY' && placeHolderIdentity.firstName !== ''
 )
 
-const displayPreferrednameField = ref(placeHolderIdentity.preferredName !== '')
-
 const isInputDisabled = computed(() => {
   const franceConnect = user.value?.franceConnect
   if (props.textKey === 'self') {
@@ -127,15 +125,6 @@ const isInputDisabled = computed(() => {
   }
   return false
 })
-
-const onCheckboxChange = () => {
-  thirdPartyConsent.value = !thirdPartyConsent.value
-}
-
-const onDeletePreferredName = () => {
-  preferredname.value = ''
-  displayPreferrednameField.value = false
-}
 
 const onSubmit = () => {
   if (!lastname.value || !firstname.value) {
