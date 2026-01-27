@@ -2,76 +2,29 @@
   <Form name="tenantGuarantorNameForm" @submit="save">
     <NakedCard class="fr-p-md-5w">
       <h1 class="fr-h6">{{ t('tenantguarantorname.title') }}</h1>
-      <div class="fr-alert fr-alert--info">
+      <DsfrAlert type="info" small>
         <p v-html="t('tenantguarantorchoice.two-guarantors-warning')"></p>
-      </div>
+      </DsfrAlert>
       <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
         <div class="fr-col-12 fr-mb-3w">
-          <div class="fr-input-group">
-            <label class="fr-label" for="lastname">{{ t('tenantguarantorname.lastname') }} :</label>
-            <Field
-              v-slot="{ field, meta }"
-              v-model="lastName"
-              name="lastname"
-              :rules="{
-                required: true,
-                onlyAlpha: true
-              }"
-            >
-              <input
-                v-bind="field"
-                id="lastname"
-                class="form-control fr-input validate-required"
-                :class="{
-                  'fr-input--valid': meta.valid,
-                  'fr-input--error': !meta.valid
-                }"
-                name="lastname"
-                :placeholder="t('tenantguarantorname.lastname-placeholder')"
-                type="text"
-                required
-              />
-            </Field>
-            <ErrorMessage v-slot="{ message }" name="lastname">
-              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-            </ErrorMessage>
-          </div>
+          <TextField
+            v-model.trim="lastName"
+            name="lastname"
+            :field-label="t('tenantguarantorname.lastname')"
+            validation-rules="required|onlyAlpha"
+          />
         </div>
         <div class="fr-col-12 fr-mb-3w">
-          <div class="fr-input-group">
-            <label for="firstname" class="fr-label"
-              >{{ t('tenantguarantorname.firstname') }} :</label
-            >
-            <Field
-              v-slot="{ field, meta }"
-              v-model="firstName"
-              name="firstname"
-              :rules="{
-                required: true,
-                onlyAlpha: true
-              }"
-            >
-              <input
-                id="firstname"
-                :placeholder="t('tenantguarantorname.firstname-placeholder')"
-                type="text"
-                v-bind="field"
-                class="validate-required form-control fr-input"
-                :class="{
-                  'fr-input--valid': meta.valid,
-                  'fr-input--error': !meta.valid
-                }"
-                required
-              />
-            </Field>
-            <ErrorMessage v-slot="{ message }" name="firstname">
-              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-            </ErrorMessage>
-          </div>
+          <TextField
+            v-model.trim="firstName"
+            name="firstname"
+            :field-label="t('tenantguarantorname.firstname')"
+            validation-rules="required|onlyAlpha"
+          />
         </div>
       </div>
     </NakedCard>
-    <GuarantorFooter ref="footer" @on-back="goBack"></GuarantorFooter>
+    <GuarantorFooter ref="footer" @on-back="goBack" />
   </Form>
 </template>
 
@@ -89,6 +42,8 @@ import { useI18n } from 'vue-i18n'
 import { makeSpouseGuarantorIdDocLink } from '@/components/identityDocument/lib/identityDocumentLink'
 import { useRouter } from 'vue-router'
 import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
+import TextField from '@/components/form/TextField.vue'
 
 const { t } = useI18n()
 

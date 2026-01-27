@@ -23,13 +23,13 @@
       <i18n-t tag="p" keypath="please-provide"
         ><strong>{{ t('recent-statement') }}</strong></i18n-t
       >
-      <div class="fr-alert fr-alert--info fr-mb-3w">
+      <DsfrAlert type="info" small class="fr-mb-3w">
         <p class="bold">{{ t('auto-reject') }}</p>
         <i18n-t tag="p" keypath="if-no">
           <RouterLink to="pas-de-bulletin">{{ t('no-statement') }}</RouterLink
           >.
         </i18n-t>
-      </div>
+      </DsfrAlert>
     </template>
   </UploadFilesFinancial>
 </template>
@@ -41,6 +41,7 @@ import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { useI18n } from 'vue-i18n'
 import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { useFinancialState } from '../financialState'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)

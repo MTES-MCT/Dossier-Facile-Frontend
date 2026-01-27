@@ -12,8 +12,9 @@
         href="https://www.service-public.fr/particuliers/vosdroits/R54103"
         :title="`${t(textKey + '.receipt-model')} - ${t('new-window')}`"
         target="_blank"
-        >{{ t(textKey + '.receipt-model') }}</a
       >
+        {{ t(textKey + '.receipt-model') }}
+      </a>
     </p>
   </DsfrAlert>
   <ResidencyFooter />

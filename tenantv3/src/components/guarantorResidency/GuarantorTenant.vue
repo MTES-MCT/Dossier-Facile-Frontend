@@ -8,9 +8,7 @@
     <strong>{{ t('recent-proof') }}</strong>
   </i18n-t>
 
-  <div class="fr-alert fr-alert--info fr-mb-2w">
-    <p>{{ t('receipts-info') }}</p>
-  </div>
+  <DsfrAlert type="info" small :description="t('receipts-info')" class="fr-mb-2w" />
   <UploadFiles category="TENANT" guarantor />
   <GuarantorResidencyFooter />
 </template>
@@ -23,6 +21,7 @@ import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 const { t } = useI18n()
 const parentRoute = useParentRoute()
 const { category, textKey } = useResidencyState()

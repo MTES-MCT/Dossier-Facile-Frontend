@@ -18,9 +18,7 @@
     </li>
   </ul>
   <p>{{ t('can-add-receipt', [month.format('MMMM')]) }}</p>
-  <div class="fr-alert fr-alert--warning fr-mb-2w">
-    <p>{{ t('valid-docs') }}</p>
-  </div>
+  <DsfrAlert type="warning" small :description="t('valid-docs')" class="fr-mb-2w" />
   <UploadFiles category="TENANT" step="TENANT_RECEIPT" />
   <ResidencyFooter :on-submit="checkFiles" />
   <ModalComponent
@@ -69,6 +67,7 @@ import ResidencyFooter from './lib/ResidencyFooter.vue'
 import dayjs from 'dayjs'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useResidencyState } from './residencyState'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const i18n = useI18n()
 const router = useRouter()

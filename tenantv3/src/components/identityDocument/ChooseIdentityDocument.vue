@@ -1,7 +1,9 @@
 <template>
-  <p class="fr-highlight fr-ml-0">
-    {{ t('submit-identity-document') }} <strong>{{ t('valid-doc') }}</strong>
-  </p>
+  <DsfrAlert type="warning" small>
+    <p>
+      {{ t('submit-identity-document') }} <strong>{{ t('valid-doc') }}</strong>
+    </p>
+  </DsfrAlert>
   <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <IdentificationFooter />
 </template>
@@ -13,6 +15,7 @@ import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import IdentificationFooter from './lib/IdentificationFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const route = useRoute()

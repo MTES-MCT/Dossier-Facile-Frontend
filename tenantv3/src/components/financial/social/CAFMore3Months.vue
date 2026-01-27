@@ -26,9 +26,7 @@
         </template>
         <template #month>{{ months[3] }}</template>
       </i18n-t>
-      <div class="fr-alert fr-alert--info fr-mb-2w">
-        <p>{{ t('auto-reject') }}</p>
-      </div>
+      <DsfrAlert type="info" small class="fr-mb-2w" :description="t('auto-reject')" />
     </template>
   </UploadFilesFinancial>
 </template>
@@ -41,6 +39,7 @@ import { lastMonths } from '../lib/lastMonths'
 import { useI18n } from 'vue-i18n'
 import { useFinancialState } from '../financialState'
 import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)

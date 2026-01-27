@@ -1,10 +1,9 @@
 <template>
-  <div class="fr-alert fr-alert--info fr-mb-3w">
-    <p>{{ t('warning-update') }}</p>
-  </div>
+  <DsfrAlert type="info" small :description="t('warning-update')" />
 </template>
 
 <script setup lang="ts">
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

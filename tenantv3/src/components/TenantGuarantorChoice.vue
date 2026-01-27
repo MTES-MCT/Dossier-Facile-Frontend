@@ -8,9 +8,9 @@
       </div>
       <div class="fr-mt-3w">
         <p v-html="t('tenantguarantorchoice.optional-guarantor')"></p>
-        <div class="fr-alert fr-alert--info">
+        <DsfrAlert type="info" small>
           <p v-html="t('tenantguarantorchoice.two-guarantors-warning')"></p>
-        </div>
+        </DsfrAlert>
       </div>
     </NakedCard>
     <NakedCard class="fr-p-md-5w fr-mt-md-3w">
@@ -55,6 +55,7 @@ import { onBeforeMount, onUpdated, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { toast } from './toast/toastUtils'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const props = withDefaults(
   defineProps<{

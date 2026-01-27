@@ -9,8 +9,8 @@
     <strong>{{ t('warning') }}</strong>
     {{ t('does-not-replace') }}
   </p>
-  <div class="fr-highlight fr-ml-0 fr-mb-3w">
-    <i18n-t tag="p" :keypath="textKey + '.download-tax-notice'" class="fr-mb-0">
+  <DsfrAlert type="info" small class="fr-ml-0 fr-mb-3w">
+    <i18n-t tag="p" :keypath="textKey + '.download-tax-notice'">
       <a
         href="https://www.impots.gouv.fr"
         :title="`impots.gouv.fr - ${t('new-window')}`"
@@ -18,7 +18,7 @@
         >impots.gouv.fr</a
       >
     </i18n-t>
-  </div>
+  </DsfrAlert>
   <DfButton class="mx-auto fr-mb-3w" @click="showModal = true"
     >{{ t('see-which-doc') }} <RiEyeLine class="fr-ml-1v"
   /></DfButton>
@@ -61,6 +61,7 @@ import avisOK from '@/assets/avis_ok.png'
 import avisKO from '@/assets/avis_ko.png'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 import { useTaxState } from './lib/taxState'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const parent = useParentRoute()
