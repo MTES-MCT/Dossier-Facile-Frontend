@@ -24,9 +24,8 @@ export type OptionLink = {
   description?: string
 }
 
-type AnalyticsEmits = {
-  (e: 'analytics', payload: string): void
-}
+type AnalyticsEmits = (e: 'analytics', payload: string) => void
+
 const emit = defineEmits<AnalyticsEmits>()
 
 interface Props {
