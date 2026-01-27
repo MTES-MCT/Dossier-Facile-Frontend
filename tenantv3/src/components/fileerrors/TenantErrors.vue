@@ -10,14 +10,15 @@
     <h2 v-if="!allTenantDocumentsPreValidated()" class="fr-h6">
       {{ t(`fileerrors.${keyprefix}-invalid-document`) }}
     </h2>
-    <ul>
+    <ul class="invalid-doc-list">
       <li v-for="[key, value] of invalidCategories" :key="value.step">
         <UpdateComponent
           :to="getTenantPage(value.step)"
           :user-id="user.id"
           :document="getDocument(key)"
-          >{{ t(`fileerrors.${key}`) }}</UpdateComponent
         >
+          {{ t(`fileerrors.${key}`) }}
+        </UpdateComponent>
       </li>
     </ul>
   </NakedCard>

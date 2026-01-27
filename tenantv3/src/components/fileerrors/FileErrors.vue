@@ -1,5 +1,5 @@
 <template>
-  <FullTenantFileErrors :user="user" keyprefix="my"></FullTenantFileErrors>
+  <FullTenantFileErrors :user="user" keyprefix="my" />
 
   <template v-if="user.applicationType === 'COUPLE'">
     <FullTenantFileErrors
@@ -7,7 +7,7 @@
       :key="k"
       :user="tenant"
       keyprefix="tenant"
-    ></FullTenantFileErrors>
+    />
   </template>
 </template>
 
