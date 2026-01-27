@@ -91,7 +91,7 @@
         <span>{{ t('delete-sharing') }}</span>
       </button>
     </div>
-    
+    <!-- TODO : check when ModalComponent is updated for a11y compliance -->
     <ModalComponent v-if="isDeleteModalOpen" @close="closeDeleteModal">
       <template #header>
         <h4>{{ t('delete-confirmation-title') }}</h4>
