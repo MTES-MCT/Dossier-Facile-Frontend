@@ -4,14 +4,14 @@
     :tenant-id="tenantId"
     :guarantor="guarantor"
     @on-back="$emit('on-back')"
-  ></TenantGuarantorName>
+  />
   <CorporationIdentification
     v-if="guarantor?.typeGuarantor === 'LEGAL_PERSON'"
     :tenant-id="tenantId"
     :guarantor="guarantor"
     @on-back="$emit('on-back')"
     @on-next="$emit('on-next')"
-  ></CorporationIdentification>
+  />
 </template>
 
 <script setup lang="ts">

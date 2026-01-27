@@ -3,36 +3,12 @@
     <Form name="form" @submit="goNext">
       <NakedCard class="fr-p-md-5w">
         <GuarantorBadge />
-        <Field
-          v-slot="{ field, meta }"
-          v-model="organismName"
+        <TextField
+          v-model.trim="organismName"
           name="organismName"
-          :rules="{
-            required: true
-          }"
-        >
-          <div class="fr-input-group">
-            <label class="fr-label" for="organismName"
-              >{{ t('corporationidentification.organism-name') }} :</label
-            >
-            <input
-              v-bind="field"
-              id="organismName"
-              class="form-control fr-input validate-required"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              name="organismName"
-              :placeholder="t('corporationidentification.organism-name-placeholder')"
-              type="text"
-              required
-            />
-            <ErrorMessage v-slot="{ message }" name="organismName">
-              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-            </ErrorMessage>
-          </div>
-        </Field>
+          :field-label="t('corporationidentification.organism-name')"
+          validation-rules="required"
+        />
       </NakedCard>
       <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div>
@@ -92,6 +68,7 @@ import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
+import TextField from '@/components/form/TextField.vue'
 
 const store = useTenantStore()
 const { t } = useI18n()

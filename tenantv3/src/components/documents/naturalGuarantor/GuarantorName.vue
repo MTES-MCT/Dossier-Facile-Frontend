@@ -4,9 +4,9 @@
       <NakedCard class="fr-p-md-5w">
         <GuarantorBadge />
         <h1 class="fr-h6">{{ t('guarantorname.title') }}</h1>
-        <div class="fr-alert fr-alert--info">
+        <DsfrAlert type="info" small>
           <p v-html="t('guarantorchoice.two-guarantors-warning')"></p>
-        </div>
+        </DsfrAlert>
         <div class="fr-mt-4w">
           <TextField
             v-model.trim="lastName"
@@ -23,7 +23,7 @@
           />
         </div>
       </NakedCard>
-      <GuarantorFooter ref="footer" @on-back="goBack"></GuarantorFooter>
+      <GuarantorFooter ref="footer" @on-back="goBack" />
     </Form>
   </div>
 </template>
@@ -41,6 +41,7 @@ import { Form } from 'vee-validate'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
 import TextField from '@/components/form/TextField.vue'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const store = useTenantStore()
 const footer = useTemplateRef('footer')

@@ -1,6 +1,6 @@
 <template>
-  <div class="fr-highlight fr-ml-0 fr-my-3w">
-    <i18n-t tag="p" keypath="first-declaration-info" class="fr-mb-0">
+  <DsfrAlert type="info" small>
+    <i18n-t tag="p" keypath="first-declaration-info">
       <a
         href="https://www.impots.gouv.fr/particulier/je-declare-pour-la-premiere-fois-je-declare-chaque-annee"
         :title="`impots.gouv.fr - ${t('i-declare-first')} - ${t('new-window')}`"
@@ -8,10 +8,11 @@
         >impots.gouv.fr - {{ t('i-declare-first') }}</a
       >
     </i18n-t>
-  </div>
+  </DsfrAlert>
 </template>
 
 <script setup lang="ts">
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

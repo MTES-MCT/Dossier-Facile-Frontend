@@ -1,5 +1,5 @@
 <template>
-  <DsfrAlert type="info" small>
+  <DsfrAlert type="warning" small>
     <p class="fr-mb-0 text-bold">{{ t('mandatory-declaration') }}</p>
     <p>{{ t(textKey + '.declaration-text') }}</p>
   </DsfrAlert>

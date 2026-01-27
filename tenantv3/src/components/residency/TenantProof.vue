@@ -13,9 +13,7 @@
     <strong>{{ t(textKey + '.less-3-months') }}</strong>
   </i18n-t>
 
-  <div class="fr-alert fr-alert--warning fr-mb-2w">
-    <p>{{ t(textKey + '.valid-docs') }}</p>
-  </div>
+  <DsfrAlert type="warning" small :description="t(textKey + '.valid-docs')" />
   <UploadFiles category="TENANT" step="TENANT_PROOF" />
   <ResidencyFooter />
 </template>
@@ -27,6 +25,7 @@ import ResidencyFooter from './lib/ResidencyFooter.vue'
 import UploadFiles from './lib/UploadFiles.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 const { t } = useI18n()
 const { category, textKey } = useResidencyState()
 </script>

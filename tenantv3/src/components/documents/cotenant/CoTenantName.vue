@@ -15,8 +15,7 @@
             v-model.trim="lastName"
             name="lastname"
             :field-label="t('cotenantname.lastname')"
-            validation-rules="onlyAlpha"
-            :required="true"
+            validation-rules="required|onlyAlpha"
           />
         </div>
         <div class="fr-col-12 fr-mb-3w">
@@ -32,14 +31,13 @@
             v-model.trim="firstName"
             name="firstname"
             :field-label="t('cotenantname.firstname')"
-            validation-rules="onlyAlpha"
-            :required="true"
+            validation-rules="required|onlyAlpha"
           />
         </div>
       </div>
     </NakedCard>
     <FooterContainer>
-      <BackNext show-back @on-back="goToGuarantorChoice"></BackNext>
+      <BackNext show-back @on-back="goToGuarantorChoice" />
     </FooterContainer>
   </Form>
 </template>
