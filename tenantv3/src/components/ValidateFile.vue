@@ -105,14 +105,14 @@
   </Form>
   <template v-if="hasErrors()">
     <NakedCard class="fr-px-5w fr-py-3w">
-      <h1 class="fr-h6 color--secondary">
+      <h1 class="fr-h4">
         {{ t('validatefile.validation-error-title') }}
       </h1>
       <p>
         {{ t('validatefile.validation-error-description') }}
       </p>
     </NakedCard>
-    <FileErrors></FileErrors>
+    <FileErrors />
   </template>
 </template>
 

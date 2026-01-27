@@ -21,12 +21,7 @@ export default defineConfig({
   server: {
     port: 3000,
     fs: {
-      allow: ['./src', '../df-shared-next', '../node_modules', './node_modules']
-    }
-  },
-  css: {
-    preprocessorOptions: {
-      scss: { api: 'modern' }
+      allow: ['./src', '../df-shared-next', '../node_modules', './node_modules', 'index.html']
     }
   },
   plugins: [

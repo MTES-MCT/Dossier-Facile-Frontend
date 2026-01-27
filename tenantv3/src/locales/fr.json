@@ -331,19 +331,19 @@
     "file-not-valid": "Votre dossier n'est pas valide, veuillez compléter les documents manquants ou modifier les documents refusés pour soumettre votre dossier",
     "error-title": "Dossier invalide",
     "error-title-guarantor": "Dossier garant invalide",
-    "his-missing-documents": "Ses documents invalides :",
+    "his-missing-documents": "Ses documents invalides",
     "update": "Mettre à jour",
     "organism-cert": "Attestation de garantie",
     "representative-identification": "Identité du représentant de la personne morale",
     "corporation-identification": "Identité de la personne morale",
-    "my-invalid-document": "Mes documents invalides :",
+    "my-invalid-document": "Mes documents invalides",
     "my-invalid-names": " Mes informations manquantes",
-    "my-invalid-document-guarantor": "Les documents invalides de mon garant :",
+    "my-invalid-document-guarantor": "Les documents invalides de mon garant",
     "my-invalid-names-guarantor": "Le nom ou prénom de mon garant est manquant:",
-    "tenant-invalid-document": "Les documents invalides de mon conjoint :",
-    "tenant-invalid-names": "Le nom ou prénom de mon conjoint est manquant:",
-    "tenant-invalid-document-guarantor": "Les documents invalides du garant de mon conjoint :",
-    "tenant-invalid-names-guarantor": "Le informations du garant de mon conjoint sont invalides:",
+    "tenant-invalid-document": "Les documents invalides de mon conjoint",
+    "tenant-invalid-names": "Le nom ou prénom de mon conjoint est manquant",
+    "tenant-invalid-document-guarantor": "Les documents invalides du garant de mon conjoint",
+    "tenant-invalid-names-guarantor": "Le informations du garant de mon conjoint sont invalides",
     "user-names": "Informations personnelles"
   },
   "fakeannouncement": {
@@ -766,7 +766,7 @@
   },
   "simulationcaf": {
     "btn-caf": "Faire une simulation",
-    "simulation-caf-title": "Êtes-vous éligible ?",
+    "simulation-caf-title": "Êtes-vous éligible à l'aide au logement ?",
     "simulation-caf-text": "Découvrez l'estimation de l'aide au logement à laquelle vous pourriez être éligible."
   },
   "tenantguarantorchoice": {

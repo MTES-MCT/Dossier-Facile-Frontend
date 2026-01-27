@@ -1,23 +1,21 @@
 <template>
   <div class="caf-box fr-px-md-5w fr-pb-md-2w fr-mb-3w bg-purple">
-    <div class="header fr-h6">
-      <div class="header-title">
-        {{ t('simulationcaf.simulation-caf-title') }}
-      </div>
-      <img alt="Allocations Familiales" class="logo-caf" src="../../../assets/caf.svg" />
-    </div>
+    <h2 class="fr-h6 fr-m-0">
+      {{ t('simulationcaf.simulation-caf-title') }}
+    </h2>
+    <img alt="" class="logo-caf" width="132" height="43" src="../../../assets/caf.svg" />
+
     <p class="fr-mb-0">{{ t('simulationcaf.simulation-caf-text') }}</p>
-    <div class="body-btn-container">
-      <a
-        class="fr-btn fr-btn--secondary fr-ml-auto fr-mt-2w"
-        href="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
-        :title="`${t('simulationcaf.btn-caf')} - ${t('new-window')}`"
-        target="_blank"
-        @click="AnalyticsService.openSimulationCAF()"
-      >
-        {{ t('simulationcaf.btn-caf') }}
-      </a>
-    </div>
+
+    <a
+      class="fr-btn fr-btn--secondary fr-ml-auto"
+      href="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
+      :title="`${t('simulationcaf.btn-caf')} - ${t('new-window')}`"
+      target="_blank"
+      @click="AnalyticsService.openSimulationCAF()"
+    >
+      {{ t('simulationcaf.btn-caf') }}
+    </a>
   </div>
 </template>
 
@@ -28,20 +26,23 @@ import { AnalyticsService } from '../../../services/AnalyticsService'
 const { t } = useI18n()
 </script>
 
-<style lang="scss" scoped>
-.header {
-  display: inline-flex;
-  width: 100%;
-  .header-title {
-    padding-top: 0.5rem;
-  }
-  .logo-caf {
-    margin-left: auto;
-  }
+<style scoped>
+.caf-box {
+  --gap-width: 1rem;
+  --image-width: 132px;
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.body-btn-container {
-  display: inline-flex;
-  width: 100%;
+h2 {
+  flex: 1 1 calc(100% - var(--gap-width) - var(--image-width));
+  min-width: 16ch;
+}
+img {
+  flex: 0 0 132px;
 }
 </style>

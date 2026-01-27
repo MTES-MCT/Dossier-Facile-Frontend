@@ -1,9 +1,9 @@
 <template>
-  <TenantErrors :user="user" :keyprefix="keyprefix"></TenantErrors>
+  <TenantErrors :user="user" :keyprefix="keyprefix" />
 
-  <div v-for="g in user.guarantors" :key="g.id" class="fr-mt-3w">
-    <GuarantorErrors :user="user" :g="g" :keyprefix="keyprefix"></GuarantorErrors>
-  </div>
+  <template v-for="g in user.guarantors" :key="g.id">
+    <GuarantorErrors :user="user" :g="g" :keyprefix="keyprefix" />
+  </template>
 </template>
 
 <script setup lang="ts">
@@ -17,3 +17,9 @@ defineProps<{
   keyprefix: 'my' | 'tenant'
 }>()
 </script>
+
+<style>
+.invalid-doc-list > li:where(:only-of-type, :last-of-type) {
+  padding-block: 0;
+}
+</style>
