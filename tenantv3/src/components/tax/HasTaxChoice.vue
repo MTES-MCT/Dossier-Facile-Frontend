@@ -1,25 +1,14 @@
 <template>
   <p>{{ t(textKey + '.choose-situation') }}</p>
-  <RadioList>
-    <RadioListItem :to="here + '/avec-avis'" @click="sendEvent('with-tax')"
-      >{{ t(textKey + '.have-a-tax-notice') }}
-      <HintText>{{ t('french-or-foreign') }}</HintText>
-    </RadioListItem>
-    <RadioListItem :to="here + '/sans-avis'" @click="sendEvent('without-tax')"
-      >{{ t(textKey + '.have-no-tax-notice') }}
-      <HintText>{{ t('tax-examples') }}</HintText>
-    </RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <TaxFooter />
 </template>
 
 <script setup lang="ts">
-import HintText from '@/components/common/HintText.vue'
-import RadioList from '@/components/common/RadioList.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { computed } from 'vue'
+import { computed, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useTaxState } from './lib/taxState'
@@ -31,6 +20,21 @@ const { textKey } = useTaxState()
 const here = computed(() => route.path)
 
 const sendEvent = (subcategory: string) => AnalyticsService.selectSituation('tax', subcategory)
+
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
+  {
+    to: `${here.value}/avec-avis`,
+    title: t(textKey + '.have-a-tax-notice'),
+    event: 'with-tax',
+    description: t('french-or-foreign')
+  },
+  {
+    to: `${here.value}/sans-avis`,
+    title: t(textKey + '.have-no-tax-notice'),
+    event: 'without-tax',
+    description: t('tax-examples')
+  }
+])
 </script>
 
 <i18n>

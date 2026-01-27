@@ -1,5 +1,64 @@
 <template>
-  <fieldset class="fr-fieldset">
-    <slot></slot>
-  </fieldset>
+  <ul role="list">
+    <li v-for="(item, idx) of listItems" v-show="item.condition ?? true" :key="idx">
+      <div @click.capture="triggerAnalytics(item.event)">
+        <DsfrCard
+          :link="item.to"
+          :title="item.title"
+          :description="item.description ?? ''"
+          title-tag="h2"
+        />
+      </div>
+    </li>
+  </ul>
 </template>
+
+<script setup lang="ts">
+import { DsfrCard } from '@gouvminint/vue-dsfr'
+
+export type OptionLink = {
+  to: string
+  title: string
+  event: string
+  condition?: boolean
+  description?: string
+}
+
+type AnalyticsEmits = (e: 'analytics', payload: string) => void
+
+const emit = defineEmits<AnalyticsEmits>()
+
+interface Props {
+  listItems: OptionLink[]
+}
+defineProps<Props>()
+
+// pass the analytics back to the parent with correct dynamic values
+const triggerAnalytics = (value: string) => emit('analytics', value)
+</script>
+
+<style scoped>
+ul > li + li {
+  margin-block-start: 1rem;
+}
+
+/* Surcharge pour réduire les marges de la card */
+:deep(.fr-card.fr-enlarge-link:not(.fr-card--no-icon) .fr-card__content) {
+  padding: 1.5rem 1rem;
+}
+:deep(.fr-card.fr-enlarge-link .fr-card__title a::after) {
+  right: 1rem;
+  top: 50%;
+  translate: 0 -50%;
+}
+:deep(.fr-card__desc) {
+  margin-block-start: 0.5rem;
+}
+/* hide description when none is provided (upstream bug) */
+:deep(.fr-card__desc:empty) {
+  display: none;
+}
+:deep(.fr-card__title) {
+  max-inline-size: 30ch;
+}
+</style>

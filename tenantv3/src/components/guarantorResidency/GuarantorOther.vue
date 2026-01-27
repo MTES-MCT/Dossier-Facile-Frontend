@@ -23,9 +23,9 @@
     <label :for="checkboxId" class="fr-label">{{ t('no-doc') }}</label>
   </div>
   <template v-if="noDoc">
-    <div class="fr-highlight fr-ml-0">
-      <p class="fr-text--sm">{{ t(textKey + '.no-doc-long') }}</p>
-    </div>
+    <DsfrAlert type="info" small>
+      <p>{{ t(textKey + '.no-doc-long') }}</p>
+    </DsfrAlert>
     <textarea
       v-model="value"
       class="form-control fr-input validate-required"
@@ -52,6 +52,7 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
 import { UtilsService } from '@/services/UtilsService'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const checkboxId = useId()

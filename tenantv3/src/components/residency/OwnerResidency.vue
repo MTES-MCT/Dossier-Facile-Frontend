@@ -17,9 +17,7 @@
       >
     </template>
   </i18n-t>
-  <div class="fr-alert fr-alert--warning fr-mb-2w">
-    <p>{{ t('valid-docs') }}</p>
-  </div>
+  <DsfrAlert type="warning" small :description="t('valid-docs')" class="fr-mb-2w" />
   <UploadFiles category="OWNER" />
   <ResidencyFooter />
 </template>
@@ -32,6 +30,7 @@ import UploadFiles from './lib/UploadFiles.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
 import { taxYear } from '@/components/residency/lib/taxYear'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 const { t } = useI18n()
 const { category, textKey } = useResidencyState()
 </script>

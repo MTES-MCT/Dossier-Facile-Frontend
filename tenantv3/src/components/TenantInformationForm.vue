@@ -24,8 +24,7 @@
                       'fr-input--error': !meta.valid
                     }"
                   />
-                  <label for="authorize" v-html="t('tenantinformationform.acceptAuthorSpouse')">
-                  </label>
+                  <label for="authorize" v-html="t('tenantinformationform.acceptAuthorSpouse')" />
                   <ErrorMessage v-slot="{ message }" name="authorize">
                     <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                   </ErrorMessage>
@@ -77,17 +76,19 @@
           <span class="sr-only">{{ t('tenantinformationform.title') }}</span>
         </ApplicationTypeSelector>
       </NakedCard>
-      <Form name="form" @submit="handleOthersInformation">
+      <Form name="form" @submit="handleOthersInformation" @invalid-submit="hasSubmited = true">
         <CoupleInformation
           v-if="applicationType === 'COUPLE'"
           ref="couple-info"
           v-model="coTenants"
+          :has-submited
           class="fr-mt-2w"
         >
         </CoupleInformation>
         <RoommatesInformation
           v-if="applicationType === 'GROUP'"
           v-model="coTenants"
+          :has-submited
           class="fr-mt-2w"
         >
         </RoommatesInformation>
@@ -130,6 +131,8 @@ const { t } = useI18n()
 
 const coTenants = ref<CoTenant[]>([])
 const applicationType = ref('')
+
+const hasSubmited = ref(false)
 
 const localCoTenantAuthorize = ref(false)
 const localSpouseAuthorize = ref(false)

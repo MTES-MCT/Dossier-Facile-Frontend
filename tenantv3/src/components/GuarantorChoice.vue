@@ -8,9 +8,9 @@
       </div>
       <div class="fr-mt-3w">
         <p v-html="t('guarantorchoice.optional-guarantor')"></p>
-        <div class="fr-alert fr-alert--info">
+        <DsfrAlert type="info" small>
           <p v-html="t('guarantorchoice.two-guarantors-warning')"></p>
-        </div>
+        </DsfrAlert>
       </div>
     </NakedCard>
     <NakedCard class="fr-p-md-5w fr-mt-md-3w">
@@ -54,6 +54,7 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { toast } from '@/components/toast/toastUtils'
 import { makeTaxLink } from '@/components/tax/lib/taxLink'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const router = useRouter()

@@ -1,42 +1,46 @@
 <template>
   <p>{{ t(textKey + '.choose-situation') }}</p>
   <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="parent" />
-  <RadioList>
-    <RadioListItem :to="here + '/francais'" @click="sendEvent('french')"
-      >{{ t('french-notice') }}
-      <HintText>{{ t('french-examples') }}</HintText>
-    </RadioListItem>
-    <RadioListItem :to="here + '/etranger'" @click="sendEvent('foreign')"
-      >{{ t('foreign-notice') }}
-      <HintText>{{ t('foreign-examples') }}</HintText>
-    </RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <TaxFooter />
 </template>
 
 <script setup lang="ts">
 import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
-import HintText from '@/components/common/HintText.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
-import RadioList from '@/components/common/RadioList.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { useTaxState } from '@/components/tax/lib/taxState'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { computed } from 'vue'
+import { computed, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
 const { t } = useI18n()
-const route = useRoute()
 const taxState = useTaxState()
 const parent = useParentRoute()
 const { textKey } = useTaxState()
 
+const route = useRoute()
 const here = computed(() => route.path)
 
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation2(taxState.category, 'with-tax', subcategory)
+
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
+  {
+    to: `${here.value}/francais`,
+    title: t('french-notice'),
+    event: 'french',
+    description: t('french-examples')
+  },
+  {
+    to: `${here.value}/etranger`,
+    title: t('foreign-notice'),
+    event: 'foreign',
+    description: t('foreign-examples')
+  }
+])
 </script>
 
 <i18n>

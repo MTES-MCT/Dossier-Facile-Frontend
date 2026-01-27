@@ -37,7 +37,7 @@ import { alerts, removeToast } from './toastUtils'
   width: 100%;
 }
 
-.toast-container .fr-alert {
+.toast-container :deep(.fr-alert) {
   box-shadow: 0 1px 3px 0 #0000001a;
   background-color: white;
 }

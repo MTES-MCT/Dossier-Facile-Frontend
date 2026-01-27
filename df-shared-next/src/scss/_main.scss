@@ -8,6 +8,12 @@
   isolation: isolate;
 }
 
+// if a list forces its role to retain semantic, remove the list style
+:is(ul, ol)[role='list'] {
+  padding: 0;
+  list-style-type: none;
+}
+
 .cdn-background {
   position: fixed;
   top: 0;

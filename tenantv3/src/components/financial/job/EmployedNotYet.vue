@@ -23,9 +23,7 @@
       <i18n-t keypath="please-provide" tag="p">
         <strong>{{ t('contract-page-' + suffix) }}</strong>
       </i18n-t>
-      <div class="fr-alert fr-alert--info fr-mb-3w">
-        <p>{{ t('if-you-dont-know') }}</p>
-      </div>
+      <DsfrAlert type="info" small class="fr-mb-2w" :description="t('if-you-dont-know')" />
     </template>
   </UploadFilesFinancial>
 </template>
@@ -38,6 +36,7 @@ import AlertEmployedNotYet from './AlertEmployedNotYet.vue'
 import { useI18n } from 'vue-i18n'
 import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { useFinancialState } from '../financialState'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const parent = useParentRoute()

@@ -1,12 +1,13 @@
 <template>
-  <div class="fr-alert fr-alert--info">
+  <DsfrAlert type="info" small>
     <p :class="pclass">{{ t('realistic-amount') }}</p>
     <slot></slot>
     <p :class="pclass">{{ t('auto-reject') }}</p>
-  </div>
+  </DsfrAlert>
 </template>
 
 <script setup lang="ts">
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 import { useI18n } from 'vue-i18n'
 
 defineProps<{ pclass?: string }>()
