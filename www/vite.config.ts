@@ -1,6 +1,7 @@
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { fileURLToPath, URL } from 'node:url'
 import generateSiteMap from 'vite-ssg-sitemap'
+import path from 'path'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -23,7 +24,7 @@ export default defineConfig({
   server: {
     port: 9001,
     fs: {
-      allow: ['./src', '../df-shared-next', '../node_modules', './node_modules']
+      allow: ['./src', '../df-shared-next', '../node_modules', './node_modules', 'index.html']
     }
   },
   plugins: [
@@ -54,7 +55,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // "@": path.resolve(__dirname, "./"),
+      '@icons': path.resolve(__dirname, './src/assets/icons'),
+      '@images': path.resolve(__dirname, './src/assets/images'),
+      '@components': path.resolve(__dirname, './src/components')
     }
   }
 })

@@ -1,14 +1,8 @@
 <template>
   <div class="logo-container" :class="logoClass">
-    <a
-      :href="href"
-      :title="linkTitle"
-      class="logo-link"
-      rel="nofollow"
-      :target="href === '#' ? '' : '_blank'"
-    >
+    <a v-if="href" :href="href" class="logo-link" rel="noopener nofollow" target="_blank">
       <img
-        :alt="name"
+        :alt="imageAlt"
         :height="height"
         :src="image"
         :width="width"
@@ -16,6 +10,15 @@
         class="partner-logo"
       />
     </a>
+    <img
+      v-else
+      :alt="name"
+      :height="height"
+      :src="image"
+      :width="width"
+      loading="lazy"
+      class="partner-logo"
+    />
   </div>
 </template>
 
@@ -26,13 +29,14 @@ const props = withDefaults(
   defineProps<{
     name: string
     image: string
-    href: string
+    href?: string
     width?: string
     height?: string
     title?: string
     logoClass?: string
   }>(),
   {
+    href: undefined,
     width: '60',
     height: '60',
     title: undefined,
@@ -40,15 +44,19 @@ const props = withDefaults(
   }
 )
 
-const linkTitle = computed(
+const imageAlt = computed(
   () => props.title ?? `aller sur le site « ${props.name} » (nouvelle fenêtre)`
 )
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-a[target='_blank'].logo-link::after {
+<style scoped>
+a.logo-link::after {
   content: none;
+}
+a.logo-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
 }
 
 .logo-link {
@@ -57,6 +65,7 @@ a[target='_blank'].logo-link::after {
 }
 
 .logo-container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -41,7 +41,7 @@ import lokavizUrl from '../assets/logos/lokaviz.png'
 import ministerLogementUrl from '../assets/logos/Ministère_du_Logement_et_de_la_Rénovation_urbaine.png'
 import filigraneFacileUrl from '../assets/logos/FiligraneFacile.png'
 
-interface Partner {
+export interface Partner {
   name: string
   image: string
   href: string
