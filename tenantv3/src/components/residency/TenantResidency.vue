@@ -16,30 +16,6 @@
       >
     </p>
   </DsfrAlert>
-  <hr />
-  <DsfrCallout :content="t(textKey + '.no-receipts-title')">
-    <p>
-      {{ t(textKey + '.no-receipts') }}
-      <a
-        href="https://www.service-public.fr/particuliers/vosdroits/R54103"
-        :title="`${t(textKey + '.receipt-model')} - ${t('new-window')}`"
-        target="_blank"
-        >{{ t(textKey + '.receipt-model') }}</a
-      >
-    </p>
-  </DsfrCallout>
-  <DsfrNotice type="info">
-    <template #default> {{ t(textKey + '.no-receipts-title') }} <br /> </template>
-    <template #desc>
-      {{ t(textKey + '.no-receipts') }}
-      <a
-        href="https://www.service-public.fr/particuliers/vosdroits/R54103"
-        :title="`${t(textKey + '.receipt-model')} - ${t('new-window')}`"
-        target="_blank"
-        >{{ t(textKey + '.receipt-model') }}</a
-      >
-    </template>
-  </DsfrNotice>
   <ResidencyFooter />
 </template>
 
@@ -52,7 +28,7 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
 import { computed, type ComputedRef } from 'vue'
 import { useRoute } from 'vue-router'
-import { DsfrAlert, DsfrCallout, DsfrNotice } from '@gouvminint/vue-dsfr'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const route = useRoute()
 const here = computed(() => route.path)
