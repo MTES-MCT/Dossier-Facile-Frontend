@@ -24,10 +24,6 @@
             :options="shareTypeOptions"
             name="shareType"
           />
-          <p class="fr-hint-text fr-mt-1v">
-            <RiInformationLine aria-hidden="true" size="16" class="info-icon" />
-            {{ selectedShareType === 'full' ? t('hint-with-docs') : t('hint-without-docs') }}
-          </p>
         </div>
         <div class="btn-wrapper">
           <button 
@@ -89,8 +85,7 @@ import {
   RiFileCopyLine, 
   RiEyeLine, 
   RiErrorWarningLine,
-  RiArrowRightLine,
-  RiInformationLine
+  RiArrowRightLine
 } from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -181,16 +176,7 @@ async function copyLink() {
 
 .select-wrapper {
   flex: 1;
-  max-width: 400px;
-
-  .info-icon {
-    color: #0063cb;
-    vertical-align: middle;
-  }
-
-  .fr-hint-text {
-    color: #0063cb;
-  }
+  max-width: 500px;
 }
 
 .btn-wrapper {
@@ -262,8 +248,8 @@ async function copyLink() {
     "expires-in-days": "EXPIRES IN 15 DAYS",
     "with-or-without-docs": "WITH OR WITHOUT DOCUMENTS",
     "share-type-label": "Type of file to share",
-    "file-with-docs": "File with supporting documents",
-    "file-without-docs": "File without supporting documents",
+    "file-with-docs": "Complete file with your supporting documents",
+    "file-without-docs": "File with information only (no documents)",
     "hint-with-docs": "Your complete file, with supporting documents.",
     "hint-without-docs": "Information about your situation, without supporting documents.",
     "get-link": "Get the link",
@@ -290,8 +276,8 @@ async function copyLink() {
     "expires-in-days": "EXPIRERA DANS 15 JOURS",
     "with-or-without-docs": "AVEC OU SANS DOCUMENTS",
     "share-type-label": "Type de dossier à partager",
-    "file-with-docs": "Dossier avec documents justificatifs",
-    "file-without-docs": "Dossier sans documents justificatifs",
+    "file-with-docs": "Dossier complet avec vos documents justificatifs",
+    "file-without-docs": "Dossier avec informations seulement (sans documents)",
     "hint-with-docs": "Votre dossier complet, avec pièces justificatives.",
     "hint-without-docs": "Les informations sur votre situation, sans pièces justificatives.",
     "get-link": "Obtenir le lien",

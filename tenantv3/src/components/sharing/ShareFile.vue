@@ -18,6 +18,7 @@
         <p class="fr-text--sm fr-mb-2w">{{ t('generate-link') }}</p>
         <p class="fr-text--sm fr-mb-1w">{{ t('required-inputs') }}</p>
         <div class="share-form-row">
+          <!-- TODO : migrate to FieldTextField -->
           <Field
             v-slot="{ field, meta }"
             v-model="linkTitle"
