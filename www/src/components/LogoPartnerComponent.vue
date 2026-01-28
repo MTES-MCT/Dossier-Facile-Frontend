@@ -44,12 +44,20 @@ const props = withDefaults(
   }
 )
 
-const imageAlt = computed(
-  () => props.title ?? `aller sur le site « ${props.name} » (nouvelle fenêtre)`
-)
+const imageAlt = computed(() => props.title ?? `aller sur le site ${props.name} (nouvelle fenêtre)`)
 </script>
 
 <style scoped>
+.logo-container:focus-within {
+  outline-style: solid;
+  outline-color: #0a76f6;
+}
+a.logo-link:focus {
+  outline-style: none;
+}
+a.logo-link:active {
+  background: none;
+}
 a.logo-link::after {
   content: none;
 }

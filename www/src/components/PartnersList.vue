@@ -1,8 +1,7 @@
 <template>
   <div class="fr-mb-7w">
     <h2 class="fr-h2 text-center">
-      {{ title }}
-      <slot v-if="!title" name="title"></slot>
+      <slot name="title">{{ title }}</slot>
     </h2>
     <div class="fr-container">
       <ul class="fr-grid-row fr-grid-row--gutters" role="list">
