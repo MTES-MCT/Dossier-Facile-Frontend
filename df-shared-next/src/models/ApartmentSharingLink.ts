@@ -8,6 +8,7 @@ export type ApartmentSharingLink = {
   id: number
   firstVisit: string
   lastVisit: string
+  lastMailSentDate?: string
   nbVisits: number
   ownerEmail: string
   title: string

@@ -134,7 +134,7 @@
             <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
           </button>
           <p class="fr-text-mention--grey fr-text--sm fr-mb-0">
-            {{ t('last-sent', { date: formatDateTime(link.lastVisit || link.creationDate) }) }}
+            {{ t('last-sent', { date: formatDateTime(link.lastMailSentDate || link.creationDate) }) }}
           </p>
         </div>
       </div>
@@ -221,8 +221,15 @@ async function resendMail() {
     await ApartmentSharingLinkService.resendLink(link)
     toast.success(t('mail-resent'), null)
     emit('refresh')
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(error)
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number } }
+      if (axiosError.response?.status === 429) {
+        toast.error(t('too-many-requests'), null)
+        return
+      }
+    }
     toast.error(t('error'), null)
   }
 }
@@ -466,7 +473,8 @@ h3 {
     "email-sent-to": "Email sent to",
     "resend-mail": "Resend share by email",
     "mail-resent": "Email resent successfully",
-    "last-sent": "Last sent: {date}"
+    "last-sent": "Last sent: {date}",
+    "too-many-requests": "You have already sent a sharing link less than an hour ago. Please try again after this delay."
   },
   "fr": {
     "general-info":"Informations générales",
@@ -497,7 +505,8 @@ h3 {
     "email-sent-to": "Envoi par email à l'adresse",
     "resend-mail": "Renvoyer le partage par mail",
     "mail-resent": "Email renvoyé avec succès",
-    "last-sent": "Dernier envoi : {date}"
+    "last-sent": "Dernier envoi : {date}",
+    "too-many-requests": "Vous avez déjà envoyé un lien de partage il y a moins d'une heure. Merci de réessayer une fois ce délai écoulé."
   }
 }
 </i18n>
