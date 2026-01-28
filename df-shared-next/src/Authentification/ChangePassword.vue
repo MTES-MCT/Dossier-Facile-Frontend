@@ -22,8 +22,7 @@
                   :class="{
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid
-                  }"
-                  placeholder="DF-DC520!x"
+                  }"                  
                   type="password"
                   autocomplete="new-password"
                 />

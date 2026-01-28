@@ -75,8 +75,9 @@
 
 <script setup lang="ts">
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
-import { ref, watch, nextTick, useTemplateRef, onMounted, useId } from 'vue'
+import { ref, watch, nextTick, useTemplateRef, onMounted, onUnmounted, useId } from 'vue'
 import { useI18n } from 'vue-i18n'
+import debounce from 'lodash.debounce'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 
 const { t } = useI18n()
@@ -169,24 +170,26 @@ function handlePaste(event: ClipboardEvent) {
 }
 
 function checkAndSubmit() {
-  const fullTrigram = trigram.value.join('')
-  // Submit when we have at least 2 characters (for short names like "Xu")
-  if (fullTrigram.length >= 2 && (fullTrigram.length === 3 || trigram.value[2] === '')) {
-    // Wait a bit for UX before submitting
-    setTimeout(() => {
-      const finalTrigram = trigram.value.join('')
-      if (finalTrigram.length >= 2) {
-        emit('submit', finalTrigram)
-      }
-    }, 1000)
-  }
+  debouncedSubmit(trigram.value.join(''))
 }
+
+const debouncedSubmit = debounce((trigramValue: string) => {
+  // Submit when we have at least 2 characters (for short names like "Xu")
+  if (trigramValue.length >= 2 && (trigramValue.length === 3 || trigram.value[2] === '')) {
+    emit('submit', trigramValue)
+  }
+}, 1000)
 
 // Focus on first input when component is mounted (RGAA: focus initial)
 onMounted(() => {
   nextTick(() => {
     inputRefs.value?.[0]?.focus()
   })
+})
+
+// Cancel debounced function on unmount to prevent memory leaks
+onUnmounted(() => {
+  debouncedSubmit.cancel()
 })
 
 // Watch for error to reset inputs and focus (only for 3-letter trigrams)
