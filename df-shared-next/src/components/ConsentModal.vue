@@ -176,15 +176,15 @@ modalStore.$subscribe(
 const acceptAll = () => {
   crispChoice.value = true
   matomoChoice.value = true
-  Consent.acceptAll()
-  emit('choiceMade')
+  // Consent.acceptAll()
+  // emit('choiceMade')
 }
 
 const rejectAll = () => {
   crispChoice.value = false
   matomoChoice.value = false
-  Consent.rejectAll()
-  emit('choiceMade')
+  // Consent.rejectAll()
+  // emit('choiceMade')
 }
 
 const confirm = () => {
