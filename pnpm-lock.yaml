@@ -123,6 +123,9 @@ importers:
       js-cookie:
         specifier: 3.0.5
         version: 3.0.5
+      pinia:
+        specifier: 'catalog:'
+        version: 3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       sass:
         specifier: 'catalog:'
         version: 1.96.0
@@ -5339,8 +5342,8 @@ packages:
   vue-component-type-helpers@2.2.12:
     resolution: {integrity: sha512-YbGqHZ5/eW4SnkPNR44mKVc6ZKQoRs/Rux1sxC6rdwXb4qpbOSYfDr9DsTHolOTGmIKgM9j141mZbBeg05R1pw==}
 
-  vue-component-type-helpers@3.2.3:
-    resolution: {integrity: sha512-lpJTa8a+12Cgy/n5OdlQTzQhSWOCu+6zQoNFbl3KYxwAoB95mYIgMLKEYMvQykPJ2ucBDjJJISdIBHc1d9Hd3w==}
+  vue-component-type-helpers@3.2.4:
+    resolution: {integrity: sha512-05lR16HeZDcDpB23ku5b5f1fBOoHqFnMiKRr2CiEvbG5Ux4Yi0McmQBOET0dR0nxDXosxyVqv67q6CzS3AK8rw==}
 
   vue-docgen-api@4.79.2:
     resolution: {integrity: sha512-n9ENAcs+40awPZMsas7STqjkZiVlIjxIKgiJr5rSohDP0/JCrD9VtlzNojafsA1MChm/hz2h3PDtUedx3lbgfA==}
@@ -7304,7 +7307,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.18(typescript@5.9.2)
-      vue-component-type-helpers: 3.2.3
+      vue-component-type-helpers: 3.2.4
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     dependencies:
@@ -10676,7 +10679,7 @@ snapshots:
 
   vue-component-type-helpers@2.2.12: {}
 
-  vue-component-type-helpers@3.2.3: {}
+  vue-component-type-helpers@3.2.4: {}
 
   vue-docgen-api@4.79.2(vue@3.5.18(typescript@5.9.2)):
     dependencies:
