@@ -143,9 +143,9 @@ const handleCopyLink = async () => {
     try {
       const fullUrl = `${globalThis.location.origin}${props.link.url}`
       await navigator.clipboard.writeText(fullUrl)
-      toast.success(t('link-copied'))
+      toast.success(t('link-copied'), null)
     } catch {
-      toast.error(t('copy-error'))
+      toast.error(t('copy-error'), null)
     }
   }
 }
@@ -154,10 +154,10 @@ const handleTogglePause = async () => {
   try {
     await ApartmentSharingLinkService.updateLinkStatus(props.link, !props.link.enabled)
     emit('refresh')
-    toast.success(props.link.enabled ? t('pause-success') : t('reactivate-success'))
+    toast.success(props.link.enabled ? t('pause-success') : t('reactivate-success'), null)
   } catch (error) {
     console.error(error)
-    toast.error(t('pause-error'))
+    toast.error(t('pause-error'), null)
   }
 }
 
@@ -165,10 +165,10 @@ const handleResendMail = async () => {
   try {
     await ApartmentSharingLinkService.resendLink(props.link)
     emit('refresh')
-    toast.success(t('resend-success'))
+    toast.success(t('resend-success'), null)
   } catch (error) {
     console.error(error)
-    toast.error(t('resend-error'))
+    toast.error(t('resend-error'), null)
   }
 }
 
@@ -176,10 +176,10 @@ const handleDelete = async () => {
   try {
     await ApartmentSharingLinkService.deleteLink(props.link)
     emit('refresh')
-    toast.success(t('delete-success'))
+    toast.success(t('delete-success'), null)
   } catch (error) {
     console.error(error)
-    toast.error(t('delete-error'))
+    toast.error(t('delete-error'), null)
   }
 }
 </script>

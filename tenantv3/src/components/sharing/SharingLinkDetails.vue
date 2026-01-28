@@ -6,8 +6,8 @@
         <table class="table">
           <thead class="sr-only">
             <tr>
-              <th>{{ t('property') }}</th>
-              <th>{{ t('value') }}</th>
+              <th scope="col">{{ t('property') }}</th>
+              <th scope="col">{{ t('value') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -78,8 +78,8 @@
         <table class="table">
           <thead class="sr-only">
             <tr>
-              <th>{{ t('property') }}</th>
-              <th>{{ t('value') }}</th>
+              <th scope="col">{{ t('property') }}</th>
+              <th scope="col">{{ t('value') }}</th>
             </tr>
           </thead>
           <tbody>

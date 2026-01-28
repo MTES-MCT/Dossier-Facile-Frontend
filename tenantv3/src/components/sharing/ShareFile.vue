@@ -250,7 +250,8 @@ const isValidEmail = (email: string): boolean => {
   return true
 }
 
-const emailValidation = (value: string) => {
+const emailValidation = (value: unknown) => {
+  if (typeof value !== 'string') return true
   if (!value && activeTab.value === 1) {
     return t('field-required')
   }
@@ -260,7 +261,8 @@ const emailValidation = (value: string) => {
   return true
 }
 
-const messageValidation = (value: string) => {
+const messageValidation = (value: unknown) => {
+  if (typeof value !== 'string') return true
   if (!value && activeTab.value === 1) {
     return t('message-required')
   }
@@ -376,7 +378,7 @@ async function submit(event: Event) {
     AnalyticsService.sharingNew('link', fullData ? 'full' : 'limited')
     try {
       const response = await ShareService.createLink({ title, fullData, daysValid })
-      fileLink.value = `${window.location.origin}${response.data}`
+      fileLink.value = `${globalThis.location.origin}${response.data}`
       linkForm.reset()
       resetForm()
       resetShareType()

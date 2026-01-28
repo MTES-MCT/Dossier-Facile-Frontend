@@ -29,29 +29,28 @@
 
       <section class="fr-mt-5w fr-mb-3w">
         <div class="fr-tabs">
-          <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
-            <li v-for="(tenant, k) in tenantsWithName" :key="`li${k}`" role="presentation">
-              <button
-                :id="`tabpanel-${k}`"
-                class="fr-tabs__tab fr-tabs__tab--icon-right"
-                :class="{
-                  'fr-fi-icon-fc-right': tenant.franceConnect && tenant.ownerType === 'SELF'
-                }"
-                :tabindex="tabIndex === k ? 0 : -1"
-                role="tab"
-                aria-selected="false"
-                :aria-controls="`tabpanel-${k}-panel`"
-              >
-                {{ UtilsService.tenantFullName(tenant) }}
-              </button>
-            </li>
-          </ul>
+          <div class="fr-tabs__list" role="tablist" aria-label="tab-list">
+            <button
+              v-for="(tenant, k) in tenantsWithName"
+              :id="`tabpanel-${k}`"
+              :key="`tab${k}`"
+              class="fr-tabs__tab fr-tabs__tab--icon-right"
+              :class="{
+                'fr-fi-icon-fc-right': tenant.franceConnect && tenant.ownerType === 'SELF'
+              }"
+              :tabindex="tabIndex === k ? 0 : -1"
+              role="tab"
+              aria-selected="false"
+              :aria-controls="`tabpanel-${k}-panel`"
+            >
+              {{ UtilsService.tenantFullName(tenant) }}
+            </button>
+          </div>
           <div
             v-for="(tenant, k) in tenantsWithName"
             :id="`tabpanel-${k}-panel`"
             :key="`t${k}`"
             class="fr-tabs__panel"
-            aria-selected="false"
             role="tabpanel"
             :tabindex="k"
           >
@@ -309,8 +308,8 @@ function downloadFile(url: string) {
   ProfileService.getFile(url)
     .then((response) => {
       const blob = new Blob([response.data], { type: 'application/pdf' })
-      const link = window.document.createElement('a')
-      link.href = window.URL.createObjectURL(blob)
+      const link = globalThis.document.createElement('a')
+      link.href = globalThis.URL.createObjectURL(blob)
       // Récupère le nom du fichier depuis le header Content-Disposition
       const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.pdf')
       link.download = fileName
