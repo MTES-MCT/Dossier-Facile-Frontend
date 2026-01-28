@@ -10,8 +10,8 @@ catalogs:
       specifier: 1.13.2
       version: 1.13.2
     '@gouvminint/vue-dsfr':
-      specifier: 8.4.0
-      version: 8.4.0
+      specifier: 8.13.1
+      version: 8.13.1
     '@intlify/unplugin-vue-i18n':
       specifier: 6.0.8
       version: 6.0.8
@@ -110,7 +110,7 @@ importers:
         version: 1.13.2
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
-        version: 8.4.0(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+        version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.4.0
         version: 4.4.0(vue@3.5.18(typescript@5.9.2))
@@ -372,7 +372,7 @@ importers:
         version: 1.13.2
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
-        version: 8.4.0(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+        version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.6.0
         version: 4.6.0(vue@3.5.18(typescript@5.9.2))
@@ -1599,9 +1599,13 @@ packages:
     resolution: {integrity: sha512-4Q9ggFFzwD/KFr37sJO1hFH9PcqlZ7F3jMiFJXnBLJfkH1+s28vnQp/oXoY8TosWsLMSjdhNCrxvrUdm5XzBlg==}
     engines: {node: '>=18.16.1'}
 
-  '@gouvminint/vue-dsfr@8.4.0':
-    resolution: {integrity: sha512-PyFnA9REL6ZYjPyxfF1kRw53nr8ANT/m67qPPG/lAExvbT7yq7xwHtGRALPJquDKHmb+QXUwpyWuaDD7IJnbKw==}
-    engines: {node: '>=20.x.x', npm: '>=10.x.x'}
+  '@gouvfr/dsfr@1.14.3':
+    resolution: {integrity: sha512-UTplClQLp635J4vRHx/rJ7SKEi+bepc1FisvzTS8efQGQ3Gm8LttZf11NJ+4XhEMYLbCf8TBvFFwWBZ9ztRFkg==}
+    engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
+
+  '@gouvminint/vue-dsfr@8.13.1':
+    resolution: {integrity: sha512-BejnuRuFrEfVbl+hUweOk8k5lUhFRCNf4OPR7qTKLHSvvbAZehCvciBpu92GYrv9nuVW61AtPgbqjY/9CqGCNQ==}
+    engines: {node: '>=22.0.0', pnpm: '>=10.0.0'}
     hasBin: true
     peerDependencies:
       '@iconify/vue': ^4.2.0
@@ -5404,6 +5408,7 @@ packages:
   vue-i18n@11.1.11:
     resolution: {integrity: sha512-LvyteQoXeQiuILbzqv13LbyBna/TEv2Ha+4ZWK2AwGHUzZ8+IBaZS0TJkCgn5izSPLcgZwXy9yyTrewCb2u/MA==}
     engines: {node: '>= 16'}
+    deprecated: This version is NOT deprecated. Previous deprecation was a mistake.
     peerDependencies:
       vue: ^3.0.0
 
@@ -5492,6 +5497,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -6615,9 +6621,11 @@ snapshots:
 
   '@gouvfr/dsfr@1.13.2': {}
 
-  '@gouvminint/vue-dsfr@8.4.0(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))':
+  '@gouvfr/dsfr@1.14.3': {}
+
+  '@gouvminint/vue-dsfr@8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))':
     dependencies:
-      '@gouvfr/dsfr': 1.13.2
+      '@gouvfr/dsfr': 1.14.3
       '@iconify/vue': 4.3.0(vue@3.5.18(typescript@5.9.2))
       focus-trap: 7.6.6
       focus-trap-vue: 4.1.0(focus-trap@7.6.6)(vue@3.5.18(typescript@5.9.2))
