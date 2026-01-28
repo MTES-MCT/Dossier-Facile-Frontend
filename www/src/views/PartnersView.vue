@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { useHead } from '@unhead/vue'
+import { useSeoMeta } from '@unhead/vue'
 import image from '../assets/cover-features.webp'
 import { useI18n } from 'vue-i18n'
 import PartnersList from '@/components/PartnersList.vue'
@@ -55,19 +55,21 @@ const { t } = useI18n()
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
 import { INSTITUTIONAL_PARTNERS, PARTNERS } from '../models/PartnerModel'
 
-const title = 'Les partenaires de DossierFacile'
+const title = 'Partenaires'
 const description = 'Liste de tous les organismes avec lesquels DossierFacile est en partenariat.'
-useHead({
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
 

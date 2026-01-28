@@ -81,17 +81,22 @@
   </section>
 </template>
 <script setup lang="ts">
-import { useHead } from '@unhead/vue'
+import { useSeoMeta } from '@unhead/vue'
 
-useHead({
-  title: 'Mentions légales - DossierFacile',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'DossierFacile s’engage à protéger vos données personnelles : créez votre dossier de location en toute sécurité'
-    }
-  ]
+const title = 'Mentions légales'
+const description =
+  'DossierFacile s’engage à protéger vos données personnelles : créez votre dossier de location en toute sécurité'
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
+  title: title,
+  description: description,
+  ogTitle: seoTitle,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterDescription: description
 })
 </script>
 
