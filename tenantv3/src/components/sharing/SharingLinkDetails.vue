@@ -4,9 +4,15 @@
       <div class="section">
         <h3 class="fr-text--sm blue-text fr-mb-0">{{ t('general-info') }}</h3>
         <table class="table">
+          <thead class="sr-only">
+            <tr>
+              <th>{{ t('property') }}</th>
+              <th>{{ t('value') }}</th>
+            </tr>
+          </thead>
           <tbody>
             <tr v-if="isLinkOrMail" :class="{ 'title-row-editing': isEditingTitle }">
-              <td class="fr-text-mention--grey">{{ t('title-of-share') }}</td>
+              <th scope="row" class="fr-text-mention--grey">{{ t('title-of-share') }}</th>
               <td class="title-cell">
                 <div v-if="!isEditingTitle" class="title-display">
                   <span>{{ link.title }}</span>
@@ -28,11 +34,11 @@
               </td>
             </tr>
             <tr>
-              <td class="fr-text-mention--grey">{{ t('created-on') }}</td>
+              <th scope="row" class="fr-text-mention--grey">{{ t('created-on') }}</th>
               <td>{{ formatDate(link.creationDate) }}</td>
             </tr>
             <tr v-if="isLinkOrMail">
-              <td class="fr-text-mention--grey">{{ t('expires-on') }}</td>
+              <th scope="row" class="fr-text-mention--grey">{{ t('expires-on') }}</th>
               <td class="expiration-cell">
                 <template v-if="!isEditingExpiration">
                   {{ formatDate(link.expirationDate) }}
@@ -61,7 +67,7 @@
               </td>
             </tr>
             <tr>
-              <td class="fr-text-mention--grey">{{ t('created-by') }}</td>
+              <th scope="row" class="fr-text-mention--grey">{{ t('created-by') }}</th>
               <td>{{ link.createdBy || '-' }}</td>
             </tr>
           </tbody>
@@ -70,17 +76,23 @@
       <div class="section">
         <h3 class="fr-text--sm blue-text fr-mb-0">{{ t('usage-stats') }}</h3>
         <table class="table">
+          <thead class="sr-only">
+            <tr>
+              <th>{{ t('property') }}</th>
+              <th>{{ t('value') }}</th>
+            </tr>
+          </thead>
           <tbody>
             <tr>
-              <td class="fr-text-mention--grey">{{ t('first-consultation') }}</td>
+              <th scope="row" class="fr-text-mention--grey">{{ t('first-consultation') }}</th>
               <td>{{ link.nbVisits > 0 ? formatDate(link.lastVisit) : t('no-consultation') }}</td>
             </tr>
             <tr>
-              <td class="fr-text-mention--grey">{{ t('last-consultation') }}</td>
+              <th scope="row" class="fr-text-mention--grey">{{ t('last-consultation') }}</th>
               <td>{{ link.nbVisits > 0 ? formatDate(link.lastVisit) : t('no-consultation') }}</td>
             </tr>
             <tr>
-              <td class="fr-text-mention--grey">{{ t('nb-consultations') }}</td>
+              <th scope="row" class="fr-text-mention--grey">{{ t('nb-consultations') }}</th>
               <td>{{ link.nbVisits }}</td>
             </tr>
           </tbody>
@@ -295,17 +307,31 @@ async function saveTitle() {
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding: 8px 0;
-    td + td {
+    th {
+      font-weight: normal;
+    }
+    td, th + td {
       flex: 1;
       text-align: right;
     }
   }
   tr.title-row-editing {
     align-items: flex-start;
-    td:first-child {
+    th:first-child {
       padding-top: 0.625rem;
     }
   }
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 .info {
   background-color: white;
@@ -445,6 +471,8 @@ h3 {
 <i18n>
 {
   "en": {
+    "property": "Property",
+    "value": "Value",
     "general-info":"General information",
     "title-of-share": "Title of the share",
     "update": "Update",
@@ -477,6 +505,8 @@ h3 {
     "too-many-requests": "You have already sent a sharing link less than an hour ago. Please try again after this delay."
   },
   "fr": {
+    "property": "Propriété",
+    "value": "Valeur",
     "general-info":"Informations générales",
     "title-of-share": "Titre du partage",
     "update": "Modifier",
