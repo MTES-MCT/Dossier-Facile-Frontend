@@ -39,6 +39,7 @@ import SharingLinksHistory from '@/components/sharing/SharingLinksHistory.vue'
 import DeletedSharingLinks from '@/components/sharing/DeletedSharingLinks.vue'
 import dayjs from 'dayjs'
 import { useTenantStore } from '@/stores/tenant-store'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -46,8 +47,12 @@ const store = useTenantStore()
 const sharingLinks = ref<ApartmentSharingLink[]>([])
 
 async function refreshData() {
-  // TODO: handle errors
-  sharingLinks.value = (await ApartmentSharingLinkService.getLinks()).data.links || []
+  try {
+    sharingLinks.value = (await ApartmentSharingLinkService.getLinks()).data.links || []
+  } catch (error) {
+    console.error(error)
+    toast.error(t('load-error'), null)
+  }
 }
 
 onBeforeMount(refreshData)
@@ -77,13 +82,15 @@ const deletedLinks = computed(() => sharingLinks.value.filter((l) => !isActiveLi
     "your-shares": "Your shares",
     "report-suspicious-use": "Report suspicious use of your documents",
     "if-you-are-a-victim": "If you believe your documents have been used fraudulently, you can report it on service-public.fr or get help on official websites.",
-    "report-issue": "Report an issue on service-public.fr"
+    "report-issue": "Report an issue on service-public.fr",
+    "load-error": "Unable to load your shares. Please try again later."
   },
   "fr": {
     "your-shares": "Vos partages",
     "report-suspicious-use": "Signaler un usage suspect de vos documents",
     "if-you-are-a-victim": "Si vous pensez être victime d'un usage frauduleux de vos documents, vous pouvez faire un signalement sur service-public.fr ou obtenir de l'aide sur des sites officiels.",
-    "report-issue": "Faire un signalement sur service-public.fr"
+    "report-issue": "Faire un signalement sur service-public.fr",
+    "load-error": "Impossible de charger vos partages. Veuillez réessayer plus tard."
   }
 }
 </i18n>
