@@ -6,16 +6,6 @@
       <p class="fr-mb-2w">
         {{ t('description-1') }} <strong>{{ t('description-bold-1') }}</strong> {{ t('description-2') }} <strong>{{ t('description-bold-2') }}</strong>
       </p>
-      <div class="badges-row fr-mb-2w">
-        <span class="fr-badge fr-badge--new fr-badge--sm fr-badge--no-icon">
-          <RiTimerLine aria-hidden="true" size="12" class="badge-icon fr-mr-1v" />
-          {{ t('expires-in-days') }}
-        </span>
-        <span class="fr-badge fr-badge--new fr-badge--sm fr-badge--no-icon">
-          <RiLockLine aria-hidden="true" size="12" class="badge-icon fr-mr-1v" />
-          {{ t('with-or-without-docs') }}
-        </span>
-      </div>
       <div class="form-row fr-mb-2w">
         <div class="select-wrapper fr-mb-0w">
           <DsfrSelect
@@ -39,6 +29,16 @@
       </div>
       <!-- Only visible after clicking the getLink button -->
       <div v-if="generatedLink" class="link-result">
+        <div class="link-badges fr-mb-2w">
+          <span class="link-badge">
+            <RiTimerLine aria-hidden="true" size="16" class="badge-icon" />
+            {{ t('expires-in-n-days', { days: daysUntilExpiration }) }}
+          </span>
+          <span class="link-badge">
+            <RiLockLine aria-hidden="true" size="16" class="badge-icon" />
+            {{ generatedLink.fullData ? t('badge-with-docs') : t('badge-without-docs') }}
+          </span>
+        </div>
         <div class="link-display">
           <p class="link-url fr-mb-0">{{ fullUrl }}</p>
         </div>
@@ -91,6 +91,7 @@ import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkServ
 import { AnalyticsService } from '@/services/AnalyticsService'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { toast } from '@/components/toast/toastUtils'
+import dayjs from 'dayjs'
 
 const { t } = useI18n()
 
@@ -107,6 +108,11 @@ const shareTypeOptions = computed(() => [
 const fullUrl = computed(() => {
   if (!generatedLink.value?.url) return ''
   return `${globalThis.location.origin}${generatedLink.value.url}`
+})
+
+const daysUntilExpiration = computed(() => {
+  if (!generatedLink.value?.expirationDate) return 0
+  return dayjs(generatedLink.value.expirationDate).diff(dayjs(), 'day')
 })
 
 async function getLink() {
@@ -156,13 +162,6 @@ async function copyLink() {
   box-shadow: 0 2px 6px 0 rgba(0, 0, 18, 0.16);
 }
 
-.badges-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-
-}
-
 .form-row {
   display: flex;
   flex-direction: column;
@@ -192,6 +191,30 @@ async function copyLink() {
   background-color: #ececfe;
   padding: 12px;
   overflow: hidden;
+}
+
+.link-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.link-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--light-options-illustration-color-sun-default-brown-caramel-sun-425, #845d48);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-transform: uppercase;
+  padding: 0 6px;
+  border-radius: 4px;
+
+  .badge-icon {
+    flex-shrink: 0;
+  }
 }
 
 .link-display {
@@ -245,8 +268,6 @@ async function copyLink() {
     "description-bold-1": "Share it",
     "description-2": "only with",
     "description-bold-2": "people you trust.",
-    "expires-in-days": "EXPIRES IN 15 DAYS",
-    "with-or-without-docs": "WITH OR WITHOUT DOCUMENTS",
     "share-type-label": "Type of file to share",
     "file-with-docs": "Complete file with your supporting documents",
     "file-without-docs": "File with information only (no documents)",
@@ -264,7 +285,10 @@ async function copyLink() {
     "tracking-description": "Create personalized links, control access, set expiration dates and track activity in real time.",
     "view-shares": "View my file shares",
     "error": "An error occurred",
-    "copy-error": "Unable to copy. Please try again."
+    "copy-error": "Unable to copy. Please try again.",
+    "expires-in-n-days": "EXPIRES IN {days} DAYS",
+    "badge-with-docs": "WITH DOCUMENTS",
+    "badge-without-docs": "WITHOUT DOCUMENTS"
   },
   "fr": {
     "badge-validated": "DOSSIER VALIDÉ",
@@ -273,8 +297,6 @@ async function copyLink() {
     "description-bold-1": "Partagez-le",
     "description-2": "uniquement avec",
     "description-bold-2": "des personnes de confiance.",
-    "expires-in-days": "EXPIRERA DANS 15 JOURS",
-    "with-or-without-docs": "AVEC OU SANS DOCUMENTS",
     "share-type-label": "Type de dossier à partager",
     "file-with-docs": "Dossier complet avec vos documents justificatifs",
     "file-without-docs": "Dossier avec informations seulement (sans documents)",
@@ -292,7 +314,10 @@ async function copyLink() {
     "tracking-description": "Créez des liens personnalisés, contrôlez les accès, définissez des dates d'expiration et suivez l'activité en temps réel.",
     "view-shares": "Voir mes partages de dossier",
     "error": "Une erreur est survenue",
-    "copy-error": "Impossible de copier. Veuillez réessayer."
+    "copy-error": "Impossible de copier. Veuillez réessayer.",
+    "expires-in-n-days": "EXPIRE DANS {days} JOURS",
+    "badge-with-docs": "AVEC DOCUMENTS",
+    "badge-without-docs": "SANS DOCUMENTS"
   }
 }
 </i18n>
