@@ -999,6 +999,11 @@
   "errors": {
     "invalid-file-extension": "Cette extension n'est pas valide. Seuls les fichiers en .jpg, .png, .pdf ou .heic sont acceptés",
     "no-file": "Ajoutez au moins un fichier pour continuer",
-    "submit-failed": "Impossible d’envoyer le formulaire. Veuillez réessayer."
+    "submit-failed": "Impossible d'envoyer le formulaire. Veuillez réessayer."
+  },
+  "resend-mail": {
+    "success": "Email renvoyé avec succès",
+    "error": "Erreur lors de l'envoi de l'email",
+    "too-many-requests": "Vous avez déjà envoyé un lien de partage il y a moins d'une heure. Merci de réessayer une fois ce délai écoulé."
   }
 }

@@ -120,12 +120,14 @@ import SharingLinkDetails from './SharingLinkDetails.vue'
 import ShareActionsMenu from './ShareActionsMenu.vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { useResendMail } from '@/composables/useResendMail'
 import { toast } from '../toast/toastUtils'
 
 const props = defineProps<{ link: ApartmentSharingLink }>()
 const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
+const { resendMail } = useResendMail()
 
 const expanded = ref(false)
 
@@ -162,13 +164,8 @@ const handleTogglePause = async () => {
 }
 
 const handleResendMail = async () => {
-  try {
-    await ApartmentSharingLinkService.resendLink(props.link)
+  if (await resendMail(props.link)) {
     emit('refresh')
-    toast.success(t('resend-success'), null)
-  } catch (error) {
-    console.error(error)
-    toast.error(t('resend-error'), null)
   }
 }
 
@@ -351,8 +348,6 @@ const handleDelete = async () => {
     "pause-success": "Sharing paused",
     "reactivate-success": "Sharing reactivated",
     "pause-error": "Error updating sharing status",
-    "resend-success": "Email resent successfully",
-    "resend-error": "Error resending email",
     "delete-success": "Sharing deleted",
     "delete-error": "Error deleting sharing",
     "with-docs": "Full file with supporting documents",
@@ -373,8 +368,6 @@ const handleDelete = async () => {
     "pause-success": "Partage mis en pause",
     "reactivate-success": "Partage réactivé",
     "pause-error": "Erreur lors de la mise à jour du statut",
-    "resend-success": "Email renvoyé avec succès",
-    "resend-error": "Erreur lors de l'envoi de l'email",
     "delete-success": "Partage supprimé",
     "delete-error": "Erreur lors de la suppression du partage",
     "with-docs": "Dossier complet avec justificatifs",
