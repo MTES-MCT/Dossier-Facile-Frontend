@@ -368,18 +368,23 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
 import cookies from 'js-cookie'
-import { useHead } from '@unhead/vue'
+import { useSeoMeta } from '@unhead/vue'
 import { DsfrCheckbox } from '@gouvminint/vue-dsfr'
 
-useHead({
-  title: 'Politique de confidentialité - DossierFacile',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'DossierFacile s’engage à protéger vos données personnelles : créez votre dossier de location en toute sécurité'
-    }
-  ]
+const title = 'Politique de confidentialité'
+const description =
+  'DossierFacile s’engage à protéger vos données personnelles : créez votre dossier de location en toute sécurité'
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
+  title: title,
+  description: description,
+  ogTitle: seoTitle,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterDescription: description
 })
 
 const consentRemoved = ref(false)

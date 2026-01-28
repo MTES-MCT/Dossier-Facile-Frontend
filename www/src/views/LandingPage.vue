@@ -239,27 +239,22 @@
 import { StatsService } from '../services/StatsService'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useHead } from '@unhead/vue'
+import { useHead, useSeoMeta } from '@unhead/vue'
 
 import imgJustif from '@icons/justif.webp'
 import PartnersList from '@/components/PartnersList.vue'
 
 import { INSTITUTIONAL_PARTNERS, PARTNERS } from '../models/PartnerModel'
 
-const title = 'Accueil - DossierFacile, le dossier de location numérique de l’État'
-const description =
-  "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
-useHead({
+const title = 'Accueil'
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: imgJustif },
-    { name: 'twitter:image', content: imgJustif }
-  ]
+  ogTitle: seoTitle,
+  twitterTitle: seoTitle
 })
 
 const { t } = useI18n()

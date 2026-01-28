@@ -469,16 +469,21 @@
   </section>
 </template>
 <script setup lang="ts">
-import { useHead } from '@unhead/vue'
+import { useSeoMeta } from '@unhead/vue'
 
-useHead({
-  title: 'CGU - DossierFacile',
-  meta: [
-    {
-      name: 'description',
-      content: "Conditions générales d'utilisation du service DossierFacile"
-    }
-  ]
+const title = 'CGU'
+const description = "Conditions générales d'utilisation du service DossierFacile"
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
+  title: title,
+  description: description,
+  ogTitle: seoTitle,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterDescription: description
 })
 </script>
 
