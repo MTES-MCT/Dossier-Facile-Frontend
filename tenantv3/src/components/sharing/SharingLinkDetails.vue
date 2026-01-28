@@ -136,7 +136,7 @@
             type="button"
             class="fr-btn fr-btn--secondary fr-btn--sm"
             :disabled="!link.enabled"
-            @click="resendMail"
+            @click="handleResendMail"
           >
             {{ t('resend-mail') }}
             <RiSendPlaneLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
@@ -161,6 +161,7 @@ import LinkWarning from './LinkWarning.vue'
 import { RiPauseCircleLine, RiCalendarLine, RiPencilLine, RiFileCopyLine, RiSendPlaneLine } from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { useResendMail } from '@/composables/useResendMail'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
@@ -171,6 +172,7 @@ const { link } = defineProps<{ link: ApartmentSharingLink }>()
 const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
+const { resendMail } = useResendMail()
 
 const isEditingExpiration = ref(false)
 const expirationDate = ref(link.expirationDate ? link.expirationDate.split('T')[0] : '')
@@ -227,22 +229,10 @@ async function copyLink() {
   }
 }
 
-async function resendMail() {
+async function handleResendMail() {
   AnalyticsService.sharingResendMail()
-  try {
-    await ApartmentSharingLinkService.resendLink(link)
-    toast.success(t('mail-resent'), null)
+  if (await resendMail(link)) {
     emit('refresh')
-  } catch (error: unknown) {
-    console.error(error)
-    if (error && typeof error === 'object' && 'response' in error) {
-      const axiosError = error as { response?: { status?: number } }
-      if (axiosError.response?.status === 429) {
-        toast.error(t('too-many-requests'), null)
-        return
-      }
-    }
-    toast.error(t('error'), null)
   }
 }
 
@@ -500,9 +490,7 @@ h3 {
     "resume-share": "Resume share",
     "email-sent-to": "Email sent to",
     "resend-mail": "Resend share by email",
-    "mail-resent": "Email resent successfully",
-    "last-sent": "Last sent: {date}",
-    "too-many-requests": "You have already sent a sharing link less than an hour ago. Please try again after this delay."
+    "last-sent": "Last sent: {date}"
   },
   "fr": {
     "property": "Propriété",
@@ -534,9 +522,7 @@ h3 {
     "resume-share": "Réactiver le partage",
     "email-sent-to": "Envoi par email à l'adresse",
     "resend-mail": "Renvoyer le partage par mail",
-    "mail-resent": "Email renvoyé avec succès",
-    "last-sent": "Dernier envoi : {date}",
-    "too-many-requests": "Vous avez déjà envoyé un lien de partage il y a moins d'une heure. Merci de réessayer une fois ce délai écoulé."
+    "last-sent": "Dernier envoi : {date}"
   }
 }
 </i18n>

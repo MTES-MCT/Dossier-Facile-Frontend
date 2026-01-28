@@ -1009,5 +1009,10 @@
     "invalid-file-extension": "This extension is not valid. Only .jpg, .png, .pdf or .heic are accepted",
     "no-file": "Add at least one file to continue",
     "submit-failed": "Unable to send the form. Please try again."
+  },
+  "resend-mail": {
+    "success": "Email resent successfully",
+    "error": "Error resending email",
+    "too-many-requests": "You have already sent a sharing link less than an hour ago. Please try again after this delay."
   }
 }
