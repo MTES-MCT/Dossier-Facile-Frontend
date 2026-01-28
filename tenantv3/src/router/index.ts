@@ -928,6 +928,15 @@ export const router = createRouter({
       component: () => import('../views/FilePage.vue')
     },
     {
+      path: '/mon-dossier',
+      name: 'MyFile',
+      meta: {
+        title: 'Mon Dossier - DossierFacile',
+        requiresAuth: true
+      },
+      component: () => import('../views/MyFile.vue')
+    },
+    {
       path: '/account',
       name: 'Account',
       meta: {
@@ -943,22 +952,13 @@ export const router = createRouter({
       component: () => import('../views/AccountPage.vue')
     },
     {
-      path: '/applications',
-      name: 'SharingPage',
-      meta: {
-        title: 'Vos candidatures - DossierFacile',
-        requiresAuth: true
-      },
-      component: () => import('../views/SharingPage.vue')
-    },
-    {
-      path: '/partners',
-      name: 'PartnerAccessPage',
+      path: '/partages',
+      name: 'SharingLinksPage',
       meta: {
         title: 'Vos partages - DossierFacile',
         requiresAuth: true
       },
-      component: () => import('../views/PartnerAccessPage.vue')
+      component: () => import('../views/SharingLinksPage.vue')
     },
     {
       path: '/messaging',
@@ -1060,7 +1060,6 @@ async function handleProtectedRoute(to: RouteLocationNormalized) {
       const store = useTenantStore()
       if (!store.user.id) {
         await store.loadUser()
-        await store.loadPartnerAccesses()
         store.updateMessages()
       }
     }

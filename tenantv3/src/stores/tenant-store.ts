@@ -2,7 +2,6 @@ import { AuthService } from '@/services/AuthService'
 import dayjs from 'dayjs'
 import 'dayjs/locale/en'
 import 'dayjs/locale/fr'
-import { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
 import { i18n } from '../i18n'
 
@@ -28,13 +27,10 @@ import {
   makeGuarantorCoupleActivityLink
 } from '@/components/mainActivity/lib/useMainActivityLink'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
-import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { MessageService } from '@/services/MessageService'
-import { PartnerAccessService } from '@/services/PartnerAccessService'
 import { RegisterService } from '@/services/RegisterService'
 import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import type { PartnerAccess } from 'df-shared-next/src/models/PartnerAccess'
 import cookies from 'js-cookie'
 import {
   makeGuarantorIdentityDocumentLink,
@@ -55,8 +51,6 @@ interface State {
   coTenants: User[]
   newMessage: number
   messageList: DfMessage[][]
-  apartmentSharingLinks: ApartmentSharingLink[]
-  partnerAccesses: PartnerAccess[]
 }
 
 type GuarantorType = {
@@ -73,9 +67,7 @@ function defaultState(): State {
     coTenantAuthorize: false,
     coTenants: [],
     newMessage: 0,
-    messageList: [],
-    apartmentSharingLinks: [],
-    partnerAccesses: []
+    messageList: []
   }
   return tenantState
 }
@@ -366,15 +358,6 @@ export const useTenantStore = defineStore('tenant', {
     },
     updateCoTenantAuthorize(authorize: boolean) {
       this.coTenantAuthorize = authorize
-    },
-    setPartnerAccesses(accesses: PartnerAccess[]) {
-      this.partnerAccesses = accesses
-    },
-    setApartmentSharingLinks(links: ApartmentSharingLink[]) {
-      const sortedLinks = links.sort((a: ApartmentSharingLink, b: ApartmentSharingLink) =>
-        (a.lastVisit || '') > (b.lastVisit || '') ? -1 : 1
-      )
-      this.apartmentSharingLinks = sortedLinks
     },
     logout() {
       return keycloak.logout({ redirectUri: LOGOUT_REDIRECT_URL }).then(() => {
@@ -722,44 +705,7 @@ export const useTenantStore = defineStore('tenant', {
       }
       return MessageService.markMessagesAsRead(tenantId)
     },
-    async loadApartmentSharingLinks() {
-      const response = await ApartmentSharingLinkService.getLinks()
-      const links = response.data.links || []
-      this.setApartmentSharingLinks(links)
-      return links
-    },
-    deleteApartmentSharingLink(linkToDelete: ApartmentSharingLink) {
-      ApartmentSharingLinkService.deleteLink(linkToDelete).then(() => {
-        const newLinks = this.apartmentSharingLinks.filter((link) => link.id !== linkToDelete.id)
-        this.setApartmentSharingLinks(newLinks)
-      })
-    },
-    async resendApartmentSharingLink(linkToResend: ApartmentSharingLink) {
-      await ApartmentSharingLinkService.resendLink(linkToResend)
-    },
 
-    async updateApartmentSharingLinkStatus(linkToUpdate: ApartmentSharingLink, enabled: boolean) {
-      await ApartmentSharingLinkService.updateLinkStatus(linkToUpdate, enabled)
-      const updatedLinks = this.apartmentSharingLinks.map((link) => {
-        if (link.id === linkToUpdate.id) {
-          link.enabled = enabled
-        }
-        return link
-      })
-      this.setApartmentSharingLinks(updatedLinks)
-    },
-    async loadPartnerAccesses() {
-      const response = await PartnerAccessService.getPartners()
-      const accesses = response.data || []
-      this.setPartnerAccesses(accesses)
-      return accesses
-    },
-    revokePartnerAccess(accessToRevoke: PartnerAccess) {
-      PartnerAccessService.revokeAccess(accessToRevoke).then(() => {
-        const newList = this.partnerAccesses.filter((access) => access.id !== accessToRevoke.id)
-        this.setPartnerAccesses(newList)
-      })
-    },
     async commentAnalysis(formData: unknown) {
       const response = await RegisterService.commentAnalysis(formData)
       this.loadUserCommit(response.data)

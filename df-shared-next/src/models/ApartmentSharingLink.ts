@@ -1,12 +1,21 @@
-export class ApartmentSharingLink {
-  id?: number
-  creationDate?: string
-  ownerEmail?: string
-  lastVisit?: string
-  enabled?: boolean
-  fullData?: boolean
+export type ApartmentSharingLink = {
+  createdBy?: string
+  creationDate: string
+  deleted: boolean
+  enabled: boolean
+  expirationDate: string
+  fullData: boolean
+  id: number
+  firstVisit: string
+  lastVisit: string
+  lastMailSentDate?: string
+  nbVisits: number
+  ownerEmail: string
+  title: string
+  type: 'MAIL' | 'LINK' | 'PARTNER' | 'OWNER'
+  url?: string
 }
 
-export class ApartmentSharingLinks {
+export type ApartmentSharingLinks = {
   links?: ApartmentSharingLink[]
 }

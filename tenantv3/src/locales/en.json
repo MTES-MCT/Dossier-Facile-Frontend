@@ -586,7 +586,6 @@
   "menu": {
     "help": "Help",
     "file": "Your File",
-    "applications": "Your applications",
     "shared": "Your shared data",
     "account": "My Account",
     "messaging": "Messaging",
@@ -949,54 +948,6 @@
   "modal": {
     "close": "Close",
     "close-alt": "Close modal window"
-  },
-  "sharing-page": {
-    "title": "Your applications",
-    "shared": "Your file is shared",
-    "disabled": "Your sharing is disabled",
-    "file-not-ready": {
-      "title": "Your file {0}",
-      "status": {
-        "TO_PROCESS": "is being processed",
-        "DECLINED": "requires modifications",
-        "INCOMPLETE": "is incomplete",
-        "VALIDATED": "is not fully validated"
-      },
-      "explanation": "As soon as it is validated, you will be able to share it and to manage the shared files below."
-    },
-    "shared-links": {
-      "title": "Shared files by email",
-      "date": "Date",
-      "contact": "Contact",
-      "last-visit": "Last visit",
-      "application-type": "Application type",
-      "link-status": "Status",
-      "action": "Action",
-      "enabled": "Enabled",
-      "disabled": "Disabled",
-      "delete": "Delete",
-      "never": "Never",
-      "no-shared-file": "No shared files yet",
-      "resend": "Resend",
-      "resend-too-many": "Cannot resend invitation link: a previous link was generated less than an hour ago. Please try again later.",
-      "resend-success": "Your file has been resent",
-      "resend-failed": "resend Failed! Try again later",
-      "enable-failed": "Unable to enable sharing of this file. Please try again.",
-      "disable-failed": "Unable to disable sharing of this file. Please try again."
-    }
-  },
-  "partners-page": {
-    "title": "My shared data",
-    "accesses": {
-      "title": "Partners with access to my data",
-      "date": "Date",
-      "since-date": "Since ",
-      "default-date": "Since 2023",
-      "partner": "Partner",
-      "action": "Action",
-      "revoke": "Revoke",
-      "no-access": "You didn't give access to any partner"
-    }
   },
   "404": {
     "title": "Page not found",
