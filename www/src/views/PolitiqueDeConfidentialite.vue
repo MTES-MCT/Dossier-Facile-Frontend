@@ -320,23 +320,18 @@
           “mode exempté” ne nécessitant pas le recueil du consentement des utilisateurs conformément
           aux recommandations de la CNIL.
         </p>
-        <label for="consentRemoved">
+        <p for="consentRemoved">
           Vous pouvez décider de ne jamais être suivi, même de manière anonyme sur DossierFacile :
-        </label>
-        <p class="fr-mt-1w">
-          <input
-            id="consentRemoved"
-            v-model="consentRemoved"
-            type="checkbox"
-            aria-describedby="consent-text"
-            @change="changeConsentRemoved"
-          />
-          <span v-if="consentRemoved" id="consent-text">
-            Vous n'êtes actuellement pas suivi‧e. Cookie d’exclusion installé
-          </span>
-          <span v-else id="consent-text"> Vous n'êtes actuellement pas exclu‧e. </span>
         </p>
-        <p>
+        <DsfrCheckbox
+          name="consent"
+          v-model="consentRemoved"
+          :value="true"
+          label="Je souhaite désactiver le suivi."
+          :hint="consentRemoved ? 'Cookie d’exclusion installé' : undefined"
+          @update:model-value="changeConsentRemoved"
+        />
+        <p class="fr-mt-2w">
           À tout moment, vous pouvez refuser l’utilisation des cookies et désactiver le dépôt sur
           votre ordinateur en utilisant la fonction dédiée de votre navigateur (fonction disponible
           notamment sur Microsoft Internet Explorer 11, Google Chrome, Mozilla Firefox, Apple Safari
@@ -374,6 +369,7 @@
 import { onBeforeMount, ref } from 'vue'
 import cookies from 'js-cookie'
 import { useHead } from '@unhead/vue'
+import { DsfrCheckbox } from '@gouvminint/vue-dsfr'
 
 useHead({
   title: 'Politique de confidentialité - DossierFacile',
