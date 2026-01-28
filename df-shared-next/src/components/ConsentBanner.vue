@@ -5,18 +5,8 @@
       <p class="fr-text--sm" v-html="t('desc', [`${MAIN_URL}/politique-de-confidentialite`])" />
     </div>
     <ul
-      class="fr-consent-banner__buttons fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-sm"
+      class="fr-consent-banner__buttons fr-btns-group fr-btns-group--right fr-btns-group--inline-sm"
     >
-      <li>
-        <button type="button" class="fr-btn" :title="t('accept-all-title')" @click="acceptAll">
-          {{ t('accept-all') }}
-        </button>
-      </li>
-      <li>
-        <button type="button" class="fr-btn" :title="t('reject-all-title')" @click="rejectAll">
-          {{ t('reject-all') }}
-        </button>
-      </li>
       <li>
         <button
           type="button"
@@ -26,6 +16,16 @@
           :title="t('customize-title')"
         >
           {{ t('customize') }}
+        </button>
+      </li>
+      <li>
+        <button type="button" class="fr-btn" :title="t('reject-all-title')" @click="rejectAll">
+          {{ t('reject-all') }}
+        </button>
+      </li>
+      <li>
+        <button type="button" class="fr-btn" :title="t('accept-all-title')" @click="acceptAll">
+          {{ t('accept-all') }}
         </button>
       </li>
     </ul>
