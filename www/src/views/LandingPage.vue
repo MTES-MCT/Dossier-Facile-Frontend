@@ -333,18 +333,6 @@ blockquote {
   }
 }
 
-// ul li {
-//   display: flex;
-//   margin-bottom: 0;
-// }
-
-// ul li:before {
-//   content: '';
-//   display: inline-block;
-//   color: limegreen;
-//   font-size: 1rem;
-// }
-
 :where(ol, ul) > li + li {
   margin-block-start: 2rem;
 }

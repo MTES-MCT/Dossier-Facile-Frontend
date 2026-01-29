@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import ContactForm from 'df-shared-next/src/components/ContactForm.vue'
 import Breadcrumb from 'df-shared-next/src/components/dsfr/BreadcrumbItem.vue'
-import { useHead, useSeoMeta } from '@unhead/vue'
+import { useSeoMeta } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 
