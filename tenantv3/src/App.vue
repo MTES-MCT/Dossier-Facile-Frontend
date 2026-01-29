@@ -26,8 +26,6 @@ onBeforeMount(() => {
 })
 
 const announcementMessage = computed(() => MESSAGE.replace('[[tenantId]]', `${store.user.id}`))
-
-const hasToDisplayAnnoncement = computed(() => store.user.status !== 'INCOMPLETE')
 </script>
 
 <template>
@@ -35,7 +33,7 @@ const hasToDisplayAnnoncement = computed(() => store.user.status !== 'INCOMPLETE
   <ConsentHandler />
   <TenantSkipLinks />
   <TenantHeader />
-  <Announcement v-if="hasToDisplayAnnoncement" :message="announcementMessage"></Announcement>
+  <Announcement :message="announcementMessage"></Announcement>
   <ToastContainer />
   <div id="content">
     <DeleteAccount></DeleteAccount>
