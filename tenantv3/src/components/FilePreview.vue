@@ -1,12 +1,7 @@
 <template>
-  <div class="root" :class="{ 'blue-background': viewState === 'fileContent' }">
-    <TrigramAuthentication
-      v-if="viewState === 'trigram'"
-      :has-error="trigramError"
-      @submit="handleTrigramSubmit"
-    />
-    <div v-if="viewState === 'fileContent'" class="fr-container">
-      <FileHeader :user="user">
+  <div class="root" :class="{ 'blue-background': !fileNotFound }">
+    <div v-if="!fileNotFound" class="fr-container">
+      <FileHeader :user>
         <div>
           <DfButton v-if="showProgressBar" :primary="true"
             >{{ t('file.download-all-inprogress')
@@ -27,36 +22,35 @@
         v-if="user !== null"
         :dossier-status="user.status"
         :tax-document-status="taxDocumentStatus()"
-        :france-connect-tenant-count="franceConnectTenantCount()"
+        :france-connect-tenant-count="franceConnectTenantCount"
         :tenant-count="user.tenants?.length"
-        :tax-checked="isTaxChecked()"
+        :tax-checked="isTaxChecked"
       ></FileReinsurance>
 
       <section class="fr-mt-5w fr-mb-3w">
         <div class="fr-tabs">
-          <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
-            <li v-for="(tenant, k) in getTenants()" :key="`li${k}`" role="presentation">
-              <button
-                :id="`tabpanel-${k}`"
-                class="fr-tabs__tab fr-tabs__tab--icon-right"
-                :class="{
-                  'fr-fi-icon-fc-right': tenant.franceConnect && tenant.ownerType === 'SELF'
-                }"
-                :tabindex="tabIndex === k ? 0 : -1"
-                role="tab"
-                aria-selected="false"
-                :aria-controls="`tabpanel-${k}-panel`"
-              >
-                {{ UtilsService.tenantFullName(tenant) }}
-              </button>
-            </li>
-          </ul>
+          <div class="fr-tabs__list" role="tablist" aria-label="tab-list">
+            <button
+              v-for="(tenant, k) in tenantsWithName"
+              :id="`tabpanel-${k}`"
+              :key="`tab${k}`"
+              class="fr-tabs__tab fr-tabs__tab--icon-right"
+              :class="{
+                'fr-fi-icon-fc-right': tenant.franceConnect && tenant.ownerType === 'SELF'
+              }"
+              :tabindex="tabIndex === k ? 0 : -1"
+              role="tab"
+              aria-selected="false"
+              :aria-controls="`tabpanel-${k}-panel`"
+            >
+              {{ UtilsService.tenantFullName(tenant) }}
+            </button>
+          </div>
           <div
-            v-for="(tenant, k) in getTenants()"
+            v-for="(tenant, k) in tenantsWithName"
             :id="`tabpanel-${k}-panel`"
             :key="`t${k}`"
             class="fr-tabs__panel"
-            aria-selected="false"
             role="tabpanel"
             :tabindex="k"
           >
@@ -215,14 +209,8 @@
         </div>
       </section>
     </div>
-    <div v-if="viewState === 'notFound'" class="fr-container fr-mt-5w">
+    <div v-if="fileNotFound" class="not-found-container fr-mt-5w">
       <FileNotFound></FileNotFound>
-    </div>
-    <div v-if="viewState === 'tooManyRequests'" class="fr-container fr-mt-5w">
-      <FileTooManyRequest></FileTooManyRequest>
-    </div>
-    <div v-if="viewState === 'badLink'" class="fr-container fr-mt-5w">
-      <FileBadLink></FileBadLink>
     </div>
     <section class="fr-mb-7w fr-container">
       <div class="fr-mt-3w fr-text--sm fr-label--disabled">
@@ -247,110 +235,32 @@ import OwnerBanner from '../components/OwnerBanner.vue'
 import FileHeader from '../components/FileHeader.vue'
 import RowListItem from '@/components/documents/RowListItem.vue'
 import FileNotFound from '@/views/FileNotFound.vue'
-import FileTooManyRequest from '@/views/FileTooManyRequest.vue'
-import FileBadLink from '@/views/FileBadLink.vue'
-import TrigramAuthentication from '@/components/TrigramAuthentication.vue'
 import { useI18n } from 'vue-i18n'
-import { onMounted, ref, useTemplateRef } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
-import { AnalyticsService } from '@/services/AnalyticsService'
 
-type ViewState = 'fileContent' | 'trigram' | 'notFound' | 'tooManyRequests' | 'badLink'
+const { user } = defineProps<{ user: FileUser }>()
 
 const { t } = useI18n()
 const route = useRoute()
 
-const user = ref(new FileUser())
 const tabIndex = ref(0)
 const showProgressBar = ref(false)
-const viewState = ref<ViewState>('fileContent')
-const trigramValue = ref('')
-const trigramError = ref(false)
+const fileNotFound = ref(false)
 const downloadButton = useTemplateRef('download-button')
 
-function franceConnectTenantCount() {
-  return user.value?.tenants?.filter((t) => t.franceConnect && t.ownerType === 'SELF').length
-}
+const hasAuthenticTax = (user: User) =>
+  user.documents?.some(
+    (document: DfDocument) =>
+      document.documentCategory === 'TAX' && document.authenticityStatus === 'AUTHENTIC'
+  )
 
-function isTaxChecked() {
-  const hasAuthenticTax = (user: User) =>
-    user.documents?.some(
-      (document: DfDocument) =>
-        document.documentCategory === 'TAX' && document.authenticityStatus === 'AUTHENTIC'
-    )
-  return user.value?.tenants?.some((t) => hasAuthenticTax(t))
-}
-
-function testIfLinkExists() {
-  const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
-
-  // Track opening of full link
-  AnalyticsService.openFullLink()
-
-  return ProfileService.testLinkByToken(token)
-    .then((d) => {
-      // Track display of trigram feature
-      AnalyticsService.displayTrigramFeature()
-      viewState.value = 'trigram'
-    })
-    .catch((error) => {
-      handleAPIError(error.response?.status)
-    })
-}
-
-function setUser(trigram: string) {
-  const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
-    
-  ProfileService.getLinkByToken(token, trigram)
-  .then((d) => {
-    user.value = d.data
-    if (user.value) {
-      user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
-        return t1.tenantType === 'CREATE' && t2.tenantType !== 'CREATE' ? -1 : 1
-      })
-    }
-    // Authentication successful, hide the trigram modal
-    viewState.value = 'fileContent'
-    trigramValue.value = trigram
-    trigramError.value = false
-  })
-  .catch((error) => {
-    handleAPIError(error.response?.status, trigram)
-  })
-}
-
-function handleAPIError(statusCode: number, trigram?: string) {
-  switch (statusCode) {
-    case 404:
-      viewState.value = 'notFound'
-      break
-    case 400:
-      viewState.value = 'badLink'
-      break
-    case 429:
-      viewState.value = 'tooManyRequests'
-      break
-    case 403:
-      viewState.value = 'trigram'
-      // If we were trying with a trigram, show error
-      if (trigram) {
-        trigramError.value = true
-        AnalyticsService.trigramError()
-      }
-      break
-    default:
-      viewState.value = 'notFound'
-  }
-}
-
-function handleTrigramSubmit(trigram: string) {
-  trigramError.value = false
-  setUser(trigram)
-}
-
-onMounted(() => testIfLinkExists())
+const franceConnectTenantCount = computed(
+  () => user.tenants?.filter((t) => t.franceConnect && t.ownerType === 'SELF').length
+)
+const isTaxChecked = computed(() => user.tenants?.some((t) => hasAuthenticTax(t)))
 
 function document(u: User | Guarantor, s: string) {
   return u.documents?.find((d) => {
@@ -358,19 +268,18 @@ function document(u: User | Guarantor, s: string) {
   })
 }
 
-function getTenants() {
+const tenantsWithName = computed(() => {
   const users: User[] = []
-  user.value?.tenants?.forEach((t) => {
+  user.tenants?.forEach((t) => {
     if (t.firstName && t.lastName && t.firstName !== '' && t.lastName !== '') {
       users.push(t)
     }
   })
-
   return users
-}
+})
 
 function taxDocumentStatus() {
-  const taxStatuses = user.value?.tenants?.map((tenant) => document(tenant, 'TAX')?.documentStatus)
+  const taxStatuses = user.tenants?.map((tenant) => document(tenant, 'TAX')?.documentStatus)
 
   if (taxStatuses?.every((docStatus) => docStatus === 'VALIDATED')) {
     return 'ok'
@@ -384,9 +293,8 @@ function taxDocumentStatus() {
 
 function retryDownload(remainingCount: number) {
   setTimeout(() => {
-    setUser(trigramValue.value)
-    if (user.value?.dossierPdfDocumentStatus === 'COMPLETED' && user.value?.dossierPdfUrl) {
-      downloadFile(user.value?.dossierPdfUrl)
+    if (user.dossierPdfDocumentStatus === 'COMPLETED' && user.dossierPdfUrl) {
+      downloadFile(user.dossierPdfUrl)
     } else if (remainingCount > 0) {
       retryDownload(remainingCount - 1)
     } else {
@@ -400,8 +308,8 @@ function downloadFile(url: string) {
   ProfileService.getFile(url)
     .then((response) => {
       const blob = new Blob([response.data], { type: 'application/pdf' })
-      const link = window.document.createElement('a')
-      link.href = window.URL.createObjectURL(blob)
+      const link = globalThis.document.createElement('a')
+      link.href = globalThis.URL.createObjectURL(blob)
       // Récupère le nom du fichier depuis le header Content-Disposition
       const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.pdf')
       link.download = fileName
@@ -416,8 +324,8 @@ function downloadFile(url: string) {
 
 function download() {
   showProgressBar.value = true
-  if (user.value?.dossierPdfDocumentStatus === 'COMPLETED' && user.value?.dossierPdfUrl) {
-    downloadFile(user.value?.dossierPdfUrl)
+  if (user.dossierPdfDocumentStatus === 'COMPLETED' && user.dossierPdfUrl) {
+    downloadFile(user.dossierPdfUrl)
   } else {
     const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
     ProfileService.postCreateFullPdf(token)
@@ -501,6 +409,11 @@ function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
 .icon-dgfip {
   height: 46px;
   margin-left: 2rem;
+}
+.not-found-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 
 .fr-badge {

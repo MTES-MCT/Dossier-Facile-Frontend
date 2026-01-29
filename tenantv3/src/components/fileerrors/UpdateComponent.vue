@@ -1,15 +1,13 @@
 <template>
-  <div class="update-component">
-    <div class="fr-grid-row file-item">
-      <p :id class="fr-mb-0"><slot></slot></p>
-      <!-- TODO : bouton voir -->
-      <RouterLink :to class="fr-btn fr-btn--secondary update-btn" :aria-describedby="id">
-        <span class="desktop">{{ t('fileerrors.update') }}</span>
-        <RiPencilLine size="1rem" class="color--primary mobile" aria-hidden="true" />
-      </RouterLink>
-    </div>
-    <PreValidationMessages :user-id="userId" :document="document" />
+  <div class="fr-grid-row file-item">
+    <p :id class="fr-mb-0"><slot></slot></p>
+    <!-- TODO : bouton voir -->
+    <RouterLink :to class="fr-btn fr-btn--secondary update-btn" :aria-describedby="id">
+      <span class="desktop">{{ t('fileerrors.update') }}</span>
+      <RiPencilLine size="1rem" class="color--primary mobile" aria-hidden="true" />
+    </RouterLink>
   </div>
+  <PreValidationMessages :user-id="userId" :document="document" />
 </template>
 
 <script setup lang="ts">
@@ -27,10 +25,6 @@ const id = useId()
 </script>
 
 <style scoped>
-.update-component {
-  padding: 1rem;
-}
-
 .file-item {
   display: flex;
   justify-content: space-between;

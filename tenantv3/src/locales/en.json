@@ -329,19 +329,19 @@
     "file-not-valid": "Your application is not valid. Please complete the missing documents or modify the rejected documents to submit your application",
     "error-title": "Invalid Application",
     "error-title-guarantor": "Invalid Guarantor Application",
-    "his-missing-documents": "Their invalid documents:",
+    "his-missing-documents": "Their invalid documents",
     "update": "Update",
     "organism-cert": "Guarantee Certificate",
     "representative-identification": "Identity of the Legal Representative",
     "corporation-identification": "Identity of the Legal Entity",
-    "my-invalid-document": "My invalid documents:",
+    "my-invalid-document": "My invalid documents",
     "my-invalid-names": " My missing information",
-    "my-invalid-document-guarantor": "My guarantor's invalid documents:",
-    "my-invalid-names-guarantor": "My guarantor's missing name or first name:",
-    "tenant-invalid-document": "My co-tenant's invalid documents:",
-    "tenant-invalid-names": "My co-tenant's missing name or first name:",
-    "tenant-invalid-document-guarantor": "My co-tenant's guarantor's invalid documents:",
-    "tenant-invalid-names-guarantor": "My co-tenant's guarantor's information is invalid:",
+    "my-invalid-document-guarantor": "My guarantor's invalid documents",
+    "my-invalid-names-guarantor": "My guarantor's missing name or first name",
+    "tenant-invalid-document": "My co-tenant's invalid documents",
+    "tenant-invalid-names": "My co-tenant's missing name or first name",
+    "tenant-invalid-document-guarantor": "My co-tenant's guarantor's invalid documents",
+    "tenant-invalid-names-guarantor": "My co-tenant's guarantor's information is invalid",
     "user-names": "Personal Information"
   },
   "fakeannouncement": {
@@ -586,7 +586,6 @@
   "menu": {
     "help": "Help",
     "file": "Your File",
-    "applications": "Your applications",
     "shared": "Your shared data",
     "account": "My Account",
     "messaging": "Messaging",
@@ -773,7 +772,7 @@
   },
   "simulationcaf": {
     "btn-caf": "Simulate",
-    "simulation-caf-title": "Are you eligible?",
+    "simulation-caf-title": "Are you eligible for housing assistance?",
     "simulation-caf-text": "Discover the estimation of housing assistance you could be eligible for."
   },
   "tenantguarantorchoice": {
@@ -950,54 +949,6 @@
     "close": "Close",
     "close-alt": "Close modal window"
   },
-  "sharing-page": {
-    "title": "Your applications",
-    "shared": "Your file is shared",
-    "disabled": "Your sharing is disabled",
-    "file-not-ready": {
-      "title": "Your file {0}",
-      "status": {
-        "TO_PROCESS": "is being processed",
-        "DECLINED": "requires modifications",
-        "INCOMPLETE": "is incomplete",
-        "VALIDATED": "is not fully validated"
-      },
-      "explanation": "As soon as it is validated, you will be able to share it and to manage the shared files below."
-    },
-    "shared-links": {
-      "title": "Shared files by email",
-      "date": "Date",
-      "contact": "Contact",
-      "last-visit": "Last visit",
-      "application-type": "Application type",
-      "link-status": "Status",
-      "action": "Action",
-      "enabled": "Enabled",
-      "disabled": "Disabled",
-      "delete": "Delete",
-      "never": "Never",
-      "no-shared-file": "No shared files yet",
-      "resend": "Resend",
-      "resend-too-many": "Cannot resend invitation link: a previous link was generated less than an hour ago. Please try again later.",
-      "resend-success": "Your file has been resent",
-      "resend-failed": "resend Failed! Try again later",
-      "enable-failed": "Unable to enable sharing of this file. Please try again.",
-      "disable-failed": "Unable to disable sharing of this file. Please try again."
-    }
-  },
-  "partners-page": {
-    "title": "My shared data",
-    "accesses": {
-      "title": "Partners with access to my data",
-      "date": "Date",
-      "since-date": "Since ",
-      "default-date": "Since 2023",
-      "partner": "Partner",
-      "action": "Action",
-      "revoke": "Revoke",
-      "no-access": "You didn't give access to any partner"
-    }
-  },
   "404": {
     "title": "Page not found",
     "subtitle": "Error 404",
@@ -1058,5 +1009,10 @@
     "invalid-file-extension": "This extension is not valid. Only .jpg, .png, .pdf or .heic are accepted",
     "no-file": "Add at least one file to continue",
     "submit-failed": "Unable to send the form. Please try again."
+  },
+  "resend-mail": {
+    "success": "Email resent successfully",
+    "error": "Error resending email",
+    "too-many-requests": "You have already sent a sharing link less than an hour ago. Please try again after this delay."
   }
 }

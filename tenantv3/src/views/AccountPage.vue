@@ -81,30 +81,7 @@
                 </div>
               </div>
             </div>
-            <div v-if="canCopyLink()" class="fr-callout fr-callout-white success">
-              <h2 class="fr-text-title--grey fr-h4">
-                {{ t('account.congratulations-title') }}
-              </h2>
-              <p>
-                <span v-html="t('account.congratulations-text-1')"></span>
-                <br />
-                <span v-html="t('account.congratulations-text-2')"></span>
-              </p>
-              <div class="fr-col-12 fr-btns-group--left">
-                <router-link to="/applications" class="fr-btn fr-mt-2w fr-mr-2w">
-                  <RiShareLine aria-hidden="true" />
-                  <span class="text-center full-width">
-                    {{ t('account.share-file-button') }}
-                  </span>
-                </router-link>
-                <router-link class="fr-btn update-btn fr-btn--secondary" :to="getDossierUrl()">
-                  <RiEyeLine aria-hidden="true" />
-                  <span class="text-center full-width">
-                    {{ t('account.share-file-view-button') }}
-                  </span>
-                </router-link>
-              </div>
-            </div>
+            <DefaultShareSection v-if="user.status === 'VALIDATED'" class="fr-mb-3w" />
             <h2 class="fr-h3" v-html="t(`account.content-title`)"></h2>
             <div class="fr-mt-3w fr-p-0w">
               <section v-if="user.applicationType !== 'ALONE'" class="fr-m-0 fr-p-0 bg-white">
@@ -157,7 +134,7 @@
                   </div>
                 </div>
               </section>
-              <TenantPanel v-else :tenant="user" class="fr-p-4w bg-white" :is-cotenant="false" />
+              <TenantPanel v-else :tenant="user" class="fr-p-2w bg-white" :is-cotenant="false" />
             </div>
             <PartnersSection />
 
@@ -212,6 +189,7 @@ import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import FakeAnnouncement from '../components/FakeAnnouncement.vue'
 import PartnersSection from '../components/account/PartnersSection.vue'
+import DefaultShareSection from '../components/account/DefaultShareSection.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
 import { computed, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue'
@@ -221,7 +199,7 @@ import { ProfileService } from '../services/ProfileService'
 import dayjs, { Dayjs } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useI18n } from 'vue-i18n'
-import { RiDownloadLine, RiTimeLine, RiShareLine, RiEyeLine } from '@remixicon/vue'
+import { RiDownloadLine, RiTimeLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
 const { t } = useI18n()
 
@@ -275,9 +253,6 @@ watch(
   { immediate: true }
 )
 
-function getDossierUrl() {
-  return `/file/${user.value.apartmentSharing?.token}`
-}
 function loadExpectedProcessingTime(tenantId: number) {
   ProfileService.getExpectedProcessingTime(tenantId).then((response) => {
     if (response && response.data) {
@@ -344,10 +319,6 @@ function downloadZip() {
 
 function goToMessaging() {
   router.push('/messaging')
-}
-
-function canCopyLink() {
-  return UtilsService.canShareFile(user.value)
 }
 
 function isDenied() {

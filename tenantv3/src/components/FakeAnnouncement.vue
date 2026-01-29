@@ -1,13 +1,16 @@
 <template>
   <div class="fakeannouncement">
-    <div class="title fr-h6 align-items--center" style="display: flex">
-      <img alt="" src="../assets/logo_bouclier_secure.svg" />{{
-        t('fakeannouncement.fake-announce-title')
-      }}
+    <div class="title">
+      <div class="title-content">
+        <img alt="" src="../assets/logo_bouclier_secure.svg" />
+        <h2 class="fr-h6">
+          {{ t('fakeannouncement.fake-announce-title') }}
+        </h2>
+      </div>
+      <img alt="Police nationale" src="../assets/police_nationale.svg" class="logo-police" />
     </div>
-    <img alt="Police nationale" src="../assets/police_nationale.svg" class="logo-police" />
 
-    <div class="announcement-container">
+    <div class="announcement-container fr-mt-2v">
       <div class="announcement-text">
         <p>
           <i18n-t keypath="fakeannouncement.content">
@@ -51,16 +54,27 @@ const { t } = useI18n()
 <style scoped lang="scss">
 .fakeannouncement {
   --title-spacing: 0 0 0.5rem;
-  padding: 2rem 3rem;
+  padding: 2rem;
   border-radius: 4px;
   border: solid 0.5px var(--blue-cb);
   background-color: #e8edff;
   position: relative;
 }
 
-.title {
-  color: var(--primary);
-  margin-right: 70px;
+.title,
+.title-content {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.title-content {
+  flex-wrap: nowrap;
+  justify-content: start;
+
+  h2 {
+    color: var(--primary);
+  }
 }
 
 .announcement-container {
@@ -77,12 +91,6 @@ const { t } = useI18n()
       min-width: 300px;
     }
   }
-}
-
-.logo-police {
-  position: absolute;
-  top: 2rem;
-  right: 3rem;
 }
 
 .announcement-text {

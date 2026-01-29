@@ -67,7 +67,7 @@ if (!isImage()) {
 }
 </script>
 
-<style lang="css" scoped>
+<style scoped>
 .preview {
   width: 96px;
   height: 107px;

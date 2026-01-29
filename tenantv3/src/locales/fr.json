@@ -331,19 +331,19 @@
     "file-not-valid": "Votre dossier n'est pas valide, veuillez compléter les documents manquants ou modifier les documents refusés pour soumettre votre dossier",
     "error-title": "Dossier invalide",
     "error-title-guarantor": "Dossier garant invalide",
-    "his-missing-documents": "Ses documents invalides :",
+    "his-missing-documents": "Ses documents invalides",
     "update": "Mettre à jour",
     "organism-cert": "Attestation de garantie",
     "representative-identification": "Identité du représentant de la personne morale",
     "corporation-identification": "Identité de la personne morale",
-    "my-invalid-document": "Mes documents invalides :",
+    "my-invalid-document": "Mes documents invalides",
     "my-invalid-names": " Mes informations manquantes",
-    "my-invalid-document-guarantor": "Les documents invalides de mon garant :",
+    "my-invalid-document-guarantor": "Les documents invalides de mon garant",
     "my-invalid-names-guarantor": "Le nom ou prénom de mon garant est manquant:",
-    "tenant-invalid-document": "Les documents invalides de mon conjoint :",
-    "tenant-invalid-names": "Le nom ou prénom de mon conjoint est manquant:",
-    "tenant-invalid-document-guarantor": "Les documents invalides du garant de mon conjoint :",
-    "tenant-invalid-names-guarantor": "Le informations du garant de mon conjoint sont invalides:",
+    "tenant-invalid-document": "Les documents invalides de mon conjoint",
+    "tenant-invalid-names": "Le nom ou prénom de mon conjoint est manquant",
+    "tenant-invalid-document-guarantor": "Les documents invalides du garant de mon conjoint",
+    "tenant-invalid-names-guarantor": "Le informations du garant de mon conjoint sont invalides",
     "user-names": "Informations personnelles"
   },
   "fakeannouncement": {
@@ -570,7 +570,7 @@
     "FRENCH_RESIDENCE_PERMIT": "Titre de séjour français",
     "OTHER_IDENTIFICATION": "Autre",
     "remove": "Supprimer la pièce",
-    "show": "Afficher la pièce",
+    "show": "Voir la pièce",
     "see": "Voir",
     "delete": "Supprimer",
     "mb": "Mo",
@@ -581,7 +581,6 @@
     "help": "Aide",
     "file": "Votre dossier",
     "shared": "Vos partages",
-    "applications": "Vos candidatures",
     "account": "Mon compte",
     "messaging": "Messagerie",
     "blog": "Blog",
@@ -739,7 +738,7 @@
     "by-link": "Par lien",
     "email-label": "Email du bailleur :",
     "email-placeholder": "bailleur{'@'}exemple.com",
-    "sent-success": "Votre dossier est envoyé par mail",
+    "sent-success": "Votre dossier a bien été partagé par email",
     "sent-failed": "Le partage par e-mail a échoué. Veuillez réessayer.",
     "view": {
       "title": "Voir votre dossier",
@@ -766,7 +765,7 @@
   },
   "simulationcaf": {
     "btn-caf": "Faire une simulation",
-    "simulation-caf-title": "Êtes-vous éligible ?",
+    "simulation-caf-title": "Êtes-vous éligible à l'aide au logement ?",
     "simulation-caf-text": "Découvrez l'estimation de l'aide au logement à laquelle vous pourriez être éligible."
   },
   "tenantguarantorchoice": {
@@ -941,61 +940,6 @@
     "close": "Fermer",
     "close-alt": "Fermer la fenêtre modale"
   },
-  "sharing-page": {
-    "title": "Vos candidatures",
-    "shared": "Votre dossier est partagé",
-    "disabled": "Votre partage est désactivé",
-    "file-not-ready": {
-      "title": "Votre dossier {0}",
-      "status": {
-        "TO_PROCESS": "est en cours de traitement",
-        "DECLINED": "nécessite des modifications",
-        "INCOMPLETE": "est incomplet",
-        "VALIDATED": "global n'est pas validé"
-      },
-      "explanation": "Lorsque celui-ci sera validé, vous pourrez le partager et vous retrouverez ci-dessous la liste de vos partages par mail."
-    },
-    "shared-links": {
-      "title": "Dossiers partagés par mail",
-      "date": "Date",
-      "contact": "Contact",
-      "last-visit": "Dernière visite",
-      "application-type": "Type de dossier",
-      "link-status": "Statut",
-      "action": "Action",
-      "enabled": "Activé",
-      "disabled": "Desactivé",
-      "delete": "Supprimer",
-      "never": "Jamais",
-      "no-shared-file": "Aucun dossier partagé pour l'instant",
-      "resend": "Renvoyer",
-      "resend-too-many": "Impossible de renvoyer un lien d’invitation : un précédent lien a été généré il y a moins d’une heure. Veuillez réessayer plus tard.",
-      "resend-success": "Votre dossier a été renvoyé",
-      "resend-failed": "Impossible d’envoyer la demande. Veuillez réessayer plus tard.",
-      "enable-failed": "Impossible d’activer le partage de ce dossier. Veuillez réessayer.",
-      "disable-failed": "Impossible de désactiver le partage de ce dossier. Veuillez réessayer."
-    }
-  },
-  "partners-page": {
-    "title": "Votre dossier partagé",
-    "accesses": {
-      "title": "Les partenaires ayant accès à votre dossier",
-      "date": "Date",
-      "since-date": "Depuis le ",
-      "default-date": "Depuis 2023",
-      "partner": "Partenaire",
-      "action": "Action",
-      "revoke": "Révoquer",
-      "no-access": "Vous n'avez donné accès a aucun partenaire"
-    },
-    "revoke-modal": {
-      "title": "Suppression de l’accès DossierFacile",
-      "p1": "La suppression de l’accès du partenaire {partner} à votre DossierFacile sera immédiate. {partner} n’aura plus accès à vos documents, ni à vos données personnelles provenant de DossierFacile.",
-      "p2": "Dans le cas ou vous souhaitez rétablir cet accès, rendez-vous sur le site internet de {partner} et suivez le parcours qui vous sera proposé.",
-      "validate": "Confirmer la suppression",
-      "cancel": "Annuler la suppression"
-    }
-  },
   "404": {
     "title": "Page non trouvée",
     "subtitle": "Erreur 404",
@@ -1055,6 +999,11 @@
   "errors": {
     "invalid-file-extension": "Cette extension n'est pas valide. Seuls les fichiers en .jpg, .png, .pdf ou .heic sont acceptés",
     "no-file": "Ajoutez au moins un fichier pour continuer",
-    "submit-failed": "Impossible d’envoyer le formulaire. Veuillez réessayer."
+    "submit-failed": "Impossible d'envoyer le formulaire. Veuillez réessayer."
+  },
+  "resend-mail": {
+    "success": "Email renvoyé avec succès",
+    "error": "Erreur lors de l'envoi de l'email",
+    "too-many-requests": "Vous avez déjà envoyé un lien de partage il y a moins d'une heure. Merci de réessayer une fois ce délai écoulé."
   }
 }

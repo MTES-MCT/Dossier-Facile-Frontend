@@ -42,7 +42,7 @@ export default defineConfig({
   server: {
     port: 9002,
     fs: {
-      allow: ['./src', '../node_modules', '../df-shared-next', './node_modules']
+      allow: ['./src', '../node_modules', '../df-shared-next', './node_modules', 'index.html']
     }
   },
   plugins: [
@@ -55,11 +55,6 @@ export default defineConfig({
       url: 'https://sentry.incubateur.net'
     })
   ],
-  css: {
-    preprocessorOptions: {
-      scss: { api: 'modern' }
-    }
-  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

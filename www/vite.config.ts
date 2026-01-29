@@ -23,7 +23,7 @@ export default defineConfig({
   server: {
     port: 9001,
     fs: {
-      allow: ['./src', '../df-shared-next', '../node_modules', './node_modules']
+      allow: ['./src', '../df-shared-next', '../node_modules', './node_modules', 'index.html']
     }
   },
   plugins: [
@@ -36,11 +36,6 @@ export default defineConfig({
       url: 'https://sentry.incubateur.net'
     })
   ],
-  css: {
-    preprocessorOptions: {
-      scss: { api: 'modern' }
-    }
-  },
   ssgOptions: {
     onPageRendered: (route: string, renderedHTML: string) => {
       return renderedHTML.replace(/<link rel="modulepreload".*?>/i, '')

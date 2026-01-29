@@ -1,24 +1,24 @@
 <template>
   <li
     class="fr-grid-row file-list-item fr-p-3w"
-    :class="{ 'not-validated': documentStatus() != 'VALIDATED' }"
+    :class="{ 'not-validated': documentStatus() !== 'VALIDATED' }"
   >
-    <p :id class="fr-col-7 fr-col-md-5 fr-mb-2w">
+    <p :id class="item-label fr-m-0">
       {{ label }}
       <br />
       <span v-if="subLabel" class="fr-text--xs">
         {{ subLabel }}
       </span>
     </p>
-    <div class="fr-col-5 fr-col-md-3 tag-container fr-mb-2w">
-      <div style="align-self: center">
+    <div class="tag-container fr-m-0">
+      <div>
         <ColoredTag :text="getTagLabel()" :status="documentStatus()"></ColoredTag>
       </div>
       <div>
         <slot name="postTag"></slot>
       </div>
     </div>
-    <div v-if="enableDownload || canEdit" class="fr-col-12 fr-col-md-4 fr-btns-group--right">
+    <div v-if="enableDownload || canEdit" class="file-actions">
       <a
         v-if="
           enableDownload &&
@@ -30,7 +30,7 @@
         :title="t('filerowlistitem.see-title')"
         target="_blank"
         :aria-describedby="id"
-        class="fr-btn fr-btn--secondary fr-btn--icon-left fr-fi-eye-line fr-mr-1w"
+        class="fr-btn fr-btn--secondary fr-btn--icon-left fr-fi-eye-line large-btn"
       >
         {{ t('filerowlistitem.see') }}
       </a>
@@ -38,8 +38,7 @@
       <RouterLink
         v-if="canEdit && to"
         :to
-        type="button"
-        class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-pencil-line"
+        class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-pencil-line large-btn"
         :aria-describedby="id"
         @click="$emit('click-edit')"
       >
@@ -98,7 +97,7 @@ function documentStatus() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .fr-icon-checkbox-circle-line:before {
   margin-right: 0.5rem;
   color: green;
@@ -126,9 +125,13 @@ function documentStatus() {
 }
 
 .file-list-item {
+  container-type: inline-size;
+  container-name: list-item;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-flow: row wrap;
+  justify-content: start;
+  align-items: baseline;
+  gap: 0.5rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
@@ -144,10 +147,38 @@ function documentStatus() {
   }
 }
 
+.item-label {
+  flex: 1 1 33%;
+  min-inline-size: 12ch;
+}
 .tag-container {
+  flex: 0 0 auto;
+
   display: flex;
-  @media all and (max-width: 767px) {
+
+  @media screen and (width <= 767px) {
     flex-direction: column;
+  }
+}
+.file-actions {
+  flex: 1 0 auto;
+
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+
+  @media screen and (width <= 767px) {
+    flex-direction: column;
+    flex: 1 0 100%;
+  }
+}
+.large-btn {
+  flex-grow: 0;
+  justify-content: center;
+  margin-inline-start: auto;
+
+  @media screen and (width <= 767px) {
+    inline-size: 100%;
   }
 }
 </style>
