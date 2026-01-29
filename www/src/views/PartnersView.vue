@@ -13,7 +13,12 @@
     </div>
     <div>
       <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
-        <AllPartnersComponent></AllPartnersComponent>
+        <PartnersList :partners="PARTNERS" :background-grey="true">
+          <template #title>
+            {{ t('s5.title1') }}
+            <span class="color--secondary">{{ t('s5.title2') }}</span>
+          </template>
+        </PartnersList>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
             <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
@@ -25,7 +30,7 @@
         </div>
       </section>
       <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w fr-background-alt--blue-france">
-        <AllInstitutionalPartnersComponent></AllInstitutionalPartnersComponent>
+        <PartnersList :partners="INSTITUTIONAL_PARTNERS" :title="t('s6.title')" />
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
             <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
@@ -44,11 +49,11 @@
 import { useHead } from '@unhead/vue'
 import image from '../assets/cover-features.webp'
 import { useI18n } from 'vue-i18n'
-import AllInstitutionalPartnersComponent from '../components/AllInstitutionalPartnersComponent.vue'
-import AllPartnersComponent from '../components/AllPartnersComponent.vue'
+import PartnersList from '@/components/PartnersList.vue'
 
 const { t } = useI18n()
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
+import { INSTITUTIONAL_PARTNERS, PARTNERS } from '../models/PartnerModel'
 
 const title = 'Les partenaires de DossierFacile'
 const description = 'Liste de tous les organismes avec lesquels DossierFacile est en partenariat.'
