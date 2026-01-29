@@ -122,6 +122,9 @@ importers:
       js-cookie:
         specifier: 3.0.5
         version: 3.0.5
+      pinia:
+        specifier: "catalog:"
+        version: 3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       sass:
         specifier: "catalog:"
         version: 1.96.0
