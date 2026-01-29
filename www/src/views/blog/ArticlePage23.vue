@@ -12,7 +12,7 @@
       transparentes. Dans cet article, nous allons explorer des techniques pour repérer les signes
       de potentielles falsifications.
     </p>
-    <img class="fr-mb-3w" alt="" src="../../assets/images/blog-article23.webp" />
+    <BlogPostImage :src="image" />
     <h2 class="fr-h6">1. Vérifiez la cohérence des montants</h2>
     <p>
       Les fausses fiches de paie peuvent contenir des montants irréalistes ou incohérents. Comparez
@@ -93,37 +93,28 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article23.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article23.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = '[Propriétaires] Comment détecter une fausse fiche de paie ? - DossierFacile'
+const title = '[Propriétaires] Comment détecter une fausse fiche de paie ?'
 const description =
   'Dans le monde de l’immobilier locatif, la vérification des fiches de paie est une étape cruciale ' +
   'pour les propriétaires et les agences immobilières afin d’évaluer la solvabilité des locataires ' +
   'potentiels. Cependant, avec l’augmentation des tentatives de fraude, la détection des fausses ' +
   'fiches de paie est devenue une compétence essentielle pour assurer des locations transparentes. ' +
   'Dans cet article, nous allons explorer des techniques pour repérer les signes de potentielles falsifications.'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-
-<style lang="scss" scoped>
-li {
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-ul > p {
-  margin-left: -1rem;
-}
-</style>

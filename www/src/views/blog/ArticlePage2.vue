@@ -13,7 +13,7 @@
       sans tomber dans le désordre d’un pdf de cinquante pages ? Existe-t-il un outil facile et
       gratuit ?
     </p>
-    <img alt="" src="../../assets/images/blog-article2.webp" class="img-center" />
+    <BlogPostImage :src="image" />
     <p>
       Toute la difficulté est ici de rester le plus simple possible.
       <b> Présenter un dossier cohérent et complet de manière claire </b>
@@ -93,30 +93,25 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article2.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article2.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = 'Constituer votre DossierFacile - Blog - DossierFacile'
+const title = 'Constituer votre DossierFacile - Blog'
 const description =
   'Mais coconstituer un dos sier de location qui regroupe tous les documents nécessaires sans tomber dans le désordre d’un pdf de cinquante pages ? Existe-t-il un outil facile et gratuit ?'
-useHead({
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 793px;
-  max-height: 447px;
-  width: 100%;
-  height: auto;
-}
-</style>

@@ -239,7 +239,7 @@
 import { StatsService } from '../services/StatsService'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useHead, useSeoMeta } from '@unhead/vue'
+import { useSeoMeta } from '@unhead/vue'
 
 import imgJustif from '@icons/justif.webp'
 import PartnersList from '@/components/PartnersList.vue'

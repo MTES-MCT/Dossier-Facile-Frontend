@@ -11,8 +11,8 @@
       <a href="/">DossierFacile</a> te livrent leurs cinq conseils pour trouver l’appartement
       parisien de tes rêves.
     </p>
-    <img alt="" class="img-center" src="../../assets/images/blog-article5.webp" />
-    <br />
+
+    <BlogPostImage :src="image" />
 
     <h2>1. Bien connaître le marché locatif parisien</h2>
     <p>
@@ -78,31 +78,24 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article5.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article5.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title =
-  '5 conseils pour trouver l’appartement de ses rêves en région parisienne - DossierFacile'
+const title = '5 conseils pour trouver l’appartement de ses rêves en région parisienne'
 const description =
   'Trouver l’appartement de ses rêves à Paris ou en région parisienne est un vrai défi'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 768px;
-  max-height: 576px;
-  width: 100%;
-  height: auto;
-}
-</style>

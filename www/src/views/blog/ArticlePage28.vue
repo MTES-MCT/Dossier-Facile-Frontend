@@ -308,24 +308,24 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article24.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article24.webp'
 
-const title = 'Étudiant étranger et recherche de logement : guide pratique - DossierFacile'
+const title = 'Étudiant étranger et recherche de logement : guide pratique'
 const description =
   "Guide pratique pour les étudiants étrangers à la recherche d'un logement en France : conseils, démarches, solutions pour le garant, prévention des arnaques et aides au logement. Simplifiez vos démarches avec DossierFacile."
 
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image },
-    { name: 'keywords', content: 'étudiant,logement,étranger,location,garant' }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>

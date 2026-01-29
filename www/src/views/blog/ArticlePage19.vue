@@ -10,8 +10,7 @@
       déconvenues, nous vous avons préparé un petit récapitulatif des étapes, pour ne rien oublier.
       Suivez le guide !
     </p>
-    <img alt="" class="img-center" src="../../assets/images/blog-article19.webp" />
-    <br />
+    <BlogPostImage :src="image" />
 
     <h2 class="fr-h6">
       📁 Étape 1 : Faire son dossier de location sur Dossier<strong>Facile</strong>
@@ -242,33 +241,28 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article19.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article19.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = 'Tout ce que vous devez savoir avant de quitter votre logement - DossierFacile'
+const title = 'Tout ce que vous devez savoir avant de quitter votre logement'
 const description =
   'Déménager, c’est souvent le parcours du combattant… Pour éviter le stress et les déconvenues, nous vous avons préparé un petit récapitulatif des étapes'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 553px;
-  max-height: 311px;
-  width: 100%;
-  height: auto;
-}
-
+<style scoped>
 ul > li:before {
   content: '\2610';
   margin-right: 5px;

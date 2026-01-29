@@ -1,8 +1,6 @@
 <template>
   <BlogArticle title="La caution locative : changements en vue pour 2022" date="14 Mars 2022">
-    <p>
-      <img alt="" class="img-center" src="../../assets/images/blog-article11.webp" />
-    </p>
+    <BlogPostImage :src="image" />
     <p></p>
     <h2>La caution locative c’est quoi ?</h2>
     <p>
@@ -126,30 +124,24 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article11.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article11.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = 'La caution locative : changements en vue pour 2022 - DossierFacile'
+const title = 'La caution locative : changements en vue pour 2022'
 const description =
   "La caution est une personne ou un organisme qui s'engage par écrit, à trun acte de cautio nnement, à payer votre loyer si vous ne le faites pas. Il s’agit le plus souvent d’un parent ou d’un proche. Si la caution ne rembourse pas les dettes locatives"
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 768px;
-  max-height: 576px;
-  width: 100%;
-  height: auto;
-}
-</style>

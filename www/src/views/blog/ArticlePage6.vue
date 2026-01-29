@@ -8,7 +8,7 @@
       objectif ? Faciliter le téléchargement de vos pièces justificatives : un gain de temps pour
       vous, pour nous, et pour votre futur propriétaire !
     </p>
-    <img alt="" class="img-center" src="../../assets/images/blog-article6.webp" />
+    <BlogPostImage :src="image" />
     <h2>1. Le parcours utilisateur</h2>
     <p>
       Le parcours utilisateur, qui permet de constituer son dossier de location, a été entièrement
@@ -73,30 +73,24 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article6.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article6.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = 'DossierFacile fait peau neuve ! - DossierFacile'
+const title = 'DossierFacile fait peau neuve !'
 const description =
   'Afin de mieux répondre aux besoins de nos locataires et propriétaires, le service DossierFacile fait peau neuve avec un nouveau site'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 768px;
-  max-height: 513px;
-  width: 100%;
-  height: auto;
-}
-</style>

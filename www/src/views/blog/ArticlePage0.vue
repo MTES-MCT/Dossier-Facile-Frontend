@@ -82,8 +82,8 @@
 
 <script setup lang="ts">
 import { useSeoMeta } from '@unhead/vue'
-import image from '@/assets/cover-features.webp'
 import { useI18n } from 'vue-i18n'
+import image from '@/assets/cover-features.webp'
 
 const { t } = useI18n()
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
@@ -114,11 +114,11 @@ useSeoMeta({
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
-  background-image: url('../../assets/cover-features.webp');
+  background-image: url('@/assets/cover-features.webp');
   z-index: 0;
 
   @media (max-width: 768px) {
-    background-image: url('../../assets/cover-features-mobile.webp');
+    background-image: url('@/assets/cover-features-mobile.webp');
   }
 }
 

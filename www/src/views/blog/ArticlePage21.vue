@@ -11,8 +11,8 @@
       collectivités, autres organismes publics) disponibles en France pour t’accompagner dans ta
       quête de logement.
     </p>
-    <img alt="" src="../../assets/images/blog-article21.webp" />
-    <br />
+    <BlogPostImage :src="image" />
+
     <h2 class="fr-h6">1. Les Aides Financières</h2>
     <h3 class="fr-h7">a. Aides au Logement</h3>
     <p>
@@ -279,29 +279,30 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article21.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article21.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title =
-  'Le Guide Complet des Aides pour les Étudiant·e·s en Recherche de Logements en France - DossierFacile'
+const title = 'Le Guide Complet des Aides pour les Étudiant·e·s en Recherche de Logements en France'
 const description =
   ' Voici un guide exhaustif des aides publiques (État, collectivités, autres organismes publics) disponibles en France pour t’accompagner dans ta quête de logement'
 
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .fr-h7 {
   font-weight: 400;
   font-size: 1.1rem;

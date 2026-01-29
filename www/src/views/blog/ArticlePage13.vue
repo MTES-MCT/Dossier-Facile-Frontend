@@ -4,9 +4,7 @@
     date="1 Juin 2022"
     hashtags="DossierFacile,UsurpationIdentité"
   >
-    <p>
-      <img alt="" class="img-center" src="../../assets/images/blog-article13.webp" />
-    </p>
+    <BlogPostImage :src="image" />
 
     <h2>L’usurpation d’identité : c’est quoi ?</h2>
     <p>
@@ -156,31 +154,24 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article13.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article13.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title =
-  'L’usurpation d’identité en France : comment la prévenir et comment agir ? - DossierFacile'
+const title = 'L’usurpation d’identité en France : comment la prévenir et comment agir ?'
 const description =
   'L’usurpation d’identité consiste à utiliser, sans votre accord, des informations permettant de vous identifier.'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 793px;
-  max-height: 516px;
-  width: 100%;
-  height: auto;
-}
-</style>

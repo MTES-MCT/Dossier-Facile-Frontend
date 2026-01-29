@@ -12,7 +12,7 @@
       conformes est essentielle pour convaincre le propriétaire. Découvrez notre guide détaillé sur
       les justificatifs nécessaires pour votre garant dans votre dossier de logement.
     </p>
-    <img class="fr-mb-3w" alt="" src="../../assets/images/blog-article25.webp" />
+    <BlogPostImage :src="image" />
 
     <h2 class="fr-h3">1. Les justificatifs requis par le bailleur</h2>
     <p>
@@ -126,35 +126,26 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article25.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article25.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
 const title =
-  'Dossier de location : Comment choisir son garant et les documents à fournir pour votre dossier locatif - DossierFacile'
+  'Dossier de location : Comment choisir son garant et les documents à fournir pour votre dossier locatif'
 const description =
   'Guide complet sur les documents à fournir pour votre garant dans un dossier de location. Découvrez les justificatifs nécessaires pour constituer un dossier locataire solide avec garant, que ce soit pour une personne physique, Visale ou une entreprise.'
 
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image },
-    {
-      name: 'keywords',
-      content:
-        'garant, garant location, dossier location, dossier locataire, dossier locatif, dossier logement, caution location, documents garant'
-    }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-
-<style lang="scss" scoped>
-.mb-0 {
-  margin-bottom: 0;
-}
-</style>
