@@ -41,7 +41,7 @@ import { computed } from 'vue'
 
 const { t } = useI18n()
 
-const inputValue = defineModel()
+const inputValue = defineModel<string>()
 
 const props = withDefaults(
   defineProps<{
@@ -53,7 +53,8 @@ const props = withDefaults(
   }>(),
   {
     validationRules: '',
-    disabled: false
+    disabled: false,
+    autocomplete: ''
   }
 )
 

@@ -5,11 +5,11 @@
         <div class="fr-col-12">
           <h2 class="fr-h6">{{ t('roommatesinformation.title') }}</h2>
           <DsfrButton
-            @click="isModalOpened = true"
             tertiary
             size="sm"
             type="button"
             :label="t('roommatesinformation.more-information')"
+            @click="isModalOpened = true"
           />
           <DsfrModalPatched
             v-model:is-opened="isModalOpened"
@@ -104,17 +104,17 @@
               @keydown.prevent.enter="validateRoommateEmail"
             />
           </Field>
-          <div class="email-errors">
+          <div id="email-errors">
             <ErrorMessage v-if="hasSubmited || hasAddedEmail" v-slot="{ message }" name="email">
               <p class="fr-error-text">{{ t(message || '') }}</p>
             </ErrorMessage>
-            <p class="fr-error-text" v-if="showEmailEmpty">
+            <p v-if="showEmailEmpty" class="fr-error-text">
               {{ t('field-required') }}
             </p>
-            <p class="fr-error-text" v-if="showRoomMateAlreadyExists">
+            <p v-if="showRoomMateAlreadyExists" class="fr-error-text">
               {{ t('roommatesinformation.co-tenant-already-exists') }}
             </p>
-            <p class="fr-error-text" v-if="showEmailExists">
+            <p v-if="showEmailExists" class="fr-error-text">
               {{ t('roommatesinformation.email-exists-2') }}
             </p>
           </div>
@@ -122,6 +122,7 @@
         <DsfrButton
           secondary
           :label="t('roommatesinformation.add-a-roommate')"
+          type="button"
           @click="validateRoommateEmail"
         />
       </div>
@@ -235,7 +236,7 @@ const validateRoommateEmail = async () => {
   if (valid) addMail()
 }
 
-async function addMail() {
+function addMail() {
   if (!newRoommate.value.length) {
     showEmailEmpty.value = true
     return

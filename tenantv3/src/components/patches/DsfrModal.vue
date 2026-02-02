@@ -10,7 +10,7 @@
 import type { DsfrModalProps } from '@gouvminint/vue-dsfr'
 import { DsfrButtonGroup, useRandomId, VIcon } from '@gouvminint/vue-dsfr'
 
-import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
+// import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
 import { computed, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
 
 const props = withDefaults(defineProps<DsfrModalProps>(), {
@@ -19,23 +19,22 @@ const props = withDefaults(defineProps<DsfrModalProps>(), {
   origin: () => ({ focus() {} }),
   icon: undefined,
   size: 'md',
-  closeButtonLabel: 'Fermer',
-  closeButtonTitle: 'Fermer la fenêtre modale'
+  closeButtonLabel: 'Fermer'
 })
 
-const isOpened = defineModel('isOpened', { default: false })
+const isOpened = defineModel<boolean>('isOpened', { default: false })
 
 defineSlots<{
   /**
    * Slot par défaut pour le contenu de la modale.
    * Sera dans `<div class="fr-modal__content">`
    */
-  default: () => any
+  default: () => unknown
   /**
    * Slot pour le pied-de-page de la modale.
    * Sera dans `<div class="fr-modal__footer">`
    */
-  footer?: () => any
+  footer?: () => unknown
 }>()
 
 const role = computed(() => {
@@ -44,18 +43,18 @@ const role = computed(() => {
 
 const modal = useTemplateRef('modal')
 
-const { activate, deactivate } = useFocusTrap(modal, {
-  immediate: false
-})
+// const { activate, deactivate } = useFocusTrap(modal, {
+//   immediate: false
+// })
 
 watch(
   () => isOpened.value,
   (newValue) => {
     if (newValue) {
       modal.value?.showModal()
-      setTimeout(() => {
-        activate()
-      }, 100)
+      // setTimeout(() => {
+      //   activate()
+      // }, 100)
     }
     setAppropriateClassOnBody(newValue)
   }
@@ -76,7 +75,7 @@ onBeforeUnmount(() => {
 })
 
 const close = () => {
-  deactivate()
+  // deactivate()
   modal.value?.close()
   isOpened.value = false
 }
@@ -91,7 +90,7 @@ const iconProps = computed(() => {
   }
 
   if (props.icon && typeof props.icon === 'object') {
-    return { scale: defaultScale, ...(props.icon as Record<string, any>) }
+    return { scale: defaultScale, ...(props.icon as Record<string, unknown>) }
   }
 
   return undefined
@@ -100,9 +99,9 @@ const iconProps = computed(() => {
 
 <template>
   <dialog
-    id="fr-modal-1"
+    :id="modalId"
     ref="modal"
-    :aria-labelledby="modalId"
+    :aria-labelledby="`${modalId}-title`"
     :role="role"
     class="fr-modal--patched"
     @keydown.esc="close"
@@ -119,22 +118,14 @@ const iconProps = computed(() => {
         >
           <div class="fr-modal__body">
             <div class="fr-modal__header">
-              <button
-                ref="closeBtn"
-                autofocus
-                class="fr-btn fr-btn--close"
-                :title="closeButtonTitle"
-                aria-controls="fr-modal-1"
-                type="button"
-                @click="close"
-              >
+              <button ref="closeBtn" class="fr-btn fr-btn--close" type="button" @click="close">
                 <span>
                   {{ closeButtonLabel }}
                 </span>
               </button>
             </div>
             <div class="fr-modal__content">
-              <h1 :id="modalId" class="fr-modal__title">
+              <h1 :id="`${modalId}-title`" class="fr-modal__title">
                 <span
                   v-if="dsfrIcon || iconProps"
                   :class="{

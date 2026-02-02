@@ -16,11 +16,11 @@ const here = computed(() => route.path)
 
 // analytics based on different funtions, not params.
 const sendEvent = (type: string) => {
-	if (type === 'self') {
-		AnalyticsService.tenantIdentitySelectSelf()
-	} else {
-		AnalyticsService.tenantIdentitySelectThirdParty()
-	}
+  if (type === 'self') {
+    AnalyticsService.tenantIdentitySelectSelf()
+  } else if (type === 'third') {
+    AnalyticsService.tenantIdentitySelectThirdParty()
+  }
 }
 
 const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
@@ -28,13 +28,13 @@ const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
     to: `${here.value}/pour-moi`,
     title: t('identity.self'),
     description: t('identity.self-hint'),
-		event: 'self'
+    event: 'self'
   },
   {
     to: `${here.value}/pour-une-autre-personne`,
     title: t('identity.third-party'),
     description: t('identity.third-party-hint'),
-		event: 'third'
+    event: 'third'
   }
 ])
 </script>

@@ -82,11 +82,11 @@
             {{ t('coupleinformation.partner-email-title') }}
           </h1>
           <DsfrButton
-            @click="isModalOpened = true"
             tertiary
             size="sm"
             type="button"
             :label="t('coupleinformation.more-information')"
+            @click="isModalOpened = true"
           />
           <DsfrModalPatched
             v-model:is-opened="isModalOpened"
@@ -142,7 +142,7 @@
               name="authorize"
               type="checkbox"
               :rules="{
-                required: coTenant?.email?.length > 0 ? true : false
+                isTrue: coTenant?.email?.length > 0 ? true : false
               }"
               :value="true"
             >

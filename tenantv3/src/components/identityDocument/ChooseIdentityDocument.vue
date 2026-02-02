@@ -56,7 +56,7 @@ const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
   },
   {
     to: `${here.value}/autre`,
-    title: t('other'),
+    title: t('other-doc'),
     event: 'other'
   }
 ])
