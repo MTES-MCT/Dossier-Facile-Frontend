@@ -11,8 +11,8 @@ import Cookies from 'js-cookie'
 import i18n from './i18n'
 import { useHead } from '@unhead/vue'
 
-const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
-const siteTitle = import.meta.env.VITE_SITE_TITLE
+const MESSAGE = import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''
+const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
 
 onBeforeMount(() => {
   const lang = Cookies.get('lang') === 'en' ? 'en' : 'fr'

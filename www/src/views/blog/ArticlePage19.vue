@@ -34,7 +34,7 @@
         title="5 conseils pour trouver l’appartement de ses rêves en région parisienne - Ouvre une nouvelle fenêtre"
         target="_blank"
         rel="noopener"
-        >5 conseils pour trouver l’appartement de ses rêves en région parisienne - DossierFacile</a
+        >5 conseils pour trouver l’appartement de ses rêves en région parisienne</a
       >
     </p>
     <h2 class="fr-h6">✉️ Étape 2 : Informer son propriétaire de son départ</h2>

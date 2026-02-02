@@ -320,7 +320,7 @@
           “mode exempté” ne nécessitant pas le recueil du consentement des utilisateurs conformément
           aux recommandations de la CNIL.
         </p>
-        <p for="consentRemoved">
+        <p>
           Vous pouvez décider de ne jamais être suivi, même de manière anonyme sur DossierFacile :
         </p>
         <DsfrCheckbox

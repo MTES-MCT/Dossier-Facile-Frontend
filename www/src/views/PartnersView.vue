@@ -50,10 +50,10 @@ import { useSeoMeta } from '@unhead/vue'
 import image from '../assets/cover-features.webp'
 import { useI18n } from 'vue-i18n'
 import PartnersList from '@/components/PartnersList.vue'
+import { INSTITUTIONAL_PARTNERS, PARTNERS } from '../models/PartnerModel'
 
 const { t } = useI18n()
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
-import { INSTITUTIONAL_PARTNERS, PARTNERS } from '../models/PartnerModel'
 
 const title = 'Partenaires'
 const description = 'Liste de tous les organismes avec lesquels DossierFacile est en partenariat.'

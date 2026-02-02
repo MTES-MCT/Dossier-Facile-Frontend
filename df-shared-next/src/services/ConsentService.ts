@@ -9,7 +9,7 @@ const OPTIONS: Cookies.CookieAttributes = {
   secure: true,
   expires: aYearFromNow,
   sameSite: 'Strict',
-  domain: 'localhost'
+  domain: import.meta.env.VITE_COOKIE_DOMAIN
 }
 
 type ConsentServices = { crisp: boolean; matomo: boolean }

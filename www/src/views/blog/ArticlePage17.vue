@@ -90,7 +90,7 @@ import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article17.webp'
 import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = "Que vérifier lors de la visite d'un logement ? - DossierFacile"
+const title = "Que vérifier lors de la visite d'un logement ?"
 const description =
   'Lorsque vous voulez emménager dans un nouveau logement, il y a de nombreuses choses à vérifier lors de la visite d’un bien.'
 const siteTitle = import.meta.env.VITE_SITE_TITLE

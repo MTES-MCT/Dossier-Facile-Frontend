@@ -7,131 +7,127 @@
     aria-labelledby="fr-consent-modal-title"
     @keydown.esc="modalStore.closeModal()"
   >
-    <div class="fr-container fr-container--fluid fr-container-md">
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
-          <div class="fr-modal__body">
-            <div class="fr-modal__header">
-              <button
-                type="button"
-                class="fr-btn--close fr-btn"
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-sm-10 fr-col-lg-8">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button
+              type="button"
+              class="fr-btn--close fr-btn"
+              aria-controls="fr-consent-modal"
+              @click="modalStore.closeModal()"
+            >
+              {{ t('close') }}
+            </button>
+          </div>
+          <div class="fr-modal__content">
+            <h1 id="fr-consent-modal-title" class="fr-modal__title">
+              {{ t('title') }}
+            </h1>
+
+            <!-- Finalités -->
+            <header class="fr-consent-manager__header fr-pb-2w">
+              <p
+                id="finality-legend"
+                class="fr-m-0"
+                v-html="t('legend', [`${MAIN_URL}/politique-de-confidentialite`])"
+              />
+
+              <div class="choice-btn-group">
+                <DsfrButton
+                  :label="t('accept-all')"
+                  primary
+                  :aria-label="t('accept-all-title')"
+                  @click="acceptAll"
+                />
+                <DsfrButton
+                  :label="t('reject-all')"
+                  secondary
+                  :aria-label="t('reject-all-title')"
+                  @click="rejectAll"
+                />
+              </div>
+            </header>
+            <fieldset
+              aria-describedby="finality-0-desc"
+              disabled
+              class="fr-consent-service fr-fieldset"
+            >
+              <legend class="fr-consent-service__title">
+                {{ t('mandatory-cookies') }}
+              </legend>
+              <p id="finality-0-desc" class="fr-consent-service__desc">
+                {{ t('mandatory-cookies-desc') }}
+              </p>
+              <DsfrRadioButton
+                v-model="requiredChoice"
+                name="consent-finality-0"
+                :label="t('accept')"
+                :value="true"
+                :inline="true"
+                checked
+              />
+              <DsfrRadioButton
+                v-model="requiredChoice"
+                name="consent-finality-0"
+                :label="t('reject')"
+                :value="true"
+                :inline="true"
+              />
+            </fieldset>
+            <fieldset aria-describedby="finality-1-desc" class="fr-consent-service fr-fieldset">
+              <legend class="fr-consent-service__title">
+                Crisp <span class="fr-text--regular fr-text--sm">(2 cookies)</span>
+              </legend>
+              <p id="finality-1-desc" class="fr-consent-service__desc">
+                {{ t('crisp-desc') }}
+              </p>
+              <DsfrRadioButton
+                v-model="crispChoice"
+                name="consent-finality-1"
+                :label="t('accept')"
+                :value="true"
+                :inline="true"
+              />
+              <DsfrRadioButton
+                v-model="crispChoice"
+                name="consent-finality-1"
+                :label="t('reject')"
+                :value="false"
+                :inline="true"
+              />
+            </fieldset>
+            <fieldset aria-describedby="finality-2-desc" class="fr-consent-service fr-fieldset">
+              <legend class="fr-consent-service__title">
+                Matomo <span class="fr-text--regular fr-text--sm">(8 cookies)</span>
+              </legend>
+              <p id="finality-2-desc" class="fr-consent-service__desc">
+                {{ t('matomo-desc') }}
+              </p>
+              <DsfrRadioButton
+                v-model="matomoChoice"
+                name="consent-finality-2"
+                :label="t('accept')"
+                :value="true"
+                :inline="true"
+              />
+              <DsfrRadioButton
+                v-model="matomoChoice"
+                name="consent-finality-2"
+                :label="t('reject')"
+                :value="false"
+                :inline="true"
+              />
+            </fieldset>
+            <footer>
+              <DsfrButton
+                :label="t('confirm-choices')"
+                class="fr-col-12 fr-col-sm-5 fr-grid-row--center"
+                size="large"
                 aria-controls="fr-consent-modal"
-                @click="modalStore.closeModal()"
-              >
-                {{ t('close') }}
-              </button>
-            </div>
-            <div class="fr-modal__content">
-              <h1 id="fr-consent-modal-title" class="fr-modal__title">
-                {{ t('title') }}
-              </h1>
-
-              <!-- Finalités -->
-              <header class="fr-consent-manager__header fr-pb-2w">
-                <p
-                  id="finality-legend"
-                  class="fr-m-0"
-                  v-html="t('legend', [`${MAIN_URL}/politique-de-confidentialite`])"
-                />
-
-                <div class="choice-btn-group">
-                  <DsfrButton
-                    :label="t('accept-all')"
-                    primary
-                    :aria-label="t('accept-all-title')"
-                    @click="acceptAll"
-                  />
-                  <DsfrButton
-                    :label="t('reject-all')"
-                    secondary
-                    :aria-label="t('reject-all-title')"
-                    @click="rejectAll"
-                  />
-                </div>
-              </header>
-              <fieldset
-                aria-describedby="finality-0-desc"
-                disabled
-                class="fr-consent-service fr-fieldset"
-              >
-                <legend class="fr-consent-service__title">
-                  {{ t('mandatory-cookies') }}
-                </legend>
-                <p id="finality-0-desc" class="fr-consent-service__desc">
-                  {{ t('mandatory-cookies-desc') }}
-                </p>
-                <DsfrRadioButton
-                  v-model="requiredChoice"
-                  name="consent-finality-0"
-                  :label="t('accept')"
-                  :value="true"
-                  :inline="true"
-                  checked
-                />
-                <DsfrRadioButton
-                  v-model="requiredChoice"
-                  name="consent-finality-0"
-                  :label="t('reject')"
-                  :value="false"
-                  :inline="true"
-                />
-              </fieldset>
-              <fieldset aria-describedby="finality-0-desc" class="fr-consent-service fr-fieldset">
-                <legend class="fr-consent-service__title">
-                  Crisp <span class="fr-text--regular fr-text--sm">(2 cookies)</span>
-                </legend>
-                <p id="finality-1-desc" class="fr-consent-service__desc">
-                  {{ t('crisp-desc') }}
-                </p>
-                <DsfrRadioButton
-                  v-model="crispChoice"
-                  name="consent-finality-1"
-                  :label="t('accept')"
-                  :value="true"
-                  :inline="true"
-                />
-                <DsfrRadioButton
-                  v-model="crispChoice"
-                  name="consent-finality-1"
-                  :label="t('reject')"
-                  :value="false"
-                  :inline="true"
-                />
-              </fieldset>
-              <fieldset aria-describedby="finality-2-desc" class="fr-consent-service fr-fieldset">
-                <legend class="fr-consent-service__title">
-                  Matomo <span class="fr-text--regular fr-text--sm">(8 cookies)</span>
-                </legend>
-                <p id="finality-2-desc" class="fr-consent-service__desc">
-                  {{ t('matomo-desc') }}
-                </p>
-                <DsfrRadioButton
-                  v-model="matomoChoice"
-                  name="consent-finality-2"
-                  :label="t('accept')"
-                  :value="true"
-                  :inline="true"
-                />
-                <DsfrRadioButton
-                  v-model="matomoChoice"
-                  name="consent-finality-2"
-                  :label="t('reject')"
-                  :value="false"
-                  :inline="true"
-                />
-              </fieldset>
-              <!-- Bouton de confirmation/fermeture -->
-              <footer>
-                <button
-                  type="button"
-                  class="fr-btn large-btn"
-                  aria-controls="fr-consent-modal"
-                  @click="confirm"
-                >
-                  {{ t('confirm-choices') }}
-                </button>
-              </footer>
-            </div>
+                @click="confirm"
+              />
+            </footer>
           </div>
         </div>
       </div>
@@ -153,7 +149,7 @@ const initialValues = Consent.getAll()
 const emit = defineEmits<{ choiceMade: [] }>()
 
 const { t } = useI18n()
-const requiredChoice = true
+const requiredChoice = ref(true)
 const crispChoice = ref(initialValues?.crisp ?? true)
 const matomoChoice = ref(initialValues?.matomo ?? true)
 
@@ -176,15 +172,11 @@ modalStore.$subscribe(
 const acceptAll = () => {
   crispChoice.value = true
   matomoChoice.value = true
-  // Consent.acceptAll()
-  // emit('choiceMade')
 }
 
 const rejectAll = () => {
   crispChoice.value = false
   matomoChoice.value = false
-  // Consent.rejectAll()
-  // emit('choiceMade')
 }
 
 const confirm = () => {
@@ -196,9 +188,11 @@ const confirm = () => {
 
 <style scoped>
 .fr-modal {
-  --ground: 2000;
-  padding: 0;
+  margin: revert;
   font-size: 0.875rem;
+  width: revert;
+  height: revert;
+  max-inline-size: 100%;
   color: var(--text-default-grey);
   background-color: transparent;
   border: none;
@@ -241,14 +235,6 @@ header,
 footer {
   display: flex;
   justify-content: end;
-}
-.large-btn {
-  justify-content: center;
-  width: fit-content;
-  flex-grow: 1;
-  @media (min-width: 768px) {
-    flex-grow: 0;
-  }
 }
 </style>
 

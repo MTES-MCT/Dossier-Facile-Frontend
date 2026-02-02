@@ -8,7 +8,7 @@ interface Props {
   alt?: string
 }
 
-const { alt = '' } = defineProps<Props>()
+const { src, alt = '' } = defineProps<Props>()
 </script>
 
 <style scoped>
