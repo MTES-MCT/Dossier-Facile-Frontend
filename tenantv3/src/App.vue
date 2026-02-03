@@ -12,7 +12,7 @@ import cookies from 'js-cookie'
 import ToastContainer from '@/components/toast/ToastContainer.vue'
 import TenantHeader from './components/TenantHeader.vue'
 
-const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
+const MESSAGE = `DOCUMENT IA`
 
 const store = useTenantStore()
 const route = useRoute()
