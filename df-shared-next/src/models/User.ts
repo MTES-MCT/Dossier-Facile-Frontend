@@ -1,4 +1,4 @@
-import { DfDocument } from './DfDocument'
+import { DfDocument, DocumentCategory } from './DfDocument'
 import { Guarantor } from './Guarantor'
 import { ApartmentSharing } from './ApartmentSharing'
 import type { TenantFileStatus } from './TenantFileStatus'
@@ -29,4 +29,16 @@ export class User {
 
   /** This is not sent by the backend but added in the frontend */
   applicationType?: ApplicationType
+}
+
+export class DocumentAnalysisStatus {
+  id!: number
+  isFinished!: boolean
+  isValid!: boolean
+}
+
+export class PreviewDocument {
+  documentCategory!: DocumentCategory
+  document?: DfDocument
+  documentAnalysisStatus?: DocumentAnalysisStatus
 }
