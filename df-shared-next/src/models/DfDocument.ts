@@ -4,6 +4,14 @@ import { DocumentDeniedReasons } from './DocumentDeniedReasons'
 
 export type DocumentStatus = 'TO_PROCESS' | 'VALIDATED' | 'DECLINED'
 
+export const allTenantDocumentCategories: DocumentCategory[] = [
+  'IDENTIFICATION',
+  'RESIDENCY',
+  'PROFESSIONAL',
+  'FINANCIAL',
+  'TAX'
+]
+
 export type DocumentCategory =
   | 'IDENTIFICATION'
   | 'RESIDENCY'
