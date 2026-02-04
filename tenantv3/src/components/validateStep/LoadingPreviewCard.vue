@@ -12,13 +12,12 @@
 import { RiHourglassFill } from '@remixicon/vue'
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
 import { useDocumentPreview } from './useDocumentPreview'
-import { toRef } from 'vue'
 
 const props = defineProps<{
   previewDocument: PreviewDocument
 }>()
 
-const { label, subTitle } = useDocumentPreview(toRef(props, 'previewDocument'))
+const { label, subTitle } = useDocumentPreview(props.previewDocument)
 </script>
 
 <style scoped lang="scss">
