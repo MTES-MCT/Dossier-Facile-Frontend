@@ -1,240 +1,106 @@
 <template>
-  <Form name="form" @submit="sendFile">
-    <template v-if="!hasErrors()">
-      <NakedCard class="fr-p-md-5w fr-mb-3w">
-        <h1 class="fr-h4">{{ t('validatefile.title') }}</h1>
-        <p>{{ getCheckboxInstructions() }}<span class="color--required"> *</span></p>
-        <div class="fr-checkbox-group bg-purple fr-mb-3w">
-          <Field
-            v-slot="{ field, meta }"
-            v-model="declaration"
-            name="declaration"
-            type="checkbox"
-            :rules="{
-              isTrue: true
-            }"
-            :value="true"
-          >
-            <input
-              id="declaration"
-              type="checkbox"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              v-bind="field"
-            />
-          </Field>
-          <i18n-t tag="label" for="declaration" keypath="validatefile.declaration">
-            <a
-              href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006418753"
-              :title="t('validatefile.article-title')"
-              target="_blank"
-              rel="noopener"
-              >{{ t('validatefile.article') }}</a
-            >
-          </i18n-t>
-          <ErrorMessage v-slot="{ message }" name="declaration">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
+          <h2 class="fr-h2">{{ t('analyse-finished.title') }}</h2>
+  <div class="fr-container fr-my-3w">
+    <div class="fr-grid-row">
+      <div class="fr-col-12">
+        <div v-if="isAnalyseFinished">
+          <!-- Analyse terminée -->
+          <h2 class="fr-h2">{{ t('analyse-finished.title') }}</h2>
+          <p>{{ t('analyse-finished.description') }}</p>
         </div>
-        <div v-if="hasGuarantors()" class="fr-checkbox-group bg-purple fr-mb-3w">
-          <Field
-            v-slot="{ field, meta }"
-            v-model="declaration2"
-            name="declaration2"
-            type="checkbox"
-            :rules="{
-              isTrue: true
-            }"
-            :value="true"
-          >
-            <input
-              id="declaration2"
-              type="checkbox"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              v-bind="field"
-            />
-          </Field>
-          <label for="declaration2">{{
-            user.guarantors.length > 1
-              ? t('validatefile.declaration2-plural')
-              : t('validatefile.declaration2')
-          }}</label>
-          <ErrorMessage v-slot="{ message }" name="declaration2">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
-        </div>
-      </NakedCard>
 
-      <NakedCard v-if="user.tenantType === 'CREATE'" class="fr-px-5w fr-py-3w fr-mb-2w">
-        <label for="precision" class="fr-label">
-          {{ t('validatefile.precision') }}
-        </label>
-        <Field id="precision" v-slot="{ field, meta }" v-model="precision" name="precision">
-          <textarea
-            id="precision"
-            :class="{
-              'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid
-            }"
-            :placeholder="t('validatefile.placeholder')"
-            maxlength="2000"
-            rows="3"
-            v-bind="field"
-            name="precision"
-            class="validate-required form-control fr-input"
+        <div v-else>
+          <NakedCard>
+            <h1 class="fr-h6 fr-mb-1w">{{ t('analyse-in-progress.title') }}</h1>
+            <p>
+              {{ t('analyse-in-progress.description') }}
+            </p>
+          </NakedCard>
+
+          <AnalysisProgress
+            :number-of-documents="analysisResults.numberOfDocuments"
+            :number-of-analysed-documents="analysisResults.numberOfAnalysedDocuments"
           />
-        </Field>
-        <span>{{ precision.length }} / 2000</span>
-        <ErrorMessage v-slot="{ message }" name="precision">
-          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-        </ErrorMessage>
-      </NakedCard>
-    </template>
-    <ProfileFooter
-      ref="footer"
-      :disabled="hasErrors()"
-      :next-label="t('validatefile.validate')"
-      @on-back="goBack()"
-    >
-    </ProfileFooter>
-  </Form>
-  <template v-if="hasErrors()">
-    <NakedCard class="fr-px-5w fr-py-3w">
-      <h1 class="fr-h4">
-        {{ t('validatefile.validation-error-title') }}
-      </h1>
-      <p>
-        {{ t('validatefile.validation-error-description') }}
-      </p>
-    </NakedCard>
-    <FileErrors />
-  </template>
+        </div>
+      </div>
+      <div class="fr-col-12">
+        <AnalysisPreview
+          :user="user"
+          :document-analysis-status="analysisResults.documentAnalysisStatus"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import ProfileFooter from './footer/ProfileFooter.vue'
-import FileErrors from './fileerrors/FileErrors.vue'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { useLoading } from 'vue-loading-overlay'
-import { useTenantStore } from '../stores/tenant-store'
-import { computed, onMounted, ref, useTemplateRef } from 'vue'
-import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { useRouter } from 'vue-router'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Form, Field, ErrorMessage } from 'vee-validate'
-import { AnalyticsService } from '../services/AnalyticsService'
-import { User } from 'df-shared-next/src/models/User'
-import { UtilsService } from '../services/UtilsService'
-import { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import { toast } from '@/components/toast/toastUtils'
+import { useTenantStore } from '../stores/tenant-store'
+// import ProfileFooter from './footer/ProfileFooter.vue'
+
+// Keeping useful imports for later
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import AnalysisProgress from './validateStep/AnalysisProgress.vue'
+import AnalysisPreview from './validateStep/AnalysisPreview.vue'
 
 const { t } = useI18n()
-
 const store = useTenantStore()
+
+const isAnalyseFinished = computed(() => false)
+
 const user = computed(() => store.user)
-const emit = defineEmits<{ 'on-back': [] }>()
 
-const router = useRouter()
-
-const precision = ref('')
-const declaration = ref(false)
-const declaration2 = ref(false)
-const footer = useTemplateRef('footer')
-
-onMounted(() => {
-  if (user.value.honorDeclaration) {
-    declaration.value = true
-    declaration2.value = true
-  }
-  precision.value = user.value?.clarification || ''
-  sendEventPrevalidation(user.value)
-})
-
-function sendEventPrevalidation(user: User | CoTenant) {
-  if (import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== 'true') {
-    return
-  }
-  UtilsService.getAllDocuments(user).forEach((d: DfDocument) => {
-    if (
-      d.documentAnalysisReport?.analysisStatus === 'DENIED' &&
-      !d.documentAnalysisReport?.comment
-    ) {
-      AnalyticsService.prevalidationEvent(d.documentSubCategory || '', 'DENIED')
-    } else if (d.documentAnalysisReport?.analysisStatus === 'CHECKED') {
-      AnalyticsService.prevalidationEvent(d.documentSubCategory || '', 'CHECKED')
+const analysisResults = ref({
+  numberOfDocuments: 5,
+  numberOfAnalysedDocuments: 1,
+  documentAnalysisStatus: [
+    {
+      id: 722,
+      isFinished: true,
+      isValid: true
+    },
+    {
+      id: 716,
+      isFinished: false,
+      isValid: false
+    },
+    {
+      id: 727,
+      isFinished: true,
+      isValid: false
     }
-  })
-
-  if ('applicationType' in user && user.applicationType === 'COUPLE') {
-    const cotenants = user.apartmentSharing?.tenants.filter((cotenant) => user.id !== cotenant.id)
-    cotenants.forEach((cotenant) => {
-      sendEventPrevalidation(cotenant)
-    })
-  }
-}
-
-function sendFile() {
-  if (!canValidate()) {
-    window.scrollTo(0, 800)
-    return
-  }
-
-  if (
-    declaration.value === user.value?.honorDeclaration &&
-    precision.value === user.value?.clarification
-  ) {
-    router.push('/account')
-    return
-  }
-  const $loading = useLoading({})
-  const loader = $loading.show()
-  const params = {
-    honorDeclaration: true,
-    clarification: user.value.tenantType === 'CREATE' ? precision.value : undefined
-  }
-  store
-    .validateFile(params)
-    .then(() => {
-      store.loadUser().then(() => {
-        router.push('/account')
-      })
-    })
-    .catch(() => {
-      toast.error(t('errors.submit-failed'), footer.value?.nextBtn)
-    })
-    .finally(() => {
-      loader.hide()
-    })
-}
-
-function goBack() {
-  emit('on-back')
-}
-
-function hasErrors() {
-  return !store.allDocumentsPreValidated || !store.allNamesFilled
-}
-
-function canValidate() {
-  return declaration.value && (!hasGuarantors() || declaration2.value)
-}
-
-function getCheckboxInstructions() {
-  return hasGuarantors() ? t('validatefile.read') : t('validatefile.read-no-guarantor')
-}
-
-function hasGuarantors() {
-  return (
-    user.value.guarantors.length > 0 &&
-    user.value.guarantors.findIndex((g: Guarantor) => {
-      return g.typeGuarantor !== 'ORGANISM'
-    }) >= 0
-  )
-}
+  ]
+})
 </script>
+
+<style scoped lang="scss">
+.grey-container {
+  background-color: var(--background-default-grey);
+}
+</style>
+
+<i18n>
+{
+  "en": {
+    "analyse-finished": {
+      "title": "Analysis finished",
+      "description": "The analysis of your file is finished."
+    },
+    "analyse-in-progress": {
+      "title": "Automatic analysis of your file",
+      "description": "Our system automatically analyses your documents to help you complete your file. It will then be verified by our team."
+    }
+  },
+  "fr": {
+    "analyse-finished": {
+      "title": "Analyse terminée",
+      "description": "L'analyse de votre dossier est terminée."
+    },
+    "analyse-in-progress": {
+      "title": "Analyse automatique de votre dossier",
+      "description": "Notre système analyse automatiquement vos documents pour vous aider à constituer un dossier complet. Il sera ensuite vérifié par notre équipe."
+    }
+  }
+}
+</i18n>

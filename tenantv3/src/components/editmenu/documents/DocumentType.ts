@@ -9,6 +9,14 @@ export enum DocumentType {
   GUARANTEE_PROVIDER_CERTIFICATE = 'GUARANTEE_PROVIDER_CERTIFICATE'
 }
 
+export const TENANT_DOCUMENTS = [
+  DocumentType.IDENTITY,
+  DocumentType.RESIDENCY,
+  DocumentType.PROFESSIONAL,
+  DocumentType.FINANCIAL,
+  DocumentType.TAX
+]
+
 export const DocumentTypeTranslations = {
   IDENTITY: 'identification',
   RESIDENCY: 'residency',
