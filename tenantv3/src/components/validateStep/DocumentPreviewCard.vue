@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { toRef } from 'vue'
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
 import ErrorPreviewCard from './ErrorPreviewCard.vue'
 import LoadingPreviewCard from './LoadingPreviewCard.vue'
@@ -21,7 +20,7 @@ const props = defineProps<{
   previewDocument: PreviewDocument
 }>()
 
-const { status } = useDocumentPreview(toRef(props, 'previewDocument'))
+const { status } = useDocumentPreview(props.previewDocument)
 </script>
 
 <i18n>
