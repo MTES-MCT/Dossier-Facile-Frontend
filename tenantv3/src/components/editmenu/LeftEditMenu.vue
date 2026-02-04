@@ -254,7 +254,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 import { useI18n } from 'vue-i18n'
-import { DocumentType } from './documents/DocumentType'
+import { DocumentType, TENANT_DOCUMENTS } from './documents/DocumentType'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { makeCotenantGuarantorResidencyLink } from '../guarantorResidency/makeGuarantorResidencyLink'
 import { makeGuarantorCoupleActivityLink } from '../mainActivity/lib/useMainActivityLink'
@@ -272,14 +272,6 @@ const { t } = useI18n()
 const idDocLink = useIdentityDocumentLink()
 
 const { step = 0 } = defineProps<{ step?: number }>()
-
-const TENANT_DOCUMENTS = [
-  DocumentType.IDENTITY,
-  DocumentType.RESIDENCY,
-  DocumentType.PROFESSIONAL,
-  DocumentType.FINANCIAL,
-  DocumentType.TAX
-]
 
 const coTenants = computed(() => {
   const c = user.value.apartmentSharing?.tenants?.filter((r) => {
