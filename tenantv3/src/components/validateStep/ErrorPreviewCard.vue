@@ -35,8 +35,7 @@ const { t } = useI18n()
 const { label, subTitle, goToEdit } = useDocumentPreview(props.previewDocument)
 
 const failedRules = computed(() => {
-  const status = props.previewDocument.documentAnalysisStatus
-  return status?.failedRules || []
+  return props.previewDocument.document?.documentAnalysisReport?.failedRules || []
 })
 </script>
 
