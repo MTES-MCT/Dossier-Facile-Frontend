@@ -387,12 +387,9 @@ importers:
       "@types/js-cookie":
         specifier: 3.0.6
         version: 3.0.6
-      "@vueuse/core":
-        specifier: 14.1.0
-        version: 14.1.0(vue@3.5.18(typescript@5.9.2))
-      "@vueuse/integrations":
-        specifier: 14.1.0
-        version: 14.1.0(axios@1.9.0)(focus-trap@7.6.6)(vue@3.5.18(typescript@5.9.2))
+      "@vuepic/vue-datepicker":
+        specifier: 12.0.5
+        version: 12.0.5(vue@3.5.18(typescript@5.9.2))
       axios:
         specifier: "catalog:"
         version: 1.9.0(debug@4.4.1)
@@ -402,9 +399,6 @@ importers:
       df-shared-next:
         specifier: workspace:*
         version: link:../df-shared-next
-      focus-trap:
-        specifier: ^7
-        version: 7.6.6
       js-cookie:
         specifier: 3.0.5
         version: 3.0.5
@@ -1534,6 +1528,12 @@ packages:
         integrity: sha512-skbBzPggOVYCbnGgV+0dmBdW/s77ZkAOXIC1knS8NagwDjBrNC1LuXtQJeiN6l+m7lzmHtaoUw/ctJKdqkG57Q==,
       }
 
+  "@date-fns/tz@1.4.1":
+    resolution:
+      {
+        integrity: sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA==,
+      }
+
   "@esbuild/aix-ppc64@0.25.12":
     resolution:
       {
@@ -2074,16 +2074,16 @@ packages:
       }
     engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
 
-  "@floating-ui/core@1.7.3":
+  "@floating-ui/core@1.7.4":
     resolution:
       {
-        integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==,
+        integrity: sha512-C3HlIdsBxszvm5McXlB8PeOEWfBhcGBTZGkGlWc2U0KFY5IwG5OQEuQ8rq52DZmcHDlPLd+YFBK+cZcytwIFWg==,
       }
 
-  "@floating-ui/dom@1.7.4":
+  "@floating-ui/dom@1.7.5":
     resolution:
       {
-        integrity: sha512-OOchDgh4F2CchOX94cRVqhvy7b3AFb+/rQXyswmzmGakRfkMgoWVjfnLWkRirfLEfuD4ysVW16eXzwt3jHIzKA==,
+        integrity: sha512-N0bD2kIPInNHUHehXhMke1rBGs1dwqvC9O9KYMyyjK7iXt7GAhnro7UlcuYcGdS/yYOlq0MAVgrow8IbWJwyqg==,
       }
 
   "@floating-ui/utils@0.2.10":
@@ -2092,10 +2092,10 @@ packages:
         integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==,
       }
 
-  "@floating-ui/vue@1.1.9":
+  "@floating-ui/vue@1.1.10":
     resolution:
       {
-        integrity: sha512-BfNqNW6KA83Nexspgb9DZuz578R7HT8MZw1CfK9I6Ah4QReNWEJsXWHN+SdmOVLNGmTPDi+fDT535Df5PzMLbQ==,
+        integrity: sha512-vdf8f6rHnFPPLRsmL4p12wYl+Ux4mOJOkjzKEMYVnwdf7UFdvBtHlLvQyx8iKG5vhPRbDRgZxdtpmyigDPjzYg==,
       }
 
   "@fullhuman/postcss-purgecss@7.0.2":
@@ -2112,19 +2112,19 @@ packages:
         integrity: sha512-YC3VWZ/3ff6sv0fpCCY7z5oNOSf1pAe9P33Miw2jrrmOojPEqKXaswWtFPH9FKXcuDEA0g1TiX1YOVobg1fdMQ==,
       }
 
-  "@gouvfr/dsfr@1.13.2":
+  "@gouvfr/dsfr@1.14.3":
     resolution:
       {
-        integrity: sha512-4Q9ggFFzwD/KFr37sJO1hFH9PcqlZ7F3jMiFJXnBLJfkH1+s28vnQp/oXoY8TosWsLMSjdhNCrxvrUdm5XzBlg==,
+        integrity: sha512-UTplClQLp635J4vRHx/rJ7SKEi+bepc1FisvzTS8efQGQ3Gm8LttZf11NJ+4XhEMYLbCf8TBvFFwWBZ9ztRFkg==,
       }
-    engines: { node: ">=18.16.1" }
+    engines: { node: ^20.19.0 || ^22.12.0 || >=24.0.0 }
 
-  "@gouvminint/vue-dsfr@8.4.0":
+  "@gouvminint/vue-dsfr@8.13.1":
     resolution:
       {
-        integrity: sha512-PyFnA9REL6ZYjPyxfF1kRw53nr8ANT/m67qPPG/lAExvbT7yq7xwHtGRALPJquDKHmb+QXUwpyWuaDD7IJnbKw==,
+        integrity: sha512-BejnuRuFrEfVbl+hUweOk8k5lUhFRCNf4OPR7qTKLHSvvbAZehCvciBpu92GYrv9nuVW61AtPgbqjY/9CqGCNQ==,
       }
-    engines: { node: ">=20.x.x", npm: ">=10.x.x" }
+    engines: { node: ">=22.0.0", pnpm: ">=10.0.0" }
     hasBin: true
     peerDependencies:
       "@iconify/vue": ^4.2.0
@@ -3397,6 +3397,18 @@ packages:
     resolution:
       {
         integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==,
+      }
+
+  "@types/lodash.debounce@4.0.9":
+    resolution:
+      {
+        integrity: sha512-Ma5JcgTREwpLRwMM+XwBR7DaWe96nC38uCBDFKZWbNKD+osjVzdpnUSwBcqCptrp16sSOLBAUb50Car5I0TCsQ==,
+      }
+
+  "@types/lodash@4.17.23":
+    resolution:
+      {
+        integrity: sha512-RDvF6wTulMPjrNdCoYRC8gNR880JNGT8uB+REUpC2Ns4pRqQJhGz90wh7rgdXDPpCczF3VGktDuFGVnz8zP7HA==,
       }
 
   "@types/mdx@2.0.13":
@@ -8545,11 +8557,25 @@ packages:
         integrity: sha512-YbGqHZ5/eW4SnkPNR44mKVc6ZKQoRs/Rux1sxC6rdwXb4qpbOSYfDr9DsTHolOTGmIKgM9j141mZbBeg05R1pw==,
       }
 
-  vue-component-type-helpers@3.2.3:
+  vue-component-type-helpers@3.2.4:
     resolution:
       {
-        integrity: sha512-lpJTa8a+12Cgy/n5OdlQTzQhSWOCu+6zQoNFbl3KYxwAoB95mYIgMLKEYMvQykPJ2ucBDjJJISdIBHc1d9Hd3w==,
+        integrity: sha512-05lR16HeZDcDpB23ku5b5f1fBOoHqFnMiKRr2CiEvbG5Ux4Yi0McmQBOET0dR0nxDXosxyVqv67q6CzS3AK8rw==,
       }
+
+  vue-demi@0.14.10:
+    resolution:
+      {
+        integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==,
+      }
+    engines: { node: ">=12" }
+    hasBin: true
+    peerDependencies:
+      "@vue/composition-api": ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      "@vue/composition-api":
+        optional: true
 
   vue-docgen-api@4.79.2:
     resolution:
@@ -8574,6 +8600,7 @@ packages:
         integrity: sha512-LvyteQoXeQiuILbzqv13LbyBna/TEv2Ha+4ZWK2AwGHUzZ8+IBaZS0TJkCgn5izSPLcgZwXy9yyTrewCb2u/MA==,
       }
     engines: { node: ">= 16" }
+    deprecated: This version is NOT deprecated. Previous deprecation was a mistake.
     peerDependencies:
       vue: ^3.0.0
 
@@ -8716,6 +8743,7 @@ packages:
         integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==,
       }
     engines: { node: ">=18" }
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution:
@@ -9932,20 +9960,20 @@ snapshots:
       "@eslint/core": 0.15.2
       levn: 0.4.1
 
-  "@floating-ui/core@1.7.3":
+  "@floating-ui/core@1.7.4":
     dependencies:
       "@floating-ui/utils": 0.2.10
 
-  "@floating-ui/dom@1.7.4":
+  "@floating-ui/dom@1.7.5":
     dependencies:
-      "@floating-ui/core": 1.7.3
+      "@floating-ui/core": 1.7.4
       "@floating-ui/utils": 0.2.10
 
   "@floating-ui/utils@0.2.10": {}
 
-  "@floating-ui/vue@1.1.9(vue@3.5.18(typescript@5.9.2))":
+  "@floating-ui/vue@1.1.10(vue@3.5.18(typescript@5.9.2))":
     dependencies:
-      "@floating-ui/dom": 1.7.4
+      "@floating-ui/dom": 1.7.5
       "@floating-ui/utils": 0.2.10
       vue-demi: 0.14.10(vue@3.5.18(typescript@5.9.2))
     transitivePeerDependencies:
@@ -10720,7 +10748,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.18(typescript@5.9.2)
-      vue-component-type-helpers: 3.2.3
+      vue-component-type-helpers: 3.2.4
 
   "@surma/rollup-plugin-off-main-thread@2.2.3":
     dependencies:
@@ -11297,7 +11325,7 @@ snapshots:
   "@vuepic/vue-datepicker@12.0.5(vue@3.5.18(typescript@5.9.2))":
     dependencies:
       "@date-fns/tz": 1.4.1
-      "@floating-ui/vue": 1.1.9(vue@3.5.18(typescript@5.9.2))
+      "@floating-ui/vue": 1.1.10(vue@3.5.18(typescript@5.9.2))
       "@vueuse/core": 14.1.0(vue@3.5.18(typescript@5.9.2))
       date-fns: 4.1.0
       vue: 3.5.18(typescript@5.9.2)
@@ -11310,15 +11338,6 @@ snapshots:
       "@vueuse/metadata": 14.1.0
       "@vueuse/shared": 14.1.0(vue@3.5.18(typescript@5.9.2))
       vue: 3.5.18(typescript@5.9.2)
-
-  "@vueuse/integrations@14.1.0(axios@1.9.0)(focus-trap@7.6.6)(vue@3.5.18(typescript@5.9.2))":
-    dependencies:
-      "@vueuse/core": 14.1.0(vue@3.5.18(typescript@5.9.2))
-      "@vueuse/shared": 14.1.0(vue@3.5.18(typescript@5.9.2))
-      vue: 3.5.18(typescript@5.9.2)
-    optionalDependencies:
-      axios: 1.9.0(debug@4.4.1)
-      focus-trap: 7.6.6
 
   "@vueuse/metadata@14.1.0": {}
 
@@ -14132,7 +14151,11 @@ snapshots:
 
   vue-component-type-helpers@2.2.12: {}
 
-  vue-component-type-helpers@3.2.3: {}
+  vue-component-type-helpers@3.2.4: {}
+
+  vue-demi@0.14.10(vue@3.5.18(typescript@5.9.2)):
+    dependencies:
+      vue: 3.5.18(typescript@5.9.2)
 
   vue-docgen-api@4.79.2(vue@3.5.18(typescript@5.9.2)):
     dependencies:

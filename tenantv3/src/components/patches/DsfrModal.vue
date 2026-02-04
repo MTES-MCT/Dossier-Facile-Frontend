@@ -10,7 +10,6 @@
 import type { DsfrModalProps } from '@gouvminint/vue-dsfr'
 import { DsfrButtonGroup, useRandomId, VIcon } from '@gouvminint/vue-dsfr'
 
-// import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
 import { computed, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
 
 const props = withDefaults(defineProps<DsfrModalProps>(), {
