@@ -147,6 +147,26 @@
       "PENSION": "Pensions",
       "SCHOLARSHIP": "Bourses",
       "NO_INCOME": "Pas de revenus"
+    },
+    "edit": "Modifier",
+    "financial-steps": {
+      "salary": "Salarié",
+      "freelance": "Indépendant",
+      "intermitent": "Intermittent",
+      "artist-author": "Artiste-auteur",
+      "unknown": "Non renseigné",
+      "caf-or-msa": "Aide de la CAF ou de la MSA",
+      "france-travail": "Aide de France Travail",
+      "apl": "Aide personnalisée au logement (APL)",
+      "aah": "Allocation aux adultes handicapés (AAH)",
+      "other-help": "Autre type d’aide",
+      "pension": "Retraite",
+      "disability-pension": "Pension d’invalidité",
+      "alimony-pension": "Pension alimentaire",
+      "unknown-pension": "Non renseigné",
+      "rent": "Revenus locatifs",
+      "rent-annuity-life": "Rente viagère",
+      "rent-other": "Autre type de rente"
     }
   },
   "explanation-text": {
