@@ -27,6 +27,12 @@ catalogs:
     "@types/node":
       specifier: 24.1.0
       version: 24.1.0
+    "@vee-validate/i18n":
+      specifier: 4.15.1
+      version: 4.15.1
+    "@vee-validate/rules":
+      specifier: 4.15.1
+      version: 4.15.1
     "@vitejs/plugin-vue":
       specifier: 6.0.3
       version: 6.0.3
@@ -73,8 +79,8 @@ catalogs:
       specifier: 5.9.2
       version: 5.9.2
     vee-validate:
-      specifier: 4.15.0
-      version: 4.15.0
+      specifier: 4.15.1
+      version: 4.15.1
     vite:
       specifier: 7.3.0
       version: 7.3.0
@@ -113,6 +119,12 @@ importers:
       "@remixicon/vue":
         specifier: 4.4.0
         version: 4.4.0(vue@3.5.18(typescript@5.9.2))
+      "@vee-validate/i18n":
+        specifier: "catalog:"
+        version: 4.15.1
+      "@vee-validate/rules":
+        specifier: "catalog:"
+        version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       axios:
         specifier: "catalog:"
         version: 1.13.2(debug@4.4.1)
@@ -130,7 +142,7 @@ importers:
         version: 1.96.0
       vee-validate:
         specifier: "catalog:"
-        version: 4.15.0(vue@3.5.18(typescript@5.9.2))
+        version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       vue:
         specifier: "catalog:"
         version: 3.5.18(typescript@5.9.2)
@@ -234,7 +246,7 @@ importers:
         version: 3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       vee-validate:
         specifier: "catalog:"
-        version: 4.15.0(vue@3.5.18(typescript@5.9.2))
+        version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       vue:
         specifier: "catalog:"
         version: 3.5.18(typescript@5.9.2)
@@ -416,7 +428,7 @@ importers:
         version: 3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       vee-validate:
         specifier: "catalog:"
-        version: 4.15.0(vue@3.5.18(typescript@5.9.2))
+        version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       vue:
         specifier: "catalog:"
         version: 3.5.18(typescript@5.9.2)
@@ -586,7 +598,7 @@ importers:
         version: 3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       vee-validate:
         specifier: "catalog:"
-        version: 4.15.0(vue@3.5.18(typescript@5.9.2))
+        version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       vue:
         specifier: "catalog:"
         version: 3.5.18(typescript@5.9.2)
@@ -3667,6 +3679,18 @@ packages:
       }
     peerDependencies:
       vue: ">=3.5.13"
+
+  "@vee-validate/i18n@4.15.1":
+    resolution:
+      {
+        integrity: sha512-6ogEyxkoTr7IZk4EAUT0rD3pr34Nw/YEToez/c0DSlI1/cBeOpunSmGmoYPh32pmd3imxFPEawCB7IyFvRJSAw==,
+      }
+
+  "@vee-validate/rules@4.15.1":
+    resolution:
+      {
+        integrity: sha512-2TGXq2MYt21nT8ysuxyFY/LBVQDcMPKn1hY0w3uIDmG333vzBkOtXAylmvrS93AsJ7N5coHMJjcCGG4JxCO2hQ==,
+      }
 
   "@vitejs/plugin-vue@6.0.3":
     resolution:
@@ -8393,10 +8417,10 @@ packages:
       }
     hasBin: true
 
-  vee-validate@4.15.0:
+  vee-validate@4.15.1:
     resolution:
       {
-        integrity: sha512-PGJh1QCFwCBjbHu5aN6vB8macYVWrajbDvgo1Y/8fz9n/RVIkLmZCJDpUgu7+mUmCOPMxeyq7vXUOhbwAqdXcA==,
+        integrity: sha512-DkFsiTwEKau8VIxyZBGdO6tOudD+QoUBPuHj3e6QFqmbfCRj1ArmYWue9lEp6jLSWBIw4XPlDLjFIZNLdRAMSg==,
       }
     peerDependencies:
       vue: ^3.4.26
@@ -11029,6 +11053,14 @@ snapshots:
       hookable: 5.5.3
       unhead: 2.0.9
       vue: 3.5.18(typescript@5.9.2)
+
+  "@vee-validate/i18n@4.15.1": {}
+
+  "@vee-validate/rules@4.15.1(vue@3.5.18(typescript@5.9.2))":
+    dependencies:
+      vee-validate: 4.15.1(vue@3.5.18(typescript@5.9.2))
+    transitivePeerDependencies:
+      - vue
 
   "@vitejs/plugin-vue@6.0.3(vite@7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.18(typescript@5.9.2))":
     dependencies:
@@ -13985,7 +14017,7 @@ snapshots:
 
   uuid@9.0.1: {}
 
-  vee-validate@4.15.0(vue@3.5.18(typescript@5.9.2)):
+  vee-validate@4.15.1(vue@3.5.18(typescript@5.9.2)):
     dependencies:
       "@vue/devtools-api": 7.7.9
       type-fest: 4.41.0

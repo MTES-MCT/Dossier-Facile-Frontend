@@ -61,89 +61,16 @@
 
     <div class="fr-background-alt--blue-france fr-p-3w">
       <h2 class="fr-text-title--blue-france fr-h6">Quelle est votre situation ?</h2>
-      <fieldset
-        id="radio-rich-inline"
-        class="fr-fieldset"
-        aria-labelledby="radio-rich-inline-legend radio-rich-inline-messages"
-      >
-        <legend
-          id="radio-rich-inline-legend"
-          class="fr-fieldset__legend--regular fr-fieldset__legend"
-        >
-          Vous avez créé :
-        </legend>
-        <div class="fr-fieldset__element fr-fieldset__element--inline">
-          <div class="fr-radio-group fr-radio-rich">
-            <input
-              id="radio-rich-inline-1"
-              v-model="contactFormData.profile"
-              type="radio"
-              name="radio-rich-inline"
-              value="tenant"
-              @change="onProfileChange"
-            />
-            <label class="fr-label" for="radio-rich-inline-1"> Un dossier locataire </label>
-            <div class="fr-radio-rich__img">
-              <svg
-                class="fr-artwork"
-                aria-hidden="true"
-                viewBox="0 0 80 80"
-                width="80px"
-                height="80px"
-              >
-                <use
-                  class="fr-artwork-decorative"
-                  xlink:href="@gouvfr/dsfr/dist/artwork/pictograms/document/document.svg#artwork-decorative"
-                ></use>
-                <use
-                  class="fr-artwork-minor"
-                  xlink:href="@gouvfr/dsfr/dist/artwork/pictograms/document/document.svg#artwork-minor"
-                ></use>
-                <use
-                  class="fr-artwork-major"
-                  xlink:href="@gouvfr/dsfr/dist/artwork/pictograms/document/document.svg#artwork-major"
-                ></use>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div class="fr-fieldset__element fr-fieldset__element--inline">
-          <div class="fr-radio-group fr-radio-rich">
-            <input
-              id="radio-rich-inline-2"
-              v-model="contactFormData.profile"
-              type="radio"
-              name="radio-rich-inline"
-              value="owner"
-              @change="onProfileChange"
-            />
-            <label class="fr-label" for="radio-rich-inline-2"> Un compte propriétaire </label>
-            <div class="fr-radio-rich__img">
-              <svg
-                class="fr-artwork"
-                aria-hidden="true"
-                viewBox="0 0 80 80"
-                width="80px"
-                height="80px"
-              >
-                <use
-                  class="fr-artwork-decorative"
-                  xlink:href="@gouvfr/dsfr/dist/artwork/pictograms/buildings/house.svg#artwork-decorative"
-                ></use>
-                <use
-                  class="fr-artwork-minor"
-                  xlink:href="@gouvfr/dsfr/dist/artwork/pictograms/buildings/house.svg#artwork-minor"
-                ></use>
-                <use
-                  class="fr-artwork-major"
-                  xlink:href="@gouvfr/dsfr/dist/artwork/pictograms/buildings/house.svg#artwork-major"
-                ></use>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div id="radio-rich-inline-messages" class="fr-messages-group" aria-live="assertive"></div>
-      </fieldset>
+
+      <DsfrRadioButtonSet
+        :legend="t('choice.legend')"
+        v-model="contactFormData.profile"
+        name="profile-choice"
+        :options="options"
+        inline
+        small
+        @update:model-value="onProfileChange"
+      />
     </div>
 
     <div v-if="contactFormData.profile === 'tenant'" class="fr-mt-3w">
@@ -153,264 +80,15 @@
       <OwnerHelpAccordion @accordion-clicked="accordionClicked"></OwnerHelpAccordion>
     </div>
 
-    <div
-      v-if="contactFormData.profile === 'tenant' || contactFormData.profile === 'owner'"
-      class="fr-mt-7w"
-    >
-      <div class="fr-accordions-group">
-        <section class="fr-accordion fr-accordion--form">
-          <h3 class="fr-accordion__title">
-            <button
-              class="fr-accordion__btn fr-background-default--grey fr-text-title--grey"
-              :aria-expanded="isFormOpen"
-              aria-controls="accordion-form"
-              @click="accordionClicked('contact_dont_find_question')"
-            >
-              Je ne trouve pas la réponse à ma question
-            </button>
-          </h3>
-          <div id="accordion-form" class="fr-collapse">
-            <p>
-              Si votre question ne figure pas dans cette liste, vous pouvez contacter notre équipe
-              d’assistance en utilisant ce formulaire.
-            </p>
-            <Form name="form" @submit="submitForm" @invalid-submit="onInvalidSubmit">
-              <div class="fr-grid-row fr-grid-row--center">
-                <div class="fr-col-12 fr-mb-3w">
-                  <RequiredFieldsInstruction></RequiredFieldsInstruction>
-                </div>
-                <div class="fr-col-12 fr-col-md-6 fr-pr-md-3w fr-mb-3w position--relative">
-                  <Field
-                    id="firstname"
-                    v-slot="{ field, meta, errorMessage }"
-                    v-model="contactFormData.firstname"
-                    name="firstname"
-                    rules="required"
-                  >
-                    <div
-                      :class="{
-                        'fr-input-group--valid': meta.valid && meta.touched,
-                        'fr-input-group--error': !meta.valid && meta.touched
-                      }"
-                    >
-                      <FieldLabel :required="true" for-input="firstname">
-                        {{ t('firstname') }}
-                      </FieldLabel>
-                      <input
-                        id="firstname"
-                        :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
-                        :placeholder="t('firstname')"
-                        type="text"
-                        v-bind="field"
-                        name="firstname"
-                        autocomplete="given-name"
-                        :aria-invalid="!meta.valid"
-                        aria-describedby="firstname-error"
-                        class="validate-required form-control fr-input"
-                      />
-                      <span
-                        v-show="!meta.valid"
-                        id="firstname-error"
-                        :class="{ 'fr-error-text': !meta.valid && meta.touched }"
-                        >{{ t(errorMessage || '') }}</span
-                      >
-                    </div>
-                  </Field>
-                </div>
-                <div class="fr-col-12 fr-col-md-6 fr-mb-3w position--relative">
-                  <Field
-                    id="lastname"
-                    v-slot="{ field, meta, errorMessage }"
-                    v-model="contactFormData.lastname"
-                    name="lastname"
-                    rules="required"
-                  >
-                    <div
-                      :class="{
-                        'fr-input-group--valid': meta.valid && meta.touched,
-                        'fr-input-group--error': !meta.valid && meta.touched
-                      }"
-                    >
-                      <FieldLabel :required="true" for-input="lastname">
-                        {{ t('lastname') }}
-                      </FieldLabel>
-                      <input
-                        v-bind="field"
-                        id="lastname"
-                        class="form-control fr-input validate-required"
-                        :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
-                        :aria-invalid="!meta.valid"
-                        aria-describedby="lastname-error"
-                        name="lastname"
-                        autocomplete="family-name"
-                        :placeholder="t('lastname')"
-                        type="text"
-                      />
-                      <span
-                        v-show="!meta.valid"
-                        id="lastname-error"
-                        :class="{ 'fr-error-text': !meta.valid && meta.touched }"
-                        >{{ t(errorMessage || '') }}</span
-                      >
-                    </div>
-                  </Field>
-                </div>
-                <div class="fr-col-12 fr-mb-3w position--relative">
-                  <Field
-                    id="email"
-                    v-slot="{ field, meta, errorMessage }"
-                    v-model="contactFormData.email"
-                    name="email"
-                    :rules="{
-                      email: true,
-                      required: true
-                    }"
-                  >
-                    <div
-                      :class="{
-                        'fr-input-group--valid': meta.valid && meta.touched,
-                        'fr-input-group--error': !meta.valid && meta.touched
-                      }"
-                    >
-                      <FieldLabel :required="true" for-input="email">
-                        {{ t('email') }}
-                      </FieldLabel>
-                      <input
-                        v-bind="field"
-                        id="email"
-                        v-model="contactFormData.email"
-                        class="validate-required form-control fr-input"
-                        :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
-                        :aria-invalid="!meta.valid"
-                        aria-describedby="email-error"
-                        name="email"
-                        autocomplete="email"
-                        :placeholder="t('email-example')"
-                        type="text"
-                      />
-                      <span
-                        v-show="!meta.valid && meta.touched"
-                        id="email-error"
-                        class="fr-error-text"
-                        >{{ t(errorMessage || '') }}</span
-                      >
-                    </div>
-                  </Field>
-                </div>
-                <div class="fr-col-12 fr-mb-3w position--relative">
-                  <Field
-                    id="subject"
-                    v-slot="{ field, meta, errorMessage }"
-                    v-model="contactFormData.subject"
-                    name="subject"
-                    rules="required"
-                  >
-                    <div
-                      :class="{
-                        'fr-input-group--valid': meta.valid && meta.touched,
-                        'fr-input-group--error': !meta.valid && meta.touched
-                      }"
-                    >
-                      <FieldLabel :required="true" for-input="subject">
-                        {{ t('subject') }}
-                      </FieldLabel>
-                      <input
-                        v-bind="field"
-                        id="subject"
-                        class="form-control fr-input validate-required"
-                        :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
-                        :aria-invalid="!meta.valid"
-                        aria-describedby="subject-error"
-                        name="subject"
-                        autocomplete="off"
-                        :placeholder="t('subject')"
-                        type="text"
-                      />
-                      <span
-                        v-show="!meta.valid"
-                        id="subject-error"
-                        :class="{ 'fr-error-text': !meta.valid && meta.touched }"
-                        >{{ t(errorMessage || '') }}</span
-                      >
-                    </div>
-                  </Field>
-                </div>
-                <div class="fr-col-12 fr-mb-3w position--relative">
-                  <Field
-                    id="message"
-                    v-slot="{ field, meta, errorMessage }"
-                    v-model="contactFormData.message"
-                    name="message"
-                    rules="required"
-                  >
-                    <div
-                      :class="{
-                        'fr-input-group--valid': meta.valid && meta.touched,
-                        'fr-input-group--error': !meta.valid && meta.touched
-                      }"
-                    >
-                      <FieldLabel :required="true" for-input="message">
-                        {{ t('message') }}
-                      </FieldLabel>
-                      <textarea
-                        v-bind="field"
-                        id="message"
-                        class="form-control fr-input validate-required"
-                        :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
-                        :aria-invalid="!meta.valid"
-                        aria-describedby="message-error"
-                        name="message"
-                        autocomplete="off"
-                        :placeholder="t('message')"
-                      />
-                      <span
-                        v-show="errorMessage"
-                        id="message-error"
-                        :class="{ 'fr-error-text': !meta.valid && meta.touched }"
-                        >{{ t(errorMessage || '') }}</span
-                      >
-                    </div>
-                  </Field>
-                </div>
-                <div class="fr-background-alt--blue-france fr-p-2w fr-col-12 fr-mb-3w">
-                  <div class="fr-checkbox-group">
-                    <Field
-                      v-slot="{ field, meta }"
-                      name="acceptCgu"
-                      type="checkbox"
-                      rules="required"
-                      :value="true"
-                      :unchecked-value="false"
-                    >
-                      <input
-                        id="acceptCgu"
-                        v-bind="field"
-                        name="acceptCgu"
-                        type="checkbox"
-                        aria-describedby="acceptCgu-error"
-                        :aria-invalid="!meta.valid"
-                        :value="false"
-                      />
-                      <label for="acceptCgu">
-                        <div>{{ t('accept-cgu') }} <span class="color--required"> *</span></div>
-                      </label>
-                      <span
-                        v-show="!meta.valid && meta.touched"
-                        id="acceptCgu-error"
-                        class="fr-error-text"
-                        >{{ t('field-required') }}</span
-                      >
-                    </Field>
-                  </div>
-                </div>
-                <div class="fr-col-12 fr-mb-3w text-right">
-                  <DfButton primary type="submit">{{ t('submit') }}</DfButton>
-                </div>
-              </div>
-            </Form>
-          </div>
-        </section>
-      </div>
+    <!-- <FormWithValidation /> -->
+
+    <div class="fr-mt-7w">
+      <h2 class="fr-h4">Je ne trouve pas la réponse à ma question</h2>
+      <p>
+        Si votre question ne figure pas dans cette liste, vous pouvez contacter notre équipe
+        d’assistance en utilisant ce formulaire.
+      </p>
+      <FormWithValidation :profile :user @on-submit="submitForm" />
     </div>
 
     <div v-if="status == 'OK'">
@@ -469,14 +147,21 @@ import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Form, Field, type InvalidSubmissionHandler } from 'vee-validate'
 import '../validators/validationRules'
+import { DsfrRadioButton, DsfrRadioButtonOptions, DsfrRadioButtonSet } from '@gouvminint/vue-dsfr'
+import TextField from './form/TextField.vue'
+import FormWithValidation from './form/FormWithValidation.vue'
+
+import tenantPicto from '@gouvfr/dsfr/dist/artwork/pictograms/document/document.svg'
+import ownerPicto from '@gouvfr/dsfr/dist/artwork/pictograms/buildings/house.svg'
 
 const { t } = useI18n()
-const props = defineProps<{
-  user?: User
-  profile?: string
-}>()
 
-const contactFormData = ref(new ContactFormData())
+interface Props {
+  user?: User
+  profile?: 'tenant' | 'owner'
+}
+const { user, profile = 'tenant' } = defineProps<Props>()
+
 const status = ref<'NEW' | 'OK' | 'KO'>('NEW')
 const isFormOpen = ref(false)
 
@@ -487,21 +172,29 @@ const emit = defineEmits<{
 }>()
 
 onMounted(() => {
-  if (props.user) {
-    if (props.user.firstName) {
-      contactFormData.value.firstname = props.user.firstName
-    }
-    if (props.user.lastName) {
-      contactFormData.value.lastname = props.user.lastName
-    }
-    contactFormData.value.email = props.user.email
-    contactFormData.value.profile = props.profile || ''
-  }
+  contactFormData.value.profile = profile
   const searchParams = new URLSearchParams(window.location.search)
   if (searchParams.get('open') === 'form') {
     isFormOpen.value = true
   }
 })
+
+const options: DsfrRadioButtonOptions = [
+  {
+    label: t('choice.tenant'),
+    id: 'choice-tenant',
+    value: 'tenant',
+    svgPath: tenantPicto
+  },
+  {
+    label: t('choice.owner'),
+    id: 'choice-owner',
+    value: 'owner',
+    svgPath: ownerPicto
+  }
+]
+
+const contactFormData = ref<ContactFormData>({} as ContactFormData)
 
 function accordionClicked(tag: string) {
   emit('on-accordion-clicked', tag)
@@ -511,25 +204,19 @@ function onProfileChange() {
   emit('on-profile-change', contactFormData.value.profile)
 }
 
-function submitForm() {
+function submitForm(payload: ContactFormData) {
+  contactFormData.value = payload
   emit('on-send-message', contactFormData.value.profile)
   SupportService.sendMail(contactFormData.value)
     .then(() => {
       status.value = 'OK'
-      contactFormData.value.subject = ''
-      contactFormData.value.message = ''
+      // contactFormData.value.subject = ''
+      // contactFormData.value.message = ''
     })
     .catch((error) => {
       console.log(error)
       status.value = 'KO'
     })
-}
-
-const onInvalidSubmit: InvalidSubmissionHandler = (data) => {
-  const firstError = Object.keys(data.errors)[0]
-  const input = document.querySelector<HTMLElement>(`#accordion-form [name="${firstError}"]`)
-  input?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-  input?.focus()
 }
 
 function closeModal() {
@@ -602,6 +289,13 @@ textarea {
     "submit" : "Send my message",
     "owner": "Owner",
     "tenant": "Tenant",
+		"choice": {	
+			"tenant": "A tenant file",
+			"owner": "An owner account",
+			"legend": "You created…"
+		},
+		"choice-tenant": "A tenant file",
+		"choice-owner": "An owner account",
     "accept-cgu" : "I agree with DossierFacile's Conditions and Terms",
     "field-required" : "Field is required",
     "require-accept" : "Accept is required",
@@ -627,6 +321,11 @@ textarea {
     "submit" : "Envoyer mon message",
     "owner": "Propriétaire",
     "tenant": "Locataire",
+		"choice": {
+			"tenant": "Un dossier locataire",
+			"owner": "Un compte propriétaire",
+			"legend": "Vous avez créé…"
+		},
     "accept-cgu" : "Vous acceptez que ces informations soient transmises à notre équipe d'assistance et à CRISP, notre outil d’assistance, afin de répondre à votre demande.",
     "field-required" : "Ce champ est requis",
     "require-accept" : "L'acception est requise",
