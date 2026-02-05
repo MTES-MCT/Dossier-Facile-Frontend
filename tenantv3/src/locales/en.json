@@ -147,6 +147,26 @@
       "PENSION": "Pensions",
       "SCHOLARSHIP": "Scholarships",
       "NO_INCOME": "No Income"
+    },
+    "edit": "Edit",
+    "financial-steps": {
+      "salary": "Employee",
+      "freelance": "Self-employed",
+      "intermitent": "Intermittent",
+      "artist-author": "Artist-author",
+      "unknown": "Not specified",
+      "caf-or-msa": "CAF or MSA assistance",
+      "france-travail": "France Travail assistance",
+      "apl": "Personalized housing assistance (APL)",
+      "aah": "Disability allowance (AAH)",
+      "other-help": "Other type of aid",
+      "pension": "Retirement",
+      "disability-pension": "Disability pension",
+      "alimony-pension": "Alimony",
+      "unknown-pension": "Not specified",
+      "rent": "Rental income",
+      "rent-annuity-life": "Life annuity",
+      "rent-other": "Other type of annuity"
     }
   },
   "explanation-text": {
