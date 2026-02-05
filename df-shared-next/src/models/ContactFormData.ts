@@ -1,8 +1,8 @@
-export class ContactFormData {
-  firstname?: string
-  lastname?: string
-  email!: string
-  profile!: string
-  subject!: string
-  message!: string
+export type ContactFormData = {
+  firstname: string
+  lastname: string
+  email: string
+  profile: 'tenant' | 'owner'
+  subject: string
+  message: string
 }

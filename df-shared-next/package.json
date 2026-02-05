@@ -22,6 +22,8 @@
     "@gouvfr/dsfr": "catalog:",
     "axios": "catalog:",
     "vee-validate": "catalog:",
+    "@vee-validate/rules": "catalog:",
+    "@vee-validate/i18n": "catalog:",
     "vue": "catalog:",
     "vue-i18n": "catalog:"
   },
