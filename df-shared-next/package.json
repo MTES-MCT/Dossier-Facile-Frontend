@@ -33,6 +33,7 @@
     "@types/js-cookie": "3.0.6",
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
+    "@vue/tsconfig": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "prettier": "catalog:",

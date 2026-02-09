@@ -174,6 +174,9 @@ importers:
       "@vue/eslint-config-typescript":
         specifier: "catalog:"
         version: 14.6.0(eslint-plugin-vue@10.4.0(@typescript-eslint/parser@8.50.0(eslint@9.32.0(jiti@2.4.2))(typescript@5.9.2))(eslint@9.32.0(jiti@2.4.2))(vue-eslint-parser@10.2.0(eslint@9.32.0(jiti@2.4.2))))(eslint@9.32.0(jiti@2.4.2))(typescript@5.9.2)
+      "@vue/tsconfig":
+        specifier: "catalog:"
+        version: 0.7.0(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       eslint:
         specifier: "catalog:"
         version: 9.32.0(jiti@2.4.2)
@@ -634,7 +637,7 @@ importers:
         specifier: "catalog:"
         version: 6.0.8(@vue/compiler-dom@3.5.25)(eslint@9.32.0(jiti@2.4.2))(rollup@4.53.5)(typescript@5.9.2)(vue-i18n@11.1.11(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       "@tsconfig/node18":
-        specifier: 18.2.4
+        specifier: "catalog:"
         version: 18.2.4
       "@types/jsdom":
         specifier: 21.1.7
