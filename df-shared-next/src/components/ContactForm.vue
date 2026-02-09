@@ -86,53 +86,41 @@
         Si votre question ne figure pas dans cette liste, vous pouvez contacter notre équipe
         d’assistance en utilisant ce formulaire.
       </p>
+      <RequiredFieldsInstruction all-required />
       <FormWithValidation :profile :user @on-submit="submitForm" />
     </div>
 
-    <div v-if="status == 'OK'">
-      <Modal @close="closeModal">
-        <template #body>
-          <div class="fr-px-md-14w mail-success-container">
-            <div class="fr-py-4w text-center green-title">
-              {{ t('message-sent-title') }}
-            </div>
-            <div class="fr-pb-4w fr-px-md-7w text-center">
-              {{ t('message-sent-text') }}
-            </div>
-            <div class="fr-pb-4w text-center">
-              <a
-                class="fr-btn fr-external-link"
-                href="https://aide.dossierfacile.logement.gouv.fr/fr/"
-                title="Documentation DossierFacile - Ouvre une nouvelle fenêtre"
-                target="_blank"
-                rel="noreferrer noopener "
-                >{{ t('consult-our-documentation') }}</a
-              >
-            </div>
-          </div>
-        </template>
-      </Modal>
-    </div>
-    <div v-if="status === 'KO'">
-      <Modal @close="closeModal">
-        <template #body>
-          <div class="fr-container">
-            <div class="fr-grid-row justify-content-center">
-              <div class="fr-col-12">
-                <p>
-                  {{ t('contact-submit-error') }}
-                </p>
-              </div>
-            </div>
-          </div>
-        </template>
-      </Modal>
-    </div>
+    <DsfrModalPatch
+      v-model:is-opened="isValidModalOpened"
+      :title="t('message-sent-title')"
+      size="xl"
+      icon="fr-icon-success-line"
+    >
+      <p>{{ t('message-sent-text') }}</p>
+
+      <a
+        class="fr-btn fr-external-link"
+        href="https://aide.dossierfacile.logement.gouv.fr/fr/"
+        :title="`${t('consult-our-documentation')} - Ouvre une nouvelle fenêtre`"
+        target="_blank"
+        rel="noreferrer noopener "
+      >
+        {{ t('consult-our-documentation') }}
+      </a>
+    </DsfrModalPatch>
+
+    <DsfrModalPatch
+      v-model:is-opened="isErrorModalOpened"
+      :title="t('message-error-title')"
+      size="xl"
+      icon="fr-icon-error-line"
+    >
+      <p>{{ t('message-error-text') }}</p>
+    </DsfrModalPatch>
   </section>
 </template>
 
 <script setup lang="ts">
-import Modal from './ModalComponent.vue'
 import OwnerHelpAccordion from './contact/OwnerHelpAccordion.vue'
 import TenantHelpAccordion from './contact/TenantHelpAccordion.vue'
 import { ContactFormData } from '../models/ContactFormData'
@@ -145,6 +133,8 @@ import FormWithValidation from './form/FormWithValidation.vue'
 
 import tenantPicto from '@gouvfr/dsfr/dist/artwork/pictograms/document/document.svg'
 import ownerPicto from '@gouvfr/dsfr/dist/artwork/pictograms/buildings/house.svg'
+import RequiredFieldsInstruction from './form/RequiredFieldsInstruction.vue'
+import DsfrModalPatch from './patches/DsfrModalPatch.vue'
 
 const { t } = useI18n()
 
@@ -154,8 +144,9 @@ interface Props {
 }
 const { user, profile = 'tenant' } = defineProps<Props>()
 
-const status = ref<'NEW' | 'OK' | 'KO'>('NEW')
 const isFormOpen = ref(false)
+const isValidModalOpened = ref(false)
+const isErrorModalOpened = ref(false)
 
 const emit = defineEmits<{
   'on-profile-change': [profile: string]
@@ -201,18 +192,14 @@ function submitForm(payload: ContactFormData) {
   emit('on-send-message', contactFormData.value.profile)
   SupportService.sendMail(contactFormData.value)
     .then(() => {
-      status.value = 'OK'
+      isValidModalOpened.value = true
       contactFormData.value.subject = ''
       contactFormData.value.message = ''
     })
     .catch((error) => {
       console.log(error)
-      status.value = 'KO'
+      isErrorModalOpened.value = true
     })
-}
-
-function closeModal() {
-  status.value = 'NEW'
 }
 </script>
 
@@ -290,7 +277,8 @@ textarea {
     "email-not-valid" : "Email not valid",
     "our-documentation": "our documentation",
     "contact-description" : "If you have any trouble to create your DossierFacile or if your have question which have not response in {doc_link}, you can fill the following form.",
-    "contact-submit-error" : "Oops... Something wrong happened. May I ask you to contact us by mail at: contact{'@'}dossierFacile.fr",
+    "message-error-title" : "Something went wrong with the form.",
+		"message-error-text": "Please send us an email at: contact{'@'}dossierFacile.fr",
     "consult-our-documentation" : "Consult our documentation",
     "message-sent-title" : "Thank you !",
     "message-sent-text" : "We will do our best to answer you fast. Please consider to ",
@@ -320,7 +308,8 @@ textarea {
     "email-not-valid" : "Email non-valide",
     "our-documentation": "notre documentation",
     "contact-description" : "Que vous éprouviez des difficultés à créer votre DossierFacile, que vous souhaitiez obtenir des renseignements plus précis que ce qui est disponible au sein de {doc_link}, ou que ce soit pour glisser un mot sympathique à notre équipe de choc qui traite vos dossiers avec attention, vous pouvez renseigner le formulaire ci-dessous. Nous faisons de notre mieux afin de répondre à tous, dans des délais acceptables.",
-    "contact-submit-error" : "Oops... L'envoi du formulaire a échoué. Pourriez-vous nous contacter par mail ici: contact{'@'}dossierFacile.fr ?",
+    "message-error-title" : "L'envoi du formulaire a échoué.",
+		"message-error-text" : "Contactez-nous par mail ici: contact{'@'}dossierFacile.fr",
     "consult-our-documentation" : "Consulter notre documentation",
     "message-sent-title" : "C'est tout bon ! Votre message est bien arrivé !",
     "message-sent-text" : "Nous nous efforçons de vous répondre dans les meilleurs délais. D'ici là n'hésitez pas à",

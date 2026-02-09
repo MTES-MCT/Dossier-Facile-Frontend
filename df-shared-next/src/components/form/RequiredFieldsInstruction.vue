@@ -1,12 +1,12 @@
 <template>
-  <small>
+  <p class="fr-text--sm">
     <span v-if="allRequired">{{ t('all') }}</span>
     <i18n-t v-else keypath="instruction">
       <template #asterix>
         <span class="color--required">*</span>
       </template>
     </i18n-t>
-  </small>
+  </p>
 </template>
 
 <script setup lang="ts">
