@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { FormErrorBag } from 'vee-validate'
 import { computed } from 'vue'
 
 interface Props {
@@ -9,7 +8,9 @@ interface Props {
 const { headingLevel = 'h3', formErrors } = defineProps<Props>()
 
 const formattedErrors = computed(() => {
+  // remove empty errors
   const cleanedErrors = Object.keys(formErrors).filter((key) => formErrors[key]?.length > 0)
+  // create an errors Map
   const errorsMap = new Map(
     Object.entries(formErrors).filter(([_key, errors]) => {
       return errors.length > 0

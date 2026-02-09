@@ -10,20 +10,22 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@gouvminint/vue-dsfr": "catalog:",
+    "@regle/core": "catalog:",
+    "@regle/rules": "catalog:",
     "@remixicon/vue": "4.4.0",
     "buffer": "6.0.3",
     "js-cookie": "3.0.5",
     "pinia": "catalog:",
     "sass": "catalog:",
-    "vue-matomo": "4.2.0",
-    "@gouvminint/vue-dsfr": "catalog:"
+    "vue-matomo": "4.2.0"
   },
   "peerDependencies": {
     "@gouvfr/dsfr": "catalog:",
+    "@vee-validate/i18n": "catalog:",
+    "@vee-validate/rules": "catalog:",
     "axios": "catalog:",
     "vee-validate": "catalog:",
-    "@vee-validate/rules": "catalog:",
-    "@vee-validate/i18n": "catalog:",
     "vue": "catalog:",
     "vue-i18n": "catalog:"
   },
