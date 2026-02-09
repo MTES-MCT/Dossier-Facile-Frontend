@@ -3,18 +3,18 @@ import { computed } from 'vue'
 
 interface Props {
   headingLevel?: 'h2' | 'h3' | 'h4' | 'h5'
-  formErrors: Record<string, string>
+  formErrors: Record<string, string | undefined>
 }
 const { headingLevel = 'h3', formErrors } = defineProps<Props>()
 
 const formattedErrors = computed(() => {
   // remove empty errors
-  const cleanedErrors = Object.keys(formErrors).filter((key) => formErrors[key]?.length > 0)
+  const cleanedErrors = Object.keys(formErrors).filter(
+    (key) => formErrors[key] && formErrors[key]?.length > 0
+  )
   // create an errors Map
   const errorsMap = new Map(
-    Object.entries(formErrors).filter(([_key, errors]) => {
-      return errors.length > 0
-    })
+    Object.entries(formErrors).filter(([_key, errors]) => errors && errors.length > 0)
   )
 
   return { cleanedErrors, errorsMap }

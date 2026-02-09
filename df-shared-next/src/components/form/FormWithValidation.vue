@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import type { ContactFormData } from '../../models/ContactFormData'
-import { User } from '@/models/User'
+import type { User } from '../../models/User'
 // not using dsfr components error messages because of "role=alert" and "aria-live=assertive"
 import { DsfrButton, DsfrCheckbox, DsfrInput } from '@gouvminint/vue-dsfr'
-import { useForm, InvalidSubmissionContext, configure } from 'vee-validate'
+import type { InvalidSubmissionContext } from 'vee-validate'
+import { useForm, configure } from 'vee-validate'
 import { nextTick, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ErrorSummary from './ErrorSummary.vue'
