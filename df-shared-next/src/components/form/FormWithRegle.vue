@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { User } from '@/models/User'
+import type { ContactFormData } from '../../models/ContactFormData'
+import type { User } from '../../models/User'
 import { DsfrButton, DsfrCheckbox, DsfrInput } from '@gouvminint/vue-dsfr'
 import { defineRegleConfig } from '@regle/core'
 import { required, email, maxLength, checked, withMessage } from '@regle/rules'
 import { useI18n } from 'vue-i18n'
 import ErrorSummary from './ErrorSummary.vue'
 import { nextTick, ref, useTemplateRef } from 'vue'
-import { ContactFormData } from '@/models/ContactFormData'
 import FieldErrors from './FieldErrors.vue'
 
 interface Props {

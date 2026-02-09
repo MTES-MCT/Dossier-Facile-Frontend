@@ -205,48 +205,17 @@ function submitForm(payload: ContactFormData) {
 </script>
 
 <style scoped>
-.text-right {
-  text-align: right;
-}
-
-textarea {
-  height: 12rem;
-}
-
-.green-title {
-  color: green;
-  font-weight: bold;
-  font-size: 1rem;
-  padding-top: 0 !important;
-}
-
-.mail-success-container:before {
-  content: url(../assets/enveloppe.webp);
-  text-align: center;
-  position: relative;
-  margin: 0;
-  padding: 0;
-  top: -20px;
-  left: calc(50% - 29px);
-  font-size: 4rem;
-}
-
 .fr-external-link::after {
   content: '';
 }
-
-.fr-accordion--form::before {
-  box-shadow: 0px 0 0 1px var(--border-default-grey);
-}
-
 :deep(.fr-accordion::before) {
   box-shadow: none;
 }
-:deep(.fr-fieldset__element--inline) {
-  flex: 1;
-}
 :deep(.fr-accordion .fr-collapse) {
   margin: 0;
+}
+:deep(.fr-fieldset__element--inline) {
+  flex: 1;
 }
 </style>
 
