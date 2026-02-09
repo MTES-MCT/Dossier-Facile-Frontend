@@ -1,5 +1,5 @@
 <template>
-  <section class="fr-background-default--grey fr-p-2w fr-p-md-4w">
+  <section class="fr-background-default--grey fr-p-1w fr-p-md-4w">
     <h1>
       {{ t('title') }}
     </h1>
@@ -59,8 +59,8 @@
       >
     </div>
 
-    <div class="fr-background-alt--blue-france fr-p-3w">
-      <h2 class="fr-text-title--blue-france fr-h6">Quelle est votre situation ?</h2>
+    <div class="fr-background-alt--blue-france fr-px-1w fr-pt-2w fr-px-md-3w">
+      <h2 class="fr-text-title--blue-france fr-h6">Quelle est votre situation&nbsp;?</h2>
 
       <DsfrRadioButtonSet
         :legend="t('choice.legend')"

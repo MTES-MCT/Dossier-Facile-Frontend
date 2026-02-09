@@ -9,7 +9,7 @@
           >{{ t('your-messaging') }}</a
         >
       </i18n-t>
-      <div class="fr-highlight">
+      <DsfrAlert>
         <i18n-t tag="p" keypath="highlight-1">
           <template #correct-df>
             <a
@@ -36,12 +36,12 @@
             >
           </template>
         </i18n-t>
-      </div>
+      </DsfrAlert>
     </AccordionItem>
     <AccordionItem :title="t('title-2')">
       <p class="fr-mb-0">{{ t('content-2-1') }}</p>
       <p>{{ t('content-2-2') }}</p>
-      <div class="fr-highlight">
+      <DsfrAlert>
         <i18n-t tag="p" keypath="highlight-2">
           <template #create-rental>
             <a
@@ -60,7 +60,7 @@
             >
           </template>
         </i18n-t>
-      </div>
+      </DsfrAlert>
     </AccordionItem>
     <AccordionItem :title="t('title-3')">
       <i18n-t tag="p" keypath="content-3">
@@ -71,7 +71,7 @@
           >{{ t('share-file') }}</a
         >
       </i18n-t>
-      <div class="fr-highlight">
+      <DsfrAlert>
         <i18n-t tag="p" keypath="highlight-3">
           <template #view>
             <a
@@ -90,11 +90,11 @@
             >
           </template>
         </i18n-t>
-      </div>
+      </DsfrAlert>
     </AccordionItem>
     <AccordionItem :title="t('title-4')">
       <p>{{ t('content-4') }}</p>
-      <div class="fr-highlight">
+      <DsfrAlert>
         <i18n-t tag="p" keypath="highlight-4">
           <template #separate-accounts>
             <a
@@ -113,11 +113,11 @@
             >
           </template>
         </i18n-t>
-      </div>
+      </DsfrAlert>
     </AccordionItem>
     <AccordionItem :title="t('title-5')">
       <p>{{ t('content-5') }}</p>
-      <div class="fr-highlight">
+      <DsfrAlert>
         <i18n-t tag="p" keypath="highlight-5">
           <template #what-is-df>
             <a
@@ -136,14 +136,14 @@
             >
           </template>
         </i18n-t>
-      </div>
+      </DsfrAlert>
     </AccordionItem>
   </DsfrAccordionsGroup>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { DsfrAccordionsGroup } from '@gouvminint/vue-dsfr'
+import { DsfrAccordionsGroup, DsfrAlert } from '@gouvminint/vue-dsfr'
 import AccordionItem from './AccordionItem.vue'
 
 const HELP_URL = 'https://aide.dossierfacile.logement.gouv.fr/fr/'
