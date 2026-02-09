@@ -80,8 +80,6 @@
       <OwnerHelpAccordion @accordion-clicked="accordionClicked"></OwnerHelpAccordion>
     </div>
 
-    <!-- <FormWithValidation /> -->
-
     <div class="fr-mt-7w">
       <h2 class="fr-h4">Je ne trouve pas la réponse à ma question</h2>
       <p>
@@ -135,20 +133,14 @@
 
 <script setup lang="ts">
 import Modal from './ModalComponent.vue'
-import DfButton from '../Button/DfButton.vue'
-import RequiredFieldsInstruction from './form/RequiredFieldsInstruction.vue'
 import OwnerHelpAccordion from './contact/OwnerHelpAccordion.vue'
 import TenantHelpAccordion from './contact/TenantHelpAccordion.vue'
-import FieldLabel from './form/FieldLabel.vue'
 import { ContactFormData } from '../models/ContactFormData'
 import { SupportService } from '../services/SupportService'
 import { User } from '../models/User'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Form, Field, type InvalidSubmissionHandler } from 'vee-validate'
-import '../validators/validationRules'
-import { DsfrRadioButton, DsfrRadioButtonOptions, DsfrRadioButtonSet } from '@gouvminint/vue-dsfr'
-import TextField from './form/TextField.vue'
+import { DsfrRadioButtonOptions, DsfrRadioButtonSet } from '@gouvminint/vue-dsfr'
 import FormWithValidation from './form/FormWithValidation.vue'
 
 import tenantPicto from '@gouvfr/dsfr/dist/artwork/pictograms/document/document.svg'
@@ -210,8 +202,8 @@ function submitForm(payload: ContactFormData) {
   SupportService.sendMail(contactFormData.value)
     .then(() => {
       status.value = 'OK'
-      // contactFormData.value.subject = ''
-      // contactFormData.value.message = ''
+      contactFormData.value.subject = ''
+      contactFormData.value.message = ''
     })
     .catch((error) => {
       console.log(error)
@@ -224,7 +216,7 @@ function closeModal() {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .text-right {
   text-align: right;
 }
@@ -258,18 +250,14 @@ textarea {
 .fr-accordion--form::before {
   box-shadow: 0px 0 0 1px var(--border-default-grey);
 }
-</style>
 
-<style lang="scss">
-.fr-accordion::before {
+:deep(.fr-accordion::before) {
   box-shadow: none;
 }
-
-.fr-fieldset__element--inline {
+:deep(.fr-fieldset__element--inline) {
   flex: 1;
 }
-
-.fr-accordion .fr-collapse {
+:deep(.fr-accordion .fr-collapse) {
   margin: 0;
 }
 </style>

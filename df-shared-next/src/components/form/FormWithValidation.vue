@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import type { ContactFormData } from '../../models/ContactFormData'
 import { User } from '@/models/User'
+// not using dsfr components error messages because of "role=alert" and "aria-live=assertive"
 import { DsfrButton, DsfrCheckbox, DsfrInput } from '@gouvminint/vue-dsfr'
 import { useForm, InvalidSubmissionContext, configure } from 'vee-validate'
 import { nextTick, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ErrorSummary from './ErrorSummary.vue'
+import '../../validators/validationRules'
 
 const { t } = useI18n()
 
@@ -43,7 +45,7 @@ configure({
   }
 })
 
-const { meta, values, handleSubmit, defineField, errors, errorBag, submitCount } = useForm({
+const { values, handleSubmit, defineField, errors, submitCount } = useForm({
   initialValues: {
     firstname: props.user?.firstName ?? '',
     lastname: props.user?.lastName ?? '',
@@ -76,12 +78,12 @@ type FormData = typeof values
 
 // FORM LOGIC
 const onSuccess = (values: FormData) => {
+  // remove consent from sent values
   const { consent, ...contactData } = values
   emit('on-submit', contactData)
 }
 
-const onInvalidSubmit = async ({ values, errors, results }: InvalidSubmissionContext) => {
-  console.error('Oh NoOOooO')
+const onInvalidSubmit = async ({ errors }: InvalidSubmissionContext) => {
   // focus the error summary if there are errors
   if (errors) {
     const errorSummaryTitle = errorSummary.value?.$el.querySelector('#error-summary-title')
@@ -90,14 +92,24 @@ const onInvalidSubmit = async ({ values, errors, results }: InvalidSubmissionCon
       await nextTick()
       errorSummaryTitle.focus()
     }
-  }
+  } else
+    try {
+      throw new Error('Unexpected error')
+    } catch (e) {
+      // @ts-expect-error unknown type
+      console.error(`${e.name}: ${e.message}`)
+    }
 }
 
 const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 </script>
 
 <template>
-  <ErrorSummary v-if="submitCount > 0 && errors" :form-errors="errors" ref="errorSummary" />
+  <ErrorSummary
+    v-if="submitCount > 0 && Object.entries(errors).length"
+    :form-errors="errors"
+    ref="errorSummary"
+  />
   <form novalidate @submit.prevent="onSubmit">
     <div class="fr-input-group" :class="{ 'fr-input-group--error': errors.firstname }">
       <DsfrInput
@@ -146,6 +158,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
         label-visible
         :aria-invalid="errors.email ? true : undefined"
         :description-id="errors.email ? 'errors-email' : undefined"
+        hint="format attendu: adresse@domaine.tld"
         type="email"
         autocomplete="email"
         required
@@ -166,6 +179,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
         :aria-invalid="errors.subject ? true : undefined"
         :description-id="errors.subject ? 'errors-subject' : undefined"
         type="text"
+        autocomplete="off"
         required
       >
         <template #required-tip> ({{ t('field-required') }})</template>
@@ -191,7 +205,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
         maxlength="2000"
         required
       />
-      <p>{{ message.length }} /2000</p>
+      <p>{{ message.length }}/2000</p>
       <p v-if="errors.message" id="errors-message" class="fr-error-text">
         {{ errors.message }}
       </p>
@@ -201,7 +215,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
       <DsfrCheckbox
         id="input-consent"
         v-model="consent"
-        :label="t('fields.consent')"
+        :label="t('fields.consent-label')"
         name="consent"
         value=""
         required
@@ -209,13 +223,19 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
         <template #required-tip>&nbsp;</template>
       </DsfrCheckbox>
       <p v-if="errors.consent" id="errors-consent" class="fr-error-text">
-        {{ t('validation.consent') }}
+        {{ errors.consent }}
       </p>
     </div>
 
     <DsfrButton label="Envoyer mon message" />
   </form>
 </template>
+
+<style scoped>
+textarea {
+  resize: vertical;
+}
+</style>
 
 <i18n>
 {
@@ -224,9 +244,8 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 		"field-optional": "optional",
 		"validation": {
 			"required": "{field} is required",
-			"emailValidation": "Email address is malformatted",
-			"max": "{field} is over {max} characters",
-			"consent": "Please accept our conditions"
+			"email": "Email address is incorrect. Example: john.wick{'@'}email.net",
+			"max": "{field} is over {max} characters"
 		},
 		"fields": {
 			"email": "Your email address",
@@ -234,7 +253,8 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 			"lastname": "Your family name",
 			"subject": "The subject of your message",
 			"message": "Your message",
-			"consent": "You agree that this information may be shared with our support team and CRISP, our support tool, in order to respond to your request.",
+			"consent": "Accepting our conditions",
+			"consent-label": "You agree that this information may be shared with our support team and CRISP, our support tool, in order to respond to your request."
     },
   },
   "fr": {
@@ -242,9 +262,8 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 		"field-optional": "facultatif",
 		"validation": {
 			"required": "{field} est obligatoire",
-			"emailValidation": "L'adresse saisie est malformée",
-			"max": "{field} limité à {max} caractères",
-			"consent": "Veuillez accepter les conditions"
+			"email": "L'adresse email saisie est incorrecte. Exemple: francis.cabrel{'@'}email.net",
+			"max": "{field} limité à {max} caractères"
 		},
 		"fields": {
 			"email": "Votre adresse email",
@@ -252,14 +271,9 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 			"lastname": "Votre nom",
 			"subject": "L'objet de votre message",
 			"message": "Votre message",
-			"consent": "Vous acceptez que ces informations soient transmises à notre équipe d'assistance et à CRISP, notre outil d'assistance, afin de répondre à votre demande.",
+			"consent": "Accepter les conditions",
+			"consent-label": "Vous acceptez que ces informations soient transmises à notre équipe d'assistance et à CRISP, notre outil d'assistance, afin de répondre à votre demande."
     },
   }
 }
 </i18n>
-
-<style scoped>
-textarea {
-  resize: vertical;
-}
-</style>
