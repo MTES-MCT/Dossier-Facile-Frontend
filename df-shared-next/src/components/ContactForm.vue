@@ -123,12 +123,13 @@
 <script setup lang="ts">
 import OwnerHelpAccordion from './contact/OwnerHelpAccordion.vue'
 import TenantHelpAccordion from './contact/TenantHelpAccordion.vue'
-import { ContactFormData } from '../models/ContactFormData'
+import type { ContactFormData } from '../models/ContactFormData'
 import { SupportService } from '../services/SupportService'
-import { User } from '../models/User'
+import type { User } from '../models/User'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { DsfrRadioButtonOptions, DsfrRadioButtonSet } from '@gouvminint/vue-dsfr'
+import type { DsfrRadioButtonOptions } from '@gouvminint/vue-dsfr'
+import { DsfrRadioButtonSet } from '@gouvminint/vue-dsfr'
 import FormWithValidation from './form/FormWithValidation.vue'
 
 import tenantPicto from '@gouvfr/dsfr/dist/artwork/pictograms/document/document.svg'
