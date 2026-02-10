@@ -25,11 +25,11 @@ const { t } = useI18n()
 {
   "en": {
     "instruction" : "Fields with {asterix} are required.",
-		"all": "All fields are required."
+    "all": "All fields are required."
   },
   "fr": {
     "instruction" : "Les champs marqués d'un {asterix} sont obligatoires.",
-		"all": "Tous les champs sont obligatoires."
+    "all": "Tous les champs sont obligatoires."
   }
 }
 </i18n>
