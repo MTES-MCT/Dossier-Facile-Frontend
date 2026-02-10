@@ -36,14 +36,14 @@
       <h3 class="fr-h4 fr-text-default--warning fr-my-1w">
         {{ t('modal.refused-doc-title') }}
       </h3>
-      <p>{{ t('modal.refused-doc-caption') }}</p>
+      <p>{{ t('modal.refused-doc-text') }}</p>
 
       <img :src="avisKO" alt="" width="600" />
 
       <h3 class="fr-h4 fr-text-default--success fr-mb-1w">
         {{ t('modal.accepted-doc-title') }}
       </h3>
-      <p>{{ t('modal.accepted-doc-caption') }}</p>
+      <p>{{ t('modal.accepted-doc-text') }}</p>
 
       <img :src="avisOK" alt="" width="600" />
     </template>
@@ -127,9 +127,9 @@ const showModal = ref(false)
       "sample-docs": "Sample documents",
       "pay-attention-to-title": "Pay attention to the document title.",
       "refused-doc-title": "Document refused",
-      "refused-doc-caption": "A document bearing the words « Situation déclarative » is invalid.",
+      "refused-doc-text": "A document bearing the words « Situation déclarative » is invalid.",
       "accepted-doc-title": "Document accepted",
-      "accepted-doc-caption": "A document bearing the words « Avis d'impôt établi » is valid.",
+      "accepted-doc-text": "A document bearing the words « Avis d'impôt établi » is valid.",
       "img-ko": "Example of declarative situation notice - document refused",
       "img-ok": "Example of tax notice - document accepted",
     }
@@ -168,9 +168,9 @@ const showModal = ref(false)
       "sample-docs": "Exemple de documents",
       "pay-attention-to-title": "Faites attention au titre du document.",
       "refused-doc-title": "Document refusé",
-      "refused-doc-caption": "Un document comportant la mention « Situation déclarative » est invalide.",
+      "refused-doc-text": "Un document comportant la mention « Situation déclarative » est invalide.",
       "accepted-doc-title": "Document accepté",
-      "accepted-doc-caption": "Un document comportant la mention « Avis d'impôt établi » est valide.",
+      "accepted-doc-text": "Un document comportant la mention « Avis d'impôt établi » est valide.",
       "img-ko": "Exemple d’avis de situation déclarative - document refusé",
       "img-ok": "Exemple d'avis d’impôt - document accepté",
     }
