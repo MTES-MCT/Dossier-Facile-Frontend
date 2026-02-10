@@ -4,6 +4,7 @@ import { ApartmentSharing } from './ApartmentSharing'
 import type { TenantFileStatus } from './TenantFileStatus'
 import type { ApplicationType } from './ApplicationType'
 import type { FranceConnectIdentity } from './FranceConnectIdentity'
+import { DocumentRule } from './DocumentRule'
 
 export class User {
   id!: number
@@ -35,6 +36,7 @@ export class DocumentAnalysisStatus {
   id!: number
   isFinished!: boolean
   isValid!: boolean
+  failedRules?: DocumentRule[]
 }
 
 export class PreviewDocument {
