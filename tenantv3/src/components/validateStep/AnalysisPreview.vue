@@ -20,7 +20,12 @@
 
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { allTenantDocumentCategories, type DfDocument } from 'df-shared-next/src/models/DfDocument'
+import {
+  allTenantDocumentCategories,
+  guarantorLegalPersonCategories,
+  guarantorOrganismCategories,
+  type DfDocument
+} from 'df-shared-next/src/models/DfDocument'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import type { DocumentAnalysisStatus, PreviewDocument, User } from 'df-shared-next/src/models/User'
 import { computed } from 'vue'
@@ -65,9 +70,9 @@ const documents = computed(() => {
 
   if (!props.isTenant && 'typeGuarantor' in props.user) {
     if (props.user.typeGuarantor === 'LEGAL_PERSON') {
-      categories = ['IDENTIFICATION_LEGAL_PERSON', 'IDENTIFICATION']
+      categories = guarantorLegalPersonCategories
     } else if (props.user.typeGuarantor === 'ORGANISM') {
-      categories = ['GUARANTEE_PROVIDER_CERTIFICATE']
+      categories = guarantorOrganismCategories
     }
   }
 
