@@ -12,6 +12,13 @@ export const allTenantDocumentCategories: DocumentCategory[] = [
   'TAX'
 ]
 
+export const guarantorLegalPersonCategories: DocumentCategory[] = [
+  'IDENTIFICATION_LEGAL_PERSON',
+  'IDENTIFICATION'
+]
+
+export const guarantorOrganismCategories: DocumentCategory[] = ['GUARANTEE_PROVIDER_CERTIFICATE']
+
 export type DocumentCategory =
   | 'IDENTIFICATION'
   | 'RESIDENCY'

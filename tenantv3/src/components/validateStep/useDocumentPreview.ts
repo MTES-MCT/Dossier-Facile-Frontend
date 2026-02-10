@@ -10,7 +10,7 @@ import {
   type DocumentCategoryStep
 } from 'df-shared-next/src/models/DfDocument'
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
-import { computed } from 'vue'
+import { computed, unref, type MaybeRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
@@ -39,11 +39,12 @@ export function getDocumentLabel(
   }
 }
 
-export function useDocumentPreview(previewDocument: PreviewDocument) {
+export function useDocumentPreview(previewDocumentRef: MaybeRef<PreviewDocument>) {
   const { t } = useI18n()
   const router = useRouter()
 
   const subTitle = computed(() => {
+    const previewDocument = unref(previewDocumentRef)
     return getDocumentSubTitle(
       previewDocument.document,
       previewDocument.documentCategory,
@@ -53,10 +54,12 @@ export function useDocumentPreview(previewDocument: PreviewDocument) {
   })
 
   const label = computed(() => {
+    const previewDocument = unref(previewDocumentRef)
     return getDocumentLabel(previewDocument.documentCategory, t)
   })
 
   const goToEdit = () => {
+    const previewDocument = unref(previewDocumentRef)
     const type =
       previewDocument.documentCategory === 'IDENTIFICATION'
         ? DocumentType.IDENTITY
@@ -68,6 +71,7 @@ export function useDocumentPreview(previewDocument: PreviewDocument) {
   }
 
   const openDocument = () => {
+    const previewDocument = unref(previewDocumentRef)
     const document = previewDocument.document
     if (document?.files?.length) {
       window.open(document.files[0].path, '_blank')
@@ -75,6 +79,7 @@ export function useDocumentPreview(previewDocument: PreviewDocument) {
   }
 
   const status = computed((): 'MISSING' | 'SUCCESS' | 'LOADING' | 'ERROR' => {
+    const previewDocument = unref(previewDocumentRef)
     const analysisStatus = previewDocument.documentAnalysisStatus
     const document = previewDocument.document
 

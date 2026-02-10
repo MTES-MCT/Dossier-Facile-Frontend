@@ -27,14 +27,24 @@
 
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import {
+  allTenantDocumentCategories,
+  guarantorLegalPersonCategories,
+  guarantorOrganismCategories,
+  type DfDocument,
+  type DocumentCategory
+} from 'df-shared-next/src/models/DfDocument'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import type { DocumentAnalysisStatus, User } from 'df-shared-next/src/models/User'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useTenantStore } from '../../stores/tenant-store'
-import { DocumentType, TENANT_COMPONENTS } from '../editmenu/documents/DocumentType'
+import {
+  DocumentType,
+  GUARANTOR_COMPONENTS,
+  TENANT_COMPONENTS
+} from '../editmenu/documents/DocumentType'
 import { getDocumentLabel, getDocumentSubTitle } from './useDocumentPreview'
 
 const props = defineProps<{
@@ -47,7 +57,8 @@ const router = useRouter()
 
 type FailedDoc = {
   label: string
-  doc: DfDocument
+  doc?: DfDocument
+  documentCategory: DocumentCategory | undefined
   owner: User | Guarantor
 }
 
@@ -55,12 +66,37 @@ const failedDocuments = computed(() => {
   const errors = props.documentAnalysisStatus.filter((s) => s.isFinished && !s.isValid)
   const result: FailedDoc[] = []
 
-  const findDocInUser = (user: User | Guarantor) => {
+  const checkUserDocs = (user: User | Guarantor, requiredCategories: DocumentCategory[]) => {
+    // 1. Check for failed analysis
     user.documents?.forEach((d) => {
       if (errors.find((e) => e.id === d.id)) {
         result.push({
           label: getDocLabel(d, user),
           doc: d,
+          documentCategory: d.documentCategory,
+          owner: user
+        })
+      }
+    })
+
+    // 2. Check for missing documents
+    requiredCategories.forEach((category) => {
+      // Check if user has AT LEAST one document of this category
+      const hasDoc = user.documents?.some(
+        (d) =>
+          d.documentCategory === category &&
+          (d.documentStatus === 'TO_PROCESS' || d.documentStatus === 'VALIDATED')
+      )
+
+      if (!hasDoc) {
+        // Special label for missing doc
+        const catLabel = getDocumentLabel(category, t)
+        result.push({
+          label: t('doc-owner', {
+            docName: catLabel,
+            name: `${user.firstName} ${user.lastName}`
+          }),
+          documentCategory: category,
           owner: user
         })
       }
@@ -68,13 +104,27 @@ const failedDocuments = computed(() => {
   }
 
   // Tenant
-  findDocInUser(store.user)
+  checkUserDocs(store.user, allTenantDocumentCategories)
+
+  const processGuarantor = (g: Guarantor) => {
+    let categories: DocumentCategory[] = []
+    if (g.typeGuarantor === 'NATURAL_PERSON') {
+      categories = allTenantDocumentCategories
+    } else if (g.typeGuarantor === 'LEGAL_PERSON') {
+      categories = guarantorLegalPersonCategories
+    } else if (g.typeGuarantor === 'ORGANISM') {
+      categories = guarantorOrganismCategories
+    }
+    checkUserDocs(g, categories)
+  }
+
   // Guarantors
-  store.user.guarantors?.forEach((g) => findDocInUser(g))
+  store.user.guarantors?.forEach(processGuarantor)
+
   // Cotenants
   store.coTenants?.forEach((co) => {
-    findDocInUser(co)
-    co.guarantors?.forEach((g) => findDocInUser(g))
+    checkUserDocs(co, allTenantDocumentCategories)
+    co.guarantors?.forEach(processGuarantor)
   })
 
   return result
@@ -95,12 +145,30 @@ const getDocLabel = (doc: DfDocument, owner: User | Guarantor) => {
 
 const goToEdit = (failedDoc: FailedDoc) => {
   const type =
-    failedDoc.doc.documentCategory === 'IDENTIFICATION'
+    failedDoc.documentCategory === 'IDENTIFICATION'
       ? DocumentType.IDENTITY
-      : (failedDoc.doc.documentCategory as DocumentType)
-  const routeName = TENANT_COMPONENTS[type]
-  if (routeName) {
-    router.push({ name: routeName })
+      : (failedDoc.documentCategory as DocumentType)
+
+  if (failedDoc.owner.id === store.user.id || 'applicationType' in failedDoc.owner) {
+    // Is Tenant or CoTenant
+    const routeName = TENANT_COMPONENTS[type]
+    if (routeName) {
+      if (failedDoc.owner.id !== store.user.id) {
+        // CoTenant
+        // TODO: Handle co-tenant navigation if specific params are needed
+        // Assuming we can just switch user or router needs params
+      }
+      router.push({ name: routeName })
+    }
+  } else {
+    // Is Guarantor
+    const routeName = GUARANTOR_COMPONENTS[type]
+    if (routeName) {
+      router.push({
+        name: routeName,
+        params: { guarantorId: failedDoc.owner.id }
+      })
+    }
   }
 }
 </script>
