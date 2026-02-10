@@ -70,7 +70,7 @@ import avisOK from '@/assets/avis_ok.png'
 import avisKO from '@/assets/avis_ko.png'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 import { useTaxState } from './lib/taxState'
-import { DsfrAlert, DsfrButton } from '@gouvminint/vue-dsfr'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const parent = useParentRoute()
