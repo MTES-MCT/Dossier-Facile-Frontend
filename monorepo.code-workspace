@@ -1,51 +1,51 @@
 {
-	"folders": [
-		{
-			"name": "📂 DossierFacile",
-			"path": ".",
-		},
-		{
-			"name": "🚀 www",
-			"path": "www",
-		},
-		{
-			"name": "🙂 tenant v3",
-			"path": "tenantv3",
-		},
-		{
-			"name": "🏠 owner",
-			"path": "owner",
-		},
-		{
-			"name": "📝 watermark",
-			"path": "waterkmark",
-		},
-		{
-			"name": "📘 df-shared-next",
-			"path": "df-shared-next",
-		},
-		{
-			"name": "storybook",
-			"path": "storybook",
-		},
-	],
-	"settings": {
-		"eslint.validate": ["javascript", "typescript"],
-		"editor.codeActionsOnSave": {
-			"source.fixAll": "explicit",
-		},
-		"editor.formatOnSave": false,
-		"files.autoSave": "off",
-		"typescript.implementationsCodeLens.enabled": true,
-		"typescript.tsdk": "./node_modules/typescript/lib",
-		"editor.tabSize": 2,
-		"jest.disabledWorkspaceFolders": [
-			"📂 DossierFacile",
-			"storybook",
-			"🏠 owner",
-		],
-		"vue.autoInsert.dotValue": true,
-		"vue.inlayHints.destructuredProps": true,
-		"vue.inlayHints.missingProps": true,
-	},
+  "folders": [
+    {
+      "name": "📂 DossierFacile",
+      "path": "."
+    },
+    {
+      "name": "🚀 www",
+      "path": "www"
+    },
+    {
+      "name": "🙂 tenant v3",
+      "path": "tenantv3"
+    },
+    {
+      "name": "🏠 owner",
+      "path": "owner"
+    },
+    {
+      "name": "📝 watermark",
+      "path": "waterkmark"
+    },
+    {
+      "name": "📘 df-shared-next",
+      "path": "df-shared-next"
+    },
+    {
+      "name": "storybook",
+      "path": "storybook"
+    }
+  ],
+  "settings": {
+    "eslint.validate": [
+      "javascript",
+      "typescript"
+    ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    },
+    "editor.formatOnSave": false,
+    "files.autoSave": "off",
+    "typescript.implementationsCodeLens.enabled": true,
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "editor.tabSize": 2,
+    "jest.disabledWorkspaceFolders": [
+      "📂 DossierFacile",
+      "storybook",
+      "🏠 owner"
+    ]
+  }
 }
