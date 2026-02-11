@@ -1,5 +1,6 @@
 <template>
   <AllDeclinedMessages
+    v-if="analysisFailedRules.length === 0"
     :user-id="taxState.userId"
     :document="taxDocument"
     :document-denied-reasons="taxDocument?.documentDeniedReasons"
@@ -21,6 +22,7 @@
     v-if="analysisFailedRules.length > 0"
     :failed-rules="analysisFailedRules"
     class="fr-mb-3w"
+    @explain="openExplainSection"
   />
   <FileUpload
     ref="file-upload"
@@ -28,6 +30,36 @@
     :page="4"
     @add-files="addFiles"
   ></FileUpload>
+  <div v-if="analysisFailedRules.length > 0" ref="explain-section" class="explain-section">
+    <div class="separator">
+      <div class="separator-line"></div>
+      <span class="separator-text">{{ t('or') }}</span>
+      <div class="separator-line"></div>
+    </div>
+    <button type="button" class="fr-btn fr-btn--secondary explain-btn" @click="openExplainSection">
+      {{ t('explain-situation') }}
+    </button>
+    <div v-if="showExplainForm" class="explain-form">
+      <p class="explain-form-label">{{ t('explain-question') }}</p>
+      <div class="fr-input-group">
+        <textarea
+          v-model="explainText"
+          class="fr-input"
+          rows="5"
+          :placeholder="t('explain-placeholder')"
+        ></textarea>
+      </div>
+      <p class="fr-info-text">
+        <RiInformationFill class="info-icon" aria-hidden="true" />
+        {{ t('explain-info') }}
+      </p>
+      <div class="explain-form-actions">
+        <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" :disabled="!explainText.trim()" @click="saveExplanation">
+          {{ t('explain-save') }}
+        </button>
+      </div>
+    </div>
+  </div>
   <ModalComponent v-if="showModale" @close="showModale = false">
     <template #body>
       <div class="fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
@@ -55,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
 import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
@@ -75,7 +107,7 @@ import type { TaxCategory } from '@/components/documents/share/DocumentTypeConst
 import type { TaxCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import { PdfAnalysisService } from '@/services/PdfAnalysisService'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import { RiAlarmWarningLine } from '@remixicon/vue'
+import { RiAlarmWarningLine, RiInformationFill } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import TaxAnalysisBanners from './TaxAnalysisBanners.vue'
 
@@ -87,10 +119,13 @@ const POLLING_INTERVAL_MS = 3000
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
 const showModale = ref(false)
+const showExplainForm = ref(false)
+const explainText = ref('')
 
 const store = useTenantStore()
 const taxState = useTaxState()
 const fileUpload = useTemplateRef('file-upload')
+const explainSection = useTemplateRef<HTMLElement>('explain-section')
 const { t } = useI18n()
 
 const taxDocument = taxState.document
@@ -135,6 +170,7 @@ function startPolling() {
 }
 
 onMounted(() => {
+  explainText.value = taxDocument.value?.documentAnalysisReport?.comment || ''
   startPolling()
 })
 
@@ -221,6 +257,24 @@ async function addFiles(fileList: File[]) {
   save()
 }
 
+function openExplainSection() {
+  showExplainForm.value = true
+  nextTick(() => {
+    explainSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  })
+}
+
+function saveExplanation() {
+  const params = {
+    documentId: taxDocument.value?.id,
+    tenantId: taxState.userId,
+    comment: explainText.value
+  }
+  store.commentAnalysis(params).then(() => {
+    toast.success(t('save-success'), undefined)
+  })
+}
+
 defineExpose({ analysisFailedRules })
 
 async function remove(file: DfFile, silent = false) {
@@ -237,22 +291,110 @@ async function remove(file: DfFile, silent = false) {
     const firstIndex = files.value.findIndex((f) => f.name === file.name && !f.path)
     files.value.splice(firstIndex, 1)
   }
+  analysisFailedRules.value = []
+  showExplainForm.value = false
+  explainText.value = ''
+  startPolling()
 }
 </script>
+
+<style scoped>
+.explain-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.separator-line {
+  flex: 1;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.separator-text {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  color: #161616;
+}
+
+.explain-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.explain-form {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.explain-form-label {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #161616;
+  margin-bottom: 0.5rem;
+}
+
+.fr-info-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  color: #0063cb;
+  margin: 0.5rem 0;
+}
+
+.info-icon {
+  color: #0063cb;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.explain-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+</style>
 
 <i18n>
 {
   "en": {
+    "or": "OR",
+    "explain-situation": "Explain my situation",
+    "explain-question": "What difficulty are you encountering to correct this error?",
+    "explain-placeholder": "Enter text",
+    "explain-info": "This explanation will be sent to our team only. It will not appear in your tenant file.",
+    "explain-save": "Save",
+    "save-success": "Your explanation has been saved",
     "avis-detected": "Declarative Situation Notice Detected",
     "avis-text1": "You have provided a declarative statement notice (see document title). This document is not valid. Please replace it with your tax assessment notice.",
     "avis-btn": "Submit a valid document",
     "avis-link-to-doc": "Need help ? Check our documentation"
   },
   "fr": {
+    "or": "OU",
+    "explain-situation": "Expliquer ma situation",
+    "explain-question": "Quelle difficulté rencontrez-vous pour corriger cette erreur ?",
+    "explain-placeholder": "Texte saisi",
+    "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
+    "explain-save": "Enregistrer",
+    "save-success": "Votre explication a bien été enregistrée",
     "avis-detected": "Avis de situation déclarative détecté",
-    "avis-text1": "Vous avez fourni un avis de situation déclarative (voir titre du document). Ce document n’est pas valide. Merci de le remplacer par votre avis d’imposition.",
-    "avis-btn": "Déposer votre avis d’imposition",
-    "avis-link-to-doc": "Besoin d’aide ? Consultez notre aide en ligne"
+    "avis-text1": "Vous avez fourni un avis de situation déclarative (voir titre du document). Ce document n'est pas valide. Merci de le remplacer par votre avis d'imposition.",
+    "avis-btn": "Déposer votre avis d'imposition",
+    "avis-link-to-doc": "Besoin d'aide ? Consultez notre aide en ligne"
   }
 }
 </i18n>
