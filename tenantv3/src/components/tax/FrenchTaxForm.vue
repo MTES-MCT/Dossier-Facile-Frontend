@@ -2,6 +2,10 @@
   <p>{{ t(textKey + '.your-situation') }}</p>
   <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="grandParent" />
   <BackLinkRow :label="t('french')" :to="parent" />
+  <div v-if="analysisErrorCount > 0" class="error-badge fr-mb-2w">
+    <RiAlertFill class="badge-icon" aria-hidden="true" />
+    <span class="badge-text">{{ t('errors-count', { count: analysisErrorCount }, analysisErrorCount) }}</span>
+  </div>
   <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
     <strong>{{ t('this-year-tax', [taxYear, taxYear - 1]) }}</strong>
   </i18n-t>
@@ -43,7 +47,7 @@
     </template>
   </ModalComponent>
 
-  <UploadFilesTax category="MY_NAME" step="TAX_FRENCH_NOTICE" />
+  <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" />
   <TaxFooter />
 </template>
 
@@ -53,10 +57,10 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
-import { RiAlertLine, RiEyeLine } from '@remixicon/vue'
+import { RiAlertFill, RiAlertLine, RiEyeLine } from '@remixicon/vue'
 import { taxYear } from './lib/taxYear'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import { ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import avisOK from '@/assets/avis_ok.png'
 import avisKO from '@/assets/avis_ko.png'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
@@ -68,6 +72,8 @@ const grandParent = useParentRoute(2)
 const { textKey } = useTaxState()
 
 const showModal = ref(false)
+const uploadFilesTax = useTemplateRef('upload-files-tax')
+const analysisErrorCount = computed(() => uploadFilesTax.value?.analysisFailedRules?.length ?? 0)
 </script>
 
 <style scoped>
@@ -82,11 +88,35 @@ const showModal = ref(false)
     width: 6rem;
   }
 }
+.error-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #ffe9e6;
+  border-radius: 4px;
+  padding: 0 0.5rem;
+  width: fit-content;
+}
+
+.badge-icon {
+  color: #b34000;
+  width: 1rem;
+  height: 1rem;
+}
+
+.badge-text {
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #b34000;
+  text-transform: uppercase;
+}
 </style>
 
 <i18n>
 {
   "en": {
+    "errors-count": "{count} error to correct | {count} errors to correct",
     "french": "french",
     "this-year-tax": "{0} income tax notice of {1} or full non-taxation",
     "warning": "Warning:",
@@ -126,6 +156,7 @@ const showModal = ref(false)
     }
   },
   "fr": {
+    "errors-count": "{count} erreur à corriger | {count} erreurs à corriger",
     "french": "français",
     "this-year-tax": "avis d'impôt {0} sur les revenus de {1} ou de non-imposition complet",
     "warning": "Attention :",
