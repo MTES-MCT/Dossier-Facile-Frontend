@@ -130,6 +130,7 @@ const files = ref<{ name: string; file: File; size: number; id?: string; path?: 
 const showModale = ref(false)
 const showExplainForm = ref(false)
 const explainText = ref('')
+const explanationSubmitted = ref(false)
 
 const store = useTenantStore()
 const taxState = useTaxState()
@@ -185,7 +186,9 @@ function startPolling() {
 }
 
 onMounted(() => {
-  explainText.value = taxDocument.value?.documentAnalysisReport?.comment || ''
+  const existingComment = taxDocument.value?.documentAnalysisReport?.comment || ''
+  explainText.value = existingComment
+  explanationSubmitted.value = !!existingComment
   startPolling()
 })
 
@@ -286,11 +289,12 @@ function saveExplanation() {
     comment: explainText.value
   }
   store.commentAnalysis(params).then(() => {
+    explanationSubmitted.value = true
     toast.success(t('save-success'), undefined)
   })
 }
 
-defineExpose({ analysisFailedRules })
+defineExpose({ analysisFailedRules, explanationSubmitted, analysisInProgress })
 
 async function remove(file: DfFile, silent = false) {
   AnalyticsService.deleteFile(taxState.category)
@@ -310,6 +314,7 @@ async function remove(file: DfFile, silent = false) {
   analysisFailedRules.value = []
   showExplainForm.value = false
   explainText.value = ''
+  explanationSubmitted.value = false
   startPolling()
 }
 </script>

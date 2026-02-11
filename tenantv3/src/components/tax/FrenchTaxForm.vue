@@ -57,7 +57,7 @@
   </ModalComponent>
 
   <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" />
-  <TaxFooter />
+  <TaxFooter :next-disabled="nextDisabled" />
 </template>
 
 <script setup lang="ts">
@@ -84,6 +84,8 @@ const { textKey } = useTaxState()
 const showModal = ref(false)
 const uploadFilesTax = useTemplateRef('upload-files-tax')
 const analysisErrorCount = computed(() => uploadFilesTax.value?.analysisFailedRules?.length ?? 0)
+const analysisInProgress = computed(() => uploadFilesTax.value?.analysisInProgress ?? false)
+const nextDisabled = computed(() => analysisInProgress.value || (analysisErrorCount.value > 0 && !uploadFilesTax.value?.explanationSubmitted))
 </script>
 
 <style scoped>
