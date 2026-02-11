@@ -1,16 +1,16 @@
 import {
   DocumentType,
-  DocumentTypeTranslations,
-  TENANT_COMPONENTS
+  DocumentTypeTranslations
 } from '@/components/editmenu/documents/DocumentType'
+import { useInternalNavigation } from '@/composables/useInternalNavigation'
 import {
   DfDocument,
   STEP_LABEL,
   type DocumentCategory,
   type DocumentCategoryStep
 } from 'df-shared-next/src/models/DfDocument'
-import type { PreviewDocument } from 'df-shared-next/src/models/User'
-import { computed } from 'vue'
+import { PreviewDocument } from 'df-shared-next/src/models/User'
+import { computed, unref, type MaybeRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
@@ -39,9 +39,16 @@ export function getDocumentLabel(
   }
 }
 
-export function useDocumentPreview(previewDocument: PreviewDocument) {
+export function useDocumentPreview(
+  previewDocumentRef: MaybeRef<PreviewDocument>,
+  guarantorId: number | undefined = undefined,
+  cotenantId: number | undefined = undefined
+) {
   const { t } = useI18n()
   const router = useRouter()
+
+  const { getTenantNavigationPath, getGuarantorNavigationPath, getCotenantNavigationPath } =
+    useInternalNavigation()
 
   const subTitle = computed(() => {
     return getDocumentSubTitle(
@@ -52,18 +59,56 @@ export function useDocumentPreview(previewDocument: PreviewDocument) {
     )
   })
 
+  const documentIdForInternalLink = computed(() => {
+    const previewDocument = unref(previewDocumentRef)
+    const lastPartOfId = `${previewDocument.document?.id ?? previewDocument.documentCategory}`
+    if (guarantorId === undefined && cotenantId === undefined) {
+      return `document-${lastPartOfId}`
+    }
+
+    if (guarantorId === undefined && cotenantId !== undefined) {
+      return `document-cotenant-${cotenantId}-${lastPartOfId}`
+    }
+
+    if (guarantorId !== undefined) {
+      return `document-guarantor-${guarantorId}-${lastPartOfId}`
+    }
+
+    return ''
+  })
+
   const label = computed(() => {
     return getDocumentLabel(previewDocument.documentCategory, t)
   })
 
   const goToEdit = () => {
-    const type =
-      previewDocument.documentCategory === 'IDENTIFICATION'
-        ? DocumentType.IDENTITY
-        : (previewDocument.documentCategory as DocumentType)
-    const routeName = TENANT_COMPONENTS[type]
-    if (routeName) {
-      router.push({ name: routeName })
+    const previewDocument = unref(previewDocumentRef)
+
+    // current user document
+    if (guarantorId === undefined && cotenantId === undefined) {
+      const routePath = getTenantNavigationPath(
+        previewDocument.document,
+        previewDocument.document === undefined ? previewDocument.documentCategory : undefined
+      )
+      router.push(routePath)
+    }
+
+    if (guarantorId !== undefined && cotenantId === undefined) {
+      const routePath = getGuarantorNavigationPath(
+        previewDocument.document,
+        previewDocument.document === undefined ? previewDocument.documentCategory : undefined,
+        guarantorId
+      )
+      router.push(routePath)
+    }
+
+    if (guarantorId === undefined && cotenantId !== undefined) {
+      const routePath = getCotenantNavigationPath(
+        previewDocument.document,
+        previewDocument.document === undefined ? previewDocument.documentCategory : undefined,
+        cotenantId
+      )
+      router.push(routePath)
     }
   }
 
@@ -99,6 +144,7 @@ export function useDocumentPreview(previewDocument: PreviewDocument) {
     label,
     subTitle,
     status,
+    documentIdForInternalLink,
     goToEdit,
     openDocument
   }

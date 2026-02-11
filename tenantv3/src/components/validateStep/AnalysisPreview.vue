@@ -13,6 +13,8 @@
       v-for="doc in documents"
       :key="doc.document?.id || doc.documentCategory"
       :preview-document="doc"
+      :guarantor-id="guarantorId"
+      :co-tenant-id="coTenantId"
       class="fr-mb-2w"
     />
   </NakedCard>
@@ -26,6 +28,7 @@ import type { DocumentAnalysisStatus, PreviewDocument, User } from 'df-shared-ne
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DocumentPreviewCard from './DocumentPreviewCard.vue'
+import { useTenantStore } from '@/stores/tenant-store'
 
 const props = defineProps<{
   user: User | Guarantor
@@ -34,6 +37,24 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+
+const store = useTenantStore()
+
+const guarantorId = computed(() => {
+  if (props.isTenant) {
+    return undefined
+  } else {
+    return props.user.id
+  }
+})
+
+const coTenantId = computed(() => {
+  if (!props.isTenant || props.user.id === store.user.id) {
+    return undefined
+  } else {
+    return props.user.id
+  }
+})
 
 const nameToDisplay = computed(() => {
   if (
