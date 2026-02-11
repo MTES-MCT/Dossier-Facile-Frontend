@@ -158,11 +158,7 @@ import {
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
-import {
-  STEP_LABEL,
-  type DfDocument,
-  type DocumentCategoryStep
-} from 'df-shared-next/src/models/DfDocument'
+import { STEP_LABEL, type DfDocument } from 'df-shared-next/src/models/DfDocument'
 import FinancialFooter from './lib/FinancialFooter.vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { computed, onMounted, ref, useTemplateRef } from 'vue'
@@ -173,6 +169,7 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import TenantBadge from '../common/TenantBadge.vue'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { toast } from '@/components/toast/toastUtils'
+import { CATEGORY_TO_PATH, STEP_TO_PATH } from '@/composables/useInternalNavigation'
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const store = useTenantStore()
@@ -228,49 +225,6 @@ onMounted(() => {
     showInfoModale.value = true
   }
 })
-
-const CATEGORY_TO_PATH: Record<string, string> = {
-  SALARY: 'travail',
-  SOCIAL_SERVICE: 'social',
-  PENSION: 'pension',
-  RENT: 'rente',
-  SCHOLARSHIP: 'bourse',
-  NO_INCOME: 'pas-de-revenus'
-}
-
-const STEP_TO_PATH: { [P in DocumentCategoryStep]?: string } = {
-  SALARY_EMPLOYED_LESS_3_MONTHS: 'travail/salarie/moins-3-mois',
-  SALARY_EMPLOYED_MORE_3_MONTHS: 'travail/salarie/plus-3-mois',
-  SALARY_EMPLOYED_NOT_YET: 'travail/salarie/pas-encore',
-  SALARY_FREELANCE_AUTOENTREPRENEUR: 'travail/independant/auto-entrepreneur',
-  SALARY_FREELANCE_OTHER: 'travail/independant/autre',
-  SALARY_INTERMITTENT: 'travail/intermittent',
-  SALARY_ARTIST_AUTHOR: 'travail/artiste-auteur',
-  SALARY_UNKNOWN: 'travail/inconnu',
-  SOCIAL_SERVICE_CAF_LESS_3_MONTHS: 'social/caf/moins-3-mois',
-  SOCIAL_SERVICE_CAF_MORE_3_MONTHS: 'social/caf/plus-3-mois',
-  SOCIAL_SERVICE_FRANCE_TRAVAIL_LESS_3_MONTHS: 'social/france-travail/moins-3-mois',
-  SOCIAL_SERVICE_FRANCE_TRAVAIL_MORE_3_MONTHS: 'social/france-travail/plus-3-mois',
-  SOCIAL_SERVICE_FRANCE_TRAVAIL_NOT_YET: 'social/france-travail/pas-encore',
-  SOCIAL_SERVICE_APL_LESS_3_MONTHS: 'social/apl/moins-3-mois',
-  SOCIAL_SERVICE_APL_MORE_3_MONTHS: 'social/apl/plus-3-mois',
-  SOCIAL_SERVICE_APL_NOT_YET: 'social/apl/pas-encore',
-  SOCIAL_SERVICE_AAH_LESS_3_MONTHS: 'social/aah/moins-3-mois',
-  SOCIAL_SERVICE_AAH_MORE_3_MONTHS: 'social/aah/plus-3-mois',
-  SOCIAL_SERVICE_AAH_NOT_YET: 'social/aah/pas-encore',
-  SOCIAL_SERVICE_OTHER: 'social/autre',
-  PENSION_STATEMENT: 'pension/retraite/bulletin',
-  PENSION_NO_STATEMENT: 'pension/retraite/pas-de-bulletin',
-  PENSION_DISABILITY_LESS_3_MONTHS: 'pension/invalidite/moins-3-mois',
-  PENSION_DISABILITY_MORE_3_MONTHS: 'pension/invalidite/plus-3-mois',
-  PENSION_DISABILITY_NOT_YET: 'pension/invalidite/pas-encore',
-  PENSION_ALIMONY: 'pension/alimentaire',
-  PENSION_UNKNOWN: 'pension/inconnu',
-  RENT_RENTAL_RECEIPT: 'rente/revenus-locatifs/quittance',
-  RENT_RENTAL_NO_RECEIPT: 'rente/revenus-locatifs/pas-de-quittance',
-  RENT_ANNUITY_LIFE: 'rente/viagere',
-  RENT_OTHER: 'rente/autre'
-}
 
 function categoryLabel(doc: DfDocument) {
   const key = doc.documentSubCategory?.toLowerCase().replaceAll('_', '-') || ''
