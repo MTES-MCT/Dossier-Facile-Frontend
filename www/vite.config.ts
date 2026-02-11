@@ -1,7 +1,7 @@
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { fileURLToPath, URL } from 'node:url'
 import generateSiteMap from 'vite-ssg-sitemap'
-
+import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
@@ -30,6 +30,22 @@ export default defineConfig({
     vue(),
     createRobotsTxtPlugin(),
     vueI18n({ strictMessage: false }),
+    pluginPurgeCss({
+      variables: true,
+      content: [`./public/**/*.html`, `./src/**/*.vue`, `../df-shared-next/src/**/*.vue`],
+      defaultExtractor(content) {
+        const contentWithoutStyleBlocks = content.replace(/<style[^]+?<\/style>/gi, '')
+        return contentWithoutStyleBlocks.match(/[A-Za-z0-9-_/:]*[A-Za-z0-9-_/]+/g) || []
+      },
+      safelist: {
+        deep: [
+          /-(leave|enter|appear)(|-(to|from|active))$/,
+          /^(?!(|.*?:)cursor-move).+-move$/,
+          /^router-link(|-exact)-active$/,
+          /data-v-.*/
+        ]
+      }
+    }),
     sentryVitePlugin({
       org: 'betagouv',
       project: 'front-www',
