@@ -18,6 +18,15 @@
       />
     </li>
   </ul>
+  <div v-if="analysisInProgress" class="analysis-loading fr-mb-3w">
+    <div class="analysis-loading-status">
+      <RiContractUpDownLine size="24px" class="analysis-loading-icon" aria-hidden="true" />
+      <p class="fr-m-0 analysis-loading-text">{{ t('analysis-in-progress') }}</p>
+    </div>
+    <div class="analysis-loading-progress">
+      <div class="analysis-loading-progress-bar"></div>
+    </div>
+  </div>
   <TaxAnalysisBanners
     :failed-rules="analysisFailedRules"
     v-if="analysisFailedRules.length > 0"
@@ -101,7 +110,7 @@ import { useTaxState } from './taxState'
 import type { TaxCategory } from '@/components/documents/share/DocumentTypeConstants'
 import type { TaxCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import { PdfAnalysisService } from '@/services/PdfAnalysisService'
-import { RiAlarmWarningLine, RiInformationFill } from '@remixicon/vue'
+import { RiAlarmWarningLine, RiContractUpDownLine, RiInformationFill } from '@remixicon/vue'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import TaxAnalysisBanners from './TaxAnalysisBanners.vue'
 import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
@@ -136,6 +145,7 @@ const { t } = useI18n()
 const taxDocument = taxState.document
 const documentStatus = computed(() => taxDocument.value?.documentStatus)
 const analysisFailedRules = ref<DocumentRule[]>([])
+const analysisInProgress = ref(false)
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
 
 function stopPolling() {
@@ -155,14 +165,19 @@ async function updateAnalysisStatus() {
     const { data } = await AnalysisService.getDocumentAnalysisStatus(docId)
     console.log(`[analysis-status] document ${docId}:`, JSON.stringify(data, null, 2))
     if (data.status === AnalysisStatus.COMPLETED) {
+      analysisInProgress.value = false
       analysisFailedRules.value = data.analysisReport?.failedRules ?? []
       stopPolling()
     } else if (data.status === AnalysisStatus.NO_ANALYSIS_SCHEDULED) {
+      analysisInProgress.value = false
       analysisFailedRules.value = []
       stopPolling()
+    } else if (data.status === AnalysisStatus.IN_PROGRESS) {
+      analysisInProgress.value = true
     }
     // IN_PROGRESS: polling continues
   } catch {
+    analysisInProgress.value = false
     analysisFailedRules.value = []
     stopPolling()
   }
@@ -296,6 +311,7 @@ async function remove(file: DfFile, silent = false) {
     const firstIndex = files.value.findIndex((f) => f.name === file.name && !f.path)
     files.value.splice(firstIndex, 1)
   }
+  analysisInProgress.value = false
   analysisFailedRules.value = []
   showExplainForm.value = false
   explainText.value = ''
@@ -304,6 +320,52 @@ async function remove(file: DfFile, silent = false) {
 </script>
 
 <style scoped>
+.analysis-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.analysis-loading-status {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.analysis-loading-icon {
+  color: var(--blue-france-sun-113-625);
+  flex-shrink: 0;
+}
+
+.analysis-loading-text {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #161616;
+}
+
+.analysis-loading-progress {
+  height: 8px;
+  background-color: var(--background-contrast-grey);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.analysis-loading-progress-bar {
+  height: 100%;
+  width: 30%;
+  background-color: var(--blue-france-sun-113-625);
+  animation: indeterminate 1.5s infinite ease-in-out;
+}
+
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(433%);
+  }
+}
+
 .explain-section {
   display: flex;
   flex-direction: column;
@@ -381,6 +443,7 @@ ul {
 <i18n lang="json">
 {
   "en": {
+    "analysis-in-progress": "Analyzing documents. This usually takes less than 10 seconds.",
     "or": "OR",
     "explain-situation": "Explain my situation",
     "explain-question": "What difficulty are you encountering to correct this error?",
@@ -394,6 +457,7 @@ ul {
     "avis-link-to-doc": "Need help ? Check our documentation"
   },
   "fr": {
+    "analysis-in-progress": "Analyse des documents. Cela prend généralement moins de 10 secondes.",
     "or": "OU",
     "explain-situation": "Expliquer ma situation",
     "explain-question": "Quelle difficulté rencontrez-vous pour corriger cette erreur ?",
