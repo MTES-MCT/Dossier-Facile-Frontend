@@ -56,16 +56,12 @@ const consentButtons: ComputedRef<DsfrButtonProps[]> = computed(() => [
   {
     title: t('reject-all-title'),
     label: t('reject-all'),
-    onclick: () => {
-      rejectAll
-    }
+    onclick: rejectAll
   },
   {
     title: t('accept-all-title'),
     label: t('accept-all'),
-    onclick: () => {
-      acceptAll
-    }
+    onclick: acceptAll
   }
 ])
 </script>
