@@ -621,12 +621,6 @@ importers:
         specifier: 0.2.8
         version: 0.2.8(vue@3.5.18(typescript@5.9.2))
     devDependencies:
-      "@fullhuman/postcss-purgecss":
-        specifier: 7.0.2
-        version: 7.0.2(postcss@8.5.6)
-      "@fullhuman/vue-cli-plugin-purgecss":
-        specifier: 7.0.2
-        version: 7.0.2
       "@intlify/unplugin-vue-i18n":
         specifier: "catalog:"
         version: 6.0.8(@vue/compiler-dom@3.5.25)(eslint@9.32.0(jiti@2.4.2))(rollup@4.53.5)(typescript@5.9.2)(vue-i18n@11.1.11(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
@@ -687,6 +681,9 @@ importers:
       vite:
         specifier: "catalog:"
         version: 7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2)
+      vite-plugin-purgecss-updated-v5:
+        specifier: 1.2.6
+        version: 1.2.6(vite@7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2))
       vite-ssg:
         specifier: 27.0.1
         version: 27.0.1(prettier@3.5.3)(unhead@2.0.9)(vite@7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
@@ -2122,21 +2119,7 @@ packages:
         integrity: sha512-vdf8f6rHnFPPLRsmL4p12wYl+Ux4mOJOkjzKEMYVnwdf7UFdvBtHlLvQyx8iKG5vhPRbDRgZxdtpmyigDPjzYg==,
       }
 
-  "@fullhuman/postcss-purgecss@7.0.2":
-    resolution:
-      {
-        integrity: sha512-U4zAXNaVztbDxO9EdcLp51F3UxxYsb/7DN89rFxFJhfk2Wua2pvw2Kf3HdspbPhW/wpHjSjsxWYoIlbTgRSjbQ==,
-      }
-    peerDependencies:
-      postcss: ^8.0.0
-
-  "@fullhuman/vue-cli-plugin-purgecss@7.0.2":
-    resolution:
-      {
-        integrity: sha512-YC3VWZ/3ff6sv0fpCCY7z5oNOSf1pAe9P33Miw2jrrmOojPEqKXaswWtFPH9FKXcuDEA0g1TiX1YOVobg1fdMQ==,
-      }
-
-  "@gouvfr/dsfr@1.14.3":
+  "@gouvfr/dsfr@1.13.2":
     resolution:
       {
         integrity: sha512-UTplClQLp635J4vRHx/rJ7SKEi+bepc1FisvzTS8efQGQ3Gm8LttZf11NJ+4XhEMYLbCf8TBvFFwWBZ9ztRFkg==,
@@ -8473,6 +8456,14 @@ packages:
       }
     engines: { "0": node >=0.6.0 }
 
+  vite-plugin-purgecss-updated-v5@1.2.6:
+    resolution:
+      {
+        integrity: sha512-t29hpGKP1NsIEDgnuocK+0k3QPNIYa4WxP85exOLGWFHmS5lidHRRT5g77jFY+IJMM8q2r7he03NrYwvLaXXTw==,
+      }
+    peerDependencies:
+      vite: ^3 || ^4 || ^5 || ^6 || ^7
+
   vite-plugin-pwa@1.0.0:
     resolution:
       {
@@ -10046,14 +10037,7 @@ snapshots:
       - "@vue/composition-api"
       - vue
 
-  "@fullhuman/postcss-purgecss@7.0.2(postcss@8.5.6)":
-    dependencies:
-      postcss: 8.5.6
-      purgecss: 7.0.2
-
-  "@fullhuman/vue-cli-plugin-purgecss@7.0.2": {}
-
-  "@gouvfr/dsfr@1.14.3": {}
+  "@gouvfr/dsfr@1.13.2": {}
 
   "@gouvminint/vue-dsfr@8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))":
     dependencies:
@@ -14090,6 +14074,11 @@ snapshots:
       assert-plus: 1.0.0
       core-util-is: 1.0.2
       extsprintf: 1.3.0
+
+  vite-plugin-purgecss-updated-v5@1.2.6(vite@7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2)):
+    dependencies:
+      purgecss: 7.0.2
+      vite: 7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2)
 
   vite-plugin-pwa@1.0.0(vite@7.3.0(@types/node@25.0.2)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2))(workbox-build@7.4.0)(workbox-window@7.4.0):
     dependencies:
