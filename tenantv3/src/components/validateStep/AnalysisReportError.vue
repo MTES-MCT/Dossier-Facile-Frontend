@@ -1,3 +1,4 @@
+// Todo : fr-sr-only
 <template>
   <NakedCard class="fr-p-3w">
     <div>
@@ -13,12 +14,9 @@
       <hr class="fr-pb-2w" />
       <ul class="fr-pl-0 fr-mt-0 links-list">
         <li v-for="(doc, k) in failedDocuments" :key="k" class="failed-item">
-          <button
-            class="fr-btn fr-btn--tertiary-no-outline fr-p-0 text-left"
-            @click="goToEdit(doc)"
-          >
+          <a class="fr-btn fr-btn--tertiary-no-outline fr-p-0 text-left" :href="getDocLink(doc)">
             {{ k + 1 }}. {{ doc.label }}
-          </button>
+          </a>
         </li>
       </ul>
     </div>
@@ -32,9 +30,7 @@ import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import type { DocumentAnalysisStatus, User } from 'df-shared-next/src/models/User'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { useTenantStore } from '../../stores/tenant-store'
-import { DocumentType, TENANT_COMPONENTS } from '../editmenu/documents/DocumentType'
 import { getDocumentLabel, getDocumentSubTitle } from './useDocumentPreview'
 
 const props = defineProps<{
@@ -43,7 +39,6 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const store = useTenantStore()
-const router = useRouter()
 
 type FailedDoc = {
   label: string
@@ -55,16 +50,50 @@ const failedDocuments = computed(() => {
   const errors = props.documentAnalysisStatus.filter((s) => s.isFinished && !s.isValid)
   const result: FailedDoc[] = []
 
-  const findDocInUser = (user: User | Guarantor) => {
+  const checkUserDocs = (user: User | Guarantor, requiredCategories: DocumentCategory[]) => {
+    const userDocs: FailedDoc[] = []
+
+    // 1. Check for failed analysis
     user.documents?.forEach((d) => {
       if (errors.find((e) => e.id === d.id)) {
-        result.push({
+        userDocs.push({
           label: getDocLabel(d, user),
           doc: d,
           owner: user
         })
       }
     })
+
+    // 2. Check for missing documents
+    requiredCategories.forEach((category) => {
+      // Check if user has AT LEAST one document of this category
+      const hasDoc = user.documents?.some(
+        (d) =>
+          d.documentCategory === category &&
+          (d.documentStatus === 'TO_PROCESS' || d.documentStatus === 'VALIDATED')
+      )
+
+      if (!hasDoc) {
+        // Special label for missing doc
+        const catLabel = getDocumentLabel(category, t)
+        userDocs.push({
+          label: t('doc-owner', {
+            docName: catLabel,
+            name: `${user.firstName} ${user.lastName}`
+          }),
+          documentCategory: category,
+          owner: user
+        })
+      }
+    })
+
+    userDocs.sort((a, b) => {
+      const idxA = a.documentCategory ? requiredCategories.indexOf(a.documentCategory) : -1
+      const idxB = b.documentCategory ? requiredCategories.indexOf(b.documentCategory) : -1
+      return idxA - idxB
+    })
+
+    result.push(...userDocs)
   }
 
   // Tenant
@@ -93,14 +122,36 @@ const getDocLabel = (doc: DfDocument, owner: User | Guarantor) => {
   return t('doc-owner', { docName: finalName, name: `${owner.firstName} ${owner.lastName}` })
 }
 
-const goToEdit = (failedDoc: FailedDoc) => {
-  const type =
-    failedDoc.doc.documentCategory === 'IDENTIFICATION'
-      ? DocumentType.IDENTITY
-      : (failedDoc.doc.documentCategory as DocumentType)
-  const routeName = TENANT_COMPONENTS[type]
-  if (routeName) {
-    router.push({ name: routeName })
+const getDocLink = (failedDoc: FailedDoc) => {
+  // We need to construct a link for a specific document
+  if (failedDoc.doc) {
+    // The document error represent a guarantor
+    if ('typeGuarantor' in failedDoc.owner) {
+      return `#document-guarantor-${failedDoc.owner.id}-${failedDoc.doc.id}`
+    } else {
+      // The document is for the current user
+      if (failedDoc.owner.id == store.user.id) {
+        return `#document-${failedDoc.doc.id}`
+      } else {
+        // The document is for the coTenant
+        return `#document-cotenant-${failedDoc.owner.id}-${failedDoc.doc.id}`
+      }
+    }
+  }
+  // It's a missing file :
+  else {
+    // If the missing doc is for a guarantor
+    if ('typeGuarantor' in failedDoc.owner) {
+      return `#document-guarantor-${failedDoc.owner.id}-${failedDoc.documentCategory}`
+    } else {
+      // If the missing doc is for the tenant
+      if (failedDoc.owner.id == store.user.id) {
+        return `#document-${failedDoc.documentCategory}`
+      } else {
+        // The document is for the coTenant
+        return `#document-cotenant-${failedDoc.owner.id}-${failedDoc.documentCategory}`
+      }
+    }
   }
 }
 </script>

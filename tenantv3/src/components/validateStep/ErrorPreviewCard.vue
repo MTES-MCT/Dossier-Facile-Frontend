@@ -1,5 +1,8 @@
 <template>
-  <div class="fr-p-1w document-preview-card document-preview-card--error">
+  <div
+    :id="documentIdForInternalLink"
+    class="fr-p-1w document-preview-card document-preview-card--error"
+  >
     <div>
       <p class="fr-badge fr-badge--warning fr-mb-1w">
         {{ t('documents.status.to_correct') }}
@@ -29,10 +32,16 @@ import { useDocumentPreview } from './useDocumentPreview'
 
 const props = defineProps<{
   previewDocument: PreviewDocument
+  coTenantId?: number
+  guarantorId?: number
 }>()
 
 const { t } = useI18n()
-const { label, subTitle, goToEdit } = useDocumentPreview(props.previewDocument)
+const { label, subTitle, documentIdForInternalLink, goToEdit } = useDocumentPreview(
+  props.previewDocument,
+  props.guarantorId,
+  props.coTenantId
+)
 
 const failedRules = computed(() => {
   return props.previewDocument.document?.documentAnalysisReport?.failedRules || []
