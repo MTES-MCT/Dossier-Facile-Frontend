@@ -22,6 +22,10 @@
             </div>
           </div>
         </div>
+        <p class="explain-link-text">
+          {{ t('not-matching') }}
+          <a href="#" class="explain-link" @click.prevent="emit('explain')">{{ t('explain-link') }}</a>
+        </p>
       </div>
     </div>
   </div>
@@ -34,6 +38,10 @@ import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
 
 defineProps<{
   failedRules: DocumentRule[]
+}>()
+
+const emit = defineEmits<{
+  explain: []
 }>()
 
 const { t } = useI18n()
@@ -181,11 +189,27 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
   line-height: 1.5rem;
   color: #18753c;
 }
+
+.explain-link-text {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #161616;
+  margin: 0.75rem 0 0;
+}
+
+.explain-link {
+  color: #161616;
+  text-decoration: underline;
+  font-weight: 400;
+  background-image: none;
+}
 </style>
 
 <i18n>
 {
   "en": {
+    "not-matching": "This message does not match your situation?",
+    "explain-link": "Explain your situation",
     "current-document": "Current document",
     "expected-document": "Document to add",
     "rules": {
@@ -211,6 +235,8 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     }
   },
   "fr": {
+    "not-matching": "Ce message ne correspond pas à votre situation ?",
+    "explain-link": "Expliquer votre situation",
     "current-document": "Document actuel",
     "expected-document": "Document à ajouter",
     "rules": {
