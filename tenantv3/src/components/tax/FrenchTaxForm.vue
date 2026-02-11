@@ -53,7 +53,7 @@
   </DsfrModalPatch>
 
   <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" />
-  <TaxFooter />
+  <TaxFooter :next-disabled="nextDisabled" />
 </template>
 
 <script setup lang="ts">
@@ -77,8 +77,9 @@ const grandParent = useParentRoute(2)
 const { textKey } = useTaxState()
 
 const analysisErrorCount = computed(() => uploadFilesTax.value?.analysisFailedRules?.length ?? 0)
-const uploadFilesTax = useTemplateRef('upload-files-tax')
 const isModalOpened = ref(false)
+const analysisInProgress = computed(() => uploadFilesTax.value?.analysisInProgress ?? false)
+const nextDisabled = computed(() => analysisInProgress.value || (analysisErrorCount.value > 0 && !uploadFilesTax.value?.explanationSubmitted))
 </script>
 
 <style scoped>
