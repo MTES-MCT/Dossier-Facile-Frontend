@@ -17,6 +17,11 @@
       @cancel="AnalyticsService.cancelDelete(taxState.category)"
     />
   </div>
+  <TaxAnalysisBanners
+    v-if="analysisFailedRules.length > 0"
+    :failed-rules="analysisFailedRules"
+    class="fr-mb-3w"
+  />
   <FileUpload
     ref="file-upload"
     :current-status="fileUploadStatus"
@@ -50,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
 import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
@@ -58,6 +63,8 @@ import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { RegisterService } from '@/services/RegisterService'
+import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
+import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { UtilsService } from '@/services/UtilsService'
 import { useLoading } from 'vue-loading-overlay'
@@ -70,10 +77,12 @@ import { PdfAnalysisService } from '@/services/PdfAnalysisService'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { RiAlarmWarningLine } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import TaxAnalysisBanners from './TaxAnalysisBanners.vue'
 
 const props = defineProps<{ category: TaxCategory; step?: TaxCategoryStep; explanation?: string }>()
 
 const MAX_FILE_COUNT = 5
+const POLLING_INTERVAL_MS = 3000
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
@@ -86,6 +95,52 @@ const { t } = useI18n()
 
 const taxDocument = taxState.document
 const documentStatus = computed(() => taxDocument.value?.documentStatus)
+const analysisFailedRules = ref<DocumentRule[]>([])
+const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
+
+function stopPolling() {
+  if (pollingInterval.value) {
+    clearInterval(pollingInterval.value)
+    pollingInterval.value = null
+  }
+}
+
+async function updateAnalysisStatus() {
+  const docId = taxDocument.value?.id
+  if (!docId) {
+    stopPolling()
+    return
+  }
+  try {
+    const { data } = await AnalysisService.getDocumentAnalysisStatus(docId)
+    console.log(`[analysis-status] document ${docId}:`, JSON.stringify(data, null, 2))
+    if (data.status === AnalysisStatus.COMPLETED) {
+      analysisFailedRules.value = data.analysisReport?.failedRules ?? []
+      stopPolling()
+    } else if (data.status === AnalysisStatus.NO_ANALYSIS_SCHEDULED) {
+      analysisFailedRules.value = []
+      stopPolling()
+    }
+    // IN_PROGRESS: polling continues
+  } catch {
+    analysisFailedRules.value = []
+    stopPolling()
+  }
+}
+
+function startPolling() {
+  stopPolling()
+  updateAnalysisStatus()
+  pollingInterval.value = setInterval(updateAnalysisStatus, POLLING_INTERVAL_MS)
+}
+
+onMounted(() => {
+  startPolling()
+})
+
+onBeforeUnmount(() => {
+  stopPolling()
+})
 
 const taxFiles = computed(() => {
   const newFiles = files.value.map((f) => {
@@ -140,6 +195,7 @@ async function save(): Promise<boolean> {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       toast.success(t('file-saved'), fileUpload.value?.inputFile)
+      startPolling()
       return true
     })
     .catch((err) => {
@@ -164,6 +220,8 @@ async function addFiles(fileList: File[]) {
   }
   save()
 }
+
+defineExpose({ analysisFailedRules })
 
 async function remove(file: DfFile, silent = false) {
   AnalyticsService.deleteFile(taxState.category)

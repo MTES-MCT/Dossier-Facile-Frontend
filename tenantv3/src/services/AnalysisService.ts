@@ -24,5 +24,10 @@ export const AnalysisService = {
     return axios.get<ApplicationAnalysisResponse>(
       `${import.meta.env.VITE_API_URL}/api/application/analysis-status`
     )
+  },
+  getDocumentAnalysisStatus(documentId: number) {
+    return axios.get<DocumentAnalysisStatusDTO>(
+      `${import.meta.env.VITE_API_URL}/api/document/${documentId}/analysis-status`
+    )
   }
 }
