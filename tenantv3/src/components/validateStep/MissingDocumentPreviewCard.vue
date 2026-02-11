@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-p-1w document-preview-card">
+  <div :id="documentIdForInternalLink" class="fr-p-1w document-preview-card">
     <p class="fr-badge fr-badge--info fr-mb-1w">{{ t('missing-document') }}</p>
     <div class="document-preview-card__content">
       <div class="file-name">
@@ -17,16 +17,22 @@
 
 <script setup lang="ts">
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
-import { useDocumentPreview } from './useDocumentPreview'
 import { useI18n } from 'vue-i18n'
+import { useDocumentPreview } from './useDocumentPreview'
 
 const props = defineProps<{
   previewDocument: PreviewDocument
+  guarantorId?: number
+  coTenantId?: number
 }>()
 
 const { t } = useI18n()
 
-const { label, subTitle, goToEdit } = useDocumentPreview(props.previewDocument)
+const { label, subTitle, documentIdForInternalLink, goToEdit } = useDocumentPreview(
+  props.previewDocument,
+  props.guarantorId,
+  props.coTenantId
+)
 </script>
 
 <style scoped lang="scss">
