@@ -22,7 +22,7 @@ const emit = defineEmits<{
   'on-submit': [formData: ContactFormData]
 }>()
 
-const errorSummary = useTemplateRef('errorSummary')
+const errorSummaryRef = useTemplateRef('errorSummaryRef')
 
 // FORM SETUP
 configure({
@@ -87,11 +87,9 @@ const onSuccess = (values: FormData) => {
 const onInvalidSubmit = async ({ errors }: InvalidSubmissionContext) => {
   // focus the error summary if there are errors
   if (errors) {
-    const errorSummaryTitle = errorSummary.value?.$el.querySelector('#error-summary-title')
-
-    if (errorSummaryTitle) {
+    if (errorSummaryRef.value) {
       await nextTick()
-      errorSummaryTitle.focus()
+      errorSummaryRef.value.focusTitle()
     }
   } else
     try {
@@ -109,7 +107,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
   <ErrorSummary
     v-if="submitCount > 0 && Object.entries(errors).length"
     :form-errors="errors"
-    ref="errorSummary"
+    ref="errorSummaryRef"
   />
   <form novalidate @submit.prevent="onSubmit">
     <div class="fr-input-group" :class="{ 'fr-input-group--error': errors.firstname }">

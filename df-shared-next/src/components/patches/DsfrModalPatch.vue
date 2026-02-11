@@ -95,7 +95,7 @@ const iconProps = computed(() => {
     :aria-labelledby="`${modalId}-title`"
     :role="role"
     class="fr-modal--patched"
-    @keydown.esc="close"
+    @cancel="close"
   >
     <div class="fr-container fr-container--fluid fr-container-md">
       <div class="fr-grid-row fr-grid-row--center">

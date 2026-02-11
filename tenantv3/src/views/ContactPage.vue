@@ -2,7 +2,7 @@
   <div class="bg-blue">
     <div class="fr-container">
       <Breadcrumb :current-page="t('contact.title')" />
-      <ContactForm
+      <ContactPage
         profile="tenant"
         :user="user"
         @on-profile-change="profileChanged"
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import ContactForm from 'df-shared-next/src/components/ContactForm.vue'
+import ContactPage from 'df-shared-next/src/components/ContactPage.vue'
 import Breadcrumb from 'df-shared-next/src/components/dsfr/BreadcrumbItem.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed } from 'vue'
