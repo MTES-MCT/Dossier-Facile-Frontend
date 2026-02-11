@@ -5,129 +5,161 @@
     class="fr-modal"
     role="dialog"
     aria-labelledby="fr-consent-modal-title"
-    @keydown.esc="modalStore.closeModal()"
+    @cancel="modalStore.closeModal"
   >
-    <div class="fr-grid-row fr-grid-row--center">
-      <div class="fr-col-12 fr-col-sm-10 fr-col-lg-8">
-        <div class="fr-modal__body">
-          <div class="fr-modal__header">
-            <button
-              type="button"
-              class="fr-btn--close fr-btn"
-              aria-controls="fr-consent-modal"
-              @click="modalStore.closeModal()"
-            >
-              {{ t('close') }}
-            </button>
-          </div>
-          <div class="fr-modal__content">
-            <h1 id="fr-consent-modal-title" class="fr-modal__title">
-              {{ t('title') }}
-            </h1>
-
-            <!-- Finalités -->
-            <header class="fr-consent-manager__header fr-pb-2w">
-              <p
-                id="finality-legend"
-                class="fr-m-0"
-                v-html="t('legend', [`${MAIN_URL}/politique-de-confidentialite`])"
-              />
-
-              <div class="choice-btn-group">
-                <DsfrButton
-                  :label="t('accept-all')"
-                  primary
-                  :aria-label="t('accept-all-title')"
-                  @click="acceptAll"
-                />
-                <DsfrButton
-                  :label="t('reject-all')"
-                  secondary
-                  :aria-label="t('reject-all-title')"
-                  @click="rejectAll"
-                />
-              </div>
-            </header>
-            <fieldset
-              aria-describedby="finality-0-desc"
-              disabled
-              class="fr-consent-service fr-fieldset"
-            >
-              <legend class="fr-consent-service__title">
-                {{ t('mandatory-cookies') }}
-              </legend>
-              <p id="finality-0-desc" class="fr-consent-service__desc">
-                {{ t('mandatory-cookies-desc') }}
-              </p>
-              <DsfrRadioButton
-                v-model="requiredChoice"
-                name="consent-finality-0"
-                :label="t('accept')"
-                :value="true"
-                :inline="true"
-                checked
-              />
-              <DsfrRadioButton
-                v-model="requiredChoice"
-                name="consent-finality-0"
-                :label="t('reject')"
-                :value="true"
-                :inline="true"
-              />
-            </fieldset>
-            <fieldset aria-describedby="finality-1-desc" class="fr-consent-service fr-fieldset">
-              <legend class="fr-consent-service__title">
-                Crisp <span class="fr-text--regular fr-text--sm">(2 cookies)</span>
-              </legend>
-              <p id="finality-1-desc" class="fr-consent-service__desc">
-                {{ t('crisp-desc') }}
-              </p>
-              <DsfrRadioButton
-                v-model="crispChoice"
-                name="consent-finality-1"
-                :label="t('accept')"
-                :value="true"
-                :inline="true"
-              />
-              <DsfrRadioButton
-                v-model="crispChoice"
-                name="consent-finality-1"
-                :label="t('reject')"
-                :value="false"
-                :inline="true"
-              />
-            </fieldset>
-            <fieldset aria-describedby="finality-2-desc" class="fr-consent-service fr-fieldset">
-              <legend class="fr-consent-service__title">
-                Matomo <span class="fr-text--regular fr-text--sm">(8 cookies)</span>
-              </legend>
-              <p id="finality-2-desc" class="fr-consent-service__desc">
-                {{ t('matomo-desc') }}
-              </p>
-              <DsfrRadioButton
-                v-model="matomoChoice"
-                name="consent-finality-2"
-                :label="t('accept')"
-                :value="true"
-                :inline="true"
-              />
-              <DsfrRadioButton
-                v-model="matomoChoice"
-                name="consent-finality-2"
-                :label="t('reject')"
-                :value="false"
-                :inline="true"
-              />
-            </fieldset>
-            <footer>
-              <DsfrButton
-                :label="t('confirm-choices')"
-                class="fr-col-12 fr-col-sm-5 fr-grid-row--center"
-                size="large"
+    <div class="fr-container fr-container--fluid fr-container-md">
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-12 fr-col-sm-10">
+          <div class="fr-modal__body">
+            <div class="fr-modal__header">
+              <button
+                type="button"
+                class="fr-btn--close fr-btn"
                 aria-controls="fr-consent-modal"
-                @click="confirm"
-              />
-            </footer>
+                @click="modalStore.closeModal"
+              >
+                {{ t('close') }}
+              </button>
+            </div>
+            <div class="fr-modal__content">
+              <h1 id="fr-consent-modal-title" class="fr-modal__title">
+                {{ t('title') }}
+              </h1>
+
+              <!-- Finalités -->
+              <header class="fr-consent-service fr-consent-manager__header">
+                <p
+                  id="finality-legend"
+                  class="fr-m-0"
+                  v-html="t('legend', [`${MAIN_URL}/politique-de-confidentialite`])"
+                />
+                <div class="choice-btn-group">
+                  <DsfrButton
+                    :label="t('accept-all')"
+                    primary
+                    :aria-label="t('accept-all-title')"
+                    @click="acceptAll"
+                  />
+                  <DsfrButton
+                    :label="t('reject-all')"
+                    secondary
+                    :aria-label="t('reject-all-title')"
+                    @click="rejectAll"
+                  />
+                </div>
+              </header>
+              <div class="fr-consent-service">
+                <fieldset aria-labelledby="finality-0-legend finality-0-desc" class="fr-fieldset">
+                  <legend id="finality-0-legend" class="fr-consent-service__title">
+                    {{ t('mandatory-cookies') }}
+                  </legend>
+                  <div class="fr-consent-service__radios">
+                    <div class="fr-radio-group">
+                      <input
+                        checked
+                        type="radio"
+                        id="consent-finality-0-accept"
+                        name="consent-finality-0"
+                      />
+                      <label class="fr-label" for="consent-finality-0-accept"> Accepter </label>
+                    </div>
+                    <div class="fr-radio-group">
+                      <input
+                        disabled
+                        type="radio"
+                        id="consent-finality-0-refuse"
+                        name="consent-finality-0"
+                      />
+                      <label class="fr-label" for="consent-finality-0-refuse"> Refuser </label>
+                    </div>
+                  </div>
+                  <p id="finality-0-desc" class="fr-consent-service__desc">
+                    {{ t('mandatory-cookies-desc') }}
+                  </p>
+                </fieldset>
+              </div>
+              <div class="fr-consent-service">
+                <fieldset aria-labelledby="finality-1-legend finality-1-desc" class="fr-fieldset">
+                  <legend id="finality-1-legend" class="fr-consent-service__title">
+                    Crisp <span class="fr-text--regular fr-text--sm">(2 cookies)</span>
+                  </legend>
+                  <div class="fr-consent-service__radios">
+                    <div class="fr-radio-group">
+                      <input
+                        v-model="crispChoice"
+                        type="radio"
+                        id="consent-finality-1-accept"
+                        name="consent-finality-1"
+                        :value="true"
+                      />
+                      <label class="fr-label" for="consent-finality-1-accept">
+                        {{ t('accept') }}
+                      </label>
+                    </div>
+                    <div class="fr-radio-group">
+                      <input
+                        v-model="crispChoice"
+                        type="radio"
+                        id="consent-finality-1-refuse"
+                        name="consent-finality-1"
+                        :value="false"
+                      />
+                      <label class="fr-label" for="consent-finality-1-refuse">
+                        {{ t('reject') }}
+                      </label>
+                    </div>
+                  </div>
+                  <p id="finality-1-desc" class="fr-consent-service__desc">
+                    {{ t('crisp-desc') }}
+                  </p>
+                </fieldset>
+              </div>
+              <div class="fr-consent-service">
+                <fieldset aria-labelledby="finality-2-legend finality-2-desc" class="fr-fieldset">
+                  <legend id="finality-2-legend" class="fr-consent-service__title">
+                    Matomo <span class="fr-text--regular fr-text--sm">(8 cookies)</span>
+                  </legend>
+                  <div class="fr-consent-service__radios">
+                    <div class="fr-radio-group">
+                      <input
+                        v-model="matomoChoice"
+                        type="radio"
+                        id="consent-finality-2-accept"
+                        name="consent-finality-2"
+                        :value="true"
+                      />
+                      <label class="fr-label" for="consent-finality-2-accept">
+                        {{ t('accept') }}
+                      </label>
+                    </div>
+                    <div class="fr-radio-group">
+                      <input
+                        v-model="matomoChoice"
+                        type="radio"
+                        id="consent-finality-2-refuse"
+                        name="consent-finality-2"
+                        :value="false"
+                      />
+                      <label class="fr-label" for="consent-finality-2-refuse">
+                        {{ t('reject') }}
+                      </label>
+                    </div>
+                  </div>
+                  <p id="finality-2-desc" class="fr-consent-service__desc">
+                    {{ t('matomo-desc') }}
+                  </p>
+                </fieldset>
+              </div>
+              <footer>
+                <DsfrButton
+                  :label="t('confirm-choices')"
+                  class="fr-col-12 fr-col-sm-5 fr-grid-row--center"
+                  size="large"
+                  aria-controls="fr-consent-modal"
+                  @click="confirm"
+                />
+              </footer>
+            </div>
           </div>
         </div>
       </div>
@@ -140,7 +172,7 @@ import { useModalStore } from '../stores/useModalStore'
 import { ref, useTemplateRef } from 'vue'
 import * as Consent from '../services/ConsentService'
 import { useI18n } from 'vue-i18n'
-import { DsfrButton, DsfrRadioButton } from '@gouvminint/vue-dsfr'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 
@@ -149,7 +181,6 @@ const initialValues = Consent.getAll()
 const emit = defineEmits<{ choiceMade: [] }>()
 
 const { t } = useI18n()
-const requiredChoice = ref(true)
 const crispChoice = ref(initialValues?.crisp ?? true)
 const matomoChoice = ref(initialValues?.matomo ?? true)
 
@@ -225,12 +256,6 @@ header,
   display: flex;
   flex-flow: row wrap;
   gap: 1rem;
-}
-.fieldset-all {
-  align-items: center;
-  gap: 1rem;
-  padding: 0 0 1.5rem 0;
-  margin: 0;
 }
 footer {
   display: flex;
