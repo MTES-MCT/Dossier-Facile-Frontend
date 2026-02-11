@@ -28,10 +28,16 @@ import { useDocumentPreview } from './useDocumentPreview'
 
 const props = defineProps<{
   previewDocument: PreviewDocument
+  guarantorId?: number
+  coTenantId?: number
 }>()
 
 const { t } = useI18n()
-const { label, subTitle, goToEdit, openDocument } = useDocumentPreview(props.previewDocument)
+const { label, subTitle, goToEdit, openDocument } = useDocumentPreview(
+  props.previewDocument,
+  props.guarantorId,
+  props.coTenantId
+)
 </script>
 
 <style scoped lang="scss">
