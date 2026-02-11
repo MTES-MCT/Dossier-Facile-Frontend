@@ -7,7 +7,7 @@
     "nightwatch.conf.*",
     "playwright.config.*",
     "eslint.config.*",
-		"../df-shared-next/src/**/*"
+    "../df-shared-next/src/**/*"
   ],
   "compilerOptions": {
     "composite": true,
