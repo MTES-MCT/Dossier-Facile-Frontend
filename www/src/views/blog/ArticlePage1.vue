@@ -12,7 +12,7 @@
       encore souvent autour des éléments qu’il faut fournir pour avoir un dossier de location
       complet, clair et cohérent.
     </p>
-    <img alt="" src="../../assets/images/blog-article.webp" class="img-center" />
+    <BlogPostImage :src="image" />
     <p>
       Le propriétaire peut exiger auprès du candidat locataire des documents attestant : de
       l’identité du candidat, de son précédent domicile, de son activité professionnelle, de ses
@@ -98,31 +98,25 @@
 
 <script setup lang="ts">
 import BlogArticle from './BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title =
-  'Quelles pièces justificatives fournir pour mon dossier de location - Blog - DossierFacile'
+const title = 'Quelles pièces justificatives fournir pour mon dossier de location - Blog'
 const description =
   'A cause de l’augmentation de la demande immobilière, il devient de plus en plus difficile de trouver un bon appartement à louer.'
-useHead({
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 731px;
-  max-height: 412px;
-  width: 100%;
-  height: auto;
-}
-</style>

@@ -11,10 +11,10 @@
       vie. Quel que soit votre profil, vous y trouverez des conseils utiles, des astuces et des
       exemples. Suivez le guide !
     </p>
-    <img class="fr-mb-3w" alt="" src="../../assets/images/blog-article24.webp" />
+    <BlogPostImage :src="image" />
 
     <h2 class="fr-h6">1. Bien définir ses critères de recherche🧐📝</h2>
-    <p class="mb-0">
+    <p class="fr-mb-0">
       Avant de vous lancer dans la recherche d'un appartement, il est important de définir vos
       critères de recherche. Quel est le type de logement que vous préférez (studio, T2, T3, etc.) ?
     </p>
@@ -32,7 +32,7 @@
     <p>Ces questions vous permettront de cibler votre recherche et de gagner du temps.</p>
 
     <h2 class="fr-h6">2. Constituer son dossier de location en béton📁</h2>
-    <p class="mb-0">
+    <p class="fr-mb-0">
       Si vous avez trouvé un appartement qui vous plaît et qui correspond à vos critères, il ne vous
       reste plus qu'à constituer votre dossier de location.
     </p>
@@ -46,7 +46,7 @@
       votre côté et distinguez vous avec un dossier bien à jour. Des documents conformes, récents,
       et de bonne qualité feront la différence auprès de votre futur propriétaire.
     </p>
-    <p class="mb-0">
+    <p class="fr-mb-0">
       <a href="https://www.dossierfacile.logement.gouv.fr/">DossierFacile</a> vous aide à constituer
       gratuitement un dossier de location numérique labellisé par l'État.
     </p>
@@ -95,7 +95,7 @@
       En parallèle, n’oubliez pas que les agences immobilières et les particuliers proposent
       également des locations.
     </p>
-    <p class="mb-0">
+    <p class="fr-mb-0">
       Au-delà de ces options traditionnelles, d’autres alternatives peuvent enrichir vos
       recherches&nbsp;:
     </p>
@@ -171,31 +171,27 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article24.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article24.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = 'Guide étape par étape pour trouver un appartement idéal - DossierFacile'
+const title = 'Guide étape par étape pour trouver un appartement idéal'
 const description =
   "Trouver un appartement idéal n'est pas facile. Il faut chercher, comparer, visiter, négocier... " +
   'Heureusement, nous avons créé un guide étape par étape pour vous simplifier la vie. ' +
   'Quel que soit votre profil, vous y trouverez des conseils utiles, des astuces et des exemples. Suivez le guide !'
 
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-
-<style lang="scss" scoped>
-.mb-0 {
-  margin-bottom: 0;
-}
-</style>

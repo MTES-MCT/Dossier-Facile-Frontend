@@ -8,6 +8,12 @@
   isolation: isolate;
 }
 
+// if a list forces its role to retain semantic, remove the list style
+:is(ul, ol)[role='list'] {
+  padding: 0;
+  list-style-type: none;
+}
+
 .cdn-background {
   position: fixed;
   top: 0;
@@ -526,4 +532,25 @@ h1 {
 
 .text-grey {
   color: var(--text-mention-grey);
+}
+
+// layout utilities
+
+/**
+* Switch from horizontal to vertical layout with a max of 3 items
+*/
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space);
+}
+
+.switcher > * {
+  flex-grow: 1;
+  flex-basis: calc((50rem - 100%) * 999);
+}
+
+.switcher > :nth-last-child(n + 4),
+.switcher > :nth-last-child(n + 4) ~ * {
+  flex-basis: 100%;
 }

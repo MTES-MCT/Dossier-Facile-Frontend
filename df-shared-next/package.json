@@ -13,6 +13,7 @@
     "@remixicon/vue": "4.4.0",
     "buffer": "6.0.3",
     "js-cookie": "3.0.5",
+    "pinia": "catalog:",
     "sass": "catalog:",
     "vue-matomo": "4.2.0",
     "@gouvminint/vue-dsfr": "catalog:"

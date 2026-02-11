@@ -10,8 +10,7 @@
       usurper notre identité, et on a vite fait de se retrouver avec des crédits dans tous les sens
       qu'on n’a jamais contractés.
     </p>
-    <img alt="" src="../../assets/images/blog-article20.webp" />
-    <br />
+    <BlogPostImage :src="image" />
 
     <h2 class="fr-h6">Un service plébiscité depuis juillet 2023</h2>
     <p>
@@ -120,23 +119,25 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article20.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article20.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
 const title =
-  'DossierFacile lance FiligraneFacile, le service permettant d’ajouter un filigrane à n’importe quel document ! - DossierFacile'
+  'DossierFacile lance FiligraneFacile, le service permettant d’ajouter un filigrane à n’importe quel document !'
 const description =
   'Logement, travail, assurance... Nous envoyons tous les jours des documents personnels dans la nature, sans les protéger.'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>

@@ -3,9 +3,7 @@
     title="Au secours, mon ascenseur est en panne! Les droits du locataire en copropriété"
     date="14 Avril 2022"
   >
-    <p>
-      <img alt="" class="img-center" src="../../assets/images/blog-article12.webp" />
-    </p>
+    <BlogPostImage :src="image" />
     <p></p>
     <h2>Au secours ! Je suis locataire et mon ascenseur est en panne, que faire ?</h2>
     <p>Vous vivez au 6e étage de l’immeuble et l’ascenseur est en panne depuis plusieurs mois ?</p>
@@ -100,30 +98,24 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article12.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article12.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = 'Au secours mon ascenceur est en panne ! - DossierFacile'
+const title = 'Au secours mon ascenceur est en panne !'
 const description =
   'Vous vivez au 6e étage de l’immeuble et l’ascenseur est en panne depuis plusieurs mois ?'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 768px;
-  max-height: 597px;
-  width: 100%;
-  height: auto;
-}
-</style>

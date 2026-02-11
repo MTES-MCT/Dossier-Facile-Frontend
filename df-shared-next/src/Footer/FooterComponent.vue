@@ -103,7 +103,7 @@
               type="button"
               class="fr-footer__bottom-link"
               data-fr-opened="false"
-              aria-controls="fr-consent-modal"
+              @click="openModal"
             >
               {{ t('cookies') }}
             </button>
@@ -173,15 +173,16 @@
 </template>
 
 <script setup lang="ts">
+import { useModalStore } from '../stores/useModalStore'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-
-defineEmits<{ showModal: [] }>()
 
 const VITE_MAIN_URL = ref(`//${import.meta.env.VITE_MAIN_URL}`)
 const VITE_DOCS_URL = ref(`//${import.meta.env.VITE_DOCS_URL}`)
 
 const { t } = useI18n()
+
+const { openModal } = useModalStore()
 </script>
 
 <style lang="scss" scoped>

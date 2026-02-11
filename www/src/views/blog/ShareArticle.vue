@@ -1,6 +1,6 @@
 <template>
   <div class="fr-share fr-mt-6w">
-    <p class="fr-share__title">Partager cet article :</p>
+    <p class="fr-share__title">Partager cet article&nbsp;:</p>
     <ul class="fr-share__group">
       <li>
         <a
