@@ -87,7 +87,7 @@
         d’assistance en utilisant ce formulaire.
       </p>
       <RequiredFieldsInstruction all-required />
-      <FormWithValidation :profile :user @on-submit="submitForm" />
+      <ContactForm :profile :user @on-submit="submitForm" />
     </div>
 
     <DsfrModalPatch
@@ -130,7 +130,7 @@ import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DsfrRadioButtonOptions } from '@gouvminint/vue-dsfr'
 import { DsfrRadioButtonSet } from '@gouvminint/vue-dsfr'
-import FormWithValidation from './form/FormWithValidation.vue'
+import ContactForm from './form/ContactForm.vue'
 
 import tenantPicto from '@gouvfr/dsfr/dist/artwork/pictograms/document/document.svg'
 import ownerPicto from '@gouvfr/dsfr/dist/artwork/pictograms/buildings/house.svg'
