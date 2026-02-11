@@ -175,7 +175,7 @@ import { useI18n } from 'vue-i18n'
 import { RiUserFill } from '@remixicon/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
-import DsfrModalPatched from './patches/DsfrModal.vue'
+import DsfrModalPatched from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 
 interface Props {

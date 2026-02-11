@@ -42,18 +42,11 @@ const role = computed(() => {
 
 const modal = useTemplateRef('modal')
 
-// const { activate, deactivate } = useFocusTrap(modal, {
-//   immediate: false
-// })
-
 watch(
   () => isOpened.value,
   (newValue) => {
     if (newValue) {
       modal.value?.showModal()
-      // setTimeout(() => {
-      //   activate()
-      // }, 100)
     }
     setAppropriateClassOnBody(newValue)
   }
@@ -74,7 +67,6 @@ onBeforeUnmount(() => {
 })
 
 const close = () => {
-  // deactivate()
   modal.value?.close()
   isOpened.value = false
 }
@@ -103,7 +95,7 @@ const iconProps = computed(() => {
     :aria-labelledby="`${modalId}-title`"
     :role="role"
     class="fr-modal--patched"
-    @keydown.esc="close"
+    @cancel="close"
   >
     <div class="fr-container fr-container--fluid fr-container-md">
       <div class="fr-grid-row fr-grid-row--center">
@@ -156,7 +148,6 @@ const iconProps = computed(() => {
 
 <style scoped>
 .fr-modal--patched {
-  --ground: 2000;
   padding: 0;
   color: var(--text-default-grey);
   background-color: transparent;

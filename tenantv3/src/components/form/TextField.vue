@@ -19,7 +19,7 @@
           'fr-input--valid': meta.valid,
           'fr-input--error': !meta.valid
         }"
-        type="text"
+        :type
         :required
         :disabled="disabled"
         :autocomplete
@@ -47,11 +47,13 @@ const props = withDefaults(
   defineProps<{
     fieldLabel: string
     name: string
+    type?: 'text' | 'email'
     validationRules?: string
     disabled?: boolean
     autocomplete?: string
   }>(),
   {
+    type: 'text',
     validationRules: '',
     disabled: false,
     autocomplete: ''

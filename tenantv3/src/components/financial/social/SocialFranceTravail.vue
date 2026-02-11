@@ -13,8 +13,6 @@
 <script setup lang="ts">
 import RadioList from '@/components/common/RadioList.vue'
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
-import { useRoute } from 'vue-router'
-import { computed } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useI18n } from 'vue-i18n'
@@ -22,8 +20,6 @@ import { useFinancialState } from '../financialState'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useSocialOptionLinks } from './lib/useSocialOptionLinks'
 
-const route = useRoute()
-const here = computed(() => route.path)
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const { t } = useI18n()
@@ -32,7 +28,7 @@ const { category, suffix, textKey } = useFinancialState()
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation3(category, 'social', 'france-travail', subCategory)
 
-const optionLinks = useSocialOptionLinks(here, suffix)
+const optionLinks = useSocialOptionLinks(suffix)
 </script>
 
 <i18n>

@@ -8,70 +8,24 @@
           </h1>
         </div>
         <div class="fr-col-12 fr-mb-3w">
-          <FieldLabel :required="true" for-input="coTenantLastName">
-            {{ t('coupleinformation.spouseLastName') }}
-          </FieldLabel>
-          <Field
-            v-slot="{ field, meta }"
-            v-model="coTenant.lastName"
+          <TextField
+            v-model.trim="coTenant.lastName"
+            :field-label="t('coupleinformation.spouseLastName')"
             name="coTenantLastName"
-            :rules="{
-              required: true,
-              onlyAlpha: true
-            }"
-          >
-            <input
-              id="coTenantLastName"
-              :aria-describedby="hasSubmited ? 'coTenantLastName-errors' : undefined"
-              :aria-invalid="hasSubmited && !meta.valid"
-              v-bind="field"
-              class="form-control validate-required fr-input"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              required
-              type="text"
-              :disabled="disableNameFields"
-              @input="handleInput"
-            />
-          </Field>
-          <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="coTenantLastName">
-            <span id="coTenantLastName-errors" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
+            validation-rules="required|onlyAlpha"
+            :disabled="disableNameFields"
+            @input="handleInput"
+          />
         </div>
         <div class="fr-col-12 fr-mb-3w">
-          <FieldLabel :required="true" for-input="coTenantFirstName">
-            {{ t('coupleinformation.spouseFirstName') }}
-          </FieldLabel>
-          <Field
-            v-slot="{ field, meta }"
-            v-model="coTenant.firstName"
+          <TextField
+            v-model.trim="coTenant.firstName"
+            :field-label="t('coupleinformation.spouseFirstName')"
             name="coTenantFirstName"
-            :rules="{
-              required: true,
-              onlyAlpha: true
-            }"
-          >
-            <input
-              id="coTenantFirstName"
-              v-bind="field"
-              :aria-describedby="hasSubmited ? 'coTenantFirstName-errors' : undefined"
-              :aria-invalid="hasSubmited && !meta.valid"
-              class="validate-required form-control fr-input"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              required
-              type="text"
-              :disabled="disableNameFields"
-              @input="handleInput"
-            />
-          </Field>
-          <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="coTenantFirstName">
-            <span id="coTenantFirstName-errors" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
+            validation-rules="required|onlyAlpha"
+            :disabled="disableNameFields"
+            @input="handleInput"
+          />
         </div>
       </div>
     </NakedCard>
@@ -181,8 +135,9 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import DsfrModalPatched from './patches/DsfrModal.vue'
+import DsfrModalPatched from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
+import TextField from './form/TextField.vue'
 
 interface Props {
   hasSubmited: boolean
