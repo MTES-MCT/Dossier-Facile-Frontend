@@ -11,21 +11,29 @@
       <p class="fr-mb-2w">
         {{ t('description') }}
       </p>
-      <hr class="fr-pb-2w" />
-      <ul class="fr-pl-0 fr-mt-0 links-list">
-        <li v-for="(doc, k) in failedDocuments" :key="k" class="failed-item">
-          <a class="fr-btn fr-btn--tertiary-no-outline fr-p-0 text-left" :href="getDocLink(doc)">
-            {{ k + 1 }}. {{ doc.label }}
-          </a>
-        </li>
-      </ul>
+      <DsfrAccordion title="Liste des documents en erreurs">
+        <ul class="fr-pl-0 fr-mt-0 links-list">
+          <li v-for="(doc, k) in failedDocuments" :key="k" class="failed-item">
+            <a class="fr-btn fr-btn--tertiary-no-outline fr-p-0 text-left" :href="getDocLink(doc)">
+              {{ k + 1 }}. {{ doc.label }}
+            </a>
+          </li>
+        </ul>
+      </DsfrAccordion>
     </div>
   </NakedCard>
 </template>
 
 <script setup lang="ts">
+import { DsfrAccordion } from '@gouvminint/vue-dsfr'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import {
+  allTenantDocumentCategories,
+  guarantorLegalPersonCategories,
+  guarantorOrganismCategories,
+  type DfDocument,
+  type DocumentCategory
+} from 'df-shared-next/src/models/DfDocument'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import type { DocumentAnalysisStatus, User } from 'df-shared-next/src/models/User'
 import { computed } from 'vue'
@@ -42,7 +50,8 @@ const store = useTenantStore()
 
 type FailedDoc = {
   label: string
-  doc: DfDocument
+  doc?: DfDocument | undefined
+  documentCategory: DocumentCategory | undefined
   owner: User | Guarantor
 }
 
@@ -56,11 +65,14 @@ const failedDocuments = computed(() => {
     // 1. Check for failed analysis
     user.documents?.forEach((d) => {
       if (errors.find((e) => e.id === d.id)) {
-        userDocs.push({
-          label: getDocLabel(d, user),
-          doc: d,
-          owner: user
-        })
+        if (d.documentAnalysisReport?.comment === undefined) {
+          userDocs.push({
+            label: getDocLabel(d, user),
+            doc: d,
+            documentCategory: d.documentCategory,
+            owner: user
+          })
+        }
       }
     })
 
@@ -96,14 +108,27 @@ const failedDocuments = computed(() => {
     result.push(...userDocs)
   }
 
-  // Tenant
-  findDocInUser(store.user)
+  checkUserDocs(store.user, allTenantDocumentCategories)
+
+  const processGuarantor = (g: Guarantor) => {
+    let categories: DocumentCategory[] = []
+    if (g.typeGuarantor === 'NATURAL_PERSON') {
+      categories = allTenantDocumentCategories
+    } else if (g.typeGuarantor === 'LEGAL_PERSON') {
+      categories = guarantorLegalPersonCategories
+    } else if (g.typeGuarantor === 'ORGANISM') {
+      categories = guarantorOrganismCategories
+    }
+    checkUserDocs(g, categories)
+  }
+
   // Guarantors
-  store.user.guarantors?.forEach((g) => findDocInUser(g))
+  store.user.guarantors?.forEach(processGuarantor)
+
   // Cotenants
   store.coTenants?.forEach((co) => {
-    findDocInUser(co)
-    co.guarantors?.forEach((g) => findDocInUser(g))
+    checkUserDocs(co, allTenantDocumentCategories)
+    co.guarantors?.forEach(processGuarantor)
   })
 
   return result

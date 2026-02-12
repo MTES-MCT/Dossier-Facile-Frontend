@@ -12,7 +12,7 @@
       <hr class="fr-py-1w" />
       <ul class="fr-mt-0 fr-mb-1w">
         <li v-for="(rule, k) in failedRules" :key="k" class="fr-text--sm warning-text fr-my-0">
-          {{ rule.message }}
+          {{ getRuleShortMessage(rule) }}
         </li>
       </ul>
       <div class="fr-grid-row fr-grid-row--right">
@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useDocumentPreview } from './useDocumentPreview'
 
@@ -37,14 +37,11 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const { label, subTitle, documentIdForInternalLink, goToEdit } = useDocumentPreview(
-  props.previewDocument,
-  props.guarantorId,
-  props.coTenantId
-)
+const { label, subTitle, documentIdForInternalLink, getRuleShortMessage, goToEdit } =
+  useDocumentPreview(toRef(props, 'previewDocument'), props.guarantorId, props.coTenantId)
 
 const failedRules = computed(() => {
-  return props.previewDocument.document?.documentAnalysisReport?.failedRules || []
+  return props.previewDocument.documentAnalysisStatus?.failedRules || []
 })
 </script>
 
