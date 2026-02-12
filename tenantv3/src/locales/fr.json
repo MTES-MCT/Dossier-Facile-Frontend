@@ -179,6 +179,13 @@
       "rent": "Revenus locatifs",
       "rent-annuity-life": "Rente viagère",
       "rent-other": "Autre type de rente"
+    },
+    "validation-rules": {
+      "short": {
+        "tax-bad-classification": "Mauvais document détecté",
+        "tax-wrong-names": "Le nom ne correspond pas",
+        "tax-wrong-year": "Document trop ancien"
+      }
     }
   },
   "explanation-text": {
