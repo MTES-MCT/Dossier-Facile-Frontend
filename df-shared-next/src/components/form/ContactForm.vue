@@ -139,7 +139,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
         :aria-invalid="errors.lastname ? true : undefined"
         :description-id="errors.lastname ? 'errors-lastname' : undefined"
         type="text"
-        autocomplete="last-name"
+        autocomplete="family-name"
         required
       >
         <template #required-tip> ({{ t('field-required') }})</template>
