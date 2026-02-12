@@ -806,7 +806,7 @@ export const router = createRouter({
       name: 'ValidateFile',
       meta: {
         requiresAuth: true,
-        hideFooter: true,
+        hideFooter: false,
         skipLinks: FUNNEL_SKIP_LINKS
       },
       component: () => import('../views/ValidateFilePage.vue')
@@ -816,7 +816,7 @@ export const router = createRouter({
       name: 'ValidateFileStep',
       meta: {
         requiresAuth: true,
-        hideFooter: true,
+        hideFooter: false,
         skipLinks: FUNNEL_SKIP_LINKS
       },
       component: () => import('../views/ValidateFilePage.vue')
