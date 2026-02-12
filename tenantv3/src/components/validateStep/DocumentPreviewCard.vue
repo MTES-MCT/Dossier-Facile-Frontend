@@ -21,8 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import type { PreviewDocument } from 'df-shared-next/src/models/User'
 import { toRef } from 'vue'
+import type { PreviewDocument } from 'df-shared-next/src/models/User'
 import ErrorPreviewCard from './ErrorPreviewCard.vue'
 import LoadingPreviewCard from './LoadingPreviewCard.vue'
 import MissingDocumentPreviewCard from './MissingDocumentPreviewCard.vue'
@@ -35,7 +35,7 @@ const props = defineProps<{
   coTenantId?: number
 }>()
 
-const { status } = useDocumentPreview(props.previewDocument)
+const { status } = useDocumentPreview(toRef(props, 'previewDocument'))
 </script>
 
 <i18n>

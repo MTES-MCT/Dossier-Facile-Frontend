@@ -23,7 +23,7 @@
         </label>
       </div>
 
-      <div class="fr-checkbox-group fr-mt-2w">
+      <div v-if="hasToDisplayConsentDeclaration" class="fr-checkbox-group fr-mt-2w">
         <input id="consent" v-model="consentDeclaration" type="checkbox" name="consent" />
         <label class="fr-label" for="consent">
           {{ t('consent-declaration') }}
@@ -31,7 +31,7 @@
       </div>
 
       <div class="fr-grid-row fr-grid-row--right fr-mt-2w">
-        <button class="fr-btn" type="submit" :disabled="!isValid">
+        <button ref="submitButton" class="fr-btn" type="submit" :disabled="!isValid">
           {{ t('send-files') }}
         </button>
       </div>
@@ -40,25 +40,77 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
+import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref, useTemplateRef } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLoading } from 'vue-loading-overlay'
+import { useRouter } from 'vue-router'
+import { toast } from '@/components/toast/toastUtils'
 
 const { t } = useI18n()
+
+const store = useTenantStore()
+const router = useRouter()
 
 const message = ref('')
 const honorDeclaration = ref(false)
 const consentDeclaration = ref(false)
+const submitButton = useTemplateRef('submitButton')
 
-const isValid = computed(() => honorDeclaration.value && consentDeclaration.value)
+onMounted(() => {
+  if (store.user.honorDeclaration) {
+    honorDeclaration.value = true
+    consentDeclaration.value = true
+  }
+  message.value = store.user.clarification || ''
+})
+
+const isValid = computed(() => {
+  if (hasToDisplayConsentDeclaration.value) {
+    return honorDeclaration.value && consentDeclaration.value
+  } else {
+    return honorDeclaration.value
+  }
+})
+
+const hasToDisplayConsentDeclaration = computed(() => {
+  return store.user.applicationType !== 'ALONE' || store.user.guarantors.length > 0
+})
 
 const submit = () => {
-  // TODO: Implement submit logic
-  console.log('Submitting', {
-    message: message.value,
-    honor: honorDeclaration.value,
-    consent: consentDeclaration.value
-  })
+  if (!isValid.value) {
+    return
+  }
+
+  if (
+    honorDeclaration.value === store.user.honorDeclaration &&
+    message.value === store.user.clarification
+  ) {
+    router.push('/account')
+    return
+  }
+
+  const $loading = useLoading({})
+  const loader = $loading.show()
+  const params = {
+    honorDeclaration: true,
+    clarification: store.user.tenantType === 'CREATE' ? message.value : undefined
+  }
+  store
+    .validateFile(params)
+    .then(() => {
+      return store.loadUser()
+    })
+    .then(() => {
+      router.push('/account')
+    })
+    .catch(() => {
+      toast.error(t('errors.submit-failed'), submitButton.value)
+    })
+    .finally(() => {
+      loader.hide()
+    })
 }
 </script>
 
