@@ -167,6 +167,13 @@
       "rent": "Revenus locatifs",
       "rent-annuity-life": "Rente viagère",
       "rent-other": "Autre type de rente"
+    },
+    "validation-rules": {
+      "short": {
+        "tax-bad-classification": "Mauvais document détecté",
+        "tax-wrong-names": "Le nom ne correspond pas",
+        "tax-wrong-year": "Document trop ancien"
+      }
     }
   },
   "explanation-text": {
@@ -425,7 +432,7 @@
     "letter-label": "Lettre {0}",
     "error-message": "Ces lettres ne correspondent pas au début du nom de famille d'un locataire de ce dossier.",
     "examples-title": "Exemples :",
-    "support-link": "Besoin d'aide ? Contactez notre support"
+    "support-link": "Besoin d'aide ? Contactez notre équipe"
   },
   "filereinsurance": {
     "documents-VALIDATED": "Le dossier contient les pièces requises",

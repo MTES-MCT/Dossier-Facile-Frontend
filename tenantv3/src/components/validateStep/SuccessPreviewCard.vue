@@ -9,7 +9,7 @@
         <p v-if="subTitle" class="fr-text--sm text-mention fr-mb-0">{{ subTitle }}</p>
       </div>
       <div class="actions">
-        <button class="fr-btn fr-btn--secondary fr-btn--sm fr-mr-1w" @click="openDocument">
+        <button class="fr-btn fr-btn--secondary fr-btn--sm fr-mr-1w" @click="isModalOpened = true">
           {{ t('filerowlistitem.see') }}
         </button>
         <button class="fr-btn fr-btn--secondary fr-btn--sm" @click="goToEdit">
@@ -17,14 +17,26 @@
         </button>
       </div>
     </div>
+    <DsfrModalPatched v-model:is-opened="isModalOpened" :title="modalTitle" size="xl">
+      <template #default>
+        <ShowDoc
+          v-if="isModalOpened"
+          :file="previewDocument.document!"
+          :watermark-url="previewDocument.document?.name"
+        />
+      </template>
+    </DsfrModalPatched>
   </div>
 </template>
 
 <script setup lang="ts">
 import { RiCheckboxCircleFill } from '@remixicon/vue'
+import DsfrModalPatched from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
 import { useI18n } from 'vue-i18n'
 import { useDocumentPreview } from './useDocumentPreview'
+import { computed, ref } from 'vue'
+import ShowDoc from '../documents/share/ShowDoc.vue'
 
 const props = defineProps<{
   previewDocument: PreviewDocument
@@ -32,12 +44,24 @@ const props = defineProps<{
   coTenantId?: number
 }>()
 
+console.log('previewDocument', props.previewDocument)
+
 const { t } = useI18n()
-const { label, subTitle, goToEdit, openDocument } = useDocumentPreview(
+const { label, subTitle, goToEdit } = useDocumentPreview(
   props.previewDocument,
   props.guarantorId,
   props.coTenantId
 )
+
+const isModalOpened = ref(false)
+
+const modalTitle = computed(() => {
+  if (subTitle.value) {
+    return t('preview_subtitle', { label: label.value, subTitle: subTitle.value })
+  } else {
+    return t('preview_title', { label: label.value })
+  }
+})
 </script>
 
 <style scoped lang="scss">
@@ -92,9 +116,13 @@ const { label, subTitle, goToEdit, openDocument } = useDocumentPreview(
 {
   "en": {
     "edit": "Edit",
+    "preview_title": "Document preview: {label}",
+    "preview_subtitle": "Document preview: {label}, {subTitle}"
   },
   "fr": {
     "edit": "Modifier",
+    "preview_title": "Aperçu du document : {label}",
+    "preview_subtitle": "Aperçu du document : {label}, {subTitle}"
   }
 }
 </i18n>

@@ -11,14 +11,15 @@
       <p class="fr-mb-2w">
         {{ t('description') }}
       </p>
-      <hr class="fr-pb-2w" />
-      <ul class="fr-pl-0 fr-mt-0 links-list">
-        <li v-for="(doc, k) in failedDocuments" :key="k" class="failed-item">
-          <a class="fr-btn fr-btn--tertiary-no-outline fr-p-0 text-left" :href="getDocLink(doc)">
-            {{ k + 1 }}. {{ doc.label }}
-          </a>
-        </li>
-      </ul>
+      <DsfrAccordion title="Liste des documents en erreurs">
+        <ul class="fr-pl-0 fr-mt-0 links-list">
+          <li v-for="(doc, k) in failedDocuments" :key="k" class="failed-item">
+            <a class="fr-btn fr-btn--tertiary-no-outline fr-p-0 text-left" :href="getDocLink(doc)">
+              {{ k + 1 }}. {{ doc.label }}
+            </a>
+          </li>
+        </ul>
+      </DsfrAccordion>
     </div>
   </NakedCard>
 </template>
@@ -32,6 +33,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '../../stores/tenant-store'
 import { getDocumentLabel, getDocumentSubTitle } from './useDocumentPreview'
+import { DsfrAccordion } from '@gouvminint/vue-dsfr'
 
 const props = defineProps<{
   documentAnalysisStatus: DocumentAnalysisStatus[]
@@ -56,11 +58,14 @@ const failedDocuments = computed(() => {
     // 1. Check for failed analysis
     user.documents?.forEach((d) => {
       if (errors.find((e) => e.id === d.id)) {
-        userDocs.push({
-          label: getDocLabel(d, user),
-          doc: d,
-          owner: user
-        })
+        if (d.documentAnalysisReport?.comment === undefined) {
+          userDocs.push({
+            label: getDocLabel(d, user),
+            doc: d,
+            documentCategory: d.documentCategory,
+            owner: user
+          })
+        }
       }
     })
 

@@ -9,6 +9,7 @@ import {
   type DocumentCategory,
   type DocumentCategoryStep
 } from 'df-shared-next/src/models/DfDocument'
+import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import { PreviewDocument } from 'df-shared-next/src/models/User'
 import { computed, unref, type MaybeRef } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -81,6 +82,19 @@ export function useDocumentPreview(
     return getDocumentLabel(previewDocument.documentCategory, t)
   })
 
+  const getRuleShortMessage = (rule: DocumentRule) => {
+    switch (rule.rule) {
+      case 'R_TAX_BAD_CLASSIFICATION':
+        return t('documents.validation-rules.short.tax-bad-classification')
+      case 'R_TAX_NAMES':
+        return t('documents.validation-rules.short.tax-wrong-names')
+      case 'R_TAX_WRONG_YEAR':
+        return t('documents.validation-rules.short.tax-wrong-year')
+      default:
+        return rule.message
+    }
+  }
+
   const goToEdit = () => {
     const previewDocument = unref(previewDocumentRef)
 
@@ -112,13 +126,6 @@ export function useDocumentPreview(
     }
   }
 
-  const openDocument = () => {
-    const document = previewDocument.document
-    if (document?.files?.length) {
-      window.open(document.files[0].path, '_blank')
-    }
-  }
-
   const status = computed((): 'MISSING' | 'SUCCESS' | 'LOADING' | 'ERROR' => {
     const analysisStatus = previewDocument.documentAnalysisStatus
     const document = previewDocument.document
@@ -135,7 +142,11 @@ export function useDocumentPreview(
       return 'SUCCESS'
     }
     if (analysisStatus.isFinished && !analysisStatus.isValid) {
-      return 'ERROR'
+      if (previewDocument.document?.documentAnalysisReport?.comment === undefined) {
+        return 'ERROR'
+      } else {
+        return 'SUCCESS'
+      }
     }
     return 'LOADING'
   })
@@ -145,7 +156,7 @@ export function useDocumentPreview(
     subTitle,
     status,
     documentIdForInternalLink,
-    goToEdit,
-    openDocument
+    getRuleShortMessage,
+    goToEdit
   }
 }
