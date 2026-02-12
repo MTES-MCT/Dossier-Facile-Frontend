@@ -242,7 +242,7 @@
       "badge-undefined": "Temps estimé non disponible",
       "delay": "Votre dossier sera traité le {0} entre {1} et {2}",
       "delay-on-2days": "Votre dossier sera traité entre le {0} et le {1}",
-      "delay-undefined": "Votre horaire de passage est en cours de calcul. Le délai de traitement moyen est de moins de 24h.",
+      "delay-undefined": "Votre horaire de passage est en cours de calcul. Pour pouvez recharger la page pour actualiser l'estimation. Le délai de traitement moyen est généralement de moins de 24h.",
       "last-update": "Date de dernière modification : {0}"
     }
   },

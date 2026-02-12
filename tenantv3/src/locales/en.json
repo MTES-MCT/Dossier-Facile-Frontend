@@ -240,7 +240,7 @@
       "badge-undefined": "Estimated time not available",
       "delay": "Yours Files will be process {0} between {1} and {2}",
       "delay-on-2days": "Yours Files will be process from {0} to {1}",
-      "delay-undefined": "Estimated time computation is currently in progress. Files are typically processed within 24 hours on average.",
+      "delay-undefined": "Estimated time computation is currently in progress. You can reload the page to refresh the estimation. The average processing time is usually less than 24 hours.",
       "last-update": "Last files update : {0}"
     }
   },

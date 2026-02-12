@@ -4,7 +4,7 @@
       <section class="fr-mt-3w">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
-            <div v-if="isAnnouncementVisible" class="fr-mb-3w">
+            <div class="fr-mb-3w">
               <FakeAnnouncement></FakeAnnouncement>
             </div>
             <h1 v-html="t(`account.title.dashboard`)"></h1>
@@ -192,7 +192,7 @@ import PartnersSection from '../components/account/PartnersSection.vue'
 import DefaultShareSection from '../components/account/DefaultShareSection.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
-import { computed, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue'
+import { computed, ref, useTemplateRef, watch } from 'vue'
 import { useTenantStore } from '../stores/tenant-store'
 import { useRouter } from 'vue-router'
 import { ProfileService } from '../services/ProfileService'
@@ -203,10 +203,7 @@ import { RiDownloadLine, RiTimeLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
 const { t } = useI18n()
 
-const FORCE_FAKE_ANNOUNCEMENT_VISIBILITY =
-  import.meta.env.VITE_FORCE_ANNOUNCEMENT_VISIBILITY || false
 const PROCESSING_TIME_DELTA = import.meta.env.VITE_PROCESSING_TIME_DELTA || 3
-const isAnnouncementVisible = ref(false)
 const store = useTenantStore()
 const user = computed(() => store.user)
 const tabIndex = ref(0)
@@ -214,34 +211,6 @@ const router = useRouter()
 dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
 const downloadZipElt = useTemplateRef('download-zip')
-
-let reloadExpectedProcessTimeIntervalId: number | null = null
-
-onMounted(() => {
-  const today = new Date()
-  if (
-    (today.getMonth() >= 5 && today.getMonth() <= 8) ||
-    FORCE_FAKE_ANNOUNCEMENT_VISIBILITY === 'true'
-  ) {
-    isAnnouncementVisible.value = true
-  }
-  // reload processTime after 10 seconds if date is still missing
-  reloadExpectedProcessTimeIntervalId = setInterval(() => {
-    if (!expectedDate.value && user.value && user.value.id) {
-      loadExpectedProcessingTime(user.value.id)
-    } else if (reloadExpectedProcessTimeIntervalId) {
-      clearInterval(reloadExpectedProcessTimeIntervalId)
-      reloadExpectedProcessTimeIntervalId = null
-    }
-  }, 10000)
-})
-
-onUnmounted(() => {
-  if (reloadExpectedProcessTimeIntervalId) {
-    clearInterval(reloadExpectedProcessTimeIntervalId)
-    reloadExpectedProcessTimeIntervalId = null
-  }
-})
 
 watch(
   () => user.value,
