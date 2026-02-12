@@ -720,7 +720,7 @@ export const router = createRouter({
       meta: {
         title: 'Validation du dossier locataire - DossierFacile',
         requiresAuth: true,
-        hideFooter: true,
+        hideFooter: false,
         skipLinks: FUNNEL_SKIP_LINKS
       },
       component: () => import('../views/ValidateFilePage.vue')
@@ -731,7 +731,7 @@ export const router = createRouter({
       meta: {
         title: 'Validation du dossier locataire - DossierFacile',
         requiresAuth: true,
-        hideFooter: true,
+        hideFooter: false,
         skipLinks: FUNNEL_SKIP_LINKS
       },
       component: () => import('../views/ValidateFilePage.vue')
