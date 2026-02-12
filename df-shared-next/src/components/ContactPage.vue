@@ -73,14 +73,18 @@
       />
     </div>
 
-    <div v-if="contactFormData.profile === 'tenant'" class="fr-mt-3w">
-      <TenantHelpAccordion @accordion-clicked="accordionClicked"></TenantHelpAccordion>
-    </div>
-    <div v-if="contactFormData.profile === 'owner'" class="fr-mt-3w">
-      <OwnerHelpAccordion @accordion-clicked="accordionClicked"></OwnerHelpAccordion>
+    <div class="fr-mt-5w">
+      <TenantHelpAccordion
+        v-if="contactFormData.profile === 'tenant'"
+        @accordion-clicked="accordionClicked"
+      ></TenantHelpAccordion>
+      <OwnerHelpAccordion
+        v-if="contactFormData.profile === 'owner'"
+        @accordion-clicked="accordionClicked"
+      ></OwnerHelpAccordion>
     </div>
 
-    <div class="fr-mt-7w">
+    <NakedCard class="fr-mt-3w fr-px-1v fr-px-md-3w">
       <h2 class="fr-h4">Je ne trouve pas la réponse à ma question</h2>
       <p>
         Si votre question ne figure pas dans cette liste, vous pouvez contacter notre équipe
@@ -88,7 +92,7 @@
       </p>
       <RequiredFieldsInstruction all-required />
       <ContactForm :profile :user @on-submit="submitForm" />
-    </div>
+    </NakedCard>
 
     <DsfrModalPatch
       v-model:is-opened="isValidModalOpened"
@@ -136,6 +140,7 @@ import tenantPicto from '@gouvfr/dsfr/dist/artwork/pictograms/document/document.
 import ownerPicto from '@gouvfr/dsfr/dist/artwork/pictograms/buildings/house.svg'
 import RequiredFieldsInstruction from './form/RequiredFieldsInstruction.vue'
 import DsfrModalPatch from './patches/DsfrModalPatch.vue'
+import NakedCard from './NakedCard.vue'
 
 const { t } = useI18n()
 
@@ -205,15 +210,7 @@ function submitForm(payload: ContactFormData) {
 </script>
 
 <style scoped>
-.fr-external-link::after {
-  content: '';
-}
-:deep(.fr-accordion::before) {
-  box-shadow: none;
-}
-:deep(.fr-accordion .fr-collapse) {
-  margin: 0;
-}
+/* radios auto layout */
 :deep(.fr-fieldset__element--inline) {
   flex: 1;
 }
