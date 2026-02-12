@@ -226,13 +226,17 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
       </p>
     </div>
 
-    <DsfrButton label="Envoyer mon message" />
+    <DsfrButton label="Envoyer mon message" class="form__btn" />
   </form>
 </template>
 
 <style scoped>
 textarea {
   resize: vertical;
+}
+.form__btn {
+  display: block;
+  margin-inline-start: auto;
 }
 </style>
 

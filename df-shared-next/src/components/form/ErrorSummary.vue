@@ -1,5 +1,9 @@
 <script lang="ts" setup>
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 import { computed, useTemplateRef } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 interface Props {
   headingLevel?: 'h2' | 'h3' | 'h4' | 'h5'
@@ -21,33 +25,51 @@ const formattedErrors = computed(() => {
 })
 
 const errorSummary = useTemplateRef('errorSummary')
+const summaryTitle = computed(() => {
+  const errorNumber = formattedErrors.value.errorsMap.size
+  const errorWord = t('error-word', { count: errorNumber })
+  const errorMessage = t('error-message', { errorWord })
+
+  return errorMessage
+})
 
 const focusTitle = () => {
-  errorSummary.value?.focus()
+  errorSummary.value?.$el.focus()
 }
 
 defineExpose({ focusTitle })
 </script>
 
 <template>
-  <div
+  <DsfrAlert
     ref="errorSummary"
-    class="fr-my-4w fr-p-2w error-status"
     role="group"
+    type="warning"
+    small
+    class="fr-my-4w"
     aria-labelledby="error-summary-title"
     tabindex="-1"
   >
-    <component :is="headingLevel" id="error-summary-title">
-      Il y a {{ formattedErrors.errorsMap.size }} erreur<span
-        v-if="formattedErrors.errorsMap.size > 1"
-        >s</span
-      >
-      de saisie dans le formulaire.
+    <component id="error-summary-title" :is="headingLevel" class="fr-alert__title">
+      {{ summaryTitle }}
     </component>
     <ol>
-      <li v-for="(error, index) in formattedErrors.cleanedErrors" :key="index" class="error">
+      <li v-for="(error, index) in formattedErrors.cleanedErrors" :key="index">
         <a :href="`#input-${error}`">{{ formattedErrors.errorsMap.get(error) }}</a>
       </li>
     </ol>
-  </div>
+  </DsfrAlert>
 </template>
+
+<i18n>
+{
+  "en": {
+    "error-message": "{errorWord} found in your form.",
+    "error-word": "1 error | {count} errors",
+  },
+  "fr": {
+    "error-message": "Il y a {errorWord} de saisie dans le formulaire.",
+    "error-word": "1 erreur | {count} erreurs",
+  },
+}
+</i18n>
