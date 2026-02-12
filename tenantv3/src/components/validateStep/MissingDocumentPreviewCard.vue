@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
+import { toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useDocumentPreview } from './useDocumentPreview'
 
@@ -29,7 +30,7 @@ const props = defineProps<{
 const { t } = useI18n()
 
 const { label, subTitle, documentIdForInternalLink, goToEdit } = useDocumentPreview(
-  props.previewDocument,
+  toRef(props, 'previewDocument'),
   props.guarantorId,
   props.coTenantId
 )

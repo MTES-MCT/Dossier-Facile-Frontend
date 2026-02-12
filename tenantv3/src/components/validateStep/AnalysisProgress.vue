@@ -12,12 +12,7 @@
       </p>
     </div>
     <div class="progress-container fr-mt-2w">
-      <div
-        class="progress-bar"
-        :style="{
-          width: (numberOfAnalysedDocuments / numberOfDocuments) * 100 + '%'
-        }"
-      ></div>
+      <div class="analysis-loading-progress-bar"></div>
     </div>
   </NakedCard>
 </template>
@@ -43,10 +38,20 @@ const { t } = useI18n()
   overflow: hidden;
 }
 
-.progress-bar {
+.analysis-loading-progress-bar {
   height: 100%;
+  width: 30%;
   background-color: var(--blue-france-sun-113-625);
-  transition: width 0.3s ease;
+  animation: indeterminate 1.5s infinite ease-in-out;
+}
+
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(433%);
+  }
 }
 
 .analysis-status {
