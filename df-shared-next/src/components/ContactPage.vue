@@ -162,7 +162,7 @@ const emit = defineEmits<{
 
 onMounted(() => {
   contactFormData.value.profile = profile
-  const searchParams = new URLSearchParams(window.location.search)
+  const searchParams = new URLSearchParams(globalThis.location.search)
   if (searchParams.get('open') === 'form') {
     isFormOpen.value = true
   }

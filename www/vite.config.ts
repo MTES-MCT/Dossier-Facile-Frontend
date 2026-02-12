@@ -39,9 +39,9 @@ export default defineConfig({
       },
       safelist: {
         deep: [
-          /-(leave|enter|appear)(|-(to|from|active))$/,
-          /^(?!(|.*?:)cursor-move).+-move$/,
-          /^router-link(|-exact)-active$/,
+          /-(leave|enter|appear)(-(to|from|active))?$/,
+          /^(?!(.*?:)?cursor-move).+-move$/,
+          /^router-link(-exact)?-active$/,
           /data-v-.*/
         ]
       }
