@@ -6,6 +6,7 @@ import {
 } from '@/services/AnalysisService'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import { useTenantStore } from '@/stores/tenant-store'
+import type { DocumentAnalysisReport } from 'df-shared-next/src/models/DocumentAnalysisReport'
 
 export const useApplicationAnalysis = () => {
   const store = useTenantStore()
@@ -19,6 +20,7 @@ export const useApplicationAnalysis = () => {
       isFinished: boolean
       isValid: boolean
       failedRules?: DocumentRule[]
+      analysisReport?: DocumentAnalysisReport
     }[]
   })
 
@@ -32,7 +34,9 @@ export const useApplicationAnalysis = () => {
   const isApplicationOk = computed(() => {
     return (
       !isAnalyseInProgress.value &&
-      analysisResults.value.documentAnalysisStatus.every((s) => s.isValid) &&
+      analysisResults.value.documentAnalysisStatus.every((s) => {
+        return s.isValid || (!s.isValid && s.analysisReport?.comment !== undefined)
+      }) &&
       store.allDocumentsPreValidated
     )
   })
@@ -63,7 +67,8 @@ export const useApplicationAnalysis = () => {
             id: s.documentId,
             isFinished,
             isValid,
-            failedRules: s.analysisReport?.failedRules
+            failedRules: s.analysisReport?.failedRules,
+            analysisReport: s.analysisReport
           }
         }
       )

@@ -74,12 +74,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '../stores/tenant-store'
-// import ProfileFooter from './footer/ProfileFooter.vue'
-
-// Keeping useful imports for later
+import { useApplicationAnalysis } from '../composables/useApplicationAnalysis'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import AnalysisPreview from './validateStep/AnalysisPreview.vue'
 import AnalysisProgress from './validateStep/AnalysisProgress.vue'
@@ -89,9 +87,8 @@ import AnalysisFinalForm from './validateStep/AnalysisFinalForm.vue'
 const { t } = useI18n()
 const store = useTenantStore()
 
-const isAnalyseInProgress = computed(() => false)
-const isApplicationOk = computed(() => true)
-const hasErrors = computed(() => false)
+const { analysisResults, isAnalyseInProgress, isApplicationOk, hasErrors } =
+  useApplicationAnalysis()
 
 const user = computed(() => store.user)
 
@@ -107,29 +104,6 @@ const coTenantGuarantors = computed(() => {
     }
   }
   return guarantors
-})
-</script>
-
-const analysisResults = ref({
-  numberOfDocuments: 5,
-  numberOfAnalysedDocuments: 1,
-  documentAnalysisStatus: [
-    {
-      id: 722,
-      isFinished: true,
-      isValid: true
-    },
-    {
-      id: 716,
-      isFinished: false,
-      isValid: false
-    },
-    {
-      id: 729,
-      isFinished: true,
-      isValid: false
-    }
-  ]
 })
 </script>
 
