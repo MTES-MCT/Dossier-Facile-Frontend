@@ -344,14 +344,6 @@
     "tenant-invalid-names-guarantor": "My co-tenant's guarantor's information is invalid",
     "user-names": "Personal Information"
   },
-  "fakeannouncement": {
-    "fake-announce-title": "Report a fake announcement!",
-    "content": "If you believe you are dealing with a classified ad scam, {nodocument}, and report it on {masecurite}, the website of the Ministry of the Interior.",
-    "nodocument": "do not send any documents",
-    "masecurite": "My Security",
-    "link-title": "Go to masecurite.fr website (new window)",
-    "signal-button": "Report an announcement"
-  },
   "file": {
     "title": "{0}'s Tenant File",
     "description": "{0} {1}",

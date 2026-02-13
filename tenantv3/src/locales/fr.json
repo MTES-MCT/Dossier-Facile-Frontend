@@ -242,7 +242,7 @@
       "badge-undefined": "Temps estimé non disponible",
       "delay": "Votre dossier sera traité le {0} entre {1} et {2}",
       "delay-on-2days": "Votre dossier sera traité entre le {0} et le {1}",
-      "delay-undefined": "Votre horaire de passage est en cours de calcul. Pour pouvez recharger la page pour actualiser l'estimation. Le délai de traitement moyen est généralement de moins de 24h.",
+      "delay-undefined": "Votre horaire de passage est en cours de calcul. Vous pouvez recharger la page pour actualiser l'estimation. Le délai de traitement moyen est généralement de moins de 24h.",
       "last-update": "Date de dernière modification : {0}"
     }
   },
@@ -345,14 +345,6 @@
     "tenant-invalid-document-guarantor": "Les documents invalides du garant de mon conjoint",
     "tenant-invalid-names-guarantor": "Le informations du garant de mon conjoint sont invalides",
     "user-names": "Informations personnelles"
-  },
-  "fakeannouncement": {
-    "fake-announce-title": "Signaler une fausse annonce !",
-    "content": "Si vous pensez avoir affaire à une escroquerie à la petite annonce, {nodocument}, et faites un signalement sur {masecurite}, site du ministère de l'Intérieur.",
-    "nodocument": "n'envoyez aucun document",
-    "masecurite": "Ma Sécurité",
-    "link-title": "Aller sur le site masecurite.fr (nouvelle fenêtre)",
-    "signal-button": "Signaler une annonce"
   },
   "file": {
     "title": "Dossier locataire de {0}",

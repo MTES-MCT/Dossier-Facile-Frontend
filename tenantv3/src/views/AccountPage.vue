@@ -4,9 +4,6 @@
       <section class="fr-mt-3w">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
-            <div class="fr-mb-3w">
-              <FakeAnnouncement></FakeAnnouncement>
-            </div>
             <h1 v-html="t(`account.title.dashboard`)"></h1>
             <div v-if="isDenied() || user.status === 'TO_PROCESS'">
               <div class="fr-grid-row fr-grid-row--gutters">
@@ -187,7 +184,6 @@ import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import FakeAnnouncement from '../components/FakeAnnouncement.vue'
 import PartnersSection from '../components/account/PartnersSection.vue'
 import DefaultShareSection from '../components/account/DefaultShareSection.vue'
 import { UtilsService } from '../services/UtilsService'
