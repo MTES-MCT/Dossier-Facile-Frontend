@@ -78,52 +78,59 @@ const nameToDisplay = computed(() => {
   return t('documents-of')
 })
 
-const documents = computed(() => {
-  const documentToReturn: PreviewDocument[] = []
-  const userDocuments: DfDocument[] = props.user.documents || []
-
-  let categories = allTenantDocumentCategories
-
+const getDocumentCategories = () => {
   if (!props.isTenant && 'typeGuarantor' in props.user) {
     if (props.user.typeGuarantor === 'LEGAL_PERSON') {
-      categories = ['IDENTIFICATION_LEGAL_PERSON', 'IDENTIFICATION']
+      return ['IDENTIFICATION_LEGAL_PERSON', 'IDENTIFICATION']
     } else if (props.user.typeGuarantor === 'ORGANISM') {
-      categories = ['GUARANTEE_PROVIDER_CERTIFICATE']
+      return ['GUARANTEE_PROVIDER_CERTIFICATE']
     }
   }
+  return allTenantDocumentCategories
+}
 
+const getFinancialDocuments = (userDocuments: DfDocument[]) => {
+  const financialDocs = userDocuments.filter((d) => d.documentCategory === 'FINANCIAL')
+  if (financialDocs.length > 0) {
+    return financialDocs.map((doc) => ({
+      documentCategory: 'FINANCIAL',
+      document: doc,
+      documentAnalysisStatus: props.documentAnalysisStatus.find((status) => status.id === doc.id)
+    })) as PreviewDocument[]
+  }
+  return [
+    {
+      documentCategory: 'FINANCIAL',
+      document: undefined,
+      documentAnalysisStatus: undefined
+    }
+  ] as PreviewDocument[]
+}
+
+const getStandardDocument = (category: string, userDocuments: DfDocument[]) => {
+  const doc = userDocuments.find((d) => d.documentCategory === category)
+  return {
+    documentCategory: category,
+    document: doc,
+    documentAnalysisStatus: doc
+      ? props.documentAnalysisStatus.find((status) => status.id === doc.id)
+      : undefined
+  } as PreviewDocument
+}
+
+const documents = computed(() => {
+  const userDocuments: DfDocument[] = props.user.documents || []
+  const categories = getDocumentCategories()
+
+  const docs: PreviewDocument[] = []
   for (const category of categories) {
     if (category === 'FINANCIAL') {
-      const financialDocs = userDocuments.filter((d) => d.documentCategory === 'FINANCIAL')
-      if (financialDocs.length > 0) {
-        financialDocs.forEach((doc) => {
-          documentToReturn.push({
-            documentCategory: category,
-            document: doc,
-            documentAnalysisStatus: props.documentAnalysisStatus.find(
-              (status) => status.id === doc.id
-            )
-          })
-        })
-      } else {
-        documentToReturn.push({
-          documentCategory: category,
-          document: undefined,
-          documentAnalysisStatus: undefined
-        })
-      }
+      docs.push(...getFinancialDocuments(userDocuments))
     } else {
-      const doc = userDocuments.find((d) => d.documentCategory === category)
-      documentToReturn.push({
-        documentCategory: category,
-        document: doc,
-        documentAnalysisStatus: doc
-          ? props.documentAnalysisStatus.find((status) => status.id === doc.id)
-          : undefined
-      })
+      docs.push(getStandardDocument(category, userDocuments))
     }
   }
-  return documentToReturn
+  return docs
 })
 </script>
 

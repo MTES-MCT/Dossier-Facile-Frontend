@@ -1,4 +1,4 @@
-import { DocumentRule } from './DocumentRule'
+import type { DocumentRule } from './DocumentRule'
 
 export type DocumentAnalysisReport = {
   id: number
