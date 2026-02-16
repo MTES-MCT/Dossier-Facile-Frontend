@@ -119,6 +119,7 @@ const props = defineProps<{ category: TaxCategory; step?: TaxCategoryStep; expla
 
 const MAX_FILE_COUNT = 5
 const POLLING_INTERVAL_MS = 3000
+const POLLING_TIMEOUT_MS = 10000
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
@@ -148,11 +149,16 @@ const documentStatus = computed(() => taxDocument.value?.documentStatus)
 const analysisFailedRules = ref<DocumentRule[]>([])
 const analysisInProgress = ref(false)
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
+const pollingTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
 
 function stopPolling() {
   if (pollingInterval.value) {
     clearInterval(pollingInterval.value)
     pollingInterval.value = null
+  }
+  if (pollingTimeout.value) {
+    clearTimeout(pollingTimeout.value)
+    pollingTimeout.value = null
   }
 }
 
@@ -188,6 +194,11 @@ function startPolling() {
   stopPolling()
   updateAnalysisStatus()
   pollingInterval.value = setInterval(updateAnalysisStatus, POLLING_INTERVAL_MS)
+  pollingTimeout.value = setTimeout(() => {
+    console.log('polling timeout')
+    analysisInProgress.value = false
+    stopPolling()
+  }, POLLING_TIMEOUT_MS)
 }
 
 onMounted(() => {
