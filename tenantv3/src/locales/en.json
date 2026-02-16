@@ -240,7 +240,7 @@
       "badge-undefined": "Estimated time not available",
       "delay": "Yours Files will be process {0} between {1} and {2}",
       "delay-on-2days": "Yours Files will be process from {0} to {1}",
-      "delay-undefined": "Estimated time computation is currently in progress. Files are typically processed within 24 hours on average.",
+      "delay-undefined": "Estimated time computation is currently in progress. You can reload the page to refresh the estimation. The average processing time is usually less than 24 hours.",
       "last-update": "Last files update : {0}"
     }
   },
@@ -343,14 +343,6 @@
     "tenant-invalid-document-guarantor": "My co-tenant's guarantor's invalid documents",
     "tenant-invalid-names-guarantor": "My co-tenant's guarantor's information is invalid",
     "user-names": "Personal Information"
-  },
-  "fakeannouncement": {
-    "fake-announce-title": "Report a fake announcement!",
-    "content": "If you believe you are dealing with a classified ad scam, {nodocument}, and report it on {masecurite}, the website of the Ministry of the Interior.",
-    "nodocument": "do not send any documents",
-    "masecurite": "My Security",
-    "link-title": "Go to masecurite.fr website (new window)",
-    "signal-button": "Report an announcement"
   },
   "file": {
     "title": "{0}'s Tenant File",
