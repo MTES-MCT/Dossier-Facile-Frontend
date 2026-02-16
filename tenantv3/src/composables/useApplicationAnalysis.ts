@@ -11,6 +11,10 @@ import type { DocumentAnalysisReport } from 'df-shared-next/src/models/DocumentA
 export const useApplicationAnalysis = () => {
   const store = useTenantStore()
   const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
+  const timeoutId = ref<ReturnType<typeof setTimeout> | null>(null)
+  const isTimeout = ref(false)
+
+  const timeoutDuration = 1 * 60 * 1000 // 1 minute
 
   const analysisResults = ref({
     numberOfDocuments: 0,
@@ -26,6 +30,7 @@ export const useApplicationAnalysis = () => {
 
   const isAnalyseInProgress = computed(() => {
     return (
+      !isTimeout.value &&
       analysisResults.value.numberOfDocuments > 0 &&
       analysisResults.value.numberOfAnalysedDocuments < analysisResults.value.numberOfDocuments
     )
@@ -49,6 +54,10 @@ export const useApplicationAnalysis = () => {
     if (pollingInterval.value) {
       clearInterval(pollingInterval.value)
       pollingInterval.value = null
+    }
+    if (timeoutId.value) {
+      clearTimeout(timeoutId.value)
+      timeoutId.value = null
     }
   }
 
@@ -93,6 +102,11 @@ export const useApplicationAnalysis = () => {
 
   const startPolling = () => {
     stopPolling() // Ensure no duplicates
+    isTimeout.value = false
+    timeoutId.value = setTimeout(() => {
+      isTimeout.value = true
+    }, timeoutDuration)
+
     updateAnalysisStatus() // Initial call
     // Poll every 3 seconds
     pollingInterval.value = setInterval(updateAnalysisStatus, 3000)
