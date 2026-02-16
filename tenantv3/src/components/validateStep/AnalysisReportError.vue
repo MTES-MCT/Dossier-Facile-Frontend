@@ -64,7 +64,7 @@ const failedDocuments = computed(() => {
 
     // 1. Check for failed analysis
     user.documents?.forEach((d) => {
-      if (errors.find((e) => e.id === d.id)) {
+      if (errors.some((e) => e.id === d.id)) {
         if (d.documentAnalysisReport?.comment === undefined) {
           userDocs.push({
             label: getDocLabel(d, user),
@@ -148,36 +148,18 @@ const getDocLabel = (doc: DfDocument, owner: User | Guarantor) => {
 }
 
 const getDocLink = (failedDoc: FailedDoc) => {
-  // We need to construct a link for a specific document
-  if (failedDoc.doc) {
-    // The document error represent a guarantor
-    if ('typeGuarantor' in failedDoc.owner) {
-      return `#document-guarantor-${failedDoc.owner.id}-${failedDoc.doc.id}`
-    } else {
-      // The document is for the current user
-      if (failedDoc.owner.id == store.user.id) {
-        return `#document-${failedDoc.doc.id}`
-      } else {
-        // The document is for the coTenant
-        return `#document-cotenant-${failedDoc.owner.id}-${failedDoc.doc.id}`
-      }
-    }
+  const isGuarantor = 'typeGuarantor' in failedDoc.owner
+  const isTenant = failedDoc.owner.id === store.user.id
+
+  const suffix = failedDoc.doc ? failedDoc.doc.id : failedDoc.documentCategory
+
+  if (isGuarantor) {
+    return `#document-guarantor-${failedDoc.owner.id}-${suffix}`
   }
-  // It's a missing file :
-  else {
-    // If the missing doc is for a guarantor
-    if ('typeGuarantor' in failedDoc.owner) {
-      return `#document-guarantor-${failedDoc.owner.id}-${failedDoc.documentCategory}`
-    } else {
-      // If the missing doc is for the tenant
-      if (failedDoc.owner.id == store.user.id) {
-        return `#document-${failedDoc.documentCategory}`
-      } else {
-        // The document is for the coTenant
-        return `#document-cotenant-${failedDoc.owner.id}-${failedDoc.documentCategory}`
-      }
-    }
+  if (isTenant) {
+    return `#document-${suffix}`
   }
+  return `#document-cotenant-${failedDoc.owner.id}-${suffix}`
 }
 </script>
 

@@ -1,5 +1,5 @@
 import { DfFile } from './DfFile'
-import { DocumentAnalysisReport } from './DocumentAnalysisReport'
+import type { DocumentAnalysisReport } from './DocumentAnalysisReport'
 import { DocumentDeniedReasons } from './DocumentDeniedReasons'
 
 export type DocumentStatus = 'TO_PROCESS' | 'VALIDATED' | 'DECLINED'
