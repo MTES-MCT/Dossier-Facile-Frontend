@@ -1,10 +1,11 @@
-import { DfDocument, DocumentCategory } from './DfDocument'
+import { DfDocument } from './DfDocument'
+import type { DocumentCategory } from './DfDocument'
 import { Guarantor } from './Guarantor'
 import { ApartmentSharing } from './ApartmentSharing'
 import type { TenantFileStatus } from './TenantFileStatus'
 import type { ApplicationType } from './ApplicationType'
 import type { FranceConnectIdentity } from './FranceConnectIdentity'
-import { DocumentRule } from './DocumentRule'
+import type { DocumentRule } from './DocumentRule'
 
 export class User {
   id!: number
