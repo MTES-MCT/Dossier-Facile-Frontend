@@ -114,8 +114,6 @@ const submit = () => {
 }
 </script>
 
-<style scoped lang="scss"></style>
-
 <i18n>
 {
   "en": {
