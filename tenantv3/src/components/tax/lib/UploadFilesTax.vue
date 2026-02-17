@@ -20,7 +20,7 @@
   </ul>
   <div v-if="analysisInProgress" class="analysis-loading fr-mb-3w">
     <div class="analysis-loading-status">
-      <RiContractUpDownLine size="24px" class="analysis-loading-icon" aria-hidden="true" />
+      <RiHourglassFill size="24px" class="analysis-loading-icon" aria-hidden="true" />
       <p class="fr-m-0 analysis-loading-text">{{ t('analysis-in-progress') }}</p>
     </div>
     <div class="analysis-loading-progress">
@@ -110,7 +110,7 @@ import { useTaxState } from './taxState'
 import type { TaxCategory } from '@/components/documents/share/DocumentTypeConstants'
 import type { TaxCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import { PdfAnalysisService } from '@/services/PdfAnalysisService'
-import { RiAlarmWarningLine, RiContractUpDownLine, RiInformationFill } from '@remixicon/vue'
+import { RiAlarmWarningLine, RiHourglassFill, RiInformationFill } from '@remixicon/vue'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import TaxAnalysisBanners from './TaxAnalysisBanners.vue'
 import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
@@ -205,6 +205,7 @@ onMounted(() => {
   const existingComment = taxDocument.value?.documentAnalysisReport?.comment || ''
   explainText.value = existingComment
   explanationSubmitted.value = !!existingComment
+  showExplainForm.value = !!existingComment
   startPolling()
 })
 
