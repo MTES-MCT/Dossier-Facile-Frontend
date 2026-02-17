@@ -76,7 +76,7 @@ function getCurrentDocLines(rule: DocumentRule): string[] {
     case 'R_NAMES':
       return data.extractedNames.map((n) => t('rules.names.current', { name: formatName(n) }))
     case 'R_TAX_YEARS':
-      return data.extractedYears.map((y) => t('rules.wrong-year.current', { year: y, yearMinusOne: y - 1 }))
+      return data.extractedYears.map((y) => t('rules.wrong-year.current', { taxYear: y + 1, incomeYear: y }))
     default:
       return [rule.message]
   }
@@ -93,7 +93,7 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     case 'R_NAMES':
       return [t('rules.names.expected', { name: formatName(data.expectedName) })]
     case 'R_TAX_YEARS':
-      return [t('rules.wrong-year.expected', { year: data.expectedYear, yearMinusOne: data.expectedYear - 1 })]
+      return [t('rules.wrong-year.expected', { taxYear: data.expectedYear + 1 , incomeYear: data.expectedYear})]
     default:
       return [rule.message]
   }
@@ -226,8 +226,8 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
       },
       "wrong-year": {
         "title": "Tax notice too old",
-        "current": "Tax notice {year} on {yearMinusOne} income",
-        "expected": "Tax notice {year} on {yearMinusOne} income or non-taxation notice"
+        "current": "Tax notice {taxYear} on {incomeYear} income",
+        "expected": "Tax notice {taxYear} on {incomeYear} income or non-taxation notice"
       },
       "invalid-2ddoc": {
         "title": "Invalid document"
@@ -253,8 +253,8 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
       },
       "wrong-year": {
         "title": "Avis d'imposition trop ancien",
-        "current": "Avis d'imposition {year} sur revenus {yearMinusOne}",
-        "expected": "Avis d'imposition {year} sur revenus {yearMinusOne} ou avis de non-imposition"
+        "current": "Avis d'imposition {taxYear} sur revenus {incomeYear}",
+        "expected": "Avis d'imposition {taxYear} sur revenus {incomeYear} ou avis de non-imposition"
       },
       "invalid-2ddoc": {
         "title": "Document invalide"
