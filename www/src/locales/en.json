@@ -1,4 +1,16 @@
 {
+  "404": {
+    "title": "Page not found",
+    "subtitle": "Error 404",
+    "caption": "This is not the web page you are lookingfor.",
+    "content": {
+      "line1": "If you typed the web address in the browser, make sure it is correct. The page may no longer be available.",
+      "line2": "In this case, to continue your visit, you can check out our homepage.",
+      "line3": "Otherwise, contact us so that we can redirect you to the right information."
+    },
+    "homepage": "Homepage",
+    "contact-us": "Contact us"
+  },
   "tenant": "Tenant",
   "owner": "Owner",
   "register-information": "To create your account, we need some information. You are...",
@@ -13,7 +25,7 @@
   "docs": "How to Prepare My Rental Application",
   "copy-success": "Link successfully copied",
   "all-partners": "See all partners",
-  "new-window": "Open in a new window",
+  "new-window": "Opens in a new window",
   "partners": {
     "menu": "Partners",
     "title": "Partners of DossierFacile"
@@ -71,18 +83,6 @@
     "title": "Our institutional partners"
   },
   "title": "Statistics",
-  "404": {
-    "title": "Page not found",
-    "subtitle": "Error 404",
-    "caption": "This is not the web page you are lookingfor.",
-    "content": {
-      "line1": "If you typed the web address in the browser, make sure it is correct. The page may no longer be available.",
-      "line2": "In this case, to continue your visit, you can check out our homepage.",
-      "line3": "Otherwise, contact us so that we can redirect you to the right information."
-    },
-    "homepage": "Homepage",
-    "contact-us": "Contact us"
-  },
   "modal": {
     "close": "Close",
     "close-alt": "Close modal window"

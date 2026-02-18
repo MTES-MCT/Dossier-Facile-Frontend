@@ -4,63 +4,71 @@
       {{ t('title') }}
     </h1>
     <div class="fr-callout">
-      <h2 class="fr-callout__title">Vous avez besoin de renseignements ?</h2>
-      <p class="fr-callout__text">Notre aide en ligne rassemble de nombreuses informations :</p>
+      <h2 class="fr-callout__title">{{ t('callout.title') }}</h2>
+      <p class="fr-callout__text">{{ t('callout.list.title') }}</p>
       <ul class="fr-callout__text">
         <li>
-          de la documentation, comme
-          <a
-            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/liste-des-documents-a-fournir-scnv25/"
-            title="Liste des documents à fournir - Ouvre une nouvelle fenêtre"
-            rel="noopener"
-            target="_blank"
-            >la liste des documents à fournir</a
-          >
-          pour créer un DossierFacile
+          <i18n-t keypath="callout.list.item-1" tag="span">
+            <template #link>
+              <a
+                href="https://aide.dossierfacile.logement.gouv.fr/fr/article/liste-des-documents-a-fournir-scnv25/"
+                :title="`${t('callout.list.link-1')} - ${t('new-window')}`"
+                rel="noopener"
+                target="_blank"
+                >{{ t('callout.list.link-1') }}</a
+              >
+            </template>
+          </i18n-t>
         </li>
         <li>
-          des tutoriels : comment créer un
-          <a
-            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-de-location-en-couple-26ajqi/"
-            title="Comment constituer un dossier de location en couple - Ouvre une nouvelle fenêtre"
-            rel="noopener"
-            target="_blank"
-            >DossierFacile en couple ?</a
-          >
-          Comment créer un
-          <a
-            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-de-location-en-famille-ou-entre-amies-ow7uhc/"
-            title="Comment constituer un dossier de location en colocation - Ouvre une nouvelle fenêtre"
-            rel="noopener"
-            target="_blank"
-            >DossierFacile en colocation ?</a
-          >
+          <i18n-t keypath="callout.list.item-2" tag="span">
+            <template #link-1>
+              <a
+                href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-de-location-en-couple-26ajqi/"
+                :title="`${t('callout.list.link-2-1')} - ${t('new-window')}`"
+                rel="noopener"
+                target="_blank"
+                >{{ t('callout.list.link-2-1') }}</a
+              >
+            </template>
+            <template #link-2>
+              <a
+                href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-de-location-en-famille-ou-entre-amies-ow7uhc/"
+                :title="`${t('callout.list.link-2-2')} - ${t('new-window')}`"
+                rel="noopener"
+                target="_blank"
+                >{{ t('callout.list.link-2-2') }}</a
+              >
+            </template>
+          </i18n-t>
         </li>
         <li>
-          des informations plus générales, à propos de la
-          <a
-            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/gestion-des-donnees-et-securite-new-1d3d36d/"
-            title="Sécurité de vos documents - Ouvre une nouvelle fenêtre"
-            rel="noopener"
-            target="_blank"
-            >sécurité de vos documents</a
-          >
-          par exemple
+          <i18n-t keypath="callout.list.item-3" tag="span">
+            <template #link>
+              <a
+                href="https://aide.dossierfacile.logement.gouv.fr/fr/article/gestion-des-donnees-et-securite-new-1d3d36d/"
+                :title="`${t('callout.list.link-3')} - ${t('new-window')}`"
+                rel="noopener"
+                target="_blank"
+                >{{ t('callout.list.link-3') }}</a
+              >
+            </template>
+          </i18n-t>
         </li>
       </ul>
       <a
         class="fr-btn"
         href="https://aide.dossierfacile.logement.gouv.fr/fr/"
-        title="Consulter notre aide en ligne - Ouvre une nouvelle fenêtre"
+        :title="`${t('callout.CTA')} - ${t('new-window')}`"
         rel="noopener"
         target="_blank"
         @click="accordionClicked('contact_need_information')"
-        >Consulter notre aide en ligne</a
+        >{{ t('callout.CTA') }}</a
       >
     </div>
 
     <div class="fr-background-alt--blue-france fr-px-1w fr-pt-2w fr-px-md-3w">
-      <h2 class="fr-text-title--blue-france fr-h6">Quelle est votre situation&nbsp;?</h2>
+      <h2 class="fr-text-title--blue-france fr-h6">{{ t('choice.title') }}</h2>
 
       <DsfrRadioButtonSet
         :legend="t('choice.legend')"
@@ -85,10 +93,9 @@
     </div>
 
     <NakedCard class="fr-mt-3w fr-px-1v fr-px-md-3w">
-      <h2 class="fr-h4">Je ne trouve pas la réponse à ma question</h2>
+      <h2 class="fr-h4">{{ t('form.title') }}</h2>
       <p>
-        Si votre question ne figure pas dans cette liste, vous pouvez contacter notre équipe
-        d’assistance en utilisant ce formulaire.
+        {{ t('form.subtitle') }}
       </p>
       <RequiredFieldsInstruction all-required />
       <ContactForm :profile :user @on-submit="submitForm" />
@@ -105,7 +112,7 @@
       <a
         class="fr-btn fr-external-link"
         href="https://aide.dossierfacile.logement.gouv.fr/fr/"
-        :title="`${t('consult-our-documentation')} - Ouvre une nouvelle fenêtre`"
+        :title="`${t('consult-our-documentation')} - ${t('new-window')}`"
         target="_blank"
         rel="noreferrer noopener "
       >
@@ -130,7 +137,7 @@ import TenantHelpAccordion from './contact/TenantHelpAccordion.vue'
 import type { ContactFormData } from '../models/ContactFormData'
 import { SupportService } from '../services/SupportService'
 import type { User } from '../models/User'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DsfrRadioButtonOptions } from '@gouvminint/vue-dsfr'
 import { DsfrRadioButtonSet } from '@gouvminint/vue-dsfr'
@@ -168,7 +175,7 @@ onMounted(() => {
   }
 })
 
-const options: DsfrRadioButtonOptions = [
+const options: ComputedRef<DsfrRadioButtonOptions> = computed(() => [
   {
     label: t('choice.tenant'),
     id: 'choice-tenant',
@@ -181,7 +188,7 @@ const options: DsfrRadioButtonOptions = [
     value: 'owner',
     svgPath: ownerPicto
   }
-]
+])
 
 const contactFormData = ref<ContactFormData>({} as ContactFormData)
 
@@ -216,71 +223,71 @@ function submitForm(payload: ContactFormData) {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "title": "How can we help you ?",
-    "firstname": "Firstname",
-    "lastname": "Lastname",
-    "email": "Email",
-    "email-example": "nom.prenom{'@'}mail.fr",
-    "profile": "User's profile",
-    "subject": "Subject",
-    "message": "Message",
-    "cancel": "Cancel",
-    "submit" : "Send my message",
-    "owner": "Owner",
-    "tenant": "Tenant",
-		"choice": {	
-			"tenant": "A tenant file",
-			"owner": "An owner account",
-			"legend": "You created…"
-		},
-		"choice-tenant": "A tenant file",
-		"choice-owner": "An owner account",
-    "accept-cgu" : "I agree with DossierFacile's Conditions and Terms",
-    "field-required" : "Field is required",
-    "require-accept" : "Accept is required",
-    "email-not-valid" : "Email not valid",
-    "our-documentation": "our documentation",
-    "contact-description" : "If you have any trouble to create your DossierFacile or if your have question which have not response in {doc_link}, you can fill the following form.",
-    "message-error-title" : "Something went wrong with the form.",
-		"message-error-text": "Please send us an email at: contact{'@'}dossierFacile.fr",
-    "consult-our-documentation" : "Consult our documentation",
-    "message-sent-title" : "Thank you !",
-    "message-sent-text" : "We will do our best to answer you fast. Please consider to ",
-    "see-breadcrumb": "See breadcrumb"
+    "callout": {
+      "title": "Do you need information?",
+      "list": {
+        "title": "Our online help offers a lot of information:",
+        "item-1": "documentation, such as {link} to create a DossierFacile",
+        "link-1": "the list of documents to provide",
+        "item-2": "tutorials: how to create a {link-1} How to create a {link-2}",
+        "link-2-1": "DossierFacile as a couple?",
+        "link-2-2": "DossierFacile with a cotenant?",
+        "item-3": "more general information, like the {link} for example",
+        "link-3": "security of your documents"
+      },
+      "CTA": "See our online help"
+    },
+    "choice": {
+      "title": "What is your situation?",
+      "legend": "You created…",
+      "tenant": "A tenant file",
+      "owner": "An owner account"
+    },
+    "form": {
+      "title": "Can't find the answer to your question?",
+      "subtitle": "If your question is not listed here, you can contact our support team using this form."
+    },
+    "message-error-title": "Something went wrong with the form.",
+    "message-error-text": "Please send us an email at: contact{'@'}dossierFacile.fr",
+    "consult-our-documentation": "Consult our documentation",
+    "message-sent-title": "Thank you !",
+    "message-sent-text": "We will do our best to answer you fast. Please consider to "
   },
   "fr": {
-    "title": "Comment pouvons-nous vous aider ?",
-    "firstname": "Prénom",
-    "lastname": "Nom",
-    "email": "Votre adresse e-mail",
-    "email-example": "nom.prenom{'@'}mail.fr",
-    "profile": "Votre profil",
-    "subject": "L'objet de votre message",
-    "message": "Votre message",
-    "cancel": "Annuler",
-    "submit" : "Envoyer mon message",
-    "owner": "Propriétaire",
-    "tenant": "Locataire",
-		"choice": {
-			"tenant": "Un dossier locataire",
-			"owner": "Un compte propriétaire",
-			"legend": "Vous avez créé…"
-		},
-    "accept-cgu" : "Vous acceptez que ces informations soient transmises à notre équipe d'assistance et à CRISP, notre outil d’assistance, afin de répondre à votre demande.",
-    "field-required" : "Ce champ est requis",
-    "require-accept" : "L'acception est requise",
-    "email-not-valid" : "Email non-valide",
-    "our-documentation": "notre documentation",
-    "contact-description" : "Que vous éprouviez des difficultés à créer votre DossierFacile, que vous souhaitiez obtenir des renseignements plus précis que ce qui est disponible au sein de {doc_link}, ou que ce soit pour glisser un mot sympathique à notre équipe de choc qui traite vos dossiers avec attention, vous pouvez renseigner le formulaire ci-dessous. Nous faisons de notre mieux afin de répondre à tous, dans des délais acceptables.",
-    "message-error-title" : "L'envoi du formulaire a échoué.",
-		"message-error-text" : "Contactez-nous par mail ici: contact{'@'}dossierFacile.fr",
-    "consult-our-documentation" : "Consulter notre documentation",
-    "message-sent-title" : "C'est tout bon ! Votre message est bien arrivé !",
-    "message-sent-text" : "Nous nous efforçons de vous répondre dans les meilleurs délais. D'ici là n'hésitez pas à",
-    "see-breadcrumb": "Voir le fil d’Ariane"
+    "title": "Comment pouvons-nous vous aider ?",
+    "callout": {
+      "title": "Vous avez besoin de renseignements ?",
+      "list": {
+        "title": "Notre aide en ligne rassemble de nombreuses informations :",
+        "item-1": "de la documentation, comme {link} pour créer un DossierFacile",
+        "link-1": "la liste des documents à fournir",
+        "item-2": "des tutoriels : comment créer un {link-1} Comment créer un {link-2}",
+        "link-2-1": "DossierFacile en couple ?",
+        "link-2-2": "DossierFacile en colocation ?",
+        "item-3": "des informations plus générales, comme la {link} par exemple",
+        "link-3": "sécurité de vos documents"
+      },
+      "CTA": "Consulter notre aide en ligne"
+    },
+    "choice": {
+      "title": "Quelle est votre situation?",
+      "legend": "Vous avez créé…",
+      "tenant": "Un dossier locataire",
+      "owner": "Un compte propriétaire"
+    },
+    "form": {
+      "title": "Je ne trouve pas la réponse à ma question",
+      "subtitle": "Si votre question ne figure pas dans cette liste, vous pouvez contacter notre équipe d’assistance en utilisant ce formulaire."
+    },
+    "message-error-title": "L'envoi du formulaire a échoué.",
+    "message-error-text": "Contactez-nous par mail ici: contact{'@'}dossierFacile.fr",
+    "consult-our-documentation": "Consulter notre documentation",
+    "message-sent-title": "C'est tout bon. Votre message est bien arrivé !",
+    "message-sent-text": "Nous nous efforçons de vous répondre dans les meilleurs délais. D'ici là n'hésitez pas à"
   }
 }
 </i18n>
