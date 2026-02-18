@@ -52,8 +52,8 @@ catalogs:
       specifier: 0.7.0
       version: 0.7.0
     axios:
-      specifier: 1.13.2
-      version: 1.13.2
+      specifier: 1.13.5
+      version: 1.13.5
     eslint:
       specifier: 9.32.0
       version: 9.32.0
@@ -128,7 +128,7 @@ importers:
         version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       axios:
         specifier: 'catalog:'
-        version: 1.13.2(debug@4.4.1)
+        version: 1.13.5(debug@4.4.1)
       buffer:
         specifier: 6.0.3
         version: 6.0.3
@@ -232,7 +232,7 @@ importers:
         version: 3.0.6
       axios:
         specifier: 'catalog:'
-        version: 1.13.2(debug@4.4.1)
+        version: 1.13.5(debug@4.4.1)
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
@@ -408,7 +408,7 @@ importers:
         version: 12.0.5(vue@3.5.18(typescript@5.9.2))
       axios:
         specifier: 'catalog:'
-        version: 1.13.2(debug@4.4.1)
+        version: 1.13.5(debug@4.4.1)
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
@@ -532,7 +532,7 @@ importers:
         version: 9.22.0(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       axios:
         specifier: 'catalog:'
-        version: 1.13.2(debug@4.4.1)
+        version: 1.13.5(debug@4.4.1)
       df-shared-next:
         specifier: workspace:*
         version: link:../df-shared-next
@@ -590,7 +590,7 @@ importers:
         version: 3.0.6
       axios:
         specifier: 'catalog:'
-        version: 1.13.2(debug@4.4.1)
+        version: 1.13.5(debug@4.4.1)
       df-shared-next:
         specifier: workspace:*
         version: link:../df-shared-next
@@ -2966,8 +2966,8 @@ packages:
     resolution: {integrity: sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==}
     engines: {node: '>=4'}
 
-  axios@1.13.2:
-    resolution: {integrity: sha512-VPk9ebNqPcy5lRGuSlKx752IlDatOjT9paPlm8A7yOuW2Fbvp4X3JznJtT4f0GzGLLiWE9W8onz51SqLYwzGaA==}
+  axios@1.13.5:
+    resolution: {integrity: sha512-cz4ur7Vb0xS4/KUN0tPWe44eqxrIu31me+fbang3ijiNscE129POzipJJA6zniq2C/Z6sJCjMimjS8Lc/GAs8Q==}
 
   babel-plugin-polyfill-corejs2@0.4.14:
     resolution: {integrity: sha512-Co2Y9wX854ts6U8gAAPXfn0GmAyctHuK8n0Yhfjd6t30g7yvKjspvvOo9yG+z52PZRgFErt7Ka2pYnXCjLKEpg==}
@@ -5437,6 +5437,7 @@ packages:
   vue-i18n@11.1.11:
     resolution: {integrity: sha512-LvyteQoXeQiuILbzqv13LbyBna/TEv2Ha+4ZWK2AwGHUzZ8+IBaZS0TJkCgn5izSPLcgZwXy9yyTrewCb2u/MA==}
     engines: {node: '>= 16'}
+    deprecated: This version is NOT deprecated. Previous deprecation was a mistake.
     peerDependencies:
       vue: ^3.0.0
 
@@ -5525,6 +5526,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -8134,7 +8136,7 @@ snapshots:
 
   axe-core@4.10.3: {}
 
-  axios@1.13.2(debug@4.4.1):
+  axios@1.13.5(debug@4.4.1):
     dependencies:
       follow-redirects: 1.15.11(debug@4.4.1)
       form-data: 4.0.5
@@ -10907,7 +10909,7 @@ snapshots:
 
   wait-on@8.0.3(debug@4.4.1):
     dependencies:
-      axios: 1.13.2(debug@4.4.1)
+      axios: 1.13.5(debug@4.4.1)
       joi: 17.13.3
       lodash: 4.17.21
       minimist: 1.2.8
