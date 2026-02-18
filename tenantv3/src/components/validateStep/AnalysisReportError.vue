@@ -14,7 +14,11 @@
       <DsfrAccordion title="Liste des documents en erreurs">
         <ul class="fr-pl-0 fr-mt-0 links-list">
           <li v-for="(doc, k) in failedDocuments" :key="k" class="failed-item">
-            <a class="fr-btn fr-btn--tertiary-no-outline fr-p-0 text-left" :href="getDocLink(doc)">
+            <a
+              class="fr-btn fr-btn--tertiary-no-outline fr-p-0 text-left"
+              :href="getDocLink(doc)"
+              @click="onDocClick(doc)"
+            >
               {{ k + 1 }}. {{ doc.label }}
             </a>
           </li>
@@ -40,6 +44,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '../../stores/tenant-store'
 import { getDocumentLabel, getDocumentSubTitle } from './useDocumentPreview'
+import { AnalyticsService } from '@/services/AnalyticsService'
 
 const props = defineProps<{
   documentAnalysisStatus: DocumentAnalysisStatus[]
@@ -88,10 +93,12 @@ const failedDocuments = computed(() => {
       if (!hasDoc) {
         // Special label for missing doc
         const catLabel = getDocumentLabel(category, t)
+        const username =
+          user.lastName === undefined ? user.firstName : `${user.firstName} ${user.lastName}`
         userDocs.push({
           label: t('doc-owner', {
             docName: catLabel,
-            name: `${user.firstName} ${user.lastName}`
+            name: username
           }),
           documentCategory: category,
           owner: user
@@ -144,7 +151,10 @@ const getDocLabel = (doc: DfDocument, owner: User | Guarantor) => {
   } else {
     finalName = docLabel
   }
-  return t('doc-owner', { docName: finalName, name: `${owner.firstName} ${owner.lastName}` })
+  const username =
+    owner.lastName === undefined ? owner.firstName : `${owner.firstName} ${owner.lastName}`
+
+  return t('doc-owner', { docName: finalName, name: username })
 }
 
 const getDocLink = (failedDoc: FailedDoc) => {
@@ -160,6 +170,25 @@ const getDocLink = (failedDoc: FailedDoc) => {
     return `#document-${suffix}`
   }
   return `#document-cotenant-${failedDoc.owner.id}-${suffix}`
+}
+
+const onDocClick = (doc: FailedDoc) => {
+  if (doc.owner.id === store.user.id) {
+    AnalyticsService.validate_anchor_error_click(
+      'tenant',
+      doc.doc?.documentCategory || doc.documentCategory || 'unknown'
+    )
+  } else if ('typeGuarantor' in doc.owner) {
+    AnalyticsService.validate_anchor_error_click(
+      'guarantor',
+      doc.doc?.documentCategory || doc.documentCategory || 'unknown'
+    )
+  } else {
+    AnalyticsService.validate_anchor_error_click(
+      'couple',
+      doc.doc?.documentCategory || doc.documentCategory || 'unknown'
+    )
+  }
 }
 </script>
 
