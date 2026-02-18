@@ -160,39 +160,31 @@ export const useInternalNavigation = () => {
     const step = getNavigationStep(
       documentCategory ?? document?.documentCategory ?? 'IDENTIFICATION'
     )
-
     const isCurrentUserGuarantor = store.user.guarantors?.some((g) => g.id === guarantorId)
+    const subPath = document ? getDocumentSubPath(document) : undefined
 
-    if (document === undefined) {
-      // This is the guarantor of the user !
-      if (isCurrentUserGuarantor) {
+    if (isCurrentUserGuarantor) {
+      if (!document) {
         return `/info-garant/${step}/${guarantorId}`
-      } else {
-        const tenantId = getTenantOwnerOfGuarantor(guarantorId)
-        return `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}`
       }
-      // we need to root to a specific document
-    } else {
-      const subPath = getDocumentSubPath(document)
-      if (isCurrentUserGuarantor) {
-        if (step === 4) {
-          return `/info-garant/${step}/${guarantorId}/${document.id}/${subPath}`
-        }
-        if (subPath === undefined) {
-          return `/info-garant/${step}/${guarantorId}`
-        }
-        return `/info-garant/${step}/${guarantorId}/${subPath}`
-      } else {
-        const tenantId = getTenantOwnerOfGuarantor(guarantorId)
-        if (step === 4) {
-          return `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}/${document.id}/${subPath}`
-        }
-        if (subPath === undefined) {
-          return `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}`
-        }
-        return `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}/${subPath}`
+      if (step === 4) {
+        return `/info-garant/${step}/${guarantorId}/${document.id}/${subPath}`
       }
+      return subPath
+        ? `/info-garant/${step}/${guarantorId}/${subPath}`
+        : `/info-garant/${step}/${guarantorId}`
     }
+
+    const tenantId = getTenantOwnerOfGuarantor(guarantorId)
+    if (!document) {
+      return `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}`
+    }
+    if (step === 4) {
+      return `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}/${document.id}/${subPath}`
+    }
+    return subPath
+      ? `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}/${subPath}`
+      : `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}`
   }
 
   const getCotenantNavigationPath = (
