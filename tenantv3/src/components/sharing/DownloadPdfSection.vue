@@ -130,9 +130,11 @@ function download() {
       .then(() => {
         retryDownload(6)
       })
-      .catch(() => {
+      .catch((error) => {
         showProgressBar.value = false
-        toast.error(t('download-failed'), downloadButton.value)
+        const status = error?.response?.status
+        const message = status === 417 ? t('download-failed-incomplete-group') : t('download-failed')
+        toast.error(message, downloadButton.value)
       })
   }
 }
@@ -243,6 +245,7 @@ function download() {
     "download-in-progress": "Downloading...",
     "download-failed": "Download failed. Please try again.",
     "download-failed-try-later": "Download failed. Please try again later.",
+    "download-failed-incomplete-group": "Download not available. All roommates' files must be validated.",
     "group-incomplete": "To download the complete file, all roommates must have a validated file."
   },
   "fr": {
@@ -253,6 +256,7 @@ function download() {
     "download-in-progress": "Téléchargement...",
     "download-failed": "Le téléchargement a échoué. Veuillez réessayer.",
     "download-failed-try-later": "Le téléchargement a échoué. Veuillez réessayer plus tard.",
+    "download-failed-incomplete-group": "Téléchargement impossible. Tous les dossiers de la colocation doivent être validés.",
     "group-incomplete": "Pour télécharger le dossier complet, tous les colocataires doivent avoir un dossier validé."
   }
 }
