@@ -38,16 +38,29 @@
             <li v-for="(tenant, k) in getTenants()" :key="`li${k}`" role="presentation">
               <button
                 :id="`tabpanel-${k}`"
-                class="fr-tabs__tab fr-tabs__tab--icon-right"
-                :class="{
-                  'fr-fi-icon-fc-right': tenant.franceConnect && tenant.ownerType === 'SELF'
-                }"
+                class="fr-tabs__tab fr-container--fluid"
                 :tabindex="tabIndex === k ? 0 : -1"
                 role="tab"
                 aria-selected="false"
                 :aria-controls="`tabpanel-${k}-panel`"
               >
-                {{ UtilsService.tenantFullName(tenant) }}
+                <div class="fr-grid-row">
+                  <div class="name fr-col-xs-12 fr-col fr-mr-1w">
+                    {{ UtilsService.tenantFullName(tenant) }}
+                    <span
+                      :class="{
+                        'fr-fi-icon-fc': tenant.franceConnect && tenant.ownerType === 'SELF'
+                      }"
+                    ></span>
+                  </div>
+                  <div class="fr-col-xs-12 fr-col fr-mr-1w fr-grid-row">
+                    <ColoredBadge
+                      :status="tenant.status"
+                      :warn="true"
+                      :text="t(`dossier.warn-${tenant.status}`)"
+                    />
+                  </div>
+                </div>
               </button>
             </li>
           </ul>
@@ -256,6 +269,7 @@ import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 
 type ViewState = 'fileContent' | 'trigram' | 'notFound' | 'tooManyRequests' | 'badLink'
 
@@ -359,14 +373,7 @@ function document(u: User | Guarantor, s: string) {
 }
 
 function getTenants() {
-  const users: User[] = []
-  user.value?.tenants?.forEach((t) => {
-    if (t.firstName && t.lastName && t.firstName !== '' && t.lastName !== '') {
-      users.push(t)
-    }
-  })
-
-  return users
+  return user.value?.tenants ?? []
 }
 
 function taxDocumentStatus() {
@@ -400,8 +407,8 @@ function downloadFile(url: string) {
   ProfileService.getFile(url)
     .then((response) => {
       const blob = new Blob([response.data], { type: 'application/pdf' })
-      const link = window.document.createElement('a')
-      link.href = window.URL.createObjectURL(blob)
+      const link = globalThis.document.createElement('a')
+      link.href = globalThis.URL.createObjectURL(blob)
       // Récupère le nom du fichier depuis le header Content-Disposition
       const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.pdf')
       link.download = fileName
@@ -482,9 +489,7 @@ function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
   background-color: var(--background-default-grey);
 }
 
-.fr-fi-icon-fc-right {
-  flex-direction: row-reverse;
-
+.fr-fi-icon-fc {
   &:before {
     content: '';
     background-color: transparent;
