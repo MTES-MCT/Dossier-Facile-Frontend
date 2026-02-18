@@ -29,10 +29,8 @@
     "vue3-toastify": "0.2.8"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "7.0.2",
-    "@fullhuman/vue-cli-plugin-purgecss": "7.0.2",
     "@intlify/unplugin-vue-i18n": "catalog:",
-    "@tsconfig/node18": "18.2.4",
+    "@tsconfig/node18": "catalog:",
     "@types/jsdom": "21.1.7",
     "@types/node": "catalog:",
     "@unhead/vue": "2.0.9",
@@ -51,6 +49,7 @@
     "start-server-and-test": "2.0.12",
     "typescript": "catalog:",
     "vite": "catalog:",
+    "vite-plugin-purgecss-updated-v5": "1.2.6",
     "vite-ssg": "27.0.1",
     "vite-ssg-sitemap": "0.9.0",
     "vitest": "catalog:",

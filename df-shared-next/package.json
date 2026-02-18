@@ -10,16 +10,18 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@gouvminint/vue-dsfr": "catalog:",
     "@remixicon/vue": "4.4.0",
     "buffer": "6.0.3",
     "js-cookie": "3.0.5",
     "pinia": "catalog:",
     "sass": "catalog:",
-    "vue-matomo": "4.2.0",
-    "@gouvminint/vue-dsfr": "catalog:"
+    "vue-matomo": "4.2.0"
   },
   "peerDependencies": {
     "@gouvfr/dsfr": "catalog:",
+    "@vee-validate/i18n": "catalog:",
+    "@vee-validate/rules": "catalog:",
     "axios": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:",
@@ -29,6 +31,7 @@
     "@types/js-cookie": "3.0.6",
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
+    "@vue/tsconfig": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "prettier": "catalog:",
