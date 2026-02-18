@@ -102,6 +102,24 @@
 </template>
 
 <script setup lang="ts">
+import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
+import type { TaxCategory } from '@/components/documents/share/DocumentTypeConstants'
+import { toast } from '@/components/toast/toastUtils'
+import FileUpload from '@/components/uploads/FileUpload.vue'
+import ListItem from '@/components/uploads/ListItem.vue'
+import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
+import { AnalyticsService } from '@/services/AnalyticsService'
+import { PdfAnalysisService } from '@/services/PdfAnalysisService'
+import { RegisterService } from '@/services/RegisterService'
+import { UtilsService } from '@/services/UtilsService'
+import { useTenantStore } from '@/stores/tenant-store'
+import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import { RiHourglassFill } from '@remixicon/vue'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import type { TaxCategoryStep } from 'df-shared-next/src/models/DfDocument'
+import type { DfFile } from 'df-shared-next/src/models/DfFile'
+import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import {
   computed,
   nextTick,
@@ -111,28 +129,10 @@ import {
   useTemplateRef,
   type ComputedRef
 } from 'vue'
-import FileUpload from '@/components/uploads/FileUpload.vue'
-import ListItem from '@/components/uploads/ListItem.vue'
-import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
-import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
-import { AnalyticsService } from '@/services/AnalyticsService'
-import { useTenantStore } from '@/stores/tenant-store'
-import { RegisterService } from '@/services/RegisterService'
-import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
-import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
-import type { DfFile } from 'df-shared-next/src/models/DfFile'
-import { UtilsService } from '@/services/UtilsService'
-import { useLoading } from 'vue-loading-overlay'
-import { toast } from '@/components/toast/toastUtils'
 import { useI18n } from 'vue-i18n'
-import { useTaxState } from './taxState'
-import type { TaxCategory } from '@/components/documents/share/DocumentTypeConstants'
-import type { TaxCategoryStep } from 'df-shared-next/src/models/DfDocument'
-import { PdfAnalysisService } from '@/services/PdfAnalysisService'
-import { RiHourglassFill } from '@remixicon/vue'
-import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import { useLoading } from 'vue-loading-overlay'
 import TaxAnalysisBanners from './TaxAnalysisBanners.vue'
-import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import { useTaxState } from './taxState'
 
 const props = defineProps<{ category: TaxCategory; step?: TaxCategoryStep; explanation?: string }>()
 
