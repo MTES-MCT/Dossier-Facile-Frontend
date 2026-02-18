@@ -12,9 +12,9 @@
         <button class="fr-btn fr-btn--secondary fr-btn--sm fr-mr-1w" @click="isModalOpened = true">
           {{ t('filerowlistitem.see') }}
         </button>
-        <button class="fr-btn fr-btn--secondary fr-btn--sm" @click="goToEdit">
+        <a href="#" class="fr-btn fr-btn--secondary fr-btn--sm" @click.prevent="goToEdit">
           {{ t('documents.edit') }}
-        </button>
+        </a>
       </div>
     </div>
     <DsfrModalPatched v-model:is-opened="isModalOpened" :title="modalTitle" size="xl">
@@ -33,10 +33,10 @@
 import { RiCheckboxCircleFill } from '@remixicon/vue'
 import DsfrModalPatched from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
-import { useI18n } from 'vue-i18n'
-import { useDocumentPreview } from './useDocumentPreview'
 import { computed, ref, toRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ShowDoc from '../documents/share/ShowDoc.vue'
+import { useDocumentPreview } from './useDocumentPreview'
 
 const props = defineProps<{
   previewDocument: PreviewDocument

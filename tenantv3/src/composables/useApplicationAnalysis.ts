@@ -46,10 +46,6 @@ export const useApplicationAnalysis = () => {
     )
   })
 
-  const hasErrors = computed(() => {
-    return !isAnalyseInProgress.value && !isApplicationOk.value
-  })
-
   const stopPolling = () => {
     if (pollingInterval.value) {
       clearInterval(pollingInterval.value)
@@ -123,7 +119,6 @@ export const useApplicationAnalysis = () => {
   return {
     analysisResults,
     isAnalyseInProgress,
-    isApplicationOk,
-    hasErrors
+    isApplicationOk
   }
 }

@@ -2,34 +2,32 @@
 <template>
   <NakedCard class="fr-p-3w">
     <div>
-      <p class="fr-badge fr-badge--warning fr-mb-2w">
-        {{ t('title-badge') }}
-      </p>
+      <DsfrBadge type="warning" :label="t('title-badge')" class="fr-mb-2w" />
       <h1 class="fr-h6 fr-mb-1w">
         {{ t('title', { count: failedDocuments.length }) }}
       </h1>
       <p class="fr-mb-2w">
         {{ t('description') }}
       </p>
-      <DsfrAccordion title="Liste des documents en erreurs">
-        <ul class="fr-pl-0 fr-mt-0 links-list">
+      <DsfrAccordion :title="t('accordion-title')" title-tag="h2">
+        <ol class="fr-mt-0 links-list fr-pl-0">
           <li v-for="(doc, k) in failedDocuments" :key="k" class="failed-item">
             <a
               class="fr-btn fr-btn--tertiary-no-outline fr-p-0 text-left"
               :href="getDocLink(doc)"
               @click="onDocClick(doc)"
             >
-              {{ k + 1 }}. {{ doc.label }}
+              {{ doc.label }}
             </a>
           </li>
-        </ul>
+        </ol>
       </DsfrAccordion>
     </div>
   </NakedCard>
 </template>
 
 <script setup lang="ts">
-import { DsfrAccordion } from '@gouvminint/vue-dsfr'
+import { DsfrAccordion, DsfrBadge } from '@gouvminint/vue-dsfr'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import {
   allTenantDocumentCategories,
@@ -194,13 +192,24 @@ const onDocClick = (doc: FailedDoc) => {
 
 <style scoped lang="scss">
 .links-list {
-  list-style: none;
+  counter-reset: item;
   li {
-    margin-bottom: 0.5rem;
-  }
-  .failed-item:last-child {
-    margin-bottom: 0;
     padding-bottom: 0;
+    display: flex;
+    align-items: flex-start;
+    color: var(--text-action-high-blue-france);
+    &:before {
+      content: counter(item) '. ';
+      counter-increment: item;
+      margin-right: 0.5rem;
+      font-weight: bold;
+    }
+    a {
+      min-height: auto;
+    }
+  }
+  li + li {
+    margin-top: 0.5rem;
   }
   .text-left {
     text-align: left;
@@ -217,13 +226,15 @@ const onDocClick = (doc: FailedDoc) => {
     "title-badge": "ACTION REQUIRED",
     "title": "{count} document to correct | {count} documents to correct",
     "description": "Errors have been detected. Correct them to submit your file.",
-    "doc-owner": "{docName} of {name}"
+    "doc-owner": "{docName} of {name}",
+    "accordion-title": "List of documents with errors"
   },
   "fr": {
     "title-badge": "ACTION REQUISE",
     "title": "{count} document à corriger | {count} documents à corriger",
     "description": "Des erreurs ont été détectées. Corrigez-les pour soumettre votre dossier.",
-    "doc-owner": "{docName} de {name}"
+    "doc-owner": "{docName} de {name}",
+    "accordion-title": "Liste des documents en erreurs"
   }
 }
 </i18n>
