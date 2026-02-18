@@ -6,6 +6,6 @@ export type DocumentAnalysisReport = {
   failedRules: DocumentRule[]
   passedRules: DocumentRule[]
   inconclusiveRules: DocumentRule[]
-  comment: string | null
+  comment?: string
   createdAt: string
 }

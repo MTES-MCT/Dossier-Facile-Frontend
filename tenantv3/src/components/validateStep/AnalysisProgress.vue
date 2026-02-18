@@ -1,25 +1,31 @@
 <template>
   <NakedCard class="fr-mt-2w">
     <div class="analysis-status">
-      <RiHourglassFill size="24px" class="hourglass" aria-hidden="true" />
-      <p class="fr-m-0">
+      <VIcon
+        class="hourglass"
+        name="ri-hourglass-fill"
+        :scale="1.2"
+        color="var(--blue-france-sun-113-625)"
+      />
+      <label class="fr-m-0" for="analysis-progress">
         {{
           t('analysis-progress.status', {
             current: numberOfAnalysedDocuments,
             total: numberOfDocuments
           })
         }}
-      </p>
+      </label>
     </div>
-    <div class="progress-container fr-mt-2w">
-      <div class="analysis-loading-progress-bar"></div>
+    <div class="progress-container fr-mt-2w" aria-hidden="true">
+      <div class="analysis-loading-progress-bar" />
     </div>
+    <progress id="analysis-progress" class="fr-sr-only" :max="numberOfDocuments" />
   </NakedCard>
 </template>
 
 <script setup lang="ts">
+import { VIcon } from '@gouvminint/vue-dsfr'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { RiHourglassFill } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
 
 defineProps<{
@@ -30,7 +36,7 @@ defineProps<{
 const { t } = useI18n()
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .progress-container {
   height: 8px;
   background-color: var(--background-contrast-grey);
@@ -60,7 +66,6 @@ const { t } = useI18n()
 }
 
 .hourglass {
-  color: var(--blue-france-sun-113-625);
   margin-right: 6px;
   flex-shrink: 0;
 }

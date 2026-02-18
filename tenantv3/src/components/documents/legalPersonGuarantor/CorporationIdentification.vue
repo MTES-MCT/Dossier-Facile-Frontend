@@ -66,10 +66,10 @@ import GuarantorFooter from '../../footer/GuarantorFooter.vue'
 import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import TextField from '@/components/form/TextField.vue'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
-import TextField from '@/components/form/TextField.vue'
 
 const store = useTenantStore()
 const { t } = useI18n()

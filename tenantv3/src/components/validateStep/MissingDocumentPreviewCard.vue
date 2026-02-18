@@ -1,15 +1,19 @@
 <template>
   <div :id="documentIdForInternalLink" class="fr-p-1w document-preview-card">
-    <p class="fr-badge fr-badge--info fr-mb-1w">{{ t('missing-document') }}</p>
+    <DsfrBadge
+      class="fr-badge fr-badge--info fr-mb-1w"
+      type="info"
+      :label="t('missing-document')"
+    />
     <div class="document-preview-card__content">
       <div class="file-name">
         <p class="fr-text--md fr-mb-1w">{{ label }}</p>
         <p v-if="subTitle" class="fr-text--sm text-mention fr-mb-1w">{{ subTitle }}</p>
       </div>
       <div class="actions fr-ml-auto">
-        <button class="fr-btn fr-btn--secondary fr-btn--sm" @click="goToEdit">
+        <a href="#" class="fr-btn fr-btn--secondary fr-btn--sm" @click.prevent="goToEdit">
           {{ t('add-document') }}
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -20,6 +24,7 @@ import type { PreviewDocument } from 'df-shared-next/src/models/User'
 import { toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useDocumentPreview } from './useDocumentPreview'
+import { DsfrBadge } from '@gouvminint/vue-dsfr'
 
 const props = defineProps<{
   previewDocument: PreviewDocument
