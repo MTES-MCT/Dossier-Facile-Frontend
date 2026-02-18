@@ -7,21 +7,12 @@
     />
     <div v-if="viewState === 'fileContent'" class="fr-container">
       <FileHeader :user="user">
-        <div>
-          <DfButton v-if="showProgressBar" :primary="true"
-            >{{ t('file.download-all-inprogress')
-            }}<span><ProgressIndicator diameter="22px" border="3px" /></span>
-          </DfButton>
-          <DfButton
-            v-else
-            ref="download-button"
-            :disabled="!user || user.status !== 'VALIDATED'"
-            :title="t('file.download-disabled-title')"
-            :primary="true"
-            @click="download"
-            >{{ t('file.download-all') }}</DfButton
-          >
-        </div>
+        <DownloadFileButton
+          ref="download-button"
+          :show-progress-bar="showProgressBar"
+          :disabled="!user || user.status !== 'VALIDATED'"
+          @download="download"
+        />
       </FileHeader>
       <FileReinsurance
         v-if="user !== null"
@@ -213,18 +204,11 @@
       </section>
       <section class="fr-mb-7w">
         <div class="text-center">
-          <DfButton v-if="showProgressBar" :primary="true"
-            >{{ t('file.download-all-inprogress')
-            }}<span><ProgressIndicator diameter="22px" border="3px" /></span>
-          </DfButton>
-          <DfButton
-            v-else
-            :disabled="!user || user.status != 'VALIDATED'"
-            :title="t('file.download-disabled-title')"
-            :primary="true"
-            @click="download"
-            >{{ t('file.download-all') }}</DfButton
-          >
+          <DownloadFileButton
+            :show-progress-bar="showProgressBar"
+            :disabled="!user || user.status !== 'VALIDATED'"
+            @download="download"
+          />
         </div>
       </section>
     </div>
@@ -250,11 +234,10 @@
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { User } from 'df-shared-next/src/models/User'
 import { FileUser } from 'df-shared-next/src/models/FileUser'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { ProfileService } from '../services/ProfileService'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import FileReinsurance from '../components/FileReinsurance.vue'
-import ProgressIndicator from 'df-shared-next/src/Button/ProgressIndicator.vue'
+import DownloadFileButton from '../components/DownloadFileButton.vue'
 import FileRowListItem from '../components/documents/FileRowListItem.vue'
 import OwnerBanner from '../components/OwnerBanner.vue'
 import FileHeader from '../components/FileHeader.vue'
@@ -398,7 +381,7 @@ function retryDownload(remainingCount: number) {
       retryDownload(remainingCount - 1)
     } else {
       showProgressBar.value = false
-      toast.error(t('file.download-failed-try-later'), downloadButton.value?.button)
+      toast.error(t('file.download-failed-try-later'), downloadButton.value?.dfButton?.button)
     }
   }, 15000)
 }
@@ -416,7 +399,7 @@ function downloadFile(url: string) {
     })
     .catch((error) => {
       console.error(error)
-      toast.error(t('file.download-failed'), downloadButton.value?.button)
+      toast.error(t('file.download-failed'), downloadButton.value?.dfButton?.button)
     })
     .finally(() => (showProgressBar.value = false))
 }
@@ -433,7 +416,7 @@ function download() {
       })
       .catch(() => {
         showProgressBar.value = false
-        toast.error(t('file.download-failed'), downloadButton.value?.button)
+        toast.error(t('file.download-failed'), downloadButton.value?.dfButton?.button)
       })
   }
 }

@@ -2,12 +2,26 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import DownloadPdfSection from '../components/sharing/DownloadPdfSection.vue'
 import { ProfileService } from '../services/ProfileService'
+import { useTenantStore } from '../stores/tenant-store'
 
 // Mock vue-i18n to just return keys
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
     t: (key: string) => key
-  })
+  }),
+  createI18n: () => ({})
+}))
+
+const defaultStoreState = {
+  user: {
+    applicationType: 'ALONE' as const,
+    apartmentSharing: { tenants: [] as Array<{ id: number; status: string }> }
+  }
+}
+
+// Mock tenant store (configurable per test)
+vi.mock('../stores/tenant-store', () => ({
+  useTenantStore: vi.fn(() => defaultStoreState)
 }))
 
 // Mock ProfileService
@@ -63,6 +77,7 @@ describe('DownloadPdfSection', () => {
     vi.clearAllMocks()
     vi.useFakeTimers()
     mockPdfDownload()
+    vi.mocked(useTenantStore).mockReturnValue(defaultStoreState as never)
   })
 
   afterEach(() => {
@@ -155,6 +170,60 @@ describe('DownloadPdfSection', () => {
       // Third call (poll): COMPLETED, should download
       expect(ProfileService.getCurrentTenantFullData).toHaveBeenCalledTimes(3)
       expect(ProfileService.getCurrentTenantPdf).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('when applicationType is GROUP', () => {
+    it('disables the button and shows group-incomplete message when not all tenants have status VALIDATED', async () => {
+      vi.mocked(useTenantStore).mockReturnValue({
+        user: {
+          applicationType: 'GROUP',
+          apartmentSharing: {
+            tenants: [
+              { id: 1, status: 'VALIDATED' },
+              { id: 2, status: 'INCOMPLETE' }
+            ]
+          }
+        }
+      } as never)
+
+      vi.mocked(ProfileService.getCurrentTenantFullData).mockResolvedValue({
+        data: { dossierPdfDocumentStatus: 'COMPLETED' }
+      } as never)
+
+      const wrapper = mountComponent()
+      await flushPromises()
+
+      const downloadButton = wrapper.find('button.fr-btn--secondary')
+      expect(downloadButton.attributes('disabled')).toBeDefined()
+      expect(wrapper.find('.group-incomplete-msg').exists()).toBe(true)
+      expect(wrapper.text()).toContain('group-incomplete')
+    })
+
+    it('enables the button and hides the message when all tenants have status VALIDATED', async () => {
+      vi.mocked(useTenantStore).mockReturnValue({
+        user: {
+          applicationType: 'GROUP',
+          apartmentSharing: {
+            tenants: [
+              { id: 1, status: 'VALIDATED' },
+              { id: 2, status: 'VALIDATED' }
+            ]
+          }
+        }
+      } as never)
+
+      vi.mocked(ProfileService.getCurrentTenantFullData).mockResolvedValue({
+        data: { dossierPdfDocumentStatus: 'COMPLETED' }
+      } as never)
+
+      const wrapper = mountComponent()
+      await flushPromises()
+
+      const downloadButton = wrapper.find('button.fr-btn--secondary')
+      expect(downloadButton.attributes('disabled')).toBeUndefined()
+      expect(wrapper.find('.group-incomplete-msg').exists()).toBe(false)
+      expect(wrapper.text()).not.toContain('group-incomplete')
     })
   })
 })
