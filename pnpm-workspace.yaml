@@ -19,8 +19,6 @@ catalog:
   vee-validate: 4.15.1
   "@vee-validate/rules": 4.15.1
   "@vee-validate/i18n": 4.15.1
-  "@regle/core": 1.17.4
-  "@regle/rules": 1.17.4
   vue: 3.5.18
   vue-i18n: 11.1.11
   vue-router: 4.5.1

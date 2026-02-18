@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "@gouvminint/vue-dsfr": "catalog:",
-    "@regle/core": "catalog:",
-    "@regle/rules": "catalog:",
     "@remixicon/vue": "4.4.0",
     "buffer": "6.0.3",
     "js-cookie": "3.0.5",
