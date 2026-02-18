@@ -33,10 +33,6 @@ export default defineConfig({
     pluginPurgeCss({
       variables: true,
       content: [`./public/**/*.html`, `./src/**/*.vue`, `../df-shared-next/src/**/*.vue`],
-      defaultExtractor(content) {
-        const contentWithoutStyleBlocks = content.replace(/<style[^]+?<\/style>/gi, '')
-        return contentWithoutStyleBlocks.match(/[A-Za-z0-9-_/:]*[A-Za-z0-9-_/]/g) || []
-      },
       safelist: {
         deep: [
           /-(leave|enter|appear)(-(to|from|active))?$/,
