@@ -17,18 +17,19 @@
     >
   </i18n-t>
   <div class="display--flex blue-text fr-mb-2w">
-    <RiInformationLine aria-hidden="true" />
-    <button type="button" class="fi-btn" @click="showFIModal = true">
-      {{ t('see-example') }}
+    <button type="button" class="fr-btn fr-btn--secondary" @click="showFIModal = true">
+      {{ t('see-example') }} <RiEyeLine class="fr-ml-1v" />
     </button>
   </div>
   <UploadFilesIdentity category="FRANCE_IDENTITE" />
   <ModalComponent v-if="showFIModal" @close="showFIModal = false">
     <template #header>
-      <h2 class="fr-h3">{{ t('france-id-example') }}</h2>
+      <!-- TODO change to a h1 when migrating modals -->
+      <h2 class="fr-h3">{{ t('france-id-example-title') }}</h2>
     </template>
     <template #body>
-      <img :src="franceIdentiteImage" :alt="t('unique-id-doc')" />
+      <p>{{ t('france-id-example-text') }}</p>
+      <img :src="franceIdentiteImage" alt="" />
     </template>
     <template #footer>
       <DfButton type="button" primary @click="showFIModal = false">{{ t('modal.close') }}</DfButton>
@@ -41,7 +42,7 @@ import { useI18n } from 'vue-i18n'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import BackLinkRow from './lib/IdentityBackRow.vue'
 import UploadFilesIdentity from './lib/UploadFilesIdentity.vue'
-import { RiInformationLine } from '@remixicon/vue'
+import { RiEyeLine } from '@remixicon/vue'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import franceIdentiteImage from '@/assets/ex_justi_france_identite.png'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
@@ -55,12 +56,6 @@ const { textKey } = useIdentificationState()
 const showFIModal = ref(false)
 </script>
 
-<style scoped>
-.fi-btn {
-  text-align: left;
-}
-</style>
-
 <i18n>
 {
   "en": {
@@ -71,8 +66,8 @@ const showFIModal = ref(false)
     "proof": "proof of identity",
     "valid": "valid",
     "see-example": "See an example of a France Identité document",
-    "france-id-example": "Example of France Identité document",
-    "unique-id-doc": "Single-use identity document"
+    "france-id-example-title": "Example of France Identité document",
+    "france-id-example-text": "The document is entitled « Justificatif d’identité à usage unique ». It contains the following information: surname, first names, gender, nationality, date and place of birth. A QR code allows its authenticity to be verified."
   },
   "fr": {
     "add-doc-tenant": "Ajoutez un {proof} {valid} à usage unique généré par {france-identite}.",
@@ -82,8 +77,8 @@ const showFIModal = ref(false)
     "proof": "justificatif d’identité",
     "valid": "en cours de validité",
     "see-example": "Voir un exemple de justificatif France Identité",
-    "france-id-example": "Exemple de justificatif France identité",
-    "unique-id-doc": "Justificatif d’identité à usage unique"
+    "france-id-example-title": "Exemple de justificatif France identité",
+    "france-id-example-text": "Le document est intitulé « Justificatif d’identité à usage unique ». Il comporte les informations suivantes: nom, prénoms, sexe, nationalité date et lieu de naissance. Un QR code permet de vérifier son authenticité."
   }
 }
 </i18n>
