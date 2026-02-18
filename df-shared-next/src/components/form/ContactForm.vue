@@ -226,7 +226,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
       </p>
     </div>
 
-    <DsfrButton label="Envoyer mon message" class="form__btn" />
+    <DsfrButton :label="t('fields.submit')" class="form__btn" />
   </form>
 </template>
 
@@ -240,43 +240,45 @@ textarea {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
-		"field-required": "required",
-		"field-optional": "optional",
-		"validation": {
-			"required": "{field} is required",
-			"email": "Email address is incorrect. Example: john.wick{'@'}email.net",
-			"max": "{field} is over {max} characters"
-		},
-		"fields": {
-			"email": "Your email address",
-			"firstname": "Your first name",
-			"lastname": "Your family name",
-			"subject": "The subject of your message",
-			"message": "Your message",
-			"consent": "Accepting our conditions",
-			"consent-label": "You agree that this information may be shared with our support team and CRISP, our support tool, in order to respond to your request."
+    "field-required": "required",
+    "field-optional": "optional",
+    "validation": {
+      "required": "{field} is required",
+      "email": "Email address is incorrect. Example: john.wick{'@'}email.net",
+      "max": "{field} is over {max} characters"
     },
+    "fields": {
+      "email": "Your email address",
+      "firstname": "Your first name",
+      "lastname": "Your family name",
+      "subject": "The subject of your message",
+      "message": "Your message",
+      "consent": "Accepting our conditions",
+      "consent-label": "You agree that this information may be shared with our support team and CRISP, our support tool, in order to respond to your request.",
+      "submit": "Send my message"
+    }
   },
   "fr": {
-		"field-required": "obligatoire",
-		"field-optional": "facultatif",
-		"validation": {
-			"required": "{field} est obligatoire",
-			"email": "L'adresse email saisie est incorrecte. Exemple: francis.cabrel{'@'}email.net",
-			"max": "{field} limité à {max} caractères"
-		},
-		"fields": {
-			"email": "Votre adresse email",
-			"firstname": "Votre prénom",
-			"lastname": "Votre nom",
-			"subject": "L'objet de votre message",
-			"message": "Votre message",
-			"consent": "Accepter les conditions",
-			"consent-label": "Vous acceptez que ces informations soient transmises à notre équipe d'assistance et à CRISP, notre outil d'assistance, afin de répondre à votre demande."
+    "field-required": "obligatoire",
+    "field-optional": "facultatif",
+    "validation": {
+      "required": "{field} est obligatoire",
+      "email": "L'adresse email saisie est incorrecte. Exemple: francis.cabrel{'@'}email.net",
+      "max": "{field} limité à {max} caractères"
     },
+    "fields": {
+      "email": "Votre adresse email",
+      "firstname": "Votre prénom",
+      "lastname": "Votre nom",
+      "subject": "L'objet de votre message",
+      "message": "Votre message",
+      "consent": "Accepter les conditions",
+      "consent-label": "Vous acceptez que ces informations soient transmises à notre équipe d'assistance et à CRISP, notre outil d'assistance, afin de répondre à votre demande.",
+      "submit": "Envoyer mon message"
+    }
   }
 }
 </i18n>
