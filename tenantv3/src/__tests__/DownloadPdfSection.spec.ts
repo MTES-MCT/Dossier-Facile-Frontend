@@ -72,6 +72,27 @@ function mountComponent() {
   })
 }
 
+function groupStoreState(tenantStatuses: string[]) {
+  return {
+    user: {
+      applicationType: 'GROUP' as const,
+      apartmentSharing: {
+        tenants: tenantStatuses.map((status, i) => ({ id: i + 1, status }))
+      }
+    }
+  }
+}
+
+async function mountWithGroupAndPdfReady(tenantStatuses: string[]) {
+  vi.mocked(useTenantStore).mockReturnValue(groupStoreState(tenantStatuses) as never)
+  vi.mocked(ProfileService.getCurrentTenantFullData).mockResolvedValue({
+    data: { dossierPdfDocumentStatus: 'COMPLETED' }
+  } as never)
+  const wrapper = mountComponent()
+  await flushPromises()
+  return wrapper
+}
+
 describe('DownloadPdfSection', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -175,25 +196,7 @@ describe('DownloadPdfSection', () => {
 
   describe('when applicationType is GROUP', () => {
     it('disables the button and shows group-incomplete message when not all tenants have status VALIDATED', async () => {
-      vi.mocked(useTenantStore).mockReturnValue({
-        user: {
-          applicationType: 'GROUP',
-          apartmentSharing: {
-            tenants: [
-              { id: 1, status: 'VALIDATED' },
-              { id: 2, status: 'INCOMPLETE' }
-            ]
-          }
-        }
-      } as never)
-
-      vi.mocked(ProfileService.getCurrentTenantFullData).mockResolvedValue({
-        data: { dossierPdfDocumentStatus: 'COMPLETED' }
-      } as never)
-
-      const wrapper = mountComponent()
-      await flushPromises()
-
+      const wrapper = await mountWithGroupAndPdfReady(['VALIDATED', 'INCOMPLETE'])
       const downloadButton = wrapper.find('button.fr-btn--secondary')
       expect(downloadButton.attributes('disabled')).toBeDefined()
       expect(wrapper.find('.group-incomplete-msg').exists()).toBe(true)
@@ -201,25 +204,7 @@ describe('DownloadPdfSection', () => {
     })
 
     it('enables the button and hides the message when all tenants have status VALIDATED', async () => {
-      vi.mocked(useTenantStore).mockReturnValue({
-        user: {
-          applicationType: 'GROUP',
-          apartmentSharing: {
-            tenants: [
-              { id: 1, status: 'VALIDATED' },
-              { id: 2, status: 'VALIDATED' }
-            ]
-          }
-        }
-      } as never)
-
-      vi.mocked(ProfileService.getCurrentTenantFullData).mockResolvedValue({
-        data: { dossierPdfDocumentStatus: 'COMPLETED' }
-      } as never)
-
-      const wrapper = mountComponent()
-      await flushPromises()
-
+      const wrapper = await mountWithGroupAndPdfReady(['VALIDATED', 'VALIDATED'])
       const downloadButton = wrapper.find('button.fr-btn--secondary')
       expect(downloadButton.attributes('disabled')).toBeUndefined()
       expect(wrapper.find('.group-incomplete-msg').exists()).toBe(false)
