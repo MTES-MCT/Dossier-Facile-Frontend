@@ -168,8 +168,11 @@ function makeNewDocument() {
 }
 
 async function goNext() {
+  const isFromValidation = route.query.from === 'validation'
+  const nextStep = isFromValidation ? { name: 'ValidateFile' } : state.recap
+
   if (monthlySumChanged ? await save('form.financial.amount-saved') : true) {
-    router.push(state.recap)
+    router.push(nextStep)
   }
 }
 

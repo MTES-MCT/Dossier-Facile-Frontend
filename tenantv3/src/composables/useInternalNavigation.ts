@@ -178,11 +178,17 @@ export const useInternalNavigation = () => {
         if (step === 4) {
           return `/info-garant/${step}/${guarantorId}/${document.id}/${subPath}`
         }
+        if (subPath === undefined) {
+          return `/info-garant/${step}/${guarantorId}`
+        }
         return `/info-garant/${step}/${guarantorId}/${subPath}`
       } else {
         const tenantId = getTenantOwnerOfGuarantor(guarantorId)
         if (step === 4) {
           return `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}/${document.id}/${subPath}`
+        }
+        if (subPath === undefined) {
+          return `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}`
         }
         return `/info-garant-locataire/${tenantId}/${guarantorId}/5/${step}/${subPath}`
       }

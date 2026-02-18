@@ -23,11 +23,16 @@ const store = useTenantStore()
 
 const tenantId = computed(() => Number(route.params.tenantId))
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation
+  ? { name: 'ValidateFile' }
+  : { name: 'TenantGuarantors', params: { tenantId: tenantId.value, step: '5' } }
+
 provide(taxKey, {
   category: 'couple-tax',
   textKey: 'couple',
   previousStep: { name: 'CoupleFinancial', params: { tenantId: tenantId.value } },
-  nextStep: { name: 'TenantGuarantors', params: { tenantId: tenantId.value, step: '5' } },
+  nextStep: nextStep,
   document: computed(() => {
     const tenant = store.getTenant(tenantId.value)
     return DocumentService.getDoc('TAX', tenant.documents)

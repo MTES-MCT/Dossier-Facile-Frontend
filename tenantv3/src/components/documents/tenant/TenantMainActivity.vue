@@ -14,15 +14,20 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { mainActivityKey } from '@/components/mainActivity/lib/mainActivityState'
 import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import TenantBadge from '@/components/common/TenantBadge.vue'
+import { useRoute } from 'vue-router'
 const { t } = useI18n()
+const route = useRoute()
 const store = useTenantStore()
 const residencyLink = useResidencyLink()
+
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : { name: 'TenantFinancial' }
 
 provide(mainActivityKey, {
   category: 'professional',
   textKey: 'tenant',
   previousStep: residencyLink.value,
-  nextStep: { name: 'TenantFinancial' },
+  nextStep: nextStep,
   document: computed(() => store.getTenantProfessionalDocument),
   userId: undefined,
   action: 'saveTenantProfessional'

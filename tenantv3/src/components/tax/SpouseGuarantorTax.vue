@@ -24,6 +24,11 @@ const guarantorId = useGuarantorId()
 
 const tenantId = computed(() => Number(route.params.tenantId))
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation
+  ? { name: 'ValidateFile' }
+  : { name: 'TenantGuarantors', params: { tenantId: tenantId.value, step: '5' } }
+
 provide(taxKey, {
   category: 'couple-guarantor-tax',
   textKey: 'couple-guarantor',
@@ -31,7 +36,7 @@ provide(taxKey, {
     name: 'TenantGuarantorFinancial',
     params: { tenantId: tenantId.value, guarantorId: guarantorId.value, step: '5' }
   },
-  nextStep: { name: 'TenantGuarantors', params: { tenantId: tenantId.value, step: '5' } },
+  nextStep: nextStep,
   document: computed(() => store.getGuarantorTaxDocument),
   action: 'saveGuarantorTax',
   userId: store.user.id,

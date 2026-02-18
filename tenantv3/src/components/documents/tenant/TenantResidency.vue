@@ -15,16 +15,21 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { useMainActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import TenantBadge from '@/components/common/TenantBadge.vue'
 import { useIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
+import { useRoute } from 'vue-router'
 const { t } = useI18n()
+const route = useRoute()
 const store = useTenantStore()
 const identityDocumentLink = useIdentityDocumentLink()
 const mainActivityLink = useMainActivityLink()
+
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : mainActivityLink.value
 
 provide(residencyKey, {
   category: 'residency',
   textKey: 'tenant',
   previousStep: identityDocumentLink.value,
-  nextStep: mainActivityLink.value,
+  nextStep: nextStep,
   document: computed(() => store.getTenantResidencyDocument),
   userId: undefined
 })

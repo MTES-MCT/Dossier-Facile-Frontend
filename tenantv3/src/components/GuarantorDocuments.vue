@@ -60,6 +60,11 @@ function goBack() {
 }
 
 function goNext() {
+  const isFromValidation = route.query.from === 'validation'
+  if (isFromValidation) {
+    router.push({ name: 'ValidateFile' })
+    return
+  }
   if (substep.value < 5) {
     updateSubstep(substep.value + 1)
   } else {
@@ -68,6 +73,11 @@ function goNext() {
 }
 
 function nextStep() {
+  const isFromValidation = route.query.from === 'validation'
+  if (isFromValidation) {
+    router.push({ name: 'ValidateFile' })
+    return
+  }
   router.push({
     name: 'GuarantorList'
   })
