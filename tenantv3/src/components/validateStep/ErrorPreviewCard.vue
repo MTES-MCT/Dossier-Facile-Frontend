@@ -16,7 +16,7 @@
         </li>
       </ul>
       <div class="fr-grid-row fr-grid-row--right">
-        <button class="fr-btn fr-btn--secondary" @click="goToEdit">
+        <button class="fr-btn fr-btn--secondary" @click="editPressed">
           {{ t('documents.status.correct') }}
         </button>
       </div>
@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import { AnalyticsService } from '@/services/AnalyticsService'
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
 import { computed, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -43,6 +44,19 @@ const { label, subTitle, documentIdForInternalLink, getRuleShortMessage, goToEdi
 const failedRules = computed(() => {
   return props.previewDocument.documentAnalysisStatus?.failedRules || []
 })
+
+const editPressed = () => {
+  const documentCategory =
+    props.previewDocument.document?.documentCategory || props.previewDocument.documentCategory
+  if (props.coTenantId === undefined && props.guarantorId === undefined) {
+    AnalyticsService.validate_correct_error_click('tenant', documentCategory)
+  } else if (props.guarantorId !== undefined) {
+    AnalyticsService.validate_correct_error_click('guarantor', documentCategory)
+  } else if (props.coTenantId !== undefined) {
+    AnalyticsService.validate_correct_error_click('couple', documentCategory)
+  }
+  goToEdit()
+}
 </script>
 
 <style scoped lang="scss">
