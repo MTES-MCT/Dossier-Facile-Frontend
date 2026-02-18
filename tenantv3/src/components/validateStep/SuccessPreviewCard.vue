@@ -44,8 +44,6 @@ const props = defineProps<{
   coTenantId?: number
 }>()
 
-console.log('previewDocument', props.previewDocument)
-
 const { t } = useI18n()
 const { label, subTitle, goToEdit } = useDocumentPreview(
   toRef(props, 'previewDocument'),
