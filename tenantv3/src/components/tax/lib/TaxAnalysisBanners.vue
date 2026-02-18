@@ -24,7 +24,7 @@
         </div>
         <p class="explain-link-text">
           {{ t('not-matching') }}
-          <a href="#" class="explain-link" @click.prevent="emit('explain')">{{ t('explain-link') }}</a>
+          <button type="button" class="explain-link" @click="emit('explain')">{{ t('explain-link') }}</button>
         </p>
       </div>
     </div>
@@ -201,7 +201,13 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
   color: #161616;
   text-decoration: underline;
   font-weight: 400;
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
   background-image: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 </style>
 
