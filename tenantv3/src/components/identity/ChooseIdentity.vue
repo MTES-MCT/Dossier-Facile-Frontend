@@ -1,30 +1,42 @@
 <template>
-  <RadioList>
-    <RadioListItem
-      :to="'nom-locataire/pour-moi'"
-      @click="AnalyticsService.tenantIdentitySelectSelf()"
-    >
-      {{ t('identity.self') }}
-      <HintText>{{ t('identity.self-hint') }}</HintText>
-    </RadioListItem>
-    <RadioListItem
-      :to="'nom-locataire/pour-une-autre-personne'"
-      @click="AnalyticsService.tenantIdentitySelectThirdParty()"
-    >
-      {{ t('identity.third-party') }}
-      <HintText>{{ t('identity.third-party-hint') }}</HintText>
-    </RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import RadioList from '../common/RadioList.vue'
-import RadioListItem from '../common/RadioListItem.vue'
-import HintText from '../common/HintText.vue'
+import RadioList, { type OptionLink } from '../common/RadioList.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { computed, type ComputedRef } from 'vue'
+import { useRoute } from 'vue-router'
 
 const { t } = useI18n()
+
+const route = useRoute()
+const here = computed(() => route.path)
+
+// analytics based on different funtions, not params.
+const sendEvent = (type: string) => {
+  if (type === 'self') {
+    AnalyticsService.tenantIdentitySelectSelf()
+  } else if (type === 'third') {
+    AnalyticsService.tenantIdentitySelectThirdParty()
+  }
+}
+
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
+  {
+    to: `${here.value}/pour-moi`,
+    title: t('identity.self'),
+    description: t('identity.self-hint'),
+    event: 'self'
+  },
+  {
+    to: `${here.value}/pour-une-autre-personne`,
+    title: t('identity.third-party'),
+    description: t('identity.third-party-hint'),
+    event: 'third'
+  }
+])
 </script>
 
 <i18n>

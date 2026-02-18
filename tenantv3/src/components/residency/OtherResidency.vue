@@ -16,15 +16,15 @@
     />
     <label class="fr-label" for="precarious-checkbox">{{ t(textKey + '.you-precarious') }}</label>
   </div>
-  <div class="fr-highlight">
+  <DsfrAlert type="info" small>
     <i18n-t keypath="info-115" tag="p">
       <a href="tel:115" class="phone-link"
         >115
         <RiPhoneFill size="1rem" aria-hidden="true" />
       </a>
     </i18n-t>
-  </div>
-  <div class="fr-highlight">
+  </DsfrAlert>
+  <DsfrAlert type="info" small>
     <i18n-t keypath="info-3919" tag="p">
       <template #tel>
         <a href="tel:3919" class="phone-link">
@@ -41,7 +41,7 @@
         >
       </template>
     </i18n-t>
-  </div>
+  </DsfrAlert>
   <ResidencyFooter ref="footer" :on-submit="submit" :enabled="isPrecarious" />
 </template>
 
@@ -56,6 +56,7 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useResidencyState } from './residencyState'
 import { toast } from '@/components/toast/toastUtils'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const CUSTOM_TEXT =
   "Le candidat indique qu'il n'est pas en mesure de fournir de quittance de logement pour ces 3 derniers mois"

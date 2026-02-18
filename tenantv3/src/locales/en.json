@@ -299,7 +299,7 @@
   "coupleinformation": {
     "spouseFirstName": "First Name",
     "spouseLastName": "Last Name",
-    "spouseEmail": "Your Co-tenant's Email Address (optional)",
+    "spouseEmail": "Your Co-tenant's Email Address",
     "acceptAuthor": "I agree that my partner will have access to my documents and those of my guarantor, if applicable, once both of our applications have been validated",
     "field-required": "This field is required",
     "partner-name-title": "Who will be your co-tenant?",
@@ -960,6 +960,10 @@
     "header": "Message from our validation team:"
   },
   "form": {
+    "label": {
+      "required": "required",
+      "optional": "optional"
+    },
     "financial": {
       "job-income": "Income from work",
       "social-aid": "Social aid",

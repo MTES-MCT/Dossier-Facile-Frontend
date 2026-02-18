@@ -1,9 +1,7 @@
 <template>
   <NakedCard class="fr-mt-3v fr-p-md-5w fr-mb-12w">
     <h2 class="fr-h4">{{ t(textKey + '.title') }}</h2>
-    <div class="fr-alert fr-alert--info fr-mb-3w">
-      <p>{{ t('common.information-block') }}</p>
-    </div>
+    <DsfrAlert type="info" small :description="t('common.information-block')" class="fr-mb-3w" />
     <p class="text-bold">{{ t(textKey + '.list-title') }}</p>
     <ul class="fr-mb-2w">
       <li class="fr-mb-1w">
@@ -61,6 +59,7 @@
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { useI18n } from 'vue-i18n'
 import TrackedExternalLink from './lib/TrackedExternalLink.vue'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 defineProps<{
   textKey: 'self' | 'third-party'

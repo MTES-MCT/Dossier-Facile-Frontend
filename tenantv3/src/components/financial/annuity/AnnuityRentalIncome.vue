@@ -6,23 +6,15 @@
     category="rente"
     step="revenus-locatifs"
   />
-  <RadioList>
-    <RadioListItem :to="here + '/quittance'" @click="sendEvent('quittance')">{{
-      t('have-receipt.' + textKey)
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/pas-de-quittance'" @click="sendEvent('pas-de-quittance')">{{
-      t('no-receipt.' + textKey)
-    }}</RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <FinancialFooter disabled />
 </template>
 
 <script setup lang="ts">
-import RadioList from '@/components/common/RadioList.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { computed, type ComputedRef } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useI18n } from 'vue-i18n'
@@ -38,6 +30,19 @@ const { category, textKey } = useFinancialState()
 
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation3(category, 'rente', 'revenus-locatifs', subCategory)
+
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
+  {
+    to: `${here.value}/quittance`,
+    title: t('have-receipt.' + textKey),
+    event: 'quittance'
+  },
+  {
+    to: `${here.value}/pas-de-quittance`,
+    title: t('no-receipt.' + textKey),
+    event: 'pas-de-quittance'
+  }
+])
 </script>
 
 <i18n>

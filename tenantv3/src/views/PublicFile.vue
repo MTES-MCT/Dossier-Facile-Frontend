@@ -2,9 +2,9 @@
   <div class="root">
     <div v-if="!fileNotFound" class="fr-container">
       <FileHeader :user="user">
-        <div class="fr-alert fr-alert--info bg-white">
+        <DsfrAlert type="info" small class="bg-white">
           <p v-html="t('preview')" />
-        </div>
+        </DsfrAlert>
       </FileHeader>
 
       <FileReinsurance
@@ -211,6 +211,7 @@ import { useI18n } from 'vue-i18n'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { UtilsService } from '../services/UtilsService'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 
