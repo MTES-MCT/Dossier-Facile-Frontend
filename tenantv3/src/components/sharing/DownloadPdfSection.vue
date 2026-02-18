@@ -10,10 +10,22 @@
           <p class="description-desktop fr-text--sm fr-mb-0">
             <strong>{{ t('warning') }}</strong> {{ t('warning-text') }}
           </p>
+          <p
+            v-if="isGroupDownloadDisabled"
+            class="fr-message fr-message--info group-incomplete-msg group-incomplete-msg-desktop fr-text--sm fr-mt-1w fr-mb-0"
+          >
+            {{ t('group-incomplete') }}
+          </p>
         </div>
       </div>
       <p class="description-mobile fr-text--sm fr-mb-0">
         <strong>{{ t('warning') }}</strong> {{ t('warning-text') }}
+      </p>
+      <p
+        v-if="isGroupDownloadDisabled"
+        class="fr-message fr-message--info group-incomplete-msg group-incomplete-msg-mobile fr-text--sm fr-mt-1w fr-mb-0"
+      >
+        {{ t('group-incomplete') }}
       </p>
       <div class="btn-wrapper">
         <button
@@ -30,6 +42,7 @@
           ref="downloadButton"
           type="button"
           class="fr-btn fr-btn--secondary"
+          :disabled="isGroupDownloadDisabled"
           @click="download"
         >
           {{ t('download-button') }}
@@ -41,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useTemplateRef, onMounted } from 'vue'
+import { ref, useTemplateRef, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RiFileDownloadLine } from '@remixicon/vue'
 import ProgressIndicator from 'df-shared-next/src/Button/ProgressIndicator.vue'
@@ -49,8 +62,16 @@ import { ProfileService } from '@/services/ProfileService'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { useTenantStore } from '@/stores/tenant-store'
 
 const { t } = useI18n()
+const store = useTenantStore()
+
+const isGroupDownloadDisabled = computed(() => {
+  if (store.user.applicationType !== 'GROUP') return false
+  const tenants = store.user.apartmentSharing?.tenants ?? []
+  return !tenants.every((tenant) => tenant.status === 'VALIDATED')
+})
 
 const showProgressBar = ref(false)
 const downloadButton = useTemplateRef('downloadButton')
@@ -182,6 +203,22 @@ function download() {
   }
 }
 
+.group-incomplete-msg-desktop {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.group-incomplete-msg-mobile {
+  display: block;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
 .btn-wrapper {
   flex-shrink: 0;
 
@@ -205,7 +242,8 @@ function download() {
     "download-button": "Download your file",
     "download-in-progress": "Downloading...",
     "download-failed": "Download failed. Please try again.",
-    "download-failed-try-later": "Download failed. Please try again later."
+    "download-failed-try-later": "Download failed. Please try again later.",
+    "group-incomplete": "To download the complete file, all roommates must have a validated file."
   },
   "fr": {
     "title": "Télécharger votre dossier PDF",
@@ -214,7 +252,8 @@ function download() {
     "download-button": "Télécharger votre dossier",
     "download-in-progress": "Téléchargement...",
     "download-failed": "Le téléchargement a échoué. Veuillez réessayer.",
-    "download-failed-try-later": "Le téléchargement a échoué. Veuillez réessayer plus tard."
+    "download-failed-try-later": "Le téléchargement a échoué. Veuillez réessayer plus tard.",
+    "group-incomplete": "Pour télécharger le dossier complet, tous les colocataires doivent avoir un dossier validé."
   }
 }
 </i18n>
