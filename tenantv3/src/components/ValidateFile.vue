@@ -15,7 +15,7 @@
             :number-of-analysed-documents="analysisResults.numberOfAnalysedDocuments"
           />
         </div>
-        <div v-if="!isAnalyseInProgress">
+        <div v-else>
           <div v-if="isApplicationOk">
             <NakedCard>
               <h1 class="fr-h6 fr-mb-1w">{{ t('analyse-finished.title') }}</h1>
@@ -24,7 +24,7 @@
               </p>
             </NakedCard>
           </div>
-          <div v-if="hasErrors">
+          <div v-else>
             <AnalysisReportError
               :document-analysis-status="analysisResults.documentAnalysisStatus"
             />
@@ -73,21 +73,20 @@
 </template>
 
 <script setup lang="ts">
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useTenantStore } from '../stores/tenant-store'
 import { useApplicationAnalysis } from '../composables/useApplicationAnalysis'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { useTenantStore } from '../stores/tenant-store'
+import AnalysisFinalForm from './validateStep/AnalysisFinalForm.vue'
 import AnalysisPreview from './validateStep/AnalysisPreview.vue'
 import AnalysisProgress from './validateStep/AnalysisProgress.vue'
 import AnalysisReportError from './validateStep/AnalysisReportError.vue'
-import AnalysisFinalForm from './validateStep/AnalysisFinalForm.vue'
 
 const { t } = useI18n()
 const store = useTenantStore()
 
-const { analysisResults, isAnalyseInProgress, isApplicationOk, hasErrors } =
-  useApplicationAnalysis()
+const { analysisResults, isAnalyseInProgress, isApplicationOk } = useApplicationAnalysis()
 
 const user = computed(() => store.user)
 
@@ -106,7 +105,7 @@ const coTenantGuarantors = computed(() => {
 })
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .grey-container {
   background-color: var(--background-default-grey);
 }

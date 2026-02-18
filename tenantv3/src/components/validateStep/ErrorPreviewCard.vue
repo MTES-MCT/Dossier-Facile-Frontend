@@ -4,9 +4,7 @@
     class="fr-p-1w document-preview-card document-preview-card--error"
   >
     <div>
-      <p class="fr-badge fr-badge--warning fr-mb-1w">
-        {{ t('documents.status.to_correct') }}
-      </p>
+      <DsfrBadge type="warning" :label="t('documents.status.to_correct')" class="fr-mb-1w" />
       <div class="fr-text--md fr-mb-1w">{{ label }}</div>
       <p v-if="subTitle" class="fr-text--sm text-mention fr-mb-1w">{{ subTitle }}</p>
       <hr class="fr-py-1w" />
@@ -16,15 +14,16 @@
         </li>
       </ul>
       <div class="fr-grid-row fr-grid-row--right">
-        <button class="fr-btn fr-btn--secondary" @click="editPressed">
+        <a href="#" class="fr-btn fr-btn--secondary" @click.prevent="editPressed">
           {{ t('documents.status.correct') }}
-        </button>
+        </a>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { DsfrBadge } from '@gouvminint/vue-dsfr'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
 import { computed, toRef } from 'vue'
