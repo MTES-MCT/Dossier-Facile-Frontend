@@ -31,7 +31,7 @@
     v-if="analysisFailedRules.length > 0"
     :failed-rules="analysisFailedRules"
     class="fr-mb-3w"
-    @explain="openExplainSection"
+    @explain="openExplainSection()"
   />
   <FileUpload
     ref="file-upload"
@@ -50,7 +50,11 @@
       <span class="separator-text">{{ t('or') }}</span>
       <div class="separator-line"></div>
     </div>
-    <button type="button" class="fr-btn fr-btn--secondary explain-btn" @click="openExplainSection">
+    <button
+      type="button"
+      class="fr-btn fr-btn--secondary explain-btn"
+      @click="openExplainSection(false)"
+    >
       {{ t('explain-situation') }}
     </button>
     <div v-if="showExplainForm" class="explain-form">
@@ -190,7 +194,6 @@ async function updateAnalysisStatus() {
   }
   try {
     const { data } = await AnalysisService.getDocumentAnalysisStatus(docId)
-    console.log(`[analysis-status] document ${docId}:`, JSON.stringify(data, null, 2))
     if (data.status === AnalysisStatus.COMPLETED) {
       analysisInProgress.value = false
       analysisFailedRules.value = data.analysisReport?.failedRules ?? []
@@ -215,7 +218,7 @@ function startPolling() {
   updateAnalysisStatus()
   pollingInterval.value = setInterval(updateAnalysisStatus, POLLING_INTERVAL_MS)
   pollingTimeout.value = setTimeout(() => {
-    console.log('polling timeout')
+    AnalyticsService.document_analysis_timout('tax')
     analysisInProgress.value = false
     stopPolling()
   }, POLLING_TIMEOUT_MS)
@@ -312,8 +315,12 @@ async function addFiles(fileList: File[]) {
   save()
 }
 
-async function openExplainSection() {
-  showExplainForm.value = true
+async function openExplainSection(isFromLink: boolean = true) {
+  if (isFromLink) {
+    AnalyticsService.document_analysis_show_comment_from_link('tax')
+  } else {
+    AnalyticsService.document_analysis_show_comment('tax')
+  }
   await nextTick()
   explainTextarea.value?.focus()
 }
@@ -324,6 +331,7 @@ function saveExplanation() {
     tenantId: taxState.userId,
     comment: explainText.value
   }
+  AnalyticsService.document_analysis_save_comment('tax')
   store.commentAnalysis(params).then(() => {
     explanationSubmitted.value = true
     toast.success(t('save-success'), undefined)
