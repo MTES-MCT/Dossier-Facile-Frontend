@@ -5,9 +5,8 @@
       <RiQuestionFill class="icon" aria-hidden="true" />
       <a
         class="contact-link"
-        :href="t('trigram.support-link-url')"
+        href="/contact"
         target="_blank"
-        rel="noopener noreferrer"
         :title="`${t('trigram.support-link')} - ${t('new-window')}`"
       >
         {{ t('trigram.support-link') }}
