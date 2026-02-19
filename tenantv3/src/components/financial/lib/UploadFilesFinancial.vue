@@ -30,6 +30,7 @@
       :file="file"
       :watermark-url="document.name"
       :doc-category="state.category"
+      class="fr-mb-3w"
       @remove="remove(file)"
       @ask-confirm="AnalyticsService.deleteDocument(state.category)"
       @cancel="AnalyticsService.cancelDelete(state.category)"
