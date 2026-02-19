@@ -7,7 +7,7 @@ describe("accessibility checks", () => {
     cy.loginWithFCAndDeleteAccount(
       user.username,
       user.password,
-      UserType.TENANT
+      UserType.TENANT,
     );
   });
 
@@ -29,7 +29,7 @@ describe("accessibility checks", () => {
     cy.selectResidencyStep(
       "Locataire",
       "Vous avez vos 3 dernières quittances de loyer",
-      3
+      3,
     );
 
     cy.testAccessibility();
@@ -38,7 +38,7 @@ describe("accessibility checks", () => {
     cy.testAccessibility();
     cy.addFinancialResource(
       ["Revenus du travail", "salarié", "Depuis moins de 3 mois"],
-      "2000"
+      "2000",
     );
 
     cy.testAccessibility();
@@ -68,7 +68,7 @@ describe("accessibility checks", () => {
     cy.testAccessibility();
     cy.addFinancialResource(
       ["Retraite ou autre pension", "une pension alimentaire"],
-      "2000"
+      "2000",
     );
 
     cy.testAccessibility();
