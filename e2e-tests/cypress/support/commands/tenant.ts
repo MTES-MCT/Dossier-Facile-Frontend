@@ -9,7 +9,7 @@ Cypress.Commands.add(
     cy.contains("Espace locataire").click();
     cy.loginWithFC(username, password);
     cy.visit(Cypress.env("tenantUrl"));
-  }
+  },
 );
 
 Cypress.Commands.add(
@@ -20,11 +20,11 @@ Cypress.Commands.add(
       expect(value).to.be.oneOf([lastname, lastname.toUpperCase()]);
     });
 
-    cy.get("#firstname").should(($input) => {
+    cy.get("#firstName").should(($input) => {
       const value = $input.val();
       expect(value).to.be.oneOf([firstname, firstname.toUpperCase()]);
     });
-  }
+  },
 );
 
 Cypress.Commands.add("verifyErrorToastMessage", (message: string) => {
@@ -43,10 +43,10 @@ let uploadCount = 0;
 Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
   const alias = "uploadDocument" + uploadCount++;
   cy.intercept("POST", /.*\/api\/register\/(guarantor[^\/]*\/)?document.*/).as(
-    alias
+    alias,
   );
   const files = [...Array(numberOfFiles).keys()].map(
-    (_) => "assets/test-document.png"
+    (_) => "assets/test-document.png",
   );
   cy.get(".input-file").selectFile(files);
   cy.wait(`@${alias}`).its("response.statusCode").should("eq", 200);
@@ -58,7 +58,7 @@ Cypress.Commands.add("waitUntilModalIsGone", () => {
     () =>
       Cypress.$(".modal").length === 0 ||
       Cypress.$(".modal").is(":visible") === false,
-    { interval: 100, timeout: 10000 }
+    { interval: 100, timeout: 10000 },
   );
 });
 
@@ -74,7 +74,7 @@ Cypress.Commands.add(
   (buttonToSelect: string, numberOfFiles: number = 1) => {
     cy.contains(buttonToSelect).click().uploadDocument(numberOfFiles);
     cy.clickOnNext();
-  }
+  },
 );
 
 Cypress.Commands.add(
@@ -85,7 +85,7 @@ Cypress.Commands.add(
       cy.contains(step2Label).click();
     }
     cy.uploadDocument(numberOfFiles).clickOnNext();
-  }
+  },
 );
 
 Cypress.Commands.add(
@@ -93,7 +93,7 @@ Cypress.Commands.add(
   (professionalStatus: string) => {
     cy.contains(professionalStatus).click();
     cy.uploadDocument().clickOnNext();
-  }
+  },
 );
 
 Cypress.Commands.add(
@@ -106,7 +106,7 @@ Cypress.Commands.add(
     cy.get('[data-cy="monthlySum"]').type(monthlySum);
     cy.uploadDocument();
     cy.clickOnNext();
-  }
+  },
 );
 
 Cypress.Commands.add("validationStep", () => {
