@@ -2,7 +2,7 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <GuarantorBadge />
-      <h1 class="fr-h6">
+      <h1 class="fr-h4">
         {{ title }}
       </h1>
       <SimpleRadioButtons

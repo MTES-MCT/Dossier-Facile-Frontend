@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w fr-mb-2w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h1 class="fr-h6">
+          <h1 class="fr-h4">
             {{ t('coupleinformation.partner-name-title') }}
           </h1>
         </div>
@@ -32,7 +32,7 @@
     <NakedCard class="fr-p-md-5w fr-mb-2w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h1 class="fr-h6">
+          <h1 class="fr-h4">
             {{ t('coupleinformation.partner-email-title') }}
           </h1>
           <DsfrButton

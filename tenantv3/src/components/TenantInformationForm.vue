@@ -69,7 +69,7 @@
 
     <div v-if="isOwner()">
       <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6">
+        <h1 class="fr-h4">
           {{ t('tenantinformationform.title') }}
         </h1>
         <ApplicationTypeSelector @selected="updateApplicationType">

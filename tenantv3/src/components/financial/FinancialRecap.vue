@@ -2,7 +2,7 @@
   <NakedCard class="fr-p-md-5w fr-m-3v fr-mb-3w fr-grid-col">
     <GuarantorBadge v-if="state.textKey.endsWith('guarantor')" />
     <TenantBadge v-else />
-    <h1 class="fr-h6">{{ t('income.' + state.textKey) }}</h1>
+    <h1 class="fr-h4">{{ t('income.' + state.textKey) }}</h1>
     <DsfrAlert type="info" small>
       <i18n-t keypath="documents-provided" tag="p">
         <strong>{{ t('financial-means') }}</strong>

@@ -1,7 +1,7 @@
 <template>
   <Form name="tenantGuarantorNameForm" @submit="save">
     <NakedCard class="fr-p-md-5w">
-      <h1 class="fr-h6">{{ t('tenantguarantorname.title') }}</h1>
+      <h1 class="fr-h4">{{ t('tenantguarantorname.title') }}</h1>
       <DsfrAlert type="info" small>
         <p v-html="t('tenantguarantorchoice.two-guarantors-warning')"></p>
       </DsfrAlert>

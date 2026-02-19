@@ -1,7 +1,7 @@
 <template>
   <NakedCard class="fr-p-md-5w fr-m-3v">
     <TenantBadge />
-    <h1 class="fr-h6">
+    <h1 class="fr-h4">
       {{ t('your-identity-document') }}
     </h1>
     <RouterView />
