@@ -3,7 +3,7 @@
     <Form name="guarantorNameForm" @submit="save">
       <NakedCard class="fr-p-md-5w">
         <GuarantorBadge />
-        <h1 class="fr-h6">{{ t('guarantorname.title') }}</h1>
+        <h1 class="fr-h4">{{ t('guarantorname.title') }}</h1>
         <DsfrAlert type="info" small>
           <p v-html="t('guarantorchoice.two-guarantors-warning')"></p>
         </DsfrAlert>

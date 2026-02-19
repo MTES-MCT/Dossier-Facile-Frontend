@@ -44,7 +44,7 @@ ul > li + li {
 
 /* Surcharge pour réduire les marges de la card */
 :deep(.fr-card.fr-enlarge-link:not(.fr-card--no-icon) .fr-card__content) {
-  padding: 1.5rem 1rem;
+  padding: 1rem;
 }
 :deep(.fr-card.fr-enlarge-link .fr-card__title a::after) {
   right: 1rem;
@@ -59,6 +59,7 @@ ul > li + li {
   display: none;
 }
 :deep(.fr-card__title) {
+  font-size: 1.25rem;
   max-inline-size: 30ch;
 }
 </style>

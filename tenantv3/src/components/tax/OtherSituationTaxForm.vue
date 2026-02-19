@@ -6,11 +6,12 @@
   <p>{{ t('this-situation') }}</p>
 
   <form class="honor-declaration-form">
-    <label :for="formId"
-      >{{ t(textKey + '.describe-situation') }}
-      <span class="fr-ml-1v color--required">*</span>
-    </label>
-    <textarea :id="formId" v-model="explanation" class="fr-input" />
+    <div class="fr-input-group">
+      <label :for="formId" class="fr-label"
+        >{{ t(textKey + '.describe-situation') }} ({{ t('form.label.required') }})
+      </label>
+      <textarea :id="formId" v-model="explanation" required class="fr-input" />
+    </div>
   </form>
 
   <p>{{ t(textKey + '.you-can-add-docs') }}</p>
@@ -24,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO: add validation to required input
 import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
