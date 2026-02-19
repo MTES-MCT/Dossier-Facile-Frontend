@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main-information">
-      <h3 class="fr-h4">{{ t('tenantpanel.my-files') + props.tenant.firstName }}</h3>
+      <h3 class="fr-h4">{{ t('tenantpanel.my-files') + (props.tenant.firstName || props.tenant.email) }}</h3>
       <ul class="fr-p-0">
         <RowListItem
           v-if="!isCotenant"

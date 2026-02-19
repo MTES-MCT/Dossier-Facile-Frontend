@@ -7,21 +7,12 @@
     />
     <div v-if="viewState === 'fileContent'" class="fr-container">
       <FileHeader :user="user">
-        <div>
-          <DfButton v-if="showProgressBar" :primary="true"
-            >{{ t('file.download-all-inprogress')
-            }}<span><ProgressIndicator diameter="22px" border="3px" /></span>
-          </DfButton>
-          <DfButton
-            v-else
-            ref="download-button"
-            :disabled="!user || user.status !== 'VALIDATED'"
-            :title="t('file.download-disabled-title')"
-            :primary="true"
-            @click="download"
-            >{{ t('file.download-all') }}</DfButton
-          >
-        </div>
+        <DownloadFileButton
+          ref="download-button"
+          :show-progress-bar="showProgressBar"
+          :disabled="!user || user.status !== 'VALIDATED'"
+          @download="download"
+        />
       </FileHeader>
       <FileReinsurance
         v-if="user !== null"
@@ -38,16 +29,29 @@
             <li v-for="(tenant, k) in getTenants()" :key="`li${k}`" role="presentation">
               <button
                 :id="`tabpanel-${k}`"
-                class="fr-tabs__tab fr-tabs__tab--icon-right"
-                :class="{
-                  'fr-fi-icon-fc-right': tenant.franceConnect && tenant.ownerType === 'SELF'
-                }"
+                class="fr-tabs__tab fr-container--fluid"
                 :tabindex="tabIndex === k ? 0 : -1"
                 role="tab"
                 aria-selected="false"
                 :aria-controls="`tabpanel-${k}-panel`"
               >
-                {{ UtilsService.tenantFullName(tenant) }}
+                <div class="fr-grid-row">
+                  <div class="name fr-col-xs-12 fr-col fr-mr-1w">
+                    {{ UtilsService.tenantFullName(tenant) }}
+                    <span
+                      :class="{
+                        'fr-fi-icon-fc': tenant.franceConnect && tenant.ownerType === 'SELF'
+                      }"
+                    ></span>
+                  </div>
+                  <div class="fr-col-xs-12 fr-col fr-mr-1w fr-grid-row">
+                    <ColoredBadge
+                      :status="tenant.status"
+                      :warn="true"
+                      :text="t(`dossier.warn-${tenant.status}`)"
+                    />
+                  </div>
+                </div>
               </button>
             </li>
           </ul>
@@ -200,18 +204,11 @@
       </section>
       <section class="fr-mb-7w">
         <div class="text-center">
-          <DfButton v-if="showProgressBar" :primary="true"
-            >{{ t('file.download-all-inprogress')
-            }}<span><ProgressIndicator diameter="22px" border="3px" /></span>
-          </DfButton>
-          <DfButton
-            v-else
-            :disabled="!user || user.status != 'VALIDATED'"
-            :title="t('file.download-disabled-title')"
-            :primary="true"
-            @click="download"
-            >{{ t('file.download-all') }}</DfButton
-          >
+          <DownloadFileButton
+            :show-progress-bar="showProgressBar"
+            :disabled="!user || user.status !== 'VALIDATED'"
+            @download="download"
+          />
         </div>
       </section>
     </div>
@@ -237,11 +234,10 @@
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { User } from 'df-shared-next/src/models/User'
 import { FileUser } from 'df-shared-next/src/models/FileUser'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { ProfileService } from '../services/ProfileService'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import FileReinsurance from '../components/FileReinsurance.vue'
-import ProgressIndicator from 'df-shared-next/src/Button/ProgressIndicator.vue'
+import DownloadFileButton from '../components/DownloadFileButton.vue'
 import FileRowListItem from '../components/documents/FileRowListItem.vue'
 import OwnerBanner from '../components/OwnerBanner.vue'
 import FileHeader from '../components/FileHeader.vue'
@@ -256,6 +252,7 @@ import { useRoute } from 'vue-router'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 
 type ViewState = 'fileContent' | 'trigram' | 'notFound' | 'tooManyRequests' | 'badLink'
 
@@ -359,14 +356,7 @@ function document(u: User | Guarantor, s: string) {
 }
 
 function getTenants() {
-  const users: User[] = []
-  user.value?.tenants?.forEach((t) => {
-    if (t.firstName && t.lastName && t.firstName !== '' && t.lastName !== '') {
-      users.push(t)
-    }
-  })
-
-  return users
+  return user.value?.tenants ?? []
 }
 
 function taxDocumentStatus() {
@@ -391,7 +381,7 @@ function retryDownload(remainingCount: number) {
       retryDownload(remainingCount - 1)
     } else {
       showProgressBar.value = false
-      toast.error(t('file.download-failed-try-later'), downloadButton.value?.button)
+      toast.error(t('file.download-failed-try-later'), downloadButton.value?.dfButton?.button)
     }
   }, 15000)
 }
@@ -400,8 +390,8 @@ function downloadFile(url: string) {
   ProfileService.getFile(url)
     .then((response) => {
       const blob = new Blob([response.data], { type: 'application/pdf' })
-      const link = window.document.createElement('a')
-      link.href = window.URL.createObjectURL(blob)
+      const link = globalThis.document.createElement('a')
+      link.href = globalThis.URL.createObjectURL(blob)
       // Récupère le nom du fichier depuis le header Content-Disposition
       const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.pdf')
       link.download = fileName
@@ -409,7 +399,7 @@ function downloadFile(url: string) {
     })
     .catch((error) => {
       console.error(error)
-      toast.error(t('file.download-failed'), downloadButton.value?.button)
+      toast.error(t('file.download-failed'), downloadButton.value?.dfButton?.button)
     })
     .finally(() => (showProgressBar.value = false))
 }
@@ -426,7 +416,7 @@ function download() {
       })
       .catch(() => {
         showProgressBar.value = false
-        toast.error(t('file.download-failed'), downloadButton.value?.button)
+        toast.error(t('file.download-failed'), downloadButton.value?.dfButton?.button)
       })
   }
 }
@@ -482,9 +472,7 @@ function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
   background-color: var(--background-default-grey);
 }
 
-.fr-fi-icon-fc-right {
-  flex-direction: row-reverse;
-
+.fr-fi-icon-fc {
   &:before {
     content: '';
     background-color: transparent;
