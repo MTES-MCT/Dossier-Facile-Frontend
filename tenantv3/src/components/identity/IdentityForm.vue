@@ -1,140 +1,63 @@
 <template>
   <h2 class="fr-h6">{{ t(textKey + '.title') }}</h2>
-  <Form v-slot="{ meta }" @submit="onSubmit">
-    <div>
-      <label class="fr-label" for="lastname">{{ t('common.last-name-label') }}</label>
-      <Field v-slot="{ field }" v-model.trim="lastname" name="lastname" rules="required|onlyAlpha">
-        <input
-          v-bind="field"
-          id="lastname"
-          class="validate-required form-control fr-input"
-          :class="{
-            'fr-input--valid': meta.valid,
-            'fr-input--error': !meta.valid
-          }"
-          :disabled="isInputDisabled"
-          type="text"
-          autocomplete="family-name"
-        />
-      </Field>
-      <ErrorMessage v-slot="{ message }" name="lastname">
-        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-      </ErrorMessage>
-    </div>
-    <div class="fr-mt-1w">
-      <button
-        v-if="!displayPreferrednameField"
-        class="fr-link fr-icon-add-line fr-link--icon-right"
-        type="button"
-        @click="displayPreferrednameField = true"
-      >
-        {{ t('common.add-prefered-name') }}
-      </button>
-    </div>
-    <div v-if="displayPreferrednameField" class="fr-mt-3w">
-      <label class="fr-label" for="preferredName">{{ t('common.preferred-name-label') }}</label>
-      <div class="field-with-button fr-mt-1w">
-        <div class="fr-input-wrap">
-          <Field
-            v-slot="{ field }"
-            v-model.trim="preferredname"
-            name="preferredName"
-            rules="onlyAlpha"
-          >
-            <input v-bind="field" id="preferredName" class="form-control fr-input" type="text" />
-          </Field>
-        </div>
-        <div class="fr-ml-1w">
-          <button
-            class="fr-btn fr-btn--tertiary fr-icon-close-line"
-            type="button"
-            @click="onDeletePreferredName"
-          >
-            {{ t('common.delete-preferred-name') }}
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="fr-mt-3w">
-      <label class="fr-label" for="firstname">{{ t('common.first-name-label') }}</label>
+  <Form v-slot="{ meta }" class="fr-input-group" @submit="onSubmit">
+    <TextField
+      v-model.trim="lastname"
+      :field-label="t('common.last-name-label')"
+      name="lastname"
+      autocomplete="family-name"
+      validation-rules="required|onlyAlpha"
+      :disabled="isInputDisabled"
+    />
+
+    <TextField
+      v-model.trim="preferredname"
+      :field-label="t('common.preferred-name-label')"
+      name="preferredName"
+      autocomplete="given-name"
+      validation-rules="onlyAlpha"
+    />
+    <TextField
+      v-model.trim="firstname"
+      :field-label="t('common.first-name-label')"
+      name="firstName"
+      autocomplete="given-name"
+      validation-rules="required|onlyAlpha"
+      :disabled="isInputDisabled"
+    />
+
+    <TextField
+      v-model.trim="postalCode"
+      :field-label="t(textKey + '.postal-code-label')"
+      name="postalCode"
+      autocomplete="postal-code"
+      validation-rules="zipcode"
+    />
+
+    <div v-if="textKey === 'third-party'" class="fr-mt-3w">
       <Field
-        v-slot="{ field }"
-        v-model.trim="firstname"
-        name="firstName"
-        rules="required|onlyAlpha"
+        v-model.trim="thirdPartyConsent"
+        type="checkbox"
+        name="thirdPartyConsent"
+        :rules="{
+          required: true
+        }"
       >
-        <input
-          v-bind="field"
-          id="firstname"
-          class="validate-required form-control fr-input"
-          :class="{
-            'fr-input--valid': meta.valid,
-            'fr-input--error': !meta.valid
-          }"
-          :disabled="isInputDisabled"
-          type="text"
-          autocomplete="given-name"
+        <DsfrCheckbox
+          v-model="thirdPartyConsent"
+          value=""
+          name="third-party-consent-checkbox"
+          :label="t('third-party.checkbox-label', { lastName: lastname, firstName: firstname })"
         />
       </Field>
-      <ErrorMessage v-slot="{ message }" name="firstName">
-        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-      </ErrorMessage>
     </div>
-    <div class="fr-mt-3w">
-      <label class="fr-label" for="postalCode">{{ t(textKey + '.postal-code-label') }}</label>
-      <Field v-slot="{ field }" v-model.trim="postalCode" name="postalCode" rules="zipcode">
-        <input
-          v-bind="field"
-          id="postalCode"
-          class="form-control fr-input"
-          type="text"
-          autocomplete="postal-code"
-        />
-      </Field>
-      <ErrorMessage v-slot="{ message }" name="postalCode">
-        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-      </ErrorMessage>
-    </div>
-    <div class="fr-mt-3w">
-      <fieldset
-        v-if="textKey === 'third-party'"
-        id="third-party-consent"
-        class="fr-fieldset"
-        aria-labelledby="checkboxes-legend checkboxes-messages"
-      >
-        <Field
-          v-model.trim="thirdPartyConsent"
-          type="checkbox"
-          name="thirdPartyConsent"
-          :rules="{
-            required: true
-          }"
-        >
-          <div class="fr-fieldset__element">
-            <div class="fr-checkbox-group">
-              <input
-                id="third-party-consent-checkbox"
-                name="third-party-consent-checkbox"
-                type="checkbox"
-                aria-describedby="third-party-consent-checkbox-message"
-                :checked="thirdPartyConsent"
-                @change="onCheckboxChange"
-              />
-              <label class="fr-label" for="third-party-consent-checkbox">
-                {{ t('third-party.checkbox-label', { lastName: lastname, firstName: firstname }) }}
-              </label>
-            </div>
-          </div>
-        </Field>
-      </fieldset>
-    </div>
-    <ProfileFooter :show-back="false" :disabled="!meta.valid"></ProfileFooter>
+    <ProfileFooter :show-back="false" :disabled="!meta.valid" />
   </Form>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { Form, Field, ErrorMessage } from 'vee-validate'
+import { Form, Field } from 'vee-validate'
 import ProfileFooter from '../footer/ProfileFooter.vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '@/stores/tenant-store'
@@ -142,6 +65,8 @@ import { UtilsService } from '@/services/UtilsService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { router } from '@/router'
 import { useLoading } from 'vue-loading-overlay'
+import TextField from '../form/TextField.vue'
+import { DsfrCheckbox } from '@gouvminint/vue-dsfr'
 
 const props = defineProps<{
   textKey: 'self' | 'third-party'
@@ -193,8 +118,6 @@ const thirdPartyConsent = ref(
   user.value?.ownerType === 'THIRD_PARTY' && placeHolderIdentity.firstName !== ''
 )
 
-const displayPreferrednameField = ref(placeHolderIdentity.preferredName !== '')
-
 const isInputDisabled = computed(() => {
   const franceConnect = user.value?.franceConnect
   if (props.textKey === 'self') {
@@ -202,15 +125,6 @@ const isInputDisabled = computed(() => {
   }
   return false
 })
-
-const onCheckboxChange = () => {
-  thirdPartyConsent.value = !thirdPartyConsent.value
-}
-
-const onDeletePreferredName = () => {
-  preferredname.value = ''
-  displayPreferrednameField.value = false
-}
 
 const onSubmit = () => {
   if (!lastname.value || !firstname.value) {
@@ -249,11 +163,11 @@ const onSubmit = () => {
 {
   "en": {
     common: {
-      last-name-label: "Last Name *",
+      last-name-label: "Last Name",
       add-prefered-name: "Add a preferred name",
       preferred-name-label: "Preferred Name",
       delete-preferred-name: "Delete preferred name",
-      first-name-label: "First Name *",
+      first-name-label: "First Name",
     },
     self: {
       title: "Your Identity",
@@ -261,17 +175,17 @@ const onSubmit = () => {
     },
     third-party: {
       title: "Beneficiary's Identity",
-      checkbox-label: "I certify that I have obtained {lastName}'s consent to create and submit this file on their behalf. I attest that the information provided is accurate and that the documents submitted were obtained with their consent.*",
+      checkbox-label: "I certify that I have obtained {lastName}'s consent to create and submit this file on their behalf. I attest that the information provided is accurate and that the documents submitted were obtained with their consent.",
       postal-code-label: "Postal Code (only if he reside in France)"
     }
   },
   "fr": {
     common: {
-      last-name-label: "Nom de naissance *",
+      last-name-label: "Nom de naissance",
       add-prefered-name: "Ajouter un nom d'usage",
       preferred-name-label: "Nom d'usage",
       delete-preferred-name: "Supprimer le nom d'usage",
-      first-name-label: "Prénom *",
+      first-name-label: "Prénom",
     },
     self: {
       title: "Votre identité",
@@ -279,20 +193,9 @@ const onSubmit = () => {
     },
     third-party: {
       title: "Identité du bénéficiaire",
-      checkbox-label: "Je certifie avoir obtenu l'accord de {lastName} {firstName} pour constituer et soumettre ce dossier en son nom. J'atteste que les informations fournies sont exactes et que les documents transmis ont été obtenus avec son consentement.*",
+      checkbox-label: "Je certifie avoir obtenu l'accord de {lastName} {firstName} pour constituer et soumettre ce dossier en son nom. J'atteste que les informations fournies sont exactes et que les documents transmis ont été obtenus avec son consentement.",
       postal-code-label: "Code postal (uniquement si il réside en France)"
     }
   }
 }
 </i18n>
-
-<style scoped lang="scss">
-.field-with-button {
-  display: flex;
-  justify-content: space-between;
-}
-
-.fr-input-wrap {
-  flex-grow: 1;
-}
-</style>

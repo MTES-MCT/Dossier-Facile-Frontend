@@ -9,13 +9,29 @@ import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
 import { onBeforeMount } from 'vue'
 import Cookies from 'js-cookie'
 import i18n from './i18n'
+import { useHead } from '@unhead/vue'
 
-const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
+const MESSAGE = import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''
+const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
 
 onBeforeMount(() => {
   const lang = Cookies.get('lang') === 'en' ? 'en' : 'fr'
   i18n.global.locale.value = lang
   i18n.global.fallbackLocale.value = 'fr'
+})
+
+// SEO defaults
+const titleTemplate = (title?: string) => (title ? `${title} - ${siteTitle}` : siteTitle)
+const seoDescription =
+  "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
+
+useHead({
+  titleTemplate,
+  meta: [
+    { name: 'og:title', content: siteTitle },
+    { name: 'description', content: seoDescription },
+    { name: 'og:description', content: seoDescription }
+  ]
 })
 </script>
 

@@ -247,25 +247,25 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article13.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article13.webp'
 
 const title =
-  'Dossier de location : Comment éviter les arnaques à la location : guide complet pour les propriétaires ? - DossierFacile'
+  'Dossier de location : Comment éviter les arnaques à la location : guide complet pour les propriétaires ?'
 const description =
   "La location d'un bien immobilier est une excellente manière de générer des revenus, mais elle comporte aussi certains risques, notamment celui des arnaques. Faux locataires, faux paiements, ou encore escroqueries sur les plateformes de location en ligne"
 
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image },
-    { name: 'keywords', content: 'arnaque,fraude,dossier location,dossier locataire' }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>

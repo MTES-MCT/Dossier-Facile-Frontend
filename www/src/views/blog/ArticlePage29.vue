@@ -166,25 +166,24 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article29.png'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article29.png'
 
-const title =
-  '2 millions de comptes créés sur DossierFacile : une nouvelle étape majeure ! - DossierFacile'
+const title = '2 millions de comptes créés sur DossierFacile : une nouvelle étape majeure !'
 const description =
   "DossierFacile franchit un cap symbolique avec plus de 2 millions de comptes créés. Une confiance renouvelée dans le service public et une adoption accélérée qui démontrent l'efficacité d'une startup d'État au service de l'intérêt général."
 
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image },
-    { name: 'keywords', content: 'DossierFacile,logement,service-public,2-millions,startup-état' }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>

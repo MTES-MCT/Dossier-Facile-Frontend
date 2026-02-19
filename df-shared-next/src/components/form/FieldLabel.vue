@@ -1,13 +1,16 @@
 <template>
-  <label class="fr-label" :for="props.forInput">
+  <label class="fr-label" :for="forInput">
     <slot></slot>
-    <span v-if="props.required" class="color--required"> *</span>
-    <span> :</span>
+    <span v-if="required"> ({{ t('required') }})</span>
+    <span v-else> ({{ t('optional') }})</span>
+    <span>&nbsp;:</span>
   </label>
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(
+import { useI18n } from 'vue-i18n'
+
+withDefaults(
   defineProps<{
     required?: boolean
     forInput?: string
@@ -17,4 +20,18 @@ const props = withDefaults(
     forInput: undefined
   }
 )
+const { t } = useI18n()
 </script>
+
+<i18n>
+{
+  "en": {
+    "required" : "required",
+		"optional": "optional"
+  },
+  "fr": {
+    "required" : "obligatoire",
+		"optional": "facultatif"
+  }
+}
+</i18n>

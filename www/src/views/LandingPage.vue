@@ -23,46 +23,40 @@
       </div>
     </section>
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
-      <div class="fr-container">
-        <div class="fr-grid-row">
-          <div class="fr-col-md-4 fr-grid-col fr-p-2w">
-            <div class="fr-tile fr-enlarge-link">
-              <div class="fr-tile__body">
-                <h2 class="fr-tile__title">
-                  <div class="fr-tile__link">{{ t('s1.h1') }}</div>
-                </h2>
-                <p class="fr-tile__desc">{{ t('s1.p1') }}</p>
-              </div>
-              <div class="fr-tile__img">
-                <img src="../assets/icons/approval.svg" class="fr-responsive-img" alt="" />
-              </div>
-            </div>
+      <div class="fr-container switcher">
+        <div class="fr-tile">
+          <div class="fr-tile__body">
+            <h2 class="fr-tile__title">
+              {{ t('s1.h1') }}
+            </h2>
+            <p class="fr-tile__desc">{{ t('s1.p1') }}</p>
           </div>
-          <div class="fr-col-md-4 fr-grid-col fr-p-2w">
-            <div class="fr-tile fr-enlarge-link">
-              <div class="fr-tile__body">
-                <h2 class="fr-tile__title">
-                  <div class="fr-tile__link">{{ t('s1.h2') }}</div>
-                </h2>
-                <p class="fr-tile__desc">{{ t('s1.p2') }}</p>
-              </div>
-              <div class="fr-tile__img">
-                <img src="../assets/icons/sports.svg" class="fr-responsive-img" alt="" />
-              </div>
-            </div>
+          <div class="fr-tile__img">
+            <img src="@icons/approval.svg" class="fr-responsive-img" alt="" />
           </div>
-          <div class="fr-col-md-4 fr-grid-col fr-p-2w">
-            <div class="fr-tile fr-enlarge-link">
-              <div class="fr-tile__body">
-                <h2 class="fr-tile__title">
-                  <div class="fr-tile__link">{{ t('s1.h3') }}</div>
-                </h2>
-                <p class="fr-tile__desc">{{ t('s1.p3') }}</p>
-              </div>
-              <div class="fr-tile__img">
-                <img src="../assets/icons/reading.svg" class="fr-responsive-img" alt="" />
-              </div>
-            </div>
+        </div>
+
+        <div class="fr-tile">
+          <div class="fr-tile__body">
+            <h2 class="fr-tile__title">
+              {{ t('s1.h2') }}
+            </h2>
+            <p class="fr-tile__desc">{{ t('s1.p2') }}</p>
+          </div>
+          <div class="fr-tile__img">
+            <img src="@icons/sports.svg" class="fr-responsive-img" alt="" />
+          </div>
+        </div>
+
+        <div class="fr-tile">
+          <div class="fr-tile__body">
+            <h2 class="fr-tile__title">
+              {{ t('s1.h3') }}
+            </h2>
+            <p class="fr-tile__desc">{{ t('s1.p3') }}</p>
+          </div>
+          <div class="fr-tile__img">
+            <img src="@icons/reading.svg" class="fr-responsive-img" alt="" />
           </div>
         </div>
       </div>
@@ -71,15 +65,15 @@
       <div class="fr-container">
         <h2 class="fr-h2 s2-title">{{ t('s2.title') }}</h2>
         <div class="fr-grid-row reverse-mobile">
-          <div class="fr-col-md-6 fr-grid-col">
+          <div class="fr-col-12 fr-col-lg-6 fr-grid-col">
             <ol>
               <li>
                 <div class="fr-grid-row align-items--center">
-                  <p class="step-number">1</p>
+                  <p aria-hidden="true" class="step-number">1</p>
                   <h3 class="fr-h4 fr-mb-0">{{ t('s2.h1') }}</h3>
                 </div>
-                <div>{{ t('s2.p1') }}</div>
-                <ul class="fr-pt-2w fr-mb-5w">
+                <p class="fr-mb-0 fr-mt-1w">{{ t('s2.p1') }}</p>
+                <ul class="fr-mt-2w">
                   <li>{{ t('s2.u1a') }}</li>
                   <li>{{ t('s2.u1b') }}</li>
                   <li>{{ t('s2.u1c') }}</li>
@@ -89,17 +83,17 @@
               </li>
               <li>
                 <div class="fr-grid-row align-items--center">
-                  <p class="step-number">2</p>
+                  <p aria-hidden="true" class="step-number">2</p>
                   <h3 class="fr-h4 fr-mb-0">{{ t('s2.h2') }}</h3>
                 </div>
-                <p>{{ t('s2.p2') }}</p>
+                <p class="fr-mb-0 fr-mt-1w">{{ t('s2.p2') }}</p>
               </li>
               <li>
                 <div class="fr-grid-row align-items--center">
-                  <p class="step-number">3</p>
+                  <p aria-hidden="true" class="step-number">3</p>
                   <h3 class="fr-h4 fr-mb-0">{{ t('s2.h3') }}</h3>
                 </div>
-                <p>{{ t('s2.p3') }}</p>
+                <p class="fr-mb-0 fr-mt-1w">{{ t('s2.p3') }}</p>
               </li>
             </ol>
             <a
@@ -122,18 +116,21 @@
             <picture>
               <source
                 media="(max-width: 499px)"
-                srcset="
-                  ../assets/icons/justif-300.webp,
-                  ../assets/icons/justif-450.webp 1.5x,
-                  ../assets/icons/justif.webp     2x
-                "
+                srcset="@icons/justif-300.webp, @icons/justif-450.webp 1.5x, @icons/justif.webp 2x"
               />
               <source
                 media="(min-width: 500px) and (max-width: 1200px)"
-                srcset="../assets/icons/justif-450.webp, ../assets/icons/justif.webp 1.5x"
+                srcset="@icons/justif-450.webp, @icons/justif.webp 1.5x"
               />
-              <source media="(min-width: 1200px)" srcset="../assets/icons/justif.webp" />
-              <img loading="lazy" src="../assets/icons/justif-300.webp" alt="" class="justif-img" />
+              <source media="(min-width: 1200px)" :srcset="imgJustif" />
+              <img
+                loading="lazy"
+                :src="imgJustif"
+                width="600"
+                height="572"
+                alt=""
+                class="justif-img"
+              />
             </picture>
           </div>
         </div>
@@ -163,7 +160,7 @@
         </h2>
         <div class="text-center">
           <router-link to="/stats" class="fr-link fr-tag">
-            <img src="../assets/icons/stats.webp" class="stats-icon" alt="" />
+            <img src="@icons/stats.webp" class="stats-icon" alt="" />
             {{ t('s4.link') }}
           </router-link>
         </div>
@@ -211,7 +208,12 @@
       </div>
     </section>
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
-      <AllPartnersComponent :limit="8"></AllPartnersComponent>
+      <PartnersList :partners="PARTNERS" :limit="8" :background-grey="true">
+        <template #title>
+          {{ t('s5.title1') }}
+          <span class="color--secondary">{{ t('s5.title2') }}</span>
+        </template>
+      </PartnersList>
       <p class="text-center fr-mt-5w fr-mb-5w">
         <RouterLink to="/partenaires" class="fr-btn fr-mt-2w">
           <span class="text-center full-width">
@@ -221,7 +223,7 @@
       </p>
     </section>
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w institutional-section">
-      <AllInstitutionalPartnersComponent :limit="8"></AllInstitutionalPartnersComponent>
+      <PartnersList :partners="INSTITUTIONAL_PARTNERS" :limit="8" :title="t('s6.title')" />
       <p class="text-center fr-mt-5w fr-mb-5w">
         <RouterLink to="/partenaires" class="fr-btn fr-mt-2w">
           <span class="text-center full-width">
@@ -234,28 +236,25 @@
 </template>
 
 <script setup lang="ts">
-import AllInstitutionalPartnersComponent from '../components/AllInstitutionalPartnersComponent.vue'
-import AllPartnersComponent from '../components/AllPartnersComponent.vue'
 import { StatsService } from '../services/StatsService'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useHead } from '@unhead/vue'
-import image from '../assets/icons/justif.webp'
+import { useSeoMeta } from '@unhead/vue'
 
-const title = 'Accueil - DossierFacile, le dossier de location numérique de l’État'
-const description =
-  "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
-useHead({
+import imgJustif from '@icons/justif.webp'
+import PartnersList from '@/components/PartnersList.vue'
+
+import { INSTITUTIONAL_PARTNERS, PARTNERS } from '../models/PartnerModel'
+
+const title = 'Accueil'
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  ogTitle: seoTitle,
+  twitterTitle: seoTitle
 })
 
 const { t } = useI18n()
@@ -292,6 +291,10 @@ onMounted(() => {
   }
 }
 
+.switcher {
+  --space: 1rem;
+}
+
 .s1-icons {
   height: 48px;
 }
@@ -319,27 +322,22 @@ blockquote {
 .s2-title {
   &:before {
     margin-right: 10px;
-    content: url('../assets/icons/survey.svg');
+    content: url('@icons/survey.svg');
   }
 }
 
 .s3-title {
   &:before {
     margin-right: 10px;
-    content: url('../assets/icons/lock.svg');
+    content: url('@icons/lock.svg');
   }
 }
 
-ul li {
-  display: flex;
-  margin-bottom: 0;
+:where(ol, ul) > li + li {
+  margin-block-start: 2rem;
 }
-
-ul li:before {
-  content: '';
-  display: inline-block;
-  color: limegreen;
-  font-size: 1rem;
+li > :where(ol, ul) > li + li {
+  margin-block-start: 0.5rem;
 }
 
 .step-number {

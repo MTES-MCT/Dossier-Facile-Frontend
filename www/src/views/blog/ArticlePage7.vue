@@ -13,9 +13,7 @@
       Que ce soit entre amis, en famille ou bien avec des inconnus, la colocation obéit toutefois à
       de nombreuses règles que nous allons vous présenter.
     </p>
-    <p>
-      <img alt="" class="img-center" src="../../assets/images/blog-article7.webp" />
-    </p>
+    <BlogPostImage :src="image" />
     <h2>1. Comment définir la colocation</h2>
     <p>
       La loi pour l’accès au logement et un urbanisme rénové (Alur) met en place la pratique de la
@@ -94,30 +92,24 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article7.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article7.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = 'Tout comprendre à la vie en colocation - DossierFacile'
+const title = 'Tout comprendre à la vie en colocation'
 const description =
   'Quelles sont les règles à respecter avant de se mettre en colocation ? DossierFacile vous aide à y voir plus clair !'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 750px;
-  max-height: 500px;
-  width: 100%;
-  height: auto;
-}
-</style>

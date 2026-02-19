@@ -4,29 +4,41 @@
     to="../2"
     @edit="AnalyticsService.editSituation(category, 'guest')"
   />
-  <RadioList>
-    <RadioListItem to="guest/proof" @click="sendEvent('proof')">{{
-      t(textKey + '.accomodation-proof')
-    }}</RadioListItem>
-    <RadioListItem to="guest/no-proof" @click="sendEvent('no-proof')">{{
-      t(textKey + '.no-accomodation-proof')
-    }}</RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <ResidencyFooter />
 </template>
 
 <script setup lang="ts">
-import RadioList from '@/components/common/RadioList.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
+import { computed, type ComputedRef } from 'vue'
+import { useRoute } from 'vue-router'
+
 const { t } = useI18n()
 const { category, textKey } = useResidencyState()
+
+const route = useRoute()
+const here = computed(() => route.path)
+
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation2(category, 'guest', subCategory)
+
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
+  {
+    to: `${here.value}/proof`,
+    title: t(textKey + '.accomodation-proof'),
+    event: 'proof'
+  },
+  {
+    to: `${here.value}/no-proof`,
+    title: t(textKey + '.no-accomodation-proof'),
+    event: 'no-proof'
+  }
+])
 </script>
 
 <i18n>

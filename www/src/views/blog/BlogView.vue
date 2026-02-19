@@ -345,43 +345,38 @@
 import BlogExtractTile from './BlogExtractTile.vue'
 import { useI18n } from 'vue-i18n'
 import article0Img from '../../assets/cover-features.webp'
-import article1Img from '../../assets/images/blog-article.webp'
-import article2Img from '../../assets/images/blog-article2.webp'
-import article3Img from '../../assets/images/blog-article3.webp'
-import article4Img from '../../assets/images/blog-article4.webp'
-import article5Img from '../../assets/images/blog-article5.webp'
-import article6Img from '../../assets/images/blog-article6.webp'
-import article7Img from '../../assets/images/blog-article7.webp'
-import article8Img from '../../assets/images/blog-article8.webp'
-import article9Img from '../../assets/images/blog-article9.webp'
-import article10Img from '../../assets/images/blog-article10.webp'
-import article11Img from '../../assets/images/blog-article11.webp'
-import article12Img from '../../assets/images/blog-article12.webp'
-import article13Img from '../../assets/images/blog-article13.webp'
-import article14Img from '../../assets/images/blog-article14.webp'
-import article15Img from '../../assets/images/blog-article15.webp'
-import article17Img from '../../assets/images/blog-article17.webp'
-import article18Img from '../../assets/images/blog-article18.webp'
-import article19Img from '../../assets/images/blog-article19.webp'
-import article20Img from '../../assets/images/blog-article20.webp'
-import article21Img from '../../assets/images/blog-article21.webp'
-import article22Img from '../../assets/images/blog-article22.webp'
-import article23Img from '../../assets/images/blog-article23.webp'
-import article24Img from '../../assets/images/blog-article24.webp'
-import article25Img from '../../assets/images/blog-article25.webp'
-import article29Img from '../../assets/images/blog-article29.png'
+import article1Img from '@images/blog-article.webp'
+import article2Img from '@images/blog-article2.webp'
+import article3Img from '@images/blog-article3.webp'
+import article4Img from '@images/blog-article4.webp'
+import article5Img from '@images/blog-article5.webp'
+import article6Img from '@images/blog-article6.webp'
+import article7Img from '@images/blog-article7.webp'
+import article8Img from '@images/blog-article8.webp'
+import article9Img from '@images/blog-article9.webp'
+import article10Img from '@images/blog-article10.webp'
+import article11Img from '@images/blog-article11.webp'
+import article12Img from '@images/blog-article12.webp'
+import article13Img from '@images/blog-article13.webp'
+import article14Img from '@images/blog-article14.webp'
+import article15Img from '@images/blog-article15.webp'
+import article17Img from '@images/blog-article17.webp'
+import article18Img from '@images/blog-article18.webp'
+import article19Img from '@images/blog-article19.webp'
+import article20Img from '@images/blog-article20.webp'
+import article21Img from '@images/blog-article21.webp'
+import article22Img from '@images/blog-article22.webp'
+import article23Img from '@images/blog-article23.webp'
+import article24Img from '@images/blog-article24.webp'
+import article25Img from '@images/blog-article25.webp'
+import article29Img from '@images/blog-article29.png'
 
-import { useHead } from '@unhead/vue'
+import { useSeoMeta } from '@unhead/vue'
 
-useHead({
+useSeoMeta({
   title: 'Le blog de DossierFacile',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Venez découvrir nos articles de blog pour vous éclairer sur les points d’éventuelle difficulté que vous rencontrez en créant votre dossier de location'
-    }
-  ]
+  description:
+    'Venez découvrir nos articles de blog pour vous éclairer sur les points d’éventuelle difficulté que vous rencontrez en créant votre dossier de location'
 })
 
 const { t } = useI18n()

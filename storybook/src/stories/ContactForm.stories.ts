@@ -1,14 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import ContactForm from '../../../df-shared-next/src/components/ContactForm.vue';
+import type { Meta, StoryObj } from "@storybook/vue3"
+import ContactPage from "../../../df-shared-next/src/components/ContactPage.vue"
 
 const meta = {
-  title: 'DossierFacile/ContactForm',
-  component: ContactForm,
-  tags: ['autodocs'],
-} satisfies Meta<typeof ContactForm>;
+  title: "DossierFacile/ContactPage",
+  component: ContactPage,
+  tags: ["autodocs"],
+} satisfies Meta<typeof ContactPage>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
-};
+export const Primary: Story = {}

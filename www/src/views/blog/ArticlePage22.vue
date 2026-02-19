@@ -16,7 +16,7 @@
       >
     </p>
     <p>C’est désormais chose faite et nous vous en disons plus ci-dessous.</p>
-    <img class="fr-mb-3w" alt="" src="../../assets/images/blog-article22.webp" />
+    <img class="fr-mb-3w" alt="" src="@images/blog-article22.webp" />
     <p>
       DossierFacile est donc enfin accessible depuis l’URL DossierFacile.logement.gouv.fr, une
       adresse qui reflète mieux notre mission de service public et notre engagement en faveur de la
@@ -41,32 +41,40 @@
       DossierFacile en toute confiance et sécurité pour créer et gérer votre dossier de location.
     </p>
     <ul>
-      <li>Votre garantie d’authenticité</li>
-      <p>
-        Une des principales façons de reconnaître un site institutionnel légitime est le domaine en
-        .gouv. Ce suffixe est une indication claire que vous êtes sur un site gouvernemental
-        officiel. Il est attribué uniquement aux institutions gouvernementales, ce qui garantit que
-        vous avez affaire à une source fiable.
-      </p>
-      <li>Protection de vos données personnelles</li>
-      <p>
-        Nous comprenons également l'importance de la sécurité de vos données personnelles. Notre
-        site institutionnel est construit avec les normes de sécurité les plus strictes pour
-        protéger vos informations. Vous pouvez naviguer sur notre site en toute confiance, sachant
-        que vos données sont entre de bonnes mains. Les opérateurs et l’équipe technique
-        DossierFacile sont les seuls à accéder à vos données lors de la vérification de vos données.
-        Vos données personnelles ne seront jamais revendues, et elles ne seront pas non plus
-        communiquées à des tiers sans votre accord.
-      </p>
-      <li>Accessibilité numérique</li>
-      <p>
-        Un autre signe distinctif des sites institutionnels est leur engagement envers
-        l'accessibilité. Nous nous efforçons de rendre notre site accessible à tous, y compris aux
-        personnes ayant des besoins spécifiques. Vous trouverez des fonctionnalités qui facilitent
-        la navigation pour tous les utilisateurs, quel que soit leur niveau d'accessibilité.
-        Aujourd’hui, DossierFacile a un taux de conformité à 75% mais nous souhaitons atteindre les
-        100% d'accessibilité d’ici la fin de l’année.
-      </p>
+      <li>
+        <p>Votre garantie d’authenticité</p>
+
+        <p>
+          Une des principales façons de reconnaître un site institutionnel légitime est le domaine
+          en .gouv. Ce suffixe est une indication claire que vous êtes sur un site gouvernemental
+          officiel. Il est attribué uniquement aux institutions gouvernementales, ce qui garantit
+          que vous avez affaire à une source fiable.
+        </p>
+      </li>
+      <li>
+        <p>Protection de vos données personnelles</p>
+
+        <p>
+          Nous comprenons également l'importance de la sécurité de vos données personnelles. Notre
+          site institutionnel est construit avec les normes de sécurité les plus strictes pour
+          protéger vos informations. Vous pouvez naviguer sur notre site en toute confiance, sachant
+          que vos données sont entre de bonnes mains. Les opérateurs et l’équipe technique
+          DossierFacile sont les seuls à accéder à vos données lors de la vérification de vos
+          données. Vos données personnelles ne seront jamais revendues, et elles ne seront pas non
+          plus communiquées à des tiers sans votre accord.
+        </p>
+      </li>
+      <li>
+        <p>Accessibilité numérique</p>
+        <p>
+          Un autre signe distinctif des sites institutionnels est leur engagement envers
+          l'accessibilité. Nous nous efforçons de rendre notre site accessible à tous, y compris aux
+          personnes ayant des besoins spécifiques. Vous trouverez des fonctionnalités qui facilitent
+          la navigation pour tous les utilisateurs, quel que soit leur niveau d'accessibilité.
+          Aujourd’hui, DossierFacile a un taux de conformité à 75% mais nous souhaitons atteindre
+          les 100% d'accessibilité d’ici la fin de l’année.
+        </p>
+      </li>
     </ul>
     <p>
       Un très grand nombre de conditions devaient être remplies pour obtenir le .gouv. Vous pouvez
@@ -77,33 +85,23 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article22.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article22.webp'
 
-const title = 'DossierFacile.fr devient enfin DossierFacile.logement.gouv.fr ! - DossierFacile'
+const title = 'DossierFacile.fr devient enfin DossierFacile.logement.gouv.fr !'
 const description =
   'DossierFacile est donc enfin accessible depuis l’URL DossierFacile.logement.gouv.fr, une adresse qui reflète mieux notre mission de service public'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-
-<style lang="scss" scoped>
-li {
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-ul > p {
-  margin-left: -1rem;
-}
-</style>

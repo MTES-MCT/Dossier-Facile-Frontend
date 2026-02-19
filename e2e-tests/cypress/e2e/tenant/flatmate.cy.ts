@@ -8,7 +8,7 @@ describe("flatmate tenant scenario", () => {
     cy.loginWithFCAndDeleteAccount(
       user.username,
       user.password,
-      UserType.TENANT
+      UserType.TENANT,
     );
   });
 
@@ -36,7 +36,7 @@ describe("flatmate tenant scenario", () => {
     cy.expectPath("/documents-locataire/2");
     cy.selectResidencyStep(
       "Hébergé chez quelqu'un",
-      "Vous avez une attestation d'hébergement de moins de 3 mois"
+      "Vous avez une attestation d'hébergement de moins de 3 mois",
     );
 
     cy.expectPath("/documents-locataire/3");
@@ -50,14 +50,14 @@ describe("flatmate tenant scenario", () => {
         "une retraite",
         "Vous n’avez pas de bulletin de pension",
       ],
-      "500"
+      "500",
     );
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
     cy.contains("Vous n’avez pas d’avis d’impôt").click();
     cy.contains(
-      "Vous êtes inscrit sur la déclaration d’impôt de vos parents"
+      "Vous êtes inscrit sur la déclaration d’impôt de vos parents",
     ).click();
     cy.contains("J’atteste sur l’honneur ne pas pouvoir").click().clickOnNext();
 
@@ -78,7 +78,7 @@ describe("flatmate tenant scenario", () => {
     cy.validationStep();
 
     cy.contains("Votre dossier est actuellement en cours de traitement").should(
-      "be.visible"
+      "be.visible",
     );
   });
 });

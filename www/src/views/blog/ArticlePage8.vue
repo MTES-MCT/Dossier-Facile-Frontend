@@ -10,9 +10,7 @@
       existe en fait bien plus… Chez DossierFacile, nous vous faisons la promesse que quelle que
       soit votre situation, nous vous aiderons à aller au bout !
     </p>
-    <p>
-      <img alt="" class="img-center" src="../../assets/images/blog-article8.webp" />
-    </p>
+    <BlogPostImage :src="image" />
     <h2>1. Quel document fournir si je suis locataire ?</h2>
     <p>
       Très souvent, les candidats locataires sont eux-mêmes des locataires qui changent
@@ -83,30 +81,24 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article8.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article8.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = 'Comment justifier son domicile - DossierFacile'
+const title = 'Comment justifier son domicile'
 const description =
   'On peut distinguer quatre cas classiques de justificatif de domicile mais il en existe en fait bien plus'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 793px;
-  max-height: 496px;
-  width: 100%;
-  height: auto;
-}
-</style>

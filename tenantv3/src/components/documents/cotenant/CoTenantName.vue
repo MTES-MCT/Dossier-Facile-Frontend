@@ -1,63 +1,43 @@
 <template>
   <Form name="coTenantNameForm" @submit="save">
     <NakedCard class="fr-p-md-5w fr-m-3v">
-      <h1 class="fr-h6">{{ t('cotenantname.title') }}</h1>
+      <h1 class="fr-h4">{{ t('cotenantname.title') }}</h1>
       <div>
         {{ t('cotenantname.subtitle') }}
         <span v-if="selectedCoTenant.franceConnect">
           {{ t('cotenantname.franceconnect-account') }}
         </span>
       </div>
-      <RequiredFieldsInstruction></RequiredFieldsInstruction>
+      <RequiredFieldsInstruction />
       <div class="fr-grid-row fr-grid-row--center fr-mt-3w">
         <div class="fr-col-12 fr-mb-3w">
           <TextField
             v-model.trim="lastName"
             name="lastname"
             :field-label="t('cotenantname.lastname')"
-            validation-rules="onlyAlpha"
-            :required="true"
+            validation-rules="required|onlyAlpha"
           />
-          <button
-            v-if="!displayPreferredNameField"
-            class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-mt-1w"
-            type="button"
-            @click="displayPreferredNameField = true"
-          >
-            {{ t('nameinformationform.add-preferredname') }}
-          </button>
         </div>
-        <div v-if="displayPreferredNameField" class="fr-col-12 fr-mb-3w">
+        <div class="fr-col-12 fr-mb-3w">
           <TextField
             v-model.trim="preferredName"
             name="preferredname"
             :field-label="t('cotenantname.preferredname')"
             validation-rules="onlyAlpha"
-          >
-            <template #right>
-              <button
-                class="fr-btn fr-btn--tertiary fr-icon-close-line"
-                :title="t('nameinformationform.delete-preferredname')"
-                @click="deletePreferredName()"
-              >
-                {{ t('nameinformationform.delete-preferredname') }}
-              </button>
-            </template>
-          </TextField>
+          />
         </div>
         <div class="fr-col-12 fr-mb-3w">
           <TextField
             v-model.trim="firstName"
             name="firstname"
             :field-label="t('cotenantname.firstname')"
-            validation-rules="onlyAlpha"
-            :required="true"
+            validation-rules="required|onlyAlpha"
           />
         </div>
       </div>
     </NakedCard>
     <FooterContainer>
-      <BackNext show-back @on-back="goToGuarantorChoice"></BackNext>
+      <BackNext show-back @on-back="goToGuarantorChoice" />
     </FooterContainer>
   </Form>
 </template>
@@ -90,7 +70,6 @@ const router = useRouter()
 const firstName = ref('')
 const lastName = ref('')
 const preferredName = ref('')
-const displayPreferredNameField = ref(false)
 const tenantId = computed(() => Number(route.params.tenantId))
 
 onBeforeMount(() => {
@@ -98,13 +77,7 @@ onBeforeMount(() => {
   firstName.value = selectedCoTenant.value?.firstName || ''
   lastName.value = selectedCoTenant.value?.lastName || ''
   preferredName.value = selectedCoTenant.value?.preferredName || ''
-  displayPreferredNameField.value = preferredName.value !== ''
 })
-
-function deletePreferredName() {
-  preferredName.value = ''
-  displayPreferredNameField.value = false
-}
 
 function save() {
   if (

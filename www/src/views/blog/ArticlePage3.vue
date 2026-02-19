@@ -11,9 +11,8 @@
       Cependant, efficacité et gratuité vont rarement de pair. Alors pourquoi votre dossier de
       location est-il gratuit ?
     </p>
-    <img class="img-center" alt="" src="../../assets/images/blog-article3.webp" />
-    <br />
-    <h3 class="fr-h3">Pourquoi ce dossier de location est-il gratuit contrairement aux autres ?</h3>
+    <BlogPostImage :src="image" />
+    <h2 class="fr-h3">Pourquoi ce dossier de location est-il gratuit contrairement aux autres ?</h2>
     <p>
       Si DossierFacile est gratuit, c’est notamment grâce à son statut :
       <router-link to="/information">DossierFacile est une start-up d’Etat </router-link>
@@ -25,7 +24,7 @@
       <b> remettre la confiance au centre </b> de la relation bailleur-locataire et de
       <b> promouvoir une égalité des chances</b> face à la location.
     </p>
-    <h3 class="fr-h3">Quel rapport entre un dossier de location gratuit et la confiance ?</h3>
+    <h2 class="fr-h3">Quel rapport entre un dossier de location gratuit et la confiance ?</h2>
     <p>
       Le principal problème du marché locatif est qu’il est
       <b>surchargé.</b> Les bailleurs croulent rapidement sous les dossiers, ce qui les conduit à
@@ -33,7 +32,7 @@
       proposant un format standard et
     </p>
     <p>
-      <b>En proposant un dossier de location « 3C » (clair, complet et cohérent),</b>
+      <b>En proposant un dossier de location «&nbsp;3C&nbsp;» (clair, complet et cohérent),</b>
       l’Etat encourage les candidats locataires à être transparents et les bailleurs à étudier
       sérieusement chaque dossier tout en continuant à
       <router-link to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location">
@@ -45,7 +44,7 @@
       <b> l’Etat s’implique dans la promotion de la confiance </b>
       entre bailleurs et locataires&nbsp;!
     </p>
-    <h3 class="fr-h3">Quel rapport entre un dossier de location gratuit et l’égalité ?</h3>
+    <h2 class="fr-h3">Quel rapport entre un dossier de location gratuit et l’égalité ?</h2>
     <p>
       La majorité des bailleurs demandent aujourd’hui un dossier numérique à leurs futurs locataires
       avant même la première visite. Or, en France, ce ne sont pas moins de
@@ -73,30 +72,25 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article3.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article3.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = 'Pourquoi Dossier Facile est-il gratuit - Blog - DossierFacile'
+const title = 'Pourquoi Dossier Facile est-il gratuit - Blog'
 const description =
   'DossierFacile propose une solution numérique simple et gratuite pour remettre la confiance au cœur du processus de location'
-useHead({
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 793px;
-  max-height: 449px;
-  width: 100%;
-  height: auto;
-}
-</style>

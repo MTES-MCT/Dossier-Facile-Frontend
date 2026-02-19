@@ -1,7 +1,7 @@
 <template>
   <BackLinkRow :label="t('no-income')" :to="parent" category="pas-de-revenus" />
-  <p class="fr-mb-1w">{{ t('can-add-explanation') }}</p>
-  <textarea ref="custom-text" v-model="customText" class="fr-input fr-mb-2w" />
+  <label for="explanation" class="fr-mb-1w">{{ t('can-add-explanation') }}</label>
+  <textarea id="explanation" ref="custom-text" v-model="customText" class="fr-input fr-mb-2w" />
   <FinancialFooter :on-submit="save" />
 </template>
 

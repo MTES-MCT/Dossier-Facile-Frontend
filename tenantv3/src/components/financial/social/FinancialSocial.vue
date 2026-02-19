@@ -1,36 +1,16 @@
 <template>
   <BackLinkRow :label="t('form.financial.social-aid')" :to="parent" category="social" />
   <p>{{ t('you-receive.' + textKey) }}</p>
-  <RadioList>
-    <RadioListItem :to="here + '/caf'" @click="sendEvent('caf')"
-      >{{ t('form.financial.social.caf') }}
-      <span class="fr-hint-text">{{ t('rsa') }}</span>
-    </RadioListItem>
-    <RadioListItem :to="here + '/france-travail'" @click="sendEvent('france-travail')"
-      >{{ t('form.financial.social.france-travail') }}
-      <span class="fr-hint-text">{{ t('unemployment') }}</span>
-    </RadioListItem>
-    <RadioListItem :to="here + '/apl'" @click="sendEvent('apl')"
-      >{{ t('form.financial.social.apl') }}
-      <span class="fr-hint-text">{{ t('or-you-will-' + suffix) }}</span>
-    </RadioListItem>
-    <RadioListItem :to="here + '/aah'" @click="sendEvent('aah')">{{
-      t('form.financial.social.aah')
-    }}</RadioListItem>
-    <RadioListItem :to="here + '/autre'" @click="sendEvent('other')">{{
-      t('form.financial.social.other')
-    }}</RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <FinancialFooter disabled />
 </template>
 
 <script setup lang="ts">
-import RadioList from '@/components/common/RadioList.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { computed, type ComputedRef } from 'vue'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useI18n } from 'vue-i18n'
@@ -44,6 +24,37 @@ const { category, suffix, textKey } = useFinancialState()
 
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation2(category, 'social', subCategory)
+
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
+  {
+    to: `${here.value}/caf`,
+    title: t('form.financial.social.caf'),
+    event: 'caf',
+    description: t('rsa')
+  },
+  {
+    to: `${here.value}/france-travail`,
+    title: t('form.financial.social.france-travail'),
+    event: 'france-travail',
+    description: t('unemployment')
+  },
+  {
+    to: `${here.value}/apl`,
+    title: t('form.financial.social.apl'),
+    event: 'apl',
+    description: t('or-you-will-' + suffix)
+  },
+  {
+    to: `${here.value}/aah`,
+    title: t('form.financial.social.aah'),
+    event: 'aah'
+  },
+  {
+    to: `${here.value}/autre`,
+    title: t('form.financial.social.other'),
+    event: 'other'
+  }
+])
 </script>
 
 <i18n>

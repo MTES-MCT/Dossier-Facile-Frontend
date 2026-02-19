@@ -2,7 +2,7 @@
   <Form name="form" @submit="sendFile">
     <template v-if="!hasErrors()">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
-        <h1 class="fr-h6">{{ t('validatefile.title') }}</h1>
+        <h1 class="fr-h4">{{ t('validatefile.title') }}</h1>
         <p>{{ getCheckboxInstructions() }}<span class="color--required"> *</span></p>
         <div class="fr-checkbox-group bg-purple fr-mb-3w">
           <Field

@@ -2,7 +2,7 @@
   <div class="bg-blue">
     <div class="fr-container">
       <Breadcrumb :current-page="t('contact.title')" />
-      <ContactForm
+      <ContactPage
         @on-profile-change="profileChanged"
         @on-send-message="contactMessageSent"
         @on-accordion-clicked="accordionClicked"
@@ -12,22 +12,27 @@
 </template>
 
 <script setup lang="ts">
-import ContactForm from 'df-shared-next/src/components/ContactForm.vue'
+import ContactPage from 'df-shared-next/src/components/ContactPage.vue'
 import Breadcrumb from 'df-shared-next/src/components/dsfr/BreadcrumbItem.vue'
-import { useHead } from '@unhead/vue'
+import { useSeoMeta } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
 
-useHead({
-  title: 'Contactez-nous - DossierFacile',
-  meta: [
-    {
-      name: 'description',
-      content: 'Formulaire de contact'
-    }
-  ]
+const title = 'Contactez-nous'
+const description = 'Formulaire de contact'
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
+  title: title,
+  description: description,
+  ogTitle: seoTitle,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterDescription: description
 })
 
 function profileChanged(profile: string) {

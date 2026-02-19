@@ -2,18 +2,18 @@
   <NakedCard class="fr-p-md-5w fr-m-3v fr-mb-3w fr-grid-col">
     <GuarantorBadge v-if="state.textKey.endsWith('guarantor')" />
     <TenantBadge v-else />
-    <h1 class="fr-h6">{{ t('income.' + state.textKey) }}</h1>
-    <div class="fr-highlight fr-ml-0">
+    <h1 class="fr-h4">{{ t('income.' + state.textKey) }}</h1>
+    <DsfrAlert type="info" small>
       <i18n-t keypath="documents-provided" tag="p">
         <strong>{{ t('financial-means') }}</strong>
       </i18n-t>
       <i18n-t keypath="you-can-add" tag="p">
         <strong>{{ t('as-much-income') }}</strong>
       </i18n-t>
-      <i18n-t keypath="be-realistic" tag="p" class="fr-mb-0">
+      <i18n-t keypath="be-realistic" tag="p">
         <strong>{{ t('auto-reject') }}</strong>
       </i18n-t>
-    </div>
+    </DsfrAlert>
     <div class="fr-grid-col income-wrapper">
       <div v-if="duplicateIds.size > 0" class="duplicate-alert fr-text--xs">
         <RiAlertFill size="1rem" style="flex-shrink: 0" aria-hidden="true" />
@@ -169,6 +169,7 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import TenantBadge from '../common/TenantBadge.vue'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { toast } from '@/components/toast/toastUtils'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const store = useTenantStore()
 const { t } = useI18n()

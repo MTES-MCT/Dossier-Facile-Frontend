@@ -23,7 +23,7 @@ export default defineConfig({
     testmailTag: "preprod-test",
     testmailEndpoint: "https://api.testmail.app/api/json",
     boUrl: "https://bo-dev.dossierfacile.fr",
-    aloneTenantEmail: "ywiwyne-1268@yopmail.com",
+    aloneTenantEmail: "mario.brosse@france.fr",
   },
   chromeWebSecurity: false,
 });

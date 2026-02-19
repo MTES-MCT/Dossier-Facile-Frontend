@@ -1,7 +1,7 @@
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { fileURLToPath, URL } from 'node:url'
 import generateSiteMap from 'vite-ssg-sitemap'
-
+import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
@@ -30,6 +30,18 @@ export default defineConfig({
     vue(),
     createRobotsTxtPlugin(),
     vueI18n({ strictMessage: false }),
+    pluginPurgeCss({
+      variables: true,
+      content: [`./public/**/*.html`, `./src/**/*.vue`, `../df-shared-next/src/**/*.vue`],
+      safelist: {
+        deep: [
+          /-(leave|enter|appear)(-(to|from|active))?$/,
+          /^(?!(.*?:)?cursor-move).+-move$/,
+          /^router-link(-exact)?-active$/,
+          /data-v-.*/
+        ]
+      }
+    }),
     sentryVitePlugin({
       org: 'betagouv',
       project: 'front-www',
@@ -49,7 +61,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@icons': fileURLToPath(new URL('./src/assets/icons', import.meta.url)),
+      '@images': fileURLToPath(new URL('./src/assets/images', import.meta.url)),
+      '@components': fileURLToPath(new URL('./src/components', import.meta.url))
     }
   }
 })

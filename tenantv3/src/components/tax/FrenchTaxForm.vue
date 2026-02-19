@@ -9,8 +9,8 @@
     <strong>{{ t('warning') }}</strong>
     {{ t('does-not-replace') }}
   </p>
-  <div class="fr-highlight fr-ml-0 fr-mb-3w">
-    <i18n-t tag="p" :keypath="textKey + '.download-tax-notice'" class="fr-mb-0">
+  <DsfrAlert type="info" small class="fr-ml-0 fr-mb-3w">
+    <i18n-t tag="p" :keypath="textKey + '.download-tax-notice'">
       <a
         href="https://www.impots.gouv.fr"
         :title="`impots.gouv.fr - ${t('new-window')}`"
@@ -18,25 +18,34 @@
         >impots.gouv.fr</a
       >
     </i18n-t>
-  </div>
+  </DsfrAlert>
   <DfButton class="mx-auto fr-mb-3w" @click="showModal = true"
     >{{ t('see-which-doc') }} <RiEyeLine class="fr-ml-1v"
   /></DfButton>
 
   <ModalComponent v-if="showModal" @close="showModal = false">
     <template #header>
+      <!-- TODO change to a h1 when migrating modals -->
       <h2 class="fr-h4 fr-mb-0">{{ t('modal.sample-docs') }}</h2>
     </template>
     <template #body>
-      <p>
-        <RiAlertLine class="color--primary fr-mr-1v align-v" aria-hidden="true" />
+      <DsfrAlert type="warning" small>
         {{ t('modal.pay-attention-to-title') }}
-      </p>
-      <h3 class="fr-h4 fr-text-default--warning fr-mb-1w">{{ t('modal.refused-doc') }}</h3>
-      <img :src="avisKO" :alt="t('modal.img-ko')" width="600" />
-      <hr class="fr-mt-3w" />
-      <h3 class="fr-h4 fr-text-default--success fr-mb-1w">{{ t('modal.accepted-doc') }}</h3>
-      <img :src="avisOK" :alt="t('modal.img-ok')" width="600" />
+      </DsfrAlert>
+
+      <h3 class="fr-h4 fr-text-default--warning fr-my-1w">
+        {{ t('modal.refused-doc-title') }}
+      </h3>
+      <p>{{ t('modal.refused-doc-text') }}</p>
+
+      <img :src="avisKO" alt="" width="600" />
+
+      <h3 class="fr-h4 fr-text-default--success fr-mb-1w">
+        {{ t('modal.accepted-doc-title') }}
+      </h3>
+      <p>{{ t('modal.accepted-doc-text') }}</p>
+
+      <img :src="avisOK" alt="" width="600" />
     </template>
     <template #footer>
       <DfButton class="large-btn" primary @click="showModal = false">OK</DfButton>
@@ -53,7 +62,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
-import { RiAlertLine, RiEyeLine } from '@remixicon/vue'
+import { RiEyeLine } from '@remixicon/vue'
 import { taxYear } from './lib/taxYear'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { ref } from 'vue'
@@ -61,6 +70,7 @@ import avisOK from '@/assets/avis_ok.png'
 import avisKO from '@/assets/avis_ko.png'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 import { useTaxState } from './lib/taxState'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const parent = useParentRoute()
@@ -71,9 +81,6 @@ const showModal = ref(false)
 </script>
 
 <style scoped>
-.align-v {
-  vertical-align: top;
-}
 .large-btn {
   justify-content: center;
   flex-grow: 1;
@@ -91,7 +98,7 @@ const showModal = ref(false)
     "this-year-tax": "{0} income tax notice of {1} or full non-taxation",
     "warning": "Warning:",
     "does-not-replace": "The declarative notice of situation does not replace a tax notice.",
-    "see-which-doc": "See which document to choose?",
+    "see-which-doc": "See which document to choose",
     "tenant": {
       "your-situation": "Your situation:",
       "have-a-tax-notice": "You have a tax notice",
@@ -119,8 +126,10 @@ const showModal = ref(false)
     "modal": {
       "sample-docs": "Sample documents",
       "pay-attention-to-title": "Pay attention to the document title.",
-      "refused-doc": "Document refused",
-      "accepted-doc": "Document accepted",
+      "refused-doc-title": "Document refused",
+      "refused-doc-text": "A document bearing the words « Situation déclarative » is invalid.",
+      "accepted-doc-title": "Document accepted",
+      "accepted-doc-text": "A document bearing the words « Avis d'impôt établi » is valid.",
       "img-ko": "Example of declarative situation notice - document refused",
       "img-ok": "Example of tax notice - document accepted",
     }
@@ -130,7 +139,7 @@ const showModal = ref(false)
     "this-year-tax": "avis d'impôt {0} sur les revenus de {1} ou de non-imposition complet",
     "warning": "Attention :",
     "does-not-replace": "L’avis de situation déclarative ne remplace pas un avis d’impôt.",
-    "see-which-doc": "Voir quel document choisir ?",
+    "see-which-doc": "Voir quel document choisir",
     "tenant": {
       "your-situation": "Votre situation :",
       "have-a-tax-notice": "Vous avez un avis d’impôt",
@@ -158,8 +167,10 @@ const showModal = ref(false)
     "modal": {
       "sample-docs": "Exemple de documents",
       "pay-attention-to-title": "Faites attention au titre du document.",
-      "refused-doc": "Document refusé",
-      "accepted-doc": "Document accepté",
+      "refused-doc-title": "Document refusé",
+      "refused-doc-text": "Un document comportant la mention « Situation déclarative » est invalide.",
+      "accepted-doc-title": "Document accepté",
+      "accepted-doc-text": "Un document comportant la mention « Avis d'impôt établi » est valide.",
       "img-ko": "Exemple d’avis de situation déclarative - document refusé",
       "img-ok": "Exemple d'avis d’impôt - document accepté",
     }

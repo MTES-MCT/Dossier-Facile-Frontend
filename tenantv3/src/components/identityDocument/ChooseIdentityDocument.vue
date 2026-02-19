@@ -1,51 +1,65 @@
 <template>
-  <div class="fr-highlight fr-m-0">
-    <i18n-t keypath="submit-identity-document" tag="p">
-      <strong>{{ t('valid-doc') }}</strong>
-    </i18n-t>
-  </div>
-  <RadioList>
-    <RadioListItem :to="here + '/carte'" @click="sendEvent('identity-card')"
-      >{{ t('identity-card') }}
-      <HintText>{{ t('french-or-foreign-f') }}</HintText>
-    </RadioListItem>
-    <RadioListItem :to="here + '/passeport'" @click="sendEvent('passport')"
-      >{{ t('passport') }}
-      <HintText>{{ t('french-or-foreign') }}</HintText>
-    </RadioListItem>
-    <RadioListItem :to="here + '/titre-sejour'" @click="sendEvent('permit')"
-      >{{ t('permit') }}
-    </RadioListItem>
-    <RadioListItem :to="here + '/permis-conduire'" @click="sendEvent('drivers-licence')"
-      >{{ t('drivers-license') }}
-      <HintText>{{ t('french-or-foreign') }}</HintText>
-    </RadioListItem>
-    <RadioListItem :to="here + '/france-identite'" @click="sendEvent('france-identite')"
-      >{{ t('france-identite') }}
-    </RadioListItem>
-    <RadioListItem :to="here + '/autre'" @click="sendEvent('other')"
-      >{{ t('other-doc') }}
-    </RadioListItem>
-  </RadioList>
+  <DsfrAlert type="warning" small>
+    <p>
+      {{ t('submit-identity-document') }} <strong>{{ t('valid-doc') }}</strong>
+    </p>
+  </DsfrAlert>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <IdentificationFooter />
 </template>
 
 <script setup lang="ts">
-import RadioList from '@/components/common/RadioList.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
-import { AnalyticsService } from '@/services/AnalyticsService'
-import { computed } from 'vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
+import { computed, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
-import HintText from '../common/HintText.vue'
 import IdentificationFooter from './lib/IdentificationFooter.vue'
+import { AnalyticsService } from '@/services/AnalyticsService'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const route = useRoute()
 
-const here = computed(() => route.path)
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation('identification', subcategory)
+
+const here = computed(() => route.path)
+
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
+  {
+    to: `${here.value}/carte`,
+    title: t('identity-card'),
+    event: 'identity-card',
+    description: t('french-or-foreign-f')
+  },
+  {
+    to: `${here.value}/passeport`,
+    title: t('passport'),
+    event: 'passport',
+    description: t('french-or-foreign')
+  },
+  {
+    to: `${here.value}/titre-sejour`,
+    title: t('permit'),
+    event: 'permit'
+  },
+  {
+    to: `${here.value}/permis-conduire`,
+    title: t('drivers-license'),
+    event: 'drivers-license',
+    description: t('french-or-foreign')
+  },
+  {
+    to: `${here.value}/france-identite`,
+    title: t('france-identite'),
+    event: 'france-identite'
+  },
+  {
+    to: `${here.value}/autre`,
+    title: t('other-doc'),
+    event: 'other'
+  }
+])
 </script>
 
 <i18n>

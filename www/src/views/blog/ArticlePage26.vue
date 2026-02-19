@@ -194,29 +194,25 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article25.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article25.webp'
 
 const title =
-  "Dossier de location : Comment monter son dossier de location en tant qu'auto-entrepreneur ? - DossierFacile"
+  "Dossier de location : Comment monter son dossier de location en tant qu'auto-entrepreneur ?"
 const description =
   'Être auto-entrepreneur est une aventure excitante, mais cela peut parfois rendre certaines démarches, comme louer un logement, un peu plus complexes'
 
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image },
-    {
-      name: 'keywords',
-      content:
-        'auto-entrepreneur, location, dossier location, dossier locataire, dossier locatif, dossier logement, caution location, documents garant'
-    }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>

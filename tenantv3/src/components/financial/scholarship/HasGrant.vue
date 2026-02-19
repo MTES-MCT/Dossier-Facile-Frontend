@@ -1,9 +1,6 @@
 <template>
   <BackLinkRow :label="t('scholarship.' + textKey)" :to="parent" category="bourse" />
-  <i18n-t tag="p" class="fr-mb-0" :keypath="'enter-income-' + suffix">
-    <strong>{{ t('net-income') }}</strong>
-  </i18n-t>
-  <p class="text-grey fr-text--xs fr-mb-1w">{{ t('example') }}300</p>
+  <EnterMonthlyIncome :amount="300" />
   <UploadFilesFinancial category="SCHOLARSHIP">
     <template #incomeFilled>
       <i18n-t tag="p" :keypath="'please-provide-' + suffix">
@@ -19,6 +16,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
 import { useI18n } from 'vue-i18n'
 import { useFinancialState } from '../financialState'
+import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 
 const parent = useParentRoute()
 const { t } = useI18n()

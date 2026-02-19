@@ -1,9 +1,15 @@
 <template>
-  <i18n-t v-if="beforeTax" :keypath="'enter-income-' + suffix" class="fr-mb-0" tag="p">
+  <i18n-t
+    v-if="beforeTax"
+    :keypath="'enter-income-' + suffix"
+    class="fr-mb-0"
+    tag="label"
+    for="monthlySum"
+  >
     <strong>{{ t('net-income') }}</strong>
   </i18n-t>
-  <p v-else class="fr-mb-0">{{ t('enter-avg-income-' + suffix) }}</p>
-  <p class="text-grey fr-text--xs fr-mb-1w">{{ t('example') }}{{ amount }}</p>
+  <label v-else class="fr-mb-0" for="monthlySum">{{ t('enter-avg-income-' + suffix) }}</label>
+  <p id="monthlySum-desc" class="text-grey fr-text--xs fr-mb-1w">{{ t('example') }}{{ amount }}</p>
 </template>
 
 <script setup lang="ts">

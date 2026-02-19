@@ -1,27 +1,36 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
-    "target": "es2021",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
     "strict": true,
+    "moduleResolution": "Bundler",
+
     "jsx": "preserve",
     "importHelpers": true,
-    "moduleResolution": "node",
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
+
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+
     "sourceMap": true,
+
     "baseUrl": ".",
-    "types": ["vite/client", "vitest/globals"],
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "types": ["vite/client"],
+
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"]
   },
+
   "vueCompilerOptions": {
     "checkUnknownComponents": true,
     "checkUnknownEvents": true,
     "checkUnknownDirectives": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

@@ -7,11 +7,11 @@ settings:
 catalogs:
   default:
     '@gouvfr/dsfr':
-      specifier: 1.13.2
-      version: 1.13.2
+      specifier: 1.14.3
+      version: 1.14.3
     '@gouvminint/vue-dsfr':
-      specifier: 8.4.0
-      version: 8.4.0
+      specifier: 8.13.1
+      version: 8.13.1
     '@intlify/unplugin-vue-i18n':
       specifier: 6.0.8
       version: 6.0.8
@@ -27,6 +27,12 @@ catalogs:
     '@types/node':
       specifier: 24.1.0
       version: 24.1.0
+    '@vee-validate/i18n':
+      specifier: 4.15.1
+      version: 4.15.1
+    '@vee-validate/rules':
+      specifier: 4.15.1
+      version: 4.15.1
     '@vitejs/plugin-vue':
       specifier: 6.0.3
       version: 6.0.3
@@ -73,8 +79,8 @@ catalogs:
       specifier: 5.9.2
       version: 5.9.2
     vee-validate:
-      specifier: 4.15.0
-      version: 4.15.0
+      specifier: 4.15.1
+      version: 4.15.1
     vite:
       specifier: 7.3.0
       version: 7.3.0
@@ -107,13 +113,19 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.14.3
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
-        version: 8.4.0(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+        version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.4.0
         version: 4.4.0(vue@3.5.18(typescript@5.9.2))
+      '@vee-validate/i18n':
+        specifier: 'catalog:'
+        version: 4.15.1
+      '@vee-validate/rules':
+        specifier: 'catalog:'
+        version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       axios:
         specifier: 'catalog:'
         version: 1.13.2(debug@4.4.1)
@@ -123,12 +135,15 @@ importers:
       js-cookie:
         specifier: 3.0.5
         version: 3.0.5
+      pinia:
+        specifier: 'catalog:'
+        version: 3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       sass:
         specifier: 'catalog:'
         version: 1.96.0
       vee-validate:
         specifier: 'catalog:'
-        version: 4.15.0(vue@3.5.18(typescript@5.9.2))
+        version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       vue:
         specifier: 'catalog:'
         version: 3.5.18(typescript@5.9.2)
@@ -148,6 +163,9 @@ importers:
       '@vue/eslint-config-typescript':
         specifier: 'catalog:'
         version: 14.6.0(eslint-plugin-vue@10.4.0(@typescript-eslint/parser@8.50.0(eslint@9.32.0(jiti@2.4.2))(typescript@5.9.2))(eslint@9.32.0(jiti@2.4.2))(vue-eslint-parser@10.2.0(eslint@9.32.0(jiti@2.4.2))))(eslint@9.32.0(jiti@2.4.2))(typescript@5.9.2)
+      '@vue/tsconfig':
+        specifier: 'catalog:'
+        version: 0.7.0(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       eslint:
         specifier: 'catalog:'
         version: 9.32.0(jiti@2.4.2)
@@ -199,7 +217,7 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.14.3
       '@remixicon/vue':
         specifier: 4.6.0
         version: 4.6.0(vue@3.5.18(typescript@5.9.2))
@@ -232,7 +250,7 @@ importers:
         version: 3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       vee-validate:
         specifier: 'catalog:'
-        version: 4.15.0(vue@3.5.18(typescript@5.9.2))
+        version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       vue:
         specifier: 'catalog:'
         version: 3.5.18(typescript@5.9.2)
@@ -293,7 +311,7 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.14.3
       '@intlify/unplugin-vue-i18n':
         specifier: 'catalog:'
         version: 6.0.8(@vue/compiler-dom@3.5.25)(eslint@9.32.0(jiti@2.4.2))(rollup@4.53.5)(typescript@5.9.2)(vue-i18n@11.1.11(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
@@ -369,10 +387,10 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.14.3
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
-        version: 8.4.0(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+        version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.6.0
         version: 4.6.0(vue@3.5.18(typescript@5.9.2))
@@ -414,7 +432,7 @@ importers:
         version: 3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       vee-validate:
         specifier: 'catalog:'
-        version: 4.15.0(vue@3.5.18(typescript@5.9.2))
+        version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       vue:
         specifier: 'catalog:'
         version: 3.5.18(typescript@5.9.2)
@@ -502,7 +520,7 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.14.3
       '@sentry/tracing':
         specifier: 7.119.2
         version: 7.119.2
@@ -557,7 +575,10 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.14.3
+      '@gouvminint/vue-dsfr':
+        specifier: 'catalog:'
+        version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@sentry/vite-plugin':
         specifier: 'catalog:'
         version: 3.5.0
@@ -581,7 +602,7 @@ importers:
         version: 3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       vee-validate:
         specifier: 'catalog:'
-        version: 4.15.0(vue@3.5.18(typescript@5.9.2))
+        version: 4.15.1(vue@3.5.18(typescript@5.9.2))
       vue:
         specifier: 'catalog:'
         version: 3.5.18(typescript@5.9.2)
@@ -595,17 +616,11 @@ importers:
         specifier: 0.2.8
         version: 0.2.8(vue@3.5.18(typescript@5.9.2))
     devDependencies:
-      '@fullhuman/postcss-purgecss':
-        specifier: 7.0.2
-        version: 7.0.2(postcss@8.5.6)
-      '@fullhuman/vue-cli-plugin-purgecss':
-        specifier: 7.0.2
-        version: 7.0.2
       '@intlify/unplugin-vue-i18n':
         specifier: 'catalog:'
         version: 6.0.8(@vue/compiler-dom@3.5.25)(eslint@9.32.0(jiti@2.4.2))(rollup@4.53.5)(typescript@5.9.2)(vue-i18n@11.1.11(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@tsconfig/node18':
-        specifier: 18.2.4
+        specifier: 'catalog:'
         version: 18.2.4
       '@types/jsdom':
         specifier: 21.1.7
@@ -661,6 +676,9 @@ importers:
       vite:
         specifier: 'catalog:'
         version: 7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2)
+      vite-plugin-purgecss-updated-v5:
+        specifier: 1.2.6
+        version: 1.2.6(vite@7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2))
       vite-ssg:
         specifier: 27.0.1
         version: 27.0.1(prettier@3.5.3)(unhead@2.0.9)(vite@7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
@@ -1581,33 +1599,25 @@ packages:
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@floating-ui/core@1.7.3':
-    resolution: {integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==}
+  '@floating-ui/core@1.7.4':
+    resolution: {integrity: sha512-C3HlIdsBxszvm5McXlB8PeOEWfBhcGBTZGkGlWc2U0KFY5IwG5OQEuQ8rq52DZmcHDlPLd+YFBK+cZcytwIFWg==}
 
-  '@floating-ui/dom@1.7.4':
-    resolution: {integrity: sha512-OOchDgh4F2CchOX94cRVqhvy7b3AFb+/rQXyswmzmGakRfkMgoWVjfnLWkRirfLEfuD4ysVW16eXzwt3jHIzKA==}
+  '@floating-ui/dom@1.7.5':
+    resolution: {integrity: sha512-N0bD2kIPInNHUHehXhMke1rBGs1dwqvC9O9KYMyyjK7iXt7GAhnro7UlcuYcGdS/yYOlq0MAVgrow8IbWJwyqg==}
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
 
-  '@floating-ui/vue@1.1.9':
-    resolution: {integrity: sha512-BfNqNW6KA83Nexspgb9DZuz578R7HT8MZw1CfK9I6Ah4QReNWEJsXWHN+SdmOVLNGmTPDi+fDT535Df5PzMLbQ==}
+  '@floating-ui/vue@1.1.10':
+    resolution: {integrity: sha512-vdf8f6rHnFPPLRsmL4p12wYl+Ux4mOJOkjzKEMYVnwdf7UFdvBtHlLvQyx8iKG5vhPRbDRgZxdtpmyigDPjzYg==}
 
-  '@fullhuman/postcss-purgecss@7.0.2':
-    resolution: {integrity: sha512-U4zAXNaVztbDxO9EdcLp51F3UxxYsb/7DN89rFxFJhfk2Wua2pvw2Kf3HdspbPhW/wpHjSjsxWYoIlbTgRSjbQ==}
-    peerDependencies:
-      postcss: ^8.0.0
+  '@gouvfr/dsfr@1.14.3':
+    resolution: {integrity: sha512-UTplClQLp635J4vRHx/rJ7SKEi+bepc1FisvzTS8efQGQ3Gm8LttZf11NJ+4XhEMYLbCf8TBvFFwWBZ9ztRFkg==}
+    engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
 
-  '@fullhuman/vue-cli-plugin-purgecss@7.0.2':
-    resolution: {integrity: sha512-YC3VWZ/3ff6sv0fpCCY7z5oNOSf1pAe9P33Miw2jrrmOojPEqKXaswWtFPH9FKXcuDEA0g1TiX1YOVobg1fdMQ==}
-
-  '@gouvfr/dsfr@1.13.2':
-    resolution: {integrity: sha512-4Q9ggFFzwD/KFr37sJO1hFH9PcqlZ7F3jMiFJXnBLJfkH1+s28vnQp/oXoY8TosWsLMSjdhNCrxvrUdm5XzBlg==}
-    engines: {node: '>=18.16.1'}
-
-  '@gouvminint/vue-dsfr@8.4.0':
-    resolution: {integrity: sha512-PyFnA9REL6ZYjPyxfF1kRw53nr8ANT/m67qPPG/lAExvbT7yq7xwHtGRALPJquDKHmb+QXUwpyWuaDD7IJnbKw==}
-    engines: {node: '>=20.x.x', npm: '>=10.x.x'}
+  '@gouvminint/vue-dsfr@8.13.1':
+    resolution: {integrity: sha512-BejnuRuFrEfVbl+hUweOk8k5lUhFRCNf4OPR7qTKLHSvvbAZehCvciBpu92GYrv9nuVW61AtPgbqjY/9CqGCNQ==}
+    engines: {node: '>=22.0.0', pnpm: '>=10.0.0'}
     hasBin: true
     peerDependencies:
       '@iconify/vue': ^4.2.0
@@ -2583,6 +2593,12 @@ packages:
     resolution: {integrity: sha512-0t8YXVXvEgXkXhCb22hqPrsgun3Jqul/ZvydgBY0SlEfEbC1ioL15/1QuJwBFG3us6OnSewjbDagg4Jh478g8g==}
     peerDependencies:
       vue: '>=3.5.13'
+
+  '@vee-validate/i18n@4.15.1':
+    resolution: {integrity: sha512-6ogEyxkoTr7IZk4EAUT0rD3pr34Nw/YEToez/c0DSlI1/cBeOpunSmGmoYPh32pmd3imxFPEawCB7IyFvRJSAw==}
+
+  '@vee-validate/rules@4.15.1':
+    resolution: {integrity: sha512-2TGXq2MYt21nT8ysuxyFY/LBVQDcMPKn1hY0w3uIDmG333vzBkOtXAylmvrS93AsJ7N5coHMJjcCGG4JxCO2hQ==}
 
   '@vitejs/plugin-vue@6.0.3':
     resolution: {integrity: sha512-TlGPkLFLVOY3T7fZrwdvKpjprR3s4fxRln0ORDo1VQ7HHyxJwTlrjKU3kpVWTlaAjIEuCTokmjkZnr8Tpc925w==}
@@ -5254,14 +5270,19 @@ packages:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
 
-  vee-validate@4.15.0:
-    resolution: {integrity: sha512-PGJh1QCFwCBjbHu5aN6vB8macYVWrajbDvgo1Y/8fz9n/RVIkLmZCJDpUgu7+mUmCOPMxeyq7vXUOhbwAqdXcA==}
+  vee-validate@4.15.1:
+    resolution: {integrity: sha512-DkFsiTwEKau8VIxyZBGdO6tOudD+QoUBPuHj3e6QFqmbfCRj1ArmYWue9lEp6jLSWBIw4XPlDLjFIZNLdRAMSg==}
     peerDependencies:
       vue: ^3.4.26
 
   verror@1.10.0:
     resolution: {integrity: sha512-ZZKSmDAEFOijERBLkmYfJ+vmk3w+7hOLYDNkRCuRuMJGEmqYNCNLyBBFwWKVMhfwaEF3WOd0Zlw86U/WC/+nYw==}
     engines: {'0': node >=0.6.0}
+
+  vite-plugin-purgecss-updated-v5@1.2.6:
+    resolution: {integrity: sha512-t29hpGKP1NsIEDgnuocK+0k3QPNIYa4WxP85exOLGWFHmS5lidHRRT5g77jFY+IJMM8q2r7he03NrYwvLaXXTw==}
+    peerDependencies:
+      vite: ^3 || ^4 || ^5 || ^6 || ^7
 
   vite-plugin-pwa@1.0.0:
     resolution: {integrity: sha512-X77jo0AOd5OcxmWj3WnVti8n7Kw2tBgV1c8MCXFclrSlDV23ePzv2eTDIALXI2Qo6nJ5pZJeZAuX0AawvRfoeA==}
@@ -5416,7 +5437,6 @@ packages:
   vue-i18n@11.1.11:
     resolution: {integrity: sha512-LvyteQoXeQiuILbzqv13LbyBna/TEv2Ha+4ZWK2AwGHUzZ8+IBaZS0TJkCgn5izSPLcgZwXy9yyTrewCb2u/MA==}
     engines: {node: '>= 16'}
-    deprecated: This version is NOT deprecated. Previous deprecation was a mistake.
     peerDependencies:
       vue: ^3.0.0
 
@@ -5505,7 +5525,6 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
-    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -6600,38 +6619,31 @@ snapshots:
       '@eslint/core': 0.15.2
       levn: 0.4.1
 
-  '@floating-ui/core@1.7.3':
+  '@floating-ui/core@1.7.4':
     dependencies:
       '@floating-ui/utils': 0.2.10
 
-  '@floating-ui/dom@1.7.4':
+  '@floating-ui/dom@1.7.5':
     dependencies:
-      '@floating-ui/core': 1.7.3
+      '@floating-ui/core': 1.7.4
       '@floating-ui/utils': 0.2.10
 
   '@floating-ui/utils@0.2.10': {}
 
-  '@floating-ui/vue@1.1.9(vue@3.5.18(typescript@5.9.2))':
+  '@floating-ui/vue@1.1.10(vue@3.5.18(typescript@5.9.2))':
     dependencies:
-      '@floating-ui/dom': 1.7.4
+      '@floating-ui/dom': 1.7.5
       '@floating-ui/utils': 0.2.10
       vue-demi: 0.14.10(vue@3.5.18(typescript@5.9.2))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
 
-  '@fullhuman/postcss-purgecss@7.0.2(postcss@8.5.6)':
+  '@gouvfr/dsfr@1.14.3': {}
+
+  '@gouvminint/vue-dsfr@8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))':
     dependencies:
-      postcss: 8.5.6
-      purgecss: 7.0.2
-
-  '@fullhuman/vue-cli-plugin-purgecss@7.0.2': {}
-
-  '@gouvfr/dsfr@1.13.2': {}
-
-  '@gouvminint/vue-dsfr@8.4.0(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))':
-    dependencies:
-      '@gouvfr/dsfr': 1.13.2
+      '@gouvfr/dsfr': 1.14.3
       '@iconify/vue': 4.3.0(vue@3.5.18(typescript@5.9.2))
       focus-trap: 7.6.6
       focus-trap-vue: 4.1.0(focus-trap@7.6.6)(vue@3.5.18(typescript@5.9.2))
@@ -7667,6 +7679,14 @@ snapshots:
       unhead: 2.0.9
       vue: 3.5.18(typescript@5.9.2)
 
+  '@vee-validate/i18n@4.15.1': {}
+
+  '@vee-validate/rules@4.15.1(vue@3.5.18(typescript@5.9.2))':
+    dependencies:
+      vee-validate: 4.15.1(vue@3.5.18(typescript@5.9.2))
+    transitivePeerDependencies:
+      - vue
+
   '@vitejs/plugin-vue@6.0.3(vite@7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.18(typescript@5.9.2))':
     dependencies:
       '@rolldown/pluginutils': 1.0.0-beta.53
@@ -7965,7 +7985,7 @@ snapshots:
   '@vuepic/vue-datepicker@12.0.5(vue@3.5.18(typescript@5.9.2))':
     dependencies:
       '@date-fns/tz': 1.4.1
-      '@floating-ui/vue': 1.1.9(vue@3.5.18(typescript@5.9.2))
+      '@floating-ui/vue': 1.1.10(vue@3.5.18(typescript@5.9.2))
       '@vueuse/core': 14.1.0(vue@3.5.18(typescript@5.9.2))
       date-fns: 4.1.0
       vue: 3.5.18(typescript@5.9.2)
@@ -10622,7 +10642,7 @@ snapshots:
 
   uuid@9.0.1: {}
 
-  vee-validate@4.15.0(vue@3.5.18(typescript@5.9.2)):
+  vee-validate@4.15.1(vue@3.5.18(typescript@5.9.2)):
     dependencies:
       '@vue/devtools-api': 7.7.9
       type-fest: 4.41.0
@@ -10633,6 +10653,11 @@ snapshots:
       assert-plus: 1.0.0
       core-util-is: 1.0.2
       extsprintf: 1.3.0
+
+  vite-plugin-purgecss-updated-v5@1.2.6(vite@7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2)):
+    dependencies:
+      purgecss: 7.0.2
+      vite: 7.3.0(@types/node@24.1.0)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2)
 
   vite-plugin-pwa@1.0.0(vite@7.3.0(@types/node@25.0.2)(jiti@2.4.2)(sass@1.96.0)(terser@5.44.1)(yaml@2.8.2))(workbox-build@7.4.0)(workbox-window@7.4.0):
     dependencies:

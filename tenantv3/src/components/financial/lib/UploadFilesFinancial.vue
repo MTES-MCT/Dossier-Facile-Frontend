@@ -1,6 +1,7 @@
 <template>
   <form class="fr-mb-2w" @submit="onSubmit">
     <input
+      id="monthlySum"
       ref="inputSumElt"
       v-model="inputSum"
       v-bind="sumAttr"
@@ -10,6 +11,7 @@
       required
       autocomplete="off"
       data-cy="monthlySum"
+      aria-describedby="monthlySum-desc"
       @blur="AnalyticsService.writeText(state.category)"
     />
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
@@ -28,6 +30,7 @@
       :file="file"
       :watermark-url="document.name"
       :doc-category="state.category"
+      class="fr-mb-3w"
       @remove="remove(file)"
       @ask-confirm="AnalyticsService.deleteDocument(state.category)"
       @cancel="AnalyticsService.cancelDelete(state.category)"

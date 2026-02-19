@@ -4,33 +4,43 @@
     :to="parentRoute"
     @edit="AnalyticsService.editSituation(category, 'guest')"
   />
-  <RadioList>
-    <RadioListItem to="guest/proof" @click="sendEvent('proof')">{{
-      t(textKey + '.proof')
-    }}</RadioListItem>
-    <RadioListItem to="guest/no-proof" @click="sendEvent('no-proof')">{{
-      t(textKey + '.no-proof')
-    }}</RadioListItem>
-  </RadioList>
+  <RadioList :list-items="optionLinks" @analytics="sendEvent" />
   <GuarantorResidencyFooter />
 </template>
 
 <script setup lang="ts">
-import RadioList from '@/components/common/RadioList.vue'
-import RadioListItem from '@/components/common/RadioListItem.vue'
+import RadioList, { type OptionLink } from '@/components/common/RadioList.vue'
 import BackLinkRow from '@/components/residency/lib/BackLinkRow.vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import GuarantorResidencyFooter from './GuarantorResidencyFooter.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
+import { computed, type ComputedRef } from 'vue'
+import { useRoute } from 'vue-router'
 
 const { t } = useI18n()
 const parentRoute = useParentRoute()
 const { category, textKey } = useResidencyState()
 
+const route = useRoute()
+const here = computed(() => route.path)
+
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation2(category, 'guest', subcategory)
+
+const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
+  {
+    to: `${here.value}/proof`,
+    title: t(textKey + '.proof'),
+    event: 'proof'
+  },
+  {
+    to: `${here.value}/no-proof`,
+    title: t(textKey + '.no-proof'),
+    event: 'no-proof'
+  }
+])
 </script>
 
 <i18n>

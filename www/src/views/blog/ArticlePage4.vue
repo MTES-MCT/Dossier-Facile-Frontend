@@ -12,7 +12,7 @@
       comparer les différents candidats. Alors voici 5 astuces pour booster votre dossier de
       location.
     </p>
-    <img alt="" class="img-center" src="../../assets/images/blog-article4.webp" />
+    <BlogPostImage :src="image" />
 
     <h2>1. Donner tous les documents obligatoires</h2>
     <ul>
@@ -84,30 +84,25 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article4.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article4.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = '5 astuces pour booster votre dossier de location - DossierFacile'
+const title = '5 astuces pour booster votre dossier de location'
 const description =
   'Pour se distinguer des autres, un seul moyen : constituer un dossier de location clair, cohérent et complet'
-useHead({
+
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 284px;
-  max-height: 177px;
-  width: 100%;
-  height: auto;
-}
-</style>

@@ -4,9 +4,7 @@
     date="24 octobre 2022"
     hashtags="DossierFacile,RGPD"
   >
-    <p>
-      <img alt="" class="img-center" src="../../assets/images/blog-article14.webp" />
-    </p>
+    <BlogPostImage :src="image" />
 
     <h2>Qu'est-ce qu'une donnée personnelle ?</h2>
     <p>
@@ -156,30 +154,24 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useHead } from '@unhead/vue'
-import image from '../../assets/images/blog-article14.webp'
+import { useSeoMeta } from '@unhead/vue'
+import image from '@images/blog-article14.webp'
+import BlogPostImage from '@/components/BlogPostImage.vue'
 
-const title = 'DossierFacile engagé dans la protection de vos données personnelles - DossierFacile'
+const title = 'DossierFacile engagé dans la protection de vos données personnelles'
 const description =
   'Une « donnée personnelle » désigne « toute information se rapportant à une personne physique identifiée ou identifiabe ».'
-useHead({
+const siteTitle = import.meta.env.VITE_SITE_TITLE
+const seoTitle = `${title} - ${siteTitle}`
+
+useSeoMeta({
   title: title,
-  meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image }
-  ]
+  description: description,
+  ogTitle: seoTitle,
+  ogImage: image,
+  ogDescription: description,
+  twitterTitle: seoTitle,
+  twitterImage: image,
+  twitterDescription: description
 })
 </script>
-<style scoped lang="scss">
-.img-center {
-  max-width: 768px;
-  max-height: 512px;
-  width: 100%;
-  height: auto;
-}
-</style>
