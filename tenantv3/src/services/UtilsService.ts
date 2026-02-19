@@ -98,8 +98,8 @@ export const UtilsService = {
     if (preferredName == null || preferredName.length == 0) {
       usedLastName = lastName
     }
-
-    if (firstName === usedLastName) {
+    // only use email when firstName and lastName / preferredName are empty
+    if (firstName.length === 0 && firstName === usedLastName) {
       return user.email
     }
 
