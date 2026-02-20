@@ -279,10 +279,6 @@ export const useTenantStore = defineStore('tenant', {
       this.status.loggedIn = false
       this.user = new User()
     },
-    unlinkFCSuccess() {
-      this.user.franceConnect = false
-      AnalyticsService.unlinkFCSuccess()
-    },
     loadUserCommit(user: User) {
       Object.assign(this.user, user)
       Object.assign(this.status.loggedIn, true)
@@ -372,13 +368,6 @@ export const useTenantStore = defineStore('tenant', {
       this.initState()
       const url = isFC ? 'https://fcp.integ01.dev-franceconnect.fr/api/v1/logout' : MAIN_URL
       window.location.replace(url)
-    },
-    async unlinkFranceConnect(user: User) {
-      if (!user.franceConnect) {
-        throw new Error('Account is not a FranceConnect Account')
-      }
-      await ProfileService.unlinkFranceConnect()
-      return this.unlinkFCSuccess()
     },
     async loadUser() {
       const response = await AuthService.loadUser()

@@ -603,11 +603,7 @@
     "abroad-residency-checkbox": "You are currently residing abroad.",
     "field-required": "This field is required",
     "title": "Let's start with your personal identity information.",
-    "subtitle": "Please provide the information of the person whose name will appear on the lease agreement.",
-    "unlink-fc-link": "Modify your information?",
-    "unlink-fc-content": "In order to make changes to your name and first name, you need to unlink your FranceConnect and DossierFacile accounts.",
-    "unlink-fc-content-password-undefined": "You will then be redirected to the password update page.",
-    "unlink-account-btn": "Unlink My Accounts"
+    "subtitle": "Please provide the information of the person whose name will appear on the lease agreement."
   },
   "nameinformation": {
     "title": "Your Rental File in 5 Documents!",
