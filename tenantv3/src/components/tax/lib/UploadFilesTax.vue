@@ -312,15 +312,10 @@ async function addFiles(fileList: File[]) {
   save()
 }
 
-function openExplainSection() {
+async function openExplainSection() {
   showExplainForm.value = true
-  nextTick(() => {
-    if (explainTextarea.value) {
-      explainTextarea.value.focus()
-    } else {
-      explainSection.value?.focus()
-    }
-  })
+  await nextTick()
+  explainTextarea.value?.focus()
 }
 
 function saveExplanation() {
