@@ -18,10 +18,10 @@
       @cancel="AnalyticsService.cancelDelete(taxState.category)"
     />
   </div>
-  <div v-if="analysisInProgress" class="analysis-loading fr-mb-3w" role="status">
+  <div v-if="analysisInProgress" class="analysis-loading fr-mb-3w">
     <div class="analysis-loading-status">
       <RiHourglassFill size="24px" class="analysis-loading-icon" aria-hidden="true" />
-      <p class="fr-m-0 analysis-loading-text">{{ t('analysis-in-progress') }}</p>
+      <p class="fr-m-0 analysis-loading-text" role="status">{{ t('analysis-in-progress') }}</p>
     </div>
     <div class="analysis-loading-progress">
       <div class="analysis-loading-progress-bar"></div>
