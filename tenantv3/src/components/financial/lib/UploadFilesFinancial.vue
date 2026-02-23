@@ -76,6 +76,7 @@ import { useI18n } from 'vue-i18n'
 import FinancialFooterContent from './FinancialFooterContent.vue'
 import { useFinancialState } from '../financialState'
 import { toast } from '@/components/toast/toastUtils'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 
@@ -100,6 +101,7 @@ const store = useTenantStore()
 const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const isModalOpened = ref(false)
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -175,8 +177,7 @@ function makeNewDocument() {
 }
 
 async function goNext() {
-  const isFromValidation = route.query.from === 'validation'
-  const nextStep = isFromValidation ? { name: 'ValidateFile' } : state.recap
+  const nextStep = getNavigationNextStep(state.recap)
 
   if (monthlySumChanged ? await save('form.financial.amount-saved') : true) {
     router.push(nextStep)

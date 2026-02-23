@@ -16,10 +16,12 @@ import { DocumentService } from '@/services/DocumentService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
 import TenantBadge from '@/components/common/TenantBadge.vue'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 const { t } = useI18n()
 const route = useRoute()
 const tenantId = Number(route.params.tenantId)
 const store = useTenantStore()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const residencyLink = computed(() => {
   const cotenant = store.getTenant(tenantId)
@@ -27,10 +29,7 @@ const residencyLink = computed(() => {
   return makeResidencyLink(cotenant, `/documents-colocataire/${tenantId}/${step}/2`)
 })
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation
-  ? { name: 'ValidateFile' }
-  : { name: 'CoupleFinancial', params: { tenantId } }
+const nextStep = getNavigationNextStep({ name: 'CoupleFinancial', params: { tenantId } })
 
 provide(mainActivityKey, {
   category: 'couple-professional',
