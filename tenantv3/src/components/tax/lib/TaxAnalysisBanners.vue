@@ -3,28 +3,36 @@
     <div v-for="(rule, index) in failedRules" :key="index" class="analysis-banner">
       <div class="banner-content">
         <div class="banner-title">
-          <RiAlertFill class="warning-icon" aria-hidden="true" />
+          <VIcon name="ri:alert-fill" :scale="1.25" color="#b34000"/>
           <span class="title-text">{{ getRuleTitle(rule.rule) }}</span>
         </div>
         <div class="banner-description">
           <div class="current-doc">
             <p class="doc-label">{{ t('current-document') }}</p>
-            <div v-for="(line, i) in getCurrentDocLines(rule)" :key="'extracted-' + i" class="doc-line">
-              <RiCloseLine class="error-icon" aria-hidden="true" />
+            <div
+              v-for="(line, i) in getCurrentDocLines(rule)"
+              :key="'extracted-' + i"
+              class="doc-line"
+            >
+              <VIcon name="ri:close-line" :scale="1.25" color="#b34000" />
               <span class="error-text">{{ line }}</span>
             </div>
           </div>
           <div class="expected-doc">
             <p class="doc-label">{{ t('expected-document') }}</p>
-            <div v-for="(line, i) in getExpectedDocLines(rule)" :key="'expected-' + i" class="doc-line">
-              <RiCheckLine class="success-icon" aria-hidden="true" />
+            <div
+              v-for="(line, i) in getExpectedDocLines(rule)"
+              :key="'expected-' + i"
+              class="doc-line"
+            >
+              <VIcon name="ri:check-line" :scale="1.25" color="#18753c" />
               <span class="success-text">{{ line }}</span>
             </div>
           </div>
         </div>
         <p class="explain-link-text">
           {{ t('not-matching') }}
-          <a href="#" class="explain-link" @click.prevent="emit('explain')">{{ t('explain-link') }}</a>
+          <button type="button" class="explain-link" @click="emit('explain')">{{ t('explain-link') }}</button>
         </p>
       </div>
     </div>
@@ -33,8 +41,8 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { RiAlertFill, RiCloseLine, RiCheckLine } from '@remixicon/vue'
 import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
+import { VIcon } from '@gouvminint/vue-dsfr'
 
 defineProps<{
   failedRules: DocumentRule[]
@@ -76,7 +84,9 @@ function getCurrentDocLines(rule: DocumentRule): string[] {
     case 'R_NAMES':
       return data.extractedNames.map((n) => t('rules.names.current', { name: formatName(n) }))
     case 'R_TAX_YEARS':
-      return data.extractedYears.map((y) => t('rules.wrong-year.current', { taxYear: y + 1, incomeYear: y }))
+      return data.extractedYears.map((y) =>
+        t('rules.wrong-year.current', { taxYear: y + 1, incomeYear: y })
+      )
     default:
       return [rule.message]
   }
@@ -93,7 +103,12 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     case 'R_NAMES':
       return [t('rules.names.expected', { name: formatName(data.expectedName) })]
     case 'R_TAX_YEARS':
-      return [t('rules.wrong-year.expected', { taxYear: data.expectedYear + 1 , incomeYear: data.expectedYear})]
+      return [
+        t('rules.wrong-year.expected', {
+          taxYear: data.expectedYear + 1,
+          incomeYear: data.expectedYear
+        })
+      ]
     default:
       return [rule.message]
   }
@@ -122,13 +137,6 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-}
-
-.warning-icon {
-  color: #b34000;
-  width: 1.5rem;
-  height: 1.5rem;
-  flex-shrink: 0;
 }
 
 .title-text {
@@ -164,24 +172,10 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
   align-items: flex-start;
 }
 
-.error-icon {
-  color: #b34000;
-  width: 1.5rem;
-  height: 1.5rem;
-  flex-shrink: 0;
-}
-
 .error-text {
   font-size: 0.875rem;
   line-height: 1.5rem;
   color: #b34000;
-}
-
-.success-icon {
-  color: #18753c;
-  width: 1.5rem;
-  height: 1.5rem;
-  flex-shrink: 0;
 }
 
 .success-text {
@@ -201,7 +195,13 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
   color: #161616;
   text-decoration: underline;
   font-weight: 400;
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
   background-image: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 </style>
 

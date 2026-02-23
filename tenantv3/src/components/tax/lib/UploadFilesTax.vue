@@ -21,7 +21,7 @@
   <div v-if="analysisInProgress" class="analysis-loading fr-mb-3w">
     <div class="analysis-loading-status">
       <RiHourglassFill size="24px" class="analysis-loading-icon" aria-hidden="true" />
-      <p class="fr-m-0 analysis-loading-text">{{ t('analysis-in-progress') }}</p>
+      <p class="fr-m-0 analysis-loading-text" role="status">{{ t('analysis-in-progress') }}</p>
     </div>
     <div class="analysis-loading-progress">
       <div class="analysis-loading-progress-bar"></div>
@@ -39,7 +39,12 @@
     :page="4"
     @add-files="addFiles"
   ></FileUpload>
-  <div v-if="analysisFailedRules.length > 0" ref="explain-section" class="explain-section">
+  <div
+    v-if="analysisFailedRules.length > 0"
+    ref="explain-section"
+    class="explain-section"
+    tabindex="-1"
+  >
     <div class="separator">
       <div class="separator-line"></div>
       <span class="separator-text">{{ t('or') }}</span>
@@ -49,21 +54,27 @@
       {{ t('explain-situation') }}
     </button>
     <div v-if="showExplainForm" class="explain-form">
-      <p class="explain-form-label">{{ t('explain-question') }}</p>
       <div class="fr-input-group">
+        <label for="explainText" class="fr-label">{{ t('explain-question') }}</label>
         <textarea
+          id="explainText"
+          ref="explainTextarea"
           v-model="explainText"
           class="fr-input"
           rows="5"
           :placeholder="t('explain-placeholder')"
-        ></textarea>
+        />
       </div>
       <p class="fr-info-text">
-        <RiInformationFill class="info-icon" aria-hidden="true" />
         {{ t('explain-info') }}
       </p>
       <div class="explain-form-actions">
-        <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" :disabled="!explainText.trim()" @click="saveExplanation">
+        <button
+          type="button"
+          class="fr-btn fr-btn--tertiary fr-btn--sm"
+          :disabled="!explainText.trim()"
+          @click="saveExplanation"
+        >
           {{ t('explain-save') }}
         </button>
       </div>
@@ -96,29 +107,29 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
+import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
+import type { TaxCategory } from '@/components/documents/share/DocumentTypeConstants'
+import { toast } from '@/components/toast/toastUtils'
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
-import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
-import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
-import { AnalyticsService } from '@/services/AnalyticsService'
-import { useTenantStore } from '@/stores/tenant-store'
-import { RegisterService } from '@/services/RegisterService'
 import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
-import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
-import type { DfFile } from 'df-shared-next/src/models/DfFile'
-import { UtilsService } from '@/services/UtilsService'
-import { useLoading } from 'vue-loading-overlay'
-import { toast } from '@/components/toast/toastUtils'
-import { useI18n } from 'vue-i18n'
-import { useTaxState } from './taxState'
-import type { TaxCategory } from '@/components/documents/share/DocumentTypeConstants'
-import type { TaxCategoryStep } from 'df-shared-next/src/models/DfDocument'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { PdfAnalysisService } from '@/services/PdfAnalysisService'
-import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import { RiAlarmWarningLine, RiHourglassFill, RiInformationFill } from '@remixicon/vue'
+import { RegisterService } from '@/services/RegisterService'
+import { UtilsService } from '@/services/UtilsService'
+import { useTenantStore } from '@/stores/tenant-store'
+import { RiAlarmWarningLine, RiHourglassFill } from '@remixicon/vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
+import type { TaxCategoryStep } from 'df-shared-next/src/models/DfDocument'
+import type { DfFile } from 'df-shared-next/src/models/DfFile'
+import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLoading } from 'vue-loading-overlay'
 import TaxAnalysisBanners from './TaxAnalysisBanners.vue'
+import { useTaxState } from './taxState'
 
 const props = defineProps<{ category: TaxCategory; step?: TaxCategoryStep; explanation?: string }>()
 
@@ -137,6 +148,7 @@ const store = useTenantStore()
 const taxState = useTaxState()
 const fileUpload = useTemplateRef('file-upload')
 const explainSection = useTemplateRef<HTMLElement>('explain-section')
+const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
 const { t } = useI18n()
 
 const taxDocument = taxState.document
@@ -287,11 +299,10 @@ async function addFiles(fileList: File[]) {
   save()
 }
 
-function openExplainSection() {
+async function openExplainSection() {
   showExplainForm.value = true
-  nextTick(() => {
-    explainSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  })
+  await nextTick()
+  explainTextarea.value?.focus()
 }
 
 function saveExplanation() {
@@ -414,13 +425,6 @@ async function remove(file: DfFile, silent = false) {
 .explain-form {
   width: 100%;
   margin-top: 1rem;
-}
-
-.explain-form-label {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: #161616;
-  margin-bottom: 0.5rem;
 }
 
 .fr-info-text {
