@@ -29,6 +29,9 @@ const residencyLink = computed(() => {
   return makeCotenantGuarantorResidencyLink(tenantId.value, Number(guarantorId.value), document)
 })
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : residencyLink.value
+
 provide(idDocKey, {
   category: 'couple-guarantor-identification',
   textKey: 'couple-guarantor',
@@ -40,7 +43,7 @@ provide(idDocKey, {
       tenantId: route.params.tenantId
     }
   },
-  nextStep: residencyLink.value,
+  nextStep: nextStep,
   document: computed(() => store.getGuarantorIdentificationDocument),
   action: 'saveGuarantorIdentification',
   userId: store.user.id,
