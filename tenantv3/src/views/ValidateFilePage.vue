@@ -1,11 +1,11 @@
 <template>
   <ProfileContainer :step="getStep()">
     <ValidateFile @on-back="goBack"></ValidateFile>
-    <div class="contact-support-container">
+    <div class="fr-mx-3w contact-support-container">
       <RiQuestionFill class="icon" aria-hidden="true" />
       <a
         class="contact-link"
-        href="/contact"
+        :href="t('trigram.support-link-url')"
         target="_blank"
         rel="noopener noreferrer"
         :title="`${t('trigram.support-link')} - ${t('new-window')}`"
@@ -80,5 +80,8 @@ function goBack() {
 .contact-link {
   color: var(--primary);
   font-size: 1rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  background: none; /* Désactive l'effet de soulignement du DSFR si hérité */
 }
 </style>

@@ -30,11 +30,14 @@ const residencyLink = computed(() => {
   return makeCotenantGuarantorResidencyLink(tenantId.value, Number(guarantorId.value), document)
 })
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : { name: 'TenantGuarantorFinancial' }
+
 provide(mainActivityKey, {
   category: 'couple-guarantor-professional',
   textKey: 'couple-guarantor',
   previousStep: residencyLink.value,
-  nextStep: { name: 'TenantGuarantorFinancial' },
+  nextStep: nextStep,
   document: computed(() => store.getGuarantorProfessionalDocument),
   userId: store.user.id,
   action: 'saveGuarantorProfessional',
