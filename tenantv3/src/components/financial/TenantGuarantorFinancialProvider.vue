@@ -25,6 +25,9 @@ const taxLink = computed(() => {
   return makeSpouseGuarantorTaxLink(store.guarantor, store.coTenants[0].id)
 })
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : taxLink.value
+
 provide(financialKey, {
   category: 'couple-guarantor-financial',
   textKey: 'couple-guarantor',
@@ -33,7 +36,7 @@ provide(financialKey, {
     name: 'TenantGuarantorProfessional',
     params: { tenantId: tenantId.value, guarantorId: guarantorId.value }
   },
-  nextStep: taxLink.value,
+  nextStep: nextStep,
   recap: { name: 'TenantGuarantorFinancial' },
   userId: store.user.id,
   action: 'saveGuarantorFinancial',

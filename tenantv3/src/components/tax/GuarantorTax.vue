@@ -15,14 +15,19 @@ import { computed, provide } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { taxKey } from '@/components/tax/lib/taxState'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const store = useTenantStore()
+
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : { name: 'GuarantorList' }
 
 provide(taxKey, {
   category: 'guarantor-tax',
   textKey: 'guarantor',
   previousStep: { name: 'GuarantorFinancial' },
-  nextStep: { name: 'GuarantorList' },
+  nextStep: nextStep,
   document: computed(() => store.getGuarantorTaxDocument),
   action: 'saveGuarantorTax',
   userId: store.user.id,

@@ -27,6 +27,9 @@ const taxLink = computed(() => {
   return makeTaxLink(document, path)
 })
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : taxLink.value
+
 provide(financialKey, {
   category: 'couple-financial',
   textKey: 'couple',
@@ -35,7 +38,7 @@ provide(financialKey, {
     return tenant.documents?.filter((d) => d.documentCategory === 'FINANCIAL') ?? []
   }),
   previousStep: mainActivityLink.value,
-  nextStep: taxLink.value,
+  nextStep: nextStep,
   recap: { name: 'CoupleFinancial' },
   userId: store.user.id,
   action: 'saveTenantFinancial',

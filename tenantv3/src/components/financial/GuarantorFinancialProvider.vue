@@ -9,6 +9,8 @@ import { financialKey } from '@/components/financial/financialState'
 import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
 import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { makeGuarantorTaxLink } from '../tax/lib/taxLink'
+import { useRoute } from 'vue-router'
+const route = useRoute()
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
 const mainActivityLink = computed(() =>
@@ -18,12 +20,15 @@ const taxLink = computed(() =>
   store.guarantor ? makeGuarantorTaxLink(store.guarantor) : `/info-garant/5/${guarantorId.value}`
 )
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : taxLink.value
+
 provide(financialKey, {
   category: 'guarantor-financial',
   textKey: 'guarantor',
   documents: computed(() => store.guarantorFinancialDocuments),
   previousStep: mainActivityLink.value,
-  nextStep: taxLink.value,
+  nextStep: nextStep,
   recap: { name: 'GuarantorFinancial' },
   userId: store.user.id,
   action: 'saveGuarantorFinancial',
