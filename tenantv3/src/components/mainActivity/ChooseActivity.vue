@@ -116,7 +116,7 @@ const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
 ])
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "activity": {
@@ -135,19 +135,19 @@ const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
       "artist-author": "Artist-author",
       "stay-at-home-parent": "Stay-at-home parent",
       "no-activity": "No activity",
-      "other": "Autre"
+      "other": "Other"
     },
     "tenant": {
-      "desc": "Do you have several activities? Please select your main activity below. You can add different types of income in the Income section.",
+      "desc": "Do you have several activities? Please select your main activity below. You can add different types of income in the Income section."
     },
     "couple": {
-      "desc": "Does your spouse have several activities? Please select their main activity below. You can add different types of income in the Income section.",
+      "desc": "Does your spouse have several activities? Please select their main activity below. You can add different types of income in the Income section."
     },
     "guarantor": {
-      "desc": "Does your guarantor have several activities? Please select their main activity below. You can add different types of income in the Income section.",
+      "desc": "Does your guarantor have several activities? Please select their main activity below. You can add different types of income in the Income section."
     },
     "couple-guarantor": {
-      "desc": "Does your spouse's guarantor have several activities? Please select their main activity below. You can add different types of income in the Income section.",
+      "desc": "Does your spouse's guarantor have several activities? Please select their main activity below. You can add different types of income in the Income section."
     }
   },
   "fr": {
@@ -173,7 +173,7 @@ const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
       "desc": "Vous avez plusieurs activités ? Veuillez choisir votre activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique Revenus."
     },
     "guarantor": {
-      "desc": "Votre garant a plusieurs activités ? Veuillez choisir son activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique Revenus.",
+      "desc": "Votre garant a plusieurs activités ? Veuillez choisir son activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique Revenus."
     },
     "couple": {
       "desc": "Votre conjoint a plusieurs activités ? Veuillez choisir son activité principale ci-dessous. Vous pourrez ajouter différents types de revenus dans la rubrique Revenus."
