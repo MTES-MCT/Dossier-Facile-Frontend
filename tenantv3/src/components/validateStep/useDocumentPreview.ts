@@ -106,7 +106,7 @@ export function useDocumentPreview(
         previewDocument.document,
         previewDocument.document === undefined ? previewDocument.documentCategory : undefined
       )
-      router.push(routePath)
+      router.push({ path: routePath, query: { from: 'validation' } })
     }
 
     if (guarantorId !== undefined && cotenantId === undefined) {
@@ -115,7 +115,7 @@ export function useDocumentPreview(
         previewDocument.document === undefined ? previewDocument.documentCategory : undefined,
         guarantorId
       )
-      router.push(routePath)
+      router.push({ path: routePath, query: { from: 'validation' } })
     }
 
     if (guarantorId === undefined && cotenantId !== undefined) {
@@ -124,7 +124,7 @@ export function useDocumentPreview(
         previewDocument.document === undefined ? previewDocument.documentCategory : undefined,
         cotenantId
       )
-      router.push(routePath)
+      router.push({ path: routePath, query: { from: 'validation' } })
     }
   }
 

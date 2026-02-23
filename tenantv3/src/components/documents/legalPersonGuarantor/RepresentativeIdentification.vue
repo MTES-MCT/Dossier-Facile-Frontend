@@ -102,8 +102,11 @@ import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 import { toast } from '@/components/toast/toastUtils'
+import { useRoute, useRouter } from 'vue-router'
 
 const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
 const documents = DocumentTypeConstants.REPRESENTATIVE_IDENTIFICATION
 const props = defineProps<{
   tenantId?: number
@@ -234,6 +237,11 @@ function goBack() {
 
 function goNext() {
   save().then(() => {
+    const isFromValidation = route.query.from === 'validation'
+    if (isFromValidation) {
+      router.push({ name: 'ValidateFile' })
+      return
+    }
     emit('on-next')
   })
 }

@@ -35,11 +35,14 @@ const mainActivityLink = computed(() => {
   return makeActivityLink(document?.documentSubCategory, path)
 })
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : mainActivityLink.value
+
 provide(residencyKey, {
   category: 'couple-residency',
   textKey: 'couple',
   previousStep: identityDocumentLink.value,
-  nextStep: mainActivityLink.value,
+  nextStep: nextStep,
   document: computed(() => DocumentService.getCoTenantDocument(tenantId, 'RESIDENCY')),
   userId: tenantId,
   addData: (formData) => {

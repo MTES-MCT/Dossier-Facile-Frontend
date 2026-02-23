@@ -7,15 +7,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide } from 'vue'
-import { useI18n } from 'vue-i18n'
+import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
+import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
+import { makeSpouseGuarantorIdDocLink } from '@/components/identityDocument/lib/identityDocumentLink'
 import { residencyKey } from '@/components/residency/residencyState'
 import { useTenantStore } from '@/stores/tenant-store'
-import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
-import { useRoute } from 'vue-router'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
-import { makeSpouseGuarantorIdDocLink } from '@/components/identityDocument/lib/identityDocumentLink'
+import { computed, provide } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -44,18 +44,23 @@ const identificationLink = computed(() => {
     : `/garants-locataire/${tenantId}/5`
 })
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation
+  ? { name: 'ValidateFile' }
+  : {
+      name: 'TenantGuarantorProfessional',
+      params: {
+        tenantId,
+        guarantorId: guarantorId.value,
+        step
+      }
+    }
+
 provide(residencyKey, {
   category: 'couple-guarantor-residency',
   textKey: 'couple',
   previousStep: identificationLink.value,
-  nextStep: {
-    name: 'TenantGuarantorProfessional',
-    params: {
-      tenantId,
-      guarantorId: guarantorId.value,
-      step
-    }
-  },
+  nextStep: nextStep,
   document,
   userId: tenantId,
   addData: (formData) => {
