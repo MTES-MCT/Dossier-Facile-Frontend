@@ -1,5 +1,4 @@
 <template>
-          <h2 class="fr-h2">{{ t('analyse-finished.title') }}</h2>
   <div class="fr-container fr-my-3w">
     <div class="fr-grid-row">
       <div class="fr-col-12">
