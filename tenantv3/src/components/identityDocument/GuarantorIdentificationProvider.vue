@@ -17,7 +17,9 @@ import { idDocKey } from '@/components/identityDocument/lib/identityDocumentStat
 import { useGuarantorId } from '../guarantorResidency/useGuarantorId'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { makeGuarantorResidencyLink } from '../guarantorResidency/makeGuarantorResidencyLink'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
 
@@ -25,11 +27,14 @@ const residencyLink = computed(() => {
   return store.guarantor ? makeGuarantorResidencyLink(store.guarantor) : '/liste-garants'
 })
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : residencyLink.value
+
 provide(idDocKey, {
   category: 'guarantor-identification',
   textKey: 'guarantor',
   previousStep: { name: 'GuarantorName', params: { guarantorId: guarantorId.value } },
-  nextStep: residencyLink.value,
+  nextStep: nextStep,
   document: computed(() => store.getGuarantorIdentificationDocument),
   action: 'saveGuarantorIdentification',
   userId: store.user.id,
