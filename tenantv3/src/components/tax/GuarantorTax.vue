@@ -9,19 +9,18 @@
 </template>
 
 <script setup lang="ts">
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { useI18n } from 'vue-i18n'
-import { computed, provide } from 'vue'
-import { useTenantStore } from '@/stores/tenant-store'
-import { taxKey } from '@/components/tax/lib/taxState'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
-import { useRoute } from 'vue-router'
+import { taxKey } from '@/components/tax/lib/taxState'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { computed, provide } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const route = useRoute()
 const store = useTenantStore()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation ? { name: 'ValidateFile' } : { name: 'GuarantorList' }
+const nextStep = getNavigationNextStep({ name: 'GuarantorList' })
 
 provide(taxKey, {
   category: 'guarantor-tax',
