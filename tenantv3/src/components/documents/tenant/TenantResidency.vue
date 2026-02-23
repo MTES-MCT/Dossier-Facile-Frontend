@@ -7,23 +7,23 @@
 </template>
 
 <script setup lang="ts">
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { useI18n } from 'vue-i18n'
-import { residencyKey } from '@/components/residency/residencyState'
-import { computed, provide } from 'vue'
-import { useTenantStore } from '@/stores/tenant-store'
-import { useMainActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import TenantBadge from '@/components/common/TenantBadge.vue'
 import { useIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
-import { useRoute } from 'vue-router'
+import { useMainActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
+import { residencyKey } from '@/components/residency/residencyState'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { computed, provide } from 'vue'
+import { useI18n } from 'vue-i18n'
+
 const { t } = useI18n()
-const route = useRoute()
 const store = useTenantStore()
 const identityDocumentLink = useIdentityDocumentLink()
 const mainActivityLink = useMainActivityLink()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation ? { name: 'ValidateFile' } : mainActivityLink.value
+const nextStep = getNavigationNextStep(mainActivityLink.value)
 
 provide(residencyKey, {
   category: 'residency',

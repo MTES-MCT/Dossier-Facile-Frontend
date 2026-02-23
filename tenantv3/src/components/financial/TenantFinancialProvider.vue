@@ -3,19 +3,19 @@
 </template>
 
 <script setup lang="ts">
-import { useTenantStore } from '@/stores/tenant-store'
-import { computed, provide } from 'vue'
 import { financialKey } from '@/components/financial/financialState'
 import { useMainActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { useTaxLink } from '@/components/tax/lib/taxLink'
-import { useRoute } from 'vue-router'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import { computed, provide } from 'vue'
+
 const store = useTenantStore()
-const route = useRoute()
 const mainActivityLink = useMainActivityLink()
 const taxLink = useTaxLink()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation ? { name: 'ValidateFile' } : taxLink.value
+const nextStep = getNavigationNextStep(taxLink.value)
 
 provide(financialKey, {
   category: 'financial',

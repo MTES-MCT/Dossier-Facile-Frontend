@@ -7,21 +7,21 @@
 </template>
 
 <script setup lang="ts">
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { useI18n } from 'vue-i18n'
-import { computed, provide } from 'vue'
-import { useTenantStore } from '@/stores/tenant-store'
+import TenantBadge from '@/components/common/TenantBadge.vue'
 import { mainActivityKey } from '@/components/mainActivity/lib/mainActivityState'
 import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
-import TenantBadge from '@/components/common/TenantBadge.vue'
-import { useRoute } from 'vue-router'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { computed, provide } from 'vue'
+import { useI18n } from 'vue-i18n'
+
 const { t } = useI18n()
-const route = useRoute()
 const store = useTenantStore()
 const residencyLink = useResidencyLink()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation ? { name: 'ValidateFile' } : { name: 'TenantFinancial' }
+const nextStep = getNavigationNextStep({ name: 'TenantFinancial' })
 
 provide(mainActivityKey, {
   category: 'professional',

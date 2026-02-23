@@ -318,7 +318,7 @@ export const AnalyticsService = {
     sendFullEvent('funnel', 'clic', `document_analysis_save_comment_${category}`)
   },
 
-  document_analysis_timout(category: DocumentCategory) {
+  document_analysis_timeout(category: DocumentCategory) {
     sendFullEvent('funnel', 'unknown', `document_analysis_timeout_${category}`)
   },
 
