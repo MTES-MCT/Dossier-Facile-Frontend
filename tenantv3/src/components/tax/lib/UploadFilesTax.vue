@@ -27,12 +27,6 @@
       <div class="analysis-loading-progress-bar"></div>
     </div>
   </div>
-  <TaxAnalysisBanners
-    v-if="analysisFailedRules.length > 0"
-    :failed-rules="analysisFailedRules"
-    class="fr-mb-3w"
-    @explain="openExplainSection()"
-  />
   <FileUpload
     ref="file-upload"
     :current-status="fileUploadStatus"
@@ -132,10 +126,13 @@ import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
-import TaxAnalysisBanners from './TaxAnalysisBanners.vue'
 import { useTaxState } from './taxState'
 
 const props = defineProps<{ category: TaxCategory; step?: TaxCategoryStep; explanation?: string }>()
+
+const emit = defineEmits<{
+  analysisError: []
+}>()
 
 const MAX_FILE_COUNT = 5
 const POLLING_INTERVAL_MS = 3000
@@ -161,6 +158,7 @@ const analysisFailedRules = ref<DocumentRule[]>([])
 const analysisInProgress = ref(false)
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
 const pollingTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
+const userInitiatedPolling = ref(false)
 
 function stopPolling() {
   if (pollingInterval.value) {
@@ -183,7 +181,12 @@ async function updateAnalysisStatus() {
     const { data } = await AnalysisService.getDocumentAnalysisStatus(docId)
     if (data.status === AnalysisStatus.COMPLETED) {
       analysisInProgress.value = false
-      analysisFailedRules.value = data.analysisReport?.failedRules ?? []
+      const rules = data.analysisReport?.failedRules ?? []
+      analysisFailedRules.value = rules
+      if (userInitiatedPolling.value && rules.length > 0) {
+        await nextTick()
+        emit('analysisError')
+      }
       stopPolling()
     } else if (data.status === AnalysisStatus.NO_ANALYSIS_SCHEDULED) {
       analysisInProgress.value = false
@@ -200,12 +203,13 @@ async function updateAnalysisStatus() {
   }
 }
 
-function startPolling() {
+function startPolling(userInitiated = false) {
   stopPolling()
+  userInitiatedPolling.value = userInitiated
   updateAnalysisStatus()
   pollingInterval.value = setInterval(updateAnalysisStatus, POLLING_INTERVAL_MS)
   pollingTimeout.value = setTimeout(() => {
-    AnalyticsService.document_analysis_timout('tax')
+    AnalyticsService.document_analysis_timeout('tax')
     analysisInProgress.value = false
     stopPolling()
   }, POLLING_TIMEOUT_MS)
@@ -276,7 +280,7 @@ async function save(): Promise<boolean> {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       toast.success(t('file-saved'), fileUpload.value?.inputFile)
-      startPolling()
+      startPolling(true)
       return true
     })
     .catch((err) => {
@@ -308,6 +312,7 @@ async function openExplainSection(isFromLink: boolean = true) {
   } else {
     AnalyticsService.document_analysis_show_comment('tax')
   }
+  showExplainForm.value = true
   await nextTick()
   explainTextarea.value?.focus()
 }
@@ -325,7 +330,7 @@ function saveExplanation() {
   })
 }
 
-defineExpose({ analysisFailedRules, explanationSubmitted, analysisInProgress })
+defineExpose({ analysisFailedRules, explanationSubmitted, analysisInProgress, openExplainSection })
 
 async function remove(file: DfFile, silent = false) {
   AnalyticsService.deleteFile(taxState.category)

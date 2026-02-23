@@ -1,6 +1,6 @@
 <template>
-  <div v-if="failedRules.length > 0" class="analysis-banners">
-    <div v-for="(rule, index) in failedRules" :key="index" class="analysis-banner">
+  <ol v-if="failedRules.length > 0" role="list" ref="listRef" tabindex="-1" :aria-label="t('errors-to-fix', { count: failedRules.length })" class="analysis-banners">
+    <li v-for="(rule, index) in failedRules" :key="index" class="analysis-banner">
       <div class="banner-content">
         <div class="banner-title">
           <VIcon name="ri:alert-fill" :scale="1.25" color="#b34000"/>
@@ -35,11 +35,12 @@
           <button type="button" class="explain-link" @click="emit('explain')">{{ t('explain-link') }}</button>
         </p>
       </div>
-    </div>
-  </div>
+    </li>
+  </ol>
 </template>
 
 <script setup lang="ts">
+import { useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
 import { VIcon } from '@gouvminint/vue-dsfr'
@@ -53,6 +54,13 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
+const listRef = useTemplateRef<HTMLOListElement>('listRef')
+
+function focus() {
+  listRef.value?.focus()
+}
+
+defineExpose({ focus })
 
 const ruleTitleMap: Record<string, string> = {
   R_TAX_BAD_CLASSIFICATION_DECLARATIVE: 'rules.bad-classification.title',
@@ -120,6 +128,11 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.analysis-banners:focus {
+  outline: 2px solid var(--blue-france-sun-113-625);
+  outline-offset: 4px;
 }
 
 .analysis-banner {
@@ -208,6 +221,7 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
 <i18n>
 {
   "en": {
+    "errors-to-fix": "{count} error to fix | {count} errors to fix",
     "not-matching": "This message does not match your situation?",
     "explain-link": "Explain your situation",
     "current-document": "Current document",
@@ -235,6 +249,7 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     }
   },
   "fr": {
+    "errors-to-fix": "{count} erreur à corriger | {count} erreurs à corriger",
     "not-matching": "Ce message ne correspond pas à votre situation ?",
     "explain-link": "Expliquer votre situation",
     "current-document": "Document actuel",
