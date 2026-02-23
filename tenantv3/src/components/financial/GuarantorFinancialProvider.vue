@@ -3,16 +3,18 @@
 </template>
 
 <script setup lang="ts">
-import { useTenantStore } from '@/stores/tenant-store'
-import { computed, provide } from 'vue'
 import { financialKey } from '@/components/financial/financialState'
 import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
 import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import { computed, provide } from 'vue'
 import { makeGuarantorTaxLink } from '../tax/lib/taxLink'
-import { useRoute } from 'vue-router'
-const route = useRoute()
+
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
+const { getNavigationNextStep } = useHandleValidationNavigation()
+
 const mainActivityLink = computed(() =>
   store.selectedGuarantor ? makeGuarantorActivityLink(store.selectedGuarantor) : '/liste-garants'
 )
@@ -20,8 +22,7 @@ const taxLink = computed(() =>
   store.guarantor ? makeGuarantorTaxLink(store.guarantor) : `/info-garant/5/${guarantorId.value}`
 )
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation ? { name: 'ValidateFile' } : taxLink.value
+const nextStep = getNavigationNextStep(taxLink.value)
 
 provide(financialKey, {
   category: 'guarantor-financial',

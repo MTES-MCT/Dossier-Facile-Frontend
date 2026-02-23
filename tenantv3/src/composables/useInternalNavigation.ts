@@ -4,6 +4,7 @@ import type {
   DocumentCategory,
   DocumentCategoryStep
 } from 'df-shared-next/src/models/DfDocument'
+import { useRoute, useRouter, type RouteLocationRaw } from 'vue-router'
 
 export const CATEGORY_TO_PATH: Record<string, string> = {
   // Financial
@@ -211,5 +212,32 @@ export const useInternalNavigation = () => {
     getTenantNavigationPath,
     getGuarantorNavigationPath,
     getCotenantNavigationPath
+  }
+}
+
+export const useHandleValidationNavigation = () => {
+  const router = useRouter()
+  const route = useRoute()
+
+  const handleValidationNavigation = (): boolean => {
+    const isFromValidation = route.query.from === 'validation'
+    if (isFromValidation) {
+      router.push({ name: 'ValidateFile' })
+      return true
+    }
+    return false
+  }
+
+  const getNavigationNextStep = (nextStep: RouteLocationRaw): RouteLocationRaw => {
+    const isFromValidation = route.query.from === 'validation'
+    if (isFromValidation) {
+      return { name: 'ValidateFile' }
+    }
+    return nextStep
+  }
+
+  return {
+    handleValidationNavigation,
+    getNavigationNextStep
   }
 }
