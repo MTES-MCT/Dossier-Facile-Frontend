@@ -16,15 +16,20 @@ import { computed, provide } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { idDocKey } from '@/components/identityDocument/lib/identityDocumentState'
 import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
+import { useRoute } from 'vue-router'
 
 const store = useTenantStore()
+const route = useRoute()
 const residencyLink = useResidencyLink()
+
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation ? { name: 'ValidateFile' } : residencyLink.value
 
 provide(idDocKey, {
   category: 'identification',
   textKey: 'tenant',
-  previousStep: { name: 'TenantType' },
-  nextStep: residencyLink.value,
+  previousStep: isFromValidation ? { name: 'ValidateFile' } : { name: 'TenantType' },
+  nextStep: nextStep,
   document: computed(() => store.getTenantIdentificationDocument),
   action: 'saveTenantIdentification',
   userId: store.user.id

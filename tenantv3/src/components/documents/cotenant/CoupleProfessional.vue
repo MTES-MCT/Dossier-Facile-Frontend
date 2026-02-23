@@ -27,11 +27,16 @@ const residencyLink = computed(() => {
   return makeResidencyLink(cotenant, `/documents-colocataire/${tenantId}/${step}/2`)
 })
 
+const isFromValidation = route.query.from === 'validation'
+const nextStep = isFromValidation
+  ? { name: 'ValidateFile' }
+  : { name: 'CoupleFinancial', params: { tenantId } }
+
 provide(mainActivityKey, {
   category: 'couple-professional',
   textKey: 'couple',
   previousStep: residencyLink.value,
-  nextStep: { name: 'CoupleFinancial', params: { tenantId } },
+  nextStep: nextStep,
   document: computed(() => DocumentService.getCoTenantDocument(tenantId, 'PROFESSIONAL')),
   userId: tenantId,
   action: 'saveTenantProfessional',

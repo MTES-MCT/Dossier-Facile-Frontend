@@ -65,6 +65,11 @@ function goBack() {
 }
 
 function goNext() {
+  const isFromValidation = route.query.from === 'validation'
+  if (isFromValidation) {
+    router.push({ name: 'ValidateFile' })
+    return
+  }
   goToRoute(1)
 }
 
@@ -78,6 +83,11 @@ function goToResidency() {
 }
 
 function nextStep() {
+  const isFromValidation = route.query.from === 'validation'
+  if (isFromValidation) {
+    router.push({ name: 'ValidateFile' })
+    return
+  }
   router.push({
     name: 'TenantGuarantors',
     params: {

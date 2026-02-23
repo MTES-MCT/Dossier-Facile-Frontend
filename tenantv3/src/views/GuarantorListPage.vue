@@ -44,7 +44,7 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { toast } from '@/components/toast/toastUtils'
 import { makeTaxLink } from '@/components/tax/lib/taxLink'
 
@@ -52,6 +52,7 @@ const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const router = useRouter()
+const route = useRoute()
 
 const isRemoveGuarantor = ref(false)
 const cardRow = useTemplateRef('card-row')
@@ -81,6 +82,11 @@ function goBack() {
 }
 
 function goNext() {
+  const isFromValidation = route.query.from === 'validation'
+  if (isFromValidation) {
+    router.push({ name: 'ValidateFile' })
+    return
+  }
   if (user.value.applicationType == 'COUPLE') {
     const cotenant = user.value.apartmentSharing?.tenants.find((t) => t.id != user.value.id)
     if (!cotenant) {
