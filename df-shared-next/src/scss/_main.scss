@@ -12,6 +12,9 @@
 :is(ul, ol)[role='list'] {
   padding: 0;
   list-style-type: none;
+  li::marker {
+    content: "";
+  }
 }
 
 .cdn-background {

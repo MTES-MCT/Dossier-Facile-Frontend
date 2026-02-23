@@ -31,6 +31,13 @@
     class="fr-mb-3w"
     @click="isModalOpened = true"
   />
+  <TaxAnalysisBanners
+    v-if="analysisErrorCount > 0"
+    ref="tax-banners"
+    :failed-rules="uploadFilesTax?.analysisFailedRules ?? []"
+    class="fr-mb-3w"
+    @explain="uploadFilesTax?.openExplainSection()"
+  />
 
   <DsfrModalPatch v-model:is-opened="isModalOpened" :title="t('modal.sample-docs')" size="xl">
     <DsfrAlert type="warning" small>
@@ -52,7 +59,7 @@
     <img :src="avisOK" alt="" width="600" height="850" />
   </DsfrModalPatch>
 
-  <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" />
+  <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" @analysis-error="focusBanners" />
   <TaxFooter :next-disabled="nextDisabled" />
 </template>
 
@@ -61,11 +68,12 @@ import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { useI18n } from 'vue-i18n'
-import { RiAlertFill, RiAlertLine, RiEyeLine } from '@remixicon/vue'
+import { RiAlertFill, RiEyeLine } from '@remixicon/vue'
 import { taxYear } from './lib/taxYear'
 import { computed, ref, useTemplateRef } from 'vue'
 import avisOK from '@/assets/avis_ok.png'
 import avisKO from '@/assets/avis_ko.png'
+import TaxAnalysisBanners from './lib/TaxAnalysisBanners.vue'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 import { useTaxState } from './lib/taxState'
 import { DsfrAlert, DsfrButton } from '@gouvminint/vue-dsfr'
@@ -76,10 +84,16 @@ const parent = useParentRoute()
 const grandParent = useParentRoute(2)
 const { textKey } = useTaxState()
 
+const uploadFilesTax = useTemplateRef('upload-files-tax')
+const taxBanners = useTemplateRef('tax-banners')
 const analysisErrorCount = computed(() => uploadFilesTax.value?.analysisFailedRules?.length ?? 0)
 const isModalOpened = ref(false)
 const analysisInProgress = computed(() => uploadFilesTax.value?.analysisInProgress ?? false)
 const nextDisabled = computed(() => analysisInProgress.value || (analysisErrorCount.value > 0 && !uploadFilesTax.value?.explanationSubmitted))
+
+function focusBanners() {
+  taxBanners.value?.focus()
+}
 </script>
 
 <style scoped>
