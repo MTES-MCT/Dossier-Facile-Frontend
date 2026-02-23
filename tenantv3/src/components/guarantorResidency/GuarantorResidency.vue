@@ -7,21 +7,22 @@
 </template>
 
 <script setup lang="ts">
+import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { computed, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { residencyKey } from '../residency/residencyState'
-import { useTenantStore } from '@/stores/tenant-store'
-import { useGuarantorId } from './useGuarantorId'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { makeGuarantorActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { makeGuarantorIdentityDocumentLink } from '../identityDocument/lib/identityDocumentLink'
-import { useRoute } from 'vue-router'
+import { residencyKey } from '../residency/residencyState'
+import { useGuarantorId } from './useGuarantorId'
 
 const { t } = useI18n()
-const route = useRoute()
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
+const { getNavigationNextStep } = useHandleValidationNavigation()
+
 const identityDocumentLink = computed(() =>
   store.selectedGuarantor
     ? makeGuarantorIdentityDocumentLink(store.selectedGuarantor)
@@ -31,8 +32,7 @@ const mainActivityLink = computed(() =>
   store.selectedGuarantor ? makeGuarantorActivityLink(store.selectedGuarantor) : '/liste-garants'
 )
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation ? { name: 'ValidateFile' } : mainActivityLink.value
+const nextStep = getNavigationNextStep(mainActivityLink.value)
 
 provide(residencyKey, {
   category: 'guarantor-residency',

@@ -18,10 +18,13 @@ import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
 import { makeCotenantGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 import { useRoute } from 'vue-router'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
 const route = useRoute()
+const { getNavigationNextStep } = useHandleValidationNavigation()
+
 const tenantId = computed(() => Number(route.params.tenantId))
 
 const residencyLink = computed(() => {
@@ -29,8 +32,7 @@ const residencyLink = computed(() => {
   return makeCotenantGuarantorResidencyLink(tenantId.value, Number(guarantorId.value), document)
 })
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation ? { name: 'ValidateFile' } : residencyLink.value
+const nextStep = getNavigationNextStep(residencyLink.value)
 
 provide(idDocKey, {
   category: 'couple-guarantor-identification',

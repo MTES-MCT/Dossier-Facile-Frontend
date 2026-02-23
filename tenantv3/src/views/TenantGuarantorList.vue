@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
 import { toast } from '@/components/toast/toastUtils'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { useTenantStore } from '@/stores/tenant-store'
 import CardRow from 'df-shared-next/src/components/CardRow.vue'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
@@ -42,7 +43,7 @@ import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import GuarantorFooter from '../components/footer/GuarantorFooter.vue'
 
 const props = defineProps<{
@@ -50,9 +51,10 @@ const props = defineProps<{
 }>()
 
 const route = useRoute()
-const router = useRouter()
 const { t } = useI18n()
 const store = useTenantStore()
+const { handleValidationNavigation } = useHandleValidationNavigation()
+
 const emit = defineEmits<{
   'on-back': []
   'on-next': []
@@ -78,9 +80,7 @@ function goBack() {
 }
 
 function goNext() {
-  const isFromValidation = route.query.from === 'validation'
-  if (isFromValidation) {
-    router.push({ name: 'ValidateFile' })
+  if (handleValidationNavigation()) {
     return
   }
   emit('on-next')

@@ -72,7 +72,11 @@
 </template>
 
 <script setup lang="ts">
+import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 import { DocumentTypeTranslations } from '@/components/editmenu/documents/DocumentType'
+import { toast } from '@/components/toast/toastUtils'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { UtilsService } from '@/services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
@@ -89,15 +93,10 @@ import GuarantorFooter from '../../footer/GuarantorFooter.vue'
 import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
-import { UtilsService } from '@/services/UtilsService'
-import { toast } from '@/components/toast/toastUtils'
-import { useRoute, useRouter } from 'vue-router'
 
 const store = useTenantStore()
 const { t } = useI18n()
-const route = useRoute()
-const router = useRouter()
+const { handleValidationNavigation } = useHandleValidationNavigation()
 
 const props = defineProps<{
   tenantId?: number
@@ -245,9 +244,7 @@ function goBack() {
 
 function goNext() {
   save().then(() => {
-    const isFromValidation = route.query.from === 'validation'
-    if (isFromValidation) {
-      router.push({ name: 'ValidateFile' })
+    if (handleValidationNavigation()) {
       return
     }
     emit('on-next')

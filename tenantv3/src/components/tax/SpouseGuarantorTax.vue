@@ -17,17 +17,19 @@ import { taxKey } from '@/components/tax/lib/taxState'
 import { useRoute } from 'vue-router'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { useGuarantorId } from '../guarantorResidency/useGuarantorId'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 
 const route = useRoute()
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const tenantId = computed(() => Number(route.params.tenantId))
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation
-  ? { name: 'ValidateFile' }
-  : { name: 'TenantGuarantors', params: { tenantId: tenantId.value, step: '5' } }
+const nextStep = getNavigationNextStep({
+  name: 'TenantGuarantors',
+  params: { tenantId: tenantId.value, step: '5' }
+})
 
 provide(taxKey, {
   category: 'couple-guarantor-tax',
