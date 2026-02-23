@@ -6,6 +6,7 @@
 import { financialKey } from '@/components/financial/financialState'
 import { makeActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { makeTaxLink } from '@/components/tax/lib/taxLink'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { DocumentService } from '@/services/DocumentService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed, provide } from 'vue'
@@ -14,6 +15,7 @@ import { useRoute } from 'vue-router'
 const store = useTenantStore()
 const route = useRoute()
 const tenantId = computed(() => Number(route.params.tenantId))
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const mainActivityLink = computed(() => {
   const document = DocumentService.getCoTenantDocument(tenantId.value, 'PROFESSIONAL')
@@ -27,8 +29,7 @@ const taxLink = computed(() => {
   return makeTaxLink(document, path)
 })
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation ? { name: 'ValidateFile' } : taxLink.value
+const nextStep = getNavigationNextStep(taxLink.value)
 
 provide(financialKey, {
   category: 'couple-financial',

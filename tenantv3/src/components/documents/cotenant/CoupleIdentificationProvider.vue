@@ -10,6 +10,7 @@
 import TenantBadge from '@/components/common/TenantBadge.vue'
 import { idDocKey } from '@/components/identityDocument/lib/identityDocumentState'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { DocumentService } from '@/services/DocumentService'
 import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
@@ -20,6 +21,7 @@ import { useRoute } from 'vue-router'
 const store = useTenantStore()
 const route = useRoute()
 const { t } = useI18n()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const tenantId = computed(() => Number(route.params.tenantId))
 const residencyLink = computed(() => {
@@ -28,8 +30,7 @@ const residencyLink = computed(() => {
   return makeResidencyLink(cotenant, `/documents-colocataire/${tenantId.value}/${step}/2`)
 })
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation ? { name: 'ValidateFile' } : residencyLink.value
+const nextStep = getNavigationNextStep(residencyLink.value)
 
 provide(idDocKey, {
   category: 'couple-identification',

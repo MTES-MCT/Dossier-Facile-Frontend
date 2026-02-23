@@ -9,26 +9,26 @@
 </template>
 
 <script setup lang="ts">
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { useI18n } from 'vue-i18n'
 import TenantBadge from '@/components/common/TenantBadge.vue'
-import { computed, provide } from 'vue'
-import { useTenantStore } from '@/stores/tenant-store'
 import { idDocKey } from '@/components/identityDocument/lib/identityDocumentState'
 import { useResidencyLink } from '@/components/residency/lib/useResidencyLink'
-import { useRoute } from 'vue-router'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { computed, provide } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const store = useTenantStore()
-const route = useRoute()
 const residencyLink = useResidencyLink()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation ? { name: 'ValidateFile' } : residencyLink.value
+const nextStep = getNavigationNextStep(residencyLink.value)
+const previousStep = getNavigationNextStep({ name: 'TenantType' })
 
 provide(idDocKey, {
   category: 'identification',
   textKey: 'tenant',
-  previousStep: isFromValidation ? { name: 'ValidateFile' } : { name: 'TenantType' },
+  previousStep: previousStep,
   nextStep: nextStep,
   document: computed(() => store.getTenantIdentificationDocument),
   action: 'saveTenantIdentification',
