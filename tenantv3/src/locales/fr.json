@@ -423,7 +423,9 @@
   "filerowlistitem": {
     "edit": "Mettre à jour",
     "see": "Voir",
-    "see-title": "Voir - Ouvre une nouvelle fenêtre"
+    "see-title": "Voir - Ouvre une nouvelle fenêtre",
+    "view-failed": "Impossible d'ouvrir le document. Veuillez réessayer.",
+    "download": "Télécharger"
   },
   "fileupload": {
     "drag-and-drop-files": "Glissez et déposez vos documents :",

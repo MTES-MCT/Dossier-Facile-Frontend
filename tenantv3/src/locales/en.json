@@ -421,7 +421,9 @@
   "filerowlistitem": {
     "edit": "Update",
     "see": "See",
-    "see-title": "See - Open in a new window"
+    "see-title": "See - Open in a new window",
+    "view-failed": "Unable to open the document. Please try again.",
+    "download": "Download"
   },
   "fileupload": {
     "drag-and-drop-files": "Drag and drop your documents:",
