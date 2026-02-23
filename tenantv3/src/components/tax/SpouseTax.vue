@@ -17,16 +17,18 @@ import { taxKey } from '@/components/tax/lib/taxState'
 import { useRoute } from 'vue-router'
 import { DocumentService } from '@/services/DocumentService'
 import TenantBadge from '../common/TenantBadge.vue'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 
 const route = useRoute()
 const store = useTenantStore()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const tenantId = computed(() => Number(route.params.tenantId))
 
-const isFromValidation = route.query.from === 'validation'
-const nextStep = isFromValidation
-  ? { name: 'ValidateFile' }
-  : { name: 'TenantGuarantors', params: { tenantId: tenantId.value, step: '5' } }
+const nextStep = getNavigationNextStep({
+  name: 'TenantGuarantors',
+  params: { tenantId: tenantId.value, step: '5' }
+})
 
 provide(taxKey, {
   category: 'couple-tax',

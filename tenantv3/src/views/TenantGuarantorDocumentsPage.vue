@@ -22,10 +22,12 @@ import OrganismCert from '@/components/documents/organismGuarantor/OrganismCert.
 import GuarantorFooter from '@/components/footer/GuarantorFooter.vue'
 import { makeCotenantGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { TENANT_GUARANTOR_ROUTES } from '@/components/documents/naturalGuarantor/guarantorRoutes'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 
 const route = useRoute()
 const router = useRouter()
 const store = useTenantStore()
+const { handleValidationNavigation } = useHandleValidationNavigation()
 
 const coTenants = computed(() => store.coTenants)
 const step = computed(() => Number(route.params.step) || 0)
@@ -65,9 +67,7 @@ function goBack() {
 }
 
 function goNext() {
-  const isFromValidation = route.query.from === 'validation'
-  if (isFromValidation) {
-    router.push({ name: 'ValidateFile' })
+  if (handleValidationNavigation()) {
     return
   }
   goToRoute(1)
@@ -83,9 +83,7 @@ function goToResidency() {
 }
 
 function nextStep() {
-  const isFromValidation = route.query.from === 'validation'
-  if (isFromValidation) {
-    router.push({ name: 'ValidateFile' })
+  if (handleValidationNavigation()) {
     return
   }
   router.push({
