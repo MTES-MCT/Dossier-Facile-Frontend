@@ -5,7 +5,6 @@ import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
 /**
- * @param here - reactive Ref of the current route/base path
  * @param suffix - suffix for translations
  */
 export function useSocialOptionLinks(suffix = ''): ComputedRef<OptionLink[]> {
@@ -25,7 +24,7 @@ export function useSocialOptionLinks(suffix = ''): ComputedRef<OptionLink[]> {
     },
     {
       to: `${route.path}/pas-encore`,
-      title: t('not-yet-' + suffix),
+      title: t(`not-yet.${suffix}`),
       event: 'pas-encore'
     }
   ])

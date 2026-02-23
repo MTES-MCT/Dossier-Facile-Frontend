@@ -31,15 +31,21 @@ const sendEvent = (subCategory: string) =>
 const optionLinks = useSocialOptionLinks(suffix)
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
+    "not-yet": {
+      "tenant": "You're not yet receiving APL"
+    },
     "not-yet-tenant": "You're not yet receiving APL",
-    "not-yet-other": "They're not yet receiving APL",
+    "not-yet-other": "They're not yet receiving APL"
   },
   "fr": {
+    "not-yet": {
+      "tenant": "Vous ne touchez pas encore l’APL"
+    },
     "not-yet-tenant": "Vous ne touchez pas encore l’APL",
-    "not-yet-other": "Ne touche pas encore l’APL",
+    "not-yet-other": "Ne touche pas encore l’APL"
   }
 }
 </i18n>
