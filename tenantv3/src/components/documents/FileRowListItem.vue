@@ -19,12 +19,14 @@
       </div>
     </div>
     <div v-if="enableDownload || canEdit" class="file-actions">
+      <!-- Lien public (lien de partage) : ouverture directe sans JWT -->
       <a
         v-if="
           enableDownload &&
           document &&
           document.name &&
-          (!showValidated || document.documentStatus === 'VALIDATED')
+          (!showValidated || document.documentStatus === 'VALIDATED') &&
+          !isAuthenticatedDocumentUrl
         "
         :href="document.name"
         :title="t('filerowlistitem.see-title')"
@@ -34,6 +36,26 @@
       >
         {{ t('filerowlistitem.see') }}
       </a>
+      <!-- URL authentifiée (/api/document/resource/) : fetch avec JWT puis ouverture en nouvel onglet -->
+      <button
+        v-else-if="
+          enableDownload &&
+          document &&
+          document.name &&
+          (!showValidated || document.documentStatus === 'VALIDATED') &&
+          isAuthenticatedDocumentUrl
+        "
+        ref="see-button"
+        type="button"
+        :title="t('filerowlistitem.see-title')"
+        :aria-describedby="id"
+        :disabled="isLoadingDocument"
+        class="fr-btn fr-btn--secondary fr-btn--icon-left fr-fi-eye-line large-btn"
+        @click.prevent="openDocumentWithAuth"
+      >
+        <span v-if="isLoadingDocument" class="fr-mr-1w" aria-hidden="true">…</span>
+        {{ t('filerowlistitem.see') }}
+      </button>
 
       <RouterLink
         v-if="canEdit && to"
@@ -52,8 +74,10 @@
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import { useI18n } from 'vue-i18n'
-import { useId } from 'vue'
+import { computed, ref, useId, useTemplateRef } from 'vue'
 import type { RouteLocationRaw } from 'vue-router'
+import { apiService } from '@/services/ApiService'
+import { toast } from '@/components/toast/toastUtils'
 
 defineEmits<{ 'click-edit': [] }>()
 
@@ -81,6 +105,14 @@ const props = withDefaults(
 
 const { t } = useI18n()
 const id = useId()
+const seeButtonRef = useTemplateRef<HTMLButtonElement>('see-button')
+const isLoadingDocument = ref(false)
+
+const isAuthenticatedDocumentUrl = computed(() => {
+  const name = props.document?.name
+  if (!name) return false
+  return name.includes('/api/document/resource/') || name.includes('document/resource/')
+})
 
 function getTagLabel() {
   if (props.tagLabel) {
@@ -94,6 +126,31 @@ function documentStatus() {
     return props.document.documentStatus ? props.document.documentStatus : 'EMPTY'
   }
   return 'EMPTY'
+}
+
+async function openDocumentWithAuth() {
+  const path = props.document?.name
+  if (!path) {
+    toast.error(t('filerowlistitem.view-failed'), seeButtonRef.value ?? undefined)
+    return
+  }
+  isLoadingDocument.value = true
+  try {
+    const response = await apiService.get<Blob>(path, { responseType: 'blob' })
+    if (response.status !== 200) {
+      toast.error(t('filerowlistitem.view-failed'), seeButtonRef.value ?? undefined)
+      return
+    }
+    const contentType = response.headers['content-type']
+    const blob = new Blob([response.data], { type: contentType || 'application/pdf' })
+    const blobUrl = URL.createObjectURL(blob)
+    window.open(blobUrl, '_blank')
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 30_000)
+  } catch {
+    toast.error(t('filerowlistitem.view-failed'), seeButtonRef.value ?? undefined)
+  } finally {
+    isLoadingDocument.value = false
+  }
 }
 </script>
 
