@@ -1094,7 +1094,7 @@ function setTitlesMeta(to: RouteLocationNormalized) {
   const fullTitle =
     // check name and translation exist
     pageName && i18n.global.te(`page-titles.${pageName}`)
-      ? `${i18n.global.t(`page-titles.${pageName}`)} - ${baseTitle}`
+      ? `${i18n.global.t('page-titles.' + pageName)} - ${baseTitle}`
       : baseTitle
   document.title = fullTitle
 
