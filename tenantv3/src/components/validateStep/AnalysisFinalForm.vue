@@ -5,6 +5,9 @@
       <p>{{ t('description') }}</p>
 
       <div class="fr-input-group">
+        <label class="fr-sr-only fr-label" for="message">
+           {{ t('title') }}
+        </label>
         <textarea
           id="message"
           v-model="message"
