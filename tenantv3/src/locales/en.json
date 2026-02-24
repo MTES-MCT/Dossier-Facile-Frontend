@@ -1124,7 +1124,7 @@
       }
     },
 
-    "TenantIdentityTitle": "Votre identité",
+    "TenantIdentityTitle": "Your Identity",
     "TenantIdentification": "@:page-titles.base.identity.identification - @:page-titles.base.steps.1of2 - @:page-titles.TenantIdentityTitle",
     "TenantIDCard": "@:page-titles.base.identity.idCard - @:page-titles.base.steps.2of2 - @:page-titles.TenantIdentityTitle",
     "TenantIDPasseport": "@:page-titles.base.identity.passeport - @:page-titles.base.steps.2of2 - @:page-titles.TenantIdentityTitle",
@@ -1133,7 +1133,7 @@
     "TenantIDFranceIdentite": "@:page-titles.base.identity.franceIdentite - @:page-titles.base.steps.2of2 - @:page-titles.TenantIdentityTitle",
     "TenantIDOther": "@:page-titles.base.identity.other - @:page-titles.base.steps.2of2 - @:page-titles.TenantIdentityTitle",
 
-    "TenantResidency": "Votre situation d'hébergement",
+    "TenantResidency": "Your Housing situation",
     "TenantResTenant": "@:page-titles.base.residency.tenant - @:page-titles.base.steps.1of2 - @:page-titles.TenantResidency",
     "TenantResTenantReceipts": "@:page-titles.base.residency.tenantReceipts - @:page-titles.base.steps.2of2 - @:page-titles.TenantResidency",
     "TenantResTenantProof": "@:page-titles.base.residency.tenantProof - @:page-titles.base.steps.2of2 - @:page-titles.TenantResidency",
@@ -1146,7 +1146,7 @@
     "TenantResOrganism": "@:page-titles.base.residency.organism - @:page-titles.TenantResidency",
     "TenantResOther": "@:page-titles.base.residency.other - @:page-titles.TenantResidency",
 
-    "TenantProfessional": "Votre situation professionnelle",
+    "TenantProfessional": "Your Professional situation",
     "TenantActCdi": "@:page-titles.base.professional.cdi - @:page-titles.TenantProfessional",
     "TenantActCdd": "@:page-titles.base.professional.cdd - @:page-titles.TenantProfessional",
     "TenantActPublic": "@:page-titles.base.professional.public - @:page-titles.TenantProfessional",
@@ -1163,8 +1163,8 @@
     "TenantActSansActivite": "@:page-titles.base.professional.sansActivite - @:page-titles.TenantProfessional",
     "TenantActOther": "@:page-titles.base.professional.other - @:page-titles.TenantProfessional",
 
-    "TenantFinancial": "Vos revenus",
-    "TenantRevAdd": "Ajouter des revenus",
+    "TenantFinancial": "Your income",
+    "TenantRevAdd": "Add income sources",
     "TenantTravail": "@:page-titles.base.financial.travail - @:page-titles.TenantFinancial",
     "TenantTravailSalarie": "@:page-titles.base.financial.travailSalarie - @:page-titles.base.steps.1of2 - @:page-titles.TenantFinancial",
     "TenantTravailSalarieplus3Mois": "@:page-titles.base.financial.travailSalarieplus3Mois - @:page-titles.base.steps.2of2 - @:page-titles.TenantFinancial",
@@ -1212,7 +1212,7 @@
     "TenantBourse": "@:page-titles.base.financial.bourse - @:page-titles.TenantFinancial",
     "TenantPasDeRevenus": "@:page-titles.base.financial.pasDeRevenus - @:page-titles.TenantFinancial",
 
-    "TenantTax": "Votre imposition",
+    "TenantTax": "Your tax notice",
     "TenantTaxAvecAvis": "@:page-titles.base.tax.avecAvis - @:page-titles.base.steps.1of2 - @:page-titles.TenantTax",
     "TenantTaxAvecAvisFrancais": "@:page-titles.base.tax.avecAvisFrancais - @:page-titles.base.steps.2of2 - @:page-titles.TenantTax",
     "TenantTaxAvecAvisEtranger": "@:page-titles.base.tax.avecAvisEtranger - @:page-titles.base.steps.2of2 - @:page-titles.TenantTax",
@@ -1223,8 +1223,8 @@
     "TenantTaxSansAvisAutre": "@:page-titles.base.tax.sansAvisAutre - @:page-titles.base.steps.2of2 - @:page-titles.TenantTax",
     "TenantTaxNonRenseigne": "@:page-titles.base.tax.nonRenseigne - @:page-titles.base.steps.2of2 - @:page-titles.TenantTax",
 
-    "Couple": "Votre conjoint",
-    "CoupleIdentityTitle": "Identité du conjoint",
+    "Couple": "Spouse",
+    "CoupleIdentityTitle": "Spouse's identity",
     "CoupleName": "@:page-titles.CoupleIdentityTitle",
     "CoupleIdentification": "@:page-titles.base.identity.identification - @:page-titles.base.steps.1of2 - @:page-titles.CoupleIdentityTitle",
     "CoupleIDCard": "@:page-titles.base.identity.idCard - @:page-titles.base.steps.2of2 - @:page-titles.CoupleIdentityTitle",
@@ -1234,7 +1234,7 @@
     "CoupleIDFranceIdentite": "@:page-titles.base.identity.franceIdentite - @:page-titles.base.steps.2of2 - @:page-titles.CoupleIdentityTitle",
     "CoupleIDOther": "@:page-titles.base.identity.other - @:page-titles.base.steps.2of2 - @:page-titles.CoupleIdentityTitle",
 
-    "CoupleResidency": "Hébergement du conjoint",
+    "CoupleResidency": "Spouse's housing",
     "CoupleResTenant": "@:page-titles.base.residency.tenant - @:page-titles.base.steps.1of2 - @:page-titles.CoupleResidency",
     "CoupleResTenantReceipts": "@:page-titles.base.residency.tenantReceipts - @:page-titles.base.steps.2of2 - @:page-titles.CoupleResidency",
     "CoupleResTenantProof": "@:page-titles.base.residency.tenantProof - @:page-titles.base.steps.2of2 - @:page-titles.CoupleResidency",
@@ -1247,7 +1247,7 @@
     "CoupleResOrganism": "@:page-titles.base.residency.organism - @:page-titles.CoupleResidency",
     "CoupleResOther": "@:page-titles.base.residency.other - @:page-titles.CoupleResidency",
 
-    "CoupleProfessional": "Activité du conjoint",
+    "CoupleProfessional": "Spouse's activity",
     "CoupleActCdi": "@:page-titles.base.professional.cdi - @:page-titles.CoupleProfessional",
     "CoupleActCdd": "@:page-titles.base.professional.cdd - @:page-titles.CoupleProfessional",
     "CoupleActPublic": "@:page-titles.base.professional.public - @:page-titles.CoupleProfessional",
@@ -1264,8 +1264,8 @@
     "CoupleActSansActivite": "@:page-titles.base.professional.sansActivite - @:page-titles.CoupleProfessional",
     "CoupleActOther": "@:page-titles.base.professional.other - @:page-titles.CoupleProfessional",
 
-    "CoupleFinancial": "Revenus du conjoint",
-    "CoupleRevAdd": "Ajouter les revenus du conjoint",
+    "CoupleFinancial": "Spouse's income",
+    "CoupleRevAdd": "Add spouse's income",
     "CoupleTravail": "@:page-titles.base.financial.travail - @:page-titles.CoupleFinancial",
     "CoupleTravailSalarie": "@:page-titles.base.financial.travailSalarie - @:page-titles.base.steps.1of2 - @:page-titles.CoupleFinancial",
     "CoupleTravailSalarieplus3Mois": "@:page-titles.base.financial.travailSalarieplus3Mois - @:page-titles.base.steps.2of2 - @:page-titles.CoupleFinancial",
@@ -1313,7 +1313,7 @@
     "CoupleBourse": "@:page-titles.base.financial.bourse - @:page-titles.CoupleFinancial",
     "CouplePasDeRevenus": "@:page-titles.base.financial.pasDeRevenus - @:page-titles.CoupleFinancial",
 
-    "CoupleTax": "Imposition du conjoint",
+    "CoupleTax": "Spouse's tax",
     "CoupleTaxAvecAvis": "@:page-titles.base.tax.avecAvis - @:page-titles.base.steps.1of2 - @:page-titles.CoupleTax",
     "CoupleTaxAvecAvisFrancais": "@:page-titles.base.tax.avecAvisFrancais - @:page-titles.base.steps.2of2 - @:page-titles.CoupleTax",
     "CoupleTaxAvecAvisEtranger": "@:page-titles.base.tax.avecAvisEtranger - @:page-titles.base.steps.2of2 - @:page-titles.CoupleTax",
@@ -1324,10 +1324,10 @@
     "CoupleTaxSansAvisAutre": "@:page-titles.base.tax.sansAvisAutre - @:page-titles.base.steps.2of2 - @:page-titles.CoupleTax",
     "CoupleTaxNonRenseigne": "@:page-titles.base.tax.nonRenseigne - @:page-titles.base.steps.2of2 - @:page-titles.CoupleTax",
 
-    "GuarantorChoice": "Ajouter des garants",
-    "GuarantorList": "Mes garants",
-    "Guarantors": "Garant",
-    "GuarantorIdentityTitle": "Identité garant",
+    "GuarantorChoice": "Add guarantors",
+    "GuarantorList": "My guarantors",
+    "Guarantors": "Guarantor",
+    "GuarantorIdentityTitle": "Guarantor's identity",
     "GuarantorName": "@:page-titles.GuarantorIdentityTitle",
     "GuarantorIdentification": "@:page-titles.base.identity.identification - @:page-titles.base.steps.1of2 - @:page-titles.GuarantorIdentityTitle",
     "GuarantorIDCard": "@:page-titles.base.identity.idCard - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorIdentityTitle",
@@ -1337,7 +1337,7 @@
     "GuarantorIDFranceIdentite": "@:page-titles.base.identity.franceIdentite - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorIdentityTitle",
     "GuarantorIDOther": "@:page-titles.base.identity.other - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorIdentityTitle",
 
-    "GuarantorResidency": "Hébergement du garant",
+    "GuarantorResidency": "Guarantor's housing",
     "GuarantorResTenant": "@:page-titles.base.residency.tenant - @:page-titles.base.steps.1of2 - @:page-titles.GuarantorResidency",
     "GuarantorResTenantReceipts": "@:page-titles.base.residency.tenantReceipts - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorResidency",
     "GuarantorResTenantProof": "@:page-titles.base.residency.tenantProof - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorResidency",
@@ -1350,7 +1350,7 @@
     "GuarantorResOrganism": "@:page-titles.base.residency.organism - @:page-titles.GuarantorResidency",
     "GuarantorResOther": "@:page-titles.base.residency.other - @:page-titles.GuarantorResidency",
 
-    "GuarantorProfessional": "Activité du garant",
+    "GuarantorProfessional": "Guarantor's activity",
     "GuarantorActCdi": "@:page-titles.base.professional.cdi - @:page-titles.GuarantorProfessional",
     "GuarantorActCdd": "@:page-titles.base.professional.cdd - @:page-titles.GuarantorProfessional",
     "GuarantorActPublic": "@:page-titles.base.professional.public - @:page-titles.GuarantorProfessional",
@@ -1367,8 +1367,8 @@
     "GuarantorActSansActivite": "@:page-titles.base.professional.sansActivite - @:page-titles.GuarantorProfessional",
     "GuarantorActOther": "@:page-titles.base.professional.other - @:page-titles.GuarantorProfessional",
 
-    "GuarantorFinancial": "Revenus du garant",
-    "GuarantorRevAdd": "Ajouter les revenus du garant",
+    "GuarantorFinancial": "Guarantor's income",
+    "GuarantorRevAdd": "Add guarantor's income",
     "GuarantorTravail": "@:page-titles.base.financial.travail - @:page-titles.GuarantorFinancial",
     "GuarantorTravailSalarie": "@:page-titles.base.financial.travailSalarie - @:page-titles.base.steps.1of2 - @:page-titles.GuarantorFinancial",
     "GuarantorTravailSalarieplus3Mois": "@:page-titles.base.financial.travailSalarieplus3Mois - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorFinancial",
@@ -1416,7 +1416,7 @@
     "GuarantorBourse": "@:page-titles.base.financial.bourse - @:page-titles.GuarantorFinancial",
     "GuarantorPasDeRevenus": "@:page-titles.base.financial.pasDeRevenus - @:page-titles.GuarantorFinancial",
 
-    "GuarantorTax": "Imposition du garant",
+    "GuarantorTax": "Guarantor's tax",
     "GuarantorTaxAvecAvis": "@:page-titles.base.tax.avecAvis - @:page-titles.base.steps.1of2 - @:page-titles.GuarantorTax",
     "GuarantorTaxAvecAvisFrancais": "@:page-titles.base.tax.avecAvisFrancais - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorTax",
     "GuarantorTaxAvecAvisEtranger": "@:page-titles.base.tax.avecAvisEtranger - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorTax",
@@ -1427,9 +1427,9 @@
     "GuarantorTaxSansAvisAutre": "@:page-titles.base.tax.sansAvisAutre - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorTax",
     "GuarantorTaxNonRenseigne": "@:page-titles.base.tax.nonRenseigne - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorTax",
 
-    "TenantGuarantorList": "Garants du conjoint",
-    "TenantGuarantors": "Ajouter les garants du conjoint",
-    "TenantGuarantorIdentityTitle": "Identité garant du conjoint",
+    "TenantGuarantorList": "Spouse's guarantors",
+    "TenantGuarantors": "Add spouse guarantors",
+    "TenantGuarantorIdentityTitle": "Spouse's Guarantor's identity",
     "TenantGuarantorName": "@:page-titles.TenantGuarantorIdentityTitle",
     "TenantGuarantorIdentification": "@:page-titles.base.identity.identification - @:page-titles.base.steps.1of2 - @:page-titles.TenantGuarantorIdentityTitle",
     "TenantGuarantorIDCard": "@:page-titles.base.identity.idCard - @:page-titles.base.steps.2of2 - @:page-titles.TenantGuarantorIdentityTitle",
@@ -1439,7 +1439,7 @@
     "TenantGuarantorIDFranceIdentite": "@:page-titles.base.identity.franceIdentite - @:page-titles.base.steps.2of2 - @:page-titles.TenantGuarantorIdentityTitle",
     "TenantGuarantorIDOther": "@:page-titles.base.identity.other - @:page-titles.base.steps.2of2 - @:page-titles.TenantGuarantorIdentityTitle",
 
-    "TenantGuarantorResidency": "Hébergement garant du conjoint",
+    "TenantGuarantorResidency": "Spouse's Guarantor's housing",
     "TenantGuarantorResTenant": "@:page-titles.base.residency.tenant - @:page-titles.TenantGuarantorResidency",
     "TenantGuarantorResTenantReceipts": "@:page-titles.base.residency.tenantReceipts - @:page-titles.base.steps.2of2 - @:page-titles.TenantGuarantorResidency",
     "TenantGuarantorResTenantProof": "@:page-titles.base.residency.tenantProof - @:page-titles.base.steps.2of2 - @:page-titles.TenantGuarantorResidency",
@@ -1452,7 +1452,7 @@
     "TenantGuarantorResOrganism": "@:page-titles.base.residency.organism - @:page-titles.TenantGuarantorResidency",
     "TenantGuarantorResOther": "@:page-titles.base.residency.other - @:page-titles.TenantGuarantorResidency",
 
-    "TenantGuarantorProfessional": "Activité garant du conjoint",
+    "TenantGuarantorProfessional": "Spouse's Guarantor's activity",
     "TenantGuarantorActCdi": "@:page-titles.base.professional.cdi - @:page-titles.TenantGuarantorProfessional",
     "TenantGuarantorActCdd": "@:page-titles.base.professional.cdd - @:page-titles.TenantGuarantorProfessional",
     "TenantGuarantorActPublic": "@:page-titles.base.professional.public - @:page-titles.TenantGuarantorProfessional",
@@ -1469,8 +1469,8 @@
     "TenantGuarantorActSansActivite": "@:page-titles.base.professional.sansActivite - @:page-titles.TenantGuarantorProfessional",
     "TenantGuarantorActOther": "@:page-titles.base.professional.other - @:page-titles.TenantGuarantorProfessional",
 
-    "TenantGuarantorFinancial": "Revenus garant du conjoint",
-    "TenantGuarantorRevAdd": "Ajouter les revenus du garant",
+    "TenantGuarantorFinancial": "Spouse's Guarantor's income",
+    "TenantGuarantorRevAdd": "Add Spouse's Guarantor's income",
     "TenantGuarantorTravail": "@:page-titles.base.financial.travail - @:page-titles.TenantGuarantorFinancial",
     "TenantGuarantorTravailSalarie": "@:page-titles.base.financial.travailSalarie - @:page-titles.base.steps.1of2 - @:page-titles.TenantGuarantorFinancial",
     "TenantGuarantorTravailSalarieplus3Mois": "@:page-titles.base.financial.travailSalarieplus3Mois - @:page-titles.base.steps.2of2 - @:page-titles.TenantGuarantorFinancial",
@@ -1518,7 +1518,7 @@
     "TenantGuarantorBourse": "@:page-titles.base.financial.bourse - @:page-titles.TenantGuarantorFinancial",
     "TenantGuarantorPasDeRevenus": "@:page-titles.base.financial.pasDeRevenus - @:page-titles.TenantGuarantorFinancial",
 
-    "TenantGuarantorTax": "Imposition garant du conjoint",
+    "TenantGuarantorTax": "Spouse's Guarantor's tax",
     "TenantGuarantorTaxAvecAvis": "@:page-titles.base.tax.avecAvis - @:page-titles.base.steps.1of2 - @:page-titles.TenantGuarantorTax",
     "TenantGuarantorTaxAvecAvisFrancais": "@:page-titles.base.tax.avecAvisFrancais - @:page-titles.base.steps.2of2 - @:page-titles.TenantGuarantorTax",
     "TenantGuarantorTaxAvecAvisEtranger": "@:page-titles.base.tax.avecAvisEtranger - @:page-titles.base.steps.2of2 - @:page-titles.TenantGuarantorTax",

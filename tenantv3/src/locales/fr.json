@@ -1420,8 +1420,8 @@
     "GuarantorTaxSansAvisAutre": "@:page-titles.base.tax.sansAvisAutre - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorTax",
     "GuarantorTaxNonRenseigne": "@:page-titles.base.tax.nonRenseigne - @:page-titles.base.steps.2of2 - @:page-titles.GuarantorTax",
 
-    "TenantGuarantorList": "Garants du conjoint",
-    "TenantGuarantors": "Ajouter les garants du conjoint",
+    "TenantGuarantorList": "Ajouter les garants du conjoint",
+    "TenantGuarantors": "Garants du conjoint",
     "TenantGuarantorIdentityTitle": "Identité garant du conjoint",
     "TenantGuarantorName": "@:page-titles.TenantGuarantorIdentityTitle",
     "TenantGuarantorIdentification": "@:page-titles.base.identity.identification - @:page-titles.base.steps.1of2 - @:page-titles.TenantGuarantorIdentityTitle",
