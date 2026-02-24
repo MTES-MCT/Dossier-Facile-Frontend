@@ -26,41 +26,50 @@ declare module 'vue-router' {
   }
 }
 
-const TAX_ROUTES = [
+const TAX_ROUTES = (prefix: string): RouteRecordRaw[] => [
   {
     path: 'avec-avis',
+    name: `${prefix}TaxAvecAvis`,
     component: () => import('@/components/tax/TaxCountryChoice.vue')
   },
   {
     path: 'avec-avis/francais',
+    name: `${prefix}TaxAvecAvisFrancais`,
     component: () => import('@/components/tax/FrenchTaxForm.vue')
   },
   {
     path: 'avec-avis/etranger',
+    name: `${prefix}TaxAvecAvisEtranger`,
     component: () => import('@/components/tax/ForeignTaxForm.vue')
   },
   {
     path: 'sans-avis',
+    name: `${prefix}TaxSansAvis`,
     component: () => import('@/components/tax/NoTaxChoice.vue')
   },
   {
     path: 'sans-avis/sans-declaration',
+    name: `${prefix}TaxSansAvisSansDeclaration`,
     component: () => import('@/components/tax/NoDeclarationTaxForm.vue')
   },
   {
     path: 'sans-avis/parents',
+    name: `${prefix}TaxSansAvisParents`,
     component: () => import('@/components/tax/ParentsTaxForm.vue')
   },
   {
     path: 'sans-avis/pas-recu',
+    name: `${prefix}TaxSansAvisPasRecu`,
     component: () => import('@/components/tax/NotReceivedTaxForm.vue')
   },
   {
     path: 'sans-avis/autre',
+    name: `${prefix}TaxSansAvisAutre`,
     component: () => import('@/components/tax/OtherSituationTaxForm.vue')
   },
   {
     path: 'non-renseigne',
+    name: `${prefix}TaxNonRenseigne`,
     component: () => import('@/components/tax/UnknownTaxStatus.vue')
   }
 ]
@@ -159,30 +168,37 @@ const RESIDENCY_COMPONENTS = (prefix: string): RouteRecordRaw[] => [
 const GUARANTOR_RESIDENCY_ROUTES = (prefix: string): RouteRecordRaw[] => [
   {
     path: 'tenant',
+    name: `${prefix}ResTenant`,
     component: () => import('@/components/guarantorResidency/GuarantorTenant.vue')
   },
   {
     path: 'owner',
+    name: `${prefix}ResOwner`,
     component: () => import('@/components/guarantorResidency/GuarantorOwner.vue')
   },
   {
     path: 'guest',
+    name: `${prefix}ResGuest`,
     component: () => import('@/components/guarantorResidency/GuarantorGuest.vue')
   },
   {
     path: 'guest/proof',
+    name: `${prefix}ResGuestProof`,
     component: () => import('@/components/guarantorResidency/GuarantorGuestProof.vue')
   },
   {
     path: 'guest/no-proof',
+    name: `${prefix}ResGuestNoProof`,
     component: () => import('@/components/guarantorResidency/GuarantorGuestNoProof.vue')
   },
   {
     path: 'guest-company',
+    name: `${prefix}ResCompany`,
     component: () => import('@/components/guarantorResidency/GuarantorGuestCompany.vue')
   },
   {
     path: 'other',
+    name: `${prefix}ResOther`,
     component: () => import('@/components/guarantorResidency/GuarantorOther.vue')
   }
 ]
@@ -668,16 +684,14 @@ export const router = createRouter({
               name: 'TenantTax',
               component: () => import('@/components/tax/HasTaxChoice.vue')
             },
-            ...TAX_ROUTES
+            ...TAX_ROUTES('Tenant')
           ]
         }
       ]
     },
     {
       path: '/documents-colocataire/:tenantId/:step',
-      name: 'CoTenantDocuments',
       meta: {
-        title: 'Édition du profil',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
@@ -751,7 +765,7 @@ export const router = createRouter({
               name: 'CoupleTax',
               component: () => import('@/components/tax/HasTaxChoice.vue')
             },
-            ...TAX_ROUTES
+            ...TAX_ROUTES('Couple')
           ]
         }
       ]
@@ -760,7 +774,6 @@ export const router = createRouter({
       path: '/choix-garant',
       name: 'GuarantorChoice',
       meta: {
-        title: 'Mon garant',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
@@ -771,7 +784,6 @@ export const router = createRouter({
       path: '/liste-garants',
       name: 'GuarantorList',
       meta: {
-        title: 'Mon garant',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
@@ -782,7 +794,6 @@ export const router = createRouter({
       path: '/garants-locataire/:tenantId/:step',
       name: 'TenantGuarantors',
       meta: {
-        title: 'Édition du garant du locataire',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
@@ -793,7 +804,6 @@ export const router = createRouter({
       path: '/validation-dossier',
       name: 'ValidateFile',
       meta: {
-        title: 'Validation du dossier locataire',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
@@ -804,7 +814,6 @@ export const router = createRouter({
       path: '/validation-dossier/:step',
       name: 'ValidateFileStep',
       meta: {
-        title: 'Validation du dossier locataire',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
@@ -814,8 +823,6 @@ export const router = createRouter({
     {
       path: '/info-garant',
       meta: {
-        name: 'GuarantorDocuments',
-        title: 'Mon garant',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
@@ -891,7 +898,7 @@ export const router = createRouter({
               name: 'GuarantorTax',
               component: () => import('@/components/tax/HasTaxChoice.vue')
             },
-            ...TAX_ROUTES
+            ...TAX_ROUTES('Guarantor')
           ]
         }
       ]
@@ -899,12 +906,10 @@ export const router = createRouter({
     {
       path: '/info-garant-locataire/:tenantId/:guarantorId/:step',
       meta: {
-        title: 'Édition du garant du locataire',
         requiresAuth: true,
         hideFooter: true,
         skipLinks: FUNNEL_SKIP_LINKS
       },
-      name: 'TenantGuarantorDocuments',
       component: () => import('../views/TenantGuarantorDocumentsPage.vue'),
       children: [
         {
@@ -979,25 +984,23 @@ export const router = createRouter({
               name: 'TenantGuarantorTax',
               component: () => import('@/components/tax/HasTaxChoice.vue')
             },
-            ...TAX_ROUTES
+            ...TAX_ROUTES('TenantGuarantor')
           ]
         }
       ]
     },
     {
       path: '/public-file/:token',
-      name: 'File',
+      name: 'PublicFile',
       meta: {
-        title: 'Dossier',
         analyticsIgnore: true
       },
       component: () => import('../views/PublicFile.vue')
     },
     {
       path: '/file/:token',
-      name: 'PublicFile',
+      name: 'File',
       meta: {
-        title: 'Dossier',
         analyticsIgnore: true
       },
       component: () => import('../views/FilePage.vue')
@@ -1006,7 +1009,6 @@ export const router = createRouter({
       path: '/mon-dossier',
       name: 'MyFile',
       meta: {
-        title: 'Mon Dossier',
         requiresAuth: true
       },
       component: () => import('../views/MyFile.vue')
@@ -1015,7 +1017,6 @@ export const router = createRouter({
       path: '/account',
       name: 'Account',
       meta: {
-        title: 'Mon dossier',
         requiresAuth: true
       },
       beforeEnter: () => {
@@ -1030,7 +1031,6 @@ export const router = createRouter({
       path: '/partages',
       name: 'SharingLinksPage',
       meta: {
-        title: 'Vos partages',
         requiresAuth: true
       },
       component: () => import('../views/SharingLinksPage.vue')
@@ -1039,25 +1039,22 @@ export const router = createRouter({
       path: '/messaging',
       name: 'Messages',
       meta: {
-        title: 'Messages',
         requiresAuth: true
       },
       component: () => import('../views/MessagesPage.vue')
     },
     {
       path: '/ajout-couple/:token',
-      name: 'Couple',
+      name: 'AddCouple',
       meta: {
-        title: 'Confirmation de compte',
         analyticsIgnore: true
       },
       component: () => import('../views/JoinCouple.vue')
     },
     {
       path: '/ajout-groupe/:token',
-      name: 'Group',
+      name: 'AddGroup',
       meta: {
-        title: 'Confirmation de compte',
         analyticsIgnore: true
       },
       component: () => import('../views/JoinGroup.vue')
@@ -1066,7 +1063,6 @@ export const router = createRouter({
       path: '/confirmAccount/:token',
       name: 'Confirm',
       meta: {
-        title: 'Conserver ses documents',
         hideForAuth: true,
         analyticsIgnore: true
       },
@@ -1076,7 +1072,6 @@ export const router = createRouter({
       path: '/contact',
       name: 'Contact',
       meta: {
-        title: 'Contact',
         requiresAuth: false
       },
       component: () => import('../views/ContactPage.vue')
@@ -1084,9 +1079,6 @@ export const router = createRouter({
     {
       path: '/:pathMatch(.*)',
       name: 'catchall',
-      meta: {
-        title: '404'
-      },
       component: () => import('../views/NotFound404.vue')
     }
   ],
