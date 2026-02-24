@@ -81,14 +81,11 @@ describe("accessibility checks", () => {
     cy.testAccessibility();
     cy.clickOnNext();
 
-    cy.testAccessibility();
-    cy.clickOnNext();
-
-    cy.get('label[for="declaration"]').click();
-    cy.get('label[for="declaration2"]').click();
+    cy.get('label[for="honor"]').click();
+    cy.get('label[for="consent"]').click();
 
     cy.testAccessibility();
-    cy.contains("Valider mon dossier").click();
+    cy.contains("Soumettre mon dossier").click();
     cy.wait(300);
 
     cy.testAccessibility();

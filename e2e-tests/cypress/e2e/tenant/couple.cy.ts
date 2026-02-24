@@ -91,9 +91,10 @@ describe("couple tenant scenario", () => {
     cy.contains("Votre conjoint n'a pas de garant").click();
     cy.contains("Continuer").click();
 
-    cy.get('label[for="declaration"]').click();
-    cy.get("#precision").type("Test");
-    cy.contains("Valider mon dossier").click();
+    cy.get('label[for="honor"]').click();
+    cy.get('label[for="consent"]').click();
+    cy.get('[name="message"]').type("Test");
+    cy.contains("Soumettre mon dossier").click();
 
     cy.contains("Votre dossier est actuellement en cours de traitement").should(
       "be.visible"

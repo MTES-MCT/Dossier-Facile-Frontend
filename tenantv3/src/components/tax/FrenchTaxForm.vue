@@ -3,7 +3,7 @@
   <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="grandParent" />
   <BackLinkRow :label="t('french')" :to="parent" />
   <div v-if="analysisErrorCount > 0" class="error-badge fr-mb-2w">
-    <RiAlertFill class="badge-icon" aria-hidden="true" />
+    <VIcon name="ri:alert-fill" class="badge-icon" aria-hidden="true" color="#b34000" />
     <span class="badge-text">{{ t('errors-count', { count: analysisErrorCount }, analysisErrorCount) }}</span>
   </div>
   <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
@@ -24,7 +24,7 @@
     </i18n-t>
   </DsfrAlert>
   <DfButton class="mx-auto fr-mb-3w" @click="showModal = true"
-    >{{ t('see-which-doc') }} <RiEyeLine class="fr-ml-1v"
+    >{{ t('see-which-doc') }} <VIcon name="ri:eye-line" class="fr-ml-1v"
   /></DfButton>
   <TaxAnalysisBanners
     v-if="analysisErrorCount > 0"
@@ -73,7 +73,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
-import { RiAlertFill, RiEyeLine } from '@remixicon/vue'
+import { DsfrAlert, VIcon } from '@gouvminint/vue-dsfr'
 import { taxYear } from './lib/taxYear'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { computed, ref, useTemplateRef } from 'vue'
@@ -82,7 +82,6 @@ import avisKO from '@/assets/avis_ko.png'
 import TaxAnalysisBanners from './lib/TaxAnalysisBanners.vue'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 import { useTaxState } from './lib/taxState'
-import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const parent = useParentRoute()
@@ -121,7 +120,6 @@ function focusBanners() {
 }
 
 .badge-icon {
-  color: #b34000;
   width: 1rem;
   height: 1rem;
 }
