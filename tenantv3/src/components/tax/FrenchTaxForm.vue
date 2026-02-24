@@ -3,7 +3,7 @@
   <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="grandParent" />
   <BackLinkRow :label="t('french')" :to="parent" />
   <div v-if="analysisErrorCount > 0" class="error-badge fr-mb-2w">
-    <RiAlertFill class="badge-icon" aria-hidden="true" />
+    <VIcon name="ri:alert-fill" class="badge-icon" aria-hidden="true" color="#b34000" />
     <span class="badge-text">{{ t('errors-count', { count: analysisErrorCount }, analysisErrorCount) }}</span>
   </div>
   <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
@@ -68,7 +68,7 @@ import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { useI18n } from 'vue-i18n'
-import { RiAlertFill, RiEyeLine } from '@remixicon/vue'
+import { DsfrAlert, VIcon } from '@gouvminint/vue-dsfr'
 import { taxYear } from './lib/taxYear'
 import { computed, ref, useTemplateRef } from 'vue'
 import avisOK from '@/assets/avis_ok.png'
@@ -116,7 +116,6 @@ function focusBanners() {
 }
 
 .badge-icon {
-  color: #b34000;
   width: 1rem;
   height: 1rem;
 }
