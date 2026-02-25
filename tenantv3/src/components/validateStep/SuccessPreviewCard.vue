@@ -12,7 +12,7 @@
         <button class="fr-btn fr-btn--secondary fr-btn--sm fr-mr-1w" @click="isModalOpened = true">
           {{ t('filerowlistitem.see') }}
         </button>
-        <a href="#" class="fr-btn fr-btn--secondary fr-btn--sm" @click.prevent="goToEdit">
+        <a :href="getEditLink()" class="fr-btn fr-btn--secondary fr-btn--sm">
           {{ t('documents.edit') }}
         </a>
       </div>
@@ -45,7 +45,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const { label, subTitle, goToEdit } = useDocumentPreview(
+const { label, subTitle, getEditLink } = useDocumentPreview(
   toRef(props, 'previewDocument'),
   props.guarantorId,
   props.coTenantId
