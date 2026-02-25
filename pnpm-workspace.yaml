@@ -28,7 +28,7 @@ catalog:
   vite: 7.3.0
   vitest: 4.0.16
   vue-tsc: 3.0.4
-  typescript: 5.9.2
+  typescript: 5.9.3
   prettier: 3.5.3
   eslint: 9.32.0
   eslint-plugin-vue: 10.4.0
