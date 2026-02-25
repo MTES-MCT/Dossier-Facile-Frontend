@@ -1,4 +1,16 @@
 {
+  "404": {
+    "title": "Page not found",
+    "subtitle": "Error 404",
+    "caption": "This is not the web page you are lookingfor.",
+    "content": {
+      "line1": "If you typed the web address in the browser, make sure it is correct. The page may no longer be available.",
+      "line2": "In this case, to continue your visit, you can check out our homepage.",
+      "line3": "Otherwise, contact us so that we can redirect you to the right information."
+    },
+    "homepage": "Homepage",
+    "contact-us": "Contact us"
+  },
   "register": "Save",
   "logout": "Logout",
   "signin": "Sign in",
@@ -941,18 +953,6 @@
     "close": "Close",
     "close-alt": "Close modal window"
   },
-  "404": {
-    "title": "Page not found",
-    "subtitle": "Error 404",
-    "caption": "This is not the web page you are lookingfor.",
-    "content": {
-      "line1": "If you typed the web address in the browser, make sure it is correct. The page may no longer be available.",
-      "line2": "In this case, to continue your visit, you can check out our homepage.",
-      "line3": "Otherwise, contact us so that we can redirect you to the right information."
-    },
-    "homepage": "Homepage",
-    "contact-us": "Contact us"
-  },
   "contact": {
     "title": "How can we help you?"
   },
@@ -1010,5 +1010,167 @@
     "success": "Email resent successfully",
     "error": "Error resending email",
     "too-many-requests": "You have already sent a sharing link less than an hour ago. Please try again after this delay."
+  },
+  "page-titles": {
+    "Home": "Home",
+    "ChooseTenantIdentity": "Identity - @:page-titles.base.steps.1of2",
+    "SelfTenantIdentity": "Your identity",
+    "ThirdPartyTenantIdentity": "Beneficiary's Identity",
+
+    "TenantType": "Application type",
+
+    "base": {
+      "steps": {
+        "1of2": "step 1 of 2",
+        "2of2": "step 2 of 2"
+      },
+      "identity": {
+        "identification": "ID document",
+        "idCard": "Identity card",
+        "passeport": "Passport",
+        "permit": "Residence permit",
+        "drivingLicence": "Driving license",
+        "franceIdentite": "France Identity",
+        "other": "Other"
+      },
+      "residency": {
+        "tenant": "Tenant",
+        "tenantReceipts": "Rent receipts",
+        "tenantProof": "Payment certificate",
+        "guest": "Hosted",
+        "guestProof": "With proof",
+        "guestNoProof": "Without proof",
+        "owner": "Owner",
+        "company": "Company housing",
+        "rental": "Rental",
+        "organism": "Hosted",
+        "other": "Other"
+      },
+      "professional": {
+        "cdi": "Permanent contract",
+        "cdd": "Fixed-term contract",
+        "public": "Civil servant",
+        "independant": "Self-employed",
+        "retraite": "Retired",
+        "chomage": "Unemployed",
+        "etudes": "Studies",
+        "alternance": "Alternating",
+        "stage": "Internship",
+        "interimaire": "Interim",
+        "intermittence": "Temporary Work Contract",
+        "artisteAuteur": "Artist-author",
+        "parentFoyer": "Stay at Home",
+        "sansActivite": "No activity",
+        "other": "Other"
+      },
+      "financial": {
+        "travail": "Work",
+        "travailSalarie": "Employed",
+        "travailSalarieplus3Mois": "Employed more than 3 months",
+        "travailSalarieMoins3Mois": "Employed less than 3 months",
+        "travailSalariePasEncore": "Not yet employed",
+        "travailIndependant": "Self-employed",
+        "travailIndependantAutoEntrepreneur": "Auto-entrepreneur",
+        "travailIndependantAutre": "Not auto-entrepreneur",
+        "travailIntermittent": "Intermittent",
+        "travailArtisteAuteur": "Artist-author",
+        "travailInconnu": "Unknown status",
+        "social": "Social benefits",
+        "socialCaf": "CAF",
+        "socialCafPlus3Mois": "CAF more than 3 months",
+        "socialCafMoins3Mois": "CAF less than 3 months",
+        "socialFranceTravail": "France Travail",
+        "socialFranceTravailPlus3Mois": "France Travail more than 3 months",
+        "socialFranceTravailMoins3Mois": "France Travail less than 3 months",
+        "socialFranceTravailPasEncore": "France Travail not yet received",
+        "socialApl": "APL",
+        "socialAplPlus3Mois": "APL more than 3 months",
+        "socialAplMoins3Mois": "APL less than 3 months",
+        "socialAplPasEncore": "APL not yet received",
+        "socialAah": "AAH",
+        "socialAahPlus3Mois": "AAH more than 3 months",
+        "socialAahMoins3Mois": "AAH less than 3 months",
+        "socialAahPasEncore": "AAH not yet received",
+        "socialAutre": "Other social benefit",
+        "pension": "Pension",
+        "pensionRetraite": "Retirement pension",
+        "pensionRetraiteBulletin": "Retirement pension with statement",
+        "pensionRetraitePasDeBulletin": "Retirement pension without statement",
+        "pensionInvalidite": "Disability pension",
+        "pensionInvaliditePlus3Mois": "Disability pension more than 3 months",
+        "pensionInvaliditeMoins3Mois": "Disability pension less than 3 months",
+        "pensionInvaliditePasEncore": "Disability pension not yet received",
+        "pensionAlimentaire": "Alimony",
+        "pensionInconnu": "Unknown pension",
+        "rente": "Annuity",
+        "renteRevenusLocatifs": "Rental income",
+        "renteRevenusLocatifsQuittance": "Rental income with receipt",
+        "renteRevenusLocatifsPasDeQuittance": "Rental income without receipt",
+        "renteViagere": "Life annuity",
+        "renteAutre": "Other annuity",
+        "bourse": "Scholarship",
+        "pasDeRevenus": "No income"
+      },
+      "tax": {
+        "avecAvis": "With notice",
+        "avecAvisFrancais": "French notice",
+        "avecAvisEtranger": "Foreign notice",
+        "sansAvis": "Without notice",
+        "sansAvisSansDeclaration": "Without declaration",
+        "sansAvisParents": "Dependent on parents",
+        "sansAvisPasRecu": "Not received",
+        "sansAvisAutre": "Other situation",
+        "nonRenseigne": "Unknown status"
+      }
+    },
+
+    "TenantIdentity": "Your Identity",
+    "TenantResidency": "Your Housing situation",
+    "TenantProfessional": "Your Professional situation",
+    "TenantFinancial": "Your income",
+    "TenantRevAdd": "Add income sources",
+    "TenantTax": "Your tax notice",
+
+    "Couple": "Spouse",
+    "CoupleIdentityTitle": "Spouse's identity",
+    "CoupleResidency": "Spouse's housing",
+    "CoupleProfessional": "Spouse's activity",
+    "CoupleFinancial": "Spouse's income",
+    "CoupleRevAdd": "Add spouse's income",
+    "CoupleTax": "Spouse's tax",
+
+    "GuarantorChoice": "Add guarantors",
+    "GuarantorList": "My guarantors",
+    "Guarantors": "Guarantor",
+    "GuarantorIdentity": "Guarantor's identity",
+    "GuarantorResidency": "Guarantor's housing",
+    "GuarantorProfessional": "Guarantor's activity",
+    "GuarantorFinancial": "Guarantor's income",
+    "GuarantorRevAdd": "Add guarantor's income",
+    "GuarantorTax": "Guarantor's tax",
+
+    "TenantGuarantorList": "Spouse's guarantors",
+    "TenantGuarantors": "Add spouse guarantors",
+    "TenantGuarantorIdentity": "Spouse's Guarantor's identity",
+    "TenantGuarantorResidency": "Spouse's Guarantor's housing",
+    "TenantGuarantorProfessional": "Spouse's Guarantor's activity",
+    "TenantGuarantorFinancial": "Spouse's Guarantor's income",
+    "TenantGuarantorRevAdd": "Add Spouse's Guarantor's income",
+    "TenantGuarantorTax": "Spouse's Guarantor's tax",
+
+    "ValidateFile": "Files validation",
+    "ValidateFileStep": "Files validation",
+
+    "File": "File",
+    "PublicFile": "Public file",
+    "MyFile": "My files",
+    "Account": "My account",
+    "SharingLinksPage": "My shares",
+    "Messages": "Messages",
+    "AddCouple": "Account Confirmation",
+    "AddGroup": "Account Confirmation",
+    "Confirm": "Keep your documents",
+    "Contact": "Contact",
+    "catchall": "Page not found (404 error)"
   }
 }
