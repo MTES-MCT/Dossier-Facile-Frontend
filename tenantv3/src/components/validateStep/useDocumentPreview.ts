@@ -13,7 +13,6 @@ import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import { PreviewDocument } from 'df-shared-next/src/models/User'
 import { computed, unref, type MaybeRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 
 export function getDocumentSubTitle(
   document: DfDocument | undefined,
@@ -46,7 +45,6 @@ export function useDocumentPreview(
   cotenantId: number | undefined = undefined
 ) {
   const { t } = useI18n()
-  const router = useRouter()
 
   const { getTenantNavigationPath, getGuarantorNavigationPath, getCotenantNavigationPath } =
     useInternalNavigation()
@@ -97,7 +95,7 @@ export function useDocumentPreview(
     }
   }
 
-  const goToEdit = () => {
+  const getEditLink = (): string => {
     const previewDocument = unref(previewDocumentRef)
 
     // current user document
@@ -106,7 +104,7 @@ export function useDocumentPreview(
         previewDocument.document,
         previewDocument.document === undefined ? previewDocument.documentCategory : undefined
       )
-      router.push({ path: routePath, query: { from: 'validation' } })
+      return routePath + '?from=validation'
     }
 
     if (guarantorId !== undefined && cotenantId === undefined) {
@@ -115,7 +113,7 @@ export function useDocumentPreview(
         previewDocument.document === undefined ? previewDocument.documentCategory : undefined,
         guarantorId
       )
-      router.push({ path: routePath, query: { from: 'validation' } })
+      return routePath + '?from=validation'
     }
 
     if (guarantorId === undefined && cotenantId !== undefined) {
@@ -124,8 +122,10 @@ export function useDocumentPreview(
         previewDocument.document === undefined ? previewDocument.documentCategory : undefined,
         cotenantId
       )
-      router.push({ path: routePath, query: { from: 'validation' } })
+      return routePath + '?from=validation'
     }
+
+    return '#'
   }
 
   const status = computed((): 'MISSING' | 'SUCCESS' | 'LOADING' | 'ERROR' => {
@@ -160,6 +160,6 @@ export function useDocumentPreview(
     status,
     documentIdForInternalLink,
     getRuleShortMessage,
-    goToEdit
+    getEditLink
   }
 }
