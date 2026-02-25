@@ -14,7 +14,7 @@
         </li>
       </ul>
       <div class="fr-grid-row fr-grid-row--right">
-        <a href="#" class="fr-btn fr-btn--secondary" @click.prevent="editPressed">
+        <a :href="getEditLink()" class="fr-btn fr-btn--secondary" @click="editPressed">
           {{ t('documents.status.correct') }}
         </a>
       </div>
@@ -23,8 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import { DsfrBadge } from '@gouvminint/vue-dsfr'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { DsfrBadge } from '@gouvminint/vue-dsfr'
 import type { PreviewDocument } from 'df-shared-next/src/models/User'
 import { computed, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -37,7 +37,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const { label, subTitle, documentIdForInternalLink, getRuleShortMessage, goToEdit } =
+const { label, subTitle, documentIdForInternalLink, getRuleShortMessage, getEditLink } =
   useDocumentPreview(toRef(props, 'previewDocument'), props.guarantorId, props.coTenantId)
 
 const failedRules = computed(() => {
@@ -54,7 +54,6 @@ const editPressed = () => {
   } else if (props.coTenantId !== undefined) {
     AnalyticsService.validate_correct_error_click('couple', documentCategory)
   }
-  goToEdit()
 }
 </script>
 
@@ -82,7 +81,7 @@ const editPressed = () => {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "documents": {
