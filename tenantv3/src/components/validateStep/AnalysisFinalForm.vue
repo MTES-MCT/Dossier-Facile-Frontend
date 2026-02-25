@@ -1,13 +1,10 @@
 <template>
-  <form @submit.prevent="submit">
-    <NakedCard class="fr-mt-3w">
-      <h1 class="fr-h6">{{ t('title') }}</h1>
-      <p>{{ t('description') }}</p>
-
-      <div class="fr-input-group">
-        <label class="fr-sr-only fr-label" for="message">
-           {{ t('title') }}
-        </label>
+  <NakedCard class="fr-mt-3w">
+    <h1 class="fr-h6">{{ t('title') }}</h1>
+    <p>{{ t('description') }}</p>
+    <form novalidate @submit.prevent="submit">
+      <div class="fr-input-group" :class="{ 'fr-input-group--error': !isMessageValid }">
+        <label for="message" class="fr-label">{{ t('label') }}</label>
         <textarea
           id="message"
           v-model="message"
@@ -15,31 +12,55 @@
           name="message"
           rows="1"
           maxlength="2000"
-        ></textarea>
+          aria-describedby="message-desc message-error"
+        />
+        <p id="message-desc" class="fr-my-1w">{{ message.length }}/2000</p>
+        <p
+          v-if="!isMessageValid && showError"
+          id="message-error"
+          aria-live="assertive"
+          class="fr-error-text"
+        >
+          {{ t('error-message') }}
+        </p>
       </div>
-    </NakedCard>
-    <div class="fr-mt-3w">
-      <div class="fr-checkbox-group">
-        <input id="honor" v-model="honorDeclaration" type="checkbox" name="honor" />
-        <label class="fr-label" for="honor">
-          {{ t('honor-declaration') }}
-        </label>
-      </div>
+      <DsfrCheckboxSet>
+        <template #legend>
+          <span class="fr-sr-only">Exactitude et consentement.</span>
+        </template>
+        <DsfrCheckbox
+          id="input-honor"
+          v-model="honorDeclaration"
+          :label="t('honor-declaration')"
+          name="honor"
+          value=""
+          required
+          :error-message="!honorDeclaration && showError ? t('error-honor') : undefined"
+        >
+          <template #required-tip>&nbsp;</template>
+        </DsfrCheckbox>
 
-      <div v-if="hasToDisplayConsentDeclaration" class="fr-checkbox-group fr-mt-2w">
-        <input id="consent" v-model="consentDeclaration" type="checkbox" name="consent" />
-        <label class="fr-label" for="consent">
-          {{ t('consent-declaration') }}
-        </label>
-      </div>
-
+        <DsfrCheckbox
+          v-if="hasToDisplayConsentDeclaration"
+          id="input-consent"
+          v-model="consentDeclaration"
+          class="fr-mt-2w"
+          :label="t('consent-declaration')"
+          name="consent"
+          value=""
+          required
+          :error-message="!consentDeclaration && showError ? t('error-consent') : undefined"
+        >
+          <template #required-tip>&nbsp;</template>
+        </DsfrCheckbox>
+      </DsfrCheckboxSet>
       <div class="fr-grid-row fr-grid-row--right fr-mt-2w">
-        <button ref="submitButton" class="fr-btn" type="submit" :disabled="!isValid">
+        <button ref="submitButton" class="fr-btn" type="submit">
           {{ t('send-files') }}
         </button>
       </div>
-    </div>
-  </form>
+    </form>
+  </NakedCard>
 </template>
 
 <script setup lang="ts">
@@ -50,6 +71,7 @@ import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import { useRouter } from 'vue-router'
 import { toast } from '@/components/toast/toastUtils'
+import { DsfrCheckbox, DsfrCheckboxSet } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 
@@ -60,6 +82,7 @@ const message = ref('')
 const honorDeclaration = ref(false)
 const consentDeclaration = ref(false)
 const submitButton = useTemplateRef('submitButton')
+const showError = ref(false)
 
 onMounted(() => {
   if (store.user.honorDeclaration) {
@@ -81,8 +104,16 @@ const hasToDisplayConsentDeclaration = computed(() => {
   return store.user.applicationType !== 'ALONE' || store.user.guarantors.length > 0
 })
 
+const isMessageValid = computed(() => {
+  if (message.value.length > 2000) {
+    return false
+  }
+  return true
+})
+
 const submit = () => {
-  if (!isValid.value) {
+  if (!isValid.value || !isMessageValid.value) {
+    showError.value = true
     return
   }
 
@@ -117,21 +148,29 @@ const submit = () => {
 }
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "title": "Message for the owner",
+    "label": "Your message (optional)",
     "description": "You can add a message for your future landlords. It will be displayed at the beginning of your file.",
-    "honor-declaration": "I declare on my honor the accuracy of this information (Article 441-1 of the Penal Code: 3 years imprisonment and €45,000 fine).",
+    "honor-declaration": "I declare on my honor the accuracy of these informations (Article 441-1 of the Penal Code: 3 years imprisonment and €45,000 fine).",
     "consent-declaration": "I declare that I have obtained the consent of the persons mentioned in my file (spouse, roommates, guarantors).",
-    "send-files": "Submit my application"
+    "send-files": "Submit my application",
+    "error-message": "Your message is over the caracter limit of 2000.",
+    "error-honor": "Please certify the accuracy of these informations.",
+    "error-consent": "Please confirm that you have obtained consent."
   },
   "fr": {
     "title": "Message pour le propriétaire",
+    "label": "Votre message (facultatif)",
     "description": "Vous pouvez ajouter un message à destination de vos futurs propriétaires. Il sera affiché au début de votre dossier.",
     "honor-declaration": "Je déclare sur l'honneur l'exactitude de ces informations (article 441-1 du code pénal : 3 ans d'emprisonnement et 45 000 € d'amende).",
     "consent-declaration": "Je déclare avoir obtenu le consentement des personnes mentionnées dans mon dossier (conjoint, colocataires, garants).",
-    "send-files": "Soumettre mon dossier"
+    "send-files": "Soumettre mon dossier",
+    "error-message": "Votre message dépasse la limite de 2000 caractères.",
+    "error-honor": "Veuillez certifier l'exactitude de ces informations.",
+    "error-consent": "Veuillez confirmer avoir obtenu le consentement."
   }
 }
 </i18n>
