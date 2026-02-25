@@ -35,14 +35,16 @@ const optionLinks = useSocialOptionLinks(suffix)
 {
   "en": {
     "not-yet": {
-      "tenant": "You're not yet receiving aid"
+      "tenant": "You're not yet receiving aid",
+      "other": "They're not yet receiving aid"
     },
     "not-yet-tenant": "You're not yet receiving aid",
     "not-yet-other": "They're not yet receiving aid"
   },
   "fr": {
     "not-yet": {
-      "tenant": "Vous ne touchez pas encore l’aide"
+      "tenant": "Vous ne touchez pas encore l’aide",
+      "other": "Ne touche pas encore l’aide"
     },
     "not-yet-tenant": "Vous ne touchez pas encore l’aide",
     "not-yet-other": "Ne touche pas encore l’aide"

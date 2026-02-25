@@ -27,28 +27,28 @@ import { useSocialOptionLinks } from '../social/lib/useSocialOptionLinks'
 const parent = useParentRoute()
 const grandparent = useParentRoute(2)
 const { t } = useI18n()
-const { category, suffix, textKey } = useFinancialState()
+const { category, textKey } = useFinancialState()
 
 const sendEvent = (subCategory: string) =>
   AnalyticsService.selectSituation3(category, 'pension', 'invalidite', subCategory)
 
-const optionLinks = useSocialOptionLinks(suffix)
+const optionLinks = useSocialOptionLinks(textKey)
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "you-receive": {
       "tenant": "You receive a disability pension",
       "guarantor": "Your guarantor receives a disability pension",
       "couple": "Your spouse receives a disability pension",
-      "couple-guarantor": "Their guarantor receives a disability pension",
+      "couple-guarantor": "Their guarantor receives a disability pension"
     },
     "not-yet": {
       "tenant": "You are not yet receiving a disability pension",
       "guarantor": "Your guarantor is not yet receiving a disability pension",
       "couple": "Your spouse is not yet receiving a disability pension",
-      "couple-guarantor": "Their guarantor is not yet receiving a disability pension",
+      "couple-guarantor": "Their guarantor is not yet receiving a disability pension"
     }
   },
   "fr": {
@@ -63,7 +63,7 @@ const optionLinks = useSocialOptionLinks(suffix)
       "guarantor": "Votre garant ne touche pas encore de pension d’invalidité",
       "couple": "Votre conjoint ne touche pas encore de pension d’invalidité",
       "couple-guarantor": "Son garant ne touche pas encore de pension d’invalidité"
-    },
+    }
   }
 }
 </i18n>
