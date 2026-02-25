@@ -2,6 +2,7 @@ import { createI18n } from 'vue-i18n'
 
 import en from './locales/en.json'
 import fr from './locales/fr.json'
+import base from './locales/base.json'
 
 const datetimeFormats = {
   en: {
@@ -42,8 +43,8 @@ export const i18n = createI18n({
   locale: 'fr',
   globalInjection: true,
   messages: {
-    en,
-    fr
+    en: { ...base, ...en },
+    fr: { ...base, ...fr }
   },
   datetimeFormats
 })
