@@ -42,4 +42,4 @@ catalog:
   "@vue/eslint-config-prettier": 10.2.0
   "@vue/eslint-config-typescript": 14.6.0
   "@vue/test-utils": 2.4.6
-  "@gouvminint/vue-dsfr": 8.13.1
+  "@gouvminint/vue-dsfr": 8.14.0
