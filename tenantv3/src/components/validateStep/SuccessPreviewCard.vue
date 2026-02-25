@@ -17,6 +17,12 @@
         </a>
       </div>
     </div>
+    <div v-if="isFailedRuleSkiped" :class="subTitle ? 'fr-mt-1w' : 'fr-mt-2w'">
+      <hr class="fr-pb-1w" />
+      <div class="fr-text--sm fr-mb-0">
+        <p class="fr-mb-0">{{ t('explaination-message') }}</p>
+      </div>
+    </div>
     <DsfrModalPatched v-model:is-opened="isModalOpened" :title="modalTitle" size="xl">
       <template #default>
         <ShowDoc
@@ -52,6 +58,10 @@ const { label, subTitle, getEditLink } = useDocumentPreview(
 )
 
 const isModalOpened = ref(false)
+
+const isFailedRuleSkiped = computed(
+  () => (props.previewDocument.document?.documentAnalysisReport?.comment?.length ?? 0) > 0
+)
 
 const modalTitle = computed(() => {
   if (subTitle.value) {
@@ -110,17 +120,19 @@ const modalTitle = computed(() => {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "edit": "Edit",
     "preview_title": "Document preview: {label}",
-    "preview_subtitle": "Document preview: {label}, {subTitle}"
+    "preview_subtitle": "Document preview: {label}, {subTitle}",
+    "explaination-message": "Your explanation has been sent to our team for verification."
   },
   "fr": {
     "edit": "Modifier",
     "preview_title": "Aperçu du document : {label}",
-    "preview_subtitle": "Aperçu du document : {label}, {subTitle}"
+    "preview_subtitle": "Aperçu du document : {label}, {subTitle}",
+    "explaination-message": "Votre explication a été transmise à notre équipe pour vérification."
   }
 }
 </i18n>
