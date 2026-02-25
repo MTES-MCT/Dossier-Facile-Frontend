@@ -11,7 +11,7 @@
         <p v-if="subTitle" class="fr-text--sm text-mention fr-mb-1w">{{ subTitle }}</p>
       </div>
       <div class="actions fr-ml-auto">
-        <a href="#" class="fr-btn fr-btn--secondary fr-btn--sm" @click.prevent="goToEdit">
+        <a :href="getEditLink()" class="fr-btn fr-btn--secondary fr-btn--sm">
           {{ t('add-document') }}
         </a>
       </div>
@@ -34,7 +34,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
-const { label, subTitle, documentIdForInternalLink, goToEdit } = useDocumentPreview(
+const { label, subTitle, documentIdForInternalLink, getEditLink } = useDocumentPreview(
   toRef(props, 'previewDocument'),
   props.guarantorId,
   props.coTenantId
