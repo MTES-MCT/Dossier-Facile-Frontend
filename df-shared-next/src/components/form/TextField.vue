@@ -1,6 +1,6 @@
 <template>
   <div class="fr-input-group">
-    <FieldLabel :required :for-input="name">
+    <FieldLabel :required :for-input="name" :class="{ 'fr-sr-only': visuallyHidden }">
       {{ fieldLabel }}
     </FieldLabel>
     <Field
@@ -9,7 +9,7 @@
       :name="name"
       :rules="validationRules"
       :validate-on-change="false"
-      :validate-on-blur="false"
+      :validate-on-blur="true"
     >
       <input
         v-bind="field"
@@ -19,17 +19,20 @@
           'fr-input--valid': meta.valid,
           'fr-input--error': !meta.valid
         }"
-        type="text"
+        :type
         :required
         :disabled="disabled"
         :autocomplete
-        :aria-describedby="`${name}-errors`"
+        :aria-describedby="`${name}-errors ${name}-hint`"
         :aria-invalid="!meta.valid"
       />
     </Field>
     <ErrorMessage v-slot="{ message }" :name="name">
       <span :id="`${name}-errors`" class="fr-error-text">{{ t(message || '') }}</span>
     </ErrorMessage>
+    <div v-if="$slots.hint" :id="`${name}-hint`" :class="`${name}-hint fr-mt-1w`">
+      <slot name="hint" />
+    </div>
   </div>
 </template>
 
@@ -43,25 +46,36 @@ const { t } = useI18n()
 
 const inputValue = defineModel<string>()
 
+defineSlots<{
+  /**
+   * Slot pour une description complémentaire du champ
+   * Sera dans `<div :class="`${name}-hint`">`
+   */
+  hint: () => unknown
+}>()
+
 const props = withDefaults(
   defineProps<{
     fieldLabel: string
     name: string
+    type?: 'text' | 'email'
     validationRules?: string
     disabled?: boolean
     autocomplete: HTMLInputElement['autocomplete']
+    visuallyHidden?: boolean
   }>(),
   {
+    type: 'text',
     validationRules: '',
     disabled: false,
-    autocomplete: 'off'
+    visuallyHidden: false
   }
 )
 
 const required = computed(() => props.validationRules.includes('required'))
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "strength-not-valid": "The password is too weak",

@@ -14,7 +14,7 @@
       v-model.trim="preferredname"
       :field-label="t('common.preferred-name-label')"
       name="preferredName"
-      autocomplete="given-name"
+      autocomplete="additional-name"
       validation-rules="onlyAlpha"
     />
     <TextField
@@ -65,7 +65,7 @@ import { UtilsService } from '@/services/UtilsService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { router } from '@/router'
 import { useLoading } from 'vue-loading-overlay'
-import TextField from '../form/TextField.vue'
+import TextField from 'df-shared-next/src/components/form/TextField.vue'
 import { DsfrCheckbox } from '@gouvminint/vue-dsfr'
 
 const props = defineProps<{
@@ -159,42 +159,42 @@ const onSubmit = () => {
 }
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
-    common: {
-      last-name-label: "Last Name",
-      add-prefered-name: "Add a preferred name",
-      preferred-name-label: "Preferred Name",
-      delete-preferred-name: "Delete preferred name",
-      first-name-label: "First Name",
+    "common": {
+      "last-name-label": "Last Name",
+      "add-prefered-name": "Add a preferred name",
+      "preferred-name-label": "Preferred Name",
+      "delete-preferred-name": "Delete preferred name",
+      "first-name-label": "First Name"
     },
-    self: {
-      title: "Your Identity",
-      postal-code-label: "Postal Code (only if you reside in France)"
+    "self": {
+      "title": "Your Identity",
+      "postal-code-label": "Postal Code (only if you reside in France)"
     },
-    third-party: {
-      title: "Beneficiary's Identity",
-      checkbox-label: "I certify that I have obtained {lastName}'s consent to create and submit this file on their behalf. I attest that the information provided is accurate and that the documents submitted were obtained with their consent.",
-      postal-code-label: "Postal Code (only if he reside in France)"
+    "third-party": {
+      "title": "Beneficiary's Identity",
+      "checkbox-label": "I certify that I have obtained {lastName}'s consent to create and submit this file on their behalf. I attest that the information provided is accurate and that the documents submitted were obtained with their consent.",
+      "postal-code-label": "Postal Code (only if he reside in France)"
     }
   },
   "fr": {
-    common: {
-      last-name-label: "Nom de naissance",
-      add-prefered-name: "Ajouter un nom d'usage",
-      preferred-name-label: "Nom d'usage",
-      delete-preferred-name: "Supprimer le nom d'usage",
-      first-name-label: "Prénom",
+    "common": {
+      "last-name-label": "Nom de naissance",
+      "add-prefered-name": "Ajouter un nom d'usage",
+      "preferred-name-label": "Nom d'usage",
+      "delete-preferred-name": "Supprimer le nom d'usage",
+      "first-name-label": "Prénom"
     },
-    self: {
-      title: "Votre identité",
-      postal-code-label: "Code postal (uniquement si vous résidez en France)"
+    "self": {
+      "title": "Votre identité",
+      "postal-code-label": "Code postal (uniquement si vous résidez en France)"
     },
-    third-party: {
-      title: "Identité du bénéficiaire",
-      checkbox-label: "Je certifie avoir obtenu l'accord de {lastName} {firstName} pour constituer et soumettre ce dossier en son nom. J'atteste que les informations fournies sont exactes et que les documents transmis ont été obtenus avec son consentement.",
-      postal-code-label: "Code postal (uniquement si il réside en France)"
+    "third-party": {
+      "title": "Identité du bénéficiaire",
+      "checkbox-label": "Je certifie avoir obtenu l'accord de {lastName} {firstName} pour constituer et soumettre ce dossier en son nom. J'atteste que les informations fournies sont exactes et que les documents transmis ont été obtenus avec son consentement.",
+      "postal-code-label": "Code postal (uniquement si il réside en France)"
     }
   }
 }

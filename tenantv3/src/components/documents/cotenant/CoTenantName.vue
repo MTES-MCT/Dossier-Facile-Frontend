@@ -16,6 +16,7 @@
             name="lastname"
             :field-label="t('cotenantname.lastname')"
             validation-rules="required|onlyAlpha"
+            autocomplete="off"
           />
         </div>
         <div class="fr-col-12 fr-mb-3w">
@@ -24,6 +25,7 @@
             name="preferredname"
             :field-label="t('cotenantname.preferredname')"
             validation-rules="onlyAlpha"
+            autocomplete="off"
           />
         </div>
         <div class="fr-col-12 fr-mb-3w">
@@ -32,6 +34,7 @@
             name="firstname"
             :field-label="t('cotenantname.firstname')"
             validation-rules="required|onlyAlpha"
+            autocomplete="off"
           />
         </div>
       </div>
@@ -55,7 +58,7 @@ import { Form } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { useRoute, useRouter } from 'vue-router'
-import TextField from '@/components/form/TextField.vue'
+import TextField from 'df-shared-next/src/components/form/TextField.vue'
 import { makeIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
 import { DocumentService } from '@/services/DocumentService'
 import { UtilsService } from '@/services/UtilsService'

@@ -12,6 +12,7 @@
             name="lastname"
             :field-label="t('tenantguarantorname.lastname')"
             validation-rules="required|onlyAlpha"
+            autocomplete="off"
           />
         </div>
         <div class="fr-col-12 fr-mb-3w">
@@ -20,6 +21,7 @@
             name="firstname"
             :field-label="t('tenantguarantorname.firstname')"
             validation-rules="required|onlyAlpha"
+            autocomplete="off"
           />
         </div>
       </div>
@@ -43,7 +45,7 @@ import { makeSpouseGuarantorIdDocLink } from '@/components/identityDocument/lib/
 import { useRouter } from 'vue-router'
 import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
-import TextField from '@/components/form/TextField.vue'
+import TextField from 'df-shared-next/src/components/form/TextField.vue'
 
 const { t } = useI18n()
 

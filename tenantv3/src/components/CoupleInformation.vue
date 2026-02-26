@@ -14,6 +14,7 @@
             name="coTenantLastName"
             validation-rules="required|onlyAlpha"
             :disabled="disableNameFields"
+            autocomplete="off"
             @input="handleInput"
           />
         </div>
@@ -24,6 +25,7 @@
             name="coTenantFirstName"
             validation-rules="required|onlyAlpha"
             :disabled="disableNameFields"
+            autocomplete="off"
             @input="handleInput"
           />
         </div>
@@ -137,7 +139,7 @@ import { useI18n } from 'vue-i18n'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import DsfrModalPatched from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
-import TextField from './form/TextField.vue'
+import TextField from 'df-shared-next/src/components/form/TextField.vue'
 
 interface Props {
   hasSubmited: boolean

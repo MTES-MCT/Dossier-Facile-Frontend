@@ -13,6 +13,7 @@
             :field-label="t('guarantorname.lastname')"
             name="lastname"
             validation-rules="required|onlyAlpha"
+            autocomplete="off"
           />
 
           <TextField
@@ -20,6 +21,7 @@
             :field-label="t('guarantorname.firstname')"
             name="firstname"
             validation-rules="required|onlyAlpha"
+            autocomplete="off"
           />
         </div>
       </NakedCard>
@@ -40,7 +42,7 @@ import { useLoading } from 'vue-loading-overlay'
 import { Form } from 'vee-validate'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
-import TextField from '@/components/form/TextField.vue'
+import TextField from 'df-shared-next/src/components/form/TextField.vue'
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const store = useTenantStore()
