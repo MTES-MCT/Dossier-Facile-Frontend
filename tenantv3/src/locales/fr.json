@@ -397,7 +397,8 @@
     "letter-label": "Lettre {0}",
     "error-message": "Ces lettres ne correspondent pas au début du nom de famille d'un locataire de ce dossier.",
     "examples-title": "Exemples :",
-    "support-link": "Besoin d'aide ? Contactez notre support"
+    "support-link": "Besoin d'aide ? Contactez notre support",
+    "submit": "Vérifier"
   },
   "filereinsurance": {
     "documents-VALIDATED": "Le dossier contient les pièces requises",

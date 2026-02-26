@@ -395,7 +395,8 @@
     "letter-label": "Letter {0}",
     "error-message": "These letters do not match the beginning of any tenant's last name in this file.",
     "examples-title": "Examples:",
-    "support-link": "Need help? Contact our support"
+    "support-link": "Need help? Contact our support",
+    "submit": "Vérifier"
   },
   "filereinsurance": {
     "documents-VALIDATED": "The file contains the required documents",
