@@ -110,9 +110,8 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add("validationStep", () => {
-  cy.get('label[for="declaration"]').click();
-  cy.get('label[for="declaration2"]').click();
-
-  cy.get("#precision").type("Test");
-  cy.contains("Valider mon dossier").click();
+  cy.get('[name="message"]').type("Test");
+  cy.get('label[for="honor"]').click();
+  cy.get('label[for="consent"]').click();
+  cy.contains("Soumettre mon dossier").click();
 });

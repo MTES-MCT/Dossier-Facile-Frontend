@@ -10,7 +10,14 @@ declare global {
   }
 }
 
-type EventCategory = 'prevalidation' | 'funnel' | 'contact' | 'account' | 'misc' | 'file' | 'partage'
+type EventCategory =
+  | 'prevalidation'
+  | 'funnel'
+  | 'contact'
+  | 'account'
+  | 'misc'
+  | 'file'
+  | 'partage'
 type Action = 'clic' | 'print' | 'unknown' | 'delete' | 'upload' | 'write'
 const DOCUMENT_TYPES = ['identification', 'residency', 'professional', 'financial', 'tax'] as const
 type DocumentCategoryBase = (typeof DocumentTypeTranslations)[DocumentType]
@@ -297,6 +304,30 @@ export const AnalyticsService = {
 
   trigramError() {
     sendFullEvent('file', 'clic', 'full-link-trigram-error')
+  },
+
+  document_analysis_show_comment_from_link(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `document_analysis_show_comment_error_${category}`)
+  },
+
+  document_analysis_show_comment(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `document_analysis_show_comment_${category}`)
+  },
+
+  document_analysis_save_comment(category: DocumentCategory) {
+    sendFullEvent('funnel', 'clic', `document_analysis_save_comment_${category}`)
+  },
+
+  document_analysis_timeout(category: DocumentCategory) {
+    sendFullEvent('funnel', 'unknown', `document_analysis_timeout_${category}`)
+  },
+
+  validate_anchor_error_click(prefix: 'tenant' | 'guarantor' | 'couple', category: string) {
+    sendFullEvent('funnel', 'clic', `validate_anchor_error_${prefix}_${category}`)
+  },
+
+  validate_correct_error_click(prefix: 'tenant' | 'guarantor' | 'couple', category: string) {
+    sendFullEvent('funnel', 'clic', `validate_correct_error_${prefix}_${category}`)
   }
 }
 

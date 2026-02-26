@@ -3,16 +3,19 @@
 </template>
 
 <script setup lang="ts">
-import { useTenantStore } from '@/stores/tenant-store'
-import { computed, provide } from 'vue'
 import { financialKey } from '@/components/financial/financialState'
 import { useGuarantorId } from '@/components/guarantorResidency/useGuarantorId'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import { computed, provide } from 'vue'
 import { useRoute } from 'vue-router'
 import { makeSpouseGuarantorTaxLink } from '../tax/lib/taxLink'
 
 const store = useTenantStore()
 const route = useRoute()
 const guarantorId = useGuarantorId()
+const { getNavigationNextStep } = useHandleValidationNavigation()
+
 const tenantId = computed(() => Number(route.params.tenantId))
 
 const taxLink = computed(() => {
@@ -25,6 +28,8 @@ const taxLink = computed(() => {
   return makeSpouseGuarantorTaxLink(store.guarantor, store.coTenants[0].id)
 })
 
+const nextStep = getNavigationNextStep(taxLink.value)
+
 provide(financialKey, {
   category: 'couple-guarantor-financial',
   textKey: 'couple-guarantor',
@@ -33,7 +38,7 @@ provide(financialKey, {
     name: 'TenantGuarantorProfessional',
     params: { tenantId: tenantId.value, guarantorId: guarantorId.value }
   },
-  nextStep: taxLink.value,
+  nextStep: nextStep,
   recap: { name: 'TenantGuarantorFinancial' },
   userId: store.user.id,
   action: 'saveGuarantorFinancial',

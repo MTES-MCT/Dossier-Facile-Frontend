@@ -1,0 +1,99 @@
+<template>
+  <div :id="documentIdForInternalLink" class="fr-p-1w document-preview-card">
+    <DsfrBadge
+      class="fr-badge fr-badge--info fr-mb-1w"
+      type="info"
+      :label="t('missing-document')"
+    />
+    <div class="document-preview-card__content">
+      <div class="file-name">
+        <p class="fr-text--md fr-mb-1w">{{ label }}</p>
+        <p v-if="subTitle" class="fr-text--sm text-mention fr-mb-1w">{{ subTitle }}</p>
+      </div>
+      <div class="actions fr-ml-auto">
+        <a :href="getEditLink()" class="fr-btn fr-btn--secondary fr-btn--sm">
+          {{ t('add-document') }}
+        </a>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { PreviewDocument } from 'df-shared-next/src/models/User'
+import { toRef } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useDocumentPreview } from './useDocumentPreview'
+import { DsfrBadge } from '@gouvminint/vue-dsfr'
+
+const props = defineProps<{
+  previewDocument: PreviewDocument
+  guarantorId?: number
+  coTenantId?: number
+}>()
+
+const { t } = useI18n()
+
+const { label, subTitle, documentIdForInternalLink, getEditLink } = useDocumentPreview(
+  toRef(props, 'previewDocument'),
+  props.guarantorId,
+  props.coTenantId
+)
+</script>
+
+<style scoped lang="scss">
+.document-preview-card {
+  background-color: var(--background-default-grey);
+  border: 1px solid var(--border-default-grey);
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}
+
+.file-name {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: auto;
+  }
+}
+
+.actions {
+  display: flex;
+  margin-top: 1rem;
+  @media (min-width: 768px) {
+    margin-top: 0;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.bleue {
+  color: var(--blue-france-sun-113-625);
+}
+</style>
+
+<i18n>
+{
+  "en": {
+    "add-document" : "Add a document",
+    "missing-document": "MISSING DOCUMENT"
+  },
+  "fr": {
+    "add-document" : "Ajouter un document",
+    "missing-document": "DOCUMENT MANQUANT"
+  }
+}
+</i18n>

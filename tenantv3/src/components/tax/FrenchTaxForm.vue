@@ -2,6 +2,10 @@
   <p>{{ t(textKey + '.your-situation') }}</p>
   <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="grandParent" />
   <BackLinkRow :label="t('french')" :to="parent" />
+  <div v-if="analysisErrorCount > 0" class="error-badge fr-mb-2w">
+    <VIcon name="ri:alert-fill" class="badge-icon" aria-hidden="true" color="#b34000" />
+    <span class="badge-text">{{ t('errors-count', { count: analysisErrorCount }, analysisErrorCount) }}</span>
+  </div>
   <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
     <strong>{{ t('this-year-tax', [taxYear, taxYear - 1]) }}</strong>
   </i18n-t>
@@ -20,8 +24,15 @@
     </i18n-t>
   </DsfrAlert>
   <DfButton class="mx-auto fr-mb-3w" @click="showModal = true"
-    >{{ t('see-which-doc') }} <RiEyeLine class="fr-ml-1v"
+    >{{ t('see-which-doc') }} <VIcon name="ri:eye-line" class="fr-ml-1v"
   /></DfButton>
+  <TaxAnalysisBanners
+    v-if="analysisErrorCount > 0"
+    ref="tax-banners"
+    :failed-rules="uploadFilesTax?.analysisFailedRules ?? []"
+    class="fr-mb-3w"
+    @explain="uploadFilesTax?.openExplainSection()"
+  />
 
   <ModalComponent v-if="showModal" @close="showModal = false">
     <template #header>
@@ -52,8 +63,8 @@
     </template>
   </ModalComponent>
 
-  <UploadFilesTax category="MY_NAME" step="TAX_FRENCH_NOTICE" />
-  <TaxFooter />
+  <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" @analysis-error="focusBanners" />
+  <TaxFooter :next-disabled="nextDisabled" />
 </template>
 
 <script setup lang="ts">
@@ -62,15 +73,15 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
-import { RiEyeLine } from '@remixicon/vue'
+import { DsfrAlert, VIcon } from '@gouvminint/vue-dsfr'
 import { taxYear } from './lib/taxYear'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import { ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import avisOK from '@/assets/avis_ok.png'
 import avisKO from '@/assets/avis_ko.png'
+import TaxAnalysisBanners from './lib/TaxAnalysisBanners.vue'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 import { useTaxState } from './lib/taxState'
-import { DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const parent = useParentRoute()
@@ -78,6 +89,15 @@ const grandParent = useParentRoute(2)
 const { textKey } = useTaxState()
 
 const showModal = ref(false)
+const uploadFilesTax = useTemplateRef('upload-files-tax')
+const taxBanners = useTemplateRef('tax-banners')
+const analysisErrorCount = computed(() => uploadFilesTax.value?.analysisFailedRules?.length ?? 0)
+const analysisInProgress = computed(() => uploadFilesTax.value?.analysisInProgress ?? false)
+const nextDisabled = computed(() => analysisInProgress.value || (analysisErrorCount.value > 0 && !uploadFilesTax.value?.explanationSubmitted))
+
+function focusBanners() {
+  taxBanners.value?.focus()
+}
 </script>
 
 <style scoped>
@@ -89,11 +109,34 @@ const showModal = ref(false)
     width: 6rem;
   }
 }
+.error-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #ffe9e6;
+  border-radius: 4px;
+  padding: 0 0.5rem;
+  width: fit-content;
+}
+
+.badge-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.badge-text {
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #b34000;
+  text-transform: uppercase;
+}
 </style>
 
 <i18n>
 {
   "en": {
+    "errors-count": "{count} error to correct | {count} errors to correct",
     "french": "french",
     "this-year-tax": "{0} income tax notice of {1} or full non-taxation",
     "warning": "Warning:",
@@ -135,6 +178,7 @@ const showModal = ref(false)
     }
   },
   "fr": {
+    "errors-count": "{count} erreur à corriger | {count} erreurs à corriger",
     "french": "français",
     "this-year-tax": "avis d'impôt {0} sur les revenus de {1} ou de non-imposition complet",
     "warning": "Attention :",

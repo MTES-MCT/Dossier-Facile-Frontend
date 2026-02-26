@@ -17,12 +17,19 @@ import { taxKey } from '@/components/tax/lib/taxState'
 import { useRoute } from 'vue-router'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { useGuarantorId } from '../guarantorResidency/useGuarantorId'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 
 const route = useRoute()
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const tenantId = computed(() => Number(route.params.tenantId))
+
+const nextStep = getNavigationNextStep({
+  name: 'TenantGuarantors',
+  params: { tenantId: tenantId.value, step: '5' }
+})
 
 provide(taxKey, {
   category: 'couple-guarantor-tax',
@@ -31,7 +38,7 @@ provide(taxKey, {
     name: 'TenantGuarantorFinancial',
     params: { tenantId: tenantId.value, guarantorId: guarantorId.value, step: '5' }
   },
-  nextStep: { name: 'TenantGuarantors', params: { tenantId: tenantId.value, step: '5' } },
+  nextStep: nextStep,
   document: computed(() => store.getGuarantorTaxDocument),
   action: 'saveGuarantorTax',
   userId: store.user.id,

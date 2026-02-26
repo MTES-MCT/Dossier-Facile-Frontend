@@ -33,25 +33,27 @@
 </template>
 
 <script setup lang="ts">
-import GuarantorFooter from '../components/footer/GuarantorFooter.vue'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
-import CardRow from 'df-shared-next/src/components/CardRow.vue'
-import ProfileContainer from '../components/ProfileContainer.vue'
-import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import { makeTaxLink } from '@/components/tax/lib/taxLink'
+import { toast } from '@/components/toast/toastUtils'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { useTenantStore } from '@/stores/tenant-store'
+import CardRow from 'df-shared-next/src/components/CardRow.vue'
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { toast } from '@/components/toast/toastUtils'
-import { makeTaxLink } from '@/components/tax/lib/taxLink'
+import GuarantorFooter from '../components/footer/GuarantorFooter.vue'
+import ProfileContainer from '../components/ProfileContainer.vue'
 
 const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const router = useRouter()
+const { handleValidationNavigation } = useHandleValidationNavigation()
 
 const isRemoveGuarantor = ref(false)
 const cardRow = useTemplateRef('card-row')
@@ -81,6 +83,9 @@ function goBack() {
 }
 
 function goNext() {
+  if (handleValidationNavigation()) {
+    return
+  }
   if (user.value.applicationType == 'COUPLE') {
     const cotenant = user.value.apartmentSharing?.tenants.find((t) => t.id != user.value.id)
     if (!cotenant) {

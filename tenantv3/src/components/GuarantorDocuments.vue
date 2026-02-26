@@ -23,12 +23,14 @@ import { useRoute, useRouter } from 'vue-router'
 import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { GUARANTOR_ROUTES } from './documents/naturalGuarantor/guarantorRoutes'
 import { makeGuarantorIdentityDocumentLink } from './identityDocument/lib/identityDocumentLink'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 
 const store = useTenantStore()
 const route = useRoute()
 const router = useRouter()
 
 const guarantor = computed(() => store.selectedGuarantor)
+const { handleValidationNavigation } = useHandleValidationNavigation()
 const user = computed(() => store.user)
 const substep = computed(() => Number(route.path.split('/')[2]) || 0)
 
@@ -60,6 +62,9 @@ function goBack() {
 }
 
 function goNext() {
+  if (handleValidationNavigation()) {
+    return
+  }
   if (substep.value < 5) {
     updateSubstep(substep.value + 1)
   } else {
@@ -68,6 +73,9 @@ function goNext() {
 }
 
 function nextStep() {
+  if (handleValidationNavigation()) {
+    return
+  }
   router.push({
     name: 'GuarantorList'
   })

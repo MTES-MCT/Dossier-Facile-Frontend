@@ -11,14 +11,17 @@ import TenantBadge from '@/components/common/TenantBadge.vue'
 import { makeIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
 import { makeActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import { residencyKey } from '@/components/residency/residencyState'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { DocumentService } from '@/services/DocumentService'
 import { UtilsService } from '@/services/UtilsService'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { computed, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
+
 const { t } = useI18n()
 const route = useRoute()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const tenantId = Number(route.params.tenantId)
 const step = UtilsService.getParam(route.params.step)
@@ -35,11 +38,13 @@ const mainActivityLink = computed(() => {
   return makeActivityLink(document?.documentSubCategory, path)
 })
 
+const nextStep = getNavigationNextStep(mainActivityLink.value)
+
 provide(residencyKey, {
   category: 'couple-residency',
   textKey: 'couple',
   previousStep: identityDocumentLink.value,
-  nextStep: mainActivityLink.value,
+  nextStep: nextStep,
   document: computed(() => DocumentService.getCoTenantDocument(tenantId, 'RESIDENCY')),
   userId: tenantId,
   addData: (formData) => {

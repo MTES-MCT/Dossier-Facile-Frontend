@@ -91,9 +91,9 @@ describe(
       cy.contains("Autre").click();
       cy.get(".dropbox").should("exist");
       cy.contains("Vous ne pouvez pas fournir de document").click();
-      cy.clickOnNext().expectPath("/2");
+      cy.clickOnNext().expectPath("/2/");
       cy.get("textarea[name=customText]").type("Test");
-      cy.uploadDocument(1).clickOnNext().expectPath("/3");
+      cy.uploadDocument(1).clickOnNext().expectPath("/3/");
       cy.contains("Retour").click();
       cy.contains("Modifier").click({ force: true });
       cy.contains("Modifier votre situation").click();
