@@ -1,84 +1,78 @@
 <template>
-  <ModalComponent @close="handleClose">
-    <template #header>
-      <h2 class="fr-h5 text-center fr-mb-0">{{ t('trigram.title') }}</h2>
-    </template>
-    <template #body>
-      <div class="trigram-content">
-        <DsfrAlert type="info" small class="fr-mb-3w">
-          <p class="fr-mb-0 fr-text--bold">{{ t('trigram.alert-title') }}</p>
-          <p class="fr-mb-0 fr-text--sm" v-html="t('trigram.alert-description')"></p>
-          <p class="fr-mb-0 fr-text--sm">{{ t('trigram.alert-multiple') }}</p>
-        </DsfrAlert>
+  <DsfrModalPatch
+    v-model:is-opened="isModalOpened"
+    size="xl"
+    :title="t('trigram.title')"
+    :can-close="false"
+  >
+    <div class="trigram-content">
+      <DsfrAlert type="info" :title="t('trigram.alert-title')" title-tag="h2" class="fr-mb-3w">
+        <p class="fr-text--sm" v-html="t('trigram.alert-description')"></p>
+        <p class="fr-text--sm">{{ t('trigram.alert-multiple') }}</p>
+      </DsfrAlert>
 
-        <fieldset class="trigram-fieldset">
-          <legend class="sr-only">{{ t('trigram.title') }}</legend>
-          <div class="trigram-inputs fr-mb-2w">
-            <input
-              v-for="(_, index) in 3"
-              :key="index"
-              ref="inputRefs"
-              v-model="trigram[index]"
-              type="text"
-              maxlength="1"
-              class="trigram-input"
-              :class="{ 'trigram-input--error': hasError }"
-              :aria-label="t('trigram.letter-label', [index + 1])"
-              :aria-invalid="hasError"
-              :aria-describedby="hasError ? errorMessageId : undefined"
-              :aria-required="true"
-              autocomplete="off"
-              @input="handleInput(index)"
-              @keydown="handleKeydown($event, index)"
-              @paste="handlePaste"
-            />
-          </div>
-        </fieldset>
-
-        <div
-          v-if="hasError"
-          :id="errorMessageId"
-          class="fr-error-text text-center fr-mb-3w"
-          role="alert"
-          aria-live="polite"
-        >
-          {{ t('trigram.error-message') }}
-        </div>
-
-        <div class="examples fr-mb-3w">
-          <p class="fr-mb-1w text-center">{{ t('trigram.examples-title') }}</p>
-          <p class="fr-mb-0 text-center">
-            Angela <strong>Hén</strong>ard : <strong>HEN</strong>
-          </p>
-          <p class="fr-mb-0 text-center">
-            Sophie <strong>Xu</strong> : <strong>XU</strong>
-          </p>
-          <p class="fr-mb-0 text-center">
-            Claude <strong>De R</strong>iva : <strong>DER</strong>
-          </p>
-        </div>
-
-        <div class="fr-info-text fr-grid-row fr-grid-row--center">
-          <a
-            href="/contact"
-            target="_blank"
-            rel="noopener noreferrer"
-            :title="`${t('trigram.support-link')} - ${t('new-window')}`"
+      <form novalidate @submit.prevent="onSubmit">
+        <div class="fr-input-group" :class="{ 'fr-input-group--error': isTrigramInvalid }">
+          <DsfrInput
+            id="input-trigram"
+            ref="inputRefs"
+            v-model="trigram"
+            :label="t('trigram.title')"
+            :label-visible="false"
+            label-class="fr-sr-only"
+            name="trigram"
+            :aria-invalid="isTrigramInvalid ? true : undefined"
+            :description-id="isTrigramInvalid ? 'errors-trigram trigram-hint' : 'trigram-hint'"
+            type="text"
+            autocomplete="off"
+            required
+            autofocus
+            maxlength="3"
+            pattern="[A-z]"
           >
-            {{ t('trigram.support-link') }}
-          </a>
+            <template #required-tip> ({{ t('field-required') }})</template>
+          </DsfrInput>
+          <div id="trigram-hint" class="trigram-hint fr-mt-1w">
+            <p class="fr-mx-auto fr-my-1w fr-text--sm">
+              {{ t('trigram.examples-title') }}<br />
+              Sophie <strong>Xu</strong>&nbsp;: <strong>XU</strong><br />
+              Angela <strong>Hén</strong>ard&nbsp;: <strong>HEN</strong><br />
+              Claude <strong>De R</strong>iva&nbsp;: <strong>DER</strong>
+            </p>
+          </div>
+          <div v-if="submitCount > 0 && isTrigramInvalid" id="errors-trigram">
+            <p v-if="errors.trigram" class="fr-error-text">
+              {{ errors.trigram }}
+            </p>
+            <p v-if="hasError" class="fr-error-text">
+              {{ t('trigram.error-message') }}
+            </p>
+          </div>
         </div>
+        <DsfrButton type="submit">{{ t('trigram.submit') }}</DsfrButton>
+      </form>
+
+      <div class="fr-info-text fr-grid-row fr-grid-row--center">
+        <router-link
+          to="/contact"
+          target="_blank"
+          :title="`${t('trigram.support-link')} - ${t('new-window')}`"
+        >
+          {{ t('trigram.support-link') }}
+        </router-link>
       </div>
-    </template>
-  </ModalComponent>
+    </div>
+  </DsfrModalPatch>
 </template>
 
 <script setup lang="ts">
-import { DsfrAlert } from '@gouvminint/vue-dsfr'
-import { ref, watch, nextTick, useTemplateRef, onMounted, onUnmounted, useId } from 'vue'
+import { DsfrAlert, DsfrInput, DsfrButton } from '@gouvminint/vue-dsfr'
+import { ref, onUnmounted, useTemplateRef, nextTick, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import debounce from 'lodash.debounce'
-import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import 'df-shared-next/src/validators/validationRules'
+import { configure, useForm } from 'vee-validate'
 
 const { t } = useI18n()
 
@@ -86,213 +80,130 @@ const emit = defineEmits<{
   submit: [trigram: string]
 }>()
 
-const props = defineProps<{
-  hasError?: boolean
-}>()
+const hasError = defineModel<boolean>('hasError')
+const isModalOpened = ref(true)
+const inputRefs = useTemplateRef<HTMLInputElement>('inputRefs')
+const isTrigramInvalid = computed(() => errors.value.trigram || hasError.value)
 
-// Handle close event - but don't allow closing as this is a blocking modal
-function handleClose() {
-  // Modal is blocking, so we don't emit close event
-  // The parent component controls visibility via v-if
-}
+// FORM SETUP
+configure({
+  bails: false,
+  // only validate on submit
+  validateOnBlur: false,
+  validateOnChange: false,
+  validateOnModelUpdate: false,
+  // translate fields and errors
+  generateMessage: (ctx) => {
+    const ruleName = ctx.rule?.name || ''
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const params = ctx.rule?.params as any
+    const value = Array.isArray(params) ? params[0] : params
 
-const trigram = ref<string[]>(['', '', ''])
-const inputRefs = useTemplateRef<HTMLInputElement[]>('inputRefs')
-const errorMessageId = useId()
-
-function handleInput(index: number) {
-  const value = trigram.value[index]
-  
-  // Only allow letters
-  const cleanedValue = value.replaceAll(/[^a-zA-Z]/g, '').toUpperCase()
-  trigram.value[index] = cleanedValue
-
-  if (cleanedValue && index < 2) {
-    // Move to next input
-    nextTick(() => {
-      inputRefs.value?.[index + 1]?.focus()
+    return t(`validation.${ruleName}`, {
+      field: t(`fields.${ctx.field}`),
+      // map 1st param to value for message interpolation
+      [ruleName]: value,
+      ...params
     })
   }
+})
 
-  // Check if all inputs are filled
-  checkAndSubmit()
+const { values, handleSubmit, defineField, errors, submitCount } = useForm({
+  initialValues: {
+    trigram: ''
+  },
+  validationSchema: {
+    trigram: 'required|max:3|alpha'
+  },
+  validateOnMount: false
+})
+
+const onInvalidSubmit = () => {
+  // reset server error in favor of client validation error
+  hasError.value = false
+  inputRefs.value?.focus()
 }
 
-function handleKeydown(event: KeyboardEvent, index: number) {
-  // Handle Backspace: move to previous input if current is empty
-  if (event.key === 'Backspace' && !trigram.value[index] && index > 0) {
-    event.preventDefault()
-    nextTick(() => {
-      inputRefs.value?.[index - 1]?.focus()
-    })
-  }
-
-  // Handle ArrowLeft: move to previous input
-  if (event.key === 'ArrowLeft' && index > 0) {
-    event.preventDefault()
-    nextTick(() => {
-      inputRefs.value?.[index - 1]?.focus()
-    })
-  }
-
-  // Handle ArrowRight: move to next input
-  if (event.key === 'ArrowRight' && index < 2) {
-    event.preventDefault()
-    nextTick(() => {
-      inputRefs.value?.[index + 1]?.focus()
-    })
-  }
-
-  // Handle Enter: submit if all fields are filled
-  if (event.key === 'Enter') {
-    event.preventDefault()
-    checkAndSubmit()
-  }
+const onSuccess = () => {
+  // reset server error
+  hasError.value = false
+  debouncedSubmit(values.trigram)
 }
 
-function handlePaste(event: ClipboardEvent) {
-  event.preventDefault()
-  const pastedText = event.clipboardData?.getData('text') || ''
-  const letters = pastedText.replaceAll(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 3)
-  
-  for (let i = 0; i < 3; i++) {
-    trigram.value[i] = letters[i] || ''
-  }
+const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
 
-  // Focus on the last filled input or the first empty one
-  nextTick(() => {
-    const lastFilledIndex = letters.length - 1
-    const focusIndex = Math.min(lastFilledIndex + 1, 2)
-    inputRefs.value?.[focusIndex]?.focus()
-  })
-
-  checkAndSubmit()
-}
-
-function checkAndSubmit() {
-  debouncedSubmit(trigram.value.join(''))
-}
+const [trigram] = defineField('trigram')
 
 const debouncedSubmit = debounce((trigramValue: string) => {
-  // Submit when we have at least 2 characters (for short names like "Xu")
-  if (trigramValue.length >= 2 && (trigramValue.length === 3 || trigram.value[2] === '')) {
+  // Submit when we have at least 1 character (for short names like "O")
+  if (trigramValue.length >= 1 && trigramValue.length <= 3) {
     emit('submit', trigramValue)
   }
 }, 1000)
-
-// Focus on first input when component is mounted (RGAA: focus initial)
-onMounted(() => {
-  nextTick(() => {
-    inputRefs.value?.[0]?.focus()
-  })
-})
 
 // Cancel debounced function on unmount to prevent memory leaks
 onUnmounted(() => {
   debouncedSubmit.cancel()
 })
 
-// Watch for error to reset inputs and focus (only for 3-letter trigrams)
+// Watch for error to reset inputs and focus
 watch(
-  () => props.hasError,
+  () => hasError.value,
   (hasError) => {
     if (hasError) {
-      const currentLength = trigram.value.join('').length
-      // Only reset if trigram was 3 characters (for short names like "XU", keep the value)
-      if (currentLength === 3) {
-        trigram.value = ['', '', '']
-        nextTick(() => {
-          inputRefs.value?.[0]?.focus()
-        })
-      }
+      nextTick(() => {
+        inputRefs.value?.focus()
+      })
     }
   }
 )
 </script>
 
-<style scoped lang="scss">
-// Override modal max-width to match original design
-:deep(.modal) {
-  max-width: min(40rem, 90%);
+<style scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-// Hide close button as this is a blocking authentication modal
+/* Hide close button as this is a blocking authentication modal */
 :deep(.fr-btn--close) {
   display: none;
 }
 
-.trigram-content {
-  padding: 1rem;
+:deep(.fr-input-group) {
+  max-width: 30ch;
 }
-
-.trigram-inputs {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.trigram-fieldset {
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.trigram-input {
-  width: 4rem;
-  height: 5rem;
+:deep(.fr-input) {
+  margin-inline: auto;
+  padding: 2rem;
   font-size: 2rem;
   text-align: center;
   text-transform: uppercase;
-  border: none;
-  border-bottom: 3px solid var(--grey-625-425);
-  background-color: var(--background-alt-grey);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-
-  // Focus visible - utiliser outline ou box-shadow avec contraste suffisant
-  &:focus {
-    outline: 2px solid var(--blue-france-sun-113-625);
-    outline-offset: 2px;
-    border-bottom-color: var(--blue-france-sun-113-625);
-  }
-
-  // Focus visible en mode clavier uniquement (pas au clic)
-  &:focus-visible {
-    outline: 2px solid var(--blue-france-sun-113-625);
-    outline-offset: 2px;
-    border-bottom-color: var(--blue-france-sun-113-625);
-  }
-
-  &--error {
-    border-bottom-color: var(--error-425-625);
-    
-    &:focus,
-    &:focus-visible {
-      outline-color: var(--error-425-625);
-      border-bottom-color: var(--error-425-625);
-    }
-  }
-}
-
-.examples {
-  font-size: 0.875rem;
-}
-
-.fr-error-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  letter-spacing: 1ch;
 }
 </style>
 
+<i18n lang="json">
+{
+  "en": {
+    "validation": {
+      "required": "{field} is required",
+      "alpha": "Only letters are allowed",
+      "max": "{field} is over {max} characters"
+    },
+    "fields": {
+      "trigram": "The trigram"
+    }
+  },
+  "fr": {
+    "validation": {
+      "required": "{field} est obligatoire",
+      "alpha": "Seules les lettres sont autorisées",
+      "max": "{field} limité à {max} caractères"
+    },
+    "fields": {
+      "trigram": "Le trigram"
+    }
+  }
+}
+</i18n>

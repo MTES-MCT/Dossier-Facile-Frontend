@@ -7,6 +7,7 @@
  * This component is simplified and more accessible.
  * I kept the original template for consistency with the doc.
  */
+
 import type { DsfrModalProps } from '@gouvminint/vue-dsfr'
 import { DsfrButtonGroup, useRandomId, VIcon } from '@gouvminint/vue-dsfr'
 
@@ -21,6 +22,9 @@ const props = withDefaults(defineProps<DsfrModalProps>(), {
   closeButtonLabel: 'Fermer'
 })
 
+/**
+ * @model v-model:is-opened - A boolean ref representing the open/close status in the parent
+ */
 const isOpened = defineModel<boolean>('isOpened', { default: false })
 
 defineSlots<{
@@ -59,6 +63,10 @@ function setAppropriateClassOnBody(on: boolean) {
 }
 
 onMounted(() => {
+  // check if modal is opened by default
+  if (isOpened.value) {
+    modal.value?.showModal()
+  }
   setAppropriateClassOnBody(isOpened.value)
 })
 
