@@ -51,6 +51,8 @@ watch(
   (newValue) => {
     if (newValue) {
       modal.value?.showModal()
+    } else {
+      modal.value?.close()
     }
     setAppropriateClassOnBody(newValue)
   }
@@ -144,7 +146,6 @@ const iconProps = computed(() => {
                 align="right"
                 :buttons="actions"
                 inline-layout-when="large"
-                reverse
               />
             </div>
           </div>

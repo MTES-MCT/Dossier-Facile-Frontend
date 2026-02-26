@@ -15,10 +15,10 @@
       </i18n-t>
     </DsfrAlert>
     <div class="fr-grid-col income-wrapper">
-      <div v-if="duplicateIds.size > 0" class="duplicate-alert fr-text--xs">
-        <RiAlertFill size="1rem" style="flex-shrink: 0" aria-hidden="true" />
+      <p v-if="duplicateIds.size > 0" class="duplicate-alert fr-text--xs">
+        <span class="fr-icon-warning-fill fr-icon--sm" aria-hidden="true" />
         <span>{{ t('duplicate-alert') }}</span>
-      </div>
+      </p>
       <div
         v-for="doc of sortedFinancialDocs"
         :key="doc.id"
@@ -29,6 +29,7 @@
           <h2 class="fr-text--lg fr-mb-0">{{ categoryLabel(doc) }}</h2>
           <span>{{ doc.monthlySum }}€ {{ t('net-per-month') }}</span>
         </div>
+        <!-- TODO: DsfrBadge -->
         <span v-if="doc.documentCategoryStep" class="fr-text--sm fr-mb-0 text-grey">{{
           STEP_LABEL[doc.documentCategoryStep]
         }}</span>
@@ -79,69 +80,44 @@
   >
     {{ t('confirm-step') }}
   </FinancialFooter>
-  <ModalComponent v-if="showInfoModale" @close="showInfoModale = false">
-    <template #header>
-      <h4>{{ t('modal-title') }}</h4>
-    </template>
-    <template #body>
-      <p>{{ t('modal-text') }}</p>
-      <p>{{ t('modal-text-2') }}</p>
-    </template>
-    <template #footer>
-      <DfButton class="large-btn" primary @click="showInfoModale = false">OK</DfButton>
-    </template>
-  </ModalComponent>
-  <ModalComponent v-if="docToDelete" @close="hideDeleteModale">
-    <template #body>
-      <p class="fr-m-0">{{ t('sure-to-delete') }}</p>
-    </template>
-    <template #footer>
-      <ul class="fr-btns-group fr-btns-group--inline-md btns-group">
-        <li>
-          <DfButton primary @click="deleteDoc">{{ t('delete') }}</DfButton>
-        </li>
-        <li>
-          <DfButton @click="hideDeleteModale">{{ t('cancel') }}</DfButton>
-        </li>
-      </ul>
-    </template>
-  </ModalComponent>
-  <ModalComponent
-    v-if="showDuplicatesModale && firstDuplicate?.documentCategoryStep"
-    @close="showDuplicatesModale = false"
+  <DsfrModalPatch v-model:is-opened="isInfoModaleVisible" size="lg" :title="t('modal-title')">
+    <p>{{ t('modal-text') }}</p>
+    <p>{{ t('modal-text-2') }}</p>
+  </DsfrModalPatch>
+
+  <DsfrModalPatch
+    v-model:is-opened="isDeleteModaleVisible"
+    size="lg"
+    :title="t('sure-to-delete')"
+    :actions="deleteModaleActions"
   >
-    <template #header>
-      <h2 class="fr-h3 fr-mb-0">{{ t('duplicate-resource') }}</h2>
-    </template>
-    <template #body>
-      <p class="bold fr-mb-0">{{ t('seem-duplicates') }}</p>
-      <i18n-t tag="p" keypath="resources-added" class="fr-mb-0">
-        <template #times>
-          <strong>{{ duplicateIds.size }} {{ t('times') }}</strong>
-        </template>
-        <template #resource>
-          <strong>{{ STEP_LABEL[firstDuplicate.documentCategoryStep] }}</strong>
-        </template>
-        <template #amount>
-          <strong>{{ firstDuplicate.monthlySum }}€</strong>
-        </template>
-      </i18n-t>
-      <i18n-t tag="p" keypath="remember-combine-docs" class="fr-mb-2w">
-        <strong>{{ t('remember') }}</strong>
-      </i18n-t>
-      <p class="fr-mb-0">{{ t('recommend-check') }}</p>
-    </template>
-    <template #footer>
-      <ul class="fr-btns-group fr-btns-group--inline-md btns-group">
-        <li>
-          <DfButton primary @click="showDuplicatesModale = false">{{ t('check-income') }}</DfButton>
-        </li>
-        <li>
-          <DfButton @click="router.push(state.nextStep)">{{ t('go-next-step') }}</DfButton>
-        </li>
-      </ul>
-    </template>
-  </ModalComponent>
+    <p class="fr-m-0">{{ t('sure-to-delete') }}</p>
+  </DsfrModalPatch>
+
+  <DsfrModalPatch
+    v-if="firstDuplicate?.documentCategoryStep"
+    v-model:is-opened="isDuplicatesModaleVisible"
+    size="lg"
+    :title="t('duplicate-resource')"
+    :actions="duplicatesModaleActions"
+  >
+    <p class="bold fr-mb-0">{{ t('seem-duplicates') }}</p>
+    <i18n-t tag="p" keypath="resources-added" class="fr-mb-0">
+      <template #times>
+        <strong>{{ duplicateIds.size }} {{ t('times') }}</strong>
+      </template>
+      <template #resource>
+        <strong>{{ STEP_LABEL[firstDuplicate.documentCategoryStep] }}</strong>
+      </template>
+      <template #amount>
+        <strong>{{ firstDuplicate.monthlySum }}€</strong>
+      </template>
+    </i18n-t>
+    <i18n-t tag="p" keypath="remember-combine-docs" class="fr-mb-2w">
+      <strong>{{ t('remember') }}</strong>
+    </i18n-t>
+    <p class="fr-mb-0">{{ t('recommend-check') }}</p>
+  </DsfrModalPatch>
 </template>
 
 <script setup lang="ts">
@@ -160,16 +136,15 @@ import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import type { DfDocument, DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import FinancialFooter from './lib/FinancialFooter.vue'
-import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { computed, onMounted, ref, useTemplateRef } from 'vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useFinancialState } from '@/components/financial/financialState'
 import { useRoute, useRouter } from 'vue-router'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import TenantBadge from '../common/TenantBadge.vue'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { toast } from '@/components/toast/toastUtils'
-import { DsfrAlert } from '@gouvminint/vue-dsfr'
+import { DsfrAlert, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const store = useTenantStore()
 const { t } = useI18n()
@@ -177,8 +152,41 @@ const route = useRoute()
 const router = useRouter()
 
 const deleteBtn = useTemplateRef('delete-btn')
-const showInfoModale = ref(false)
-const showDuplicatesModale = ref(false)
+const isInfoModaleVisible = ref(false)
+const isDeleteModaleVisible = ref(false)
+const deleteModaleActions: DsfrButtonProps[] = [
+  {
+    label: t('delete'),
+    onClick() {
+      deleteDoc()
+    }
+  },
+  {
+    label: t('cancel'),
+    onClick() {
+      cancelDeleteModale()
+    },
+    secondary: true
+  }
+]
+
+const isDuplicatesModaleVisible = ref(false)
+const duplicatesModaleActions: DsfrButtonProps[] = [
+  {
+    label: t('check-income'),
+    onClick() {
+      isDuplicatesModaleVisible.value = false
+    }
+  },
+  {
+    label: t('go-next-step'),
+    onClick() {
+      router.push(state.nextStep)
+    },
+    secondary: true
+  }
+]
+
 const docToDelete = ref<DfDocument>()
 const state = useFinancialState()
 const financialDocuments = computed(() => state.documents.value)
@@ -221,7 +229,7 @@ onMounted(() => {
         doc.documentCategoryStep === 'PENSION_UNKNOWN'
     )
   ) {
-    showInfoModale.value = true
+    isInfoModaleVisible.value = true
   }
 })
 
@@ -319,11 +327,13 @@ function makeLink(doc: DfDocument) {
 }
 
 function showDeleteModale(doc: DfDocument) {
+  isDeleteModaleVisible.value = true
   docToDelete.value = doc
   AnalyticsService.deleteIncome(state.category, 'ask')
 }
 
-function hideDeleteModale() {
+function cancelDeleteModale() {
+  isDeleteModaleVisible.value = false
   docToDelete.value = undefined
   AnalyticsService.deleteIncome(state.category, 'cancel')
 }
@@ -345,12 +355,13 @@ function deleteDoc() {
     })
     .finally(() => {
       loader.hide()
+      isDeleteModaleVisible.value = false
     })
 }
 
 function submit() {
   if (duplicateIds.value.size > 0) {
-    showDuplicatesModale.value = true
+    isDuplicatesModaleVisible.value = true
     return false
   }
   return true
