@@ -22,7 +22,7 @@
                   'fr-input--valid': meta.valid,
                   'fr-input--error': !meta.valid
                 }"
-                autocomplete="username"
+                autocomplete="new-password"
                 required
               />
               <PasswordMeter :password="password || ''" @score="setScore" />
@@ -53,7 +53,7 @@
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid
                   }"
-                  autocomplete="username"
+                  autocomplete="new-password"
                   required
                 />
                 <ErrorMessage v-slot="{ message }" name="confirm-password">

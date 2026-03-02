@@ -14,7 +14,7 @@
       v-model.trim="preferredname"
       :field-label="t('common.preferred-name-label')"
       name="preferredName"
-      autocomplete="given-name"
+      autocomplete="off"
       validation-rules="onlyAlpha"
     />
     <TextField
