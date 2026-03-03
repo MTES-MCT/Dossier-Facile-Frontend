@@ -8,6 +8,7 @@ import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
 import { clearAllToasts } from '@/components/toast/toastUtils'
 import { i18n } from '@/i18n'
+import { computed } from 'vue'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL
@@ -1091,11 +1092,18 @@ function setTitlesMeta(to: RouteLocationNormalized) {
   // Set title
   const baseTitle = 'DossierFacile'
   const pageName = to.name?.toString()
-  const fullTitle =
-    // check name and translation exist
-    pageName && i18n.global.te(`common-titles.${pageName}`)
-      ? `${i18n.global.t('common-titles.' + pageName)} - ${baseTitle}`
-      : baseTitle
+  const pageTitle = computed(() => {
+    // check for translation in (root) page titles
+    if (i18n.global.te(`page-titles.${pageName}`)) {
+      return i18n.global.t(`page-titles.${pageName}`)
+      // check for translation in composite (children) titles
+    } else if (i18n.global.te(`common-titles.${pageName}`)) {
+      return i18n.global.t(`common-titles.${pageName}`)
+    } else return ''
+  })
+
+  // check name and title exist
+  const fullTitle = pageName && !!pageTitle.value ? `${pageTitle.value} - ${baseTitle}` : baseTitle
   document.title = fullTitle
 
   // Set meta tags

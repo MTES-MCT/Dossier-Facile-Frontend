@@ -1014,8 +1014,8 @@
   "page-titles": {
     "Home": "Home",
     "ChooseTenantIdentity": "Identity - @:page-titles.base.steps.1of2",
-    "SelfTenantIdentity": "Your identity",
-    "ThirdPartyTenantIdentity": "Beneficiary's Identity",
+    "SelfTenantIdentity": "Your identity - @:page-titles.base.steps.2of2",
+    "ThirdPartyTenantIdentity": "Beneficiary's Identity - @:page-titles.base.steps.2of2",
 
     "TenantType": "Application type",
 
@@ -1056,8 +1056,8 @@
         "etudes": "Studies",
         "alternance": "Alternating",
         "stage": "Internship",
-        "interimaire": "Interim",
-        "intermittence": "Temporary Work Contract",
+        "interimaire": "Temporary Work Contract",
+        "intermittence": "Intermittent",
         "artisteAuteur": "Artist-author",
         "parentFoyer": "Stay at Home",
         "sansActivite": "No activity",
