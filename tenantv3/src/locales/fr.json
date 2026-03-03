@@ -1,4 +1,16 @@
 {
+  "404": {
+    "title": "Page non trouvée",
+    "subtitle": "Erreur 404",
+    "caption": "La page que vous cherchez est introuvable. Veuillez nous excuser pour la gêne occasionnée.",
+    "content": {
+      "line1": "Si vous avez tapé l'adresse web dans le navigateur, vérifiez qu'elle est correcte. La page n’est peut-être plus disponible.",
+      "line2": "Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.",
+      "line3": "Sinon contactez-nous pour que l’on puisse vous rediriger vers la bonne information."
+    },
+    "homepage": "Page d'accueil",
+    "contact-us": "Contactez-nous"
+  },
   "register": "Enregistrer",
   "logout": "Se déconnecter",
   "signin": "Se connecter",
@@ -932,18 +944,6 @@
     "close": "Fermer",
     "close-alt": "Fermer la fenêtre modale"
   },
-  "404": {
-    "title": "Page non trouvée",
-    "subtitle": "Erreur 404",
-    "caption": "La page que vous cherchez est introuvable. Veuillez nous excuser pour la gêne occasionnée.",
-    "content": {
-      "line1": "Si vous avez tapé l'adresse web dans le navigateur, vérifiez qu'elle est correcte. La page n’est peut-être plus disponible.",
-      "line2": "Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.",
-      "line3": "Sinon contactez-nous pour que l’on puisse vous rediriger vers la bonne information."
-    },
-    "homepage": "Page d'accueil",
-    "contact-us": "Contactez-nous"
-  },
   "contact": {
     "title": "Comment pouvons-nous vous aider ?"
   },
@@ -1001,5 +1001,169 @@
     "success": "Email renvoyé avec succès",
     "error": "Erreur lors de l'envoi de l'email",
     "too-many-requests": "Vous avez déjà envoyé un lien de partage il y a moins d'une heure. Merci de réessayer une fois ce délai écoulé."
+  },
+  "step": "étape",
+  "page-titles": {
+    "Home": "Accueil",
+
+    "ChooseTenantIdentity": "Identité - @:page-titles.base.steps.1of2",
+    "SelfTenantIdentity": "Votre identité - @:page-titles.base.steps.2of2",
+    "ThirdPartyTenantIdentity": "Identité du bénéficiaire - @:page-titles.base.steps.2of2",
+
+    "TenantType": "Type de dossier",
+
+    "base": {
+      "steps": {
+        "1of2": "étape 1 sur 2",
+        "2of2": "étape 2 sur 2"
+      },
+      "identity": {
+        "identification": "Pièce d'identité",
+        "idCard": "Carte d'identité",
+        "passeport": "Passeport",
+        "permit": "Titre de séjour",
+        "drivingLicence": "Permis de conduire",
+        "franceIdentite": "France Identité",
+        "other": "Autre"
+      },
+      "residency": {
+        "tenant": "Locataire",
+        "tenantReceipts": "Quittances de loyer",
+        "tenantProof": "Attestation de paiement",
+        "guest": "Hébergé",
+        "guestProof": "Attestation d'hébergement",
+        "guestNoProof": "Sans attestation d'hébergement",
+        "owner": "Propriétaire",
+        "company": "Logement de fonction",
+        "rental": "Location",
+        "organism": "Hébergé",
+        "other": "Autre situation"
+      },
+      "professional": {
+        "cdi": "CDI",
+        "cdd": "CDD",
+        "public": "Fonctionnaire",
+        "independant": "Indépendant",
+        "retraite": "Retraité",
+        "chomage": "Chômage",
+        "etudes": "Études",
+        "alternance": "Alternance",
+        "stage": "Stage",
+        "interimaire": "Interimaire",
+        "intermittence": "Intermittence",
+        "artisteAuteur": "Artiste-auteur",
+        "parentFoyer": "Parent au foyer",
+        "sansActivite": "Sans activité",
+        "other": "Autre"
+      },
+      "financial": {
+        "travail": "Travail",
+        "travailSalarie": "Salarié",
+        "travailSalarieplus3Mois": "Salarié plus de 3 mois",
+        "travailSalarieMoins3Mois": "Salarié moins de 3 mois",
+        "travailSalariePasEncore": "Pas encore salarié",
+        "travailIndependant": "Indépendant",
+        "travailIndependantAutoEntrepreneur": "Auto-entrepreneur",
+        "travailIndependantAutre": "Autre indépendant",
+        "travailIntermittent": "Intermittent",
+        "travailArtisteAuteur": "Artiste-auteur",
+        "travailInconnu": "Situation inconnue",
+        "social": "Aides sociales",
+        "socialCaf": "CAF",
+        "socialCafPlus3Mois": "CAF plus de 3 mois",
+        "socialCafMoins3Mois": "CAF moins de 3 mois",
+        "socialFranceTravail": "France Travail",
+        "socialFranceTravailPlus3Mois": "France Travail plus de 3 mois",
+        "socialFranceTravailMoins3Mois": "France Travail moins de 3 mois",
+        "socialFranceTravailPasEncore": "France Travail pas encore perçu",
+        "socialApl": "APL",
+        "socialAplPlus3Mois": "APL plus de 3 mois",
+        "socialAplMoins3Mois": "APL moins de 3 mois",
+        "socialAplPasEncore": "APL pas encore perçue",
+        "socialAah": "AAH",
+        "socialAahPlus3Mois": "AAH plus de 3 mois",
+        "socialAahMoins3Mois": "AAH moins de 3 mois",
+        "socialAahPasEncore": "AAH pas encore perçue",
+        "socialAutre": "Autre aide sociale",
+        "pension": "Pension",
+        "pensionRetraite": "Pension de retraite",
+        "pensionRetraiteBulletin": "Pension de retraite avec bulletin",
+        "pensionRetraitePasDeBulletin": "Pension de retraite sans bulletin",
+        "pensionInvalidite": "Pension d'invalidité",
+        "pensionInvaliditePlus3Mois": "Pension d'invalidité plus de 3 mois",
+        "pensionInvaliditeMoins3Mois": "Pension d'invalidité moins de 3 mois",
+        "pensionInvaliditePasEncore": "Pension d'invalidité pas encore perçue",
+        "pensionAlimentaire": "Pension alimentaire",
+        "pensionInconnu": "Pension inconnue",
+        "rente": "Rente",
+        "renteRevenusLocatifs": "Revenus locatifs",
+        "renteRevenusLocatifsQuittance": "Revenus locatifs avec quittance",
+        "renteRevenusLocatifsPasDeQuittance": "Revenus locatifs sans quittance",
+        "renteViagere": "Rente viagère",
+        "renteAutre": "Autre rente",
+        "bourse": "Bourse étudiante",
+        "pasDeRevenus": "Pas de revenus"
+      },
+      "tax": {
+        "avecAvis": "Avec avis",
+        "avecAvisFrancais": "Avis français",
+        "avecAvisEtranger": "Avis étranger",
+        "sansAvis": "Sans avis",
+        "sansAvisSansDeclaration": "Sans déclaration",
+        "sansAvisParents": "Foyer fiscal des parents",
+        "sansAvisPasRecu": "Non reçu",
+        "sansAvisAutre": "Autre situation",
+        "nonRenseigne": "Non renseignée"
+      }
+    },
+
+    "TenantIdentity": "Votre identité",
+    "TenantResidency": "Votre situation d'hébergement",
+    "TenantProfessional": "Votre situation professionnelle",
+    "TenantFinancial": "Vos revenus",
+    "TenantRevAdd": "Ajouter des revenus",
+    "TenantTax": "Votre imposition",
+
+    "Couple": "Votre conjoint",
+    "CoupleName": "Identité du conjoint",
+    "CoupleResidency": "Hébergement du conjoint",
+    "CoupleProfessional": "Activité du conjoint",
+    "CoupleFinancial": "Revenus du conjoint",
+    "CoupleRevAdd": "Ajouter les revenus du conjoint",
+    "CoupleTax": "Imposition du conjoint",
+
+    "GuarantorChoice": "Ajouter des garants",
+    "GuarantorList": "Mes garants",
+    "Guarantors": "Garant",
+    "GuarantorIdentity": "Identité garant",
+    "GuarantorResidency": "Hébergement du garant",
+    "GuarantorProfessional": "Activité du garant",
+    "GuarantorFinancial": "Revenus du garant",
+    "GuarantorRevAdd": "Ajouter les revenus du garant",
+    "GuarantorTax": "Imposition du garant",
+
+    "TenantGuarantorList": "Ajouter les garants du conjoint",
+    "TenantGuarantors": "Garants du conjoint",
+    "TenantGuarantorIdentity": "Identité garant du conjoint",
+    "TenantGuarantorResidency": "Hébergement garant du conjoint",
+    "TenantGuarantorProfessional": "Activité garant du conjoint",
+    "TenantGuarantorFinancial": "Revenus garant du conjoint",
+    "TenantGuarantorRevAdd": "Ajouter les revenus du garant",
+    "TenantGuarantorTax": "Imposition garant du conjoint",
+
+    "ValidateFile": "Validation du dossier",
+    "ValidateFileStep": "Validation du dossier",
+
+    "File": "Fichier",
+    "PublicFile": "Fichier public",
+    "MyFile": "Mon dossier",
+    "Account": "Mon compte",
+    "SharingLinksPage": "Mes partages",
+    "Messages": "Messages",
+    "AddCouple": "Confirmation de compte",
+    "AddGroup": "Confirmation de compte",
+    "Confirm": "Conserver ses documents",
+    "Contact": "Contact",
+    "catchall": "Page non trouvée (erreur 404)"
   }
 }
