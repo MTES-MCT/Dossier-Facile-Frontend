@@ -11,7 +11,7 @@
         <p class="fr-text--sm">{{ t('trigram.alert-multiple') }}</p>
       </DsfrAlert>
 
-      <form novalidate @submit.prevent="onSubmit">
+      <form novalidate class="trigram-form" @submit.prevent="onSubmit">
         <div class="fr-input-group" :class="{ 'fr-input-group--error': isTrigramInvalid }">
           <DsfrInput
             id="input-trigram"
@@ -32,15 +32,7 @@
           >
             <template #required-tip> ({{ t('field-required') }})</template>
           </DsfrInput>
-          <div id="trigram-hint" class="trigram-hint fr-mt-1w">
-            <p class="fr-mx-auto fr-my-1w fr-text--sm">
-              {{ t('trigram.examples-title') }}<br />
-              Sophie <strong>Xu</strong>&nbsp;: <strong>XU</strong><br />
-              Angela <strong>Hén</strong>ard&nbsp;: <strong>HEN</strong><br />
-              Claude <strong>De R</strong>iva&nbsp;: <strong>DER</strong>
-            </p>
-          </div>
-          <div v-if="submitCount > 0 && isTrigramInvalid" id="errors-trigram">
+          <div v-if="submitCount > 0 && isTrigramInvalid" id="errors-trigram" class="fr-mt-2w">
             <p v-if="errors.trigram" class="fr-error-text">
               {{ errors.trigram }}
             </p>
@@ -48,6 +40,14 @@
               {{ t('trigram.error-message') }}
             </p>
           </div>
+        </div>
+        <div id="trigram-hint" class="trigram-hint">
+          <p class="fr-text--sm">
+            {{ t('trigram.examples-title') }}<br />
+            Sophie <strong>Xu</strong>&nbsp;: <strong>XU</strong><br />
+            Angela <strong>Hén</strong>ard&nbsp;: <strong>HEN</strong><br />
+            Claude <strong>De R</strong>iva&nbsp;: <strong>DER</strong>
+          </p>
         </div>
         <DsfrButton type="submit">{{ t('trigram.submit') }}</DsfrButton>
       </form>
@@ -161,17 +161,19 @@ watch(
 
 <style scoped>
 form {
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
+  gap: 1rem;
+  max-width: 30ch;
 }
 /* Hide close button as this is a blocking authentication modal */
 :deep(.fr-btn--close) {
   display: none;
 }
-
-:deep(.fr-input-group) {
-  max-width: 30ch;
+.trigram-form * {
+  margin: 0;
 }
 :deep(.fr-input) {
   margin-inline: auto;
@@ -180,6 +182,11 @@ form {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1ch;
+}
+form button {
+  flex: 1 0 100%;
+  inline-size: 100%;
+  justify-content: center;
 }
 </style>
 
