@@ -50,13 +50,12 @@ const props = withDefaults(
     type?: 'text' | 'email'
     validationRules?: string
     disabled?: boolean
-    autocomplete?: string
+    autocomplete: HTMLInputElement['autocomplete']
   }>(),
   {
     type: 'text',
     validationRules: '',
-    disabled: false,
-    autocomplete: ''
+    disabled: false
   }
 )
 

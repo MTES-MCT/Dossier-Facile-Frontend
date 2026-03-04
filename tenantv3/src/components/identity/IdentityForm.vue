@@ -12,9 +12,9 @@
 
     <TextField
       v-model.trim="preferredname"
-      :field-label="t('common.preferred-name-label')"
+      field-label="Nom d'usage"
       name="preferredName"
-      autocomplete="off"
+      autocomplete="new-password"
       validation-rules="onlyAlpha"
     />
     <TextField
