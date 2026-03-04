@@ -5,9 +5,6 @@ import type { FileUser } from 'df-shared-next/src/models/FileUser'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 export const ProfileService = {
-  unlinkFranceConnect() {
-    return axios.delete<void>(`${import.meta.env.VITE_API_URL}/api/user/franceConnect`)
-  },
   saveNames(user: User | CoTenant) {
     return axios.post<User>(`${import.meta.env.VITE_API_URL}/api/register/names`, {
       tenantId: user.id,

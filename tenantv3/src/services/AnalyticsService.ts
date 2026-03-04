@@ -79,10 +79,6 @@ export const AnalyticsService = {
     sendFullEvent('contact', 'clic', tag)
   },
 
-  unlinkFCSuccess() {
-    sendEvent('account', 'unlink-fc')
-  },
-
   openCreateOwnerAccount() {
     sendEvent('misc', 'open_owner')
   },
