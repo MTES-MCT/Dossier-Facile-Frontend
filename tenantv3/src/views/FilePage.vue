@@ -2,7 +2,7 @@
   <div class="root" :class="{ 'blue-background': viewState === 'fileContent' }">
     <TrigramAuthentication
       v-if="viewState === 'trigram'"
-      :has-error="trigramError"
+      v-model:has-error="trigramError"
       @submit="handleTrigramSubmit"
     />
     <div v-if="viewState === 'fileContent'" class="fr-container">
@@ -299,23 +299,23 @@ function testIfLinkExists() {
 
 function setUser(trigram: string) {
   const token = Array.isArray(route.params.token) ? route.params.token[0] : route.params.token
-    
+
   ProfileService.getLinkByToken(token, trigram)
-  .then((d) => {
-    user.value = d.data
-    if (user.value) {
-      user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
-        return t1.tenantType === 'CREATE' && t2.tenantType !== 'CREATE' ? -1 : 1
-      })
-    }
-    // Authentication successful, hide the trigram modal
-    viewState.value = 'fileContent'
-    trigramValue.value = trigram
-    trigramError.value = false
-  })
-  .catch((error) => {
-    handleAPIError(error.response?.status, trigram)
-  })
+    .then((d) => {
+      user.value = d.data
+      if (user.value) {
+        user.value.tenants = user.value?.tenants?.sort((t1, t2) => {
+          return t1.tenantType === 'CREATE' && t2.tenantType !== 'CREATE' ? -1 : 1
+        })
+      }
+      // Authentication successful, hide the trigram modal
+      viewState.value = 'fileContent'
+      trigramValue.value = trigram
+      trigramError.value = false
+    })
+    .catch((error) => {
+      handleAPIError(error.response?.status, trigram)
+    })
 }
 
 function handleAPIError(statusCode: number, trigram?: string) {
