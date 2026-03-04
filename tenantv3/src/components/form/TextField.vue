@@ -56,7 +56,7 @@ const props = withDefaults(
     type: 'text',
     validationRules: '',
     disabled: false,
-    autocomplete: ''
+    autocomplete: 'off'
   }
 )
 
