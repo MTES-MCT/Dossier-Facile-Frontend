@@ -64,12 +64,11 @@
             </li>
           </ul>
           <ConfirmModal
-            v-if="confirmDeleteProperty"
+            v-model:is-opened="confirmDeleteProperty"
+            :title="t('consultproperty.will-delete-property')"
             @valid="validDeleteFile()"
             @cancel="undoDeleteFile()"
-          >
-            {{ t('consultproperty.will-delete-property') }}
-          </ConfirmModal>
+          />
         </div>
       </div>
       <NakedCard class="h-100">
@@ -107,12 +106,11 @@
             {{ t('consultproperty.delete-applicants') }}
           </button>
           <ConfirmModal
-            v-if="confirmDeleteApplicants"
+            v-model:is-opened="confirmDeleteApplicants"
+            :title="t('consultproperty.will-delete-applicants')"
             @valid="validDeleteApplicants()"
             @cancel="undoDeleteApplicants()"
-          >
-            {{ t('consultproperty.will-delete-applicants') }}
-          </ConfirmModal>
+          />
         </div>
         <div class="table-wrapper">
           <table aria-describedby="verified-applicants">
