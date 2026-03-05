@@ -2,11 +2,13 @@
   <NakedCard id="sharing-history" class="fr-p-3w">
     <h2 class="fr-h3">{{ t('title') }}</h2>
     <p>{{ t('consult-sharing-links') }}</p>
-    <p class="bold fr-mb-1w">{{ t('active-shares-count', [links.length]) }}</p>
     <hr />
     <form class="fr-grid-col" @submit.prevent="openDeleteModal">
-      <ul class="share-list">
-        <li v-for="link of links" :key="link.id" class="share-item">
+      <fieldset class="share-list">
+        <legend class="bold fr-mb-1w">
+          {{ t('active-shares-count', [links.length]) }}
+        </legend>
+        <template v-for="link of links" :key="link.id">
           <ActiveShare v-slot="{ id }" :link class="flex--1" @refresh="emit('refresh')">
             <input
               :id
@@ -17,33 +19,23 @@
               class="checkbox"
             />
           </ActiveShare>
-        </li>
-      </ul>
+        </template>
+      </fieldset>
       <DfButton ref="delete-btn" class="fr-ml-auto" tertiary :disabled="selectedLinks.length === 0"
         >{{ t('delete-selection') }}
         <RiDeleteBin6Line aria-hidden="true" size="1rem" class="fr-ml-1v" />
       </DfButton>
     </form>
-    
-    <ModalComponent v-if="isDeleteModalOpen" @close="closeDeleteModal">
-      <template #header>
-        <h4>{{ t('delete-confirmation-title') }}</h4>
-      </template>
-      <template #body>
-        <p>{{ t('delete-confirmation-message', [selectedLinks.length]) }}</p>
-      </template>
-      <template #footer>
-        <ul class="fr-btns-group fr-btns-group--inline-md">
-          <li>
-            <DfButton @click="closeDeleteModal">{{ t('cancel') }}</DfButton>
-          </li>
-          <li>
-            <DfButton primary @click="confirmDelete">{{ t('confirm-delete') }}</DfButton>
-          </li>
-        </ul>
-      </template>
-    </ModalComponent>
-    
+
+    <DsfrModalPatch
+      v-model:is-opened="isMultiDeleteModalOpen"
+      :title="t('delete-confirmation-title')"
+      :actions="modalActions"
+      size="xl"
+    >
+      <p>{{ t('delete-confirmation-message', [selectedLinks.length]) }}</p>
+    </DsfrModalPatch>
+
     <hr class="fr-mt-3w" />
     <h3 class="fr-h5">{{ t('suspend-access') }}</h3>
     <p>{{ t('suspend-all') }}</p>
@@ -62,38 +54,46 @@ import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSh
 import { useI18n } from 'vue-i18n'
 import ActiveShare from './ActiveShare.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import { RiDeleteBin6Line, RiPauseCircleLine } from '@remixicon/vue'
-import { computed, ref, useTemplateRef, watch } from 'vue'
+import { computed, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '../toast/toastUtils'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 
 const { links } = defineProps<{ links: ApartmentSharingLink[] }>()
 const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
 const selectedLinks = ref([])
-const isDeleteModalOpen = ref(false)
 const deleteButton = useTemplateRef('delete-btn')
 const toggleButton = useTemplateRef('toggle-btn')
 
+const isMultiDeleteModalOpen = ref(false)
+const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
+  {
+    label: t('cancel'),
+    secondary: true,
+    onClick() {
+      isMultiDeleteModalOpen.value = false
+    }
+  },
+  {
+    label: t('confirm-delete'),
+    onClick() {
+      confirmDelete()
+    }
+  }
+])
+
 const allLinksPaused = computed(() => links.every((link) => !link.enabled))
 
-watch(isDeleteModalOpen, (isOpen) => {
-  document.body.style.overflow = isOpen ? 'hidden' : ''
-})
-
 function openDeleteModal() {
-  isDeleteModalOpen.value = true
-}
-
-function closeDeleteModal() {
-  isDeleteModalOpen.value = false
+  isMultiDeleteModalOpen.value = true
 }
 
 async function confirmDelete() {
-  closeDeleteModal()
   try {
     await ApartmentSharingLinkService.deleteLinks(selectedLinks.value)
     selectedLinks.value = []
@@ -102,13 +102,15 @@ async function confirmDelete() {
   } catch (error) {
     console.error(error)
     toast.error(t('error'), deleteButton.value?.button)
+  } finally {
+    isMultiDeleteModalOpen.value = false
   }
 }
 
 async function toggleLinks() {
   const enable = allLinksPaused.value
   AnalyticsService.sharingToggleAllLinks(enable ? 'enable' : 'disable')
-  
+
   const method = enable ? 'enableAllLinks' : 'disableAllLinks'
   try {
     await ApartmentSharingLinkService[method]()
@@ -129,24 +131,16 @@ async function toggleLinks() {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  border: 0;
 }
 
 .checkbox {
   height: 1rem;
   width: 1rem;
 }
-
-.share-item {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0;
-}
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "title": "Your sharing activity",

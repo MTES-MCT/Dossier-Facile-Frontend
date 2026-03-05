@@ -1,44 +1,19 @@
 <template>
-  <Modal @close="closeModal()">
-    <template #header>
-      <div class="fr-container">
-        <h1 class="fr-modal__title">
-          <slot name="title"></slot>
-        </h1>
-      </div>
-    </template>
-    <template #body>
-      <div class="fr-container">
-        <div class="fr-grid-row justify-content-center">
-          <div class="fr-col-12">
-            <p>
-              <slot></slot>
-            </p>
-            <div class="align--right">
-              <DfButton
-                ref="validate-btn"
-                type="submit"
-                class="fr-mr-3w"
-                :primary="true"
-                @click="validSelect()"
-                >{{ validateBtnText ? validateBtnText : t('validate') }}</DfButton
-              >
-              <DfButton class="fr-mr-3w" @click="undoSelect()">{{
-                cancelBtnText ? cancelBtnText : t('cancel')
-              }}</DfButton>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-  </Modal>
+  <DsfrModalPatch
+    v-model:is-opened="isModalOpened"
+    :title="title"
+    :actions="modalActions"
+    size="lg"
+  >
+    <slot />
+  </DsfrModalPatch>
 </template>
 
 <script setup lang="ts">
-import Modal from './ModalComponent.vue'
-import DfButton from '../Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
-import { useTemplateRef } from 'vue'
+import { computed, useTemplateRef, type ComputedRef } from 'vue'
+import DsfrModalPatch from './patches/DsfrModalPatch.vue'
+import type { DsfrButtonProps } from 'node_modules/@gouvminint/vue-dsfr/types/components'
 
 const { t } = useI18n()
 
@@ -48,7 +23,27 @@ const props = defineProps<{
   validateBtnText?: string
   cancelBtnText?: string
   emitClose?: boolean
+  title: string
 }>()
+
+const isModalOpened = defineModel<boolean>('isOpened', { default: false })
+
+const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
+  {
+    label: t('validate'),
+    onClick() {
+      emit('valid')
+    },
+    secondary: true
+  },
+  {
+    label: t('cancel'),
+    onClick() {
+      emit('cancel')
+      isModalOpened.value = false
+    }
+  }
+])
 
 const validateBtn = useTemplateRef('validate-btn')
 defineExpose({ validateBtn })
@@ -70,7 +65,7 @@ function closeModal() {
 }
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "validate": "Validate",

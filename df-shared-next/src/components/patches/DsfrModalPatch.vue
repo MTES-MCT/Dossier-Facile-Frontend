@@ -12,6 +12,9 @@ import type { DsfrModalProps } from '@gouvminint/vue-dsfr'
 import { DsfrButtonGroup, useRandomId, VIcon } from '@gouvminint/vue-dsfr'
 
 import { computed, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = withDefaults(defineProps<DsfrModalProps>(), {
   modalId: () => useRandomId('modal', 'dialog'),
@@ -19,7 +22,7 @@ const props = withDefaults(defineProps<DsfrModalProps>(), {
   origin: () => ({ focus() {} }),
   icon: undefined,
   size: 'md',
-  closeButtonLabel: 'Fermer'
+  closeButtonLabel: 'close'
 })
 
 /**
@@ -121,7 +124,7 @@ const iconProps = computed(() => {
             <div class="fr-modal__header">
               <button ref="closeBtn" class="fr-btn fr-btn--close" type="button" @click="close">
                 <span>
-                  {{ closeButtonLabel }}
+                  {{ t(closeButtonLabel) }}
                 </span>
               </button>
             </div>
@@ -182,3 +185,14 @@ const iconProps = computed(() => {
   overflow: hidden;
 }
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "close": "close"
+  },
+  "fr": {
+    "close": "fermer"
+  }
+}
+</i18n>

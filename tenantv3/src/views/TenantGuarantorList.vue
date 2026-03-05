@@ -14,12 +14,11 @@
           </template>
         </CardRow>
         <ConfirmModal
-          v-if="isRemoveGuarantor"
+          v-model:is-opened="isRemoveGuarantor"
+          :title="t('tenantguarantorlist.remove-guarantor')"
           @valid="removeGuarantor(g)"
           @cancel="isRemoveGuarantor = false"
-        >
-          <span>{{ t('tenantguarantorlist.remove-guarantor') }}</span>
-        </ConfirmModal>
+        />
       </div>
       <div v-if="hasOneNaturalGuarantor()">
         <button class="add-guarantor-btn" @click.once="addNaturalGuarantor()">

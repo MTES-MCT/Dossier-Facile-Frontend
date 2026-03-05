@@ -1,15 +1,17 @@
 <template>
   <div>
     <div v-if="guarantors.length > 0" class="main-guarantor-information">
-      <div v-for="g in guarantors" :key="g.id">
+      <div v-for="(g, idx) in guarantors" :key="g.id" ref="guarantors-list">
         <hr />
         <div class="inline-block-flex item-action">
           <h4>
             {{ guarantorTitle(g) }}
           </h4>
-          <button ref="delete-guarantor" @click.prevent="openConfirmModal(g)">
-            {{ t('guarantorssection.delete-guarantor') }}
-          </button>
+          <DsfrButton
+            :id="`delButton-${idx}`"
+            :label="t('guarantorssection.delete-guarantor')"
+            @click.prevent="openConfirmModal(g)"
+          />
         </div>
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
           <ul class="without-padding">
@@ -108,12 +110,11 @@
         </div>
       </div>
       <ConfirmModal
-        v-if="showConfirmModal"
+        v-model:is-opened="showConfirmModal"
+        :title="t('guarantorssection.confirm-delete-guarantor')"
         @valid="removeSelectedGuarantor()"
         @cancel="closeConfirmModal()"
-      >
-        <div>{{ t('guarantorssection.confirm-delete-guarantor') }}</div>
-      </ConfirmModal>
+      />
     </div>
 
     <div
@@ -179,6 +180,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { toast } from '@/components/toast/toastUtils'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 const store = useTenantStore()
 const router = useRouter()
@@ -199,7 +201,8 @@ const props = withDefaults(
 const user = computed(() => store.user)
 const guarantors = ref<Guarantor[]>([])
 const showConfirmModal = ref(false)
-const deleteGuarantorElt = useTemplateRef('delete-guarantor')
+
+const guarantorsList = useTemplateRef('guarantors-list')
 const addGuarantorButton = useTemplateRef('add-guarantor-btn')
 
 let selectedGuarantor: Guarantor | undefined
@@ -310,7 +313,7 @@ function removeSelectedGuarantor() {
       const index = guarantors.value.findIndex((g) => g.id === selectedGuarantor?.id)
       toast.error(
         t('guarantorssection.guarantor-delete-failed'),
-        deleteGuarantorElt.value?.at(index)
+        guarantorsList.value?.at(index)?.querySelector(`button#delButton-${index}`)
       )
       closeConfirmModal()
     }

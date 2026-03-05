@@ -80,14 +80,14 @@
   >
     {{ t('confirm-step') }}
   </FinancialFooter>
-  <DsfrModalPatch v-model:is-opened="isInfoModaleVisible" size="lg" :title="t('modal-title')">
+  <DsfrModalPatch v-model:is-opened="isInfoModaleVisible" size="xl" :title="t('modal-title')">
     <p>{{ t('modal-text') }}</p>
     <p>{{ t('modal-text-2') }}</p>
   </DsfrModalPatch>
 
   <DsfrModalPatch
     v-model:is-opened="isDeleteModaleVisible"
-    size="lg"
+    size="xl"
     :title="t('sure-to-delete')"
     :actions="deleteModaleActions"
   >
@@ -97,7 +97,7 @@
   <DsfrModalPatch
     v-if="firstDuplicate?.documentCategoryStep"
     v-model:is-opened="isDuplicatesModaleVisible"
-    size="lg"
+    size="xl"
     :title="t('duplicate-resource')"
     :actions="duplicatesModaleActions"
   >
@@ -437,7 +437,7 @@ function submit() {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "documents-provided": "The documents you provide allow the owners to {0}.",

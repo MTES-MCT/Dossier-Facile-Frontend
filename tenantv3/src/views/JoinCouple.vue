@@ -4,9 +4,12 @@
       {{ t('joincouple.title') }}
     </h2>
     <InitPassword :is-disabled="isLoading" @on-init-password="onInitPassword" />
-    <ConfirmModal v-if="isLoggedIn" @valid="logout()" @cancel="redirect()">
-      <span>{{ t('joincouple.already-logged') }}</span>
-    </ConfirmModal>
+    <ConfirmModal
+      v-model:is-opened="isLoggedIn"
+      :title="t('joincouple.already-logged')"
+      @valid="logout()"
+      @cancel="redirect()"
+    />
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="share-item">
     <div class="share-row fr-px-2w fr-py-1w">
       <!-- Checkbox + Infos -->
       <div class="share-infos">
@@ -38,12 +38,7 @@
           </label>
           <!-- Badge visible uniquement en mobile -->
           <div class="share-badge-mobile">
-            <DsfrBadge
-              v-if="link.enabled"
-              :label="t('active-sharing')"
-              type="success"
-              small
-            />
+            <DsfrBadge v-if="link.enabled" :label="t('active-sharing')" type="success" small />
             <p v-else class="fr-badge fr-badge--sm fr-badge--new fr-badge--no-icon fr-mb-0">
               <RiPauseCircleFill aria-hidden="true" size="1em" class="fr-mr-1v" />
               <span>{{ t('disabled-sharing') }}</span>
@@ -53,11 +48,13 @@
             <span class="bold">{{ t('created') }}</span>
             <span>{{ formatDate(link.creationDate) }}</span>
             <span class="bold border-left">{{ t('expires') }}</span>
-            <span>{{ link.type === 'PARTNER' ? t('never') : formatDate(link.expirationDate) }}</span>
+            <span>{{
+              link.type === 'PARTNER' ? t('never') : formatDate(link.expirationDate)
+            }}</span>
             <span class="bold border-left">{{ t('consultations') }}</span>
             <span>{{ t('times', [link.nbVisits]) }}</span>
           </p>
-          <p 
+          <p
             class="fr-badge fr-badge--sm fr-badge--no-icon fr-mb-0 full-data-badge"
             :class="link.fullData ? 'fr-badge--info' : 'badge-without-docs'"
           >
@@ -68,12 +65,7 @@
       </div>
       <!-- Badge visible uniquement en desktop -->
       <div class="share-badge-desktop">
-        <DsfrBadge
-          v-if="link.enabled"
-          :label="t('active-sharing')"
-          type="success"
-          small
-        />
+        <DsfrBadge v-if="link.enabled" :label="t('active-sharing')" type="success" small />
         <p v-else class="fr-badge fr-badge--sm fr-badge--new fr-badge--no-icon fr-mb-0">
           <RiPauseCircleFill aria-hidden="true" size="1em" class="fr-mr-1v" />
           <span>{{ t('disabled-sharing') }}</span>
@@ -182,6 +174,14 @@ const handleDelete = async () => {
 </script>
 
 <style scoped>
+.share-item {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  /* display: flex; */
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+}
 /* Layout principal */
 .share-row {
   display: flex;
@@ -221,7 +221,7 @@ const handleDelete = async () => {
 .full-data-badge {
   margin-top: 0.25rem;
   text-transform: uppercase;
-  
+
   .info-icon {
     color: #0063cb;
   }
