@@ -182,7 +182,7 @@ const VITE_DOCS_URL = ref(`//${import.meta.env.VITE_DOCS_URL}`)
 
 const { t } = useI18n()
 
-const { openModal } = useModalStore()
+const { openModal } = useModalStore('cookieConsent')
 </script>
 
 <style lang="scss" scoped>

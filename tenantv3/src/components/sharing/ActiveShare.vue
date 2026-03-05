@@ -177,9 +177,6 @@ const handleDelete = async () => {
 .share-item {
   border: 1px solid #ddd;
   border-radius: 4px;
-  /* display: flex; */
-  align-items: center;
-  gap: 0.5rem;
   padding: 0;
 }
 /* Layout principal */

@@ -184,7 +184,7 @@ const { t } = useI18n()
 const crispChoice = ref(initialValues?.crisp ?? true)
 const matomoChoice = ref(initialValues?.matomo ?? true)
 
-const modalStore = useModalStore()
+const modalStore = useModalStore('cookieConsent')
 const dialogRef = useTemplateRef('dialogRef')
 
 modalStore.$subscribe(

@@ -1,6 +1,7 @@
 <template>
   <DsfrModalPatch
     v-model:is-opened="isModalOpened"
+    ref="modal"
     :title="title"
     :actions="modalActions"
     size="lg"
@@ -13,16 +14,13 @@
 import { useI18n } from 'vue-i18n'
 import { computed, useTemplateRef, type ComputedRef } from 'vue'
 import DsfrModalPatch from './patches/DsfrModalPatch.vue'
-import type { DsfrButtonProps } from 'node_modules/@gouvminint/vue-dsfr/types/components'
+import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 
 const emit = defineEmits<{ valid: []; cancel: []; close: [] }>()
 
 const props = defineProps<{
-  validateBtnText?: string
-  cancelBtnText?: string
-  emitClose?: boolean
   title: string
 }>()
 
@@ -45,24 +43,8 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
   }
 ])
 
-const validateBtn = useTemplateRef('validate-btn')
-defineExpose({ validateBtn })
-
-function validSelect() {
-  emit('valid')
-}
-
-function undoSelect() {
-  emit('cancel')
-}
-
-function closeModal() {
-  if (props.emitClose) {
-    emit('close')
-  } else {
-    emit('cancel')
-  }
-}
+const modal = useTemplateRef('modal')
+defineExpose({ modal })
 </script>
 
 <i18n lang="json">

@@ -55,7 +55,6 @@
         <span>{{ t('delete-sharing') }}</span>
       </button>
     </div>
-    <!-- TODO : check when ModalComponent is updated for a11y compliance -->
     <DsfrModalPatch
       v-model:is-opened="isDeleteModalOpen"
       :title="t('delete-confirmation-title')"

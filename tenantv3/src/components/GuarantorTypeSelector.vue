@@ -106,7 +106,10 @@ function confirmGuarantorTypeChange() {
       selectType(checkedGuarantorType.value)
     },
     () => {
-      toast.error(t('guarantorchoice.change-guarantor-failed'), modal.value?.validateBtn?.button)
+      toast.error(
+        t('guarantorchoice.change-guarantor-failed'),
+        modal.value?.modal?.$el.querySelector('button')
+      )
     }
   )
 }
