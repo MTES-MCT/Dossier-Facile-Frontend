@@ -1,10 +1,10 @@
 <template>
   <AllDeclinedMessages
-    v-if="analysisFailedRules.length === 0"
     :user-id="taxState.userId"
     :document="taxDocument"
     :document-denied-reasons="taxDocument?.documentDeniedReasons"
     :document-status="documentStatus"
+    :show-pre-validation="showPreValidation"
   ></AllDeclinedMessages>
   <ul v-if="taxFiles.length > 0" role="list" class="fr-col-12 fr-mb-3w">
     <li v-for="file in taxFiles" :key="file.id">
@@ -131,7 +131,10 @@ import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import { useTaxState } from './taxState'
 
-const props = defineProps<{ category: TaxCategory; step?: TaxCategoryStep; explanation?: string }>()
+const props = withDefaults(
+  defineProps<{ category: TaxCategory; step?: TaxCategoryStep; explanation?: string; showPreValidation?: boolean }>(),
+  { showPreValidation: true }
+)
 
 const emit = defineEmits<{
   analysisError: []
@@ -167,7 +170,7 @@ const { t } = useI18n()
 
 const taxDocument = taxState.document
 const documentStatus = computed(() => taxDocument.value?.documentStatus)
-const analysisFailedRules = ref<DocumentRule[]>([])
+const analysisFailedRules = ref<DocumentRule[]>(taxDocument.value?.documentAnalysisReport?.failedRules ?? [])
 const analysisInProgress = ref(false)
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
 const pollingTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
@@ -203,7 +206,6 @@ async function updateAnalysisStatus() {
       stopPolling()
     } else if (data.status === AnalysisStatus.NO_ANALYSIS_SCHEDULED) {
       analysisInProgress.value = false
-      analysisFailedRules.value = []
       stopPolling()
     } else if (data.status === AnalysisStatus.IN_PROGRESS) {
       analysisInProgress.value = true

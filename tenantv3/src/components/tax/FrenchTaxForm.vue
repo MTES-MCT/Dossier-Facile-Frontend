@@ -59,7 +59,7 @@
     <img :src="avisOK" alt="" width="600" height="850" />
   </DsfrModalPatch>
 
-  <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" @analysis-error="focusBanners" />
+  <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" :show-pre-validation="false" @analysis-error="focusBanners" />
   <TaxFooter :next-disabled="nextDisabled" />
 </template>
 
