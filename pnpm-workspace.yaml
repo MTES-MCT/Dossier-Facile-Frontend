@@ -37,7 +37,7 @@ catalog:
   "@vue/tsconfig": 0.7.0
   "@tsconfig/node18": 18.2.4
   "@vitejs/plugin-vue": 6.0.3
-  "@types/node": 24.1.0
+  "@types/node": 25.2.3
   "@vitest/eslint-plugin": 1.5.2
   "@vue/eslint-config-prettier": 10.2.0
   "@vue/eslint-config-typescript": 14.6.0
