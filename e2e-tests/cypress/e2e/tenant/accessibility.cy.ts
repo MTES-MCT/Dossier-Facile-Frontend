@@ -81,8 +81,8 @@ describe("accessibility checks", () => {
     cy.testAccessibility();
     cy.clickOnNext();
 
-    cy.get('label[for="honor"]').click();
-    cy.get('label[for="consent"]').click();
+    cy.get("#input-honor").check({ force: true });
+    cy.get("#input-consent").check({ force: true });
 
     cy.testAccessibility();
     cy.contains("Soumettre mon dossier").click();
