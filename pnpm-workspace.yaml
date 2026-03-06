@@ -25,7 +25,7 @@ catalog:
   # devDependencies
   "@intlify/unplugin-vue-i18n": 6.0.8
   sass: 1.96.0
-  vite: 7.3.0
+  vite: 7.3.1
   vitest: 4.0.16
   vue-tsc: 3.0.4
   typescript: 5.9.2
