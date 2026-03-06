@@ -13,63 +13,60 @@
           <h1 class="title fr-mr-auto">{{ name }}</h1>
           <ul class="property-buttons">
             <li>
-              <VGouvFrModal
-                class="fr-btn btn--white fr-btn--secondary"
-                test-id="share-property-modal"
+              <DsfrButton
+                secondary
+                class="btn--white"
+                size="md"
+                type="button"
+                :label="t('consultproperty.share-btn')"
                 @click="shareBtnClicked"
+              />
+              <DsfrModalPatch
+                v-model:is-opened="isShareModalOpened"
+                data-cy="share-property-modal"
+                :title="t('consultproperty.share-modal-title')"
+                icon="ri:share-box-line"
+                :actions="modalActions"
+                size="lg"
               >
-                <template #button>
-                  {{ t('consultproperty.share-btn') }}
-                </template>
-                <template #title>
-                  {{ t('consultproperty.share-modal-title') }}
-                </template>
-                <template #content>
-                  <p>
-                    {{ t('consultproperty.share-modal-description') }}
-                  </p>
-                  <div class="fr-grid-row fr-mb-3w">
-                    <div class="align-self--center long-link">
-                      {{ token }}
-                    </div>
-                    <button class="fr-btn fr-ml-5w" @click="copyToken">
-                      {{ t('consultproperty.copy-link') }}
-                    </button>
-                  </div>
-                  <p>
-                    {{ t('consultproperty.share-modal-detail') }}
-                  </p>
-                </template>
-              </VGouvFrModal>
+                <p>
+                  {{ t('consultproperty.share-modal-description') }}
+                </p>
+                <p class="align-self--center long-link">
+                  {{ token }}
+                </p>
+                <p>
+                  {{ t('consultproperty.share-modal-detail') }}
+                </p>
+              </DsfrModalPatch>
             </li>
             <li>
-              <button
+              <DsfrButton
+                secondary
+                class="btn--white"
+                size="md"
                 type="button"
-                :title="t('consultproperty.update-btn')"
-                class="fr-btn btn--white fr-btn--secondary"
-                @click="editProperty()"
-              >
-                {{ t('consultproperty.modify-property') }}
-              </button>
+                :label="t('consultproperty.update-btn')"
+                @click="editProperty"
+              />
             </li>
             <li>
-              <button
+              <DsfrButton
+                secondary
+                class="btn--white"
+                size="md"
                 type="button"
-                :title="t('consultproperty.delete-btn')"
-                class="fr-btn btn--white fr-btn--secondary"
-                @click="showDeletePropertyModal()"
-              >
-                {{ t('consultproperty.delete-property') }}
-              </button>
+                :label="t('consultproperty.delete-property')"
+                @click="showDeletePropertyModal"
+              />
             </li>
           </ul>
           <ConfirmModal
-            v-if="confirmDeleteProperty"
+            v-model:is-opened="confirmDeleteProperty"
+            :title="t('consultproperty.will-delete-property')"
             @valid="validDeleteFile()"
             @cancel="undoDeleteFile()"
-          >
-            {{ t('consultproperty.will-delete-property') }}
-          </ConfirmModal>
+          />
         </div>
       </div>
       <NakedCard class="h-100">
@@ -99,26 +96,25 @@
           }}
         </h2>
         <div class="delete-btn-container">
-          <button
-            class="fr-btn fr-btn--secondary"
+          <DsfrButton
+            secondary
+            size="md"
+            type="button"
             :disabled="selectedApplicants.length <= 0"
+            :label="t('consultproperty.delete-applicants')"
             @click="confirmDeleteApplicants = true"
-          >
-            {{ t('consultproperty.delete-applicants') }}
-          </button>
+          />
           <ConfirmModal
-            v-if="confirmDeleteApplicants"
+            v-model:is-opened="confirmDeleteApplicants"
+            :title="t('consultproperty.will-delete-applicants')"
             @valid="validDeleteApplicants()"
             @cancel="undoDeleteApplicants()"
-          >
-            {{ t('consultproperty.will-delete-applicants') }}
-          </ConfirmModal>
+          />
         </div>
         <div class="table-wrapper">
           <table aria-describedby="verified-applicants">
             <thead>
               <tr>
-                <th></th>
                 <th v-for="(_, col) of COLUMN_MAP" :key="col">
                   <button
                     type="button"
@@ -213,12 +209,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import VGouvFrModal from 'df-shared-next/src/GouvFr/VGouvFrModal.vue'
 import { useToast } from 'vue-toastification'
 import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
@@ -228,10 +223,22 @@ import UtilsService from '../../services/UtilsService'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
 import { RiCheckboxCircleLine, RiCloseCircleFill, RiTimeLine } from '@remixicon/vue'
+import { DsfrButton, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const { t, locale } = useI18n()
 const confirmDeleteProperty = ref(false)
 const confirmDeleteApplicants = ref(false)
+
+const isShareModalOpened = ref(false)
+const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
+  {
+    label: t('consultproperty.copy-link'),
+    onClick() {
+      copyToken()
+    }
+  }
+])
 
 const route = useRoute()
 const router = useRouter()
@@ -286,6 +293,7 @@ function getTenants(): Applicant[] {
 }
 
 function shareBtnClicked() {
+  isShareModalOpened.value = true
   AnalyticsService.propertyData('partager')
 }
 

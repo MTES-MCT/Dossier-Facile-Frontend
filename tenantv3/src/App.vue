@@ -33,10 +33,10 @@ const announcementMessage = computed(() => MESSAGE.replace('[[tenantId]]', `${st
   <ConsentHandler />
   <TenantSkipLinks />
   <TenantHeader />
-  <Announcement :message="announcementMessage"></Announcement>
+  <Announcement :message="announcementMessage" />
   <ToastContainer />
   <div id="content">
-    <DeleteAccount></DeleteAccount>
+    <DeleteAccount />
     <main role="main">
       <div class="page">
         <RouterView />

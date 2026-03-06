@@ -31,7 +31,7 @@ const emit = defineEmits<{ choiceMade: [] }>()
 
 const { t } = useI18n()
 
-const modalStore = useModalStore()
+const modalStore = useModalStore('cookieConsent')
 
 const acceptAll = () => {
   Consent.acceptAll()
@@ -66,7 +66,7 @@ const consentButtons: ComputedRef<DsfrButtonProps[]> = computed(() => [
 ])
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "title": "About cookies on DossierFacile",

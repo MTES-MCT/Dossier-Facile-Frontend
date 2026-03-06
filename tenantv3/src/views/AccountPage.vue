@@ -140,12 +140,11 @@
                 <h3>{{ t('account.delete-bloc.title') }}</h3>
                 <p>{{ t('account.delete-bloc.content') }}</p>
                 <div class="align--center">
-                  <DfButton
-                    data-fr-opened="false"
-                    aria-controls="modal-delete-account"
-                    style="visibility: none"
-                    >{{ t('account.delete-bloc.button') }}</DfButton
-                  >
+                  <DsfrButton
+                    :label="t('account.delete-bloc.button')"
+                    :secondary="true"
+                    @click="openModal"
+                  />
                 </div>
               </div>
             </div>
@@ -197,6 +196,8 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { useI18n } from 'vue-i18n'
 import { RiDownloadLine, RiTimeLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
+import { useModalStore } from 'df-shared-next/src/stores/useModalStore'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
 const { t } = useI18n()
 
 const PROCESSING_TIME_DELTA = import.meta.env.VITE_PROCESSING_TIME_DELTA || 3
@@ -207,6 +208,7 @@ const router = useRouter()
 dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
 const downloadZipElt = useTemplateRef('download-zip')
+const { openModal } = useModalStore('deleteAccount')
 
 watch(
   () => user.value,

@@ -16,8 +16,6 @@ const store = useOwnerStore()
 
 const hasFooter = computed(() => store.hasFooter)
 
-const showDeleteAccountModal = computed(() => store.getShowDeleteAccountModal)
-
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
   store.setLang(lang)
@@ -30,7 +28,7 @@ onBeforeMount(() => {
   <SkipLinks />
   <OwnerHeader />
   <div id="content">
-    <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>
+    <DeleteAccount />
     <Announcement :message="MESSAGE"></Announcement>
     <main role="main">
       <div class="page fr-background-alt--blue-france">
@@ -46,8 +44,6 @@ onBeforeMount(() => {
 
 <style lang="scss">
 @use 'df-shared-next/src/scss/_main.scss';
-@import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
-@import '@gouvfr/dsfr/dist/utility/colors/colors.min.css';
 
 #app {
   min-height: 100vh;

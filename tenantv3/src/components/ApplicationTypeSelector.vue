@@ -5,11 +5,14 @@
     :elements="applicationTypeOptions"
     @input="onChange"
   >
-    <slot></slot>
+    <slot />
   </RichRadioButtons>
-  <ConfirmModal v-if="showConfirmationModal" @valid="validSelect()" @cancel="undoSelect()">
-    <span>{{ getConfirmModalContent() }}</span>
-  </ConfirmModal>
+  <ConfirmModal
+    v-model:is-opened="showConfirmationModal"
+    :title="getConfirmModalContent"
+    @valid="validSelect()"
+    @cancel="undoSelect()"
+  />
 </template>
 
 <script setup lang="ts">
@@ -63,7 +66,7 @@ function onChange(value: string) {
     return
   }
   if (roommates.value.length || 0 > 1) {
-    displayConfirmationModal()
+    showConfirmationModal.value = true
   } else {
     applicationType.value = checkedApplicationType.value
     emit('selected', checkedApplicationType.value)
@@ -72,30 +75,18 @@ function onChange(value: string) {
 
 function undoSelect() {
   checkedApplicationType.value = applicationType.value
-  hideConfirmationModal()
+  showConfirmationModal.value = false
 }
 
 function validSelect() {
   applicationType.value = checkedApplicationType.value
-  hideConfirmationModal()
+  showConfirmationModal.value = false
   emit('selected', checkedApplicationType.value)
 }
 
-function getConfirmModalContent(): string {
+const getConfirmModalContent = computed(() => {
   return applicationType.value === 'COUPLE'
     ? t('tenantinformationform.will-delete-couple')
     : t('tenantinformationform.will-delete-roommates')
-}
-
-function displayConfirmationModal() {
-  showConfirmationModal.value = true
-}
-
-function hideConfirmationModal() {
-  showConfirmationModal.value = false
-}
+})
 </script>
-
-<style scoped lang="scss">
-@import '@gouvfr/dsfr/dist/utility/icons/icons-user/icons-user.min.css';
-</style>
