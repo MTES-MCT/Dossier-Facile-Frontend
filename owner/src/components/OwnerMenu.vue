@@ -5,11 +5,15 @@ import { useI18n } from 'vue-i18n'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
 import useOwnerStore from '../store/owner-store'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
+import { useModalStore } from 'df-shared-next/src/stores/useModalStore'
 
 const store = useOwnerStore()
 const isLoggedIn = computed(() => store.isLoggedIn)
 const route = useRoute()
 const { t, locale } = useI18n()
+
+const { openModal } = useModalStore('deleteAccount')
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
@@ -18,10 +22,6 @@ const currentPage = computed(() => route.name)
 
 function changeLang(lang: 'fr' | 'en') {
   store.setLang(lang)
-}
-
-function showDeleteAccountModal() {
-  store.setShowDeleteAccountModal(true)
 }
 </script>
 
@@ -85,9 +85,13 @@ function showDeleteAccountModal() {
             >
           </li>
           <li>
-            <DfButton class="fr-nav__link" @click="showDeleteAccountModal">
-              {{ t('menu.deleteAccount') }}
-            </DfButton>
+            <DsfrButton
+              id="delete-account-btn"
+              class="fr-nav__link"
+              :label="t('menu.deleteAccount')"
+              :tertiary="true"
+              @click="openModal"
+            />
           </li>
         </ul>
       </div>
@@ -109,8 +113,6 @@ function showDeleteAccountModal() {
 </template>
 
 <style scoped lang="scss">
-@import '@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css';
-
 .fr-nav__item {
   position: relative;
 
@@ -130,7 +132,7 @@ function showDeleteAccountModal() {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "partners": "Partners",

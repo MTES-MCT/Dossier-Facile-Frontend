@@ -43,6 +43,8 @@ defineSlots<{
   footer?: () => unknown
 }>()
 
+const emit = defineEmits(['close'])
+
 const role = computed(() => {
   return props.isAlert ? 'alertdialog' : 'dialog'
 })
@@ -56,6 +58,7 @@ watch(
       modal.value?.showModal()
     } else {
       modal.value?.close()
+      emit('close')
     }
     setAppropriateClassOnBody(newValue)
   }
@@ -80,7 +83,6 @@ onBeforeUnmount(() => {
 })
 
 const close = () => {
-  modal.value?.close()
   isOpened.value = false
 }
 
@@ -108,7 +110,7 @@ const iconProps = computed(() => {
     :aria-labelledby="`${modalId}-title`"
     :role="role"
     class="fr-modal--patched"
-    @cancel="close"
+    @cancel.self="close"
   >
     <div class="fr-container fr-container--fluid fr-container-md">
       <div class="fr-grid-row fr-grid-row--center">

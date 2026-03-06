@@ -1,11 +1,11 @@
 <template>
-  <div class="actions-menu" ref="menuContainer">
+  <div ref="menuContainer" class="actions-menu">
     <button
       type="button"
       class="actions-button"
-      @click="toggleMenu"
       :aria-expanded="isOpen"
       aria-haspopup="true"
+      @click="toggleMenu"
     >
       <span class="actions-text">{{ t('actions') }}</span>
       <RiArrowUpSLine v-if="isOpen" aria-hidden="true" size="16px" class="arrow-icon" />

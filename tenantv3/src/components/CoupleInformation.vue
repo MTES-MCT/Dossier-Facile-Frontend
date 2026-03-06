@@ -42,7 +42,7 @@
             :label="t('coupleinformation.more-information')"
             @click="isModalOpened = true"
           />
-          <DsfrModalPatched
+          <DsfrModalPatch
             v-model:is-opened="isModalOpened"
             :title="t('coupleinformation.more-information')"
             icon="ri:arrow-right-line"
@@ -51,7 +51,7 @@
             <template #default>
               <CoupleInformationHelp />
             </template>
-          </DsfrModalPatched>
+          </DsfrModalPatch>
         </div>
         <div class="fr-col-12 fr-mt-3w fr-mb-3w">
           <FieldLabel for-input="email">
@@ -135,7 +135,7 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import DsfrModalPatched from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 import TextField from './form/TextField.vue'
 
