@@ -1,5 +1,10 @@
 <template>
-  <PreValidationMessages :user-id="userId" :document="document" class="fr-mb-4w" />
+  <PreValidationMessages
+    v-if="showPreValidation"
+    :user-id="userId"
+    :document="document"
+    class="fr-mb-4w"
+  />
   <div
     v-if="
       documentDeniedReasons !== null &&
@@ -37,12 +42,14 @@ const props = withDefaults(
     documentStatus?: string
     userId?: number
     document?: DfDocument
+    showPreValidation?: boolean
   }>(),
   {
     documentDeniedReasons: null,
     documentStatus: '',
     userId: undefined,
-    document: undefined
+    document: undefined,
+    showPreValidation: true
   }
 )
 

@@ -8,7 +8,7 @@ describe("couple tenant scenario", () => {
     cy.loginWithFCAndDeleteAccount(
       user.username,
       user.password,
-      UserType.TENANT
+      UserType.TENANT,
     );
   });
 
@@ -30,7 +30,7 @@ describe("couple tenant scenario", () => {
     cy.expectPath("/documents-locataire/2");
     cy.selectResidencyStep(
       "Hébergé chez quelqu'un",
-      "Vous avez une attestation d'hébergement de moins de 3 mois"
+      "Vous avez une attestation d'hébergement de moins de 3 mois",
     );
 
     cy.expectPath("/documents-locataire/3");
@@ -39,14 +39,14 @@ describe("couple tenant scenario", () => {
     cy.expectPath("/documents-locataire/4");
     cy.addFinancialResource(
       ["Revenus du travail", "salarié", "Depuis moins de 3 mois"],
-      "1000"
+      "1000",
     );
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
     cy.contains("Vous n’avez pas d’avis d’impôt").click();
     cy.contains(
-      "Vous êtes inscrit sur la déclaration d’impôt de vos parents"
+      "Vous êtes inscrit sur la déclaration d’impôt de vos parents",
     ).click();
     cy.contains("J’atteste sur l’honneur ne pas pouvoir").click().clickOnNext();
 
@@ -91,13 +91,13 @@ describe("couple tenant scenario", () => {
     cy.contains("Votre conjoint n'a pas de garant").click();
     cy.contains("Continuer").click();
 
-    cy.get('label[for="honor"]').click();
-    cy.get('label[for="consent"]').click();
+    cy.get("#input-honor").check({ force: true });
+    cy.get("#input-consent").check({ force: true });
     cy.get('[name="message"]').type("Test");
     cy.contains("Soumettre mon dossier").click();
 
     cy.contains("Votre dossier est actuellement en cours de traitement").should(
-      "be.visible"
+      "be.visible",
     );
   });
 });
