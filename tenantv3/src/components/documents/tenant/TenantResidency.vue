@@ -7,24 +7,29 @@
 </template>
 
 <script setup lang="ts">
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { useI18n } from 'vue-i18n'
-import { residencyKey } from '@/components/residency/residencyState'
-import { computed, provide } from 'vue'
-import { useTenantStore } from '@/stores/tenant-store'
-import { useMainActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
 import TenantBadge from '@/components/common/TenantBadge.vue'
 import { useIdentityDocumentLink } from '@/components/identityDocument/lib/identityDocumentLink'
+import { useMainActivityLink } from '@/components/mainActivity/lib/useMainActivityLink'
+import { residencyKey } from '@/components/residency/residencyState'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { computed, provide } from 'vue'
+import { useI18n } from 'vue-i18n'
+
 const { t } = useI18n()
 const store = useTenantStore()
 const identityDocumentLink = useIdentityDocumentLink()
 const mainActivityLink = useMainActivityLink()
+const { getNavigationNextStep } = useHandleValidationNavigation()
+
+const nextStep = getNavigationNextStep(mainActivityLink.value)
 
 provide(residencyKey, {
   category: 'residency',
   textKey: 'tenant',
   previousStep: identityDocumentLink.value,
-  nextStep: mainActivityLink.value,
+  nextStep: nextStep,
   document: computed(() => store.getTenantResidencyDocument),
   userId: undefined
 })

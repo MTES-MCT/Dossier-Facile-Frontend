@@ -90,6 +90,7 @@ import { useFinancialState } from '../financialState'
 import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { toast } from '@/components/toast/toastUtils'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 
 const MAX_FILE_COUNT = 10
 
@@ -113,6 +114,7 @@ const store = useTenantStore()
 const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const inputSumElt = useTemplateRef('inputSumElt')
 const fileUpload = useTemplateRef('fileUpload')
@@ -171,8 +173,10 @@ function makeNewDocument() {
 }
 
 async function goNext() {
+  const nextStep = getNavigationNextStep(state.recap)
+
   if (monthlySumChanged ? await save('form.financial.amount-saved') : true) {
-    router.push(state.recap)
+    router.push(nextStep)
   }
 }
 

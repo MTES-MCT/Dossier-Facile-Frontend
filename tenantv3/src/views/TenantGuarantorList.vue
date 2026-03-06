@@ -32,18 +32,19 @@
 </template>
 
 <script setup lang="ts">
-import GuarantorFooter from '../components/footer/GuarantorFooter.vue'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
-import CardRow from 'df-shared-next/src/components/CardRow.vue'
-import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import { ref, useTemplateRef } from 'vue'
-import { useRoute } from 'vue-router'
-import { useTenantStore } from '@/stores/tenant-store'
-import { useI18n } from 'vue-i18n'
 import { toast } from '@/components/toast/toastUtils'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import CardRow from 'df-shared-next/src/components/CardRow.vue'
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import { ref, useTemplateRef } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
+import GuarantorFooter from '../components/footer/GuarantorFooter.vue'
 
 const props = defineProps<{
   guarantors: Guarantor[]
@@ -52,6 +53,8 @@ const props = defineProps<{
 const route = useRoute()
 const { t } = useI18n()
 const store = useTenantStore()
+const { handleValidationNavigation } = useHandleValidationNavigation()
+
 const emit = defineEmits<{
   'on-back': []
   'on-next': []
@@ -77,6 +80,9 @@ function goBack() {
 }
 
 function goNext() {
+  if (handleValidationNavigation()) {
+    return
+  }
   emit('on-next')
 }
 

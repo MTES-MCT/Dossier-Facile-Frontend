@@ -1,6 +1,11 @@
-import { DocumentRule } from './DocumentRule'
-export class DocumentAnalysisReport {
-  analysisStatus?: string
-  failedRules?: DocumentRule[]
+import type { DocumentRule } from './DocumentRule'
+
+export type DocumentAnalysisReport = {
+  id: number
+  analysisStatus: 'DENIED' | 'CHECKED' | 'VALIDATED'
+  failedRules: DocumentRule[]
+  passedRules: DocumentRule[]
+  inconclusiveRules: DocumentRule[]
   comment?: string
+  createdAt: string
 }

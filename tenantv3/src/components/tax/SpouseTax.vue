@@ -17,17 +17,24 @@ import { taxKey } from '@/components/tax/lib/taxState'
 import { useRoute } from 'vue-router'
 import { DocumentService } from '@/services/DocumentService'
 import TenantBadge from '../common/TenantBadge.vue'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 
 const route = useRoute()
 const store = useTenantStore()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const tenantId = computed(() => Number(route.params.tenantId))
+
+const nextStep = getNavigationNextStep({
+  name: 'TenantGuarantors',
+  params: { tenantId: tenantId.value, step: '5' }
+})
 
 provide(taxKey, {
   category: 'couple-tax',
   textKey: 'couple',
   previousStep: { name: 'CoupleFinancial', params: { tenantId: tenantId.value } },
-  nextStep: { name: 'TenantGuarantors', params: { tenantId: tenantId.value, step: '5' } },
+  nextStep: nextStep,
   document: computed(() => {
     const tenant = store.getTenant(tenantId.value)
     return DocumentService.getDoc('TAX', tenant.documents)
