@@ -59,8 +59,8 @@
     <img :src="avisOK" alt="" width="600" height="850" />
   </DsfrModalPatch>
 
-  <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" :show-pre-validation="false" @analysis-error="focusBanners" />
-  <TaxFooter :next-disabled="nextDisabled" />
+  <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" :show-pre-validation="false"@analysis-error="focusBanners" />
+  <TaxFooter :next-disabled="nextDisabled" :next-label="nextLabel" :before-submit="beforeSubmit" />
 </template>
 
 <script setup lang="ts">
@@ -89,7 +89,28 @@ const taxBanners = useTemplateRef('tax-banners')
 const analysisErrorCount = computed(() => uploadFilesTax.value?.analysisFailedRules?.length ?? 0)
 const isModalOpened = ref(false)
 const analysisInProgress = computed(() => uploadFilesTax.value?.analysisInProgress ?? false)
-const nextDisabled = computed(() => analysisInProgress.value || (analysisErrorCount.value > 0 && !uploadFilesTax.value?.explanationSubmitted))
+const isUploading = computed(() => uploadFilesTax.value?.isUploading ?? false)
+const isBusy = computed(() => analysisInProgress.value || isUploading.value)
+const hasUnresolvedErrors = computed(
+  () => analysisErrorCount.value > 0 && !uploadFilesTax.value?.explanationSubmitted
+)
+
+const nextDisabled = computed(() => isBusy.value)
+
+const nextLabel = computed(() => {
+  if (isUploading.value) return t('uploading')
+  if (analysisInProgress.value) return t('analyzing')
+  return undefined
+})
+
+function beforeSubmit(): boolean {
+  if (isBusy.value) return false
+  if (hasUnresolvedErrors.value) {
+    focusBanners()
+    return false
+  }
+  return true
+}
 
 function focusBanners() {
   taxBanners.value?.focus()
@@ -132,6 +153,8 @@ function focusBanners() {
 <i18n lang="json">
 {
   "en": {
+    "uploading": "Uploading...",
+    "analyzing": "Analyzing...",
     "errors-count": "{count} error to correct | {count} errors to correct",
     "french": "french",
     "this-year-tax": "{0} income tax notice of {1} or full non-taxation",
@@ -174,6 +197,8 @@ function focusBanners() {
     }
   },
   "fr": {
+    "uploading": "Envoi en cours...",
+    "analyzing": "Analyse en cours...",
     "errors-count": "{count} erreur à corriger | {count} erreurs à corriger",
     "french": "français",
     "this-year-tax": "avis d'impôt {0} sur les revenus de {1} ou de non-imposition complet",
