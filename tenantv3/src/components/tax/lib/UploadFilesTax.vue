@@ -52,27 +52,32 @@
       {{ t('explain-situation') }}
     </button>
     <div v-if="showExplainForm" class="explain-form">
-      <div class="fr-input-group">
+      <div class="fr-input-group" :class="{ 'fr-input-group--error': showExplainError }">
         <label for="explainText" class="fr-label">{{ t('explain-question') }}</label>
         <textarea
           id="explainText"
           ref="explainTextarea"
           v-model="explainText"
           class="fr-input"
+          :class="{ 'fr-input--error': showExplainError }"
           rows="5"
           :placeholder="t('explain-placeholder')"
+          aria-describedby="explainText-error"
         />
+        <p
+          v-if="showExplainError"
+          id="explainText-error"
+          aria-live="assertive"
+          class="fr-error-text"
+        >
+          {{ t('explain-error') }}
+        </p>
       </div>
       <p class="fr-info-text">
         {{ t('explain-info') }}
       </p>
       <div class="explain-form-actions">
-        <button
-          type="button"
-          class="fr-btn fr-btn--tertiary fr-btn--sm"
-          :disabled="!explainText.trim()"
-          @click="saveExplanation"
-        >
+        <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" @click="saveExplanation">
           {{ t('explain-save') }}
         </button>
       </div>
@@ -149,6 +154,7 @@ const files = ref<{ name: string; file: File; size: number; id?: string; path?: 
 const showExplainForm = ref(false)
 const explainText = ref('')
 const explanationSubmitted = ref(false)
+const showExplainError = ref(false)
 
 const isModalOpened = ref(false)
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -172,6 +178,7 @@ const taxDocument = taxState.document
 const documentStatus = computed(() => taxDocument.value?.documentStatus)
 const analysisFailedRules = ref<DocumentRule[]>(taxDocument.value?.documentAnalysisReport?.failedRules ?? [])
 const analysisInProgress = ref(false)
+const isUploading = computed(() => fileUploadStatus.value === UploadStatus.STATUS_SAVING)
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
 const pollingTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
 const userInitiatedPolling = ref(false)
@@ -328,11 +335,18 @@ async function openExplainSection(isFromLink: boolean = true) {
     AnalyticsService.document_analysis_show_comment('tax')
   }
   showExplainForm.value = true
+  showExplainError.value = false
   await nextTick()
   explainTextarea.value?.focus()
 }
 
 function saveExplanation() {
+  if (!explainText.value.trim()) {
+    showExplainError.value = true
+    explainTextarea.value?.focus()
+    return
+  }
+  showExplainError.value = false
   const params = {
     documentId: taxDocument.value?.id,
     tenantId: taxState.userId,
@@ -345,7 +359,13 @@ function saveExplanation() {
   })
 }
 
-defineExpose({ analysisFailedRules, explanationSubmitted, analysisInProgress, openExplainSection })
+defineExpose({
+  analysisFailedRules,
+  explanationSubmitted,
+  analysisInProgress,
+  isUploading,
+  openExplainSection
+})
 
 async function remove(file: DfFile, silent = false) {
   AnalyticsService.deleteFile(taxState.category)
@@ -364,6 +384,7 @@ async function remove(file: DfFile, silent = false) {
   analysisInProgress.value = false
   analysisFailedRules.value = []
   showExplainForm.value = false
+  showExplainError.value = false
   explainText.value = ''
   explanationSubmitted.value = false
   startPolling()
@@ -493,6 +514,7 @@ ul {
     "explain-placeholder": "Enter text",
     "explain-info": "This explanation will be sent to our team only. It will not appear in your tenant file.",
     "explain-save": "Save",
+    "explain-error": "Please describe your situation before saving.",
     "save-success": "Your explanation has been saved",
     "avis-detected": "Declarative Situation Notice Detected",
     "avis-text1": "You have provided a declarative statement notice (see document title). This document is not valid. Please replace it with your tax assessment notice.",
@@ -507,6 +529,7 @@ ul {
     "explain-placeholder": "Texte saisi",
     "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
     "explain-save": "Enregistrer",
+    "explain-error": "Veuillez décrire votre situation avant d'enregistrer.",
     "save-success": "Votre explication a bien été enregistrée",
     "avis-detected": "Avis de situation déclarative détecté",
     "avis-text1": "Vous avez fourni un avis de situation déclarative (voir titre du document). Ce document n'est pas valide. Merci de le remplacer par votre avis d'imposition.",

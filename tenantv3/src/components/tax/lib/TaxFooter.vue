@@ -5,8 +5,8 @@
       <span class="desktop">{{ t('profilefooter.back') }}</span>
     </RouterLink>
     <form @submit.prevent="submit">
-      <DfButton ref="next-btn" primary data-cy="next-btn" :disabled="nextDisabled">{{
-        t('profilefooter.continue')
+      <DfButton ref="next-btn" primary data-cy="next-btn" :aria-disabled="nextDisabled || undefined">{{
+        nextLabel || t('profilefooter.continue')
       }}</DfButton>
     </form>
   </FooterContainer>
@@ -32,6 +32,8 @@ const props = defineProps<{
   step?: TaxStep
   explanation?: string
   nextDisabled?: boolean
+  nextLabel?: string
+  beforeSubmit?: () => boolean
 }>()
 
 const { t } = useI18n()
@@ -63,6 +65,9 @@ async function save(category: TaxCategory, step?: TaxStep) {
 }
 
 const submit = async () => {
+  if (props.beforeSubmit && !props.beforeSubmit()) {
+    return
+  }
   AnalyticsService.validateFunnelStep(stateCategory)
   const saveOk = props.category ? await save(props.category, props.step) : true
   if (saveOk) {
@@ -77,5 +82,10 @@ const submit = async () => {
   justify-content: space-around;
   align-items: center;
   gap: 1rem;
+}
+
+.tax-footer :deep(button[aria-disabled='true']) {
+  opacity: 0.5;
+  cursor: default;
 }
 </style>

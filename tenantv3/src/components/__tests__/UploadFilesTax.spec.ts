@@ -156,8 +156,8 @@ describe('UploadFilesTax', () => {
     vi.useRealTimers()
   })
 
-  describe('Polling - démarrage au mount', () => {
-    it('appelle getDocumentAnalysisStatus au montage', async () => {
+  describe('Polling - start on mount', () => {
+    it('calls getDocumentAnalysisStatus on mount', async () => {
       mockAnalysisResponse(AnalysisStatus.NO_ANALYSIS_SCHEDULED)
       mountComponent()
       await flushPromises()
@@ -166,8 +166,8 @@ describe('UploadFilesTax', () => {
     })
   })
 
-  describe('Polling - arrêt quand COMPLETED', () => {
-    it('arrête le polling et remplit analysisFailedRules', async () => {
+  describe('Polling - stops when COMPLETED', () => {
+    it('stops polling and populates analysisFailedRules', async () => {
       const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
       mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
 
@@ -178,15 +178,15 @@ describe('UploadFilesTax', () => {
       expect(wrapper.vm.analysisFailedRules).toEqual(rules)
       expect(wrapper.vm.analysisInProgress).toBe(false)
 
-      // Avancer le temps : pas de nouvel appel (polling arrêté)
+      // Fast-forward time: no new call (polling stopped)
       await vi.advanceTimersByTimeAsync(6000)
       await flushPromises()
       expect(AnalysisService.getDocumentAnalysisStatus).toHaveBeenCalledTimes(1)
     })
   })
 
-  describe('Polling - arrêt quand NO_ANALYSIS_SCHEDULED', () => {
-    it('arrête le polling et met analysisInProgress à false', async () => {
+  describe('Polling - stops when NO_ANALYSIS_SCHEDULED', () => {
+    it('stops polling and sets analysisInProgress to false', async () => {
       mockAnalysisResponse(AnalysisStatus.NO_ANALYSIS_SCHEDULED)
 
       const wrapper = mountComponent()
@@ -195,15 +195,15 @@ describe('UploadFilesTax', () => {
       expect(wrapper.vm.analysisInProgress).toBe(false)
       expect(wrapper.vm.analysisFailedRules).toEqual([])
 
-      // Avancer le temps : pas de nouvel appel
+      // Fast-forward time: no new call
       await vi.advanceTimersByTimeAsync(6000)
       await flushPromises()
       expect(AnalysisService.getDocumentAnalysisStatus).toHaveBeenCalledTimes(1)
     })
   })
 
-  describe('Polling - timeout après POLLING_TIMEOUT_MS', () => {
-    it('arrête le polling après le timeout même si IN_PROGRESS', async () => {
+  describe('Polling - timeout after POLLING_TIMEOUT_MS', () => {
+    it('stops polling after timeout even if IN_PROGRESS', async () => {
       mockAnalysisResponse(AnalysisStatus.IN_PROGRESS)
 
       const wrapper = mountComponent()
@@ -211,13 +211,13 @@ describe('UploadFilesTax', () => {
 
       expect(wrapper.vm.analysisInProgress).toBe(true)
 
-      // Avancer au-delà du timeout (10s)
+      // Fast-forward beyond timeout (10s)
       await vi.advanceTimersByTimeAsync(11000)
       await flushPromises()
 
       expect(wrapper.vm.analysisInProgress).toBe(false)
 
-      // Vérifier que le polling ne continue plus
+      // Verify polling no longer continues
       const callCount = vi.mocked(AnalysisService.getDocumentAnalysisStatus).mock.calls.length
       await vi.advanceTimersByTimeAsync(6000)
       await flushPromises()
@@ -225,23 +225,23 @@ describe('UploadFilesTax', () => {
     })
   })
 
-  describe('Polling - continue tant que IN_PROGRESS', () => {
-    it('continue à appeler le service toutes les 3s', async () => {
+  describe('Polling - continues while IN_PROGRESS', () => {
+    it('keeps calling the service every 3s', async () => {
       mockAnalysisResponse(AnalysisStatus.IN_PROGRESS)
 
       const wrapper = mountComponent()
       await flushPromises()
 
-      // Appel initial au mount
+      // Initial call on mount
       expect(AnalysisService.getDocumentAnalysisStatus).toHaveBeenCalledTimes(1)
       expect(wrapper.vm.analysisInProgress).toBe(true)
 
-      // Avancer de 3s → 2e appel
+      // Fast-forward 3s -> 2nd call
       await vi.advanceTimersByTimeAsync(3000)
       await flushPromises()
       expect(AnalysisService.getDocumentAnalysisStatus).toHaveBeenCalledTimes(2)
 
-      // Avancer de 3s → 3e appel
+      // Fast-forward 3s -> 3rd call
       await vi.advanceTimersByTimeAsync(3000)
       await flushPromises()
       expect(AnalysisService.getDocumentAnalysisStatus).toHaveBeenCalledTimes(3)
@@ -250,10 +250,9 @@ describe('UploadFilesTax', () => {
     })
   })
 
-
-  describe('Suppression - reset de l\'état d\'analyse', () => {
-    it('réinitialise analysisInProgress, analysisFailedRules et explainText', async () => {
-      // D'abord monter avec COMPLETED + failedRules
+  describe('Deletion - resets analysis state', () => {
+    it('resets analysisInProgress, analysisFailedRules and explainText', async () => {
+      // First mount with COMPLETED + failedRules
       const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
       mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
 
@@ -262,11 +261,10 @@ describe('UploadFilesTax', () => {
 
       expect(wrapper.vm.analysisFailedRules).toEqual(rules)
 
-      // Préparer le mock pour le polling qui redémarre après remove
+      // Prepare mock for polling restart after remove
       mockAnalysisResponse(AnalysisStatus.NO_ANALYSIS_SCHEDULED)
 
-      // Simuler un remove via l'événement du ListItem
-      // On accède directement à la fonction expose n'est pas suffisant, on appelle remove via le composant
+      // Simulate remove via the component's internal function
       const file = { id: 1, name: 'tax.pdf', size: 1000 }
       await wrapper.vm.$.setupState.remove(file)
       await flushPromises()
@@ -277,15 +275,15 @@ describe('UploadFilesTax', () => {
     })
   })
 
-  describe('Explication - sauvegarde du commentaire', () => {
-    it('appelle commentAnalysis avec les bons paramètres', async () => {
+  describe('Explanation - save comment', () => {
+    it('calls commentAnalysis with correct parameters', async () => {
       const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
       mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
 
       const wrapper = mountComponent()
       await flushPromises()
 
-      // Accéder à saveExplanation via le setup state interne
+      // Access saveExplanation via internal setup state
       // setupState auto-unwraps refs, so assign directly without .value
       wrapper.vm.$.setupState.explainText = 'Mon explication'
       wrapper.vm.$.setupState.saveExplanation()
@@ -297,6 +295,36 @@ describe('UploadFilesTax', () => {
         comment: 'Mon explication'
       })
       expect(wrapper.vm.explanationSubmitted).toBe(true)
+    })
+
+    it('shows error and does not call API when explanation is empty', async () => {
+      const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
+      mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+      const wrapper = mountComponent()
+      await flushPromises()
+
+      wrapper.vm.$.setupState.explainText = ''
+      wrapper.vm.$.setupState.saveExplanation()
+      await flushPromises()
+
+      expect(mockCommentAnalysis).not.toHaveBeenCalled()
+      expect(wrapper.vm.$.setupState.showExplainError).toBe(true)
+    })
+
+    it('shows error and does not call API when explanation is whitespace only', async () => {
+      const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
+      mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+      const wrapper = mountComponent()
+      await flushPromises()
+
+      wrapper.vm.$.setupState.explainText = '   '
+      wrapper.vm.$.setupState.saveExplanation()
+      await flushPromises()
+
+      expect(mockCommentAnalysis).not.toHaveBeenCalled()
+      expect(wrapper.vm.$.setupState.showExplainError).toBe(true)
     })
   })
 })
