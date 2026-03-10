@@ -59,7 +59,7 @@ function onInitPassword(password: string) {
 }
 
 async function logout() {
-  await store.logout()
+  await store.logout(route.path)
 }
 
 function redirect() {
