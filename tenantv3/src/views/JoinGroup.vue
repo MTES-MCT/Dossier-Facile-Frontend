@@ -3,13 +3,13 @@
     <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
       {{ t('joingroup.title') }}
     </h2>
-    <InitPassword :is-disabled="isLoading" @on-init-password="onInitPassword" />
+    <InitPassword :is-disabled="isLoading || isLoggedIn" @on-init-password="onInitPassword" />
     <ConfirmModal
       v-model:is-opened="isLoggedIn"
       :title="t('joingroup.already-logged')"
       :can-close="false"
       @valid="logout"
-      @cancel.stop="redirect"
+      @cancel="redirect"
     />
   </div>
 </template>
@@ -28,16 +28,17 @@ import { storeToRefs } from 'pinia'
 
 const { t } = useI18n()
 const store = useTenantStore()
+// can't really modify this but needed for v-model
 const { isLoggedIn } = storeToRefs(store)
-const $loading = useLoading({})
-const isLoading = ref(false)
 const route = useRoute()
 const router = useRouter()
+const $loading = useLoading({})
+const isLoading = ref(false)
 
 function onInitPassword(password: string) {
-  const loader = $loading.show()
-  isLoading.value = true
   const token = route.params.token.toString()
+  isLoading.value = true
+  const loader = $loading.show()
   store.createPasswordGroup({ token, password }).then(
     () => {
       toast.keep.success(t('joingroup.password-created'), getNextBtnInFooter)

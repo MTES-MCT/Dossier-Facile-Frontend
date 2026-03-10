@@ -3,13 +3,13 @@
     <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
       {{ t('joincouple.title') }}
     </h2>
-    <InitPassword :is-disabled="isLoading" @on-init-password="onInitPassword" />
+    <InitPassword :is-disabled="isLoading || isLoggedIn" @on-init-password="onInitPassword" />
     <ConfirmModal
       v-model:is-opened="isLoggedIn"
       :title="t('joincouple.already-logged')"
       :can-close="false"
       @valid="logout"
-      @cancel.stop="redirect"
+      @cancel="redirect"
     />
   </div>
 </template>
@@ -28,6 +28,7 @@ import { storeToRefs } from 'pinia'
 
 const { t } = useI18n()
 const store = useTenantStore()
+// can't really modify this but needed for v-model
 const { isLoggedIn } = storeToRefs(store)
 const route = useRoute()
 const router = useRouter()
