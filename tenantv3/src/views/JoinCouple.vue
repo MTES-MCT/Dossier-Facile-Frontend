@@ -7,9 +7,9 @@
     <ConfirmModal
       v-model:is-opened="isLoggedIn"
       :title="t('joincouple.already-logged')"
+      :can-close="false"
       @valid="logout"
-      @cancel="redirect"
-      @close="redirect"
+      @cancel.stop="redirect"
     />
   </div>
 </template>

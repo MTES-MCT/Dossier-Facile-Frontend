@@ -16,13 +16,18 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const props = withDefaults(defineProps<DsfrModalProps>(), {
+type Props = DsfrModalProps & {
+  canClose?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
   modalId: () => useRandomId('modal', 'dialog'),
   actions: () => [],
   origin: () => ({ focus() {} }),
   icon: undefined,
   size: 'md',
-  closeButtonLabel: 'close'
+  closeButtonLabel: 'close',
+  canClose: true
 })
 
 /**
@@ -124,7 +129,13 @@ const iconProps = computed(() => {
         >
           <div class="fr-modal__body">
             <div class="fr-modal__header">
-              <button ref="closeBtn" class="fr-btn fr-btn--close" type="button" @click="close">
+              <button
+                ref="closeBtn"
+                class="fr-btn fr-btn--close"
+                type="button"
+                :disabled="!canClose"
+                @click="close"
+              >
                 <span>
                   {{ t(closeButtonLabel) }}
                 </span>

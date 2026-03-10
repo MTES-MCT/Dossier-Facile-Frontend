@@ -5,7 +5,7 @@
     :title="title"
     :actions="modalActions"
     size="lg"
-    @close="$emit('close')"
+    :can-close
   >
     <slot />
   </DsfrModalPatch>
@@ -21,9 +21,12 @@ const { t } = useI18n()
 
 const emit = defineEmits<{ valid: []; cancel: []; close: [] }>()
 
-const props = defineProps<{
+interface Props {
   title: string
-}>()
+  canClose?: boolean
+}
+
+const { title, canClose = true } = defineProps<Props>()
 
 const isModalOpened = defineModel<boolean>('isOpened', { default: false })
 
