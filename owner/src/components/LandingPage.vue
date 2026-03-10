@@ -234,7 +234,6 @@
       v-model:is-opened="isValidModalVisible"
       :title="t('signuppage.mail-sent')"
       size="lg"
-      @close="replaceUrl"
     >
       <p>
         {{ t('signuppage.clic-to-confirm') }}
@@ -261,9 +260,6 @@ const { t } = useI18n()
 const isValidModalVisible = ref(false)
 const toast = useToast()
 
-function replaceUrl() {
-  window.location.replace(MAIN_URL)
-}
 function loginFranceConnect() {
   if (FRANCE_CONNECT_LOGIN_URL) {
     window.location.href = FRANCE_CONNECT_LOGIN_URL.toString()

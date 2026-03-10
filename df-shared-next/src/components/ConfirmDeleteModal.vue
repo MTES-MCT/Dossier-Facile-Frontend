@@ -26,7 +26,7 @@ import type { ComputedRef } from 'vue'
 const { t } = useI18n()
 
 interface Props {
-  documentCategory: 'financial' | 'identity' | 'profressional' | 'residency' | 'tax'
+  documentCategory: 'financial' | 'identity' | 'professional' | 'residency' | 'tax'
 }
 
 defineProps<Props>()
@@ -57,7 +57,7 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
     "category": {
       "identity": "your identification",
       "financial": "your proof of income",
-      "profressional": "your documents",
+      "professional": "your documents",
       "residency": "your documents",
       "tax": "your documents"
     },
@@ -71,7 +71,7 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
     "category": {
       "identity": "vos pièces d’identité",
       "financial": "vos justificatifs de revenus",
-      "profressional": "vos justificatifs",
+      "professional": "vos justificatifs",
       "residency": "vos justificatifs",
       "tax": "vos justificatifs"
     },

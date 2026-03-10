@@ -47,7 +47,6 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
 ])
 
 function deleteAccount() {
-  store.setShowDeleteAccountModal(false)
   store.deleteAccount().then(
     () => {
       window.location.replace(MAIN_URL)

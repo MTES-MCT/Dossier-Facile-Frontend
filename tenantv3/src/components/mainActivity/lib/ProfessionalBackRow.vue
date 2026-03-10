@@ -2,7 +2,7 @@
   <BackLinkRow :label="label" @click="onClick">
     <ConfirmDeleteModal
       v-model:is-opened="isModalOpened"
-      document-category="profressional"
+      document-category="professional"
       @confirm="confirm"
     />
   </BackLinkRow>

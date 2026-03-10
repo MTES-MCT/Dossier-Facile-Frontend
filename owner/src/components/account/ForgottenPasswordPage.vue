@@ -28,10 +28,6 @@ function onForgottenPassword(user: User) {
     )
   }
 }
-
-function replaceUrl() {
-  window.location.replace(MAIN_URL)
-}
 </script>
 
 <template>
@@ -41,7 +37,6 @@ function replaceUrl() {
       v-model:is-opened="isValidModalVisible"
       :title="t('forgottenpasswordpage.mail-sent')"
       size="lg"
-      @close="replaceUrl"
     >
       <p>
         {{ t('forgottenpasswordpage.clic-to-confirm') }}

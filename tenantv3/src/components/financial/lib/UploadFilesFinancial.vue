@@ -63,7 +63,7 @@ import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessage
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
 import { DfDocument, type FinancialStep } from 'df-shared-next/src/models/DfDocument'
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { RegisterService } from '@/services/RegisterService'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
@@ -102,7 +102,7 @@ const router = useRouter()
 const { t } = useI18n()
 
 const isModalOpened = ref(false)
-const modalActions: DsfrButtonProps[] = [
+const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
   {
     label: t('add-more-docs'),
     onClick() {
@@ -116,7 +116,7 @@ const modalActions: DsfrButtonProps[] = [
       goNext()
     }
   }
-]
+])
 
 const inputSumElt = useTemplateRef('inputSumElt')
 const fileUpload = useTemplateRef('fileUpload')

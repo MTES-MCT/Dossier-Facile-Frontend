@@ -136,7 +136,7 @@ import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import type { DfDocument, DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import FinancialFooter from './lib/FinancialFooter.vue'
-import { computed, onMounted, ref, useTemplateRef } from 'vue'
+import { computed, onMounted, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { useFinancialState } from '@/components/financial/financialState'
 import { useRoute, useRouter } from 'vue-router'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -171,7 +171,7 @@ const deleteModaleActions: DsfrButtonProps[] = [
 ]
 
 const isDuplicatesModaleVisible = ref(false)
-const duplicatesModaleActions: DsfrButtonProps[] = [
+const duplicatesModaleActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
   {
     label: t('check-income'),
     onClick() {
@@ -185,7 +185,7 @@ const duplicatesModaleActions: DsfrButtonProps[] = [
     },
     secondary: true
   }
-]
+])
 
 const docToDelete = ref<DfDocument>()
 const state = useFinancialState()

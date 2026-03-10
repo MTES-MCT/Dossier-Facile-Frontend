@@ -223,9 +223,6 @@ const useOwnerStore = defineStore('owner', {
     deleteAccount() {
       return AuthService.deleteAccount()
     },
-    setShowDeleteAccountModal(show: boolean) {
-      this.showDeleteAccountModal = show
-    },
     searchDpe(dpe: string) {
       const property = this.propertyToEdit
       property.ademeNumber = dpe

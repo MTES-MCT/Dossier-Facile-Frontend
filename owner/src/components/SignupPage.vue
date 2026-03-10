@@ -14,10 +14,6 @@ const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 
 const isValidModalVisible = ref(false)
 
-function replaceUrl() {
-  window.location.replace(MAIN_URL)
-}
-
 function onRegister(data: { email: string; password: string }) {
   if (data.email && data.password) {
     store.register(data).then(
@@ -82,7 +78,6 @@ function onRegister(data: { email: string; password: string }) {
       v-model:is-opened="isValidModalVisible"
       :title="t('signuppage.mail-sent')"
       size="lg"
-      @close="replaceUrl"
     >
       <p>
         {{ t('signuppage.clic-to-confirm') }}

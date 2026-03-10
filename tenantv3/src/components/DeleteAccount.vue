@@ -41,16 +41,15 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
     label: t('deleteaccount.validate'),
     secondary: true,
     onClick() {
-      deleteAccount()
-      closeModal()
+      deleteAccount().then(closeModal)
     }
   }
 ])
 
-function deleteAccount() {
+async function deleteAccount() {
   const loader = $loading.show()
   isLoading.value = true
-  store.deleteAccount().then(
+  await store.deleteAccount().then(
     () => {
       AnalyticsService.deleteAccount()
       loader.hide()
