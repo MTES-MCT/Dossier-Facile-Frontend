@@ -1,63 +1,52 @@
 <template>
-  <form name="form" @submit.prevent="validDelete">
-    <Modal id="modal-delete-account" @close="undoSelect()">
-      <template #header>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <h4 class="fr-col-10 title">
-              <RiCloseCircleLine
-                class="text-danger fr-mr-1w bold-icon"
-                size="38px"
-                aria-hidden="true"
-              />
-              {{ t('deleteaccount.title') }}
-            </h4>
-          </div>
-        </div>
-      </template>
-      <template #body>
-        <div class="fr-container min-w">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-10">
-              <div class="fr-mb-3w">
-                <p>{{ t('deleteaccount.confirm-delete') }}</p>
-              </div>
-              <div class="align--right">
-                <DfButton
-                  :title="t('deleteaccount.cancel')"
-                  class="fr-mr-3w"
-                  type="button"
-                  @click="undoSelect()"
-                  >{{ t('deleteaccount.cancel') }}</DfButton
-                >
-                <DfButton type="submit" :title="t('deleteaccount.delete')" :primary="true">{{
-                  isMobile() ? t('deleteaccount.validate-mobile') : t('deleteaccount.validate')
-                }}</DfButton>
-              </div>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
-  </form>
+  <DsfrModalPatch
+    v-model:is-opened="isOpen"
+    modal-id="modal-delete-account"
+    :title="t('deleteaccount.title')"
+    icon="ri:close-circle-line"
+    :actions="modalActions"
+    size="xl"
+  >
+    <p>{{ t('deleteaccount.confirm-delete') }}</p>
+  </DsfrModalPatch>
 </template>
 
 <script setup lang="ts">
-import Modal from 'df-shared-next/src/components/ModalComponent.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
 import { useToast } from 'vue-toastification'
-import UtilsService from '../services/UtilsService'
 import useOwnerStore from '../store/owner-store'
-import { RiCloseCircleLine } from '@remixicon/vue'
+import { computed, type ComputedRef } from 'vue'
+import { useModalStore } from 'df-shared-next/src/stores/useModalStore'
+import { storeToRefs } from 'pinia'
+import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const store = useOwnerStore()
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const { t } = useI18n()
 const toast = useToast()
 
-function validDelete() {
-  store.setShowDeleteAccountModal(false)
+const modalStore = useModalStore('deleteAccount')
+const { closeModal } = modalStore
+const { isOpen } = storeToRefs(modalStore)
+const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
+  {
+    label: t('deleteaccount.cancel'),
+    onClick() {
+      closeModal()
+    }
+  },
+  {
+    label: t('deleteaccount.validate'),
+    secondary: true,
+    onClick() {
+      deleteAccount()
+      closeModal()
+    }
+  }
+])
+
+function deleteAccount() {
   store.deleteAccount().then(
     () => {
       window.location.replace(MAIN_URL)
@@ -68,15 +57,6 @@ function validDelete() {
       })
     }
   )
-}
-
-function undoSelect() {
-  store.setShowDeleteAccountModal(false)
-  return false
-}
-
-function isMobile() {
-  return UtilsService.isMobile()
 }
 </script>
 

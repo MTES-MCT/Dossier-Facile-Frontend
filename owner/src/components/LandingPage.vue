@@ -230,22 +230,15 @@
         </div>
       </div>
     </section>
-    <Modal v-show="isValidModalVisible" @close="closeModal">
-      <template #body>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-12">
-              <p>
-                {{ t('signuppage.mail-sent') }}
-              </p>
-              <p>
-                {{ t('signuppage.clic-to-confirm') }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
+    <DsfrModalPatch
+      v-model:is-opened="isValidModalVisible"
+      :title="t('signuppage.mail-sent')"
+      size="lg"
+    >
+      <p>
+        {{ t('signuppage.clic-to-confirm') }}
+      </p>
+    </DsfrModalPatch>
   </div>
 </template>
 
@@ -253,11 +246,11 @@
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { useI18n } from 'vue-i18n'
-import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import useOwnerStore from '../store/owner-store'
 import SignupVerticalCard from './auth/SignupVerticalCard.vue'
 import SignupCard from './auth/SignupCard.vue'
 import { RiCheckboxCircleLine, RiEye2Line, RiTimerFlashLine } from '@remixicon/vue'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VITE_SSO_FRANCE_CONNECT_LOGIN_URL
 const MAIN_URL = `${import.meta.env.VITE_OWNER_URL}`
@@ -267,10 +260,6 @@ const { t } = useI18n()
 const isValidModalVisible = ref(false)
 const toast = useToast()
 
-function closeModal() {
-  isValidModalVisible.value = false
-  window.location.replace(MAIN_URL)
-}
 function loginFranceConnect() {
   if (FRANCE_CONNECT_LOGIN_URL) {
     window.location.href = FRANCE_CONNECT_LOGIN_URL.toString()

@@ -3,27 +3,33 @@
     <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
       {{ t('joincouple.title') }}
     </h2>
-    <InitPassword :is-disabled="isLoading" @on-init-password="onInitPassword" />
-    <ConfirmModal v-if="isLoggedIn" @valid="logout()" @cancel="redirect()">
-      <span>{{ t('joincouple.already-logged') }}</span>
-    </ConfirmModal>
+    <InitPassword :is-disabled="isLoading || isLoggedIn" @on-init-password="onInitPassword" />
+    <ConfirmModal
+      v-model:is-opened="isLoggedIn"
+      :title="t('joincouple.already-logged')"
+      :can-close="false"
+      @valid="logout"
+      @cancel="redirect"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import InitPassword from 'df-shared-next/src/Authentification/InitPassword.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import { useTenantStore } from '../stores/tenant-store'
-import { computed, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { isAxiosError } from 'axios'
+import { useRoute, useRouter } from 'vue-router'
 import { useLoading } from 'vue-loading-overlay'
+import { useTenantStore } from '../stores/tenant-store'
 import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
+import { storeToRefs } from 'pinia'
 
 const { t } = useI18n()
 const store = useTenantStore()
-const isLoggedIn = computed(() => store.isLoggedIn)
+// can't really modify this but needed for v-model
+const { isLoggedIn } = storeToRefs(store)
 const route = useRoute()
 const router = useRouter()
 const $loading = useLoading({})
@@ -53,7 +59,7 @@ function onInitPassword(password: string) {
 }
 
 async function logout() {
-  await store.logout()
+  await store.logout(route.path)
 }
 
 function redirect() {

@@ -38,7 +38,7 @@ const { document, textKey } = useTaxState()
 const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NO_DECLARATION')
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "i-attest": "I hereby certify that I cannot provide a document, and I understand that this information will be visible in my file.",
@@ -46,23 +46,23 @@ const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NO_DECLA
     "tenant": {
       "your-situation": "Your situation:",
       "have-no-tax-notice": "You have no tax notice",
-      "no-declaration": "You have not yet made your first declaration",
+      "no-declaration": "You have not yet made your first declaration"
     },
     "guarantor": {
       "your-situation": "Your guarantor's situation:",
       "have-no-tax-notice": "Your guarantor has no tax notice",
-      "no-declaration": "Your guarantor has not yet made their first declaration",
+      "no-declaration": "Your guarantor has not yet made their first declaration"
     },
     "couple": {
       "your-situation": "Your spouse's situation:",
       "have-no-tax-notice": "Your spouse has no tax notice",
-      "no-declaration": "Your spouse has not yet made their first declaration",
+      "no-declaration": "Your spouse has not yet made their first declaration"
     },
     "couple-guarantor": {
       "your-situation": "Their guarantor's situation:",
       "have-no-tax-notice": "Their guarantor has no tax notice",
-      "no-declaration": "Their guarantor has not yet made their first declaration",
-    },
+      "no-declaration": "Their guarantor has not yet made their first declaration"
+    }
   },
   "fr": {
     "i-attest": "J’atteste sur l’honneur ne pas pouvoir fournir de document, et je comprends que cette information sera visible dans mon dossier.",
@@ -70,23 +70,23 @@ const attestChecked = ref(document.value?.documentCategoryStep === 'TAX_NO_DECLA
     "tenant": {
       "your-situation": "Votre situation :",
       "have-no-tax-notice": "Vous n’avez pas d’avis d’impôt",
-      "no-declaration": "Vous n’avez pas encore fait votre première déclaration",
+      "no-declaration": "Vous n’avez pas encore fait votre première déclaration"
     },
     "guarantor": {
       "your-situation": "La situation de votre garant :",
       "have-no-tax-notice": "Votre garant n’a pas d’avis d’impôt",
-      "no-declaration": "Votre garant n’a pas encore fait sa première déclaration",
+      "no-declaration": "Votre garant n’a pas encore fait sa première déclaration"
     },
     "couple": {
       "your-situation": "La situation de votre conjoint :",
       "have-no-tax-notice": "Votre conjoint n’a pas d’avis d’impôt",
-      "no-declaration": "Votre conjoint n’a pas encore fait sa première déclaration",
+      "no-declaration": "Votre conjoint n’a pas encore fait sa première déclaration"
     },
     "couple-guarantor": {
       "your-situation": "La situation de son garant :",
       "have-no-tax-notice": "Son garant n’a pas d’avis d’impôt",
-      "no-declaration": "Son garant n’a pas encore fait sa première déclaration",
-    },
+      "no-declaration": "Son garant n’a pas encore fait sa première déclaration"
+    }
   }
 }
 </i18n>

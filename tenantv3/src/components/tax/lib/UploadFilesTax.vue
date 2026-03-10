@@ -5,52 +5,47 @@
     :document-denied-reasons="taxDocument?.documentDeniedReasons"
     :document-status="documentStatus"
   ></AllDeclinedMessages>
-  <div v-if="taxFiles.length > 0" class="fr-col-12 fr-mb-3w">
-    <ListItem
-      v-for="file in taxFiles"
-      :key="file.id"
-      :file="file"
-      :watermark-url="documentWatermarkUrl"
-      doc-category="tax"
-      @remove="remove(file)"
-      @ask-confirm="AnalyticsService.deleteDocument(taxState.category)"
-      @cancel="AnalyticsService.cancelDelete(taxState.category)"
-    />
-  </div>
+  <ul v-if="taxFiles.length > 0" role="list" class="fr-col-12 fr-mb-3w">
+    <li v-for="file in taxFiles" :key="file.id">
+      <ListItem
+        :file="file"
+        :watermark-url="documentWatermarkUrl"
+        doc-category="tax"
+        @remove="remove(file)"
+        @ask-confirm="AnalyticsService.deleteDocument(taxState.category)"
+        @cancel="AnalyticsService.cancelDelete(taxState.category)"
+      />
+    </li>
+  </ul>
   <FileUpload
     ref="file-upload"
     :current-status="fileUploadStatus"
     :page="4"
     @add-files="addFiles"
-  ></FileUpload>
-  <ModalComponent v-if="showModale" @close="showModale = false">
-    <template #body>
-      <div class="fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
-        <h1 class="fr-h4 display--flex align-items--center">
-          <RiAlarmWarningLine class="bold-icon fr-mr-1w" aria-hidden="true" />
-          {{ t('avis-detected') }}
-        </h1>
-        <p>
-          {{ t('avis-text1') }}
-        </p>
-        <hr class="mobile" />
-        <DfButton primary @click="showModale = false">{{ t('avis-btn') }}</DfButton>
-        <p class="fr-mt-2w fr-mb-0">
-          <a
-            href="https://aide.dossierfacile.logement.gouv.fr/fr/article/5-avis-dimposition-eg82wt/"
-            :title="`${t('avis-link-to-doc')} - ${t('new-window')}`"
-            rel="noopener"
-            target="_blank"
-            >{{ t('avis-link-to-doc') }}</a
-          >
-        </p>
-      </div>
-    </template>
-  </ModalComponent>
+  />
+  <DsfrModalPatch
+    v-model:is-opened="isModalOpened"
+    :title="t('avis-detected')"
+    icon="ri:alarm-warning-line"
+    :actions="modalActions"
+  >
+    <p>
+      {{ t('avis-text1') }}
+    </p>
+    <p>
+      <a
+        href="https://aide.dossierfacile.logement.gouv.fr/fr/article/5-avis-dimposition-eg82wt/"
+        :title="`${t('avis-link-to-doc')} - ${t('new-window')}`"
+        rel="noopener"
+        target="_blank"
+        >{{ t('avis-link-to-doc') }}</a
+      >
+    </p>
+  </DsfrModalPatch>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, ref, useTemplateRef, type ComputedRef } from 'vue'
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
 import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
@@ -67,9 +62,8 @@ import { useTaxState } from './taxState'
 import type { TaxCategory } from '@/components/documents/share/DocumentTypeConstants'
 import type { TaxCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import { PdfAnalysisService } from '@/services/PdfAnalysisService'
-import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import { RiAlarmWarningLine } from '@remixicon/vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 
 const props = defineProps<{ category: TaxCategory; step?: TaxCategoryStep; explanation?: string }>()
 
@@ -77,7 +71,17 @@ const MAX_FILE_COUNT = 5
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
-const showModale = ref(false)
+
+const isModalOpened = ref(false)
+const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
+  {
+    label: t('avis-btn'),
+    type: 'button',
+    onClick() {
+      isModalOpened.value = false
+    }
+  }
+])
 
 const store = useTenantStore()
 const taxState = useTaxState()
@@ -159,7 +163,7 @@ async function addFiles(fileList: File[]) {
   })
   files.value = [...files.value, ...nf]
   if (await PdfAnalysisService.includesRejectedTaxDocuments(fileList)) {
-    showModale.value = true
+    isModalOpened.value = true
     return
   }
   save()
@@ -182,7 +186,13 @@ async function remove(file: DfFile, silent = false) {
 }
 </script>
 
-<i18n>
+<style scoped>
+ul {
+  --li-bottom: 1rem;
+}
+</style>
+
+<i18n lang="json">
 {
   "en": {
     "avis-detected": "Declarative Situation Notice Detected",

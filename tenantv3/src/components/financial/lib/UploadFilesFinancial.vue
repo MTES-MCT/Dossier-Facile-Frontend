@@ -44,29 +44,17 @@
     <p class="fr-message fr-message--info fr-mt-3w">{{ t('i-authorize-corrections') }}</p>
   </template>
   <slot v-else name="emptyIncome"></slot>
-  <ModalComponent v-if="showInsufficientModal" @close="showInsufficientModal = false">
-    <template #header>
-      <h2 class="fr-h3 fr-mb-0">{{ t('insufficient-number-of-docs') }}</h2>
-    </template>
-    <template #body>
-      <i18n-t tag="p" keypath="you-added-docs" class="fr-mb-2w">
-        <strong>{{ t('less-than-x-docs', [minFiles]) }}</strong>
-      </i18n-t>
-      <p class="fr-mb-0">{{ t('for-complete-file', [minFiles]) }}</p>
-    </template>
-    <template #footer>
-      <ul class="fr-btns-group fr-btns-group--inline-md btns-group">
-        <li>
-          <DfButton primary @click="showInsufficientModal = false">{{
-            t('add-more-docs')
-          }}</DfButton>
-        </li>
-        <li>
-          <DfButton @click="goNext">{{ t('go-next-step') }}</DfButton>
-        </li>
-      </ul>
-    </template>
-  </ModalComponent>
+  <DsfrModalPatch
+    v-model:is-opened="isModalOpened"
+    :title="t('insufficient-number-of-docs')"
+    :actions="modalActions"
+    size="xl"
+  >
+    <i18n-t tag="p" keypath="you-added-docs" class="fr-mb-2w">
+      <strong>{{ t('less-than-x-docs', [minFiles]) }}</strong>
+    </i18n-t>
+    <p class="fr-mb-0">{{ t('for-complete-file', [minFiles]) }}</p>
+  </DsfrModalPatch>
 </template>
 
 <script setup lang="ts">
@@ -75,7 +63,7 @@ import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessage
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
 import { DfDocument, type FinancialStep } from 'df-shared-next/src/models/DfDocument'
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { RegisterService } from '@/services/RegisterService'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
@@ -87,9 +75,9 @@ import { useForm } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import FinancialFooterContent from './FinancialFooterContent.vue'
 import { useFinancialState } from '../financialState'
-import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { toast } from '@/components/toast/toastUtils'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 
 const MAX_FILE_COUNT = 10
 
@@ -108,11 +96,27 @@ type PropsWithoutStep = Props & {
 const props = defineProps<PropsWithStep | PropsWithoutStep>()
 
 const uploadStatus = ref(UploadStatus.STATUS_INITIAL)
-const showInsufficientModal = ref(false)
 const store = useTenantStore()
 const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
+
+const isModalOpened = ref(false)
+const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
+  {
+    label: t('add-more-docs'),
+    onClick() {
+      isModalOpened.value = false
+    },
+    secondary: true
+  },
+  {
+    label: t('go-next-step'),
+    onClick() {
+      goNext()
+    }
+  }
+])
 
 const inputSumElt = useTemplateRef('inputSumElt')
 const fileUpload = useTemplateRef('fileUpload')
@@ -182,7 +186,7 @@ async function submit() {
     return
   }
   if ((document.value.files?.length || 0) < (props.minFiles || 0)) {
-    showInsufficientModal.value = true
+    isModalOpened.value = true
     return
   }
   await goNext()

@@ -54,14 +54,13 @@
             <router-link class="fr-nav__link" to="/partages">{{ t('menu.shared') }}</router-link>
           </li>
           <li>
-            <DfButton
+            <DsfrButton
               id="delete-account-btn"
               class="fr-nav__link"
-              data-fr-opened="false"
-              aria-controls="modal-delete-account"
-            >
-              {{ t('menu.deleteAccount') }}
-            </DfButton>
+              :label="t('menu.deleteAccount')"
+              :tertiary="true"
+              @click="openModal"
+            />
           </li>
         </ul>
       </div>
@@ -93,7 +92,6 @@
 </template>
 
 <script setup lang="ts">
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
 
 import { useI18n } from 'vue-i18n'
@@ -101,12 +99,16 @@ import { computed } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { i18n } from '@/i18n'
 import { useRoute } from 'vue-router'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
+import { useModalStore } from 'df-shared-next/src/stores/useModalStore'
 
 const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const isLoggedIn = computed(() => store.isLoggedIn)
 const newMessage = computed(() => store.newMessage)
+
+const { openModal } = useModalStore('deleteAccount')
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`

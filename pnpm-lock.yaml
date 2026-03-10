@@ -218,6 +218,9 @@ importers:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
         version: 1.14.3
+      '@gouvminint/vue-dsfr':
+        specifier: 'catalog:'
+        version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.6.0
         version: 4.6.0(vue@3.5.18(typescript@5.9.2))
@@ -5409,8 +5412,8 @@ packages:
   vue-component-type-helpers@2.2.12:
     resolution: {integrity: sha512-YbGqHZ5/eW4SnkPNR44mKVc6ZKQoRs/Rux1sxC6rdwXb4qpbOSYfDr9DsTHolOTGmIKgM9j141mZbBeg05R1pw==}
 
-  vue-component-type-helpers@3.2.4:
-    resolution: {integrity: sha512-05lR16HeZDcDpB23ku5b5f1fBOoHqFnMiKRr2CiEvbG5Ux4Yi0McmQBOET0dR0nxDXosxyVqv67q6CzS3AK8rw==}
+  vue-component-type-helpers@3.2.5:
+    resolution: {integrity: sha512-tkvNr+bU8+xD/onAThIe7CHFvOJ/BO6XCOrxMzeytJq40nTfpGDJuVjyCM8ccGZKfAbGk2YfuZyDMXM56qheZQ==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -7400,7 +7403,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.18(typescript@5.9.2)
-      vue-component-type-helpers: 3.2.4
+      vue-component-type-helpers: 3.2.5
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     dependencies:
@@ -10816,7 +10819,7 @@ snapshots:
 
   vue-component-type-helpers@2.2.12: {}
 
-  vue-component-type-helpers@3.2.4: {}
+  vue-component-type-helpers@3.2.5: {}
 
   vue-demi@0.14.10(vue@3.5.18(typescript@5.9.2)):
     dependencies:

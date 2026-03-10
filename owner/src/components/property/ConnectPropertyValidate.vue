@@ -144,9 +144,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped lang="scss">
-@import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css';
-
+<style scoped>
 .box-container {
   display: flex;
   justify-content: center;

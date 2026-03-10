@@ -11,7 +11,7 @@
             :label="t('roommatesinformation.more-information')"
             @click="isModalOpened = true"
           />
-          <DsfrModalPatched
+          <DsfrModalPatch
             v-model:is-opened="isModalOpened"
             :title="t('roommatesinformation.more-information')"
             icon="ri:arrow-right-line"
@@ -20,7 +20,7 @@
             <template #default>
               <RoommatesInformationHelp />
             </template>
-          </DsfrModalPatched>
+          </DsfrModalPatch>
         </div>
         <div v-if="coTenants.length > 0" class="fr-col-12 fr-mt-2w">
           <div v-for="(roommate, key) in coTenants" :key="key" class="fr-mb-1w">
@@ -175,7 +175,7 @@ import { useI18n } from 'vue-i18n'
 import { RiUserFill } from '@remixicon/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
-import DsfrModalPatched from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 
 interface Props {

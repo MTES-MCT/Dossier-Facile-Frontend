@@ -10,10 +10,10 @@
           {{ Math.floor(loadedRatio * 100) }}%
         </div>
         <vue-pdf-embed
-          style="border: 1px solid red"
+          style="border: 1px solid var(--text-default-grey)"
           :source="src"
           :width="pdfcontent?.width"
-        ></vue-pdf-embed>
+        />
       </div>
     </div>
   </div>

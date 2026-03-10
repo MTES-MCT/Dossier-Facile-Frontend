@@ -12,14 +12,22 @@ import type { DsfrModalProps } from '@gouvminint/vue-dsfr'
 import { DsfrButtonGroup, useRandomId, VIcon } from '@gouvminint/vue-dsfr'
 
 import { computed, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const props = withDefaults(defineProps<DsfrModalProps>(), {
+const { t } = useI18n()
+
+type Props = DsfrModalProps & {
+  canClose?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
   modalId: () => useRandomId('modal', 'dialog'),
   actions: () => [],
   origin: () => ({ focus() {} }),
   icon: undefined,
   size: 'md',
-  closeButtonLabel: 'Fermer'
+  closeButtonLabel: 'close',
+  canClose: true
 })
 
 /**
@@ -40,6 +48,8 @@ defineSlots<{
   footer?: () => unknown
 }>()
 
+const emit = defineEmits(['close'])
+
 const role = computed(() => {
   return props.isAlert ? 'alertdialog' : 'dialog'
 })
@@ -51,6 +61,9 @@ watch(
   (newValue) => {
     if (newValue) {
       modal.value?.showModal()
+    } else {
+      modal.value?.close()
+      emit('close')
     }
     setAppropriateClassOnBody(newValue)
   }
@@ -75,7 +88,6 @@ onBeforeUnmount(() => {
 })
 
 const close = () => {
-  modal.value?.close()
   isOpened.value = false
 }
 
@@ -103,7 +115,7 @@ const iconProps = computed(() => {
     :aria-labelledby="`${modalId}-title`"
     :role="role"
     class="fr-modal--patched"
-    @cancel="close"
+    @cancel.self="close"
   >
     <div class="fr-container fr-container--fluid fr-container-md">
       <div class="fr-grid-row fr-grid-row--center">
@@ -117,9 +129,15 @@ const iconProps = computed(() => {
         >
           <div class="fr-modal__body">
             <div class="fr-modal__header">
-              <button ref="closeBtn" class="fr-btn fr-btn--close" type="button" @click="close">
+              <button
+                ref="closeBtn"
+                class="fr-btn fr-btn--close"
+                type="button"
+                :disabled="!canClose"
+                @click="close"
+              >
                 <span>
-                  {{ closeButtonLabel }}
+                  {{ t(closeButtonLabel) }}
                 </span>
               </button>
             </div>
@@ -144,7 +162,6 @@ const iconProps = computed(() => {
                 align="right"
                 :buttons="actions"
                 inline-layout-when="large"
-                reverse
               />
             </div>
           </div>
@@ -181,3 +198,14 @@ const iconProps = computed(() => {
   overflow: hidden;
 }
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "close": "close"
+  },
+  "fr": {
+    "close": "fermer"
+  }
+}
+</i18n>

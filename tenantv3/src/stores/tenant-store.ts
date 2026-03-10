@@ -355,11 +355,10 @@ export const useTenantStore = defineStore('tenant', {
     updateCoTenantAuthorize(authorize: boolean) {
       this.coTenantAuthorize = authorize
     },
-    logout() {
-      return keycloak.logout({ redirectUri: LOGOUT_REDIRECT_URL }).then(() => {
-        this.logoutCommit()
-        this.initState()
-      })
+    async logout(uri?: string) {
+      await keycloak.logout({ redirectUri: uri ?? LOGOUT_REDIRECT_URL })
+      this.logoutCommit()
+      this.initState()
     },
     async deleteAccount() {
       const isFC = this.user.franceConnect

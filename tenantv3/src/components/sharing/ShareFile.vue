@@ -46,11 +46,7 @@
                 name="name"
               />
               <ErrorMessage v-slot="{ message }" name="name">
-                <span
-                  v-if="message"
-                  role="alert"
-                  class="fr-error-text"
-                >{{ t(message) }}</span>
+                <span v-if="message" role="alert" class="fr-error-text">{{ t(message) }}</span>
               </ErrorMessage>
             </div>
           </Field>
@@ -62,28 +58,34 @@
             name="validity"
           />
         </div>
-        <div class="fr-input-group link-content-group" :class="{ 'fr-input-group--error': hasSubmitted && shareTypeError }">
+        <div
+          class="fr-input-group link-content-group"
+          :class="{ 'fr-input-group--error': hasSubmitted && shareTypeError }"
+        >
           <DsfrSelect
             :model-value="selectedShareType"
             :label="t('link-content')"
             :hint="t('link-content-desc')"
             :options="shareTypeOptions"
             name="shareType"
-            @update:model-value="(val: string | number) => { selectedShareType = String(val) }"
+            @update:model-value="
+              (val: string | number) => {
+                selectedShareType = String(val)
+              }
+            "
           />
           <p v-if="hasSubmitted && shareTypeError" class="fr-error-text">
             {{ shareTypeError }}
           </p>
         </div>
         <p v-if="selectedShareType" class="fr-message fr-message--info fr-mt-2w fr-mb-3w">
-          {{ selectedShareType === 'restricted' ? t('share-type-without-docs') : t('share-type-with-docs') }}
+          {{
+            selectedShareType === 'restricted'
+              ? t('share-type-without-docs')
+              : t('share-type-with-docs')
+          }}
         </p>
-        <DsfrTabs 
-          ref="tabsRef"
-          v-model="activeTab" 
-          :tab-list-name="t('tab-list-name')" 
-          :tab-titles
-        >
+        <DsfrTabs ref="tabsRef" v-model="activeTab" :tab-list-name="t('tab-list-name')" :tab-titles>
           <DsfrTabContent tab-id="tab-0" panel-id="panel-0">
             <div class="generate-link-btn-wrapper">
               <button type="submit" class="fr-btn generate-link-btn" name="action" value="link">
@@ -93,7 +95,12 @@
             </div>
             <div v-if="fileLink.length > 0" class="generated-link fr-mt-2w">
               <p class="fr-background-default--grey fr-p-1v fr-mb-0">{{ fileLink }}</p>
-              <button ref="copy-link" type="button" class="fr-btn fr-btn--tertiary btn-copy" @click="copyLink">
+              <button
+                ref="copy-link"
+                type="button"
+                class="fr-btn fr-btn--tertiary btn-copy"
+                @click="copyLink"
+              >
                 {{ t('copy-link') }}
                 <RiClipboardLine aria-hidden="true" size="1em" class="fr-ml-1v" />
               </button>
@@ -105,11 +112,7 @@
           </DsfrTabContent>
           <DsfrTabContent tab-id="tab-1" panel-id="panel-1">
             <p class="blue-text bold">{{ t('if-share-by-email') }}</p>
-            <Field
-              v-slot="{ field, meta }"
-              name="email"
-              :rules="emailValidation"
-            >
+            <Field v-slot="{ field, meta }" name="email" :rules="emailValidation">
               <div
                 class="fr-input-group"
                 :class="{
@@ -128,19 +131,11 @@
                   type="text"
                 />
                 <ErrorMessage v-slot="{ message }" name="email">
-                  <span
-                    v-if="message"
-                    role="alert"
-                    class="fr-error-text"
-                  >{{ message }}</span>
+                  <span v-if="message" role="alert" class="fr-error-text">{{ message }}</span>
                 </ErrorMessage>
               </div>
             </Field>
-            <Field
-              v-slot="{ field, meta }"
-              name="message"
-              :rules="messageValidation"
-            >
+            <Field v-slot="{ field, meta }" name="message" :rules="messageValidation">
               <div
                 class="fr-input-group"
                 :class="{
@@ -158,11 +153,7 @@
                   name="message"
                 />
                 <ErrorMessage v-slot="{ message }" name="message">
-                  <span
-                    v-if="message"
-                    role="alert"
-                    class="fr-error-text"
-                  >{{ message }}</span>
+                  <span v-if="message" role="alert" class="fr-error-text">{{ message }}</span>
                 </ErrorMessage>
               </div>
             </Field>
@@ -207,12 +198,21 @@ const linkValidity = ref('30')
 const linkCopied = ref(false)
 const hasSubmitted = ref(false)
 
-const { value: selectedShareType, errorMessage: shareTypeError, validate: validateShareType, resetField: resetShareType } = useField<string>('shareType', (value) => {
-  if (!value) {
-    return t('choice-required')
-  }
-  return true
-}, { initialValue: '' })
+const {
+  value: selectedShareType,
+  errorMessage: shareTypeError,
+  validate: validateShareType,
+  resetField: resetShareType
+} = useField<string>(
+  'shareType',
+  (value) => {
+    if (!value) {
+      return t('choice-required')
+    }
+    return true
+  },
+  { initialValue: '' }
+)
 
 const shareTypeOptions = computed(() => [
   { value: '', text: t('select-option'), disabled: true },
@@ -272,42 +272,41 @@ const messageValidation = (value: unknown) => {
 const copyLinkBtn = useTemplateRef('copy-link')
 const tabsRef = useTemplateRef('tabsRef')
 
-
 // Ensure proper initialization for accessibility
 // This is a redundant logic that is normally handled by the DSFR tabs component
 // There is a bug regarding the focus on tabs that don't work as expected
-// This is due to a mismatch between the activeTab (DsfrTabs) and isVisible (DsfrTabs, DsfrTabItem) properties 
+// This is due to a mismatch between the activeTab (DsfrTabs) and isVisible (DsfrTabs, DsfrTabItem) properties
 onMounted(() => {
-    activeTab.value = 0
-    if (tabsRef.value?.$el) {
-      const tabButtons = tabsRef.value.$el.querySelectorAll('[role="tab"]')
-      
-      tabButtons.forEach((button: Element, index: number) => {
-        const newButton = button.cloneNode(true) as HTMLElement
-        button.parentNode?.replaceChild(newButton, button)
-        
-        newButton.addEventListener('keydown', (e: Event) => {
-          const event = e as KeyboardEvent
-          const currentIndex = Array.from(tabButtons).indexOf(button as Element)
-          
-          if (event.key === 'ArrowRight') {
-            event.preventDefault()
-            const nextIndex = (currentIndex + 1) % tabButtons.length
-            activeTab.value = nextIndex
-            ;(tabButtons[nextIndex] as HTMLElement).focus()
-          } else if (event.key === 'ArrowLeft') {
-            event.preventDefault()
-            const prevIndex = (currentIndex - 1 + tabButtons.length) % tabButtons.length
-            activeTab.value = prevIndex
-            ;(tabButtons[prevIndex] as HTMLElement).focus()
-          }
-        })
-        
-        newButton.addEventListener('click', () => {
-          activeTab.value = index
-        })
+  activeTab.value = 0
+  if (tabsRef.value?.$el) {
+    const tabButtons = tabsRef.value.$el.querySelectorAll('[role="tab"]')
+
+    tabButtons.forEach((button: Element, index: number) => {
+      const newButton = button.cloneNode(true) as HTMLElement
+      button.parentNode?.replaceChild(newButton, button)
+
+      newButton.addEventListener('keydown', (e: Event) => {
+        const event = e as KeyboardEvent
+        const currentIndex = Array.from(tabButtons).indexOf(button)
+
+        if (event.key === 'ArrowRight') {
+          event.preventDefault()
+          const nextIndex = (currentIndex + 1) % tabButtons.length
+          activeTab.value = nextIndex
+          ;(tabButtons[nextIndex] as HTMLElement).focus()
+        } else if (event.key === 'ArrowLeft') {
+          event.preventDefault()
+          const prevIndex = (currentIndex - 1 + tabButtons.length) % tabButtons.length
+          activeTab.value = prevIndex
+          ;(tabButtons[prevIndex] as HTMLElement).focus()
+        }
       })
-    }
+
+      newButton.addEventListener('click', () => {
+        activeTab.value = index
+      })
+    })
+  }
 })
 
 const tabTitles = computed(() => [
@@ -328,14 +327,11 @@ const toString = (value: FormDataEntryValue | null) =>
 
 async function handleFormSubmit(event: Event) {
   hasSubmitted.value = true
-  const [formValidation, shareTypeValidation] = await Promise.all([
-    validate(),
-    validateShareType()
-  ])
+  const [formValidation, shareTypeValidation] = await Promise.all([validate(), validateShareType()])
   if (!formValidation.valid || !shareTypeValidation.valid) {
     return
   }
-  
+
   await submit(event)
 }
 
@@ -408,19 +404,19 @@ async function copyLink() {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header-section {
   display: grid;
   grid-template-areas:
-    "title"
-    "reminder"
-    "button";
+    'title'
+    'reminder'
+    'button';
   gap: 1rem;
 
   @media (min-width: 768px) {
     grid-template-areas:
-      "title button"
-      "reminder reminder";
+      'title button'
+      'reminder reminder';
     grid-template-columns: 1fr auto;
     align-items: center;
     gap: 0;
@@ -433,7 +429,7 @@ async function copyLink() {
   .view-file-btn {
     grid-area: button;
     margin-bottom: 1.5rem;
-    
+
     @media (min-width: 768px) {
       margin-bottom: 0;
     }
@@ -442,11 +438,11 @@ async function copyLink() {
   .reminder-msg {
     grid-area: reminder;
     margin-bottom: 0;
-    
+
     @media (min-width: 768px) {
       margin-bottom: 1.5rem;
     }
-    
+
     .reminder-content {
       display: inline;
     }
@@ -510,7 +506,7 @@ async function copyLink() {
 }
 
 .link-copied-message {
-  color: #18753C;
+  color: #18753c;
   font-weight: 700;
   line-height: 24px;
   margin: 0;
@@ -555,7 +551,7 @@ async function copyLink() {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "or": "OR",
@@ -590,7 +586,7 @@ async function copyLink() {
     "choice-required": "A choice is required.",
     "message-required": "A message is required.",
     "share-type-without-docs": "Information about your situation, without supporting documents.",
-    "share-type-with-docs": "Your complete file, with supporting documents",
+    "share-type-with-docs": "Your complete file, with supporting documents"
   },
   "fr": {
     "or": "OU",
@@ -626,7 +622,7 @@ async function copyLink() {
     "invalid-email": "Veuillez saisir une adresse email valide.",
     "message-required": "Un message est requis.",
     "share-type-without-docs": "Les informations sur votre situation, sans pièces justificatives.",
-    "share-type-with-docs": "Votre dossier complet, avec pièces justificatives",
+    "share-type-with-docs": "Votre dossier complet, avec pièces justificatives"
   }
 }
 </i18n>

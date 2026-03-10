@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import RegisterComponent from './account/RegisterComponent.vue'
 import useOwnerStore from '../store/owner-store'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const { t } = useI18n()
 const store = useOwnerStore()
@@ -13,11 +13,6 @@ const toast = useToast()
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 
 const isValidModalVisible = ref(false)
-
-function closeModal() {
-  isValidModalVisible.value = false
-  window.location.replace(MAIN_URL)
-}
 
 function onRegister(data: { email: string; password: string }) {
   if (data.email && data.password) {
@@ -79,22 +74,15 @@ function onRegister(data: { email: string; password: string }) {
         </div>
       </div>
     </div>
-    <Modal v-show="isValidModalVisible" @close="closeModal">
-      <template #body>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-12">
-              <p>
-                {{ t('signuppage.mail-sent') }}
-              </p>
-              <p>
-                {{ t('signuppage.clic-to-confirm') }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
+    <DsfrModalPatch
+      v-model:is-opened="isValidModalVisible"
+      :title="t('signuppage.mail-sent')"
+      size="lg"
+    >
+      <p>
+        {{ t('signuppage.clic-to-confirm') }}
+      </p>
+    </DsfrModalPatch>
   </div>
 </template>
 

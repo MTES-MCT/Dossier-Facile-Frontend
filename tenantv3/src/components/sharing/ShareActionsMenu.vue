@@ -1,45 +1,26 @@
 <template>
-  <div class="actions-menu" ref="menuContainer">
+  <div ref="menuContainer" class="actions-menu">
     <button
       type="button"
       class="actions-button"
-      @click="toggleMenu"
       :aria-expanded="isOpen"
       aria-haspopup="true"
+      @click="toggleMenu"
     >
       <span class="actions-text">{{ t('actions') }}</span>
-      <RiArrowUpSLine
-        v-if="isOpen"
-        aria-hidden="true"
-        size="16px"
-        class="arrow-icon"
-      />
-      <RiArrowDownSLine
-        v-else
-        aria-hidden="true"
-        size="16px"
-        class="arrow-icon"
-      />
+      <RiArrowUpSLine v-if="isOpen" aria-hidden="true" size="16px" class="arrow-icon" />
+      <RiArrowDownSLine v-else aria-hidden="true" size="16px" class="arrow-icon" />
     </button>
-    
+
     <div v-if="isOpen" class="dropdown-menu">
       <!-- Options for LINK type -->
       <template v-if="linkType === 'LINK'">
-        <button
-          v-if="enabled"
-          type="button"
-          class="menu-item"
-          @click="handleCopyLink"
-        >
+        <button v-if="enabled" type="button" class="menu-item" @click="handleCopyLink">
           <RiFileCopyLine aria-hidden="true" size="16px" class="menu-icon" />
           <span>{{ t('copy-the-link') }}</span>
         </button>
-        
-        <button
-          type="button"
-          class="menu-item"
-          @click="handleTogglePause"
-        >
+
+        <button type="button" class="menu-item" @click="handleTogglePause">
           <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
           <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
           <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
@@ -48,21 +29,12 @@
 
       <!-- Options for MAIL type -->
       <template v-if="linkType === 'MAIL'">
-        <button
-          v-if="enabled"
-          type="button"
-          class="menu-item"
-          @click="handleResendMail"
-        >
+        <button v-if="enabled" type="button" class="menu-item" @click="handleResendMail">
           <RiSendPlaneLine aria-hidden="true" size="16px" class="menu-icon" />
           <span>{{ t('resend-mail') }}</span>
         </button>
-        
-        <button
-          type="button"
-          class="menu-item"
-          @click="handleTogglePause"
-        >
+
+        <button type="button" class="menu-item" @click="handleTogglePause">
           <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
           <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
           <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
@@ -71,50 +43,31 @@
 
       <!-- Options for OWNER/PARTNER type -->
       <template v-if="linkType === 'OWNER' || linkType === 'PARTNER'">
-        <button
-          type="button"
-          class="menu-item"
-          @click="handleTogglePause"
-        >
+        <button type="button" class="menu-item" @click="handleTogglePause">
           <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
           <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
           <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
         </button>
       </template>
-      
-      <button
-        type="button"
-        class="menu-item delete-item"
-        @click.stop="handleDelete"
-      >
+
+      <button type="button" class="menu-item delete-item" @click.stop="handleDelete">
         <RiDeleteBinLine aria-hidden="true" size="16px" class="menu-icon" />
         <span>{{ t('delete-sharing') }}</span>
       </button>
     </div>
-    <!-- TODO : check when ModalComponent is updated for a11y compliance -->
-    <ModalComponent v-if="isDeleteModalOpen" @close="closeDeleteModal">
-      <template #header>
-        <h4>{{ t('delete-confirmation-title') }}</h4>
-      </template>
-      <template #body>
+    <DsfrModalPatch
+      v-model:is-opened="isDeleteModalOpen"
+      :title="t('delete-confirmation-title')"
+      :actions="modalActions"
+      size="xl"
+    >
       <p>{{ t('delete-confirmation-message') }}</p>
-      </template>
-      <template #footer>
-        <ul class="fr-btns-group fr-btns-group--inline-md">
-          <li>
-            <DfButton @click="closeDeleteModal">{{ t('cancel') }}</DfButton>
-          </li>
-          <li>
-            <DfButton primary @click="confirmDelete">{{ t('confirm-delete') }}</DfButton>
-          </li>
-        </ul>
-      </template>
-    </ModalComponent>
+    </DsfrModalPatch>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, type ComputedRef } from 'vue'
 import {
   RiArrowDownSLine,
   RiArrowUpSLine,
@@ -125,9 +78,9 @@ import {
   RiSendPlaneLine
 } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
-import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 
 const props = defineProps<{
   enabled?: boolean
@@ -144,9 +97,25 @@ const emit = defineEmits<{
 const { t } = useI18n()
 
 const isOpen = ref(false)
+
 const isDeleteModalOpen = ref(false)
-const canCloseModalOnClickOutside = ref(false)
-const menuContainer = ref<HTMLElement>()
+const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
+  {
+    label: t('cancel'),
+    type: 'button',
+    secondary: true,
+    onClick() {
+      isDeleteModalOpen.value = false
+    }
+  },
+  {
+    label: t('confirm-delete'),
+    type: 'button',
+    onClick() {
+      confirmDelete()
+    }
+  }
+])
 
 const toggleMenu = () => {
   isOpen.value = !isOpen.value
@@ -178,56 +147,11 @@ const handleDelete = () => {
   closeMenu()
 }
 
-const closeDeleteModal = () => {
-  isDeleteModalOpen.value = false
-  canCloseModalOnClickOutside.value = false
-}
-
-// Activer la fermeture sur clic extérieur après un court délai
-// pour éviter que le clic initial sur "Supprimer" ne ferme la modale
-watch(isDeleteModalOpen, (newValue) => {
-  document.body.style.overflow = newValue ? 'hidden' : ''
-  if (newValue) {
-    setTimeout(() => {
-      canCloseModalOnClickOutside.value = true
-    }, 100)
-  }
-})
-
 const confirmDelete = () => {
   AnalyticsService.sharingAction('delete')
   emit('delete')
-  closeDeleteModal()
+  isDeleteModalOpen.value = false
 }
-
-const handleClickOutside = (event: MouseEvent) => {
-  const target = event.target as HTMLElement
-  
-  // Fermer la modale si on clique sur le backdrop (en dehors du contenu)
-  if (isDeleteModalOpen.value && canCloseModalOnClickOutside.value) {
-    // Vérifier si le clic est sur le backdrop (pas sur le contenu de la modale)
-    if (target.classList.contains('modal-backdrop')) {
-      closeDeleteModal()
-      return
-    }
-  }
-  
-  // Ne pas fermer le menu si la modale de suppression est ouverte
-  if (isDeleteModalOpen.value) {
-    return
-  }
-  if (menuContainer.value && !menuContainer.value.contains(target)) {
-    closeMenu()
-  }
-}
-
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
 </script>
 
 <style scoped>
@@ -237,8 +161,8 @@ onUnmounted(() => {
 }
 
 .actions-button {
-  background-color: #FFFFFF;
-  border: 1px solid #DDDDDD;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
   padding: 4px 8px;
   display: flex;
   align-items: center;
@@ -251,8 +175,8 @@ onUnmounted(() => {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
-.actions-button[aria-expanded="true"] {
-  background-color: #E3E3FD;
+.actions-button[aria-expanded='true'] {
+  background-color: #e3e3fd;
 }
 
 .actions-text {
@@ -275,8 +199,8 @@ onUnmounted(() => {
   left: 0;
   width: 282px;
   max-height: 430px;
-  background-color: #FFFFFF;
-  border-top: 1px solid #E3E3FD;
+  background-color: #ffffff;
+  border-top: 1px solid #e3e3fd;
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 18, 0.16);
   overflow: hidden;
   z-index: 1000;
