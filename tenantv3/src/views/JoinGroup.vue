@@ -7,8 +7,9 @@
     <ConfirmModal
       v-model:is-opened="isLoggedIn"
       :title="t('joingroup.already-logged')"
-      @valid="logout()"
-      @cancel="redirect()"
+      @valid="logout"
+      @cancel="redirect"
+      @close="redirect"
     />
   </div>
 </template>

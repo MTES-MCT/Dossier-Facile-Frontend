@@ -5,6 +5,7 @@
     :title="title"
     :actions="modalActions"
     size="lg"
+    @close="$emit('close')"
   >
     <slot />
   </DsfrModalPatch>
