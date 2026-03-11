@@ -1149,7 +1149,7 @@ async function handleProtectedRoute(to: RouteLocationNormalized): Promise<boolea
           await store.loadUser()
           store.updateMessages()
         } catch {
-          await keycloak.logout({ redirectUri: window.location.origin })
+          keycloak.clearToken()
           return false
         }
       }
