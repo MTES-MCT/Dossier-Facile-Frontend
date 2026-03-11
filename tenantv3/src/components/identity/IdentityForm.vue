@@ -94,7 +94,7 @@ const placeHolderIdentity = {
 if (props.textKey === 'self' && user.value?.franceConnectIdentity) {
   placeHolderIdentity.lastName = user.value.franceConnectIdentity.lastName
   placeHolderIdentity.firstName = user.value.franceConnectIdentity.firstName
-  placeHolderIdentity.preferredName = user.value.franceConnectIdentity.preferredName || ''
+  placeHolderIdentity.preferredName ||= user.value.franceConnectIdentity.preferredName || ''
 }
 
 if (
