@@ -381,7 +381,8 @@ export const useTenantStore = defineStore('tenant', {
       if (user.lastName && !this.isFranceConnected) {
         user.lastName = UtilsService.capitalize(user.lastName)
       }
-      if (user.preferredName && !this.isFranceConnected) {
+      // let the user change or delete their preferred name
+      if (user.preferredName) {
         user.preferredName = UtilsService.capitalize(user.preferredName)
       }
       const response = await ProfileService.saveNames(user)
