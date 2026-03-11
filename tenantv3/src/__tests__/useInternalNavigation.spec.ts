@@ -22,7 +22,7 @@ describe('useHandleValidationNavigation', () => {
     mockRoute = {
       query: {}
     }
-    vi.mocked(useRoute).mockReturnValue(mockRoute as any)
+    vi.mocked(useRoute).mockReturnValue(mockRoute)
   })
 
   describe('handleValidationNavigation', () => {

@@ -137,7 +137,12 @@ import { useLoading } from 'vue-loading-overlay'
 import { useTaxState } from './taxState'
 
 const props = withDefaults(
-  defineProps<{ category: TaxCategory; step?: TaxCategoryStep; explanation?: string; showPreValidation?: boolean }>(),
+  defineProps<{
+    category: TaxCategory
+    step?: TaxCategoryStep
+    explanation?: string
+    showPreValidation?: boolean
+  }>(),
   { showPreValidation: true }
 )
 
@@ -170,13 +175,14 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
 const store = useTenantStore()
 const taxState = useTaxState()
 const fileUpload = useTemplateRef('file-upload')
-const explainSection = useTemplateRef<HTMLElement>('explain-section')
 const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
 const { t } = useI18n()
 
 const taxDocument = taxState.document
 const documentStatus = computed(() => taxDocument.value?.documentStatus)
-const analysisFailedRules = ref<DocumentRule[]>(taxDocument.value?.documentAnalysisReport?.failedRules ?? [])
+const analysisFailedRules = ref<DocumentRule[]>(
+  taxDocument.value?.documentAnalysisReport?.failedRules ?? []
+)
 const analysisInProgress = ref(false)
 const isUploading = computed(() => fileUploadStatus.value === UploadStatus.STATUS_SAVING)
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)

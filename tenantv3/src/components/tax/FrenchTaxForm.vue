@@ -4,7 +4,9 @@
   <BackLinkRow :label="t('french')" :to="parent" />
   <div v-if="analysisErrorCount > 0" class="error-badge fr-mb-2w">
     <VIcon name="ri:alert-fill" class="badge-icon" aria-hidden="true" color="#b34000" />
-    <span class="badge-text">{{ t('errors-count', { count: analysisErrorCount }, analysisErrorCount) }}</span>
+    <span class="badge-text">{{
+      t('errors-count', { count: analysisErrorCount }, analysisErrorCount)
+    }}</span>
   </div>
   <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
     <strong>{{ t('this-year-tax', [taxYear, taxYear - 1]) }}</strong>
@@ -59,25 +61,30 @@
     <img :src="avisOK" alt="" width="600" height="850" />
   </DsfrModalPatch>
 
-  <UploadFilesTax ref="upload-files-tax" category="MY_NAME" step="TAX_FRENCH_NOTICE" :show-pre-validation="false"@analysis-error="focusBanners" />
+  <UploadFilesTax
+    ref="upload-files-tax"
+    category="MY_NAME"
+    step="TAX_FRENCH_NOTICE"
+    :show-pre-validation="false"
+    @analysis-error="focusBanners"
+  />
   <TaxFooter :next-disabled="nextDisabled" :next-label="nextLabel" :before-submit="beforeSubmit" />
 </template>
 
 <script setup lang="ts">
-import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
-import { useParentRoute } from '@/components/common/lib/useParentRoute'
-import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
-import { useI18n } from 'vue-i18n'
-import { DsfrAlert, VIcon } from '@gouvminint/vue-dsfr'
-import { taxYear } from './lib/taxYear'
-import { computed, ref, useTemplateRef } from 'vue'
-import avisOK from '@/assets/avis_ok.png'
 import avisKO from '@/assets/avis_ko.png'
+import avisOK from '@/assets/avis_ok.png'
+import { useParentRoute } from '@/components/common/lib/useParentRoute'
+import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
+import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
+import { DsfrAlert, DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import { computed, ref, useTemplateRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 import TaxAnalysisBanners from './lib/TaxAnalysisBanners.vue'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 import { useTaxState } from './lib/taxState'
-import { DsfrAlert, DsfrButton } from '@gouvminint/vue-dsfr'
-import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import { taxYear } from './lib/taxYear'
 
 const { t } = useI18n()
 const parent = useParentRoute()
