@@ -54,7 +54,7 @@ useHead({
 
 <style lang="scss">
 @use 'df-shared-next/src/scss/_main.scss';
-* #app {
+#app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
