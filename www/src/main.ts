@@ -9,6 +9,14 @@ import * as Sentry from '@sentry/vue'
 import routes from './router/index'
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
 
+import '@gouvfr/dsfr/dist/core/core.main.min.css'
+import '@gouvfr/dsfr/dist/utility/utility.main.min.css'
+import '@gouvfr/dsfr/dist/utility/colors/colors.min.css'
+import '@gouvfr/dsfr/dist/utility/icons/icons.min.css'
+import '@gouvfr/dsfr/dist/component/component.main.min.css'
+import '@gouvminint/vue-dsfr/styles'
+import 'vue3-toastify/dist/index.css'
+
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 const IS_CLIENT = !import.meta.env.SSR

@@ -15,7 +15,7 @@ function defaultState(): State {
 
 const initialStore = defaultState()
 
-const useOwnerStore = defineStore('www', {
+const useWWWStore = defineStore('www', {
   state: (): State => ({ ...initialStore }),
   getters: {},
   actions: {
@@ -37,4 +37,4 @@ const useOwnerStore = defineStore('www', {
   }
 })
 
-export default useOwnerStore
+export default useWWWStore

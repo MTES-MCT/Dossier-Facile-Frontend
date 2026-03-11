@@ -20,34 +20,37 @@
         >
           <div class="message" v-html="addIcons(m.messageBody)" />
           <div v-if="m.typeMessage === 'FROM_TENANT'" class="avatar tenant">
-            <RiUserFill size="46" color="#000091" aria-hidden="true" />
+            <VIcon icon="ri:user-fill" scale="2.25" color="#000091" />
             <span>{{ t('you') }}</span>
           </div>
           <div v-else-if="m.typeMessage === 'TO_TENANT'" class="avatar operator">
-            <RiGroupFill size="46" color="#000091" aria-hidden="true" />
+            <VIcon icon="ri:group-fill" scale="2.25" color="#000091" />
             <span>{{ t('team-df') }}</span>
           </div>
         </div>
       </template>
     </div>
 
-    <DfButton
+    <DsfrButton
       v-if="showNextMessageButton"
-      type="button"
+      :label="t('display-previous-msg')"
+      secondary
       class="next-message"
       @click="nbOfMessages++"
-      >{{ t('display-previous-msg') }}</DfButton
-    >
+    />
 
     <hr class="fr-mb-3w" />
 
     <form class="submit-form" name="form" @submit.prevent="handleSubmit">
       <h3 class="answer-title">{{ t('reply') }}</h3>
       <div class="fr-grid-row">
-        <div class="fr-col-12 fr-mb-3w">
+        <div class="fr-input-group fr-col-12">
+          <FieldLabel required for-input="sendMessage">{{ t('label') }}</FieldLabel>
           <textarea
+            id="sendMessage"
             v-model="sendMessage"
             class="sendMessage form-control fr-input"
+            required
             autocomplete="off"
             rows="4"
             name="sendMessage"
@@ -56,7 +59,7 @@
 
         <p class="advice">{{ t('advice') }}</p>
         <div class="fr-col-12 fr-mb-5w">
-          <button class="fr-btn" type="submit" :disabled="!sendMessage">
+          <button class="fr-btn" type="submit" :aria-disabled="!sendMessage">
             {{ t('send-message') }}
           </button>
         </div>
@@ -75,9 +78,9 @@ import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import isToday from 'dayjs/plugin/isToday'
 import isYesterday from 'dayjs/plugin/isYesterday'
 import dayjs from 'dayjs'
-import { RiGroupFill, RiUserFill } from '@remixicon/vue'
 import ErrorWarningIcon from '@/assets/error-warning.svg?raw'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 dayjs.extend(isToday)
 dayjs.extend(isYesterday)
 
@@ -324,7 +327,7 @@ const addIcons = (html: string | undefined) =>
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "fr": {
     "overview": "Aperçu des documents refusés",
@@ -335,7 +338,8 @@ const addIcons = (html: string | undefined) =>
     "advice": "Le temps de traitement d'un message est le même que celui d'un dossier. Nous vous recommandons donc de ne pas envoyer de message sans modifier vos documents pour ne pas perdre de temps.",
     "reply": "Répondre dans la messagerie",
     "today": "Aujourd'hui à",
-    "yesterday": "Hier à"
+    "yesterday": "Hier à",
+    "label": "Votre message"
   },
   "en": {
     "overview": "Overview of rejected documents",
@@ -346,7 +350,8 @@ const addIcons = (html: string | undefined) =>
     "advice": "The processing time for a message is the same as for a file. We therefore recommend that you do not send a message without modifying your documents, to avoid wasting time.",
     "reply": "Reply in messaging",
     "today": "Today at",
-    "yesterday": "Yesterday at"
+    "yesterday": "Yesterday at",
+    "label": "Your message"
   }
 }
 </i18n>

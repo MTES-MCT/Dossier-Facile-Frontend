@@ -7,17 +7,17 @@ import WwwMenu from './components/WwwMenu.vue'
 import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
 import { onBeforeMount } from 'vue'
-import Cookies from 'js-cookie'
-import i18n from './i18n'
+import cookies from 'js-cookie'
 import { useHead } from '@unhead/vue'
+import useWWWStore from './stores/www-store'
 
 const MESSAGE = import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''
 const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
 
 onBeforeMount(() => {
-  const lang = Cookies.get('lang') === 'en' ? 'en' : 'fr'
-  i18n.global.locale.value = lang
-  i18n.global.fallbackLocale.value = 'fr'
+  const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
+  const store = useWWWStore()
+  store.setLang(lang)
 })
 
 // SEO defaults
@@ -43,7 +43,7 @@ useHead({
     <WwwMenu />
   </HeaderComponent>
   <div id="content">
-    <Announcement :message="MESSAGE"></Announcement>
+    <Announcement :message="MESSAGE" />
     <main class="page" role="main">
       <RouterView />
       <FollowSocials />
@@ -54,11 +54,7 @@ useHead({
 
 <style lang="scss">
 @use 'df-shared-next/src/scss/_main.scss';
-@import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
-@import '@gouvfr/dsfr/dist/utility/colors/colors.min.css';
-@import 'vue3-toastify/dist/index.css';
-
-#app {
+* #app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
