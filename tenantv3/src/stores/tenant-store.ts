@@ -374,15 +374,14 @@ export const useTenantStore = defineStore('tenant', {
       return response.data
     },
     async setNames(user: CoTenant) {
-      // If the user is franceconnected we can not modify the names, so we don't capitalize them
-      if (user.firstName && !this.isFranceConnected) {
+      // If the user is franceconnected we can not modify the names, so we don't capitalize them except for third party
+      if (user.firstName && (!this.isFranceConnected || user.ownerType === 'THIRD_PARTY')) {
         user.firstName = UtilsService.capitalize(user.firstName)
       }
-      if (user.lastName && !this.isFranceConnected) {
+      if (user.lastName && (!this.isFranceConnected || user.ownerType === 'THIRD_PARTY')) {
         user.lastName = UtilsService.capitalize(user.lastName)
       }
-      // let the user change or delete their preferred name
-      if (user.preferredName) {
+      if (user.preferredName && (!this.isFranceConnected || user.ownerType === 'THIRD_PARTY')) {
         user.preferredName = UtilsService.capitalize(user.preferredName)
       }
       const response = await ProfileService.saveNames(user)

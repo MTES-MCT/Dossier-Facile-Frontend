@@ -9,13 +9,13 @@
       validation-rules="required|onlyAlpha"
       :readonly="isInputDisabled"
     />
-
     <TextField
       v-model.trim="preferredname"
       :field-label="t('common.preferred-name-label')"
       name="preferredName"
       autocomplete="new-password"
       validation-rules="onlyAlpha"
+      :readonly="isInputDisabled"
     />
     <TextField
       v-model.trim="firstname"
@@ -61,7 +61,6 @@ import { Form, Field } from 'vee-validate'
 import ProfileFooter from '../footer/ProfileFooter.vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '@/stores/tenant-store'
-import { UtilsService } from '@/services/UtilsService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { router } from '@/router'
 import { useLoading } from 'vue-loading-overlay'
@@ -81,7 +80,7 @@ const user = computed(() => store.user)
 const placeHolderIdentity = {
   lastName: user.value?.lastName || '',
   firstName: user.value?.firstName || '',
-  preferredName: UtilsService.capitalize(user.value?.preferredName || ''),
+  preferredName: user.value?.preferredName || '',
   postalCode: user.value?.zipCode || ''
 }
 
@@ -89,7 +88,7 @@ const placeHolderIdentity = {
 if (props.textKey === 'self' && user.value?.franceConnectIdentity) {
   placeHolderIdentity.lastName = user.value.franceConnectIdentity.lastName
   placeHolderIdentity.firstName = user.value.franceConnectIdentity.firstName
-  placeHolderIdentity.preferredName ||= user.value.franceConnectIdentity.preferredName || ''
+  placeHolderIdentity.preferredName = user.value.franceConnectIdentity.preferredName || ''
 }
 
 if (
