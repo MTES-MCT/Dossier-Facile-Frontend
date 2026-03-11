@@ -39,7 +39,9 @@ vi.mock('@/services/AnalyticsService', () => ({
     deleteDocument: vi.fn(),
     cancelDelete: vi.fn(),
     deleteFile: vi.fn(),
-    removeDeniedDocument: vi.fn()
+    removeDeniedDocument: vi.fn(),
+    document_analysis_save_comment: vi.fn(),
+    document_analysis_timeout: vi.fn()
   }
 }))
 
