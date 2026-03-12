@@ -1,21 +1,27 @@
 <template>
   <h2 class="fr-h6">{{ t(textKey + '.title') }}</h2>
-  <Form v-slot="{ meta }" class="fr-input-group" @submit="onSubmit">
+  <DsfrAlert
+    v-if="isInputDisabled"
+    id="form-description"
+    small
+    :description="t('self.france-connected')"
+  />
+  <Form v-slot="{ meta }" class="fr-mt-3w" aria-describedby="form-description" @submit="onSubmit">
     <TextField
       v-model.trim="lastname"
       :field-label="t('common.last-name-label')"
       name="lastname"
       autocomplete="family-name"
       validation-rules="required|onlyAlpha"
-      :disabled="isInputDisabled"
+      :readonly="isInputDisabled"
     />
-
     <TextField
       v-model.trim="preferredname"
       :field-label="t('common.preferred-name-label')"
       name="preferredName"
       autocomplete="new-password"
       validation-rules="onlyAlpha"
+      :readonly="isInputDisabled"
     />
     <TextField
       v-model.trim="firstname"
@@ -23,7 +29,7 @@
       name="firstName"
       autocomplete="given-name"
       validation-rules="required|onlyAlpha"
-      :disabled="isInputDisabled"
+      :readonly="isInputDisabled"
     />
 
     <TextField
@@ -61,12 +67,11 @@ import { Form, Field } from 'vee-validate'
 import ProfileFooter from '../footer/ProfileFooter.vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '@/stores/tenant-store'
-import { UtilsService } from '@/services/UtilsService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { router } from '@/router'
 import { useLoading } from 'vue-loading-overlay'
 import TextField from '../form/TextField.vue'
-import { DsfrCheckbox } from '@gouvminint/vue-dsfr'
+import { DsfrCheckbox, DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const props = defineProps<{
   textKey: 'self' | 'third-party'
@@ -81,7 +86,7 @@ const user = computed(() => store.user)
 const placeHolderIdentity = {
   lastName: user.value?.lastName || '',
   firstName: user.value?.firstName || '',
-  preferredName: UtilsService.capitalize(user.value?.preferredName || ''),
+  preferredName: user.value?.preferredName || '',
   postalCode: user.value?.zipCode || ''
 }
 
@@ -159,42 +164,44 @@ const onSubmit = () => {
 }
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
-    common: {
-      last-name-label: "Last Name",
-      add-prefered-name: "Add a preferred name",
-      preferred-name-label: "Preferred Name",
-      delete-preferred-name: "Delete preferred name",
-      first-name-label: "First Name",
+    "common": {
+      "last-name-label": "Last Name",
+      "add-prefered-name": "Add a preferred name",
+      "preferred-name-label": "Preferred Name",
+      "delete-preferred-name": "Delete preferred name",
+      "first-name-label": "First Name"
     },
-    self: {
-      title: "Your Identity",
-      postal-code-label: "Postal Code (only if you reside in France)"
+    "self": {
+      "title": "Your Identity",
+      "france-connected": "You cannot change your identity while connected with France Connect.",
+      "postal-code-label": "Postal Code (only if you reside in France)"
     },
-    third-party: {
-      title: "Beneficiary's Identity",
-      checkbox-label: "I certify that I have obtained {lastName}'s consent to create and submit this file on their behalf. I attest that the information provided is accurate and that the documents submitted were obtained with their consent.",
-      postal-code-label: "Postal Code (only if he reside in France)"
+    "third-party": {
+      "title": "Beneficiary's Identity",
+      "checkbox-label": "I certify that I have obtained {lastName}'s consent to create and submit this file on their behalf. I attest that the information provided is accurate and that the documents submitted were obtained with their consent.",
+      "postal-code-label": "Postal Code (only if he reside in France)"
     }
   },
   "fr": {
-    common: {
-      last-name-label: "Nom de naissance",
-      add-prefered-name: "Ajouter un nom d'usage",
-      preferred-name-label: "Nom d'usage",
-      delete-preferred-name: "Supprimer le nom d'usage",
-      first-name-label: "Prénom",
+    "common": {
+      "last-name-label": "Nom de naissance",
+      "add-prefered-name": "Ajouter un nom d'usage",
+      "preferred-name-label": "Nom d'usage",
+      "delete-preferred-name": "Supprimer le nom d'usage",
+      "first-name-label": "Prénom"
     },
-    self: {
-      title: "Votre identité",
-      postal-code-label: "Code postal (uniquement si vous résidez en France)"
+    "self": {
+      "title": "Votre identité",
+      "france-connected": "Vous ne pouvez pas modifier votre identité en étant connecté via France Connect.",
+      "postal-code-label": "Code postal (uniquement si vous résidez en France)"
     },
-    third-party: {
-      title: "Identité du bénéficiaire",
-      checkbox-label: "Je certifie avoir obtenu l'accord de {lastName} {firstName} pour constituer et soumettre ce dossier en son nom. J'atteste que les informations fournies sont exactes et que les documents transmis ont été obtenus avec son consentement.",
-      postal-code-label: "Code postal (uniquement si il réside en France)"
+    "third-party": {
+      "title": "Identité du bénéficiaire",
+      "checkbox-label": "Je certifie avoir obtenu l'accord de {lastName} {firstName} pour constituer et soumettre ce dossier en son nom. J'atteste que les informations fournies sont exactes et que les documents transmis ont été obtenus avec son consentement.",
+      "postal-code-label": "Code postal (uniquement si il réside en France)"
     }
   }
 }
