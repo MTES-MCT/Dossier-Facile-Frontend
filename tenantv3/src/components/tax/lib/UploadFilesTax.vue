@@ -33,56 +33,6 @@
     :page="4"
     @add-files="addFiles"
   ></FileUpload>
-  <div
-    v-if="analysisFailedRules.length > 0"
-    ref="explain-section"
-    class="explain-section"
-    tabindex="-1"
-  >
-    <div class="separator">
-      <div class="separator-line"></div>
-      <span class="separator-text">{{ t('or') }}</span>
-      <div class="separator-line"></div>
-    </div>
-    <button
-      type="button"
-      class="fr-btn fr-btn--secondary explain-btn"
-      @click="openExplainSection(false)"
-    >
-      {{ t('explain-situation') }}
-    </button>
-    <div v-if="showExplainForm" class="explain-form">
-      <div class="fr-input-group" :class="{ 'fr-input-group--error': showExplainError }">
-        <label for="explainText" class="fr-label">{{ t('explain-question') }}</label>
-        <textarea
-          id="explainText"
-          ref="explainTextarea"
-          v-model="explainText"
-          class="fr-input"
-          :class="{ 'fr-input--error': showExplainError }"
-          rows="5"
-          :placeholder="t('explain-placeholder')"
-          aria-describedby="explainText-error"
-        />
-        <p
-          v-if="showExplainError"
-          id="explainText-error"
-          aria-live="assertive"
-          class="fr-error-text"
-        >
-          {{ t('explain-error') }}
-        </p>
-      </div>
-      <p class="fr-info-text">
-        {{ t('explain-info') }}
-      </p>
-      <div class="explain-form-actions">
-        <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" @click="saveExplanation">
-          {{ t('explain-save') }}
-        </button>
-      </div>
-    </div>
-  </div>
   <DsfrModalPatch
     v-model:is-opened="isModalOpened"
     :title="t('avis-detected')"
@@ -110,7 +60,6 @@ import type { TaxCategory } from '@/components/documents/share/DocumentTypeConst
 import { toast } from '@/components/toast/toastUtils'
 import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '@/components/uploads/ListItem.vue'
-import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { PdfAnalysisService } from '@/services/PdfAnalysisService'
 import { RegisterService } from '@/services/RegisterService'
@@ -121,17 +70,8 @@ import { RiHourglassFill } from '@remixicon/vue'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import type { TaxCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
-import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
-import {
-  computed,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  useTemplateRef,
-  type ComputedRef
-} from 'vue'
+import { computed, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import { useTaxState } from './taxState'
@@ -141,25 +81,16 @@ const props = withDefaults(
     category: TaxCategory
     step?: TaxCategoryStep
     explanation?: string
+    analysisInProgress: boolean
     showPreValidation?: boolean
   }>(),
-  { showPreValidation: true }
+  { showPreValidation: true, analysisInProgress: false }
 )
 
-const emit = defineEmits<{
-  analysisError: []
-}>()
-
 const MAX_FILE_COUNT = 5
-const POLLING_INTERVAL_MS = 3000
-const POLLING_TIMEOUT_MS = 10000
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
-const showExplainForm = ref(false)
-const explainText = ref('')
-const explanationSubmitted = ref(false)
-const showExplainError = ref(false)
 
 const isModalOpened = ref(false)
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -175,85 +106,13 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
 const store = useTenantStore()
 const taxState = useTaxState()
 const fileUpload = useTemplateRef('file-upload')
-const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
+
 const { t } = useI18n()
 
 const taxDocument = taxState.document
 const documentStatus = computed(() => taxDocument.value?.documentStatus)
-const analysisFailedRules = ref<DocumentRule[]>(
-  taxDocument.value?.documentAnalysisReport?.failedRules ?? []
-)
-const analysisInProgress = ref(false)
+
 const isUploading = computed(() => fileUploadStatus.value === UploadStatus.STATUS_SAVING)
-const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
-const pollingTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
-const userInitiatedPolling = ref(false)
-
-function stopPolling() {
-  if (pollingInterval.value) {
-    clearInterval(pollingInterval.value)
-    pollingInterval.value = null
-  }
-  if (pollingTimeout.value) {
-    clearTimeout(pollingTimeout.value)
-    pollingTimeout.value = null
-  }
-}
-
-async function updateAnalysisStatus() {
-  const docId = taxDocument.value?.id
-  if (!docId) {
-    stopPolling()
-    return
-  }
-  try {
-    const { data } = await AnalysisService.getDocumentAnalysisStatus(docId)
-    if (data.status === AnalysisStatus.COMPLETED) {
-      analysisInProgress.value = false
-      const rules = data.analysisReport?.failedRules ?? []
-      analysisFailedRules.value = rules
-      if (userInitiatedPolling.value && rules.length > 0) {
-        await nextTick()
-        emit('analysisError')
-      }
-      stopPolling()
-    } else if (data.status === AnalysisStatus.NO_ANALYSIS_SCHEDULED) {
-      analysisInProgress.value = false
-      stopPolling()
-    } else if (data.status === AnalysisStatus.IN_PROGRESS) {
-      analysisInProgress.value = true
-    }
-    // IN_PROGRESS: polling continues
-  } catch {
-    analysisInProgress.value = false
-    analysisFailedRules.value = []
-    stopPolling()
-  }
-}
-
-function startPolling(userInitiated = false) {
-  stopPolling()
-  userInitiatedPolling.value = userInitiated
-  updateAnalysisStatus()
-  pollingInterval.value = setInterval(updateAnalysisStatus, POLLING_INTERVAL_MS)
-  pollingTimeout.value = setTimeout(() => {
-    AnalyticsService.document_analysis_timeout('tax')
-    analysisInProgress.value = false
-    stopPolling()
-  }, POLLING_TIMEOUT_MS)
-}
-
-onMounted(() => {
-  const existingComment = taxDocument.value?.documentAnalysisReport?.comment || ''
-  explainText.value = existingComment
-  explanationSubmitted.value = !!existingComment
-  showExplainForm.value = !!existingComment
-  startPolling()
-})
-
-onBeforeUnmount(() => {
-  stopPolling()
-})
 
 const taxFiles = computed(() => {
   const newFiles = files.value.map((f) => {
@@ -308,7 +167,6 @@ async function save(): Promise<boolean> {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       toast.success(t('file-saved'), fileUpload.value?.inputFile)
-      startPolling(true)
       return true
     })
     .catch((err) => {
@@ -334,43 +192,9 @@ async function addFiles(fileList: File[]) {
   save()
 }
 
-async function openExplainSection(isFromLink: boolean = true) {
-  if (isFromLink) {
-    AnalyticsService.document_analysis_show_comment_from_link('tax')
-  } else {
-    AnalyticsService.document_analysis_show_comment('tax')
-  }
-  showExplainForm.value = true
-  showExplainError.value = false
-  await nextTick()
-  explainTextarea.value?.focus()
-}
-
-function saveExplanation() {
-  if (!explainText.value.trim()) {
-    showExplainError.value = true
-    explainTextarea.value?.focus()
-    return
-  }
-  showExplainError.value = false
-  const params = {
-    documentId: taxDocument.value?.id,
-    tenantId: taxState.userId,
-    comment: explainText.value
-  }
-  AnalyticsService.document_analysis_save_comment('tax')
-  store.commentAnalysis(params).then(() => {
-    explanationSubmitted.value = true
-    toast.success(t('save-success'), undefined)
-  })
-}
-
 defineExpose({
-  analysisFailedRules,
-  explanationSubmitted,
-  analysisInProgress,
-  isUploading,
-  openExplainSection
+  taxDocument,
+  isUploading
 })
 
 async function remove(file: DfFile, silent = false) {
@@ -387,13 +211,6 @@ async function remove(file: DfFile, silent = false) {
     const firstIndex = files.value.findIndex((f) => f.name === file.name && !f.path)
     files.value.splice(firstIndex, 1)
   }
-  analysisInProgress.value = false
-  analysisFailedRules.value = []
-  showExplainForm.value = false
-  showExplainError.value = false
-  explainText.value = ''
-  explanationSubmitted.value = false
-  startPolling()
 }
 </script>
 
@@ -444,44 +261,6 @@ async function remove(file: DfFile, silent = false) {
   }
 }
 
-.explain-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1.5rem;
-}
-
-.separator {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
-.separator-line {
-  flex: 1;
-  height: 1px;
-  background-color: #ddd;
-}
-
-.separator-text {
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 28px;
-  color: #161616;
-}
-
-.explain-btn {
-  width: 100%;
-  justify-content: center;
-}
-
-.explain-form {
-  width: 100%;
-  margin-top: 1rem;
-}
-
 .fr-info-text {
   display: flex;
   align-items: flex-start;
@@ -514,14 +293,6 @@ ul {
 {
   "en": {
     "analysis-in-progress": "Analyzing documents. This usually takes less than 10 seconds.",
-    "or": "OR",
-    "explain-situation": "Explain my situation",
-    "explain-question": "What difficulty are you encountering to correct this error?",
-    "explain-placeholder": "Enter text",
-    "explain-info": "This explanation will be sent to our team only. It will not appear in your tenant file.",
-    "explain-save": "Save",
-    "explain-error": "Please describe your situation before saving.",
-    "save-success": "Your explanation has been saved",
     "avis-detected": "Declarative Situation Notice Detected",
     "avis-text1": "You have provided a declarative statement notice (see document title). This document is not valid. Please replace it with your tax assessment notice.",
     "avis-btn": "Submit a valid document",
@@ -529,14 +300,6 @@ ul {
   },
   "fr": {
     "analysis-in-progress": "Analyse des documents. Cela prend généralement moins de 10 secondes.",
-    "or": "OU",
-    "explain-situation": "Expliquer ma situation",
-    "explain-question": "Quelle difficulté rencontrez-vous pour corriger cette erreur ?",
-    "explain-placeholder": "Texte saisi",
-    "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
-    "explain-save": "Enregistrer",
-    "explain-error": "Veuillez décrire votre situation avant d'enregistrer.",
-    "save-success": "Votre explication a bien été enregistrée",
     "avis-detected": "Avis de situation déclarative détecté",
     "avis-text1": "Vous avez fourni un avis de situation déclarative (voir titre du document). Ce document n'est pas valide. Merci de le remplacer par votre avis d'imposition.",
     "avis-btn": "Déposer votre avis d'imposition",
