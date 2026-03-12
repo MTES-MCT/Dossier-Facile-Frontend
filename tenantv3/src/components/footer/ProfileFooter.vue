@@ -1,16 +1,15 @@
 <template>
-  <div>
-    <FooterContainer>
-      <BackNext
-        ref="back-next"
-        :show-back="showBack"
-        :next-label="nextLabel"
-        :disabled="disabled"
-        @on-next="nextAction()"
-        @on-back="backAction()"
-      ></BackNext>
-    </FooterContainer>
-  </div>
+  <FooterContainer class="profile-footer">
+    <BackNext
+      ref="back-next"
+      :show-back
+      :next-label
+      :disabled
+      :form-id
+      @on-next="nextAction()"
+      @on-back="backAction()"
+    />
+  </FooterContainer>
 </template>
 
 <script setup lang="ts">
@@ -23,17 +22,19 @@ withDefaults(
     showBack?: boolean
     disabled?: boolean
     nextLabel?: string
+    formId?: string
   }>(),
   {
     showBack: true,
     disabled: false,
-    nextLabel: undefined
+    nextLabel: undefined,
+    formId: undefined
   }
 )
 
 const emit = defineEmits<{ 'on-next': []; 'on-back': [] }>()
-const backNext = useTemplateRef('back-next')
-defineExpose({ nextBtn: computed(() => backNext.value?.nextBtn?.button) })
+const backNext = useTemplateRef<InstanceType<typeof BackNext>>('back-next')
+defineExpose({ nextBtn: computed(() => backNext.value?.btnEl) })
 
 function nextAction() {
   emit('on-next')
@@ -43,5 +44,3 @@ function backAction() {
   emit('on-back')
 }
 </script>
-
-<style lang="scss"></style>

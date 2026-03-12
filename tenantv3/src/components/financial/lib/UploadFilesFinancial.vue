@@ -294,7 +294,7 @@ async function save(successMsgKey = 'save-success') {
 }
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "round-it": "Round to the nearest euro",

@@ -534,6 +534,32 @@ h1 {
   color: var(--text-mention-grey);
 }
 
+.footer-container[class$='-footer'] {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem;
+}
+.footer-container[class$='-footer'] > * {
+  flex: 1 1 48%;
+  justify-content: center;
+}
+@media screen and (width >= 48rem) {
+  .footer-container[class$='-footer'] > * {
+    max-inline-size: fit-content;
+  }
+}
+
+// Make disabled buttons accessible to assistive technology
+button[aria-disabled='true'] {
+  cursor: not-allowed;
+
+  &:active {
+    pointer-events: none;
+  }
+}
+
 // layout utilities
 
 /**
