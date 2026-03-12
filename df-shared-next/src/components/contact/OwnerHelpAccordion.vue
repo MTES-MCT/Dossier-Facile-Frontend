@@ -3,7 +3,7 @@
     <AccordionItem :title="t('title-1')">
       <p class="fr-mb-0">{{ t('content-1-1') }}</p>
       <p>{{ t('content-1-2') }}</p>
-      <div class="fr-highlight">
+      <DsfrAlert>
         <i18n-t tag="p" keypath="need-more-information">
           <template #faq>
             <a
@@ -22,7 +22,7 @@
             >
           </template>
         </i18n-t>
-      </div>
+      </DsfrAlert>
     </AccordionItem>
     <AccordionItem :title="t('title-2')">
       <i18n-t tag="p" keypath="content-2">
@@ -33,7 +33,7 @@
           >{{ t('our-help-page') }}</a
         >
       </i18n-t>
-      <div class="fr-highlight">
+      <DsfrAlert>
         <i18n-t tag="p" keypath="need-more-information">
           <template #faq>
             <a
@@ -52,7 +52,7 @@
             >
           </template>
         </i18n-t>
-      </div>
+      </DsfrAlert>
     </AccordionItem>
     <AccordionItem :title="t('title-3')">
       <i18n-t tag="p" keypath="content-3">
@@ -73,7 +73,7 @@
           >
         </template>
       </i18n-t>
-      <div class="fr-highlight">
+      <DsfrAlert>
         <i18n-t tag="p" keypath="highlight-3">
           <a
             href="https://proprietaire.dossierfacile.logement.gouv.fr/mot-de-passe-oublie"
@@ -82,14 +82,14 @@
             >{{ t('reset-password') }}</a
           >
         </i18n-t>
-      </div>
+      </DsfrAlert>
     </AccordionItem>
   </DsfrAccordionsGroup>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { DsfrAccordionsGroup } from '@gouvminint/vue-dsfr'
+import { DsfrAccordionsGroup, DsfrAlert } from '@gouvminint/vue-dsfr'
 import AccordionItem from './AccordionItem.vue'
 
 const HELP_URL = 'https://aide.dossierfacile.logement.gouv.fr/fr/'

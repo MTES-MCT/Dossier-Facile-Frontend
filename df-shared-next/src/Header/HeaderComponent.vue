@@ -38,7 +38,7 @@
               <ul class="fr-btns-group">
                 <li v-if="loggedIn">
                   <DfButton type="button" @click="$emit('on-logout')">
-                    <RiAccountCircleLine aria-hidden="true" class="fr-mr-1v" />
+                    <VIcon icon="ri:account-circle-line" scale="1.2" class="fr-mr-1v" />
                     {{ t('logout') }}
                   </DfButton>
                 </li>
@@ -46,7 +46,7 @@
                   <li>
                     <slot name="login">
                       <a :href="TENANT_URL" class="fr-btn fr-btn--sm">
-                        <RiAccountCircleLine aria-hidden="true" class="fr-mr-1v" />
+                        <VIcon icon="ri:account-circle-line" scale="1.2" class="fr-mr-1v" />
                         {{ t('tenant') }}
                       </a>
                     </slot>
@@ -54,7 +54,7 @@
                   <li>
                     <slot name="other">
                       <a :href="OWNER_URL" class="fr-btn fr-btn--sm">
-                        <RiCommunityLine aria-hidden="true" class="fr-mr-1v" />
+                        <VIcon icon="ri:community-line" scale="1.2" class="fr-mr-1v" />
                         {{ t('owner') }}
                       </a>
                     </slot>
@@ -67,7 +67,7 @@
                       rel="noopener"
                       :title="t('partner-link-title')"
                     >
-                      <RiHomeHeartLine aria-hidden="true" class="fr-mr-1v" />
+                      <VIcon icon="ri:home-heart-line" scale="1.2" class="fr-mr-1v" />
                       {{ t('partner') }}
                     </a>
                   </li>
@@ -87,7 +87,7 @@
           <ul class="fr-btns-group">
             <li v-if="loggedIn">
               <DfButton type="button" class="fr-ml-3" size="small" @click="$emit('on-logout')">
-                <RiAccountCircleLine aria-hidden="true" class="fr-mr-1v" />
+                <VIcon icon="ri:account-circle-line" scale="1.2" class="fr-mr-1v" />
                 {{ t('logout') }}
               </DfButton>
             </li>
@@ -95,7 +95,7 @@
               <li>
                 <slot name="login">
                   <a :href="TENANT_URL" class="fr-btn fr-btn--sm fr-btn--secondary">
-                    <RiAccountCircleLine aria-hidden="true" class="fr-mr-1v" />
+                    <VIcon icon="ri:account-circle-line" scale="1.2" class="fr-mr-1v" />
                     {{ t('tenant') }}
                   </a>
                 </slot>
@@ -103,7 +103,7 @@
               <li>
                 <slot name="other">
                   <a :href="OWNER_URL" class="fr-btn fr-btn--sm fr-btn--secondary">
-                    <RiCommunityLine aria-hidden="true" class="fr-mr-1v" />
+                    <VIcon icon="ri:community-line" scale="1.2" class="fr-mr-1v" />
                     {{ t('owner') }}
                   </a>
                 </slot>
@@ -116,7 +116,7 @@
                   rel="noopener"
                   :title="t('partner-link-title')"
                 >
-                  <RiHomeHeartLine aria-hidden="true" class="fr-mr-1v" />
+                  <VIcon icon="ri:home-heart-line" scale="1.2" class="fr-mr-1v" />
                   {{ t('partner') }}
                 </a>
               </li>
@@ -132,9 +132,9 @@
 </template>
 
 <script setup lang="ts">
-import { RiAccountCircleLine, RiCommunityLine, RiHomeHeartLine } from '@remixicon/vue'
 import DfButton from '../Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
+import { VIcon } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
@@ -148,7 +148,7 @@ withDefaults(defineProps<{ loggedIn?: boolean }>(), { loggedIn: false })
 defineEmits<{ 'on-logout': [] }>()
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .logo {
   width: 290px;
   max-width: 290px;
@@ -176,7 +176,7 @@ li {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "logout": "Logout",
