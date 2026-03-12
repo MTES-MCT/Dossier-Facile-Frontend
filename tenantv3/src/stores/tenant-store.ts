@@ -5,7 +5,7 @@ import 'dayjs/locale/fr'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
 import { i18n } from '../i18n'
 
-import { AnalyticsService } from '@/services/AnalyticsService'
+import { AnalyticsService, type DocumentCategory } from '@/services/AnalyticsService'
 import { ProfileService } from '@/services/ProfileService'
 import { UtilsService } from '@/services/UtilsService'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
@@ -23,21 +23,22 @@ import {
   makeGuarantorResidencyLink
 } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import {
+  makeGuarantorIdentityDocumentLink,
+  makeIdentityDocumentLink,
+  makeSpouseGuarantorIdDocLink
+} from '@/components/identityDocument/lib/identityDocumentLink'
+import {
   makeGuarantorActivityLink,
   makeGuarantorCoupleActivityLink
 } from '@/components/mainActivity/lib/useMainActivityLink'
 import { makeResidencyLink } from '@/components/residency/lib/useResidencyLink'
+import { makeGuarantorTaxLink, makeSpouseGuarantorTaxLink } from '@/components/tax/lib/taxLink'
 import { MessageService } from '@/services/MessageService'
 import { RegisterService } from '@/services/RegisterService'
 import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import cookies from 'js-cookie'
-import {
-  makeGuarantorIdentityDocumentLink,
-  makeIdentityDocumentLink,
-  makeSpouseGuarantorIdDocLink
-} from '@/components/identityDocument/lib/identityDocumentLink'
-import { makeGuarantorTaxLink, makeSpouseGuarantorTaxLink } from '@/components/tax/lib/taxLink'
+import type { DocumentSubCategory } from '@/components/documents/share/DocumentTypeConstants'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const LOGOUT_REDIRECT_URL = import.meta.env.VITE_LOGOUT_REDIRECT_URL
@@ -71,6 +72,8 @@ function defaultState(): State {
   }
   return tenantState
 }
+
+export type StoreAction = 'saveTenantTax' | 'saveGuarantorTax'
 
 const initialStore = defaultState()
 

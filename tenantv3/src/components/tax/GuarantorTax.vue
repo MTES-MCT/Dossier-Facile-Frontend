@@ -16,11 +16,28 @@ import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { computed, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { documentFormKey } from '../documents/documentFormState'
 
 const store = useTenantStore()
 const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const nextStep = getNavigationNextStep({ name: 'GuarantorList' })
+
+provide(documentFormKey, {
+  category: 'TAX',
+  textKey: 'guarantor',
+  previousStep: { name: 'GuarantorFinancial' },
+  nextStep: nextStep,
+  document: computed(() => store.getGuarantorTaxDocument),
+  userId: store.user.id,
+  storeAction: 'saveGuarantorTax',
+  formFieldValue: 'typeDocumentTax',
+  addData(formData) {
+    if (store.guarantor?.id) {
+      formData.append('guarantorId', store.guarantor.id.toString())
+    }
+  }
+})
 
 provide(taxKey, {
   category: 'guarantor-tax',

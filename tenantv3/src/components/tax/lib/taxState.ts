@@ -2,6 +2,7 @@ import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { inject, type InjectionKey, type Ref } from 'vue'
 import type { RouteLocationRaw } from 'vue-router'
 
+// Deprecated, should be replaced by documentFormState
 type TaxState = {
   previousStep: RouteLocationRaw
   nextStep: RouteLocationRaw
