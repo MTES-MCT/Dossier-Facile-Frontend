@@ -55,7 +55,7 @@
     "browserslist": "catalog:",
     "lightningcss": "catalog:",
     "rollup-plugin-visualizer": "catalog:",
-    "vite-plugin-purgecss-updated-v5": "1.2.6",
+    "vite-plugin-purgecss-updated-v5": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "jiti": "catalog:",

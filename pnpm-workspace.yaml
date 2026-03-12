@@ -46,3 +46,4 @@ catalog:
   "lightningcss": "1.32.0"
   "browserslist": "4.28.1"
   "rollup-plugin-visualizer": "7.0.1"
+  "vite-plugin-purgecss-updated-v5": "1.2.6"
