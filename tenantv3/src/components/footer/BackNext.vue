@@ -1,54 +1,54 @@
 <template>
-  <div>
-    <div class="fr-grid-row space-around fr-mb-1w footer-btn"></div>
-    <div class="fr-grid-row btn-spacing footer-btn">
-      <v-gouv-fr-button
-        v-if="showBack"
-        class="fr-mr-2w px40"
-        :secondary="true"
-        :btn-type="'button'"
-        :aria-label="t('backnext.back')"
-        @click="backAction()"
-      >
-        <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" aria-hidden="true" />
-        <span class="desktop">{{ t('backnext.back') }}</span>
-      </v-gouv-fr-button>
-      <div v-if="!showBack"></div>
-      <div class="fr-grid-row flex-1">
-        <v-gouv-fr-button
-          ref="next-btn"
-          class="next-btn"
-          :secondary="false"
-          :label="nextLabel ? nextLabel : t('backnext.continue')"
-          :btn-type="'submit'"
-          :disabled="disabled"
-          :aria-label="t('backnext.continue-aria-label')"
-          data-cy="next-btn"
-          @click="nextAction()"
-        ></v-gouv-fr-button>
-      </div>
-    </div>
-  </div>
+  <DsfrButton
+    v-if="showBack"
+    secondary
+    type="button"
+    :label="t('backnext.back')"
+    icon="ri:arrow-left-s-line"
+    @click="backAction()"
+  />
+  <DsfrButton
+    ref="next-btn"
+    data-cy="next-btn"
+    :type="submit"
+    :form="formId ?? null"
+    :label="nextLabel ? nextLabel : t('backnext.continue')"
+    :disabled
+    icon="ri:check-line"
+    @click="nextAction()"
+  />
 </template>
 
 <script setup lang="ts">
-import VGouvFrButton from 'df-shared-next/src/Button/VGouvFrButton.vue'
 import { useI18n } from 'vue-i18n'
-import { RiArrowLeftSLine } from '@remixicon/vue'
-import { useTemplateRef } from 'vue'
+import { computed, useTemplateRef } from 'vue'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 
-withDefaults(defineProps<{ showBack?: boolean; disabled?: boolean; nextLabel?: string }>(), {
-  showBack: true,
-  disabled: false,
-  nextLabel: undefined
-})
+withDefaults(
+  defineProps<{
+    showBack?: boolean
+    disabled?: boolean
+    nextLabel?: string
+    formId?: string
+    submit?: boolean
+  }>(),
+  {
+    showBack: true,
+    disabled: false,
+    nextLabel: undefined,
+    formId: undefined,
+    submit: undefined
+  }
+)
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
-const nextBtn = useTemplateRef('next-btn')
-defineExpose({ nextBtn })
+const nextBtnRef = useTemplateRef<InstanceType<typeof DsfrButton>>('next-btn')
+const btnEl = computed(() => nextBtnRef.value?.$el)
+
+defineExpose({ btnEl })
 
 function backAction() {
   emit('on-back')
@@ -58,49 +58,3 @@ function nextAction() {
   emit('on-next')
 }
 </script>
-
-<style lang="scss" scoped>
-.btn-spacing {
-  @media (min-width: 768px) {
-    justify-content: space-around;
-  }
-}
-
-.next-btn {
-  @media (min-width: 769px) {
-    margin-left: 16px !important;
-  }
-}
-
-.flex-1 {
-  @media (max-width: 768px) {
-    max-width: 400px;
-    flex: 1;
-  }
-}
-
-.px40 {
-  @media (max-width: 768px) {
-    width: 40px !important;
-  }
-}
-
-.no-shrink {
-  flex-shrink: 0;
-}
-</style>
-
-<style lang="scss">
-.footer-btn .fr-btn {
-  @media (max-width: 768px) {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-.footer-btn .v-gouv-fr-button {
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-}
-</style>

@@ -1,29 +1,33 @@
 <template>
   <FooterContainer class="tax-footer">
     <RouterLink :to="previousStep" class="fr-btn fr-btn--secondary">
-      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" aria-hidden="true" />
+      <VIcon icon="ri:arrow-left-s-line" />
       <span class="desktop">{{ t('profilefooter.back') }}</span>
     </RouterLink>
-    <form @submit.prevent="submit">
-      <DfButton ref="next-btn" primary data-cy="next-btn" :aria-disabled="nextDisabled || undefined">{{
-        nextLabel || t('profilefooter.continue')
-      }}</DfButton>
-    </form>
+
+    <DsfrButton
+      ref="next-btn"
+      data-cy="next-btn"
+      :type="submit ? 'submit' : 'button'"
+      :form="formId ?? null"
+      :label="t('profilefooter.continue')"
+      :aria-disabled="disabled"
+      icon="ri:check-line"
+      @click="handleSubmit"
+    />
   </FooterContainer>
 </template>
 
 <script setup lang="ts">
+import { useNextStep } from '@/components/common/lib/useNextStep'
 import type { TaxCategory } from '@/components/documents/share/DocumentTypeConstants'
 import FooterContainer from '@/components/footer/FooterContainer.vue'
 import { useTaxState } from '@/components/tax/lib/taxState'
-import { AnalyticsService } from '@/services/AnalyticsService'
 import { UtilsService } from '@/services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
-import { RiArrowLeftSLine } from '@remixicon/vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
 import { useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 
 type TaxStep = 'TAX_NOT_RECEIVED' | 'TAX_NO_DECLARATION'
 
@@ -31,15 +35,17 @@ const props = defineProps<{
   category?: TaxCategory
   step?: TaxStep
   explanation?: string
-  nextDisabled?: boolean
+  disabled?: boolean
   nextLabel?: string
   beforeSubmit?: () => boolean
+  submit?: boolean
+  formId?: string
 }>()
 
 const { t } = useI18n()
-const router = useRouter()
 const { previousStep, nextStep, category: stateCategory, action, addData, document } = useTaxState()
 const store = useTenantStore()
+const { goNext } = useNextStep(stateCategory, nextStep)
 
 const nextBtn = useTemplateRef('next-btn')
 
@@ -59,33 +65,18 @@ async function save(category: TaxCategory, step?: TaxStep) {
     await store[action](formData)
     return true
   } catch (error) {
-    UtilsService.handleCommonSaveError(error, nextBtn.value?.button)
+    UtilsService.handleCommonSaveError(error, nextBtn.value?.$el)
     return false
   }
 }
 
-const submit = async () => {
+const handleSubmit = async () => {
   if (props.beforeSubmit && !props.beforeSubmit()) {
     return
   }
-  AnalyticsService.validateFunnelStep(stateCategory)
   const saveOk = props.category ? await save(props.category, props.step) : true
   if (saveOk) {
-    router.push(nextStep)
+    goNext()
   }
 }
 </script>
-
-<style scoped>
-.tax-footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 1rem;
-}
-
-.tax-footer :deep(button[aria-disabled='true']) {
-  opacity: 0.5;
-  cursor: default;
-}
-</style>
