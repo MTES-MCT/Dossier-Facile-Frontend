@@ -1,6 +1,12 @@
 <template>
   <h2 class="fr-h6">{{ t(textKey + '.title') }}</h2>
-  <Form v-slot="{ meta }" class="fr-input-group" @submit="onSubmit">
+  <DsfrAlert
+    v-if="isInputDisabled"
+    id="form-description"
+    small
+    :description="t('self.france-connected')"
+  />
+  <Form v-slot="{ meta }" class="fr-mt-3w" aria-describedby="form-description" @submit="onSubmit">
     <TextField
       v-model.trim="lastname"
       :field-label="t('common.last-name-label')"
@@ -65,7 +71,7 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import { router } from '@/router'
 import { useLoading } from 'vue-loading-overlay'
 import TextField from '../form/TextField.vue'
-import { DsfrCheckbox } from '@gouvminint/vue-dsfr'
+import { DsfrCheckbox, DsfrAlert } from '@gouvminint/vue-dsfr'
 
 const props = defineProps<{
   textKey: 'self' | 'third-party'
@@ -170,6 +176,7 @@ const onSubmit = () => {
     },
     "self": {
       "title": "Your Identity",
+      "france-connected": "You cannot change your identity while connected with France Connect.",
       "postal-code-label": "Postal Code (only if you reside in France)"
     },
     "third-party": {
@@ -188,6 +195,7 @@ const onSubmit = () => {
     },
     "self": {
       "title": "Votre identité",
+      "france-connected": "Vous ne pouvez pas modifier votre identité en étant connecté via France Connect.",
       "postal-code-label": "Code postal (uniquement si vous résidez en France)"
     },
     "third-party": {
