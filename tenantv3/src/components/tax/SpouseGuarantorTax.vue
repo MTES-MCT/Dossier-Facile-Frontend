@@ -18,6 +18,7 @@ import { useRoute } from 'vue-router'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { useGuarantorId } from '../guarantorResidency/useGuarantorId'
 import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { documentFormKey } from '../documents/documentFormState'
 
 const route = useRoute()
 const store = useTenantStore()
@@ -29,6 +30,24 @@ const tenantId = computed(() => Number(route.params.tenantId))
 const nextStep = getNavigationNextStep({
   name: 'TenantGuarantors',
   params: { tenantId: tenantId.value, step: '5' }
+})
+
+provide(documentFormKey, {
+  category: 'TAX',
+  textKey: 'couple-guarantor',
+  previousStep: {
+    name: 'TenantGuarantorFinancial',
+    params: { tenantId: tenantId.value, guarantorId: guarantorId.value, step: '5' }
+  },
+  nextStep: nextStep,
+  document: computed(() => store.getGuarantorTaxDocument),
+  userId: store.user.id,
+  storeAction: 'saveGuarantorTax',
+  formFieldValue: 'typeDocumentTax',
+  addData(formData) {
+    formData.append('tenantId', tenantId.value.toString())
+    formData.append('guarantorId', guarantorId.value)
+  }
 })
 
 provide(taxKey, {
