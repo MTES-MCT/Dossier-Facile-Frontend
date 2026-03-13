@@ -24,6 +24,7 @@ Cypress.Commands.add(
   "loginWithFCAndDeleteAccount",
   (username: string, passowrd: string, type: UserType) => {
     ignoreErrorsOnSsoPage();
+    cy.clearAllCookies();
 
     cy.visit(
       type === UserType.TENANT
