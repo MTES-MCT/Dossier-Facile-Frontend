@@ -3,7 +3,7 @@ import type { DfDocument, DocumentCategory } from 'df-shared-next/src/models/DfD
 import { inject, type InjectionKey, type Ref } from 'vue'
 import type { RouteLocationRaw } from 'vue-router'
 
-export type FormField = 'typeDocumentTax'
+export type FormField = 'typeDocumentTax' | 'typeDocumentCertificate'
 
 type DocumentFormState = {
   previousStep: RouteLocationRaw

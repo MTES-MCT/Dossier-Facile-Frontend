@@ -7,23 +7,21 @@
       <component :is="Component" @on-back="goBack" @on-next="goNext"></component>
     </RouterView>
     <div v-if="guarantor?.typeGuarantor === 'ORGANISM'">
-      <OrganismCert :guarantor="guarantor"></OrganismCert>
-      <GuarantorFooter @on-back="goBack" @on-next="nextStep"></GuarantorFooter>
+      <OrganismCert :guarantor="guarantor" :on-back="goBack" :next-step="goNext"></OrganismCert>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import OrganismCert from './documents/organismGuarantor/OrganismCert.vue'
-import GuarantorFooter from './footer/GuarantorFooter.vue'
+import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { UtilsService } from '@/services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { makeGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { GUARANTOR_ROUTES } from './documents/naturalGuarantor/guarantorRoutes'
+import OrganismCert from './documents/organismGuarantor/OrganismCert.vue'
 import { makeGuarantorIdentityDocumentLink } from './identityDocument/lib/identityDocumentLink'
-import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 
 const store = useTenantStore()
 const route = useRoute()

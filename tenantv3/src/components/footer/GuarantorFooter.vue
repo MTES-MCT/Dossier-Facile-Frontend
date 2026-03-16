@@ -4,6 +4,7 @@
       <BackNext
         ref="back-next"
         :show-back="showBack"
+        :aria-disabled="nextDisabled || undefined"
         @on-next="nextAction()"
         @on-back="backAction()"
       >
@@ -19,12 +20,15 @@ import { computed, useTemplateRef } from 'vue'
 
 const emit = defineEmits<{ 'on-next': []; 'on-back': [] }>()
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     showBack?: boolean
+    nextDisabled?: boolean
+    beforeSubmit?: () => boolean
   }>(),
   {
-    showBack: true
+    showBack: true,
+    beforeSubmit: undefined
   }
 )
 
@@ -32,6 +36,9 @@ const backNext = useTemplateRef('back-next')
 defineExpose({ button: computed(() => backNext.value?.nextBtn?.button) })
 
 function nextAction() {
+  if (props.beforeSubmit && !props.beforeSubmit()) {
+    return
+  }
   emit('on-next')
 }
 
