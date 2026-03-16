@@ -5,7 +5,7 @@ import 'dayjs/locale/fr'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
 import { i18n } from '../i18n'
 
-import { AnalyticsService, type DocumentCategory } from '@/services/AnalyticsService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { ProfileService } from '@/services/ProfileService'
 import { UtilsService } from '@/services/UtilsService'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
@@ -38,7 +38,6 @@ import { RegisterService } from '@/services/RegisterService'
 import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import cookies from 'js-cookie'
-import type { DocumentSubCategory } from '@/components/documents/share/DocumentTypeConstants'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const LOGOUT_REDIRECT_URL = import.meta.env.VITE_LOGOUT_REDIRECT_URL
@@ -73,7 +72,7 @@ function defaultState(): State {
   return tenantState
 }
 
-export type StoreAction = 'saveTenantTax' | 'saveGuarantorTax'
+export type StoreAction = 'saveTenantTax' | 'saveGuarantorTax' | 'saveOrganismIdentification'
 
 const initialStore = defaultState()
 
@@ -601,6 +600,11 @@ export const useTenantStore = defineStore('tenant', {
       } else {
         return await this.loadUser()
       }
+    },
+    async saveOrganismIdentification(formData: FormData) {
+      const response = await RegisterService.saveOrganismIdentification(formData)
+      this.loadUserCommit(response.data)
+      return response.data
     },
     getTenantNameRoute() {
       const ownerType = this.user.ownerType

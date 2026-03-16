@@ -77,9 +77,11 @@ export type IdentityCategory =
   | 'OTHER_IDENTIFICATION'
 
 export type TaxCategory = 'MY_NAME' | 'MY_PARENTS' | 'OTHER_TAX'
+export type GuaranteeProviderCategory = 'VISALE' | 'OTHER_GUARANTEE'
 
 export type DocumentSubCategory =
   | ResidencyCategory
   | MainActivityCategory
   | IdentityCategory
   | TaxCategory
+  | GuaranteeProviderCategory
