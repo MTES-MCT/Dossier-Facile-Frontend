@@ -130,29 +130,8 @@ configure({
 
 const TENANT_API_URL = import.meta.env.VITE_API_URL
 
-function mountApp() {
-  const app = createApp(App)
-
-  if (import.meta.env.PROD) {
-    Sentry.init({
-      app,
-      dsn: 'https://7032afeb9b1740f68e01148573cff778@sentry.incubateur.net/98',
-      environment: ENVIRONMENT,
-      tracesSampleRate: 0.05,
-      integrations: [Sentry.browserTracingIntegration({ router })]
-    })
-  }
-
-  app.use(createPinia())
-  app.use(router)
-  app.use(i18n)
-  app.use(LoadingPlugin)
-  app.use(ConsentPlugin, { matomo: true, crisp: CRISP_ENABLED === 'true' })
-  app.mount('#app')
-}
-
 keycloak
-  .init({ onLoad: 'check-sso', checkLoginIframe: false })
+  .init({ onLoad: 'check-sso', checkLoginIframe: true })
   .then((auth) => {
     if (auth) {
       axios.interceptors.request.use(
@@ -195,13 +174,30 @@ keycloak
         .catch((error) => {
           console.error(new Error('Cannot load user profile', { cause: error }))
         })
+    } else {
+      console.log('Not authenticated')
     }
 
-    mountApp()
+    const app = createApp(App)
+
+    if (import.meta.env.PROD) {
+      Sentry.init({
+        app,
+        dsn: 'https://7032afeb9b1740f68e01148573cff778@sentry.incubateur.net/98',
+        environment: ENVIRONMENT,
+        tracesSampleRate: 0.05,
+        integrations: [Sentry.browserTracingIntegration({ router })]
+      })
+    }
+
+    app.use(createPinia())
+    app.use(router)
+    app.use(i18n)
+    app.use(LoadingPlugin)
+    app.use(ConsentPlugin, { matomo: true, crisp: CRISP_ENABLED === 'true' })
+    app.mount('#app')
   })
-  .catch(() => {
-    // keycloak.init() failed (e.g. login_required after account deletion)
-    // Clean URL fragment left by failed SSO to prevent parameter accumulation
-    history.replaceState(null, '', window.location.pathname + window.location.search)
-    mountApp()
+  .catch((error: Error) => {
+    console.dir(error)
+    window.location.reload()
   })

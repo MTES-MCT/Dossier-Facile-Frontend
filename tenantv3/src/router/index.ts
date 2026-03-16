@@ -1158,7 +1158,7 @@ async function handleProtectedRoute(to: RouteLocationNormalized): Promise<boolea
   } else {
     // The page is protected and the user is not authenticated. Force a login.
     await keycloak.login({
-      redirectUri: TENANT_URL + to.path
+      redirectUri: TENANT_URL + to.fullPath
     })
     return false
   }
