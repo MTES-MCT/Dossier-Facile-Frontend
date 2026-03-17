@@ -1,9 +1,16 @@
 <template>
-  <ol v-if="failedRules.length > 0" role="list" ref="listRef" tabindex="-1" :aria-label="t('errors-to-fix', { count: failedRules.length })" class="analysis-banners">
+  <ol
+    v-if="failedRules.length > 0"
+    ref="listRef"
+    role="list"
+    tabindex="-1"
+    :aria-label="t('errors-to-fix', { count: failedRules.length })"
+    class="analysis-banners"
+  >
     <li v-for="(rule, index) in failedRules" :key="index" class="analysis-banner">
       <div class="banner-content">
         <div class="banner-title">
-          <VIcon name="ri:alert-fill" :scale="1.25" color="#b34000"/>
+          <VIcon name="ri:alert-fill" :scale="1.25" color="#b34000" />
           <span class="title-text">{{ getRuleTitle(rule.rule) }}</span>
         </div>
         <div class="banner-description">
@@ -32,7 +39,9 @@
         </div>
         <p class="explain-link-text">
           {{ t('not-matching') }}
-          <button type="button" class="explain-link" @click="emit('explain')">{{ t('explain-link') }}</button>
+          <button type="button" class="explain-link" @click="emit('explain')">
+            {{ t('explain-link') }}
+          </button>
         </p>
       </div>
     </li>
@@ -40,13 +49,16 @@
 </template>
 
 <script setup lang="ts">
+import { VIcon } from '@gouvminint/vue-dsfr'
+import dayjs from 'dayjs'
+import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
 import { useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
-import { VIcon } from '@gouvminint/vue-dsfr'
 
-defineProps<{
+const props = defineProps<{
   failedRules: DocumentRule[]
+  document?: DfDocument
 }>()
 
 const emit = defineEmits<{
@@ -63,8 +75,11 @@ function focus() {
 defineExpose({ focus })
 
 const ruleTitleMap: Record<string, string> = {
+  R_DOCUMENT_IA_CLASSIFICATION: 'rules.bad-classification.title',
   R_TAX_BAD_CLASSIFICATION_DECLARATIVE: 'rules.bad-classification.title',
   R_TAX_BAD_CLASSIFICATION: 'rules.bad-classification.title',
+  R_VISALE_CERTIFICATE_NAME_MATCH: 'rules.names.title',
+  R_VISALE_CERTIFICATE_EXPIRATION: 'rules.expiration.title',
   R_TAX_NAMES: 'rules.names.title',
   R_TAX_WRONG_YEAR: 'rules.wrong-year.title',
   R_TAX_2D_DOC: 'rules.invalid-2ddoc.title'
@@ -81,20 +96,25 @@ function formatName(name: Name): string {
 
 function getCurrentDocLines(rule: DocumentRule): string[] {
   const data = rule.ruleData
+  if (rule.rule === 'R_DOCUMENT_IA_CLASSIFICATION') {
+    return [t('rules.bad-classification.current-other')]
+  }
   if (!data) {
     return [rule.message]
   }
   switch (data.type) {
     case 'R_TAX_CLASSIFICATION':
       return data.isDeclarativeSituation
-        ? [t('rules.bad-classification.current-declarative')]
+        ? [t('rules.bad-classification.tax.current-declarative')]
         : [t('rules.bad-classification.current-other')]
     case 'R_NAMES':
-      return data.extractedNames.map((n) => t('rules.names.current', { name: formatName(n) }))
+      return data.extractedNames.map((n) => getRNameMessage(rule.rule, n, false))
     case 'R_TAX_YEARS':
       return data.extractedYears.map((y) =>
-        t('rules.wrong-year.current', { taxYear: y + 1, incomeYear: y })
+        t('rules.wrong-year.tax.current', { taxYear: y + 1, incomeYear: y })
       )
+    case 'R_EXPIRATION':
+      return [t('rules.expiration.current', { date: formatDateToFrench(data.extractedDate) })]
     default:
       return [rule.message]
   }
@@ -102,24 +122,67 @@ function getCurrentDocLines(rule: DocumentRule): string[] {
 
 function getExpectedDocLines(rule: DocumentRule): string[] {
   const data = rule.ruleData
+
+  if (rule.rule === 'R_DOCUMENT_IA_CLASSIFICATION') {
+    return [getExpectedClassification()]
+  }
+
   if (!data) {
     return [rule.message]
   }
+
   switch (data.type) {
     case 'R_TAX_CLASSIFICATION':
-      return [t('rules.bad-classification.expected')]
+      return [t('rules.bad-classification.tax.expected')]
     case 'R_NAMES':
-      return [t('rules.names.expected', { name: formatName(data.expectedName) })]
+      return [getRNameMessage(rule.rule, data.expectedName, true)]
     case 'R_TAX_YEARS':
       return [
-        t('rules.wrong-year.expected', {
+        t('rules.wrong-year.tax.expected', {
           taxYear: data.expectedYear + 1,
           incomeYear: data.expectedYear
         })
       ]
+    case 'R_EXPIRATION':
+      return [t('rules.expiration.expected')]
     default:
       return [rule.message]
   }
+}
+
+function getExpectedClassification(): string {
+  const documentSubCategory = props.document?.documentSubCategory
+  if (!documentSubCategory) {
+    return t('rules.bad-classification.current-other')
+  }
+  switch (documentSubCategory) {
+    case 'VISALE':
+      return t('rules.bad-classification.visale.expected')
+    default:
+      return t('rules.bad-classification.current-other')
+  }
+}
+
+function getRNameMessage(rule: string, nameToFormat: Name, isExpected: boolean): string {
+  const variant = isExpected ? 'expected' : 'current'
+  const namespace = getNameRuleNamespace(rule)
+  const key = `rules.names.${namespace}.${variant}`
+  return t(key, { name: formatName(nameToFormat) })
+}
+
+function getNameRuleNamespace(rule: string): 'tax' | 'visale' {
+  if (rule.startsWith('R_VISALE_')) {
+    return 'visale'
+  }
+  return 'tax'
+}
+
+function formatDateToFrench(value: string): string {
+  const parsed = dayjs(value)
+  if (!parsed.isValid()) {
+    return value
+  }
+  return parsed.format('DD/MM/YYYY')
 }
 </script>
 
@@ -218,7 +281,7 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "errors-to-fix": "{count} error to fix | {count} errors to fix",
@@ -229,19 +292,37 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     "rules": {
       "bad-classification": {
         "title": "Incorrect document type",
-        "current-declarative": "Declarative situation notice for income tax",
         "current-other": "Non-compliant document",
-        "expected": "Tax notice or non-taxation notice"
+        "visale": {
+          "expected": "Visale certificate"
+        },
+        "tax": {
+          "current-declarative": "Declarative situation notice for income tax",
+          "expected": "Tax notice or non-taxation notice"
+        }
       },
       "names": {
         "title": "Name does not match",
-        "current": "Tax notice in the name of {name}",
-        "expected": "Tax notice in the name of {name} or non-taxation notice"
+        "tax": {
+          "current": "Tax notice in the name of {name}",
+          "expected": "Tax notice in the name of {name} or non-taxation notice"
+        },
+        "visale": {
+          "current": "Visale certificate in the name of {name}",
+          "expected": "Visale certificate in the name of {name}"
+        }
       },
       "wrong-year": {
-        "title": "Tax notice too old",
-        "current": "Tax notice {taxYear} on {incomeYear} income",
-        "expected": "Tax notice {taxYear} on {incomeYear} income or non-taxation notice"
+        "tax": {
+          "title": "Tax notice too old",
+          "current": "Tax notice {taxYear} on {incomeYear} income",
+          "expected": "Tax notice {taxYear} on {incomeYear} income or non-taxation notice"
+        }
+      },
+      "expiration": {
+        "title": "Document expired",
+        "current": "Document with expiration date {date}",
+        "expected": "Document that is not expired"
       },
       "invalid-2ddoc": {
         "title": "Invalid document"
@@ -257,19 +338,37 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     "rules": {
       "bad-classification": {
         "title": "Type de document incorrect",
-        "current-declarative": "Avis de situation déclarative à l'impôt sur le revenu",
-        "current-other": "Autre document non conforme",
-        "expected": "Avis d'imposition ou avis de non-imposition"
+        "tax": {
+          "current-declarative": "Avis de situation déclarative pour l'impôt sur le revenu",
+          "expected": "Avis d'imposition ou avis de non-imposition"
+        },
+        "visale": {
+          "expected": "Certificat Visale"
+        },
+        "current-other": "Autre document non conforme"
       },
       "names": {
         "title": "Le nom ne correspond pas",
-        "current": "Avis d'imposition au nom de {name}",
-        "expected": "Avis d'imposition au nom de {name} ou avis de non-imposition"
+        "tax": {
+          "current": "Avis d'imposition au nom de {name}",
+          "expected": "Avis d'imposition au nom de {name} ou avis de non-imposition"
+        },
+        "visale": {
+          "current": "Attestation Visale au nom de {name}",
+          "expected": "Attestation Visale au nom de {name}"
+        }
       },
       "wrong-year": {
-        "title": "Avis d'imposition trop ancien",
-        "current": "Avis d'imposition {taxYear} sur revenus {incomeYear}",
-        "expected": "Avis d'imposition {taxYear} sur revenus {incomeYear} ou avis de non-imposition"
+        "tax": {
+          "title": "Avis d'imposition trop ancien",
+          "current": "Avis d'imposition {taxYear} sur revenus {incomeYear}",
+          "expected": "Avis d'imposition {taxYear} sur revenus {incomeYear} ou avis de non-imposition"
+        }
+      },
+      "expiration": {
+        "title": "Document expiré",
+        "current": "Document avec date d'expiration {date}",
+        "expected": "Document non expiré"
       },
       "invalid-2ddoc": {
         "title": "Document invalide"
