@@ -74,7 +74,7 @@ const props = withDefaults(
     category: TaxCategory
     step?: TaxCategoryStep
     explanation?: string
-    analysisInProgress: boolean
+    analysisInProgress?: boolean
     showPreValidation?: boolean
   }>(),
   { showPreValidation: true, analysisInProgress: false }

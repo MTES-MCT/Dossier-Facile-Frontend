@@ -50,7 +50,6 @@
 
 <script setup lang="ts">
 import { VIcon } from '@gouvminint/vue-dsfr'
-import dayjs from 'dayjs'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
 import { useTemplateRef } from 'vue'
@@ -155,12 +154,10 @@ function getExpectedClassification(): string {
   if (!documentSubCategory) {
     return t('rules.bad-classification.current-other')
   }
-  switch (documentSubCategory) {
-    case 'VISALE':
-      return t('rules.bad-classification.visale.expected')
-    default:
-      return t('rules.bad-classification.current-other')
+  if (documentSubCategory === 'VISALE') {
+    return t('rules.bad-classification.visale.expected')
   }
+  return t('rules.bad-classification.current-other')
 }
 
 function getRNameMessage(rule: string, nameToFormat: Name, isExpected: boolean): string {
@@ -178,11 +175,31 @@ function getNameRuleNamespace(rule: string): 'tax' | 'visale' {
 }
 
 function formatDateToFrench(value: string): string {
-  const parsed = dayjs(value)
-  if (!parsed.isValid()) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value)
+  if (!match) {
     return value
   }
-  return parsed.format('DD/MM/YYYY')
+
+  const year = Number(match[1])
+  const month = Number(match[2])
+  const day = Number(match[3])
+  const parsed = new Date(Date.UTC(year, month - 1, day))
+
+  if (
+    Number.isNaN(parsed.getTime()) ||
+    parsed.getUTCFullYear() !== year ||
+    parsed.getUTCMonth() !== month - 1 ||
+    parsed.getUTCDate() !== day
+  ) {
+    return value
+  }
+
+  return new Intl.DateTimeFormat('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    timeZone: 'UTC'
+  }).format(parsed)
 }
 </script>
 

@@ -17,7 +17,7 @@
         <AnalysisWrapper
           ref="analysis-wrapper"
           :is-uploading="isUploading"
-          polling-timout-ms="20000"
+          :polling-timout-ms="20000"
         >
           <template #fileUploader>
             <UploadFileWithAnalysis
