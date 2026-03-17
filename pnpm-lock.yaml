@@ -15,6 +15,12 @@ catalogs:
     '@intlify/unplugin-vue-i18n':
       specifier: 6.0.8
       version: 6.0.8
+    '@regle/core':
+      specifier: 1.20.3
+      version: 1.20.3
+    '@regle/rules':
+      specifier: 1.20.3
+      version: 1.20.3
     '@sentry/vite-plugin':
       specifier: 3.5.0
       version: 3.5.0
@@ -406,6 +412,12 @@ importers:
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
         version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+      '@regle/core':
+        specifier: 'catalog:'
+        version: 1.20.3(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+      '@regle/rules':
+        specifier: 'catalog:'
+        version: 1.20.3(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.6.0
         version: 4.6.0(vue@3.5.18(typescript@5.9.2))
@@ -606,6 +618,12 @@ importers:
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
         version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+      '@regle/core':
+        specifier: 'catalog:'
+        version: 1.20.3(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+      '@regle/rules':
+        specifier: 'catalog:'
+        version: 1.20.3(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@sentry/vite-plugin':
         specifier: 'catalog:'
         version: 3.5.0
@@ -1961,6 +1979,18 @@ packages:
   '@pkgr/core@0.2.9':
     resolution: {integrity: sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+
+  '@regle/core@1.20.3':
+    resolution: {integrity: sha512-L9Im/PIyUJoJjwxCmBQkyqV4Qe9B93SHsapCSQLOEgRi7yOiMggmOC4cvIocPSF+TXQpBlE+M9axXpGZetQx8Q==}
+    peerDependencies:
+      pinia: '>=2.2.5'
+      vue: '>=3.3.0'
+    peerDependenciesMeta:
+      pinia:
+        optional: true
+
+  '@regle/rules@1.20.3':
+    resolution: {integrity: sha512-4NtXasw2XUYjxR7OqlQY7+xCzcYS42i7ag0AwYFWDviDYkh0y6RqhUU1MAc2n3kkYh8lf8jkQp7hqenqHYIrbA==}
 
   '@remixicon/vue@4.4.0':
     resolution: {integrity: sha512-aMrZLY31NFS2RSNOrHVJzBwXROokQlI7+TMYJW6kUWF1nzHqHRYIpL0TWWbAFb4Z9CEJhi2OHGuGgzuctmp/Hg==}
@@ -5218,6 +5248,10 @@ packages:
   tabbable@6.3.0:
     resolution: {integrity: sha512-EIHvdY5bPLuWForiR/AN2Bxngzpuwn1is4asboytXtpTgsArc+WmSJKVLlhdh71u7jFcryDqB2A8lQvj78MkyQ==}
 
+  tagged-tag@1.0.0:
+    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
+    engines: {node: '>=20'}
+
   temp-dir@2.0.0:
     resolution: {integrity: sha512-aoBAniQmmwtcKp/7BzsH8Cxzv8OL736p7v1ihGb5e9DJ9kTwGWHrQrVB5+lfVDzfGrdRzXch+ig7LHaY1JTOrg==}
     engines: {node: '>=8'}
@@ -5347,6 +5381,10 @@ packages:
   type-fest@4.41.0:
     resolution: {integrity: sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==}
     engines: {node: '>=16'}
+
+  type-fest@5.4.4:
+    resolution: {integrity: sha512-JnTrzGu+zPV3aXIUhnyWJj4z/wigMsdYajGLIYakqyOW1nPllzXEJee0QQbHj+CTIQtXGlAjuK0UY+2xTyjVAw==}
+    engines: {node: '>=20'}
 
   typed-array-buffer@1.0.3:
     resolution: {integrity: sha512-nAYYwfY3qnzX30IkA6AQZjVbtK6duGontcQm1WSG1MD94YLqK0515GNApXkoxKOWMusVssAHWLh9SeaoefYFGw==}
@@ -7144,6 +7182,23 @@ snapshots:
     optional: true
 
   '@pkgr/core@0.2.9': {}
+
+  '@regle/core@1.20.3(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))':
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      '@vue/devtools-api': 7.7.9
+      type-fest: 5.4.4
+      vue: 3.5.18(typescript@5.9.2)
+    optionalDependencies:
+      pinia: 3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
+
+  '@regle/rules@1.20.3(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))':
+    dependencies:
+      '@regle/core': 1.20.3(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+      type-fest: 5.4.4
+    transitivePeerDependencies:
+      - pinia
+      - vue
 
   '@remixicon/vue@4.4.0(vue@3.5.18(typescript@5.9.2))':
     dependencies:
@@ -10746,6 +10801,8 @@ snapshots:
 
   tabbable@6.3.0: {}
 
+  tagged-tag@1.0.0: {}
+
   temp-dir@2.0.0: {}
 
   tempy@0.6.0:
@@ -10844,6 +10901,10 @@ snapshots:
   type-fest@2.19.0: {}
 
   type-fest@4.41.0: {}
+
+  type-fest@5.4.4:
+    dependencies:
+      tagged-tag: 1.0.0
 
   typed-array-buffer@1.0.3:
     dependencies:
