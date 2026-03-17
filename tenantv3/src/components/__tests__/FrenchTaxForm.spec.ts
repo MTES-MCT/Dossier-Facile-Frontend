@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
-import { defineComponent, h, ref } from 'vue'
+import { computed, defineComponent, h, ref } from 'vue'
 import FrenchTaxForm from '../tax/FrenchTaxForm.vue'
 
 vi.mock('vue-i18n', () => ({
@@ -42,10 +42,32 @@ const mockBannersFocus = vi.fn()
 const FakeAnalysisWrapper = defineComponent({
   name: 'AnalysisWrapper',
   setup(_, { expose, slots }) {
+    const hasUnresolvedErrors = computed(
+      () => mockAnalysisFailedRules.value.length > 0 && !mockExplanationSubmitted.value
+    )
+    const nextDisabled = computed(() => mockIsUploading.value || mockAnalysisInProgress.value)
+    const nextLabel = computed(() => {
+      if (mockIsUploading.value) return 'uploading'
+      if (mockAnalysisInProgress.value) return 'analyzing'
+      return undefined
+    })
+
+    function beforeSubmit() {
+      if (nextDisabled.value) return false
+      if (hasUnresolvedErrors.value) {
+        mockBannersFocus()
+        return false
+      }
+      return true
+    }
+
     expose({
       analysisFailedRules: mockAnalysisFailedRules,
       explanationSubmitted: mockExplanationSubmitted,
       analysisInProgress: mockAnalysisInProgress,
+      nextDisabled,
+      nextLabel,
+      beforeSubmit,
       openExplainSection: mockOpenExplainSection,
       focusBanners: mockBannersFocus
     })
@@ -66,7 +88,17 @@ const FakeUploadFileTaxWithAnalysis = defineComponent({
 
 const globalStubs = {
   BackLinkRow: true,
-  TaxFooter: true,
+  TaxFooter: defineComponent({
+    name: 'TaxFooter',
+    props: {
+      nextDisabled: { type: Boolean, default: undefined },
+      nextLabel: { type: String, default: undefined },
+      beforeSubmit: { type: Function, default: undefined }
+    },
+    setup(_, { slots }) {
+      return () => h('div', slots.default?.())
+    }
+  }),
   DfButton: true,
   DsfrAlert: true,
   VIcon: true,

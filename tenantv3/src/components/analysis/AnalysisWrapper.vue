@@ -147,10 +147,7 @@ watch(
   () => document.value,
   async (document) => {
     analysisFailedRules.value = document?.documentAnalysisReport?.failedRules ?? []
-    if (!document?.id) {
-      stopPolling()
-      analysisInProgress.value = false
-    } else {
+    if (document?.id) {
       // First arrival on page (document loaded from store) should not auto-focus banners.
       const shouldFocusAfterPolling = !isFirstDocumentLoad.value
       isFirstDocumentLoad.value = false
@@ -160,6 +157,9 @@ watch(
       if (status === AnalysisStatus.IN_PROGRESS) {
         startPolling(shouldFocusAfterPolling)
       }
+    } else {
+      stopPolling()
+      analysisInProgress.value = false
     }
 
     const existingComment = document?.documentAnalysisReport?.comment || ''
