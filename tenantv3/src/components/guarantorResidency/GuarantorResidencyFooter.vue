@@ -24,10 +24,11 @@ import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
 import { useNextStep } from '../common/lib/useNextStep'
 
 const props = withDefaults(
-  defineProps<{ formId?: string; submit?: boolean; onSubmit: () => Promise<boolean> }>(),
+  defineProps<{ formId?: string; submit?: boolean; onSubmit?: () => Promise<boolean> }>(),
   {
     formId: undefined,
-    submit: true
+    submit: true,
+    onSubmit: undefined
   }
 )
 
