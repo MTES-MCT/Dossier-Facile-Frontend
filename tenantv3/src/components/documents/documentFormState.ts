@@ -19,9 +19,9 @@ type DocumentFormState = {
 export const documentFormKey = Symbol() as InjectionKey<DocumentFormState>
 
 export function useDocumentFormKey() {
-  const doucumentFormState = inject(documentFormKey)
-  if (!doucumentFormState) {
-    throw new Error('Tax state was not provided')
+  const documentFormState = inject(documentFormKey)
+  if (!documentFormState) {
+    throw new Error('Document state was not provided')
   }
-  return doucumentFormState
+  return documentFormState
 }

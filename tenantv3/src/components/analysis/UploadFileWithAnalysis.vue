@@ -13,8 +13,16 @@
   </ul>
   <div v-if="analysisInProgress" class="analysis-loading fr-mb-3w">
     <div class="analysis-loading-status">
-      <RiHourglassFill size="24px" class="analysis-loading-icon" aria-hidden="true" />
-      <p class="fr-m-0 analysis-loading-text" role="status">{{ t('analysis-in-progress') }}</p>
+      <VIcon
+        name="ri:hourglass-fill"
+        :scale="1.5"
+        color="var(--blue-france-sun-113-625)"
+        class="analysis-loading-icon"
+        aria-hidden="true"
+      />
+      <output class="fr-m-0 analysis-loading-text" aria-live="polite">
+        {{ t('analysis-in-progress') }}
+      </output>
     </div>
     <div class="analysis-loading-progress">
       <div class="analysis-loading-progress-bar"></div>
@@ -36,7 +44,7 @@ import { AnalyticsService, type DocumentCategory } from '@/services/AnalyticsSer
 import { RegisterService } from '@/services/RegisterService'
 import { UtilsService } from '@/services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
-import { RiHourglassFill } from '@remixicon/vue'
+import { VIcon } from '@gouvminint/vue-dsfr'
 import type { DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
@@ -197,7 +205,6 @@ async function save(): Promise<boolean> {
 }
 
 .analysis-loading-icon {
-  color: var(--blue-france-sun-113-625);
   flex-shrink: 0;
 }
 

@@ -74,7 +74,7 @@ vi.mock('../documents/documentFormState', () => ({
 const globalStubs = {
   FileUpload: true,
   ListItem: true,
-  RiHourglassFill: true
+  VIcon: true
 }
 
 function mountComponent(props?: {
