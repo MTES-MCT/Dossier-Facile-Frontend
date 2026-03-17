@@ -58,7 +58,8 @@
         />
       </Field>
     </div>
-    <ProfileFooter :show-back="false" :disabled="!meta.valid" />
+    <GlobalStepFooter :disabled="!meta.valid" />
+    <!-- <ProfileFooter :show-back="false" :disabled="!meta.valid" /> -->
   </Form>
 </template>
 
@@ -73,6 +74,7 @@ import { router } from '@/router'
 import { useLoading } from 'vue-loading-overlay'
 import TextField from '../form/TextField.vue'
 import { DsfrCheckbox, DsfrAlert } from '@gouvminint/vue-dsfr'
+import GlobalStepFooter from '../footer/GlobalStepFooter.vue'
 
 const props = defineProps<{
   textKey: 'self' | 'third-party'
