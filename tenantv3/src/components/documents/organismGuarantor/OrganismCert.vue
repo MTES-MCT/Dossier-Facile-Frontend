@@ -14,7 +14,11 @@
         <span class="sr-only">{{ title }}</span>
       </SimpleRadioButtons>
       <div v-if="shouldShowUploader">
-        <AnalysisWrapper ref="analysis-wrapper" :document="certificateDocument">
+        <AnalysisWrapper
+          ref="analysis-wrapper"
+          :is-uploading="isUploading"
+          polling-timout-ms="20000"
+        >
           <template #fileUploader>
             <UploadFileWithAnalysis
               ref="upload-file-with-analysis"
@@ -38,7 +42,9 @@
     </ConfirmModal>
 
     <GuarantorFooter
-      :before-submit="beforeSubmit"
+      :before-submit="analysisWrapper?.beforeSubmit"
+      :next-disabled="analysisWrapper?.nextDisabled"
+      :next-label="analysisWrapper?.nextLabel"
       @on-back="onBack"
       @on-next="nextStep"
     ></GuarantorFooter>
@@ -92,7 +98,6 @@ const isDocDeleteVisible = ref(false)
 const uploadFileWithAnalysis = useTemplateRef('upload-file-with-analysis')
 
 const isUploading = computed(() => uploadFileWithAnalysis.value?.isUploading ?? false)
-const isBusy = computed(() => analysisInProgress.value || isUploading.value)
 
 const title = computed(() => {
   const userType = props.isCotenant ? 'cotenant' : 'tenant'
@@ -106,11 +111,6 @@ const shouldShowUploader = computed(
 const selectedSubCategory = computed(() => selectedDocumentType.value.value as DocumentSubCategory)
 
 const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
-const analysisErrorCount = computed(() => analysisWrapper.value?.analysisFailedRules?.length ?? 0)
-
-const hasUnresolvedErrors = computed(
-  () => analysisErrorCount.value > 0 && !analysisWrapper.value?.explanationSubmitted
-)
 
 function guarantorId() {
   if (props.guarantor) {
@@ -218,19 +218,6 @@ function documentTypes() {
   return documentTypeOptions.map((d) => {
     return { id: d.key, labelKey: d.key, value: d }
   })
-}
-
-function beforeSubmit(): boolean {
-  if (isBusy.value) return false
-  if (hasUnresolvedErrors.value) {
-    focusBanners()
-    return false
-  }
-  return true
-}
-
-function focusBanners() {
-  analysisWrapper.value?.focusBanners()
 }
 </script>
 

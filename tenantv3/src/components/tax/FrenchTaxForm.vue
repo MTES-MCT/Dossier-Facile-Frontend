@@ -2,7 +2,7 @@
   <p>{{ t(textKey + '.your-situation') }}</p>
   <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="grandParent" />
   <BackLinkRow :label="t('french')" :to="parent" />
-  <AnalysisWrapper ref="analysis-wrapper" :document="taxDocument">
+  <AnalysisWrapper ref="analysis-wrapper" :is-uploading="isUploading">
     <template #fileSpecificDescription>
       <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
         <strong>{{ t('this-year-tax', [taxYear, taxYear - 1]) }}</strong>
@@ -58,7 +58,11 @@
       />
     </template>
   </AnalysisWrapper>
-  <TaxFooter :next-disabled="nextDisabled" :next-label="nextLabel" :before-submit="beforeSubmit" />
+  <TaxFooter
+    :next-disabled="analysisWrapper?.nextDisabled"
+    :next-label="analysisWrapper?.nextLabel"
+    :before-submit="analysisWrapper?.beforeSubmit"
+  />
 </template>
 
 <script setup lang="ts">
@@ -81,43 +85,16 @@ import { taxYear } from './lib/taxYear'
 const { t } = useI18n()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
-const { textKey, document } = useDocumentFormKey()
+const { textKey } = useDocumentFormKey()
 
 const uploadFileTaxWithAnalysis = useTemplateRef<UploadFileTaxWithAnalysisExposed>(
   'upload-file-tax-with-analysis'
 )
 const analysisWrapper = useTemplateRef('analysis-wrapper')
 
-const analysisErrorCount = computed(() => analysisWrapper.value?.analysisFailedRules?.length ?? 0)
-const taxDocument = document
 const isModalOpened = ref(false)
-const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
 const isUploading = computed(() => uploadFileTaxWithAnalysis.value?.isUploading ?? false)
-const isBusy = computed(() => analysisInProgress.value || isUploading.value)
-const hasUnresolvedErrors = computed(
-  () => analysisErrorCount.value > 0 && !analysisWrapper.value?.explanationSubmitted
-)
-
-const nextDisabled = computed(() => isBusy.value)
-
-const nextLabel = computed(() => {
-  if (isUploading.value) return t('uploading')
-  if (analysisInProgress.value) return t('analyzing')
-  return undefined
-})
-
-function beforeSubmit(): boolean {
-  if (isBusy.value) return false
-  if (hasUnresolvedErrors.value) {
-    focusBanners()
-    return false
-  }
-  return true
-}
-
-function focusBanners() {
-  analysisWrapper.value?.focusBanners()
-}
+const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
 </script>
 
 <style scoped>
@@ -160,8 +137,6 @@ function focusBanners() {
     "avis-text1": "You have provided a declarative statement notice (see document title). This document is not valid. Please replace it with your tax assessment notice.",
     "avis-btn": "Submit a valid document",
     "avis-link-to-doc": "Need help ? Check our documentation",
-    "uploading": "Uploading...",
-    "analyzing": "Analyzing...",
     "errors-count": "{count} error to correct | {count} errors to correct",
     "french": "french",
     "this-year-tax": "{0} income tax notice of {1} or full non-taxation",
@@ -208,8 +183,6 @@ function focusBanners() {
     "avis-text1": "Vous avez fourni un avis de situation déclarative (voir titre du document). Ce document n'est pas valide. Merci de le remplacer par votre avis d'imposition.",
     "avis-btn": "Déposer votre avis d'imposition",
     "avis-link-to-doc": "Besoin d'aide ? Consultez notre aide en ligne",
-    "uploading": "Envoi en cours...",
-    "analyzing": "Analyse en cours...",
     "errors-count": "{count} erreur à corriger | {count} erreurs à corriger",
     "french": "français",
     "this-year-tax": "avis d'impôt {0} sur les revenus de {1} ou de non-imposition complet",

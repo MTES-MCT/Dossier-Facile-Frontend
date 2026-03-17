@@ -38,6 +38,11 @@ export type PayslipContinuityRuleData = {
   extractedMonthList: string[]
 }
 
+export type DocumentExpirancyRuleData = {
+  type: 'R_EXPIRATION'
+  extractedDate: string
+}
+
 export type RuleData =
   | FrenchIdentityCardExpirationRuleData
   | TaxClassificationRuleData
@@ -45,6 +50,7 @@ export type RuleData =
   | TaxYearsRuleData
   | TaxNamesRuleData
   | PayslipContinuityRuleData
+  | DocumentExpirancyRuleData
 
 export type DocumentRule = {
   rule: string

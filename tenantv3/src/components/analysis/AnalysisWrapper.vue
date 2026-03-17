@@ -10,6 +10,7 @@
     v-if="analysisErrorCount > 0"
     ref="analysis-banner"
     :failed-rules="analysisFailedRules ?? []"
+    :document="document"
     class="fr-mb-3w"
     @explain="openExplainSection()"
   />
@@ -72,24 +73,33 @@ import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { VIcon } from '@gouvminint/vue-dsfr'
-import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import { computed, nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AnalysisBanners from '../analysis/AnalysisBanners.vue'
+import { useDocumentFormKey } from '../documents/documentFormState'
 import { toast } from '../toast/toastUtils'
 
 const POLLING_INTERVAL_MS = 3000
 const POLLING_TIMEOUT_MS = 10000
 
-const props = defineProps<{
-  document: DfDocument | undefined
-}>()
+const props = withDefaults(
+  defineProps<{
+    isUploading?: boolean
+    pollingTimoutMs?: number
+  }>(),
+  {
+    isUploading: false,
+    pollingTimoutMs: POLLING_TIMEOUT_MS
+  }
+)
 
 const { t } = useI18n()
 
+const { document } = useDocumentFormKey()
+
 const analysisFailedRules = ref<DocumentRule[]>(
-  props.document?.documentAnalysisReport?.failedRules ?? []
+  document.value?.documentAnalysisReport?.failedRules ?? []
 )
 const analysisInProgress = ref(false)
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
@@ -103,18 +113,38 @@ const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
 const explanationSubmitted = ref(false)
 const isFirstDocumentLoad = ref(true)
 
+const hasUnresolvedErrors = computed(
+  () => analysisErrorCount.value > 0 && !explanationSubmitted.value
+)
+
 const analysisErrorCount = computed(() => analysisFailedRules.value?.length ?? 0)
+const isBusy = computed(() => analysisInProgress.value || props.isUploading)
+const nextDisabled = computed(() => isBusy.value)
 
 const store = useTenantStore()
 
-defineExpose({ focusBanners, analysisInProgress, analysisFailedRules, explanationSubmitted })
+const nextLabel = computed(() => {
+  if (props.isUploading) return t('uploading')
+  if (analysisInProgress.value) return t('analyzing')
+  return undefined
+})
+
+defineExpose({
+  focusBanners,
+  analysisInProgress,
+  analysisFailedRules,
+  explanationSubmitted,
+  nextDisabled,
+  nextLabel,
+  beforeSubmit
+})
 
 function focusBanners() {
   analysisBanner.value?.focus()
 }
 
 watch(
-  () => props.document,
+  () => document.value,
   async (document) => {
     analysisFailedRules.value = document?.documentAnalysisReport?.failedRules ?? []
     if (!document?.id) {
@@ -159,11 +189,11 @@ function startPolling(userInitiated = false) {
     AnalyticsService.document_analysis_timeout('tax')
     analysisInProgress.value = false
     stopPolling()
-  }, POLLING_TIMEOUT_MS)
+  }, props.pollingTimoutMs)
 }
 
 async function updateAnalysisStatus(): Promise<AnalysisStatus | 'FAILED' | undefined> {
-  const docId = props.document?.id
+  const docId = document.value?.id
   if (!docId) {
     stopPolling()
     return undefined
@@ -219,7 +249,7 @@ function saveExplanation() {
   }
   showExplainError.value = false
   const params = {
-    documentId: props.document?.id,
+    documentId: document.value?.id,
     tenantId: store.user.id,
     comment: explainText.value
   }
@@ -228,6 +258,15 @@ function saveExplanation() {
     explanationSubmitted.value = true
     toast.success(t('save-success'), undefined)
   })
+}
+
+function beforeSubmit(): boolean {
+  if (isBusy.value) return false
+  if (hasUnresolvedErrors.value) {
+    focusBanners()
+    return false
+  }
+  return true
 }
 </script>
 
@@ -299,6 +338,8 @@ function saveExplanation() {
   "en": {
     "errors-count": "{count} error to correct | {count} errors to correct",
     "or": "OR",
+    "uploading": "Uploading...",
+    "analyzing": "Analyzing...",
     "explain-situation": "Explain my situation",
     "explain-question": "What difficulty are you encountering to correct this error?",
     "explain-placeholder": "Enter text",
@@ -310,6 +351,8 @@ function saveExplanation() {
   "fr": {
     "errors-count": "{count} erreur à corriger | {count} erreurs à corriger",
     "or": "OU",
+    "uploading": "Envoi en cours...",
+    "analyzing": "Analyse en cours...",
     "explain-situation": "Expliquer ma situation",
     "explain-question": "Quelle difficulté rencontrez-vous pour corriger cette erreur ?",
     "explain-placeholder": "Texte saisi",
