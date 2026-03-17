@@ -63,7 +63,8 @@
             </div>
           </div>
         </NakedCard>
-        <ProfileFooter @on-back="goBack"></ProfileFooter>
+        <GlobalStepFooter />
+        <!-- <ProfileFooter @on-back="goBack"/> -->
       </Form>
     </div>
 
@@ -90,7 +91,8 @@
           :has-submited
           class="fr-mt-2w"
         />
-        <ProfileFooter ref="footer" @on-back="goBack" />
+        <GlobalStepFooter />
+        <!-- <ProfileFooter ref="footer" @on-back="goBack" /> -->
       </Form>
     </div>
   </div>
@@ -113,6 +115,7 @@ import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { isAxiosError } from 'axios'
 import { useIdentityDocumentLink } from './identityDocument/lib/identityDocumentLink'
 import { getNextBtnInFooter, toast } from './toast/toastUtils'
+import GlobalStepFooter from './footer/GlobalStepFooter.vue'
 
 const router = useRouter()
 const store = useTenantStore()
