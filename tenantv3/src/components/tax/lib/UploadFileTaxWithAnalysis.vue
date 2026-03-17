@@ -102,8 +102,6 @@ async function forceUploadAfterOverride() {
 const { t } = useI18n()
 </script>
 
-<style scoped></style>
-
 <i18n lang="json">
 {
   "en": {

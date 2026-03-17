@@ -205,7 +205,7 @@ async function remove(fileId: number, silent = false) {
   AnalyticsService.deleteFile('guarantee-provider-certificate')
   if (fileId) {
     if (
-      (certificateDocument.value?.files?.length ?? 0) === 1 &&
+      certificateDocument.value?.files?.length === 1 &&
       certificateDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
       AnalyticsService.removeDeniedDocument(certificateDocument.value.documentCategory || '')

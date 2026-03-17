@@ -80,6 +80,26 @@ const AnalysisBannersStub = defineComponent({
   }
 })
 
+const DsfrButtonStub = defineComponent({
+  name: 'DsfrButton',
+  props: {
+    label: { type: String, default: '' }
+  },
+  emits: ['click'],
+  setup(props, { emit, attrs }) {
+    return () =>
+      h(
+        'button',
+        {
+          ...attrs,
+          type: 'button',
+          onClick: () => emit('click')
+        },
+        props.label
+      )
+  }
+})
+
 function mountComponent(props?: { isUploading?: boolean; pollingTimoutMs?: number }) {
   return mount(AnalysisWrapper, {
     props,
@@ -90,7 +110,8 @@ function mountComponent(props?: { isUploading?: boolean; pollingTimoutMs?: numbe
     global: {
       stubs: {
         AnalysisBanners: AnalysisBannersStub,
-        VIcon: true
+        DsfrBadge: true,
+        DsfrButton: DsfrButtonStub
       }
     }
   })
@@ -206,7 +227,7 @@ describe('analysisWrapper', () => {
 
     const textarea = wrapper.find('#explainText')
     await textarea.setValue('Mon explication')
-    await wrapper.find('.explain-form-actions .fr-btn').trigger('click')
+    await wrapper.find('.explain-form-actions button').trigger('click')
     await flushPromises()
 
     expect(mockCommentAnalysis).toHaveBeenCalledWith({
@@ -229,7 +250,7 @@ describe('analysisWrapper', () => {
 
     const textarea = wrapper.find('#explainText')
     await textarea.setValue('   ')
-    await wrapper.find('.explain-form-actions .fr-btn').trigger('click')
+    await wrapper.find('.explain-form-actions button').trigger('click')
     await flushPromises()
 
     expect(mockCommentAnalysis).not.toHaveBeenCalled()

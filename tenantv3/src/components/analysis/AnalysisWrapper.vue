@@ -1,10 +1,10 @@
 <template>
-  <div v-if="analysisErrorCount > 0" class="error-badge fr-mb-2w">
-    <VIcon name="ri:alert-fill" class="badge-icon" aria-hidden="true" color="#b34000" />
-    <span class="badge-text">{{
-      t('errors-count', { count: analysisErrorCount }, analysisErrorCount)
-    }}</span>
-  </div>
+  <DsfrBadge
+    v-if="analysisErrorCount > 0"
+    type="warning"
+    :label="t('errors-count', { count: analysisErrorCount }, analysisErrorCount)"
+    class="fr-mb-2w"
+  />
   <slot name="fileSpecificDescription" />
   <AnalysisBanners
     v-if="analysisErrorCount > 0"
@@ -14,26 +14,20 @@
     class="fr-mb-3w"
     @explain="openExplainSection()"
   />
-  <!-- -- "> -->
   <slot name="fileUploader" />
-  <div
-    v-if="analysisFailedRules.length > 0"
-    ref="explain-section"
-    class="explain-section"
-    tabindex="-1"
-  >
+  <div v-if="analysisFailedRules.length > 0" ref="explain-section" class="explain-section">
     <div class="separator">
       <div class="separator-line"></div>
       <span class="separator-text">{{ t('or') }}</span>
       <div class="separator-line"></div>
     </div>
-    <button
+    <DsfrButton
       type="button"
-      class="fr-btn fr-btn--secondary explain-btn"
+      secondary
+      class="explain-btn"
+      :label="t('explain-situation')"
       @click="openExplainSection(false)"
-    >
-      {{ t('explain-situation') }}
-    </button>
+    />
     <div v-if="showExplainForm" class="explain-form">
       <div class="fr-input-group" :class="{ 'fr-input-group--error': showExplainError }">
         <label for="explainText" class="fr-label">{{ t('explain-question') }}</label>
@@ -45,24 +39,23 @@
           :class="{ 'fr-input--error': showExplainError }"
           rows="5"
           :placeholder="t('explain-placeholder')"
-          aria-describedby="explainText-error"
+          aria-describedby="explainText-error explainText-info"
         />
-        <p
-          v-if="showExplainError"
-          id="explainText-error"
-          aria-live="assertive"
-          class="fr-error-text"
-        >
+        <p v-if="showExplainError" id="explainText-error" class="fr-error-text">
           {{ t('explain-error') }}
         </p>
       </div>
-      <p class="fr-info-text">
+      <p id="explainText-info" class="fr-info-text">
         {{ t('explain-info') }}
       </p>
       <div class="explain-form-actions">
-        <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" @click="saveExplanation">
-          {{ t('explain-save') }}
-        </button>
+        <DsfrButton
+          type="button"
+          tertiary
+          size="sm"
+          :label="t('explain-save')"
+          @click="saveExplanation"
+        />
       </div>
     </div>
   </div>
@@ -72,7 +65,7 @@
 import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
-import { VIcon } from '@gouvminint/vue-dsfr'
+import { DsfrBadge, DsfrButton } from '@gouvminint/vue-dsfr'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import { computed, nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -271,29 +264,6 @@ function beforeSubmit(): boolean {
 </script>
 
 <style scoped>
-.error-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  background-color: #ffe9e6;
-  border-radius: 4px;
-  padding: 0 0.5rem;
-  width: fit-content;
-}
-
-.badge-icon {
-  width: 1rem;
-  height: 1rem;
-}
-
-.badge-text {
-  font-weight: 700;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: #b34000;
-  text-transform: uppercase;
-}
-
 .explain-section {
   display: flex;
   flex-direction: column;
@@ -317,8 +287,8 @@ function beforeSubmit(): boolean {
 
 .separator-text {
   font-weight: 700;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
   color: #161616;
 }
 
