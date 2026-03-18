@@ -4,6 +4,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import { router } from './router'
 import { i18n } from './i18n'
+import { defineRegleOptions, RegleVuePlugin } from '@regle/core'
 import '@gouvfr/dsfr/dist/core/core.main.min.css'
 import '@gouvfr/dsfr/dist/utility/utility.main.min.css'
 import '@gouvfr/dsfr/dist/utility/colors/colors.min.css'
@@ -19,6 +20,8 @@ import { configure, defineRule } from 'vee-validate'
 import * as Sentry from '@sentry/vue'
 
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
+import { email, minLength, required, withMessage, maxLength, checked } from '@regle/rules'
+import { useI18n } from 'vue-i18n'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
@@ -130,6 +133,26 @@ configure({
 
 const TENANT_API_URL = import.meta.env.VITE_API_URL
 
+const { t } = useI18n()
+
+// Custom i18n error messages for validators
+const reglesOptions = defineRegleOptions({
+  rules: () => ({
+    required: withMessage(required, t('validation.required')),
+    email: withMessage(email, t('validation.emailValidation')),
+    checked: withMessage(checked, t('validation.consent')),
+    minLength: withMessage(minLength, ({ $value, $params: [min] }) => {
+      return t('validation.min', { min, length: $value?.length })
+    }),
+    maxLength: withMessage(maxLength, ({ $value, $params: [max] }) => {
+      return t('validation.max', { max, length: $value?.length })
+    })
+  }),
+  modifiers: {
+    silent: true
+  }
+})
+
 keycloak
   .init({ onLoad: 'check-sso', checkLoginIframe: true })
   .then((auth) => {
@@ -193,6 +216,7 @@ keycloak
     app.use(createPinia())
     app.use(router)
     app.use(i18n)
+    app.use(RegleVuePlugin, reglesOptions)
     app.use(LoadingPlugin)
     app.use(ConsentPlugin, { matomo: true, crisp: CRISP_ENABLED === 'true' })
     app.mount('#app')
