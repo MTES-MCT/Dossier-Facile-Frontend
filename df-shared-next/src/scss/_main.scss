@@ -13,7 +13,7 @@
   padding: 0;
   list-style-type: none;
   li::marker {
-    content: "";
+    content: '';
   }
 }
 
@@ -557,10 +557,6 @@ h1 {
 // Make disabled buttons accessible to assistive technology
 button[aria-disabled='true'] {
   cursor: not-allowed;
-
-  &:active {
-    pointer-events: none;
-  }
 }
 
 // layout utilities

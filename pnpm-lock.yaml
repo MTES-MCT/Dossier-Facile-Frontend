@@ -135,6 +135,12 @@ importers:
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
         version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.18(typescript@5.9.2)))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+      '@regle/core':
+        specifier: 'catalog:'
+        version: 1.20.3(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
+      '@regle/rules':
+        specifier: 'catalog:'
+        version: 1.20.3(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.4.0
         version: 4.4.0(vue@3.5.18(typescript@5.9.2))
