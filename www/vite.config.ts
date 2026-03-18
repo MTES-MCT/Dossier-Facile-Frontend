@@ -43,7 +43,7 @@ export default defineConfig({
     createRobotsTxtPlugin(),
     vueI18n({ strictMessage: false }),
     pluginPurgeCss({
-      variables: true,
+      variables: false,
       content: [`./dist/**/*.html`, `./src/**/*.vue`, `../df-shared-next/src/**/*.vue`],
       safelist: {
         standard: [/^fr-[a-z]+--/],
