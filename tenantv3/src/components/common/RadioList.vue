@@ -60,6 +60,7 @@ ul > li + li {
 }
 :deep(.fr-card__title) {
   font-size: 1.25rem;
-  max-inline-size: 30ch;
+  /* icon card size is 1.5rem + margin left so we substract that for the max-inline-size */
+  max-inline-size: min(100% - 2rem, 34ch);
 }
 </style>
