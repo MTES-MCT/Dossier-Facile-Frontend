@@ -1189,5 +1189,12 @@
     "Confirm": "Conserver ses documents",
     "Contact": "Contact",
     "catchall": "Page non trouvée (erreur 404)"
+  },
+  "validation": {
+    "required": "Ce champ est obligatoire",
+    "emailValidation": "L'adresse saisie est malformée",
+    "min": "Veuillez renseigner au moins ${min} caractères. Caractères actuels : ${length}",
+    "max": "Veuillez renseigner au maximum {max} caractères. Caractères actuels : ${length}",
+    "consent": "Veuillez accepter les conditions"
   }
 }
