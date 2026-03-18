@@ -1032,9 +1032,7 @@
     "ChooseTenantIdentity": "Identity - @:page-titles.base.steps.1of2",
     "SelfTenantIdentity": "Your identity - @:page-titles.base.steps.2of2",
     "ThirdPartyTenantIdentity": "Beneficiary's Identity - @:page-titles.base.steps.2of2",
-
     "TenantType": "Application type",
-
     "base": {
       "steps": {
         "1of2": "step 1 of 2",
@@ -1139,14 +1137,12 @@
         "nonRenseigne": "Unknown status"
       }
     },
-
     "TenantIdentity": "Your Identity",
     "TenantResidency": "Your Housing situation",
     "TenantProfessional": "Your Professional situation",
     "TenantFinancial": "Your income",
     "TenantRevAdd": "Add income sources",
     "TenantTax": "Your tax notice",
-
     "Couple": "Spouse",
     "CoupleIdentityTitle": "Spouse's identity",
     "CoupleResidency": "Spouse's housing",
@@ -1154,7 +1150,6 @@
     "CoupleFinancial": "Spouse's income",
     "CoupleRevAdd": "Add spouse's income",
     "CoupleTax": "Spouse's tax",
-
     "GuarantorChoice": "Add guarantors",
     "GuarantorList": "My guarantors",
     "Guarantors": "Guarantor",
@@ -1164,7 +1159,6 @@
     "GuarantorFinancial": "Guarantor's income",
     "GuarantorRevAdd": "Add guarantor's income",
     "GuarantorTax": "Guarantor's tax",
-
     "TenantGuarantorList": "Spouse's guarantors",
     "TenantGuarantors": "Add spouse guarantors",
     "TenantGuarantorIdentity": "Spouse's Guarantor's identity",
@@ -1173,10 +1167,8 @@
     "TenantGuarantorFinancial": "Spouse's Guarantor's income",
     "TenantGuarantorRevAdd": "Add Spouse's Guarantor's income",
     "TenantGuarantorTax": "Spouse's Guarantor's tax",
-
     "ValidateFile": "Files validation",
     "ValidateFileStep": "Files validation",
-
     "File": "File",
     "PublicFile": "Public file",
     "MyFile": "My files",
@@ -1190,10 +1182,13 @@
     "catchall": "Page not found (404 error)"
   },
   "validation": {
-    "required": "This field is required",
-    "emailValidation": "Email address is malformatted",
-    "min": "Minimum length is ${min}. Current length: ${length}",
-    "max": "Maximum length is ${max}. Current length: ${length}",
-    "consent": "Please accept our conditions"
+    "required": "This field is required.",
+    "emailValidation": "Email address is malformatted.",
+    "min": "Minimum length is ${min}. Current length: ${length}.",
+    "max": "Maximum length is ${max}. Current length: ${length}.",
+    "consent": "Please accept our conditions.",
+    "alpha": "Only alphabetic characters are allowed.",
+    "name": "Only alphabetic characters, spaces, dashes and apostrophes are allowed.",
+    "postalCode": "Postal code must be 5 digits long."
   }
 }

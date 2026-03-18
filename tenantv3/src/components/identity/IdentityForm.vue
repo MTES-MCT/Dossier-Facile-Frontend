@@ -6,74 +6,65 @@
     small
     :description="t('self.france-connected')"
   />
-  <Form v-slot="{ meta }" class="fr-mt-3w" aria-describedby="form-description" @submit="onSubmit">
-    <TextField
-      v-model.trim="lastname"
-      :field-label="t('common.last-name-label')"
-      name="lastname"
+  <form novalidate @submit.prevent="onSubmit">
+    <InputWrapper
+      v-model:input-value="r$.$value.lastName"
+      input-name="lastName"
+      :input-label="t('common.last-name-label')"
+      :field="r$.lastName"
       autocomplete="family-name"
-      validation-rules="required|onlyAlpha"
-      :readonly="isInputDisabled"
     />
-    <TextField
-      v-model.trim="preferredname"
-      :field-label="t('common.preferred-name-label')"
-      name="preferredName"
+    <InputWrapper
+      v-model:input-value="r$.$value.preferredName"
+      input-name="preferredName"
+      :input-label="t('common.preferred-name-label')"
+      :field="r$.preferredName"
       autocomplete="new-password"
-      validation-rules="onlyAlpha"
-      :readonly="isInputDisabled"
     />
-    <TextField
-      v-model.trim="firstname"
-      :field-label="t('common.first-name-label')"
-      name="firstName"
+    <InputWrapper
+      v-model:input-value="r$.$value.firstName"
+      input-name="firstName"
+      :input-label="t('common.first-name-label')"
+      :field="r$.firstName"
       autocomplete="given-name"
-      validation-rules="required|onlyAlpha"
-      :readonly="isInputDisabled"
     />
-
-    <TextField
-      v-model.trim="postalCode"
-      :field-label="t(textKey + '.postal-code-label')"
-      name="postalCode"
+    <InputWrapper
+      v-model:input-value="r$.$value.postalCode"
+      input-name="postalCode"
+      :input-label="t(textKey + '.postal-code-label')"
+      :field="r$.postalCode"
       autocomplete="postal-code"
-      validation-rules="zipcode"
+      inputmode="numeric"
     />
-
-    <div v-if="textKey === 'third-party'" class="fr-mt-3w">
-      <Field
-        v-model.trim="thirdPartyConsent"
-        type="checkbox"
-        name="thirdPartyConsent"
-        :rules="{
-          required: true
-        }"
-      >
-        <DsfrCheckbox
-          v-model="thirdPartyConsent"
-          value=""
-          name="third-party-consent-checkbox"
-          :label="t('third-party.checkbox-label', { lastName: lastname, firstName: firstname })"
-        />
-      </Field>
-    </div>
-    <GlobalStepFooter :disabled="!meta.valid" />
-    <!-- <ProfileFooter :show-back="false" :disabled="!meta.valid" /> -->
-  </Form>
+    <InputWrapper
+      v-if="needConsent"
+      v-model:input-value="r$.$value.thirdPartyConsent"
+      input-name="thirdPartyConsent"
+      :input-label="
+        t('third-party.checkbox-label', {
+          lastName: r$.$value.lastName,
+          firstName: r$.$value.firstName
+        })
+      "
+      :field="r$.thirdPartyConsent"
+    />
+    <GlobalStepFooter :disabled="r$.$invalid" />
+  </form>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { Form, Field } from 'vee-validate'
-import ProfileFooter from '../footer/ProfileFooter.vue'
+import { computed } from 'vue'
+import { useRegle } from '@regle/core'
+import { required, requiredIf } from '@regle/rules'
+import { useCustomRules } from 'df-shared-next/src/validators/validationRules'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '@/stores/tenant-store'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { router } from '@/router'
 import { useLoading } from 'vue-loading-overlay'
-import TextField from '../form/TextField.vue'
-import { DsfrCheckbox, DsfrAlert } from '@gouvminint/vue-dsfr'
+import { DsfrAlert } from '@gouvminint/vue-dsfr'
 import GlobalStepFooter from '../footer/GlobalStepFooter.vue'
+import InputWrapper from 'df-shared-next/src/components/form/InputWrapper.vue'
 
 const props = defineProps<{
   textKey: 'self' | 'third-party'
@@ -82,15 +73,27 @@ const props = defineProps<{
 const $loading = useLoading({})
 const { t } = useI18n()
 const store = useTenantStore()
-
 const user = computed(() => store.user)
+
+const needConsent = computed(() => props.textKey === 'third-party')
+
+const { frenchPostalCode, nameFormat } = useCustomRules()
 
 const placeHolderIdentity = {
   lastName: user.value?.lastName || '',
   firstName: user.value?.firstName || '',
   preferredName: user.value?.preferredName || '',
-  postalCode: user.value?.zipCode || ''
+  postalCode: user.value?.zipCode || '',
+  thirdPartyConsent: false
 }
+
+const { r$ } = useRegle(placeHolderIdentity, {
+  lastName: { required, nameFormat },
+  preferredName: { nameFormat },
+  firstName: { required, nameFormat },
+  postalCode: { frenchPostalCode },
+  thirdPartyConsent: { required: requiredIf(needConsent.value) }
+})
 
 // If we show the form for self identity and the user is france connected we have to set the form
 if (props.textKey === 'self' && user.value?.franceConnectIdentity) {
@@ -115,16 +118,6 @@ if (
   placeHolderIdentity.postalCode = ''
 }
 
-const lastname = ref(placeHolderIdentity.lastName)
-const firstname = ref(placeHolderIdentity.firstName)
-const preferredname = ref(placeHolderIdentity.preferredName)
-
-const postalCode = ref(placeHolderIdentity.postalCode)
-
-const thirdPartyConsent = ref(
-  user.value?.ownerType === 'THIRD_PARTY' && placeHolderIdentity.firstName !== ''
-)
-
 const isInputDisabled = computed(() => {
   const franceConnect = user.value?.franceConnect
   if (props.textKey === 'self') {
@@ -133,16 +126,19 @@ const isInputDisabled = computed(() => {
   return false
 })
 
-const onSubmit = () => {
-  if (!lastname.value || !firstname.value) {
-    return
-  }
+const onSubmit = async () => {
+  // TODO: trim the values before validation
+  const { valid, data } = await r$.$validate()
+
+  if (!valid) return
+
   const loader = $loading.show()
 
-  store.user.firstName = firstname.value
-  store.user.lastName = lastname.value
-  store.user.preferredName = preferredname.value
-  store.user.zipCode = postalCode.value
+  store.user.firstName = data.firstName
+  store.user.lastName = data.lastName
+  store.user.preferredName = data.preferredName
+  store.user.zipCode = data.postalCode
+
   if (props.textKey === 'self') {
     store.user.ownerType = 'SELF'
   } else {
