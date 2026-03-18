@@ -73,7 +73,7 @@ describe("Test signup process", () => {
         cy.log("Verified account exists, delete it");
         cy.contains("Mon compte").click();
         cy.contains("Supprimer mon compte").click();
-        cy.contains(".fr-modal--opened button", "Supprimer mon compte").click();
+        cy.get("dialog[open] button").contains("Supprimer mon compte").click();
         cy.url().should("contain", Cypress.env("mainUrl"));
 
         signup();
@@ -94,11 +94,11 @@ describe("Test signup process", () => {
 
       cy.wrap(doc.getElementsByTagName("h3").length).should(
         "be.greaterThan",
-        0
+        0,
       ); // There should be at least one h3 tag
 
       expect(doc.getElementsByTagName("h3")[0].innerText).to.satisfy(
-        (text: string) => text.includes("Bienvenue chez DossierFacile !")
+        (text: string) => text.includes("Bienvenue chez DossierFacile !"),
       );
 
       const linkElement = doc.querySelector("a.default-button");
