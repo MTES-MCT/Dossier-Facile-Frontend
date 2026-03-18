@@ -15,7 +15,7 @@ export default defineConfig({
     transformer: 'lightningcss',
     lightningcss: {
       targets: browserslistToTargets(
-        browserslist('baseline widely available with downstream, >= 0.25%')
+        browserslist('baseline widely available with downstream, >= 0.5%')
       ),
       errorRecovery: true
     }

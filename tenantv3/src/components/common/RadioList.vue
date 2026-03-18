@@ -60,6 +60,6 @@ ul > li + li {
 }
 :deep(.fr-card__title) {
   font-size: 1.25rem;
-  max-inline-size: 30ch;
+  max-inline-size: calc(30ch - 1.5rem);
 }
 </style>
