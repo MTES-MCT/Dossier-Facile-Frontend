@@ -20,8 +20,7 @@ import { configure, defineRule } from 'vee-validate'
 import * as Sentry from '@sentry/vue'
 
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
-import { email, minLength, required, withMessage, maxLength, checked } from '@regle/rules'
-import { useI18n } from 'vue-i18n'
+import { email, minLength, required, withMessage, maxLength, checked, alpha } from '@regle/rules'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
@@ -133,19 +132,18 @@ configure({
 
 const TENANT_API_URL = import.meta.env.VITE_API_URL
 
-const { t } = useI18n()
-
 // Custom i18n error messages for validators
 const reglesOptions = defineRegleOptions({
   rules: () => ({
-    required: withMessage(required, t('validation.required')),
-    email: withMessage(email, t('validation.emailValidation')),
-    checked: withMessage(checked, t('validation.consent')),
+    required: withMessage(required, i18n.global.t('validation.required')),
+    email: withMessage(email, i18n.global.t('validation.emailValidation')),
+    alpha: withMessage(alpha, i18n.global.t('validation.alpha')),
+    checked: withMessage(checked, i18n.global.t('validation.consent')),
     minLength: withMessage(minLength, ({ $value, $params: [min] }) => {
-      return t('validation.min', { min, length: $value?.length })
+      return i18n.global.t('validation.min', { min, length: $value?.length })
     }),
     maxLength: withMessage(maxLength, ({ $value, $params: [max] }) => {
-      return t('validation.max', { max, length: $value?.length })
+      return i18n.global.t('validation.max', { max, length: $value?.length })
     })
   }),
   modifiers: {
