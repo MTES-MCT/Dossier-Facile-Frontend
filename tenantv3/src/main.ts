@@ -18,9 +18,22 @@ import { LoadingPlugin } from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import { configure, defineRule } from 'vee-validate'
 import * as Sentry from '@sentry/vue'
+import { useUtils } from './composables/useUtils'
 
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
-import { email, minLength, required, withMessage, maxLength, checked, alpha } from '@regle/rules'
+import {
+  email,
+  minLength,
+  required,
+  withMessage,
+  maxLength,
+  checked,
+  alpha,
+  maxFileSize,
+  fileType
+} from '@regle/rules'
+
+const { getDocSize, getAllowedTypes } = useUtils()
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
@@ -144,6 +157,16 @@ const reglesOptions = defineRegleOptions({
     }),
     maxLength: withMessage(maxLength, ({ $value, $params: [max] }) => {
       return i18n.global.t('validation.max', { max, length: $value?.length })
+    }),
+    maxFileSize: withMessage(maxFileSize, ({ $value, $params: [max] }) => {
+      return i18n.global.t('validation.maxFileSize', {
+        max: getDocSize(max),
+        n: getDocSize($value?.size)
+      })
+    }),
+    fileType: withMessage(fileType, ({ $params: [accept] }) => {
+      const allowedTypes = getAllowedTypes(accept)
+      return i18n.global.t('validation.fileType', { accept: allowedTypes })
     })
   }),
   modifiers: {

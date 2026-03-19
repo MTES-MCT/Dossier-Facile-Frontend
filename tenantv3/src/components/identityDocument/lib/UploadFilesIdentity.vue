@@ -20,6 +20,7 @@
   <FileUpload
     ref="file-upload"
     :current-status="fileUploadStatus"
+    :current-files="identificationFiles"
     :page="2"
     @add-files="addFiles"
   />
