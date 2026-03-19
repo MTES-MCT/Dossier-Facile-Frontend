@@ -468,9 +468,9 @@
     "download": "Télécharger"
   },
   "fileupload": {
-    "drag-and-drop-files": "Glissez et déposez vos documents :",
+    "drag-and-drop-files": "Glissez et déposez vos documents",
     "files-format": "Fichier .jpg, .png, .pdf ou .heic",
-    "browse-files": "Ou parcourez vos fichiers :",
+    "browse-files": "ou parcourez vos fichiers.",
     "browse": "Parcourir…",
     "uploading-files": "Envoi des fichiers...",
     "send-problem": "Problème d'envoi.",
@@ -1029,13 +1029,10 @@
   "step": "étape",
   "page-titles": {
     "Home": "Accueil",
-
     "ChooseTenantIdentity": "Identité - @:page-titles.base.steps.1of2",
     "SelfTenantIdentity": "Votre identité - @:page-titles.base.steps.2of2",
     "ThirdPartyTenantIdentity": "Identité du bénéficiaire - @:page-titles.base.steps.2of2",
-
     "TenantType": "Type de dossier",
-
     "base": {
       "steps": {
         "1of2": "étape 1 sur 2",
@@ -1140,14 +1137,12 @@
         "nonRenseigne": "Non renseignée"
       }
     },
-
     "TenantIdentity": "Votre identité",
     "TenantResidency": "Votre situation d'hébergement",
     "TenantProfessional": "Votre situation professionnelle",
     "TenantFinancial": "Vos revenus",
     "TenantRevAdd": "Ajouter des revenus",
     "TenantTax": "Votre imposition",
-
     "Couple": "Votre conjoint",
     "CoupleName": "Identité du conjoint",
     "CoupleResidency": "Hébergement du conjoint",
@@ -1155,7 +1150,6 @@
     "CoupleFinancial": "Revenus du conjoint",
     "CoupleRevAdd": "Ajouter les revenus du conjoint",
     "CoupleTax": "Imposition du conjoint",
-
     "GuarantorChoice": "Ajouter des garants",
     "GuarantorList": "Mes garants",
     "Guarantors": "Garant",
@@ -1165,7 +1159,6 @@
     "GuarantorFinancial": "Revenus du garant",
     "GuarantorRevAdd": "Ajouter les revenus du garant",
     "GuarantorTax": "Imposition du garant",
-
     "TenantGuarantorList": "Ajouter les garants du conjoint",
     "TenantGuarantors": "Garants du conjoint",
     "TenantGuarantorIdentity": "Identité garant du conjoint",
@@ -1174,10 +1167,8 @@
     "TenantGuarantorFinancial": "Revenus garant du conjoint",
     "TenantGuarantorRevAdd": "Ajouter les revenus du garant",
     "TenantGuarantorTax": "Imposition garant du conjoint",
-
     "ValidateFile": "Validation du dossier",
     "ValidateFileStep": "Validation du dossier",
-
     "File": "Fichier",
     "PublicFile": "Fichier public",
     "MyFile": "Mon dossier",
@@ -1193,11 +1184,12 @@
   "validation": {
     "required": "Ce champ est obligatoire.",
     "emailValidation": "L'adresse saisie est malformée.",
-    "min": "Veuillez renseigner au moins ${min} caractères. Caractères actuels : ${length}.",
-    "max": "Veuillez renseigner au maximum {max} caractères. Caractères actuels : ${length}.",
+    "min": "Veuillez renseigner au moins {min} caractères. Caractères actuels : {length}.",
+    "max": "Veuillez renseigner au maximum {max} caractères. Caractères actuels : {length}.",
     "consent": "Veuillez accepter les conditions.",
     "alpha": "Seuls les caractères alphabetiques sont autorisés.",
     "name": "Seuls les caractères alphabetiques, tirets, espaces et apostrophes sont autorisés.",
-    "postalCode": "Le code postal doit contenir 5 chiffres."
+    "postalCode": "Le code postal doit contenir 5 chiffres.",
+    "exactFile": "Nombre de fichiers nécessaires : {max}. Fichiers actuels : {n}."
   }
 }
