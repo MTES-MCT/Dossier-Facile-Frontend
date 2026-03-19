@@ -65,6 +65,7 @@ import { useLoading } from 'vue-loading-overlay'
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
 import GlobalStepFooter from '../footer/GlobalStepFooter.vue'
 import InputWrapper from 'df-shared-next/src/components/form/InputWrapper.vue'
+import { useTrimValues } from '@/composables/useTrimValues'
 
 const props = defineProps<{
   textKey: 'self' | 'third-party'
@@ -72,6 +73,7 @@ const props = defineProps<{
 
 const $loading = useLoading({})
 const { t } = useI18n()
+const { trimValues } = useTrimValues()
 const store = useTenantStore()
 const user = computed(() => store.user)
 
@@ -79,6 +81,7 @@ const needConsent = computed(() => props.textKey === 'third-party')
 
 const { frenchPostalCode, nameFormat } = useCustomRules()
 
+// Define form fields with initial values
 const placeHolderIdentity = {
   lastName: user.value?.lastName || '',
   firstName: user.value?.firstName || '',
@@ -86,7 +89,7 @@ const placeHolderIdentity = {
   postalCode: user.value?.zipCode || '',
   thirdPartyConsent: false
 }
-
+// Create form with validation rules for the fields
 const { r$ } = useRegle(placeHolderIdentity, {
   lastName: { required, nameFormat },
   preferredName: { nameFormat },
@@ -127,7 +130,9 @@ const isInputDisabled = computed(() => {
 })
 
 const onSubmit = async () => {
-  // TODO: trim the values before validation
+  // trim the values before validation
+  trimValues(r$.$value)
+
   const { valid, data } = await r$.$validate()
 
   if (!valid) return
