@@ -1190,6 +1190,9 @@
     "alpha": "Only alphabetic characters are allowed.",
     "name": "Only alphabetic characters, spaces, dashes and apostrophes are allowed.",
     "postalCode": "Postal code must be 5 digits long.",
-    "exactFile": "Number of files necessary: {max}. Current files: {n}."
+    "maxFile": "Maximum number of files: {max}. Current files: {n}.",
+    "exactFile": "Number of files necessary: {max}. Current files: {n}.",
+    "maxFileSize": "Maximum file size allowed: {max}kb. Current size: {n}kb.",
+    "fileType": "File type is not allowed. Allowed types are: {accept}."
   }
 }

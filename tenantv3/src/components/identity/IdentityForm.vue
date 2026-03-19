@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, nextTick } from 'vue'
 import { useRegle } from '@regle/core'
 import { required, requiredIf } from '@regle/rules'
 import { useCustomRules } from 'df-shared-next/src/validators/validationRules'
@@ -65,7 +65,7 @@ import { useLoading } from 'vue-loading-overlay'
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
 import GlobalStepFooter from '../footer/GlobalStepFooter.vue'
 import InputWrapper from 'df-shared-next/src/components/form/InputWrapper.vue'
-import { useTrimValues } from '@/composables/useTrimValues'
+import { useUtils } from '@/composables/useUtils'
 
 const props = defineProps<{
   textKey: 'self' | 'third-party'
@@ -73,7 +73,7 @@ const props = defineProps<{
 
 const $loading = useLoading({})
 const { t } = useI18n()
-const { trimValues } = useTrimValues()
+const { trimValues } = useUtils()
 const store = useTenantStore()
 const user = computed(() => store.user)
 
@@ -133,6 +133,7 @@ const onSubmit = async () => {
   // trim the values before validation
   trimValues(r$.$value)
 
+  await nextTick()
   const { valid, data } = await r$.$validate()
 
   if (!valid) return

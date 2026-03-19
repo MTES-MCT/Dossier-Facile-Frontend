@@ -476,7 +476,7 @@
     "send-problem": "Problème d'envoi.",
     "file-too-big": "La taille d'un fichier ne doit pas dépasser {0}Mo",
     "pages": "{0} pages maximum",
-    "size": "Poids maximal : {0}Mo"
+    "size": "Poids maximal : {0}MB"
   },
   "forgottenpasswordpage": {
     "email-not-found": "Email non trouvé",
@@ -1190,6 +1190,9 @@
     "alpha": "Seuls les caractères alphabetiques sont autorisés.",
     "name": "Seuls les caractères alphabetiques, tirets, espaces et apostrophes sont autorisés.",
     "postalCode": "Le code postal doit contenir 5 chiffres.",
-    "exactFile": "Nombre de fichiers nécessaires : {max}. Fichiers actuels : {n}."
+    "maxFile": "Nombre de fichiers maximum : {max}. Fichiers actuels : {n}.",
+    "exactFile": "Nombre de fichiers nécessaires : {max}. Fichiers actuels : {n}.",
+    "maxFileSize": "Poids maximum autorisé par fichier : {max}kb. Poids actuel : {n}kb.",
+    "fileType": "Type de fichier non supporté. Les fichiers supportés sont : {accept}."
   }
 }
