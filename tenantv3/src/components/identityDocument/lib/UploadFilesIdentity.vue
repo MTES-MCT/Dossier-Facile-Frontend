@@ -20,7 +20,7 @@
   <FileUpload
     ref="file-upload"
     :current-status="fileUploadStatus"
-    :page="4"
+    :page="2"
     @add-files="addFiles"
   />
   <IdentificationFooter :submit="false" :disabled="!store.getTenantIdentificationDocument" />

@@ -147,7 +147,9 @@ const reglesOptions = defineRegleOptions({
     })
   }),
   modifiers: {
-    silent: true
+    silent: true,
+    autoDirty: false,
+    rewardEarly: true
   }
 })
 

@@ -459,9 +459,9 @@
     "download": "Download"
   },
   "fileupload": {
-    "drag-and-drop-files": "Drag and drop your documents:",
+    "drag-and-drop-files": "Drag and drop your documents",
     "files-format": "File type: .jpg, .png, .pdf or .heic",
-    "browse-files": "Or browse files:",
+    "browse-files": "or browse files.",
     "browse": "Browse…",
     "uploading-files": "Uploading files...",
     "send-problem": "Sending problem.",
@@ -1184,11 +1184,12 @@
   "validation": {
     "required": "This field is required.",
     "emailValidation": "Email address is malformatted.",
-    "min": "Minimum length is ${min}. Current length: ${length}.",
-    "max": "Maximum length is ${max}. Current length: ${length}.",
+    "min": "Minimum length is {min}. Current length: {length}.",
+    "max": "Maximum length is {max}. Current length: {length}.",
     "consent": "Please accept our conditions.",
     "alpha": "Only alphabetic characters are allowed.",
     "name": "Only alphabetic characters, spaces, dashes and apostrophes are allowed.",
-    "postalCode": "Postal code must be 5 digits long."
+    "postalCode": "Postal code must be 5 digits long.",
+    "exactFile": "Number of files necessary: {max}. Current files: {n}."
   }
 }
