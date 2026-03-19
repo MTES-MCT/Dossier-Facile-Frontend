@@ -4,7 +4,7 @@
     :document="identityDocument"
     :document-denied-reasons="identityDocument?.documentDeniedReasons"
     :document-status="documentStatus"
-  ></AllDeclinedMessages>
+  />
   <div v-if="identificationFiles.length > 0" class="fr-col-12 fr-mb-3w">
     <ListItem
       v-for="file in identificationFiles"
@@ -20,10 +20,11 @@
   <FileUpload
     ref="file-upload"
     :current-status="fileUploadStatus"
-    :page="4"
+    :current-files="identificationFiles"
+    :page="2"
     @add-files="addFiles"
-  ></FileUpload>
-  <IdentificationFooter />
+  />
+  <IdentificationFooter :submit="false" :disabled="!store.getTenantIdentificationDocument" />
 </template>
 
 <script setup lang="ts">

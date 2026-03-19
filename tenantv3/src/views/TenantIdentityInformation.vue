@@ -1,12 +1,12 @@
 <template>
-  <div
+  <section
     class="fr-container fr-container-full-size bg--grey full-height fr-grid-row fr-p-3v justify-content-center"
   >
     <div class="max-600 fr-col-12">
       <TenanIdentity />
       <PrepareDocument v-if="hasToDisplayInformations()" :text-key="getTextKey()" />
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">

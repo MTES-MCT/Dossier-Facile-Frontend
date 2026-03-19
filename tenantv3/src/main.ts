@@ -4,6 +4,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import { router } from './router'
 import { i18n } from './i18n'
+import { defineRegleOptions, RegleVuePlugin } from '@regle/core'
 import '@gouvfr/dsfr/dist/core/core.main.min.css'
 import '@gouvfr/dsfr/dist/utility/utility.main.min.css'
 import '@gouvfr/dsfr/dist/utility/colors/colors.min.css'
@@ -17,8 +18,22 @@ import { LoadingPlugin } from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import { configure, defineRule } from 'vee-validate'
 import * as Sentry from '@sentry/vue'
+import { useUtils } from './composables/useUtils'
 
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
+import {
+  email,
+  minLength,
+  required,
+  withMessage,
+  maxLength,
+  checked,
+  alpha,
+  maxFileSize,
+  fileType
+} from '@regle/rules'
+
+const { getDocSize, getAllowedTypes } = useUtils()
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
@@ -130,6 +145,37 @@ configure({
 
 const TENANT_API_URL = import.meta.env.VITE_API_URL
 
+// Custom i18n error messages for validators
+const reglesOptions = defineRegleOptions({
+  rules: () => ({
+    required: withMessage(required, i18n.global.t('validation.required')),
+    email: withMessage(email, i18n.global.t('validation.emailValidation')),
+    alpha: withMessage(alpha, i18n.global.t('validation.alpha')),
+    checked: withMessage(checked, i18n.global.t('validation.consent')),
+    minLength: withMessage(minLength, ({ $value, $params: [min] }) => {
+      return i18n.global.t('validation.min', { min, length: $value?.length })
+    }),
+    maxLength: withMessage(maxLength, ({ $value, $params: [max] }) => {
+      return i18n.global.t('validation.max', { max, length: $value?.length })
+    }),
+    maxFileSize: withMessage(maxFileSize, ({ $value, $params: [max] }) => {
+      return i18n.global.t('validation.maxFileSize', {
+        max: getDocSize(max),
+        n: getDocSize($value?.size)
+      })
+    }),
+    fileType: withMessage(fileType, ({ $params: [accept] }) => {
+      const allowedTypes = getAllowedTypes(accept)
+      return i18n.global.t('validation.fileType', { accept: allowedTypes })
+    })
+  }),
+  modifiers: {
+    silent: true,
+    autoDirty: false,
+    rewardEarly: true
+  }
+})
+
 keycloak
   .init({ onLoad: 'check-sso', checkLoginIframe: true })
   .then((auth) => {
@@ -193,6 +239,7 @@ keycloak
     app.use(createPinia())
     app.use(router)
     app.use(i18n)
+    app.use(RegleVuePlugin, reglesOptions)
     app.use(LoadingPlugin)
     app.use(ConsentPlugin, { matomo: true, crisp: CRISP_ENABLED === 'true' })
     app.mount('#app')
