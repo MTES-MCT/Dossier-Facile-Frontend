@@ -11,7 +11,19 @@ interface Props {
   inputName: string
   inputLabel: string
   inputType?: HTMLInputElement['type']
-  autocomplete?: HTMLInputElement['autocomplete']
+  autocomplete?:
+    | 'off'
+    | 'family-name'
+    | 'given-name'
+    | 'tel'
+    | 'email'
+    | 'new-password'
+    | 'current-password'
+    | 'street-address'
+    | 'postal-code'
+    | 'country'
+    | 'bday'
+    | 'sex'
   inputmode?: 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'
   required?: boolean
   field: RegleFieldStatus
@@ -21,7 +33,7 @@ const props = defineProps<Props>()
 type TextModel = string | number | undefined
 type CheckboxModel = boolean | undefined
 const inputModel = defineModel<TextModel | CheckboxModel>('input-value')
-// typeguard to set the type of the input
+// typeguard to automatically set the type of input and use the right component
 const isCheckboxModel = (value: TextModel | CheckboxModel): value is CheckboxModel => {
   return props.inputType === 'checkbox'
 }
