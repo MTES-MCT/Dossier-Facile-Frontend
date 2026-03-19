@@ -1145,8 +1145,13 @@ async function handleProtectedRoute(to: RouteLocationNormalized): Promise<boolea
       updateKeycloakToken()
       const store = useTenantStore()
       if (!store.user.id) {
-        await store.loadUser()
-        store.updateMessages()
+        try {
+          await store.loadUser()
+          store.updateMessages()
+        } catch {
+          keycloak.clearToken()
+          return false
+        }
       }
     }
     return true

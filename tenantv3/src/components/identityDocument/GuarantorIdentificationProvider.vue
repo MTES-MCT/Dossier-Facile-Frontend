@@ -9,27 +9,31 @@
 </template>
 
 <script setup lang="ts">
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { useI18n } from 'vue-i18n'
-import { computed, provide } from 'vue'
-import { useTenantStore } from '@/stores/tenant-store'
 import { idDocKey } from '@/components/identityDocument/lib/identityDocumentState'
-import { useGuarantorId } from '../guarantorResidency/useGuarantorId'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { useTenantStore } from '@/stores/tenant-store'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { computed, provide } from 'vue'
+import { useI18n } from 'vue-i18n'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { makeGuarantorResidencyLink } from '../guarantorResidency/makeGuarantorResidencyLink'
+import { useGuarantorId } from '../guarantorResidency/useGuarantorId'
 
 const store = useTenantStore()
 const guarantorId = useGuarantorId()
+const { getNavigationNextStep } = useHandleValidationNavigation()
 
 const residencyLink = computed(() => {
   return store.guarantor ? makeGuarantorResidencyLink(store.guarantor) : '/liste-garants'
 })
 
+const nextStep = getNavigationNextStep(residencyLink.value)
+
 provide(idDocKey, {
   category: 'guarantor-identification',
   textKey: 'guarantor',
   previousStep: { name: 'GuarantorName', params: { guarantorId: guarantorId.value } },
-  nextStep: residencyLink.value,
+  nextStep: nextStep,
   document: computed(() => store.getGuarantorIdentificationDocument),
   action: 'saveGuarantorIdentification',
   userId: store.user.id,

@@ -21,7 +21,7 @@
           :document="guarantorCertificateDocument()"
           :document-denied-reasons="documentDeniedReasons"
           :document-status="documentStatus"
-        ></AllDeclinedMessages>
+        />
         <div class="fr-col-md-12 fr-mb-3w fr-mt-3w">
           <ListItem
             v-for="file in files"
@@ -33,16 +33,17 @@
           />
         </div>
         <div class="fr-mt-3w fr-mb-3w">
-          <FileUpload
-            ref="file-upload"
-            :current-status="fileUploadStatus"
-            @add-files="addFiles"
-          ></FileUpload>
+          <FileUpload ref="file-upload" :current-status="fileUploadStatus" @add-files="addFiles" />
         </div>
       </div>
     </NakedCard>
-    <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ t('identification-page.will-delete-files') }}</span>
+    <ConfirmModal
+      v-model:is-opened="isDocDeleteVisible"
+      :title="t('delete-docs')"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <p>{{ t('identification-page.will-delete-files') }}</p>
     </ConfirmModal>
   </div>
 </template>
@@ -155,7 +156,6 @@ function undoSelect() {
       }
     }
   }
-  isDocDeleteVisible.value = false
 }
 
 async function validSelect() {
@@ -261,7 +261,7 @@ function documentTypes() {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 table {
   border-collapse: collapse;
 }
@@ -272,3 +272,14 @@ td {
   border: 1px solid #ececec;
 }
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "delete-docs": "Delete my documents"
+  },
+  "fr": {
+    "delete-docs": "Supprimer mes documents"
+  }
+}
+</i18n>

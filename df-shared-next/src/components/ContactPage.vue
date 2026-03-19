@@ -3,10 +3,9 @@
     <h1>
       {{ t('title') }}
     </h1>
-    <div class="fr-callout">
-      <h2 class="fr-callout__title">{{ t('callout.title') }}</h2>
-      <p class="fr-callout__text">{{ t('callout.list.title') }}</p>
-      <ul class="fr-callout__text">
+    <DsfrCallout :title="t('callout.title')" title-tag="h2">
+      <p>{{ t('callout.list.title') }}</p>
+      <ul>
         <li>
           <i18n-t keypath="callout.list.item-1" tag="span">
             <template #link>
@@ -65,7 +64,7 @@
         @click="accordionClicked('contact_need_information')"
         >{{ t('callout.CTA') }}</a
       >
-    </div>
+    </DsfrCallout>
 
     <div class="fr-background-alt--blue-france fr-px-1w fr-pt-2w fr-px-md-3w">
       <h2 class="fr-text-title--blue-france fr-h6">{{ t('choice.title') }}</h2>
@@ -85,11 +84,11 @@
       <TenantHelpAccordion
         v-if="contactFormData.profile === 'tenant'"
         @accordion-clicked="accordionClicked"
-      ></TenantHelpAccordion>
+      />
       <OwnerHelpAccordion
         v-if="contactFormData.profile === 'owner'"
         @accordion-clicked="accordionClicked"
-      ></OwnerHelpAccordion>
+      />
     </div>
 
     <NakedCard class="fr-mt-3w fr-px-1v fr-px-md-3w">
@@ -140,7 +139,7 @@ import type { User } from '../models/User'
 import { computed, onMounted, ref, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DsfrRadioButtonOptions } from '@gouvminint/vue-dsfr'
-import { DsfrRadioButtonSet } from '@gouvminint/vue-dsfr'
+import { DsfrRadioButtonSet, DsfrCallout } from '@gouvminint/vue-dsfr'
 import ContactForm from './form/ContactForm.vue'
 
 import tenantPicto from '@gouvfr/dsfr/dist/artwork/pictograms/document/document.svg'

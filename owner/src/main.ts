@@ -10,6 +10,12 @@ import { i18n } from './i18n'
 import 'vue-toastification/dist/index.css'
 import keycloak from './plugin/keycloak'
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
+import '@gouvfr/dsfr/dist/core/core.main.min.css'
+import '@gouvfr/dsfr/dist/utility/utility.main.min.css'
+import '@gouvfr/dsfr/dist/utility/colors/colors.min.css'
+import '@gouvfr/dsfr/dist/utility/icons/icons.min.css'
+import '@gouvfr/dsfr/dist/component/component.main.min.css'
+import '@gouvminint/vue-dsfr/styles'
 
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 

@@ -1,12 +1,12 @@
 <template>
   <div class="fr-card">
-    <ShowPreview :file="file"></ShowPreview>
+    <ShowPreview :file="file" />
 
     <div class="text fr-px-5v fr-py-3v">
       <h3 class="fr-card__title text-overflow">
         {{ fileName }}
       </h3>
-      <div class="size">{{ size }}</div>
+      <div class="fr-text--sm">{{ size }}</div>
       <div class="links blue-text fr-mt-1w">
         <button
           v-if="file.path || file.preview"
@@ -30,14 +30,16 @@
         </button>
       </div>
     </div>
-    <Modal v-if="isDocModalVisible" @close="isDocModalVisible = false">
-      <template #body>
-        <ShowDoc :file="file" :watermark-url="watermarkUrl"></ShowDoc>
-      </template>
-    </Modal>
-    <ConfirmModal v-if="confirmDeleteFile" @valid="validDeleteFile" @cancel="cancelDeleteFile">
-      {{ t('listitem.will-delete-file') }}
-    </ConfirmModal>
+    <DsfrModalPatch v-model:is-opened="isDocModalVisible" :title="t('doc-preview')" size="xl">
+      <ShowDoc v-if="isDocModalVisible" :file="file" :watermark-url="watermarkUrl" />
+    </DsfrModalPatch>
+
+    <ConfirmModal
+      v-model:is-opened="isDeleteModalOpen"
+      :title="t('listitem.will-delete-file')"
+      @valid="validDeleteFile"
+      @cancel="cancelDeleteFile"
+    />
   </div>
 </template>
 
@@ -45,11 +47,11 @@
 import { DfFile } from 'df-shared-next/src/models/DfFile'
 import ShowDoc from '../documents/share/ShowDoc.vue'
 import ShowPreview from '../documents/share/ShowPreview.vue'
-import Modal from 'df-shared-next/src/components/ModalComponent.vue'
 import { AnalyticsService, type DocumentCategory } from '../../services/AnalyticsService'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { useI18n } from 'vue-i18n'
 import { computed, ref, useTemplateRef } from 'vue'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const { t } = useI18n()
 const emit = defineEmits<{ remove: []; 'ask-confirm': []; cancel: [] }>()
@@ -72,8 +74,8 @@ const props = withDefaults(
 const removeButton = useTemplateRef('remove-btn')
 defineExpose({ removeButton })
 
+const isDeleteModalOpen = ref(false)
 const isDocModalVisible = ref(false)
-const confirmDeleteFile = ref(false)
 const fileName = computed(() => (props.file.name ? props.file.name : props.file.originalName))
 const size = computed(() => {
   // Extract file extension from props.file.originalName and make it uppercase
@@ -91,17 +93,17 @@ const size = computed(() => {
 
 function remove() {
   emit('ask-confirm')
-  confirmDeleteFile.value = true
+  isDeleteModalOpen.value = true
 }
 
 function validDeleteFile() {
   emit('remove')
-  confirmDeleteFile.value = false
+  isDeleteModalOpen.value = false
 }
 
 function cancelDeleteFile() {
   emit('cancel')
-  confirmDeleteFile.value = false
+  isDeleteModalOpen.value = false
   return false
 }
 
@@ -111,7 +113,7 @@ function openDoc() {
 }
 </script>
 
-<style scoped lang="css">
+<style scoped>
 .text {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -119,7 +121,6 @@ function openDoc() {
 }
 
 .size {
-  font-size: 12px;
   color: var(--g600);
 }
 
@@ -142,7 +143,7 @@ function openDoc() {
 .text-overflow {
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+  max-width: 35ch;
 }
 
 .links {
@@ -151,3 +152,14 @@ function openDoc() {
   justify-content: end;
 }
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "doc-preview": "Preview your document"
+  },
+  "fr": {
+    "doc-preview": "Aperçu de votre document"
+  }
+}
+</i18n>

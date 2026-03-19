@@ -1,10 +1,18 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-export const useModalStore = defineStore('modal', () => {
-  const isOpen = ref(false)
-  const openModal = () => (isOpen.value = true)
-  const closeModal = () => (isOpen.value = false)
+type ModalID = 'cookieConsent' | 'deleteAccount'
 
-  return { isOpen, openModal, closeModal }
-})
+export const useModalStore = (id: ModalID) => {
+  const store = defineStore(`modal-${id}`, () => {
+    const isOpen = ref(false)
+
+    const openModal = () => (isOpen.value = true)
+
+    const closeModal = () => (isOpen.value = false)
+
+    return { isOpen, openModal, closeModal }
+  })
+
+  return store()
+}

@@ -5,12 +5,24 @@ import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
+import browserslist from 'browserslist'
+import { browserslistToTargets } from 'lightningcss'
 
 import { createRobotsTxtPlugin } from '../df-shared-next/src/plugin/robots'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  css: {
+    transformer: 'lightningcss',
+    lightningcss: {
+      targets: browserslistToTargets(
+        browserslist('baseline widely available with downstream, >= 0.5%')
+      ),
+      errorRecovery: true
+    }
+  },
   build: {
+    cssMinify: 'lightningcss',
     assetsInlineLimit: (file) => {
       if (file.endsWith('.svg')) {
         return false
@@ -31,9 +43,10 @@ export default defineConfig({
     createRobotsTxtPlugin(),
     vueI18n({ strictMessage: false }),
     pluginPurgeCss({
-      variables: true,
-      content: [`./public/**/*.html`, `./src/**/*.vue`, `../df-shared-next/src/**/*.vue`],
+      variables: false,
+      content: [`./dist/**/*.html`, `./src/**/*.vue`, `../df-shared-next/src/**/*.vue`],
       safelist: {
+        standard: [/^fr-[a-z]+--/],
         deep: [
           /-(leave|enter|appear)(-(to|from|active))?$/,
           /^(?!(.*?:)?cursor-move).+-move$/,

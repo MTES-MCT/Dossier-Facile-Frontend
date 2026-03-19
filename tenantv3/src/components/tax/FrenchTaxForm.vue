@@ -2,6 +2,12 @@
   <p>{{ t(textKey + '.your-situation') }}</p>
   <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="grandParent" />
   <BackLinkRow :label="t('french')" :to="parent" />
+  <div v-if="analysisErrorCount > 0" class="error-badge fr-mb-2w">
+    <VIcon name="ri:alert-fill" class="badge-icon" aria-hidden="true" color="#b34000" />
+    <span class="badge-text">{{
+      t('errors-count', { count: analysisErrorCount }, analysisErrorCount)
+    }}</span>
+  </div>
   <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
     <strong>{{ t('this-year-tax', [taxYear, taxYear - 1]) }}</strong>
   </i18n-t>
@@ -19,65 +25,103 @@
       >
     </i18n-t>
   </DsfrAlert>
-  <DfButton class="mx-auto fr-mb-3w" @click="showModal = true"
-    >{{ t('see-which-doc') }} <RiEyeLine class="fr-ml-1v"
-  /></DfButton>
+  <DsfrButton
+    icon="ri:eye-line"
+    :icon-right="true"
+    :label="t('see-which-doc')"
+    secondary
+    class="fr-mb-3w"
+    @click="isModalOpened = true"
+  />
+  <TaxAnalysisBanners
+    v-if="analysisErrorCount > 0"
+    ref="tax-banners"
+    :failed-rules="uploadFilesTax?.analysisFailedRules ?? []"
+    class="fr-mb-3w"
+    @explain="uploadFilesTax?.openExplainSection()"
+  />
 
-  <ModalComponent v-if="showModal" @close="showModal = false">
-    <template #header>
-      <!-- TODO change to a h1 when migrating modals -->
-      <h2 class="fr-h4 fr-mb-0">{{ t('modal.sample-docs') }}</h2>
-    </template>
-    <template #body>
-      <DsfrAlert type="warning" small>
-        {{ t('modal.pay-attention-to-title') }}
-      </DsfrAlert>
+  <DsfrModalPatch v-model:is-opened="isModalOpened" :title="t('modal.sample-docs')" size="xl">
+    <DsfrAlert type="warning" small>
+      {{ t('modal.pay-attention-to-title') }}
+    </DsfrAlert>
 
-      <h3 class="fr-h4 fr-text-default--warning fr-my-1w">
-        {{ t('modal.refused-doc-title') }}
-      </h3>
-      <p>{{ t('modal.refused-doc-text') }}</p>
+    <h2 class="fr-h4 fr-text-default--warning fr-my-1w">
+      {{ t('modal.refused-doc-title') }}
+    </h2>
+    <p>{{ t('modal.refused-doc-text') }}</p>
 
-      <img :src="avisKO" alt="" width="600" />
+    <img :src="avisKO" alt="" width="600" />
 
-      <h3 class="fr-h4 fr-text-default--success fr-mb-1w">
-        {{ t('modal.accepted-doc-title') }}
-      </h3>
-      <p>{{ t('modal.accepted-doc-text') }}</p>
+    <h2 class="fr-h4 fr-text-default--success fr-mb-1w">
+      {{ t('modal.accepted-doc-title') }}
+    </h2>
+    <p>{{ t('modal.accepted-doc-text') }}</p>
 
-      <img :src="avisOK" alt="" width="600" />
-    </template>
-    <template #footer>
-      <DfButton class="large-btn" primary @click="showModal = false">OK</DfButton>
-    </template>
-  </ModalComponent>
+    <img :src="avisOK" alt="" width="600" height="850" />
+  </DsfrModalPatch>
 
-  <UploadFilesTax category="MY_NAME" step="TAX_FRENCH_NOTICE" />
-  <TaxFooter />
+  <UploadFilesTax
+    ref="upload-files-tax"
+    category="MY_NAME"
+    step="TAX_FRENCH_NOTICE"
+    :show-pre-validation="false"
+    @analysis-error="focusBanners"
+  />
+  <TaxFooter :next-disabled="nextDisabled" :next-label="nextLabel" :before-submit="beforeSubmit" />
 </template>
 
 <script setup lang="ts">
-import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
-import { useParentRoute } from '@/components/common/lib/useParentRoute'
-import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { useI18n } from 'vue-i18n'
-import { RiEyeLine } from '@remixicon/vue'
-import { taxYear } from './lib/taxYear'
-import ModalComponent from 'df-shared-next/src/components/ModalComponent.vue'
-import { ref } from 'vue'
-import avisOK from '@/assets/avis_ok.png'
 import avisKO from '@/assets/avis_ko.png'
+import avisOK from '@/assets/avis_ok.png'
+import { useParentRoute } from '@/components/common/lib/useParentRoute'
+import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
+import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
+import { DsfrAlert, DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import { computed, ref, useTemplateRef } from 'vue'
+import { useI18n } from 'vue-i18n'
+import TaxAnalysisBanners from './lib/TaxAnalysisBanners.vue'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 import { useTaxState } from './lib/taxState'
-import { DsfrAlert } from '@gouvminint/vue-dsfr'
+import { taxYear } from './lib/taxYear'
 
 const { t } = useI18n()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
 const { textKey } = useTaxState()
 
-const showModal = ref(false)
+const uploadFilesTax = useTemplateRef('upload-files-tax')
+const taxBanners = useTemplateRef('tax-banners')
+const analysisErrorCount = computed(() => uploadFilesTax.value?.analysisFailedRules?.length ?? 0)
+const isModalOpened = ref(false)
+const analysisInProgress = computed(() => uploadFilesTax.value?.analysisInProgress ?? false)
+const isUploading = computed(() => uploadFilesTax.value?.isUploading ?? false)
+const isBusy = computed(() => analysisInProgress.value || isUploading.value)
+const hasUnresolvedErrors = computed(
+  () => analysisErrorCount.value > 0 && !uploadFilesTax.value?.explanationSubmitted
+)
+
+const nextDisabled = computed(() => isBusy.value)
+
+const nextLabel = computed(() => {
+  if (isUploading.value) return t('uploading')
+  if (analysisInProgress.value) return t('analyzing')
+  return undefined
+})
+
+function beforeSubmit(): boolean {
+  if (isBusy.value) return false
+  if (hasUnresolvedErrors.value) {
+    focusBanners()
+    return false
+  }
+  return true
+}
+
+function focusBanners() {
+  taxBanners.value?.focus()
+}
 </script>
 
 <style scoped>
@@ -89,11 +133,36 @@ const showModal = ref(false)
     width: 6rem;
   }
 }
+.error-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #ffe9e6;
+  border-radius: 4px;
+  padding: 0 0.5rem;
+  width: fit-content;
+}
+
+.badge-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.badge-text {
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #b34000;
+  text-transform: uppercase;
+}
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
+    "uploading": "Uploading...",
+    "analyzing": "Analyzing...",
+    "errors-count": "{count} error to correct | {count} errors to correct",
     "french": "french",
     "this-year-tax": "{0} income tax notice of {1} or full non-taxation",
     "warning": "Warning:",
@@ -103,25 +172,25 @@ const showModal = ref(false)
       "your-situation": "Your situation:",
       "have-a-tax-notice": "You have a tax notice",
       "add-tax-notice": "Add your {0}. All pages are mandatory, even if the amount to be paid is 0€.",
-      "download-tax-notice": "Download your tax notice from your space on {0}",
+      "download-tax-notice": "Download your tax notice from your space on {0}"
     },
     "guarantor": {
       "your-situation": "Your guarantor's situation:",
       "have-a-tax-notice": "Your guarantor has a tax notice",
       "add-tax-notice": "Add the {0} of your guarantor. All pages are mandatory, even if the amount to be paid is 0€.",
-      "download-tax-notice": "Download their tax notice from their space on {0}",
+      "download-tax-notice": "Download their tax notice from their space on {0}"
     },
     "couple": {
       "your-situation": "Your spouse's situation:",
       "have-a-tax-notice": "Your spouse has a tax notice",
       "add-tax-notice": "Add the {0} of your spouse. All pages are mandatory, even if the amount to be paid is 0€.",
-      "download-tax-notice": "Download their tax notice from their space on {0}",
+      "download-tax-notice": "Download their tax notice from their space on {0}"
     },
     "couple-guarantor": {
       "your-situation": "Their guarantor's situation:",
       "have-a-tax-notice": "Their guarantor has a tax notice",
       "add-tax-notice": "Add the {0} of their guarantor. All pages are mandatory, even if the amount to be paid is 0€.",
-      "download-tax-notice": "Download their tax notice from their space on {0}",
+      "download-tax-notice": "Download their tax notice from their space on {0}"
     },
     "modal": {
       "sample-docs": "Sample documents",
@@ -131,10 +200,13 @@ const showModal = ref(false)
       "accepted-doc-title": "Document accepted",
       "accepted-doc-text": "A document bearing the words « Avis d'impôt établi » is valid.",
       "img-ko": "Example of declarative situation notice - document refused",
-      "img-ok": "Example of tax notice - document accepted",
+      "img-ok": "Example of tax notice - document accepted"
     }
   },
   "fr": {
+    "uploading": "Envoi en cours...",
+    "analyzing": "Analyse en cours...",
+    "errors-count": "{count} erreur à corriger | {count} erreurs à corriger",
     "french": "français",
     "this-year-tax": "avis d'impôt {0} sur les revenus de {1} ou de non-imposition complet",
     "warning": "Attention :",
@@ -144,25 +216,25 @@ const showModal = ref(false)
       "your-situation": "Votre situation :",
       "have-a-tax-notice": "Vous avez un avis d’impôt",
       "add-tax-notice": "Ajoutez votre {0}. Toutes les pages sont obligatoires, même si le montant à payer est de 0 €.",
-      "download-tax-notice": "Téléchargez votre avis d’impôt depuis votre espace sur {0}",
+      "download-tax-notice": "Téléchargez votre avis d’impôt depuis votre espace sur {0}"
     },
     "guarantor": {
       "your-situation": "La situation de votre garant :",
       "have-a-tax-notice": "Votre garant a un avis d’impôt",
       "add-tax-notice": "Ajoutez l’{0} de votre garant. Toutes les pages sont obligatoires, même si le montant à payer est de 0 €.",
-      "download-tax-notice": "Téléchargez son avis d’impôt depuis son espace sur {0}",
+      "download-tax-notice": "Téléchargez son avis d’impôt depuis son espace sur {0}"
     },
     "couple": {
       "your-situation": "La situation de votre conjoint :",
       "have-a-tax-notice": "Votre conjoint a un avis d’impôt",
       "add-tax-notice": "Ajoutez l’{0} de votre conjoint. Toutes les pages sont obligatoires, même si le montant à payer est de 0 €.",
-      "download-tax-notice": "Téléchargez son avis d’impôt depuis son espace sur {0}",
+      "download-tax-notice": "Téléchargez son avis d’impôt depuis son espace sur {0}"
     },
     "couple-guarantor": {
       "your-situation": "La situation de son garant :",
       "have-a-tax-notice": "Son garant a un avis d’impôt",
       "add-tax-notice": "Ajoutez l’{0} de son garant. Toutes les pages sont obligatoires, même si le montant à payer est de 0 €.",
-      "download-tax-notice": "Téléchargez son avis d’impôt depuis son espace sur {0}",
+      "download-tax-notice": "Téléchargez son avis d’impôt depuis son espace sur {0}"
     },
     "modal": {
       "sample-docs": "Exemple de documents",
@@ -172,7 +244,7 @@ const showModal = ref(false)
       "accepted-doc-title": "Document accepté",
       "accepted-doc-text": "Un document comportant la mention « Avis d'impôt établi » est valide.",
       "img-ko": "Exemple d’avis de situation déclarative - document refusé",
-      "img-ok": "Exemple d'avis d’impôt - document accepté",
+      "img-ok": "Exemple d'avis d’impôt - document accepté"
     }
   }
 }

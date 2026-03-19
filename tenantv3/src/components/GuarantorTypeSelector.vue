@@ -9,13 +9,12 @@
       <slot></slot>
     </RichRadioButtons>
     <ConfirmModal
-      v-if="confirmGuarantorChangeModal"
       ref="modal"
+      v-model:is-opened="confirmGuarantorChangeModal"
+      :title="t('guarantorchoice.will-delete-guarantor')"
       @valid="confirmGuarantorTypeChange()"
       @cancel="undoGuarantorTypeChange()"
-    >
-      <span>{{ t('guarantorchoice.will-delete-guarantor') }}</span>
-    </ConfirmModal>
+    />
   </div>
 </template>
 
@@ -107,7 +106,10 @@ function confirmGuarantorTypeChange() {
       selectType(checkedGuarantorType.value)
     },
     () => {
-      toast.error(t('guarantorchoice.change-guarantor-failed'), modal.value?.validateBtn?.button)
+      toast.error(
+        t('guarantorchoice.change-guarantor-failed'),
+        modal.value?.modal?.$el.querySelector('button')
+      )
     }
   )
 }
@@ -131,8 +133,3 @@ function resetType() {
   emit('selected', checkedGuarantorType.value)
 }
 </script>
-
-<style scoped lang="scss">
-@import '@gouvfr/dsfr/dist/utility/icons/icons-user/icons-user.min.css';
-@import '@gouvfr/dsfr/dist/utility/icons/icons-buildings/icons-buildings.min.css';
-</style>

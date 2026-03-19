@@ -15,10 +15,12 @@
                     <p
                       class="fr-m-1w fr-callout__text"
                       v-html="t('account.amendment-required-text')"
-                    ></p>
-                    <DfButton class="fr-m-1w" :primary="true" @click="goToMessaging">{{
-                      t('account.messaging')
-                    }}</DfButton>
+                    />
+                    <DsfrButton
+                      :label="t('account.messaging')"
+                      class="fr-m-1w"
+                      @click="goToMessaging"
+                    />
                   </div>
                 </div>
                 <div v-if="user.status === 'TO_PROCESS'" class="fr-col">
@@ -26,10 +28,9 @@
                     <div class="fr-mb-1w fr-grid-row fr-grid-row--gutters fr-grid-row--center">
                       <div class="fr-col-12 fr-col-md-6">
                         <h2 class="fr-h4 fr-mb-0">
-                          <RiTimeLine
-                            size="18px"
+                          <VIcon
+                            icon="ri:time-line"
                             class="text-to-process bold-icon"
-                            aria-hidden="true"
                           />&nbsp;<span>{{ t('account.processing-bloc.title') }}</span>
                         </h2>
                       </div>
@@ -65,15 +66,15 @@
                       class="fr-m-1w fr-callout__text"
                       v-html="t('account.download-not-validated-text')"
                     ></p>
-                    <a
+                    <DsfrButton
                       ref="download-zip"
-                      href="#"
-                      :title="t('account.download-not-validated-title')"
+                      :label="t('account.download-zip')"
+                      icon="ri:download-line"
+                      tertiary
+                      :icon-right="true"
                       class="download-link"
                       @click="downloadZip"
-                      >{{ t('account.download-zip') }}
-                      <RiDownloadLine size="18px" aria-hidden="true" />
-                    </a>
+                    />
                   </div>
                 </div>
               </div>
@@ -140,12 +141,11 @@
                 <h3>{{ t('account.delete-bloc.title') }}</h3>
                 <p>{{ t('account.delete-bloc.content') }}</p>
                 <div class="align--center">
-                  <DfButton
-                    data-fr-opened="false"
-                    aria-controls="modal-delete-account"
-                    style="visibility: none"
-                    >{{ t('account.delete-bloc.button') }}</DfButton
-                  >
+                  <DsfrButton
+                    :label="t('account.delete-bloc.button')"
+                    :secondary="true"
+                    @click="openModal"
+                  />
                 </div>
               </div>
             </div>
@@ -180,7 +180,6 @@
 </template>
 
 <script setup lang="ts">
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
@@ -195,8 +194,9 @@ import { ProfileService } from '../services/ProfileService'
 import dayjs, { Dayjs } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useI18n } from 'vue-i18n'
-import { RiDownloadLine, RiTimeLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
+import { useModalStore } from 'df-shared-next/src/stores/useModalStore'
+import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
 const { t } = useI18n()
 
 const PROCESSING_TIME_DELTA = import.meta.env.VITE_PROCESSING_TIME_DELTA || 3
@@ -207,6 +207,7 @@ const router = useRouter()
 dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
 const downloadZipElt = useTemplateRef('download-zip')
+const { openModal } = useModalStore('deleteAccount')
 
 watch(
   () => user.value,
@@ -278,7 +279,7 @@ function downloadZip() {
     })
     .catch((error) => {
       console.error(error)
-      toast.error(t('file.download-failed'), downloadZipElt.value)
+      toast.error(t('file.download-failed'), downloadZipElt.value?.$el)
     })
 }
 

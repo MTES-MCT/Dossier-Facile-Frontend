@@ -21,7 +21,8 @@
         }"
         :type
         :required
-        :disabled="disabled"
+        :disabled
+        :readonly
         :autocomplete
         :aria-describedby="`${name}-errors`"
         :aria-invalid="!meta.valid"
@@ -50,12 +51,14 @@ const props = withDefaults(
     type?: 'text' | 'email'
     validationRules?: string
     disabled?: boolean
+    readonly?: boolean
     autocomplete?: string
   }>(),
   {
     type: 'text',
     validationRules: '',
     disabled: false,
+    readonly: false,
     autocomplete: 'off'
   }
 )

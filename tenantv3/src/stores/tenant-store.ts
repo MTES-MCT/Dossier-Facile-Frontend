@@ -355,11 +355,10 @@ export const useTenantStore = defineStore('tenant', {
     updateCoTenantAuthorize(authorize: boolean) {
       this.coTenantAuthorize = authorize
     },
-    logout() {
-      return keycloak.logout({ redirectUri: LOGOUT_REDIRECT_URL }).then(() => {
-        this.logoutCommit()
-        this.initState()
-      })
+    async logout(uri?: string) {
+      await keycloak.logout({ redirectUri: uri ?? LOGOUT_REDIRECT_URL })
+      this.logoutCommit()
+      this.initState()
     },
     async deleteAccount() {
       const isFC = this.user.franceConnect
@@ -375,14 +374,14 @@ export const useTenantStore = defineStore('tenant', {
       return response.data
     },
     async setNames(user: CoTenant) {
-      // If the user is franceconnected we can not modify the names, so we don't capitalize them
-      if (user.firstName && !this.isFranceConnected) {
+      // If the user is franceconnected we can not modify the names, so we don't capitalize them except for third party
+      if (user.firstName && (!this.isFranceConnected || user.ownerType === 'THIRD_PARTY')) {
         user.firstName = UtilsService.capitalize(user.firstName)
       }
-      if (user.lastName && !this.isFranceConnected) {
+      if (user.lastName && (!this.isFranceConnected || user.ownerType === 'THIRD_PARTY')) {
         user.lastName = UtilsService.capitalize(user.lastName)
       }
-      if (user.preferredName && !this.isFranceConnected) {
+      if (user.preferredName && (!this.isFranceConnected || user.ownerType === 'THIRD_PARTY')) {
         user.preferredName = UtilsService.capitalize(user.preferredName)
       }
       const response = await ProfileService.saveNames(user)
