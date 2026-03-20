@@ -225,7 +225,8 @@ const useOwnerStore = defineStore('owner', {
     },
     searchDpe(dpe: string) {
       const property = this.propertyToEdit
-      property.ademeNumber = dpe
+      // Backend expects a normalized ADEME/DPE number (uppercase, no spaces/hyphens).
+      property.ademeNumber = dpe.replace(/[\s-]/g, '').toUpperCase()
       return OwnerService.saveProperty(this.propertyToEdit).then((response) => {
         this.setPropertyToEdit(response.data)
         return Promise.resolve(response.data)
@@ -241,7 +242,7 @@ const useOwnerStore = defineStore('owner', {
       }
     },
     setAdemeNumber(ademeNumber: string) {
-      this.propertyToEdit.ademeNumber = ademeNumber
+      this.propertyToEdit.ademeNumber = ademeNumber.replace(/[\s-]/g, '').toUpperCase()
     },
     setDpeNotRequired(value: boolean) {
       this.propertyToEdit.dpeNotRequired = value
