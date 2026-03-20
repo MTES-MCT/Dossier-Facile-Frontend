@@ -10,12 +10,13 @@
 
 <script setup lang="ts">
 import TenantBadge from '@/components/common/TenantBadge.vue'
-import { taxKey } from '@/components/tax/lib/taxState'
 import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { computed, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { documentFormKey } from '../documents/documentFormState'
+import { taxKey } from './lib/taxState'
 
 const store = useTenantStore()
 const { getNavigationNextStep } = useHandleValidationNavigation()
@@ -33,6 +34,17 @@ provide(taxKey, {
   nextStep: nextStep,
   document: computed(() => store.getTenantTaxDocument),
   action: 'saveTenantTax',
+  userId: store.user.id
+})
+
+provide(documentFormKey, {
+  category: 'TAX',
+  textKey: 'tenant',
+  previousStep: { name: 'TenantFinancial' },
+  nextStep: nextStep,
+  formFieldValue: 'typeDocumentTax',
+  document: computed(() => store.getTenantTaxDocument),
+  storeAction: 'saveTenantTax',
   userId: store.user.id
 })
 

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, h, ref } from 'vue'
 import FrenchTaxForm from '../tax/FrenchTaxForm.vue'
 
 vi.mock('vue-i18n', () => ({
@@ -20,8 +20,8 @@ vi.mock('../tax/lib/taxYear', () => ({
   taxYear: 2025
 }))
 
-vi.mock('../tax/lib/taxState', () => ({
-  useTaxState: () => ({
+vi.mock('../documents/documentFormState', () => ({
+  useDocumentFormKey: () => ({
     previousStep: '/',
     nextStep: '/next',
     document: ref(undefined),
@@ -37,35 +37,68 @@ const mockExplanationSubmitted = ref(false)
 const mockAnalysisInProgress = ref(false)
 const mockIsUploading = ref(false)
 const mockOpenExplainSection = vi.fn()
+const mockBannersFocus = vi.fn()
 
-const FakeUploadFilesTax = defineComponent({
-  name: 'UploadFilesTax',
-  setup(_, { expose }) {
+const FakeAnalysisWrapper = defineComponent({
+  name: 'AnalysisWrapper',
+  setup(_, { expose, slots }) {
+    const hasUnresolvedErrors = computed(
+      () => mockAnalysisFailedRules.value.length > 0 && !mockExplanationSubmitted.value
+    )
+    const nextDisabled = computed(() => mockIsUploading.value || mockAnalysisInProgress.value)
+    const nextLabel = computed(() => {
+      if (mockIsUploading.value) return 'uploading'
+      if (mockAnalysisInProgress.value) return 'analyzing'
+      return undefined
+    })
+
+    function beforeSubmit() {
+      if (nextDisabled.value) return false
+      if (hasUnresolvedErrors.value) {
+        mockBannersFocus()
+        return false
+      }
+      return true
+    }
+
     expose({
       analysisFailedRules: mockAnalysisFailedRules,
       explanationSubmitted: mockExplanationSubmitted,
       analysisInProgress: mockAnalysisInProgress,
-      isUploading: mockIsUploading,
-      openExplainSection: mockOpenExplainSection
+      nextDisabled,
+      nextLabel,
+      beforeSubmit,
+      openExplainSection: mockOpenExplainSection,
+      focusBanners: mockBannersFocus
     })
-    return () => null
+    return () => h('div', [slots.fileSpecificDescription?.(), slots.fileUploader?.()])
   }
 })
 
-const mockBannersFocus = vi.fn()
-
-const FakeTaxAnalysisBanners = defineComponent({
-  name: 'TaxAnalysisBanners',
-  props: { failedRules: { type: Array, default: () => [] } },
+const FakeUploadFileTaxWithAnalysis = defineComponent({
+  name: 'UploadFileTaxWithAnalysis',
   setup(_, { expose }) {
-    expose({ focus: mockBannersFocus })
+    expose({
+      isUploading: mockIsUploading,
+      currentDocument: ref(undefined)
+    })
     return () => null
   }
 })
 
 const globalStubs = {
   BackLinkRow: true,
-  TaxFooter: true,
+  TaxFooter: defineComponent({
+    name: 'TaxFooter',
+    props: {
+      nextDisabled: { type: Boolean, default: undefined },
+      nextLabel: { type: String, default: undefined },
+      beforeSubmit: { type: Function, default: undefined }
+    },
+    setup(_, { slots }) {
+      return () => h('div', slots.default?.())
+    }
+  }),
   DfButton: true,
   DsfrAlert: true,
   VIcon: true,
@@ -78,8 +111,8 @@ function mountComponent() {
     global: {
       stubs: {
         ...globalStubs,
-        UploadFilesTax: FakeUploadFilesTax,
-        TaxAnalysisBanners: FakeTaxAnalysisBanners
+        AnalysisWrapper: FakeAnalysisWrapper,
+        UploadFileTaxWithAnalysis: FakeUploadFileTaxWithAnalysis
       }
     }
   })
@@ -113,7 +146,7 @@ describe('FrenchTaxForm - Continue button states', () => {
     expect(props.nextDisabled).toBe(true)
     expect(props.nextLabel).toBe('uploading')
     expect(props.beforeSubmit).toBeDefined()
-    expect(props.beforeSubmit()).toBe(false)
+    expect(props.beforeSubmit!()).toBe(false)
     expect(mockBannersFocus).not.toHaveBeenCalled()
   })
 
@@ -127,7 +160,7 @@ describe('FrenchTaxForm - Continue button states', () => {
     expect(props.nextDisabled).toBe(true)
     expect(props.nextLabel).toBe('analyzing')
     expect(props.beforeSubmit).toBeDefined()
-    expect(props.beforeSubmit()).toBe(false)
+    expect(props.beforeSubmit!()).toBe(false)
     expect(mockBannersFocus).not.toHaveBeenCalled()
   })
 
@@ -144,7 +177,7 @@ describe('FrenchTaxForm - Continue button states', () => {
     expect(props.nextDisabled).toBe(false)
     expect(props.nextLabel).toBeUndefined()
     expect(props.beforeSubmit).toBeDefined()
-    expect(props.beforeSubmit()).toBe(false)
+    expect(props.beforeSubmit!()).toBe(false)
     expect(mockBannersFocus).toHaveBeenCalledOnce()
   })
 
@@ -156,7 +189,7 @@ describe('FrenchTaxForm - Continue button states', () => {
     expect(props.nextDisabled).toBe(false)
     expect(props.nextLabel).toBeUndefined()
     expect(props.beforeSubmit).toBeDefined()
-    expect(props.beforeSubmit()).toBe(true)
+    expect(props.beforeSubmit!()).toBe(true)
     expect(mockBannersFocus).not.toHaveBeenCalled()
   })
 
@@ -173,7 +206,7 @@ describe('FrenchTaxForm - Continue button states', () => {
     expect(props.nextDisabled).toBe(false)
     expect(props.nextLabel).toBeUndefined()
     expect(props.beforeSubmit).toBeDefined()
-    expect(props.beforeSubmit()).toBe(true)
+    expect(props.beforeSubmit!()).toBe(true)
     expect(mockBannersFocus).not.toHaveBeenCalled()
   })
 })
