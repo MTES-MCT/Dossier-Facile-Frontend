@@ -118,6 +118,7 @@ import FooterContainer from '../footer/FooterContainer.vue'
 import AnalyticsService from '../../services/AnalyticsService'
 import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
 import { RiArrowRightLine } from '@remixicon/vue'
+import { normalizeDpeNumber } from '../../validators/dpeNumberValidator'
 
 const { t } = useI18n()
 const dpe = ref('')
@@ -126,11 +127,6 @@ const toast = useToast()
 const dpeform = ref<typeof Form | null>(null)
 
 const emit = defineEmits<{ 'on-back': []; submit: [] }>()
-
-function normalizeDpeNumber(input: string) {
-  // Backend expects a normalized ADEME/DPE number (uppercase, no spaces/hyphens).
-  return input.replace(/[\s-]/g, '').toUpperCase()
-}
 
 const expandNoDPE = computed(
   () => SharedPropertyService.hasDpe(store.propertyToEdit) && !store.propertyToEdit?.ademeNumber

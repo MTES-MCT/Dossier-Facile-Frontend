@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/vue'
 import App from './App.vue'
 import router from './router'
 import { i18n } from './i18n'
+import { validateDpeNumber } from './validators/dpeNumberValidator'
 import 'vue-toastification/dist/index.css'
 import keycloak from './plugin/keycloak'
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
@@ -95,27 +96,7 @@ defineRule('positiveOrNull', (value: unknown) => {
   return true
 })
 
-// DPE/ADEME number format:
-// - 4 digits + 1 letter + 7 digits + 1 letter (total 13 characters)
-// Examples: 1312V1020002U, 2237E1085381X
-defineRule('dpeNumber', (value: unknown) => {
-  if (value === null || value === undefined) {
-    return true
-  }
-  const raw = typeof value === 'string' ? value : String(value)
-  if (!raw.trim().length) {
-    return true // let existing toasts handle "required"
-  }
-
-  const normalized = raw.replace(/[\s-]/g, '').toUpperCase()
-  // Less restrictive: any 13 alphanumeric characters (after normalization).
-  const dpeNumberPattern = /^[A-Z0-9]{13}$/
-
-  if (!dpeNumberPattern.test(normalized)) {
-    return 'propertydiagnosticform.dpe-invalid'
-  }
-  return true
-})
+defineRule('dpeNumber', (value: unknown) => validateDpeNumber(value))
 
 configure({
   validateOnInput: true
