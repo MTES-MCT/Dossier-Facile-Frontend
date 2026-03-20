@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/vue'
 import App from './App.vue'
 import router from './router'
 import { i18n } from './i18n'
+import { validateDpeNumber } from './validators/dpeNumberValidator'
 import 'vue-toastification/dist/index.css'
 import keycloak from './plugin/keycloak'
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
@@ -94,6 +95,8 @@ defineRule('positiveOrNull', (value: unknown) => {
   }
   return true
 })
+
+defineRule('dpeNumber', (value: unknown) => validateDpeNumber(value))
 
 configure({
   validateOnInput: true

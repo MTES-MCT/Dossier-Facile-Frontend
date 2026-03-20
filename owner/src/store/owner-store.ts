@@ -10,6 +10,7 @@ import OwnerService from '../components/account/OwnerService'
 import PropertyService from '../components/property/PropertyService'
 import cookies from 'js-cookie'
 import { add } from 'date-fns'
+import { normalizeDpeNumber } from '../validators/dpeNumberValidator'
 
 interface State {
   user: User
@@ -225,7 +226,8 @@ const useOwnerStore = defineStore('owner', {
     },
     searchDpe(dpe: string) {
       const property = this.propertyToEdit
-      property.ademeNumber = dpe
+      // Backend expects a normalized ADEME/DPE number (uppercase, no spaces/hyphens).
+      property.ademeNumber = normalizeDpeNumber(dpe)
       return OwnerService.saveProperty(this.propertyToEdit).then((response) => {
         this.setPropertyToEdit(response.data)
         return Promise.resolve(response.data)
@@ -241,7 +243,7 @@ const useOwnerStore = defineStore('owner', {
       }
     },
     setAdemeNumber(ademeNumber: string) {
-      this.propertyToEdit.ademeNumber = ademeNumber
+      this.propertyToEdit.ademeNumber = normalizeDpeNumber(ademeNumber)
     },
     setDpeNotRequired(value: boolean) {
       this.propertyToEdit.dpeNotRequired = value

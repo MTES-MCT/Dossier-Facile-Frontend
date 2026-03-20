@@ -20,7 +20,13 @@
     <div class="fr-input-group fr-mt-3w">
       <Form ref="dpeform" @submit="search">
         <label class="fr-label" for="dpe">{{ t('propertydiagnostic.dpe-label') }}</label>
-        <Field id="dpe" v-slot="{ field, meta }" v-model="dpe" name="dpe">
+        <Field
+          id="dpe"
+          v-slot="{ field, meta }"
+          v-model="dpe"
+          name="dpe"
+          :rules="{ dpeNumber: true }"
+        >
           <div class="input-btn-container">
             <input
               v-bind="field"
@@ -112,6 +118,7 @@ import FooterContainer from '../footer/FooterContainer.vue'
 import AnalyticsService from '../../services/AnalyticsService'
 import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
 import { RiArrowRightLine } from '@remixicon/vue'
+import { normalizeDpeNumber } from '../../validators/dpeNumberValidator'
 
 const { t } = useI18n()
 const dpe = ref('')
@@ -127,13 +134,16 @@ const expandNoDPE = computed(
 
 function search() {
   AnalyticsService.dpeEvent('dpe_search_number')
-  if (!dpe.value || !dpe.value.length) {
+  const normalized = normalizeDpeNumber(dpe.value)
+  dpe.value = normalized
+
+  if (!normalized || !normalized.length) {
     toast.error(t('propertydiagnosticform.dpe-required').toString(), {
       timeout: 7000
     })
     return
   }
-  store.searchDpe(dpe.value).catch((err) => {
+  store.searchDpe(normalized).catch((err) => {
     if (err.response.status === 404) {
       toast.error(t('propertydiagnosticform.not-found').toString(), {
         timeout: 7000

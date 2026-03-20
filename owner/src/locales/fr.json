@@ -296,6 +296,7 @@
   },
   "propertydiagnosticform": {
     "dpe-required": "Veuillez saisir un numéro de DPE",
+    "dpe-invalid": "Le numéro de DPE doit contenir 13 caractères alphanumériques (A-Z, 0-9).",
     "not-found": "Le DPE n'a pas été trouvé"
   },
   "propertydiagnosticexpirywarning": {
