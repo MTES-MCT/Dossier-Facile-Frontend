@@ -8,7 +8,6 @@ Cypress.Commands.add(
     cy.visit(Cypress.env("tenantUrl"));
     cy.contains("Espace locataire").click();
     cy.loginWithFC(username, password);
-    cy.visit(Cypress.env("tenantUrl"));
   },
 );
 
