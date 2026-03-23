@@ -2,7 +2,6 @@ import {
   DocumentTypeTranslations,
   type DocumentType
 } from '@/components/editmenu/documents/DocumentType'
-import type { ExternalDocumentationEvent } from '@/components/identity/lib/ExternalDocumentation'
 
 declare global {
   interface Window {
@@ -54,7 +53,7 @@ export const AnalyticsService = {
     sendFullEvent('prevalidation', 'print', tag)
   },
 
-  tenantIdentityOpenExternalDoc(event: ExternalDocumentationEvent) {
+  tenantIdentityOpenExternalDoc(event: string) {
     sendFullEvent('funnel', 'clic', 'tenant_identity_open_external_doc_' + event)
   },
 
