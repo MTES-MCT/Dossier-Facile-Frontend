@@ -28,10 +28,7 @@ describe("tax document analysis", () => {
     cy.get('a[href*="avec-avis"]').click();
     cy.get('a[href*="avec-avis/francais"]').click();
 
-    cy.intercept(
-      "POST",
-      "/api/register/documentTax",
-    ).as("uploadTax");
+    cy.intercept("POST", "/api/register/documentTax").as("uploadTax");
     cy.get(".input-file").selectFile("assets/qr-code.png");
     cy.wait("@uploadTax").its("response.statusCode").should("eq", 200);
     cy.waitUntilLoaderIsGone();
@@ -48,7 +45,9 @@ describe("tax document analysis", () => {
     cy.get(".explain-link").first().click();
     cy.get("#explainText").should("exist").and("have.focus");
 
-    cy.get(".explain-form-actions").contains("Enregistrer").should("not.be.disabled");
+    cy.get(".explain-form-actions")
+      .contains("Enregistrer")
+      .should("not.be.disabled");
     cy.get(".explain-form-actions").contains("Enregistrer").click();
     cy.get(".fr-error-text").should("be.visible");
     cy.get("#explainText").should("have.focus");
@@ -58,9 +57,37 @@ describe("tax document analysis", () => {
 
     cy.get(".explain-form-actions").contains("Enregistrer").click();
     cy.get(".fr-error-text").should("not.exist");
-    cy.contains("Votre explication a bien été enregistrée").should("be.visible");
+    cy.contains("Votre explication a bien été enregistrée").should(
+      "be.visible",
+    );
 
     cy.get('[data-cy="next-btn"]').click();
     cy.url().should("not.include", "avec-avis/francais");
+  });
+
+  it.only("shows error modal when uploading an avis de situation déclarative", () => {
+    cy.tenantLoginWithFC(user.username, user.password);
+    cy.rejectCookies();
+
+    cy.contains("Pour vous").click();
+    cy.verifyTenantIdentity(user.firstname, user.lastname);
+    cy.clickOnNext();
+
+    cy.expectPath("/type-locataire");
+    cy.clickOnNext();
+
+    cy.expectPath("/documents-locataire/1");
+    cy.get("#funnel-menu").contains("Avis d'imposition").click();
+    cy.expectPath("/documents-locataire/5");
+    cy.get('a[href*="avec-avis"]').click();
+    cy.get('a[href*="avec-avis/francais"]').click();
+
+    cy.get(".input-file").selectFile(
+      "assets/Avis_situation_declarative_titres_seuls.pdf",
+    );
+
+    cy.contains("Avis de situation déclarative détecté", {
+      timeout: 10000,
+    }).should("be.visible");
   });
 });
