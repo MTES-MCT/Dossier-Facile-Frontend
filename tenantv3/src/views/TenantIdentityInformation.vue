@@ -4,7 +4,7 @@
   >
     <div class="max-600 fr-col-12">
       <TenanIdentity />
-      <PrepareDocument v-if="hasToDisplayInformations()" :text-key="getTextKey()" />
+      <PrepareDocument v-if="hasToDisplayInformations()" />
     </div>
   </div>
 </template>
@@ -21,13 +21,5 @@ const hasToDisplayInformations = () => {
     currentRoute.path === '/nom-locataire/pour-moi' ||
     currentRoute.path === '/nom-locataire/pour-une-autre-personne'
   )
-}
-
-const getTextKey = () => {
-  if (currentRoute.path === '/nom-locataire/pour-moi') {
-    return 'self'
-  } else {
-    return 'third-party'
-  }
 }
 </script>
