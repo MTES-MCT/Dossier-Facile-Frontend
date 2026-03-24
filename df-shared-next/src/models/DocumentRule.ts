@@ -20,6 +20,12 @@ export type NamesRuleData = {
   extractedNames: Name[]
 }
 
+export type TaxNamesRuleData = {
+  type: 'R_TAX_NAMES'
+  expectedName: Name
+  extractedIdentities: string[]
+}
+
 export type TaxYearsRuleData = {
   type: 'R_TAX_YEARS'
   expectedYear: number
@@ -37,6 +43,7 @@ export type RuleData =
   | TaxClassificationRuleData
   | NamesRuleData
   | TaxYearsRuleData
+  | TaxNamesRuleData
   | PayslipContinuityRuleData
 
 export type DocumentRule = {
