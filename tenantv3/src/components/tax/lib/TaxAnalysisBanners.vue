@@ -1,9 +1,16 @@
 <template>
-  <ol v-if="failedRules.length > 0" role="list" ref="listRef" tabindex="-1" :aria-label="t('errors-to-fix', { count: failedRules.length })" class="analysis-banners">
+  <ol
+    v-if="failedRules.length > 0"
+    ref="listRef"
+    role="list"
+    tabindex="-1"
+    :aria-label="t('errors-to-fix', { count: failedRules.length })"
+    class="analysis-banners"
+  >
     <li v-for="(rule, index) in failedRules" :key="index" class="analysis-banner">
       <div class="banner-content">
         <div class="banner-title">
-          <VIcon name="ri:alert-fill" :scale="1.25" color="#b34000"/>
+          <VIcon name="ri:alert-fill" :scale="1.25" color="#b34000" />
           <span class="title-text">{{ getRuleTitle(rule.rule) }}</span>
         </div>
         <div class="banner-description">
@@ -32,7 +39,9 @@
         </div>
         <p class="explain-link-text">
           {{ t('not-matching') }}
-          <button type="button" class="explain-link" @click="emit('explain')">{{ t('explain-link') }}</button>
+          <button type="button" class="explain-link" @click="emit('explain')">
+            {{ t('explain-link') }}
+          </button>
         </p>
       </div>
     </li>
@@ -76,7 +85,7 @@ function getRuleTitle(rule: string): string {
 }
 
 function formatName(name: Name): string {
-  return `${name.firstNames} ${name.lastName}`.trim()
+  return `${name.lastName} ${name.firstNames}`.trim()
 }
 
 function getCurrentDocLines(rule: DocumentRule): string[] {
@@ -91,6 +100,8 @@ function getCurrentDocLines(rule: DocumentRule): string[] {
         : [t('rules.bad-classification.current-other')]
     case 'R_NAMES':
       return data.extractedNames.map((n) => t('rules.names.current', { name: formatName(n) }))
+    case 'R_TAX_NAMES':
+      return data.extractedIdentities.map((n) => t('rules.names.current', { name: n }))
     case 'R_TAX_YEARS':
       return data.extractedYears.map((y) =>
         t('rules.wrong-year.current', { taxYear: y + 1, incomeYear: y })
@@ -109,6 +120,8 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     case 'R_TAX_CLASSIFICATION':
       return [t('rules.bad-classification.expected')]
     case 'R_NAMES':
+      return [t('rules.names.expected', { name: formatName(data.expectedName) })]
+    case 'R_TAX_NAMES':
       return [t('rules.names.expected', { name: formatName(data.expectedName) })]
     case 'R_TAX_YEARS':
       return [
