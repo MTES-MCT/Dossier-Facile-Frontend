@@ -32,6 +32,14 @@ vi.mock('../documents/documentFormState', () => ({
   })
 }))
 
+vi.mock('../tax/lib/taxState', () => ({
+  useTaxState: () => ({
+    previousStep: '/',
+    nextStep: '/next',
+    category: 'tax' as const
+  })
+}))
+
 const mockAnalysisFailedRules = ref<unknown[]>([])
 const mockExplanationSubmitted = ref(false)
 const mockAnalysisInProgress = ref(false)
@@ -88,12 +96,14 @@ const FakeUploadFileTaxWithAnalysis = defineComponent({
 
 const globalStubs = {
   BackLinkRow: true,
-  TaxFooter: defineComponent({
-    name: 'TaxFooter',
+  AnalysisFooter: defineComponent({
+    name: 'AnalysisFooter',
     props: {
+      previousStep: { type: [String, Object], default: undefined },
       nextDisabled: { type: Boolean, default: undefined },
       nextLabel: { type: String, default: undefined },
-      beforeSubmit: { type: Function, default: undefined }
+      beforeSubmit: { type: Function, default: undefined },
+      onSubmitAction: { type: Function, default: undefined }
     },
     setup(_, { slots }) {
       return () => h('div', slots.default?.())
@@ -119,11 +129,13 @@ function mountComponent() {
 }
 
 function getTaxFooterProps(wrapper: ReturnType<typeof mountComponent>) {
-  const taxFooter = wrapper.findComponent({ name: 'TaxFooter' })
-  return taxFooter.props() as {
+  const footer = wrapper.findComponent({ name: 'AnalysisFooter' })
+  return footer.props() as {
+    previousStep?: string
     nextDisabled?: boolean
     nextLabel?: string
     beforeSubmit?: () => boolean
+    onSubmitAction?: () => Promise<void> | void
   }
 }
 

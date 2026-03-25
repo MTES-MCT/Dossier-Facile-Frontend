@@ -4,7 +4,7 @@
       <ListItem
         :file="file"
         :watermark-url="documentWatermarkUrl"
-        doc-category="tax"
+        :doc-category="docCategory"
         @remove="remove(file)"
         @ask-confirm="AnalyticsService.deleteDocument(docCategory)"
         @cancel="AnalyticsService.cancelDelete(docCategory)"

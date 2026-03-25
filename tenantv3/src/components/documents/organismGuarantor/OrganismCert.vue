@@ -41,13 +41,13 @@
       <p>{{ t('identification-page.will-delete-files') }}</p>
     </ConfirmModal>
 
-    <GuarantorFooter
+    <AnalysisFooter
+      :previous-step="previousStep"
       :before-submit="analysisWrapper?.beforeSubmit"
       :next-disabled="analysisWrapper?.nextDisabled"
       :next-label="analysisWrapper?.nextLabel"
-      @on-back="onBack"
-      @on-next="nextStep"
-    ></GuarantorFooter>
+      :on-submit-action="submit"
+    />
   </div>
 </template>
 
@@ -71,13 +71,13 @@ import {
   DocumentTypeConstants,
   type DocumentSubCategory
 } from '../../documents/share/DocumentTypeConstants'
-import GuarantorFooter from '../../footer/GuarantorFooter.vue'
+import AnalysisFooter from '../../footer/AnalysisFooter.vue'
+import type { RouteLocationRaw } from 'vue-router'
 
 const props = defineProps<{
   tenantId?: number
   isCotenant?: boolean
   guarantor?: Guarantor
-  onBack?: () => void
   nextStep?: () => void
 }>()
 
@@ -111,6 +111,7 @@ const shouldShowUploader = computed(
 const selectedSubCategory = computed(() => selectedDocumentType.value.value as DocumentSubCategory)
 
 const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
+const previousStep: RouteLocationRaw = { name: 'GuarantorList' }
 
 function guarantorId() {
   if (props.guarantor) {
@@ -145,7 +146,7 @@ watch(
 provide(documentFormKey, {
   category: 'GUARANTEE_PROVIDER_CERTIFICATE',
   textKey: props.isCotenant ? 'couple-guarantor' : 'guarantor',
-  previousStep: { name: 'GuarantorName' },
+  previousStep: previousStep,
   nextStep: { name: 'GuarantorName' },
   formFieldValue: 'typeDocumentCertificate',
   document: certificateDocument,
@@ -218,6 +219,10 @@ function documentTypes() {
   return documentTypeOptions.map((d) => {
     return { id: d.key, labelKey: d.key, value: d }
   })
+}
+
+function submit() {
+  props.nextStep?.()
 }
 </script>
 
