@@ -143,7 +143,7 @@ const documents = computed(() => {
     "documents-of": "Documents de {firstName} {lastName}",
     "document-of-organization": "Documents de l'organisme",
     "badge-loc": "DOSSIER LOCATAIRE",
-    "badge-guarantor": "DOSSIER GUARANT"
+    "badge-guarantor": "DOSSIER GARANT"
   }
 }
 </i18n>
