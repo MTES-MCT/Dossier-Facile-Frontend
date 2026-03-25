@@ -15,6 +15,7 @@ const { t } = useI18n()
 interface Props {
   user?: User
   profile?: 'tenant' | 'owner'
+  isSubmitting?: boolean
 }
 const props = defineProps<Props>()
 
@@ -226,7 +227,10 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
       </p>
     </div>
 
-    <DsfrButton :label="t('fields.submit')" class="form__btn" />
+    <DsfrButton
+      :label="props.isSubmitting ? t('fields.submitting') : t('fields.submit')"
+      class="form__btn"
+    />
   </form>
 </template>
 
@@ -258,7 +262,8 @@ textarea {
       "message": "Your message",
       "consent": "Accepting our conditions",
       "consent-label": "You agree that this information may be shared with our support team and CRISP, our support tool, in order to respond to your request.",
-      "submit": "Send my message"
+      "submit": "Send my message",
+      "submitting": "Sending..."
     }
   },
   "fr": {
@@ -277,7 +282,8 @@ textarea {
       "message": "Votre message",
       "consent": "Accepter les conditions",
       "consent-label": "Vous acceptez que ces informations soient transmises à notre équipe d'assistance et à CRISP, notre outil d'assistance, afin de répondre à votre demande.",
-      "submit": "Envoyer mon message"
+      "submit": "Envoyer mon message",
+      "submitting": "Envoi en cours..."
     }
   }
 }
