@@ -79,11 +79,11 @@ const POLLING_TIMEOUT_MS = 10000
 const props = withDefaults(
   defineProps<{
     isUploading?: boolean
-    pollingTimoutMs?: number
+    pollingTimeoutMs?: number
   }>(),
   {
     isUploading: false,
-    pollingTimoutMs: POLLING_TIMEOUT_MS
+    pollingTimeoutMs: POLLING_TIMEOUT_MS
   }
 )
 
@@ -182,7 +182,7 @@ function startPolling(userInitiated = false) {
     AnalyticsService.document_analysis_timeout(document.value?.documentCategory ?? 'NULL')
     analysisInProgress.value = false
     stopPolling()
-  }, props.pollingTimoutMs)
+  }, props.pollingTimeoutMs)
 }
 
 async function updateAnalysisStatus(): Promise<AnalysisStatus | 'FAILED' | undefined> {
@@ -249,10 +249,15 @@ function saveExplanation() {
     comment: explainText.value
   }
   AnalyticsService.document_analysis_save_comment(document.value?.documentCategory ?? 'NULL')
-  store.commentAnalysis(params).then(() => {
-    explanationSubmitted.value = true
-    toast.success(t('save-success'), undefined)
-  })
+  store
+    .commentAnalysis(params)
+    .then(() => {
+      explanationSubmitted.value = true
+      toast.success(t('save-success'), undefined)
+    })
+    .catch(() => {
+      toast.error(t('save-error'), undefined)
+    })
 }
 
 function beforeSubmit(): boolean {
@@ -318,7 +323,8 @@ function beforeSubmit(): boolean {
     "explain-info": "This explanation will be sent to our team only. It will not appear in your tenant file.",
     "explain-save": "Save",
     "explain-error": "Please describe your situation before saving.",
-    "save-success": "Your explanation has been saved"
+    "save-success": "Your explanation has been saved",
+    "save-error": "An error occurred while saving your explanation."
   },
   "fr": {
     "errors-count": "{count} erreur à corriger | {count} erreurs à corriger",
@@ -331,7 +337,8 @@ function beforeSubmit(): boolean {
     "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
     "explain-save": "Enregistrer",
     "explain-error": "Veuillez décrire votre situation avant d'enregistrer.",
-    "save-success": "Votre explication a bien été enregistrée"
+    "save-success": "Votre explication a bien été enregistrée",
+    "save-error": "Erreur lors de l'enregistrement de votre explication."
   }
 }
 </i18n>
