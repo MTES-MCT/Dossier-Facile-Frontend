@@ -288,6 +288,11 @@
       "good-dpe": "Your property is classified {0}, which means that its energy consumption is below 330 kWh/m²/year. <strong>Your property is not affected by any rent freeze or rental restrictions.</strong>"
     }
   },
+  "propertydiagnosticform": {
+    "dpe-required": "Please enter a DPE number",
+    "dpe-invalid": "The DPE number must contain 13 alphanumeric characters (A-Z, 0-9).",
+    "not-found": "DPE number was not found"
+  },
   "propertyrent": {
     "rent-title": "Monthly Rent and Charges",
     "rent-subtitle": "Indicate the amount of rent and associated charges.",

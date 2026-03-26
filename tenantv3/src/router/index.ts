@@ -545,6 +545,7 @@ export const router = createRouter({
     },
     {
       path: '/profile',
+      name: 'Profile',
       redirect: '/nom-locataire'
     },
     {

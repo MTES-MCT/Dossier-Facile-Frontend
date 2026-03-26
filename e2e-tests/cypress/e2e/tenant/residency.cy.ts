@@ -11,7 +11,7 @@ describe(
       cy.loginWithFCAndDeleteAccount(
         user.username,
         user.password,
-        UserType.TENANT
+        UserType.TENANT,
       );
 
       cy.tenantLoginWithFC(user.username, user.password);
@@ -30,7 +30,6 @@ describe(
       cy.visit("/documents-locataire/2");
 
       testResidencyStep();
-
       // Should get warning for category needing at least 3 files
       verifyThatThreeDocumentsAreMandatory();
       goBackToResidency();
@@ -57,25 +56,25 @@ describe(
       cy.contains("En situation précaire").click();
       cy.get(".dropbox").should("not.exist");
       cy.contains("Valider votre situation d'hébergement").should(
-        "be.disabled"
+        "be.disabled",
       );
       cy.contains("Vous êtes dans une situation précaire").click();
       cy.contains("Valider votre situation d'hébergement").should("be.enabled");
       cy.clickOnNext().expectPath("/3");
       cy.contains("Retour").click();
       getInputByLabel("Vous êtes dans une situation précaire").should(
-        "be.checked"
+        "be.checked",
       );
       cy.contains("Modifier").click({ force: true });
-      cy.contains("Modifier votre situation").click();
+      cy.get("dialog[open] button").contains("Supprimer mes documents").click();
 
       // Should not be able to continue without uploading a file
       cy.contains("Locataire").click();
       cy.contains(
-        "Vous avez une attestation de bon paiement des loyers"
+        "Vous avez une attestation de bon paiement des loyers",
       ).click();
       cy.contains("Valider votre situation d'hébergement").should(
-        "be.disabled"
+        "be.disabled",
       );
       cy.contains("Modifier").click({ force: true });
 
@@ -84,7 +83,7 @@ describe(
       cy.uploadDocument(1).clickOnNext();
       goBackToResidency();
       cy.contains("Modifier").click({ force: true });
-      cy.contains("Modifier votre situation").click();
+      cy.get("dialog[open] button").contains("Supprimer mes documents").click();
     }
 
     function testGuarantorResidencyStep() {
@@ -96,7 +95,7 @@ describe(
       cy.uploadDocument(1).clickOnNext().expectPath("/3/");
       cy.contains("Retour").click();
       cy.contains("Modifier").click({ force: true });
-      cy.contains("Modifier votre situation").click();
+      cy.get("dialog[open] button").contains("Supprimer mes documents").click();
 
       // Should be able to continue without uploading a file
       cy.contains("Locataire").click();
@@ -108,7 +107,7 @@ describe(
       cy.uploadDocument(1).clickOnNext();
       goBackToResidency();
       cy.contains("Modifier").click({ force: true });
-      cy.contains("Modifier votre situation").click();
+      cy.get("dialog[open] button").contains("Supprimer mes documents").click();
     }
 
     function testCoResidencyStep() {
@@ -117,7 +116,7 @@ describe(
       cy.contains("En situation précaire").click();
       cy.get(".dropbox").should("not.exist");
       cy.contains("Valider votre situation d'hébergement").should(
-        "be.disabled"
+        "be.disabled",
       );
       cy.contains("Votre conjoint est dans une situation précaire").click();
       cy.contains("Valider votre situation d'hébergement").should("be.enabled");
@@ -126,10 +125,10 @@ describe(
       cy.contains("Retour").click();
       cy.expectPath("/2/other-residency");
       getInputByLabel("Votre conjoint est dans une situation précaire").should(
-        "be.checked"
+        "be.checked",
       );
       cy.contains("Modifier").click({ force: true });
-      cy.contains("Modifier votre situation").click();
+      cy.get("dialog[open] button").contains("Supprimer mes documents").click();
 
       // Should be able to go back
       cy.contains("Locataire").click();
@@ -145,7 +144,7 @@ describe(
     function verifyThatThreeDocumentsAreMandatory() {
       cy.selectResidencyStep(
         "Locataire",
-        "Vous avez vos 3 dernières quittances de loyer"
+        "Vous avez vos 3 dernières quittances de loyer",
       );
       clickOnModalButton("Passer à l'étape suivante");
       cy.contains("Retour").click();
@@ -155,7 +154,7 @@ describe(
     }
 
     function clickOnModalButton(buttonLabel: string) {
-      cy.get(".modal")
+      cy.get("dialog[open]")
         .should("be.visible")
         .get("button")
         .contains(buttonLabel)
@@ -188,5 +187,5 @@ describe(
     function clickOnMenuItem(label: string) {
       cy.get("#funnel-menu").contains(label).click();
     }
-  }
+  },
 );

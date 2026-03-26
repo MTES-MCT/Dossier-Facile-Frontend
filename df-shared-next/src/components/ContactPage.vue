@@ -97,7 +97,7 @@
         {{ t('form.subtitle') }}
       </p>
       <RequiredFieldsInstruction all-required />
-      <ContactForm :profile :user @on-submit="submitForm" />
+      <ContactForm :profile :user :is-submitting="isSubmitting" @on-submit="submitForm" />
     </NakedCard>
 
     <DsfrModalPatch
@@ -159,6 +159,7 @@ const { user, profile = 'tenant' } = defineProps<Props>()
 const isFormOpen = ref(false)
 const isValidModalOpened = ref(false)
 const isErrorModalOpened = ref(false)
+const isSubmitting = ref(false)
 
 const emit = defineEmits<{
   'on-profile-change': [profile: string]
@@ -200,6 +201,11 @@ function onProfileChange() {
 }
 
 function submitForm(payload: ContactFormData) {
+  if (isSubmitting.value) {
+    return
+  }
+
+  isSubmitting.value = true
   contactFormData.value = payload
   emit('on-send-message', contactFormData.value.profile)
   SupportService.sendMail(contactFormData.value)
@@ -211,6 +217,9 @@ function submitForm(payload: ContactFormData) {
     .catch((error) => {
       console.log(error)
       isErrorModalOpened.value = true
+    })
+    .finally(() => {
+      isSubmitting.value = false
     })
 }
 </script>

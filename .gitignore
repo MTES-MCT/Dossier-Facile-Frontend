@@ -29,3 +29,4 @@ pnpm-debug.log*
 **/cypress/screenshots
 **/cypress/videos
 .cursor/rules/test-language.mdc
+CLAUDE.md

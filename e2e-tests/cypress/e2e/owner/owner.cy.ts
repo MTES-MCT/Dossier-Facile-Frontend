@@ -8,7 +8,7 @@ describe("basic owner scenario", () => {
     cy.loginWithFCAndDeleteAccount(
       user.username,
       user.password,
-      UserType.OWNER
+      UserType.OWNER,
     );
   });
 
@@ -46,11 +46,11 @@ describe("basic owner scenario", () => {
 
     cy.contains("Partager ma propriété").click();
     cy.contains("Copier").click();
-    cy.get('[data-cy="share-property-modal"]').contains("Fermer").click();
+    cy.get("dialog[open]").contains("fermer").click();
 
     cy.intercept("DELETE", "**/property/*").as("deleteProperty");
     cy.contains("Supprimer ma propriété").click();
-    cy.get(".modal").contains("Valider").click();
+    cy.get("dialog[open]").contains("Valider").click();
     cy.wait("@deleteProperty").its("response.statusCode").should("eq", 200);
   });
 
@@ -62,7 +62,7 @@ describe("basic owner scenario", () => {
     cy.get("#confirm-password").type(password);
     cy.contains("Valider").click();
     cy.contains(
-      "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
+      "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié",
     );
   });
 });
