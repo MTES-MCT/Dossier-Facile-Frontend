@@ -18,6 +18,7 @@ import { useRoute } from 'vue-router'
 import { DocumentService } from '@/services/DocumentService'
 import TenantBadge from '../common/TenantBadge.vue'
 import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { documentFormKey } from '../documents/documentFormState'
 
 const route = useRoute()
 const store = useTenantStore()
@@ -28,6 +29,23 @@ const tenantId = computed(() => Number(route.params.tenantId))
 const nextStep = getNavigationNextStep({
   name: 'TenantGuarantors',
   params: { tenantId: tenantId.value, step: '5' }
+})
+
+provide(documentFormKey, {
+  category: 'TAX',
+  textKey: 'couple',
+  previousStep: { name: 'CoupleFinancial', params: { tenantId: tenantId.value } },
+  nextStep: nextStep,
+  formFieldValue: 'typeDocumentTax',
+  document: computed(() => {
+    const tenant = store.getTenant(tenantId.value)
+    return DocumentService.getDoc('TAX', tenant.documents)
+  }),
+  userId: store.user.id,
+  storeAction: 'saveTenantTax',
+  addData(formData) {
+    formData.append('tenantId', tenantId.value.toString())
+  }
 })
 
 provide(taxKey, {
