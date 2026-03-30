@@ -80,7 +80,7 @@ const ruleTitleMap: Record<string, string> = {
   R_VISALE_CERTIFICATE_NAME_MATCH: 'rules.names.title',
   R_VISALE_CERTIFICATE_EXPIRATION: 'rules.expiration.title',
   R_TAX_NAMES: 'rules.names.title',
-  R_TAX_WRONG_YEAR: 'rules.wrong-year.title',
+  R_TAX_WRONG_YEAR: 'rules.wrong-year.tax.title',
   R_TAX_2D_DOC: 'rules.invalid-2ddoc.title'
 }
 
