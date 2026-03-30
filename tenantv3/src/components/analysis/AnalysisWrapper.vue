@@ -67,7 +67,7 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { DsfrBadge, DsfrButton } from '@gouvminint/vue-dsfr'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
-import { computed, nextTick, ref, useTemplateRef, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AnalysisBanners from '../analysis/AnalysisBanners.vue'
 import { useDocumentFormKey } from '../documents/documentFormState'
@@ -166,6 +166,10 @@ function stopPolling() {
     pollingTimeout.value = null
   }
 }
+
+onBeforeUnmount(() => {
+  stopPolling()
+})
 
 function startPolling() {
   stopPolling()
