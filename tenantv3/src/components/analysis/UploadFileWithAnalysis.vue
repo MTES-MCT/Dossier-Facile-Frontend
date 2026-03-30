@@ -147,8 +147,8 @@ async function save(): Promise<boolean> {
     return true
   }
 
-  if (files.value.length > props.maxFileCount) {
-    toast.maxFileError(files.value.length, props.maxFileCount, fileUpload.value?.inputFile)
+  if (currentFiles.value.length > props.maxFileCount) {
+    toast.maxFileError(currentFiles.value.length, props.maxFileCount, fileUpload.value?.inputFile)
     files.value = []
     return false
   }

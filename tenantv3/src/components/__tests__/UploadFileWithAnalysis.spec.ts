@@ -161,6 +161,21 @@ describe('UploadFileWithAnalysis', () => {
     expect(mockSaveTenantTax).not.toHaveBeenCalled()
   })
 
+  it('counts existing server files when enforcing maxFileCount', async () => {
+    const wrapper = mountComponent({ maxFileCount: 5 })
+    const files = Array.from(
+      { length: 5 },
+      (_, index) => new File(['content'], `extra-${index}.pdf`, { type: 'application/pdf' })
+    )
+
+    await wrapper.vm.$.setupState.addFiles(files)
+    await flushPromises()
+
+    // 1 existing server file + 5 new local files => 6 total > maxFileCount (5)
+    expect(wrapper.vm.$.setupState.fileUploadStatus).toBe(UploadStatus.STATUS_INITIAL)
+    expect(mockSaveTenantTax).not.toHaveBeenCalled()
+  })
+
   it('removes existing file via RegisterService', async () => {
     const wrapper = mountComponent()
 
