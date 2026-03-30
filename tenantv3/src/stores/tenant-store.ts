@@ -708,7 +708,9 @@ export const useTenantStore = defineStore('tenant', {
       return response.data
     },
     updateDocumentAnalysisReport(documentId: number, report: DocumentAnalysisReport) {
-      const doc = this.user.documents?.find((d: DfDocument) => d.id === documentId)
+      const doc =
+        this.user.documents?.find((d: DfDocument) => d.id === documentId) ??
+        this.selectedGuarantor?.documents?.find((d: DfDocument) => d.id === documentId)
       if (doc) {
         doc.documentAnalysisReport = report
       }
