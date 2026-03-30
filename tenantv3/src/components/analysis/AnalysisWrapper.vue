@@ -97,14 +97,12 @@ const analysisFailedRules = ref<DocumentRule[]>(
 const analysisInProgress = ref(false)
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
 const pollingTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
-const userInitiatedPolling = ref(false)
 const analysisBanner = useTemplateRef('analysis-banner')
 const showExplainForm = ref(false)
 const showExplainError = ref(false)
 const explainText = ref('')
 const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
 const explanationSubmitted = ref(false)
-const isFirstDocumentLoad = ref(true)
 
 const hasUnresolvedErrors = computed(
   () => analysisErrorCount.value > 0 && !explanationSubmitted.value
@@ -141,14 +139,9 @@ watch(
   async (document) => {
     analysisFailedRules.value = document?.documentAnalysisReport?.failedRules ?? []
     if (document?.id) {
-      // First arrival on page (document loaded from store) should not auto-focus banners.
-      const shouldFocusAfterPolling = !isFirstDocumentLoad.value
-      isFirstDocumentLoad.value = false
-
-      userInitiatedPolling.value = shouldFocusAfterPolling
       const status = await updateAnalysisStatus()
       if (status === AnalysisStatus.IN_PROGRESS) {
-        startPolling(shouldFocusAfterPolling)
+        startPolling()
       }
     } else {
       stopPolling()
@@ -174,9 +167,8 @@ function stopPolling() {
   }
 }
 
-function startPolling(userInitiated = false) {
+function startPolling() {
   stopPolling()
-  userInitiatedPolling.value = userInitiated
   pollingInterval.value = setInterval(updateAnalysisStatus, POLLING_INTERVAL_MS)
   pollingTimeout.value = setTimeout(() => {
     AnalyticsService.document_analysis_timeout(document.value?.documentCategory ?? 'NULL')
@@ -196,8 +188,12 @@ async function updateAnalysisStatus(): Promise<AnalysisStatus | 'FAILED' | undef
     if (data.status === AnalysisStatus.COMPLETED) {
       analysisInProgress.value = false
       const rules = data.analysisReport?.failedRules ?? []
+      const hadBannersBefore = analysisFailedRules.value.length > 0
       analysisFailedRules.value = rules
-      if (userInitiatedPolling.value && rules.length > 0) {
+      if (data.analysisReport) {
+        store.updateDocumentAnalysisReport(docId, data.analysisReport)
+      }
+      if (!hadBannersBefore && rules.length > 0) {
         await nextTick()
         focusBanners()
       }

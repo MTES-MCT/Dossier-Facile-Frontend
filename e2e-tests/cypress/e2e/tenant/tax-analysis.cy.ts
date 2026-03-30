@@ -65,6 +65,45 @@ describe("tax document analysis", () => {
     cy.url().should("not.include", "avec-avis/francais");
   });
 
+  it("does not auto-focus banners when returning to page with existing errors", () => {
+    cy.tenantLoginWithFC(user.username, user.password);
+    cy.rejectCookies();
+
+    cy.contains("Pour vous").click();
+    cy.verifyTenantIdentity(user.firstname, user.lastname);
+    cy.clickOnNext();
+
+    cy.expectPath("/type-locataire");
+    cy.clickOnNext();
+
+    cy.expectPath("/documents-locataire/1");
+    cy.get("#funnel-menu").contains("Avis d'imposition").click();
+    cy.expectPath("/documents-locataire/5");
+    cy.get('a[href*="avec-avis"]').click();
+    cy.get('a[href*="avec-avis/francais"]').click();
+
+    // Upload a file that triggers analysis errors
+    cy.intercept("POST", "/api/register/documentTax").as("uploadTax");
+    cy.get(".input-file").selectFile("assets/qr-code.png");
+    cy.wait("@uploadTax").its("response.statusCode").should("eq", 200);
+    cy.waitUntilLoaderIsGone();
+
+    cy.get(".analysis-banners", { timeout: 15000 }).should("exist");
+    cy.get(".analysis-banner").should("have.length.at.least", 1);
+
+    // Navigate away
+    cy.get("#funnel-menu").contains("Pièce d'identité").click();
+    cy.expectPath("/documents-locataire/1");
+
+    // Navigate back to the tax page with existing errors
+    cy.get("#funnel-menu").contains("Avis d'imposition").click();
+    cy.expectPath("/documents-locataire/5/avec-avis/francais");
+
+    // Banners should still be visible but NOT auto-focused
+    cy.get(".analysis-banners").should("exist");
+    cy.get(".analysis-banners").should("not.have.focus");
+  });
+
   it("shows error modal when uploading an avis de situation déclarative", () => {
     cy.tenantLoginWithFC(user.username, user.password);
     cy.rejectCookies();

@@ -36,7 +36,8 @@ const mockCommentAnalysis = vi.fn().mockResolvedValue({})
 vi.mock('@/stores/tenant-store', () => ({
   useTenantStore: () => ({
     user: { id: 123 },
-    commentAnalysis: mockCommentAnalysis
+    commentAnalysis: mockCommentAnalysis,
+    updateDocumentAnalysisReport: vi.fn()
   })
 }))
 
@@ -46,7 +47,7 @@ vi.mock('@/components/toast/toastUtils', () => ({
   }
 }))
 
-const mockDocument = ref<DfDocument | undefined>({
+const mockStoreDocument = ref<DfDocument | undefined>({
   id: 42,
   files: [{ id: 1, name: 'tax.pdf', size: 1000 }],
   documentStatus: 'TO_PROCESS',
@@ -55,7 +56,7 @@ const mockDocument = ref<DfDocument | undefined>({
 
 vi.mock('../documents/documentFormState', () => ({
   useDocumentFormKey: () => ({
-    document: mockDocument
+    document: mockStoreDocument
   })
 }))
 
@@ -131,7 +132,7 @@ describe('analysisWrapper', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     vi.useFakeTimers()
-    mockDocument.value = {
+    mockStoreDocument.value = {
       id: 42,
       files: [{ id: 1, name: 'tax.pdf', size: 1000 }],
       documentStatus: 'TO_PROCESS',
@@ -197,10 +198,17 @@ describe('analysisWrapper', () => {
 
   it('blocks submit and focuses banners when unresolved errors remain', async () => {
     const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
+    mockStoreDocument.value = {
+      ...mockStoreDocument.value,
+      documentAnalysisReport: { failedRules: rules }
+    } as unknown as DfDocument
     mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
 
     const wrapper = mountComponent()
     await flushPromises()
+
+    // No auto-focus on mount: banners were already present from the document report
+    expect(mockBannersFocus).not.toHaveBeenCalled()
 
     expect(wrapper.vm.beforeSubmit()).toBe(false)
     expect(mockBannersFocus).toHaveBeenCalledOnce()

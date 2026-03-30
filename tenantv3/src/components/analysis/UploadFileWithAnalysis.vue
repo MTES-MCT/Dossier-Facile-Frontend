@@ -162,7 +162,7 @@ async function save(): Promise<boolean> {
   if (props.step) {
     formData.append('categoryStep', props.step)
   }
-  formData.append('noDocument', String(newFiles.length === 0))
+  formData.append('noDocument', 'false')
   if (props.explanation) {
     formData.append('customText', props.explanation)
   }

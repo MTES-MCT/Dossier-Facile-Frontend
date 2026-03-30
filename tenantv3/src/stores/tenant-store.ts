@@ -9,6 +9,7 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import { ProfileService } from '@/services/ProfileService'
 import { UtilsService } from '@/services/UtilsService'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import type { DocumentAnalysisReport } from 'df-shared-next/src/models/DocumentAnalysisReport'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { User } from 'df-shared-next/src/models/User'
 import { defineStore } from 'pinia'
@@ -705,6 +706,12 @@ export const useTenantStore = defineStore('tenant', {
       const response = await RegisterService.commentAnalysis(formData)
       this.loadUserCommit(response.data)
       return response.data
+    },
+    updateDocumentAnalysisReport(documentId: number, report: DocumentAnalysisReport) {
+      const doc = this.user.documents?.find((d: DfDocument) => d.id === documentId)
+      if (doc) {
+        doc.documentAnalysisReport = report
+      }
     }
   }
 })
