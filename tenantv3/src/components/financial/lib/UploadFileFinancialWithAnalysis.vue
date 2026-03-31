@@ -1,0 +1,316 @@
+<template>
+  <form class="fr-mb-2w" @submit="onSubmit">
+    <input
+      id="monthlySum"
+      ref="inputSumElt"
+      v-model="inputSum"
+      v-bind="sumAttr"
+      :placeholder="t('amount')"
+      name="monthlySum"
+      class="fr-input fr-mb-2w"
+      required
+      autocomplete="off"
+      data-cy="monthlySum"
+      aria-describedby="monthlySum-desc"
+      @blur="AnalyticsService.writeText(state.category)"
+    />
+    <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
+  </form>
+  <template v-if="showFiles">
+    <slot name="incomeFilled" />
+    <AnalysisWrapper
+      ref="analysis-wrapper"
+      :is-uploading="uploadFileWithAnalysisRef?.isUploading ?? false"
+      :polling-timeout-ms="20000"
+    >
+      <template #fileUploader>
+        <UploadFileWithAnalysis
+          ref="upload-file-with-analysis"
+          :doc-category="state.category"
+          :sub-category="salarySubCategory"
+          step="SALARY_EMPLOYED_MORE_3_MONTHS"
+          :max-file-count="10"
+          :analysis-in-progress="analysisWrapper?.analysisInProgress ?? false"
+          :before-save="beforeUploadSave"
+        />
+      </template>
+    </AnalysisWrapper>
+    <p class="fr-message fr-message--info fr-mt-3w">{{ t('i-authorize-corrections') }}</p>
+  </template>
+  <slot v-else name="emptyIncome" />
+  <AnalysisFooter
+    v-if="showFiles"
+    :previous-step="state.recap"
+    :next-disabled="analysisFooterNextDisabled"
+    :next-label="analysisWrapper?.nextLabel"
+    :before-submit="analysisWrapper?.beforeSubmit"
+    :on-submit-action="onAnalysisFooterSubmit"
+  />
+  <DsfrModalPatch
+    v-model:is-opened="isModalOpened"
+    :title="t('insufficient-number-of-docs')"
+    :actions="modalActions"
+    size="xl"
+  >
+    <i18n-t tag="p" keypath="you-added-docs" class="fr-mb-2w">
+      <strong>{{ t('less-than-x-docs', [minFiles]) }}</strong>
+    </i18n-t>
+    <p class="fr-mb-0">{{ t('for-complete-file', [minFiles]) }}</p>
+  </DsfrModalPatch>
+</template>
+
+<script setup lang="ts">
+import AnalysisWrapper from '@/components/analysis/AnalysisWrapper.vue'
+import UploadFileWithAnalysis from '@/components/analysis/UploadFileWithAnalysis.vue'
+import { documentFormKey } from '@/components/documents/documentFormState'
+import AnalysisFooter from '@/components/footer/AnalysisFooter.vue'
+import { toast } from '@/components/toast/toastUtils'
+import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
+import { AnalyticsService } from '@/services/AnalyticsService'
+import { useTenantStore } from '@/stores/tenant-store'
+import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { computed, provide, ref, useTemplateRef, watch, type ComputedRef } from 'vue'
+import { useForm } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import { useFinancialState } from '../financialState'
+import type { DocumentSubCategory } from '@/components/documents/share/DocumentTypeConstants'
+
+const props = withDefaults(
+  defineProps<{
+    minFiles?: number
+  }>(),
+  {
+    minFiles: 3
+  }
+)
+
+const store = useTenantStore()
+const route = useRoute()
+const router = useRouter()
+const { t } = useI18n()
+const { getNavigationNextStep } = useHandleValidationNavigation()
+const state = useFinancialState()
+const salarySubCategory = 'SALARY' as unknown as DocumentSubCategory
+
+const inputSumElt = useTemplateRef<HTMLInputElement>('inputSumElt')
+const analysisWrapper = useTemplateRef<{
+  nextDisabled?: boolean
+  nextLabel?: string
+  beforeSubmit?: () => boolean
+  analysisInProgress?: boolean
+}>('analysis-wrapper')
+const uploadFileWithAnalysisRef = useTemplateRef<{
+  isUploading?: boolean
+  forceUploadPendingFiles?: () => Promise<boolean>
+}>('upload-file-with-analysis')
+
+const document = computed(
+  () => state.documents.value.find((d) => d.id === Number(route.params.docId)) ?? makeNewDocument()
+)
+const showFiles = ref(Boolean(document.value.monthlySum))
+const isModalOpened = ref(false)
+
+const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
+  {
+    label: t('add-more-docs'),
+    onClick() {
+      isModalOpened.value = false
+    },
+    secondary: true
+  },
+  {
+    label: t('go-next-step'),
+    onClick() {
+      void goNext()
+    }
+  }
+])
+
+const analysisFooterNextDisabled = computed(() => {
+  const busy = Boolean(analysisWrapper.value?.nextDisabled)
+  const noFiles = (document.value.files?.length ?? 0) === 0
+  return busy || noFiles
+})
+
+provide(documentFormKey, {
+  category: 'FINANCIAL',
+  textKey: state.textKey,
+  previousStep: state.recap,
+  nextStep: getNavigationNextStep(state.recap),
+  document,
+  formFieldValue: 'typeDocumentFinancial',
+  storeAction: state.action,
+  userId: state.userId ?? store.user.id,
+  addData(formData) {
+    const d = document.value
+    formData.append('monthlySum', Math.trunc(d.monthlySum || 0).toString())
+    formData.append('customText', d.customText || '')
+    formData.append('noDocument', d.noDocument ? 'true' : 'false')
+    if (d.id) {
+      formData.append('id', d.id.toString())
+    }
+    state.addData?.(formData)
+  }
+})
+
+const { errors, defineField, handleSubmit } = useForm({
+  initialValues: { sum: document.value.monthlySum?.toString() || '' },
+  validationSchema: { sum: validateSum }
+})
+const [sum, sumAttr] = defineField('sum')
+
+let monthlySumChanged = false
+
+const inputSum = computed({
+  get: () => sum.value,
+  set(val) {
+    sum.value = val
+    document.value.monthlySum = Number(sum.value.replace(/\s+/g, '')) || 0
+    showFiles.value = true
+    monthlySumChanged = true
+  }
+})
+
+watch(
+  () => state.documents.value,
+  () => {
+    if (!route.path.includes('/ajouter/')) return
+    const latestMatchingDocument = [...state.documents.value]
+      .sort((a, b) => (a.id || 0) - (b.id || 0))
+      .reverse()
+      .find(
+        (d) =>
+          d.documentCategory === 'FINANCIAL' &&
+          d.documentSubCategory === 'SALARY' &&
+          d.documentCategoryStep === 'SALARY_EMPLOYED_MORE_3_MONTHS'
+      )
+    if (latestMatchingDocument?.id) {
+      void router.replace(route.path.replace('ajouter', String(latestMatchingDocument.id)))
+    }
+  },
+  { deep: true }
+)
+
+watch(
+  () => document.value.monthlySum,
+  (monthlySum) => {
+    const nextSum = monthlySum?.toString() || ''
+    if (sum.value !== nextSum) {
+      sum.value = nextSum
+    }
+    showFiles.value = Boolean(monthlySum)
+  },
+  { immediate: true }
+)
+
+function validateSum(input: string) {
+  if (!input) return 'field-required'
+  if (/^[0-9 ,.]+$/.test(input) && /[,.]/.test(input)) return 'round-it'
+  if (!/^[0-9 ]+$/.test(input)) return 'regex-not-valid'
+  if (Number(input) === 0) return 'amount-zero'
+  return true
+}
+
+function makeNewDocument() {
+  const doc = new DfDocument()
+  doc.documentCategory = 'FINANCIAL'
+  doc.documentSubCategory = 'SALARY'
+  doc.documentCategoryStep = 'SALARY_EMPLOYED_MORE_3_MONTHS'
+  doc.files = []
+  return doc
+}
+
+function beforeUploadSave() {
+  const currentSum = document.value.monthlySum || 0
+  if (currentSum <= 0) {
+    toast.error(t('valid-monthly-sum'), inputSumElt.value)
+    return false
+  }
+  return true
+}
+
+async function saveMonthlySumOnly() {
+  const financialDocument = document.value
+  if (!financialDocument.id || !monthlySumChanged) return true
+  const formData = new FormData()
+  formData.append('id', financialDocument.id.toString())
+  formData.append('typeDocumentFinancial', financialDocument.documentSubCategory || '')
+  formData.append('categoryStep', financialDocument.documentCategoryStep || '')
+  formData.append('noDocument', financialDocument.noDocument ? 'true' : 'false')
+  formData.append('customText', financialDocument.customText || '')
+  formData.append('monthlySum', Math.trunc(financialDocument.monthlySum || 0).toString())
+  state.addData?.(formData)
+  await store[state.action](formData)
+  monthlySumChanged = false
+  return true
+}
+
+async function goNext() {
+  const nextStep = getNavigationNextStep(state.recap)
+  if (monthlySumChanged) {
+    await saveMonthlySumOnly()
+  }
+  await router.push(nextStep)
+}
+
+async function submit() {
+  if ((document.value.files?.length || 0) === 0) {
+    toast.error(t('errors.no-file'), undefined)
+    return
+  }
+  if ((document.value.files?.length || 0) < props.minFiles) {
+    isModalOpened.value = true
+    return
+  }
+  await goNext()
+}
+
+const onSubmit = handleSubmit(submit)
+
+async function onAnalysisFooterSubmit() {
+  await onSubmit()
+}
+
+defineExpose({
+  get isUploading() {
+    return uploadFileWithAnalysisRef.value?.isUploading ?? false
+  },
+  async forceUploadPendingFiles() {
+    return (await uploadFileWithAnalysisRef.value?.forceUploadPendingFiles?.()) ?? false
+  }
+})
+</script>
+
+<i18n>
+{
+  "en": {
+    "round-it": "Round to the nearest euro",
+    "amount": "Amount in euros",
+    "valid-monthly-sum": "Please enter a valid amount",
+    "amount-zero": "You have entered an amount of 0€. Are you sure you have entered your monthly income?",
+    "insufficient-number-of-docs": "Insufficient number of supporting documents",
+    "you-added-docs": "You have added {0}.",
+    "less-than-x-docs": "fewer than {0} supporting documents",
+    "for-complete-file": "For a complete file, we recommend you add {0}.",
+    "add-more-docs": "Add more documents",
+    "go-next-step": "Go to next step",
+    "i-authorize-corrections": "By continuing, I authorize a DossierFacile operator to correct any errors in the income amounts declared, based on the supporting documents provided, in order to ensure that my file is compliant."
+  },
+  "fr": {
+    "round-it": "Arrondir à l'euro",
+    "amount": "Montant en euros",
+    "valid-monthly-sum": "Veuillez saisir un montant valide",
+    "amount-zero": "Vous avez saisi un montant à 0€. Êtes-vous sûr d'avoir saisi votre revenu mensuel ?",
+    "insufficient-number-of-docs": "Nombre de justificatifs insuffisant",
+    "you-added-docs": "Vous avez ajouté {0}.",
+    "less-than-x-docs": "moins de {0} justificatifs",
+    "for-complete-file": "Pour un dossier complet, nous vous recommandons d'en ajouter {0}.",
+    "add-more-docs": "Ajouter d'autres documents",
+    "go-next-step": "Passer à l'étape suivante",
+    "i-authorize-corrections": "En continuant, j'autorise un opérateur DossierFacile à corriger les montants de revenus déclarés en cas d'erreur, sur la base des justificatifs fournis, afin de garantir la conformité de mon dossier."
+  }
+}
+</i18n>

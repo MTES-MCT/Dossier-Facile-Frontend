@@ -73,7 +73,12 @@ function defaultState(): State {
   return tenantState
 }
 
-export type StoreAction = 'saveTenantTax' | 'saveGuarantorTax' | 'saveOrganismIdentification'
+export type StoreAction =
+  | 'saveTenantTax'
+  | 'saveGuarantorTax'
+  | 'saveOrganismIdentification'
+  | 'saveTenantFinancial'
+  | 'saveGuarantorFinancial'
 
 const initialStore = defaultState()
 
