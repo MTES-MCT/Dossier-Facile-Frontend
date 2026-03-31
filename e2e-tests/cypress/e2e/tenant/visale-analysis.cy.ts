@@ -52,21 +52,12 @@ describe("visale certificate analysis", () => {
     cy.get(".explain-link").first().click();
     cy.get("#explainText").should("exist").and("have.focus");
 
-    cy.get(".explain-form-actions")
-      .contains("Enregistrer")
-      .should("not.be.disabled");
-    cy.get(".explain-form-actions").contains("Enregistrer").click();
+    cy.get('[data-cy="next-btn"]').click();
     cy.get(".fr-error-text").should("be.visible");
     cy.get("#explainText").should("have.focus");
+    cy.url().should("include", "info-garant");
 
     cy.get("#explainText").type("test");
-    cy.get(".fr-error-text").should("be.visible");
-
-    cy.get(".explain-form-actions").contains("Enregistrer").click();
-    cy.get(".fr-error-text").should("not.exist");
-    cy.contains("Votre explication a bien été enregistrée").should(
-      "be.visible",
-    );
 
     cy.get('[data-cy="next-btn"]').click();
     cy.url().should("not.include", "info-garant");

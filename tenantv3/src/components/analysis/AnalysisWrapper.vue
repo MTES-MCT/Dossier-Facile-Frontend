@@ -48,15 +48,6 @@
       <p id="explainText-info" class="fr-info-text">
         {{ t('explain-info') }}
       </p>
-      <div class="explain-form-actions">
-        <DsfrButton
-          type="button"
-          tertiary
-          size="sm"
-          :label="t('explain-save')"
-          @click="saveExplanation"
-        />
-      </div>
     </div>
   </div>
 </template>
@@ -105,7 +96,10 @@ const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
 const explanationSubmitted = ref(false)
 
 const hasUnresolvedErrors = computed(
-  () => analysisErrorCount.value > 0 && !explanationSubmitted.value
+  () =>
+    analysisErrorCount.value > 0 &&
+    !explanationSubmitted.value &&
+    !(showExplainForm.value && explainText.value.trim())
 )
 
 const analysisErrorCount = computed(() => analysisFailedRules.value?.length ?? 0)
@@ -127,7 +121,8 @@ defineExpose({
   explanationSubmitted,
   nextDisabled,
   nextLabel,
-  beforeSubmit
+  beforeSubmit,
+  saveExplanation
 })
 
 function focusBanners() {
@@ -236,33 +231,36 @@ async function openExplainSection(isFromLink: boolean = true) {
   explainTextarea.value?.focus()
 }
 
-function saveExplanation() {
-  if (!explainText.value.trim()) {
-    showExplainError.value = true
-    explainTextarea.value?.focus()
+async function saveExplanation() {
+  if (!showExplainForm.value || !explainText.value.trim() || explanationSubmitted.value) {
     return
   }
-  showExplainError.value = false
   const params = {
     documentId: document.value?.id,
     tenantId: store.user.id,
     comment: explainText.value
   }
   AnalyticsService.document_analysis_save_comment(document.value?.documentCategory ?? 'NULL')
-  store
-    .commentAnalysis(params)
-    .then(() => {
-      explanationSubmitted.value = true
-      toast.success(t('save-success'), undefined)
-    })
-    .catch(() => {
-      toast.error(t('save-error'), undefined)
-    })
+  try {
+    await store.commentAnalysis(params)
+    explanationSubmitted.value = true
+  } catch {
+    toast.error(t('save-error'), undefined)
+    throw new Error('save-failed')
+  }
 }
 
 function beforeSubmit(): boolean {
   if (isBusy.value) return false
-  if (hasUnresolvedErrors.value) {
+  if (analysisErrorCount.value > 0 && !explanationSubmitted.value) {
+    if (showExplainForm.value && explainText.value.trim()) {
+      return true
+    }
+    if (showExplainForm.value && !explainText.value.trim()) {
+      showExplainError.value = true
+      explainTextarea.value?.focus()
+      return false
+    }
     focusBanners()
     return false
   }
@@ -321,8 +319,7 @@ function beforeSubmit(): boolean {
     "explain-question": "What difficulty are you encountering to correct this error?",
     "explain-placeholder": "Enter text",
     "explain-info": "This explanation will be sent to our team only. It will not appear in your tenant file.",
-    "explain-save": "Save",
-    "explain-error": "Please describe your situation before saving.",
+    "explain-error": "Please describe your situation before continuing.",
     "save-success": "Your explanation has been saved",
     "save-error": "An error occurred while saving your explanation."
   },
@@ -335,8 +332,7 @@ function beforeSubmit(): boolean {
     "explain-question": "Quelle difficulté rencontrez-vous pour corriger cette erreur ?",
     "explain-placeholder": "Texte saisi",
     "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
-    "explain-save": "Enregistrer",
-    "explain-error": "Veuillez décrire votre situation avant d'enregistrer.",
+    "explain-error": "Veuillez décrire votre situation avant de continuer.",
     "save-success": "Votre explication a bien été enregistrée",
     "save-error": "Erreur lors de l'enregistrement de votre explication."
   }
