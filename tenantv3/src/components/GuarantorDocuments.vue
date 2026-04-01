@@ -7,7 +7,11 @@
       <component :is="Component" @on-back="goBack" @on-next="goNext"></component>
     </RouterView>
     <div v-if="guarantor?.typeGuarantor === 'ORGANISM'">
-      <OrganismCert :guarantor="guarantor" :next-step="nextStep"></OrganismCert>
+      <OrganismCert
+        :guarantor="guarantor"
+        :next-step="nextStep"
+        :back-step="{ name: 'GuarantorList' }"
+      />
     </div>
   </div>
 </template>
