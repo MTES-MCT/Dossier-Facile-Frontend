@@ -227,7 +227,11 @@ async function openExplainSection(isFromLink: boolean = true) {
 
 async function saveExplanation() {
   if (isSaving.value) return
-  if (!showExplainForm.value || !explainText.value.trim() || explanationSubmitted.value) {
+  if (!showExplainForm.value || !explainText.value.trim()) {
+    return
+  }
+  const savedComment = document.value?.documentAnalysisReport?.comment || ''
+  if (explainText.value === savedComment) {
     return
   }
   isSaving.value = true
