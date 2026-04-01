@@ -308,4 +308,48 @@ describe('analysisWrapper', () => {
 
     expect(mockCommentAnalysis).toHaveBeenCalledTimes(1)
   })
+
+  it('saves updated explanation when comment was already submitted', async () => {
+    const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
+    mockStoreDocument.value = {
+      ...mockStoreDocument.value,
+      documentAnalysisReport: { failedRules: rules, comment: 'ancien commentaire' }
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+    const wrapper = mountComponent()
+    await flushPromises()
+
+    expect(wrapper.find('#explainText').element).toHaveProperty('value', 'ancien commentaire')
+    expect(wrapper.vm.explanationSubmitted).toBe(true)
+
+    await wrapper.find('#explainText').setValue('nouveau commentaire')
+    await wrapper.vm.saveExplanation()
+    await flushPromises()
+
+    expect(mockCommentAnalysis).toHaveBeenCalledWith({
+      documentId: 42,
+      tenantId: 123,
+      comment: 'nouveau commentaire'
+    })
+  })
+
+  it('skips save when text matches the existing document comment', async () => {
+    const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
+    mockStoreDocument.value = {
+      ...mockStoreDocument.value,
+      documentAnalysisReport: { failedRules: rules, comment: 'même texte' }
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+    const wrapper = mountComponent()
+    await flushPromises()
+
+    expect(wrapper.find('#explainText').element).toHaveProperty('value', 'même texte')
+
+    await wrapper.vm.saveExplanation()
+    await flushPromises()
+
+    expect(mockCommentAnalysis).not.toHaveBeenCalled()
+  })
 })

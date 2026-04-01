@@ -79,6 +79,7 @@ const props = defineProps<{
   isCotenant?: boolean
   guarantor?: Guarantor
   nextStep?: () => void
+  backStep: RouteLocationRaw
 }>()
 
 const { t } = useI18n()
@@ -111,7 +112,7 @@ const shouldShowUploader = computed(
 const selectedSubCategory = computed(() => selectedDocumentType.value.value as DocumentSubCategory)
 
 const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
-const previousStep: RouteLocationRaw = { name: 'GuarantorList' }
+const previousStep: RouteLocationRaw = props.backStep
 
 function guarantorId() {
   if (props.guarantor) {
