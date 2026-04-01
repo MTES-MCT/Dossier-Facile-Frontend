@@ -1,3 +1,5 @@
+<!-- Deprectated: This component is deprecated and should not be used for new development. It may be removed in a future release. Please use the AnalysisFooter component instead, which has a similar structure and functionality but is more generic and can be used across different contexts, not just for tax-related steps. -->
+
 <template>
   <FooterContainer class="tax-footer">
     <RouterLink :to="previousStep" class="fr-btn fr-btn--secondary">
@@ -5,9 +7,13 @@
       <span class="desktop">{{ t('profilefooter.back') }}</span>
     </RouterLink>
     <form @submit.prevent="submit">
-      <DfButton ref="next-btn" primary data-cy="next-btn" :aria-disabled="nextDisabled || undefined">{{
-        nextLabel || t('profilefooter.continue')
-      }}</DfButton>
+      <DfButton
+        ref="next-btn"
+        primary
+        data-cy="next-btn"
+        :aria-disabled="nextDisabled || undefined"
+        >{{ nextLabel || t('profilefooter.continue') }}</DfButton
+      >
     </form>
   </FooterContainer>
 </template>

@@ -7,8 +7,13 @@
       <component :is="Component" @on-back="goBack" @on-next="goNext"></component>
     </RouterView>
     <div v-if="selectedGuarantor?.typeGuarantor === 'ORGANISM'">
-      <OrganismCert is-cotenant :guarantor="selectedGuarantor" :tenant-id="tenantId"></OrganismCert>
-      <GuarantorFooter @on-back="goBack" @on-next="nextStep"></GuarantorFooter>
+      <OrganismCert
+        is-cotenant
+        :guarantor="selectedGuarantor"
+        :tenant-id="tenantId"
+        :next-step="nextStep"
+        :back-step="backStep"
+      />
     </div>
   </ProfileContainer>
 </template>
@@ -19,7 +24,6 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import OrganismCert from '@/components/documents/organismGuarantor/OrganismCert.vue'
-import GuarantorFooter from '@/components/footer/GuarantorFooter.vue'
 import { makeCotenantGuarantorResidencyLink } from '@/components/guarantorResidency/makeGuarantorResidencyLink'
 import { TENANT_GUARANTOR_ROUTES } from '@/components/documents/naturalGuarantor/guarantorRoutes'
 import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
@@ -34,6 +38,10 @@ const step = computed(() => Number(route.params.step) || 0)
 const tenantId = computed(() => Number(route.params.tenantId) || 0)
 const guarantorId = computed(() => Number(route.params.guarantorId) || 0)
 const selectedGuarantor = computed(() => store.selectedGuarantor)
+const backStep = computed(() => ({
+  name: 'TenantGuarantors',
+  params: { tenantId: route.params.tenantId, step: route.params.step }
+}))
 
 onBeforeMount(() => {
   const coTenant = coTenants.value.find((r) => r.id === tenantId.value)

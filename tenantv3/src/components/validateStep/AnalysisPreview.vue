@@ -1,7 +1,7 @@
 <template>
   <NakedCard class="fr-mt-3w">
     <DsfrBadge v-if="isTenant" class="fr-mb-1w" type="new" :label="t('badge-loc')" no-icon />
-    <DsfrBadge v-else class="fr-mb-1w" type="warning" :label="t('badge-guarantor')" no-icon />
+    <GuarantorBadge v-else />
     <h1 class="fr-h6">
       {{ nameToDisplay }}
     </h1>
@@ -26,6 +26,7 @@ import { useI18n } from 'vue-i18n'
 import DocumentPreviewCard from './DocumentPreviewCard.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { DsfrBadge } from '@gouvminint/vue-dsfr'
+import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 
 const props = defineProps<{
   user: User | Guarantor

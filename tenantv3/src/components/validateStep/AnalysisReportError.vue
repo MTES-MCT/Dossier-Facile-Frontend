@@ -152,7 +152,11 @@ const getDocLabel = (doc: DfDocument, owner: User | Guarantor) => {
   const username =
     owner.lastName === undefined ? owner.firstName : `${owner.firstName} ${owner.lastName}`
 
-  return t('doc-owner', { docName: finalName, name: username })
+  if (username) {
+    return t('doc-owner', { docName: finalName, name: username })
+  }
+
+  return finalName
 }
 
 const getDocLink = (failedDoc: FailedDoc) => {
