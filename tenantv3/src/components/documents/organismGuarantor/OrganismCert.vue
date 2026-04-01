@@ -221,7 +221,8 @@ function documentTypes() {
   })
 }
 
-function submit() {
+async function submit() {
+  await analysisWrapper.value?.saveExplanation()
   props.nextStep?.()
 }
 </script>

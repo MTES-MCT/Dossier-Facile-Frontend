@@ -104,6 +104,7 @@ const isUploading = computed(() => uploadFileTaxWithAnalysis.value?.isUploading 
 const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
 
 async function submit() {
+  await analysisWrapper.value?.saveExplanation()
   AnalyticsService.validateFunnelStep(stateCategory)
   await router.push(nextStep)
 }

@@ -43,7 +43,8 @@ vi.mock('@/stores/tenant-store', () => ({
 
 vi.mock('@/components/toast/toastUtils', () => ({
   toast: {
-    success: vi.fn()
+    success: vi.fn(),
+    error: vi.fn()
   }
 }))
 
@@ -235,7 +236,9 @@ describe('analysisWrapper', () => {
 
     const textarea = wrapper.find('#explainText')
     await textarea.setValue('Mon explication')
-    await wrapper.find('.explain-form-actions button').trigger('click')
+
+    expect(wrapper.vm.beforeSubmit()).toBe(true)
+    await wrapper.vm.saveExplanation()
     await flushPromises()
 
     expect(mockCommentAnalysis).toHaveBeenCalledWith({
@@ -246,7 +249,7 @@ describe('analysisWrapper', () => {
     expect(wrapper.vm.explanationSubmitted).toBe(true)
   })
 
-  it('shows error and does not save explanation when empty', async () => {
+  it('blocks submit and shows error when explain form is open but text is empty', async () => {
     const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
     mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
 
@@ -258,10 +261,51 @@ describe('analysisWrapper', () => {
 
     const textarea = wrapper.find('#explainText')
     await textarea.setValue('   ')
-    await wrapper.find('.explain-form-actions button').trigger('click')
+
+    expect(wrapper.vm.beforeSubmit()).toBe(false)
+    await flushPromises()
+    expect(wrapper.find('#explainText-error').exists()).toBe(true)
+    expect(mockCommentAnalysis).not.toHaveBeenCalled()
+  })
+
+  it('skips save when no explain form is shown', async () => {
+    mockAnalysisResponse(AnalysisStatus.NO_ANALYSIS_SCHEDULED)
+
+    const wrapper = mountComponent()
+    await flushPromises()
+
+    await wrapper.vm.saveExplanation()
     await flushPromises()
 
     expect(mockCommentAnalysis).not.toHaveBeenCalled()
-    expect(wrapper.find('#explainText-error').exists()).toBe(true)
+  })
+
+  // This test simulates a user clicking twice on the next button
+  it('does not save twice when called concurrently', async () => {
+    let resolveApi!: () => void
+    mockCommentAnalysis.mockReturnValue(
+      new Promise<void>((resolve) => {
+        resolveApi = resolve
+      })
+    )
+    const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+    const wrapper = mountComponent()
+    await flushPromises()
+
+    await wrapper.find('.emit-explain').trigger('click')
+    await flushPromises()
+    await wrapper.find('#explainText').setValue('Mon explication')
+
+    const first = wrapper.vm.saveExplanation()
+    const second = wrapper.vm.saveExplanation()
+
+    resolveApi()
+    await first
+    await second
+    await flushPromises()
+
+    expect(mockCommentAnalysis).toHaveBeenCalledTimes(1)
   })
 })
