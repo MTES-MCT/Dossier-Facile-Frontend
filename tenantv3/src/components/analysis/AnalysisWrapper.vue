@@ -15,7 +15,7 @@
     @explain="openExplainSection()"
   />
   <slot name="fileUploader" />
-  <div v-if="analysisFailedRules.length > 0" ref="explain-section" class="explain-section">
+  <div v-if="analysisFailedRules.length > 0" class="explain-section">
     <div class="separator">
       <div class="separator-line"></div>
       <span class="separator-text">{{ t('or') }}</span>
@@ -94,13 +94,7 @@ const showExplainError = ref(false)
 const explainText = ref('')
 const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
 const explanationSubmitted = ref(false)
-
-const hasUnresolvedErrors = computed(
-  () =>
-    analysisErrorCount.value > 0 &&
-    !explanationSubmitted.value &&
-    !(showExplainForm.value && explainText.value.trim())
-)
+const isSaving = ref(false)
 
 const analysisErrorCount = computed(() => analysisFailedRules.value?.length ?? 0)
 const isBusy = computed(() => analysisInProgress.value || props.isUploading)
@@ -232,9 +226,11 @@ async function openExplainSection(isFromLink: boolean = true) {
 }
 
 async function saveExplanation() {
+  if (isSaving.value) return
   if (!showExplainForm.value || !explainText.value.trim() || explanationSubmitted.value) {
     return
   }
+  isSaving.value = true
   const params = {
     documentId: document.value?.id,
     tenantId: store.user.id,
@@ -247,6 +243,8 @@ async function saveExplanation() {
   } catch {
     toast.error(t('save-error'), undefined)
     throw new Error('save-failed')
+  } finally {
+    isSaving.value = false
   }
 }
 
@@ -320,7 +318,6 @@ function beforeSubmit(): boolean {
     "explain-placeholder": "Enter text",
     "explain-info": "This explanation will be sent to our team only. It will not appear in your tenant file.",
     "explain-error": "Please describe your situation before continuing.",
-    "save-success": "Your explanation has been saved",
     "save-error": "An error occurred while saving your explanation."
   },
   "fr": {
@@ -333,7 +330,6 @@ function beforeSubmit(): boolean {
     "explain-placeholder": "Texte saisi",
     "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
     "explain-error": "Veuillez décrire votre situation avant de continuer.",
-    "save-success": "Votre explication a bien été enregistrée",
     "save-error": "Erreur lors de l'enregistrement de votre explication."
   }
 }

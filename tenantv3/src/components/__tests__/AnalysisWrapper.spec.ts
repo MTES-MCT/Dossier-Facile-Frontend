@@ -279,4 +279,33 @@ describe('analysisWrapper', () => {
 
     expect(mockCommentAnalysis).not.toHaveBeenCalled()
   })
+
+  // This test simulates a user clicking twice on the next button
+  it('does not save twice when called concurrently', async () => {
+    let resolveApi!: () => void
+    mockCommentAnalysis.mockReturnValue(
+      new Promise<void>((resolve) => {
+        resolveApi = resolve
+      })
+    )
+    const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+    const wrapper = mountComponent()
+    await flushPromises()
+
+    await wrapper.find('.emit-explain').trigger('click')
+    await flushPromises()
+    await wrapper.find('#explainText').setValue('Mon explication')
+
+    const first = wrapper.vm.saveExplanation()
+    const second = wrapper.vm.saveExplanation()
+
+    resolveApi()
+    await first
+    await second
+    await flushPromises()
+
+    expect(mockCommentAnalysis).toHaveBeenCalledTimes(1)
+  })
 })
