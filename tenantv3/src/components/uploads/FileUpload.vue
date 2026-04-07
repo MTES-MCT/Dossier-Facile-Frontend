@@ -6,6 +6,7 @@
       name="uploadForm"
       enctype="multipart/form-data"
       novalidate
+      @submit.prevent=""
     >
       <div class="dropbox">
         <p v-if="isSaving">{{ t('fileupload.uploading-files') }}</p>
@@ -37,6 +38,7 @@
         id="errors-file-upload"
         :errors="flatErrors(r$.$errors.files)"
       />
+      <GlobalStepFooter :disabled="!store.getTenantIdentificationDocument" @on-next="handleNext" />
     </form>
   </div>
 </template>
@@ -46,16 +48,19 @@ import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { computed, nextTick, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRegle, flatErrors } from '@regle/core'
-import { fileType, maxFileSize, maxLength, withMessage } from '@regle/rules'
+import { fileType, maxFileSize, maxLength, required, withMessage } from '@regle/rules'
 import FieldErrors from 'df-shared-next/src/components/form/FieldErrors.vue'
+import { useIdentificationState } from '../identityDocument/lib/identityDocumentState'
+import { useNextStep } from '../common/lib/useNextStep'
+import { useTenantStore } from '@/stores/tenant-store'
+import GlobalStepFooter from '../footer/GlobalStepFooter.vue'
 
 const { t } = useI18n()
-const emit = defineEmits<{ 'add-files': [files: File[]] }>()
+const store = useTenantStore()
+const emit = defineEmits<{ 'add-files': [files: File[] | undefined] }>()
 
 const uploadForm = useTemplateRef('uploadForm')
 const inputFile = useTemplateRef('inputFile')
-
-defineExpose({ inputFile })
 
 const props = withDefaults(
   defineProps<{
@@ -83,12 +88,18 @@ function onFileInputClick(e: Event) {
   }
 }
 
-const formFiles = ref<{ files: { file: File }[] }>({
-  files: []
+const formFiles = ref<{ files: { file: File | undefined }[] }>({
+  files:
+    store.getTenantIdentificationDocument?.files?.map((f) => {
+      return {
+        file: f.file
+      }
+    }) || []
 })
 const { r$ } = useRegle(formFiles, {
   // maximum number of files per upload
   files: {
+    required: required,
     maxLength: withMessage(maxLength(props.page), ({ $value, $params: [max] }) =>
       t('validation.maxFile', { max, n: $value?.length })
     ),
@@ -110,15 +121,25 @@ const onFileChange = async (event: Event) => {
   // super duper important, won't work without nextTick
   await nextTick()
   const { valid } = await r$.$validate()
+
   // convert back to emit the payload
   const files = r$.$value.files.map(({ file }) => file)
-
-  if (valid) emit('add-files', files)
+  if (valid && !!files) emit('add-files', files as File[])
 }
 
 const isSaving = computed(() => props.currentStatus === UploadStatus.STATUS_SAVING)
 const sizeLimit = computed(() => t('fileupload.size', [props.size]))
 const pagesLimit = computed(() => t('fileupload.pages', [props.page]))
+
+const { nextStep, category } = useIdentificationState()
+const { goNext } = useNextStep(category, nextStep)
+
+const handleNext = async () => {
+  const { valid } = await r$.$validate()
+  if (valid) goNext()
+}
+
+defineExpose({ inputFile })
 </script>
 
 <style scoped>

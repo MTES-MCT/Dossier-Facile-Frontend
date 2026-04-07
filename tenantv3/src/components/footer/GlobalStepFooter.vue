@@ -34,6 +34,10 @@ function nextAction() {
   emit('on-next')
 }
 
+/**
+ * TODO: native behaviour but maybe not ideal.
+ * Better solution: compute the logical previous step withouth the need of a prop but it might be tricky.
+ */
 const handleBack = () => backAction ?? router.go(-1)
 </script>
 

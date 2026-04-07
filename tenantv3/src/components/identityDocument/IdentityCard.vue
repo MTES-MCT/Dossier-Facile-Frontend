@@ -5,7 +5,7 @@
     <li class="bold">{{ t('valid') }}</li>
     <li class="bold">{{ t('both-sides') }}</li>
   </ul>
-  <UploadFilesIdentity category="FRENCH_IDENTITY_CARD" />
+  <UploadFilesIdentity category="FRENCH_IDENTITY_CARD" :max-file-count="2" />
 </template>
 
 <script setup lang="ts">
@@ -20,7 +20,7 @@ const { t } = useI18n()
 const { textKey } = useIdentificationState()
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "add-id-card-tenant": "Be sure to enclose your French or foreign identity card:",
