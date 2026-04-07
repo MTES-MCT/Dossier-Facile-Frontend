@@ -51,7 +51,7 @@
 <script setup lang="ts">
 import { VIcon } from '@gouvminint/vue-dsfr'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import type { DocumentRule, Name, PayslipContinuityRuleData } from 'df-shared-next/src/models/DocumentRule'
+import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
 import { format, isValid, parse } from 'date-fns'
 import type { Locale } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
@@ -122,7 +122,7 @@ function getCurrentDocLines(rule: DocumentRule): string[] {
       return data.extractedIdentities.map((n) => t('rules.names.tax.current', { name: n }))
     case 'R_TAX_YEARS':
       return data.extractedYears.map((y) =>
-        t('rules.wrong-year.tax.current', { taxYear: y + 1, incomeYear: y })
+        t('rules.tax-wrong-year.current', { taxYear: y + 1, incomeYear: y })
       )
     case 'R_EXPIRATION':
       return [t('rules.expiration.current', { date: formatDate(data.extractedDate) })]
@@ -157,7 +157,7 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
       return [getRNameMessage(rule.rule, data.expectedName, true)]
     case 'R_TAX_YEARS':
       return [
-        t('rules.wrong-year.tax.expected', {
+        t('rules.tax-wrong-year.expected', {
           taxYear: data.expectedYear + 1,
           incomeYear: data.expectedYear
         })
@@ -167,7 +167,9 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     case 'R_PAYSLIP_CONTINUITY': {
       return [
         t('rules.payslip-continuity.expected-lead'),
-        ...data.expectedMonthList.map((ym) => t('rules.payslip-continuity.expected-month', { month: formatYearMonth(ym) }))
+        ...data.expectedMonthList.map((ym) =>
+          t('rules.payslip-continuity.expected-month', { month: formatYearMonth(ym) })
+        )
       ]
     }
     default:

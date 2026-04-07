@@ -96,12 +96,7 @@ const state = useFinancialState()
 const salarySubCategory = 'SALARY' as unknown as DocumentSubCategory
 
 const inputSumElt = useTemplateRef<HTMLInputElement>('inputSumElt')
-const analysisWrapper = useTemplateRef<{
-  nextDisabled?: boolean
-  nextLabel?: string
-  beforeSubmit?: () => boolean
-  analysisInProgress?: boolean
-}>('analysis-wrapper')
+const analysisWrapper = useTemplateRef('analysis-wrapper')
 const uploadFileWithAnalysisRef = useTemplateRef<{
   isUploading?: boolean
   forceUploadPendingFiles?: () => Promise<boolean>
@@ -168,7 +163,7 @@ const inputSum = computed({
   get: () => sum.value,
   set(val) {
     sum.value = val
-    document.value.monthlySum = Number(sum.value.replace(/\s+/g, '')) || 0
+    document.value.monthlySum = Number(sum.value.replaceAll(/\s+/g, '')) || 0
     showFiles.value = true
     monthlySumChanged = true
   }
@@ -188,7 +183,7 @@ watch(
           d.documentCategoryStep === 'SALARY_EMPLOYED_MORE_3_MONTHS'
       )
     if (latestMatchingDocument?.id) {
-      void router.replace(route.path.replace('ajouter', String(latestMatchingDocument.id)))
+      router.replace(route.path.replace('ajouter', String(latestMatchingDocument.id)))
     }
   },
   { deep: true }
@@ -271,6 +266,7 @@ async function submit() {
 const onSubmit = handleSubmit(submit)
 
 async function onAnalysisFooterSubmit() {
+  await analysisWrapper.value?.saveExplanation()
   await onSubmit()
 }
 
