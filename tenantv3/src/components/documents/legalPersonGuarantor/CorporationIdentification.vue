@@ -114,7 +114,8 @@ const analyticDocumentType = computed<DocumentCategory>(() => {
 
 const documentWatermarkUrl = computed(() => guarantorIdentificationLegalPersonDocument.value?.name)
 
-function addFiles(fileList: File[]) {
+function addFiles(fileList: File[] | undefined) {
+  if (!fileList) return
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })

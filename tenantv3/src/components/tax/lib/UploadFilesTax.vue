@@ -174,7 +174,8 @@ async function save(): Promise<boolean> {
     })
 }
 
-async function addFiles(fileList: File[]) {
+async function addFiles(fileList: File[] | undefined) {
+  if (!fileList) return
   // Clear previous inline error on every new attempt
   errorMessage.value = undefined
   AnalyticsService.uploadFile(taxState.category, props.category)

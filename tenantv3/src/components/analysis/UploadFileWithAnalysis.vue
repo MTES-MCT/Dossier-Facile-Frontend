@@ -130,7 +130,8 @@ async function remove(file: DfFile, silent = false) {
   }
 }
 
-async function addFiles(fileList: File[]) {
+async function addFiles(fileList: File[] | undefined) {
+  if (!fileList) return
   AnalyticsService.uploadFile(props.docCategory, props.subCategory)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
