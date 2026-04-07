@@ -607,8 +607,8 @@
     "show": "Voir la pièce",
     "see": "Voir",
     "delete": "Supprimer",
-    "mb": "Mo",
-    "kb": "Ko",
+    "mb": "MB",
+    "kb": "KB",
     "will-delete-file": "Êtes-vous sûr de vouloir supprimer ce fichier ?"
   },
   "menu": {

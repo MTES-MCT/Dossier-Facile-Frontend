@@ -24,7 +24,6 @@
     :page="2"
     @add-files="addFiles"
   />
-  <IdentificationFooter :submit="false" :disabled="!store.getTenantIdentificationDocument" />
 </template>
 
 <script setup lang="ts">
@@ -40,14 +39,17 @@ import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { UtilsService } from '@/services/UtilsService'
 import { useLoading } from 'vue-loading-overlay'
 import type { IdentityCategory } from '@/components/documents/share/DocumentTypeConstants'
-import IdentificationFooter from './IdentificationFooter.vue'
 import { useIdentificationState } from './identityDocumentState'
 import { toast } from '@/components/toast/toastUtils'
 import { useI18n } from 'vue-i18n'
 
-const props = defineProps<{ category: IdentityCategory }>()
+interface Props {
+  category: IdentityCategory
+  maxFileCount?: number
+}
 
-const MAX_FILE_COUNT = 5
+// TODO: adjust the maxFileCount per identity document (card, passport, etc.)
+const { category, maxFileCount = 5 } = defineProps<Props>()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
@@ -63,7 +65,7 @@ const documentStatus = computed(() => identityDocument.value?.documentStatus)
 const identificationFiles = computed(() => {
   const newFiles = files.value.map((f) => {
     return {
-      documentSubCategory: props.category,
+      documentSubCategory: category,
       id: f.id,
       name: f.name,
       size: f.size
@@ -84,12 +86,8 @@ async function save(): Promise<boolean> {
     return true
   }
 
-  if (identificationFiles.value.length > MAX_FILE_COUNT) {
-    toast.maxFileError(
-      identificationFiles.value.length,
-      MAX_FILE_COUNT,
-      fileUpload.value?.inputFile
-    )
+  if (identificationFiles.value.length > maxFileCount) {
+    toast.maxFileError(identificationFiles.value.length, maxFileCount, fileUpload.value?.inputFile)
     files.value = []
     return false
   }
@@ -99,7 +97,7 @@ async function save(): Promise<boolean> {
     formData.append(`documents[${key}]`, f, newFile.name)
   }
 
-  formData.append('typeDocumentIdentification', props.category)
+  formData.append('typeDocumentIdentification', category)
   identityState.addData?.(formData)
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
@@ -114,6 +112,7 @@ async function save(): Promise<boolean> {
     })
     .catch((err) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
+      // TODO: send these errors to the form rather than a toast
       UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
       return false
     })
@@ -122,8 +121,10 @@ async function save(): Promise<boolean> {
     })
 }
 
-function addFiles(fileList: File[]) {
-  AnalyticsService.uploadFile(identityState.category, props.category)
+function addFiles(fileList: File[] | undefined) {
+  if (!fileList) return
+
+  AnalyticsService.uploadFile(identityState.category, category)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
@@ -147,5 +148,6 @@ async function remove(file: DfFile, silent = false) {
     })
     files.value.splice(firstIndex, 1)
   }
+  save()
 }
 </script>
