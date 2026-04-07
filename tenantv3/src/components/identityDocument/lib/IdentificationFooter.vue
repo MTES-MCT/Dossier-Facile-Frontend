@@ -1,39 +1,36 @@
 <template>
   <FooterContainer class="identification-footer">
     <RouterLink :to="previousStep" class="fr-btn fr-btn--secondary">
-      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" aria-hidden="true" />
+      <VIcon icon="ri:arrow-left-s-line" />
       <span class="desktop">{{ t('profilefooter.back') }}</span>
     </RouterLink>
-    <form @submit.prevent="submit">
-      <DfButton primary data-cy="next-btn">{{ t('profilefooter.continue') }}</DfButton>
-    </form>
+
+    <DsfrButton
+      data-cy="next-btn"
+      :type="submit ? 'submit' : 'button'"
+      :form="formId ?? null"
+      :disabled
+      :label="t('profilefooter.continue')"
+      icon="ri:check-line"
+      @click="goNext"
+    />
   </FooterContainer>
 </template>
 
 <script setup lang="ts">
 import FooterContainer from '@/components/footer/FooterContainer.vue'
-import { AnalyticsService } from '@/services/AnalyticsService'
-import { RiArrowLeftSLine } from '@remixicon/vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { useIdentificationState } from './identityDocumentState'
+import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import { useNextStep } from '@/components/common/lib/useNextStep'
+
+withDefaults(defineProps<{ formId?: string; submit?: boolean; disabled?: boolean }>(), {
+  formId: undefined,
+  submit: true,
+  disabled: false
+})
 
 const { t } = useI18n()
-const router = useRouter()
 const { previousStep, nextStep, category } = useIdentificationState()
-
-const submit = () => {
-  AnalyticsService.validateFunnelStep(category)
-  router.push(nextStep)
-}
+const { goNext } = useNextStep(category, nextStep)
 </script>
-
-<style scoped>
-.identification-footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 1rem;
-}
-</style>

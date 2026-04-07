@@ -39,13 +39,11 @@
       </div>
     </div>
   </div>
-
-  <GuarantorFooter @on-back="goBack" @on-next="setGuarantorType"></GuarantorFooter>
+  <ProfileFooter @on-back="goBack" @on-next="setGuarantorType" />
 </template>
 
 <script setup lang="ts">
 import { AnalyticsService } from '../services/AnalyticsService'
-import GuarantorFooter from './footer/GuarantorFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import GuarantorTypeSelector from '@/components/GuarantorTypeSelector.vue'
 import { useTenantStore } from '@/stores/tenant-store'
@@ -55,6 +53,7 @@ import { useI18n } from 'vue-i18n'
 import { toast } from '@/components/toast/toastUtils'
 import { makeTaxLink } from '@/components/tax/lib/taxLink'
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
+import ProfileFooter from './footer/ProfileFooter.vue'
 
 const { t } = useI18n()
 const router = useRouter()

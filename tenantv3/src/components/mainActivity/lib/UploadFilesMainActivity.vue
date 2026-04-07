@@ -4,7 +4,7 @@
     :document="mainActivityDocument"
     :document-denied-reasons="mainActivityDocument?.documentDeniedReasons"
     :document-status="documentStatus"
-  ></AllDeclinedMessages>
+  />
   <div v-if="professionalFiles.length > 0" class="fr-col-12 fr-mb-3w">
     <ListItem
       v-for="file in professionalFiles"
@@ -17,11 +17,7 @@
       @cancel="AnalyticsService.cancelDelete(stateCategory)"
     />
   </div>
-  <FileUpload
-    ref="file-upload"
-    :current-status="fileUploadStatus"
-    @add-files="addFiles"
-  ></FileUpload>
+  <FileUpload ref="file-upload" :current-status="fileUploadStatus" @add-files="addFiles" />
   <MainActivityFooter />
 </template>
 
