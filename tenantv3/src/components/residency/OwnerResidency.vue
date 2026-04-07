@@ -35,7 +35,7 @@ const { t } = useI18n()
 const { category, textKey } = useResidencyState()
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "tax-notice": "{0} property tax notice",
@@ -43,11 +43,11 @@ const { category, textKey } = useResidencyState()
     "valid-docs": "Only the latest property tax notice is a valid document here. Any other document (older notice, for example) will be refused.",
     "tenant": {
       "you-owner": "You are the owner",
-      "please-provide": "Please provide your {notice}. You can download it from the {link}.",
+      "please-provide": "Please provide your {notice}. You can download it from the {link}."
     },
     "couple": {
       "you-owner": "You are the owner",
-      "please-provide": "Please provide your {notice}. You can download it from the {link}.",
+      "please-provide": "Please provide your {notice}. You can download it from the {link}."
     }
   },
   "fr": {
@@ -56,11 +56,11 @@ const { category, textKey } = useResidencyState()
     "valid-docs": "Seul le dernier avis de taxe foncière est un document valide ici. Tout autre document (avis plus ancien par exemple) sera refusé.",
     "tenant": {
       "you-owner": "Vous êtes propriétaire",
-      "please-provide": "Veuillez fournir votre {notice}. Vous pouvez le télécharger sur le {link}.",
+      "please-provide": "Veuillez fournir votre {notice}. Vous pouvez le télécharger sur le {link}."
     },
     "couple": {
       "you-owner": "Votre conjoint est propriétaire",
-      "please-provide": "Veuillez fournir son {notice}. Vous pouvez le télécharger sur le {link}.",
+      "please-provide": "Veuillez fournir son {notice}. Vous pouvez le télécharger sur le {link}."
     }
   }
 }

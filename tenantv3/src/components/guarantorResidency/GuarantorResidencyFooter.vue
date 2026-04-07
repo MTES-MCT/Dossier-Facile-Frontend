@@ -1,43 +1,44 @@
 <template>
   <FooterContainer class="residency-footer">
-    <router-link :to="residencyState.previousStep" class="fr-btn fr-btn--secondary">
-      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" aria-hidden="true" />
-      <span class="desktop">{{ t('backnext.back') }}</span>
-    </router-link>
-    <form @submit.prevent="submit">
-      <DfButton primary data-cy="next-btn">{{ t('backnext.continue') }}</DfButton>
-    </form>
+    <RouterLink :to="previousStep" class="fr-btn fr-btn--secondary">
+      <VIcon icon="ri:arrow-left-s-line" />
+      <span class="desktop">{{ t('profilefooter.back') }}</span>
+    </RouterLink>
+
+    <DsfrButton
+      data-cy="next-btn"
+      :type="submit ? 'submit' : 'button'"
+      :form="formId ?? null"
+      :label="t('profilefooter.continue')"
+      icon="ri:check-line"
+      @click="handleSubmit"
+    />
   </FooterContainer>
 </template>
 
 <script setup lang="ts">
 import FooterContainer from '@/components/footer/FooterContainer.vue'
-import { AnalyticsService } from '@/services/AnalyticsService'
-import { RiArrowLeftSLine } from '@remixicon/vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { useResidencyState } from '../residency/residencyState'
+import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import { useNextStep } from '../common/lib/useNextStep'
 
-const { onSubmit } = defineProps<{ onSubmit?: () => Promise<boolean> }>()
+const props = withDefaults(
+  defineProps<{ formId?: string; submit?: boolean; onSubmit: () => Promise<boolean> }>(),
+  {
+    formId: undefined,
+    submit: true
+  }
+)
 
 const { t } = useI18n()
-const router = useRouter()
-const residencyState = useResidencyState()
-const submit = async () => {
-  AnalyticsService.validateFunnelStep(residencyState.category)
-  const goNext = onSubmit ? await onSubmit() : true
-  if (goNext) {
-    router.push(residencyState.nextStep)
+const { category, nextStep, previousStep } = useResidencyState()
+const { goNext } = useNextStep(category, nextStep)
+
+const handleSubmit = async () => {
+  const canContinue = !!props.onSubmit ? await props.onSubmit() : true
+  if (canContinue) {
+    goNext()
   }
 }
 </script>
-
-<style scoped>
-.residency-footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 1rem;
-}
-</style>
