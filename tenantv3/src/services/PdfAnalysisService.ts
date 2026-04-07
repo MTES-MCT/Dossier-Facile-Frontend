@@ -1,5 +1,3 @@
-import { AnalyticsService } from './AnalyticsService'
-
 export const PdfAnalysisService = {
   async readPdfFirstPage(file: File): Promise<string> {
     try {
@@ -37,15 +35,7 @@ export const PdfAnalysisService = {
     const timeout = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
     try {
       return await Promise.race([
-        Promise.any(
-          files.map(async (file) => {
-            const isRejected = await this.isRejectedAsTaxDocument(file)
-            if (isRejected) {
-              AnalyticsService.avisDetected()
-            }
-            return isRejected
-          })
-        ),
+        Promise.any(files.map((file) => this.isRejectedAsTaxDocument(file))),
         timeout(2000).then(() => false)
       ])
     } catch (error) {

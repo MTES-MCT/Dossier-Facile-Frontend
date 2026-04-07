@@ -89,13 +89,8 @@ const documentWatermarkUrl = computed(() => currentDocument.value?.name)
 
 const isUploading = computed(() => fileUploadStatus.value === UploadStatus.STATUS_SAVING)
 
-async function forceUploadPendingFiles(): Promise<boolean> {
-  return save()
-}
-
 defineExpose({
-  isUploading,
-  forceUploadPendingFiles
+  isUploading
 })
 
 const currentFiles = computed(() => {
@@ -132,9 +127,13 @@ async function addFiles(fileList: File[]) {
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
+  const previousCount = files.value.length
   files.value = [...files.value, ...nf]
   const canContinue = (await props.beforeSave?.(fileList)) ?? true
-  if (!canContinue) return
+  if (!canContinue) {
+    files.value = files.value.slice(0, previousCount)
+    return
+  }
   save()
 }
 

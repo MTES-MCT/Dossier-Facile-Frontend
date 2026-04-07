@@ -193,12 +193,8 @@ export const AnalyticsService = {
     sendEvent('funnel', 'force-missing-residency-document')
   },
 
-  avisDetected() {
-    sendEvent('funnel', 'avis-detected')
-  },
-
-  avisForceUpload() {
-    sendEvent('funnel', 'avis-upload-forced')
+  asdirDetected() {
+    sendFullEvent('funnel', 'print', 'document_analysis_show_asdir_error')
   },
 
   validateFunnel() {
