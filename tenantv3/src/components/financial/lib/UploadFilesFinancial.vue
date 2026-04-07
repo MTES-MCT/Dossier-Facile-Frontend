@@ -198,7 +198,8 @@ async function submit() {
 
 const onSubmit = handleSubmit(submit)
 
-async function addFiles(fileList: File[]) {
+async function addFiles(fileList: File[] | undefined) {
+  if (!fileList) return
   AnalyticsService.uploadFile(state.category, props.category, document.value.documentCategoryStep)
   const nf = Array.from(fileList).map((f) => ({ name: f.name, file: f, size: f.size }))
   document.value.files?.push(...nf)

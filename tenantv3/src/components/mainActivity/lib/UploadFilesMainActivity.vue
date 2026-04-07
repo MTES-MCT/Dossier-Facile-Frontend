@@ -113,7 +113,8 @@ async function save(): Promise<boolean> {
     })
 }
 
-function addFiles(fileList: File[]) {
+function addFiles(fileList: File[] | undefined) {
+  if (!fileList) return
   AnalyticsService.uploadFile(stateCategory, props.category)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
