@@ -93,6 +93,26 @@ describe('AnalysisBanners', () => {
     expect(wrapper.text()).toContain('Attendu au nom de Dupont Jean')
   })
 
+  it('formats payslip months', () => {
+    const rule: DocumentRule = {
+      rule: 'R_PAYSLIP_CONTINUITY',
+      message: 'continuity',
+      level: 'ERROR',
+      ruleData: {
+        type: 'R_PAYSLIP_CONTINUITY',
+        expectedMonthList: ['2024-02'],
+        extractedMonthList: ['2024-01']
+      }
+    }
+    const wrapper = mount(AnalysisBanners, {
+      props: { failedRules: [rule] },
+      global: { stubs: { VIcon: true } }
+    })
+    // Exercises formatYearMonth + dayjs/locale/fr import
+    expect(wrapper.text()).toContain('janvier 2024')
+    expect(wrapper.text()).toContain('février 2024')
+  })
+
   it.each([
     { input: '2024-03-15', expected: "Document avec date d'expiration 15/03/2024" },
     { input: '2024-13-45', expected: "Document avec date d'expiration 2024-13-45" },
