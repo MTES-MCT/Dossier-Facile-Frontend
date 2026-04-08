@@ -32,6 +32,7 @@
     ref="file-upload"
     :current-status="fileUploadStatus"
     :page="4"
+    :error-message="errorMessage"
     @add-files="addFiles"
   ></FileUpload>
   <slot name="custom" />
@@ -64,13 +65,15 @@ const props = withDefaults(
     analysisInProgress?: boolean
     explanation?: string
     beforeSave?: (files: File[]) => Promise<boolean> | boolean
+    errorMessage?: string
   }>(),
   {
     analysisInProgress: false,
     maxFileCount: 5,
     step: undefined,
     explanation: undefined,
-    beforeSave: undefined
+    beforeSave: undefined,
+    errorMessage: undefined
   }
 )
 

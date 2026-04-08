@@ -7,6 +7,7 @@
     :max-file-count="5"
     :analysis-in-progress="analysisInProgress"
     :before-save="canContinue"
+    :error-message="errorMessage"
   />
 </template>
 
@@ -16,7 +17,7 @@ import type { DocumentSubCategory } from '@/components/documents/share/DocumentT
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { PdfAnalysisService } from '@/services/PdfAnalysisService'
 import type { DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
-import { useTemplateRef } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import UploadFileWithAnalysis from '../../analysis/UploadFileWithAnalysis.vue'
 
@@ -50,10 +51,15 @@ defineExpose<UploadFileTaxWithAnalysisExposed>({
 
 const { t } = useI18n()
 
+const errorMessage = ref<string | undefined>()
+
 async function canContinue(fileList: File[]): Promise<boolean> {
+  // Clear previous inline error on every new attempt
+  errorMessage.value = undefined
   if (await PdfAnalysisService.includesRejectedTaxDocuments(fileList)) {
     toast.error(t('asdir-error'), document.getElementById('file'))
     AnalyticsService.asdirDetected()
+    errorMessage.value = t('asdir-error')
     return false
   }
   return true
