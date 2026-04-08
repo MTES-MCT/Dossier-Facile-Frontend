@@ -82,9 +82,9 @@ async function canContinue(fileList: File[]): Promise<boolean> {
   return true
 }
 
-watch(isModalOpened, (newVal, oldVal) => {
+watch(isModalOpened, async (newVal, oldVal) => {
   if (oldVal && !newVal) {
-    void uploadFileWithAnalysis.value?.forceUploadPendingFiles?.()
+    await uploadFileWithAnalysis.value?.forceUploadPendingFiles?.()
   }
 })
 

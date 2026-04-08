@@ -229,7 +229,8 @@ function beforeUploadSave() {
 
 async function saveMonthlySumOnly() {
   const financialDocument = document.value
-  if (!financialDocument.id || !monthlySumChanged) return true
+  if (!monthlySumChanged) return true
+  if (!financialDocument.id) return false
   const formData = new FormData()
   formData.append('id', financialDocument.id.toString())
   formData.append('typeDocumentFinancial', financialDocument.documentSubCategory || '')
@@ -246,7 +247,10 @@ async function saveMonthlySumOnly() {
 async function goNext() {
   const nextStep = getNavigationNextStep(state.recap)
   if (monthlySumChanged) {
-    await saveMonthlySumOnly()
+    const saved = await saveMonthlySumOnly()
+    if (!saved) {
+      return
+    }
   }
   await router.push(nextStep)
 }
