@@ -32,6 +32,12 @@ export type TaxYearsRuleData = {
   extractedYears: number[]
 }
 
+export type PayslipNameMatchRuleData = {
+  type: 'R_PAYSLIP_NAMES'
+  expectedName: Name
+  extractedIdentities: string[]
+}
+
 export type PayslipContinuityRuleData = {
   type: 'R_PAYSLIP_CONTINUITY'
   expectedMonthList: string[]
@@ -50,6 +56,7 @@ export type RuleData =
   | TaxYearsRuleData
   | TaxNamesRuleData
   | PayslipContinuityRuleData
+  | PayslipNameMatchRuleData
   | DocumentExpirationRuleData
 
 export type DocumentRule = {

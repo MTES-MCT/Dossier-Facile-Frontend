@@ -62,19 +62,14 @@ function buildPayslipNameRule(): DocumentRule {
     firstNames: 'Jean',
     preferredName: null
   }
-  const extractedName: Name = {
-    lastName: 'Martin',
-    firstNames: 'Paul',
-    preferredName: null
-  }
   return {
     rule: 'R_PAYSLIP_NAME_MATCH',
     message: 'name',
     level: 'ERROR',
     ruleData: {
-      type: 'R_NAMES',
+      type: 'R_PAYSLIP_NAMES',
       expectedName,
-      extractedNames: [extractedName]
+      extractedIdentities: ['Martin Paul']
     }
   }
 }
