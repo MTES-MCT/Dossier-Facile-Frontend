@@ -95,7 +95,7 @@ describe("tax document analysis", () => {
     cy.get(".analysis-banners").should("not.have.focus");
   });
 
-  it("shows error modal when uploading an avis de situation déclarative", () => {
+  it("shows error toast when uploading an avis de situation déclarative", () => {
     cy.tenantLoginWithFC(user.username, user.password);
     cy.rejectCookies();
 
@@ -116,6 +116,14 @@ describe("tax document analysis", () => {
       "assets/Avis_situation_declarative_titres_seuls.pdf",
     );
 
-    cy.contains("Avis de situation déclarative détecté").should("be.visible");
+    cy.get(".fr-alert--error")
+      .should("be.visible")
+      .and(
+        "contain",
+        "L'avis de situation déclarative n'est pas accepté",
+      );
+
+    // The rejected file must not remain in the upload list
+    cy.get('ul[role="list"]').should("not.exist");
   });
 });
