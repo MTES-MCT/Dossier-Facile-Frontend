@@ -122,6 +122,8 @@ function getCurrentDocLines(rule: DocumentRule): string[] {
       return data.extractedNames.map((n) => getRNameMessage(rule.rule, n, false))
     case 'R_TAX_NAMES':
       return data.extractedIdentities.map((n) => t('rules.names.tax.current', { name: n }))
+    case 'R_PAYSLIP_NAMES':
+      return data.extractedIdentities.map((n) => t('rules.names.payslip.current', { name: n }))
     case 'R_TAX_YEARS':
       return data.extractedYears.map((y) =>
         t('rules.tax-wrong-year.current', { taxYear: y + 1, incomeYear: y })
@@ -154,8 +156,8 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     case 'R_TAX_CLASSIFICATION':
       return [t('rules.bad-classification.tax.expected')]
     case 'R_NAMES':
-      return [getRNameMessage(rule.rule, data.expectedName, true)]
     case 'R_TAX_NAMES':
+    case 'R_PAYSLIP_NAMES':
       return [getRNameMessage(rule.rule, data.expectedName, true)]
     case 'R_TAX_YEARS':
       return [
