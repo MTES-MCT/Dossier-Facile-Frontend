@@ -1,28 +1,30 @@
 import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { ref } from 'vue'
 import AnalysisBanners from '../analysis/AnalysisBanners.vue'
 import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
 
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
-    t: (key: string, params?: Record<string, unknown>) => {
+    locale: ref('fr'),
+    t: (key: string, params?: Record<string, string>) => {
       if (key === 'rules.expiration.current') {
-        return `Document avec date d'expiration ${String(params?.date ?? '')}`
+        return `Document avec date d'expiration ${params?.date ?? ''}`
       }
       if (key === 'rules.payslip-continuity.current-month') {
-        return `Bulletin pour ${String(params?.month ?? '')}`
+        return `Bulletin pour ${params?.month ?? ''}`
       }
       if (key === 'rules.payslip-continuity.expected-lead') {
         return 'Trois mois consécutifs :'
       }
       if (key === 'rules.payslip-continuity.expected-month') {
-        return String(params?.month ?? '')
+        return params?.month ?? ''
       }
       if (key === 'rules.names.payslip.current') {
-        return `Bulletin au nom de ${String(params?.name ?? '')}`
+        return `Bulletin au nom de ${params?.name ?? ''}`
       }
       if (key === 'rules.names.payslip.expected') {
-        return `Attendu au nom de ${String(params?.name ?? '')}`
+        return `Attendu au nom de ${params?.name ?? ''}`
       }
       return key
     }
