@@ -52,11 +52,13 @@
 import { VIcon } from '@gouvminint/vue-dsfr'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
-import { format, isValid, parse } from 'date-fns'
-import type { Locale } from 'date-fns'
-import { enUS, fr } from 'date-fns/locale'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import 'dayjs/locale/fr'
 import { useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+dayjs.extend(customParseFormat)
 
 const props = defineProps<{
   failedRules: DocumentRule[]
@@ -213,27 +215,25 @@ function getNameRuleNamespace(rule: string): 'tax' | 'visale' | 'payslip' {
   return 'tax'
 }
 
-function getDateFnsLocale(): Locale {
-  return locale.value === 'fr' ? fr : enUS
-}
-
 function formatYearMonth(value: string): string {
   const normalizedValue = value.trim()
-  const parsed = parse(normalizedValue, 'yyyy-MM', new Date())
-  if (!isValid(parsed) || format(parsed, 'yyyy-MM') !== normalizedValue) {
+  // Strict parsing rejects semantically invalid dates like 2024-13
+  const parsed = dayjs(normalizedValue, 'YYYY-MM', true)
+  if (!parsed.isValid()) {
     return value
   }
-  return format(parsed, 'MMMM yyyy', { locale: getDateFnsLocale() })
+  return parsed.locale(locale.value).format('MMMM YYYY')
 }
 
 function formatDate(value: string): string {
   const normalizedValue = value.trim()
-  const parsed = parse(normalizedValue, 'yyyy-MM-dd', new Date())
-  if (!isValid(parsed) || format(parsed, 'yyyy-MM-dd') !== normalizedValue) {
+  // Strict parsing rejects semantically invalid dates like 2024-13-45
+  const parsed = dayjs(normalizedValue, 'YYYY-MM-DD', true)
+  if (!parsed.isValid()) {
     return value
   }
-  const dateFormat = locale.value === 'fr' ? 'dd/MM/yyyy' : 'MM/dd/yyyy'
-  return format(parsed, dateFormat, { locale: getDateFnsLocale() })
+  const dateFormat = locale.value === 'fr' ? 'DD/MM/YYYY' : 'MM/DD/YYYY'
+  return parsed.locale(locale.value).format(dateFormat)
 }
 </script>
 

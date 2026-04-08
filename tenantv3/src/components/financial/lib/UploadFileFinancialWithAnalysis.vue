@@ -76,7 +76,7 @@ import { useForm } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useFinancialState } from '../financialState'
-import type { DocumentSubCategory } from '@/components/documents/share/DocumentTypeConstants'
+import type { FinancialCategory } from '@/components/documents/share/DocumentTypeConstants'
 
 const props = withDefaults(
   defineProps<{
@@ -93,7 +93,7 @@ const router = useRouter()
 const { t } = useI18n()
 const { getNavigationNextStep } = useHandleValidationNavigation()
 const state = useFinancialState()
-const salarySubCategory = 'SALARY' as unknown as DocumentSubCategory
+const salarySubCategory: FinancialCategory = 'SALARY'
 
 const inputSumElt = useTemplateRef<HTMLInputElement>('inputSumElt')
 const analysisWrapper = useTemplateRef('analysis-wrapper')

@@ -26,7 +26,6 @@
     "@types/js-cookie": "3.0.6",
     "@vuepic/vue-datepicker": "12.0.5",
     "axios": "catalog:",
-    "date-fns": "4.1.0",
     "dayjs": "1.11.13",
     "df-shared-next": "workspace:*",
     "js-cookie": "3.0.5",
