@@ -25,6 +25,7 @@
     ref="file-upload"
     :current-status="fileUploadStatus"
     :page="4"
+    :error-message="errorMessage"
     @add-files="addFiles"
   ></FileUpload>
   <DsfrModalPatch
@@ -84,6 +85,7 @@ const MAX_FILE_COUNT = 5
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
+const errorMessage = ref<string | undefined>()
 
 const isModalOpened = ref(false)
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -173,13 +175,18 @@ async function save(): Promise<boolean> {
 }
 
 async function addFiles(fileList: File[]) {
+  // Clear previous inline error on every new attempt
+  errorMessage.value = undefined
   AnalyticsService.uploadFile(taxState.category, props.category)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
+  const previousCount = files.value.length
   files.value = [...files.value, ...nf]
   if (await PdfAnalysisService.includesRejectedTaxDocuments(fileList)) {
     isModalOpened.value = true
+    errorMessage.value = t('asdir-error')
+    files.value = files.value.slice(0, previousCount)
     return
   }
   save()
@@ -286,6 +293,7 @@ ul {
 {
   "en": {
     "analysis-in-progress": "Analyzing documents. This usually takes less than 10 seconds.",
+    "asdir-error": "The declarative situation notice is not accepted. Please upload your tax notice.",
     "avis-detected": "Declarative Situation Notice Detected",
     "avis-text1": "You have provided a declarative statement notice (see document title). This document is not valid. Please replace it with your tax assessment notice.",
     "avis-btn": "Submit a valid document",
@@ -293,6 +301,7 @@ ul {
   },
   "fr": {
     "analysis-in-progress": "Analyse des documents. Cela prend généralement moins de 10 secondes.",
+    "asdir-error": "L'avis de situation déclarative n'est pas accepté. Merci de déposer votre avis d'impôt.",
     "avis-detected": "Avis de situation déclarative détecté",
     "avis-text1": "Vous avez fourni un avis de situation déclarative (voir titre du document). Ce document n'est pas valide. Merci de le remplacer par votre avis d'imposition.",
     "avis-btn": "Déposer votre avis d'imposition",

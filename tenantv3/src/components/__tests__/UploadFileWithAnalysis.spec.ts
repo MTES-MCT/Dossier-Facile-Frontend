@@ -120,16 +120,7 @@ describe('UploadFileWithAnalysis', () => {
     expect(wrapper.vm.isUploading).toBe(false)
   })
 
-  it('forceUploadPendingFiles returns true when nothing to upload', async () => {
-    const wrapper = mountComponent()
-
-    const result = await wrapper.vm.forceUploadPendingFiles()
-
-    expect(result).toBe(true)
-    expect(mockSaveTenantTax).not.toHaveBeenCalled()
-  })
-
-  it('does not upload immediately when beforeSave returns false, then uploads on force', async () => {
+  it('reverts pending files when beforeSave returns false', async () => {
     const beforeSave = vi.fn().mockResolvedValue(false)
     const wrapper = mountComponent({ beforeSave })
     const file = new File(['content'], 'new-tax.pdf', { type: 'application/pdf' })
@@ -139,12 +130,7 @@ describe('UploadFileWithAnalysis', () => {
 
     expect(beforeSave).toHaveBeenCalledOnce()
     expect(mockSaveTenantTax).not.toHaveBeenCalled()
-
-    const result = await wrapper.vm.forceUploadPendingFiles()
-    await flushPromises()
-
-    expect(result).toBe(true)
-    expect(mockSaveTenantTax).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$.setupState.files).toEqual([])
   })
 
   it('fails upload when maxFileCount is exceeded', async () => {

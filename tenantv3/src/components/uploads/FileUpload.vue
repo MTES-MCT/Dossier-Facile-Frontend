@@ -29,6 +29,9 @@
               {{ t('fileupload.browse') }}
             </label>
           </p>
+          <p v-if="errorMessage" class="fr-error-text fr-mb-0" role="alert">
+            {{ errorMessage }}
+          </p>
         </div>
       </div>
     </form>
@@ -50,11 +53,17 @@ const inputFile = useTemplateRef('inputFile')
 defineExpose({ inputFile })
 
 const props = withDefaults(
-  defineProps<{ currentStatus?: number; page?: number; size?: number }>(),
+  defineProps<{
+    currentStatus?: number
+    page?: number
+    size?: number
+    errorMessage?: string
+  }>(),
   {
     currentStatus: UploadStatus.STATUS_INITIAL,
     page: 0,
-    size: 10
+    size: 10,
+    errorMessage: undefined
   }
 )
 
