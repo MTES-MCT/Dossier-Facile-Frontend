@@ -19,9 +19,11 @@
   </div>
   <FileUpload
     ref="file-upload"
+    v-model:current-files="identificationFiles"
     :current-status="fileUploadStatus"
-    :current-files="identificationFiles"
     :page="2"
+    :category="IDCategory"
+    :next-step="nextStep"
     @add-files="addFiles"
   />
 </template>
@@ -50,6 +52,7 @@ interface Props {
 
 // TODO: adjust the maxFileCount per identity document (card, passport, etc.)
 const { category, maxFileCount = 5 } = defineProps<Props>()
+const { nextStep, category: IDCategory } = useIdentificationState()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])

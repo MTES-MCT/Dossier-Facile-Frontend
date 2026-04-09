@@ -4,7 +4,7 @@
     :document="tenantResidencyDocument"
     :document-denied-reasons="tenantResidencyDocument?.documentDeniedReasons"
     :document-status="documentStatus"
-  ></AllDeclinedMessages>
+  />
   <div v-if="residencyFiles.length > 0" class="fr-col-12 fr-mb-3w">
     <ListItem
       v-for="file in residencyFiles"
@@ -17,13 +17,15 @@
       @cancel="AnalyticsService.cancelDelete(category)"
     />
   </div>
-  <div class="fr-mb-3w">
-    <FileUpload
-      ref="file-upload"
-      :current-status="fileUploadStatus"
-      @add-files="addFiles"
-    ></FileUpload>
-  </div>
+  <FileUpload
+    ref="file-upload"
+    :current-status="fileUploadStatus"
+    :current-files="residencyFiles"
+    :page="3"
+    :category="resCategory"
+    :next-step
+    @add-files="addFiles"
+  />
 </template>
 
 <script setup lang="ts">
@@ -44,20 +46,22 @@ import { useResidencyState } from '../residencyState'
 import { toast } from '@/components/toast/toastUtils'
 import { useI18n } from 'vue-i18n'
 
+interface Props {
+  category: ResidencyCategory
+  step?: DocumentCategoryStep
+  maxFileCount?: number
+  guarantor?: boolean
+}
 const {
   maxFileCount = 10,
   category: residencyCategory,
   step: categoryStep,
   guarantor = false
-} = defineProps<{
-  category: ResidencyCategory
-  step?: DocumentCategoryStep
-  maxFileCount?: number
-  guarantor?: boolean
-}>()
+} = defineProps<Props>()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
+const { nextStep, category: resCategory } = useResidencyState()
 
 const store = useTenantStore()
 const residencyState = useResidencyState()

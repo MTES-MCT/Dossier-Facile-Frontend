@@ -45,15 +45,17 @@
 
 <script setup lang="ts">
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
-import { computed, nextTick, ref, useTemplateRef } from 'vue'
+import { computed, nextTick, onBeforeMount, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRegle, flatErrors } from '@regle/core'
 import { fileType, maxFileSize, maxLength, required, withMessage } from '@regle/rules'
 import FieldErrors from 'df-shared-next/src/components/form/FieldErrors.vue'
-import { useIdentificationState } from '../identityDocument/lib/identityDocumentState'
 import { useNextStep } from '../common/lib/useNextStep'
 import { useTenantStore } from '@/stores/tenant-store'
 import GlobalStepFooter from '../footer/GlobalStepFooter.vue'
+import type { DocumentCategory } from '@/services/AnalyticsService'
+import type { RouteLocationAsPathGeneric, RouteLocationAsRelativeGeneric } from 'vue-router'
+import type { DfFile } from 'df-shared-next/src/models/DfFile'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -67,6 +69,8 @@ const props = withDefaults(
     currentStatus?: number
     page?: number
     size?: number
+    category: DocumentCategory
+    nextStep: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric
     errorMessage?: string
     beforeOpen?: () => boolean
   }>(),
@@ -79,6 +83,10 @@ const props = withDefaults(
   }
 )
 
+const currentFiles = defineModel<DfFile[]>('currentFiles', {
+  default: []
+})
+
 const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'application/pdf', 'image/heif']
 const sizeInBytes = props.size * 1024 * 1024
 
@@ -90,7 +98,7 @@ function onFileInputClick(e: Event) {
 
 const formFiles = ref<{ files: { file: File | undefined }[] }>({
   files:
-    store.getTenantIdentificationDocument?.files?.map((f) => {
+    currentFiles.value?.map((f) => {
       return {
         file: f.file
       }
@@ -113,6 +121,20 @@ const { r$ } = useRegle(formFiles, {
   }
 })
 
+watch(
+  () => currentFiles.value,
+  (currentFiles) => {
+    console.log('watch')
+
+    r$.$value.files =
+      currentFiles?.map((f) => {
+        return {
+          file: f.file
+        }
+      }) || []
+  }
+)
+
 const onFileChange = async (event: Event) => {
   // assign the files to the form manually because v-model can't handle files
   const input = event.target as HTMLInputElement
@@ -131,8 +153,7 @@ const isSaving = computed(() => props.currentStatus === UploadStatus.STATUS_SAVI
 const sizeLimit = computed(() => t('fileupload.size', [props.size]))
 const pagesLimit = computed(() => t('fileupload.pages', [props.page]))
 
-const { nextStep, category } = useIdentificationState()
-const { goNext } = useNextStep(category, nextStep)
+const { goNext } = useNextStep(props.category, props.nextStep)
 
 const handleNext = async () => {
   const { valid } = await r$.$validate()
@@ -140,6 +161,8 @@ const handleNext = async () => {
 }
 
 defineExpose({ inputFile })
+
+onBeforeMount(() => r$.$reset())
 </script>
 
 <style scoped>
