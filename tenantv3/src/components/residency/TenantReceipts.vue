@@ -40,7 +40,7 @@
 import { computed, ref, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BackLinkRow from './lib/BackLinkRow.vue'
-import UploadFiles from './lib/UploadFiles.vue'
+import UploadFiles from './lib/UploadFilesResidency.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useRouter } from 'vue-router'
 import ResidencyFooter from './lib/ResidencyFooter.vue'

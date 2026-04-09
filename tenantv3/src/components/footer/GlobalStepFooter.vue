@@ -10,6 +10,7 @@ const router = useRouter()
 
 interface Props {
   showBack?: boolean
+  showNext?: boolean
   disabled?: boolean
   nextLabel?: string
   formId?: string
@@ -19,6 +20,7 @@ interface Props {
 
 const {
   showBack = true,
+  showNext = true,
   disabled = false,
   nextLabel = undefined,
   formId = undefined,
@@ -44,6 +46,7 @@ const handleBack = () => backAction ?? router.go(-1)
 <template>
   <footer id="footer-navigation" class="footer-container fr-mt-2w">
     <DsfrButton
+      v-if="showNext"
       ref="next-btn"
       data-cy="next-btn"
       :type="submit"
@@ -56,6 +59,7 @@ const handleBack = () => backAction ?? router.go(-1)
     <DsfrButton
       v-if="showBack"
       secondary
+      class="back-btn"
       type="button"
       :label="t('backnext.back')"
       icon="ri:arrow-left-s-line"
@@ -76,6 +80,9 @@ const handleBack = () => backAction ?? router.go(-1)
 .footer-container > * {
   flex: 1 1 48%;
   justify-content: center;
+}
+.footer-container .back-btn:only-child {
+  margin-inline-end: auto;
 }
 @media screen and (width >= 48rem) {
   /* remove padding if parent element is a card */

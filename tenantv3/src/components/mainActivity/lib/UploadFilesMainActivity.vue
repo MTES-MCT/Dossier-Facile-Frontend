@@ -17,7 +17,14 @@
       @cancel="AnalyticsService.cancelDelete(stateCategory)"
     />
   </div>
-  <FileUpload ref="file-upload" :current-status="fileUploadStatus" @add-files="addFiles" />
+  <FileUpload
+    ref="file-upload"
+    :current-status="fileUploadStatus"
+    :current-files="professionalFiles"
+    :category="mainCategory"
+    :next-step
+    @add-files="addFiles"
+  />
   <MainActivityFooter />
 </template>
 
@@ -40,6 +47,8 @@ import { toast } from '@/components/toast/toastUtils'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{ category: MainActivityCategory }>()
+
+const { nextStep, category: mainCategory } = useMainActivityState()
 
 const MAX_FILE_COUNT = 20
 
