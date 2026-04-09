@@ -79,9 +79,18 @@ export type IdentityCategory =
 export type TaxCategory = 'MY_NAME' | 'MY_PARENTS' | 'OTHER_TAX'
 export type GuaranteeProviderCategory = 'VISALE' | 'OTHER_GUARANTEE'
 
+export type FinancialCategory =
+  | 'SALARY'
+  | 'SCHOLARSHIP'
+  | 'SOCIAL_SERVICE'
+  | 'RENT'
+  | 'PENSION'
+  | 'NO_INCOME'
+
 export type DocumentSubCategory =
   | ResidencyCategory
   | MainActivityCategory
   | IdentityCategory
   | TaxCategory
   | GuaranteeProviderCategory
+  | FinancialCategory

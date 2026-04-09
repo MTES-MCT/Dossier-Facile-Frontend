@@ -52,8 +52,13 @@
 import { VIcon } from '@gouvminint/vue-dsfr'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import 'dayjs/locale/fr'
 import { useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+dayjs.extend(customParseFormat)
 
 const props = defineProps<{
   failedRules: DocumentRule[]
@@ -64,7 +69,7 @@ const emit = defineEmits<{
   explain: []
 }>()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const listRef = useTemplateRef<HTMLOListElement>('listRef')
 
 function focus() {
@@ -77,11 +82,13 @@ const ruleTitleMap: Record<string, string> = {
   R_DOCUMENT_IA_CLASSIFICATION: 'rules.bad-classification.title',
   R_TAX_BAD_CLASSIFICATION_DECLARATIVE: 'rules.bad-classification.title',
   R_TAX_BAD_CLASSIFICATION: 'rules.bad-classification.title',
+  R_TAX_NAMES: 'rules.names.title',
+  R_TAX_WRONG_YEAR: 'rules.tax-wrong-year.title',
+  R_TAX_2D_DOC: 'rules.invalid-2ddoc.title',
   R_VISALE_CERTIFICATE_NAME_MATCH: 'rules.names.title',
   R_VISALE_CERTIFICATE_EXPIRATION: 'rules.expiration.title',
-  R_TAX_NAMES: 'rules.names.title',
-  R_TAX_WRONG_YEAR: 'rules.wrong-year.tax.title',
-  R_TAX_2D_DOC: 'rules.invalid-2ddoc.title'
+  R_PAYSLIP_NAME_MATCH: 'rules.names.title',
+  R_PAYSLIP_CONTINUITY: 'rules.payslip-continuity.title'
 }
 
 function getRuleTitle(rule: string): string {
@@ -93,6 +100,11 @@ function formatName(name: Name): string {
   return `${name.lastName} ${name.firstNames}`.trim()
 }
 
+// There is 3 parts in the banner:
+// - The title of the rule: label built with getRuleTitle
+// - The "current document", with title "current-document" and lines built with getCurrentDocLines
+// - The "expected document", with title "expected-document" and lines built with getExpectedDocLines
+// This method is used to build the "current document" part of the banner.
 function getCurrentDocLines(rule: DocumentRule): string[] {
   const data = rule.ruleData
   if (rule.rule === 'R_DOCUMENT_IA_CLASSIFICATION') {
@@ -110,17 +122,25 @@ function getCurrentDocLines(rule: DocumentRule): string[] {
       return data.extractedNames.map((n) => getRNameMessage(rule.rule, n, false))
     case 'R_TAX_NAMES':
       return data.extractedIdentities.map((n) => t('rules.names.tax.current', { name: n }))
+    case 'R_PAYSLIP_NAMES':
+      return data.extractedIdentities.map((n) => t('rules.names.payslip.current', { name: n }))
     case 'R_TAX_YEARS':
       return data.extractedYears.map((y) =>
-        t('rules.wrong-year.tax.current', { taxYear: y + 1, incomeYear: y })
+        t('rules.tax-wrong-year.current', { taxYear: y + 1, incomeYear: y })
       )
     case 'R_EXPIRATION':
-      return [t('rules.expiration.current', { date: formatDateToFrench(data.extractedDate) })]
+      return [t('rules.expiration.current', { date: formatDate(data.extractedDate) })]
+    case 'R_PAYSLIP_CONTINUITY': {
+      return data.extractedMonthList.map((ym) =>
+        t('rules.payslip-continuity.current-month', { month: formatYearMonth(ym) })
+      )
+    }
     default:
       return [rule.message]
   }
 }
 
+// This method is used to build the "expected document" part of the banner.
 function getExpectedDocLines(rule: DocumentRule): string[] {
   const data = rule.ruleData
 
@@ -136,18 +156,26 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     case 'R_TAX_CLASSIFICATION':
       return [t('rules.bad-classification.tax.expected')]
     case 'R_NAMES':
-      return [getRNameMessage(rule.rule, data.expectedName, true)]
     case 'R_TAX_NAMES':
+    case 'R_PAYSLIP_NAMES':
       return [getRNameMessage(rule.rule, data.expectedName, true)]
     case 'R_TAX_YEARS':
       return [
-        t('rules.wrong-year.tax.expected', {
+        t('rules.tax-wrong-year.expected', {
           taxYear: data.expectedYear + 1,
           incomeYear: data.expectedYear
         })
       ]
     case 'R_EXPIRATION':
       return [t('rules.expiration.expected')]
+    case 'R_PAYSLIP_CONTINUITY': {
+      return [
+        t('rules.payslip-continuity.expected-lead'),
+        ...data.expectedMonthList.map((ym) =>
+          t('rules.payslip-continuity.expected-month', { month: formatYearMonth(ym) })
+        )
+      ]
+    }
     default:
       return [rule.message]
   }
@@ -161,9 +189,17 @@ function getExpectedClassification(): string {
   if (documentSubCategory === 'VISALE') {
     return t('rules.bad-classification.visale.expected')
   }
+  if (
+    documentSubCategory === 'SALARY' &&
+    props.document?.documentCategoryStep === 'SALARY_EMPLOYED_MORE_3_MONTHS'
+  ) {
+    return t('rules.bad-classification.payslip.expected')
+  }
   return t('rules.bad-classification.current-other')
 }
 
+// Build the localized name message by selecting the rule namespace (tax/visale/payslip)
+// and the variant (current vs expected), then resolving the corresponding i18n key.
 function getRNameMessage(rule: string, nameToFormat: Name, isExpected: boolean): string {
   const variant = isExpected ? 'expected' : 'current'
   const namespace = getNameRuleNamespace(rule)
@@ -171,39 +207,35 @@ function getRNameMessage(rule: string, nameToFormat: Name, isExpected: boolean):
   return t(key, { name: formatName(nameToFormat) })
 }
 
-function getNameRuleNamespace(rule: string): 'tax' | 'visale' {
+function getNameRuleNamespace(rule: string): 'tax' | 'visale' | 'payslip' {
   if (rule.startsWith('R_VISALE_')) {
     return 'visale'
+  }
+  if (rule.startsWith('R_PAYSLIP_')) {
+    return 'payslip'
   }
   return 'tax'
 }
 
-function formatDateToFrench(value: string): string {
-  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value)
-  if (!match) {
+function formatYearMonth(value: string): string {
+  const normalizedValue = value.trim()
+  // Strict parsing rejects semantically invalid dates like 2024-13
+  const parsed = dayjs(normalizedValue, 'YYYY-MM', true)
+  if (!parsed.isValid()) {
     return value
   }
+  return parsed.locale(locale.value).format('MMMM YYYY')
+}
 
-  const year = Number(match[1])
-  const month = Number(match[2])
-  const day = Number(match[3])
-  const parsed = new Date(Date.UTC(year, month - 1, day))
-
-  if (
-    Number.isNaN(parsed.getTime()) ||
-    parsed.getUTCFullYear() !== year ||
-    parsed.getUTCMonth() !== month - 1 ||
-    parsed.getUTCDate() !== day
-  ) {
+function formatDate(value: string): string {
+  const normalizedValue = value.trim()
+  // Strict parsing rejects semantically invalid dates like 2024-13-45
+  const parsed = dayjs(normalizedValue, 'YYYY-MM-DD', true)
+  if (!parsed.isValid()) {
     return value
   }
-
-  return new Intl.DateTimeFormat('fr-FR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    timeZone: 'UTC'
-  }).format(parsed)
+  const dateFormat = locale.value === 'fr' ? 'DD/MM/YYYY' : 'MM/DD/YYYY'
+  return parsed.locale(locale.value).format(dateFormat)
 }
 </script>
 
@@ -317,6 +349,9 @@ function formatDateToFrench(value: string): string {
         "visale": {
           "expected": "Visale certificate"
         },
+        "payslip": {
+          "expected": "Pay slip"
+        },
         "tax": {
           "current-declarative": "Declarative situation notice for income tax",
           "expected": "Tax notice or non-taxation notice"
@@ -331,14 +366,22 @@ function formatDateToFrench(value: string): string {
         "visale": {
           "current": "Visale certificate in the name of {name}",
           "expected": "Visale certificate in the name of {name}"
+        },
+        "payslip": {
+          "current": "Pay slip in the name of {name}",
+          "expected": "Pay slip in the name of {name}"
         }
       },
-      "wrong-year": {
-        "tax": {
-          "title": "Tax notice too old",
-          "current": "Tax notice {taxYear} on {incomeYear} income",
-          "expected": "Tax notice {taxYear} on {incomeYear} income or non-taxation notice"
-        }
+      "payslip-continuity": {
+        "title": "Pay slips are not consecutive",
+        "current-month": "Pay slip for {month}",
+        "expected-lead": "3 consecutive pay slips among the following months:",
+        "expected-month": "{month}"
+      },
+      "tax-wrong-year": {
+        "title": "Tax notice too old",
+        "current": "Tax notice {taxYear} on {incomeYear} income",
+        "expected": "Tax notice {taxYear} on {incomeYear} income or non-taxation notice"
       },
       "expiration": {
         "title": "Document expired",
@@ -366,6 +409,9 @@ function formatDateToFrench(value: string): string {
         "visale": {
           "expected": "Certificat Visale"
         },
+        "payslip": {
+          "expected": "Bulletin de salaire"
+        },
         "current-other": "Autre document non conforme"
       },
       "names": {
@@ -377,14 +423,22 @@ function formatDateToFrench(value: string): string {
         "visale": {
           "current": "Attestation Visale au nom de {name}",
           "expected": "Attestation Visale au nom de {name}"
+        },
+        "payslip": {
+          "current": "Bulletin de salaire au nom de {name}",
+          "expected": "Bulletin de salaire au nom de {name}"
         }
       },
-      "wrong-year": {
-        "tax": {
-          "title": "Avis d'imposition trop ancien",
-          "current": "Avis d'imposition {taxYear} sur revenus {incomeYear}",
-          "expected": "Avis d'imposition {taxYear} sur revenus {incomeYear} ou avis de non-imposition"
-        }
+      "payslip-continuity": {
+        "title": "Les bulletins de salaire ne sont pas consécutifs",
+        "current-month": "Bulletin de salaire pour {month}",
+        "expected-lead": "3 bulletins de salaire consécutifs parmi les mois suivants :",
+        "expected-month": "{month}"
+      },
+      "tax-wrong-year": {
+        "title": "Avis d'imposition trop ancien",
+        "current": "Avis d'imposition {taxYear} sur revenus {incomeYear}",
+        "expected": "Avis d'imposition {taxYear} sur revenus {incomeYear} ou avis de non-imposition"
       },
       "expiration": {
         "title": "Document expiré",
