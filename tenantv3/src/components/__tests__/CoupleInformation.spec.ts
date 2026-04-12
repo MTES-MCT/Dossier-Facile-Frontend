@@ -30,6 +30,9 @@ vi.mock('@/stores/tenant-store', () => ({
   })
 }))
 
+// TextField stub intentionally omits 'input' from emits so that the parent's
+// @input listener falls through to the root <input> via Vue 3 attribute
+// fallthrough — matching the real TextField's behavior.
 const stubs = {
   NakedCard: { template: '<div><slot /></div>' },
   TextField: {
@@ -73,7 +76,7 @@ describe('CoupleInformation', () => {
     }
   })
 
-  it('syncs coTenant to model when names are filled then email is typed', async () => {
+  it('includes email in model when filling the form from scratch', async () => {
     const wrapper = mount(CoupleInformation, {
       props: { hasSubmited: false, modelValue: [] },
       global: { stubs }
@@ -98,22 +101,18 @@ describe('CoupleInformation', () => {
     expect(afterEmail[0].email).toBe('marie@example.com')
   })
 
-  it('syncs email for returning user with pre-filled disabled names', async () => {
-    const existingPartner = {
-      id: 42,
-      firstName: 'Marie',
-      lastName: 'Dupont',
-      email: '',
-      guarantors: []
-    }
-
+  it('includes email in model when adding it to an existing co-tenant', async () => {
+    // Simulate a returning user whose co-tenant already has names saved.
+    // onMounted will load the partner into the local coTenant ref and disable
+    // the name fields. The coTenants model (bound to the parent) is a separate
+    // object — only handleInput() unifies them.
     mockUser.value = {
       id: 1,
       email: 'main@example.com',
       apartmentSharing: {
         tenants: [
           { id: 1, email: 'main@example.com', guarantors: [] },
-          existingPartner
+          { id: 42, firstName: 'Marie', lastName: 'Dupont', email: '', guarantors: [] }
         ]
       }
     }
@@ -124,12 +123,10 @@ describe('CoupleInformation', () => {
     })
     await flushPromises()
 
-    // Name fields should be disabled (pre-filled from store)
     const [lastNameInput, firstNameInput] = wrapper.findAll('input').slice(0, 2)
     expect(lastNameInput.element.disabled).toBe(true)
     expect(firstNameInput.element.disabled).toBe(true)
 
-    // Type email — this is the bug scenario: names already saved, email is the only editable field
     const emailInput = wrapper.find('#email')
     await emailInput.setValue('marie@example.com')
 
