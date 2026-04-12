@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import CoupleInformation from '../CoupleInformation.vue'
+import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({ t: (key: string) => key }),
@@ -17,7 +18,7 @@ const { mockUser } = vi.hoisted(() => {
     mockUser: ref({
       id: 1,
       email: 'main@example.com',
-      apartmentSharing: { tenants: [] as any[] }
+      apartmentSharing: { tenants: [] as CoTenant[] }
     })
   }
 })
@@ -34,11 +35,10 @@ const stubs = {
   TextField: {
     template: '<input :value="modelValue" :disabled="disabled" @input="onInput" />',
     props: ['modelValue', 'fieldLabel', 'name', 'validationRules', 'disabled'],
-    emits: ['update:modelValue', 'input'],
+    emits: ['update:modelValue'],
     methods: {
       onInput(e: InputEvent) {
         this.$emit('update:modelValue', (e.target as HTMLInputElement).value)
-        this.$emit('input', e)
       }
     }
   },
@@ -69,7 +69,7 @@ describe('CoupleInformation', () => {
     mockUser.value = {
       id: 1,
       email: 'main@example.com',
-      apartmentSharing: { tenants: [] as any[] }
+      apartmentSharing: { tenants: [] as CoTenant[] }
     }
   })
 
@@ -87,14 +87,14 @@ describe('CoupleInformation', () => {
 
     let emitted = wrapper.emitted('update:modelValue')!
     expect(emitted.length).toBeGreaterThan(0)
-    const afterNames = emitted[emitted.length - 1][0] as any[]
+    const afterNames = emitted[emitted.length - 1][0] as CoTenant[]
     expect(afterNames[0].lastName).toBe('Dupont')
     expect(afterNames[0].firstName).toBe('Marie')
 
     await emailInput.setValue('marie@example.com')
 
     emitted = wrapper.emitted('update:modelValue')!
-    const afterEmail = emitted[emitted.length - 1][0] as any[]
+    const afterEmail = emitted[emitted.length - 1][0] as CoTenant[]
     expect(afterEmail[0].email).toBe('marie@example.com')
   })
 
@@ -135,7 +135,7 @@ describe('CoupleInformation', () => {
 
     const emitted = wrapper.emitted('update:modelValue')
     expect(emitted).toBeTruthy()
-    const lastEmit = emitted![emitted!.length - 1][0] as any[]
+    const lastEmit = emitted![emitted!.length - 1][0] as CoTenant[]
     expect(lastEmit[0].email).toBe('marie@example.com')
     expect(lastEmit[0].firstName).toBe('Marie')
     expect(lastEmit[0].lastName).toBe('Dupont')
