@@ -216,4 +216,51 @@ describe('UploadFileFinancialWithAnalysis', () => {
       expect(mockPush).not.toHaveBeenCalled()
     })
   })
+
+  describe('watch on documents – route update on ID change', () => {
+    it('replaces docId in route when store document ID changes', async () => {
+      mockRoute.params = { docId: '791' }
+      mockRoute.path = '/documents-locataire/4/791/travail/salarie/plus-3-mois'
+      mockDocuments.value = [makeDocument({ id: 791 })]
+
+      mountComponent()
+      await flushPromises()
+
+      mockDocuments.value = [makeDocument({ id: 792 })]
+      await flushPromises()
+
+      expect(mockReplace).toHaveBeenCalledWith(
+        '/documents-locataire/4/792/travail/salarie/plus-3-mois'
+      )
+    })
+
+    it('still works for /ajouter/ routes (existing behavior)', async () => {
+      mockRoute.params = { docId: 'ajouter' }
+      mockRoute.path = '/documents-locataire/4/ajouter/travail/salarie/plus-3-mois'
+
+      mountComponent()
+      await flushPromises()
+
+      mockDocuments.value = [makeDocument({ id: 100 })]
+      await flushPromises()
+
+      expect(mockReplace).toHaveBeenCalledWith(
+        '/documents-locataire/4/100/travail/salarie/plus-3-mois'
+      )
+    })
+
+    it('does nothing when docId matches the store document', async () => {
+      mockRoute.params = { docId: '42' }
+      mockRoute.path = '/documents-locataire/4/42/travail/salarie/plus-3-mois'
+      mockDocuments.value = [makeDocument({ id: 42 })]
+
+      mountComponent()
+      await flushPromises()
+
+      mockDocuments.value = [makeDocument({ id: 42, monthlySum: 3000 })]
+      await flushPromises()
+
+      expect(mockReplace).not.toHaveBeenCalled()
+    })
+  })
 })
