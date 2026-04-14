@@ -172,7 +172,7 @@ const inputSum = computed({
 watch(
   () => state.documents.value,
   () => {
-    if (!route.path.includes('/ajouter/')) return
+    const currentDocId = Number(route.params.docId)
     const latestMatchingDocument = [...state.documents.value]
       .sort((a, b) => (a.id || 0) - (b.id || 0))
       .reverse()
@@ -182,8 +182,15 @@ watch(
           d.documentSubCategory === 'SALARY' &&
           d.documentCategoryStep === 'SALARY_EMPLOYED_MORE_3_MONTHS'
       )
-    if (latestMatchingDocument?.id) {
+
+    if (!latestMatchingDocument?.id) return
+
+    if (route.path.includes('/ajouter/')) {
       router.replace(route.path.replace('ajouter', String(latestMatchingDocument.id)))
+    } else if (currentDocId && currentDocId !== latestMatchingDocument.id) {
+      router.replace(
+        route.path.replace(String(currentDocId), String(latestMatchingDocument.id))
+      )
     }
   },
   { deep: true }
