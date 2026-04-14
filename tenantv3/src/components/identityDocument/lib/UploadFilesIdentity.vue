@@ -1,6 +1,6 @@
 <template>
   <AllDeclinedMessages
-    :user-id="identityState.userId"
+    :user-id="userId"
     :document="identityDocument"
     :document-denied-reasons="identityDocument?.documentDeniedReasons"
     :document-status="documentStatus"
@@ -13,19 +13,22 @@
       :watermark-url="documentWatermarkUrl"
       doc-category="identification"
       @remove="remove(file)"
-      @ask-confirm="AnalyticsService.deleteDocument(identityState.category)"
-      @cancel="AnalyticsService.cancelDelete(identityState.category)"
+      @ask-confirm="AnalyticsService.deleteDocument(IDCategory)"
+      @cancel="AnalyticsService.cancelDelete(IDCategory)"
     />
   </div>
   <FileUpload
-    ref="file-upload"
     v-model:current-files="identificationFiles"
+    ref="file-upload"
     :current-status="fileUploadStatus"
     :page="2"
     :category="IDCategory"
-    :next-step="nextStep"
+    :next-step
     @add-files="addFiles"
   />
+
+  <!-- <GlobalStepFooter :category="IDCategory" :next-step :submit="false" :disabled="!store.getTenantIdentificationDocument" /> -->
+  <!-- <IdentificationFooter :submit="false" :disabled="!store.getTenantIdentificationDocument" /> -->
 </template>
 
 <script setup lang="ts">
@@ -52,17 +55,23 @@ interface Props {
 
 // TODO: adjust the maxFileCount per identity document (card, passport, etc.)
 const { category, maxFileCount = 5 } = defineProps<Props>()
-const { nextStep, category: IDCategory } = useIdentificationState()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
 
 const store = useTenantStore()
-const identityState = useIdentificationState()
+const {
+  document,
+  nextStep,
+  category: IDCategory,
+  addData,
+  action,
+  userId
+} = useIdentificationState()
 const fileUpload = useTemplateRef('file-upload')
 const { t } = useI18n()
 
-const identityDocument = identityState.document
+const identityDocument = document
 const documentStatus = computed(() => identityDocument.value?.documentStatus)
 
 const identificationFiles = computed(() => {
@@ -101,12 +110,12 @@ async function save(): Promise<boolean> {
   }
 
   formData.append('typeDocumentIdentification', category)
-  identityState.addData?.(formData)
+  addData?.(formData)
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
   const $loading = useLoading()
   const loader = $loading.show()
-  return await store[identityState.action](formData)
+  return await store[action](formData)
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
@@ -115,7 +124,6 @@ async function save(): Promise<boolean> {
     })
     .catch((err) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      // TODO: send these errors to the form rather than a toast
       UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
       return false
     })
@@ -126,8 +134,7 @@ async function save(): Promise<boolean> {
 
 function addFiles(fileList: File[] | undefined) {
   if (!fileList) return
-
-  AnalyticsService.uploadFile(identityState.category, category)
+  AnalyticsService.uploadFile(IDCategory, category)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
@@ -136,7 +143,7 @@ function addFiles(fileList: File[] | undefined) {
 }
 
 async function remove(file: DfFile, silent = false) {
-  AnalyticsService.deleteFile(identityState.category)
+  AnalyticsService.deleteFile(IDCategory)
   if (file.id) {
     if (
       identityDocument.value?.files?.length === 1 &&
@@ -151,6 +158,5 @@ async function remove(file: DfFile, silent = false) {
     })
     files.value.splice(firstIndex, 1)
   }
-  save()
 }
 </script>

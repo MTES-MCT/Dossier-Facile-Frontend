@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick } from 'vue'
+import { computed } from 'vue'
 import { useRegle } from '@regle/core'
 import { required, requiredIf } from '@regle/rules'
 import { useCustomRules } from 'df-shared-next/src/validators/validationRules'
@@ -133,13 +133,12 @@ const onSubmit = async () => {
   // trim the values before validation
   trimValues(r$.$value)
 
-  await nextTick()
   const { valid, data } = await r$.$validate()
 
   if (!valid) return
 
   const loader = $loading.show()
-
+  // TO REPLACE WITH LOCAL REF
   store.user.firstName = data.firstName
   store.user.lastName = data.lastName
   store.user.preferredName = data.preferredName
