@@ -47,7 +47,7 @@
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
 import { computed, nextTick, onBeforeMount, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRegle, flatErrors } from '@regle/core'
+import { useRegle, flatErrors, type RegleExternalErrorTree } from '@regle/core'
 import { fileType, maxFileSize, maxLength, required, withMessage } from '@regle/rules'
 import FieldErrors from 'df-shared-next/src/components/form/FieldErrors.vue'
 import { useNextStep } from '../common/lib/useNextStep'
@@ -61,7 +61,6 @@ const { t } = useI18n()
 const store = useTenantStore()
 const emit = defineEmits<{ 'add-files': [files: File[] | undefined] }>()
 
-const uploadForm = useTemplateRef('uploadForm')
 const inputFile = useTemplateRef('inputFile')
 
 const props = withDefaults(
@@ -71,6 +70,7 @@ const props = withDefaults(
     size?: number
     category: DocumentCategory
     nextStep: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric
+    serverErrors: string
     errorMessage?: string
     beforeOpen?: () => boolean
   }>(),
@@ -82,6 +82,10 @@ const props = withDefaults(
     beforeOpen: undefined
   }
 )
+
+const isSaving = computed(() => props.currentStatus === UploadStatus.STATUS_SAVING)
+const sizeLimit = computed(() => t('fileupload.size', [props.size]))
+const pagesLimit = computed(() => t('fileupload.pages', [props.page]))
 
 const currentFiles = defineModel<DfFile[]>('currentFiles', {
   default: []
@@ -96,62 +100,85 @@ function onFileInputClick(e: Event) {
   }
 }
 
-const formFiles = ref<{ files: { file: File | undefined }[] }>({
+type FormFile = {
+  file?: File // new local file — validated
+  dfFile?: DfFile // existing server file — skip validation
+}
+
+const formFiles = ref<{ files: FormFile[] }>({
   files:
-    currentFiles.value?.map((f) => {
-      return {
-        file: f.file
-      }
-    }) || []
-})
-const { r$ } = useRegle(formFiles, {
-  // maximum number of files per upload
-  files: {
-    required: required,
-    maxLength: withMessage(maxLength(props.page), ({ $value, $params: [max] }) =>
-      t('validation.maxFile', { max, n: $value?.length })
-    ),
-    // rules for each file uploaded
-    $each: {
-      file: {
-        maxFileSize: maxFileSize(sizeInBytes),
-        fileType: fileType(ALLOWED_FILE_TYPES)
-      }
-    }
-  }
+    currentFiles.value?.map((f) => ({
+      dfFile: f
+    })) || []
 })
 
+const externalErrors = ref<RegleExternalErrorTree<typeof formFiles>>({})
+
+const { r$ } = useRegle(
+  formFiles,
+  {
+    // maximum number of files per upload
+    files: {
+      required: required,
+      maxLength: withMessage(maxLength(props.page), ({ $value, $params: [max] }) =>
+        t('max-file', [$value?.length, max])
+      ),
+      // rules for each file uploaded
+      $each: {
+        file: {
+          maxFileSize: maxFileSize(sizeInBytes),
+          fileType: fileType(ALLOWED_FILE_TYPES)
+        }
+      }
+    }
+  },
+  {
+    externalErrors,
+    clearExternalErrorsOnValidate: true
+  }
+)
+const isServerError = () => {
+  r$.$clearExternalErrors()
+  if (props.serverErrors.length) {
+    r$.$setExternalErrors({
+      files: { $self: [props.serverErrors] }
+    })
+    return true
+  }
+  return false
+}
 watch(
   () => currentFiles.value,
   (currentFiles) => {
-    console.log('watch')
+    if (isSaving.value) return
+    isServerError()
 
     r$.$value.files =
-      currentFiles?.map((f) => {
-        return {
-          file: f.file
-        }
-      }) || []
+      currentFiles?.map((f) => ({
+        dfFile: f
+      })) || []
   }
 )
 
 const onFileChange = async (event: Event) => {
   // assign the files to the form manually because v-model can't handle files
   const input = event.target as HTMLInputElement
-  r$.$value.files = input.files ? Array.from(input.files).map((file) => ({ file })) : []
+  const newFiles: FormFile[] = input.files ? Array.from(input.files).map((file) => ({ file })) : []
 
-  // super duper important, won't work without nextTick
+  // keep existing server files, append new local files
+  const existingFiles = r$.$value.files.filter((f) => f.dfFile)
+  r$.$value.files = [...existingFiles, ...newFiles]
+
+  // super important, won't work without nextTick
   await nextTick()
   const { valid } = await r$.$validate()
 
-  // convert back to emit the payload
-  const files = r$.$value.files.map(({ file }) => file)
-  if (valid && !!files) emit('add-files', files as File[])
+  // only emit the new File objects
+  const files = r$.$value.files.filter((f) => f.file).map((f) => f.file)
+  if (valid && files.length) {
+    emit('add-files', files as File[])
+  }
 }
-
-const isSaving = computed(() => props.currentStatus === UploadStatus.STATUS_SAVING)
-const sizeLimit = computed(() => t('fileupload.size', [props.size]))
-const pagesLimit = computed(() => t('fileupload.pages', [props.page]))
 
 const { goNext } = useNextStep(props.category, props.nextStep)
 

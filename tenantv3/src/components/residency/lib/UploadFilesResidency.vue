@@ -18,12 +18,13 @@
     />
   </div>
   <FileUpload
+    v-model:current-files="residencyFiles"
     ref="file-upload"
     :current-status="fileUploadStatus"
-    :current-files="residencyFiles"
     :page="3"
     :category="resCategory"
     :next-step
+    :server-errors
     @add-files="addFiles"
   />
 </template>
@@ -53,7 +54,7 @@ interface Props {
   guarantor?: boolean
 }
 const {
-  maxFileCount = 10,
+  maxFileCount = 3,
   category: residencyCategory,
   step: categoryStep,
   guarantor = false
@@ -67,6 +68,7 @@ const store = useTenantStore()
 const residencyState = useResidencyState()
 const fileUpload = useTemplateRef('file-upload')
 const { t } = useI18n()
+const serverErrors = ref<string>('')
 
 defineExpose({ inputFile: computed(() => fileUpload.value?.inputFile) })
 
@@ -100,7 +102,11 @@ async function save(): Promise<boolean> {
   }
 
   if (residencyFiles.value.length > maxFileCount) {
-    toast.maxFileError(residencyFiles.value.length, maxFileCount, fileUpload.value?.inputFile)
+    serverErrors.value = toast.maxFileError(
+      residencyFiles.value.length,
+      maxFileCount,
+      fileUpload.value?.inputFile
+    )
     files.value = []
     return false
   }
