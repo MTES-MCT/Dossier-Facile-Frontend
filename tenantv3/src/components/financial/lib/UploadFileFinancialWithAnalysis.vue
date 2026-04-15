@@ -16,30 +16,26 @@
     />
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
   </form>
-  <template v-if="showFiles">
-    <slot name="incomeFilled" />
-    <AnalysisWrapper
-      ref="analysis-wrapper"
-      :is-uploading="uploadFileWithAnalysisRef?.isUploading ?? false"
-      :polling-timeout-ms="20000"
-    >
-      <template #fileUploader>
-        <UploadFileWithAnalysis
-          ref="upload-file-with-analysis"
-          :doc-category="state.category"
-          :sub-category="salarySubCategory"
-          step="SALARY_EMPLOYED_MORE_3_MONTHS"
-          :max-file-count="10"
-          :analysis-in-progress="analysisWrapper?.analysisInProgress ?? false"
-          :before-save="beforeUploadSave"
-        />
-      </template>
-    </AnalysisWrapper>
-    <p class="fr-message fr-message--info fr-mt-3w">{{ t('i-authorize-corrections') }}</p>
-  </template>
-  <slot v-else name="emptyIncome" />
+  <slot name="incomeFilled" />
+  <AnalysisWrapper
+    ref="analysis-wrapper"
+    :is-uploading="uploadFileWithAnalysisRef?.isUploading ?? false"
+    :polling-timeout-ms="20000"
+  >
+    <template #fileUploader>
+      <UploadFileWithAnalysis
+        ref="upload-file-with-analysis"
+        :doc-category="state.category"
+        :sub-category="salarySubCategory"
+        step="SALARY_EMPLOYED_MORE_3_MONTHS"
+        :max-file-count="10"
+        :analysis-in-progress="analysisWrapper?.analysisInProgress ?? false"
+        :before-save="beforeUploadSave"
+      />
+    </template>
+  </AnalysisWrapper>
+  <p class="fr-message fr-message--info fr-mt-3w">{{ t('i-authorize-corrections') }}</p>
   <AnalysisFooter
-    v-if="showFiles"
     :previous-step="state.recap"
     :next-disabled="analysisFooterNextDisabled"
     :next-label="analysisWrapper?.nextLabel"
@@ -105,7 +101,6 @@ const uploadFileWithAnalysisRef = useTemplateRef<{
 const document = computed(
   () => state.documents.value.find((d) => d.id === Number(route.params.docId)) ?? makeNewDocument()
 )
-const showFiles = ref(Boolean(document.value.monthlySum))
 const isModalOpened = ref(false)
 
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -141,7 +136,7 @@ provide(documentFormKey, {
   userId: state.userId ?? store.user.id,
   addData(formData) {
     const d = document.value
-    formData.append('monthlySum', Math.trunc(d.monthlySum || 0).toString())
+    formData.append('monthlySum', Math.trunc(parsedMonthlySum.value).toString())
     formData.append('customText', d.customText || '')
     formData.append('noDocument', d.noDocument ? 'true' : 'false')
     if (d.id) {
@@ -156,6 +151,7 @@ const { errors, defineField, handleSubmit } = useForm({
   validationSchema: { sum: validateSum }
 })
 const [sum, sumAttr] = defineField('sum')
+const parsedMonthlySum = computed(() => Number(sum.value.replaceAll(/\s+/g, '')) || 0)
 
 let monthlySumChanged = false
 
@@ -163,8 +159,6 @@ const inputSum = computed({
   get: () => sum.value,
   set(val) {
     sum.value = val
-    document.value.monthlySum = Number(sum.value.replaceAll(/\s+/g, '')) || 0
-    showFiles.value = true
     monthlySumChanged = true
   }
 })
@@ -196,17 +190,6 @@ watch(
   { deep: true }
 )
 
-watch(
-  () => document.value.monthlySum,
-  (monthlySum) => {
-    const nextSum = monthlySum?.toString() || ''
-    if (sum.value !== nextSum) {
-      sum.value = nextSum
-    }
-    showFiles.value = Boolean(monthlySum)
-  },
-  { immediate: true }
-)
 
 function validateSum(input: string) {
   if (!input) return 'field-required'
@@ -226,7 +209,7 @@ function makeNewDocument() {
 }
 
 function beforeUploadSave() {
-  const currentSum = document.value.monthlySum || 0
+  const currentSum = parsedMonthlySum.value
   if (currentSum <= 0) {
     toast.error(t('valid-monthly-sum'), inputSumElt.value)
     return false
@@ -244,7 +227,7 @@ async function saveMonthlySumOnly() {
   formData.append('categoryStep', financialDocument.documentCategoryStep || '')
   formData.append('noDocument', financialDocument.noDocument ? 'true' : 'false')
   formData.append('customText', financialDocument.customText || '')
-  formData.append('monthlySum', Math.trunc(financialDocument.monthlySum || 0).toString())
+  formData.append('monthlySum', Math.trunc(parsedMonthlySum.value).toString())
   state.addData?.(formData)
   await store[state.action](formData)
   monthlySumChanged = false
