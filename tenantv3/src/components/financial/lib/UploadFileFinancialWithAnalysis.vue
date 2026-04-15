@@ -16,30 +16,26 @@
     />
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
   </form>
-  <template v-if="showFiles">
-    <slot name="incomeFilled" />
-    <AnalysisWrapper
-      ref="analysis-wrapper"
-      :is-uploading="uploadFileWithAnalysisRef?.isUploading ?? false"
-      :polling-timeout-ms="20000"
-    >
-      <template #fileUploader>
-        <UploadFileWithAnalysis
-          ref="upload-file-with-analysis"
-          :doc-category="state.category"
-          :sub-category="salarySubCategory"
-          step="SALARY_EMPLOYED_MORE_3_MONTHS"
-          :max-file-count="10"
-          :analysis-in-progress="analysisWrapper?.analysisInProgress ?? false"
-          :before-save="beforeUploadSave"
-        />
-      </template>
-    </AnalysisWrapper>
-    <p class="fr-message fr-message--info fr-mt-3w">{{ t('i-authorize-corrections') }}</p>
-  </template>
-  <slot v-else name="emptyIncome" />
+  <slot name="incomeFilled" />
+  <AnalysisWrapper
+    ref="analysis-wrapper"
+    :is-uploading="uploadFileWithAnalysisRef?.isUploading ?? false"
+    :polling-timeout-ms="20000"
+  >
+    <template #fileUploader>
+      <UploadFileWithAnalysis
+        ref="upload-file-with-analysis"
+        :doc-category="state.category"
+        :sub-category="salarySubCategory"
+        step="SALARY_EMPLOYED_MORE_3_MONTHS"
+        :max-file-count="10"
+        :analysis-in-progress="analysisWrapper?.analysisInProgress ?? false"
+        :before-save="beforeUploadSave"
+      />
+    </template>
+  </AnalysisWrapper>
+  <p class="fr-message fr-message--info fr-mt-3w">{{ t('i-authorize-corrections') }}</p>
   <AnalysisFooter
-    v-if="showFiles"
     :previous-step="state.recap"
     :next-disabled="analysisFooterNextDisabled"
     :next-label="analysisWrapper?.nextLabel"
@@ -105,7 +101,6 @@ const uploadFileWithAnalysisRef = useTemplateRef<{
 const document = computed(
   () => state.documents.value.find((d) => d.id === Number(route.params.docId)) ?? makeNewDocument()
 )
-const showFiles = ref(Boolean(document.value.monthlySum))
 const isModalOpened = ref(false)
 
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -164,7 +159,6 @@ const inputSum = computed({
   get: () => sum.value,
   set(val) {
     sum.value = val
-    showFiles.value = true
     monthlySumChanged = true
   }
 })
