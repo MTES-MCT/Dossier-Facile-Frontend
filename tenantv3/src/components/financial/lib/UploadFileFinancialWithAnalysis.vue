@@ -31,6 +31,7 @@
         :max-file-count="10"
         :analysis-in-progress="analysisWrapper?.analysisInProgress ?? false"
         :before-save="beforeUploadSave"
+        @saved="onFileSaved"
       />
     </template>
   </AnalysisWrapper>
@@ -67,7 +68,7 @@ import { useTenantStore } from '@/stores/tenant-store'
 import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import { computed, provide, ref, useTemplateRef, watch, type ComputedRef } from 'vue'
+import { computed, provide, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { useForm } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
@@ -163,33 +164,27 @@ const inputSum = computed({
   }
 })
 
-watch(
-  () => state.documents.value,
-  () => {
-    const currentDocId = Number(route.params.docId)
-    const latestMatchingDocument = [...state.documents.value]
-      .sort((a, b) => (a.id || 0) - (b.id || 0))
-      .reverse()
-      .find(
-        (d) =>
-          d.documentCategory === 'FINANCIAL' &&
-          d.documentSubCategory === 'SALARY' &&
-          d.documentCategoryStep === 'SALARY_EMPLOYED_MORE_3_MONTHS'
-      )
+function onFileSaved() {
+  const currentDocId = Number(route.params.docId)
+  if (state.documents.value.some((d) => d.id === currentDocId)) return
 
-    if (!latestMatchingDocument?.id) return
+  const latestDoc = [...state.documents.value]
+    .filter(
+      (d) =>
+        d.documentCategory === 'FINANCIAL' &&
+        d.documentSubCategory === 'SALARY' &&
+        d.documentCategoryStep === 'SALARY_EMPLOYED_MORE_3_MONTHS'
+    )
+    .sort((a, b) => (b.id || 0) - (a.id || 0))[0]
 
-    if (route.path.includes('/ajouter/')) {
-      router.replace(route.path.replace('ajouter', String(latestMatchingDocument.id)))
-    } else if (currentDocId && currentDocId !== latestMatchingDocument.id) {
-      router.replace(
-        route.path.replace(String(currentDocId), String(latestMatchingDocument.id))
-      )
-    }
-  },
-  { deep: true }
-)
+  if (!latestDoc?.id) return
 
+  if (route.path.includes('/ajouter/')) {
+    router.replace(route.path.replace('ajouter', String(latestDoc.id)))
+  } else if (currentDocId) {
+    router.replace(route.path.replace(String(currentDocId), String(latestDoc.id)))
+  }
+}
 
 function validateSum(input: string) {
   if (!input) return 'field-required'

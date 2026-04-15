@@ -56,6 +56,8 @@ import { useDocumentFormKey } from '../documents/documentFormState'
 import { type DocumentSubCategory } from '../documents/share/DocumentTypeConstants'
 import { toast } from '../toast/toastUtils'
 
+const emit = defineEmits<{ saved: [] }>()
+
 const props = withDefaults(
   defineProps<{
     docCategory: DocumentCategory
@@ -180,6 +182,7 @@ async function save(): Promise<boolean> {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
       toast.success(t('file-saved'), fileUpload.value?.inputFile)
+      emit('saved')
       return true
     })
     .catch((err) => {
