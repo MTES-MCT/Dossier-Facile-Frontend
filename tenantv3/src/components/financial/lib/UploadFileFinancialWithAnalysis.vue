@@ -141,7 +141,7 @@ provide(documentFormKey, {
   userId: state.userId ?? store.user.id,
   addData(formData) {
     const d = document.value
-    formData.append('monthlySum', Math.trunc(d.monthlySum || 0).toString())
+    formData.append('monthlySum', Math.trunc(parsedMonthlySum.value).toString())
     formData.append('customText', d.customText || '')
     formData.append('noDocument', d.noDocument ? 'true' : 'false')
     if (d.id) {
@@ -156,6 +156,7 @@ const { errors, defineField, handleSubmit } = useForm({
   validationSchema: { sum: validateSum }
 })
 const [sum, sumAttr] = defineField('sum')
+const parsedMonthlySum = computed(() => Number(sum.value.replaceAll(/\s+/g, '')) || 0)
 
 let monthlySumChanged = false
 
@@ -163,7 +164,6 @@ const inputSum = computed({
   get: () => sum.value,
   set(val) {
     sum.value = val
-    document.value.monthlySum = Number(sum.value.replaceAll(/\s+/g, '')) || 0
     showFiles.value = true
     monthlySumChanged = true
   }
@@ -196,17 +196,6 @@ watch(
   { deep: true }
 )
 
-watch(
-  () => document.value.monthlySum,
-  (monthlySum) => {
-    const nextSum = monthlySum?.toString() || ''
-    if (sum.value !== nextSum) {
-      sum.value = nextSum
-    }
-    showFiles.value = Boolean(monthlySum)
-  },
-  { immediate: true }
-)
 
 function validateSum(input: string) {
   if (!input) return 'field-required'
@@ -226,7 +215,7 @@ function makeNewDocument() {
 }
 
 function beforeUploadSave() {
-  const currentSum = document.value.monthlySum || 0
+  const currentSum = parsedMonthlySum.value
   if (currentSum <= 0) {
     toast.error(t('valid-monthly-sum'), inputSumElt.value)
     return false
@@ -244,7 +233,7 @@ async function saveMonthlySumOnly() {
   formData.append('categoryStep', financialDocument.documentCategoryStep || '')
   formData.append('noDocument', financialDocument.noDocument ? 'true' : 'false')
   formData.append('customText', financialDocument.customText || '')
-  formData.append('monthlySum', Math.trunc(financialDocument.monthlySum || 0).toString())
+  formData.append('monthlySum', Math.trunc(parsedMonthlySum.value).toString())
   state.addData?.(formData)
   await store[state.action](formData)
   monthlySumChanged = false
