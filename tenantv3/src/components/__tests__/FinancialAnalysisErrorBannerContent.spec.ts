@@ -32,7 +32,12 @@ const globalStubs = {
 
 function mountComponent(rule: DocumentRule) {
   return mount(FinancialAnalysisErrorBannerContent, {
-    props: { rule, index: 0 },
+    props: {
+      rule,
+      index: 0,
+      notMatchingLabel: 'not matching',
+      explainLinkLabel: 'explain'
+    },
     global: {
       stubs: globalStubs,
       plugins: [i18n]
