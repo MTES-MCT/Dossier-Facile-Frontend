@@ -34,6 +34,7 @@
         :max-file-count="10"
         :analysis-in-progress="analysisWrapper?.analysisInProgress ?? false"
         :before-save="beforeUploadSave"
+        :before-open="beforeUploadOpen"
         @saved="onFileSaved"
       />
     </template>
@@ -151,7 +152,7 @@ provide(documentFormKey, {
   }
 })
 
-const { errors, defineField, handleSubmit } = useForm({
+const { errors, defineField, handleSubmit, validate } = useForm({
   initialValues: { sum: document.value.monthlySum?.toString() || '' },
   validationSchema: { sum: validateSum }
 })
@@ -207,10 +208,17 @@ function makeNewDocument() {
   return doc
 }
 
+function beforeUploadOpen() {
+  if (parsedMonthlySum.value > 0) return true
+  validate()
+  inputSumElt.value?.focus()
+  return false
+}
+
 function beforeUploadSave() {
-  const currentSum = parsedMonthlySum.value
-  if (currentSum <= 0) {
-    toast.error(t('valid-monthly-sum'), inputSumElt.value)
+  if (parsedMonthlySum.value <= 0) {
+    validate()
+    inputSumElt.value?.focus()
     return false
   }
   return true
@@ -256,7 +264,9 @@ async function submit() {
   await goNext()
 }
 
-const onSubmit = handleSubmit(submit)
+const onSubmit = handleSubmit(submit, () => {
+  inputSumElt.value?.focus()
+})
 
 async function onAnalysisFooterSubmit() {
   await analysisWrapper.value?.saveExplanation()
