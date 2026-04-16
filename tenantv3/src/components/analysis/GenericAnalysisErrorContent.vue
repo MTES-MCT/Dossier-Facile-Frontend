@@ -7,17 +7,25 @@
     <div class="banner-description">
       <div class="expected-doc">
         <p class="doc-label">{{ expectedDocumentLabel }}</p>
-        <div v-for="(line, i) in expectedLines" :key="'expected-' + i" class="doc-line">
-          <VIcon name="ri:check-line" :scale="1.25" color="#18753c" />
-          <span class="success-text">{{ line }}</span>
-        </div>
+        <BannerIconTextLine
+          v-for="(line, i) in expectedLines"
+          :key="'expected-' + i"
+          icon-name="ri:check-line"
+          icon-color="#18753c"
+          :text="line"
+          text-class="success-text"
+        />
       </div>
       <div class="current-doc">
         <p class="doc-label">{{ currentDocumentLabel }}</p>
-        <div v-for="(line, i) in currentLines" :key="'extracted-' + i" class="doc-line">
-          <VIcon name="ri:close-line" :scale="1.25" color="#b34000" />
-          <span class="error-text">{{ line }}</span>
-        </div>
+        <BannerIconTextLine
+          v-for="(line, i) in currentLines"
+          :key="'extracted-' + i"
+          icon-name="ri:close-line"
+          icon-color="#b34000"
+          :text="line"
+          text-class="error-text"
+        />
       </div>
     </div>
     <p class="explain-link-text">
@@ -31,6 +39,7 @@
 
 <script setup lang="ts">
 import { VIcon } from '@gouvminint/vue-dsfr'
+import BannerIconTextLine from './BannerIconTextLine.vue'
 
 defineProps<{
   title: string
@@ -48,60 +57,13 @@ const emit = defineEmits<{
 </script>
 
 <style scoped>
-.banner-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-
-.banner-title {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-.title-text {
-  font-weight: 700;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: #b34000;
-}
-
-.banner-description {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.doc-label {
-  font-weight: 700;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: #161616;
-  margin: 0;
-}
-
-.current-doc,
-.expected-doc {
-  display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
-}
-
-.doc-line {
-  display: flex;
-  align-items: flex-start;
-}
+@import './analysisBannerLayout.css';
 
 .error-text {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
   color: #b34000;
 }
 
 .success-text {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
   color: #18753c;
 }
 

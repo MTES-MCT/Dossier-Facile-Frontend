@@ -1,12 +1,16 @@
 <template>
-  <div v-for="(month, index) in formattedMissingMonthList" :key="index" class="missing-month-line">
-    <VIcon name="ri:information-line" :scale="1.25" color="#000091" />
-    <span class="missing-month-text fr-ml-1w">{{ month }}</span>
-  </div>
+  <BannerIconTextLine
+    v-for="(month, index) in formattedMissingMonthList"
+    :key="index"
+    icon-name="ri:information-line"
+    icon-color="#000091"
+    :text="month"
+    text-class="missing-month-text"
+  />
 </template>
 
 <script setup lang="ts">
-import { VIcon } from '@gouvminint/vue-dsfr'
+import BannerIconTextLine from '@/components/analysis/BannerIconTextLine.vue'
 import { formatYearMonth } from 'df-shared-next/src/services/UtilsService'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -28,14 +32,7 @@ const formattedMissingMonthList = computed(() =>
 </script>
 
 <style scoped>
-.missing-month-line {
-  display: flex;
-  align-items: flex-start;
-}
-
 .missing-month-text {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
   color: #000091;
 }
 </style>

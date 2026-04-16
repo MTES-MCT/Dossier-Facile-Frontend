@@ -28,16 +28,21 @@
     <div class="banner-description">
       <div class="current-doc">
         <p class="doc-label">{{ getSecondTitle() }}</p>
-        <div v-for="(line, i) in getListOfErrors()" :key="'extracted-' + i" class="doc-line">
-          <VIcon class="doc-line-icon" name="ri:close-line" :scale="1.25" color="#b34000" />
-          <span class="error-text fr-ml-1w">{{ line }}</span>
-        </div>
+        <BannerIconTextLine
+          v-for="(line, i) in getListOfErrors()"
+          :key="'extracted-' + i"
+          icon-name="ri:close-line"
+          icon-color="#b34000"
+          :text="line"
+          text-class="error-text"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import BannerIconTextLine from '@/components/analysis/BannerIconTextLine.vue'
 import { VIcon } from '@gouvminint/vue-dsfr'
 import { formatYearMonth } from 'df-shared-next/src/services/UtilsService'
 import type {
@@ -97,7 +102,7 @@ function getTitle(): string {
   ) {
     return t('payslip-continuity.title')
   } else {
-    return 'poeut'
+    return props.rule.message
   }
 }
 
@@ -118,7 +123,7 @@ function getFirstSubTitle(): string {
   ) {
     return t('payslip-continuity.sub-title-one')
   } else {
-    return 'poeut'
+    return t('payslip-continuity.sub-title-one')
   }
 }
 
@@ -151,7 +156,7 @@ function getSecondTitle(): string {
     const count = getListOfErrors().length
     return t('payslip-continuity.sub-title-two', { count }, count)
   } else {
-    return 'poeut'
+    return t('bad-classification.sub-title-two')
   }
 }
 
@@ -233,79 +238,10 @@ function formatFrenchMonthWithPreposition(formattedMonth: string): string {
 </script>
 
 <style scoped>
-.banner-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-
-.banner-title {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-.title-text {
-  font-weight: 700;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: #b34000;
-}
-
-.banner-description {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.doc-label {
-  font-weight: 700;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: #161616;
-  margin: 0;
-}
-
-.current-doc,
-.expected-doc {
-  display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
-}
-
-.doc-line {
-  display: flex;
-  align-items: flex-start;
-}
-
-.doc-line-icon {
-  flex-shrink: 0;
-}
+@import '../../../analysis/analysisBannerLayout.css';
 
 .error-text {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
   color: #b34000;
-}
-
-.explain-link-text {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: #161616;
-  margin: 0.75rem 0 0;
-}
-
-.explain-link {
-  color: #161616;
-  text-decoration: underline;
-  font-weight: 400;
-  font-family: inherit;
-  font-size: inherit;
-  background: none;
-  background-image: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
 }
 </style>
 
@@ -325,7 +261,7 @@ function formatFrenchMonthWithPreposition(formattedMonth: string): string {
       "error-line-missing-name": "{fileName}: this document does not have the expected name"
     },
     "payslip-continuity": {
-      "title": "Incorrect payslips",
+      "title": "Missing payslips",
       "sub-title-one": "Expected documents",
       "sub-title-missing": "Missing documents",
       "sub-title-two": "No current document | Current document | Current documents",
@@ -347,7 +283,7 @@ function formatFrenchMonthWithPreposition(formattedMonth: string): string {
       "error-line-missing-name": "{fileName} : ce document n'a pas le nom attendu"
     },
     "payslip-continuity": {
-      "title": "Bulletins de salaire incorrects",
+      "title": "Bulletins de salaire manquants",
       "sub-title-one": "Documents attendus",
       "sub-title-missing": "Documents manquants",
       "sub-title-two": "Aucun document actuel | Document actuel | Documents actuels",
