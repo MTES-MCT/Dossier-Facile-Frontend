@@ -20,7 +20,7 @@
   <AnalysisWrapper
     ref="analysis-wrapper"
     :is-uploading="uploadFileWithAnalysisRef?.isUploading ?? false"
-    :polling-timeout-ms="20000"
+    :polling-timeout-ms="30000"
   >
     <template #analysisBannerError="{ rule, index }">
       <FinancialAnalysisErrorBannerContent :rule="rule" :index="index" />
