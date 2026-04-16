@@ -15,9 +15,9 @@
         v-bind="{
           rule,
           index,
-          title: getRuleTitle(rule.rule),
-          currentLines: getCurrentDocLines(rule),
-          expectedLines: getExpectedDocLines(rule)
+          notMatchingLabel: t('not-matching'),
+          explainLinkLabel: t('explain-link'),
+          onExplain: () => emit('explain')
         }"
       >
         <GenericAnalysisErrorContent

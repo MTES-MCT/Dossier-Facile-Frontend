@@ -38,6 +38,12 @@
         />
       </div>
     </div>
+    <p class="explain-link-text">
+      {{ notMatchingLabel }}
+      <button type="button" class="explain-link" @click="emit('explain')">
+        {{ explainLinkLabel }}
+      </button>
+    </p>
   </div>
 </template>
 
@@ -63,6 +69,12 @@ import MonthDescription from './MonthDescription.vue'
 const props = defineProps<{
   rule: DocumentRule
   index: number
+  notMatchingLabel: string
+  explainLinkLabel: string
+}>()
+
+const emit = defineEmits<{
+  explain: []
 }>()
 
 const { t, locale } = useI18n()

@@ -22,8 +22,14 @@
     :is-uploading="uploadFileWithAnalysisRef?.isUploading ?? false"
     :polling-timeout-ms="30000"
   >
-    <template #analysisBannerError="{ rule, index }">
-      <FinancialAnalysisErrorBannerContent :rule="rule" :index="index" />
+    <template #analysisBannerError="{ rule, index, notMatchingLabel, explainLinkLabel, onExplain }">
+      <FinancialAnalysisErrorBannerContent
+        :rule="rule"
+        :index="index"
+        :not-matching-label="notMatchingLabel"
+        :explain-link-label="explainLinkLabel"
+        @explain="onExplain"
+      />
     </template>
     <template #fileUploader>
       <UploadFileWithAnalysis
@@ -72,8 +78,8 @@ import { useTenantStore } from '@/stores/tenant-store'
 import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import { computed, provide, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { useForm } from 'vee-validate'
+import { computed, provide, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useFinancialState } from '../financialState'
