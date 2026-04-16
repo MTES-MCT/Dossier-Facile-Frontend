@@ -20,8 +20,11 @@
   <AnalysisWrapper
     ref="analysis-wrapper"
     :is-uploading="uploadFileWithAnalysisRef?.isUploading ?? false"
-    :polling-timeout-ms="20000"
+    :polling-timeout-ms="30000"
   >
+    <template #analysisBannerError="{ rule, index }">
+      <FinancialAnalysisErrorBannerContent :rule="rule" :index="index" />
+    </template>
     <template #fileUploader>
       <UploadFileWithAnalysis
         ref="upload-file-with-analysis"
@@ -60,6 +63,7 @@
 import AnalysisWrapper from '@/components/analysis/AnalysisWrapper.vue'
 import UploadFileWithAnalysis from '@/components/analysis/UploadFileWithAnalysis.vue'
 import { documentFormKey } from '@/components/documents/documentFormState'
+import type { FinancialCategory } from '@/components/documents/share/DocumentTypeConstants'
 import AnalysisFooter from '@/components/footer/AnalysisFooter.vue'
 import { toast } from '@/components/toast/toastUtils'
 import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
@@ -73,7 +77,7 @@ import { useForm } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useFinancialState } from '../financialState'
-import type { FinancialCategory } from '@/components/documents/share/DocumentTypeConstants'
+import FinancialAnalysisErrorBannerContent from './analysisBanner/FinancialAnalysisErrorBannerContent.vue'
 
 const props = withDefaults(
   defineProps<{

@@ -13,7 +13,11 @@
     :document="document"
     class="fr-mb-3w"
     @explain="openExplainSection()"
-  />
+  >
+    <template #errorContent="slotProps">
+      <slot name="analysisBannerError" v-bind="slotProps" />
+    </template>
+  </AnalysisBanners>
   <slot name="fileUploader" />
   <div v-if="analysisFailedRules.length > 0" class="explain-section">
     <div class="separator">
