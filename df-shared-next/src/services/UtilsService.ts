@@ -25,7 +25,8 @@ export function generatePasswordPlaceholder() {
 
 export function formatYearMonth(value: string, locale: string): string {
   const normalizedValue = value.trim()
-  const match = normalizedValue.match(/^(\d{4})-(\d{2})$/)
+  const yearMonthPattern = /^(\d{4})-(\d{2})$/
+  const match = yearMonthPattern.exec(normalizedValue)
   if (!match) {
     return value
   }
