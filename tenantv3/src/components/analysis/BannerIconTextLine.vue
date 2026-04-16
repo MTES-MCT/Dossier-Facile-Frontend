@@ -36,6 +36,7 @@ withDefaults(
 .banner-icon-text-line {
   display: flex;
   align-items: flex-start;
+  min-width: 0;
 }
 
 .banner-icon-text-line__icon {
@@ -43,7 +44,10 @@ withDefaults(
 }
 
 .banner-icon-text-line__text {
+  min-width: 0;
   font-size: 0.875rem;
   line-height: 1.5rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 </style>
