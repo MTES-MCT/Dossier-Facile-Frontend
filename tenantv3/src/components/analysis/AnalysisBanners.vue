@@ -8,48 +8,34 @@
     class="analysis-banners"
   >
     <li v-for="(rule, index) in failedRules" :key="index" class="analysis-banner">
-      <div class="banner-content">
-        <div class="banner-title">
-          <VIcon name="ri:alert-fill" :scale="1.25" color="#b34000" />
-          <span class="title-text">{{ getRuleTitle(rule.rule) }}</span>
-        </div>
-        <div class="banner-description">
-          <div class="current-doc">
-            <p class="doc-label">{{ t('current-document') }}</p>
-            <div
-              v-for="(line, i) in getCurrentDocLines(rule)"
-              :key="'extracted-' + i"
-              class="doc-line"
-            >
-              <VIcon name="ri:close-line" :scale="1.25" color="#b34000" />
-              <span class="error-text">{{ line }}</span>
-            </div>
-          </div>
-          <div class="expected-doc">
-            <p class="doc-label">{{ t('expected-document') }}</p>
-            <div
-              v-for="(line, i) in getExpectedDocLines(rule)"
-              :key="'expected-' + i"
-              class="doc-line"
-            >
-              <VIcon name="ri:check-line" :scale="1.25" color="#18753c" />
-              <span class="success-text">{{ line }}</span>
-            </div>
-          </div>
-        </div>
-        <p class="explain-link-text">
-          {{ t('not-matching') }}
-          <button type="button" class="explain-link" @click="emit('explain')">
-            {{ t('explain-link') }}
-          </button>
-        </p>
-      </div>
+      <!-- Fallback content if no custom slot is provided by parent -->
+      <!-- Look  UploadFileFinancialWithAnalysis for custom use -->
+      <slot
+        name="errorContent"
+        v-bind="{
+          rule,
+          index,
+          title: getRuleTitle(rule.rule),
+          currentLines: getCurrentDocLines(rule),
+          expectedLines: getExpectedDocLines(rule)
+        }"
+      >
+        <GenericAnalysisErrorContent
+          :title="getRuleTitle(rule.rule)"
+          :current-lines="getCurrentDocLines(rule)"
+          :expected-lines="getExpectedDocLines(rule)"
+          :current-document-label="t('current-document')"
+          :expected-document-label="t('expected-document')"
+          :not-matching-label="t('not-matching')"
+          :explain-link-label="t('explain-link')"
+          @explain="emit('explain')"
+        />
+      </slot>
     </li>
   </ol>
 </template>
 
 <script setup lang="ts">
-import { VIcon } from '@gouvminint/vue-dsfr'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
 import dayjs from 'dayjs'
@@ -57,6 +43,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import 'dayjs/locale/fr'
 import { useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import GenericAnalysisErrorContent from './GenericAnalysisErrorContent.vue'
 
 dayjs.extend(customParseFormat)
 
@@ -88,7 +75,8 @@ const ruleTitleMap: Record<string, string> = {
   R_VISALE_CERTIFICATE_NAME_MATCH: 'rules.names.title',
   R_VISALE_CERTIFICATE_EXPIRATION: 'rules.expiration.title',
   R_PAYSLIP_NAME_MATCH: 'rules.names.title',
-  R_PAYSLIP_CONTINUITY: 'rules.payslip-continuity.title'
+  R_PAYSLIP_CONTINUITY: 'rules.payslip-continuity.title',
+  R_PAYSLIP_CLASSIFICATION: 'rules.bad-classification.title'
 }
 
 function getRuleTitle(rule: string): string {
@@ -122,19 +110,12 @@ function getCurrentDocLines(rule: DocumentRule): string[] {
       return data.extractedNames.map((n) => getRNameMessage(rule.rule, n, false))
     case 'R_TAX_NAMES':
       return data.extractedIdentities.map((n) => t('rules.names.tax.current', { name: n }))
-    case 'R_PAYSLIP_NAMES':
-      return data.extractedIdentities.map((n) => t('rules.names.payslip.current', { name: n }))
     case 'R_TAX_YEARS':
       return data.extractedYears.map((y) =>
         t('rules.tax-wrong-year.current', { taxYear: y + 1, incomeYear: y })
       )
     case 'R_EXPIRATION':
       return [t('rules.expiration.current', { date: formatDate(data.extractedDate) })]
-    case 'R_PAYSLIP_CONTINUITY': {
-      return data.extractedMonthList.map((ym) =>
-        t('rules.payslip-continuity.current-month', { month: formatYearMonth(ym) })
-      )
-    }
     default:
       return [rule.message]
   }
@@ -168,14 +149,6 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
       ]
     case 'R_EXPIRATION':
       return [t('rules.expiration.expected')]
-    case 'R_PAYSLIP_CONTINUITY': {
-      return [
-        t('rules.payslip-continuity.expected-lead'),
-        ...data.expectedMonthList.map((ym) =>
-          t('rules.payslip-continuity.expected-month', { month: formatYearMonth(ym) })
-        )
-      ]
-    }
     default:
       return [rule.message]
   }
@@ -188,12 +161,6 @@ function getExpectedClassification(): string {
   }
   if (documentSubCategory === 'VISALE') {
     return t('rules.bad-classification.visale.expected')
-  }
-  if (
-    documentSubCategory === 'SALARY' &&
-    props.document?.documentCategoryStep === 'SALARY_EMPLOYED_MORE_3_MONTHS'
-  ) {
-    return t('rules.bad-classification.payslip.expected')
   }
   return t('rules.bad-classification.current-other')
 }
@@ -215,16 +182,6 @@ function getNameRuleNamespace(rule: string): 'tax' | 'visale' | 'payslip' {
     return 'payslip'
   }
   return 'tax'
-}
-
-function formatYearMonth(value: string): string {
-  const normalizedValue = value.trim()
-  // Strict parsing rejects semantically invalid dates like 2024-13
-  const parsed = dayjs(normalizedValue, 'YYYY-MM', true)
-  if (!parsed.isValid()) {
-    return value
-  }
-  return parsed.locale(locale.value).format('MMMM YYYY')
 }
 
 function formatDate(value: string): string {
@@ -255,83 +212,6 @@ function formatDate(value: string): string {
   background-color: #ffe9e6;
   padding: 1rem;
 }
-
-.banner-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-
-.banner-title {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-.title-text {
-  font-weight: 700;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: #b34000;
-}
-
-.banner-description {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.doc-label {
-  font-weight: 700;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: #161616;
-  margin: 0;
-}
-
-.current-doc,
-.expected-doc {
-  display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
-}
-
-.doc-line {
-  display: flex;
-  align-items: flex-start;
-}
-
-.error-text {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: #b34000;
-}
-
-.success-text {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: #18753c;
-}
-
-.explain-link-text {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: #161616;
-  margin: 0.75rem 0 0;
-}
-
-.explain-link {
-  color: #161616;
-  text-decoration: underline;
-  font-weight: 400;
-  font-family: inherit;
-  font-size: inherit;
-  background: none;
-  background-image: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
 </style>
 
 <i18n lang="json">
@@ -349,9 +229,6 @@ function formatDate(value: string): string {
         "visale": {
           "expected": "Visale certificate"
         },
-        "payslip": {
-          "expected": "Pay slip"
-        },
         "tax": {
           "current-declarative": "Declarative situation notice for income tax",
           "expected": "Tax notice or non-taxation notice"
@@ -366,17 +243,7 @@ function formatDate(value: string): string {
         "visale": {
           "current": "Visale certificate in the name of {name}",
           "expected": "Visale certificate in the name of {name}"
-        },
-        "payslip": {
-          "current": "Pay slip in the name of {name}",
-          "expected": "Pay slip in the name of {name}"
         }
-      },
-      "payslip-continuity": {
-        "title": "Pay slips are not consecutive",
-        "current-month": "Pay slip for {month}",
-        "expected-lead": "3 consecutive pay slips among the following months:",
-        "expected-month": "{month}"
       },
       "tax-wrong-year": {
         "title": "Tax notice too old",
@@ -409,9 +276,6 @@ function formatDate(value: string): string {
         "visale": {
           "expected": "Certificat Visale"
         },
-        "payslip": {
-          "expected": "Bulletin de salaire"
-        },
         "current-other": "Autre document non conforme"
       },
       "names": {
@@ -423,17 +287,7 @@ function formatDate(value: string): string {
         "visale": {
           "current": "Attestation Visale au nom de {name}",
           "expected": "Attestation Visale au nom de {name}"
-        },
-        "payslip": {
-          "current": "Bulletin de salaire au nom de {name}",
-          "expected": "Bulletin de salaire au nom de {name}"
         }
-      },
-      "payslip-continuity": {
-        "title": "Les bulletins de salaire ne sont pas consécutifs",
-        "current-month": "Bulletin de salaire pour {month}",
-        "expected-lead": "3 bulletins de salaire consécutifs parmi les mois suivants :",
-        "expected-month": "{month}"
       },
       "tax-wrong-year": {
         "title": "Avis d'imposition trop ancien",

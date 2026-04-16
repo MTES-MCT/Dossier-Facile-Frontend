@@ -1,0 +1,359 @@
+<template>
+  <div class="banner-content">
+    <div class="banner-title">
+      <VIcon name="ri:alert-fill" :scale="1.25" color="#b34000" />
+      <span class="title-text">{{ getTitle() }}</span>
+    </div>
+    <div class="banner-description">
+      <div class="current-doc">
+        <p class="doc-label">{{ getFirstSubTitle() }}</p>
+      </div>
+      <div class="expected-doc">
+        <MonthDescription
+          v-if="hasToDisplayMonthDescription()"
+          :expected-month-list="getExpectedMonthList()"
+        />
+        <IdentityDescription
+          v-if="hasToDisplayIdentityDescription()"
+          :expected-name="getExpectedName()"
+        />
+      </div>
+    </div>
+    <div v-if="hasToDisplayMissingMonthDescription()" class="banner-description">
+      <div class="current-doc">
+        <p class="doc-label">{{ getMissingDocumentsTitle() }}</p>
+        <MissingMonthDescription :missing-month-list="getMissingMonthList()" />
+      </div>
+    </div>
+    <div class="banner-description">
+      <div class="current-doc">
+        <p class="doc-label">{{ getSecondTitle() }}</p>
+        <div v-for="(line, i) in getListOfErrors()" :key="'extracted-' + i" class="doc-line">
+          <VIcon class="doc-line-icon" name="ri:close-line" :scale="1.25" color="#b34000" />
+          <span class="error-text fr-ml-1w">{{ line }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { VIcon } from '@gouvminint/vue-dsfr'
+import { formatYearMonth } from 'df-shared-next/src/services/UtilsService'
+import type {
+  DocumentRule,
+  PayslipClassificationEntry,
+  PayslipContinuityEntry,
+  Name
+} from 'df-shared-next/src/models/DocumentRule'
+import { useI18n } from 'vue-i18n'
+import IdentityDescription from './IdentityDescription.vue'
+import MonthDescription from './MonthDescription.vue'
+import MissingMonthDescription from './MissingMonthDescription.vue'
+
+const props = defineProps<{
+  rule: DocumentRule
+  index: number
+}>()
+
+const { t, locale } = useI18n()
+
+function hasToDisplayMonthDescription(): boolean {
+  return (
+    (props.rule.rule === 'R_PAYSLIP_CONTINUITY' &&
+      props.rule.ruleData?.type === 'R_PAYSLIP_CONTINUITY') ||
+    (props.rule.rule === 'R_DOCUMENT_IA_CLASSIFICATION' &&
+      props.rule.ruleData?.type === 'R_PAYSLIP_CLASSIFICATION')
+  )
+}
+
+function hasToDisplayIdentityDescription(): boolean {
+  return (
+    props.rule.rule === 'R_PAYSLIP_NAME_MATCH' && props.rule.ruleData?.type === 'R_PAYSLIP_NAMES'
+  )
+}
+
+function hasToDisplayMissingMonthDescription(): boolean {
+  return (
+    props.rule.rule === 'R_PAYSLIP_CONTINUITY' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_CONTINUITY'
+  )
+}
+
+function getTitle(): string {
+  if (
+    props.rule.rule === 'R_DOCUMENT_IA_CLASSIFICATION' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_CLASSIFICATION'
+  ) {
+    return t('bad-classification.title')
+  } else if (
+    props.rule.rule === 'R_PAYSLIP_NAME_MATCH' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_NAMES'
+  ) {
+    return t('payslip-name-match.title')
+  } else if (
+    props.rule.rule === 'R_PAYSLIP_CONTINUITY' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_CONTINUITY'
+  ) {
+    return t('payslip-continuity.title')
+  } else {
+    return 'poeut'
+  }
+}
+
+function getFirstSubTitle(): string {
+  if (
+    props.rule.rule === 'R_DOCUMENT_IA_CLASSIFICATION' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_CLASSIFICATION'
+  ) {
+    return t('bad-classification.sub-title-one')
+  } else if (
+    props.rule.rule === 'R_PAYSLIP_NAME_MATCH' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_NAMES'
+  ) {
+    return t('payslip-name-match.sub-title-one')
+  } else if (
+    props.rule.rule === 'R_PAYSLIP_CONTINUITY' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_CONTINUITY'
+  ) {
+    return t('payslip-continuity.sub-title-one')
+  } else {
+    return 'poeut'
+  }
+}
+
+function getMissingDocumentsTitle(): string {
+  if (
+    props.rule.rule === 'R_PAYSLIP_CONTINUITY' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_CONTINUITY'
+  ) {
+    return t('payslip-continuity.sub-title-missing')
+  }
+  return ''
+}
+
+function getSecondTitle(): string {
+  if (
+    props.rule.rule === 'R_DOCUMENT_IA_CLASSIFICATION' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_CLASSIFICATION'
+  ) {
+    return t('bad-classification.sub-title-two')
+  } else if (
+    props.rule.rule === 'R_PAYSLIP_NAME_MATCH' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_NAMES'
+  ) {
+    const count = getListOfErrors().length
+    return t('payslip-name-match.sub-title-two', { count }, count)
+  } else if (
+    props.rule.rule === 'R_PAYSLIP_CONTINUITY' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_CONTINUITY'
+  ) {
+    const count = getListOfErrors().length
+    return t('payslip-continuity.sub-title-two', { count }, count)
+  } else {
+    return 'poeut'
+  }
+}
+
+function getExpectedMonthList(): string[] {
+  const ruleData = props.rule.ruleData as
+    | { expectedMonthList?: string[]; expectedMonths?: string[] }
+    | undefined
+  return ruleData?.expectedMonthList ?? ruleData?.expectedMonths ?? []
+}
+
+function getMissingMonthList(): string[] {
+  if (props.rule.ruleData?.type !== 'R_PAYSLIP_CONTINUITY') {
+    return []
+  }
+  return props.rule.ruleData.missingMonthList ?? []
+}
+
+function getExpectedName(): Name | undefined {
+  if (props.rule.ruleData?.type !== 'R_PAYSLIP_NAMES') {
+    return undefined
+  }
+  return props.rule.ruleData.expectedName
+}
+
+function getListOfErrors(): string[] {
+  if (
+    props.rule.rule === 'R_DOCUMENT_IA_CLASSIFICATION' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_CLASSIFICATION'
+  ) {
+    return (
+      props.rule.ruleData?.entriesInError.map(
+        (entry: PayslipClassificationEntry) => entry.fileName
+      ) ?? []
+    )
+  } else if (
+    props.rule.rule === 'R_PAYSLIP_NAME_MATCH' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_NAMES'
+  ) {
+    return props.rule.ruleData.payslipEntriesInError.map((entry) => {
+      if (entry.extractedName) {
+        return t('payslip-name-match.error-line-with-name', {
+          fileName: entry.fileName,
+          extractedName: entry.extractedName
+        })
+      }
+      return t('payslip-name-match.error-line-missing-name', {
+        fileName: entry.fileName
+      })
+    })
+  } else if (
+    props.rule.rule === 'R_PAYSLIP_CONTINUITY' &&
+    props.rule.ruleData?.type === 'R_PAYSLIP_CONTINUITY'
+  ) {
+    return props.rule.ruleData.payslipEntriesInError.map((entry: PayslipContinuityEntry) => {
+      if (entry.extractedMonth) {
+        const month = formatYearMonth(entry.extractedMonth, locale.value)
+        return t('payslip-continuity.error-line-with-month', {
+          fileName: entry.fileName,
+          month,
+          monthWithPrep: formatFrenchMonthWithPreposition(month)
+        })
+      }
+      return t('payslip-continuity.error-line-not-payslip', {
+        fileName: entry.fileName
+      })
+    })
+  } else {
+    return []
+  }
+}
+
+function formatFrenchMonthWithPreposition(formattedMonth: string): string {
+  if (!locale.value.startsWith('fr')) {
+    return formattedMonth
+  }
+  const startsWithVowelSound = /^[aeiouyàâäæéèêëîïôœùûü]/i.test(formattedMonth)
+  return startsWithVowelSound ? `d'${formattedMonth}` : `de ${formattedMonth}`
+}
+</script>
+
+<style scoped>
+.banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.banner-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.title-text {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #b34000;
+}
+
+.banner-description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.doc-label {
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #161616;
+  margin: 0;
+}
+
+.current-doc,
+.expected-doc {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.doc-line {
+  display: flex;
+  align-items: flex-start;
+}
+
+.doc-line-icon {
+  flex-shrink: 0;
+}
+
+.error-text {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #b34000;
+}
+
+.explain-link-text {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #161616;
+  margin: 0.75rem 0 0;
+}
+
+.explain-link {
+  color: #161616;
+  text-decoration: underline;
+  font-weight: 400;
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
+  background-image: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+</style>
+
+<i18n lang="json">
+{
+  "en": {
+    "bad-classification": {
+      "title": "Incorrect document type",
+      "sub-title-one": "Documents to add",
+      "sub-title-two": "Documents à remplacer"
+    },
+    "payslip-name-match": {
+      "title": "Different identity on payslips",
+      "sub-title-one": "Expected identity",
+      "sub-title-two": "No current document | Current document | Current documents",
+      "error-line-with-name": "{fileName}: this document is in the name of {extractedName}",
+      "error-line-missing-name": "{fileName}: this document does not have the expected name"
+    },
+    "payslip-continuity": {
+      "title": "Incorrect payslips",
+      "sub-title-one": "Expected documents",
+      "sub-title-missing": "Missing documents",
+      "sub-title-two": "No current document | Current document | Current documents",
+      "error-line-with-month": "{fileName}: this document is from {month}",
+      "error-line-not-payslip": "{fileName}: this document is not a payslip"
+    }
+  },
+  "fr": {
+    "bad-classification": {
+      "title": "Type de document incorrect",
+      "sub-title-one": "Documents à ajouter",
+      "sub-title-two": "Documents à remplacer"
+    },
+    "payslip-name-match": {
+      "title": "Identité différente sur les bulletins",
+      "sub-title-one": "Identité attendue",
+      "sub-title-two": "Aucun document actuel | Document actuel | Documents actuels",
+      "error-line-with-name": "{fileName} : ce document est au nom de {extractedName}",
+      "error-line-missing-name": "{fileName} : ce document n'a pas le nom attendu"
+    },
+    "payslip-continuity": {
+      "title": "Bulletins de salaire incorrects",
+      "sub-title-one": "Documents attendus",
+      "sub-title-missing": "Documents manquants",
+      "sub-title-two": "Aucun document actuel | Document actuel | Documents actuels",
+      "error-line-with-month": "{fileName} : ce document est {monthWithPrep}",
+      "error-line-not-payslip": "{fileName} : ce document n'est pas un bulletin de salaire"
+    }
+  }
+}
+</i18n>
