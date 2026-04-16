@@ -14,7 +14,8 @@
     "cypress-axe": "1.7.0",
     "cypress-wait-until": "3.0.2",
     "df-shared-next": "workspace:*",
-    "owner": "workspace:*"
+    "owner": "workspace:*",
+    "pdf-lib": "1.17.1"
   },
   "devDependencies": {
     "typescript": "5.8.3"
