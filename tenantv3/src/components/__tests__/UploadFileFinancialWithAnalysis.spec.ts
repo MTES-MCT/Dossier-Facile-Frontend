@@ -8,6 +8,9 @@ type InternalSetup = {
   beforeUploadSave: () => boolean
   submit: () => Promise<void>
   isModalOpened: boolean
+  inputSum: string
+  parsedMonthlySum: number
+  onFileSaved: () => void
 }
 function setup(wrapper: VueWrapper): InternalSetup {
   return (wrapper.vm.$ as unknown as { setupState: InternalSetup }).setupState
@@ -217,35 +220,34 @@ describe('UploadFileFinancialWithAnalysis', () => {
     })
   })
 
-  describe('watch on documents – route update on ID change', () => {
-    it('replaces docId in route when store document ID changes', async () => {
-      mockRoute.params = { docId: '791' }
-      mockRoute.path = '/documents-locataire/4/791/travail/salarie/plus-3-mois'
-      mockDocuments.value = [makeDocument({ id: 791 })]
-
-      mountComponent()
-      await flushPromises()
-
-      mockDocuments.value = [makeDocument({ id: 792 })]
-      await flushPromises()
-
-      expect(mockReplace).toHaveBeenCalledWith(
-        '/documents-locataire/4/792/travail/salarie/plus-3-mois'
-      )
-    })
-
-    it('still works for /ajouter/ routes (existing behavior)', async () => {
+  describe('onFileSaved – route update after upload', () => {
+    it('navigates from /ajouter/ to /{newId}/ after first upload', async () => {
       mockRoute.params = { docId: 'ajouter' }
       mockRoute.path = '/documents-locataire/4/ajouter/travail/salarie/plus-3-mois'
-
-      mountComponent()
-      await flushPromises()
-
       mockDocuments.value = [makeDocument({ id: 100 })]
+
+      const wrapper = mountComponent()
       await flushPromises()
+
+      setup(wrapper).onFileSaved()
 
       expect(mockReplace).toHaveBeenCalledWith(
         '/documents-locataire/4/100/travail/salarie/plus-3-mois'
+      )
+    })
+
+    it('navigates to new doc ID when backend recreated the document', async () => {
+      mockRoute.params = { docId: '791' }
+      mockRoute.path = '/documents-locataire/4/791/travail/salarie/plus-3-mois'
+      mockDocuments.value = [makeDocument({ id: 792 })]
+
+      const wrapper = mountComponent()
+      await flushPromises()
+
+      setup(wrapper).onFileSaved()
+
+      expect(mockReplace).toHaveBeenCalledWith(
+        '/documents-locataire/4/792/travail/salarie/plus-3-mois'
       )
     })
 
@@ -254,13 +256,59 @@ describe('UploadFileFinancialWithAnalysis', () => {
       mockRoute.path = '/documents-locataire/4/42/travail/salarie/plus-3-mois'
       mockDocuments.value = [makeDocument({ id: 42 })]
 
-      mountComponent()
+      const wrapper = mountComponent()
       await flushPromises()
 
-      mockDocuments.value = [makeDocument({ id: 42, monthlySum: 3000 })]
+      setup(wrapper).onFileSaved()
+
+      expect(mockReplace).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('delete last file – sum and document preserved', () => {
+    it('preserves monthlySum after the document disappears from the store', async () => {
+      mockRoute.params = { docId: 'ajouter' }
+      mockRoute.path = '/documents-locataire/4/ajouter/travail/salarie/plus-3-mois'
+      mockDocuments.value = []
+
+      const wrapper = mountComponent()
+      await flushPromises()
+
+      setup(wrapper).inputSum = '1500'
+      await flushPromises()
+
+      mockDocuments.value = [makeDocument({ id: 100, monthlySum: 1500 })]
+      mockRoute.params = { docId: '100' }
+      mockRoute.path = '/documents-locataire/4/100/travail/salarie/plus-3-mois'
+      await flushPromises()
+
+      mockDocuments.value = []
+      await flushPromises()
+
+      expect(setup(wrapper).parsedMonthlySum).toBe(1500)
+      expect(setup(wrapper).beforeUploadSave()).toBe(true)
+    })
+
+    it('does not switch to an older document when current document is deleted', async () => {
+      mockRoute.params = { docId: '823' }
+      mockRoute.path = '/documents-locataire/4/823/travail/salarie/plus-3-mois'
+      mockDocuments.value = [
+        makeDocument({ id: 821, monthlySum: 222 }),
+        makeDocument({ id: 823, monthlySum: 555 })
+      ]
+
+      const wrapper = mountComponent()
+      await flushPromises()
+
+      setup(wrapper).inputSum = '555'
+      await flushPromises()
+      mockReplace.mockClear()
+
+      mockDocuments.value = [makeDocument({ id: 821, monthlySum: 222 })]
       await flushPromises()
 
       expect(mockReplace).not.toHaveBeenCalled()
+      expect(setup(wrapper).parsedMonthlySum).toBe(555)
     })
   })
 })
