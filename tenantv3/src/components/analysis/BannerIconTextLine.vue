@@ -31,6 +31,8 @@ withDefaults(
 </script>
 
 <style scoped>
+@import './analysisBannerLayout.css';
+
 .banner-icon-text-line {
   display: flex;
   align-items: flex-start;

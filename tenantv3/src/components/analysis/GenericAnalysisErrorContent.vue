@@ -58,32 +58,4 @@ const emit = defineEmits<{
 
 <style scoped>
 @import './analysisBannerLayout.css';
-
-.error-text {
-  color: #b34000;
-}
-
-.success-text {
-  color: #18753c;
-}
-
-.explain-link-text {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: #161616;
-  margin: 0.75rem 0 0;
-}
-
-.explain-link {
-  color: #161616;
-  text-decoration: underline;
-  font-weight: 400;
-  font-family: inherit;
-  font-size: inherit;
-  background: none;
-  background-image: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
 </style>

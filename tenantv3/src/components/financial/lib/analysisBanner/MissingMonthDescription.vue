@@ -32,7 +32,5 @@ const formattedMissingMonthList = computed(() =>
 </script>
 
 <style scoped>
-.missing-month-text {
-  color: #000091;
-}
+@import '../../../analysis/analysisBannerLayout.css';
 </style>
