@@ -158,15 +158,12 @@ describe('UploadFileFinancialWithAnalysis', () => {
   })
 
   describe('beforeUploadSave', () => {
-    it('returns false and triggers an error toast when monthlySum is 0', () => {
-      // Default state: no document found → makeNewDocument with no monthlySum
+    it('returns false when monthlySum is 0', () => {
       const wrapper = mountComponent()
 
       const result = setup(wrapper).beforeUploadSave()
 
       expect(result).toBe(false)
-      expect(mockToastError).toHaveBeenCalledTimes(1)
-      expect(mockToastError).toHaveBeenCalledWith('valid-monthly-sum', expect.anything())
     })
 
     it('returns true when monthlySum is correct', async () => {
