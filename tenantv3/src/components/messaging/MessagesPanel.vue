@@ -41,7 +41,13 @@
 
     <hr class="fr-mb-3w" />
 
-    <form class="submit-form" name="form" @submit.prevent="handleSubmit">
+    <p v-if="isValidated" class="support-contact">
+      {{ t('validated-messaging-disabled') }}
+      {{ t('validated-support-prefix') }}
+      <RouterLink to="/contact">{{ t('support') }}</RouterLink
+      >.
+    </p>
+    <form v-else class="submit-form" name="form" @submit.prevent="handleSubmit">
       <h3 class="answer-title">{{ t('reply') }}</h3>
       <div class="fr-grid-row">
         <div class="fr-input-group fr-col-12">
@@ -81,6 +87,7 @@ import dayjs from 'dayjs'
 import ErrorWarningIcon from '@/assets/error-warning.svg?raw'
 import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
+import { RouterLink } from 'vue-router'
 dayjs.extend(isToday)
 dayjs.extend(isYesterday)
 
@@ -101,6 +108,7 @@ const messageList = computed(() => store.messageList)
 const allMessages = computed(() => messageList.value[props.tenant.id] ?? [])
 const messagesToDisplay = computed(() => allMessages.value.slice(0, nbOfMessages.value))
 const showNextMessageButton = computed(() => nbOfMessages.value < allMessages.value.length)
+const isValidated = computed(() => props.tenant.status === 'VALIDATED')
 
 let initialMessageCount = 0
 while (
@@ -260,6 +268,10 @@ const addIcons = (html: string | undefined) =>
   font-style: italic;
 }
 
+.support-contact {
+  margin-bottom: 2rem;
+}
+
 :deep(.custom-message) {
   list-style-type: none;
   padding: 0;
@@ -339,7 +351,10 @@ const addIcons = (html: string | undefined) =>
     "reply": "Répondre dans la messagerie",
     "today": "Aujourd'hui à",
     "yesterday": "Hier à",
-    "label": "Votre message"
+    "label": "Votre message",
+    "validated-messaging-disabled": "Votre dossier est validé et prêt à être partagé, la messagerie n'est plus disponible.",
+    "validated-support-prefix": "Pour toute question complémentaire, contactez notre",
+    "support": "support"
   },
   "en": {
     "overview": "Overview of rejected documents",
@@ -351,7 +366,10 @@ const addIcons = (html: string | undefined) =>
     "reply": "Reply in messaging",
     "today": "Today at",
     "yesterday": "Yesterday at",
-    "label": "Your message"
+    "label": "Your message",
+    "validated-messaging-disabled": "Your application has been validated and is ready to be shared, messaging is no longer available.",
+    "validated-support-prefix": "For any additional questions, please contact our",
+    "support": "support"
   }
 }
 </i18n>
