@@ -30,7 +30,7 @@ const props = withDefaults(
 const { t, locale } = useI18n()
 
 const formattedExpectedMonthList = computed(() =>
-  props.expectedMonthList.map((value) => formatYearMonth(value, locale.value))
+  [...props.expectedMonthList].sort().map((value) => formatYearMonth(value, locale.value))
 )
 </script>
 

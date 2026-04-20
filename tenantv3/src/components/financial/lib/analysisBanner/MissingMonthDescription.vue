@@ -27,7 +27,7 @@ const props = withDefaults(
 const { locale } = useI18n()
 
 const formattedMissingMonthList = computed(() =>
-  props.missingMonthList.map((value) => formatYearMonth(value, locale.value))
+  [...props.missingMonthList].sort().map((value) => formatYearMonth(value, locale.value))
 )
 </script>
 
