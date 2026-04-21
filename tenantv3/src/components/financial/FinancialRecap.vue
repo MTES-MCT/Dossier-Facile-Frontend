@@ -25,6 +25,12 @@
         class="income-card"
         :class="{ duplicate: doc.id && duplicateIds.has(doc.id) }"
       >
+        <DsfrBadge
+          v-if="hasUnexplainedErrors(doc)"
+          type="warning"
+          :label="t('errors-to-fix', { count: errorsCount(doc) }, errorsCount(doc))"
+          class="fr-mb-2w"
+        />
         <div class="first-row">
           <h2 class="fr-text--lg fr-mb-0">{{ categoryLabel(doc) }}</h2>
           <span>{{ doc.monthlySum }}€ {{ t('net-per-month') }}</span>
@@ -41,7 +47,10 @@
           <RiCheckboxCircleFill size="1rem" aria-hidden="true" />
           {{ t('validated') }}</span
         >
-        <span v-else-if="doc.documentStatus === 'TO_PROCESS'" class="pill to-process">
+        <span
+          v-else-if="doc.documentStatus === 'TO_PROCESS' && !hasUnexplainedErrors(doc)"
+          class="pill to-process"
+        >
           <RiTimeFill size="1rem" aria-hidden="true" />
           {{ t('to-process') }}</span
         >
@@ -144,7 +153,7 @@ import TenantBadge from '../common/TenantBadge.vue'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { toast } from '@/components/toast/toastUtils'
 import { CATEGORY_TO_PATH, STEP_TO_PATH } from '@/composables/useInternalNavigation'
-import { DsfrAlert, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import { DsfrAlert, DsfrBadge, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const store = useTenantStore()
@@ -237,6 +246,18 @@ onMounted(() => {
 function categoryLabel(doc: DfDocument) {
   const key = doc.documentSubCategory?.toLowerCase().replaceAll('_', '-') || ''
   return t(`documents.${key}`)
+}
+
+function errorsCount(doc: DfDocument) {
+  return doc.documentAnalysisReport?.failedRules?.length ?? 0
+}
+
+function hasUnexplainedErrors(doc: DfDocument) {
+  return (
+    doc.documentStatus === 'TO_PROCESS' &&
+    errorsCount(doc) > 0 &&
+    !doc.documentAnalysisReport?.comment
+  )
 }
 
 function makeLink(doc: DfDocument) {
@@ -379,6 +400,7 @@ function submit() {
     "declined": "Change expected",
     "validated": "Validated",
     "to-process": "Waiting to be processed",
+    "errors-to-fix": "{count} error to fix | {count} errors to fix",
     "edit": "Edit",
     "delete": "Delete",
     "income": {
@@ -418,6 +440,7 @@ function submit() {
     "declined": "Modification attendue",
     "validated": "Validé",
     "to-process": "En attente de traitement",
+    "errors-to-fix": "{count} erreur à corriger | {count} erreurs à corriger",
     "edit": "Modifier",
     "delete": "Supprimer",
     "income": {
