@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
-import { useI18nForTest } from 'df-shared-next/src/helper/__tests__/use18n'
+import { useI18nForTest } from 'df-shared-next/src/helper/__tests__/useI18n'
 import { describe, expect, it } from 'vitest'
 import { taxYear } from '../tax/lib/taxYear'
 import AnalysisBanners from '../analysis/AnalysisBanners.vue'

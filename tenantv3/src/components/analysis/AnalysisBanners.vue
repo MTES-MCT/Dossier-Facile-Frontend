@@ -246,7 +246,7 @@ function formatDate(value: string): string {
         }
       },
       "wrong-number-of-documents": {
-        "title": "Incomplet document",
+        "title": "Incomplete document",
         "expected": "Complete {year} tax notice (all pages) or complete non-taxation notice",
         "current": "Incomplete tax notice (missing pages)"
       },
