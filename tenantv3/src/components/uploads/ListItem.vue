@@ -115,9 +115,7 @@ function openDoc() {
 
 <style scoped>
 .text {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  min-width: 0;
 }
 
 .size {
@@ -130,7 +128,8 @@ function openDoc() {
 }
 
 .fr-card > * {
-  flex: 9999 0 auto;
+  flex: 9999 1 0;
+  min-width: 0;
 }
 .fr-card > :first-child {
   flex: 1 0 96px;
@@ -143,7 +142,8 @@ function openDoc() {
 .text-overflow {
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 35ch;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .links {
