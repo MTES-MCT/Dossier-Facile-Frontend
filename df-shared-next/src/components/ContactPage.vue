@@ -97,7 +97,7 @@
         {{ t('form.subtitle') }}
       </p>
       <RequiredFieldsInstruction all-required />
-      <ContactForm :profile :user :is-submitting="isSubmitting" @on-submit="submitForm" />
+      <ContactForm ref="contactFormRef" :profile :user :is-submitting="isSubmitting" @on-submit="submitForm" />
     </NakedCard>
 
     <DsfrModalPatch
@@ -136,7 +136,7 @@ import TenantHelpAccordion from './contact/TenantHelpAccordion.vue'
 import type { ContactFormData } from '../models/ContactFormData'
 import { SupportService } from '../services/SupportService'
 import type { User } from '../models/User'
-import { computed, onMounted, ref, type ComputedRef } from 'vue'
+import { computed, onMounted, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DsfrRadioButtonOptions } from '@gouvminint/vue-dsfr'
 import { DsfrRadioButtonSet, DsfrCallout } from '@gouvminint/vue-dsfr'
@@ -156,6 +156,7 @@ interface Props {
 }
 const { user, profile = 'tenant' } = defineProps<Props>()
 
+const contactFormRef = useTemplateRef('contactFormRef')
 const isFormOpen = ref(false)
 const isValidModalOpened = ref(false)
 const isErrorModalOpened = ref(false)
@@ -211,8 +212,7 @@ function submitForm(payload: ContactFormData) {
   SupportService.sendMail(contactFormData.value)
     .then(() => {
       isValidModalOpened.value = true
-      contactFormData.value.subject = ''
-      contactFormData.value.message = ''
+      contactFormRef.value?.resetForm()
     })
     .catch((error) => {
       console.log(error)

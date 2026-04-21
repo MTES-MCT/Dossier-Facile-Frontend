@@ -47,7 +47,7 @@ configure({
   }
 })
 
-const { values, handleSubmit, defineField, errors, submitCount } = useForm({
+const { values, handleSubmit, defineField, errors, submitCount, resetForm } = useForm({
   initialValues: {
     firstname: props.user?.firstName ?? '',
     lastname: props.user?.lastName ?? '',
@@ -102,6 +102,8 @@ const onInvalidSubmit = async ({ errors }: InvalidSubmissionContext) => {
 }
 
 const onSubmit = handleSubmit(onSuccess, onInvalidSubmit)
+
+defineExpose({ resetForm })
 </script>
 
 <template>
