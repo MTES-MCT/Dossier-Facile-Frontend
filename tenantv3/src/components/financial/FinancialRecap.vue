@@ -25,26 +25,40 @@
         class="income-card"
         :class="{ duplicate: doc.id && duplicateIds.has(doc.id) }"
       >
+        <DsfrBadge
+          v-if="hasUnexplainedErrors(doc)"
+          type="warning"
+          :label="t('errors-to-fix', { count: errorsCount(doc) }, errorsCount(doc))"
+          class="errors-badge fr-mb-2w"
+        />
         <div class="first-row">
           <h2 class="fr-text--lg fr-mb-0">{{ categoryLabel(doc) }}</h2>
           <span>{{ doc.monthlySum }}€ {{ t('net-per-month') }}</span>
         </div>
-        <!-- TODO: DsfrBadge -->
         <span v-if="doc.documentCategoryStep" class="fr-text--sm fr-mb-0 text-grey">{{
           t(STEP_LABEL[doc.documentCategoryStep] ?? '')
         }}</span>
-        <span v-if="doc.documentStatus === 'DECLINED'" class="pill declined">
-          <RiAlertFill size="1rem" aria-hidden="true" />
-          {{ t('declined') }}</span
-        >
-        <span v-else-if="doc.documentStatus === 'VALIDATED'" class="pill validated">
-          <RiCheckboxCircleFill size="1rem" aria-hidden="true" />
-          {{ t('validated') }}</span
-        >
-        <span v-else-if="doc.documentStatus === 'TO_PROCESS'" class="pill to-process">
-          <RiTimeFill size="1rem" aria-hidden="true" />
-          {{ t('to-process') }}</span
-        >
+        <DsfrBadge
+          v-if="doc.documentStatus === 'DECLINED'"
+          type="warning"
+          :label="t('declined')"
+          class="status-badge status-badge--declined"
+          small
+        />
+        <DsfrBadge
+          v-else-if="doc.documentStatus === 'VALIDATED'"
+          type="success"
+          :label="t('validated')"
+          class="status-badge status-badge--validated"
+          small
+        />
+        <DsfrBadge
+          v-else-if="doc.documentStatus === 'TO_PROCESS' && !hasUnexplainedErrors(doc)"
+          :label="t('to-process')"
+          class="status-badge status-badge--to-process fr-badge--purple-glycine"
+          no-icon
+          small
+        />
         <div class="fr-ml-auto fr-mt-2w">
           <router-link :to="makeLink(doc)" class="fr-link fr-mr-4w"
             >{{ t('edit') }}
@@ -123,14 +137,7 @@
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import SimulationCaf from '../documents/share/SimulationCaf.vue'
-import {
-  RiAddFill,
-  RiAlertFill,
-  RiCheckboxCircleFill,
-  RiDeleteBinLine,
-  RiEditLine,
-  RiTimeFill
-} from '@remixicon/vue'
+import { RiAddFill, RiDeleteBinLine, RiEditLine } from '@remixicon/vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
@@ -144,7 +151,7 @@ import TenantBadge from '../common/TenantBadge.vue'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { toast } from '@/components/toast/toastUtils'
 import { CATEGORY_TO_PATH, STEP_TO_PATH } from '@/composables/useInternalNavigation'
-import { DsfrAlert, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import { DsfrAlert, DsfrBadge, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const store = useTenantStore()
@@ -239,6 +246,18 @@ function categoryLabel(doc: DfDocument) {
   return t(`documents.${key}`)
 }
 
+function errorsCount(doc: DfDocument) {
+  return doc.documentAnalysisReport?.failedRules?.length ?? 0
+}
+
+function hasUnexplainedErrors(doc: DfDocument) {
+  return (
+    doc.documentStatus === 'TO_PROCESS' &&
+    errorsCount(doc) > 0 &&
+    !doc.documentAnalysisReport?.comment
+  )
+}
+
 function makeLink(doc: DfDocument) {
   const cat = doc.documentSubCategory
   if (!doc.id || !cat) {
@@ -315,28 +334,8 @@ function submit() {
     }
   }
 }
-.pill {
-  border-radius: 4px;
-  display: flex;
-  padding: 0 6px;
-  align-items: center;
-  gap: 6px;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: bold;
+.status-badge {
   width: fit-content;
-}
-.declined {
-  color: var(--text-default-warning);
-  background-color: var(--background-contrast-warning);
-}
-.validated {
-  color: var(--text-default-success);
-  background-color: var(--background-contrast-success);
-}
-.to-process {
-  color: var(--purple-text);
-  background-color: var(--background-alt-purple-glycine);
 }
 .large-btn {
   justify-content: center;
@@ -379,6 +378,7 @@ function submit() {
     "declined": "Change expected",
     "validated": "Validated",
     "to-process": "Waiting to be processed",
+    "errors-to-fix": "{count} error to fix | {count} errors to fix",
     "edit": "Edit",
     "delete": "Delete",
     "income": {
@@ -418,6 +418,7 @@ function submit() {
     "declined": "Modification attendue",
     "validated": "Validé",
     "to-process": "En attente de traitement",
+    "errors-to-fix": "{count} erreur à corriger | {count} erreurs à corriger",
     "edit": "Modifier",
     "delete": "Supprimer",
     "income": {
