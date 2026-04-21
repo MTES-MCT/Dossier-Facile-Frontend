@@ -1,19 +1,41 @@
 import { mount } from '@vue/test-utils'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
-import { describe, expect, it, vi } from 'vitest'
-import { ref } from 'vue'
+import { useI18nForTest } from 'df-shared-next/src/helper/__tests__/use18n'
+import { describe, expect, it } from 'vitest'
+import { taxYear } from '../tax/lib/taxYear'
 import AnalysisBanners from '../analysis/AnalysisBanners.vue'
-vi.mock('vue-i18n', () => ({
-  useI18n: () => ({
-    locale: ref('fr'),
-    t: (key: string, params?: Record<string, string>) => {
-      if (key === 'rules.expiration.current') {
-        return `Document avec date d'expiration ${params?.date ?? ''}`
+import AnalysisBannersSource from '../analysis/AnalysisBanners.vue?raw'
+
+const LOCALE = 'fr'
+const { i18n, t } = useI18nForTest(AnalysisBannersSource, LOCALE)
+
+const genericBannerStub = {
+  name: 'GenericAnalysisErrorContent',
+  props: [
+    'title',
+    'currentLines',
+    'expectedLines',
+    'currentDocumentLabel',
+    'expectedDocumentLabel',
+    'notMatchingLabel',
+    'explainLinkLabel'
+  ],
+  template:
+    '<div data-test="generic-banner-stub">{{ title }}|{{ (currentLines || []).join("||") }}|{{ (expectedLines || []).join("||") }}</div>'
+}
+
+function mountBanners(failedRules: DocumentRule[]) {
+  return mount(AnalysisBanners, {
+    props: { failedRules },
+    global: {
+      plugins: [i18n],
+      stubs: {
+        VIcon: true,
+        GenericAnalysisErrorContent: genericBannerStub
       }
-      return key
     }
   })
-}))
+}
 
 function buildExpirationRule(extractedDate: string): DocumentRule {
   return {
@@ -27,23 +49,61 @@ function buildExpirationRule(extractedDate: string): DocumentRule {
   }
 }
 
+function buildTaxLeafRule(): DocumentRule {
+  return {
+    rule: 'R_TAX_LEAF',
+    message: 'Document incomplet',
+    level: 'ERROR',
+    ruleData: null
+  }
+}
+
 describe('AnalysisBanners', () => {
   it.each([
-    { input: '2024-03-15', expected: "Document avec date d'expiration 15/03/2024" },
-    { input: '2024-13-45', expected: "Document avec date d'expiration 2024-13-45" },
-    { input: '15/03/2024', expected: "Document avec date d'expiration 15/03/2024" }
-  ])('formats expiration date for "$input"', ({ input, expected }) => {
-    const wrapper = mount(AnalysisBanners, {
-      props: {
-        failedRules: [buildExpirationRule(input)]
-      },
-      global: {
-        stubs: {
-          VIcon: true
-        }
-      }
-    })
+    {
+      input: '2024-03-15',
+      expectedParams: { date: '15/03/2024' }
+    },
+    {
+      input: '2024-13-45',
+      expectedParams: { date: '2024-13-45' }
+    },
+    {
+      input: '15/03/2024',
+      expectedParams: { date: '15/03/2024' }
+    }
+  ])('formats expiration date for "$input"', ({ input, expectedParams }) => {
+    const wrapper = mountBanners([buildExpirationRule(input)])
+    const banner = wrapper.findComponent({ name: 'GenericAnalysisErrorContent' })
+    const props = banner.props() as {
+      title: string
+      currentLines: string[]
+      expectedLines: string[]
+    }
 
-    expect(wrapper.text()).toContain(expected)
+    expect(props.currentLines).toHaveLength(1)
+    expect(props.expectedLines).toHaveLength(1)
+    expect(props.currentLines).toEqual([
+      t('rules.expiration.current', { date: expectedParams.date })
+    ])
+    expect(props.expectedLines).toEqual([t('rules.expiration.expected')])
+  })
+
+  it('renders R_TAX_LEAF title, current and expected lines', () => {
+    const wrapper = mountBanners([buildTaxLeafRule()])
+    const banner = wrapper.findComponent({ name: 'GenericAnalysisErrorContent' })
+    const props = banner.props() as {
+      title: string
+      currentLines: string[]
+      expectedLines: string[]
+    }
+
+    expect(props.currentLines).toHaveLength(1)
+    expect(props.expectedLines).toHaveLength(1)
+    expect(props.title).toEqual(t('rules.wrong-number-of-documents.title'))
+    expect(props.currentLines).toEqual([t('rules.wrong-number-of-documents.current')])
+    expect(props.expectedLines).toEqual([
+      t('rules.wrong-number-of-documents.expected', { year: taxYear })
+    ])
   })
 })
