@@ -13,12 +13,9 @@ const errorLabelOne = messages['errors-to-fix'].split('|')[0].trim().replace('{c
 const errorLabelMany = messages['errors-to-fix'].split('|')[1].trim().replace('{count}', '3')
 const toProcessLabel = messages['to-process']
 
-const { mockDocuments } = vi.hoisted(() => {
-  const { ref } = require('vue') as typeof import('vue')
-  return {
-    mockDocuments: ref<DfDocument[]>([])
-  }
-})
+const { mockDocuments } = vi.hoisted(() => ({
+  mockDocuments: { value: [] as DfDocument[] }
+}))
 
 vi.mock('vue-router', () => ({
   useRoute: () => ({ path: '/documents-locataire/4' }),
@@ -140,18 +137,19 @@ describe('FinancialRecap - error badge', () => {
     config.global.mocks = originalMocks
   })
 
-  const ERROR_BADGE_SELECTOR = '.fr-badge--warning'
+  const ERROR_BADGE_SELECTOR = '.errors-badge'
+  const TO_PROCESS_BADGE_SELECTOR = '.status-badge--to-process'
 
-  it('shows the "waiting to be processed" pill and no error badge when the document has no failed rules', () => {
+  it('shows the "waiting to be processed" badge and no error badge when the document has no failed rules', () => {
     const wrapper = mountComponent([makeDocument()])
 
     const card = wrapper.get('.income-card')
-    expect(card.find('.pill.to-process').exists()).toBe(true)
+    expect(card.find(TO_PROCESS_BADGE_SELECTOR).exists()).toBe(true)
     expect(card.find(ERROR_BADGE_SELECTOR).exists()).toBe(false)
     expect(card.text()).toContain(toProcessLabel)
   })
 
-  it('shows the error badge (singular) and hides the "waiting to be processed" pill when there is 1 failed rule', () => {
+  it('shows the error badge (singular) and hides the "waiting to be processed" badge when there is 1 failed rule', () => {
     const wrapper = mountComponent([
       makeDocument({
         documentAnalysisReport: reportWithFailedRules(1)
@@ -161,7 +159,7 @@ describe('FinancialRecap - error badge', () => {
     const card = wrapper.get('.income-card')
     const errorBadge = card.get(ERROR_BADGE_SELECTOR)
     expect(errorBadge.text()).toBe(errorLabelOne)
-    expect(card.find('.pill.to-process').exists()).toBe(false)
+    expect(card.find(TO_PROCESS_BADGE_SELECTOR).exists()).toBe(false)
   })
 
   it('uses the plural form when there are several failed rules', () => {
@@ -175,7 +173,7 @@ describe('FinancialRecap - error badge', () => {
     expect(errorBadge.text()).toBe(errorLabelMany)
   })
 
-  it('hides the error badge and keeps the "waiting to be processed" pill when an explanation was submitted', () => {
+  it('hides the error badge and keeps the "waiting to be processed" badge when an explanation was submitted', () => {
     const wrapper = mountComponent([
       makeDocument({
         documentAnalysisReport: reportWithFailedRules(2, 'explanation')
@@ -184,16 +182,16 @@ describe('FinancialRecap - error badge', () => {
 
     const card = wrapper.get('.income-card')
     expect(card.find(ERROR_BADGE_SELECTOR).exists()).toBe(false)
-    expect(card.find('.pill.to-process').exists()).toBe(true)
+    expect(card.find(TO_PROCESS_BADGE_SELECTOR).exists()).toBe(true)
     expect(card.text()).toContain(toProcessLabel)
   })
 
   it.each([
-    { status: 'VALIDATED' as const, pillClass: '.pill.validated' },
-    { status: 'DECLINED' as const, pillClass: '.pill.declined' }
+    { status: 'VALIDATED' as const, badgeSelector: '.status-badge--validated' },
+    { status: 'DECLINED' as const, badgeSelector: '.status-badge--declined' }
   ])(
-    'keeps the "$status" pill and hides the error badge even when the document has failed rules',
-    ({ status, pillClass }) => {
+    'keeps the "$status" badge and hides the error badge even when the document has failed rules',
+    ({ status, badgeSelector }) => {
       const wrapper = mountComponent([
         makeDocument({
           documentStatus: status,
@@ -203,7 +201,7 @@ describe('FinancialRecap - error badge', () => {
 
       const card = wrapper.get('.income-card')
       expect(card.find(ERROR_BADGE_SELECTOR).exists()).toBe(false)
-      expect(card.find(pillClass).exists()).toBe(true)
+      expect(card.find(badgeSelector).exists()).toBe(true)
     }
   )
 })
