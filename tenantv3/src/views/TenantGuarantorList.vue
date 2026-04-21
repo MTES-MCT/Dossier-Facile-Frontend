@@ -5,7 +5,7 @@
         {{ t('tenantguarantorlist.my-guarantor') }}
       </h1>
       <div v-for="g in guarantors" :key="g.id">
-        <CardRow ref="card-row" @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
+        <CardRow ref="card-row" @edit="editGuarantor(g)" @remove="openDeleteModalForGuarantor(g)">
           <template #tag>
             <div class="text-bold">{{ getGuarantorName(g) }}</div>
           </template>
@@ -14,10 +14,10 @@
           </template>
         </CardRow>
         <ConfirmModal
-          v-model:is-opened="isRemoveGuarantor"
-          :title="t('tenantguarantorlist.remove-guarantor')"
-          @valid="removeGuarantor(g)"
-          @cancel="isRemoveGuarantor = false"
+          v-model:is-opened="isDeleteConfirmModalOpened"
+          :title="deleteConfirmTitle"
+          @valid="deleteSelectedGuarantor()"
+          @cancel="closeDeleteConfirmModal"
         />
       </div>
       <div v-if="hasOneNaturalGuarantor()">
@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { toast } from '@/components/toast/toastUtils'
+import { useGuarantorDeleteAction } from '@/components/validateStep/useGuarantorDeleteAction'
 import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { useTenantStore } from '@/stores/tenant-store'
 import CardRow from 'df-shared-next/src/components/CardRow.vue'
@@ -40,7 +40,7 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { ref, useTemplateRef } from 'vue'
+import { useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import GuarantorFooter from '../components/footer/GuarantorFooter.vue'
@@ -61,8 +61,22 @@ const emit = defineEmits<{
   'on-delete': [guarantor: Guarantor]
 }>()
 
-const isRemoveGuarantor = ref(false)
 const cardRow = useTemplateRef('card-row')
+const {
+  isDeleteConfirmModalOpened,
+  deleteConfirmTitle,
+  openDeleteModalForGuarantor,
+  closeDeleteConfirmModal,
+  deleteSelectedGuarantor
+} = useGuarantorDeleteAction({
+  onSuccess: (deletedGuarantor) => {
+    emit('on-delete', deletedGuarantor)
+  },
+  getErrorFocusTarget: (failedGuarantor) => {
+    const index = props.guarantors.findIndex((v) => v.id === failedGuarantor.id)
+    return cardRow.value?.at(index)?.removeBtn
+  }
+})
 
 function getGuarantorName(g: Guarantor) {
   if (g.firstName || g.lastName) {
@@ -118,24 +132,6 @@ function getStatus(g: Guarantor): string {
 
 function editGuarantor(g: Guarantor) {
   emit('on-edit', g)
-}
-
-function removeGuarantor(g: Guarantor) {
-  store
-    .deleteGuarantor(g)
-    .then(() => {
-      emit('on-delete', g)
-    })
-    .catch(() => {
-      const index = props.guarantors.findIndex((v) => v.id === g.id)
-      toast.error(
-        t('guarantorssection.guarantor-delete-failed'),
-        cardRow.value?.at(index)?.removeBtn
-      )
-    })
-    .finally(() => {
-      isRemoveGuarantor.value = false
-    })
 }
 
 function hasOneNaturalGuarantor() {

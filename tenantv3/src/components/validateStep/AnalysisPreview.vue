@@ -2,9 +2,21 @@
   <NakedCard class="fr-mt-3w">
     <DsfrBadge v-if="isTenant" class="fr-mb-1w" type="new" :label="t('badge-loc')" no-icon />
     <GuarantorBadge v-else />
-    <h1 class="fr-h6">
-      {{ nameToDisplay }}
-    </h1>
+    <div class="analysis-preview-header">
+      <h1 class="fr-h6 fr-mb-0">
+        {{ nameToDisplay }}
+      </h1>
+      <button
+        v-if="canDeleteGuarantor"
+        ref="delete-guarantor-btn"
+        type="button"
+        class="fr-btn fr-btn--secondary fr-btn--sm"
+        :disabled="isDeletingGuarantor"
+        @click="openDeleteConfirmModal"
+      >
+        {{ deleteLabel }}
+      </button>
+    </div>
     <DocumentPreviewCard
       v-for="doc in documents"
       :key="doc.document?.id || doc.documentCategory"
@@ -12,6 +24,12 @@
       :guarantor-id="guarantorId"
       :co-tenant-id="coTenantId"
       class="fr-mb-2w"
+    />
+    <ConfirmModal
+      v-model:is-opened="isDeleteConfirmModalOpened"
+      :title="deleteConfirmTitle"
+      @valid="deleteSelectedGuarantor()"
+      @cancel="closeDeleteConfirmModal"
     />
   </NakedCard>
 </template>
@@ -21,12 +39,14 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { allTenantDocumentCategories, type DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import type { DocumentAnalysisStatus, PreviewDocument, User } from 'df-shared-next/src/models/User'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DocumentPreviewCard from './DocumentPreviewCard.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { DsfrBadge } from '@gouvminint/vue-dsfr'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
+import { useGuarantorDeleteAction } from './useGuarantorDeleteAction'
 
 const props = defineProps<{
   user: User | Guarantor
@@ -37,6 +57,15 @@ const props = defineProps<{
 const { t } = useI18n()
 
 const store = useTenantStore()
+const {
+  isDeleteConfirmModalOpened,
+  isDeletingGuarantor,
+  deleteLabel,
+  deleteConfirmTitle,
+  openDeleteModalForGuarantor,
+  closeDeleteConfirmModal,
+  deleteSelectedGuarantor
+} = useGuarantorDeleteAction()
 
 const guarantorId = computed(() => {
   if (props.isTenant) {
@@ -53,6 +82,8 @@ const coTenantId = computed(() => {
     return props.user.id
   }
 })
+
+const canDeleteGuarantor = computed(() => !props.isTenant)
 
 const nameToDisplay = computed(() => {
   if (
@@ -130,7 +161,27 @@ const documents = computed(() => {
   }
   return docs
 })
+
+const openDeleteConfirmModal = () => {
+  if (props.isTenant || !('typeGuarantor' in props.user)) {
+    return
+  }
+  openDeleteModalForGuarantor(props.user)
+}
 </script>
+
+<style scoped lang="scss">
+.analysis-preview-header {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
+</style>
 
 <i18n>
 {

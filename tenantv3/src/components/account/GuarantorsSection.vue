@@ -9,8 +9,9 @@
           </h4>
           <DsfrButton
             :id="`delButton-${idx}`"
-            :label="t('guarantorssection.delete-guarantor')"
-            @click.prevent="openConfirmModal(g)"
+            :label="deleteLabel"
+            :disabled="isDeletingGuarantor"
+            @click.prevent="openDeleteModalForGuarantor(g)"
           />
         </div>
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
@@ -110,10 +111,10 @@
         </div>
       </div>
       <ConfirmModal
-        v-model:is-opened="showConfirmModal"
-        :title="t('guarantorssection.confirm-delete-guarantor')"
-        @valid="removeSelectedGuarantor()"
-        @cancel="closeConfirmModal()"
+        v-model:is-opened="isDeleteConfirmModalOpened"
+        :title="deleteConfirmTitle"
+        @valid="deleteSelectedGuarantor()"
+        @cancel="closeDeleteConfirmModal()"
       />
     </div>
 
@@ -179,8 +180,8 @@ import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import { toast } from '@/components/toast/toastUtils'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
+import { useGuarantorDeleteAction } from '../validateStep/useGuarantorDeleteAction'
 
 const store = useTenantStore()
 const router = useRouter()
@@ -200,12 +201,28 @@ const props = withDefaults(
 
 const user = computed(() => store.user)
 const guarantors = ref<Guarantor[]>([])
-const showConfirmModal = ref(false)
 
 const guarantorsList = useTemplateRef('guarantors-list')
 const addGuarantorButton = useTemplateRef('add-guarantor-btn')
-
-let selectedGuarantor: Guarantor | undefined
+const {
+  isDeleteConfirmModalOpened,
+  isDeletingGuarantor,
+  selectedGuarantor,
+  deleteLabel,
+  deleteConfirmTitle,
+  openDeleteModalForGuarantor,
+  closeDeleteConfirmModal,
+  deleteSelectedGuarantor
+} = useGuarantorDeleteAction({
+  onSuccess: (deletedGuarantor) => {
+    guarantors.value = guarantors.value.filter((g) => g.id !== deletedGuarantor.id)
+  },
+  getSuccessFocusTarget: () => addGuarantorButton.value,
+  getErrorFocusTarget: (failedGuarantor) => {
+    const index = guarantors.value.findIndex((g) => g.id === failedGuarantor.id)
+    return guarantorsList.value?.at(index)?.querySelector(`button#delButton-${index}`)
+  }
+})
 
 const { t } = useI18n()
 
@@ -290,35 +307,6 @@ function setAddGuarantorStep() {
   }
 }
 
-function openConfirmModal(g: Guarantor) {
-  showConfirmModal.value = true
-  selectedGuarantor = g
-}
-function closeConfirmModal() {
-  showConfirmModal.value = false
-  selectedGuarantor = undefined
-}
-
-function removeSelectedGuarantor() {
-  if (selectedGuarantor === undefined) {
-    return
-  }
-  store.deleteGuarantor(selectedGuarantor).then(
-    () => {
-      toast.success(t('guarantorssection.guarantor-deleted'), addGuarantorButton.value)
-      guarantors.value = guarantors.value.filter((g) => g.id != selectedGuarantor?.id)
-      closeConfirmModal()
-    },
-    () => {
-      const index = guarantors.value.findIndex((g) => g.id === selectedGuarantor?.id)
-      toast.error(
-        t('guarantorssection.guarantor-delete-failed'),
-        guarantorsList.value?.at(index)?.querySelector(`button#delButton-${index}`)
-      )
-      closeConfirmModal()
-    }
-  )
-}
 </script>
 
 <style lang="scss" scoped>
