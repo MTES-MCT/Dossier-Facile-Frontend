@@ -1,15 +1,14 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { config, mount } from '@vue/test-utils'
-import { createI18n } from 'vue-i18n'
+import { useI18nForTest } from 'df-shared-next/src/helper/__tests__/useI18n'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import FinancialRecap from '../financial/FinancialRecap.vue'
 import FinancialRecapSource from '../financial/FinancialRecap.vue?raw'
 
 const LOCALE = 'fr'
 
-const inlineI18nMatch = FinancialRecapSource.match(/<i18n\s+lang="json"\s*>([\s\S]*?)<\/i18n>/)
-const inlineI18nMessages = JSON.parse(inlineI18nMatch![1])
-const messages = inlineI18nMessages[LOCALE]
+const { i18n, messages: allMessages } = useI18nForTest(FinancialRecapSource, LOCALE)
+const messages = allMessages[LOCALE] as Record<string, string>
 const errorLabelOne = messages['errors-to-fix'].split('|')[0].trim().replace('{count}', '1')
 const errorLabelMany = messages['errors-to-fix'].split('|')[1].trim().replace('{count}', '3')
 const toProcessLabel = messages['to-process']
@@ -76,13 +75,6 @@ vi.mock('@/components/financial/financialState', () => ({
     suffix: 'tenant'
   })
 }))
-
-const i18n = createI18n({
-  legacy: false,
-  locale: LOCALE,
-  fallbackLocale: LOCALE,
-  messages: { [LOCALE]: messages }
-})
 
 const globalStubs = {
   NakedCard: { template: '<div><slot /></div>' },
