@@ -17,6 +17,13 @@
     <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
   </form>
   <slot name="incomeFilled" />
+  <DsfrCallout
+    v-if="(analysisWrapper?.analysisFailedRules?.length ?? 0) !== 0"
+    class="analysis-callout"
+    :title="t('document-ia-callout.title')"
+    :content="t('document-ia-callout.content')"
+    title-tag="h3"
+  />
   <AnalysisWrapper
     ref="analysis-wrapper"
     :is-uploading="uploadFileWithAnalysisRef?.isUploading ?? false"
@@ -76,7 +83,7 @@ import { toast } from '@/components/toast/toastUtils'
 import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
-import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import { DsfrCallout, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { useForm } from 'vee-validate'
@@ -289,7 +296,17 @@ defineExpose({
 })
 </script>
 
-<i18n>
+<style scoped>
+.analysis-callout :deep(.fr-callout__title) {
+  font-size: 1.25rem;
+}
+
+.analysis-callout :deep(.fr-callout__text) {
+  font-size: 1rem;
+}
+</style>
+
+<i18n lang="json">
 {
   "en": {
     "round-it": "Round to the nearest euro",
@@ -302,7 +319,11 @@ defineExpose({
     "for-complete-file": "For a complete file, we recommend you add {0}.",
     "add-more-docs": "Add more documents",
     "go-next-step": "Go to next step",
-    "i-authorize-corrections": "By continuing, I authorize a DossierFacile operator to correct any errors in the income amounts declared, based on the supporting documents provided, in order to ensure that my file is compliant."
+    "i-authorize-corrections": "By continuing, I authorize a DossierFacile operator to correct any errors in the income amounts declared, based on the supporting documents provided, in order to ensure that my file is compliant.",
+    "document-ia-callout": {
+      "title": "Automatic analysis",
+      "content": "We check your documents in real time. This feature is being tested."
+    }
   },
   "fr": {
     "round-it": "Arrondir à l'euro",
@@ -315,7 +336,11 @@ defineExpose({
     "for-complete-file": "Pour un dossier complet, nous vous recommandons d'en ajouter {0}.",
     "add-more-docs": "Ajouter d'autres documents",
     "go-next-step": "Passer à l'étape suivante",
-    "i-authorize-corrections": "En continuant, j'autorise un opérateur DossierFacile à corriger les montants de revenus déclarés en cas d'erreur, sur la base des justificatifs fournis, afin de garantir la conformité de mon dossier."
+    "i-authorize-corrections": "En continuant, j'autorise un opérateur DossierFacile à corriger les montants de revenus déclarés en cas d'erreur, sur la base des justificatifs fournis, afin de garantir la conformité de mon dossier.",
+    "document-ia-callout": {
+      "title": "Analyse automatique",
+      "content": "Nous vérifions vos documents en temps réel. Cette fonctionnalité est en cours de test."
+    }
   }
 }
 </i18n>

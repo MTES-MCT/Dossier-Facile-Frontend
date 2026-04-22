@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils'
+import { defineComponent, h } from 'vue'
 import UploadFileFinancialWithAnalysis from '../financial/lib/UploadFileFinancialWithAnalysis.vue'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 
@@ -99,12 +100,38 @@ vi.mock('../financial/financialState', () => ({
   })
 }))
 
-const globalStubs = {
-  AnalysisWrapper: true,
-  UploadFileWithAnalysis: true,
-  AnalysisFooter: true,
-  DsfrModalPatch: true,
-  'i18n-t': true
+function createAnalysisWrapperStub(failedRulesCount: number) {
+  return defineComponent({
+    name: 'AnalysisWrapper',
+    setup(_, { slots, expose }) {
+      expose({
+        analysisFailedRules: Array.from({ length: failedRulesCount }, (_, i) => ({ id: i + 1 })),
+        analysisInProgress: false,
+        nextDisabled: false,
+        nextLabel: undefined,
+        beforeSubmit: () => true,
+        saveExplanation: vi.fn().mockResolvedValue(undefined)
+      })
+
+      return () => h('div', [slots.fileUploader?.()])
+    }
+  })
+}
+
+function buildGlobalStubs(failedRulesCount: number) {
+  return {
+    AnalysisWrapper: createAnalysisWrapperStub(failedRulesCount),
+    UploadFileWithAnalysis: true,
+    AnalysisFooter: true,
+    DsfrModalPatch: true,
+    DsfrCallout: {
+      name: 'DsfrCallout',
+      props: ['title', 'content', 'titleTag'],
+      template:
+        '<div data-test="analysis-callout"><p data-test="callout-title">{{ title }}</p><p data-test="callout-content">{{ content }}</p></div>'
+    },
+    'i18n-t': true
+  }
 }
 
 function makeDocument(overrides: Partial<DfDocument> = {}): DfDocument {
@@ -119,10 +146,11 @@ function makeDocument(overrides: Partial<DfDocument> = {}): DfDocument {
   } as unknown as DfDocument
 }
 
-function mountComponent(props?: { minFiles?: number }) {
+function mountComponent(props?: { minFiles?: number }, options?: { failedRulesCount?: number }) {
+  const failedRulesCount = options?.failedRulesCount ?? 0
   return mount(UploadFileFinancialWithAnalysis, {
     props: { ...props },
-    global: { stubs: globalStubs }
+    global: { stubs: buildGlobalStubs(failedRulesCount) }
   })
 }
 
@@ -154,6 +182,26 @@ describe('UploadFileFinancialWithAnalysis', () => {
       const wrapper = mountComponent()
       expect(setup(wrapper).validateSum('1500')).toBe(true)
       expect(setup(wrapper).validateSum('1 500')).toBe(true)
+    })
+  })
+
+  describe('analysis callout visibility', () => {
+    it('does not show the callout when there are no analysis errors', async () => {
+      const wrapper = mountComponent(undefined, { failedRulesCount: 0 })
+      await flushPromises()
+
+      expect(wrapper.find('[data-test="analysis-callout"]').exists()).toBe(false)
+    })
+
+    it('shows the callout when there are analysis errors', async () => {
+      const wrapper = mountComponent(undefined, { failedRulesCount: 1 })
+      await flushPromises()
+
+      expect(wrapper.find('[data-test="analysis-callout"]').exists()).toBe(true)
+      expect(wrapper.find('[data-test="callout-title"]').text()).toBe('document-ia-callout.title')
+      expect(wrapper.find('[data-test="callout-content"]').text()).toBe(
+        'document-ia-callout.content'
+      )
     })
   })
 
