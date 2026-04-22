@@ -13,6 +13,10 @@ const i18n = createI18n({
 
 const globalStubs = {
   VIcon: true,
+  BannerIconTextLine: {
+    props: ['text'],
+    template: '<div data-test="error-line">{{ text }}</div>'
+  },
   MonthDescription: {
     props: ['expectedMonthList'],
     template:
@@ -135,11 +139,33 @@ describe('FinancialAnalysisErrorBannerContent', () => {
 
     expect(wrapper.find('[data-test="month-description"]').exists()).toBe(true)
     expect(wrapper.find('[data-test="missing-month-description"]').exists()).toBe(true)
+    expect(wrapper.findAll('[data-test="error-line"]')).toHaveLength(3)
 
     expect(wrapper.text()).toContain('decembre.pdf')
     expect(wrapper.text()).toContain('décembre 2025')
     expect(wrapper.text()).toContain('octobre.pdf')
     expect(wrapper.text()).toContain("d'octobre 2025")
     expect(wrapper.text()).toContain('not-a-payslip.pdf')
+  })
+
+  it('hides current documents block for continuity when there are no entries in error', () => {
+    const rule: DocumentRule = {
+      rule: 'R_PAYSLIP_CONTINUITY',
+      message: 'msg',
+      level: 'ERROR',
+      ruleData: {
+        type: 'R_PAYSLIP_CONTINUITY',
+        expectedMonthList: ['2026-04', '2026-03', '2026-02'],
+        missingMonthList: [],
+        payslipEntriesInError: []
+      }
+    }
+
+    const wrapper = mountComponent(rule)
+
+    expect(wrapper.find('[data-test="month-description"]').exists()).toBe(true)
+    expect(wrapper.find('[data-test="missing-month-description"]').exists()).toBe(true)
+    expect(wrapper.findAll('[data-test="error-line"]')).toHaveLength(0)
+    expect(wrapper.findAll('.banner-description')).toHaveLength(2)
   })
 })
