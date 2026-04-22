@@ -88,6 +88,8 @@ const sizeLimit = computed(() => t('fileupload.size', [props.size]))
 const pagesLimit = computed(() => t('fileupload.pages', [props.page]))
 
 const currentFiles = defineModel<DfFile[]>('currentFiles', {
+  // required to avoid forgetting which breaks validation
+  required: true,
   default: []
 })
 

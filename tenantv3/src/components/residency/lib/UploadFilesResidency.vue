@@ -18,8 +18,8 @@
     />
   </div>
   <FileUpload
-    v-model:current-files="residencyFiles"
     ref="file-upload"
+    v-model:current-files="residencyFiles"
     :current-status="fileUploadStatus"
     :page="3"
     :category="resCategory"
