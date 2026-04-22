@@ -43,6 +43,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import 'dayjs/locale/fr'
 import { useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { taxYear } from '../tax/lib/taxYear'
 import GenericAnalysisErrorContent from './GenericAnalysisErrorContent.vue'
 
 dayjs.extend(customParseFormat)
@@ -69,6 +70,7 @@ const ruleTitleMap: Record<string, string> = {
   R_DOCUMENT_IA_CLASSIFICATION: 'rules.bad-classification.title',
   R_TAX_BAD_CLASSIFICATION_DECLARATIVE: 'rules.bad-classification.title',
   R_TAX_BAD_CLASSIFICATION: 'rules.bad-classification.title',
+  R_TAX_LEAF: 'rules.wrong-number-of-documents.title',
   R_TAX_NAMES: 'rules.names.title',
   R_TAX_WRONG_YEAR: 'rules.tax-wrong-year.title',
   R_TAX_2D_DOC: 'rules.invalid-2ddoc.title',
@@ -98,6 +100,11 @@ function getCurrentDocLines(rule: DocumentRule): string[] {
   if (rule.rule === 'R_DOCUMENT_IA_CLASSIFICATION') {
     return [t('rules.bad-classification.current-other')]
   }
+
+  if (rule.rule === 'R_TAX_LEAF') {
+    return [t('rules.wrong-number-of-documents.current')]
+  }
+
   if (!data) {
     return [rule.message]
   }
@@ -127,6 +134,10 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
 
   if (rule.rule === 'R_DOCUMENT_IA_CLASSIFICATION') {
     return [getExpectedClassification()]
+  }
+
+  if (rule.rule === 'R_TAX_LEAF') {
+    return [t('rules.wrong-number-of-documents.expected', { year: taxYear })]
   }
 
   if (!data) {
@@ -234,6 +245,11 @@ function formatDate(value: string): string {
           "expected": "Tax notice or non-taxation notice"
         }
       },
+      "wrong-number-of-documents": {
+        "title": "Incomplete document",
+        "expected": "Complete {year} tax notice (all pages) or complete non-taxation notice",
+        "current": "Incomplete tax notice (missing pages)"
+      },
       "names": {
         "title": "Name does not match",
         "tax": {
@@ -277,6 +293,11 @@ function formatDate(value: string): string {
           "expected": "Certificat Visale"
         },
         "current-other": "Autre document non conforme"
+      },
+      "wrong-number-of-documents": {
+        "title": "Document incomplet",
+        "expected": "Avis d'imposition {year} complet (toutes les pages) ou avis de non-imposition complet",
+        "current": "Avis d'imposition incomplet (pages manquantes)"
       },
       "names": {
         "title": "Le nom ne correspond pas",
