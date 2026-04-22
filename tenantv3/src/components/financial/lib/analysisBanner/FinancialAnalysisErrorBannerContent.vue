@@ -25,7 +25,7 @@
         <MissingMonthDescription :missing-month-list="getMissingMonthList()" />
       </div>
     </div>
-    <div class="banner-description">
+    <div v-if="hasToDisplayCurrentDocuments()" class="banner-description">
       <div class="current-doc">
         <p class="doc-label">{{ getSecondTitle() }}</p>
         <BannerIconTextLine
@@ -107,6 +107,16 @@ function hasToDisplayIdentityDescription(): boolean {
 
 function hasToDisplayMissingMonthDescription(): boolean {
   return ruleCase.value === 'continuity'
+}
+
+function hasToDisplayCurrentDocuments(): boolean {
+  //In the continuity case, we only want to display the current documents if there are documents in error, to avoid confusion when the issue is the absence of documents
+  if (ruleCase.value === 'continuity') {
+    const castedRuleData = props.rule.ruleData as PayslipContinuityRuleData
+    return (castedRuleData.payslipEntriesInError ?? []).length > 0
+  }
+  // Otherwise, we display the current documents
+  return true
 }
 
 function getTitle(): string {
