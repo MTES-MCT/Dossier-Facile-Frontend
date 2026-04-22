@@ -18,7 +18,7 @@
   </form>
   <slot name="incomeFilled" />
   <DsfrCallout
-    v-if="analysisWrapper?.analysisFailedRules.length !== 0"
+    v-if="(analysisWrapper?.analysisFailedRules?.length ?? 0) !== 0"
     class="analysis-callout"
     :title="t('document-ia-callout.title')"
     :content="t('document-ia-callout.content')"
