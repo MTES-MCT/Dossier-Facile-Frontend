@@ -84,8 +84,20 @@ const consentDeclaration = ref(false)
 const submitButton = useTemplateRef('submitButton')
 const showError = ref(false)
 
+const effectiveHonorDeclaration = computed(() => {
+  if (store.user.applicationType !== 'COUPLE') {
+    return Boolean(store.user.honorDeclaration)
+  }
+
+  const tenants = store.user.apartmentSharing?.tenants ?? []
+  return (
+    tenants.length > 0 &&
+    tenants.every((tenant) => 'honorDeclaration' in tenant && tenant.honorDeclaration === true)
+  )
+})
+
 onMounted(() => {
-  if (store.user.honorDeclaration) {
+  if (effectiveHonorDeclaration.value) {
     honorDeclaration.value = true
     consentDeclaration.value = true
   }
@@ -118,7 +130,7 @@ const submit = () => {
   }
 
   if (
-    honorDeclaration.value === store.user.honorDeclaration &&
+    honorDeclaration.value === effectiveHonorDeclaration.value &&
     message.value === store.user.clarification
   ) {
     router.push('/account')
