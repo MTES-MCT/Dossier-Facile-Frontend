@@ -14,12 +14,8 @@
     substep="plus-3-mois"
   />
   <EnterMonthlyIncome before-tax />
-  <UploadFilesFinancial category="SALARY" step="SALARY_EMPLOYED_MORE_3_MONTHS" :min-files="3">
-    <template #emptyIncome>
-      <AlertRealisticAmount />
-    </template>
+  <UploadFileFinancialWithAnalysis :min-files="3">
     <template #incomeFilled>
-      <AlertRealisticAmount class="fr-mb-3w" />
       <i18n-t :keypath="'please-provide-' + suffix" class="fr-mb-0" tag="p">
         <strong>{{ t('last-3-pay-slips') }}</strong>
       </i18n-t>
@@ -30,14 +26,13 @@
       </ul>
       <p>{{ t('can-add-last-month-slip', [months[3]]) }}</p>
     </template>
-  </UploadFilesFinancial>
+  </UploadFileFinancialWithAnalysis>
 </template>
 
 <script setup lang="ts">
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
-import UploadFilesFinancial from '../lib/UploadFilesFinancial.vue'
-import AlertRealisticAmount from './AlertRealisticAmount.vue'
+import UploadFileFinancialWithAnalysis from '../lib/UploadFileFinancialWithAnalysis.vue'
 import { useI18n } from 'vue-i18n'
 import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { lastMonths } from '../lib/lastMonths'

@@ -13,30 +13,25 @@
       >
         <span class="sr-only">{{ title }}</span>
       </SimpleRadioButtons>
-    </NakedCard>
-    <NakedCard v-if="selectedDocumentType.key || files.length > 0" class="fr-p-md-5w fr-mt-md-3w">
-      <div>
-        <AllDeclinedMessages
-          :user-id="user?.id"
-          :document="guarantorCertificateDocument()"
-          :document-denied-reasons="documentDeniedReasons"
-          :document-status="documentStatus"
-        />
-        <div class="fr-col-md-12 fr-mb-3w fr-mt-3w">
-          <ListItem
-            v-for="file in files"
-            :key="file.id"
-            :file="file"
-            :watermark-url="documentWatermarkUrl"
-            doc-category="guarantee-provider-certificate"
-            @remove="remove(Number(file.id))"
-          />
-        </div>
-        <div class="fr-mt-3w fr-mb-3w">
-          <FileUpload ref="file-upload" :current-status="fileUploadStatus" @add-files="addFiles" />
-        </div>
+      <div v-if="shouldShowUploader">
+        <AnalysisWrapper
+          ref="analysis-wrapper"
+          :is-uploading="isUploading"
+          :polling-timeout-ms="20000"
+        >
+          <template #fileUploader>
+            <UploadFileWithAnalysis
+              ref="upload-file-with-analysis"
+              doc-category="guarantee-provider-certificate"
+              :sub-category="selectedSubCategory"
+              :analysis-in-progress="analysisInProgress"
+              :max-file-count="5"
+            />
+          </template>
+        </AnalysisWrapper>
       </div>
     </NakedCard>
+
     <ConfirmModal
       v-model:is-opened="isDocDeleteVisible"
       :title="t('delete-docs')"
@@ -45,45 +40,53 @@
     >
       <p>{{ t('identification-page.will-delete-files') }}</p>
     </ConfirmModal>
+
+    <AnalysisFooter
+      :previous-step="previousStep"
+      :before-submit="analysisWrapper?.beforeSubmit"
+      :next-disabled="analysisWrapper?.nextDisabled"
+      :next-label="analysisWrapper?.nextLabel"
+      :on-submit-action="submit"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import FileUpload from '../../uploads/FileUpload.vue'
-import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
-import ListItem from '../../uploads/ListItem.vue'
-import { DfDocument } from 'df-shared-next/src/models/DfDocument'
-import { DfFile } from 'df-shared-next/src/models/DfFile'
-import { RegisterService } from '../../../services/RegisterService'
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
-import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useTenantStore } from '../../../stores/tenant-store'
-import { useLoading } from 'vue-loading-overlay'
-import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
-import { DocumentType } from 'df-shared-next/src/models/Document'
-import { DocumentTypeConstants } from '../../documents/share/DocumentTypeConstants'
-import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
-import { AnalyticsService } from '../../../services/AnalyticsService'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
-import { UtilsService } from '@/services/UtilsService'
-import { toast } from '@/components/toast/toastUtils'
+import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { DocumentType } from 'df-shared-next/src/models/Document'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import { computed, provide, ref, useTemplateRef, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { AnalyticsService } from '../../../services/AnalyticsService'
+import { RegisterService } from '../../../services/RegisterService'
+import { useTenantStore } from '../../../stores/tenant-store'
+import AnalysisWrapper from '../../analysis/AnalysisWrapper.vue'
+import UploadFileWithAnalysis from '../../analysis/UploadFileWithAnalysis.vue'
+import { documentFormKey } from '../../documents/documentFormState'
+import {
+  DocumentTypeConstants,
+  type DocumentSubCategory
+} from '../../documents/share/DocumentTypeConstants'
+import AnalysisFooter from '../../footer/AnalysisFooter.vue'
+import type { RouteLocationRaw } from 'vue-router'
 
 const props = defineProps<{
   tenantId?: number
   isCotenant?: boolean
   guarantor?: Guarantor
+  nextStep?: () => void
+  backStep: RouteLocationRaw
 }>()
 
 const { t } = useI18n()
 const store = useTenantStore()
-const fileUpload = useTemplateRef('file-upload')
 const user = computed(() => store.user)
 
-const MAX_FILE_COUNT = 5
+const analysisWrapper = useTemplateRef('analysis-wrapper')
 
 const documentTypeOptions = DocumentTypeConstants.GUARANTOR_ORGANISM_DOCS
 const certificateDocument = computed(() => {
@@ -93,19 +96,23 @@ const certificateDocument = computed(() => {
 const selectedDocumentType = ref(new DocumentType())
 const isDocDeleteVisible = ref(false)
 
-const documentDeniedReasons = ref(new DocumentDeniedReasons())
+const uploadFileWithAnalysis = useTemplateRef('upload-file-with-analysis')
 
-const files = ref([] as DfFile[])
-const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
-
-onBeforeMount(() => {
-  loadDocument()
-})
+const isUploading = computed(() => uploadFileWithAnalysis.value?.isUploading ?? false)
 
 const title = computed(() => {
   const userType = props.isCotenant ? 'cotenant' : 'tenant'
   return t(`explanation-text.${userType}.organism-guarantor`)
 })
+
+const shouldShowUploader = computed(
+  () =>
+    Boolean(selectedDocumentType.value.key) || (certificateDocument.value?.files?.length ?? 0) > 0
+)
+const selectedSubCategory = computed(() => selectedDocumentType.value.value as DocumentSubCategory)
+
+const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
+const previousStep: RouteLocationRaw = props.backStep
 
 function guarantorId() {
   if (props.guarantor) {
@@ -113,14 +120,6 @@ function guarantorId() {
   }
   return store.guarantor?.id
 }
-
-const documentStatus = computed(() => {
-  return certificateDocument.value?.documentStatus
-})
-
-const documentWatermarkUrl = computed(() => {
-  return certificateDocument.value?.name
-})
 
 function guarantorCertificateDocument(): DfDocument | undefined {
   if (props.guarantor) {
@@ -130,6 +129,40 @@ function guarantorCertificateDocument(): DfDocument | undefined {
   }
   return store.getGuaranteeProviderCertificateDocument
 }
+
+watch(
+  certificateDocument,
+  (document) => {
+    if (!document) return
+    const localDoc = documentTypeOptions.find(
+      (d: DocumentType) => d.value === document.documentSubCategory
+    )
+    if (localDoc !== undefined) {
+      selectedDocumentType.value = localDoc
+    }
+  },
+  { immediate: true }
+)
+
+provide(documentFormKey, {
+  category: 'GUARANTEE_PROVIDER_CERTIFICATE',
+  textKey: props.isCotenant ? 'couple-guarantor' : 'guarantor',
+  previousStep: previousStep,
+  nextStep: { name: 'GuarantorName' },
+  formFieldValue: 'typeDocumentCertificate',
+  document: certificateDocument,
+  storeAction: 'saveOrganismIdentification',
+  userId: store.user.id,
+  addData: (formData: FormData) => {
+    const gId = guarantorId()
+    if (gId) {
+      formData.append('guarantorId', gId.toString())
+    }
+    if (props.tenantId) {
+      formData.append('tenantId', props.tenantId.toString())
+    }
+  }
+})
 
 function onSelectChange($event: DocumentType) {
   selectedDocumentType.value = $event
@@ -163,54 +196,8 @@ async function validSelect() {
   await removeAllFiles()
 }
 
-function addFiles(newFiles: File[]) {
-  if (files.value.length >= MAX_FILE_COUNT) {
-    displayTooManyFilesToast()
-    return
-  }
-  save(newFiles)
-}
-
-function save(files: File[]) {
-  const fieldName = 'documents'
-  const formData = new FormData()
-  if (!files.length) return
-
-  Array.from(Array(files.length).keys()).forEach((x) => {
-    formData.append(`${fieldName}[${x}]`, files[x], files[x].name)
-  })
-
-  formData.append('typeDocumentCertificate', selectedDocumentType.value.value)
-
-  const gId = guarantorId()
-  if (gId) {
-    formData.append('guarantorId', gId.toString())
-  }
-  if (props.tenantId) {
-    formData.append('tenantId', props.tenantId.toString())
-  }
-
-  fileUploadStatus.value = UploadStatus.STATUS_SAVING
-  const $loading = useLoading({})
-  const loader = $loading.show()
-  RegisterService.saveOrganismIdentification(formData)
-    .then((response) => {
-      fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-      toast.success(t('save-success'), fileUpload.value?.inputFile)
-      store.loadUserCommit(response.data)
-      loadDocument()
-    })
-    .catch((error) => {
-      fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      UtilsService.handleCommonSaveError(error, fileUpload.value?.inputFile)
-    })
-    .finally(() => {
-      loader.hide()
-    })
-}
-
 async function removeAllFiles() {
-  const ids = files.value.map((f: DfFile) => Number(f.id))
+  const ids = (certificateDocument.value?.files ?? []).map((f) => Number(f.id))
   for (const fileId of ids) {
     await remove(fileId, true)
   }
@@ -220,44 +207,24 @@ async function remove(fileId: number, silent = false) {
   AnalyticsService.deleteFile('guarantee-provider-certificate')
   if (fileId) {
     if (
-      files.value.length === 1 &&
+      certificateDocument.value?.files?.length === 1 &&
       certificateDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
       AnalyticsService.removeDeniedDocument(certificateDocument.value.documentCategory || '')
     }
     await RegisterService.deleteFile(fileId, silent)
   }
-  const firstIndex = files.value.findIndex((f) => f.id === fileId)
-  files.value.splice(firstIndex, 1)
-}
-
-function loadDocument() {
-  // This is a needed workaround for now, since we can't identify the currently
-  // edited guarantor (and thus the corresponding document) from state
-  if (certificateDocument.value !== undefined) {
-    const localDoc = documentTypeOptions.find((d: DocumentType) => {
-      return d.value === certificateDocument.value?.documentSubCategory
-    })
-    if (localDoc !== undefined) {
-      selectedDocumentType.value = localDoc
-    }
-    if (certificateDocument.value.documentDeniedReasons) {
-      documentDeniedReasons.value = certificateDocument.value.documentDeniedReasons
-    } else {
-      documentDeniedReasons.value = new DocumentDeniedReasons()
-    }
-    files.value = certificateDocument.value?.files || []
-  }
-}
-
-function displayTooManyFilesToast() {
-  toast.maxFileError(files.value.length, MAX_FILE_COUNT, fileUpload.value?.inputFile)
 }
 
 function documentTypes() {
   return documentTypeOptions.map((d) => {
     return { id: d.key, labelKey: d.key, value: d }
   })
+}
+
+async function submit() {
+  await analysisWrapper.value?.saveExplanation()
+  props.nextStep?.()
 }
 </script>
 

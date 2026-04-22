@@ -11,6 +11,7 @@
           :disabled="isSaving"
           class="input-file"
           accept="image/png, image/jpeg, image/heic, application/pdf"
+          @click="onFileInputClick"
           @change="filesChange"
         />
         <div v-if="isSaving">
@@ -28,6 +29,9 @@
             <label for="file" class="label-btn">
               {{ t('fileupload.browse') }}
             </label>
+          </p>
+          <p v-if="errorMessage" class="fr-error-text fr-mb-0" role="alert">
+            {{ errorMessage }}
           </p>
         </div>
       </div>
@@ -50,11 +54,19 @@ const inputFile = useTemplateRef('inputFile')
 defineExpose({ inputFile })
 
 const props = withDefaults(
-  defineProps<{ currentStatus?: number; page?: number; size?: number }>(),
+  defineProps<{
+    currentStatus?: number
+    page?: number
+    size?: number
+    errorMessage?: string
+    beforeOpen?: () => boolean
+  }>(),
   {
     currentStatus: UploadStatus.STATUS_INITIAL,
     page: 0,
-    size: 10
+    size: 10,
+    errorMessage: undefined,
+    beforeOpen: undefined
   }
 )
 
@@ -63,6 +75,12 @@ const sizeLimit = computed(() => (props.size > 0 ? t('fileupload.size', [props.s
 const pagesLimit = computed(() => (props.page > 0 ? t('fileupload.pages', [props.page]) : ''))
 
 const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'application/pdf', 'image/heif']
+
+function onFileInputClick(e: Event) {
+  if (props.beforeOpen && !props.beforeOpen()) {
+    e.preventDefault()
+  }
+}
 
 const isTooBig = (file: File) => file.size > props.size * 1024 * 1024
 const hasValidExtension = (file: File) => ALLOWED_FILE_TYPES.includes(file.type)

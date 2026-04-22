@@ -193,12 +193,8 @@ export const AnalyticsService = {
     sendEvent('funnel', 'force-missing-residency-document')
   },
 
-  avisDetected() {
-    sendEvent('funnel', 'avis-detected')
-  },
-
-  avisForceUpload() {
-    sendEvent('funnel', 'avis-upload-forced')
+  asdirDetected() {
+    sendFullEvent('funnel', 'print', 'document_analysis_show_asdir_error')
   },
 
   validateFunnel() {
@@ -301,19 +297,19 @@ export const AnalyticsService = {
     sendFullEvent('file', 'clic', 'full-link-trigram-error')
   },
 
-  document_analysis_show_comment_from_link(category: DocumentCategory) {
+  document_analysis_show_comment_from_link(category: string) {
     sendFullEvent('funnel', 'clic', `document_analysis_show_comment_error_${category}`)
   },
 
-  document_analysis_show_comment(category: DocumentCategory) {
+  document_analysis_show_comment(category: string) {
     sendFullEvent('funnel', 'clic', `document_analysis_show_comment_${category}`)
   },
 
-  document_analysis_save_comment(category: DocumentCategory) {
+  document_analysis_save_comment(category: string) {
     sendFullEvent('funnel', 'clic', `document_analysis_save_comment_${category}`)
   },
 
-  document_analysis_timeout(category: DocumentCategory) {
+  document_analysis_timeout(category: string) {
     sendFullEvent('funnel', 'unknown', `document_analysis_timeout_${category}`)
   },
 

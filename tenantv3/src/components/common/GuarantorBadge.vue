@@ -1,5 +1,5 @@
 <template>
-  <DsfrBadge :label="t('guarantor-file')" class="guarantor-badge fr-mb-1w" no-icon small />
+  <DsfrBadge :label="t('guarantor-file')" class="guarantor-badge fr-mb-1w" no-icon />
 </template>
 
 <script setup lang="ts">
@@ -11,8 +11,8 @@ const { t } = useI18n()
 
 <style scoped>
 .guarantor-badge {
-  color: #755348;
-  background: #fddfd8;
+  color: #755348 !important;
+  background-color: #fddfd8 !important;
 }
 </style>
 
