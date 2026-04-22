@@ -15,11 +15,7 @@
   />
   <EnterMonthlyIncome before-tax />
   <UploadFileFinancialWithAnalysis :min-files="3">
-    <template #emptyIncome>
-      <AlertRealisticAmount />
-    </template>
     <template #incomeFilled>
-      <AlertRealisticAmount class="fr-mb-3w" />
       <i18n-t :keypath="'please-provide-' + suffix" class="fr-mb-0" tag="p">
         <strong>{{ t('last-3-pay-slips') }}</strong>
       </i18n-t>
@@ -37,7 +33,6 @@
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import UploadFileFinancialWithAnalysis from '../lib/UploadFileFinancialWithAnalysis.vue'
-import AlertRealisticAmount from './AlertRealisticAmount.vue'
 import { useI18n } from 'vue-i18n'
 import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { lastMonths } from '../lib/lastMonths'
