@@ -21,9 +21,16 @@
     v-if="(analysisWrapper?.analysisFailedRules?.length ?? 0) !== 0"
     class="analysis-callout"
     :title="t('document-ia-callout.title')"
-    :content="t('document-ia-callout.content')"
     title-tag="h3"
-  />
+  >
+    <p>{{ t('document-ia-callout.content') }}</p>
+    <p class="fr-mt-2w">
+      {{ t('document-ia-callout.need-help') }}
+      <router-link to="/contact" class="fr-link">
+        {{ t('document-ia-callout.contact-link') }}
+      </router-link>
+    </p>
+  </DsfrCallout>
   <AnalysisWrapper
     ref="analysis-wrapper"
     :is-uploading="uploadFileWithAnalysisRef?.isUploading ?? false"
@@ -322,7 +329,9 @@ defineExpose({
     "i-authorize-corrections": "By continuing, I authorize a DossierFacile operator to correct any errors in the income amounts declared, based on the supporting documents provided, in order to ensure that my file is compliant.",
     "document-ia-callout": {
       "title": "Automatic analysis",
-      "content": "We check your documents in real time. This feature is being tested."
+      "content": "We check your documents in real time. This feature is being tested.",
+      "need-help": "Need help?",
+      "contact-link": "Contact support"
     }
   },
   "fr": {
@@ -339,7 +348,9 @@ defineExpose({
     "i-authorize-corrections": "En continuant, j'autorise un opérateur DossierFacile à corriger les montants de revenus déclarés en cas d'erreur, sur la base des justificatifs fournis, afin de garantir la conformité de mon dossier.",
     "document-ia-callout": {
       "title": "Analyse automatique",
-      "content": "Nous vérifions vos documents en temps réel. Cette fonctionnalité est en cours de test."
+      "content": "Nous vérifions vos documents en temps réel. Cette fonctionnalité est en cours de test.",
+      "need-help": "Vous avez besoin d'aide ?",
+      "contact-link": "Contacter le support"
     }
   }
 }

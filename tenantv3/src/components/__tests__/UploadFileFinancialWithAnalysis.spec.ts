@@ -126,9 +126,13 @@ function buildGlobalStubs(failedRulesCount: number) {
     DsfrModalPatch: true,
     DsfrCallout: {
       name: 'DsfrCallout',
-      props: ['title', 'content', 'titleTag'],
+      props: ['title', 'titleTag'],
       template:
-        '<div data-test="analysis-callout"><p data-test="callout-title">{{ title }}</p><p data-test="callout-content">{{ content }}</p></div>'
+        '<div data-test="analysis-callout"><p data-test="callout-title">{{ title }}</p><div data-test="callout-body"><slot /></div></div>'
+    },
+    RouterLink: {
+      props: ['to'],
+      template: '<a :href="to" data-test="support-link"><slot /></a>'
     },
     'i18n-t': true
   }
@@ -199,8 +203,15 @@ describe('UploadFileFinancialWithAnalysis', () => {
 
       expect(wrapper.find('[data-test="analysis-callout"]').exists()).toBe(true)
       expect(wrapper.find('[data-test="callout-title"]').text()).toBe('document-ia-callout.title')
-      expect(wrapper.find('[data-test="callout-content"]').text()).toBe(
+      expect(wrapper.find('[data-test="callout-body"]').text()).toContain(
         'document-ia-callout.content'
+      )
+      expect(wrapper.find('[data-test="callout-body"]').text()).toContain(
+        'document-ia-callout.need-help'
+      )
+      expect(wrapper.find('[data-test="support-link"]').attributes('href')).toBe('/contact')
+      expect(wrapper.find('[data-test="support-link"]').text()).toBe(
+        'document-ia-callout.contact-link'
       )
     })
   })
