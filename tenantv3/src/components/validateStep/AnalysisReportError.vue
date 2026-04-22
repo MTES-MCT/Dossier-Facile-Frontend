@@ -52,6 +52,7 @@ const { t } = useI18n()
 const store = useTenantStore()
 
 type FailedDoc = {
+  kind?: 'document' | 'guarantor-identity'
   label: string
   doc?: DfDocument | undefined
   documentCategory: DocumentCategory | undefined
@@ -61,6 +62,11 @@ type FailedDoc = {
 const failedDocuments = computed(() => {
   const errors = props.documentAnalysisStatus.filter((s) => s.isFinished && !s.isValid)
   const result: FailedDoc[] = []
+
+  const getGuarantorDisplayName = (guarantor: Guarantor) => {
+    const fullName = `${guarantor.firstName ?? ''} ${guarantor.lastName ?? ''}`.trim()
+    return fullName || t('guarantor-generic')
+  }
 
   const checkUserDocs = (user: User | Guarantor, requiredCategories: DocumentCategory[]) => {
     const userDocs: FailedDoc[] = []
@@ -124,6 +130,19 @@ const failedDocuments = computed(() => {
     } else if (g.typeGuarantor === 'ORGANISM') {
       categories = guarantorOrganismCategories
     }
+
+    if (g.typeGuarantor !== 'ORGANISM') {
+      const missingIdentity = !g.firstName?.trim() || !g.lastName?.trim()
+      if (missingIdentity) {
+        result.push({
+          kind: 'guarantor-identity',
+          label: t('guarantor-identity-missing', { name: getGuarantorDisplayName(g) }),
+          documentCategory: undefined,
+          owner: g
+        })
+      }
+    }
+
     checkUserDocs(g, categories)
   }
 
@@ -160,6 +179,26 @@ const getDocLabel = (doc: DfDocument, owner: User | Guarantor) => {
 }
 
 const getDocLink = (failedDoc: FailedDoc) => {
+  if (failedDoc.kind === 'guarantor-identity' && 'typeGuarantor' in failedDoc.owner) {
+    const guarantorId = failedDoc.owner.id
+    if (!guarantorId) {
+      return '#'
+    }
+
+    const coTenants =
+      store.user.apartmentSharing?.tenants.filter((tenant) => tenant.id !== store.user.id) ?? []
+
+    const coTenant = coTenants.find((tenant) =>
+      (tenant.guarantors ?? []).some((guarantor) => guarantor.id === guarantorId)
+    )
+
+    if (coTenant?.id) {
+      return `/info-garant-locataire/${coTenant.id}/${guarantorId}/5/0`
+    }
+
+    return `/info-garant/0/${guarantorId}`
+  }
+
   const isGuarantor = 'typeGuarantor' in failedDoc.owner
   const isTenant = failedDoc.owner.id === store.user.id
 
@@ -175,6 +214,11 @@ const getDocLink = (failedDoc: FailedDoc) => {
 }
 
 const onDocClick = (doc: FailedDoc) => {
+  if (doc.kind === 'guarantor-identity') {
+    AnalyticsService.validate_anchor_error_click('guarantor', 'IDENTIFICATION')
+    return
+  }
+
   if (doc.owner.id === store.user.id) {
     AnalyticsService.validate_anchor_error_click(
       'tenant',
@@ -231,14 +275,18 @@ const onDocClick = (doc: FailedDoc) => {
     "title": "{count} document to correct | {count} documents to correct",
     "description": "Errors have been detected. Correct them to submit your file.",
     "doc-owner": "{docName} of {name}",
-    "accordion-title": "List of documents with errors"
+    "accordion-title": "List of documents with errors",
+    "guarantor-identity-missing": "Guarantor identity to complete: {name}",
+    "guarantor-generic": "Unnamed guarantor"
   },
   "fr": {
     "title-badge": "ACTION REQUISE",
     "title": "{count} document à corriger | {count} documents à corriger",
     "description": "Des erreurs ont été détectées. Corrigez-les pour soumettre votre dossier.",
     "doc-owner": "{docName} de {name}",
-    "accordion-title": "Liste des documents en erreurs"
+    "accordion-title": "Liste des documents en erreurs",
+    "guarantor-identity-missing": "Identité du garant à compléter : {name}",
+    "guarantor-generic": "Garant sans nom"
   }
 }
 </i18n>
