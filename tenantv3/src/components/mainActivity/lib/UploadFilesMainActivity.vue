@@ -23,6 +23,7 @@
     :current-files="professionalFiles"
     :category="mainCategory"
     :next-step
+    :server-errors
     @add-files="addFiles"
   />
   <MainActivityFooter />
@@ -45,6 +46,7 @@ import { useMainActivityState } from './mainActivityState'
 import MainActivityFooter from './MainActivityFooter.vue'
 import { toast } from '@/components/toast/toastUtils'
 import { useI18n } from 'vue-i18n'
+const serverErrors = ref<string>('')
 
 const props = defineProps<{ category: MainActivityCategory }>()
 
@@ -89,7 +91,11 @@ async function save(): Promise<boolean> {
   }
 
   if (professionalFiles.value.length > MAX_FILE_COUNT) {
-    toast.maxFileError(professionalFiles.value.length, MAX_FILE_COUNT, fileUpload.value?.inputFile)
+    serverErrors.value = toast.maxFileError(
+      professionalFiles.value.length,
+      MAX_FILE_COUNT,
+      fileUpload.value?.inputFile
+    )
     files.value = []
     return false
   }

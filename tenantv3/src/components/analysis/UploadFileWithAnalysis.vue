@@ -30,12 +30,16 @@
   </div>
   <FileUpload
     ref="file-upload"
+    v-model:current-files="currentFiles"
     :current-status="fileUploadStatus"
     :page="4"
+    :category="docCategory"
+    :next-step="nextStep"
+    :server-errors
     :error-message="errorMessage"
     :before-open="beforeOpen"
     @add-files="addFiles"
-  ></FileUpload>
+  />
   <slot name="custom" />
 </template>
 
@@ -56,6 +60,7 @@ import { useLoading } from 'vue-loading-overlay'
 import { useDocumentFormKey } from '../documents/documentFormState'
 import { type DocumentSubCategory } from '../documents/share/DocumentTypeConstants'
 import { toast } from '../toast/toastUtils'
+import type { RouteLocationAsPathGeneric, RouteLocationAsRelativeGeneric } from 'vue-router'
 
 const emit = defineEmits<{ saved: [] }>()
 
@@ -63,7 +68,8 @@ const props = withDefaults(
   defineProps<{
     docCategory: DocumentCategory
     subCategory: DocumentSubCategory
-    step?: DocumentCategoryStep
+    step: DocumentCategoryStep
+    nextStep: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric
     maxFileCount?: number
     analysisInProgress?: boolean
     explanation?: string
@@ -74,7 +80,6 @@ const props = withDefaults(
   {
     analysisInProgress: false,
     maxFileCount: 5,
-    step: undefined,
     explanation: undefined,
     beforeSave: undefined,
     beforeOpen: undefined,
@@ -84,6 +89,7 @@ const props = withDefaults(
 
 const { t } = useI18n()
 const store = useTenantStore()
+const serverErrors = ref<string>('')
 
 const documentFormState = useDocumentFormKey()
 
@@ -156,7 +162,11 @@ async function save(): Promise<boolean> {
   }
 
   if (currentFiles.value.length > props.maxFileCount) {
-    toast.maxFileError(currentFiles.value.length, props.maxFileCount, fileUpload.value?.inputFile)
+    serverErrors.value = toast.maxFileError(
+      currentFiles.value.length,
+      props.maxFileCount,
+      fileUpload.value?.inputFile
+    )
     files.value = []
     return false
   }

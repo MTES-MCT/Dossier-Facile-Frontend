@@ -2,12 +2,12 @@
 
 <template>
   <AllDeclinedMessages
-    :user-id="taxState.userId"
+    :user-id="userId"
     :document="taxDocument"
     :document-denied-reasons="taxDocument?.documentDeniedReasons"
     :document-status="documentStatus"
     :show-pre-validation="showPreValidation"
-  ></AllDeclinedMessages>
+  />
   <ul v-if="taxFiles.length > 0" role="list" class="fr-col-12 fr-mb-3w">
     <li v-for="file in taxFiles" :key="file.id">
       <ListItem
@@ -15,19 +15,23 @@
         :watermark-url="documentWatermarkUrl"
         doc-category="tax"
         @remove="remove(file)"
-        @ask-confirm="AnalyticsService.deleteDocument(taxState.category)"
-        @cancel="AnalyticsService.cancelDelete(taxState.category)"
+        @ask-confirm="AnalyticsService.deleteDocument(taxCategory)"
+        @cancel="AnalyticsService.cancelDelete(taxCategory)"
       />
     </li>
   </ul>
 
   <FileUpload
     ref="file-upload"
+    v-model:current-files="taxFiles"
     :current-status="fileUploadStatus"
     :page="4"
-    :error-message="errorMessage"
+    :error-message
+    :category="taxCategory"
+    :next-step
+    :server-errors
     @add-files="addFiles"
-  ></FileUpload>
+  />
   <DsfrModalPatch
     v-model:is-opened="isModalOpened"
     :title="t('avis-detected')"
@@ -74,14 +78,13 @@ const props = withDefaults(
   defineProps<{
     category: TaxCategory
     step?: TaxCategoryStep
+    maxFileCount?: number
     explanation?: string
     analysisInProgress?: boolean
     showPreValidation?: boolean
   }>(),
-  { showPreValidation: true, analysisInProgress: false }
+  { maxFileCount: 5, showPreValidation: true, analysisInProgress: false }
 )
-
-const MAX_FILE_COUNT = 5
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
@@ -99,12 +102,12 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
 ])
 
 const store = useTenantStore()
-const taxState = useTaxState()
+const { document, nextStep, category: taxCategory, addData, action, userId } = useTaxState()
 const fileUpload = useTemplateRef('file-upload')
-
 const { t } = useI18n()
+const serverErrors = ref<string>('')
 
-const taxDocument = taxState.document
+const taxDocument = document
 const documentStatus = computed(() => taxDocument.value?.documentStatus)
 
 const isUploading = computed(() => fileUploadStatus.value === UploadStatus.STATUS_SAVING)
@@ -133,8 +136,12 @@ async function save(): Promise<boolean> {
     return true
   }
 
-  if (taxFiles.value.length > MAX_FILE_COUNT) {
-    toast.maxFileError(taxFiles.value.length, MAX_FILE_COUNT, fileUpload.value?.inputFile)
+  if (taxFiles.value.length > props.maxFileCount) {
+    serverErrors.value = toast.maxFileError(
+      taxFiles.value.length,
+      props.maxFileCount,
+      fileUpload.value?.inputFile
+    )
     files.value = []
     return false
   }
@@ -152,12 +159,12 @@ async function save(): Promise<boolean> {
   if (props.explanation) {
     formData.append('customText', props.explanation)
   }
-  taxState.addData?.(formData)
+  addData?.(formData)
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
   const $loading = useLoading()
   const loader = $loading.show()
-  return await store[taxState.action](formData)
+  return await store[action](formData)
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
@@ -178,7 +185,7 @@ async function addFiles(fileList: File[] | undefined) {
   if (!fileList) return
   // Clear previous inline error on every new attempt
   errorMessage.value = undefined
-  AnalyticsService.uploadFile(taxState.category, props.category)
+  AnalyticsService.uploadFile(taxCategory, props.category)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
@@ -199,7 +206,7 @@ defineExpose({
 })
 
 async function remove(file: DfFile, silent = false) {
-  AnalyticsService.deleteFile(taxState.category)
+  AnalyticsService.deleteFile(taxCategory)
   if (file.id) {
     if (
       taxDocument.value?.files?.length === 1 &&
