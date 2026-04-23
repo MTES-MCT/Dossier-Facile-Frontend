@@ -45,6 +45,10 @@ export const useApplicationAnalysis = () => {
 
       const firstName = guarantor.firstName?.trim()
       const lastName = guarantor.lastName?.trim()
+
+      if (guarantor.typeGuarantor === 'LEGAL_PERSON') {
+        return firstName || lastName
+      }
       return firstName && lastName
     }
 
