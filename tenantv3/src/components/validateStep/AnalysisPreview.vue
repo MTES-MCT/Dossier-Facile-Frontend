@@ -10,7 +10,7 @@
       class="fr-p-1w document-preview-card document-preview-card--error fr-mb-2w"
     >
       <DsfrBadge type="warning" :label="t('to-correct-label')" class="fr-mb-1w" />
-      <div class="fr-text--md fr-mb-1w">{{ t('guarantor-identity-label') }}</div>
+      <p class="fr-text--md fr-mb-1w">{{ t('guarantor-identity-label') }}</p>
       <div class="fr-grid-row fr-grid-row--right">
         <a :href="guarantorIdentityLink" class="fr-btn fr-btn--secondary">
           {{ t('correct') }}
