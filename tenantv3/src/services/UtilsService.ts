@@ -108,7 +108,9 @@ export const UtilsService = {
   guarantorFullName(user: Guarantor) {
     const firstName = this.capitalize(user.firstName || '')
     const lastName = this.capitalize(user.lastName || '')
-    return firstName + '\xa0' + lastName
+    const preferredName = this.capitalize(user.preferredName || '')
+    const usedLastName = preferredName.length > 0 ? preferredName : lastName
+    return firstName + '\xa0' + usedLastName
   },
   getParam(param: string | string[]) {
     return Array.isArray(param) ? param[0] : param

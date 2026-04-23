@@ -16,6 +16,15 @@
         </div>
         <div class="fr-col-12 fr-mb-3w">
           <TextField
+            v-model.trim="preferredName"
+            name="preferredname"
+            :field-label="t('tenantguarantorname.preferredname')"
+            :hint="t('tenantguarantorname.preferredname-hint')"
+            validation-rules="onlyAlpha"
+          />
+        </div>
+        <div class="fr-col-12 fr-mb-3w">
+          <TextField
             v-model.trim="firstName"
             name="firstname"
             :field-label="t('tenantguarantorname.firstname')"
@@ -59,10 +68,12 @@ const footer = useTemplateRef('footer')
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const firstName = ref<string | undefined>('')
 const lastName = ref<string | undefined>('')
+const preferredName = ref<string | undefined>('')
 
 onBeforeMount(() => {
   firstName.value = props.guarantor.firstName
   lastName.value = props.guarantor.lastName
+  preferredName.value = props.guarantor.preferredName
 })
 
 function next() {
@@ -73,7 +84,8 @@ function next() {
 function save() {
   if (
     firstName.value === props.guarantor.firstName &&
-    lastName.value === props.guarantor.lastName
+    lastName.value === props.guarantor.lastName &&
+    (preferredName.value || '') === (props.guarantor.preferredName || '')
   ) {
     next()
     return
@@ -85,6 +97,10 @@ function save() {
   if (lastName.value) {
     formData.append('lastName', UtilsService.capitalize(lastName.value))
   }
+  formData.append(
+    'preferredName',
+    preferredName.value ? UtilsService.capitalize(preferredName.value) : ''
+  )
   if (props.guarantor.id) {
     formData.append('guarantorId', props.guarantor.id?.toString())
   }

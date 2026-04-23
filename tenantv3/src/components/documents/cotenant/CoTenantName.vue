@@ -23,6 +23,7 @@
             v-model.trim="preferredName"
             name="preferredname"
             :field-label="t('cotenantname.preferredname')"
+            :hint="t('cotenantname.preferredname-hint')"
             validation-rules="onlyAlpha"
           />
         </div>

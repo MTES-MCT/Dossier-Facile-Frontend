@@ -323,6 +323,7 @@
     "lastname": "Nom de naissance",
     "firstname": "Prénom",
     "preferredname": "Nom d'usage",
+    "preferredname-hint": "Nom que vous utilisez au quotidien (ex : nom marital)",
     "email": "E-mail",
     "email-not-valid": "Email non valide",
     "lastname-placeholder": "ex: Dupont",
@@ -535,7 +536,9 @@
     "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
   },
   "guarantorname": {
-    "lastname": "Nom",
+    "lastname": "Nom de naissance",
+    "preferredname": "Nom d'usage",
+    "preferredname-hint": "Nom que vous utilisez au quotidien (ex : nom marital)",
     "firstname": "Prénom",
     "lastname-placeholder": "ex: Dupont",
     "firstname-placeholder": "ex: Jean",
@@ -845,7 +848,9 @@
     "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
   },
   "tenantguarantorname": {
-    "lastname": "Nom",
+    "lastname": "Nom de naissance",
+    "preferredname": "Nom d'usage",
+    "preferredname-hint": "Nom que vous utilisez au quotidien (ex : nom marital)",
     "firstname": "Prénom",
     "lastname-placeholder": "ex: Dupont",
     "firstname-placeholder": "ex: Jean",

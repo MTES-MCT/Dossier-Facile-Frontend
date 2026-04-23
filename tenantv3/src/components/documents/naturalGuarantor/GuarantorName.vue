@@ -16,6 +16,14 @@
           />
 
           <TextField
+            v-model.trim="preferredName"
+            :field-label="t('guarantorname.preferredname')"
+            :hint="t('guarantorname.preferredname-hint')"
+            name="preferredname"
+            validation-rules="onlyAlpha"
+          />
+
+          <TextField
             v-model.trim="firstName"
             :field-label="t('guarantorname.firstname')"
             name="firstname"
@@ -52,18 +60,21 @@ const { t } = useI18n()
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const firstName = ref('')
 const lastName = ref('')
+const preferredName = ref('')
 
 const emit = defineEmits<{ 'on-back': []; 'on-next': [] }>()
 
 onBeforeMount(() => {
   firstName.value = selectedGuarantor.value?.firstName || ''
   lastName.value = selectedGuarantor.value?.lastName || ''
+  preferredName.value = selectedGuarantor.value?.preferredName || ''
 })
 
 function save() {
   if (
     firstName.value === selectedGuarantor.value?.firstName &&
-    lastName.value === selectedGuarantor.value?.lastName
+    lastName.value === selectedGuarantor.value?.lastName &&
+    preferredName.value === (selectedGuarantor.value?.preferredName || '')
   ) {
     emit('on-next')
     return
@@ -75,6 +86,10 @@ function save() {
   if (lastName.value) {
     formData.append('lastName', UtilsService.capitalize(lastName.value))
   }
+  formData.append(
+    'preferredName',
+    preferredName.value ? UtilsService.capitalize(preferredName.value) : ''
+  )
   formData.append('guarantorId', store.guarantor?.id?.toString() || '')
   const $loading = useLoading({})
   const loader = $loading.show()

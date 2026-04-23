@@ -180,6 +180,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { toast } from '@/components/toast/toastUtils'
+import { UtilsService } from '@/services/UtilsService'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 const store = useTenantStore()
@@ -219,7 +220,7 @@ function guarantorTitle(g: Guarantor) {
   if (g.typeGuarantor === 'NATURAL_PERSON')
     return (
       t('guarantorssection.my-guarantor') +
-      (g.firstName || g.lastName ? ' ' + g.firstName + ' ' + g.lastName : '')
+      (g.firstName || g.lastName ? ' ' + UtilsService.guarantorFullName(g) : '')
     )
   else if (g.typeGuarantor === 'LEGAL_PERSON' && g.legalPersonName) {
     return t('guarantorssection.my-guarantor') + ' ' + g.legalPersonName

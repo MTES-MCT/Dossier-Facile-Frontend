@@ -35,6 +35,7 @@ import { makeTaxLink } from '@/components/tax/lib/taxLink'
 import { toast } from '@/components/toast/toastUtils'
 import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { useTenantStore } from '@/stores/tenant-store'
+import { UtilsService } from '@/services/UtilsService'
 import CardRow from 'df-shared-next/src/components/CardRow.vue'
 import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
@@ -62,7 +63,7 @@ onBeforeMount(() => {
 
 function getGuarantorName(g: Guarantor) {
   if (g.firstName || g.lastName) {
-    return `${g.firstName || ''} ${g.lastName || ''}`
+    return UtilsService.guarantorFullName(g)
   }
   if (g.typeGuarantor === 'LEGAL_PERSON' && g.legalPersonName) {
     return g.legalPersonName
