@@ -132,7 +132,13 @@ const failedDocuments = computed(() => {
     }
 
     if (g.typeGuarantor !== 'ORGANISM') {
-      const missingIdentity = !g.firstName?.trim() || !g.lastName?.trim()
+      let missingIdentity = false
+      if (g.typeGuarantor === 'LEGAL_PERSON') {
+        missingIdentity = !g.firstName?.trim() && !g.lastName?.trim()
+      } else {
+        missingIdentity = !g.firstName?.trim() || !g.lastName?.trim()
+      }
+
       if (missingIdentity) {
         result.push({
           kind: 'guarantor-identity',

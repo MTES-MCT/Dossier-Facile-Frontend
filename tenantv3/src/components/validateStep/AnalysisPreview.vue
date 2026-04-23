@@ -97,6 +97,10 @@ const showGuarantorIdentityBlock = computed(() => {
     return false
   }
 
+  if (props.user.typeGuarantor === 'LEGAL_PERSON') {
+    return !props.user.firstName?.trim() && !props.user.lastName?.trim()
+  }
+
   return !props.user.firstName?.trim() || !props.user.lastName?.trim()
 })
 
