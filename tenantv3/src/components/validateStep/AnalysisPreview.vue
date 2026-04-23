@@ -5,6 +5,18 @@
     <h1 class="fr-h6">
       {{ nameToDisplay }}
     </h1>
+    <div
+      v-if="showGuarantorIdentityBlock"
+      class="fr-p-1w document-preview-card document-preview-card--error fr-mb-2w"
+    >
+      <DsfrBadge type="warning" :label="t('to-correct-label')" class="fr-mb-1w" />
+      <p class="fr-text--md fr-mb-1w">{{ t('guarantor-identity-label') }}</p>
+      <div class="fr-grid-row fr-grid-row--right">
+        <a :href="guarantorIdentityLink" class="fr-btn fr-btn--secondary">
+          {{ t('correct') }}
+        </a>
+      </div>
+    </div>
     <DocumentPreviewCard
       v-for="doc in documents"
       :key="doc.document?.id || doc.documentCategory"
@@ -76,6 +88,52 @@ const nameToDisplay = computed(() => {
   return t('documents-of')
 })
 
+const showGuarantorIdentityBlock = computed(() => {
+  if (props.isTenant || !('typeGuarantor' in props.user)) {
+    return false
+  }
+
+  if (props.user.typeGuarantor === 'ORGANISM') {
+    return false
+  }
+
+  return !props.user.firstName?.trim() || !props.user.lastName?.trim()
+})
+
+const coTenantIdForGuarantor = computed(() => {
+  if (props.isTenant || !('typeGuarantor' in props.user)) {
+    return undefined
+  }
+
+  const guarantorId = props.user.id
+  if (!guarantorId) {
+    return undefined
+  }
+
+  const coTenants =
+    store.user.apartmentSharing?.tenants.filter((tenant) => tenant.id !== store.user.id) ?? []
+
+  const coTenant = coTenants.find((tenant) =>
+    (tenant.guarantors ?? []).some((guarantor) => guarantor.id === guarantorId)
+  )
+
+  return coTenant?.id
+})
+
+const guarantorIdentityLink = computed(() => {
+  const guarantorId = props.user.id
+  if (!guarantorId) {
+    return '#'
+  }
+
+  const coTenantId = coTenantIdForGuarantor.value
+  if (coTenantId) {
+    return `/info-garant-locataire/${coTenantId}/${guarantorId}/5/0`
+  }
+
+  return `/info-garant/0/${guarantorId}`
+})
+
 const getDocumentCategories = () => {
   if (!props.isTenant && 'typeGuarantor' in props.user) {
     if (props.user.typeGuarantor === 'LEGAL_PERSON') {
@@ -132,19 +190,37 @@ const documents = computed(() => {
 })
 </script>
 
+<style scoped lang="scss">
+.document-preview-card {
+  background-color: var(--background-default-grey);
+  border: 1px solid var(--border-default-grey);
+
+  &--error {
+    background-color: var(--background-default-grey);
+    border: 1px solid var(--red-marianne-main-472);
+  }
+}
+</style>
+
 <i18n>
 {
   "en": {
     "documents-of": "Documents of {firstName} {lastName}",
     "document-of-organization": "Documents of the organization",
     "badge-loc": "TENANT FILE",
-    "badge-guarantor": "GUARANTOR FILE"
+    "badge-guarantor": "GUARANTOR FILE",
+    "to-correct-label": "TO CORRECT",
+    "guarantor-identity-label": "Guarantor identity",
+    "correct": "Correct"
   },
   "fr": {
     "documents-of": "Documents de {firstName} {lastName}",
     "document-of-organization": "Documents de l'organisme",
     "badge-loc": "DOSSIER LOCATAIRE",
-    "badge-guarantor": "DOSSIER GARANT"
+    "badge-guarantor": "DOSSIER GARANT",
+    "to-correct-label": "À CORRIGER",
+    "guarantor-identity-label": "Identité du garant",
+    "correct": "Corriger"
   }
 }
 </i18n>

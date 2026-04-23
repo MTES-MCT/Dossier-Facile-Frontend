@@ -5,6 +5,7 @@ import {
   type DocumentAnalysisStatusDTO
 } from '@/services/AnalysisService'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
+import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { useTenantStore } from '@/stores/tenant-store'
 import type { DocumentAnalysisReport } from 'df-shared-next/src/models/DocumentAnalysisReport'
 
@@ -36,13 +37,41 @@ export const useApplicationAnalysis = () => {
     )
   })
 
+  const hasAllGuarantorsIdentityDefined = computed(() => {
+    const isGuarantorIdentityDefined = (guarantor: Guarantor) => {
+      if (guarantor.typeGuarantor === 'ORGANISM') {
+        return true
+      }
+
+      const firstName = guarantor.firstName?.trim()
+      const lastName = guarantor.lastName?.trim()
+      return firstName && lastName
+    }
+
+    const guarantorsFromMainTenant = store.user.guarantors ?? []
+    const mainTenantIsValid = guarantorsFromMainTenant.every(isGuarantorIdentityDefined)
+    if (!mainTenantIsValid) {
+      return false
+    }
+
+    if (store.user.applicationType !== 'COUPLE') {
+      return true
+    }
+
+    const coTenants =
+      store.user.apartmentSharing?.tenants.filter((tenant) => tenant.id !== store.user.id) ?? []
+
+    return coTenants.every((tenant) => (tenant.guarantors ?? []).every(isGuarantorIdentityDefined))
+  })
+
   const isApplicationOk = computed(() => {
     return (
       !isAnalyseInProgress.value &&
       analysisResults.value.documentAnalysisStatus.every((s) => {
         return s.isValid || (!s.isValid && s.analysisReport?.comment !== undefined)
       }) &&
-      store.allDocumentsPreValidated
+      store.allDocumentsPreValidated &&
+      hasAllGuarantorsIdentityDefined.value
     )
   })
 
