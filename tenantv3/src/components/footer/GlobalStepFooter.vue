@@ -3,7 +3,6 @@ import { useI18n } from 'vue-i18n'
 import { computed, useTemplateRef } from 'vue'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 import { useRouter } from 'vue-router'
-import BackNext from './BackNext.vue'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -14,8 +13,11 @@ interface Props {
   disabled?: boolean
   nextLabel?: string
   formId?: string
-  backAction?: () => void
   submit?: boolean
+  backAction?: () => void
+  beforeSubmit?: () => boolean
+  onSubmitAction?: () => Promise<void> | void
+  onError?: (error: unknown) => void
 }
 
 const {
@@ -24,16 +26,32 @@ const {
   disabled = false,
   nextLabel = undefined,
   formId = undefined,
+  submit = undefined,
   backAction = undefined,
-  submit = undefined
+  beforeSubmit = undefined,
+  onSubmitAction = undefined,
+  onError = undefined
 } = defineProps<Props>()
 
 const emit = defineEmits<{ 'on-next': []; 'on-back': [] }>()
-const backNext = useTemplateRef<InstanceType<typeof BackNext>>('back-next')
-defineExpose({ nextBtn: computed(() => backNext.value?.btnEl) })
+const nextBtn = useTemplateRef('next-btn')
+defineExpose({ button: computed(() => nextBtn.value?.$el) })
 
-function nextAction() {
-  emit('on-next')
+const nextAction = async () => {
+  // check if custom actions are provided
+  if (beforeSubmit && !beforeSubmit()) {
+    emit('on-next')
+    return
+  } else if (onSubmitAction && !onSubmitAction()) {
+    try {
+      emit('on-next')
+      await onSubmitAction?.()
+    } catch (error) {
+      onError?.(error)
+    }
+  } else {
+    emit('on-next')
+  }
 }
 
 /**
