@@ -526,9 +526,6 @@
     },
     "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
   },
-  "guarantorname": {
-    "title": "Identité de votre garant"
-  },
   "guarantorresidency": {
     "tenant": "Locataire",
     "owner": "Propriétaire",
@@ -831,9 +828,6 @@
     "DECLINED": "Modification demandée",
     "INCOMPLETE": "Non terminé",
     "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
-  },
-  "tenantguarantorname": {
-    "title": "Identité de son garant"
   },
   "tenantinformationform": {
     "title": "Constituez-vous un dossier de location afin d'habiter :",

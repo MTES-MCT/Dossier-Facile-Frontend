@@ -528,9 +528,6 @@
     },
     "remove-guarantor": "Are you sure you want to remove this guarantor?"
   },
-  "guarantorname": {
-    "title": "Guarantor's Identity"
-  },
   "guarantorresidency": {
     "tenant": "Tenant",
     "owner": "Owner",
@@ -829,9 +826,6 @@
     "DECLINED": "Modification Requested",
     "INCOMPLETE": "Incomplete",
     "remove-guarantor": "Are you sure you want to remove this guarantor?"
-  },
-  "tenantguarantorname": {
-    "title": "Spouse's Guarantor Identity"
   },
   "tenantinformationform": {
     "title": "Create a Rental Application to Live:",
