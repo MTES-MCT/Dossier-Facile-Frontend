@@ -58,41 +58,32 @@
       />
     </template>
   </AnalysisWrapper>
-  <AnalysisFooter
-    :previous-step="previousStep"
-    :next-disabled="analysisWrapper?.nextDisabled"
-    :next-label="analysisWrapper?.nextLabel"
-    :before-submit="analysisWrapper?.beforeSubmit"
-    :on-submit-action="submit"
-  />
 </template>
 
 <script setup lang="ts">
 import avisKO from '@/assets/avis_ko.png'
 import avisOK from '@/assets/avis_ok.png'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
-import AnalysisFooter from '@/components/footer/AnalysisFooter.vue'
 import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useTaxState } from '@/components/tax/lib/taxState'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { DsfrAlert, DsfrButton } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, ref, useTemplateRef, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import AnalysisWrapper from '../analysis/AnalysisWrapper.vue'
 import { useDocumentFormKey } from '../documents/documentFormState'
 import UploadFileTaxWithAnalysis, {
   type UploadFileTaxWithAnalysisExposed
 } from './lib/UploadFileTaxWithAnalysis.vue'
 import { taxYear } from './lib/taxYear'
+import { FooterKey } from '../footer/footerKey'
 
 const { t } = useI18n()
-const router = useRouter()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
 const { textKey } = useDocumentFormKey()
-const { previousStep, nextStep, category: stateCategory } = useTaxState()
+const { category: stateCategory } = useTaxState()
 
 const uploadFileTaxWithAnalysis = useTemplateRef<UploadFileTaxWithAnalysisExposed>(
   'upload-file-tax-with-analysis'
@@ -106,8 +97,13 @@ const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgr
 async function submit() {
   await analysisWrapper.value?.saveExplanation()
   AnalyticsService.validateFunnelStep(stateCategory)
-  await router.push(nextStep)
 }
+
+// provide the status and results to the footer (too deeply nested to use props)
+provide(FooterKey, {
+  analysisWrapper,
+  submit
+})
 </script>
 
 <style scoped>

@@ -38,27 +38,35 @@
         id="errors-file-upload"
         :errors="flatErrors(r$.$errors.files)"
       />
-      <GlobalStepFooter :disabled="!store.getTenantIdentificationDocument" @on-next="handleNext" />
+      <GlobalStepFooter
+        :disabled="analysisWrapper?.nextDisabled"
+        :next-label="analysisWrapper?.nextLabel"
+        :before-submit="analysisWrapper?.beforeSubmit"
+        :on-submit-action="submit"
+        @on-next="handleNext"
+      />
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
-import { computed, nextTick, onBeforeMount, ref, useTemplateRef, watch } from 'vue'
+import { computed, nextTick, onBeforeMount, ref, useTemplateRef, watch, inject } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRegle, flatErrors, type RegleExternalErrorTree } from '@regle/core'
 import { fileType, maxFileSize, maxLength, required, withMessage } from '@regle/rules'
 import FieldErrors from 'df-shared-next/src/components/form/FieldErrors.vue'
 import { useNextStep } from '../common/lib/useNextStep'
-import { useTenantStore } from '@/stores/tenant-store'
 import GlobalStepFooter from '../footer/GlobalStepFooter.vue'
 import type { DocumentCategory } from '@/services/AnalyticsService'
 import type { RouteLocationAsPathGeneric, RouteLocationAsRelativeGeneric } from 'vue-router'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
+import { FooterKey } from '../footer/footerKey'
+
+// inject analysis data to be passed on the footer
+const { analysisWrapper, submit } = inject(FooterKey) ?? {}
 
 const { t } = useI18n()
-const store = useTenantStore()
 const emit = defineEmits<{ 'add-files': [files: File[] | undefined] }>()
 
 const inputFile = useTemplateRef('inputFile')
