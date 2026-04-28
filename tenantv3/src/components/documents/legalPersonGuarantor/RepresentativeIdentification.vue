@@ -158,7 +158,8 @@ const analyticDocumentType = computed<DocumentCategory>(() => {
   }
 })
 
-function addFiles(fileList: File[]) {
+function addFiles(fileList: File[] | undefined) {
+  if (!fileList) return
   files.value = [...files.value, ...fileList]
   save()
 }

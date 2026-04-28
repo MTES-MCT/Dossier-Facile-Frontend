@@ -1,11 +1,11 @@
 <template>
-  <div id="footer-navigation" class="profile-footer">
+  <div id="footer-navigation" class="footer-container fr-p-2w">
     <slot></slot>
   </div>
 </template>
 
 <style scoped lang="scss">
-.profile-footer {
+.footer-container {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -14,7 +14,6 @@
   box-shadow:
     0 -5px 5px -2.5px rgba(0, 0, 0, 0.04),
     0 -10px 12.5px -2.5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
   z-index: 2;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <AllDeclinedMessages
-    :user-id="identityState.userId"
+    :user-id="userId"
     :document="identityDocument"
     :document-denied-reasons="identityDocument?.documentDeniedReasons"
     :document-status="documentStatus"
-  ></AllDeclinedMessages>
+  />
   <div v-if="identificationFiles.length > 0" class="fr-col-12 fr-mb-3w">
     <ListItem
       v-for="file in identificationFiles"
@@ -13,17 +13,22 @@
       :watermark-url="documentWatermarkUrl"
       doc-category="identification"
       @remove="remove(file)"
-      @ask-confirm="AnalyticsService.deleteDocument(identityState.category)"
-      @cancel="AnalyticsService.cancelDelete(identityState.category)"
+      @ask-confirm="AnalyticsService.deleteDocument(IDCategory)"
+      @cancel="AnalyticsService.cancelDelete(IDCategory)"
     />
   </div>
   <FileUpload
+    v-model:current-files="identificationFiles"
     ref="file-upload"
     :current-status="fileUploadStatus"
-    :page="4"
+    :page="2"
+    :category="IDCategory"
+    :next-step
     @add-files="addFiles"
-  ></FileUpload>
-  <IdentificationFooter />
+  />
+
+  <!-- <GlobalStepFooter :category="IDCategory" :next-step :submit="false" :disabled="!store.getTenantIdentificationDocument" /> -->
+  <!-- <IdentificationFooter :submit="false" :disabled="!store.getTenantIdentificationDocument" /> -->
 </template>
 
 <script setup lang="ts">
@@ -39,30 +44,40 @@ import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { UtilsService } from '@/services/UtilsService'
 import { useLoading } from 'vue-loading-overlay'
 import type { IdentityCategory } from '@/components/documents/share/DocumentTypeConstants'
-import IdentificationFooter from './IdentificationFooter.vue'
 import { useIdentificationState } from './identityDocumentState'
 import { toast } from '@/components/toast/toastUtils'
 import { useI18n } from 'vue-i18n'
 
-const props = defineProps<{ category: IdentityCategory }>()
+interface Props {
+  category: IdentityCategory
+  maxFileCount?: number
+}
 
-const MAX_FILE_COUNT = 5
+// TODO: adjust the maxFileCount per identity document (card, passport, etc.)
+const { category, maxFileCount = 5 } = defineProps<Props>()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
 
 const store = useTenantStore()
-const identityState = useIdentificationState()
+const {
+  document,
+  nextStep,
+  category: IDCategory,
+  addData,
+  action,
+  userId
+} = useIdentificationState()
 const fileUpload = useTemplateRef('file-upload')
 const { t } = useI18n()
 
-const identityDocument = identityState.document
+const identityDocument = document
 const documentStatus = computed(() => identityDocument.value?.documentStatus)
 
 const identificationFiles = computed(() => {
   const newFiles = files.value.map((f) => {
     return {
-      documentSubCategory: props.category,
+      documentSubCategory: category,
       id: f.id,
       name: f.name,
       size: f.size
@@ -83,12 +98,8 @@ async function save(): Promise<boolean> {
     return true
   }
 
-  if (identificationFiles.value.length > MAX_FILE_COUNT) {
-    toast.maxFileError(
-      identificationFiles.value.length,
-      MAX_FILE_COUNT,
-      fileUpload.value?.inputFile
-    )
+  if (identificationFiles.value.length > maxFileCount) {
+    toast.maxFileError(identificationFiles.value.length, maxFileCount, fileUpload.value?.inputFile)
     files.value = []
     return false
   }
@@ -98,13 +109,13 @@ async function save(): Promise<boolean> {
     formData.append(`documents[${key}]`, f, newFile.name)
   }
 
-  formData.append('typeDocumentIdentification', props.category)
-  identityState.addData?.(formData)
+  formData.append('typeDocumentIdentification', category)
+  addData?.(formData)
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
   const $loading = useLoading()
   const loader = $loading.show()
-  return await store[identityState.action](formData)
+  return await store[action](formData)
     .then(() => {
       files.value = []
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL
@@ -121,8 +132,9 @@ async function save(): Promise<boolean> {
     })
 }
 
-function addFiles(fileList: File[]) {
-  AnalyticsService.uploadFile(identityState.category, props.category)
+function addFiles(fileList: File[] | undefined) {
+  if (!fileList) return
+  AnalyticsService.uploadFile(IDCategory, category)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
@@ -131,7 +143,7 @@ function addFiles(fileList: File[]) {
 }
 
 async function remove(file: DfFile, silent = false) {
-  AnalyticsService.deleteFile(identityState.category)
+  AnalyticsService.deleteFile(IDCategory)
   if (file.id) {
     if (
       identityDocument.value?.files?.length === 1 &&

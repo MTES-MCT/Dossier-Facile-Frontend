@@ -1,80 +1,108 @@
 <template>
-  <div class="file-upload fr-col-md-12">
-    <form ref="uploadForm" name="uploadForm" enctype="multipart/form-data" novalidate>
-      <label for="file" class="visually-hidden">Ajouter un document</label>
+  <div class="file-upload-group">
+    <form
+      id="uploadForm"
+      ref="uploadForm"
+      name="uploadForm"
+      enctype="multipart/form-data"
+      novalidate
+      @submit.prevent=""
+    >
       <div class="dropbox">
+        <p v-if="isSaving">{{ t('fileupload.uploading-files') }}</p>
+
+        <label for="file" class="fr-mb-3v"
+          >{{ t('fileupload.drag-and-drop-files') }} {{ t('fileupload.browse-files') }}
+          <span class="fr-hint-text">
+            {{ t('fileupload.files-format') }}<br />
+            {{ sizeLimit }}<br v-if="sizeLimit" />
+            {{ pagesLimit }}
+          </span>
+        </label>
         <input
           id="file"
           ref="inputFile"
           type="file"
-          multiple
-          :disabled="isSaving"
-          class="input-file"
+          name="file"
+          :multiple="page > 1"
+          :aria-invalid="r$.files.$error ? true : undefined"
+          aria-describedby="errors-file-upload"
+          class="input-file fr-upload fr-mt-1w"
           accept="image/png, image/jpeg, image/heic, application/pdf"
           @click="onFileInputClick"
-          @change="filesChange"
+          @change="onFileChange"
         />
-        <div v-if="isSaving">
-          {{ t('fileupload.uploading-files') }}
-        </div>
-        <div v-else>
-          <p class="fr-mb-3v">{{ t('fileupload.drag-and-drop-files') }}</p>
-          <p class="text-small text-grey fr-mb-3v">
-            {{ t('fileupload.files-format') }}<br />
-            {{ sizeLimit }}<br v-if="sizeLimit" />
-            {{ pagesLimit }}
-          </p>
-          <p class="fr-mb-1w">
-            {{ t('fileupload.browse-files') }}
-            <label for="file" class="label-btn">
-              {{ t('fileupload.browse') }}
-            </label>
-          </p>
-          <p v-if="errorMessage" class="fr-error-text fr-mb-0" role="alert">
-            {{ errorMessage }}
-          </p>
-        </div>
       </div>
+      <FieldErrors
+        v-if="r$.$errors.files"
+        id="errors-file-upload"
+        :errors="flatErrors(r$.$errors.files)"
+      />
+      <GlobalStepFooter
+        :disabled="analysisWrapper?.nextDisabled"
+        :next-label="analysisWrapper?.nextLabel"
+        :before-submit="analysisWrapper?.beforeSubmit"
+        :on-submit-action="submit"
+        @on-next="handleNext"
+      />
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
-import { computed, useTemplateRef } from 'vue'
+import { computed, nextTick, onBeforeMount, ref, useTemplateRef, watch, inject } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { toast } from '@/components/toast/toastUtils'
+import { useRegle, flatErrors, type RegleExternalErrorTree } from '@regle/core'
+import { fileType, maxFileSize, maxLength, required, withMessage } from '@regle/rules'
+import FieldErrors from 'df-shared-next/src/components/form/FieldErrors.vue'
+import { useNextStep } from '../common/lib/useNextStep'
+import GlobalStepFooter from '../footer/GlobalStepFooter.vue'
+import type { DocumentCategory } from '@/services/AnalyticsService'
+import type { RouteLocationAsPathGeneric, RouteLocationAsRelativeGeneric } from 'vue-router'
+import type { DfFile } from 'df-shared-next/src/models/DfFile'
+import { FooterKey } from '../footer/footerKey'
+
+// inject analysis data to be passed on the footer
+const { analysisWrapper, submit } = inject(FooterKey) ?? {}
 
 const { t } = useI18n()
-const emit = defineEmits<{ 'add-files': [files: File[]] }>()
+const emit = defineEmits<{ 'add-files': [files: File[] | undefined] }>()
 
-const uploadForm = useTemplateRef('uploadForm')
 const inputFile = useTemplateRef('inputFile')
-
-defineExpose({ inputFile })
 
 const props = withDefaults(
   defineProps<{
     currentStatus?: number
     page?: number
     size?: number
+    category: DocumentCategory
+    nextStep: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric
+    serverErrors: string
     errorMessage?: string
     beforeOpen?: () => boolean
   }>(),
   {
     currentStatus: UploadStatus.STATUS_INITIAL,
-    page: 0,
-    size: 10,
+    page: 1,
+    size: 5,
     errorMessage: undefined,
     beforeOpen: undefined
   }
 )
 
 const isSaving = computed(() => props.currentStatus === UploadStatus.STATUS_SAVING)
-const sizeLimit = computed(() => (props.size > 0 ? t('fileupload.size', [props.size]) : ''))
-const pagesLimit = computed(() => (props.page > 0 ? t('fileupload.pages', [props.page]) : ''))
+const sizeLimit = computed(() => t('fileupload.size', [props.size]))
+const pagesLimit = computed(() => t('fileupload.pages', [props.page]))
+
+const currentFiles = defineModel<DfFile[]>('currentFiles', {
+  // required to avoid forgetting which breaks validation
+  required: true,
+  default: []
+})
 
 const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'application/pdf', 'image/heif']
+const sizeInBytes = props.size * 1024 * 1024
 
 function onFileInputClick(e: Event) {
   if (props.beforeOpen && !props.beforeOpen()) {
@@ -82,27 +110,99 @@ function onFileInputClick(e: Event) {
   }
 }
 
-const isTooBig = (file: File) => file.size > props.size * 1024 * 1024
-const hasValidExtension = (file: File) => ALLOWED_FILE_TYPES.includes(file.type)
-
-function filesChange(e: Event) {
-  const inputFiles = e.target instanceof HTMLInputElement ? e.target.files : null
-  const files = inputFiles ? [...inputFiles] : []
-  if (files.some(isTooBig)) {
-    toast.error(t('fileupload.file-too-big', [props.size]), inputFile.value)
-  }
-  if (!files.every(hasValidExtension)) {
-    toast.error(t('errors.invalid-file-extension'), inputFile.value)
-  }
-  const fileList = files.filter((f) => !isTooBig(f) && hasValidExtension(f))
-  if (fileList.length > 0) {
-    emit('add-files', fileList)
-  }
-  uploadForm.value?.reset()
+type FormFile = {
+  file?: File // new local file — validated
+  dfFile?: DfFile // existing server file — skip validation
 }
+
+const formFiles = ref<{ files: FormFile[] }>({
+  files:
+    currentFiles.value?.map((f) => ({
+      dfFile: f
+    })) || []
+})
+
+const externalErrors = ref<RegleExternalErrorTree<typeof formFiles>>({})
+
+const { r$ } = useRegle(
+  formFiles,
+  {
+    // maximum number of files per upload
+    files: {
+      required: required,
+      maxLength: withMessage(maxLength(props.page), ({ $value, $params: [max] }) =>
+        t('max-file', [$value?.length, max])
+      ),
+      // rules for each file uploaded
+      $each: {
+        file: {
+          maxFileSize: maxFileSize(sizeInBytes),
+          fileType: fileType(ALLOWED_FILE_TYPES)
+        }
+      }
+    }
+  },
+  {
+    externalErrors,
+    clearExternalErrorsOnValidate: true
+  }
+)
+const isServerError = () => {
+  r$.$clearExternalErrors()
+  if (props.serverErrors.length) {
+    r$.$setExternalErrors({
+      files: { $self: [props.serverErrors] }
+    })
+    return true
+  }
+  return false
+}
+watch(
+  () => currentFiles.value,
+  (currentFiles) => {
+    if (isSaving.value) return
+    isServerError()
+
+    r$.$value.files =
+      currentFiles?.map((f) => ({
+        dfFile: f
+      })) || []
+  }
+)
+
+const onFileChange = async (event: Event) => {
+  // assign the files to the form manually because v-model can't handle files
+  const input = event.target as HTMLInputElement
+  const newFiles: FormFile[] = input.files ? Array.from(input.files).map((file) => ({ file })) : []
+
+  // keep existing server files, append new local files
+  const existingFiles = r$.$value.files.filter((f) => f.dfFile)
+  r$.$value.files = [...existingFiles, ...newFiles]
+
+  // super important, won't work without nextTick
+  await nextTick()
+  const { valid } = await r$.$validate()
+
+  // only emit the new File objects
+  const files = r$.$value.files.filter((f) => f.file).map((f) => f.file)
+  if (valid && files.length) {
+    emit('add-files', files as File[])
+  }
+}
+
+const { goNext } = useNextStep(props.category, props.nextStep)
+
+const handleNext = async () => {
+  const { valid } = await r$.$validate()
+  if (valid) goNext()
+}
+
+defineExpose({ inputFile })
+
+onBeforeMount(() => r$.$reset())
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .dropbox {
   border: 1px solid var(--border-default-grey);
   padding: 1rem;
@@ -111,7 +211,10 @@ function filesChange(e: Event) {
 }
 
 .input-file {
-  opacity: 0;
+  position: static;
+}
+.input-file::after {
+  content: '';
   position: absolute;
   inset: 0;
 }
@@ -121,18 +224,5 @@ function filesChange(e: Event) {
   outline-width: 2px;
   outline-offset: 4px;
   outline-color: #0a76f6;
-}
-
-.text-small {
-  font-size: 0.75rem;
-  line-height: 1.25rem;
-}
-
-.label-btn {
-  padding: 4px 8px;
-  margin-left: 0.5rem;
-  border-radius: 4px;
-  background-color: var(--background-contrast-grey);
-  cursor: pointer;
 }
 </style>

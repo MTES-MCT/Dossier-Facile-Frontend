@@ -5,7 +5,7 @@
     </p>
   </DsfrAlert>
   <RadioList :list-items="optionLinks" @analytics="sendEvent" />
-  <IdentificationFooter />
+  <IdentificationFooter :submit="false" :disabled="!getTenantIdentificationDocument" />
 </template>
 
 <script setup lang="ts">
@@ -16,9 +16,12 @@ import { useRoute } from 'vue-router'
 import IdentificationFooter from './lib/IdentificationFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
+import { useTenantStore } from '@/stores/tenant-store'
 
 const { t } = useI18n()
 const route = useRoute()
+
+const { getTenantIdentificationDocument } = useTenantStore()
 
 const sendEvent = (subcategory: string) =>
   AnalyticsService.selectSituation('identification', subcategory)
@@ -62,21 +65,21 @@ const optionLinks: ComputedRef<OptionLink[]> = computed(() => [
 ])
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "submit-identity-document": "Submit a {0} identity document",
     "valid-doc": "valid",
     "other-doc": "Other document",
     "french-or-foreign": "French or foreign",
-    "french-or-foreign-f": "French or foreign",
+    "french-or-foreign-f": "French or foreign"
   },
   "fr": {
     "submit-identity-document": "Déposez une pièce d’identité {0}",
     "valid-doc": "en cours de validité",
     "other-doc": "Autre document",
     "french-or-foreign": "Français ou étranger",
-    "french-or-foreign-f": "Française ou étrangère",
+    "french-or-foreign-f": "Française ou étrangère"
   }
 }
 </i18n>

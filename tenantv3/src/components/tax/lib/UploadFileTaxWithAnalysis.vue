@@ -3,7 +3,8 @@
     ref="upload-file-with-analysis"
     doc-category="tax"
     :sub-category="subCategory"
-    :step="step"
+    :step
+    :next-step
     :max-file-count="5"
     :analysis-in-progress="analysisInProgress"
     :before-save="canContinue"
@@ -20,6 +21,7 @@ import type { DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import { ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import UploadFileWithAnalysis from '../../analysis/UploadFileWithAnalysis.vue'
+import { useTaxState } from './taxState'
 
 type UploadFileWithAnalysisRef = {
   isUploading?: boolean
@@ -42,6 +44,8 @@ withDefaults(
   }>(),
   { analysisInProgress: false, explanation: undefined }
 )
+
+const { nextStep } = useTaxState()
 
 defineExpose<UploadFileTaxWithAnalysisExposed>({
   get isUploading() {

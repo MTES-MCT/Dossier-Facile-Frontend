@@ -4,7 +4,7 @@
     :document="mainActivityDocument"
     :document-denied-reasons="mainActivityDocument?.documentDeniedReasons"
     :document-status="documentStatus"
-  ></AllDeclinedMessages>
+  />
   <div v-if="professionalFiles.length > 0" class="fr-col-12 fr-mb-3w">
     <ListItem
       v-for="file in professionalFiles"
@@ -20,8 +20,12 @@
   <FileUpload
     ref="file-upload"
     :current-status="fileUploadStatus"
+    :current-files="professionalFiles"
+    :category="mainCategory"
+    :next-step
+    :server-errors
     @add-files="addFiles"
-  ></FileUpload>
+  />
   <MainActivityFooter />
 </template>
 
@@ -42,8 +46,11 @@ import { useMainActivityState } from './mainActivityState'
 import MainActivityFooter from './MainActivityFooter.vue'
 import { toast } from '@/components/toast/toastUtils'
 import { useI18n } from 'vue-i18n'
+const serverErrors = ref<string>('')
 
 const props = defineProps<{ category: MainActivityCategory }>()
+
+const { nextStep, category: mainCategory } = useMainActivityState()
 
 const MAX_FILE_COUNT = 20
 
@@ -84,7 +91,11 @@ async function save(): Promise<boolean> {
   }
 
   if (professionalFiles.value.length > MAX_FILE_COUNT) {
-    toast.maxFileError(professionalFiles.value.length, MAX_FILE_COUNT, fileUpload.value?.inputFile)
+    serverErrors.value = toast.maxFileError(
+      professionalFiles.value.length,
+      MAX_FILE_COUNT,
+      fileUpload.value?.inputFile
+    )
     files.value = []
     return false
   }
@@ -117,7 +128,8 @@ async function save(): Promise<boolean> {
     })
 }
 
-function addFiles(fileList: File[]) {
+function addFiles(fileList: File[] | undefined) {
+  if (!fileList) return
   AnalyticsService.uploadFile(stateCategory, props.category)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }

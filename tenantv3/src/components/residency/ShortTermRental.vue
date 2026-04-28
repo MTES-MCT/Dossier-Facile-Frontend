@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import BackLinkRow from './lib/BackLinkRow.vue'
-import UploadFiles from './lib/UploadFiles.vue'
+import UploadFiles from './lib/UploadFilesResidency.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
