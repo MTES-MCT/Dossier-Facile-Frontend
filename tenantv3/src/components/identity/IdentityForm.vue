@@ -18,7 +18,7 @@
     <TextField
       v-model.trim="preferredname"
       :field-label="t('common.preferred-name-label')"
-      :hint="t('common.preferred-name-hint')"
+      :hint="t('nameinformationform.preferredname-hint')"
       name="preferredName"
       autocomplete="new-password"
       validation-rules="onlyAlpha"
@@ -172,7 +172,6 @@ const onSubmit = () => {
       "last-name-label": "Last Name",
       "add-prefered-name": "Add a preferred name",
       "preferred-name-label": "Preferred Name",
-      "preferred-name-hint": "Name you use on a daily basis (e.g. married name)",
       "delete-preferred-name": "Delete preferred name",
       "first-name-label": "First Name"
     },
@@ -192,7 +191,6 @@ const onSubmit = () => {
       "last-name-label": "Nom de naissance",
       "add-prefered-name": "Ajouter un nom d'usage",
       "preferred-name-label": "Nom d'usage",
-      "preferred-name-hint": "Nom que vous utilisez au quotidien (ex : nom marital)",
       "delete-preferred-name": "Supprimer le nom d'usage",
       "first-name-label": "Prénom"
     },

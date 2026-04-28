@@ -10,28 +10,24 @@
       </div>
       <RequiredFieldsInstruction />
       <div class="fr-grid-row fr-grid-row--center fr-mt-3w">
-        <div class="fr-col-12 fr-mb-3w">
+        <div class="fr-col-12">
           <TextField
             v-model.trim="lastName"
             name="lastname"
-            :field-label="t('cotenantname.lastname')"
+            :field-label="t('nameinformationform.lastname')"
             validation-rules="required|onlyAlpha"
           />
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
           <TextField
             v-model.trim="preferredName"
             name="preferredname"
-            :field-label="t('cotenantname.preferredname')"
-            :hint="t('cotenantname.preferredname-hint')"
+            :field-label="t('nameinformationform.preferredname')"
+            :hint="t('nameinformationform.preferredname-hint')"
             validation-rules="onlyAlpha"
           />
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
           <TextField
             v-model.trim="firstName"
             name="firstname"
-            :field-label="t('cotenantname.firstname')"
+            :field-label="t('nameinformationform.firstname')"
             validation-rules="required|onlyAlpha"
           />
         </div>

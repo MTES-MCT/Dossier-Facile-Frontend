@@ -311,15 +311,6 @@
     "customText-undefined": "To improve my application, I explain why I cannot provide the proofs:"
   },
   "cotenantname": {
-    "lastname": "Last Name",
-    "firstname": "First Name",
-    "preferredname": "Preferred Name",
-    "preferredname-hint": "Name you use on a daily basis (e.g. married name)",
-    "email": "Email",
-    "email-not-valid": "Invalid email",
-    "lastname-placeholder": "e.g., Dupont",
-    "firstname-placeholder": "e.g., Jean",
-    "field-required": "This field is required",
     "title": "Provide Personal Information of My Co-tenant",
     "subtitle": "Please provide the information of the person whose name will appear on the lease agreement.",
     "franceconnect-account": "This account is identified with FranceConnect, and the names cannot be edited."
@@ -538,15 +529,7 @@
     "remove-guarantor": "Are you sure you want to remove this guarantor?"
   },
   "guarantorname": {
-    "lastname": "Last Name",
-    "preferredname": "Preferred Name",
-    "preferredname-hint": "Name you use on a daily basis (e.g. married name)",
-    "firstname": "First Name",
-    "lastname-placeholder": "e.g. Dupont",
-    "firstname-placeholder": "e.g. Jean",
-    "field-required": "This field is required",
-    "title": "Guarantor's Identity",
-    "subtitle": "I provide the last name and first name of my guarantor"
+    "title": "Guarantor's Identity"
   },
   "guarantorresidency": {
     "tenant": "Tenant",
@@ -635,6 +618,7 @@
     "firstname": "First Name",
     "lastname": "Last Name",
     "preferredname": "Preferred Name",
+    "preferredname-hint": "Name you use on a daily basis (e.g. married name)",
     "zipcode": "Postal Code (only if you reside in France)",
     "field-required": "This field is required",
     "title": "Let's start with your personal identity information.",
@@ -847,15 +831,7 @@
     "remove-guarantor": "Are you sure you want to remove this guarantor?"
   },
   "tenantguarantorname": {
-    "lastname": "Last Name",
-    "preferredname": "Preferred Name",
-    "preferredname-hint": "Name you use on a daily basis (e.g. married name)",
-    "firstname": "First Name",
-    "lastname-placeholder": "e.g., Dupont",
-    "firstname-placeholder": "e.g., Jean",
-    "field-required": "This field is required",
-    "title": "Spouse's Guarantor Identity",
-    "subtitle": "Please provide the last name and first name of the guarantor"
+    "title": "Spouse's Guarantor Identity"
   },
   "tenantinformationform": {
     "title": "Create a Rental Application to Live:",
