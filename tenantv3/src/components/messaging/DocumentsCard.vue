@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 import { DocumentService } from '@/services/DocumentService'
+import { UtilsService } from '@/services/UtilsService'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import type { DfDocument, DocumentCategory } from 'df-shared-next/src/models/DfDocument'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
@@ -30,7 +31,7 @@ const getTranslation = (cat: DocumentCategory | undefined, prefix = '') =>
 
 const label = computed(() =>
   props.guarantor
-    ? `${t('guarantorchoice.guarantor')} : ${props.tenant.firstName || ''} ${props.tenant.lastName || ''}`
+    ? `${t('guarantorchoice.guarantor')} : ${UtilsService.guarantorFullName(props.tenant)}`
     : props.tenant.firstName
 )
 

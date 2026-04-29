@@ -20,9 +20,7 @@
       <TenantDocumentLink :document-type="DocumentType.TAX" />
     </div>
     <h2 v-if="displayGuarantorName()" class="small-title">
-      {{
-        t('topeditmenu.i-add', [`${selectedGuarantor?.firstName} ${selectedGuarantor?.lastName}`])
-      }}
+      {{ t('topeditmenu.i-add', [selectedGuarantor ? UtilsService.guarantorFullName(selectedGuarantor) : '']) }}
     </h2>
     <div v-if="step === 3 && selectedGuarantor">
       <div

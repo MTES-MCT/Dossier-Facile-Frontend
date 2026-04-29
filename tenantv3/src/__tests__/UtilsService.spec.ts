@@ -1,5 +1,6 @@
 import { UtilsService } from '../services/UtilsService'
 import { CoTenant } from 'df-shared-next/src/models/CoTenant'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { describe, it, expect } from 'vitest'
 
 describe('UtilsService', () => {
@@ -58,6 +59,34 @@ describe('UtilsService', () => {
       }
     ])('should return $expected for $user', ({ user, expected }) => {
       const result = UtilsService.tenantFullName(user as CoTenant)
+      expect(result).toBe(expected)
+    })
+  })
+
+  describe('guarantorFullName', () => {
+    it.each([
+      {
+        user: { firstName: 'john', lastName: 'doe' },
+        expected: 'John\xa0Doe'
+      },
+      {
+        user: { firstName: 'john', lastName: 'doe', preferredName: 'smith' },
+        expected: 'John\xa0Smith'
+      },
+      {
+        user: { firstName: 'john', lastName: 'doe', preferredName: '' },
+        expected: 'John\xa0Doe'
+      },
+      {
+        user: { firstName: 'jean-pierre', lastName: 'de la fontaine' },
+        expected: 'Jean-Pierre\xa0De La Fontaine'
+      },
+      {
+        user: {},
+        expected: '\xa0'
+      }
+    ])('should return $expected for $user', ({ user, expected }) => {
+      const result = UtilsService.guarantorFullName(user as Guarantor)
       expect(result).toBe(expected)
     })
   })

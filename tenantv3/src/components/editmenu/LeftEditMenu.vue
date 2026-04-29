@@ -55,7 +55,7 @@
                 }"
               >
                 <ColoredTag
-                  :text="`${g.firstName} ${g.lastName}`"
+                  :text="UtilsService.guarantorFullName(g)"
                   status="NONE"
                   :active="getGuarantorCurrentStep(0, g)"
                 ></ColoredTag>
@@ -155,7 +155,7 @@
                 }"
               >
                 <ColoredTag
-                  :text="`${g.firstName} ${g.lastName}`"
+                  :text="UtilsService.guarantorFullName(g)"
                   status="NONE"
                   :active="getGuarantorCurrentStep(0, g)"
                 ></ColoredTag>
