@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import axios from 'axios'
+import axios, { AxiosHeaders, type AxiosHeaderValue } from 'axios'
 import { Buffer } from 'buffer'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -27,7 +27,12 @@ onMounted(() => {
         error.value = t('showdoc.error')
         return
       }
-      const mimeType = resp.headers['content-type'].toLowerCase()
+      const contentTypeHeader = resp.headers['Content-Type']
+      if (!contentTypeHeader) {
+        error.value = t('showdoc.error')
+        return
+      }
+      const mimeType = contentTypeHeader.toString().toLowerCase()
       const imgBase64 = new Buffer(resp.data, 'binary').toString('base64')
       imageData.value = 'data:' + mimeType + ';base64,' + imgBase64
     })
