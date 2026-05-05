@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import axios, { AxiosHeaders, type AxiosHeaderValue } from 'axios'
+import axios from 'axios'
 import { Buffer } from 'buffer'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'

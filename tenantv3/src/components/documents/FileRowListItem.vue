@@ -143,11 +143,12 @@ async function openDocumentWithAuth() {
     }
 
     const rawContentType = response.headers['content-type']
-    const contentType = Array.isArray(rawContentType)
-      ? rawContentType[0]
-      : typeof rawContentType === 'string'
-        ? rawContentType
-        : undefined
+    let contentType: string | undefined
+    if (Array.isArray(rawContentType)) {
+      contentType = rawContentType[0]
+    } else if (typeof rawContentType === 'string') {
+      contentType = rawContentType
+    }
 
     const blob = new Blob([response.data], {
       type: contentType ?? 'application/pdf'
