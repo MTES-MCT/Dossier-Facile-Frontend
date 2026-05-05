@@ -22,8 +22,15 @@
     ],
     "overrides": {
       "glob": "13.0.0",
-      "systeminformation": "5.27.14",
-      "js-yaml": "4.1.1"
+      "systeminformation": "5.31.0",
+      "js-yaml": "4.1.1",
+      "follow-redirects": "1.16.0",
+      "picomatch": "2.3.2",
+      "postcss": "8.5.13",
+      "@isaacs/brace-expansion": "5.0.1",
+      "minimatch": "10.2.3",
+      "rollup": "4.59.0",
+      "uuid": "14.0.0"
     }
   }
 }

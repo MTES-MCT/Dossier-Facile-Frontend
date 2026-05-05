@@ -141,8 +141,19 @@ async function openDocumentWithAuth() {
       toast.error(t('filerowlistitem.view-failed'), seeButtonRef.value ?? undefined)
       return
     }
-    const contentType = response.headers['content-type']
-    const blob = new Blob([response.data], { type: contentType || 'application/pdf' })
+
+    const rawContentType = response.headers['content-type']
+    let contentType: string | undefined
+    if (Array.isArray(rawContentType)) {
+      contentType = rawContentType[0]
+    } else if (typeof rawContentType === 'string') {
+      contentType = rawContentType
+    }
+
+    const blob = new Blob([response.data], {
+      type: contentType ?? 'application/pdf'
+    })
+
     const blobUrl = URL.createObjectURL(blob)
     window.open(blobUrl, '_blank')
     setTimeout(() => URL.revokeObjectURL(blobUrl), 30_000)

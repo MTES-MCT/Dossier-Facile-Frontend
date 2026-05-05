@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@gouvfr/dsfr": "catalog:",
-    "@sentry/tracing": "7.119.2",
+    "@sentry/tracing": "7.120.4",
     "@sentry/vite-plugin": "catalog:",
     "@sentry/vue": "catalog:",
     "axios": "catalog:",
@@ -28,10 +28,11 @@
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
+    "rollup": "catalog:",
     "sass": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-pwa": "1.0.0",
+    "vite-plugin-pwa": "1.2.0",
     "vue-tsc": "catalog:"
   },
   "eslintConfig": {
