@@ -136,8 +136,6 @@
             </div>
             <PartnersSection />
 
-            <UnverifiedZipSurveyModal v-model:is-opened="isSurveyOpen" />
-
             <div class="delete">
               <div class="bg-white fr-p-4w fr-mt-3w">
                 <h3>{{ t('account.delete-bloc.title') }}</h3>
@@ -186,7 +184,7 @@ import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import PartnersSection from '../components/account/PartnersSection.vue'
-import UnverifiedZipSurveyModal from '../components/account/UnverifiedZipSurveyModal.vue'
+import { openZipSurveyPopup } from '../services/ZipSurveyService'
 import DefaultShareSection from '../components/account/DefaultShareSection.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
@@ -210,7 +208,6 @@ const router = useRouter()
 dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
 const downloadZipElt = useTemplateRef('download-zip')
-const isSurveyOpen = ref(false)
 const { openModal } = useModalStore('deleteAccount')
 
 watch(
@@ -285,7 +282,7 @@ function downloadZip() {
       link.download = fileName
       link.click()
       if (shouldShowZipSurvey()) {
-        isSurveyOpen.value = true
+        openZipSurveyPopup()
       }
     })
     .catch((error) => {
