@@ -23,6 +23,7 @@
     "@remixicon/vue": "4.6.0",
     "@sentry/vite-plugin": "catalog:",
     "@sentry/vue": "catalog:",
+    "@typeform/embed": "6.0.0",
     "@types/js-cookie": "3.0.6",
     "@vuepic/vue-datepicker": "12.0.5",
     "axios": "catalog:",

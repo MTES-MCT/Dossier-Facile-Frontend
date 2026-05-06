@@ -136,6 +136,8 @@
             </div>
             <PartnersSection />
 
+            <UnverifiedZipSurveyModal v-model:is-opened="isSurveyOpen" />
+
             <div class="delete">
               <div class="bg-white fr-p-4w fr-mt-3w">
                 <h3>{{ t('account.delete-bloc.title') }}</h3>
@@ -184,6 +186,9 @@ import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import PartnersSection from '../components/account/PartnersSection.vue'
+import UnverifiedZipSurveyModal, {
+  ZIP_SURVEY_ANSWERED_STORAGE_KEY
+} from '../components/account/UnverifiedZipSurveyModal.vue'
 import DefaultShareSection from '../components/account/DefaultShareSection.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
@@ -207,6 +212,7 @@ const router = useRouter()
 dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
 const downloadZipElt = useTemplateRef('download-zip')
+const isSurveyOpen = ref(false)
 const { openModal } = useModalStore('deleteAccount')
 
 watch(
@@ -267,6 +273,13 @@ const tenants = computed(() => [
   ...user.value.apartmentSharing.tenants.filter((t) => t.id !== user.value.id)
 ])
 
+function shouldShowZipSurvey() {
+  return (
+    user.value.status === 'TO_PROCESS' &&
+    localStorage.getItem(ZIP_SURVEY_ANSWERED_STORAGE_KEY) !== 'true'
+  )
+}
+
 function downloadZip() {
   ProfileService.downloadZip()
     .then((response) => {
@@ -276,6 +289,9 @@ function downloadZip() {
       const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.zip')
       link.download = fileName
       link.click()
+      if (shouldShowZipSurvey()) {
+        isSurveyOpen.value = true
+      }
     })
     .catch((error) => {
       console.error(error)
