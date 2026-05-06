@@ -11,6 +11,7 @@
           v-model.trim="lastName"
           name="lastname"
           :field-label="t('nameinformationform.lastname')"
+          autocomplete="new-password"
           validation-rules="required|onlyAlpha"
         />
         <TextField
@@ -18,12 +19,14 @@
           name="preferredname"
           :field-label="t('nameinformationform.preferredname')"
           :hint="t('nameinformationform.preferredname-hint')"
+          autocomplete="new-password"
           validation-rules="onlyAlpha"
         />
         <TextField
           v-model.trim="firstName"
           name="firstname"
           :field-label="t('nameinformationform.firstname')"
+          autocomplete="new-password"
           validation-rules="required|onlyAlpha"
         />
       </div>
