@@ -313,6 +313,10 @@ export const AnalyticsService = {
     sendFullEvent('funnel', 'unknown', `document_analysis_timeout_${category}`)
   },
 
+  document_analysis_contact_support() {
+    sendFullEvent('funnel', 'clic', `document_analysis_contact_support_callout`)
+  },
+
   validate_anchor_error_click(prefix: 'tenant' | 'guarantor' | 'couple', category: string) {
     sendFullEvent('funnel', 'clic', `validate_anchor_error_${prefix}_${category}`)
   },
