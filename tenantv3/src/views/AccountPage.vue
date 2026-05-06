@@ -186,9 +186,7 @@ import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import PartnersSection from '../components/account/PartnersSection.vue'
-import UnverifiedZipSurveyModal, {
-  ZIP_SURVEY_ANSWERED_STORAGE_KEY
-} from '../components/account/UnverifiedZipSurveyModal.vue'
+import UnverifiedZipSurveyModal from '../components/account/UnverifiedZipSurveyModal.vue'
 import DefaultShareSection from '../components/account/DefaultShareSection.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
@@ -274,10 +272,7 @@ const tenants = computed(() => [
 ])
 
 function shouldShowZipSurvey() {
-  return (
-    user.value.status === 'TO_PROCESS' &&
-    localStorage.getItem(ZIP_SURVEY_ANSWERED_STORAGE_KEY) !== 'true'
-  )
+  return user.value.status === 'TO_PROCESS'
 }
 
 function downloadZip() {

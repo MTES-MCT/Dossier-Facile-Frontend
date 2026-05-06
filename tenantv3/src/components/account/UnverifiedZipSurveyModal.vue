@@ -1,69 +1,61 @@
-<script lang="ts">
-export const ZIP_SURVEY_ANSWERED_STORAGE_KEY = 'df-zip-survey-answered'
-</script>
-
 <script setup lang="ts">
-import { createWidget } from '@typeform/embed'
-import '@typeform/embed/build/css/widget.css'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const TYPEFORM_FORM_ID =
-  import.meta.env.VITE_ZIP_SURVEY_TYPEFORM_ID ?? 'JQFIjNOI'
+  import.meta.env.VITE_ZIP_SURVEY_TYPEFORM_ID ?? '01KN6MS5FGWMVJGNKT01SH8R5A'
+
+const TYPEFORM_EMBED_SRC = 'https://embed.typeform.com/next/embed.js'
 
 const { t } = useI18n()
 
 const isOpened = defineModel<boolean>('isOpened', { default: false })
 
 const embedContainerRef = ref<HTMLElement | null>(null)
+let scriptElement: HTMLScriptElement | null = null
 
-let widgetApi: ReturnType<typeof createWidget> | null = null
-
-function unmountWidget() {
-  widgetApi?.unmount()
-  widgetApi = null
+function clearContainer() {
   if (embedContainerRef.value) {
     embedContainerRef.value.innerHTML = ''
   }
 }
 
-function mountWidget() {
-  const el = embedContainerRef.value
-  if (!el) {
+function removeScript() {
+  scriptElement?.remove()
+  scriptElement = null
+}
+
+function loadEmbed() {
+  if (!embedContainerRef.value) {
     return
   }
+  clearContainer()
+  removeScript()
 
-  unmountWidget()
+  const target = document.createElement('div')
+  target.setAttribute('data-tf-live', TYPEFORM_FORM_ID)
+  embedContainerRef.value.appendChild(target)
 
-  widgetApi = createWidget(TYPEFORM_FORM_ID, {
-    container: el,
-    hideHeaders: true,
-    hideFooter: true,
-    autoResize: true,
-    onSubmit: () => {
-      localStorage.setItem(ZIP_SURVEY_ANSWERED_STORAGE_KEY, 'true')
-    },
-    onEndingButtonClick: () => {
-      isOpened.value = false
-    },
-    onClose: () => {
-      isOpened.value = false
-    }
-  })
+  scriptElement = document.createElement('script')
+  scriptElement.src = TYPEFORM_EMBED_SRC
+  scriptElement.async = true
+  document.body.appendChild(scriptElement)
 }
 
 watch(isOpened, async (open) => {
   if (open) {
     await nextTick()
-    mountWidget()
+    loadEmbed()
   } else {
-    unmountWidget()
+    clearContainer()
+    removeScript()
   }
 })
 
 onBeforeUnmount(() => {
-  unmountWidget()
+  clearContainer()
+  removeScript()
 })
 </script>
 
