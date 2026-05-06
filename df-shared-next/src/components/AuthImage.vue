@@ -27,7 +27,7 @@ onMounted(() => {
         error.value = t('showdoc.error')
         return
       }
-      const contentTypeHeader = resp.headers['Content-Type']
+      const contentTypeHeader = resp.headers['content-type']
       if (!contentTypeHeader) {
         error.value = t('showdoc.error')
         return
