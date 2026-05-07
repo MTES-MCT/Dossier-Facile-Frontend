@@ -37,6 +37,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DocumentPreviewCard from './DocumentPreviewCard.vue'
 import { useTenantStore } from '@/stores/tenant-store'
+import { UtilsService } from '@/services/UtilsService'
 import { DsfrBadge } from '@gouvminint/vue-dsfr'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
 
@@ -67,25 +68,21 @@ const coTenantId = computed(() => {
 })
 
 const nameToDisplay = computed(() => {
-  if (
-    props.isTenant ||
-    (!props.isTenant &&
-      'typeGuarantor' in props.user &&
-      props.user.typeGuarantor === 'NATURAL_PERSON')
-  ) {
-    return t('documents-of', { firstName: props.user.firstName, lastName: props.user.lastName })
+  if (props.isTenant) {
+    return t('documents-of', { fullName: UtilsService.tenantFullName(props.user as User) })
   }
-  if (
-    !props.isTenant &&
-    'typeGuarantor' in props.user &&
-    props.user.typeGuarantor === 'LEGAL_PERSON'
-  ) {
-    return t('documents-of', { firstName: props.user.firstName, lastName: props.user.lastName })
+  if ('typeGuarantor' in props.user) {
+    if (props.user.typeGuarantor === 'NATURAL_PERSON') {
+      return t('documents-of', { fullName: UtilsService.guarantorFullName(props.user) })
+    }
+    if (props.user.typeGuarantor === 'LEGAL_PERSON') {
+      return t('documents-of', { fullName: props.user.legalPersonName ?? '' })
+    }
+    if (props.user.typeGuarantor === 'ORGANISM') {
+      return t('document-of-organization')
+    }
   }
-  if (!props.isTenant && 'typeGuarantor' in props.user && props.user.typeGuarantor === 'ORGANISM') {
-    return t('document-of-organization')
-  }
-  return t('documents-of')
+  return t('documents-of', { fullName: '' })
 })
 
 const showGuarantorIdentityBlock = computed(() => {
@@ -209,7 +206,7 @@ const documents = computed(() => {
 <i18n>
 {
   "en": {
-    "documents-of": "Documents of {firstName} {lastName}",
+    "documents-of": "Documents of {fullName}",
     "document-of-organization": "Documents of the organization",
     "badge-loc": "TENANT FILE",
     "badge-guarantor": "GUARANTOR FILE",
@@ -218,7 +215,7 @@ const documents = computed(() => {
     "correct": "Correct"
   },
   "fr": {
-    "documents-of": "Documents de {firstName} {lastName}",
+    "documents-of": "Documents de {fullName}",
     "document-of-organization": "Documents de l'organisme",
     "badge-loc": "DOSSIER LOCATAIRE",
     "badge-guarantor": "DOSSIER GARANT",

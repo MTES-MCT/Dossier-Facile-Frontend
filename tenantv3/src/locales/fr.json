@@ -320,14 +320,6 @@
     "customText-undefined": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs"
   },
   "cotenantname": {
-    "lastname": "Nom de naissance",
-    "firstname": "Prénom",
-    "preferredname": "Nom d'usage",
-    "email": "E-mail",
-    "email-not-valid": "Email non valide",
-    "lastname-placeholder": "ex: Dupont",
-    "firstname-placeholder": "ex: Jean",
-    "field-required": "Ce champ est requis",
     "title": "Je renseigne les informations personnelles de mon conjoint",
     "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location.",
     "franceconnect-account": "Ce compte est identifié avec FranceConnect, les noms et prénoms ne sont pas éditables."
@@ -534,14 +526,6 @@
     },
     "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
   },
-  "guarantorname": {
-    "lastname": "Nom",
-    "firstname": "Prénom",
-    "lastname-placeholder": "ex: Dupont",
-    "firstname-placeholder": "ex: Jean",
-    "field-required": "Ce champ est requis",
-    "title": "Identité de votre garant"
-  },
   "guarantorresidency": {
     "tenant": "Locataire",
     "owner": "Propriétaire",
@@ -633,6 +617,7 @@
     "firstname": "Prénom",
     "lastname": "Nom de naissance",
     "preferredname": "Nom d'usage",
+    "preferredname-hint": "Nom que vous utilisez au quotidien (ex : nom marital)",
     "zipcode": "Code postal (uniquement si vous résidez en France)",
     "field-required": "Ce champ est requis",
     "title": "Votre identité",
@@ -843,14 +828,6 @@
     "DECLINED": "Modification demandée",
     "INCOMPLETE": "Non terminé",
     "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
-  },
-  "tenantguarantorname": {
-    "lastname": "Nom",
-    "firstname": "Prénom",
-    "lastname-placeholder": "ex: Dupont",
-    "firstname-placeholder": "ex: Jean",
-    "field-required": "Ce champ est requis",
-    "title": "Identité de son garant"
   },
   "tenantinformationform": {
     "title": "Constituez-vous un dossier de location afin d'habiter :",

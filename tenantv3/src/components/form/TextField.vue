@@ -3,6 +3,7 @@
     <FieldLabel :required :for-input="name">
       {{ fieldLabel }}
     </FieldLabel>
+    <HintText v-if="hint" :id="`${name}-hint`">{{ hint }}</HintText>
     <Field
       v-slot="{ field, meta }"
       v-model="inputValue"
@@ -24,7 +25,7 @@
         :disabled
         :readonly
         :autocomplete
-        :aria-describedby="`${name}-errors`"
+        :aria-describedby="describedBy"
         :aria-invalid="!meta.valid"
       />
     </Field>
@@ -38,6 +39,7 @@
 import { useI18n } from 'vue-i18n'
 import { Field, ErrorMessage } from 'vee-validate'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
+import HintText from '@/components/common/HintText.vue'
 import { computed } from 'vue'
 
 const { t } = useI18n()
@@ -53,15 +55,24 @@ const props = withDefaults(
     disabled?: boolean
     readonly?: boolean
     autocomplete?: string
+    hint?: string
   }>(),
   {
     type: 'text',
     validationRules: '',
     disabled: false,
     readonly: false,
-    autocomplete: 'off'
+    autocomplete: 'off',
+    hint: ''
   }
 )
 
 const required = computed(() => props.validationRules.includes('required'))
+const describedBy = computed(() => {
+  const ids = [`${props.name}-errors`]
+  if (props.hint) {
+    ids.unshift(`${props.name}-hint`)
+  }
+  return ids.join(' ')
+})
 </script>

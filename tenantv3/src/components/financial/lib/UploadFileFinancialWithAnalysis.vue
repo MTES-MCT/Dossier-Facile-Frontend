@@ -26,7 +26,11 @@
     <p>{{ t('document-ia-callout.content') }}</p>
     <p class="fr-mt-2w">
       {{ t('document-ia-callout.need-help') }}
-      <router-link to="/contact" class="fr-link">
+      <router-link
+        to="/contact"
+        class="fr-link"
+        @click="AnalyticsService.document_analysis_contact_support()"
+      >
         {{ t('document-ia-callout.contact-link') }}
       </router-link>
     </p>

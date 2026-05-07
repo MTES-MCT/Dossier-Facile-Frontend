@@ -60,7 +60,7 @@
                     <div class="dp-custom-input">
                       <RiCalendarLine aria-hidden="true" size="16px" />
                       <span>{{ formatDatePicker(value) }}</span>
-                      <button type="button" class="dp-custom-input__close" @click.stop="isEditingExpiration = false" aria-label="Fermer">×</button>
+                      <button type="button" class="dp-custom-input__close" aria-label="Fermer" @click.stop="isEditingExpiration = false">×</button>
                     </div>
                   </template>
                 </VueDatePicker>

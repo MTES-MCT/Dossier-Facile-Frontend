@@ -18,6 +18,7 @@
     <TextField
       v-model.trim="preferredname"
       :field-label="t('common.preferred-name-label')"
+      :hint="t('nameinformationform.preferredname-hint')"
       name="preferredName"
       autocomplete="new-password"
       validation-rules="onlyAlpha"

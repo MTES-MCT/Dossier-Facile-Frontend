@@ -298,7 +298,7 @@ async function save(successMsgKey = 'save-success') {
 }
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "round-it": "Round to the nearest euro",
@@ -314,17 +314,17 @@ async function save(successMsgKey = 'save-success') {
     "i-authorize-corrections": "By continuing, I authorize a DossierFacile operator to correct any errors in the income amounts declared, based on the supporting documents provided, in order to ensure that my file is compliant."
   },
   "fr": {
-    "round-it": "Arrondir à l’euro",
+    "round-it": "Arrondir à l'euro",
     "amount": "Montant en euros",
     "valid-monthly-sum": "Veuillez saisir un montant valide",
-    "amount-zero": "Vous avez saisi un montant à 0€. Êtes-vous sûr d’avoir saisi votre revenu mensuel ?",
+    "amount-zero": "Vous avez saisi un montant à 0€. Êtes-vous sûr d'avoir saisi votre revenu mensuel ?",
     "insufficient-number-of-docs": "Nombre de justificatifs insuffisant",
     "you-added-docs": "Vous avez ajouté {0}.",
     "less-than-x-docs": "moins de {0} justificatifs",
-    "for-complete-file": "Pour un dossier complet, nous vous recommandons d’en ajouter {0}.",
-    "add-more-docs": "Ajouter d’autres documents",
-    "go-next-step": "Passer à l’étape suivante",
-    "i-authorize-corrections": "En continuant, j’autorise un opérateur DossierFacile à corriger les montants de revenus déclarés en cas d’erreur, sur la base des justificatifs fournis, afin de garantir la conformité de mon dossier."
+    "for-complete-file": "Pour un dossier complet, nous vous recommandons d'en ajouter {0}.",
+    "add-more-docs": "Ajouter d'autres documents",
+    "go-next-step": "Passer à l'étape suivante",
+    "i-authorize-corrections": "En continuant, j'autorise un opérateur DossierFacile à corriger les montants de revenus déclarés en cas d’erreur, sur la base des justificatifs fournis, afin de garantir la conformité de mon dossier."
   }
 }
 </i18n>

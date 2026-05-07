@@ -41,12 +41,12 @@ describe("alone tenant scenario", () => {
       "2000",
     );
     cy.contains("Nombre de justificatifs insuffisant").should("exist");
-    cy.contains("Passer à l’étape suivante").click();
-
+    cy.contains("Passer à l'étape suivante").click();
     // Check that updating the monthly income is persisted
     cy.contains("Modifier").click();
-    cy.get('[data-cy="monthlySum"]').clear().type("2500{enter}");
-    cy.contains("Passer à l’étape suivante").click();
+    cy.get('[data-cy="monthlySum"]').clear().type("2500");
+    cy.clickOnNext();
+    cy.contains("Passer à l'étape suivante").click();
     cy.location("pathname").should("equal", "/documents-locataire/4");
     cy.reload();
     cy.contains("2500€ net mensuel", { timeout: 10000 }).should("exist");
