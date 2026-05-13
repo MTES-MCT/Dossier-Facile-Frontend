@@ -184,7 +184,6 @@ import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
 import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import PartnersSection from '../components/account/PartnersSection.vue'
-import { openZipSurveyPopup } from '../services/ZipSurveyService'
 import DefaultShareSection from '../components/account/DefaultShareSection.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
@@ -268,10 +267,6 @@ const tenants = computed(() => [
   ...user.value.apartmentSharing.tenants.filter((t) => t.id !== user.value.id)
 ])
 
-function shouldShowZipSurvey() {
-  return user.value.status === 'TO_PROCESS'
-}
-
 function downloadZip() {
   ProfileService.downloadZip()
     .then((response) => {
@@ -281,9 +276,6 @@ function downloadZip() {
       const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.zip')
       link.download = fileName
       link.click()
-      if (shouldShowZipSurvey()) {
-        openZipSurveyPopup()
-      }
     })
     .catch((error) => {
       console.error(error)

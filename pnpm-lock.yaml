@@ -425,9 +425,6 @@ importers:
       '@sentry/vue':
         specifier: 'catalog:'
         version: 10.51.0(pinia@3.0.2(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))
-      '@typeform/embed':
-        specifier: 6.0.0
-        version: 6.0.0
       '@types/js-cookie':
         specifier: 3.0.6
         version: 3.0.6
@@ -2559,10 +2556,6 @@ packages:
 
   '@tsconfig/node18@18.2.4':
     resolution: {integrity: sha512-5xxU8vVs9/FNcvm3gE07fPbn9tl6tqGGWA9tSlwsUEkBxtRnTsNmwrV8gasZ9F/EobaSv9+nu8AxUKccw77JpQ==}
-
-  '@typeform/embed@6.0.0':
-    resolution: {integrity: sha512-ShV9P8/I9Cp24vJEDyb1huWAbPE4T6d7sE6jux03YPH67RzOE5cUrEuZ4vq0rpiGbWvpmhRLSZKspBC8SstN4Q==}
-    engines: {node: '>=18'}
 
   '@types/aria-query@5.0.4':
     resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==}
@@ -7814,8 +7807,6 @@ snapshots:
       '@testing-library/dom': 10.4.0
 
   '@tsconfig/node18@18.2.4': {}
-
-  '@typeform/embed@6.0.0': {}
 
   '@types/aria-query@5.0.4': {}
 
