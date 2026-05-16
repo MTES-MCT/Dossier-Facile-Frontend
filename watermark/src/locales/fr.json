@@ -13,6 +13,10 @@
       "label": "Indiquez le filigrane à insérer :",
       "placeholder": "Ex : Document exclusivement destiné à la location immobilière"
     },
+    "add-prefix": {
+      "label": "Indiquez le préfixe à ajouter au nom du fichier :",
+      "placeholder": "Ex : MonDocument (Optionnel)"
+    },
     "upload-error": "Une erreur est survenue lors de l'envoi des fichiers. Veuillez réessayer.",
     "download-file": "Télécharger le document filigrané"
   },
