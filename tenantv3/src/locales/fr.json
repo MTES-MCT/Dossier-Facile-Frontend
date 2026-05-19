@@ -546,7 +546,7 @@
     "identity-represent": "Identité représentant",
     "organism-identification": "Certificat de l'organisme",
     "delete-guarantor": "Supprimer ce garant",
-    "confirm-delete-guarantor": "Êtes-vous sur de vouloir supprimer ce garant ?",
+    "confirm-delete-guarantor": "Êtes-vous sûr de vouloir supprimer ce garant ?",
     "guarantor-deleted": "Votre garant est supprimé",
     "guarantor-delete-failed": "Impossible de supprimer ce garant. Veuillez réessayer.",
     "add-guarantor": "Ajouter un garant ?",

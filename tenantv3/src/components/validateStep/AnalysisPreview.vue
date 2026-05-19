@@ -2,9 +2,26 @@
   <NakedCard class="fr-mt-3w">
     <DsfrBadge v-if="isTenant" class="fr-mb-1w" type="new" :label="t('badge-loc')" no-icon />
     <GuarantorBadge v-else />
-    <h1 class="fr-h6">
+    <h1 class="fr-h6" :class="{ 'fr-mb-0': canDeleteGuarantor }">
       {{ nameToDisplay }}
     </h1>
+    <div v-if="canDeleteGuarantor" class="fr-mb-2w fr-mt-1v">
+      <button
+        type="button"
+        class="fr-btn fr-btn--tertiary fr-btn--sm"
+        @click="isRemoveGuarantor = true"
+      >
+        {{ t('guarantorssection.delete-guarantor') }}
+      </button>
+      <ConfirmModal
+        v-model:is-opened="isRemoveGuarantor"
+        :title="t('guarantorssection.confirm-delete-guarantor')"
+        :validate-label="t('delete-guarantor-modal-cta')"
+        @valid="removeGuarantor()"
+      >
+        <p>{{ t('delete-guarantor-modal-body') }}</p>
+      </ConfirmModal>
+    </div>
     <div
       v-if="showGuarantorIdentityBlock"
       class="fr-p-1w document-preview-card document-preview-card--error fr-mb-2w"
@@ -29,17 +46,19 @@
 </template>
 
 <script setup lang="ts">
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import { allTenantDocumentCategories, type DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import type { DocumentAnalysisStatus, PreviewDocument, User } from 'df-shared-next/src/models/User'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DocumentPreviewCard from './DocumentPreviewCard.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { UtilsService } from '@/services/UtilsService'
 import { DsfrBadge } from '@gouvminint/vue-dsfr'
 import GuarantorBadge from '@/components/common/GuarantorBadge.vue'
+import { toast } from '@/components/toast/toastUtils'
 
 const props = defineProps<{
   user: User | Guarantor
@@ -120,6 +139,29 @@ const coTenantIdForGuarantor = computed(() => {
 
   return coTenant?.id
 })
+
+const isRemoveGuarantor = ref(false)
+
+// tenant can only delete its guarantors and the ones from its couple 
+const canDeleteGuarantor = computed(() => {
+  if (props.isTenant) return false
+  const guarantorTenantId = coTenantIdForGuarantor.value ?? store.user.id
+  if (guarantorTenantId === store.user.id) return true
+  return store.user.applicationType === 'COUPLE'
+})
+
+function removeGuarantor() {
+  store.deleteGuarantor(props.user as Guarantor).then(
+    () => {
+      toast.success(t('guarantorssection.guarantor-deleted'), null)
+    },
+    () => {
+      toast.error(t('guarantorssection.guarantor-delete-failed'), null)
+    }
+  ).finally(() => {
+    isRemoveGuarantor.value = false
+  })
+}
 
 const guarantorIdentityLink = computed(() => {
   const guarantorId = props.user.id
@@ -212,7 +254,9 @@ const documents = computed(() => {
     "badge-guarantor": "GUARANTOR FILE",
     "to-correct-label": "TO CORRECT",
     "guarantor-identity-label": "Guarantor identity",
-    "correct": "Correct"
+    "correct": "Correct",
+    "delete-guarantor-modal-cta": "Delete the guarantor",
+    "delete-guarantor-modal-body": "This guarantor will be deleted from your file. You can add a new one later if needed."
   },
   "fr": {
     "documents-of": "Documents de {fullName}",
@@ -221,7 +265,9 @@ const documents = computed(() => {
     "badge-guarantor": "DOSSIER GARANT",
     "to-correct-label": "À CORRIGER",
     "guarantor-identity-label": "Identité du garant",
-    "correct": "Corriger"
+    "correct": "Corriger",
+    "delete-guarantor-modal-cta": "Supprimer le garant",
+    "delete-guarantor-modal-body": "Ce garant sera supprimé de votre dossier. Vous pourrez en ajouter un nouveau plus tard si besoin."
   }
 }
 </i18n>
