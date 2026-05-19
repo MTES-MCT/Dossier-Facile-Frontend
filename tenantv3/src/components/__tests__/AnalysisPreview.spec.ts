@@ -7,6 +7,7 @@ const { mockStore } = vi.hoisted(() => {
     mockStore: {
       user: {
         id: 1,
+        applicationType: undefined as string | undefined,
         apartmentSharing: {
           tenants: [] as Array<{
             id: number
@@ -46,8 +47,13 @@ const globalStubs = {
   DsfrBadge: {
     props: ['label'],
     template: '<div data-test="dsfr-badge">{{ label }}</div>'
+  },
+  ConfirmModal: {
+    template: '<div data-test="confirm-modal" />'
   }
 }
+
+const DELETE_BUTTON_SELECTOR = 'button.fr-btn--tertiary.fr-btn--sm'
 
 function mountComponent(user: Record<string, unknown>, isTenant: boolean) {
   return mount(AnalysisPreview, {
@@ -66,6 +72,7 @@ describe('AnalysisPreview', () => {
   beforeEach(() => {
     mockStore.user = {
       id: 1,
+      applicationType: undefined,
       apartmentSharing: {
         tenants: []
       }
@@ -143,5 +150,94 @@ describe('AnalysisPreview', () => {
 
     expect(wrapper.text()).not.toContain('guarantor-identity-label')
     expect(wrapper.find('a.fr-btn').exists()).toBe(false)
+  })
+
+  describe('delete guarantor button visibility', () => {
+    it('hides the delete button on the tenant own card', () => {
+      const tenant = {
+        id: 1,
+        firstName: 'Alice',
+        lastName: 'Martin',
+        documents: []
+      }
+
+      const wrapper = mountComponent(tenant, true)
+
+      expect(wrapper.find(DELETE_BUTTON_SELECTOR).exists()).toBe(false)
+    })
+
+    it('shows the delete button for a guarantor of the current user', () => {
+      mockStore.user = {
+        id: 1,
+        applicationType: 'ALONE',
+        apartmentSharing: { tenants: [] }
+      }
+
+      const guarantor = {
+        id: 40,
+        typeGuarantor: 'NATURAL_PERSON',
+        firstName: 'Bob',
+        lastName: 'Durand',
+        documents: []
+      }
+
+      const wrapper = mountComponent(guarantor, false)
+
+      expect(wrapper.find(DELETE_BUTTON_SELECTOR).exists()).toBe(true)
+    })
+
+    it('shows the delete button for a co-tenant guarantor when applicationType is COUPLE', () => {
+      mockStore.user = {
+        id: 1,
+        applicationType: 'COUPLE',
+        apartmentSharing: {
+          tenants: [
+            {
+              id: 2,
+              guarantors: [{ id: 50 }]
+            }
+          ]
+        }
+      }
+
+      const guarantor = {
+        id: 50,
+        typeGuarantor: 'NATURAL_PERSON',
+        firstName: 'Carla',
+        lastName: 'Petit',
+        documents: []
+      }
+
+      const wrapper = mountComponent(guarantor, false)
+
+      expect(wrapper.find(DELETE_BUTTON_SELECTOR).exists()).toBe(true)
+    })
+
+    it('hides the delete button for a co-tenant guarantor when applicationType is GROUP', () => {
+      mockStore.user = {
+        id: 1,
+        applicationType: 'GROUP',
+        apartmentSharing: {
+          tenants: [
+            {
+              id: 2,
+              guarantors: [{ id: 60 }]
+            }
+          ]
+        }
+      }
+
+      const guarantor = {
+        id: 60,
+        typeGuarantor: 'NATURAL_PERSON',
+        firstName: 'David',
+        lastName: 'Leroy',
+        documents: []
+      }
+
+      const wrapper = mountComponent(guarantor, false)
+
+      expect(wrapper.find(DELETE_BUTTON_SELECTOR).exists()).toBe(false)
+    })
   })
 })

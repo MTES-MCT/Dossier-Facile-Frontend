@@ -24,15 +24,16 @@ const emit = defineEmits<{ valid: []; cancel: []; close: [] }>()
 interface Props {
   title: string
   canClose?: boolean
+  validateLabel?: string
 }
 
-const { title, canClose = true } = defineProps<Props>()
+const { title, canClose = true, validateLabel } = defineProps<Props>()
 
 const isModalOpened = defineModel<boolean>('isOpened', { default: false })
 
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
   {
-    label: t('validate'),
+    label: validateLabel ?? t('validate'),
     onClick() {
       emit('valid')
     },
