@@ -10,7 +10,13 @@
       <label :for="formId" class="fr-label"
         >{{ t(textKey + '.describe-situation') }} ({{ t('form.label.required') }})
       </label>
-      <textarea :id="formId" v-model="explanation" required class="fr-input" />
+      <TextAreaWithCounter
+        :id="formId"
+        v-model="explanation"
+        required
+        :max="1355"
+        counter-id="tax-explanation-counter"
+      />
     </div>
   </form>
 
@@ -33,6 +39,7 @@ import { useTaxState } from '@/components/tax/lib/taxState'
 import { useI18n } from 'vue-i18n'
 import { ref, useId } from 'vue'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import TextAreaWithCounter from 'df-shared-next/src/components/TextAreaWithCounter.vue'
 import JointTaxInfo from './lib/JointTaxInfo.vue'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 

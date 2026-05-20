@@ -26,14 +26,15 @@
     <DsfrAlert type="info" small>
       <p>{{ t(textKey + '.no-doc-long') }}</p>
     </DsfrAlert>
-    <textarea
+    <TextAreaWithCounter
       v-model="value"
-      class="form-control fr-input validate-required"
+      class="form-control validate-required"
       :class="meta.valid ? 'fr-input--valid' : 'fr-input--error'"
       name="customText"
-      maxlength="2000"
+      :max="2000"
       rows="3"
       required
+      counter-id="guarantor-customtext-counter"
     />
     <span v-if="errorMessage" role="alert" class="fr-error-text">{{ t(errorMessage || '') }}</span>
   </template>
@@ -53,6 +54,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
 import { UtilsService } from '@/services/UtilsService'
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
+import TextAreaWithCounter from 'df-shared-next/src/components/TextAreaWithCounter.vue'
 
 const { t } = useI18n()
 const checkboxId = useId()
