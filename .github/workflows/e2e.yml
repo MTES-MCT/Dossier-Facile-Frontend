@@ -47,25 +47,38 @@ jobs:
           name: cypress-screenshots
           path: e2e-tests/cypress/screenshots
           retention-days: 1
-      - name: Upload video
-        uses: actions/upload-artifact@v4
+      - name: Upload Cypress videos on failure
         if: failure()
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
-          path: e2e-tests/cypress/videos
+          path: e2e-tests/cypress/videos/**/*.mp4
           retention-days: 1
       - name: Mattermost alert
-        uses: mattermost/action-mattermost-notify@master
         if: failure()
-        with:
+        shell: bash
+        env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-          PAYLOAD: |-
-            {
-              "attachments": [
-                {
-                  "text": "[dossierfacile-preprod] e2e test failed\n[Failed workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
-                  "color": "#FF8000",
-                  "fallback": "[dossierfacile-preprod] e2e test failed"
-                }
-              ]
-            }
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          # Cypress creates one subdir under cypress/screenshots per spec that has at least one failed test
+          failed_specs=()
+          screenshots_dir="e2e-tests/cypress/screenshots"
+          if [ -d "$screenshots_dir" ]; then
+            while IFS= read -r dir; do
+              failed_specs+=("$(basename "$dir" .cy.ts)")
+            done < <(find "$screenshots_dir" -mindepth 1 -maxdepth 1 -type d | sort)
+          fi
+          count=${#failed_specs[@]}
+          if [ "$count" -eq 0 ]; then
+            spec_list="(no spec dirs found — see workflow logs)"
+            count_label="e2e job"
+          else
+            spec_list=$(printf -- "- %s\n" "${failed_specs[@]}")
+            count_label="$count spec(s)"
+          fi
+          text="[dossierfacile-preprod] $count_label failed:
+          $spec_list
+          [Failed workflow]($RUN_URL)"
+          jq -n --arg t "$text" '{attachments:[{text:$t,color:"#FF8000",fallback:"e2e failed"}]}' | \
+            curl -sS -X POST -H "Content-Type: application/json" --data @- "$MATTERMOST_WEBHOOK_URL"

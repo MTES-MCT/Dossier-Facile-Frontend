@@ -67,7 +67,7 @@ describe("flatmate tenant scenario", () => {
     cy.expectPath("/info-garant/0");
     cy.get("#organismName").type("Organisme").uploadDocument().clickOnNext();
 
-    const name = "Personne morale 123";
+    const name = "Personne Morale 123";
     cy.get("#firstName").type(name);
     cy.get("#selectID").select("Autre").uploadDocument().clickOnNext();
 
