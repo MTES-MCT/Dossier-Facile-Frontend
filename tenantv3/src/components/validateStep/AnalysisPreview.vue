@@ -5,7 +5,7 @@
     <h1 class="fr-h6" :class="{ 'fr-mb-0': canDeleteGuarantor }">
       {{ nameToDisplay }}
     </h1>
-    <div v-if="canDeleteGuarantor" class="fr-mb-2w fr-mt-1v">
+    <div v-if="canDeleteGuarantor" class="fr-mb-2w fr-mt-1w">
       <button
         type="button"
         class="fr-btn fr-btn--tertiary fr-btn--sm"
