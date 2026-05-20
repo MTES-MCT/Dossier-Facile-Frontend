@@ -54,13 +54,16 @@ jobs:
         with:
           script: |
             const fs = require('fs')
-            const { DefaultArtifactClient } = require('@actions/artifact')
-            const client = new DefaultArtifactClient()
+            const { execSync } = require('child_process')
             const root = 'e2e-tests/cypress/videos'
             if (!fs.existsSync(root)) {
               core.info(`No videos directory at ${root}`)
               return
             }
+            // @actions/artifact is not bundled in github-script — install on the fly
+            execSync('npm install --no-audit --no-fund --prefix /tmp/artifact-deps @actions/artifact', { stdio: 'inherit' })
+            const { DefaultArtifactClient } = require('/tmp/artifact-deps/node_modules/@actions/artifact')
+            const client = new DefaultArtifactClient()
             const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true })
               .flatMap(d => d.isDirectory()
                 ? walk(`${dir}/${d.name}`)
