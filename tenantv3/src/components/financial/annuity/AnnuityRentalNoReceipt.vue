@@ -58,8 +58,8 @@ const { suffix, textKey } = useFinancialState()
       "couple-guarantor": "Their guarantor has no receipt",
     },
     "please-provide": "Please provide {0}.",
-    "latest-tax-notice-tenant": "your latest tax notice 2023-24",
-    "latest-tax-notice-other": "their latest tax notice 2023-24",
+    "latest-tax-notice-tenant": "your latest tax notice 2024-25",
+    "latest-tax-notice-other": "their latest tax notice 2024-25",
     "for-example-tenant": "For example: if the “property income” line on your tax form shows €12,000, your rental income is 12000÷12=1000€.",
     "for-example-other": "For example: if the “property income” line on their tax form shows €12,000, their rental income is 12000÷12=1000€."
   },
@@ -77,8 +77,8 @@ const { suffix, textKey } = useFinancialState()
       "couple-guarantor": "Son garant n’a pas de quittance",
     },
     "please-provide": "Veuillez fournir {0}.",
-    "latest-tax-notice-tenant": "votre dernier avis d’imposition 2023-24",
-    "latest-tax-notice-other": "son dernier avis d’imposition 2023-24",
+    "latest-tax-notice-tenant": "votre dernier avis d’imposition 2024-25",
+    "latest-tax-notice-other": "son dernier avis d’imposition 2024-25",
     "for-example-tenant": "Par exemple : si la ligne “revenus fonciers” de votre avis d’imposition indique 12000€, le montant de vos revenus locatifs est de 12000÷12=1000€.",
     "for-example-other": "Par exemple : si la ligne “revenus fonciers” de son avis d’imposition indique 12000€, le montant des revenus locatifs est de 12000÷12=1000€."
   }
