@@ -194,7 +194,13 @@ const { goNext } = useNextStep(props.category, props.nextStep)
 
 const handleNext = async () => {
   const { valid } = await r$.$validate()
-  if (valid) goNext()
+  if (valid && analysisWrapper?.value?.canContinue) goNext()
+  else if (analysisWrapper?.value?.canContinue === false) {
+    r$.$setExternalErrors({
+      files: { $self: [t('validation.analysisErrorOrExplain')] }
+    })
+    analysisWrapper?.value?.focusBanners()
+  }
 }
 
 defineExpose({ inputFile })

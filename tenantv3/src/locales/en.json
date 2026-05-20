@@ -1168,6 +1168,7 @@
     "maxFile": "Maximum number of files: {max}. Current files: {n}.",
     "exactFile": "Number of files necessary: {max}. Current files: {n}.",
     "maxFileSize": "Maximum file size allowed: {max}kb. Current size: {n}kb.",
-    "fileType": "File type is not allowed. Allowed types are: {accept}."
+    "fileType": "File type is not allowed. Allowed types are: {accept}.",
+    "analysisErrorOrExplain": "Please update your documents or explain your situation."
   }
 }

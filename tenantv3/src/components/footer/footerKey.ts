@@ -3,6 +3,6 @@ import AnalysisWrapper from '../analysis/AnalysisWrapper.vue'
 
 export interface DataFooter {
   analysisWrapper: TemplateRef<InstanceType<typeof AnalysisWrapper>>
-  submit: () => Promise<void>
+  submit: () => void | Promise<void>
 }
 export const FooterKey: InjectionKey<DataFooter> = Symbol('data-footer')

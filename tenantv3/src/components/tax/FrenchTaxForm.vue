@@ -94,8 +94,7 @@ const isModalOpened = ref(false)
 const isUploading = computed(() => uploadFileTaxWithAnalysis.value?.isUploading ?? false)
 const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
 
-async function submit() {
-  await analysisWrapper.value?.saveExplanation()
+function submit() {
   AnalyticsService.validateFunnelStep(stateCategory)
 }
 

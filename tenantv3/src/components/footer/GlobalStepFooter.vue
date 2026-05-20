@@ -39,6 +39,7 @@ defineExpose({ button: computed(() => nextBtn.value?.$el) })
 
 const nextAction = async () => {
   // check if custom actions are provided
+  if (disabled) return
   if (beforeSubmit && !beforeSubmit()) {
     emit('on-next')
     return

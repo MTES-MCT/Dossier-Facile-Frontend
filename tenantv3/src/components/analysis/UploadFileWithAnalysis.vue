@@ -32,7 +32,7 @@
     ref="file-upload"
     v-model:current-files="currentFiles"
     :current-status="fileUploadStatus"
-    :page="4"
+    :page="maxFileCount"
     :category="docCategory"
     :next-step="nextStep"
     :server-errors

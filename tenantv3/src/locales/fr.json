@@ -1170,6 +1170,7 @@
     "maxFile": "Nombre de fichiers maximum : {max}. Fichiers actuels : {n}.",
     "exactFile": "Nombre de fichiers nécessaires : {max}. Fichiers actuels : {n}.",
     "maxFileSize": "Poids maximum autorisé par fichier : {max}kb. Poids actuel : {n}kb.",
-    "fileType": "Type de fichier non supporté. Les fichiers supportés sont : {accept}."
+    "fileType": "Type de fichier non supporté. Les fichiers supportés sont : {accept}.",
+    "analysisErrorOrExplain": "Veuillez modifier vos documents ou expliquer votre situation."
   }
 }
