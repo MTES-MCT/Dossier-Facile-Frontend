@@ -4,6 +4,8 @@ describe("alone tenant scenario", () => {
   const user = getTenantUser();
 
   it("validate file", () => {
+    // TEMP: forced fail for artifact-per-spec test (branch test-e2e-artifacts)
+    expect(true, "forced fail for artifact test").to.equal(false);
     cy.loginWithFCAndDeleteAccount(
       user.username,
       user.password,

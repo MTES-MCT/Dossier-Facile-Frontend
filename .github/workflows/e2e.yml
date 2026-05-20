@@ -36,6 +36,7 @@ jobs:
           install: false
           config-file: cypress-preprod.config.ts
           browser: chrome
+          spec: cypress/e2e/tenant/flatmate.cy.ts,cypress/e2e/tenant/alone.cy.ts
           env: configFile=ci
         env:
           CYPRESS_TESTMAIL_API_KEY: ${{ secrets.CYPRESS_TESTMAIL_API_KEY }}
@@ -47,13 +48,28 @@ jobs:
           name: cypress-screenshots
           path: e2e-tests/cypress/screenshots
           retention-days: 1
-      - name: Upload video
-        uses: actions/upload-artifact@v4
+      - name: Upload videos
         if: failure()
+        uses: actions/github-script@v7
         with:
-          name: cypress-videos
-          path: e2e-tests/cypress/videos
-          retention-days: 1
+          script: |
+            const fs = require('fs')
+            const { DefaultArtifactClient } = require('@actions/artifact')
+            const client = new DefaultArtifactClient()
+            const root = 'e2e-tests/cypress/videos'
+            if (!fs.existsSync(root)) {
+              core.info(`No videos directory at ${root}`)
+              return
+            }
+            const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true })
+              .flatMap(d => d.isDirectory()
+                ? walk(`${dir}/${d.name}`)
+                : d.name.endsWith('.mp4') ? [`${dir}/${d.name}`] : [])
+            for (const file of walk(root)) {
+              const spec = file.replace(`${root}/`, '').replace(/\.cy\.ts\.mp4$/, '').replace(/\//g, '-')
+              core.info(`Uploading ${file} as video-${spec}`)
+              await client.uploadArtifact(`video-${spec}`, [file], root, { retentionDays: 1 })
+            }
       - name: Mattermost alert
         uses: mattermost/action-mattermost-notify@master
         if: failure()
