@@ -63,10 +63,24 @@ function getTitle(): string {
   ) {
     return t('bad-classification.proof.title')
   }
+  if (
+    props.document &&
+    props.document.documentSubCategory === 'GUEST' &&
+    props.document.documentCategoryStep === 'GUEST_PROOF'
+  ) {
+    return t('bad-classification.guest-proof.title')
+  }
   return t('bad-classification.title')
 }
 
 function getFirstSubTitle(): string {
+  if (
+    props.document &&
+    props.document.documentSubCategory === 'GUEST' &&
+    props.document.documentCategoryStep === 'GUEST_PROOF'
+  ) {
+    return t('bad-classification.guest-proof.sub-title-one')
+  }
   return t('bad-classification.sub-title-one')
 }
 </script>
@@ -97,6 +111,10 @@ function getFirstSubTitle(): string {
       "proof": {
         "title": "Add a proof of payment certificate"
       },
+      "guest-proof": {
+        "title": "Add your proof of accommodation",
+        "sub-title-one": "Expected document"
+      },
       "title": "Document classification issue",
       "sub-title-one": "Expected documents"
     },
@@ -119,6 +137,10 @@ function getFirstSubTitle(): string {
       },
       "proof": {
         "title": "Ajoutez une attestation de bon paiement"
+      },
+      "guest-proof": {
+        "title": "Ajoutez votre attestation d'hébergement",
+        "sub-title-one": "Document attendu"
       },
       "title": "Problème de classification de document",
       "sub-title-one": "Documents attendus"
