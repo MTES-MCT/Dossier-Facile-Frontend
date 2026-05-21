@@ -31,11 +31,13 @@
 
 <script setup lang="ts">
 import { VIcon } from '@gouvminint/vue-dsfr'
+import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import { useI18n } from 'vue-i18n'
 
-defineProps<{
+const props = defineProps<{
   rule: DocumentRule
+  document?: DfDocument
   notMatchingLabel: string
   explainLinkLabel: string
 }>()
@@ -47,6 +49,20 @@ const emit = defineEmits<{
 const { t } = useI18n()
 
 function getTitle(): string {
+  if (
+    props.document &&
+    props.document.documentSubCategory === 'TENANT' &&
+    props.document.documentCategoryStep === 'TENANT_RECEIPT'
+  ) {
+    return t('bad-classification.receipt.title')
+  }
+  if (
+    props.document &&
+    props.document.documentSubCategory === 'TENANT' &&
+    props.document.documentCategoryStep === 'TENANT_PROOF'
+  ) {
+    return t('bad-classification.proof.title')
+  }
   return t('bad-classification.title')
 }
 
@@ -75,7 +91,13 @@ function getFirstSubTitle(): string {
 {
   "en": {
     "bad-classification": {
-      "title": "Add your rent receipts",
+      "receipt": {
+        "title": "Add your rent receipts"
+      },
+      "proof": {
+        "title": "Add a proof of payment certificate"
+      },
+      "title": "Document classification issue",
       "sub-title-one": "Expected documents"
     },
     "document": {
@@ -92,7 +114,13 @@ function getFirstSubTitle(): string {
   },
   "fr": {
     "bad-classification": {
-      "title": "Ajoutez vos quittances de loyer",
+      "receipt": {
+        "title": "Ajoutez vos quittances de loyer"
+      },
+      "proof": {
+        "title": "Ajoutez une attestation de bon paiement"
+      },
+      "title": "Problème de classification de document",
       "sub-title-one": "Documents attendus"
     },
     "document": {

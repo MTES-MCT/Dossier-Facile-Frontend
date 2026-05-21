@@ -56,7 +56,7 @@
     :before-submit="analysisWrapper?.beforeSubmit"
     :next-disabled="analysisWrapper?.nextDisabled"
     :next-label="analysisWrapper?.nextLabel"
-    :on-submit-action="checkFiles"
+    :on-submit-action="onSubmit"
   />
   <DsfrModalPatch v-model:is-opened="isModalOpened" :title="t('confirm')" :actions="modalActions">
     <i18n-t :keypath="`${textKey}.warning-msg`" tag="p">
@@ -93,7 +93,9 @@ import { useResidencyState } from './residencyState'
 
 const router = useRouter()
 const store = useTenantStore()
-const { category, document, nextStep, textKey } = useResidencyState()
+
+const state = useResidencyState()
+const { category, document, nextStep, textKey } = state
 
 const isModalOpened = ref(false)
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -114,7 +116,11 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
 
 const { t } = useI18n()
 
-const state = useResidencyState()
+const onSubmit = async () => {
+  await analysisWrapper.value?.saveExplanation()
+  checkFiles()
+}
+
 const uploadFileWithAnalysis = useTemplateRef('upload-file-with-analysis')
 const analysisWrapper = useTemplateRef('analysis-wrapper')
 
