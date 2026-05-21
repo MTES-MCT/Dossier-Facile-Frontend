@@ -82,7 +82,9 @@ export const toast = {
   deleteFileFailed() {
     show('error', i18n.global.t('delete-file-failed'), document.getElementById('file'))
   },
-  maxFileError(value: number, max: number, elt: MaybeElement) {
-    show('error', i18n.global.t('max-file', [value, max]), elt)
+  maxFileError(value: number, max: number, elt: MaybeElement): string {
+    const message = i18n.global.t('max-file', [value, max])
+    show('error', message, elt)
+    return message
   }
 }

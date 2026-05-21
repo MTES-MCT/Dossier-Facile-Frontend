@@ -18,6 +18,8 @@
     "@sentry/vite-plugin": "catalog:",
     "@sentry/vue": "catalog:",
     "@types/js-cookie": "3.0.6",
+    "@regle/core": "catalog:",
+    "@regle/rules": "catalog:",
     "axios": "catalog:",
     "df-shared-next": "workspace:*",
     "js-cookie": "3.0.5",

@@ -42,7 +42,7 @@
       </template>
     </i18n-t>
   </DsfrAlert>
-  <ResidencyFooter ref="footer" :on-submit="submit" :enabled="isPrecarious" />
+  <ResidencyFooter ref="footer" :on-submit="submit" :disabled="!isPrecarious" />
 </template>
 
 <script setup lang="ts">

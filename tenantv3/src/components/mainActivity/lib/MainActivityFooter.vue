@@ -1,51 +1,48 @@
 <template>
   <FooterContainer class="main-activity-footer">
-    <router-link :to="state.previousStep" class="fr-btn fr-btn--secondary">
-      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" aria-hidden="true" />
+    <RouterLink :to="previousStep" class="fr-btn fr-btn--secondary">
+      <VIcon icon="ri:arrow-left-s-line" />
       <span class="desktop">{{ t('profilefooter.back') }}</span>
-    </router-link>
-    <form @submit.prevent="submit">
-      <DfButton :disabled="disabled" primary data-cy="next-btn">{{
-        t('validate-main-activity')
-      }}</DfButton>
-    </form>
+    </RouterLink>
+
+    <DsfrButton
+      data-cy="next-btn"
+      :type="submit ? 'submit' : 'button'"
+      :form="formId ?? null"
+      :label="t('validate-main-activity')"
+      :disabled
+      icon="ri:check-line"
+      @click="goNext"
+    />
   </FooterContainer>
 </template>
 
 <script setup lang="ts">
 import FooterContainer from '@/components/footer/FooterContainer.vue'
-import { AnalyticsService } from '@/services/AnalyticsService'
-import { RiArrowLeftSLine } from '@remixicon/vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { useMainActivityState } from './mainActivityState'
+import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import { useNextStep } from '@/components/common/lib/useNextStep'
+
+withDefaults(
+  defineProps<{
+    formId?: string
+    submit?: boolean
+  }>(),
+  { formId: undefined, submit: false }
+)
 
 const { t } = useI18n()
-const router = useRouter()
-const state = useMainActivityState()
-const disabled = computed(() => state.document.value == undefined)
-
-const submit = () => {
-  AnalyticsService.validateFunnelStep(state.category)
-  router.push(state.nextStep)
-}
+const { category, nextStep, previousStep, document } = useMainActivityState()
+const disabled = computed(() => document.value == undefined)
+const { goNext } = useNextStep(category, nextStep)
 </script>
 
-<style scoped>
-.main-activity-footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 1rem;
-}
-</style>
-
-<i18n>
+<i18n lang="json">
 {
   "en": {
-    "validate-main-activity": "Validate your main activity",
+    "validate-main-activity": "Validate your main activity"
   },
   "fr": {
     "validate-main-activity": "Valider votre activité principale"

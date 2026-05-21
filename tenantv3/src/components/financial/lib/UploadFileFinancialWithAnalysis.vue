@@ -55,6 +55,7 @@
         :doc-category="state.category"
         :sub-category="salarySubCategory"
         step="SALARY_EMPLOYED_MORE_3_MONTHS"
+        :next-step
         :max-file-count="10"
         :analysis-in-progress="analysisWrapper?.analysisInProgress ?? false"
         :before-save="beforeUploadSave"
@@ -64,13 +65,6 @@
     </template>
   </AnalysisWrapper>
   <p class="fr-message fr-message--info fr-mt-3w">{{ t('i-authorize-corrections') }}</p>
-  <AnalysisFooter
-    :previous-step="state.recap"
-    :next-disabled="analysisFooterNextDisabled"
-    :next-label="analysisWrapper?.nextLabel"
-    :before-submit="analysisWrapper?.beforeSubmit"
-    :on-submit-action="onAnalysisFooterSubmit"
-  />
   <DsfrModalPatch
     v-model:is-opened="isModalOpened"
     :title="t('insufficient-number-of-docs')"
@@ -89,7 +83,6 @@ import AnalysisWrapper from '@/components/analysis/AnalysisWrapper.vue'
 import UploadFileWithAnalysis from '@/components/analysis/UploadFileWithAnalysis.vue'
 import { documentFormKey } from '@/components/documents/documentFormState'
 import type { FinancialCategory } from '@/components/documents/share/DocumentTypeConstants'
-import AnalysisFooter from '@/components/footer/AnalysisFooter.vue'
 import { toast } from '@/components/toast/toastUtils'
 import { useHandleValidationNavigation } from '@/composables/useInternalNavigation'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -103,6 +96,7 @@ import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useFinancialState } from '../financialState'
 import FinancialAnalysisErrorBannerContent from './analysisBanner/FinancialAnalysisErrorBannerContent.vue'
+import { FooterKey } from '@/components/footer/footerKey'
 
 const props = withDefaults(
   defineProps<{
@@ -120,6 +114,7 @@ const { t } = useI18n()
 const { getNavigationNextStep } = useHandleValidationNavigation()
 const state = useFinancialState()
 const salarySubCategory: FinancialCategory = 'SALARY'
+const { nextStep } = useFinancialState()
 
 const inputSumElt = useTemplateRef<HTMLInputElement>('inputSumElt')
 const analysisWrapper = useTemplateRef('analysis-wrapper')
@@ -148,12 +143,6 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
     }
   }
 ])
-
-const analysisFooterNextDisabled = computed(() => {
-  const busy = Boolean(analysisWrapper.value?.nextDisabled)
-  const noFiles = (document.value.files?.length ?? 0) === 0
-  return busy || noFiles
-})
 
 provide(documentFormKey, {
   category: 'FINANCIAL',
@@ -292,11 +281,6 @@ const onSubmit = handleSubmit(submit, () => {
   inputSumElt.value?.focus()
 })
 
-async function onAnalysisFooterSubmit() {
-  await analysisWrapper.value?.saveExplanation()
-  await onSubmit()
-}
-
 defineExpose({
   get isUploading() {
     return uploadFileWithAnalysisRef.value?.isUploading ?? false
@@ -304,6 +288,12 @@ defineExpose({
   async forceUploadPendingFiles() {
     return (await uploadFileWithAnalysisRef.value?.forceUploadPendingFiles?.()) ?? false
   }
+})
+
+// provide the status and results to the footer (too deeply nested to use props)
+provide(FooterKey, {
+  analysisWrapper,
+  submit
 })
 </script>
 

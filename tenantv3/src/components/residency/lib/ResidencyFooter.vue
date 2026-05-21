@@ -1,64 +1,63 @@
 <template>
   <FooterContainer class="residency-footer">
-    <router-link :to="residencyState.previousStep" class="fr-btn fr-btn--secondary">
-      <RiArrowLeftSLine size="1rem" class="color--primary mobile no-shrink" aria-hidden="true" />
+    <RouterLink :to="previousStep" class="fr-btn fr-btn--secondary">
+      <VIcon icon="ri:arrow-left-s-line" />
       <span class="desktop">{{ t('profilefooter.back') }}</span>
-    </router-link>
-    <form @submit.prevent="submit">
-      <DfButton ref="submit-button" :disabled="disabled" primary data-cy="next-btn">{{
-        t('validate-residency')
-      }}</DfButton>
-    </form>
+    </RouterLink>
+
+    <DsfrButton
+      ref="submit-button"
+      data-cy="next-btn"
+      :disabled
+      :type="submit ? 'submit' : 'button'"
+      :form="formId ?? null"
+      :label="t('validate-residency')"
+      icon="ri:check-line"
+      @click="handleSubmit"
+    />
   </FooterContainer>
 </template>
 
 <script setup lang="ts">
 import FooterContainer from '@/components/footer/FooterContainer.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { RiArrowLeftSLine } from '@remixicon/vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import { computed, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { useResidencyState } from '../residencyState'
+import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import { useNextStep } from '@/components/common/lib/useNextStep'
 
-const { onSubmit, enabled = null } = defineProps<{
-  onSubmit?: () => void
-  enabled?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    onSubmit?: () => void
+    disabled?: boolean
+    formId?: string
+    submit?: boolean
+  }>(),
+  { onSubmit: undefined, disabled: true, formId: undefined, submit: false }
+)
 
 const { t } = useI18n()
-const router = useRouter()
-const residencyState = useResidencyState()
-const disabled = computed(() =>
-  enabled == null ? residencyState.document.value == undefined : !enabled
-)
-const submitBtn = useTemplateRef('submit-button')
-defineExpose({ submit: computed(() => submitBtn.value?.button) })
+const { nextStep, previousStep, document, category } = useResidencyState()
+const disabled = computed(() => !document.value && props.disabled)
+const { goNext } = useNextStep(category, nextStep)
+const submitBtn = useTemplateRef<InstanceType<typeof DsfrButton>>('submit-button')
+defineExpose({ submit: computed(() => submitBtn.value?.$el) })
 
-const submit = () => {
-  AnalyticsService.validateFunnelStep(residencyState.category)
-  if (onSubmit) {
-    onSubmit()
+const handleSubmit = () => {
+  if (!!props.onSubmit) {
+    AnalyticsService.validateFunnelStep(category)
+    props.onSubmit()
   } else {
-    router.push(residencyState.nextStep)
+    goNext()
   }
 }
 </script>
 
-<style scoped>
-.residency-footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 1rem;
-}
-</style>
-
-<i18n>
+<i18n lang="json">
 {
   "en": {
-    "validate-residency": "Validate your housing situation",
+    "validate-residency": "Validate your housing situation"
   },
   "fr": {
     "validate-residency": "Valider votre situation d'hébergement"

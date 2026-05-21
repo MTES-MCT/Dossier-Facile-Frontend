@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!isOwner()">
+    <div v-if="!isOwner">
       <Form name="form" @submit="authorize">
         <NakedCard class="fr-p-md-5w">
           <div v-if="applicationType === 'COUPLE'" class="fr-grid-row fr-grid-row--center">
@@ -67,32 +67,30 @@
       </Form>
     </div>
 
-    <div v-if="isOwner()">
-      <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h4">
-          {{ t('tenantinformationform.title') }}
-        </h1>
-        <ApplicationTypeSelector @selected="updateApplicationType">
-          <span class="sr-only">{{ t('tenantinformationform.title') }}</span>
-        </ApplicationTypeSelector>
-      </NakedCard>
+    <div v-else>
       <Form name="form" @submit="handleOthersInformation" @invalid-submit="hasSubmited = true">
+        <NakedCard class="fr-p-md-5w">
+          <h1 class="fr-h4">
+            {{ t('tenantinformationform.title') }}
+          </h1>
+          <ApplicationTypeSelector @selected="updateApplicationType">
+            <span class="sr-only">{{ t('tenantinformationform.title') }}</span>
+          </ApplicationTypeSelector>
+        </NakedCard>
         <CoupleInformation
           v-if="applicationType === 'COUPLE'"
           ref="couple-info"
           v-model="coTenants"
           :has-submited
           class="fr-mt-2w"
-        >
-        </CoupleInformation>
+        />
         <RoommatesInformation
           v-if="applicationType === 'GROUP'"
           v-model="coTenants"
           :has-submited
           class="fr-mt-2w"
-        >
-        </RoommatesInformation>
-        <ProfileFooter ref="footer" @on-back="goBack"></ProfileFooter>
+        />
+        <ProfileFooter ref="footer" @on-back="goBack" />
       </Form>
     </div>
   </div>
@@ -219,9 +217,9 @@ function deleteCoTenants() {
   coTenants.value = []
 }
 
-function isOwner() {
-  return user.value.tenantType === undefined || user.value.tenantType === 'CREATE'
-}
+const isOwner = computed(
+  () => user.value.tenantType === undefined || user.value.tenantType === 'CREATE'
+)
 
 function authorize() {
   if (applicationType.value === 'COUPLE' && !localSpouseAuthorize.value) {

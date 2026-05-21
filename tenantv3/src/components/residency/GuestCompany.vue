@@ -28,7 +28,7 @@
 import { useI18n } from 'vue-i18n'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
-import UploadFiles from './lib/UploadFiles.vue'
+import UploadFiles from './lib/UploadFilesResidency.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from './residencyState'
 const { t } = useI18n()

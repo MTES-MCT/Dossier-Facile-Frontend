@@ -1,13 +1,13 @@
 <template>
   <DsfrBadge
-    v-if="analysisErrorCount > 0"
+    v-if="!!analysisErrorCount"
     type="warning"
     :label="t('errors-count', { count: analysisErrorCount }, analysisErrorCount)"
     class="fr-mb-2w"
   />
   <slot name="fileSpecificDescription" />
   <AnalysisBanners
-    v-if="analysisErrorCount > 0"
+    v-if="!!analysisErrorCount"
     ref="analysis-banner"
     :failed-rules="analysisFailedRules ?? []"
     :document="document"
@@ -18,17 +18,11 @@
       <slot name="analysisBannerError" v-bind="slotProps" />
     </template>
   </AnalysisBanners>
-  <slot name="fileUploader" />
   <div v-if="analysisFailedRules.length > 0" class="explain-section">
-    <div class="separator">
-      <div class="separator-line"></div>
-      <span class="separator-text">{{ t('or') }}</span>
-      <div class="separator-line"></div>
-    </div>
     <DsfrButton
       type="button"
       secondary
-      class="explain-btn"
+      class="explain-btn fr-mb-4v"
       :label="t('explain-situation')"
       @click="openExplainSection(false)"
     />
@@ -43,8 +37,12 @@
           :class="{ 'fr-input--error': showExplainError }"
           rows="5"
           :placeholder="t('explain-placeholder')"
-          aria-describedby="explainText-error explainText-info"
+          aria-describedby="explainText-success explainText-error explainText-info"
         />
+        <DsfrButton class="fr-mt-2v" :label="t('register')" @click="saveExplanation" />
+        <p v-if="explanationSubmitted" id="explainText-success" class="fr-valid-text fr-mt-2v">
+          {{ t('save-success') }}
+        </p>
         <p v-if="showExplainError" id="explainText-error" class="fr-error-text">
           {{ t('explain-error') }}
         </p>
@@ -53,7 +51,13 @@
         {{ t('explain-info') }}
       </p>
     </div>
+    <div class="separator">
+      <div class="separator-line"></div>
+      <span class="separator-text">{{ t('or') }}</span>
+      <div class="separator-line"></div>
+    </div>
   </div>
+  <slot name="fileUploader" />
 </template>
 
 <script setup lang="ts">
@@ -100,7 +104,7 @@ const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
 const explanationSubmitted = ref(false)
 const isSaving = ref(false)
 
-const analysisErrorCount = computed(() => analysisFailedRules.value?.length ?? 0)
+const analysisErrorCount = computed(() => analysisFailedRules.value?.length ?? undefined)
 const isBusy = computed(() => analysisInProgress.value || props.isUploading)
 const nextDisabled = computed(() => isBusy.value)
 
@@ -112,10 +116,22 @@ const nextLabel = computed(() => {
   return undefined
 })
 
+const canContinue = computed(() => {
+  // no error
+  if (!analysisErrorCount.value) return true
+  // error but explaination sent
+  else if (!!analysisErrorCount.value && explanationSubmitted.value) return true
+  // error but no explaination
+  else if (!!analysisErrorCount.value && !explanationSubmitted.value) return false
+  // no status yet
+  return undefined
+})
+
 defineExpose({
   focusBanners,
   analysisInProgress,
   analysisFailedRules,
+  canContinue,
   explanationSubmitted,
   nextDisabled,
   nextLabel,
@@ -326,6 +342,7 @@ function beforeSubmit(): boolean {
     "explain-placeholder": "Enter text",
     "explain-info": "This explanation will be sent to our team only. It will not appear in your tenant file.",
     "explain-error": "Please describe your situation before continuing.",
+    "save-success": "Your explanation has been saved.",
     "save-error": "An error occurred while saving your explanation."
   },
   "fr": {
@@ -338,6 +355,7 @@ function beforeSubmit(): boolean {
     "explain-placeholder": "Texte saisi",
     "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
     "explain-error": "Veuillez décrire votre situation avant de continuer.",
+    "save-success": "Votre explication est enregistrée.",
     "save-error": "Erreur lors de l'enregistrement de votre explication."
   }
 }
