@@ -18,9 +18,46 @@
     </li>
   </ul>
   <p>{{ t('can-add-receipt', [month.format('MMMM')]) }}</p>
-  <DsfrAlert type="warning" small :description="t('valid-docs')" class="fr-mb-2w" />
-  <UploadFiles category="TENANT" step="TENANT_RECEIPT" />
-  <ResidencyFooter :on-submit="checkFiles" />
+  <AnalysisWrapper ref="analysis-wrapper" :is-uploading="isUploading">
+    <template #analysisBannerError="{ rule, notMatchingLabel, explainLinkLabel, onExplain }">
+      <ResidencyAnalysisErrorBannerContent
+        :rule="rule"
+        :document="document"
+        :not-matching-label="notMatchingLabel"
+        :explain-link-label="explainLinkLabel"
+        @explain="onExplain"
+      >
+        <template #expected-doc>
+          <BannerIconTextLine
+            icon-name="ri:check-line"
+            icon-color="#18753c"
+            :text="t('expected-description')"
+            text-class="success-text"
+          />
+          <ul class="expected-month-list">
+            <li v-for="(monthLabel, i) in expectedMonthsForBanner" :key="i" class="expected-month">
+              {{ monthLabel }}
+            </li>
+          </ul>
+        </template>
+      </ResidencyAnalysisErrorBannerContent>
+    </template>
+    <template #fileUploader>
+      <UploadFileWithAnalysis
+        ref="upload-file-with-analysis"
+        doc-category="residency"
+        sub-category="TENANT"
+        :analysis-in-progress="analysisInProgress"
+      />
+    </template>
+  </AnalysisWrapper>
+  <AnalysisFooter
+    :previous-step="previousStep"
+    :before-submit="analysisWrapper?.beforeSubmit"
+    :next-disabled="analysisWrapper?.nextDisabled"
+    :next-label="analysisWrapper?.nextLabel"
+    :on-submit-action="checkFiles"
+  />
   <DsfrModalPatch v-model:is-opened="isModalOpened" :title="t('confirm')" :actions="modalActions">
     <i18n-t :keypath="`${textKey}.warning-msg`" tag="p">
       <template #last>
@@ -37,19 +74,25 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, type ComputedRef } from 'vue'
-import { useI18n } from 'vue-i18n'
-import BackLinkRow from './lib/BackLinkRow.vue'
-import UploadFiles from './lib/UploadFiles.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { useRouter } from 'vue-router'
-import ResidencyFooter from './lib/ResidencyFooter.vue'
+import { useTenantStore } from '@/stores/tenant-store'
+import { type DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import dayjs from 'dayjs'
-import { useResidencyState } from './residencyState'
-import { DsfrAlert, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import { computed, provide, ref, useTemplateRef, type ComputedRef } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+import BannerIconTextLine from '../analysis/BannerIconTextLine.vue'
+import AnalysisWrapper from '../analysis/AnalysisWrapper.vue'
+import UploadFileWithAnalysis from '../analysis/UploadFileWithAnalysis.vue'
+import { documentFormKey } from '../documents/documentFormState'
+import AnalysisFooter from '../footer/AnalysisFooter.vue'
+import BackLinkRow from './lib/BackLinkRow.vue'
+import ResidencyAnalysisErrorBannerContent from './lib/ResidencyAnalysisErrorBannerContent.vue'
+import { useResidencyState } from './residencyState'
 
 const router = useRouter()
+const store = useTenantStore()
 const { category, document, nextStep, textKey } = useResidencyState()
 
 const isModalOpened = ref(false)
@@ -70,6 +113,30 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
 ])
 
 const { t } = useI18n()
+
+const state = useResidencyState()
+const uploadFileWithAnalysis = useTemplateRef('upload-file-with-analysis')
+const analysisWrapper = useTemplateRef('analysis-wrapper')
+
+const isUploading = computed(() => uploadFileWithAnalysis.value?.isUploading ?? false)
+const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
+
+const previousStep = { name: 'TenantIdentification' }
+
+provide(documentFormKey, {
+  category: 'RESIDENCY',
+  textKey: textKey,
+  previousStep: previousStep,
+  nextStep: nextStep,
+  formFieldValue: 'typeDocumentResidency',
+  document: document,
+  storeAction: 'saveTenantResidency',
+  userId: store.user.id,
+  addData(formData) {
+    formData.append('categoryStep', 'TENANT_RECEIPT')
+    state.addData?.(formData)
+  }
+})
 
 function ignoreAndgoNext() {
   isModalOpened.value = false
@@ -92,11 +159,52 @@ function checkFiles() {
 
 const month = dayjs().subtract(dayjs().date() < 16 ? 2 : 1, 'month')
 const monthsLabels = [3, 2, 1].map((d) => month.subtract(d, 'month').format('MMMM'))
+
+function formatMonthWithYear(date: dayjs.Dayjs): string {
+  const formatted = date.format('MMMM YYYY')
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1)
+}
+
+const expectedMonthsForBanner = [
+  ...[3, 2, 1].map((d) => formatMonthWithYear(month.subtract(d, 'month'))),
+  formatMonthWithYear(dayjs())
+]
 </script>
 
 <style scoped>
 .text-lg {
   font-size: 1.125rem;
+}
+
+.success-text {
+  color: #18753c;
+}
+
+.expected-month-list {
+  margin: 0 0 0 1rem;
+  list-style: none;
+  padding-left: 0;
+}
+
+.expected-month {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  margin-left: 1rem;
+  color: #18753c;
+}
+
+.expected-month-list > .expected-month::marker {
+  content: none;
+}
+
+.expected-month::before {
+  content: '•';
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #18753c;
 }
 </style>
 
@@ -104,10 +212,10 @@ const monthsLabels = [3, 2, 1].map((d) => month.subtract(d, 'month').format('MMM
 {
   "en": {
     "confirm": "Confirmation",
+    "expected-description": "Three rent receipts among:",
     "can-add-receipt": "You can add the {0} receipt if you have it.",
     "please-provide": "Please provide {0}:",
     "receipts-from": "receipts from",
-    "valid-docs": "Only rental receipts are valid documents here. All other documents will be refused.",
     "not-enough": "A document that only mentions an address (such as an EDF bill) is not sufficient in this case.",
     "cannot-be-approved": "Your application cannot be approved without these 3 rent receipts.",
     "accept-warning": "Add new documents",
@@ -127,10 +235,10 @@ const monthsLabels = [3, 2, 1].map((d) => month.subtract(d, 'month').format('MMM
   },
   "fr": {
     "confirm": "Confirmation",
+    "expected-description": "Trois quittances parmi :",
     "can-add-receipt": "Vous pouvez ajouter la quittance de {0} si vous l'avez.",
     "please-provide": "Veuillez fournir {0} :",
     "receipts-from": "les quittances de",
-    "valid-docs": "Seules les quittances de loyer sont des documents valides ici. Tout autre document sera refusé.",
     "not-enough": "Un document qui ne mentionne que l'adresse (une facture d'électricité par exemple) ne suffit pas ici.",
     "cannot-be-approved": "Votre dossier ne pourra pas être validé sans ces 3 quittances.",
     "accept-warning": "Ajouter de nouveaux documents",
