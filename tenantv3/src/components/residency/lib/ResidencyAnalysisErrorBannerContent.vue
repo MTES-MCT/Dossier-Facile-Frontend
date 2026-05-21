@@ -33,6 +33,7 @@
 import { VIcon } from '@gouvminint/vue-dsfr'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
+import { taxYear } from './taxYear'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
@@ -77,6 +78,13 @@ function getTitle(): string {
   ) {
     return t('bad-classification.guest-no-proof.title')
   }
+  if (
+    props.document &&
+    props.document.documentSubCategory === 'OWNER' &&
+    !props.document.documentCategoryStep
+  ) {
+    return t('bad-classification.owner.title', [taxYear])
+  }
   return t('bad-classification.title')
 }
 
@@ -94,6 +102,13 @@ function getFirstSubTitle(): string {
     props.document.documentCategoryStep === 'GUEST_NO_PROOF'
   ) {
     return t('bad-classification.guest-no-proof.sub-title-one')
+  }
+  if (
+    props.document &&
+    props.document.documentSubCategory === 'OWNER' &&
+    !props.document.documentCategoryStep
+  ) {
+    return t('bad-classification.owner.sub-title-one')
   }
   return t('bad-classification.sub-title-one')
 }
@@ -133,6 +148,10 @@ function getFirstSubTitle(): string {
         "title": "Add your proof of accommodation",
         "sub-title-one": "Expected document"
       },
+      "owner": {
+        "title": "Add your property tax notice {0}",
+        "sub-title-one": "Expected document"
+      },
       "title": "Document classification issue",
       "sub-title-one": "Expected documents"
     },
@@ -162,6 +181,10 @@ function getFirstSubTitle(): string {
       },
       "guest-no-proof": {
         "title": "Ajoutez votre attestation d'hébergement",
+        "sub-title-one": "Document attendu"
+      },
+      "owner": {
+        "title": "Ajoutez votre avis de taxe foncière {0}",
         "sub-title-one": "Document attendu"
       },
       "title": "Problème de classification de document",
