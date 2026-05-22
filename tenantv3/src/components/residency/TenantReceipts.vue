@@ -18,45 +18,15 @@
     </li>
   </ul>
   <p>{{ t('can-add-receipt', [month.format('MMMM')]) }}</p>
-  <AnalysisWrapper ref="analysis-wrapper" :is-uploading="isUploading">
-    <template #analysisBannerError="{ rule, notMatchingLabel, explainLinkLabel, onExplain }">
-      <ResidencyAnalysisErrorBannerContent
-        :rule="rule"
-        :document="document"
-        :not-matching-label="notMatchingLabel"
-        :explain-link-label="explainLinkLabel"
-        @explain="onExplain"
-      >
-        <template #expected-doc>
-          <BannerIconTextLine
-            icon-name="ri:check-line"
-            icon-color="#18753c"
-            :text="t('expected-description')"
-            text-class="success-text"
-          />
-          <ul class="expected-month-list">
-            <li v-for="(monthLabel, i) in expectedMonthsForBanner" :key="i" class="expected-month">
-              {{ monthLabel }}
-            </li>
-          </ul>
-        </template>
-      </ResidencyAnalysisErrorBannerContent>
-    </template>
-    <template #fileUploader>
-      <UploadFileWithAnalysis
-        ref="upload-file-with-analysis"
-        doc-category="residency"
-        sub-category="TENANT"
-        :analysis-in-progress="analysisInProgress"
-      />
-    </template>
-  </AnalysisWrapper>
-  <AnalysisFooter
+  <ResidencyAnalysisStep
     :previous-step="previousStep"
-    :before-submit="analysisWrapper?.beforeSubmit"
-    :next-disabled="analysisWrapper?.nextDisabled"
-    :next-label="analysisWrapper?.nextLabel"
-    :on-submit-action="onSubmit"
+    sub-category="TENANT"
+    category-step="TENANT_RECEIPT"
+    :banner-title="t('analysis-error-title')"
+    :banner-sub-title="t('analysis-error-sub-title')"
+    :banner-info-text="t('expected-description')"
+    :expected-items="expectedMonthsForBanner"
+    :on-submit-action="checkFiles"
   />
   <DsfrModalPatch v-model:is-opened="isModalOpened" :title="t('confirm')" :actions="modalActions">
     <i18n-t :keypath="`${textKey}.warning-msg`" tag="p">
@@ -75,24 +45,17 @@
 
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { useTenantStore } from '@/stores/tenant-store'
 import { type DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import dayjs from 'dayjs'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
-import { computed, provide, ref, useTemplateRef, type ComputedRef } from 'vue'
+import { computed, ref, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import BannerIconTextLine from '../analysis/BannerIconTextLine.vue'
-import AnalysisWrapper from '../analysis/AnalysisWrapper.vue'
-import UploadFileWithAnalysis from '../analysis/UploadFileWithAnalysis.vue'
-import { documentFormKey } from '../documents/documentFormState'
-import AnalysisFooter from '../footer/AnalysisFooter.vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
-import ResidencyAnalysisErrorBannerContent from './lib/ResidencyAnalysisErrorBannerContent.vue'
+import ResidencyAnalysisStep from './lib/ResidencyAnalysisStep.vue'
 import { useResidencyState } from './residencyState'
 
 const router = useRouter()
-const store = useTenantStore()
 
 const state = useResidencyState()
 const { category, document, nextStep, textKey } = state
@@ -116,33 +79,7 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
 
 const { t } = useI18n()
 
-const onSubmit = async () => {
-  await analysisWrapper.value?.saveExplanation()
-  checkFiles()
-}
-
-const uploadFileWithAnalysis = useTemplateRef('upload-file-with-analysis')
-const analysisWrapper = useTemplateRef('analysis-wrapper')
-
-const isUploading = computed(() => uploadFileWithAnalysis.value?.isUploading ?? false)
-const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
-
 const previousStep = { name: 'TenantIdentification' }
-
-provide(documentFormKey, {
-  category: 'RESIDENCY',
-  textKey: textKey,
-  previousStep: previousStep,
-  nextStep: nextStep,
-  formFieldValue: 'typeDocumentResidency',
-  document: document,
-  storeAction: 'saveTenantResidency',
-  userId: store.user.id,
-  addData(formData) {
-    formData.append('categoryStep', 'TENANT_RECEIPT')
-    state.addData?.(formData)
-  }
-})
 
 function ignoreAndgoNext() {
   isModalOpened.value = false
@@ -181,42 +118,13 @@ const expectedMonthsForBanner = [
 .text-lg {
   font-size: 1.125rem;
 }
-
-.success-text {
-  color: #18753c;
-}
-
-.expected-month-list {
-  margin: 0 0 0 1rem;
-  list-style: none;
-  padding-left: 0;
-}
-
-.expected-month {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  margin-left: 1rem;
-  color: #18753c;
-}
-
-.expected-month-list > .expected-month::marker {
-  content: none;
-}
-
-.expected-month::before {
-  content: '•';
-  font-size: 1.25rem;
-  line-height: 1;
-  color: #18753c;
-}
 </style>
 
 <i18n lang="json">
 {
   "en": {
+    "analysis-error-title": "Add your rent receipts",
+    "analysis-error-sub-title": "Expected documents",
     "confirm": "Confirmation",
     "expected-description": "Three rent receipts among:",
     "can-add-receipt": "You can add the {0} receipt if you have it.",
@@ -235,11 +143,12 @@ const expectedMonthsForBanner = [
     "couple": {
       "you-tenant": "Your spouse is a tenant",
       "have-receipts": "Your spouse has his/her last 3 rent receipts",
-      "receipts-from": "receipts from",
       "warning-msg": "Did you send {last}? A rent receipt indicates to a landlord that your spouse is paying his/her rent on time. {notEnough}"
     }
   },
   "fr": {
+    "analysis-error-title": "Ajoutez vos quittances de loyer",
+    "analysis-error-sub-title": "Documents attendus",
     "confirm": "Confirmation",
     "expected-description": "Trois quittances parmi :",
     "can-add-receipt": "Vous pouvez ajouter la quittance de {0} si vous l'avez.",
