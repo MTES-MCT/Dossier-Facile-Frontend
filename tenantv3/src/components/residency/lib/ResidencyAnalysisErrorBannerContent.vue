@@ -41,6 +41,8 @@ const props = defineProps<{
   document?: DfDocument
   notMatchingLabel: string
   explainLinkLabel: string
+  title?: string
+  firstSubTitle?: string
 }>()
 
 const emit = defineEmits<{
@@ -50,6 +52,9 @@ const emit = defineEmits<{
 const { t } = useI18n()
 
 function getTitle(): string {
+  if (props.title) {
+    return props.title
+  }
   if (
     props.document &&
     props.document.documentSubCategory === 'TENANT' &&
@@ -89,6 +94,9 @@ function getTitle(): string {
 }
 
 function getFirstSubTitle(): string {
+  if (props.firstSubTitle) {
+    return props.firstSubTitle
+  }
   if (
     props.document &&
     props.document.documentSubCategory === 'GUEST' &&
