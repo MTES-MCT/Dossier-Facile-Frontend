@@ -124,7 +124,7 @@ const submit = async () => {
 
 <style scoped>
 .success-text {
-  color: #18753c;
+  color: var(--text-default-success);
 }
 
 .expected-list {
@@ -140,7 +140,7 @@ const submit = async () => {
   font-size: 0.875rem;
   line-height: 1.5rem;
   margin-left: 1rem;
-  color: #18753c;
+  color: var(--text-default-success);
 }
 
 .expected-list > .expected-list-item::marker {
@@ -151,6 +151,6 @@ const submit = async () => {
   content: '•';
   font-size: 1.25rem;
   line-height: 1;
-  color: #18753c;
+  color: var(--text-default-success);
 }
 </style>

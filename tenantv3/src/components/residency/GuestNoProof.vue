@@ -36,9 +36,7 @@ import { useResidencyState } from './residencyState'
 
 const { t } = useI18n()
 const state = useResidencyState()
-const { category, textKey } = state
-
-const previousStep = { name: 'TenantIdentification' }
+const { category, textKey, previousStep } = state
 </script>
 
 <i18n lang="json">

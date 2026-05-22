@@ -81,7 +81,6 @@ describe('AnalysisBanners', () => {
       expectedLines: string[]
     }
 
-    console.log('Props title:', props.title); console.log('T title:', t('rules.wrong-number-of-documents.title')); expect(props.currentLines).toHaveLength(1)
     expect(props.expectedLines).toHaveLength(1)
     expect(props.currentLines).toEqual([
       t('rules.expiration.current', { date: expectedParams.date })

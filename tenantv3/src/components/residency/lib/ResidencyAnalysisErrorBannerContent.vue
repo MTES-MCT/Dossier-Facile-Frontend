@@ -55,7 +55,7 @@ const { t } = useI18n()
 @import '../../analysis/analysisBannerLayout.css';
 
 .error-text {
-  color: #b34000;
+  color: var(--text-default-warning);
 }
 
 .banner-separator {
