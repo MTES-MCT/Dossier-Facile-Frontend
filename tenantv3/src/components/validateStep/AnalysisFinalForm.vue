@@ -3,7 +3,11 @@
     <h1 class="fr-h6">{{ t('title') }}</h1>
     <p>{{ t('description') }}</p>
     <form novalidate @submit.prevent="submit">
-      <div class="fr-input-group" :class="{ 'fr-input-group--error': !isMessageValid }">
+      <div
+        v-if="isMainTenant"
+        class="fr-input-group"
+        :class="{ 'fr-input-group--error': !isMessageValid }"
+      >
         <label for="message" class="fr-label">{{ t('label') }}</label>
         <textarea
           id="message"
@@ -104,6 +108,8 @@ const hasToDisplayConsentDeclaration = computed(() => {
   return store.user.applicationType !== 'ALONE' || store.user.guarantors.length > 0
 })
 
+const isMainTenant = computed(() => store.user.tenantType === 'CREATE')
+
 const isMessageValid = computed(() => {
   if (message.value.length > 2000) {
     return false
@@ -129,7 +135,7 @@ const submit = () => {
   const loader = $loading.show()
   const params = {
     honorDeclaration: true,
-    clarification: store.user.tenantType === 'CREATE' ? message.value : undefined
+    clarification: isMainTenant.value ? message.value : undefined
   }
   store
     .validateFile(params)

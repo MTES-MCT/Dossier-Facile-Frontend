@@ -4,7 +4,7 @@
       <h3 class="fr-h4">{{ t('tenantpanel.my-files') + (props.tenant.firstName || props.tenant.email) }}</h3>
       <ul class="fr-p-0">
         <RowListItem
-          v-if="!isCotenant"
+          v-if="!isCotenant && tenant.tenantType === 'CREATE'"
           :to="{ name: 'ValidateFile' }"
           :label="t('tenantpanel.clarification-title')"
           :sub-label="'clarification' in tenant ? tenant.clarification || '' : ''"
