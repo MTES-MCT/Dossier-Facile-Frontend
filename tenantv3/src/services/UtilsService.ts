@@ -84,6 +84,29 @@ export const UtilsService = {
       ) {
         toast.error(i18n.global.t('errors.no-file'), elt)
         hasSpecificMessage = true
+      } else {
+        const customTextLimits: { code: string; max: number }[] = [
+          { code: 'LengthOfText.documentTaxForm.customText', max: 1355 },
+          { code: 'LengthOfText.documentTaxGuarantorNaturalPersonForm.customText', max: 1355 },
+          { code: 'LengthOfText.documentFinancialForm.customText', max: 2000 },
+          {
+            code: 'LengthOfText.documentFinancialGuarantorNaturalPersonForm.customText',
+            max: 2000,
+          },
+          { code: 'LengthOfText.documentResidencyForm.customText', max: 2000 },
+          {
+            code: 'LengthOfText.documentResidencyGuarantorNaturalPersonForm.customText',
+            max: 2000,
+          },
+        ]
+        const matched = customTextLimits.find((l) => message.includes(l.code))
+        if (matched) {
+          toast.error(
+            i18n.global.t('errors.custom-text-too-long', { max: matched.max }),
+            elt,
+          )
+          hasSpecificMessage = true
+        }
       }
     }
     if (!hasSpecificMessage) {

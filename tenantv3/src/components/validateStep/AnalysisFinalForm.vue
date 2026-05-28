@@ -9,16 +9,15 @@
         :class="{ 'fr-input-group--error': !isMessageValid }"
       >
         <label for="message" class="fr-label">{{ t('label') }}</label>
-        <textarea
+        <TextAreaWithCounter
           id="message"
           v-model="message"
-          class="fr-input"
           name="message"
           rows="1"
-          maxlength="2000"
-          aria-describedby="message-desc message-error"
+          :max="2000"
+          counter-id="message-desc"
+          extra-aria-described-by="message-error"
         />
-        <p id="message-desc" class="fr-my-1w">{{ message.length }}/2000</p>
         <p
           v-if="!isMessageValid && showError"
           id="message-error"
@@ -70,6 +69,7 @@
 <script setup lang="ts">
 import { useTenantStore } from '@/stores/tenant-store'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import TextAreaWithCounter from 'df-shared-next/src/components/TextAreaWithCounter.vue'
 import { computed, onMounted, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'

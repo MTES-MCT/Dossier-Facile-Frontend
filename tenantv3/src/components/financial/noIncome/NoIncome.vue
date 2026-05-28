@@ -1,12 +1,19 @@
 <template>
   <BackLinkRow :label="t('no-income')" :to="parent" category="pas-de-revenus" />
   <label for="explanation" class="fr-mb-1w">{{ t('can-add-explanation') }}</label>
-  <textarea id="explanation" ref="custom-text" v-model="customText" class="fr-input fr-mb-2w" />
+  <TextAreaWithCounter
+    id="explanation"
+    ref="custom-text"
+    v-model="customText"
+    :max="2000"
+    counter-id="no-income-explanation-counter"
+  />
   <FinancialFooter :on-submit="save" />
 </template>
 
 <script setup lang="ts">
 import BackLinkRow from '@/components/financial/lib/FinancialBackRow.vue'
+import TextAreaWithCounter from 'df-shared-next/src/components/TextAreaWithCounter.vue'
 import { useRoute } from 'vue-router'
 import FinancialFooter from '../lib/FinancialFooter.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
@@ -46,7 +53,7 @@ async function save(): Promise<boolean> {
     toast.keep.success(t('save-success'), getNextBtnInFooter)
     return true
   } catch (err) {
-    UtilsService.handleCommonSaveError(err, customTextElt.value)
+    UtilsService.handleCommonSaveError(err, customTextElt.value?.textareaEl)
     return false
   } finally {
     loader.hide()
