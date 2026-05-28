@@ -57,7 +57,7 @@ async function save(category: TaxCategory, step?: TaxStep) {
   }
   formData.append('noDocument', String((document.value?.files?.length || 0) === 0))
   if (props.explanation) {
-    formData.append('customText', props.explanation)
+    formData.append('customText', UtilsService.stripNewlines(props.explanation))
   }
   addData?.(formData)
 

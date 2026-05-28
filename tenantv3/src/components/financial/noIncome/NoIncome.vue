@@ -39,7 +39,7 @@ async function save(): Promise<boolean> {
   const formData = new FormData()
   formData.append('typeDocumentFinancial', 'NO_INCOME')
   formData.append('noDocument', 'true')
-  formData.append('customText', customText.value || '-')
+  formData.append('customText', UtilsService.stripNewlines(customText.value) || '-')
   formData.append('monthlySum', '0')
   if (document.value?.id) {
     formData.append('id', document.value.id.toString())

@@ -80,7 +80,7 @@ async function submit() {
     }
   }
   const formData = new FormData()
-  formData.append('customText', value.value)
+  formData.append('customText', UtilsService.stripNewlines(value.value))
   formData.append('typeDocumentResidency', 'OTHER_RESIDENCY')
   addData?.(formData)
   try {

@@ -150,7 +150,7 @@ async function save(): Promise<boolean> {
   }
   formData.append('noDocument', String(newFiles.length === 0))
   if (props.explanation) {
-    formData.append('customText', props.explanation)
+    formData.append('customText', UtilsService.stripNewlines(props.explanation))
   }
   taxState.addData?.(formData)
 

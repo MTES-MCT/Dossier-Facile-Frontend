@@ -113,6 +113,10 @@ export const UtilsService = {
       toast.error(i18n.global.t('add-file-failed'), elt)
     }
   },
+  //to avoid any multipart/form-data encoding length mismatch  
+  stripNewlines(s: string) {
+    return s.replace(/\r?\n/g, ' ')
+  },
   tenantFullName(user: CoTenant) {
     const firstName = this.capitalize(user.firstName ?? '')
     const lastName = this.capitalize(user.lastName ?? '')
