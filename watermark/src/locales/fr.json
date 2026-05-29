@@ -11,7 +11,8 @@
     "wait": "Veuillez patienter",
     "add-watermark": {
       "label": "Indiquez le filigrane à insérer :",
-      "placeholder": "Ex : Document exclusivement destiné à la location immobilière"
+      "placeholder": "Ex : Document exclusivement destiné à la location immobilière",
+      "character-count": "{n}/{max} caractères"
     },
     "upload-error": "Une erreur est survenue lors de l'envoi des fichiers. Veuillez réessayer.",
     "download-file": "Télécharger le document filigrané"
