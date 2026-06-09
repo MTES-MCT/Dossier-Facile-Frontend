@@ -63,8 +63,6 @@
               </li>
             </ul>
 
-            <br />
-
             <h3>Contenus non soumis à l’obligation d’accessibilité</h3>
             <ul>
               <li>
@@ -119,7 +117,6 @@
               responsable du site web pour être orienté vers une alternative accessible ou obtenir
               le contenu sous une autre forme.
             </p>
-            <p></p>
 
             <ul>
               <li>
@@ -323,11 +320,11 @@ const nonCompliantCriteria = [
 const pagesVerified = [
   {
     name: 'Accueil',
-    url: 'https://www.dossierfacile.logement.gouv.fr/'
+    url: 'https://www.dossierfacile.logement.gouv.fr'
   },
   {
     name: 'Authentification',
-    url: 'https://sso.dossierfacile.logement.gouv.fr/auth/'
+    url: 'https://sso.dossierfacile.logement.gouv.fr/auth'
   },
   {
     name: 'Se connecter sur DossierFacile',
@@ -343,11 +340,11 @@ const pagesVerified = [
   },
   {
     name: 'Mentions légales',
-    url: 'https://www.dossierfacile.logement.gouv.fr/mentions-legales/'
+    url: 'https://www.dossierfacile.logement.gouv.fr/mentions-legales'
   },
   {
     name: 'Plan du site',
-    url: 'https://www.dossierfacile.logement.gouv.fr/plan-du-site '
+    url: 'https://www.dossierfacile.logement.gouv.fr/plan-du-site'
   },
   {
     name: 'Blog',
@@ -355,7 +352,7 @@ const pagesVerified = [
   },
   {
     name: 'Qui sommes nous',
-    url: 'https://www.dossierfacile.logement.gouv.fr/information/'
+    url: 'https://www.dossierfacile.logement.gouv.fr/information'
   },
   {
     name: "S'inscrire sur DossierFacile",
