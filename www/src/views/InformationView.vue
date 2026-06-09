@@ -5,134 +5,165 @@
         <div class="fr-container">
           <div class="fr-grid-row height-40">
             <div class="fr-col-12">
-              <div>
-                <h1 class="fr-h1 color--white">La démarche DossierFacile</h1>
-                <h2 class="fr-h4 color--white">Qui sommes nous ?</h2>
-              </div>
+              <h1 class="fr-h1 color--white">Qui sommes-nous ?</h1>
             </div>
           </div>
         </div>
       </div>
 
-      <div>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-md-10 fr-col-lg-8">
-              <div>
-                <h3 class="fr-h4 fr-mt-3w">La démarche DossierFacile</h3>
-                <p>
-                  Dans les zones où la demande de logement est plus forte que l’offre, nous savons
-                  que le parcours n’est simple ni pour les locataires ni pour les propriétaires. La
-                  principale raison ? Les bailleurs ont peur car même si les impayés, les refus de
-                  quitter les lieux et les dégradations sont rares, ces situations existent bel et
-                  bien.
-                </p>
-                <p>
-                  Résultat : Côté locataires c’est beaucoup de demandes de visites et peu de
-                  réponses. Trouver un logement est devenu un parcours du combattant qui pousse
-                  certains à falsifier leurs fiches de paie ou leurs déclarations d’imposition. Face
-                  à tous ces dossiers maquillés, il est devenu nécessaire de se démarquer pour avoir
-                  sa chance.
-                </p>
-                <p>
-                  Pour les propriétaires, mettre une annonce de location sur une plateforme de
-                  location c’est s’exposer à une avalanche de messages, d’e-mails, de SMS ou de
-                  messages vocaux. Tous les dossiers sont différents, tous les candidats aussi et
-                  s’y retrouver pour trouver le locataire le plus adapté relève de l’exploit !
-                </p>
-                <p>Chez DossierFacile, notre ambition est de casser ce cercle vicieux.</p>
+      <div class="fr-container fr-mt-3w">
+        <div class="fr-grid-row justify-content-center">
+          <div class="fr-col-md-10 fr-col-lg-8">
+            <h2>DossierFacile&nbsp;: l’État à vos côtés pour sécuriser votre démarche</h2>
+            <p>
+              Dans un marché locatif tendu, DossierFacile est le service public numérique qui aide
+              les locataires à constituer un dossier et les propriétaires à louer en toute
+              confiance.
+            </p>
+            <h2>Notre mission&nbsp;: l’équité dans l’accès au logement</h2>
+            <p>
+              L’accès au logement est un droit fondamental. Comme le rappelle l'article 1er de la
+              loi du 6 juillet 1989 tendant à améliorer les rapports locatifs, les droits et
+              obligations réciproques des bailleurs et des locataires doivent être équilibrés dans
+              leurs relations individuelles comme dans leurs relations collectives.
+            </p>
+            <p>
+              Porté par la
+              <strong
+                >Direction générale de l'aménagement, du logement et de la nature (DGALN),</strong
+              >
+              DossierFacile agit pour rétablir une forme d'équité sur le marché locatif. Nous
+              permettons à chaque candidat de présenter un dossier clair, respectueux de la
+              réglementation, et de protéger ses données personnelles face aux risques de fraude.
+            </p>
+            <h2>Un accompagnement sur mesure</h2>
+            <p>
+              <strong>Pour les candidats&nbsp;: valoriser et protéger votre dossier</strong>
+              DossierFacile vous accompagne pour franchir l'étape de la constitution du dossier
+              sereinement tout en vous éclairant sur vos droits&nbsp;:
+            </p>
 
-                <h3 class="fr-h4">Notre solution ?</h3>
-                <p>
-                  Remettre la confiance au centre de la relation entre propriétaires et locataire
-                  grâce à notre outil 100 % en ligne, simple et gratuit.
-                </p>
-                <p>
-                  Vous êtes locataire ? Notre service vous permet d’augmenter vos chances d’obtenir
-                  une visite en donnant une information supplémentaire au propriétaire sur la
-                  qualité de votre dossier. Avec DossierFacile : augmentez de 24 % votre chance
-                  d’obtenir une visite !
-                </p>
-                <p>
-                  Vous êtes propriétaires ? DossierFacile c’est pour vous la garantie de recevoir
-                  uniquement des dossiers clairs, complets et cohérents, vérifiés par nos soins.
-                  Nous savons que l’information est l’eau du propriétaire : elle est vitale mais on
-                  peut s’y noyer ! Pour vous aider à mener votre barque, nous regroupons vos
-                  dossiers et vos demandes de location dans une unique plateforme, claire et
-                  intuitive. Les locataires qui vous sollicitent sont automatiquement ajoutés sur
-                  votre compte propriétaire et leurs dossiers sont rangés, triés et accessibles. Et
-                  bien sûr, tout cela gratuitement.
-                </p>
-                <p>
-                  Vous êtes employeur ? DossierFacile est là pour vous aider à améliorer le
-                  bien-être de vos employés en réduisant leur stress et leur fatigue lorsqu’ils
-                  déménagent ou cherchent un logement. Ainsi, ils gagnent en confiance et en
-                  efficacité au travail ! Pour devenir un de nos partenaires, contactez-nous sur
-                  contact@dossierfacile.logement.gouv.fr.
-                </p>
+            <ul>
+              <li>
+                <strong>Aide à la mise en conformité&nbsp;:</strong> Nos équipes examinent vos
+                pièces pour s'assurer que votre dossier est complet et conforme à la réglementation,
+                vous protégeant ainsi contre les demandes de documents excessives.
+              </li>
+              <li>
+                <strong>Information sur vos droits et aides&nbsp;:</strong> Nous vous orientons vers
+                les dispositifs qui facilitent votre accès au logement, comme la garantie Visale ou
+                les aides de la CAF (APL), pour renforcer la solidité de votre candidature.
+              </li>
+              <li>
+                <strong>Protection de votre vie privée&nbsp;:</strong> Pour limiter les risques
+                d'usurpation d'identité, nous ajoutons un filigrane protecteur sur vos documents.
+                Vous restez ainsi maître des informations que vous partagez.
+              </li>
+            </ul>
 
-                <h3 class="fr-h4">La démarche startup d’État</h3>
-                <p>
-                  Depuis juin 2013, l’État a expérimenté une nouvelle manière de construire des
-                  services publics numériques. Cette expérience a commencé au sein du Secrétariat
-                  Général pour la Modernisation de l’Action Publique (SGMAP) par la refonte du site
-                  data.gouv.fr et s’est généralisée avec la création en septembre 2015 d’une
-                  structure dédiée : l’Incubateur de Services Numériques beta.gouv.fr. Cette mission
-                  a été confiée à la Direction interministérielle du numérique et du système
-                  d'information et de communication de l'État (DINSIC).
-                </p>
-                <p>
-                  Les changements de société et les évolutions technologiques imposent de repenser
-                  l’interaction entre l’administration et les citoyens. De nouvelles opportunités
-                  s’ouvrent pour rendre un service gratuit, direct et innovant aux usagers. C’est la
-                  volonté des start-up d’État qui, sans capital privé et sans volonté lucrative,
-                  agissent dans la simplicité et avec un esprit neuf pour développer des solutions à
-                  vos problèmes quotidiens. Pour s'assurer de ne pas tomber dans les travers de la
-                  bureaucratie, les projets se développent loin de toute contrainte. Une Startup
-                  d’État c’est donc une équipe allant de 2 à 8 personnes totalement autonomes qui
-                  travaillent pour votre service : tout simplement !
-                </p>
+            <p>
+              Pour les propriétaires&nbsp;: simplifier et sécuriser la mise en location
+              DossierFacile vous aide à consulter les dossiers des candidatures de qualité tout en
+              restant informé de vos obligations de bailleur&nbsp;:
+            </p>
 
-                <h3 class="fr-h4">La confiance, c’est quoi ?</h3>
-                <p>
-                  Difficile à établir et pourtant essentielle, la confiance n’est pas un bien comme
-                  un autre. Chez DossierFacile, nous l’avons bien compris et nous avons pris le pari
-                  d’en faire notre mission !
-                </p>
-                <p>
-                  Afin de la restaurer au sein de la relation locataire-propriétaire, nous avons
-                  misé sur 3 principes que nous pensons être les piliers de la confiance :
-                </p>
+            <ul>
+              <li>
+                <strong>Clarté et conformité&nbsp;:</strong> Recevez des candidatures lisibles et
+                structurées, dont les pièces respectent strictement le cadre légal, facilitant ainsi
+                votre analyse et votre prise de décision.
+              </li>
+              <li>
+                <strong>Information réglementaire&nbsp;:</strong> Nous vous aidons à mieux
+                appréhender les évolutions législatives de la location, telles que les nouvelles
+                normes de performance énergétique (loi Climat et Résilience) ou les règles locales
+                comme l’encadrement des loyers et le permis de louer.
+              </li>
+              <li>
+                <strong>Sérénité&nbsp;:</strong> Instaurer une relation équilibrée et de confiance
+                dès le premier contact grâce à un outil neutre qui rappelle les droits et les
+                devoirs de chacun.
+              </li>
+            </ul>
 
-                <ul>
-                  <li class="fr-mb-2w">
-                    <b> la bienveillance : </b> missionnés par l’État, notre seul objectif est de
-                    vous rendre service. Vos données ne sont ni stockées, ni revendues. Nous ne
-                    faisons pas non plus de publicité, afin de rendre votre expérience la plus
-                    agréable possible.
-                  </li>
-                  <li class="fr-mb-2w">
-                    <b> la transparence : </b> de notre code source à nos chiffres, vous avez accès
-                    à tout moment aux données qui nous concernent : nous n’avons rien à cacher !
-                  </li>
-                  <li>
-                    <b> le réalisme : </b> chez DossierFacile, on ne vous promet pas la Lune, mais
-                    on vous aide à construire une partie de la fusée.
-                  </li>
-                </ul>
+            <h2>Une Startup d’État&nbsp;: l’innovation par l'usage</h2>
+            <p>
+              DossierFacile est avant tout une <strong>Startup d’État,</strong> une équipe légère et
+              agile au cœur de l'administration.
+            </p>
+            <p>
+              <strong>Notre genèse&nbsp;:</strong> Le projet est né d'un constat de terrain
+              simple&nbsp;: la difficulté pour les locataires de rassurer les propriétaires et le
+              stress lié à la diffusion de documents sensibles (avis d'imposition, fiches de paie).
+              Face à ce blocage, notre équipe a décidé de construire une solution centrée sur
+              l'utilisateur.
+            </p>
+            <p>
+              <strong>Notre ADN&nbsp;:</strong> Soutenu par la
+              <strong
+                >Direction interministérielle du numérique (DINUM) en s’inscrivant dans le programme
+                <a href="https://beta.gouv.fr">beta.gouv.fr</a>,</strong
+              >
+              nous sommes un produit agile à impact. Être une Startup d'État, c'est utiliser les
+              méthodes de l'innovation technologique pour servir l'intérêt général et résoudre des
+              problèmes concrets de la vie quotidienne des Français.
+            </p>
+            <p>
+              Notre fonctionnement repose sur quatre grands principes issus du monde du numérique,
+              mis au service de l'intérêt général&nbsp;:
+            </p>
 
-                <p>
-                  Vous avez une idée ? Une question ? Vous souhaitez contribuer au projet ou devenir
-                  un de nos partenaires ?
-                </p>
-                <p>
-                  N’hésitez pas à nous écrire à
-                  <a href="mailto:contact@dossierfacile.logement.gouv.fr">
-                    contact@dossierfacile.logement.gouv.fr
-                  </a>
-                </p>
-              </div>
-            </div>
+            <ul>
+              <li>
+                <strong
+                  >Partir de la réalité du terrain (L'approche centrée utilisateur)&nbsp;:</strong
+                >
+                Plutôt que de concevoir un cahier des charges, DossierFacile est né de rencontres
+                directes avec des locataires et des propriétaires. Face au stress des uns et à la
+                méfiance des autres, notre équipe autonome a cherché à résoudre un problème de la
+                vie quotidienne avec une solution simple.
+              </li>
+              <li>
+                <strong>Tester, apprendre, améliorer (La méthode Agile)&nbsp;:</strong> Nous
+                fonctionnons en cycle court. Nous déployons rapidement de nouvelles fonctionnalités,
+                nous observons comment vous les utilisez, et nous les améliorons en continu grâce à
+                vos retours quotidiens. Ce fonctionnement nous permet d'être réactifs et de
+                concevoir un service public qui s'adapte vraiment à vos besoins, et non l'inverse.
+              </li>
+              <li>
+                <strong>L'utilité comme seule boussole (Le pilotage par l'impact)&nbsp;:</strong> Le
+                succès de DossierFacile ne se mesure pas à l'ampleur des développements
+                informatiques, mais à ses résultats concrets sur la société. Combien de locataires
+                ont trouvé un logement plus rapidement ? Combien de fraudes documentaires avons-nous
+                évitées ? Notre service est évalué régulièrement, et son existence ne dépend que de
+                sa capacité à prouver son impact positif sur l'accès au logement en France.
+              </li>
+              <li>
+                <strong>Une confiance bâtie sur la transparence&nbsp;:</strong> Conformément aux
+                valeurs de beta.gouv.fr, nous travaillons à livre ouvert. Notre code informatique
+                est public (open source) pour garantir sa sécurité, et nos statistiques
+                d’utilisation ainsi que nos mesures d'impact sont accessibles à tous en toute
+                transparence sur notre site.
+              </li>
+            </ul>
+
+            <h2>Sécurité et transparence</h2>
+
+            <ul>
+              <li>
+                <strong>Hébergement souverain&nbsp;:</strong> Vos données sont stockées en France
+                sur des infrastructures sécurisées.
+              </li>
+              <li>
+                <strong>Données personnelles&nbsp;:</strong> Pour garantir la protection de votre
+                vie privée, vos pièces justificatives sont supprimées automatiquement après 45 jours
+                d’inactivité sur votre compte.
+              </li>
+              <li>
+                <strong>Transparence&nbsp;:</strong> Notre code source est ouvert et notre politique
+                de gestion des données est accessible à tous.
+              </li>
+            </ul>
           </div>
         </div>
       </div>
