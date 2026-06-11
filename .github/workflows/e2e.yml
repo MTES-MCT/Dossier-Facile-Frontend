@@ -6,6 +6,12 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Tests share a single preprod account (mario): 
+# two runs executing at the same time can cause conflicts 
+concurrency:
+  group: e2e-preprod
+  cancel-in-progress: false
+
 jobs:
   tests-on-preprod:
     runs-on: ubuntu-latest
