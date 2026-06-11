@@ -80,6 +80,7 @@
               placeholder="nom@exemple.fr"
               type="email"
               :disabled="disableEmailField"
+              @input="handleInput"
             />
           </Field>
           <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="email">

@@ -73,9 +73,7 @@ describe(
       cy.contains(
         "Vous avez une attestation de bon paiement des loyers",
       ).click();
-      cy.contains("Valider votre situation d'hébergement").should(
-        "be.disabled",
-      );
+      cy.contains("Continuer");
       cy.contains("Modifier").click({ force: true });
 
       // Should upload a file and continue

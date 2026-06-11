@@ -12,56 +12,64 @@
   <i18n-t :keypath="textKey + '.please-provide'" tag="p">
     <strong>{{ t(textKey + '.less-3-months') }}</strong>
   </i18n-t>
-
-  <DsfrAlert type="warning" small :description="t(textKey + '.valid-docs')" />
-  <UploadFiles category="TENANT" step="TENANT_PROOF" />
-  <ResidencyFooter />
+  <ResidencyAnalysisStep
+    :previous-step="previousStep"
+    sub-category="TENANT"
+    category-step="TENANT_PROOF"
+    :banner-title="t('analysis-error-title')"
+    :banner-sub-title="t('analysis-error-sub-title')"
+    :banner-info-text="t('banner-info-text')"
+  />
 </template>
 
 <script setup lang="ts">
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { useI18n } from 'vue-i18n'
 import BackLinkRow from './lib/BackLinkRow.vue'
-import ResidencyFooter from './lib/ResidencyFooter.vue'
-import UploadFiles from './lib/UploadFiles.vue'
-import { AnalyticsService } from '@/services/AnalyticsService'
+import ResidencyAnalysisStep from './lib/ResidencyAnalysisStep.vue'
 import { useResidencyState } from './residencyState'
-import { DsfrAlert } from '@gouvminint/vue-dsfr'
+
 const { t } = useI18n()
-const { category, textKey } = useResidencyState()
+const state = useResidencyState()
+const { category, textKey } = state
+
+const previousStep = { name: 'TenantIdentification' }
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
+    "analysis-error-title": "Add a proof of payment certificate",
+    "analysis-error-sub-title": "Expected documents",
     "tenant": {
       "you-tenant": "You are a tenant",
       "have-proof": "You have proof of good payment of rent",
-      "please-provide" : "Please provide proof of good rental payment {0}.",
-      "less-3-months": "less than 3 months old",
-      "valid-docs": "Only rental payment certificates are valid documents here. All other documents will be refused."
+      "please-provide": "Please provide proof of good rental payment {0}.",
+      "less-3-months": "less than 3 months old"
     },
+    "banner-info-text": "Proof of good payment of rent less than 3 months old",
     "couple": {
       "you-tenant": "Your spouse is a tenant",
       "have-proof": "Your spouse has proof of good payment of rent",
-      "please-provide" : "Please provide proof of good rental payment {0}.",
-      "less-3-months": "less than 3 months old",
-      "valid-docs": "Only rental payment certificates are valid documents here. All other documents will be refused."
+      "please-provide": "Please provide proof of good rental payment {0}.",
+      "less-3-months": "less than 3 months old"
     }
   },
   "fr": {
+    "analysis-error-title": "Ajoutez une attestation de bon paiement",
+    "analysis-error-sub-title": "Documents attendus",
     "tenant": {
       "you-tenant": "Vous êtes locataire",
       "have-proof": "Vous avez une attestation de bon paiement des loyers",
-      "please-provide" : "Veuillez fournir votre attestation de bon paiement des loyers {0}.",
-      "less-3-months": "de moins de 3 mois",
-      "valid-docs": "Seules les attestations de bon paiement des loyers sont des documents valides ici. Tout autre document sera refusé."
+      "please-provide": "Veuillez fournir votre attestation de bon paiement des loyers {0}.",
+      "less-3-months": "de moins de 3 mois"
     },
+    "banner-info-text": "Attestation de bon paiement des loyers de moins de 3 mois",
     "couple": {
       "you-tenant": "Votre conjoint est locataire",
       "have-proof": "Votre conjoint a une attestation de bon paiement des loyers",
-      "please-provide" : "Veuillez fournir son attestation de bon paiement des loyers {0}.",
-      "less-3-months": "de moins de 3 mois",
-      "valid-docs": "Seules les attestations de bon paiement des loyers sont des documents valides ici. Tout autre document sera refusé."
+      "please-provide": "Veuillez fournir son attestation de bon paiement des loyers {0}.",
+      "less-3-months": "de moins de 3 mois"
     }
   }
 }

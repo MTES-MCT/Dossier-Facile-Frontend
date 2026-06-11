@@ -10,6 +10,8 @@ import { useToast } from 'vue-toastification'
 const { t } = useI18n()
 const toast = useToast()
 
+const WATERMARK_MAX_LENGTH = 100
+
 const files = ref<File[]>([])
 const token = ref('')
 const wait = ref(false)
@@ -111,11 +113,22 @@ function getFile() {
               {{ t('watermarking-page.add-watermark.label') }}
             </label>
             <input
+              id="text"
               class="fr-input"
               type="text"
               v-model="watermark"
+              :maxlength="WATERMARK_MAX_LENGTH"
               :placeholder="t('watermarking-page.add-watermark.placeholder')"
+              aria-describedby="watermark-counter"
             />
+            <p id="watermark-counter" class="fr-my-1w">
+              {{
+                t('watermarking-page.add-watermark.character-count', {
+                  n: watermark.length,
+                  max: WATERMARK_MAX_LENGTH,
+                })
+              }}
+            </p>
           </div>
         </div>
       </div>

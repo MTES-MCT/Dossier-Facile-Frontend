@@ -229,7 +229,7 @@ function formatDate(value: string): string {
 {
   "en": {
     "errors-to-fix": "{count} error to fix | {count} errors to fix",
-    "not-matching": "This message does not match your situation?",
+    "not-matching": "You don't agree?",
     "explain-link": "Explain your situation",
     "current-document": "Current document",
     "expected-document": "Document to add",
@@ -278,7 +278,7 @@ function formatDate(value: string): string {
   },
   "fr": {
     "errors-to-fix": "{count} erreur à corriger | {count} erreurs à corriger",
-    "not-matching": "Ce message ne correspond pas à votre situation ?",
+    "not-matching": "Vous n'êtes pas d'accord ?",
     "explain-link": "Expliquer votre situation",
     "current-document": "Document actuel",
     "expected-document": "Document à ajouter",

@@ -18,9 +18,16 @@
     </li>
   </ul>
   <p>{{ t('can-add-receipt', [month.format('MMMM')]) }}</p>
-  <DsfrAlert type="warning" small :description="t('valid-docs')" class="fr-mb-2w" />
-  <UploadFiles category="TENANT" step="TENANT_RECEIPT" />
-  <ResidencyFooter :on-submit="checkFiles" />
+  <ResidencyAnalysisStep
+    :previous-step="previousStep"
+    sub-category="TENANT"
+    category-step="TENANT_RECEIPT"
+    :banner-title="t('analysis-error-title')"
+    :banner-sub-title="t('analysis-error-sub-title')"
+    :banner-info-text="t('expected-description')"
+    :expected-items="expectedMonthsForBanner"
+    :on-submit-action="checkFiles"
+  />
   <DsfrModalPatch v-model:is-opened="isModalOpened" :title="t('confirm')" :actions="modalActions">
     <i18n-t :keypath="`${textKey}.warning-msg`" tag="p">
       <template #last>
@@ -37,20 +44,21 @@
 </template>
 
 <script setup lang="ts">
+import { AnalyticsService } from '@/services/AnalyticsService'
+import { type DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import dayjs from 'dayjs'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { computed, ref, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import BackLinkRow from './lib/BackLinkRow.vue'
-import UploadFiles from './lib/UploadFiles.vue'
-import { AnalyticsService } from '@/services/AnalyticsService'
 import { useRouter } from 'vue-router'
-import ResidencyFooter from './lib/ResidencyFooter.vue'
-import dayjs from 'dayjs'
+import BackLinkRow from './lib/BackLinkRow.vue'
+import ResidencyAnalysisStep from './lib/ResidencyAnalysisStep.vue'
 import { useResidencyState } from './residencyState'
-import { DsfrAlert, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
-import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const router = useRouter()
-const { category, document, nextStep, textKey } = useResidencyState()
+
+const state = useResidencyState()
+const { category, document, nextStep, textKey } = state
 
 const isModalOpened = ref(false)
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -70,6 +78,8 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
 ])
 
 const { t } = useI18n()
+
+const previousStep = { name: 'TenantIdentification' }
 
 function ignoreAndgoNext() {
   isModalOpened.value = false
@@ -92,6 +102,16 @@ function checkFiles() {
 
 const month = dayjs().subtract(dayjs().date() < 16 ? 2 : 1, 'month')
 const monthsLabels = [3, 2, 1].map((d) => month.subtract(d, 'month').format('MMMM'))
+
+function formatMonthWithYear(date: dayjs.Dayjs): string {
+  const formatted = date.format('MMMM YYYY')
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1)
+}
+
+const expectedMonthsForBanner = [
+  ...[3, 2, 1].map((d) => formatMonthWithYear(month.subtract(d, 'month'))),
+  formatMonthWithYear(dayjs())
+]
 </script>
 
 <style scoped>
@@ -103,11 +123,13 @@ const monthsLabels = [3, 2, 1].map((d) => month.subtract(d, 'month').format('MMM
 <i18n lang="json">
 {
   "en": {
+    "analysis-error-title": "Add your rent receipts",
+    "analysis-error-sub-title": "Expected documents",
     "confirm": "Confirmation",
+    "expected-description": "Three rent receipts among:",
     "can-add-receipt": "You can add the {0} receipt if you have it.",
     "please-provide": "Please provide {0}:",
     "receipts-from": "receipts from",
-    "valid-docs": "Only rental receipts are valid documents here. All other documents will be refused.",
     "not-enough": "A document that only mentions an address (such as an EDF bill) is not sufficient in this case.",
     "cannot-be-approved": "Your application cannot be approved without these 3 rent receipts.",
     "accept-warning": "Add new documents",
@@ -121,16 +143,17 @@ const monthsLabels = [3, 2, 1].map((d) => month.subtract(d, 'month').format('MMM
     "couple": {
       "you-tenant": "Your spouse is a tenant",
       "have-receipts": "Your spouse has his/her last 3 rent receipts",
-      "receipts-from": "receipts from",
       "warning-msg": "Did you send {last}? A rent receipt indicates to a landlord that your spouse is paying his/her rent on time. {notEnough}"
     }
   },
   "fr": {
+    "analysis-error-title": "Ajoutez vos quittances de loyer",
+    "analysis-error-sub-title": "Documents attendus",
     "confirm": "Confirmation",
+    "expected-description": "Trois quittances parmi :",
     "can-add-receipt": "Vous pouvez ajouter la quittance de {0} si vous l'avez.",
     "please-provide": "Veuillez fournir {0} :",
     "receipts-from": "les quittances de",
-    "valid-docs": "Seules les quittances de loyer sont des documents valides ici. Tout autre document sera refusé.",
     "not-enough": "Un document qui ne mentionne que l'adresse (une facture d'électricité par exemple) ne suffit pas ici.",
     "cannot-be-approved": "Votre dossier ne pourra pas être validé sans ces 3 quittances.",
     "accept-warning": "Ajouter de nouveaux documents",

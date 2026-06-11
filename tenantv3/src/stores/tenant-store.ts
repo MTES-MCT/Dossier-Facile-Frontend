@@ -74,6 +74,8 @@ function defaultState(): State {
 }
 
 export type StoreAction =
+  | 'saveTenantResidency'
+  | 'saveGuarantorResidency'
   | 'saveTenantTax'
   | 'saveGuarantorTax'
   | 'saveOrganismIdentification'

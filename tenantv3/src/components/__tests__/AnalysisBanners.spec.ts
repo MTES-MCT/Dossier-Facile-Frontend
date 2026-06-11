@@ -81,7 +81,6 @@ describe('AnalysisBanners', () => {
       expectedLines: string[]
     }
 
-    expect(props.currentLines).toHaveLength(1)
     expect(props.expectedLines).toHaveLength(1)
     expect(props.currentLines).toEqual([
       t('rules.expiration.current', { date: expectedParams.date })

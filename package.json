@@ -2,7 +2,7 @@
   "name": "dossierfacile",
   "private": true,
   "license": "MIT",
-  "version": "3.5.10",
+  "version": "3.5.11",
   "description": "Frontend for DossierFacile",
   "repository": {
     "type": "git",

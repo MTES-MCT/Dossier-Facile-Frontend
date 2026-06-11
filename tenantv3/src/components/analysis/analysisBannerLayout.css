@@ -14,7 +14,7 @@
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: #b34000;
+  color: var(--text-default-warning);
 }
 
 .banner-description {
@@ -59,11 +59,11 @@
 }
 
 .error-text {
-  color: #b34000;
+  color: var(--text-default-warning);
 }
 
 .success-text {
-  color: #18753c;
+  color: var(--text-default-success);
 }
 
 .missing-month-text {
