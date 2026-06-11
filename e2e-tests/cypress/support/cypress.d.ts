@@ -24,6 +24,8 @@ declare namespace Cypress {
 
     ValidateAloneFile(email: string): Chainable<void>
 
+    declineAloneFile(email: string, messageBody: string, documentCategories?: string[]): Chainable<void>
+
     uploadDocument(numberOfFiles?: number): Chainable<void>;
 
     waitUntilModalIsGone(): Chainable<void>;

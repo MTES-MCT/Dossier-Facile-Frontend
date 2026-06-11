@@ -111,7 +111,11 @@ Cypress.Commands.add(
 Cypress.Commands.add("validationStep", () => {
   cy.get('[name="message"]').type("Test");
   cy.get("#input-honor").check({ force: true });
-  cy.get("#input-consent").check({ force: true });
+  cy.get("body").then(($body) => {
+    if ($body.find("#input-consent").length) {
+      cy.get("#input-consent").check({ force: true });
+    }
+  });
   cy.contains("Soumettre mon dossier").click();
 });
 
