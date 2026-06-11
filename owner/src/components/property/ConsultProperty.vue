@@ -360,12 +360,11 @@ function undoDeleteFile() {
   AnalyticsService.propertyData('supprimer_annuler')
   confirmDeleteProperty.value = false
 }
-function validDeleteApplicants() {
-  store.deleteApplicants(selectedApplicants.value).then(() => {
-    selectedApplicants.value = []
-    store.updatePropertyToConsult(id.value)
-    tenants.value = getTenants()
-  })
+async function validDeleteApplicants() {
+  await store.deleteApplicants(selectedApplicants.value.map(Number))
+  selectedApplicants.value = []
+  await store.updatePropertyToConsult(id.value)
+  tenants.value = getTenants()
   confirmDeleteApplicants.value = false
 }
 function undoDeleteApplicants() {
