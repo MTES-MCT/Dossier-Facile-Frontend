@@ -46,7 +46,7 @@ Pour limiter les risques de régressions, évaluer l'impact sur chacun de ces ax
   - **Modales** : utiliser le composant `DsfrModalPatch.vue` (a11y compatible) plutôt que le `DsfrModal` de `vue-dsfr`
   - **Titres de page** : Les titres doivent décrire la hiérarchie d'information du funnel (voir le `afterEach` dans `tenantv3/src/router/index.ts`).
   - **Roles** :  Faux positifs Sonar attendus : `role="list"` sur `<ul>` (contournement du bug VoiceOver quand list-style:none) et `role="presentation"` sur `<li>` d'une structure d'onglets — ne pas « corriger » en supprimant ces rôles.
-  - **Formulaires** :`aria-describedby` / `aria-invalid` sur les champs en erreur, `fieldset`/`legend` pour les groupes de champs. Pour les erreurs multiples, afficher la listes des erreurs reliées aux champs dans un bloc dédié.
+  - **Formulaires** : toujours associer un `input` avec un `label`, renseigner l'attribut `required` sur les champs obligatoires et afficher en toute lettre leur caractère "obligatoire" ou "facultatif", renseigner ``aria-describedby` / `aria-invalid` sur les champs en erreur, utiliser `fieldset` et `legend` pour les groupes de champs. Pour les erreurs multiples, afficher la listes des erreurs reliées aux champs dans un bloc dédié via le composant `ErrorSummary.vue`.
   - **Contenu dynamique** : ajouter le `role="status"` ou annoncer les changements via `aria-live="polite"`. 
   - Vérifier la navigation clavier et la présence du focus visible.
   - **Tests E2E** : Utiliser `axe-core` pour tester l'a11y sur le principaux scenarios
