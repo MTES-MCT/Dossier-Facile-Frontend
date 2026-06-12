@@ -1,23 +1,12 @@
-import { getTenantUser, UserType } from "../../support/users";
+import { testAccount } from "../../support/testAccounts";
 
 describe("alone tenant scenario", () => {
-  const user = getTenantUser();
+  const account = testAccount("e2e-alone");
 
   it("validate file", () => {
-    cy.loginWithFCAndDeleteAccount(
-      user.username,
-      user.password,
-      UserType.TENANT,
-    );
+    cy.createFreshTenant(account);
 
-    cy.tenantLoginWithFC(user.username, user.password);
-    cy.rejectCookies();
-
-    cy.contains("Pour vous").click();
-
-    cy.verifyTenantIdentity(user.firstname, user.lastname);
-
-    cy.clickOnNext();
+    cy.fillTenantIdentity(account.firstname, account.lastname);
 
     cy.expectPath("/type-locataire");
     cy.clickOnNext();
@@ -80,10 +69,10 @@ describe("alone tenant scenario", () => {
   });
 
   it("share links", () => {
-    cy.tenantLoginWithFC(user.username, user.password);
+    cy.tenantLogin(account.email, account.password);
     cy.rejectCookies();
 
-    cy.ValidateAloneFile(Cypress.env("aloneTenantEmail"));
+    cy.ValidateAloneFile(account.email);
 
     cy.visit(Cypress.env("tenantUrl") + "/partages");
     cy.contains("Dossier validé", { timeout: 10000 }).should("exist");

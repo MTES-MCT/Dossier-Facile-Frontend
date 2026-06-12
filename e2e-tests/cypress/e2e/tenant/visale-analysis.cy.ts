@@ -1,18 +1,14 @@
-import { getTenantUser, UserType } from "../../support/users";
+import { testAccount } from "../../support/testAccounts";
 
 describe("visale certificate analysis", () => {
-  const user = getTenantUser();
+  const account = testAccount("e2e-visale");
 
   beforeEach(() => {
-    cy.loginWithFCAndDeleteAccount(
-      user.username,
-      user.password,
-      UserType.TENANT,
-    );
+    cy.createTestAccount(account);
   });
 
   it("shows analysis errors and allows explanation", () => {
-    cy.gotoTenantDocumentsPage(user);
+    cy.gotoTenantDocumentsPage(account);
 
     cy.contains("J'ajoute mes éventuels garants").click();
 

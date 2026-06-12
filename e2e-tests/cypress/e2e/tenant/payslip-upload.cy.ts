@@ -1,4 +1,4 @@
-import { getTenantUser, UserType } from "../../support/users";
+import { testAccount } from "../../support/testAccounts";
 
 function formatMonth(offset: number): string {
   const d = new Date();
@@ -17,14 +17,10 @@ function navigateToSalaryUpload() {
 }
 
 describe("payslip document upload and analysis", () => {
-  const user = getTenantUser();
+  const account = testAccount("e2e-payslip");
 
   beforeEach(() => {
-    cy.loginWithFCAndDeleteAccount(
-      user.username,
-      user.password,
-      UserType.TENANT,
-    );
+    cy.createTestAccount(account);
   });
 
   it("uploads 3 valid payslip PDFs without analysis errors", () => {
@@ -34,8 +30,8 @@ describe("payslip document upload and analysis", () => {
     months.forEach((offset, i) => {
       const date = formatMonth(offset);
       cy.task("generatePayslipPdf", {
-        name: user.lastname,
-        firstName: user.firstname,
+        name: account.lastname,
+        firstName: account.firstname,
         date,
         amount: "1 950,00",
         outputPath: `assets/generated/bulletin-${i + 1}.pdf`,
@@ -45,7 +41,7 @@ describe("payslip document upload and analysis", () => {
     });
 
     cy.then(() => {
-      cy.gotoTenantDocumentsPage(user);
+      cy.gotoTenantDocumentsPage(account);
       navigateToSalaryUpload();
 
       cy.get('[data-cy="monthlySum"]').type("1500");
@@ -64,7 +60,7 @@ describe("payslip document upload and analysis", () => {
   });
 
   it("shows analysis errors and allows explanation", () => {
-    cy.gotoTenantDocumentsPage(user);
+    cy.gotoTenantDocumentsPage(account);
     navigateToSalaryUpload();
 
     cy.get('[data-cy="monthlySum"]').type("2000");

@@ -6,8 +6,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Tests share a single preprod account (mario): 
-# two runs executing at the same time can cause conflicts 
+# two runs (ex : triggered by both a merge from backend and frontend ) executing at the same time can cause conflicts
 concurrency:
   group: e2e-preprod
   cancel-in-progress: false
@@ -42,6 +41,9 @@ jobs:
           install: false
           config-file: cypress-preprod.config.ts
           browser: chrome
+          # FranceConnect specs (fc/ and owner/) run in the non-blocking
+          # fc-smoke job below
+          spec: cypress/e2e/tenant/**/*.cy.ts
           env: configFile=ci
         env:
           CYPRESS_TESTMAIL_API_KEY: ${{ secrets.CYPRESS_TESTMAIL_API_KEY }}
@@ -87,4 +89,63 @@ jobs:
           $spec_list
           [Failed workflow]($RUN_URL)"
           jq -n --arg t "$text" '{attachments:[{text:$t,color:"#FF8000",fallback:"e2e failed"}]}' | \
+            curl -sS -X POST -H "Content-Type: application/json" --data @- "$MATTERMOST_WEBHOOK_URL"
+
+  # Non-blocking job: FranceConnect preprod (third-party SSO) is regularly
+  # down, so its coverage must not fail the whole suite
+  fc-smoke:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies for e2e-tests
+        working-directory: e2e-tests
+        run: pnpm install
+
+      - name: Run FranceConnect smoke tests
+        id: cypress
+        continue-on-error: true
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: e2e-tests
+          install: false
+          config-file: cypress-preprod.config.ts
+          browser: chrome
+          spec: cypress/e2e/fc/**/*.cy.ts,cypress/e2e/owner/**/*.cy.ts
+          env: configFile=ci
+
+      - name: Upload screenshots and videos
+        if: steps.cypress.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc-smoke-cypress-artifacts
+          path: |
+            e2e-tests/cypress/screenshots
+            e2e-tests/cypress/videos/**/*.mp4
+          retention-days: 1
+
+      - name: Mattermost alert
+        if: steps.cypress.outcome == 'failure'
+        shell: bash
+        env:
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          text="[dossierfacile-preprod] Smoke FranceConnect KO — FC preprod probablement indisponible (non bloquant)
+          [Failed workflow]($RUN_URL)"
+          jq -n --arg t "$text" '{attachments:[{text:$t,color:"#FFD000",fallback:"fc smoke failed"}]}' | \
             curl -sS -X POST -H "Content-Type: application/json" --data @- "$MATTERMOST_WEBHOOK_URL"

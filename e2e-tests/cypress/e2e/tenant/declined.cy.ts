@@ -1,23 +1,14 @@
-import { getTenantUser, UserType } from "../../support/users";
+import { testAccount } from "../../support/testAccounts";
 
 describe("decline tenant scenario", () => {
-  const user = getTenantUser();
+  const account = testAccount("e2e-declined");
   const refusalMessage =
     "[test-e2e] wrong identification";
 
   it("declined tenant can re-submit", () => {
-    cy.loginWithFCAndDeleteAccount(
-      user.username,
-      user.password,
-      UserType.TENANT,
-    );
+    cy.createFreshTenant(account);
 
-    cy.tenantLoginWithFC(user.username, user.password);
-    cy.rejectCookies();
-
-    cy.contains("Pour vous").click();
-    cy.verifyTenantIdentity(user.firstname, user.lastname);
-    cy.clickOnNext();
+    cy.fillTenantIdentity(account.firstname, account.lastname);
 
     cy.expectPath("/type-locataire");
     cy.clickOnNext();
@@ -55,7 +46,7 @@ describe("decline tenant scenario", () => {
     );
 
     // Operator declines only the identity document with a refusal message
-    cy.declineAloneFile(Cypress.env("aloneTenantEmail"), refusalMessage, [
+    cy.declineAloneFile(account.email, refusalMessage, [
       "IDENTIFICATION",
     ]);
 

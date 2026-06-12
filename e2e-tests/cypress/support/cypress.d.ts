@@ -4,8 +4,26 @@ declare namespace Cypress {
   interface Chainable {
     tenantLoginWithFC(username: string, password: string): Chainable<void>;
 
+    resetTestAccount(email: string): Chainable<void>;
+
+    verifyUserEmail(email: string): Chainable<void>;
+
+    signupTenant(email: string, password: string): Chainable<void>;
+
+    tenantLogin(email: string, password: string): Chainable<void>;
+
+    createTestAccount(
+      account: import("./testAccounts").TestAccount
+    ): Chainable<void>;
+
+    createFreshTenant(
+      account: import("./testAccounts").TestAccount
+    ): Chainable<void>;
+
+    fillTenantIdentity(firstname: string, lastname: string): Chainable<void>;
+
     gotoTenantDocumentsPage(
-      user: import("./users").User
+      account: import("./testAccounts").TestAccount
     ): Chainable<void>;
 
     assertAnalysisErrorAndExplain(urlFragment: string): Chainable<void>;

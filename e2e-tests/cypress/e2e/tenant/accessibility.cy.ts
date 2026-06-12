@@ -1,21 +1,19 @@
-import { getTenantUser, UserType } from "../../support/users";
+import { testAccount } from "../../support/testAccounts";
 
 describe("accessibility checks", () => {
-  const user = getTenantUser();
+  const account = testAccount("e2e-a11y");
 
   beforeEach("reset account", () => {
-    cy.loginWithFCAndDeleteAccount(
-      user.username,
-      user.password,
-      UserType.TENANT,
-    );
+    cy.createTestAccount(account);
   });
 
   it("funnel accessibility", () => {
-    cy.tenantLoginWithFC(user.username, user.password);
+    cy.tenantLogin(account.email, account.password);
     cy.rejectCookies();
     cy.contains("Pour vous").click();
     cy.testAccessibility();
+    cy.get("#lastname").clear().type(account.lastname);
+    cy.get("#firstName").clear().type(account.firstname);
     cy.clickOnNext();
 
     cy.expectPath("/type-locataire");
@@ -92,7 +90,7 @@ describe("accessibility checks", () => {
   });
 
   it("Sharing page accessibility", () => {
-    cy.tenantLoginWithFC(user.username, user.password);
+    cy.tenantLogin(account.email, account.password);
     cy.rejectCookies();
     cy.visit(Cypress.env("tenantUrl") + "/partages");
     cy.contains("Vos partages").should("exist");

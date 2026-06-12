@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import type { User } from "../users";
+import type { TestAccount } from "../testAccounts";
 
 Cypress.Commands.add(
   "tenantLoginWithFC",
@@ -121,13 +121,11 @@ Cypress.Commands.add("validationStep", () => {
 
 Cypress.Commands.add(
   "gotoTenantDocumentsPage",
-  (user: User) => {
-    cy.tenantLoginWithFC(user.username, user.password);
+  (account: TestAccount) => {
+    cy.tenantLogin(account.email, account.password);
     cy.rejectCookies();
 
-    cy.contains("Pour vous").click();
-    cy.verifyTenantIdentity(user.firstname, user.lastname);
-    cy.clickOnNext();
+    cy.fillTenantIdentity(account.firstname, account.lastname);
 
     cy.expectPath("/type-locataire");
     cy.clickOnNext();

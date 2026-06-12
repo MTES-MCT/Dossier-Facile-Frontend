@@ -1,22 +1,12 @@
 import { getInputByLabel } from "../../support/commands/global";
-import { getTenantUser, UserType } from "../../support/users";
+import { testAccount } from "../../support/testAccounts";
 
 describe("couple tenant scenario", () => {
-  const user = getTenantUser();
-
-  beforeEach("reset account", () => {
-    cy.loginWithFCAndDeleteAccount(
-      user.username,
-      user.password,
-      UserType.TENANT,
-    );
-  });
+  const account = testAccount("e2e-couple");
 
   it("validate file", () => {
-    cy.tenantLoginWithFC(user.username, user.password);
-    cy.rejectCookies();
-    cy.contains("Pour vous").click();
-    cy.clickOnNext();
+    cy.createFreshTenant(account);
+    cy.fillTenantIdentity(account.firstname, account.lastname);
 
     cy.expectPath("/type-locataire");
     cy.contains("En couple").click();

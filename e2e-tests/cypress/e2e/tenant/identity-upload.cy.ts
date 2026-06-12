@@ -1,24 +1,12 @@
-import { getTenantUser, UserType } from "../../support/users";
+import { testAccount } from "../../support/testAccounts";
 
 describe("identity document upload", () => {
-  const user = getTenantUser();
-
-  before(() => {
-    cy.loginWithFCAndDeleteAccount(
-      user.username,
-      user.password,
-      UserType.TENANT
-    );
-  });
+  const account = testAccount("e2e-identity");
 
   it("should allow uploading 2 different files sequentially", () => {
-    cy.tenantLoginWithFC(user.username, user.password);
-    cy.rejectCookies();
+    cy.createFreshTenant(account);
 
-    cy.contains("Pour vous").click();
-
-    cy.verifyTenantIdentity(user.firstname, user.lastname);
-    cy.clickOnNext();
+    cy.fillTenantIdentity(account.firstname, account.lastname);
 
     cy.expectPath("/type-locataire");
     cy.clickOnNext();

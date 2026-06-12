@@ -1,25 +1,13 @@
-import { getTenantUser, UserType } from "../../support/users";
+import { testAccount } from "../../support/testAccounts";
 
 describe("flatmate tenant scenario", () => {
-  const user = getTenantUser();
+  const account = testAccount("e2e-flatmate");
   const flatmateEmail = `coloc-${Math.floor(Math.random() * 10000)}@yopmail.fr`;
 
-  beforeEach("reset account", () => {
-    cy.loginWithFCAndDeleteAccount(
-      user.username,
-      user.password,
-      UserType.TENANT,
-    );
-  });
-
   it("validate file", () => {
-    cy.tenantLoginWithFC(user.username, user.password);
-    cy.rejectCookies();
-    cy.contains("Pour vous").click();
+    cy.createFreshTenant(account);
 
-    cy.verifyTenantIdentity(user.firstname, user.lastname);
-
-    cy.clickOnNext();
+    cy.fillTenantIdentity(account.firstname, account.lastname);
 
     cy.wait(200);
     cy.expectPath("/type-locataire");
