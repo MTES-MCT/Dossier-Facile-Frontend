@@ -18,6 +18,15 @@
   "other-unfurnished": "Unfurnished property",
   "number-not-positive": "The price must be positive",
   "number-not-positive-or-null": "The price must be greater than or equal to 0",
+  "try-again": "An error occurred, please try again later.",
+  "property-errors": {
+    "dpe-not-found": "This EPC number was not found. Check it or enter your information manually.",
+    "ademe-unavailable": "The EPC verification service is temporarily unavailable. Please enter your information using the manual form.",
+    "validation-error": "Some information is invalid. Please check the highlighted fields.",
+    "validation": "Some information is invalid. Please check the highlighted fields.",
+    "generic": "Unable to save your property. Please try again later.",
+    "form-invalid": "The form contains errors. Please fix the highlighted fields before continuing."
+  },
   "register-btn": "Register",
   "new-window": "Open in a new window",
   "account": {
@@ -289,9 +298,9 @@
     }
   },
   "propertydiagnosticform": {
-    "dpe-required": "Please enter a DPE number",
-    "dpe-invalid": "The DPE number must contain 13 alphanumeric characters (A-Z, 0-9).",
-    "not-found": "DPE number was not found"
+    "dpe-required": "Please enter a EPC number",
+    "dpe-invalid": "The EPC number must contain 13 alphanumeric characters (A-Z, 0-9).",
+    "not-found": "EPC number was not found"
   },
   "propertyrent": {
     "rent-title": "Monthly Rent and Charges",

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+import { useToast } from 'vue-toastification'
+import type { InvalidSubmissionContext } from 'vee-validate'
 import LeftMenu from '../menu/LeftMenu.vue'
 import TopMenu from '../menu/TopMenu.vue'
 import BackNext from '../footer/BackNext.vue'
@@ -16,12 +19,25 @@ withDefaults(
   }
 )
 
+const { t } = useI18n()
+const toast = useToast()
+
 function onSubmit() {
   emit('submit')
 }
 
 function onBack() {
   emit('on-back')
+}
+
+function onInvalidSubmit({ errors }: InvalidSubmissionContext) {
+  toast.error(t('property-errors.form-invalid').toString(), {
+    timeout: 7000
+  })
+  const firstField = Object.keys(errors)[0]
+  if (firstField) {
+    document.getElementById(firstField)?.focus()
+  }
 }
 </script>
 
@@ -36,7 +52,7 @@ function onBack() {
         <slot></slot>
       </div>
       <div v-if="!skipForm" class="fr-col-12 max-600 ml">
-        <Form @submit="onSubmit">
+        <Form @submit="onSubmit" @invalid-submit="onInvalidSubmit">
           <slot></slot>
           <FooterContainer>
             <BackNext :show-back="true" @on-back="onBack"></BackNext>

@@ -11,9 +11,11 @@ import AnalyticsService from '../../services/AnalyticsService'
 import DpeService from '../../services/DpeService'
 import useOwnerStore from '../../store/owner-store'
 import { useToast } from 'vue-toastification'
+import { usePropertySave } from '../../composables/usePropertySave'
 
 const { t } = useI18n()
 const toast = useToast()
+const { savePropertyAndContinue } = usePropertySave()
 
 const route = useRoute()
 const store = useOwnerStore()
@@ -106,16 +108,17 @@ onMounted(() => {
 function register() {
   AnalyticsService.dpeEvent('dpe_manual_information')
   store.setAdemeNumber('')
-  store
-    .saveProperty()
-    .then(() => {
-      updateDPE()
-      toast.success(t('save-success'))
-    })
-    .catch((error) => {
-      console.error(error)
-      toast.error(t('save-failure'))
-    })
+  savePropertyAndContinue(() => {
+    updateDPE()
+    toast.success(t('save-success'))
+  })
+}
+
+function onInvalidSubmit() {
+  toast.error(t('property-errors.form-invalid').toString(), {
+    timeout: 7000
+  })
+  document.querySelector<HTMLElement>('.fr-input--error')?.focus()
 }
 
 function getLetterStyle() {
@@ -127,7 +130,7 @@ function getLetterStyle() {
 
 <template>
   <NakedCard class="fr-mt-3w">
-    <Form @submit="register">
+    <Form @submit="register" @invalid-submit="onInvalidSubmit">
       <h3 class="fr-h6 small-text">
         {{ t('propertydiagnostic.detail-form-title') }}
       </h3>

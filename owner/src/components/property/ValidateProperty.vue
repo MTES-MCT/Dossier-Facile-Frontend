@@ -9,6 +9,7 @@ import PropertyPage from './PropertyPage.vue'
 import useOwnerStore from '../../store/owner-store'
 import UpdateRowBtn from './UpdateRowBtn.vue'
 import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
+import { usePropertySave } from '../../composables/usePropertySave'
 
 const { t } = useI18n()
 
@@ -17,6 +18,7 @@ const router = useRouter()
 const store = useOwnerStore()
 const authorize = ref(false)
 const toast = useToast()
+const { savePropertyAndContinue } = usePropertySave()
 
 const id = ref(0)
 if (route.params.id) {
@@ -53,9 +55,9 @@ function onSubmit() {
     return
   }
   store.setPropertyValidated(true)
-  store.saveProperty().then(() => {
+  savePropertyAndContinue(() => {
     router.push({ name: 'Dashboard' })
-  })
+  }, { includeValidated: true })
 }
 
 function onBack() {

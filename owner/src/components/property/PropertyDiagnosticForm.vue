@@ -119,12 +119,14 @@ import AnalyticsService from '../../services/AnalyticsService'
 import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
 import { RiArrowRightLine } from '@remixicon/vue'
 import { normalizeDpeNumber } from '../../validators/dpeNumberValidator'
+import { usePropertySave } from '../../composables/usePropertySave'
 
 const { t } = useI18n()
 const dpe = ref('')
 const store = useOwnerStore()
 const toast = useToast()
 const dpeform = ref<typeof Form | null>(null)
+const { searchDpeAndNotify } = usePropertySave()
 
 const emit = defineEmits<{ 'on-back': []; submit: [] }>()
 
@@ -143,17 +145,7 @@ function search() {
     })
     return
   }
-  store.searchDpe(normalized).catch((err) => {
-    if (err.response.status === 404) {
-      toast.error(t('propertydiagnosticform.not-found').toString(), {
-        timeout: 7000
-      })
-    } else {
-      toast.error(t('try-again').toString(), {
-        timeout: 7000
-      })
-    }
-  })
+  searchDpeAndNotify(normalized)
 }
 
 function onBack() {

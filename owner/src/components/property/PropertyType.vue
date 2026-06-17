@@ -8,6 +8,7 @@ import { Field, ErrorMessage } from 'vee-validate'
 import PropertyPage from './PropertyPage.vue'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
+import { usePropertySave } from '../../composables/usePropertySave'
 import { RiBuilding4Line, RiCommunityFill, RiHome4Fill } from '@remixicon/vue'
 
 const { t } = useI18n()
@@ -15,6 +16,7 @@ const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const store = useOwnerStore()
+const { savePropertyAndContinue } = usePropertySave()
 
 const id = ref(0)
 if (route.params.id) {
@@ -33,8 +35,8 @@ const type = computed({
 
 function onSubmit() {
   AnalyticsService.propertyData('type_register')
-  store.saveProperty().then((data) => {
-    router.push({ name: 'PropertyAddress', params: { id: data.id } })
+  savePropertyAndContinue(() => {
+    router.push({ name: 'PropertyAddress', params: { id: store.getPropertyToEdit.id } })
   })
 }
 

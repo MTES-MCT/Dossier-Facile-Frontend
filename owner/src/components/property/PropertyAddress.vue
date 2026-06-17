@@ -9,12 +9,14 @@ import UtilsService from '../../services/UtilsService'
 import PropertyPage from './PropertyPage.vue'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
+import { usePropertySave } from '../../composables/usePropertySave'
 
 const { t } = useI18n()
 
 const route = useRoute()
 const router = useRouter()
 const store = useOwnerStore()
+const { savePropertyAndContinue } = usePropertySave()
 const debounce = 300
 
 const id = ref(0)
@@ -45,7 +47,7 @@ const address = computed({
 
 function onSubmit() {
   AnalyticsService.propertyData('adresse_register')
-  store.saveProperty().then(() => {
+  savePropertyAndContinue(() => {
     router.push({
       name: 'PropertyFurniture',
       params: { id: store.getPropertyToEdit.id }

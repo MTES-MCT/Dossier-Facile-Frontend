@@ -202,11 +202,13 @@ const useOwnerStore = defineStore('owner', {
         })
         .catch((error: Error) => Promise.reject(error))
     },
-    saveProperty() {
-      return OwnerService.saveProperty(this.propertyToEdit).then((response) => {
-        this.setPropertyToEdit(response.data)
-        return Promise.resolve(response.data)
-      })
+    saveProperty(options?: { includeValidated?: boolean }) {
+      return OwnerService.saveProperty(this.propertyToEdit, options?.includeValidated).then(
+        (response) => {
+          this.setPropertyToEdit(response.data)
+          return Promise.resolve(response.data)
+        }
+      )
     },
     newProperty() {
       return this.setPropertyToEdit(new Property())

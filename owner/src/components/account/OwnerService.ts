@@ -12,9 +12,11 @@ const OwnerService = {
       email
     })
   },
-  saveProperty(property: Property) {
+  saveProperty(property: Property, includeValidated = false) {
+    const { validated, ...payload } = property
     return axios.post<Property>(`${API_URL}property`, {
-      ...property
+      ...payload,
+      ...(includeValidated ? { validated } : {})
     })
   },
   deleteDpe(propertyId: number) {
