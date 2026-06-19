@@ -74,6 +74,9 @@ const ruleTitleMap: Record<string, string> = {
   R_TAX_NAMES: 'rules.names.title',
   R_TAX_WRONG_YEAR: 'rules.tax-wrong-year.title',
   R_TAX_2D_DOC: 'rules.invalid-2ddoc.title',
+  R_PROPERTY_TAX_LEAF: 'rules.wrong-number-of-documents.title',
+  R_PROPERTY_TAX_NAMES: 'rules.names.title',
+  R_PROPERTY_TAX_WRONG_YEAR: 'rules.property-tax-wrong-year.title',
   R_VISALE_CERTIFICATE_NAME_MATCH: 'rules.names.title',
   R_VISALE_CERTIFICATE_EXPIRATION: 'rules.expiration.title',
   R_PAYSLIP_NAME_MATCH: 'rules.names.title',
@@ -103,6 +106,16 @@ function getCurrentDocLines(rule: DocumentRule): string[] {
 
   if (rule.rule === 'R_TAX_LEAF') {
     return [t('rules.wrong-number-of-documents.current')]
+  }
+
+  if (rule.rule === 'R_PROPERTY_TAX_LEAF') {
+    return [t('rules.property-tax-leaf.current')]
+  }
+  if (rule.rule === 'R_PROPERTY_TAX_NAMES' && data?.type === 'R_TAX_NAMES') {
+    return data.extractedIdentities.map((n) => t('rules.property-tax-names.current', { name: n }))
+  }
+  if (rule.rule === 'R_PROPERTY_TAX_WRONG_YEAR' && data?.type === 'R_TAX_YEARS') {
+    return data.extractedYears.map((y) => t('rules.property-tax-wrong-year.current', { year: y }))
   }
 
   if (!data) {
@@ -140,6 +153,16 @@ function getExpectedDocLines(rule: DocumentRule): string[] {
     return [t('rules.wrong-number-of-documents.expected', { year: taxYear })]
   }
 
+  if (rule.rule === 'R_PROPERTY_TAX_LEAF') {
+    return [t('rules.property-tax-leaf.expected')]
+  }
+  if (rule.rule === 'R_PROPERTY_TAX_NAMES' && data?.type === 'R_TAX_NAMES') {
+    return [t('rules.property-tax-names.expected', { name: formatName(data.expectedName) })]
+  }
+  if (rule.rule === 'R_PROPERTY_TAX_WRONG_YEAR' && data?.type === 'R_TAX_YEARS') {
+    return [t('rules.property-tax-wrong-year.expected', { year: data.expectedYear })]
+  }
+
   if (!data) {
     return [rule.message]
   }
@@ -172,6 +195,9 @@ function getExpectedClassification(): string {
   }
   if (documentSubCategory === 'VISALE') {
     return t('rules.bad-classification.visale.expected')
+  }
+  if (documentSubCategory === 'OWNER') {
+    return t('rules.bad-classification.property-tax.expected')
   }
   return t('rules.bad-classification.current-other')
 }
@@ -243,7 +269,23 @@ function formatDate(value: string): string {
         "tax": {
           "current-declarative": "Declarative situation notice for income tax",
           "expected": "Tax notice or non-taxation notice"
+        },
+        "property-tax": {
+          "expected": "Property tax notice (taxe foncière)"
         }
+      },
+      "property-tax-leaf": {
+        "current": "Incomplete property tax notice (missing pages)",
+        "expected": "Complete property tax notice (all pages)"
+      },
+      "property-tax-names": {
+        "current": "Property tax notice in the name of {name}",
+        "expected": "Property tax notice in the name of {name}"
+      },
+      "property-tax-wrong-year": {
+        "title": "Property tax notice too old",
+        "current": "{year} property tax notice",
+        "expected": "{year} property tax notice"
       },
       "wrong-number-of-documents": {
         "title": "Incomplete document",
@@ -292,7 +334,23 @@ function formatDate(value: string): string {
         "visale": {
           "expected": "Certificat Visale"
         },
-        "current-other": "Autre document non conforme"
+        "current-other": "Autre document non conforme",
+        "property-tax": {
+          "expected": "Avis de taxe foncière"
+        }
+      },
+      "property-tax-leaf": {
+        "current": "Avis de taxe foncière incomplet (pages manquantes)",
+        "expected": "Avis de taxe foncière complet (toutes les pages)"
+      },
+      "property-tax-names": {
+        "current": "Avis de taxe foncière au nom de {name}",
+        "expected": "Avis de taxe foncière au nom de {name}"
+      },
+      "property-tax-wrong-year": {
+        "title": "Avis de taxe foncière trop ancien",
+        "current": "Avis de taxe foncière {year}",
+        "expected": "Avis de taxe foncière {year}"
       },
       "wrong-number-of-documents": {
         "title": "Document incomplet",
