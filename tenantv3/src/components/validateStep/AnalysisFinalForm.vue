@@ -169,7 +169,7 @@ const submit = () => {
     "title": "Message pour le propriétaire",
     "label": "Votre message (facultatif)",
     "description": "Vous pouvez ajouter un message à destination de vos futurs propriétaires. Il sera affiché au début de votre dossier.",
-    "honor-declaration": "Je déclare sur l'honneur l'exactitude de ces informations (article 441-1 du code pénal : 3 ans d'emprisonnement et 45 000 € d'amende).",
+    "honor-declaration": "Je déclare avoir pris connaissance de l'article 441-1 du code pénal qui punit le faux et l'usage de faux de trois ans d'emprisonnement et de 45000 euros d'amende.",
     "consent-declaration": "Je déclare avoir obtenu le consentement des personnes mentionnées dans mon dossier (conjoint, colocataires, garants).",
     "send-files": "Soumettre mon dossier",
     "error-message": "Votre message dépasse la limite de 2000 caractères.",
