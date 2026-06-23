@@ -68,10 +68,7 @@ jobs:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          # Cypress writes one screenshot per failed test, named
-          # "<describe> -- <test> (failed).png" (plus "(attempt N)" on retries),
-          # under cypress/screenshots/<spec path>/. Extract the unique failed
-          # test titles instead of just the top-level spec folders.
+          # Cypress writes one screenshot per failed test
           screenshots_dir="e2e-tests/cypress/screenshots"
           failed_tests=()
           if [ -d "$screenshots_dir" ]; then
