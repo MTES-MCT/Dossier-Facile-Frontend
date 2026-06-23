@@ -46,6 +46,7 @@ const stubs = {
     }
   },
   FieldLabel: { template: '<label><slot /></label>' },
+  HintText: { template: '<span><slot /></span>' },
   CoupleInformationHelp: { template: '<div />' },
   DsfrModalPatch: { template: '<div />' },
   Field: {
@@ -136,5 +137,27 @@ describe('CoupleInformation', () => {
     expect(lastEmit[0].email).toBe('marie@example.com')
     expect(lastEmit[0].firstName).toBe('Marie')
     expect(lastEmit[0].lastName).toBe('Dupont')
+  })
+
+  it('displays a server error inline and clears it on input', async () => {
+    const wrapper = mount(CoupleInformation, {
+      props: { hasSubmited: false, modelValue: [] },
+      global: { stubs }
+    })
+
+    ;(wrapper.vm as unknown as {
+      showApiError: (messageKey: string, field?: string) => void
+    }).showApiError('application-errors.email-already-in-other-dossier', 'email')
+    await flushPromises()
+
+    const emailErrors = wrapper.find('#email-errors')
+    expect(emailErrors.text()).toContain('application-errors.email-already-in-other-dossier')
+
+    const emailInput = wrapper.find('#email')
+    await emailInput.setValue('new@example.com')
+
+    expect(wrapper.find('#email-errors').text()).not.toContain(
+      'application-errors.email-already-in-other-dossier'
+    )
   })
 })

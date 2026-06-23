@@ -331,14 +331,20 @@
   "coupleinformation": {
     "spouseFirstName": "First Name",
     "spouseLastName": "Last Name",
-    "spouseEmail": "Your Co-tenant's Email Address",
-    "acceptAuthor": "I agree that my partner will have access to my documents and those of my guarantor, if applicable, once both of our applications have been validated",
+    "spouseEmail": "Email",
+    "spouseEmailHint": "This address is mandatory. An email will be sent to your co-tenant to inform them that their personal data will be processed by DossierFacile (GDPR requirement).",
+    "acceptAuthor": "I agree that my co-tenant:<ul><li>will have access to my documents and those of my guarantor, if applicable, once both of our applications have been validated.</li><li>may share the documents in our application with landlords, lessors or property services that are partners of DossierFacile.</li></ul>",
     "field-required": "This field is required",
-    "partner-name-title": "Who will be your co-tenant?",
-    "partner-email-title": "Invite them to fill out their application?",
+    "partner-email-title": "Your co-tenant's contact details",
     "add-a-spouse": "Add your co-tenant",
     "email-exists": "You cannot associate two accounts with the same email address! <br>Please provide a different email address.",
     "more-information": "How does it work?"
+  },
+  "application-errors": {
+    "email-already-in-other-dossier": "This email address is already linked to another application. Please provide a different one.",
+    "email-required": "Please provide your co-tenant's email address.",
+    "accept-access-required": "You must tick this box to continue.",
+    "application-type-denied": "You cannot change the application type."
   },
   "deleteaccount": {
     "validate": "Delete my account",
@@ -853,11 +859,8 @@
     "acceptAuthorCoTenant": "I accept that the other members of my co-tenancy have access to my documents as well as those of my guarantor, if applicable, once all co-tenancy applications are validated",
     "validate": "Validate",
     "roommates-saved": "Your roommates have been successfully added. An account creation invitation has been sent to them.",
-    "couple-saved": "Your spouse has been added.",
     "couple-saved-with-mail": "Your spouse has been added. An account creation invitation has been sent to them.",
-    "email-exists": "This email address is already registered on DossierFacile. Please enter a different one.",
     "roommate-email-required": "You must enter the email address of at least one roommate.",
-    "couple-email-required": "You must enter the email address of your spouse.",
     "will-delete-couple": "This action will delete your spouse's application",
     "will-delete-roommates": "This action will remove the association with your roommates' applications",
     "require-accept": "You must accept the declaration"

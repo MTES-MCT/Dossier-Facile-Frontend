@@ -4,35 +4,6 @@
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
           <h1 class="fr-h4">
-            {{ t('coupleinformation.partner-name-title') }}
-          </h1>
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
-          <TextField
-            v-model.trim="coTenant.lastName"
-            :field-label="t('coupleinformation.spouseLastName')"
-            name="coTenantLastName"
-            validation-rules="required|onlyAlpha"
-            :disabled="disableNameFields"
-            @input="handleInput"
-          />
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
-          <TextField
-            v-model.trim="coTenant.firstName"
-            :field-label="t('coupleinformation.spouseFirstName')"
-            name="coTenantFirstName"
-            validation-rules="required|onlyAlpha"
-            :disabled="disableNameFields"
-            @input="handleInput"
-          />
-        </div>
-      </div>
-    </NakedCard>
-    <NakedCard class="fr-p-md-5w fr-mb-2w">
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12">
-          <h1 class="fr-h4">
             {{ t('coupleinformation.partner-email-title') }}
           </h1>
           <DsfrButton
@@ -54,38 +25,60 @@
           </DsfrModalPatch>
         </div>
         <div class="fr-col-12 fr-mt-3w fr-mb-3w">
-          <FieldLabel for-input="email">
+          <TextField
+            v-model.trim="coTenant.lastName"
+            :field-label="t('coupleinformation.spouseLastName')"
+            name="coTenantLastName"
+            validation-rules="required|onlyAlpha"
+            :disabled="disableNameFields"
+            @input="handleInput"
+          />
+        </div>
+        <div class="fr-col-12 fr-mb-3w">
+          <TextField
+            v-model.trim="coTenant.firstName"
+            :field-label="t('coupleinformation.spouseFirstName')"
+            name="coTenantFirstName"
+            validation-rules="required|onlyAlpha"
+            :disabled="disableNameFields"
+            @input="handleInput"
+          />
+        </div>
+        <div class="fr-col-12 fr-mb-3w">
+          <FieldLabel for-input="email" :required="!disableEmailField">
             {{ t('coupleinformation.spouseEmail') }}
           </FieldLabel>
+          <HintText id="email-hint">{{ t('coupleinformation.spouseEmailHint') }}</HintText>
           <Field
             v-slot="{ field, meta }"
             v-model="coTenant.email"
             name="email"
-            :rules="{
-              email: true,
-              custom: user.email
-            }"
+            :rules="emailRules"
           >
             <input
               id="email"
               ref="email-input"
               v-bind="field"
-              :aria-describedby="hasSubmited ? 'email-errors' : undefined"
-              :aria-invalid="hasSubmited && !meta.valid"
+              :aria-describedby="emailDescribedBy"
+              :aria-invalid="(hasSubmited && !meta.valid) || !!emailServerError"
               class="validate-required form-control fr-input"
               :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
+                'fr-input--valid': meta.valid && !emailServerError,
+                'fr-input--error': !meta.valid || !!emailServerError
               }"
               placeholder="nom@exemple.fr"
               type="email"
+              :required="!disableEmailField"
               :disabled="disableEmailField"
               @input="handleInput"
             />
           </Field>
-          <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="email">
-            <span id="email-errors" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
+          <div id="email-errors" role="alert">
+            <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="email">
+              <span class="fr-error-text">{{ t(message || '') }}</span>
+            </ErrorMessage>
+            <span v-if="emailServerError" class="fr-error-text">{{ t(emailServerError) }}</span>
+          </div>
         </div>
       </div>
       <div ref="checkboxauthorize" class="fr-grid-row fr-grid-row--center">
@@ -97,28 +90,34 @@
               name="authorize"
               type="checkbox"
               :rules="{
-                isTrue: coTenant?.email?.length > 0 ? true : false
+                isTrue: true
               }"
               :value="true"
             >
               <input
                 id="authorize"
+                ref="authorize-input"
                 type="checkbox"
-                :required="coTenant?.email?.length > 0 ? true : false"
+                required
                 v-bind="field"
-                :aria-describedby="hasSubmited ? 'auth-errors' : undefined"
-                :aria-invalid="hasSubmited && !meta.valid"
+                :aria-describedby="authorizeDescribedBy"
+                :aria-invalid="(hasSubmited && !meta.valid) || !!authorizeServerError"
                 :class="{
                   'fr-input--valid': meta.valid,
-                  'fr-input--error': !meta.valid
+                  'fr-input--error': !meta.valid || !!authorizeServerError
                 }"
                 @change="updateAuthorize"
               />
               <label for="authorize" v-html="t('coupleinformation.acceptAuthor')" />
             </Field>
-            <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="authorize">
-              <span id="auth-errors" class="fr-error-text">{{ t(message || '') }}</span>
-            </ErrorMessage>
+            <div id="auth-errors" role="alert">
+              <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="authorize">
+                <span class="fr-error-text">{{ t(message || '') }}</span>
+              </ErrorMessage>
+              <span v-if="authorizeServerError" class="fr-error-text">{{
+                t(authorizeServerError)
+              }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -131,7 +130,8 @@ import { User } from 'df-shared-next/src/models/User'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import CoupleInformationHelp from './helps/CoupleInformationHelp.vue'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
-import { computed, onMounted, ref, useTemplateRef } from 'vue'
+import HintText from '@/components/common/HintText.vue'
+import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { Field, ErrorMessage, defineRule } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
@@ -144,7 +144,7 @@ interface Props {
   hasSubmited: boolean
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 defineRule('custom', (v1: string, [v2]: string[]) => {
   if (v1 === v2) {
@@ -156,8 +156,8 @@ defineRule('custom', (v1: string, [v2]: string[]) => {
 const { t } = useI18n()
 const store = useTenantStore()
 const emailInput = useTemplateRef('email-input')
+const authorizeInput = useTemplateRef('authorize-input')
 
-defineExpose({ emailInput })
 const user = computed(() => store.user)
 
 const coTenant = ref<CoTenant>(new User())
@@ -170,9 +170,49 @@ const disableNameFields = ref(false)
 const disableEmailField = ref(false)
 const checkboxauthorize = ref()
 
+// Server-side error returned by POST /application/v2, displayed inline (RGAA).
+const serverError = ref<{ messageKey: string; field?: 'email' | 'authorize' } | null>(null)
+const emailServerError = computed(() =>
+  serverError.value?.field === 'email' ? serverError.value.messageKey : null
+)
+const authorizeServerError = computed(() =>
+  serverError.value?.field === 'authorize' ? serverError.value.messageKey : null
+)
+
+const emailRules = computed(() => ({
+  required: !disableEmailField.value,
+  email: true,
+  custom: user.value.email
+}))
+
+const emailDescribedBy = computed(() => {
+  const ids = ['email-hint']
+  if (props.hasSubmited || emailServerError.value) {
+    ids.push('email-errors')
+  }
+  return ids.join(' ')
+})
+
+const authorizeDescribedBy = computed(() =>
+  props.hasSubmited || authorizeServerError.value ? 'auth-errors' : undefined
+)
+
 // modal logic
 const isModalOpened = ref(false)
 const isAlert = ref(false)
+
+function showApiError(messageKey: string, field?: 'email' | 'authorize') {
+  serverError.value = { messageKey, field }
+  nextTick(() => {
+    if (field === 'authorize') {
+      authorizeInput.value?.focus()
+    } else if (field === 'email') {
+      emailInput.value?.focus()
+    }
+  })
+}
+
+defineExpose({ showApiError })
 
 onMounted(() => {
   if ((user.value.apartmentSharing?.tenants.length || 0) > 1) {
@@ -192,12 +232,16 @@ onMounted(() => {
 })
 
 function handleInput() {
+  serverError.value = null
   if (coTenant.value.firstName && coTenant.value.lastName) {
     coTenants.value = [coTenant.value]
   }
 }
 
 function updateAuthorize() {
+  if (authorizeServerError.value) {
+    serverError.value = null
+  }
   store.spouseAuthorize = authorize.value
 }
 </script>

@@ -172,6 +172,10 @@ describe(
       cy.contains("En couple").click();
       cy.get('input[name="coTenantLastName"]').type("Martin");
       cy.get('input[name="coTenantFirstName"]').type("Louise");
+      cy.get('input[name="email"]').type(
+        `conjoint-${Math.floor(Math.random() * 10000)}@yopmail.fr`,
+      );
+      cy.get('label[for="authorize"]').click();
       cy.clickOnNext();
     }
 

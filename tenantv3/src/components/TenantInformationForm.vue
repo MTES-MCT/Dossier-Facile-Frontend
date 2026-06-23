@@ -76,7 +76,7 @@
           <span class="sr-only">{{ t('tenantinformationform.title') }}</span>
         </ApplicationTypeSelector>
       </NakedCard>
-      <Form name="form" @submit="handleOthersInformation" @invalid-submit="hasSubmited = true">
+      <Form name="form" @submit="handleOthersInformation" @invalid-submit="onInvalidSubmit">
         <CoupleInformation
           v-if="applicationType === 'COUPLE'"
           ref="couple-info"
@@ -106,15 +106,17 @@ import ProfileFooter from './footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ApplicationTypeSelector from '../components/ApplicationTypeSelector.vue'
 import { useLoading } from 'vue-loading-overlay'
-import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
+import { computed, nextTick, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useRouter } from 'vue-router'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import { isAxiosError } from 'axios'
 import { useIdentityDocumentLink } from './identityDocument/lib/identityDocumentLink'
 import { getNextBtnInFooter, toast } from './toast/toastUtils'
+import { isAxiosError } from 'axios'
+
+type ApplicationErrorField = 'email' | 'authorize'
 
 const router = useRouter()
 const store = useTenantStore()
@@ -171,8 +173,8 @@ function handleOthersInformation() {
       AnalyticsService.confirmType()
       loader.hide()
       if (applicationType.value === 'COUPLE') {
-        const messageKey = coTenants.value[0]?.email ? 'couple-saved-with-mail' : 'couple-saved'
-        toast.keep.success(t(`tenantinformationform.${messageKey}`), getNextBtnInFooter)
+        // The co-tenant email is now mandatory, so an invitation is always sent.
+        toast.keep.success(t('tenantinformationform.couple-saved-with-mail'), getNextBtnInFooter)
       }
       if (applicationType.value === 'GROUP') {
         toast.keep.success(t('tenantinformationform.roommates-saved'), getNextBtnInFooter)
@@ -181,15 +183,56 @@ function handleOthersInformation() {
     },
     (error: unknown) => {
       loader.hide()
-      if (isAxiosError(error) && error.status === 409) {
-        toast.error(t('tenantinformationform.email-exists'), coupleInfo.value?.emailInput)
-        return
-      } else {
-        toast.error(t('errors.submit-failed'), footer.value?.nextBtn)
-        return
-      }
+      handleSaveError(error)
     }
   )
+}
+
+function resolveApplicationSaveError(error: unknown): {
+  messageKey: string
+  field?: ApplicationErrorField
+} {
+  if (!isAxiosError(error)) {
+    return { messageKey: 'errors.submit-failed' }
+  }
+  const code = error.response?.data?.code as string | undefined
+  switch (code) {
+    case 'CO_TENANT_EMAIL_ALREADY_EXISTS':
+      return { messageKey: 'application-errors.email-already-in-other-dossier', field: 'email' }
+    case 'CO_TENANT_EMAIL_REQUIRED':
+      return { messageKey: 'application-errors.email-required', field: 'email' }
+    case 'ACCEPT_ACCESS_REQUIRED':
+      return { messageKey: 'application-errors.accept-access-required', field: 'authorize' }
+    case 'APPLICATION_TYPE_DENIED_FOR_JOIN':
+      return { messageKey: 'application-errors.application-type-denied' }
+    default:
+      if (error.response?.status === 409) {
+        return { messageKey: 'application-errors.email-already-in-other-dossier', field: 'email' }
+      }
+      return { messageKey: 'errors.submit-failed' }
+  }
+}
+
+function handleSaveError(error: unknown) {
+  const result = resolveApplicationSaveError(error)
+  // Field-bound errors are shown inline with focus on the field (RGAA).
+  if (result.field && applicationType.value === 'COUPLE' && coupleInfo.value) {
+    coupleInfo.value.showApiError(result.messageKey, result.field)
+    return
+  }
+  // Otherwise fall back to a toast (network errors, server errors, GROUP flow).
+  toast.error(t(result.messageKey), footer.value?.nextBtn)
+}
+
+// Form field ids in DOM order, so we can move focus to the first one in error (RGAA).
+const ERROR_FIELD_FOCUS_ORDER = ['coTenantLastName', 'coTenantFirstName', 'email', 'authorize']
+
+function onInvalidSubmit({ errors }: { errors: Record<string, string | undefined> }) {
+  hasSubmited.value = true
+  const firstFieldInError = ERROR_FIELD_FOCUS_ORDER.find((field) => errors[field])
+  if (firstFieldInError) {
+    nextTick(() => document.getElementById(firstFieldInError)?.focus())
+  }
 }
 
 function updateApplicationType(value: string) {
