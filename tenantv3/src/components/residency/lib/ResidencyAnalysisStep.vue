@@ -1,7 +1,15 @@
 <template>
   <AnalysisWrapper ref="analysis-wrapper" :is-uploading="isUploading" :polling-timeout-ms="30000">
     <template #analysisBannerError="{ rule, notMatchingLabel, explainLinkLabel, onExplain }">
+      <PropertyTaxAnalysisErrorBannerContent
+        v-if="subCategory === 'OWNER'"
+        :rule="rule"
+        :not-matching-label="notMatchingLabel"
+        :explain-link-label="explainLinkLabel"
+        @explain="onExplain"
+      />
       <ResidencyAnalysisErrorBannerContent
+        v-else
         :rule="rule"
         :document="document"
         :title="bannerTitle"
@@ -59,6 +67,7 @@ import { documentFormKey } from '@/components/documents/documentFormState'
 import type { DocumentSubCategory } from '@/components/documents/share/DocumentTypeConstants'
 import AnalysisFooter from '@/components/footer/AnalysisFooter.vue'
 import ResidencyAnalysisErrorBannerContent from './ResidencyAnalysisErrorBannerContent.vue'
+import PropertyTaxAnalysisErrorBannerContent from './PropertyTaxAnalysisErrorBannerContent.vue'
 import { useResidencyState } from '../residencyState'
 
 const props = withDefaults(
