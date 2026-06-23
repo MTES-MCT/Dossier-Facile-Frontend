@@ -41,13 +41,11 @@ jobs:
           install: false
           config-file: cypress-preprod.config.ts
           browser: chrome
-          # FranceConnect specs (fc/ and owner/) run in the non-blocking
-          # fc-smoke job below
-          spec: cypress/e2e/tenant/**/*.cy.ts
           env: configFile=ci
         env:
           CYPRESS_TESTMAIL_API_KEY: ${{ secrets.CYPRESS_TESTMAIL_API_KEY }}
           CYPRESS_TESTMAIL_NAMESPACE: ${{ vars.CYPRESS_TESTMAIL_NAMESPACE }}
+
       - name: Upload screenshot
         uses: actions/upload-artifact@v4
         if: failure()
@@ -62,90 +60,51 @@ jobs:
           name: cypress-videos
           path: e2e-tests/cypress/videos/**/*.mp4
           retention-days: 1
-      - name: Mattermost alert
+
+      - name: Mattermost alert (failure)
         if: failure()
         shell: bash
         env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          # Cypress creates one subdir under cypress/screenshots per spec that has at least one failed test
-          failed_specs=()
+          # Cypress writes one screenshot per failed test, named
+          # "<describe> -- <test> (failed).png" (plus "(attempt N)" on retries),
+          # under cypress/screenshots/<spec path>/. Extract the unique failed
+          # test titles instead of just the top-level spec folders.
           screenshots_dir="e2e-tests/cypress/screenshots"
+          failed_tests=()
           if [ -d "$screenshots_dir" ]; then
-            while IFS= read -r dir; do
-              failed_specs+=("$(basename "$dir" .cy.ts)")
-            done < <(find "$screenshots_dir" -mindepth 1 -maxdepth 1 -type d | sort)
+            while IFS= read -r title; do
+              [ -n "$title" ] && failed_tests+=("$title")
+            done < <(
+              find "$screenshots_dir" -type f -name '*(failed)*.png' -printf '%f\n' \
+                | sed -E 's/ \(failed\).*//' \
+                | sort -u
+            )
           fi
-          count=${#failed_specs[@]}
+          count=${#failed_tests[@]}
           if [ "$count" -eq 0 ]; then
-            spec_list="(no spec dirs found — see workflow logs)"
-            count_label="e2e job"
+            list="(no failed-test screenshots found — see workflow logs)"
+            label="e2e job"
           else
-            spec_list=$(printf -- "- %s\n" "${failed_specs[@]}")
-            count_label="$count spec(s)"
+            list=$(printf -- "- %s\n" "${failed_tests[@]}")
+            label="$count test(s)"
           fi
-          text="[dossierfacile-preprod] $count_label failed:
-          $spec_list
+          text="[dossierfacile-preprod] $label failed:
+          $list
           [Failed workflow]($RUN_URL)"
           jq -n --arg t "$text" '{attachments:[{text:$t,color:"#FF8000",fallback:"e2e failed"}]}' | \
             curl -sS -X POST -H "Content-Type: application/json" --data @- "$MATTERMOST_WEBHOOK_URL"
 
-  # Non-blocking job: FranceConnect preprod (third-party SSO) is regularly
-  # down, so its coverage must not fail the whole suite
-  fc-smoke:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "pnpm"
-          cache-dependency-path: pnpm-lock.yaml
-
-      - name: Install dependencies for e2e-tests
-        working-directory: e2e-tests
-        run: pnpm install
-
-      - name: Run FranceConnect smoke tests
-        id: cypress
-        continue-on-error: true
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: e2e-tests
-          install: false
-          config-file: cypress-preprod.config.ts
-          browser: chrome
-          spec: cypress/e2e/fc/**/*.cy.ts,cypress/e2e/owner/**/*.cy.ts
-          env: configFile=ci
-
-      - name: Upload screenshots and videos
-        if: steps.cypress.outcome == 'failure'
-        uses: actions/upload-artifact@v4
-        with:
-          name: fc-smoke-cypress-artifacts
-          path: |
-            e2e-tests/cypress/screenshots
-            e2e-tests/cypress/videos/**/*.mp4
-          retention-days: 1
-
-      - name: Mattermost alert
-        if: steps.cypress.outcome == 'failure'
+      - name: Mattermost alert (success)
+        if: success()
         shell: bash
         env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          text="[dossierfacile-preprod] Smoke FranceConnect KO — FC preprod probablement indisponible (non bloquant)
-          [Failed workflow]($RUN_URL)"
-          jq -n --arg t "$text" '{attachments:[{text:$t,color:"#FFD000",fallback:"fc smoke failed"}]}' | \
+          text="[dossierfacile-preprod] ✅ Suite e2e preprod OK
+          [Workflow]($RUN_URL)"
+          jq -n --arg t "$text" '{attachments:[{text:$t,color:"#3DAA35",fallback:"e2e passed"}]}' | \
             curl -sS -X POST -H "Content-Type: application/json" --data @- "$MATTERMOST_WEBHOOK_URL"
