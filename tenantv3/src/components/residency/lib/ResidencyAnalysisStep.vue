@@ -1,5 +1,5 @@
 <template>
-  <AnalysisWrapper ref="analysis-wrapper" :is-uploading="isUploading">
+  <AnalysisWrapper ref="analysis-wrapper" :is-uploading="isUploading" :polling-timeout-ms="30000">
     <template #analysisBannerError="{ rule, notMatchingLabel, explainLinkLabel, onExplain }">
       <ResidencyAnalysisErrorBannerContent
         :rule="rule"
