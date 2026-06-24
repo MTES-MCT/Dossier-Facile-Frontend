@@ -1,6 +1,8 @@
+import { E2E_PASSWORD, testEmail } from "../../support/testAccounts";
+
 const ENDPOINT = `${Cypress.env("testmailEndpoint")}?apikey=${Cypress.env("TESTMAIL_API_KEY")}&namespace=${Cypress.env("TESTMAIL_NAMESPACE")}&tag=${Cypress.env("testmailTag")}`;
-const TESTEMAIL = `${Cypress.env("TESTMAIL_NAMESPACE")}.${Cypress.env("testmailTag")}@inbox.testmail.app`;
-const PASSWORD = "abcdef12345!";
+const TESTEMAIL = testEmail(Cypress.env("testmailTag"));
+const PASSWORD = E2E_PASSWORD;
 const NEW_PASSWORD = "zyxwvu98765!";
 const MAIL_SUBJECT = "Bienvenue sur DossierFacile !";
 const RESET_SUBJECT = "Réinitialiser le mot de passe";
@@ -60,27 +62,8 @@ function getEmail(subject = MAIL_SUBJECT) {
 
 describe("Test signup process", () => {
   before(() => {
-    // Try to login. Delete account if it exists. Then register
-    login();
-    cy.location("pathname").should("not.match", /\/auth$/);
-    cy.location("pathname").then((pathname) => {
-      if (pathname.endsWith("/required-action")) {
-        cy.log("Account already exists but is not verified");
-        cy.contains("Cliquez ici").click(); // resend validation email
-        timestamp = Date.now();
-      } else if (pathname.endsWith("/authenticate")) {
-        cy.log("Account does not exists");
-        signup();
-      } else {
-        cy.log("Verified account exists, delete it");
-        cy.contains("Mon compte").click();
-        cy.contains("Supprimer mon compte").click();
-        cy.get("dialog[open] button").contains("Supprimer mon compte").click();
-        cy.url().should("contain", Cypress.env("mainUrl"));
-
-        signup();
-      }
-    });
+    cy.resetTestAccount(TESTEMAIL);
+    signup();
   });
 
   it("should validate link in email and login", () => {
@@ -164,12 +147,6 @@ describe("Test signup process", () => {
       cy.location("pathname").should("not.match", /\/auth$/);
       cy.contains("Identité").should("be.visible");
 
-      // Clean up via the UI so the suite stays idempotent: the account password
-      // is no longer PASSWORD, which the before() hook relies on to log in
-      cy.contains("Mon compte").click();
-      cy.contains("Supprimer mon compte").click();
-      cy.get("dialog[open] button").contains("Supprimer mon compte").click();
-      cy.url().should("contain", Cypress.env("mainUrl"));
     });
   });
 });
