@@ -33,6 +33,7 @@ export default defineConfig({
     testmailEndpoint: "https://api.testmail.app/api/json",
     TESTMAIL_NAMESPACE: "7mxc3",
     boUrl: "https://bo-dev.dossierfacile.fr",
+    dfConnectDemoUrl: "https://demo-partenaire.dossierfacile.fr",
   },
   chromeWebSecurity: false,
 });
