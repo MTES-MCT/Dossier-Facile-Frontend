@@ -371,12 +371,10 @@ export const useTenantStore = defineStore('tenant', {
       this.initState()
     },
     async deleteAccount() {
-      const isFC = this.user.franceConnect
       await AuthService.deleteAccount()
       this.logoutCommit()
       this.initState()
-      const url = isFC ? 'https://fcp.integ01.dev-franceconnect.fr/api/v1/logout' : MAIN_URL
-      window.location.replace(url)
+      window.location.replace(MAIN_URL)
     },
     async loadUser() {
       const response = await AuthService.loadUser()
