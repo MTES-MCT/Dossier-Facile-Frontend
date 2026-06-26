@@ -719,6 +719,15 @@ export const useTenantStore = defineStore('tenant', {
       if (doc) {
         doc.documentAnalysisReport = report
       }
+    },
+    async saveDocumentComment(params: { documentId: number; tenantId: number; comment: string }) {
+      await RegisterService.commentAnalysis(params)
+      const doc =
+        this.user.documents?.find((d: DfDocument) => d.id === params.documentId) ??
+        this.selectedGuarantor?.documents?.find((d: DfDocument) => d.id === params.documentId)
+      if (doc?.documentAnalysisReport) {
+        doc.documentAnalysisReport.comment = params.comment
+      }
     }
   }
 })
