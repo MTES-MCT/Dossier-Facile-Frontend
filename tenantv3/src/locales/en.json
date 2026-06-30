@@ -179,6 +179,14 @@
       "rent": "Rental income",
       "rent-annuity-life": "Life annuity",
       "rent-other": "Other type of annuity"
+    },
+    "validation-rules": {
+      "short": {
+        "tax-bad-classification": "Incorrect document detected",
+        "tax-wrong-names": "Name does not match",
+        "tax-wrong-year": "Document too old",
+        "generic-classification": "Incorrect document detected"
+      }
     }
   },
   "explanation-text": {
