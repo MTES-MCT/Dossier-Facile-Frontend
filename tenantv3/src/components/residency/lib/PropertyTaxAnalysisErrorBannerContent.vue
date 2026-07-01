@@ -106,6 +106,9 @@ function getExpectedLines(): string[] {
   if (ruleCase.value === 'wrong-year' && props.rule.ruleData?.type === 'R_TAX_YEARS') {
     return [t('wrong-year.expected', { year: props.rule.ruleData.expectedYear })]
   }
+  if (ruleCase.value === 'leaf') {
+    return [t('leaf.expected')]
+  }
   return [t('default-expected', { year: taxYear })]
 }
 
@@ -154,7 +157,8 @@ function getCurrentLines(): string[] {
       "current": "Non-compliant document"
     },
     "leaf": {
-      "title": "Incomplete document"
+      "title": "Incomplete document",
+      "expected": "Property tax notice must have at least 2 pages"
     },
     "names": {
       "title": "Name does not match",
@@ -180,7 +184,8 @@ function getCurrentLines(): string[] {
       "current": "Autre document non conforme"
     },
     "leaf": {
-      "title": "Document incomplet"
+      "title": "Document incomplet",
+      "expected": "La taxe foncière doit comporter au moins 2 pages"
     },
     "names": {
       "title": "Le nom ne correspond pas",
