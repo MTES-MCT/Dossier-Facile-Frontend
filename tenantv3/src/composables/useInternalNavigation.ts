@@ -22,7 +22,7 @@ export const CATEGORY_TO_PATH: Record<string, string> = {
   FRANCE_IDENTITE: 'france-identite',
   OTHER_IDENTIFICATION: 'autre',
   // Residency
-  TENANT: 'tenant/receipts',
+  TENANT: 'tenant',
   OWNER: 'owner',
   GUEST: 'guest',
   GUEST_ORGANISM: 'guest-organism',

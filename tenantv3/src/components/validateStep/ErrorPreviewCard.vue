@@ -14,9 +14,9 @@
         </li>
       </ul>
       <div class="fr-grid-row fr-grid-row--right">
-        <a :href="getEditLink()" class="fr-btn fr-btn--secondary" @click="editPressed">
+        <RouterLink :to="getEditLink()" class="fr-btn fr-btn--secondary" @click="editPressed">
           {{ t('documents.status.correct') }}
-        </a>
+        </RouterLink>
       </div>
     </div>
   </div>

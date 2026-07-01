@@ -11,9 +11,9 @@
         <p v-if="subTitle" class="fr-text--sm text-mention fr-mb-1w">{{ subTitle }}</p>
       </div>
       <div class="actions fr-ml-auto">
-        <a :href="getEditLink()" class="fr-btn fr-btn--secondary fr-btn--sm">
+        <RouterLink :to="getEditLink()" class="fr-btn fr-btn--secondary fr-btn--sm">
           {{ t('add-document') }}
-        </a>
+        </RouterLink>
       </div>
     </div>
   </div>
