@@ -42,6 +42,20 @@ Vous pouvez lancer les applications depuis la racine avec `pnpm --filter www dev
 
 Démarrez les applications locales, ainsi que les api backend correspondantes, et lancez `pnpm --filter e2e-tests test`.
 
+## Contexte pour les agents de code (`AGENTS.md`)
+
+L'équipe a retenu une approche agnostique de l'agent IA utilisé : les fichiers [`AGENTS.md`](AGENTS.md), conformes au [standard ouvert `AGENTS.md`](https://agents.md). On y décrit la stack, les packages et les sujets transverses (i18n, accessibilité, tests). La plupart des assistants de code IA savent le lire nativement, sans configuration supplémentaire.
+
+### Cas particuliers
+
+| Outil | Particularité | À faire dans ce repo |
+| --- | --- | --- |
+| **Claude Code** (Anthropic) | Format natif : `CLAUDE.md`| Créer un lien symbolique vers le même contenu : `ln -s AGENTS.md CLAUDE.md` (à la racine). Autre option : importer le fichier depuis `CLAUDE.md` avec `@AGENTS.md`. |
+| **Gemini CLI** (Google) | Format natif : `GEMINI.md` | Pointer vers `AGENTS.md` dans `.gemini/settings.json` : `{"contextFileName": "AGENTS.md"}`. |
+
+Pour ne pas avoir à maintenir plusieurs versions en parallèle, `AGENTS.md` reste **l'unique référence** : `CLAUDE.md` et `GEMINI.md` ne sont ajoutés que par lien symbolique ou import, selon l'outil utilisé dans l'équipe.
+
+
 ## Contributions
 
 Les pull requests sont possibles. Pour des changements majeurs, veuillez d'abord contacter l'équipe sur l'adresse contact@dossierfacile.fr.
@@ -67,3 +81,4 @@ En cas d'usage non autorisé, vous vous exposez à des poursuites légales, nota
 - Escroquerie ([art. 313-2 du Code pénal](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000049531795))
 
 **Recommandation** : Si vous souhaitez réutiliser ce code, supprimez ou remplacez tous les éléments liés à la marque DossierFacile et au DSFR avant déploiement.
+

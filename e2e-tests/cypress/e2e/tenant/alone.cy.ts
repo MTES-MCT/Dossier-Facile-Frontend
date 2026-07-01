@@ -1,23 +1,13 @@
-import { getTenantUser, UserType } from "../../support/users";
+import { getInputByLabel } from "../../support/commands/global";
+import { testAccount } from "../../support/testAccounts";
 
 describe("alone tenant scenario", () => {
-  const user = getTenantUser();
+  const account = testAccount("e2e-alone");
 
   it("validate file", () => {
-    cy.loginWithFCAndDeleteAccount(
-      user.username,
-      user.password,
-      UserType.TENANT,
-    );
+    cy.createFreshTenant(account);
 
-    cy.tenantLoginWithFC(user.username, user.password);
-    cy.rejectCookies();
-
-    cy.contains("Pour vous").click();
-
-    cy.verifyTenantIdentity(user.firstname, user.lastname);
-
-    cy.clickOnNext();
+    cy.fillTenantIdentity(account.firstname, account.lastname);
 
     cy.expectPath("/type-locataire");
     cy.clickOnNext();
@@ -70,6 +60,23 @@ describe("alone tenant scenario", () => {
     createGuarantor("Jean", "Dupont");
     cy.get(".add-guarantor-btn").click();
     createGuarantor("Jeanne", "Dupont");
+
+    // Edit the first guarantor's details
+    cy.get('button[title="Modifier"]').first().click();
+    cy.expectPath("/info-garant/0");
+    cy.get("#lastname").clear().type("Durand");
+    cy.get("#firstname").clear().type("Jacques");
+    cy.clickOnNext();
+
+    cy.visit(Cypress.env("tenantUrl") + "/liste-garants");
+    cy.contains("Durand").should("be.visible");
+
+    // Delete the second guarantor; the renamed first one must remain
+    cy.get('button[title="Supprimer"]').last().click();
+    cy.get("dialog[open]").last().contains("button", "Valider").click();
+    cy.get('button[title="Supprimer"]').should("have.length", 1);
+    cy.contains("Durand").should("be.visible");
+
     cy.clickOnNext();
 
     cy.validationStep();
@@ -80,14 +87,36 @@ describe("alone tenant scenario", () => {
   });
 
   it("share links", () => {
-    cy.tenantLoginWithFC(user.username, user.password);
+    cy.tenantLogin(account.email, account.password);
     cy.rejectCookies();
 
-    cy.ValidateAloneFile(Cypress.env("aloneTenantEmail"));
+    cy.ValidateAloneFile(account.email);
 
     cy.visit(Cypress.env("tenantUrl") + "/partages");
     cy.contains("Dossier validé", { timeout: 10000 }).should("exist");
     cy.testAccessibility();
+
+    // Generate a full share link (the full file view is protected by a trigram)
+    cy.get("#link-title").type("E2E partage");
+    getInputByLabel("Contenu du lien partagé").select("full");
+    cy.get(".generate-link-btn").click();
+
+    // Open the generated link: it lands on the trigram authentication page
+    cy.contains("p", "/file/")
+      .invoke("text")
+      .then((link) => {
+        cy.visit(link.trim());
+
+        // The trigram is the first 3 letters of a tenant's last name
+        cy.get("#input-trigram").type(account.lastname.slice(0, 3));
+        cy.contains("button", "Vérifier").click();
+
+        // The shared file is now consultable
+        cy.get("#input-trigram").should("not.exist");
+        cy.contains("Pièces du candidat", { timeout: 10000 }).should(
+          "be.visible",
+        );
+      });
   });
 });
 

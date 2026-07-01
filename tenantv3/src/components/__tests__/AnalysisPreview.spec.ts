@@ -35,6 +35,10 @@ vi.mock('vue-i18n', async (importOriginal) => {
 })
 
 const globalStubs = {
+  RouterLink: {
+    props: ['to'],
+    template: '<a :href="to" class="fr-btn fr-btn--secondary"><slot /></a>'
+  },
   NakedCard: {
     template: '<div data-test="naked-card"><slot /></div>'
   },

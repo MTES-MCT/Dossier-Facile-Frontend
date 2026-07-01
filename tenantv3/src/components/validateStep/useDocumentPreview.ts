@@ -90,6 +90,8 @@ export function useDocumentPreview(
         return t('documents.validation-rules.short.tax-wrong-names')
       case 'R_TAX_WRONG_YEAR':
         return t('documents.validation-rules.short.tax-wrong-year')
+      case 'R_DOCUMENT_IA_CLASSIFICATION':
+        return t('documents.validation-rules.short.generic-classification')
       default:
         return rule.message
     }

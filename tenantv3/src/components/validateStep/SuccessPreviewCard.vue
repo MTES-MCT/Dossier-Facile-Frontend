@@ -12,9 +12,9 @@
         <button class="fr-btn fr-btn--secondary fr-btn--sm fr-mr-1w" @click="isModalOpened = true">
           {{ t('filerowlistitem.see') }}
         </button>
-        <a :href="getEditLink()" class="fr-btn fr-btn--secondary fr-btn--sm">
+        <RouterLink :to="getEditLink()" class="fr-btn fr-btn--secondary fr-btn--sm">
           {{ t('documents.edit') }}
-        </a>
+        </RouterLink>
       </div>
     </div>
     <div v-if="isFailedRuleSkiped" :class="subTitle ? 'fr-mt-1w' : 'fr-mt-2w'">

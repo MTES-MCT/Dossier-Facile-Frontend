@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import type { User } from "../users";
+import type { TestAccount } from "../testAccounts";
 
 Cypress.Commands.add(
   "tenantLoginWithFC",
@@ -111,19 +111,21 @@ Cypress.Commands.add(
 Cypress.Commands.add("validationStep", () => {
   cy.get('[name="message"]').type("Test");
   cy.get("#input-honor").check({ force: true });
-  cy.get("#input-consent").check({ force: true });
+  cy.get("body").then(($body) => {
+    if ($body.find("#input-consent").length) {
+      cy.get("#input-consent").check({ force: true });
+    }
+  });
   cy.contains("Soumettre mon dossier").click();
 });
 
 Cypress.Commands.add(
   "gotoTenantDocumentsPage",
-  (user: User) => {
-    cy.tenantLoginWithFC(user.username, user.password);
+  (account: TestAccount) => {
+    cy.tenantLogin(account.email, account.password);
     cy.rejectCookies();
 
-    cy.contains("Pour vous").click();
-    cy.verifyTenantIdentity(user.firstname, user.lastname);
-    cy.clickOnNext();
+    cy.fillTenantIdentity(account.firstname, account.lastname);
 
     cy.expectPath("/type-locataire");
     cy.clickOnNext();

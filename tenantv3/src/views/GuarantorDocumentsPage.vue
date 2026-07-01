@@ -5,12 +5,11 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
+import { computed, watch } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import GuarantorDocuments from '../components/GuarantorDocuments.vue'
 import ProfileContainer from '../components/ProfileContainer.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
-import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const store = useTenantStore()
@@ -19,16 +18,23 @@ const guarantors = computed(() => {
 })
 const route = useRoute()
 
-watch(route, () => {
-  if (route.params.guarantorId) {
-    const g = guarantors.value.find((g: Guarantor) => {
-      return g.id?.toString() == route.params.guarantorId
+watch(
+  [() => route.params.guarantorId, guarantors],
+  ([guarantorId]) => {
+    if (!guarantorId) {
+      return
+    }
+
+    const g = guarantors.value.find((guarantor: Guarantor) => {
+      return guarantor.id?.toString() === guarantorId
     })
+
     if (g) {
       store.setSelectedGuarantor(g)
     }
-  }
-})
+  },
+  { immediate: true }
+)
 </script>
 
 <style lang="scss" scoped>

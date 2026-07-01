@@ -371,12 +371,10 @@ export const useTenantStore = defineStore('tenant', {
       this.initState()
     },
     async deleteAccount() {
-      const isFC = this.user.franceConnect
       await AuthService.deleteAccount()
       this.logoutCommit()
       this.initState()
-      const url = isFC ? 'https://fcp.integ01.dev-franceconnect.fr/api/v1/logout' : MAIN_URL
-      window.location.replace(url)
+      window.location.replace(MAIN_URL)
     },
     async loadUser() {
       const response = await AuthService.loadUser()
@@ -720,6 +718,15 @@ export const useTenantStore = defineStore('tenant', {
         this.selectedGuarantor?.documents?.find((d: DfDocument) => d.id === documentId)
       if (doc) {
         doc.documentAnalysisReport = report
+      }
+    },
+    async saveDocumentComment(params: { documentId: number; tenantId: number; comment: string }) {
+      await RegisterService.commentAnalysis(params)
+      const doc =
+        this.user.documents?.find((d: DfDocument) => d.id === params.documentId) ??
+        this.selectedGuarantor?.documents?.find((d: DfDocument) => d.id === params.documentId)
+      if (doc?.documentAnalysisReport) {
+        doc.documentAnalysisReport.comment = params.comment
       }
     }
   }

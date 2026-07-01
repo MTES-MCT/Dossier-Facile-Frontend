@@ -3,6 +3,7 @@ import { flushPromises, mount } from '@vue/test-utils'
 import { defineComponent, h, ref } from 'vue'
 import AnalysisWrapper from '../analysis/AnalysisWrapper.vue'
 import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
+import { toast } from '@/components/toast/toastUtils'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 
 vi.mock('vue-i18n', () => ({
@@ -31,12 +32,22 @@ vi.mock('@/services/AnalyticsService', () => ({
   }
 }))
 
-const mockCommentAnalysis = vi.fn().mockResolvedValue({})
+const saveDocumentCommentImpl = async (params: {
+  documentId: number
+  tenantId: number
+  comment: string
+}) => {
+  const report = mockStoreDocument.value?.documentAnalysisReport
+  if (report) {
+    report.comment = params.comment
+  }
+}
+const mockSaveDocumentComment = vi.fn(saveDocumentCommentImpl)
 
 vi.mock('@/stores/tenant-store', () => ({
   useTenantStore: () => ({
     user: { id: 123 },
-    commentAnalysis: mockCommentAnalysis,
+    saveDocumentComment: mockSaveDocumentComment,
     updateDocumentAnalysisReport: vi.fn()
   })
 }))
@@ -132,6 +143,8 @@ function mockAnalysisResponse(status: string, failedRules?: unknown[]) {
 describe('analysisWrapper', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    // Restore the default impl: a previous test may have overridden it via mockReturnValue.
+    mockSaveDocumentComment.mockImplementation(saveDocumentCommentImpl)
     vi.useFakeTimers()
     mockStoreDocument.value = {
       id: 42,
@@ -241,7 +254,7 @@ describe('analysisWrapper', () => {
     await wrapper.vm.saveExplanation()
     await flushPromises()
 
-    expect(mockCommentAnalysis).toHaveBeenCalledWith({
+    expect(mockSaveDocumentComment).toHaveBeenCalledWith({
       documentId: 42,
       tenantId: 123,
       comment: 'Mon explication'
@@ -265,7 +278,7 @@ describe('analysisWrapper', () => {
     expect(wrapper.vm.beforeSubmit()).toBe(false)
     await flushPromises()
     expect(wrapper.find('#explainText-error').exists()).toBe(true)
-    expect(mockCommentAnalysis).not.toHaveBeenCalled()
+    expect(mockSaveDocumentComment).not.toHaveBeenCalled()
   })
 
   it('skips save when no explain form is shown', async () => {
@@ -277,18 +290,24 @@ describe('analysisWrapper', () => {
     await wrapper.vm.saveExplanation()
     await flushPromises()
 
-    expect(mockCommentAnalysis).not.toHaveBeenCalled()
+    expect(mockSaveDocumentComment).not.toHaveBeenCalled()
   })
 
   // This test simulates a user clicking twice on the next button
   it('does not save twice when called concurrently', async () => {
     let resolveApi!: () => void
-    mockCommentAnalysis.mockReturnValue(
-      new Promise<void>((resolve) => {
-        resolveApi = resolve
-      })
-    )
     const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
+    mockStoreDocument.value = {
+      ...mockStoreDocument.value,
+      documentAnalysisReport: { failedRules: rules }
+    } as unknown as DfDocument
+    // Keep the first POST in flight so the second call lands while a save is still running.
+    mockSaveDocumentComment.mockImplementationOnce(
+      () =>
+        new Promise<void>((resolve) => {
+          resolveApi = resolve
+        })
+    )
     mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
 
     const wrapper = mountComponent()
@@ -298,7 +317,10 @@ describe('analysisWrapper', () => {
     await flushPromises()
     await wrapper.find('#explainText').setValue('Mon explication')
 
+    // First call flushes the debounce and starts the single in-flight POST.
     const first = wrapper.vm.saveExplanation()
+    await flushPromises()
+    // Second concurrent call finds nothing pending to flush and just awaits the same save.
     const second = wrapper.vm.saveExplanation()
 
     resolveApi()
@@ -306,7 +328,7 @@ describe('analysisWrapper', () => {
     await second
     await flushPromises()
 
-    expect(mockCommentAnalysis).toHaveBeenCalledTimes(1)
+    expect(mockSaveDocumentComment).toHaveBeenCalledTimes(1)
   })
 
   it('saves updated explanation when comment was already submitted', async () => {
@@ -327,7 +349,7 @@ describe('analysisWrapper', () => {
     await wrapper.vm.saveExplanation()
     await flushPromises()
 
-    expect(mockCommentAnalysis).toHaveBeenCalledWith({
+    expect(mockSaveDocumentComment).toHaveBeenCalledWith({
       documentId: 42,
       tenantId: 123,
       comment: 'nouveau commentaire'
@@ -350,6 +372,143 @@ describe('analysisWrapper', () => {
     await wrapper.vm.saveExplanation()
     await flushPromises()
 
-    expect(mockCommentAnalysis).not.toHaveBeenCalled()
+    expect(mockSaveDocumentComment).not.toHaveBeenCalled()
+  })
+
+  async function mountWithOpenExplainForm() {
+    const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
+    mockStoreDocument.value = {
+      ...mockStoreDocument.value,
+      documentAnalysisReport: { failedRules: rules }
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+    const wrapper = mountComponent()
+    await flushPromises()
+    await wrapper.find('.emit-explain').trigger('click')
+    await flushPromises()
+    return wrapper
+  }
+
+  it('auto-saves while typing after the debounce delay', async () => {
+    const wrapper = await mountWithOpenExplainForm()
+
+    await wrapper.find('#explainText').setValue('Explication auto')
+    expect(mockSaveDocumentComment).not.toHaveBeenCalled()
+
+    await vi.advanceTimersByTimeAsync(1000)
+    await flushPromises()
+
+    expect(mockSaveDocumentComment).toHaveBeenCalledTimes(1)
+    expect(mockSaveDocumentComment).toHaveBeenCalledWith({
+      documentId: 42,
+      tenantId: 123,
+      comment: 'Explication auto'
+    })
+  })
+
+  it('coalesces rapid keystrokes into a single save', async () => {
+    const wrapper = await mountWithOpenExplainForm()
+
+    const textarea = wrapper.find('#explainText')
+    await textarea.setValue('A')
+    await textarea.setValue('AB')
+    await textarea.setValue('ABC')
+
+    await vi.advanceTimersByTimeAsync(1000)
+    await flushPromises()
+
+    expect(mockSaveDocumentComment).toHaveBeenCalledTimes(1)
+    expect(mockSaveDocumentComment).toHaveBeenCalledWith({
+      documentId: 42,
+      tenantId: 123,
+      comment: 'ABC'
+    })
+  })
+
+  it('flushes the pending save immediately on blur', async () => {
+    const wrapper = await mountWithOpenExplainForm()
+
+    const textarea = wrapper.find('#explainText')
+    await textarea.setValue('Avant navigation')
+    expect(mockSaveDocumentComment).not.toHaveBeenCalled()
+
+    await textarea.trigger('blur')
+    await flushPromises()
+
+    expect(mockSaveDocumentComment).toHaveBeenCalledTimes(1)
+    expect(mockSaveDocumentComment).toHaveBeenCalledWith({
+      documentId: 42,
+      tenantId: 123,
+      comment: 'Avant navigation'
+    })
+  })
+
+  it('shows a success toast when the explanation is saved', async () => {
+    const wrapper = await mountWithOpenExplainForm()
+
+    const textarea = wrapper.find('#explainText')
+    await textarea.setValue('Texte enregistré')
+    await textarea.trigger('blur')
+    await flushPromises()
+
+    expect(toast.success).toHaveBeenCalledWith('explanation-saved', undefined)
+  })
+
+  it('does not auto-save empty text', async () => {
+    const wrapper = await mountWithOpenExplainForm()
+
+    await wrapper.find('#explainText').setValue('   ')
+    await vi.advanceTimersByTimeAsync(1000)
+    await flushPromises()
+
+    expect(mockSaveDocumentComment).not.toHaveBeenCalled()
+  })
+
+  it('cancels the pending debounced save on unmount', async () => {
+    const wrapper = await mountWithOpenExplainForm()
+
+    await wrapper.find('#explainText').setValue('Sera annulé')
+    wrapper.unmount()
+
+    await vi.advanceTimersByTimeAsync(1000)
+    await flushPromises()
+
+    expect(mockSaveDocumentComment).not.toHaveBeenCalled()
+  })
+
+  // "Continue" awaits saveExplanation; a rejection lets the footer block navigation.
+  it('rejects and shows a toast when the save fails', async () => {
+    mockSaveDocumentComment.mockRejectedValueOnce(new Error('network'))
+    const wrapper = await mountWithOpenExplainForm()
+
+    await wrapper.find('#explainText').setValue('Explication')
+
+    await expect(wrapper.vm.saveExplanation()).rejects.toThrow()
+    await flushPromises()
+
+    expect(toast.error).toHaveBeenCalled()
+  })
+
+  it('blocks submit when a previously-saved explanation is cleared', async () => {
+    const rules = [{ rule: 'R_TAX_YEARS', message: 'Bad year', level: 'ERROR', ruleData: null }]
+    mockStoreDocument.value = {
+      ...mockStoreDocument.value,
+      documentAnalysisReport: { failedRules: rules, comment: 'ancien commentaire' }
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+    const wrapper = mountComponent()
+    await flushPromises()
+
+    // Pre-filled with the saved explanation: submit is allowed.
+    expect(wrapper.find('#explainText').element).toHaveProperty('value', 'ancien commentaire')
+    expect(wrapper.vm.beforeSubmit()).toBe(true)
+
+    // Clearing the field must block submit again and surface the error.
+    await wrapper.find('#explainText').setValue('')
+    expect(wrapper.vm.beforeSubmit()).toBe(false)
+    await flushPromises()
+    expect(wrapper.find('#explainText-error').exists()).toBe(true)
   })
 })

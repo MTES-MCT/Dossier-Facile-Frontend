@@ -11,6 +11,8 @@ dist
 .env.local
 .env.*.local
 
+cypress.env.json
+
 # Log files
 npm-debug.log*
 yarn-debug.log*

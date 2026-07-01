@@ -29,9 +29,9 @@
       <DsfrBadge type="warning" :label="t('to-correct-label')" class="fr-mb-1w" />
       <p class="fr-text--md fr-mb-1w">{{ t('guarantor-identity-label') }}</p>
       <div class="fr-grid-row fr-grid-row--right">
-        <a :href="guarantorIdentityLink" class="fr-btn fr-btn--secondary">
+        <RouterLink :to="guarantorIdentityLink" class="fr-btn fr-btn--secondary">
           {{ t('correct') }}
-        </a>
+        </RouterLink>
       </div>
     </div>
     <DocumentPreviewCard
@@ -142,7 +142,7 @@ const coTenantIdForGuarantor = computed(() => {
 
 const isRemoveGuarantor = ref(false)
 
-// tenant can only delete its guarantors and the ones from its couple 
+// tenant can only delete its guarantors and the ones from its couple
 const canDeleteGuarantor = computed(() => {
   if (props.isTenant) return false
   const guarantorTenantId = coTenantIdForGuarantor.value ?? store.user.id
@@ -151,16 +151,19 @@ const canDeleteGuarantor = computed(() => {
 })
 
 function removeGuarantor() {
-  store.deleteGuarantor(props.user as Guarantor).then(
-    () => {
-      toast.success(t('guarantorssection.guarantor-deleted'), null)
-    },
-    () => {
-      toast.error(t('guarantorssection.guarantor-delete-failed'), null)
-    }
-  ).finally(() => {
-    isRemoveGuarantor.value = false
-  })
+  store
+    .deleteGuarantor(props.user as Guarantor)
+    .then(
+      () => {
+        toast.success(t('guarantorssection.guarantor-deleted'), null)
+      },
+      () => {
+        toast.error(t('guarantorssection.guarantor-delete-failed'), null)
+      }
+    )
+    .finally(() => {
+      isRemoveGuarantor.value = false
+    })
 }
 
 const guarantorIdentityLink = computed(() => {

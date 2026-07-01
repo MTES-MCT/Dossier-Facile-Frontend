@@ -1,5 +1,5 @@
 import { getInputByLabel } from "../../support/commands/global";
-import { getTenantUser, UserType } from "../../support/users";
+import { testAccount } from "../../support/testAccounts";
 
 describe(
   "residency category",
@@ -7,16 +7,9 @@ describe(
   () => {
     before("reset account, login and setup", () => {
       cy.clearAllCookies();
-      const user = getTenantUser();
-      cy.loginWithFCAndDeleteAccount(
-        user.username,
-        user.password,
-        UserType.TENANT,
-      );
-
-      cy.tenantLoginWithFC(user.username, user.password);
-      cy.rejectCookies();
-      cy.contains("Pour vous").click();
+      const account = testAccount("e2e-residency");
+      cy.createFreshTenant(account);
+      cy.fillTenantIdentity(account.firstname, account.lastname);
 
       createCotenant();
       createGuarantor();

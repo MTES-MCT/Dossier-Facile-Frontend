@@ -44,6 +44,7 @@
           rows="5"
           :placeholder="t('explain-placeholder')"
           aria-describedby="explainText-error explainText-info"
+          @blur="onExplainBlur"
         />
         <p v-if="showExplainError" id="explainText-error" class="fr-error-text">
           {{ t('explain-error') }}
@@ -62,6 +63,7 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { DsfrBadge, DsfrButton } from '@gouvminint/vue-dsfr'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
+import debounce from 'lodash.debounce'
 import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AnalysisBanners from '../analysis/AnalysisBanners.vue'
@@ -70,6 +72,7 @@ import { toast } from '../toast/toastUtils'
 
 const POLLING_INTERVAL_MS = 3000
 const POLLING_TIMEOUT_MS = 10000
+const SAVE_DEBOUNCE_MS = 1000
 
 const props = withDefaults(
   defineProps<{
@@ -98,7 +101,7 @@ const showExplainError = ref(false)
 const explainText = ref('')
 const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
 const explanationSubmitted = ref(false)
-const isSaving = ref(false)
+let pendingSave: Promise<boolean> | null = null
 
 const analysisErrorCount = computed(() => analysisFailedRules.value?.length ?? 0)
 const isBusy = computed(() => analysisInProgress.value || props.isUploading)
@@ -160,8 +163,50 @@ function stopPolling() {
   }
 }
 
+async function persistExplanation(): Promise<boolean> {
+  const documentId = document.value?.id
+  if (!documentId || !showExplainForm.value || !explainText.value.trim()) {
+    return true
+  }
+  const savedComment = document.value?.documentAnalysisReport?.comment || ''
+  if (explainText.value === savedComment) {
+    return true
+  }
+  const params = {
+    documentId,
+    tenantId: store.user.id,
+    comment: explainText.value
+  }
+  AnalyticsService.document_analysis_save_comment(document.value?.documentCategory ?? 'NULL')
+  try {
+    await store.saveDocumentComment(params)
+    explanationSubmitted.value = true
+    toast.success(t('explanation-saved'), undefined)
+    return true
+  } catch {
+    toast.error(t('save-error'), undefined)
+    return false
+  }
+}
+
+// Chain after any in-flight save so concurrent triggers never race
+function scheduleSave() {
+  pendingSave = Promise.resolve(pendingSave).then(persistExplanation)
+}
+
+const debouncedSave = debounce(scheduleSave, SAVE_DEBOUNCE_MS)
+
+function onExplainBlur() {
+  debouncedSave.flush()
+}
+
+watch(explainText, () => {
+  debouncedSave()
+})
+
 onBeforeUnmount(() => {
   stopPolling()
+  debouncedSave.cancel()
 })
 
 function startPolling() {
@@ -229,40 +274,20 @@ async function openExplainSection(isFromLink: boolean = true) {
   explainTextarea.value?.focus()
 }
 
-async function saveExplanation() {
-  if (isSaving.value) return
-  if (!showExplainForm.value || !explainText.value.trim()) {
-    return
-  }
-  const savedComment = document.value?.documentAnalysisReport?.comment || ''
-  if (explainText.value === savedComment) {
-    return
-  }
-  isSaving.value = true
-  const params = {
-    documentId: document.value?.id,
-    tenantId: store.user.id,
-    comment: explainText.value
-  }
-  AnalyticsService.document_analysis_save_comment(document.value?.documentCategory ?? 'NULL')
-  try {
-    await store.commentAnalysis(params)
-    explanationSubmitted.value = true
-  } catch {
-    toast.error(t('save-error'), undefined)
+async function saveExplanation(): Promise<void> {
+  debouncedSave.flush()
+  if ((await pendingSave) === false) {
     throw new Error('save-failed')
-  } finally {
-    isSaving.value = false
   }
 }
 
 function beforeSubmit(): boolean {
   if (isBusy.value) return false
-  if (analysisErrorCount.value > 0 && !explanationSubmitted.value) {
+  if (analysisErrorCount.value > 0) {
     if (showExplainForm.value && explainText.value.trim()) {
       return true
     }
-    if (showExplainForm.value && !explainText.value.trim()) {
+    if (showExplainForm.value) {
       showExplainError.value = true
       explainTextarea.value?.focus()
       return false
@@ -326,7 +351,8 @@ function beforeSubmit(): boolean {
     "explain-placeholder": "Enter text",
     "explain-info": "This explanation will be sent to our team only. It will not appear in your tenant file.",
     "explain-error": "Please describe your situation before continuing.",
-    "save-error": "An error occurred while saving your explanation."
+    "save-error": "An error occurred while saving your explanation.",
+    "explanation-saved": "Explanation saved"
   },
   "fr": {
     "errors-count": "{count} erreur à corriger | {count} erreurs à corriger",
@@ -338,7 +364,8 @@ function beforeSubmit(): boolean {
     "explain-placeholder": "Texte saisi",
     "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
     "explain-error": "Veuillez décrire votre situation avant de continuer.",
-    "save-error": "Erreur lors de l'enregistrement de votre explication."
+    "save-error": "Erreur lors de l'enregistrement de votre explication.",
+    "explanation-saved": "Explication enregistrée"
   }
 }
 </i18n>

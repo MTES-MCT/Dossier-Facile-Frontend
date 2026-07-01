@@ -184,7 +184,8 @@
       "short": {
         "tax-bad-classification": "Mauvais document détecté",
         "tax-wrong-names": "Le nom ne correspond pas",
-        "tax-wrong-year": "Document trop ancien"
+        "tax-wrong-year": "Document trop ancien",
+        "generic-classification": "Mauvais document détecté"
       }
     }
   },
@@ -1007,13 +1008,10 @@
   "step": "étape",
   "page-titles": {
     "Home": "Accueil",
-
     "ChooseTenantIdentity": "Identité - @:page-titles.base.steps.1of2",
     "SelfTenantIdentity": "Votre identité - @:page-titles.base.steps.2of2",
     "ThirdPartyTenantIdentity": "Identité du bénéficiaire - @:page-titles.base.steps.2of2",
-
     "TenantType": "Type de dossier",
-
     "base": {
       "steps": {
         "1of2": "étape 1 sur 2",
@@ -1118,14 +1116,12 @@
         "nonRenseigne": "Non renseignée"
       }
     },
-
     "TenantIdentity": "Votre identité",
     "TenantResidency": "Votre situation d'hébergement",
     "TenantProfessional": "Votre situation professionnelle",
     "TenantFinancial": "Vos revenus",
     "TenantRevAdd": "Ajouter des revenus",
     "TenantTax": "Votre imposition",
-
     "Couple": "Votre conjoint",
     "CoupleName": "Identité du conjoint",
     "CoupleResidency": "Hébergement du conjoint",
@@ -1133,7 +1129,6 @@
     "CoupleFinancial": "Revenus du conjoint",
     "CoupleRevAdd": "Ajouter les revenus du conjoint",
     "CoupleTax": "Imposition du conjoint",
-
     "GuarantorChoice": "Ajouter des garants",
     "GuarantorList": "Mes garants",
     "Guarantors": "Garant",
@@ -1143,7 +1138,6 @@
     "GuarantorFinancial": "Revenus du garant",
     "GuarantorRevAdd": "Ajouter les revenus du garant",
     "GuarantorTax": "Imposition du garant",
-
     "TenantGuarantorList": "Ajouter les garants du conjoint",
     "TenantGuarantors": "Garants du conjoint",
     "TenantGuarantorIdentity": "Identité garant du conjoint",
@@ -1152,10 +1146,8 @@
     "TenantGuarantorFinancial": "Revenus garant du conjoint",
     "TenantGuarantorRevAdd": "Ajouter les revenus du garant",
     "TenantGuarantorTax": "Imposition garant du conjoint",
-
     "ValidateFile": "Validation du dossier",
     "ValidateFileStep": "Validation du dossier",
-
     "File": "Fichier",
     "PublicFile": "Fichier public",
     "MyFile": "Mon dossier",

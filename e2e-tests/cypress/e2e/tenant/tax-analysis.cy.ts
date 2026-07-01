@@ -1,18 +1,14 @@
-import { getTenantUser, UserType } from "../../support/users";
+import { testAccount } from "../../support/testAccounts";
 
 describe("tax document analysis", () => {
-  const user = getTenantUser();
+  const account = testAccount("e2e-tax");
 
   beforeEach(() => {
-    cy.loginWithFCAndDeleteAccount(
-      user.username,
-      user.password,
-      UserType.TENANT,
-    );
+    cy.createTestAccount(account);
   });
 
   it("shows analysis errors and allows explanation", () => {
-    cy.gotoTenantDocumentsPage(user);
+    cy.gotoTenantDocumentsPage(account);
 
     cy.get("#funnel-menu").contains("Avis d'imposition").click();
     cy.expectPath("/documents-locataire/5");
@@ -28,7 +24,7 @@ describe("tax document analysis", () => {
   });
 
   it("does not auto-focus banners when returning to page with existing errors", () => {
-    cy.gotoTenantDocumentsPage(user);
+    cy.gotoTenantDocumentsPage(account);
 
     cy.get("#funnel-menu").contains("Avis d'imposition").click();
     cy.expectPath("/documents-locataire/5");
@@ -58,7 +54,7 @@ describe("tax document analysis", () => {
   });
 
   it("shows error toast when uploading an avis de situation déclarative", () => {
-    cy.gotoTenantDocumentsPage(user);
+    cy.gotoTenantDocumentsPage(account);
 
     cy.get("#funnel-menu").contains("Avis d'imposition").click();
     cy.expectPath("/documents-locataire/5");

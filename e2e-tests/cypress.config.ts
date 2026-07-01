@@ -1,6 +1,7 @@
 import { defineConfig } from "cypress";
 import { log } from "./cypress/support/accessibility";
 import { generatePayslipPdf } from "./cypress/tasks/generatePayslipPdf";
+import { forceFrenchLocale } from "./cypress/support/browserLocale";
 
 export default defineConfig({
   e2e: {
@@ -8,6 +9,10 @@ export default defineConfig({
     screenshotOnRunFailure: false,
     defaultCommandTimeout: 5000,
     setupNodeEvents(on) {
+      on("before:browser:launch", (browser, launchOptions) => {
+        forceFrenchLocale(browser, launchOptions);
+        return launchOptions;
+      });
       on("task", {
         ...log(),
         generatePayslipPdf,
@@ -22,7 +27,7 @@ export default defineConfig({
     ownerUrl: "http://localhost:3000",
     ownerUser: "laurent",
     boUrl: "http://localhost:8081",
-    aloneTenantEmail: "ywiwyne-1268@yopmail.com",
+    TESTMAIL_NAMESPACE: "local",
   },
   viewportWidth: 1200,
   viewportHeight: 800,

@@ -78,6 +78,17 @@ Cypress.Commands.add('ValidateAloneFile', (email: string) => {
   })
 })
 
+Cypress.Commands.add('declineAloneFile', (email: string, messageBody: string, documentCategories: string[] = []) => {
+  cy.request({
+    method: 'POST',
+    url: `${Cypress.env('boUrl')}/api/testing/tenant/${email}/decline`,
+    body: { messageBody, documentCategories },
+    failOnStatusCode: false
+  }).then((response) => {
+    expect(response.status).to.eq(200)
+  })
+})
+
 function ignoreErrorsOnSsoPage() {
   if (Cypress.env("configName") === "local") {
     cy.origin("https://sso-preprod.dossierfacile.fr", () => {
