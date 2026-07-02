@@ -30,7 +30,8 @@
       "@isaacs/brace-expansion": "5.0.1",
       "minimatch": "10.2.3",
       "rollup": "4.59.0",
-      "uuid": "14.0.0"
+      "uuid": "14.0.0",
+      "@cypress/request>uuid": "8.3.2"
     }
   }
 }
