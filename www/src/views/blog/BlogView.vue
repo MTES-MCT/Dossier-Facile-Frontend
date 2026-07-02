@@ -2,6 +2,18 @@
   <section class="blog">
     <h1>{{ t('blog-title') }}</h1>
     <ul>
+      <li>
+        <DsfrCard
+          title-tag="h3"
+          title="2 millions de comptes créés sur DossierFacile : une nouvelle étape majeure !"
+          description="DossierFacile franchit un cap symbolique avec plus de 2 millions de comptes créés. Une confiance renouvelée dans le service public et une adoption accélérée qui démontrent l'efficacité d'une startup d'État au service de l'intérêt général."
+          :img-src="article29Img"
+          img-ratio="sm"
+          end-detail="13 juin 2025"
+          link="/blog/2-millions-comptes-dossierfacile"
+          :horizontal="true"
+        />
+      </li>
       <BlogExtractTile
         title="2 millions de comptes créés sur DossierFacile : une nouvelle étape majeure !"
         :image="article29Img"
@@ -372,6 +384,7 @@ import article25Img from '@images/blog-article25.webp'
 import article29Img from '@images/blog-article29.png'
 
 import { useSeoMeta } from '@unhead/vue'
+import { DsfrCard } from '@gouvminint/vue-dsfr'
 
 useSeoMeta({
   title: 'Le blog de DossierFacile',

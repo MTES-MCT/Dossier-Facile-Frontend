@@ -3,9 +3,11 @@
     <div class="fr-card fr-enlarge-link fr-card--horizontal fr-card--horizontal-tier">
       <div class="fr-card__body">
         <div class="fr-card__content">
-          <router-link :to="path" class="fr-card__title color--secondary">
-            {{ title }}
-          </router-link>
+          <h2>
+            <router-link :to="path" class="fr-card__title color--secondary">
+              {{ title }}
+            </router-link>
+          </h2>
           <p class="fr-card__desc fr-text--md">
             <slot></slot>
           </p>
