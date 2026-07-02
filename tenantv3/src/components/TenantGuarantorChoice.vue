@@ -27,7 +27,7 @@
         <div class="fr-h5">
           {{ t('tenantguarantorchoice.visale-title') }}
         </div>
-        <img alt="logo visale" class="logo-visale" src="../assets/visale.svg" />
+        <img alt="" class="logo-visale" src="../assets/visale.svg" />
       </div>
       <p>{{ t('tenantguarantorchoice.visale-text') }}</p>
       <div style="text-align: right">
