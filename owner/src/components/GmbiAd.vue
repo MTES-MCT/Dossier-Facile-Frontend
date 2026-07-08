@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 
 const { t } = useI18n()
 </script>
