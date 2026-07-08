@@ -11,10 +11,10 @@ minimumReleaseAge: 2880 ## 48h
 
 catalog:
   # dependencies
-  axios: 1.15.2
+  axios: 1.18.1
   "@gouvfr/dsfr": 1.14.3
-  "@sentry/vue": 10.51.0
-  "@sentry/vite-plugin": 5.2.1
+  "@sentry/vue": 10.63.0
+  "@sentry/vite-plugin": 5.3.0
   pinia: 3.0.2
   vee-validate: 4.15.1
   "@vee-validate/rules": 4.15.1
