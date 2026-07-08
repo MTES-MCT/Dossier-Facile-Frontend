@@ -54,7 +54,7 @@
           </DsfrModalPatch>
         </div>
         <div class="fr-col-12 fr-mt-3w fr-mb-3w">
-          <FieldLabel for-input="email">
+          <FieldLabel for-input="email" required>
             {{ t('coupleinformation.spouseEmail') }}
           </FieldLabel>
           <Field
@@ -62,6 +62,7 @@
             v-model="coTenant.email"
             name="email"
             :rules="{
+              required: true,
               email: true,
               custom: user.email
             }"
