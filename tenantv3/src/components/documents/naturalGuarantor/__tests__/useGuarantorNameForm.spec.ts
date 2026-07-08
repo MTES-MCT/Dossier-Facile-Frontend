@@ -115,3 +115,57 @@ describe('save - error handling', () => {
     expect(onSuccess).not.toHaveBeenCalled()
   })
 })
+
+describe('email', () => {
+  it('pre-fills email from the guarantor', () => {
+    const { email } = setupComposable({
+      guarantor: makeGuarantor({ firstName: 'a', lastName: 'b', email: 'pre@example.fr' }),
+      onSuccess: vi.fn()
+    })
+
+    expect(email.value).toBe('pre@example.fr')
+  })
+
+  it('sends the email in the FormData', async () => {
+    mockSaveGuarantorName.mockResolvedValueOnce(undefined)
+    const { save, email } = setupComposable({
+      guarantor: makeGuarantor({ id: 7, firstName: 'a', lastName: 'b' }),
+      onSuccess: vi.fn()
+    })
+
+    email.value = 'garant@example.fr'
+    save()
+    await flushPromises()
+
+    const fd = mockSaveGuarantorName.mock.calls[0][0] as FormData
+    expect(fd.get('email')).toBe('garant@example.fr')
+  })
+
+  it('saves when only the email changed', async () => {
+    mockSaveGuarantorName.mockResolvedValueOnce(undefined)
+    const { save, email } = setupComposable({
+      guarantor: makeGuarantor({ firstName: 'a', lastName: 'b', email: 'old@example.fr' }),
+      onSuccess: vi.fn()
+    })
+
+    email.value = 'new@example.fr'
+    save()
+    await flushPromises()
+
+    expect(mockSaveGuarantorName).toHaveBeenCalledOnce()
+  })
+
+  it('does not call the store when nothing changed (email included)', async () => {
+    const onSuccess = vi.fn()
+    const { save } = setupComposable({
+      guarantor: makeGuarantor({ firstName: 'a', lastName: 'b', email: 'same@example.fr' }),
+      onSuccess
+    })
+
+    save()
+    await flushPromises()
+
+    expect(mockSaveGuarantorName).not.toHaveBeenCalled()
+    expect(onSuccess).toHaveBeenCalledOnce()
+  })
+})

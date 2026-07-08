@@ -619,6 +619,7 @@
     "lastname": "Nom de naissance",
     "preferredname": "Nom d'usage",
     "preferredname-hint": "Nom que vous utilisez au quotidien (ex : nom marital)",
+    "email": "Adresse électronique",
     "zipcode": "Code postal (uniquement si vous résidez en France)",
     "field-required": "Ce champ est requis",
     "title": "Votre identité",

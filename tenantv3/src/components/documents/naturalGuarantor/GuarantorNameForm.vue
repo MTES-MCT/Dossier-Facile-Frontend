@@ -29,6 +29,14 @@
           autocomplete="new-password"
           validation-rules="required|onlyAlpha"
         />
+        <TextField
+          v-model.trim="email"
+          name="email"
+          type="email"
+          :field-label="t('nameinformationform.email')"
+          autocomplete="email"
+          validation-rules="required|email"
+        />
       </div>
     </NakedCard>
     <GuarantorFooter ref="footer" @on-back="$emit('on-back')" />
@@ -62,7 +70,7 @@ const choiceKey = computed(() =>
   props.textKey === 'guarantor' ? 'guarantorchoice' : 'tenantguarantorchoice'
 )
 
-const { firstName, lastName, preferredName, save } = useGuarantorNameForm({
+const { firstName, lastName, preferredName, email, save } = useGuarantorNameForm({
   guarantor: toRef(props, 'guarantor'),
   tenantId: toRef(props, 'tenantId'),
   onSuccess: () => emit('on-saved')
