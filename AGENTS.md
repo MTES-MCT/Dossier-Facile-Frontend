@@ -50,3 +50,7 @@ Pour limiter les risques de régressions, évaluer l'impact sur chacun de ces ax
   - **Contenu dynamique** : ajouter le `role="status"` ou annoncer les changements via `aria-live="polite"`. 
   - Vérifier la navigation clavier et la présence du focus visible.
   - **Tests E2E** : Utiliser `axe-core` pour tester l'a11y sur le principaux scenarios
+
+## Documentation technique & Utilitaires
+
+- **Audit et correction de dépendances** : Référez-vous au guide [docs/dependency-audit.md](docs/dependency-audit.md) pour les instructions pas-à-pas sur la remédiation des vulnérabilités de dépendances avec Snyk.
