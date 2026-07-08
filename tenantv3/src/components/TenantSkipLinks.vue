@@ -1,12 +1,13 @@
 <template>
-  <SkipLinks :links="mySkipLinks"></SkipLinks>
+  <DsfrSkipLinks v-if="links" :links />
 </template>
 
 <script setup lang="ts">
-import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
+import { DsfrSkipLinks } from '@gouvminint/vue-dsfr'
+
 const route = useRoute()
-const mySkipLinks = computed(() => route.meta.skipLinks)
+const links = computed(() => route.meta.skipLinks?.links)
 </script>

@@ -25,6 +25,7 @@
         :disabled
         :readonly
         :autocomplete
+        :inputmode
         :aria-describedby="describedBy"
         :aria-invalid="!meta.valid"
       />
@@ -40,7 +41,7 @@ import { useI18n } from 'vue-i18n'
 import { Field, ErrorMessage } from 'vee-validate'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 import HintText from '@/components/common/HintText.vue'
-import { computed } from 'vue'
+import { computed, type HTMLAttributes } from 'vue'
 
 const i18n = useI18n()
 
@@ -61,6 +62,7 @@ const props = withDefaults(
     disabled?: boolean
     readonly?: boolean
     autocomplete?: string
+    inputmode?: HTMLAttributes['inputmode']
     hint?: string
   }>(),
   {
@@ -69,6 +71,7 @@ const props = withDefaults(
     disabled: false,
     readonly: false,
     autocomplete: 'off',
+    inputmode: 'text',
     hint: ''
   }
 )
