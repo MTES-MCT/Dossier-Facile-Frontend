@@ -20,6 +20,7 @@ export function useGuarantorNameForm(opts: Options) {
   const firstName = ref<string>('')
   const lastName = ref<string>('')
   const preferredName = ref<string>('')
+  const email = ref<string>('')
   const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 
   onBeforeMount(() => {
@@ -27,13 +28,15 @@ export function useGuarantorNameForm(opts: Options) {
     firstName.value = g?.firstName || ''
     lastName.value = g?.lastName || ''
     preferredName.value = g?.preferredName || ''
+    email.value = g?.email || ''
   })
 
   function isUnchanged(g: Guarantor | null | undefined) {
     return (
       firstName.value === (g?.firstName || '') &&
       lastName.value === (g?.lastName || '') &&
-      preferredName.value === (g?.preferredName || '')
+      preferredName.value === (g?.preferredName || '') &&
+      email.value === (g?.email || '')
     )
   }
 
@@ -49,6 +52,7 @@ export function useGuarantorNameForm(opts: Options) {
       'preferredName',
       preferredName.value ? UtilsService.capitalize(preferredName.value) : ''
     )
+    formData.append('email', email.value)
     if (g?.id) {
       formData.append('guarantorId', g.id.toString())
     }
@@ -84,5 +88,5 @@ export function useGuarantorNameForm(opts: Options) {
       })
   }
 
-  return { firstName, lastName, preferredName, fileUploadStatus, save }
+  return { firstName, lastName, preferredName, email, fileUploadStatus, save }
 }

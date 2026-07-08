@@ -6,6 +6,7 @@ export class Guarantor {
   lastName?: string
   firstName?: string
   preferredName?: string
+  email?: string
   typeGuarantor?: 'NATURAL_PERSON' | 'LEGAL_PERSON' | 'ORGANISM'
   legalPersonName?: string
 
