@@ -22,15 +22,20 @@
     ],
     "overrides": {
       "glob": "13.0.0",
-      "systeminformation": "5.31.0",
+      "systeminformation": "5.31.6",
       "js-yaml": "4.1.1",
       "follow-redirects": "1.16.0",
       "picomatch": "2.3.2",
       "postcss": "8.5.13",
       "@isaacs/brace-expansion": "5.0.1",
+      "brace-expansion": "5.0.7",
       "minimatch": "10.2.3",
       "rollup": "4.59.0",
-      "uuid": "14.0.0"
+      "uuid": "14.0.0",
+      "@cypress/request>uuid": "8.3.2",
+      "@babel/core": "7.29.6",
+      "form-data": "4.0.6",
+      "tmp": "0.2.7"
     }
   }
 }

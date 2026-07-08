@@ -20,7 +20,7 @@
     "@types/js-cookie": "3.0.6",
     "axios": "catalog:",
     "df-shared-next": "workspace:*",
-    "js-cookie": "3.0.5",
+    "js-cookie": "3.0.8",
     "pinia": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:",
