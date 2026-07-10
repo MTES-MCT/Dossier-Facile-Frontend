@@ -87,6 +87,12 @@ defineRule('email', (value: string | undefined | null) => {
   }
   return true
 })
+defineRule('differentFrom', (value: string | undefined | null, [other]: string[]) => {
+  if (value && other && value.toLowerCase() === other.toLowerCase()) {
+    return 'same-email-not-valid'
+  }
+  return true
+})
 defineRule('strength', (_value: unknown, [score]: number[]) => {
   if (score < 2) {
     return 'strength-not-valid'

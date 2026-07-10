@@ -3,6 +3,7 @@ import { testAccount } from "../../support/testAccounts";
 
 describe("couple tenant scenario", () => {
   const account = testAccount("e2e-couple");
+  const spouseEmail = `conjoint-${Math.floor(Math.random() * 100000)}@yopmail.fr`;
 
   it("validate file", () => {
     cy.createFreshTenant(account);
@@ -12,6 +13,8 @@ describe("couple tenant scenario", () => {
     cy.contains("En couple").click();
     cy.get('input[name="coTenantLastName"]').type("Martin");
     cy.get('input[name="coTenantFirstName"]').type("Louise");
+    cy.get('input[name="email"]').type(spouseEmail);
+    cy.get('label[for="authorize"]').click();
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");
