@@ -36,6 +36,10 @@ Ce frontend échange avec 3 API du repo backend:
 - watermark -> api-watermark
 Le modèle de donnée et les différents statuts du dossier sont définis dans le `AGENTS.md` du repo backend
 
+## Modèle partagé frontend
+
+- **Garant personne physique** : le modèle `Guarantor` (`df-shared-next/src/models/Guarantor.ts`) expose `firstName`, `lastName`, `preferredName` et `email`. Dans `tenantv3`, l'étape d'identité d'un garant personne physique collecte et envoie le prénom, le nom de naissance et l'adresse électronique comme champs obligatoires ; le nom d'usage reste facultatif.
+
 ## Points d'attention avant tout dev
 
 Pour limiter les risques de régressions, évaluer l'impact sur chacun de ces axes ; le traiter ou le justifier.
