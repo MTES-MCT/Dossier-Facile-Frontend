@@ -10,6 +10,7 @@ import type { DocumentRule } from './DocumentRule'
 export class User {
   id!: number
   ownerType?: 'SELF' | 'THIRD_PARTY'
+  beneficiaryEmail?: string
   firstName?: string
   lastName?: string
   preferredName?: string
