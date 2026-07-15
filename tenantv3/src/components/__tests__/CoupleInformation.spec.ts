@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
+import { defineComponent } from 'vue'
 import CoupleInformation from '../CoupleInformation.vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 
@@ -9,7 +10,12 @@ vi.mock('vue-i18n', () => ({
 }))
 
 vi.mock('@gouvminint/vue-dsfr', () => ({
-  DsfrButton: { template: '<button><slot /></button>' }
+  DsfrButton: { template: '<button><slot /></button>' },
+  DsfrCheckbox: {
+    template:
+      '<input :id="id" type="checkbox" :checked="modelValue === true" :data-readonly="readonly ? \'true\' : undefined" />',
+    props: ['id', 'name', 'required', 'value', 'label', 'errorMessage', 'modelValue', 'readonly']
+  }
 }))
 
 const { mockUser } = vi.hoisted(() => {
@@ -32,39 +38,28 @@ vi.mock('@/stores/tenant-store', () => ({
 
 // TextField stub intentionally omits 'input' from emits so that the parent's
 // @input listener falls through to the root <input> via Vue 3 attribute
-// fallthrough — matching the real TextField's behavior.
+// fallthrough — matching the real TextField's behavior. It also exposes its
+// validation rules as a data attribute so tests can assert them.
 const stubs = {
   NakedCard: { template: '<div><slot /></div>' },
-  TextField: {
-    template: '<input :value="modelValue" :disabled="disabled" @input="onInput" />',
-    props: ['modelValue', 'fieldLabel', 'name', 'validationRules', 'disabled'],
+  TextField: defineComponent({
+    template:
+      '<input :id="name" :data-rules="validationRules" :value="modelValue" :disabled="disabled" @input="onInput" />',
+    props: ['modelValue', 'fieldLabel', 'name', 'validationRules', 'disabled', 'hint', 'type'],
     emits: ['update:modelValue'],
     methods: {
-      onInput(e: InputEvent) {
+      onInput(e: Event) {
         this.$emit('update:modelValue', (e.target as HTMLInputElement).value)
       }
     }
-  },
-  FieldLabel: { template: '<label><slot /></label>' },
+  }),
   CoupleInformationHelp: { template: '<div />' },
   DsfrModalPatch: { template: '<div />' },
   Field: {
-    template: '<div><slot :field="fieldBindings" :meta="{ valid: true }" /></div>',
+    template: '<div><slot :errors="[]" :meta="{ valid: true }" /></div>',
     props: ['modelValue', 'name', 'rules', 'type', 'value'],
-    emits: ['update:modelValue'],
-    computed: {
-      fieldBindings() {
-        const self = this as any
-        return {
-          value: self.modelValue,
-          onInput(e: InputEvent) {
-            self.$emit('update:modelValue', (e.target as HTMLInputElement).value)
-          }
-        }
-      }
-    }
-  },
-  ErrorMessage: { template: '<span />' }
+    emits: ['update:modelValue']
+  }
 }
 
 describe('CoupleInformation', () => {
@@ -78,11 +73,12 @@ describe('CoupleInformation', () => {
 
   it('includes email in model when filling the form from scratch', async () => {
     const wrapper = mount(CoupleInformation, {
-      props: { hasSubmited: false, modelValue: [] },
+      props: { modelValue: [] },
       global: { stubs }
     })
 
-    const [lastNameInput, firstNameInput] = wrapper.findAll('input').slice(0, 2)
+    const lastNameInput = wrapper.find('#coTenantLastName')
+    const firstNameInput = wrapper.find('#coTenantFirstName')
     const emailInput = wrapper.find('#email')
 
     await lastNameInput.setValue('Dupont')
@@ -118,14 +114,15 @@ describe('CoupleInformation', () => {
     }
 
     const wrapper = mount(CoupleInformation, {
-      props: { hasSubmited: false, modelValue: [] },
+      props: { modelValue: [] },
       global: { stubs }
     })
     await flushPromises()
 
-    const [lastNameInput, firstNameInput] = wrapper.findAll('input').slice(0, 2)
-    expect(lastNameInput.element.disabled).toBe(true)
-    expect(firstNameInput.element.disabled).toBe(true)
+    const lastNameInput = wrapper.find('#coTenantLastName')
+    const firstNameInput = wrapper.find('#coTenantFirstName')
+    expect((lastNameInput.element as HTMLInputElement).disabled).toBe(true)
+    expect((firstNameInput.element as HTMLInputElement).disabled).toBe(true)
 
     const emailInput = wrapper.find('#email')
     await emailInput.setValue('marie@example.com')
@@ -136,5 +133,81 @@ describe('CoupleInformation', () => {
     expect(lastEmit[0].email).toBe('marie@example.com')
     expect(lastEmit[0].firstName).toBe('Marie')
     expect(lastEmit[0].lastName).toBe('Dupont')
+  })
+
+  it('requires the email and rejects the main tenant own email', () => {
+    const wrapper = mount(CoupleInformation, {
+      props: { modelValue: [] },
+      global: { stubs }
+    })
+
+    expect(wrapper.find('#email').attributes('data-rules')).toBe(
+      'required|email|differentFrom:main@example.com'
+    )
+  })
+
+  it('does not require the email once the co-tenant account exists', async () => {
+    mockUser.value = {
+      id: 1,
+      email: 'main@example.com',
+      apartmentSharing: {
+        tenants: [
+          { id: 1, email: 'main@example.com', guarantors: [] },
+          { id: 42, firstName: 'Marie', lastName: 'Dupont', email: 'spouse@example.com', guarantors: [] }
+        ]
+      }
+    }
+
+    const wrapper = mount(CoupleInformation, {
+      props: { modelValue: [] },
+      global: { stubs }
+    })
+    await flushPromises()
+
+    const emailInput = wrapper.find('#email')
+    expect(emailInput.attributes('data-rules')).toBe('email')
+    expect((emailInput.element as HTMLInputElement).disabled).toBe(true)
+  })
+
+  it('hides the consent block when the co-tenant account already exists', async () => {
+    mockUser.value = {
+      id: 1,
+      email: 'main@example.com',
+      apartmentSharing: {
+        tenants: [
+          { id: 1, email: 'main@example.com', guarantors: [] },
+          { id: 42, firstName: 'Marie', lastName: 'Dupont', email: 'spouse@example.com', guarantors: [] }
+        ]
+      }
+    }
+
+    const wrapper = mount(CoupleInformation, {
+      props: { modelValue: [] },
+      global: { stubs }
+    })
+    await flushPromises()
+
+    expect(wrapper.find('#authorize').exists()).toBe(false)
+  })
+
+  it('asks for the consent when the co-tenant is not invited yet', () => {
+    const wrapper = mount(CoupleInformation, {
+      props: { modelValue: [] },
+      global: { stubs }
+    })
+
+    const checkbox = wrapper.find('#authorize')
+    expect(checkbox.exists()).toBe(true)
+    expect((checkbox.element as HTMLInputElement).checked).toBe(false)
+  })
+
+  it('renders the consent details as a list outside the checkbox label', () => {
+    const wrapper = mount(CoupleInformation, {
+      props: { modelValue: [] },
+      global: { stubs }
+    })
+
+    const items = wrapper.find('ul').findAll('li')
+    expect(items.map((li) => li.text())).toEqual(['acceptAuthorAccess', 'acceptAuthorShare'])
   })
 })

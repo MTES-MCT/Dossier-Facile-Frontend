@@ -94,7 +94,17 @@
         />
       </div>
     </div>
-    <div v-if="step === 4 && isCouple()" id="tcontainer" class="menu-grid-row">
+    <div
+      v-if="
+        step === 4 &&
+        isCouple() &&
+        coTenants[0]?.firstName &&
+        coTenants[0]?.lastName &&
+        coTenants[0]?.email
+      "
+      id="tcontainer"
+      class="menu-grid-row"
+    >
       <CoTenantDocumentLink
         class="ml-5"
         :co-tenant="coTenants[0]"
