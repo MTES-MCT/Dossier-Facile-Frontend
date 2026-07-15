@@ -4,47 +4,18 @@
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
           <h1 class="fr-h4">
-            {{ t('coupleinformation.partner-name-title') }}
-          </h1>
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
-          <TextField
-            v-model.trim="coTenant.lastName"
-            :field-label="t('coupleinformation.spouseLastName')"
-            name="coTenantLastName"
-            validation-rules="required|onlyAlpha"
-            :disabled="disableNameFields"
-            @input="handleInput"
-          />
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
-          <TextField
-            v-model.trim="coTenant.firstName"
-            :field-label="t('coupleinformation.spouseFirstName')"
-            name="coTenantFirstName"
-            validation-rules="required|onlyAlpha"
-            :disabled="disableNameFields"
-            @input="handleInput"
-          />
-        </div>
-      </div>
-    </NakedCard>
-    <NakedCard class="fr-p-md-5w fr-mb-2w">
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12">
-          <h1 class="fr-h4">
-            {{ t('coupleinformation.partner-email-title') }}
+            {{ t('partner-email-title') }}
           </h1>
           <DsfrButton
             tertiary
             size="sm"
             type="button"
-            :label="t('coupleinformation.more-information')"
+            :label="t('more-information')"
             @click="isModalOpened = true"
           />
           <DsfrModalPatch
             v-model:is-opened="isModalOpened"
-            :title="t('coupleinformation.more-information')"
+            :title="t('more-information')"
             icon="ri:arrow-right-line"
             :is-alert="isAlert"
           >
@@ -53,72 +24,64 @@
             </template>
           </DsfrModalPatch>
         </div>
-        <div class="fr-col-12 fr-mt-3w fr-mb-3w">
-          <FieldLabel for-input="email">
-            {{ t('coupleinformation.spouseEmail') }}
-          </FieldLabel>
-          <Field
-            v-slot="{ field, meta }"
-            v-model="coTenant.email"
+        <div class="fr-col-12 fr-mt-3w">
+          <TextField
+            v-model.trim="coTenant.lastName"
+            :field-label="t('spouseLastName')"
+            name="coTenantLastName"
+            validation-rules="required|onlyAlpha"
+            :disabled="disableNameFields"
+            @input="handleInput"
+          />
+        </div>
+        <div class="fr-col-12 fr-mt-3w">
+          <TextField
+            v-model.trim="coTenant.firstName"
+            :field-label="t('spouseFirstName')"
+            name="coTenantFirstName"
+            validation-rules="required|onlyAlpha"
+            :disabled="disableNameFields"
+            @input="handleInput"
+          />
+        </div>
+        <div class="fr-col-12 fr-mt-3w">
+          <TextField
+            v-model.trim="coTenant.email"
+            :field-label="t('spouseEmail')"
             name="email"
-            :rules="{
-              email: true,
-              custom: user.email
-            }"
-          >
-            <input
-              id="email"
-              ref="email-input"
-              v-bind="field"
-              :aria-describedby="hasSubmited ? 'email-errors' : undefined"
-              :aria-invalid="hasSubmited && !meta.valid"
-              class="validate-required form-control fr-input"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              placeholder="nom@exemple.fr"
-              type="email"
-              :disabled="disableEmailField"
-              @input="handleInput"
-            />
-          </Field>
-          <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="email">
-            <span id="email-errors" class="fr-error-text">{{ t(message || '') }}</span>
-          </ErrorMessage>
+            type="email"
+            :validation-rules="emailRules"
+            :disabled="disableEmailField"
+            @input="handleInput"
+          />
         </div>
       </div>
-      <div ref="checkboxauthorize" class="fr-grid-row fr-grid-row--center">
+      <!-- The consent was already given when the co-tenant account was created -->
+      <div v-if="!disableEmailField" class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12 fr-mt-3w">
-          <div class="bg-purple fr-checkbox-group">
+          <div class="bg-purple fr-p-2w">
             <Field
-              v-slot="{ field, meta }"
+              v-slot="{ errors }"
               v-model="authorize"
               name="authorize"
               type="checkbox"
-              :rules="{
-                isTrue: coTenant?.email?.length > 0 ? true : false
-              }"
+              :rules="{ isTrue: true }"
               :value="true"
             >
-              <input
+              <DsfrCheckbox
                 id="authorize"
-                type="checkbox"
-                :required="coTenant?.email?.length > 0 ? true : false"
-                v-bind="field"
-                :aria-describedby="hasSubmited ? 'auth-errors' : undefined"
-                :aria-invalid="hasSubmited && !meta.valid"
-                :class="{
-                  'fr-input--valid': meta.valid,
-                  'fr-input--error': !meta.valid
-                }"
+                v-model="authorize"
+                name="authorize"
+                :value="true"
+                :label="t('acceptAuthor')"
+                :error-message="errors[0] ? t(errors[0]) : ''"
                 @change="updateAuthorize"
               />
-              <label for="authorize" v-html="t('coupleinformation.acceptAuthor')" />
             </Field>
-            <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="authorize">
-              <span id="auth-errors" class="fr-error-text">{{ t(message || '') }}</span>
-            </ErrorMessage>
+            <ul class="fr-mb-0">
+              <li>{{ t('acceptAuthorAccess') }}</li>
+              <li>{{ t('acceptAuthorShare') }}</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -130,34 +93,18 @@
 import { User } from 'df-shared-next/src/models/User'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import CoupleInformationHelp from './helps/CoupleInformationHelp.vue'
-import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
-import { computed, onMounted, ref, useTemplateRef } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
-import { Field, ErrorMessage, defineRule } from 'vee-validate'
+import { Field } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
-import { DsfrButton } from '@gouvminint/vue-dsfr'
+import { DsfrButton, DsfrCheckbox } from '@gouvminint/vue-dsfr'
 import TextField from './form/TextField.vue'
-
-interface Props {
-  hasSubmited: boolean
-}
-
-defineProps<Props>()
-
-defineRule('custom', (v1: string, [v2]: string[]) => {
-  if (v1 === v2) {
-    return 'same-email-not-valid'
-  }
-  return true
-})
 
 const { t } = useI18n()
 const store = useTenantStore()
-const emailInput = useTemplateRef('email-input')
 
-defineExpose({ emailInput })
 const user = computed(() => store.user)
 
 const coTenant = ref<CoTenant>(new User())
@@ -165,14 +112,17 @@ const coTenants = defineModel<CoTenant[]>({
   default: () => []
 })
 const authorize = ref(false)
-const showCheckBox = ref(false)
 const disableNameFields = ref(false)
 const disableEmailField = ref(false)
-const checkboxauthorize = ref()
 
 // modal logic
 const isModalOpened = ref(false)
 const isAlert = ref(false)
+
+// The email cannot be changed once the co-tenant account is created
+const emailRules = computed(() =>
+  disableEmailField.value ? 'email' : `required|email|differentFrom:${user.value.email}`
+)
 
 onMounted(() => {
   if ((user.value.apartmentSharing?.tenants.length || 0) > 1) {
@@ -185,8 +135,6 @@ onMounted(() => {
     }
     if (coTenant.value.email?.length > 0) {
       disableEmailField.value = true
-      showCheckBox.value = true
-      authorize.value = store.spouseAuthorize
     }
   }
 })
@@ -241,3 +189,28 @@ function updateAuthorize() {
   }
 }
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "spouseFirstName": "First Name",
+    "spouseLastName": "Last Name",
+    "spouseEmail": "Email",
+    "acceptAuthor": "I agree that my co-tenant:",
+    "acceptAuthorAccess": "will have access to my documents and those of my guarantor, if applicable, once both of our applications have been validated.",
+    "acceptAuthorShare": "may share the documents in our application with landlords, lessors or property services that are partners of DossierFacile.",
+    "partner-email-title": "Your co-tenant's contact details",
+    "more-information": "How does it work?"
+  },
+  "fr": {
+    "spouseFirstName": "Prénom",
+    "spouseLastName": "Nom",
+    "spouseEmail": "Email",
+    "acceptAuthor": "J’accepte que mon conjoint :",
+    "acceptAuthorAccess": "ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés.",
+    "acceptAuthorShare": "puisse partager les pièces de notre dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
+    "partner-email-title": "Les coordonnées de votre conjoint(e)",
+    "more-information": "Comment ça marche ?"
+  }
+}
+</i18n>
