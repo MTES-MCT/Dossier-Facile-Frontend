@@ -1,5 +1,5 @@
 import { getInputByLabel } from "../../support/commands/global";
-import { testAccount } from "../../support/testAccounts";
+import { testAccount, testEmail } from "../../support/testAccounts";
 
 describe(
   "residency category",
@@ -164,6 +164,7 @@ describe(
 
       cy.get("#lastname").type("Dupont");
       cy.get("#firstname").type("Jean");
+      cy.get("#email").type(testEmail("e2e-residency-garant"));
       cy.clickOnNext();
     }
 
