@@ -1,5 +1,5 @@
 import { getInputByLabel } from "../../support/commands/global";
-import { testAccount } from "../../support/testAccounts";
+import { testAccount, testEmail } from "../../support/testAccounts";
 
 describe("alone tenant scenario", () => {
   const account = testAccount("e2e-alone");
@@ -124,6 +124,9 @@ function createGuarantor(firstname: string, lastname: string) {
   cy.expectPath("/info-garant/0");
   cy.get("#lastname").clear().type(lastname);
   cy.get("#firstname").clear().type(firstname);
+  cy.get("#email")
+    .clear()
+    .type(testEmail(`e2e-alone-garant-${firstname.toLowerCase()}`));
   cy.clickOnNext();
 
   cy.expectPath("/info-garant/1");

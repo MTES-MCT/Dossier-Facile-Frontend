@@ -1,6 +1,5 @@
 import { defineConfig } from "cypress";
 import { log } from "./cypress/support/accessibility";
-import { generatePayslipPdf } from "./cypress/tasks/generatePayslipPdf";
 import { forceFrenchLocale } from "./cypress/support/browserLocale";
 
 export default defineConfig({
@@ -15,7 +14,6 @@ export default defineConfig({
       });
       on("task", {
         ...log(),
-        generatePayslipPdf,
       });
     },
   },
