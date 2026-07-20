@@ -39,7 +39,7 @@ Le modèle de donnée et les différents statuts du dossier sont définis dans l
 ## Règles métier tenantv3
 
 - **Dossiers créés pour un tiers** : quand `ownerType` vaut `THIRD_PARTY`, l'adresse email du bénéficiaire (`User.beneficiaryEmail`) est obligatoire et transmise avec l'identité. Elle est vidée pour les dossiers créés en nom propre (`SELF`).
-- **Dossiers en couple** : l'email du conjoint est obligatoire pour créer l'invitation, doit être différent de l'email du locataire principal, et conditionne l'accès aux étapes documents du conjoint avec le prénom et le nom. Une fois le compte conjoint créé, cet email n'est plus modifiable côté formulaire.
+- **Dossiers en couple** : l'email du conjoint est obligatoire pour créer l'invitation, doit être différent de l'email du locataire principal, et conditionne l'affichage des liens de documents du conjoint avec le prénom et le nom. Une fois le compte conjoint créé, cet email n'est plus modifiable côté formulaire.
 - **Garants physiques** : l'identité d'un garant de type `NATURAL_PERSON` inclut une adresse email obligatoire (`Guarantor.email`) en plus du nom, prénom et éventuel nom d'usage.
 
 ## Points d'attention avant tout dev
