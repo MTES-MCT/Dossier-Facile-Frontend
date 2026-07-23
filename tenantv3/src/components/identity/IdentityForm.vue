@@ -38,7 +38,9 @@
       :field-label="t(textKey + '.postal-code-label')"
       name="postalCode"
       autocomplete="postal-code"
+      inputmode="numeric"
       validation-rules="zipcode"
+      :hint="t('nameinformationform.zipcode-hint')"
     />
 
     <TextField
@@ -193,12 +195,12 @@ const onSubmit = () => {
     "self": {
       "title": "Your Identity",
       "france-connected": "You cannot change your identity while connected with France Connect.",
-      "postal-code-label": "Postal Code (only if you reside in France)"
+      "postal-code-label": "Postal Code, only if you reside in France"
     },
     "third-party": {
       "title": "Beneficiary's Identity",
       "checkbox-label": "I certify that I have obtained {lastName}'s consent to create and submit this file on their behalf. I attest that the information provided is accurate and that the documents submitted were obtained with their consent.",
-      "postal-code-label": "Postal Code (only if he reside in France)",
+      "postal-code-label": "Postal Code, only if he reside in France",
       "email-label": "Beneficiary's email address"    }
   },
   "fr": {
@@ -212,12 +214,12 @@ const onSubmit = () => {
     "self": {
       "title": "Votre identité",
       "france-connected": "Vous ne pouvez pas modifier votre identité en étant connecté via France Connect.",
-      "postal-code-label": "Code postal (uniquement si vous résidez en France)"
+      "postal-code-label": "Code postal, uniquement si vous résidez en France"
     },
     "third-party": {
       "title": "Identité du bénéficiaire",
       "checkbox-label": "Je certifie avoir obtenu l'accord de {lastName} {firstName} pour constituer et soumettre ce dossier en son nom. J'atteste que les informations fournies sont exactes et que les documents transmis ont été obtenus avec son consentement.",
-      "postal-code-label": "Code postal (uniquement si il réside en France)",
+      "postal-code-label": "Code postal, uniquement si il réside en France",
       "email-label": "Adresse email du bénéficiaire"
     }
   }

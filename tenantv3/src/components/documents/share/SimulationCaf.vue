@@ -3,7 +3,13 @@
     <h2 class="fr-h6 fr-m-0">
       {{ t('simulationcaf.simulation-caf-title') }}
     </h2>
-    <img alt="" class="logo-caf" width="132" height="43" src="../../../assets/caf.svg" />
+    <img
+      alt="Allocations familiales"
+      class="logo-caf"
+      width="132"
+      height="43"
+      src="../../../assets/caf.svg"
+    />
 
     <p class="fr-mb-0">{{ t('simulationcaf.simulation-caf-text') }}</p>
 

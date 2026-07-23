@@ -1,14 +1,19 @@
 import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useTenantStore } from '@/stores/tenant-store'
-import { CONTENT, type SkipLink } from 'df-shared-next/src/models/SkipLink'
+import {
+  CONTENT,
+  FOOTER_NAVIGATION,
+  FUNNEL_SKIP_LINKS,
+  MAIN_NAV
+} from 'df-shared-next/src/models/SkipLink'
 import { keycloak } from '../plugin/keycloak'
 import Home from '../views/HomePage.vue'
-import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
 import { clearAllToasts } from '@/components/toast/toastUtils'
 import { i18n } from '@/i18n'
 import { computed } from 'vue'
+import type { DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL
@@ -21,7 +26,7 @@ declare module 'vue-router' {
     description?: string
     hideFooter?: boolean
     requiresAuth?: boolean
-    skipLinks?: SkipLink[]
+    skipLinks?: DsfrSkipLinksProps
     title?: string
     analyticsIgnore?: boolean
   }
@@ -529,7 +534,8 @@ export const router = createRouter({
       component: Home,
       meta: {
         description:
-          "Créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
+          "Créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement",
+        skipLinks: { links: [MAIN_NAV, CONTENT] }
       }
     },
     {
@@ -554,7 +560,7 @@ export const router = createRouter({
       meta: {
         requiresAuth: true,
         hideFooter: true,
-        skipLinks: [CONTENT, FOOTER_NAVIGATION]
+        skipLinks: { links: [CONTENT, FOOTER_NAVIGATION] }
       },
       beforeEnter: (to) => {
         const store = useTenantStore()
@@ -1011,7 +1017,8 @@ export const router = createRouter({
       path: '/mon-dossier',
       name: 'MyFile',
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
       component: () => import('../views/MyFile.vue')
     },
@@ -1019,7 +1026,8 @@ export const router = createRouter({
       path: '/account',
       name: 'Account',
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
       beforeEnter: () => {
         const store = useTenantStore()
@@ -1033,7 +1041,8 @@ export const router = createRouter({
       path: '/partages',
       name: 'SharingLinksPage',
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
       component: () => import('../views/SharingLinksPage.vue')
     },
@@ -1041,7 +1050,8 @@ export const router = createRouter({
       path: '/messaging',
       name: 'Messages',
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
       component: () => import('../views/MessagesPage.vue')
     },
@@ -1049,7 +1059,8 @@ export const router = createRouter({
       path: '/ajout-couple/:token',
       name: 'AddCouple',
       meta: {
-        analyticsIgnore: true
+        analyticsIgnore: true,
+        skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
       component: () => import('../views/JoinCouple.vue')
     },
@@ -1057,7 +1068,8 @@ export const router = createRouter({
       path: '/ajout-groupe/:token',
       name: 'AddGroup',
       meta: {
-        analyticsIgnore: true
+        analyticsIgnore: true,
+        skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
       component: () => import('../views/JoinGroup.vue')
     },
@@ -1074,7 +1086,8 @@ export const router = createRouter({
       path: '/contact',
       name: 'Contact',
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
       component: () => import('../views/ContactPage.vue')
     },

@@ -10,9 +10,15 @@ import { onBeforeMount } from 'vue'
 import cookies from 'js-cookie'
 import { useHead } from '@unhead/vue'
 import useWWWStore from './stores/www-store'
+import type { DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
+import { MAIN_NAV, CONTENT } from 'df-shared-next/src/models/SkipLink'
 
 const MESSAGE = import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''
 const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
+
+const links: DsfrSkipLinksProps = {
+  links: [MAIN_NAV, CONTENT]
+}
 
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
@@ -38,7 +44,7 @@ useHead({
 <template>
   <div class="cdn-background"></div>
   <ConsentHandler />
-  <SkipLinks />
+  <SkipLinks :links />
   <HeaderComponent>
     <WwwMenu />
   </HeaderComponent>

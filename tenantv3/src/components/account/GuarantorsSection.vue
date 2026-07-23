@@ -155,7 +155,7 @@
                   </div>
                 </div>
                 <div>
-                  <img alt="logo visale" class="logo-visale" src="../../assets/visale.svg" />
+                  <img alt="" class="logo-visale" src="../../assets/visale.svg" />
                 </div>
               </div>
               <div>{{ t('guarantorssection.visale-text') }}</div>

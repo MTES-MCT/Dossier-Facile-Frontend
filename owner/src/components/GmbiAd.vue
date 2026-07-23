@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 
 const { t } = useI18n()
 </script>
@@ -11,17 +10,15 @@ const { t } = useI18n()
     <div style="display: flex; justify-content: space-between">
       <div>
         <h2 class="fr-h6">{{ t('gmbi-ad.title') }}</h2>
-        <a href="https://cfspart.impots.gouv.fr/enp/gmbi.do">
-          <DfButton class="gmbi-button" :primary="true"
-            >{{ t('gmbi-ad.call-to-action') }}
-          </DfButton>
+        <a class="fr-btn gmbi-button" href="https://cfspart.impots.gouv.fr/enp/gmbi.do">
+          >{{ t('gmbi-ad.call-to-action') }}
         </a>
       </div>
       <img src="../assets/logo_GMBI.svg" alt="Gérer mes biens immobiliers" />
     </div>
     <div class="fr-mt-2w made-by">
       <span class="fr-text--sm">{{ t('gmbi-ad.made-by') }}</span>
-      <img src="../assets/logo_impots_gouv.svg" alt="Logo impots.gouv.fr" />
+      <img src="../assets/logo_impots_gouv.svg" alt="impots.gouv.fr" />
     </div>
   </NakedCard>
 </template>

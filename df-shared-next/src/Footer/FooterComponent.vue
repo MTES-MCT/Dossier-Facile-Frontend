@@ -11,7 +11,7 @@
             <img
               src="./logo-betagouvfr.svg"
               class="logo-beta"
-              aria-label="Accueil - beta.gouv.fr"
+              alt="Aller sur le site beta.gouv.fr"
             />
           </a>
         </div>

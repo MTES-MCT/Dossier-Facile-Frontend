@@ -52,7 +52,11 @@
       <div v-if="taxChecked" class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100 fc">
           <div class="card-logo-container">
-            <img src="../assets/images/icons/dgfip-icon.png" alt="Logo DGFIP" class="icon-dgfip" />
+            <img
+              src="../assets/images/icons/dgfip-icon.png"
+              alt="direction générale des finances publiques"
+              class="icon-dgfip"
+            />
           </div>
           <p>
             {{ t('filereinsurance.tax-checked') }}

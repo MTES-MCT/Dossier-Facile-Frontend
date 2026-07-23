@@ -58,7 +58,7 @@
   "strength-not-valid": "Le mot de passe est trop simple",
   "confirm-not-valid": "Le mot de passe ne correspond pas",
   "email-not-valid": "Email non valide",
-  "zipcode-not-valid": "Code postal non valide.",
+  "zipcode-not-valid": "Code postal invalide. Le format attendu doit comporter 5 chiffres.",
   "only-alpha": "Seuls les caractères alphabétiques ainsi que [ , -, '] sont autorisés",
   "same-email-not-valid": "L'email ne peut pas être la même que votre adresse",
   "regex-not-valid": "Champ non valide",
@@ -608,7 +608,8 @@
     "preferredname": "Nom d'usage",
     "preferredname-hint": "Nom que vous utilisez au quotidien (ex : nom marital)",
     "email": "Adresse électronique",
-    "zipcode": "Code postal (uniquement si vous résidez en France)",
+    "zipcode": "Code postal, uniquement si vous résidez en France",
+    "zipcode-hint": "Format attendu : 41080",
     "field-required": "Ce champ est requis",
     "title": "Votre identité",
     "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location"

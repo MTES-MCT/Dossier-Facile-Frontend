@@ -92,7 +92,7 @@
                     <div v-if="isTaxAuthentic(tenant)">
                       <img
                         src="../assets/images/icons/dgfip-icon.png"
-                        alt="Logo DGFIP"
+                        alt="direction générale des finances publiques"
                         class="icon-dgfip"
                       />
                     </div>
@@ -146,7 +146,7 @@
                           <div v-if="isTaxAuthentic(g)">
                             <img
                               src="../assets/images/icons/dgfip-icon.png"
-                              alt="Logo DGFIP"
+                              alt="direction générale des finances publiques"
                               class="icon-dgfip"
                             />
                           </div>
