@@ -44,7 +44,7 @@ useHead({
 <template>
   <div class="cdn-background"></div>
   <ConsentHandler />
-  <SkipLinks :links="links" />
+  <SkipLinks :links />
   <HeaderComponent>
     <WwwMenu />
   </HeaderComponent>
