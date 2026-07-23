@@ -616,7 +616,8 @@
     "zipcode": "Postal Code (only if you reside in France)",
     "field-required": "This field is required",
     "title": "Let's start with your personal identity information.",
-    "subtitle": "Please provide the information of the person whose name will appear on the lease agreement."
+    "subtitle": "Please provide the information of the person whose name will appear on the lease agreement.",
+    "zipcode-hint": "Expected format: 41080"
   },
   "nameinformation": {
     "title": "Your Rental File in 5 Documents!",
@@ -1002,9 +1003,7 @@
     "ChooseTenantIdentity": "Identity - @:page-titles.base.steps.1of2",
     "SelfTenantIdentity": "Your identity - @:page-titles.base.steps.2of2",
     "ThirdPartyTenantIdentity": "Beneficiary's Identity - @:page-titles.base.steps.2of2",
-
     "TenantType": "Application type",
-
     "base": {
       "steps": {
         "1of2": "step 1 of 2",
@@ -1109,14 +1108,12 @@
         "nonRenseigne": "Unknown status"
       }
     },
-
     "TenantIdentity": "Your Identity",
     "TenantResidency": "Your Housing situation",
     "TenantProfessional": "Your Professional situation",
     "TenantFinancial": "Your income",
     "TenantRevAdd": "Add income sources",
     "TenantTax": "Your tax notice",
-
     "Couple": "Spouse",
     "CoupleIdentityTitle": "Spouse's identity",
     "CoupleResidency": "Spouse's housing",
@@ -1124,7 +1121,6 @@
     "CoupleFinancial": "Spouse's income",
     "CoupleRevAdd": "Add spouse's income",
     "CoupleTax": "Spouse's tax",
-
     "GuarantorChoice": "Add guarantors",
     "GuarantorList": "My guarantors",
     "Guarantors": "Guarantor",
@@ -1134,7 +1130,6 @@
     "GuarantorFinancial": "Guarantor's income",
     "GuarantorRevAdd": "Add guarantor's income",
     "GuarantorTax": "Guarantor's tax",
-
     "TenantGuarantorList": "Spouse's guarantors",
     "TenantGuarantors": "Add spouse guarantors",
     "TenantGuarantorIdentity": "Spouse's Guarantor's identity",
@@ -1143,10 +1138,8 @@
     "TenantGuarantorFinancial": "Spouse's Guarantor's income",
     "TenantGuarantorRevAdd": "Add Spouse's Guarantor's income",
     "TenantGuarantorTax": "Spouse's Guarantor's tax",
-
     "ValidateFile": "Files validation",
     "ValidateFileStep": "Files validation",
-
     "File": "File",
     "PublicFile": "Public file",
     "MyFile": "My files",

@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="fr-follow">
     <div class="fr-container">
@@ -15,7 +13,7 @@
                   href="https://twitter.com/dossierfacile/"
                   target="_blank"
                 >
-                  Suivre Dossier facile sur twitter
+                  Suivre Dossier facile sur <span lang="en">twitter</span>
                 </a>
               </li>
               <li>
@@ -25,18 +23,17 @@
                   href="https://www.facebook.com/DossierFacile/"
                   target="_blank"
                 >
-                  Suivre Dossier facile sur facebook
+                  Suivre Dossier facile sur <span lang="en">facebook</span>
                 </a>
               </li>
               <li>
                 <a
                   class="fr-btn--linkedin fr-btn"
-                  lang="en"
                   title="Suivre Dossier facile sur linkedin - Ouvre une nouvelle fenêtre"
                   href="https://www.linkedin.com/company/startup-d-etat-locatio/"
                   target="_blank"
                 >
-                  Suivre Dossier facile sur linkedin
+                  Suivre Dossier facile sur <span lang="en">linkedin</span>
                 </a>
               </li>
               <li>
@@ -66,5 +63,3 @@
     </div>
   </div>
 </template>
-
-<style scoped lang="scss"></style>
