@@ -9,6 +9,7 @@
   "property-living-space": "Living space",
   "email-required": "Email is required",
   "field-required": "This field is required",
+  "property-save-failure": "An error occurred while saving, your changes have not been recorded. Please try again later.",
   "field-past-date": "The date you entered is in the future. Please enter a valid date.",
   "house-furnished": "Furnished house",
   "house-unfurnished": "Unfurnished house",
