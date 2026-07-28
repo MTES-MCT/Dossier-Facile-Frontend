@@ -23,7 +23,7 @@
           <i18n-t keypath="callout.list.item-2" tag="span">
             <template #link-1>
               <a
-                href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-de-location-en-couple-26ajqi/"
+                href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-en-couple-1242jvv/"
                 :title="`${t('callout.list.link-2-1')} - ${t('new-window')}`"
                 rel="noopener"
                 target="_blank"
@@ -32,7 +32,7 @@
             </template>
             <template #link-2>
               <a
-                href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-de-location-en-famille-ou-entre-amies-ow7uhc/"
+                href="https://aide.dossierfacile.logement.gouv.fr/fr/article/comment-constituer-un-dossier-en-colocation-pc8r9h/"
                 :title="`${t('callout.list.link-2-2')} - ${t('new-window')}`"
                 rel="noopener"
                 target="_blank"
@@ -45,7 +45,7 @@
           <i18n-t keypath="callout.list.item-3" tag="span">
             <template #link>
               <a
-                href="https://aide.dossierfacile.logement.gouv.fr/fr/article/gestion-des-donnees-et-securite-new-1d3d36d/"
+                href="https://aide.dossierfacile.logement.gouv.fr/fr/article/conseils-pour-securiser-ses-donnees-locataires-1dyh1va/"
                 :title="`${t('callout.list.link-3')} - ${t('new-window')}`"
                 rel="noopener"
                 target="_blank"
