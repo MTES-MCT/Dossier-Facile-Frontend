@@ -235,14 +235,14 @@ function formatDate(value: string): string {
     "expected-document": "Document to add",
     "rules": {
       "bad-classification": {
-        "title": "Incorrect document type",
-        "current-other": "Non-compliant document",
+        "title": "Unrecognized document",
+        "current-other": "Unrecognized document",
         "visale": {
           "expected": "Visale certificate"
         },
         "tax": {
           "current-declarative": "Declarative situation notice for income tax",
-          "expected": "Tax notice or non-taxation notice"
+          "expected": "Complete tax notice or complete non-taxation notice"
         }
       },
       "wrong-number-of-documents": {
@@ -284,15 +284,15 @@ function formatDate(value: string): string {
     "expected-document": "Document à ajouter",
     "rules": {
       "bad-classification": {
-        "title": "Type de document incorrect",
+        "title": "Document non reconnu",
         "tax": {
           "current-declarative": "Avis de situation déclarative pour l'impôt sur le revenu",
-          "expected": "Avis d'imposition ou avis de non-imposition"
+          "expected": "Avis d'imposition ou avis de non-imposition complet"
         },
         "visale": {
           "expected": "Certificat Visale"
         },
-        "current-other": "Autre document non conforme"
+        "current-other": "Document non reconnu"
       },
       "wrong-number-of-documents": {
         "title": "Document incomplet",
