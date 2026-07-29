@@ -7,12 +7,14 @@ import { useRoute, useRouter } from 'vue-router'
 import useOwnerStore from '../../store/owner-store'
 import PropertyPage from './PropertyPage.vue'
 import AnalyticsService from '../../services/AnalyticsService'
+import { useSaveProperty } from '../../composables/useSaveProperty'
 
 const { t } = useI18n()
 
 const route = useRoute()
 const router = useRouter()
 const store = useOwnerStore()
+const { saveAndGo } = useSaveProperty()
 
 const id = ref(0)
 if (route.params.id) {
@@ -31,12 +33,7 @@ const livingSpace = computed({
 
 function onSubmit() {
   AnalyticsService.propertyData('surface_register')
-  store.saveProperty().then(() => {
-    router.push({
-      name: 'PropertyRent',
-      params: { id: store.getPropertyToEdit.id }
-    })
-  })
+  saveAndGo((property) => ({ name: 'PropertyRent', params: { id: property.id } }))
 }
 
 function onBack() {
