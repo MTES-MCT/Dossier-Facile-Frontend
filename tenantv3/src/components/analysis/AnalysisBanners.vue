@@ -15,9 +15,11 @@
         v-bind="{
           rule,
           index,
+          currentDocumentLabel: t('current-document'),
+          expectedDocumentLabel: t('expected-document'),
           notMatchingLabel: t('not-matching'),
           explainLinkLabel: t('explain-link'),
-          onExplain: () => emit('explain')
+          onExplain: (text?: string) => emit('explain', text)
         }"
       >
         <GenericAnalysisErrorContent
@@ -28,7 +30,7 @@
           :expected-document-label="t('expected-document')"
           :not-matching-label="t('not-matching')"
           :explain-link-label="t('explain-link')"
-          @explain="emit('explain')"
+          @explain="(text) => emit('explain', text)"
         />
       </slot>
     </li>
@@ -54,7 +56,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  explain: []
+  explain: [text?: string]
 }>()
 
 const { t, locale } = useI18n()
@@ -235,26 +237,26 @@ function formatDate(value: string): string {
     "expected-document": "Document to add",
     "rules": {
       "bad-classification": {
-        "title": "Unrecognized document",
-        "current-other": "Unrecognized document",
+        "title": "Incorrect document type",
+        "current-other": "Non-compliant document",
         "visale": {
           "expected": "Visale certificate"
         },
         "tax": {
           "current-declarative": "Declarative situation notice for income tax",
-          "expected": "Complete tax notice or complete non-taxation notice"
+          "expected": "Tax notice"
         }
       },
       "wrong-number-of-documents": {
         "title": "Incomplete document",
-        "expected": "Complete {year} tax notice (all pages) or complete non-taxation notice",
+        "expected": "Complete {year} tax notice (all pages)",
         "current": "Incomplete tax notice (missing pages)"
       },
       "names": {
         "title": "Name does not match",
         "tax": {
           "current": "Tax notice in the name of {name}",
-          "expected": "Tax notice in the name of {name} or non-taxation notice"
+          "expected": "Tax notice in the name of {name}"
         },
         "visale": {
           "current": "Visale certificate in the name of {name}",
@@ -264,7 +266,7 @@ function formatDate(value: string): string {
       "tax-wrong-year": {
         "title": "Tax notice too old",
         "current": "Tax notice {taxYear} on {incomeYear} income",
-        "expected": "Tax notice {taxYear} on {incomeYear} income or non-taxation notice"
+        "expected": "Tax notice {taxYear} on {incomeYear} income"
       },
       "expiration": {
         "title": "Document expired",
@@ -284,26 +286,26 @@ function formatDate(value: string): string {
     "expected-document": "Document à ajouter",
     "rules": {
       "bad-classification": {
-        "title": "Document non reconnu",
+        "title": "Type de document incorrect",
         "tax": {
           "current-declarative": "Avis de situation déclarative pour l'impôt sur le revenu",
-          "expected": "Avis d'imposition ou avis de non-imposition complet"
+          "expected": "Avis d'imposition"
         },
         "visale": {
           "expected": "Certificat Visale"
         },
-        "current-other": "Document non reconnu"
+        "current-other": "Autre document non conforme"
       },
       "wrong-number-of-documents": {
         "title": "Document incomplet",
-        "expected": "Avis d'imposition {year} complet (toutes les pages) ou avis de non-imposition complet",
+        "expected": "Avis d'imposition {year} complet (toutes les pages)",
         "current": "Avis d'imposition incomplet (pages manquantes)"
       },
       "names": {
         "title": "Le nom ne correspond pas",
         "tax": {
           "current": "Avis d'imposition au nom de {name}",
-          "expected": "Avis d'imposition au nom de {name} ou avis de non-imposition"
+          "expected": "Avis d'imposition au nom de {name}"
         },
         "visale": {
           "current": "Attestation Visale au nom de {name}",
@@ -313,7 +315,7 @@ function formatDate(value: string): string {
       "tax-wrong-year": {
         "title": "Avis d'imposition trop ancien",
         "current": "Avis d'imposition {taxYear} sur revenus {incomeYear}",
-        "expected": "Avis d'imposition {taxYear} sur revenus {incomeYear} ou avis de non-imposition"
+        "expected": "Avis d'imposition {taxYear} sur revenus {incomeYear}"
       },
       "expiration": {
         "title": "Document expiré",
