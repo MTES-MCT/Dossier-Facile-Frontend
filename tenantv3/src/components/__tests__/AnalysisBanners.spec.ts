@@ -136,9 +136,9 @@ describe('AnalysisBanners', () => {
       expectedLines: string[]
     }
 
-    expect(props.title).toEqual('Document non reconnu')
-    expect(props.currentLines).toEqual(['Document non reconnu'])
-    expect(props.expectedLines).toEqual(["Avis d'imposition ou avis de non-imposition complet"])
+    expect(props.title).toEqual('Type de document incorrect')
+    expect(props.currentLines).toEqual(['Autre document non conforme'])
+    expect(props.expectedLines).toEqual(["Avis d'imposition"])
   })
 
   it('renders bad classification title, current and expected lines for R_DOCUMENT_IA_CLASSIFICATION', () => {
@@ -150,8 +150,8 @@ describe('AnalysisBanners', () => {
       expectedLines: string[]
     }
 
-    expect(props.title).toEqual('Document non reconnu')
-    expect(props.currentLines).toEqual(['Document non reconnu'])
-    expect(props.expectedLines).toEqual(['Document non reconnu'])
+    expect(props.title).toEqual('Type de document incorrect')
+    expect(props.currentLines).toEqual(['Autre document non conforme'])
+    expect(props.expectedLines).toEqual(['Autre document non conforme'])
   })
 })

@@ -3,9 +3,18 @@
   <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="grandParent" />
   <BackLinkRow :label="t('french')" :to="parent" />
   <AnalysisWrapper ref="analysis-wrapper" :is-uploading="isUploading">
+    <template #analysisBannerError="{ rule, index, notMatchingLabel, explainLinkLabel, onExplain }">
+      <TaxAnalysisErrorBannerContent
+        :rule="rule"
+        :index="index"
+        :not-matching-label="notMatchingLabel"
+        :explain-link-label="explainLinkLabel"
+        @explain="onExplain"
+      />
+    </template>
     <template #fileSpecificDescription>
       <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
-        <strong>{{ t('this-year-tax', [taxYear, taxYear - 1]) }}</strong>
+        <strong>{{ taxNoticeInstructionText }}</strong>
       </i18n-t>
       <p>
         <strong>{{ t('warning') }}</strong>
@@ -85,7 +94,8 @@ import { useDocumentFormKey } from '../documents/documentFormState'
 import UploadFileTaxWithAnalysis, {
   type UploadFileTaxWithAnalysisExposed
 } from './lib/UploadFileTaxWithAnalysis.vue'
-import { taxYear } from './lib/taxYear'
+import TaxAnalysisErrorBannerContent from './lib/analysisBanner/TaxAnalysisErrorBannerContent.vue'
+import { getTaxYearPeriod } from './lib/taxYear'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -102,6 +112,30 @@ const analysisWrapper = useTemplateRef('analysis-wrapper')
 const isModalOpened = ref(false)
 const isUploading = computed(() => uploadFileTaxWithAnalysis.value?.isUploading ?? false)
 const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
+
+const taxYearPeriod = getTaxYearPeriod()
+
+const taxNoticeInstructionText = computed(() => {
+  switch (taxYearPeriod.period) {
+    case 'BEFORE_JULY':
+      return t('this-year-tax.before-july', [
+        taxYearPeriod.taxYear,
+        taxYearPeriod.incomeYear
+      ])
+    case 'JULY_TO_SEPTEMBER':
+      return t('this-year-tax.july-to-september', [
+        taxYearPeriod.taxYear,
+        taxYearPeriod.incomeYear,
+        taxYearPeriod.nextTaxYear,
+        taxYearPeriod.nextIncomeYear
+      ])
+    case 'AFTER_SEPTEMBER':
+      return t('this-year-tax.after-september', [
+        taxYearPeriod.taxYear,
+        taxYearPeriod.incomeYear
+      ])
+  }
+})
 
 async function submit() {
   await analysisWrapper.value?.saveExplanation()
@@ -147,7 +181,11 @@ async function submit() {
 {
   "en": {
     "french": "french",
-    "this-year-tax": "{0} income tax notice of {1} or full non-taxation",
+    "this-year-tax": {
+      "before-july": "{0} income tax notice of {1}",
+      "july-to-september": "{0} income tax notice of {1} or your {2} income tax notice of {3}",
+      "after-september": "{0} income tax notice of {1}"
+    },
     "warning": "Warning:",
     "does-not-replace": "The declarative notice of situation does not replace a tax notice.",
     "see-which-doc": "See which document to choose",
@@ -188,7 +226,11 @@ async function submit() {
   },
   "fr": {
     "french": "français",
-    "this-year-tax": "avis d'impôt {0} sur les revenus de {1} ou de non-imposition complet",
+    "this-year-tax": {
+      "before-july": "avis d'impôt {0} sur les revenus de {1}",
+      "july-to-september": "avis d'impôt {0} sur les revenus de {1} ou votre avis d'impôt {2} sur les revenus de {3}",
+      "after-september": "avis d'impôt {0} sur les revenus de {1}"
+    },
     "warning": "Attention :",
     "does-not-replace": "L’avis de situation déclarative ne remplace pas un avis d’impôt.",
     "see-which-doc": "Voir quel document choisir",

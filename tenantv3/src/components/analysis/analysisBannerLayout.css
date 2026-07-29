@@ -69,3 +69,39 @@
 .missing-month-text {
   color: #000091;
 }
+
+.confirm-prompt-text {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #161616;
+  margin: 0.5rem 0 0.25rem 0;
+}
+
+.confirm-tax-btn {
+  width: 100%;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--text-action-high-blue-france);
+  border: 1px solid var(--border-action-high-blue-france);
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--text-mention-grey);
+}
+
+.separator-line {
+  flex: 1;
+  border-bottom: 1px solid var(--border-default-grey);
+}
+
+.separator-text {
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #666666;
+}
+
