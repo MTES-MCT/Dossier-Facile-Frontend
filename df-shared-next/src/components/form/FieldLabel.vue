@@ -23,7 +23,7 @@ withDefaults(
 const { t } = useI18n()
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "required" : "required",

@@ -33,7 +33,7 @@
       name="customText"
       :max="2000"
       rows="3"
-      required
+      :is-required="true"
       counter-id="guarantor-customtext-counter"
     />
     <span v-if="errorMessage" role="alert" class="fr-error-text">{{ t(errorMessage || '') }}</span>
@@ -93,7 +93,7 @@ async function submit() {
 }
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "guarantor-other": "Other",
@@ -101,11 +101,11 @@ async function submit() {
     "advice": "If you don't have one, please add an affidavit explaining your situation. You can use the model available on the {0} website.",
     "no-doc": "You cannot provide a document",
     "tenant": {
-      "please-provide" : "Please provide {0} attesting to your guarantor's housing situation.",
+      "please-provide": "Please provide {0} attesting to your guarantor's housing situation.",
       "no-doc-long": "You don't have proof of your guarantor's accommodation status? Please explain the reasons in the text field and add a sworn statement."
     },
     "couple": {
-      "please-provide" : "Please provide {0} attesting to their guarantor's housing situation.",
+      "please-provide": "Please provide {0} attesting to their guarantor's housing situation.",
       "no-doc-long": "You don't have proof of the accommodation status of your spouse's guarantor? Please explain the reasons in the text field and add a sworn statement."
     }
   },
@@ -115,11 +115,11 @@ async function submit() {
     "advice": "Si vous n'en avez pas, veuillez ajouter une attestation sur l’honneur expliquant sa situation. Vous pouvez utiliser le modèle disponible sur le site {0}",
     "no-doc": "Vous ne pouvez pas fournir de document",
     "tenant": {
-      "please-provide" : "Veuillez fournir {0} attestant la situation d’hébergement de votre garant.",
+      "please-provide": "Veuillez fournir {0} attestant la situation d’hébergement de votre garant.",
       "no-doc-long": "Vous n’avez pas de document attestant la situation d’hébergement de votre garant ? Veuillez en expliquer les raisons dans le champ texte et ajouter une attestation sur l’honneur."
     },
     "couple": {
-      "please-provide" : "Veuillez fournir {0} attestant la situation d’hébergement de son garant.",
+      "please-provide": "Veuillez fournir {0} attestant la situation d’hébergement de son garant.",
       "no-doc-long": "Vous n’avez pas de document attestant la situation d’hébergement du garant de votre conjoint ? Veuillez en expliquer les raisons dans le champ texte et ajouter une attestation sur l’honneur."
     }
   }

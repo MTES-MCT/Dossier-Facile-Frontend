@@ -12,9 +12,9 @@
           }"
         >
           <div class="fr-input-group">
-            <h1 class="fr-label fr-text--regular" for="firstName">
-              {{ t('representativeidentification.organism-name') }} :
-            </h1>
+            <FieldLabel :required="true" for-input="firstName">{{
+              t('representativeidentification.organism-name')
+            }}</FieldLabel>
             <input
               v-bind="field"
               id="firstName"
@@ -36,13 +36,13 @@
       </NakedCard>
       <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div class="fr-select-group">
-          <label class="fr-label" for="select">
-            <b>
-              J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter votre
-              pièce recto-verso !
-            </b>
-          </label>
-          <select id="selectID" v-model="identificationDocument" class="fr-select fr-mb-3w">
+          <FieldLabel :required="true" for-input="selectID">{{ t('identity-doc') }}</FieldLabel>
+          <select
+            id="selectID"
+            v-model="identificationDocument"
+            class="fr-select fr-mb-3w"
+            required
+          >
             <option v-if="!identificationDocument" selected disabled></option>
             <option v-for="d in documents" :key="d.key" :value="d">
               {{ t(d.key) }}
@@ -55,7 +55,7 @@
             :document="guarantorIdentificationDocument"
             :document-denied-reasons="guarantorIdentificationDocument?.documentDeniedReasons"
             :document-status="documentStatus"
-          ></AllDeclinedMessages>
+          />
           <div v-if="listFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
             <ListItem
               v-for="file in listFiles()"
@@ -71,11 +71,11 @@
               ref="file-upload"
               :current-status="fileUploadStatus"
               @add-files="addFiles"
-            ></FileUpload>
+            />
           </div>
         </div>
       </NakedCard>
-      <GuarantorFooter @on-back="goBack"></GuarantorFooter>
+      <GuarantorFooter @on-back="goBack" />
     </Form>
   </div>
 </template>
@@ -103,6 +103,7 @@ import FileUpload from '../../uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
+import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 
 const { t } = useI18n()
 const { handleValidationNavigation } = useHandleValidationNavigation()
@@ -285,3 +286,14 @@ td {
   border: 1px solid #ececec;
 }
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "identity-doc": "Attach a valid form of identification. Please be sure to attach both the front and back of your ID"
+  },
+  "fr": {
+    "identity-doc": "J’ajoute une pièce d’identité en cours de validité. Attention: veillez à ajouter votre pièce recto-verso"
+  }
+}
+</i18n>
