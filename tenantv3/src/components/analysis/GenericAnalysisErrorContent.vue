@@ -28,12 +28,14 @@
         />
       </div>
     </div>
-    <p class="explain-link-text">
-      {{ notMatchingLabel }}
-      <button type="button" class="explain-link" @click="emit('explain')">
-        {{ explainLinkLabel }}
-      </button>
-    </p>
+    <slot>
+      <p class="explain-link-text">
+        {{ notMatchingLabel }}
+        <button type="button" class="explain-link" @click="emit('explain')">
+          {{ explainLinkLabel }}
+        </button>
+      </p>
+    </slot>
   </div>
 </template>
 
@@ -52,7 +54,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  explain: []
+  explain: [explanationText?: string]
 }>()
 </script>
 

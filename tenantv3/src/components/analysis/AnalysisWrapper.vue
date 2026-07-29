@@ -12,7 +12,7 @@
     :failed-rules="analysisFailedRules ?? []"
     :document="document"
     class="fr-mb-3w"
-    @explain="openExplainSection()"
+    @explain="(text) => openExplainSection(true, text)"
   >
     <template #errorContent="slotProps">
       <slot name="analysisBannerError" v-bind="slotProps" />
@@ -260,13 +260,16 @@ async function updateAnalysisStatus(): Promise<AnalysisStatus | 'FAILED' | undef
   }
 }
 
-async function openExplainSection(isFromLink: boolean = true) {
+async function openExplainSection(isFromLink: boolean = true, text?: string) {
   if (isFromLink) {
     AnalyticsService.document_analysis_show_comment_from_link(
       document.value?.documentCategory ?? 'NULL'
     )
   } else {
     AnalyticsService.document_analysis_show_comment(document.value?.documentCategory ?? 'NULL')
+  }
+  if (text) {
+    explainText.value = text
   }
   showExplainForm.value = true
   showExplainError.value = false
