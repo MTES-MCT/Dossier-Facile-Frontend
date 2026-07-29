@@ -45,7 +45,7 @@
         <i18n-t tag="p" keypath="highlight-2">
           <template #create-rental>
             <a
-              :href="`${HELP_URL}article/comment-constituer-un-dossier-de-location-en-famille-ou-entre-amies-ow7uhc/`"
+              :href="`${HELP_URL}article/comment-constituer-un-dossier-en-colocation-pc8r9h`"
               :title="`${t('create-rental')} - ${t('new-window')}`"
               target="_blank"
               >{{ t('create-rental') }}</a
@@ -65,7 +65,7 @@
     <AccordionItem :title="t('title-3')">
       <i18n-t tag="p" keypath="content-3">
         <a
-          href="https://locataire.dossierfacile.logement.gouv.fr/applications"
+          href="https://locataire.dossierfacile.logement.gouv.fr/partages"
           :title="`${t('share-file')} - ${t('new-window')}`"
           target="_blank"
           >{{ t('share-file') }}</a
@@ -121,7 +121,7 @@
         <i18n-t tag="p" keypath="highlight-5">
           <template #what-is-df>
             <a
-              :href="`${HELP_URL}article/dossierfacile-simplifiez-votre-dossier-de-location-dvw117/#1-ce-que-dossierfacile-ne-fait-pas`"
+              :href="`${HELP_URL}article/dossierfacile-cest-quoi-1omumqe`"
               :title="`${t('what-is-df')} - ${t('new-window')}`"
               target="_blank"
               >{{ t('what-is-df') }}</a
