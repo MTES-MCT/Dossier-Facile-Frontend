@@ -15,6 +15,8 @@
         v-bind="{
           rule,
           index,
+          currentDocumentLabel: t('current-document'),
+          expectedDocumentLabel: t('expected-document'),
           notMatchingLabel: t('not-matching'),
           explainLinkLabel: t('explain-link'),
           onExplain: (text?: string) => emit('explain', text)
@@ -28,8 +30,6 @@
           :expected-document-label="t('expected-document')"
           :not-matching-label="t('not-matching')"
           :explain-link-label="t('explain-link')"
-          :rule="rule"
-          :document="document"
           @explain="(text) => emit('explain', text)"
         />
       </slot>

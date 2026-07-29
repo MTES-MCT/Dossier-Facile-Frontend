@@ -3,8 +3,8 @@
     :title="getTitle()"
     :current-lines="getCurrentLines()"
     :expected-lines="getExpectedLines()"
-    :current-document-label="t('current-document')"
-    :expected-document-label="t('expected-document')"
+    :current-document-label="currentDocumentLabel ?? t('current-document')"
+    :expected-document-label="expectedDocumentLabel ?? t('expected-document')"
     :not-matching-label="notMatchingLabel"
     :explain-link-label="explainLinkLabel"
     @explain="(text) => emit('explain', text)"
@@ -46,6 +46,8 @@ import { taxYear, getTaxYearPeriod } from '../taxYear'
 const props = defineProps<{
   rule: DocumentRule
   index?: number
+  currentDocumentLabel?: string
+  expectedDocumentLabel?: string
   notMatchingLabel: string
   explainLinkLabel: string
 }>()

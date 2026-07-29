@@ -8,7 +8,7 @@ import TaxBannerSource from '../tax/lib/analysisBanner/TaxAnalysisErrorBannerCon
 const LOCALE = 'fr'
 const { i18n, t } = useI18nForTest(TaxBannerSource, LOCALE)
 
-// Add mock rules to global i18n instance for testing
+// Merge global rules for test rendering of parent rule titles
 const globalI18n = i18n.global as unknown as {
   mergeLocaleMessage: (locale: string, message: Record<string, unknown>) => void
 }
@@ -39,6 +39,8 @@ function mountComponent(rule: DocumentRule) {
     props: {
       rule,
       index: 0,
+      currentDocumentLabel: 'Document actuel',
+      expectedDocumentLabel: 'Document à ajouter',
       notMatchingLabel: "Vous n'êtes pas d'accord ?",
       explainLinkLabel: 'Expliquer votre situation'
     },

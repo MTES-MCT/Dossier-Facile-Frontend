@@ -3,10 +3,12 @@
   <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="grandParent" />
   <BackLinkRow :label="t('french')" :to="parent" />
   <AnalysisWrapper ref="analysis-wrapper" :is-uploading="isUploading">
-    <template #analysisBannerError="{ rule, index, notMatchingLabel, explainLinkLabel, onExplain }">
+    <template #analysisBannerError="{ rule, index, currentDocumentLabel, expectedDocumentLabel, notMatchingLabel, explainLinkLabel, onExplain }">
       <TaxAnalysisErrorBannerContent
         :rule="rule"
         :index="index"
+        :current-document-label="currentDocumentLabel"
+        :expected-document-label="expectedDocumentLabel"
         :not-matching-label="notMatchingLabel"
         :explain-link-label="explainLinkLabel"
         @explain="onExplain"
