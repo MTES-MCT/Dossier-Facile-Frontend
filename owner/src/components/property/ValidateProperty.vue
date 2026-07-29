@@ -9,6 +9,7 @@ import PropertyPage from './PropertyPage.vue'
 import useOwnerStore from '../../store/owner-store'
 import UpdateRowBtn from './UpdateRowBtn.vue'
 import { SharedPropertyService } from 'df-shared-next/src/services/SharedPropertyService'
+import { useSaveProperty } from '../../composables/useSaveProperty'
 
 const { t } = useI18n()
 
@@ -17,6 +18,7 @@ const router = useRouter()
 const store = useOwnerStore()
 const authorize = ref(false)
 const toast = useToast()
+const { saveAndGo } = useSaveProperty()
 
 const id = ref(0)
 if (route.params.id) {
@@ -53,9 +55,11 @@ function onSubmit() {
     return
   }
   store.setPropertyValidated(true)
-  store.saveProperty().then(() => {
-    router.push({ name: 'Dashboard' })
-  })
+  saveAndGo(
+    () => ({ name: 'Dashboard' }),
+    // Reset the flag so a later save from another step does not validate the property
+    () => store.setPropertyValidated(false)
+  )
 }
 
 function onBack() {
