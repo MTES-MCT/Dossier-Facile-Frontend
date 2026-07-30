@@ -1,13 +1,13 @@
 <template>
   <BackLinkRow :label="t('no-income')" :to="parent" category="pas-de-revenus" />
-  <label for="explanation" class="fr-mb-1w">{{ t('can-add-explanation') }}</label>
   <TextAreaWithCounter
-    id="explanation"
     ref="custom-text"
     v-model="customText"
     :max="1000"
     counter-id="no-income-explanation-counter"
-  />
+  >
+    <template #label>{{ t('can-add-explanation') }}</template>
+  </TextAreaWithCounter>
   <FinancialFooter :on-submit="save" />
 </template>
 

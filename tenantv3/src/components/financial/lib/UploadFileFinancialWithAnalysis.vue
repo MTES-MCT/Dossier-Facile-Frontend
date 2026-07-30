@@ -10,6 +10,7 @@
       class="fr-input fr-mb-2w"
       required
       autocomplete="off"
+      inputmode="numeric"
       data-cy="monthlySum"
       aria-describedby="monthlySum-desc"
       @blur="AnalyticsService.writeText(state.category)"

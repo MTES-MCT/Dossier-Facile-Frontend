@@ -6,18 +6,17 @@
   <p>{{ t('this-situation') }}</p>
 
   <form class="honor-declaration-form">
-    <div class="fr-input-group">
-      <label :for="formId" class="fr-label"
-        >{{ t(textKey + '.describe-situation') }} ({{ t('form.label.required') }})
-      </label>
-      <TextAreaWithCounter
-        :id="formId"
-        v-model="explanation"
-        required
-        :max="1355"
-        counter-id="tax-explanation-counter"
-      />
-    </div>
+    <TextAreaWithCounter
+      :id="formId"
+      v-model="explanation"
+      :is-required="true"
+      :max="1355"
+      counter-id="tax-explanation-counter"
+    >
+      <template #label>
+        {{ t(textKey + '.describe-situation') }}
+      </template>
+    </TextAreaWithCounter>
   </form>
 
   <p>{{ t(textKey + '.you-can-add-docs') }}</p>
