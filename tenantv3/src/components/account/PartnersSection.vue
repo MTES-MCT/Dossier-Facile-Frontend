@@ -8,7 +8,7 @@
         <div class="fr-tile bg-purple fr-p-3w cleana">
           <div class="service-box-content">
             <img
-              alt="logo anil"
+              alt="agence nationale pour l'information sur le logement"
               class="fr-pl-2w fr-pb-2w"
               src="../../assets/anil.png"
               height="80px"
@@ -35,7 +35,7 @@
         <div class="fr-tile bg-purple fr-p-3w cleana">
           <div class="service-box-content">
             <img
-              alt="logo mes droits sociaux"
+              alt="mes droits sociaux"
               class="fr-pl-2w fr-pb-2w"
               src="../../assets/mes-droits-sociaux.png"
             />

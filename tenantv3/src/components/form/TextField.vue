@@ -25,12 +25,13 @@
         :disabled
         :readonly
         :autocomplete
+        :inputmode
         :aria-describedby="describedBy"
         :aria-invalid="!meta.valid"
       />
     </Field>
     <ErrorMessage v-slot="{ message }" :name="name">
-      <span :id="`${name}-errors`" class="fr-error-text">{{ t(message || '') }}</span>
+      <span :id="`${name}-errors`" class="fr-error-text">{{ translateMessage(message || '') }}</span>
     </ErrorMessage>
   </div>
 </template>
@@ -40,9 +41,15 @@ import { useI18n } from 'vue-i18n'
 import { Field, ErrorMessage } from 'vee-validate'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 import HintText from '@/components/common/HintText.vue'
-import { computed } from 'vue'
+import { computed, type HTMLAttributes } from 'vue'
 
-const { t } = useI18n()
+const i18n = useI18n()
+
+// The message is either a translation key (validation rules) or an
+// already-translated string (e.g. API errors set via setFieldError)
+function translateMessage(message: string) {
+  return i18n.te(message) ? i18n.t(message) : message
+}
 
 const inputValue = defineModel<string>()
 
@@ -55,6 +62,7 @@ const props = withDefaults(
     disabled?: boolean
     readonly?: boolean
     autocomplete?: string
+    inputmode?: HTMLAttributes['inputmode']
     hint?: string
   }>(),
   {
@@ -63,6 +71,7 @@ const props = withDefaults(
     disabled: false,
     readonly: false,
     autocomplete: 'off',
+    inputmode: 'text',
     hint: ''
   }
 )

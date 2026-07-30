@@ -1,5 +1,5 @@
 import { getInputByLabel } from "../../support/commands/global";
-import { testAccount } from "../../support/testAccounts";
+import { testAccount, testEmail } from "../../support/testAccounts";
 
 describe(
   "residency category",
@@ -164,6 +164,7 @@ describe(
 
       cy.get("#lastname").type("Dupont");
       cy.get("#firstname").type("Jean");
+      cy.get("#email").type(testEmail("e2e-residency-garant"));
       cy.clickOnNext();
     }
 
@@ -172,6 +173,10 @@ describe(
       cy.contains("En couple").click();
       cy.get('input[name="coTenantLastName"]').type("Martin");
       cy.get('input[name="coTenantFirstName"]').type("Louise");
+      cy.get('input[name="email"]').type(
+        `conjoint-${Math.floor(Math.random() * 100000)}@yopmail.fr`,
+      );
+      cy.get('label[for="authorize"]').click();
       cy.clickOnNext();
     }
 

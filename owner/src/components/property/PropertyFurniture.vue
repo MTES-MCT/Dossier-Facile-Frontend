@@ -7,12 +7,14 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import PropertyPage from './PropertyPage.vue'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
+import { useSaveProperty } from '../../composables/useSaveProperty'
 
 const { t } = useI18n()
 
 const route = useRoute()
 const router = useRouter()
 const store = useOwnerStore()
+const { saveAndGo } = useSaveProperty()
 
 const id = ref(0)
 if (route.params.id) {
@@ -31,9 +33,7 @@ const furniture = computed({
 
 function onSubmit() {
   AnalyticsService.propertyData('ameublement_register')
-  store.saveProperty().then((data) => {
-    router.push({ name: 'PropertyLivingSpace', params: { id: data.id } })
-  })
+  saveAndGo((property) => ({ name: 'PropertyLivingSpace', params: { id: property.id } }))
 }
 
 function onBack() {

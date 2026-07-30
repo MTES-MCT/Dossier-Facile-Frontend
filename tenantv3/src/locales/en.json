@@ -328,18 +328,6 @@
     "paragraph2": "Attention! Your personal documents and their personal documents will be processed separately by DossierFacile. You can submit and have them validated independently. However, your joint application will only be validated as a whole once both your documents and their documents have been validated by DossierFacile. You will then have a single shared link for your entire joint application.",
     "paragraph3": "In practice, your co-tenant will receive an invitation by email, which they must validate within 48 hours. They simply need to click the link, set their password, and they will be connected to your joint application."
   },
-  "coupleinformation": {
-    "spouseFirstName": "First Name",
-    "spouseLastName": "Last Name",
-    "spouseEmail": "Your Co-tenant's Email Address",
-    "acceptAuthor": "I agree that my partner will have access to my documents and those of my guarantor, if applicable, once both of our applications have been validated",
-    "field-required": "This field is required",
-    "partner-name-title": "Who will be your co-tenant?",
-    "partner-email-title": "Invite them to fill out their application?",
-    "add-a-spouse": "Add your co-tenant",
-    "email-exists": "You cannot associate two accounts with the same email address! <br>Please provide a different email address.",
-    "more-information": "How does it work?"
-  },
   "deleteaccount": {
     "validate": "Delete my account",
     "validate-mobile": "Delete",
@@ -624,10 +612,12 @@
     "lastname": "Last Name",
     "preferredname": "Preferred Name",
     "preferredname-hint": "Name you use on a daily basis (e.g. married name)",
+    "email": "Email address",
     "zipcode": "Postal Code (only if you reside in France)",
     "field-required": "This field is required",
     "title": "Let's start with your personal identity information.",
-    "subtitle": "Please provide the information of the person whose name will appear on the lease agreement."
+    "subtitle": "Please provide the information of the person whose name will appear on the lease agreement.",
+    "zipcode-hint": "Expected format: 41080"
   },
   "nameinformation": {
     "title": "Your Rental File in 5 Documents!",
@@ -852,11 +842,8 @@
     "acceptAuthorCoTenant": "I accept that the other members of my co-tenancy have access to my documents as well as those of my guarantor, if applicable, once all co-tenancy applications are validated",
     "validate": "Validate",
     "roommates-saved": "Your roommates have been successfully added. An account creation invitation has been sent to them.",
-    "couple-saved": "Your spouse has been added.",
     "couple-saved-with-mail": "Your spouse has been added. An account creation invitation has been sent to them.",
-    "email-exists": "This email address is already registered on DossierFacile. Please enter a different one.",
     "roommate-email-required": "You must enter the email address of at least one roommate.",
-    "couple-email-required": "You must enter the email address of your spouse.",
     "will-delete-couple": "This action will delete your spouse's application",
     "will-delete-roommates": "This action will remove the association with your roommates' applications",
     "require-accept": "You must accept the declaration"
@@ -1016,9 +1003,7 @@
     "ChooseTenantIdentity": "Identity - @:page-titles.base.steps.1of2",
     "SelfTenantIdentity": "Your identity - @:page-titles.base.steps.2of2",
     "ThirdPartyTenantIdentity": "Beneficiary's Identity - @:page-titles.base.steps.2of2",
-
     "TenantType": "Application type",
-
     "base": {
       "steps": {
         "1of2": "step 1 of 2",
@@ -1123,14 +1108,12 @@
         "nonRenseigne": "Unknown status"
       }
     },
-
     "TenantIdentity": "Your Identity",
     "TenantResidency": "Your Housing situation",
     "TenantProfessional": "Your Professional situation",
     "TenantFinancial": "Your income",
     "TenantRevAdd": "Add income sources",
     "TenantTax": "Your tax notice",
-
     "Couple": "Spouse",
     "CoupleIdentityTitle": "Spouse's identity",
     "CoupleResidency": "Spouse's housing",
@@ -1138,7 +1121,6 @@
     "CoupleFinancial": "Spouse's income",
     "CoupleRevAdd": "Add spouse's income",
     "CoupleTax": "Spouse's tax",
-
     "GuarantorChoice": "Add guarantors",
     "GuarantorList": "My guarantors",
     "Guarantors": "Guarantor",
@@ -1148,7 +1130,6 @@
     "GuarantorFinancial": "Guarantor's income",
     "GuarantorRevAdd": "Add guarantor's income",
     "GuarantorTax": "Guarantor's tax",
-
     "TenantGuarantorList": "Spouse's guarantors",
     "TenantGuarantors": "Add spouse guarantors",
     "TenantGuarantorIdentity": "Spouse's Guarantor's identity",
@@ -1157,10 +1138,8 @@
     "TenantGuarantorFinancial": "Spouse's Guarantor's income",
     "TenantGuarantorRevAdd": "Add Spouse's Guarantor's income",
     "TenantGuarantorTax": "Spouse's Guarantor's tax",
-
     "ValidateFile": "Files validation",
     "ValidateFileStep": "Files validation",
-
     "File": "File",
     "PublicFile": "Public file",
     "MyFile": "My files",

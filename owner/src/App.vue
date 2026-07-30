@@ -9,12 +9,18 @@ import useOwnerStore from './store/owner-store'
 import DeleteAccount from './components/DeleteAccount.vue'
 import cookies from 'js-cookie'
 import OwnerHeader from './components/OwnerHeader.vue'
+import type { DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
+import { MAIN_NAV, CONTENT } from 'df-shared-next/src/models/SkipLink'
 
 const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''}`
 
 const store = useOwnerStore()
 
 const hasFooter = computed(() => store.hasFooter)
+
+const links: DsfrSkipLinksProps = {
+  links: [MAIN_NAV, CONTENT]
+}
 
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
@@ -25,7 +31,7 @@ onBeforeMount(() => {
 <template>
   <div class="cdn-background"></div>
   <ConsentHandler />
-  <SkipLinks />
+  <SkipLinks :links />
   <OwnerHeader />
   <div id="content">
     <DeleteAccount />

@@ -38,7 +38,19 @@
       :field-label="t(textKey + '.postal-code-label')"
       name="postalCode"
       autocomplete="postal-code"
+      inputmode="numeric"
       validation-rules="zipcode"
+      :hint="t('nameinformationform.zipcode-hint')"
+    />
+
+    <TextField
+      v-if="textKey === 'third-party'"
+      v-model.trim="beneficiaryEmail"
+      :field-label="t('third-party.email-label')"
+      name="beneficiaryEmail"
+      type="email"
+      autocomplete="off"
+      validation-rules="required|email"
     />
 
     <div v-if="textKey === 'third-party'" class="fr-mt-3w">
@@ -88,7 +100,8 @@ const placeHolderIdentity = {
   lastName: user.value?.lastName || '',
   firstName: user.value?.firstName || '',
   preferredName: user.value?.preferredName || '',
-  postalCode: user.value?.zipCode || ''
+  postalCode: user.value?.zipCode || '',
+  beneficiaryEmail: user.value?.beneficiaryEmail || ''
 }
 
 // If we show the form for self identity and the user is france connected we have to set the form
@@ -112,6 +125,7 @@ if (
   placeHolderIdentity.firstName = ''
   placeHolderIdentity.preferredName = ''
   placeHolderIdentity.postalCode = ''
+  placeHolderIdentity.beneficiaryEmail = ''
 }
 
 const lastname = ref(placeHolderIdentity.lastName)
@@ -119,6 +133,7 @@ const firstname = ref(placeHolderIdentity.firstName)
 const preferredname = ref(placeHolderIdentity.preferredName)
 
 const postalCode = ref(placeHolderIdentity.postalCode)
+const beneficiaryEmail = ref(placeHolderIdentity.beneficiaryEmail)
 
 const thirdPartyConsent = ref(
   user.value?.ownerType === 'THIRD_PARTY' && placeHolderIdentity.firstName !== ''
@@ -144,8 +159,10 @@ const onSubmit = () => {
   store.user.zipCode = postalCode.value
   if (props.textKey === 'self') {
     store.user.ownerType = 'SELF'
+    store.user.beneficiaryEmail = undefined
   } else {
     store.user.ownerType = 'THIRD_PARTY'
+    store.user.beneficiaryEmail = beneficiaryEmail.value
   }
 
   store
@@ -178,13 +195,13 @@ const onSubmit = () => {
     "self": {
       "title": "Your Identity",
       "france-connected": "You cannot change your identity while connected with France Connect.",
-      "postal-code-label": "Postal Code (only if you reside in France)"
+      "postal-code-label": "Postal Code, only if you reside in France"
     },
     "third-party": {
       "title": "Beneficiary's Identity",
       "checkbox-label": "I certify that I have obtained {lastName}'s consent to create and submit this file on their behalf. I attest that the information provided is accurate and that the documents submitted were obtained with their consent.",
-      "postal-code-label": "Postal Code (only if he reside in France)"
-    }
+      "postal-code-label": "Postal Code, only if he reside in France",
+      "email-label": "Beneficiary's email address"    }
   },
   "fr": {
     "common": {
@@ -197,12 +214,13 @@ const onSubmit = () => {
     "self": {
       "title": "Votre identité",
       "france-connected": "Vous ne pouvez pas modifier votre identité en étant connecté via France Connect.",
-      "postal-code-label": "Code postal (uniquement si vous résidez en France)"
+      "postal-code-label": "Code postal, uniquement si vous résidez en France"
     },
     "third-party": {
       "title": "Identité du bénéficiaire",
       "checkbox-label": "Je certifie avoir obtenu l'accord de {lastName} {firstName} pour constituer et soumettre ce dossier en son nom. J'atteste que les informations fournies sont exactes et que les documents transmis ont été obtenus avec son consentement.",
-      "postal-code-label": "Code postal (uniquement si il réside en France)"
+      "postal-code-label": "Code postal, uniquement si il réside en France",
+      "email-label": "Adresse email du bénéficiaire"
     }
   }
 }

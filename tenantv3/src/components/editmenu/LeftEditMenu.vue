@@ -118,9 +118,11 @@
               ></ColoredTag>
             </router-link>
           </li>
-          <li v-for="docType in TENANT_DOCUMENTS" :key="docType" class="ml-10">
-            <CoTenantDocumentLink :co-tenant="coTenant" :document-type="docType" />
-          </li>
+          <template v-if="coTenant.firstName && coTenant.lastName && coTenant.email">
+            <li v-for="docType in TENANT_DOCUMENTS" :key="docType" class="ml-10">
+              <CoTenantDocumentLink :co-tenant="coTenant" :document-type="docType" />
+            </li>
+          </template>
         </template>
       </ul>
     </li>

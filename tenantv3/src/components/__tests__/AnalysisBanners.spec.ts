@@ -58,6 +58,27 @@ function buildTaxLeafRule(): DocumentRule {
   }
 }
 
+function buildTaxBadClassificationRule(): DocumentRule {
+  return {
+    rule: 'R_TAX_BAD_CLASSIFICATION',
+    message: 'Mauvais document',
+    level: 'ERROR',
+    ruleData: {
+      type: 'R_TAX_CLASSIFICATION',
+      isDeclarativeSituation: false
+    }
+  }
+}
+
+function buildDocumentIaClassificationRule(): DocumentRule {
+  return {
+    rule: 'R_DOCUMENT_IA_CLASSIFICATION',
+    message: 'Document non reconnu',
+    level: 'ERROR',
+    ruleData: null
+  }
+}
+
 describe('AnalysisBanners', () => {
   it.each([
     {
@@ -104,5 +125,33 @@ describe('AnalysisBanners', () => {
     expect(props.expectedLines).toEqual([
       t('rules.wrong-number-of-documents.expected', { year: taxYear })
     ])
+  })
+
+  it('renders bad classification title, current and expected lines for R_TAX_BAD_CLASSIFICATION', () => {
+    const wrapper = mountBanners([buildTaxBadClassificationRule()])
+    const banner = wrapper.findComponent({ name: 'GenericAnalysisErrorContent' })
+    const props = banner.props() as {
+      title: string
+      currentLines: string[]
+      expectedLines: string[]
+    }
+
+    expect(props.title).toEqual('Type de document incorrect')
+    expect(props.currentLines).toEqual(['Autre document non conforme'])
+    expect(props.expectedLines).toEqual(["Avis d'imposition"])
+  })
+
+  it('renders bad classification title, current and expected lines for R_DOCUMENT_IA_CLASSIFICATION', () => {
+    const wrapper = mountBanners([buildDocumentIaClassificationRule()])
+    const banner = wrapper.findComponent({ name: 'GenericAnalysisErrorContent' })
+    const props = banner.props() as {
+      title: string
+      currentLines: string[]
+      expectedLines: string[]
+    }
+
+    expect(props.title).toEqual('Type de document incorrect')
+    expect(props.currentLines).toEqual(['Autre document non conforme'])
+    expect(props.expectedLines).toEqual(['Autre document non conforme'])
   })
 })

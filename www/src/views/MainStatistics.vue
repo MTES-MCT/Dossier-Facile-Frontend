@@ -3,7 +3,7 @@
     <h1 class="fr-h1">{{ t('title') }}</h1>
     <div class="iframe-container">
       <iframe
-        title="Statistiques sur metabase"
+        title="Dossier facile statistiques Publique"
         :src="metabaseUrl"
         width="100%"
         height="1000"

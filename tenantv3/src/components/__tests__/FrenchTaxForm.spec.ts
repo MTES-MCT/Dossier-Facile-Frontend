@@ -17,7 +17,14 @@ vi.mock('@/components/common/lib/useParentRoute', () => ({
 }))
 
 vi.mock('../tax/lib/taxYear', () => ({
-  taxYear: 2025
+  taxYear: 2025,
+  getTaxYearPeriod: () => ({
+    period: 'JULY_TO_SEPTEMBER',
+    taxYear: 2025,
+    incomeYear: 2024,
+    nextTaxYear: 2026,
+    nextIncomeYear: 2025
+  })
 }))
 
 vi.mock('../documents/documentFormState', () => ({

@@ -24,7 +24,7 @@
     <div v-if="tmpGuarantorType === 'NO_GUARANTOR'" class="bg-purple fr-mt-3w fr-p-5w">
       <div class="fr-grid-row space-between">
         <div class="fr-h5">{{ t('guarantorchoice.visale-title') }}</div>
-        <img alt="logo visale" class="logo-visale" src="../assets/visale.svg" />
+        <img alt="" class="logo-visale" src="../assets/visale.svg" />
       </div>
       <p>{{ t('guarantorchoice.visale-text') }}</p>
       <div style="text-align: right">

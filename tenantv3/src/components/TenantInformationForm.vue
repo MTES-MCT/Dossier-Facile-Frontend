@@ -76,14 +76,13 @@
           <span class="sr-only">{{ t('tenantinformationform.title') }}</span>
         </ApplicationTypeSelector>
       </NakedCard>
-      <Form name="form" @submit="handleOthersInformation" @invalid-submit="hasSubmited = true">
-        <CoupleInformation
-          v-if="applicationType === 'COUPLE'"
-          ref="couple-info"
-          v-model="coTenants"
-          :has-submited
-          class="fr-mt-2w"
-        >
+      <Form
+        ref="form"
+        name="form"
+        @submit="handleOthersInformation"
+        @invalid-submit="onInvalidSubmit"
+      >
+        <CoupleInformation v-if="applicationType === 'COUPLE'" v-model="coTenants" class="fr-mt-2w">
         </CoupleInformation>
         <RoommatesInformation
           v-if="applicationType === 'GROUP'"
@@ -106,7 +105,7 @@ import ProfileFooter from './footer/ProfileFooter.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import ApplicationTypeSelector from '../components/ApplicationTypeSelector.vue'
 import { useLoading } from 'vue-loading-overlay'
-import { computed, onBeforeMount, ref, useTemplateRef } from 'vue'
+import { computed, nextTick, onBeforeMount, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useRouter } from 'vue-router'
@@ -120,7 +119,7 @@ const router = useRouter()
 const store = useTenantStore()
 const identificationLink = useIdentityDocumentLink()
 const footer = useTemplateRef('footer')
-const coupleInfo = useTemplateRef('couple-info')
+const form = useTemplateRef<InstanceType<typeof Form>>('form')
 
 const user = computed(() => store.user)
 const roommates = computed(() => store.getRoommates)
@@ -171,8 +170,7 @@ function handleOthersInformation() {
       AnalyticsService.confirmType()
       loader.hide()
       if (applicationType.value === 'COUPLE') {
-        const messageKey = coTenants.value[0]?.email ? 'couple-saved-with-mail' : 'couple-saved'
-        toast.keep.success(t(`tenantinformationform.${messageKey}`), getNextBtnInFooter)
+        toast.keep.success(t('tenantinformationform.couple-saved-with-mail'), getNextBtnInFooter)
       }
       if (applicationType.value === 'GROUP') {
         toast.keep.success(t('tenantinformationform.roommates-saved'), getNextBtnInFooter)
@@ -181,15 +179,27 @@ function handleOthersInformation() {
     },
     (error: unknown) => {
       loader.hide()
-      if (isAxiosError(error) && error.status === 409) {
-        toast.error(t('tenantinformationform.email-exists'), coupleInfo.value?.emailInput)
-        return
-      } else {
-        toast.error(t('errors.submit-failed'), footer.value?.nextBtn)
-        return
-      }
+      handleSaveError(error)
     }
   )
+}
+
+function handleSaveError(error: unknown) {
+
+  if (isAxiosError(error) && error.response?.status === 409) {
+    form.value?.setFieldError('email', t('email-already-in-other-dossier'))
+    nextTick(() => document.getElementById('email')?.focus())
+    return
+  }
+  toast.error(t('errors.submit-failed'), footer.value?.nextBtn)
+}
+
+function onInvalidSubmit({ errors }: { errors: Record<string, string | undefined> }) {
+  hasSubmited.value = true
+  const firstFieldInError = Object.keys(errors)[0]
+  if (firstFieldInError) {
+    nextTick(() => document.getElementById(firstFieldInError)?.focus())
+  }
 }
 
 function updateApplicationType(value: string) {
@@ -274,3 +284,14 @@ function goBack() {
   }
 }
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "email-already-in-other-dossier": "This email address is already linked to another application. Please provide a different one."
+  },
+  "fr": {
+    "email-already-in-other-dossier": "Cette adresse email est déjà associée à un autre dossier. Veuillez en renseigner une différente."
+  }
+}
+</i18n>

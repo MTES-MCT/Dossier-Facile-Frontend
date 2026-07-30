@@ -5,7 +5,6 @@
         <h1 class="fr-h6">{{ t('title') }}</h1>
         <p>{{ t('description') }}</p>
         <div class="fr-input-group" :class="{ 'fr-input-group--error': !isMessageValid }">
-          <label for="message" class="fr-label">{{ t('label') }}</label>
           <TextAreaWithCounter
             id="message"
             v-model="message"
@@ -14,7 +13,9 @@
             :max="2000"
             counter-id="message-desc"
             extra-aria-described-by="message-error"
-          />
+          >
+            <template #label>{{ t('label') }}</template>
+          </TextAreaWithCounter>
           <p
             v-if="!isMessageValid && showError"
             id="message-error"
@@ -156,7 +157,7 @@ const submit = () => {
 {
   "en": {
     "title": "Message for the owner",
-    "label": "Your message (optional)",
+    "label": "Your message",
     "description": "You can add a message for your future landlords. It will be displayed at the beginning of your file.",
     "honor-declaration": "I declare on my honor the accuracy of these informations (Article 441-1 of the Penal Code: 3 years imprisonment and €45,000 fine).",
     "consent-declaration": "I declare that I have obtained the consent of the persons mentioned in my file (spouse, roommates, guarantors).",
@@ -167,7 +168,7 @@ const submit = () => {
   },
   "fr": {
     "title": "Message pour le propriétaire",
-    "label": "Votre message (facultatif)",
+    "label": "Votre message",
     "description": "Vous pouvez ajouter un message à destination de vos futurs propriétaires. Il sera affiché au début de votre dossier.",
     "honor-declaration": "Je déclare avoir pris connaissance de l'article 441-1 du code pénal qui punit le faux et l'usage de faux de trois ans d'emprisonnement et de 45000 euros d'amende.",
     "consent-declaration": "Je déclare avoir obtenu le consentement des personnes mentionnées dans mon dossier (conjoint, colocataires, garants).",
