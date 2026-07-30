@@ -8,20 +8,6 @@ import TaxBannerSource from '../tax/lib/analysisBanner/TaxAnalysisErrorBannerCon
 const LOCALE = 'fr'
 const { i18n, t } = useI18nForTest(TaxBannerSource, LOCALE)
 
-// Merge global rules for test rendering of parent rule titles
-const globalI18n = i18n.global as unknown as {
-  mergeLocaleMessage: (locale: string, message: Record<string, unknown>) => void
-}
-globalI18n.mergeLocaleMessage('fr', {
-  rules: {
-    'wrong-number-of-documents': {
-      title: 'Document incomplet',
-      expected: "Avis d'imposition {year} complet (toutes les pages)",
-      current: "Avis d'imposition incomplet (pages manquantes)"
-    }
-  }
-})
-
 const globalStubs = {
   VIcon: true,
   DsfrButton: {
@@ -93,7 +79,7 @@ describe('TaxAnalysisErrorBannerContent', () => {
 
     const wrapper = mountComponent(rule)
 
-    expect(wrapper.text()).toContain('Document incomplet')
+    expect(wrapper.text()).toContain(t('wrong-number-of-documents.title'))
     expect(wrapper.find('.dsfr-button-stub').exists()).toBe(false)
   })
 })
