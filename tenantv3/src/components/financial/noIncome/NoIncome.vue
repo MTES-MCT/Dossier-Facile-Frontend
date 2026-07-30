@@ -5,7 +5,7 @@
     id="explanation"
     ref="custom-text"
     v-model="customText"
-    :max="2000"
+    :max="1000"
     counter-id="no-income-explanation-counter"
   />
   <FinancialFooter :on-submit="save" />
