@@ -6,6 +6,7 @@
         <p>{{ t('description') }}</p>
         <div class="fr-input-group" :class="{ 'fr-input-group--error': !isMessageValid }">
           <TextAreaWithCounter
+            id="message"
             v-model="message"
             name="message"
             rows="1"

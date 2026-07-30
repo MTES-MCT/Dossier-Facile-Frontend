@@ -5,7 +5,7 @@
         {{ t('label') }}
       </slot>
         (<span v-if="isRequired">{{ t('required') }}</span>
-        <span v-else-if="!isRequired"">{{ t('optional') }}</span>)
+        <span v-else>{{ t('optional') }}</span>)
       </label>
     <textarea
       :id="textAreaID"
