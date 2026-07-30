@@ -216,8 +216,9 @@ function formatDate(value: string): string {
   gap: 1rem;
 }
 
-.analysis-banners:focus {
-  outline: 2px solid var(--blue-france-sun-113-625);
+.analysis-banners:focus,
+.analysis-banners:focus-visible {
+  outline: 2px solid var(--blue-france-sun-113-625) !important;
   outline-offset: 4px;
 }
 
