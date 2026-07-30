@@ -89,16 +89,16 @@ function getTitle(): string {
     return t('bad-classification.title')
   }
   if (r === 'R_TAX_LEAF') {
-    return t('rules.wrong-number-of-documents.title')
+    return t('wrong-number-of-documents.title')
   }
   if (r === 'R_TAX_NAMES') {
-    return t('rules.names.title')
+    return t('names.title')
   }
   if (r === 'R_TAX_WRONG_YEAR') {
-    return t('rules.tax-wrong-year.title')
+    return t('tax-wrong-year.title')
   }
   if (r === 'R_TAX_2D_DOC') {
-    return t('rules.invalid-2ddoc.title')
+    return t('invalid-2ddoc.title')
   }
   return props.rule.message
 }
@@ -108,7 +108,7 @@ function getCurrentLines(): string[] {
   const data = props.rule.ruleData
 
   if (r === 'R_TAX_LEAF') {
-    return [t('rules.wrong-number-of-documents.current')]
+    return [t('wrong-number-of-documents.current')]
   }
 
   if (r === 'R_DOCUMENT_IA_CLASSIFICATION' || r === 'R_TAX_BAD_CLASSIFICATION') {
@@ -122,16 +122,16 @@ function getCurrentLines(): string[] {
   switch (data.type) {
     case 'R_TAX_CLASSIFICATION':
       return data.isDeclarativeSituation
-        ? [t('rules.bad-classification.tax.current-declarative')]
+        ? [t('bad-classification.current-declarative')]
         : [t('bad-classification.current-other')]
     case 'R_TAX_NAMES':
-      return data.extractedIdentities.map((n) => t('rules.names.tax.current', { name: n }))
+      return data.extractedIdentities.map((n) => t('names.current', { name: n }))
     case 'R_TAX_YEARS':
       return data.extractedYears.map((y) =>
-        t('rules.tax-wrong-year.current', { taxYear: y + 1, incomeYear: y })
+        t('tax-wrong-year.current', { taxYear: y + 1, incomeYear: y })
       )
     case 'R_NAMES':
-      return data.extractedNames.map((n) => t('rules.names.tax.current', { name: formatName(n) }))
+      return data.extractedNames.map((n) => t('names.current', { name: formatName(n) }))
     default:
       return [props.rule.message]
   }
@@ -150,7 +150,7 @@ function getExpectedLines(): string[] {
   }
 
   if (r === 'R_TAX_LEAF') {
-    return [t('rules.wrong-number-of-documents.expected', { year: taxYear })]
+    return [t('wrong-number-of-documents.expected', { year: taxYear })]
   }
 
   if (!data) {
@@ -161,12 +161,12 @@ function getExpectedLines(): string[] {
     case 'R_TAX_CLASSIFICATION':
       return [t('bad-classification.expected')]
     case 'R_TAX_NAMES':
-      return [t('rules.names.tax.expected', { name: data.expectedName.lastName })]
+      return [t('names.expected', { name: data.expectedName.lastName })]
     case 'R_NAMES':
-      return [t('rules.names.tax.expected', { name: formatName(data.expectedName) })]
+      return [t('names.expected', { name: formatName(data.expectedName) })]
     case 'R_TAX_YEARS':
       return [
-        t('rules.tax-wrong-year.expected', {
+        t('tax-wrong-year.expected', {
           taxYear: data.expectedYear + 1,
           incomeYear: data.expectedYear
         })
@@ -253,6 +253,8 @@ function onConfirmTaxNotice() {
 <i18n lang="json">
 {
   "en": {
+    "current-document": "Current document",
+    "expected-document": "Document to add",
     "or": "OR",
     "confirm-prompt": "If this is the right document, please confirm below.",
     "confirm-button": "I confirm this is my tax notice",
@@ -260,11 +262,32 @@ function onConfirmTaxNotice() {
     "need-explain": "Need to clarify your situation?",
     "bad-classification": {
       "title": "Unrecognized document",
+      "current-declarative": "Declarative situation notice for income tax",
       "current-other": "Unrecognized document",
       "expected": "Complete tax notice"
+    },
+    "wrong-number-of-documents": {
+      "title": "Incomplete document",
+      "expected": "Complete {year} tax notice (all pages)",
+      "current": "Incomplete tax notice (missing pages)"
+    },
+    "names": {
+      "title": "Name does not match",
+      "current": "Tax notice in the name of {name}",
+      "expected": "Tax notice in the name of {name}"
+    },
+    "tax-wrong-year": {
+      "title": "Tax notice too old",
+      "current": "Tax notice {taxYear} on {incomeYear} income",
+      "expected": "Tax notice {taxYear} on {incomeYear} income"
+    },
+    "invalid-2ddoc": {
+      "title": "Invalid document"
     }
   },
   "fr": {
+    "current-document": "Document actuel",
+    "expected-document": "Document à ajouter",
     "or": "OU",
     "confirm-prompt": "Si c'est le bon document, confirmez-le ci-dessous.",
     "confirm-button": "Je confirme que c'est mon avis d'imposition",
@@ -272,8 +295,27 @@ function onConfirmTaxNotice() {
     "need-explain": "Besoin de préciser votre situation ?",
     "bad-classification": {
       "title": "Document non reconnu",
+      "current-declarative": "Avis de situation déclarative pour l'impôt sur le revenu",
       "current-other": "Document non reconnu",
       "expected": "Avis d'imposition complet"
+    },
+    "wrong-number-of-documents": {
+      "title": "Document incomplet",
+      "expected": "Avis d'imposition {year} complet (toutes les pages)",
+      "current": "Avis d'imposition incomplet (pages manquantes)"
+    },
+    "names": {
+      "title": "Le nom ne correspond pas",
+      "current": "Avis d'imposition au nom de {name}",
+      "expected": "Avis d'imposition au nom de {name}"
+    },
+    "tax-wrong-year": {
+      "title": "Avis d'imposition trop ancien",
+      "current": "Avis d'imposition {taxYear} sur revenus {incomeYear}",
+      "expected": "Avis d'imposition {taxYear} sur revenus {incomeYear}"
+    },
+    "invalid-2ddoc": {
+      "title": "Document invalide"
     }
   }
 }
