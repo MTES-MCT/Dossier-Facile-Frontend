@@ -8,6 +8,7 @@ import * as Sentry from '@sentry/vue'
 
 import routes from './router/index'
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
+import { SafeHtmlPlugin } from 'df-shared-next/src/services/SanitizeService'
 
 import '@gouvfr/dsfr/dist/core/core.main.min.css'
 import '@gouvfr/dsfr/dist/utility/utility.main.min.css'
@@ -52,6 +53,7 @@ export const createApp = ViteSSG(App, { routes }, ({ app, router }) => {
     clearOnUrlChange: false
   } satisfies ToastContainerOptions)
   app.use(ConsentPlugin, { matomo: IS_CLIENT, crisp: IS_CLIENT && CRISP_ENABLED === 'true' })
+  app.use(SafeHtmlPlugin)
 
   router.beforeEach((to, from, next) => {
     if (

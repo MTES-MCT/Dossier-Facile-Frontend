@@ -11,6 +11,7 @@ import { validateDpeNumber } from './validators/dpeNumberValidator'
 import 'vue-toastification/dist/index.css'
 import keycloak from './plugin/keycloak'
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
+import { SafeHtmlPlugin } from 'df-shared-next/src/services/SanitizeService'
 import '@gouvfr/dsfr/dist/core/core.main.min.css'
 import '@gouvfr/dsfr/dist/utility/utility.main.min.css'
 import '@gouvfr/dsfr/dist/utility/colors/colors.min.css'
@@ -132,6 +133,7 @@ function mountApp(ownerAuthenticated: boolean) {
   app.use(i18n)
   app.use(Toast)
   app.use(ConsentPlugin, { matomo: true, crisp: CRISP_ENABLED === 'true' })
+  app.use(SafeHtmlPlugin)
   if (ownerAuthenticated) {
     keycloak
       .loadUserProfile()

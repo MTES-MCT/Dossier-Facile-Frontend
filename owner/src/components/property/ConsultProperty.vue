@@ -77,7 +77,7 @@
           <div class="fr-col">
             <p
               class="fr-mb-0"
-              v-html="
+              v-safe-html="
                 `${t(titleKey)} ${t('consultproperty.rent', {
                   rentCost: p.rentCost,
                   chargesCost: p.chargesCost

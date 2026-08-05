@@ -18,7 +18,7 @@
             operator: m.typeMessage === 'TO_TENANT'
           }"
         >
-          <div class="message" v-html="addIcons(m.messageBody)" />
+          <div class="message" v-html="addIcons(sanitizeHtml(m.messageBody))" />
           <div v-if="m.typeMessage === 'FROM_TENANT'" class="avatar tenant">
             <VIcon icon="ri:user-fill" scale="2.25" color="#000091" />
             <span>{{ t('you') }}</span>
@@ -88,6 +88,7 @@ import ErrorWarningIcon from '@/assets/error-warning.svg?raw'
 import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 import { RouterLink } from 'vue-router'
+import { sanitizeHtml } from 'df-shared-next/src/services/SanitizeService'
 dayjs.extend(isToday)
 dayjs.extend(isYesterday)
 

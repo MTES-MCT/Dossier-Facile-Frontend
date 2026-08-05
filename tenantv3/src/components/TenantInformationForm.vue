@@ -24,7 +24,7 @@
                       'fr-input--error': !meta.valid
                     }"
                   />
-                  <label for="authorize" v-html="t('tenantinformationform.acceptAuthorSpouse')" />
+                  <label for="authorize" v-safe-html="t('tenantinformationform.acceptAuthorSpouse')" />
                   <ErrorMessage v-slot="{ message }" name="authorize">
                     <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                   </ErrorMessage>
@@ -53,7 +53,7 @@
                       'fr-input--error': !meta.valid
                     }"
                   />
-                  <label for="authorize" v-html="t('tenantinformationform.acceptAuthorCoTenant')">
+                  <label for="authorize" v-safe-html="t('tenantinformationform.acceptAuthorCoTenant')">
                   </label>
                   <ErrorMessage v-slot="{ message }" name="authorize">
                     <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>

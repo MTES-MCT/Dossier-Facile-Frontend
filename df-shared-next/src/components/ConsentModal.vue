@@ -31,7 +31,7 @@
                 <p
                   id="finality-legend"
                   class="fr-m-0"
-                  v-html="t('legend', [`${MAIN_URL}/politique-de-confidentialite`])"
+                  v-safe-html="t('legend', [`${MAIN_URL}/politique-de-confidentialite`])"
                 />
                 <div class="choice-btn-group">
                   <DsfrButton
@@ -169,6 +169,7 @@
 
 <script setup lang="ts">
 import { useModalStore } from '../stores/useModalStore'
+import { vSafeHtml } from '../services/SanitizeService'
 import { ref, useTemplateRef } from 'vue'
 import * as Consent from '../services/ConsentService'
 import { useI18n } from 'vue-i18n'

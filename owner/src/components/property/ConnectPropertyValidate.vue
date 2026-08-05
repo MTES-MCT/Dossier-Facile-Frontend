@@ -38,7 +38,7 @@
             </h3>
             <p
               class="fr-callout__text"
-              v-html="t('connectpropertyvalidate.subtitle.' + apartmentSharing?.status)"
+              v-safe-html="t('connectpropertyvalidate.subtitle.' + apartmentSharing?.status)"
             />
             <a
               class="fr-btn"

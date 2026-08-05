@@ -3,7 +3,7 @@
     <div v-if="!fileNotFound" class="fr-container">
       <FileHeader :user="user">
         <DsfrAlert type="info" small class="bg-white">
-          <p v-html="t('preview')" />
+          <p v-safe-html="t('preview')" />
         </DsfrAlert>
       </FileHeader>
 
