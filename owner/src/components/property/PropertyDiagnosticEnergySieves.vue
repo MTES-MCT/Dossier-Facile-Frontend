@@ -5,7 +5,7 @@
         <div class="title-icon-container">
           <h2 class="fr-h6">{{ t('propertydiagnostic.details.title') }}</h2>
         </div>
-        <p v-html="t('propertydiagnostic.details.good-dpe', [letter])"></p>
+        <p v-safe-html="t('propertydiagnostic.details.good-dpe', [letter])"></p>
       </div>
     </div>
     <div v-if="getForbiddenDate()" class="fr-background-contrast--blue-france fr-mt-3w fr-p-3w">
@@ -15,18 +15,18 @@
       </div>
       <p>{{ t('propertydiagnostic.details.subtitle', [letter]) }}</p>
       <ul>
-        <li v-html="t('propertydiagnostic.details.list1', [getConsommation()])"></li>
+        <li v-safe-html="t('propertydiagnostic.details.list1', [getConsommation()])"></li>
         <li
           v-if="hasToDisplayForbidenRentIncrease()"
-          v-html="t('propertydiagnostic.details.list2')"
+          v-safe-html="t('propertydiagnostic.details.list2')"
         ></li>
-        <li v-html="t('propertydiagnostic.details.list3', [getForbiddenDate()])"></li>
+        <li v-safe-html="t('propertydiagnostic.details.list3', [getForbiddenDate()])"></li>
       </ul>
       <h3 class="fr-h6">
         {{ t('propertydiagnostic.details.france-renov-title') }}
       </h3>
-      <p v-html="t('propertydiagnostic.details.france-renov-text1')"></p>
-      <p v-html="t('propertydiagnostic.details.france-renov-text2')"></p>
+      <p v-safe-html="t('propertydiagnostic.details.france-renov-text1')"></p>
+      <p v-safe-html="t('propertydiagnostic.details.france-renov-text2')"></p>
       <div class="text-align--right">
         <a
           class="fr-btn fr-btn--secondary full-mobile"

@@ -85,7 +85,7 @@ function onBack() {
             rules="isTrue"
             :value="true"
           />
-          <label for="authorize"><div v-html="t('validateproperty.authorize')"></div></label>
+          <label for="authorize"><div v-safe-html="t('validateproperty.authorize')"></div></label>
           <ErrorMessage v-slot="{ message }" class="fr-error-text" name="authorize">
             <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>

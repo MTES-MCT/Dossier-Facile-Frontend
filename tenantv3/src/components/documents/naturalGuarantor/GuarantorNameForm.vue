@@ -4,7 +4,7 @@
       <GuarantorBadge v-if="showBadge" />
       <h1 class="fr-h4">{{ t(textKey + '.title') }}</h1>
       <DsfrAlert type="info" small>
-        <p v-html="t(choiceKey + '.two-guarantors-warning')"></p>
+        <p v-safe-html="t(choiceKey + '.two-guarantors-warning')"></p>
       </DsfrAlert>
       <div class="fr-mt-4w">
         <TextField

@@ -13,6 +13,7 @@
     "@gouvminint/vue-dsfr": "catalog:",
     "@remixicon/vue": "4.4.0",
     "buffer": "6.0.3",
+    "dompurify": "catalog:",
     "js-cookie": "3.0.8",
     "pinia": "catalog:",
     "sass": "catalog:",
@@ -29,6 +30,9 @@
   },
   "devDependencies": {
     "@types/js-cookie": "3.0.6",
+    "@types/jsdom": "catalog:",
+    "jsdom": "catalog:",
+    "@vue/test-utils": "catalog:",
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
     "@vue/tsconfig": "catalog:",

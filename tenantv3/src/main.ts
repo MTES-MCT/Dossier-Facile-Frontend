@@ -19,6 +19,7 @@ import { configure, defineRule } from 'vee-validate'
 import * as Sentry from '@sentry/vue'
 
 import { ConsentPlugin } from 'df-shared-next/src/services/ConsentService'
+import { SafeHtmlPlugin } from 'df-shared-next/src/services/SanitizeService'
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
@@ -201,6 +202,7 @@ keycloak
     app.use(i18n)
     app.use(LoadingPlugin)
     app.use(ConsentPlugin, { matomo: true, crisp: CRISP_ENABLED === 'true' })
+    app.use(SafeHtmlPlugin)
     app.mount('#app')
   })
   .catch((error: Error) => {
