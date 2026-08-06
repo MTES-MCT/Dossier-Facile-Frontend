@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import LeftDpeArrow from './LeftDpeArrow.vue'
+import { vSafeHtml } from '../../services/SanitizeService'
 
 const props = withDefaults(
   defineProps<{
@@ -33,7 +34,7 @@ const { t } = useI18n()
         :consumption="consumption"
       ></LeftDpeArrow>
     </div>
-    <span v-if="!$props.short" class="small-text" v-html="t('dpe.energy-consumption')"></span>
+    <span v-if="!$props.short" class="small-text" v-safe-html="t('dpe.energy-consumption')"></span>
   </div>
 </template>
 

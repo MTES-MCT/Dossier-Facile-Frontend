@@ -8,7 +8,8 @@
           v-model="firstName"
           name="firstName"
           :rules="{
-            required: true
+            required: true,
+            onlyAlpha: true
           }"
         >
           <div class="fr-input-group">

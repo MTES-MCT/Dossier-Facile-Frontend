@@ -8,6 +8,8 @@ packages:
   - "storybook"
 
 minimumReleaseAge: 2880 ## 48h
+minimumReleaseAgeExclude:
+  - "dompurify"
 
 catalog:
   # dependencies
@@ -22,6 +24,7 @@ catalog:
   vue: 3.5.18
   vue-i18n: 11.1.11
   vue-router: 4.5.1
+  dompurify: 3.4.13
   # devDependencies
   "@intlify/unplugin-vue-i18n": 6.0.8
   sass: 1.99.0
@@ -29,6 +32,8 @@ catalog:
   vitest: 4.0.16
   vue-tsc: 3.0.4
   typescript: 5.9.2
+  jsdom: 26.1.0
+  "@types/jsdom": 21.1.7
   prettier: 3.5.3
   eslint: 9.32.0
   eslint-plugin-vue: 10.4.0

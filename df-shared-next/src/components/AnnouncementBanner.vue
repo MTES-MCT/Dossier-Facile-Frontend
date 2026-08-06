@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import cookies from 'js-cookie';
 import { computed, onMounted, ref } from 'vue';
+import { vSafeHtml } from '../services/SanitizeService';
 
 const DOMAIN = `${import.meta.env.VITE_COOKIE_DOMAIN}`
 
@@ -41,7 +42,7 @@ function closeAnnouncement() {
 <template>
   <aside v-if="isVisible" class="announcement fr-pt-2w fr-pb-2w" aria-label="Annonce">
     <div class="fr-container message">
-      <p class="fr-mb-0" v-html="message"></p>
+      <p class="fr-mb-0" v-safe-html="message"></p>
       <button
         type="button"
         title="Fermer l'annonce"

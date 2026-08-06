@@ -1,10 +1,10 @@
 <template>
   <div class="fr-container fr-grid-row fr-mt-9w fr-grid-row--center">
     <div v-if="successMessage" class="fr-col-6">
-      <p v-html="successMessage"></p>
+      <p v-safe-html="successMessage"></p>
     </div>
     <div v-if="error" class="fr-col-6">
-      <p v-html="error"></p>
+      <p v-safe-html="error"></p>
     </div>
   </div>
 </template>
