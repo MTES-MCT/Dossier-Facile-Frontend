@@ -1,1 +1,7 @@
-export type TenantFileStatus = 'TO_PROCESS' | 'VALIDATED' | 'DECLINED' | 'INCOMPLETE' | 'ARCHIVED'
+export type TenantFileStatus =
+  | 'TO_PROCESS'
+  | 'COMPLETED'
+  | 'VALIDATED'
+  | 'DECLINED'
+  | 'INCOMPLETE'
+  | 'ARCHIVED'

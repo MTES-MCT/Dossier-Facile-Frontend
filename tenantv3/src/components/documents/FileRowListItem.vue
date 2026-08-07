@@ -91,12 +91,14 @@ const props = withDefaults(
     showValidated?: boolean
     canEdit?: boolean
     to?: RouteLocationRaw
+    dossierStatus?: string
   }>(),
   {
     subLabel: undefined,
     document: undefined,
     enableDownload: true,
     tagLabel: undefined,
+    dossierStatus: undefined,
     showValidated: false,
     canEdit: false,
     to: undefined
@@ -122,10 +124,18 @@ function getTagLabel() {
 }
 
 function documentStatus() {
-  if (props.document) {
-    return props.document.documentStatus ? props.document.documentStatus : 'EMPTY'
+  if (!props.document) {
+    return 'EMPTY'
   }
-  return 'EMPTY'
+  const status = props.document.documentStatus
+  if (!status) {
+    return 'EMPTY'
+  }
+  // A COMPLETED dossier is not waiting for an operator: its documents are simply submitted
+  if (status === 'TO_PROCESS' && props.dossierStatus === 'COMPLETED') {
+    return 'COMPLETED'
+  }
+  return status
 }
 
 async function openDocumentWithAuth() {

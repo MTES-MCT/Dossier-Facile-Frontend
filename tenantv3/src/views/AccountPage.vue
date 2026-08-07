@@ -5,7 +5,11 @@
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
             <h1 v-safe-html="t(`account.title.dashboard`)"></h1>
-            <div v-if="isDenied() || user.status === 'TO_PROCESS'">
+            <template v-if="showOptIn">
+              <CompletedFileBanner class="fr-mb-3w" />
+              <ValidationRequestCallout class="fr-mb-3w" />
+            </template>
+            <div v-else-if="isDenied() || user.status === 'TO_PROCESS'">
               <div class="fr-grid-row fr-grid-row--gutters">
                 <div v-if="isDenied()" class="fr-col">
                   <div class="fr-callout warning fr-callout-white">
@@ -185,6 +189,8 @@ import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import PartnersSection from '../components/account/PartnersSection.vue'
 import DefaultShareSection from '../components/account/DefaultShareSection.vue'
+import CompletedFileBanner from '../components/account/CompletedFileBanner.vue'
+import ValidationRequestCallout from '../components/account/ValidationRequestCallout.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
 import { computed, ref, useTemplateRef, watch } from 'vue'
@@ -194,9 +200,10 @@ import { ProfileService } from '../services/ProfileService'
 import dayjs, { Dayjs } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useI18n } from 'vue-i18n'
-import { toast } from '@/components/toast/toastUtils'
 import { useModalStore } from 'df-shared-next/src/stores/useModalStore'
 import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import { useCompletedOptIn } from '@/composables/useCompletedOptIn'
+import { useZipDownload } from '@/composables/useZipDownload'
 const { t } = useI18n()
 
 const PROCESSING_TIME_DELTA = import.meta.env.VITE_PROCESSING_TIME_DELTA || 3
@@ -208,6 +215,8 @@ dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
 const downloadZipElt = useTemplateRef('download-zip')
 const { openModal } = useModalStore('deleteAccount')
+const { showOptIn } = useCompletedOptIn()
+const { downloadZip: downloadZipArchive } = useZipDownload()
 
 watch(
   () => user.value,
@@ -268,19 +277,7 @@ const tenants = computed(() => [
 ])
 
 function downloadZip() {
-  ProfileService.downloadZip()
-    .then((response) => {
-      const blob = new Blob([response.data], { type: 'application/zip' })
-      const link = window.document.createElement('a')
-      link.href = window.URL.createObjectURL(blob)
-      const fileName = UtilsService.getFileNameFromHeaders(response.headers, 'dossierFacile.zip')
-      link.download = fileName
-      link.click()
-    })
-    .catch((error) => {
-      console.error(error)
-      toast.error(t('file.download-failed'), downloadZipElt.value?.$el)
-    })
+  return downloadZipArchive(downloadZipElt.value?.$el)
 }
 
 function goToMessaging() {

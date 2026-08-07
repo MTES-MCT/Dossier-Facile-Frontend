@@ -38,6 +38,8 @@ function getClasses() {
       return c + 'declined-menu-link'
     case 'FILLED':
       return c + 'filled-menu-link'
+    case 'COMPLETED':
+      return c + 'completed-menu-link'
     case 'INCOMPLETE':
       if (props.warn) {
         return c + 'declined-menu-link'
@@ -94,6 +96,15 @@ function getClasses() {
   &.active {
     background-color: var(--background-default-grey);
     outline: 1px solid #e5e5f4;
+    outline-offset: -2px;
+  }
+}
+
+.fr-tag.completed-menu-link {
+  background-color: var(--background-contrast-info);
+  color: var(--text-default-info);
+  &.active {
+    outline: 1px solid var(--text-default-info);
     outline-offset: -2px;
   }
 }
