@@ -42,6 +42,7 @@ Pour limiter les risques de régressions, évaluer l'impact sur chacun de ces ax
 
 - **i18n** : toute clé ajoutée doit être mise en priorité dans le bloc `<i18n>` du composant. Si c'est une traduction commune à plusieurs composants, elle est à ajouter dans le `fr.json`/`en.json`/`base.json` dans le `/src` de chaque package.
 - **Design** : DSFR obligatoire (RGAA). Privilégier les composants `@gouvminint/vue-dsfr` et ceux déjà utilisés dans la codebase. Se référer en seconde priorité à `@gouvfr/dsfr`. Utiliser les tokens DSFR plutôt que des valeurs en dur : classes utilitaires d'espacement (`fr-mt-3w`…) et variables CSS de couleur (`var(--primary)`…)
+- **Sécurité / XSS** : pour injecter du HTML dans les templates, utiliser la directive `v-safe-html` fournie par `df-shared-next/src/services/SanitizeService` plutôt que `v-html`. Si une transformation intermédiaire impose `v-html`, assainir explicitement le contenu avec `sanitizeHtml` avant l'injection.
 - **Accessibilité (RGAA)** : axe prioritaire et obligation légale de viser un site "totalement conforme" au RGAA. 
   - **Modales** : utiliser le composant `DsfrModalPatch.vue` (a11y compatible) plutôt que le `DsfrModal` de `vue-dsfr`
   - **Titres de page** : Les titres doivent décrire la hiérarchie d'information du funnel (voir le `afterEach` dans `tenantv3/src/router/index.ts`).
