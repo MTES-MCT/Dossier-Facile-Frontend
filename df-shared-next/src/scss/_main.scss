@@ -280,6 +280,18 @@ img {
   color: var(--blue-france-sun-113-625);
 }
 
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: none;
+  border-bottom: 1px solid currentColor;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+}
+
 .text--light-blue {
   color: #0063cb;
 }

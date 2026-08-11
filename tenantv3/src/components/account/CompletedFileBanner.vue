@@ -17,7 +17,7 @@
     <button
       ref="download-zip"
       type="button"
-      class="link-button blue-text download-link"
+      class="link-button blue-text"
       @click="onDownload"
     >
       {{ t('download-zip') }}
@@ -87,22 +87,6 @@ function onDownload() {
   color: var(--text-default-success);
 }
 
-/* Same link-styled button as SharingLinkDetails.vue / ActiveShare.vue */
-.link-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  border: none;
-  border-bottom: 1px solid currentColor;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  font-size: inherit;
-}
-
-.download-link {
-  font-size: 0.875rem;
-}
 </style>
 
 <i18n>
