@@ -41,8 +41,12 @@
 
     <hr class="fr-mb-3w" />
 
-    <p v-if="isValidated" class="support-contact">
-      {{ t('validated-messaging-disabled') }}
+    <p v-if="isMessagingDisabled" class="support-contact">
+      {{
+        tenant.status === 'VALIDATED'
+          ? t('validated-messaging-disabled')
+          : t('completed-messaging-disabled')
+      }}
       {{ t('validated-support-prefix') }}
       <RouterLink to="/contact">{{ t('support') }}</RouterLink
       >.
@@ -109,7 +113,9 @@ const messageList = computed(() => store.messageList)
 const allMessages = computed(() => messageList.value[props.tenant.id] ?? [])
 const messagesToDisplay = computed(() => allMessages.value.slice(0, nbOfMessages.value))
 const showNextMessageButton = computed(() => nbOfMessages.value < allMessages.value.length)
-const isValidated = computed(() => props.tenant.status === 'VALIDATED')
+const isMessagingDisabled = computed(
+  () => props.tenant.status === 'VALIDATED' || props.tenant.status === 'COMPLETED'
+)
 
 let initialMessageCount = 0
 while (
@@ -354,6 +360,7 @@ const addIcons = (html: string | undefined) =>
     "yesterday": "Hier à",
     "label": "Votre message",
     "validated-messaging-disabled": "Votre dossier est validé et prêt à être partagé, la messagerie n'est plus disponible.",
+    "completed-messaging-disabled": "Votre dossier est complet et prêt à être partagé, la messagerie n'est pas disponible.",
     "validated-support-prefix": "Pour toute question complémentaire, contactez notre",
     "support": "support"
   },
@@ -369,6 +376,7 @@ const addIcons = (html: string | undefined) =>
     "yesterday": "Yesterday at",
     "label": "Your message",
     "validated-messaging-disabled": "Your application has been validated and is ready to be shared, messaging is no longer available.",
+    "completed-messaging-disabled": "Your application is complete and ready to be shared, messaging is no longer available.",
     "validated-support-prefix": "For any additional questions, please contact our",
     "support": "support"
   }

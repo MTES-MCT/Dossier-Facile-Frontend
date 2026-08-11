@@ -68,3 +68,34 @@ describe('MessagesPanel.vue - XSS Security', () => {
     expect(messageHtml).toContain('world')
   })
 })
+
+describe('MessagesPanel.vue - messaging availability', () => {
+  beforeEach(() => {
+    mockMessageList.value = {}
+  })
+
+  const mountWithStatus = (status: string) =>
+    mount(MessagesPanel, {
+      props: {
+        tenant: { id: 1, status } as any
+      },
+      global: {
+        stubs: {
+          RouterLink: true,
+          FieldLabel: true
+        }
+      }
+    })
+
+  it.each(['VALIDATED', 'COMPLETED'])('hides the reply form when status is %s', (status) => {
+    const wrapper = mountWithStatus(status)
+    expect(wrapper.find('form').exists()).toBe(false)
+    expect(wrapper.find('.support-contact').exists()).toBe(true)
+  })
+
+  it('shows the reply form when status is TO_PROCESS', () => {
+    const wrapper = mountWithStatus('TO_PROCESS')
+    expect(wrapper.find('form').exists()).toBe(true)
+    expect(wrapper.find('.support-contact').exists()).toBe(false)
+  })
+})
