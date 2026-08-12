@@ -53,7 +53,7 @@
                       'fr-input--error': !meta.valid
                     }"
                   />
-                  <label for="authorize" v-safe-html="t('tenantinformationform.acceptAuthorCoTenant')">
+                  <label v-safe-html="t('tenantinformationform.acceptAuthorCoTenant')" for="authorize">
                   </label>
                   <ErrorMessage v-slot="{ message }" name="authorize">
                     <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
