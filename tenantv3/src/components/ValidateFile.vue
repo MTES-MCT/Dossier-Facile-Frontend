@@ -126,7 +126,7 @@ const coTenantGuarantors = computed(() => {
   "fr": {
     "analyse-finished": {
       "title": "Votre dossier est complet",
-      "description": "Vous pouvez maintenant le soumettre. Il sera examiné par notre équipe."
+      "description": "Vous pouvez maintenant le soumettre."
     },
     "analyse-in-progress": {
       "title": "Analyse automatique de votre dossier",

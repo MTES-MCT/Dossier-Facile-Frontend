@@ -4,43 +4,52 @@
     <h2 class="fr-h4">{{ t('title') }}</h2>
     <ul class="check-list" role="list">
       <li class="check-list__item">
-        <VIcon icon="ri:checkbox-circle-line" class="check-list__icon" aria-hidden="true" />
+        <VIcon
+          icon="ri:checkbox-circle-line"
+          class="check-list__icon"
+          color="var(--text-default-success)"
+          aria-hidden="true"
+        />
         <span>{{ t('check-documents') }}</span>
       </li>
       <li class="check-list__item">
-        <VIcon icon="ri:checkbox-circle-line" class="check-list__icon" aria-hidden="true" />
+        <VIcon
+          icon="ri:shield-line"
+          class="check-list__icon"
+          color="var(--text-default-success)"
+          aria-hidden="true"
+        />
         <span>{{ t('check-watermark') }}</span>
       </li>
     </ul>
     <hr class="banner-separator" />
     <p>{{ t('download-description') }}</p>
-    <button
+    <DsfrButton
       ref="download-zip"
-      type="button"
-      class="link-button blue-text"
+      :label="t('download-zip')"
+      icon="ri:download-line"
+      :icon-right="true"
+      secondary
+      size="sm"
       @click="onDownload"
-    >
-      {{ t('download-zip') }}
-      <RiDownloadLine aria-hidden="true" size="16" />
-    </button>
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { VIcon } from '@gouvminint/vue-dsfr'
-import { RiDownloadLine } from '@remixicon/vue'
+import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
 import { useZipDownload } from '@/composables/useZipDownload'
 import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
 const { downloadZip } = useZipDownload()
-const downloadZipElt = useTemplateRef<HTMLButtonElement>('download-zip')
+const downloadZipElt = useTemplateRef<InstanceType<typeof DsfrButton>>('download-zip')
 
 function onDownload() {
   AnalyticsService.optInDownloadZip()
-  downloadZip(downloadZipElt.value)
+  downloadZip(downloadZipElt.value?.$el)
 }
 </script>
 
@@ -63,7 +72,7 @@ function onDownload() {
 .check-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
   list-style: none;
   padding: 0;
 }
@@ -82,9 +91,10 @@ function onDownload() {
   border-top: 1px solid var(--border-default-grey);
 }
 
+/* The color goes through the VIcon `color` prop: the component sets an inline
+   `color: inherit` on the svg, which would override any color set from CSS */
 .check-list__icon {
   flex-shrink: 0;
-  color: var(--text-default-success);
 }
 
 </style>

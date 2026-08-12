@@ -23,7 +23,7 @@
       <ul v-if="messages.length > 1">
         <li v-for="(message, k) in messages" :key="k" v-safe-html="message"></li>
       </ul>
-      <div v-else class="fr-mt-1w" v-safe-html="messages[0]"></div>
+      <div v-else v-safe-html="messages[0]" class="fr-mt-1w"></div>
     </div>
   </div>
 </template>

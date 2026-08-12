@@ -7,7 +7,7 @@
   >
     <div class="trigram-content">
       <DsfrAlert type="info" :title="t('trigram.alert-title')" title-tag="h2" class="fr-mb-3w">
-        <p class="fr-text--sm" v-safe-html="t('trigram.alert-description')"></p>
+        <p v-safe-html="t('trigram.alert-description')" class="fr-text--sm"></p>
         <p class="fr-text--sm">{{ t('trigram.alert-multiple') }}</p>
       </DsfrAlert>
 

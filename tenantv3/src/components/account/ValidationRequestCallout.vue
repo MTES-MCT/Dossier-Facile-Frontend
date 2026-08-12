@@ -28,13 +28,32 @@
     <template v-else>
       <div class="callout-text">
         <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('available.title') }}</h2>
-        <p>
-          {{ t('available.text') }} <strong>{{ t('available.text-bold') }}</strong>
-        </p>
-        <p>
-          <strong>{{ t('available.when-bold') }}</strong> {{ t('available.when') }}
-        </p>
+        <p>{{ t('available.text') }}</p>
       </div>
+      <p class="fr-text--bold">{{ t('available.why-title') }}</p>
+      <ul class="benefits-list" role="list">
+        <li class="benefits-list__item">
+          <VIcon
+            icon="ri:file-line"
+            class="benefits-list__icon"
+            color="var(--text-action-high-blue-france)"
+            aria-hidden="true"
+          />
+          <span>{{ t('available.benefit-documents') }}</span>
+        </li>
+        <li class="benefits-list__item">
+          <VIcon
+            icon="ri:shield-line"
+            class="benefits-list__icon"
+            color="var(--text-action-high-blue-france)"
+            aria-hidden="true"
+          />
+          <span>
+            {{ t('available.benefit-certification') }}
+            <strong>{{ t('available.benefit-certification-bold') }}</strong>
+          </span>
+        </li>
+      </ul>
       <button
         ref="action-button"
         type="button"
@@ -44,6 +63,13 @@
       >
         {{ t('available.request') }}
       </button>
+      <p class="time-note">
+        <VIcon icon="ri:time-line" class="time-note__icon" aria-hidden="true" />
+        <span>
+          {{ t('available.time') }} <strong>{{ t('available.time-bold') }}</strong>
+          {{ t('available.time-after') }}
+        </span>
+      </p>
     </template>
     <hr class="callout-separator" />
     <p>
@@ -148,6 +174,37 @@ async function submit(validationRequested: boolean) {
   border-top: 1px solid var(--border-default-grey);
 }
 
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.benefits-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* The color goes through the VIcon `color` prop: the component sets an inline
+   `color: inherit` on the svg, which would override any color set from CSS */
+.benefits-list__icon {
+  flex-shrink: 0;
+}
+
+.time-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: var(--text-mention-grey);
+}
+
+.time-note__icon {
+  flex-shrink: 0;
+}
+
 .fr-badge .badge-icon {
   margin-right: 0.25rem;
 }
@@ -158,11 +215,15 @@ async function submit(validationRequested: boolean) {
   "en": {
     "available": {
       "title": "Have your file checked",
-      "text": "You can ask a member of our team to check your documents. The verification takes",
-      "text-bold": "24 hours on average.",
-      "when-bold": "When should you ask for a verification?",
-      "when": "You have a doubt about a document or about your situation.",
-      "request": "Request a verification"
+      "text": "You can ask a member of our team to check your documents.",
+      "why-title": "Why request a verification?",
+      "benefit-documents": "Make sure all the submitted documents are consistent.",
+      "benefit-certification": "Get a",
+      "benefit-certification-bold": "verified by DossierFacile label.",
+      "request": "Request a verification",
+      "time": "The verification takes",
+      "time-bold": "24 hours on average.",
+      "time-after": "Your file remains downloadable in the meantime."
     },
     "requested": {
       "badge": "Request being processed",
@@ -181,12 +242,16 @@ async function submit(validationRequested: boolean) {
   },
   "fr": {
     "available": {
-      "title": "Faire vérifier votre dossier",
-      "text": "Vous pouvez demander à une personne de notre équipe de vérifier vos documents. La vérification prend",
-      "text-bold": "en moyenne 24 heures.",
-      "when-bold": "Dans quels cas demander une vérification ?",
-      "when": "Vous avez un doute sur un document ou sur votre situation.",
-      "request": "Demander une vérification"
+      "title": "Faites vérifier votre dossier",
+      "text": "Vous pouvez demander à une personne de notre équipe de vérifier vos documents.",
+      "why-title": "Pourquoi demander une vérification ?",
+      "benefit-documents": "Vous assurer que tous les documents déposés sont cohérents.",
+      "benefit-certification": "Obtenir un label",
+      "benefit-certification-bold": "dossier vérifié par DossierFacile.",
+      "request": "Demander une vérification",
+      "time": "La vérification prend",
+      "time-bold": "en moyenne 24 heures.",
+      "time-after": "Votre dossier reste téléchargeable pendant ce temps."
     },
     "requested": {
       "badge": "Demande en cours de traitement",

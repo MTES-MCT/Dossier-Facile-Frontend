@@ -6,8 +6,8 @@
           <div class="fr-col-12">
             <h1 v-safe-html="t(`account.title.dashboard`)"></h1>
             <template v-if="showOptIn">
-              <CompletedFileBanner class="fr-mb-3w" />
               <ValidationRequestCallout class="fr-mb-3w" />
+              <CompletedFileBanner class="fr-mb-3w" />
             </template>
             <div v-else-if="isDenied() || user.status === 'TO_PROCESS'">
               <div class="fr-grid-row fr-grid-row--gutters">
@@ -17,8 +17,8 @@
                       {{ t('account.amendment-required-title') }}
                     </h2>
                     <p
-                      class="fr-m-1w fr-callout__text"
                       v-safe-html="t('account.amendment-required-text')"
+                      class="fr-m-1w fr-callout__text"
                     />
                     <DsfrButton
                       :label="t('account.messaging')"
@@ -50,8 +50,8 @@
                     </div>
                     <div>
                       <p
-                        class="small-text"
                         v-safe-html="t('account.processing-bloc.last-update', [lastModifiedDate()])"
+                        class="small-text"
                       ></p>
                     </div>
                   </div>
@@ -67,8 +67,8 @@
                       {{ t('account.download-not-validated-title') }}
                     </h2>
                     <p
-                      class="fr-m-1w fr-callout__text"
                       v-safe-html="t('account.download-not-validated-text')"
+                      class="fr-m-1w fr-callout__text"
                     ></p>
                     <DsfrButton
                       ref="download-zip"
@@ -84,7 +84,7 @@
               </div>
             </div>
             <DefaultShareSection v-if="user.status === 'VALIDATED'" class="fr-mb-3w" />
-            <h2 class="fr-h3" v-safe-html="t(`account.content-title`)"></h2>
+            <h2 v-safe-html="t(`account.content-title`)" class="fr-h3"></h2>
             <div class="fr-mt-3w fr-p-0w">
               <section v-if="user.applicationType !== 'ALONE'" class="fr-m-0 fr-p-0 bg-white">
                 <div class="fr-tabs account-tabs">
@@ -173,7 +173,7 @@
                     />
                   </a>
                 </div>
-                <p class="fr-mt-3w" v-safe-html="t('account.opinion-bloc.warning')"></p>
+                <p v-safe-html="t('account.opinion-bloc.warning')" class="fr-mt-3w"></p>
               </div>
             </div>
           </div>
