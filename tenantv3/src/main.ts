@@ -25,7 +25,7 @@ const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 defineRule('onlyAlpha', (value: string) => {
-  const regex = /^[a-zA-Z \-'’àâäçéèêëîïôöùûüÿæœÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸÆŒ]*$/
+  const regex = /^[\p{Script=Latin}\p{M} \-'’]*$/u
   if (!regex.test(value)) {
     return 'only-alpha'
   }
