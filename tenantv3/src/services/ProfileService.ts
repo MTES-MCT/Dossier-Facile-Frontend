@@ -29,6 +29,11 @@ export const ProfileService = {
       clarification
     })
   },
+  updateValidationRequest(validationRequested: boolean) {
+    return axios.put<User>(`${import.meta.env.VITE_API_URL}/api/tenant/validation-request`, {
+      validationRequested
+    })
+  },
   setGuarantorType(typeGuarantorData: unknown) {
     return axios.post<User>(
       `${import.meta.env.VITE_API_URL}/api/register/guarantorType`,

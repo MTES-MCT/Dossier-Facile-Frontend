@@ -147,6 +147,7 @@
     "no-income": "Pas de revenus",
     "status": {
       "TO_PROCESS": "En cours de traitement",
+      "COMPLETED": "Document déposé",
       "VALIDATED": "Vérifié",
       "DECLINED": "Modification demandée",
       "INCOMPLETE": "Non terminé",

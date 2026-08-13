@@ -209,6 +209,22 @@ export const AnalyticsService = {
     sendEvent('file', 'validate-file')
   },
 
+  optInSectionDisplayed() {
+    sendEvent('account', 'optin_section_displayed')
+  },
+
+  optInRequestValidation() {
+    sendEvent('account', 'optin_request_validation')
+  },
+
+  optInCancelValidation() {
+    sendEvent('account', 'optin_cancel_validation')
+  },
+
+  optInDownloadZip() {
+    sendEvent('account', 'optin_download_zip')
+  },
+
   openSimulationCAF() {
     sendEvent('funnel', 'open-simulation_caf')
   },

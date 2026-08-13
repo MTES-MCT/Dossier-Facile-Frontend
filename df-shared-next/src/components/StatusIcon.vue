@@ -9,6 +9,7 @@ import {
   RiAlertLine,
   RiArrowRightLine,
   RiAttachmentLine,
+  RiCheckboxCircleLine,
   RiCloseCircleFill,
   RiCloseCircleLine,
   RiGroupLine,
@@ -36,6 +37,8 @@ const icon = computed(() => {
       return RiArrowRightLine
     case 'FILLED':
       return RiAttachmentLine
+    case 'COMPLETED':
+      return RiCheckboxCircleLine
     case 'TO_PROCESS':
       return RiTimeLine
     case 'VALIDATED':

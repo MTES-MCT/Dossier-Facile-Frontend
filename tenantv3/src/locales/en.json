@@ -147,6 +147,7 @@
     "no-income": "No Income",
     "status": {
       "TO_PROCESS": "Processing",
+      "COMPLETED": "Document submitted",
       "VALIDATED": "Verified",
       "DECLINED": "Modification Requested",
       "INCOMPLETE": "Incomplete",

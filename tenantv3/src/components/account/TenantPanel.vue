@@ -21,6 +21,7 @@
           :document="document(props.tenant, 'IDENTIFICATION')"
           :can-edit="showButtons"
           :enable-download="showButtons"
+          :dossier-status="props.tenant.status"
           @click-edit="AnalyticsService.editFromAccount(1)"
         />
         <FileRowListItem
@@ -29,6 +30,7 @@
           :document="document(props.tenant, 'RESIDENCY')"
           :can-edit="showButtons"
           :enable-download="showButtons"
+          :dossier-status="props.tenant.status"
           @click-edit="AnalyticsService.editFromAccount(2)"
         />
         <FileRowListItem
@@ -38,6 +40,7 @@
           :document="document(props.tenant, 'PROFESSIONAL')"
           :can-edit="showButtons"
           :enable-download="showButtons"
+          :dossier-status="props.tenant.status"
           @click-edit="AnalyticsService.editFromAccount(3)"
         />
         <span v-if="documents(props.tenant, 'FINANCIAL').length > 1">
@@ -50,6 +53,7 @@
             :document="doc"
             :can-edit="showButtons"
             :enable-download="showButtons"
+            :dossier-status="props.tenant.status"
             @click-edit="AnalyticsService.editFromAccount(4)"
           />
         </span>
@@ -60,6 +64,7 @@
           :document="document(props.tenant, 'FINANCIAL')"
           :can-edit="showButtons"
           :enable-download="showButtons"
+          :dossier-status="props.tenant.status"
           @click-edit="AnalyticsService.editFromAccount(4)"
         />
         <FileRowListItem
@@ -68,6 +73,7 @@
           :document="document(props.tenant, 'TAX')"
           :can-edit="showButtons"
           :enable-download="showButtons"
+          :dossier-status="props.tenant.status"
           @click-edit="AnalyticsService.editFromAccount(5)"
         />
       </ul>
