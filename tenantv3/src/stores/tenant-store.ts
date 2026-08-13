@@ -291,6 +291,7 @@ export const useTenantStore = defineStore('tenant', {
     },
     loadUserCommit(user: User) {
       Object.assign(this.user, user)
+      this.user.validationRequested = user.validationRequested
       Object.assign(this.status.loggedIn, true)
 
       const applicationType = user?.apartmentSharing.applicationType
@@ -419,6 +420,11 @@ export const useTenantStore = defineStore('tenant', {
     async validateFile(data: { honorDeclaration: boolean; clarification: string | undefined }) {
       await ProfileService.validateFile(data.honorDeclaration, data.clarification)
       AnalyticsService.validateFile()
+    },
+    async updateValidationRequest(validationRequested: boolean) {
+      const response = await ProfileService.updateValidationRequest(validationRequested)
+      this.loadUserCommit(response.data)
+      return response.data
     },
     async addNaturalGuarantor() {
       const response = await ProfileService.setGuarantorType({

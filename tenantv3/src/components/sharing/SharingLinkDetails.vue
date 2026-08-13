@@ -387,17 +387,6 @@ h3 {
 .dp-custom-input__close:hover {
   color: #333;
 }
-.link-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  border: none;
-  border-bottom: 1px solid currentColor;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  font-size: inherit;
-}
 .title-cell {
   display: flex;
   flex-direction: column;

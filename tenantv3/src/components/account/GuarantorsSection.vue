@@ -21,6 +21,7 @@
               :document="document(g, 'IDENTIFICATION')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              :dossier-status="props.tenant?.status"
               @click-edit="AnalyticsService.editFromAccount(1)"
             />
             <FileRowListItem
@@ -29,6 +30,7 @@
               :document="document(g, 'RESIDENCY')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              :dossier-status="props.tenant?.status"
               @click-edit="AnalyticsService.editFromAccount(2)"
             />
             <FileRowListItem
@@ -37,6 +39,7 @@
               :document="document(g, 'PROFESSIONAL')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              :dossier-status="props.tenant?.status"
               @click-edit="AnalyticsService.editFromAccount(3)"
             />
             <span v-if="documents(g, 'FINANCIAL').length > 1">
@@ -52,6 +55,7 @@
                 :document="doc"
                 :can-edit="canEdit"
                 :enable-download="enableDownload"
+                :dossier-status="props.tenant?.status"
                 @click-edit="AnalyticsService.editFromAccount(4)"
               />
             </span>
@@ -62,6 +66,7 @@
               :document="document(g, 'FINANCIAL')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              :dossier-status="props.tenant?.status"
               @click-edit="AnalyticsService.editFromAccount(4)"
             />
             <FileRowListItem
@@ -70,6 +75,7 @@
               :document="document(g, 'TAX')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              :dossier-status="props.tenant?.status"
               @click-edit="AnalyticsService.editFromAccount(5)"
             />
           </ul>
@@ -82,6 +88,7 @@
               :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              :dossier-status="props.tenant?.status"
               @click-edit="AnalyticsService.editFromAccount(1)"
             />
           </ul>
@@ -94,6 +101,7 @@
               :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              :dossier-status="props.tenant?.status"
               @click-edit="AnalyticsService.editFromAccount(0)"
             />
           </ul>
@@ -104,6 +112,7 @@
               :document="document(g, 'IDENTIFICATION')"
               :can-edit="canEdit"
               :enable-download="enableDownload"
+              :dossier-status="props.tenant?.status"
               @click-edit="AnalyticsService.editFromAccount(1)"
             />
           </ul>

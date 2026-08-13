@@ -47,6 +47,45 @@ describe('FileRowListItem', () => {
     expect(wrapper.find('button').exists()).toBe(false)
   })
 
+  it('labels a submitted document as completed when the dossier is COMPLETED', () => {
+    const wrapper = mount(FileRowListItem, {
+      global: { stubs: { RouterLink: true } },
+      props: {
+        label: 'Identification',
+        document: { documentStatus: 'TO_PROCESS' },
+        dossierStatus: 'COMPLETED'
+      }
+    })
+
+    expect(wrapper.text()).toContain('documents.status.COMPLETED')
+  })
+
+  it('keeps the regular label when the dossier is not COMPLETED', () => {
+    const wrapper = mount(FileRowListItem, {
+      global: { stubs: { RouterLink: true } },
+      props: {
+        label: 'Identification',
+        document: { documentStatus: 'TO_PROCESS' },
+        dossierStatus: 'TO_PROCESS'
+      }
+    })
+
+    expect(wrapper.text()).toContain('documents.status.TO_PROCESS')
+  })
+
+  it('does not alter a validated document of a COMPLETED dossier', () => {
+    const wrapper = mount(FileRowListItem, {
+      global: { stubs: { RouterLink: true } },
+      props: {
+        label: 'Identification',
+        document: { documentStatus: 'VALIDATED' },
+        dossierStatus: 'COMPLETED'
+      }
+    })
+
+    expect(wrapper.text()).toContain('documents.status.VALIDATED')
+  })
+
   it('renders a button for authenticated direct document URL', () => {
     const wrapper = mount(FileRowListItem, {
       global: { stubs: { RouterLink: true } },

@@ -260,11 +260,10 @@ const handleDelete = async () => {
   flex-shrink: 0;
 }
 
+/* Base styles come from the shared .link-button class (df-shared-next/src/scss/_main.scss) */
 .link-button {
   display: flex;
-  align-items: center;
   gap: 0.5rem;
-  border-bottom: 1px solid;
   white-space: nowrap;
 }
 

@@ -19,6 +19,9 @@ export class User {
   email!: string
   tenantType?: 'CREATE' | 'JOIN'
   status?: TenantFileStatus
+  validationRequested?: boolean
+  /** Whether the validation question must be displayed on the dashboard */
+  optInEligible?: boolean
   honorDeclaration?: boolean
   lastUpdateDate?: Date
   clarification?: string
