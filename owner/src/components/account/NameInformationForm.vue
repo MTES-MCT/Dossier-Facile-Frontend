@@ -68,31 +68,15 @@
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
               <label for="email" class="fr-label">{{ t('nameinformationform.email') }} :</label>
-              <Field
+              <input
                 id="email"
-                v-slot="{ field, meta }"
-                v-model="email"
-                name="email"
-                :rules="{
-                  email: true,
-                  required: true
-                }"
-              >
-                <input
-                  v-bind="field"
-                  disabled
-                  class="validate-required form-control fr-input"
-                  :class="{
-                    'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid
-                  }"
-                  :placeholder="t('nameinformationform.email')"
-                  type="email"
-                />
-              </Field>
-              <ErrorMessage v-slot="{ message }" name="email">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-              </ErrorMessage>
+                :value="email"
+                disabled
+                readonly
+                class="form-control fr-input"
+                :placeholder="t('nameinformationform.email')"
+                type="email"
+              />
             </div>
           </div>
         </div>
@@ -111,7 +95,6 @@ import { useToast } from 'vue-toastification'
 import router from '../../router'
 import ProfileFooter from '../footer/ProfileFooter.vue'
 import useOwnerStore from '../../store/owner-store'
-import { isAxiosError } from 'axios'
 
 const { t } = useI18n()
 const store = useOwnerStore()
@@ -123,11 +106,11 @@ const franceConnect = computed(() => store.getUser?.franceConnect)
 
 const firstname = ref(store.getUser?.firstName || '')
 const lastname = ref(store.getUser?.lastName || '')
-const email = ref(store.getUser?.email || '')
+const email = computed(() => store.getUser?.email || '')
 
 function onSubmit() {
   store
-    .saveNames(lastname.value, firstname.value, email.value)
+    .saveNames(lastname.value, firstname.value)
     .then(() => {
       if (properties.length > 0) {
         router.push({ name: 'Dashboard' })
@@ -135,12 +118,10 @@ function onSubmit() {
       }
       router.push({ name: 'PropertyName' })
     })
-    .catch((err) => {
-      if (isAxiosError(err) && err.response?.data.message?.includes('email_exists')) {
-        toast.error(t('nameinformationform.email-exists').toString(), {
-          timeout: 7000
-        })
-      }
+    .catch(() => {
+      toast.error(t('try-again').toString(), {
+        timeout: 7000
+      })
     })
 }
 </script>
