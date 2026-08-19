@@ -55,7 +55,8 @@ describe("flatmate tenant scenario", () => {
     cy.expectPath("/info-garant/0");
     cy.get("#organismName").type("Organisme").uploadDocument().clickOnNext();
 
-    const name = "Personne Morale 123";
+    // Name with international characters: exercises the relaxed onlyAlpha rule
+    const name = "Señora Muñoz-Dvořák";
     cy.get("#firstName").type(name);
     cy.get("#selectID").select("Autre").uploadDocument().clickOnNext();
 
