@@ -13,6 +13,16 @@
       >
         <span class="sr-only">{{ title }}</span>
       </SimpleRadioButtons>
+      <div v-if="selectedSubCategory" class="fr-mt-2w fr-mb-3w">
+        <p class="fr-mb-1w">
+          {{ t('instruction') }}
+          <strong>{{ selectedSubCategory === 'VISALE' ? t('proof-visale') : t('proof-default') }}</strong>
+        </p>
+        <ul class="fr-pl-3w">
+          <li><strong>{{ t('proof-name') }}</strong></li>
+          <li><strong>{{ t('proof-validity') }}</strong></li>
+        </ul>
+      </div>
       <div v-if="shouldShowUploader">
         <AnalysisWrapper
           ref="analysis-wrapper"
@@ -26,6 +36,7 @@
               :sub-category="selectedSubCategory"
               :analysis-in-progress="analysisInProgress"
               :max-file-count="5"
+              :analysis-time="20000"
             />
           </template>
         </AnalysisWrapper>
@@ -243,10 +254,20 @@ td {
 <i18n lang="json">
 {
   "en": {
-    "delete-docs": "Delete my documents"
+    "delete-docs": "Delete my documents",
+    "instruction": "Make sure to attach",
+    "proof-visale": "your Visale certificate:",
+    "proof-default": "your certificate:",
+    "proof-name": "in your name",
+    "proof-validity": "currently valid"
   },
   "fr": {
-    "delete-docs": "Supprimer mes documents"
+    "delete-docs": "Supprimer mes documents",
+    "instruction": "Assurez-vous de joindre",
+    "proof-visale": "votre justificatif Visale :",
+    "proof-default": "votre justificatif :",
+    "proof-name": "à votre nom",
+    "proof-validity": "en cours de validité"
   }
 }
 </i18n>

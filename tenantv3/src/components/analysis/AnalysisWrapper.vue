@@ -18,6 +18,23 @@
       <slot name="analysisBannerError" v-bind="slotProps" />
     </template>
   </AnalysisBanners>
+  <div
+    v-if="isAnalysisTerminated"
+    class="analysis-success-card fr-mb-3w"
+    role="status"
+    aria-live="polite"
+  >
+    <VIcon
+      name="ri:checkbox-circle-line"
+      :scale="1.2"
+      color="var(--blue-france-sun-113-625)"
+      class="analysis-success-icon"
+      aria-hidden="true"
+    />
+    <span class="analysis-success-title">
+      {{ t('analysis-completed') }}
+    </span>
+  </div>
   <slot name="fileUploader" />
   <div v-if="analysisFailedRules.length > 0" class="explain-section">
     <div class="separator">
@@ -61,7 +78,7 @@
 import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
-import { DsfrBadge, DsfrButton } from '@gouvminint/vue-dsfr'
+import { DsfrBadge, DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import debounce from 'lodash.debounce'
 import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch } from 'vue'
@@ -104,6 +121,17 @@ const explanationSubmitted = ref(false)
 let pendingSave: Promise<boolean> | null = null
 
 const analysisErrorCount = computed(() => analysisFailedRules.value?.length ?? 0)
+const isAnalysisTerminated = computed(() => {
+  const report = document.value?.documentAnalysisReport
+  if (!report || analysisInProgress.value) {
+    return false
+  }
+  const hasNoFailed = (report.failedRules?.length ?? 0) === 0
+  const hasPassedOrInconclusive =
+    (report.passedRules?.length ?? 0) > 0 || (report.inconclusiveRules?.length ?? 0) > 0
+
+  return hasNoFailed && hasPassedOrInconclusive
+})
 const isBusy = computed(() => analysisInProgress.value || props.isUploading)
 const nextDisabled = computed(() => isBusy.value)
 
@@ -303,6 +331,26 @@ function beforeSubmit(): boolean {
 </script>
 
 <style scoped>
+.analysis-success-card {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f5f5fe;
+  border-left: 4px solid var(--blue-france-sun-113-625, #000091);
+  padding: 1.25rem;
+}
+
+.analysis-success-icon {
+  flex-shrink: 0;
+}
+
+.analysis-success-title {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  color: var(--blue-france-sun-113-625, #000091);
+}
+
 .explain-section {
   display: flex;
   flex-direction: column;
@@ -346,6 +394,7 @@ function beforeSubmit(): boolean {
 {
   "en": {
     "errors-count": "{count} error to correct | {count} errors to correct",
+    "analysis-completed": "Analysis completed",
     "or": "OR",
     "uploading": "Uploading...",
     "analyzing": "Analyzing...",
@@ -359,6 +408,7 @@ function beforeSubmit(): boolean {
   },
   "fr": {
     "errors-count": "{count} erreur à corriger | {count} erreurs à corriger",
+    "analysis-completed": "Analyse terminée",
     "or": "OU",
     "uploading": "Envoi en cours...",
     "analyzing": "Analyse en cours...",
