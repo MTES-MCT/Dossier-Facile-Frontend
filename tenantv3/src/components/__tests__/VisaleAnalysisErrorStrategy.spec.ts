@@ -26,7 +26,7 @@ describe('VisaleAnalysisErrorStrategy', () => {
       return 'Ajoutez votre certificat de garantie Visale <strong>en cours de validité</strong>'
     }
     if (key === 'visale-errors.expected-classification') {
-      return 'Ajoutez votre certificat de garantie Visale, voir un exemple dans <a href="https://aide.dossierfacile.fr" target="_blank" rel="noopener noreferrer">notre aide en ligne</a>'
+      return 'Ajoutez votre certificat de garantie Visale, voir un exemple dans <a href="https://aide.dossierfacile.logement.gouv.fr/fr/article/organisme-garant-1ne3cvn/" target="_blank" rel="noopener noreferrer">notre aide en ligne</a>'
     }
     if (key === 'visale-errors.expected-name') {
       return `Ajoutez votre certificat de garantie Visale au nom de <strong>${params?.name}</strong>`

@@ -1,10 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { flushPromises, mount } from '@vue/test-utils'
+import { config, flushPromises, mount } from '@vue/test-utils'
 import { defineComponent, h, ref } from 'vue'
 import AnalysisWrapper from '../analysis/AnalysisWrapper.vue'
 import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
 import { toast } from '@/components/toast/toastUtils'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { SafeHtmlPlugin } from 'df-shared-next/src/services/SanitizeService'
+
+config.global.plugins = [SafeHtmlPlugin]
 
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({

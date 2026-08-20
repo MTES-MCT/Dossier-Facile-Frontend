@@ -23,7 +23,7 @@
       <!-- Bullet list when bullets exist -->
       <ul v-if="bullets.length > 0" class="analysis-error-bullets">
         <li v-for="(bulletHtml, index) in bullets" :key="index">
-          <span v-html="bulletHtml"></span>
+          <span v-safe-html="bulletHtml"></span>
         </li>
       </ul>
 
@@ -34,7 +34,7 @@
         </h4>
         <p
           class="analysis-error-expected-text"
-          v-html="strategy.getExpectedDocumentHtml(failedRules, t)"
+          v-safe-html="strategy.getExpectedDocumentHtml(failedRules, t)"
         ></p>
       </div>
 
@@ -162,7 +162,7 @@ defineExpose({
   font-size: 1.125rem;
   line-height: 1.5rem;
   font-weight: 700;
-  color: #c94625;
+  color: var(--text-default-warning);
 }
 
 .analysis-error-body {
@@ -174,7 +174,7 @@ defineExpose({
 .analysis-error-bullets {
   margin: 0 0 1rem 1.25rem;
   padding: 0;
-  color: #c94625;
+  color: var(--text-default-warning);
   font-size: 1rem;
   line-height: 1.5rem;
 }
@@ -221,6 +221,9 @@ defineExpose({
 .analysis-error-expected-text :deep(a) {
   color: #000091;
   text-decoration: underline;
+  background-image: none;
+  border-bottom: none;
+  box-shadow: none;
   font-weight: 700;
 }
 
@@ -299,7 +302,7 @@ defineExpose({
       "expiration-bullet": "Expired since <strong>{date}</strong>",
       "name-bullet": "Certificate in the name of <strong>{name}</strong> different from yours",
       "bad-classification-bullet": "Incorrect document type",
-      "expected-classification": "Add your Visale guarantee certificate, see an example in <a href=\"https://aide.dossierfacile.fr\" target=\"_blank\" rel=\"noopener noreferrer\">our online help</a>",
+      "expected-classification": "Add your Visale guarantee certificate, see an example in <a href=\"https://aide.dossierfacile.logement.gouv.fr/fr/article/organisme-garant-1ne3cvn/\" target=\"_blank\" rel=\"noopener noreferrer\">our online help</a>",
       "expected-name-and-expiration": "Add your Visale guarantee certificate in the name of <strong>{name}</strong> and <strong>currently valid</strong>",
       "expected-name": "Add your Visale guarantee certificate in the name of <strong>{name}</strong>",
       "expected-expiration": "Add your Visale guarantee certificate <strong>currently valid</strong>",
@@ -325,7 +328,7 @@ defineExpose({
       "expiration-bullet": "Expiré depuis le <strong>{date}</strong>",
       "name-bullet": "Attestation au nom de <strong>{name}</strong> différent du vôtre",
       "bad-classification-bullet": "Type de document incorrect",
-      "expected-classification": "Ajoutez votre certificat de garantie Visale, voir un exemple dans <a href=\"https://aide.dossierfacile.fr\" target=\"_blank\" rel=\"noopener noreferrer\">notre aide en ligne</a>",
+      "expected-classification": "Ajoutez votre certificat de garantie Visale, voir un exemple dans <a href=\"https://aide.dossierfacile.logement.gouv.fr/fr/article/organisme-garant-1ne3cvn/\" target=\"_blank\" rel=\"noopener noreferrer\">notre aide en ligne</a>",
       "expected-name-and-expiration": "Ajoutez votre certificat de garantie Visale au nom de <strong>{name}</strong> et <strong>en cours de validité</strong>",
       "expected-name": "Ajoutez votre certificat de garantie Visale au nom de <strong>{name}</strong>",
       "expected-expiration": "Ajoutez votre certificat de garantie Visale <strong>en cours de validité</strong>",
