@@ -53,7 +53,17 @@
             <h2 class="fr-tile__title">
               {{ t('s1.h3') }}
             </h2>
-            <p class="fr-tile__desc">{{ t('s1.p3') }}</p>
+            <p class="fr-tile__desc">
+              {{ t('s1.p3-before') }}
+              <a
+                :href="HELP_URL"
+                :title="`${t('s1.p3-link')} - ${t('new-window')}`"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ t('s1.p3-link') }}</a
+              >
+              {{ t('s1.p3-after') }}
+            </p>
           </div>
           <div class="fr-tile__img">
             <img src="@icons/reading.svg" class="fr-responsive-img" alt="" />
@@ -261,6 +271,7 @@ const { t } = useI18n()
 
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
 const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
+const HELP_URL = 'https://aide.dossierfacile.logement.gouv.fr/fr'
 
 const validatedDossierCount = ref('116000')
 

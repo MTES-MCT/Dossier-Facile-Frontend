@@ -324,8 +324,8 @@
           Vous pouvez décider de ne jamais être suivi, même de manière anonyme sur DossierFacile :
         </p>
         <DsfrCheckbox
-          name="consent"
           v-model="consentRemoved"
+          name="consent"
           :value="true"
           label="Je souhaite désactiver le suivi."
           :hint="consentRemoved ? 'Cookie d’exclusion installé' : undefined"
