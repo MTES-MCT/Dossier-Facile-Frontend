@@ -1,6 +1,41 @@
 <template>
+  <div v-if="showAnalysisLoading" class="analysis-loading fr-mb-3w" role="status" aria-live="polite">
+    <div class="analysis-loading-header">
+      <VIcon
+        name="ri:loader-4-line"
+        :scale="1.2"
+        color="var(--blue-france-sun-113-625)"
+        class="analysis-loading-spinner"
+        aria-hidden="true"
+      />
+      <span class="analysis-loading-title">
+        {{ t('analysis-title') }}
+      </span>
+    </div>
+    <p class="analysis-loading-text fr-mt-1w" :class="{ 'fr-mb-2w': !isOvertime }">
+      <template v-if="!isOvertime">
+        {{ t('analysis-in-progress', { n: props.analysisTime / 1000 }) }}
+      </template>
+      <template v-else>
+        {{ t('analysis-overtime') }}
+      </template>
+    </p>
+    <div
+      v-if="!isOvertime"
+      class="analysis-loading-progress"
+      role="progressbar"
+      :aria-valuenow="progressPercentage"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <div
+        class="analysis-loading-progress-bar"
+        :style="{ width: `${progressPercentage}%` }"
+      ></div>
+    </div>
+  </div>
   <ul v-if="currentFiles.length > 0" role="list" class="fr-col-12 fr-mb-3w">
-    <li v-for="file in currentFiles" :key="file.id">
+    <li v-for="file in currentFiles" :key="file.id || file.name">
       <ListItem
         :file="file"
         :watermark-url="documentWatermarkUrl"
@@ -11,23 +46,6 @@
       />
     </li>
   </ul>
-  <div v-if="analysisInProgress" class="analysis-loading fr-mb-3w">
-    <div class="analysis-loading-status">
-      <VIcon
-        name="ri:hourglass-fill"
-        :scale="1.5"
-        color="var(--blue-france-sun-113-625)"
-        class="analysis-loading-icon"
-        aria-hidden="true"
-      />
-      <output class="fr-m-0 analysis-loading-text" aria-live="polite">
-        {{ t('analysis-in-progress') }}
-      </output>
-    </div>
-    <div class="analysis-loading-progress">
-      <div class="analysis-loading-progress-bar"></div>
-    </div>
-  </div>
   <FileUpload
     ref="file-upload"
     :current-status="fileUploadStatus"
@@ -50,9 +68,8 @@ import { VIcon } from '@gouvminint/vue-dsfr'
 import type { DocumentCategoryStep } from 'df-shared-next/src/models/DfDocument'
 import type { DfFile } from 'df-shared-next/src/models/DfFile'
 import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, onUnmounted, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useLoading } from 'vue-loading-overlay'
 import { useDocumentFormKey } from '../documents/documentFormState'
 import { type DocumentSubCategory } from '../documents/share/DocumentTypeConstants'
 import { toast } from '../toast/toastUtils'
@@ -70,6 +87,7 @@ const props = withDefaults(
     beforeSave?: (files: File[]) => Promise<boolean> | boolean
     beforeOpen?: () => boolean
     errorMessage?: string
+    analysisTime?: number
   }>(),
   {
     analysisInProgress: false,
@@ -78,7 +96,8 @@ const props = withDefaults(
     explanation: undefined,
     beforeSave: undefined,
     beforeOpen: undefined,
-    errorMessage: undefined
+    errorMessage: undefined,
+    analysisTime: 10000
   }
 )
 
@@ -89,13 +108,77 @@ const documentFormState = useDocumentFormKey()
 
 const currentDocument = computed(() => documentFormState.document.value)
 
-const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
+const files = ref<
+  { name: string; file: File; size: number; id?: string; path?: string; preview?: string }[]
+>([])
 const fileUpload = useTemplateRef('file-upload')
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 
 const documentWatermarkUrl = computed(() => currentDocument.value?.name)
 
 const isUploading = computed(() => fileUploadStatus.value === UploadStatus.STATUS_SAVING)
+
+const showAnalysisLoading = computed(() => {
+  if (props.analysisInProgress || isUploading.value) {
+    return true
+  }
+  const report = currentDocument.value?.documentAnalysisReport
+  const isToProcess = currentDocument.value?.documentStatus === 'TO_PROCESS'
+  if (
+    currentDocument.value?.id &&
+    isToProcess &&
+    report?.analysisStatus !== 'CHECKED' &&
+    report?.analysisStatus !== 'DENIED'
+  ) {
+    return true
+  }
+  return false
+})
+
+const progressPercentage = ref(0)
+const isOvertime = computed(() => progressPercentage.value >= 100)
+let progressInterval: ReturnType<typeof setInterval> | null = null
+let startTime = 0
+
+function startProgress() {
+  stopProgress()
+  progressPercentage.value = 0
+  startTime = Date.now()
+  const durationMs = props.analysisTime
+
+  progressInterval = setInterval(() => {
+    const elapsed = Date.now() - startTime
+    const current = Math.min(100, Math.round((elapsed / durationMs) * 100))
+    progressPercentage.value = current
+    if (current >= 100) {
+      stopProgress()
+    }
+  }, 100)
+}
+
+function stopProgress() {
+  if (progressInterval) {
+    clearInterval(progressInterval)
+    progressInterval = null
+  }
+}
+
+watch(
+  showAnalysisLoading,
+  (isLoading) => {
+    if (isLoading) {
+      startProgress()
+    } else {
+      stopProgress()
+      progressPercentage.value = 0
+    }
+  },
+  { immediate: true }
+)
+
+onUnmounted(() => {
+  stopProgress()
+})
 
 defineExpose({
   isUploading
@@ -107,7 +190,8 @@ const currentFiles = computed(() => {
       documentSubCategory: props.subCategory,
       id: f.id,
       name: f.name,
-      size: f.size
+      size: f.size,
+      preview: f.preview || (f.file ? URL.createObjectURL(f.file) : undefined)
     }
   })
   const existingFiles = currentDocument.value?.files || []
@@ -133,7 +217,7 @@ async function remove(file: DfFile, silent = false) {
 async function addFiles(fileList: File[]) {
   AnalyticsService.uploadFile(props.docCategory, props.subCategory)
   const nf = Array.from(fileList).map((f) => {
-    return { name: f.name, file: f, size: f.size }
+    return { name: f.name, file: f, size: f.size, preview: URL.createObjectURL(f) }
   })
   const previousCount = files.value.length
   files.value = [...files.value, ...nf]
@@ -177,8 +261,6 @@ async function save(): Promise<boolean> {
   documentFormState.addData?.(formData)
 
   fileUploadStatus.value = UploadStatus.STATUS_SAVING
-  const $loading = useLoading()
-  const loader = $loading.show()
 
   return await store[documentFormState.storeAction](formData)
     .then(() => {
@@ -193,9 +275,6 @@ async function save(): Promise<boolean> {
       UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
       return false
     })
-    .finally(() => {
-      loader.hide()
-    })
 }
 </script>
 
@@ -203,46 +282,55 @@ async function save(): Promise<boolean> {
 .analysis-loading {
   display: flex;
   flex-direction: column;
+  background-color: #F5F5FE;
+  border-left: 4px solid var(--blue-france-sun-113-625, #000091);
+  padding: 1.25rem;
+}
+
+.analysis-loading-header {
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
-.analysis-loading-status {
-  display: flex;
-  align-items: center;
-  gap: 3px;
+.analysis-loading-spinner {
+  flex-shrink: 0;
+  animation: spin 1s linear infinite;
 }
 
-.analysis-loading-icon {
-  flex-shrink: 0;
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.analysis-loading-title {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  color: var(--blue-france-sun-113-625, #000091);
 }
 
 .analysis-loading-text {
-  font-size: 0.875rem;
+  font-size: 1rem;
   line-height: 1.5rem;
-  color: #161616;
+  color: var(--text-default-grey, #161616);
 }
 
 .analysis-loading-progress {
   height: 8px;
-  background-color: var(--background-contrast-grey);
+  background-color: var(--background-action-low-blue-france, #e5e5f8);
   border-radius: 0;
   overflow: hidden;
 }
 
 .analysis-loading-progress-bar {
   height: 100%;
-  width: 30%;
-  background-color: var(--blue-france-sun-113-625);
-  animation: indeterminate 1.5s infinite ease-in-out;
-}
-
-@keyframes indeterminate {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(433%);
-  }
+  background-color: var(--blue-france-sun-113-625, #000091);
+  transition: width 0.1s linear;
 }
 
 .fr-info-text {
@@ -276,10 +364,14 @@ ul {
 <i18n lang="json">
 {
   "en": {
-    "analysis-in-progress": "Analyzing documents. This usually takes less than 10 seconds."
+    "analysis-title": "Automatic analysis in progress",
+    "analysis-in-progress": "We are verifying your documents. This usually takes less than {n} seconds.",
+    "analysis-overtime": "The analysis is taking longer than expected. You can continue filling out your application."
   },
   "fr": {
-    "analysis-in-progress": "Analyse des documents. Cela prend généralement moins de 10 secondes."
+    "analysis-title": "Analyse automatique en cours",
+    "analysis-in-progress": "Nous vérifions vos documents. Cela prend généralement moins de {n} secondes.",
+    "analysis-overtime": "L'analyse prend plus de temps que prévu. Vous pouvez continuer votre dossier."
   }
 }
 </i18n>

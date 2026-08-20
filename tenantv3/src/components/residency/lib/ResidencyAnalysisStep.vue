@@ -40,6 +40,7 @@
         ref="upload-file-with-analysis"
         doc-category="residency"
         :sub-category="subCategory"
+        :analysis-time=30000
         :analysis-in-progress="analysisInProgress"
       />
     </template>

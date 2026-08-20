@@ -8,6 +8,24 @@
   >
     <template #label>{{ t('can-add-explanation') }}</template>
   </TextAreaWithCounter>
+  <div class="no-income-notice fr-mb-3w" role="note">
+    <div class="no-income-notice-side">
+      <VIcon
+        name="ri:information-fill"
+        :scale="1.2"
+        color="#ffffff"
+        class="no-income-notice-icon"
+        aria-hidden="true"
+      />
+    </div>
+    <div class="no-income-notice-content">
+      <p class="no-income-notice-text">
+        {{ t('notice-prefix') }}
+        <strong>{{ t('notice-bold') }}</strong>
+        {{ t('notice-suffix') }}
+      </p>
+    </div>
+  </div>
   <FinancialFooter :on-submit="save" />
 </template>
 
@@ -24,6 +42,7 @@ import { UtilsService } from '@/services/UtilsService'
 import { useFinancialState } from '../financialState'
 import { useI18n } from 'vue-i18n'
 import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'
+import { VIcon } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -61,15 +80,58 @@ async function save(): Promise<boolean> {
 }
 </script>
 
+<style scoped>
+.no-income-notice {
+  display: flex;
+  background-color: #ffffff;
+  border: 1px solid #0063cb;
+  overflow: hidden;
+}
+
+.no-income-notice-side {
+  background-color: #0063cb;
+  width: 36px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12px;
+  flex-shrink: 0;
+}
+
+.no-income-notice-content {
+  flex: 1;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+}
+
+.no-income-notice-text {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #161616;
+  margin: 0;
+}
+
+.no-income-notice-text strong {
+  font-weight: 700;
+}
+</style>
+
 <i18n>
 {
   "en": {
     "no-income": "You have no income",
-    "can-add-explanation": "You can add an explanation of your situation here if you wish:"
+    "can-add-explanation": "You can add an explanation of your situation here if you wish:",
+    "notice-prefix": "Do you receive social assistance, an annuity, or a pension? ",
+    "notice-bold": "These are also income.",
+    "notice-suffix": " Add them to your file."
   },
   "fr": {
     "no-income": "Vous n’avez pas de revenus",
-    "can-add-explanation": "Vous pouvez ajouter une explication sur votre situation ici si vous le souhaitez :"
+    "can-add-explanation": "Vous pouvez ajouter une explication sur votre situation ici si vous le souhaitez :",
+    "notice-prefix": "Vous touchez une aide sociale, une rente ou une pension ? ",
+    "notice-bold": "Ce sont aussi des revenus.",
+    "notice-suffix": " Ajoutez-les à votre dossier."
   }
 }
 </i18n>
