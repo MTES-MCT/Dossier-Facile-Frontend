@@ -4,7 +4,7 @@
       <section class="section fr-my-5w">
         <h1 class="fr-h2 fr-mb-0">{{ t('your-shares') }}</h1>
         <SharingLinksRecap :links="sharingLinks" />
-        <ShareFile v-if="store.user.status === 'VALIDATED'" @refresh="refreshData" />
+        <ShareFile v-if="UtilsService.isCompletedOrValidatedStatus(store.user.status)" @refresh="refreshData" />
         <SharingLinksHistory :links="activeLinks" @refresh="refreshData" />
         <NakedCard class="fr-p-3w">
           <h2 class="fr-h3">{{ t('report-suspicious-use') }}</h2>
@@ -32,6 +32,7 @@ import { useI18n } from 'vue-i18n'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { UtilsService } from '@/services/UtilsService'
 import ShareFile from '@/components/sharing/ShareFile.vue'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import SharingLinksRecap from '@/components/sharing/SharingLinksRecap.vue'

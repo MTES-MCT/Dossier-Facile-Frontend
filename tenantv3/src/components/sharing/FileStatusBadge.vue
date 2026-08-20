@@ -36,6 +36,11 @@ const label = computed(() => (status ? t(status) : ''))
   background-color: #ececff;
   color: #000091;
 }
+
+.fr-badge.completed {
+  background-color: #e8edff;
+  color: #0063cb;
+}
 </style>
 
 <i18n>
@@ -45,14 +50,16 @@ const label = computed(() => (status ? t(status) : ''))
     "DECLINED": "Rejected file",
     "ARCHIVED": "File archived",
     "INCOMPLETE": "Incomplete file",
-    "TO_PROCESS": "File currently being processed"
+    "TO_PROCESS": "File currently being processed",
+    "COMPLETED": "Complete file"
   },
   "fr": {
     "VALIDATED": "Dossier validé",
     "DECLINED": "Dossier refusé",
     "ARCHIVED": "Dossier archivé",
     "INCOMPLETE": "Dossier incomplet",
-    "TO_PROCESS": "Dossier en cours de traitement"
+    "TO_PROCESS": "Dossier en cours de traitement",
+    "COMPLETED": "Dossier complet"
   }
 }
 </i18n>

@@ -10,12 +10,18 @@
         <DownloadFileButton
           ref="download-button"
           :show-progress-bar="showProgressBar"
-          :disabled="!user || user.status !== 'VALIDATED'"
+          :disabled="!user || !UtilsService.isCompletedOrValidatedStatus(user.status)"
           @download="download"
         />
       </FileHeader>
+      <FileStatusAlert
+        v-if="user && (user.status === 'VALIDATED' || user.status === 'COMPLETED')"
+        :dossier-status="user.status"
+        class="fr-mt-3w"
+      />
+      <!-- a link whose dossier went back to review keep the legacy block -->
       <FileReinsurance
-        v-if="user !== null"
+        v-else-if="user !== null"
         :dossier-status="user.status"
         :tax-document-status="taxDocumentStatus()"
         :france-connect-tenant-count="franceConnectTenantCount()"
@@ -79,18 +85,21 @@
                   :label="t('file.identification')"
                   :document="document(tenant, 'IDENTIFICATION')"
                   :show-validated="true"
+                  :dossier-status="user.status"
                   :can-edit="false"
                 />
                 <FileRowListItem
                   :label="t('file.residency')"
                   :document="document(tenant, 'RESIDENCY')"
                   :show-validated="true"
+                  :dossier-status="user.status"
                   :can-edit="false"
                 />
                 <FileRowListItem
                   :label="t('file.professional')"
                   :document="document(tenant, 'PROFESSIONAL')"
                   :show-validated="true"
+                  :dossier-status="user.status"
                   :can-edit="false"
                 />
                 <FileRowListItem
@@ -99,6 +108,7 @@
                   :label="t('file.financial') + (j >= 1 ? ' ' + (j + 1) : '')"
                   :document="doc"
                   :show-validated="true"
+                  :dossier-status="user.status"
                   :can-edit="false"
                 />
                 <FileRowListItem
@@ -106,6 +116,7 @@
                   :tag-label="getTaxDocumentBadgeLabel(tenant)"
                   :document="document(tenant, 'TAX')"
                   :show-validated="true"
+                  :dossier-status="user.status"
                   :can-edit="false"
                 >
                   <template #postTag>
@@ -133,18 +144,21 @@
                         :label="t('file.identification')"
                         :document="document(g, 'IDENTIFICATION')"
                         :show-validated="true"
+                        :dossier-status="user.status"
                         :can-edit="false"
                       />
                       <FileRowListItem
                         :label="t('file.residency')"
                         :document="document(g, 'RESIDENCY')"
                         :show-validated="true"
+                        :dossier-status="user.status"
                         :can-edit="false"
                       />
                       <FileRowListItem
                         :label="t('file.professional')"
                         :document="document(g, 'PROFESSIONAL')"
                         :show-validated="true"
+                        :dossier-status="user.status"
                         :can-edit="false"
                       />
                       <FileRowListItem
@@ -153,6 +167,7 @@
                         :label="t('file.financial') + (j >= 1 ? ' ' + (j + 1) : '')"
                         :document="doc"
                         :show-validated="true"
+                        :dossier-status="user.status"
                         :can-edit="false"
                       />
                       <FileRowListItem
@@ -160,6 +175,7 @@
                         :tag-label="getTaxDocumentBadgeLabel(g)"
                         :document="document(g, 'TAX')"
                         :show-validated="true"
+                        :dossier-status="user.status"
                         :can-edit="false"
                       >
                         <template #postTag>
@@ -178,12 +194,14 @@
                         :label="t('file.identification-legal-person')"
                         :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
                         :show-validated="true"
+                        :dossier-status="user.status"
                         :can-edit="false"
                       />
                       <FileRowListItem
                         :label="t('file.identification')"
                         :document="document(g, 'IDENTIFICATION')"
                         :show-validated="true"
+                        :dossier-status="user.status"
                         :can-edit="false"
                       />
                     </ul>
@@ -192,6 +210,7 @@
                         :label="t('file.organism')"
                         :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                         :show-validated="true"
+                        :dossier-status="user.status"
                         :can-edit="false"
                       />
                     </ul>
@@ -206,7 +225,7 @@
         <div class="text-center">
           <DownloadFileButton
             :show-progress-bar="showProgressBar"
-            :disabled="!user || user.status !== 'VALIDATED'"
+            :disabled="!user || !UtilsService.isCompletedOrValidatedStatus(user.status)"
             @download="download"
           />
         </div>
@@ -237,6 +256,7 @@ import { FileUser } from 'df-shared-next/src/models/FileUser'
 import { ProfileService } from '../services/ProfileService'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import FileReinsurance from '../components/FileReinsurance.vue'
+import FileStatusAlert from '../components/FileStatusAlert.vue'
 import DownloadFileButton from '../components/DownloadFileButton.vue'
 import FileRowListItem from '../components/documents/FileRowListItem.vue'
 import OwnerBanner from '../components/OwnerBanner.vue'
@@ -312,6 +332,7 @@ function setUser(trigram: string) {
       viewState.value = 'fileContent'
       trigramValue.value = trigram
       trigramError.value = false
+      AnalyticsService.fullLinkFileDisplayed(user.value?.status)
     })
     .catch((error) => {
       handleAPIError(error.response?.status, trigram)
@@ -436,11 +457,10 @@ function isTaxAuthentic(user: User | Guarantor) {
   return doc?.authenticityStatus === 'AUTHENTIC'
 }
 
-function getTaxDocumentBadgeLabel(user: User | Guarantor): string {
-  const doc = document(user, 'TAX')
-  return isTaxAuthentic(user)
-    ? t('file.tax-verified')
-    : t('documents.status.' + doc?.documentStatus)
+// Only the DGFIP-authenticated label overrides the badge: for any other case, returning
+// undefined lets FileRowListItem apply its standard status mapping (COMPLETED, EMPTY…)
+function getTaxDocumentBadgeLabel(user: User | Guarantor): string | undefined {
+  return isTaxAuthentic(user) ? t('file.tax-verified') : undefined
 }
 </script>
 

@@ -21,14 +21,8 @@
     <div v-if="enableDownload || canEdit" class="file-actions">
       <!-- Lien public (lien de partage) : ouverture directe sans JWT -->
       <a
-        v-if="
-          enableDownload &&
-          document &&
-          document.name &&
-          (!showValidated || document.documentStatus === 'VALIDATED') &&
-          !isAuthenticatedDocumentUrl
-        "
-        :href="document.name"
+        v-if="canViewDocument && !isAuthenticatedDocumentUrl"
+        :href="document?.name"
         :title="t('filerowlistitem.see-title')"
         target="_blank"
         :aria-describedby="id"
@@ -38,13 +32,7 @@
       </a>
       <!-- URL authentifiée (/api/document/resource/) : fetch avec JWT puis ouverture en nouvel onglet -->
       <button
-        v-else-if="
-          enableDownload &&
-          document &&
-          document.name &&
-          (!showValidated || document.documentStatus === 'VALIDATED') &&
-          isAuthenticatedDocumentUrl
-        "
+        v-else-if="canViewDocument && isAuthenticatedDocumentUrl"
         ref="see-button"
         type="button"
         :title="t('filerowlistitem.see-title')"
@@ -114,6 +102,20 @@ const isAuthenticatedDocumentUrl = computed(() => {
   const name = props.document?.name
   if (!name) return false
   return name.includes('/api/document/resource/') || name.includes('document/resource/')
+})
+
+const canViewDocument = computed(() => {
+  if (!props.enableDownload || !props.document?.name) {
+    return false
+  }
+  if (!props.showValidated) {
+    return true
+  }
+  // Documents of a COMPLETED dossier are not reviewed yet (TO_PROCESS) but still consultable
+  return (
+    props.document.documentStatus === 'VALIDATED' ||
+    (props.dossierStatus === 'COMPLETED' && props.document.documentStatus === 'TO_PROCESS')
+  )
 })
 
 function getTagLabel() {

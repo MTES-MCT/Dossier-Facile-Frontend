@@ -48,10 +48,7 @@
             color="var(--text-action-high-blue-france)"
             aria-hidden="true"
           />
-          <span>
-            {{ t('available.benefit-certification') }}
-            <strong>{{ t('available.benefit-certification-bold') }}</strong>
-          </span>
+          <span>{{ t('available.benefit-certification') }}</span>
         </li>
       </ul>
       <button
@@ -218,8 +215,7 @@ async function submit(validationRequested: boolean) {
       "text": "You can ask a member of our team to check your documents.",
       "why-title": "Why request a verification?",
       "benefit-documents": "Make sure all the submitted documents are consistent.",
-      "benefit-certification": "Get a",
-      "benefit-certification-bold": "verified by DossierFacile label.",
+      "benefit-certification": "Get a state certification for your rental file.",
       "request": "Request a verification",
       "time": "The verification takes",
       "time-bold": "24 hours on average.",
@@ -246,8 +242,7 @@ async function submit(validationRequested: boolean) {
       "text": "Vous pouvez demander à une personne de notre équipe de vérifier vos documents.",
       "why-title": "Pourquoi demander une vérification ?",
       "benefit-documents": "Vous assurer que tous les documents déposés sont cohérents.",
-      "benefit-certification": "Obtenir un label",
-      "benefit-certification-bold": "dossier vérifié par DossierFacile.",
+      "benefit-certification": "Obtenir une certification de l'État sur votre dossier de location.",
       "request": "Demander une vérification",
       "time": "La vérification prend",
       "time-bold": "en moyenne 24 heures.",

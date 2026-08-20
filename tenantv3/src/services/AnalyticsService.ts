@@ -38,6 +38,12 @@ function sendEvent(category: EventCategory, name: string) {
   sendFullEvent(category, 'unknown', name)
 }
 
+// Sharing events of a COMPLETED (non verified) dossier are suffixed so the
+// existing VALIDATED series remains comparable in Matomo dashboards
+function completedSuffix(dossierStatus?: string) {
+  return dossierStatus === 'COMPLETED' ? '_completed' : ''
+}
+
 function getDoctypeByNumber(docType: number) {
   return DOCUMENT_TYPES[docType - 1] || ''
 }
@@ -109,36 +115,36 @@ export const AnalyticsService = {
     sendEvent('account', 'account-delete')
   },
 
-  shareByMail(full: string) {
-    sendEvent('account', 'share-by-mail_' + full)
+  shareByMail(full: string, dossierStatus?: string) {
+    sendEvent('account', 'share-by-mail_' + full + completedSuffix(dossierStatus))
   },
 
-  copyLink(full: string) {
-    sendEvent('account', 'copy-link_' + full)
+  copyLink(full: string, dossierStatus?: string) {
+    sendEvent('account', 'copy-link_' + full + completedSuffix(dossierStatus))
   },
 
-  getDefaultLink(type: string) {
-    sendEvent('partage', 'sharing_get_default_' + type)
+  getDefaultLink(type: string, dossierStatus?: string) {
+    sendEvent('partage', 'sharing_get_default_' + type + completedSuffix(dossierStatus))
   },
 
   sharingToggleAllLinks(action: 'disable' | 'enable') {
     sendEvent('partage', 'sharing_' + action + '_all')
   },
 
-  sharingNew(type: 'link' | 'mail', content: 'full' | 'limited') {
-    sendEvent('partage', `sharing_new_${type}_${content}`)
+  sharingNew(type: 'link' | 'mail', content: 'full' | 'limited', dossierStatus?: string) {
+    sendEvent('partage', `sharing_new_${type}_${content}` + completedSuffix(dossierStatus))
   },
 
-  sharingCopyNewLink() {
-    sendEvent('partage', 'sharing_copy_new_link')
+  sharingCopyNewLink(dossierStatus?: string) {
+    sendEvent('partage', 'sharing_copy_new_link' + completedSuffix(dossierStatus))
   },
 
-  sharingDownloadFull() {
-    sendEvent('partage', 'sharing_download_full')
+  sharingDownloadFull(dossierStatus?: string) {
+    sendEvent('partage', 'sharing_download_full' + completedSuffix(dossierStatus))
   },
 
-  sharingResendMail() {
-    sendEvent('partage', 'sharing_resend_mail')
+  sharingResendMail(dossierStatus?: string) {
+    sendEvent('partage', 'sharing_resend_mail' + completedSuffix(dossierStatus))
   },
 
   sharingToggleLink(action: 'enable' | 'disable') {
@@ -153,12 +159,12 @@ export const AnalyticsService = {
     sendEvent('partage', 'sharing_go_to_details_all')
   },
 
-  sharingCopyDefaultLink() {
-    sendEvent('partage', 'sharing_copy_default_link')
+  sharingCopyDefaultLink(dossierStatus?: string) {
+    sendEvent('partage', 'sharing_copy_default_link' + completedSuffix(dossierStatus))
   },
 
-  sharingSeeDefaultLink() {
-    sendEvent('partage', 'sharing_see_default_link')
+  sharingSeeDefaultLink(dossierStatus?: string) {
+    sendEvent('partage', 'sharing_see_default_link' + completedSuffix(dossierStatus))
   },
 
   sharingGoToAll() {
@@ -219,10 +225,6 @@ export const AnalyticsService = {
 
   optInCancelValidation() {
     sendEvent('account', 'optin_cancel_validation')
-  },
-
-  optInDownloadZip() {
-    sendEvent('account', 'optin_download_zip')
   },
 
   openSimulationCAF() {
@@ -303,6 +305,15 @@ export const AnalyticsService = {
 
   openFullLink() {
     sendFullEvent('file', 'print', 'full-link-opened')
+  },
+
+  // Sent once the shared file content is loaded, with the actual dossier status
+  fullLinkFileDisplayed(dossierStatus?: string) {
+    sendFullEvent('file', 'print', 'full-link-displayed_' + (dossierStatus ?? 'unknown').toLowerCase())
+  },
+
+  publicLinkFileDisplayed(dossierStatus?: string) {
+    sendFullEvent('file', 'print', 'public-link-displayed_' + (dossierStatus ?? 'unknown').toLowerCase())
   },
 
   displayTrigramFeature() {

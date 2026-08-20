@@ -107,6 +107,7 @@
     "warn-VALIDATED": "VALIDÉ",
     "warn-DECLINED": "REFUSÉ",
     "warn-INCOMPLETE": "INCOMPLET",
+    "warn-COMPLETED": "DOSSIER COMPLET",
     "warn-ARCHIVED": "Archivé"
   },
   "documents": {

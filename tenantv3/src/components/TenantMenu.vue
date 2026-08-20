@@ -50,7 +50,7 @@
               </span>
             </router-link>
           </li>
-          <li v-if="user.status !== 'COMPLETED'">
+          <li>
             <router-link class="fr-nav__link" to="/partages">{{ t('menu.shared') }}</router-link>
           </li>
           <li>
