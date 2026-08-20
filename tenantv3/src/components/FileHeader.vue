@@ -9,7 +9,7 @@
           {{ t('file.title', [getName()]) }}
         </h1>
         <p class="text-bold color--white">
-          {{ t('file.description', [getStatus(), getIncomeSum()]) }}
+          {{ subtitle }}
         </p>
         <slot></slot>
       </div>
@@ -21,6 +21,7 @@
 import { FileUser } from 'df-shared-next/src/models/FileUser'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import dayjs from 'dayjs'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { UtilsService } from '@/services/UtilsService'
 
@@ -28,6 +29,14 @@ const props = defineProps<{
   user: FileUser | null
 }>()
 const { t } = useI18n()
+
+// The income of a COMPLETED dossier has not been verified by an agent, so it is not displayed
+const subtitle = computed(() => {
+  if (props.user?.status === 'COMPLETED') {
+    return getStatus()
+  }
+  return t('file.description', [getStatus(), getIncomeSum()])
+})
 
 function getName() {
   if (props.user?.tenants === undefined) {

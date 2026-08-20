@@ -32,16 +32,6 @@ declare module 'vue-router' {
   }
 }
 
-/**
- * TODO : remove this redirection once share links are compatbel with COMPLETED dossier
- */
-function redirectCompletedToAccount() {
-  const store = useTenantStore()
-  if (store.user.status === 'COMPLETED') {
-    return { name: 'Account' }
-  }
-}
-
 const TAX_ROUTES = (prefix: string): RouteRecordRaw[] => [
   {
     path: 'avec-avis',
@@ -1030,7 +1020,6 @@ export const router = createRouter({
         requiresAuth: true,
         skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
-      beforeEnter: redirectCompletedToAccount,
       component: () => import('../views/MyFile.vue')
     },
     {
@@ -1055,7 +1044,6 @@ export const router = createRouter({
         requiresAuth: true,
         skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
-      beforeEnter: redirectCompletedToAccount,
       component: () => import('../views/SharingLinksPage.vue')
     },
     {

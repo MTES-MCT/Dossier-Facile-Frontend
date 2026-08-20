@@ -86,6 +86,43 @@ describe('FileRowListItem', () => {
     expect(wrapper.text()).toContain('documents.status.VALIDATED')
   })
 
+  it('shows the view button for a submitted document of a COMPLETED dossier', () => {
+    const wrapper = mount(FileRowListItem, {
+      global: { stubs: { RouterLink: true } },
+      props: {
+        label: 'Identification',
+        enableDownload: true,
+        showValidated: true,
+        dossierStatus: 'COMPLETED',
+        document: {
+          documentStatus: 'TO_PROCESS',
+          name: 'https://api.example.com/api/application/links/abc-123/documents/doc-uuid'
+        }
+      }
+    })
+
+    expect(wrapper.find('a[href*="documents/doc-uuid"]').exists()).toBe(true)
+  })
+
+  it('hides the view button for a submitted document when the dossier is under review', () => {
+    const wrapper = mount(FileRowListItem, {
+      global: { stubs: { RouterLink: true } },
+      props: {
+        label: 'Identification',
+        enableDownload: true,
+        showValidated: true,
+        dossierStatus: 'TO_PROCESS',
+        document: {
+          documentStatus: 'TO_PROCESS',
+          name: 'https://api.example.com/api/application/links/abc-123/documents/doc-uuid'
+        }
+      }
+    })
+
+    expect(wrapper.find('a[href*="documents/doc-uuid"]').exists()).toBe(false)
+    expect(wrapper.find('button').exists()).toBe(false)
+  })
+
   it('renders a button for authenticated direct document URL', () => {
     const wrapper = mount(FileRowListItem, {
       global: { stubs: { RouterLink: true } },
