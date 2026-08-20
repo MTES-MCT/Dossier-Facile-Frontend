@@ -511,4 +511,95 @@ describe('analysisWrapper', () => {
     await flushPromises()
     expect(wrapper.find('#explainText-error').exists()).toBe(true)
   })
+
+  it('focuses AnalysisErrorBlock when beforeSubmit fails and strategy is provided', async () => {
+    const rules = [
+      { rule: 'R_VISALE_CERTIFICATE_EXPIRATION', message: 'Expired', level: 'CRITICAL', ruleData: null }
+    ]
+    mockStoreDocument.value = {
+      ...mockStoreDocument.value,
+      documentAnalysisReport: { failedRules: rules, comment: '' }
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+    const mockAnalysisErrorBlockFocus = vi.fn()
+    const AnalysisErrorBlockStub = defineComponent({
+      name: 'AnalysisErrorBlock',
+      setup(_, { expose }) {
+        expose({ focus: mockAnalysisErrorBlockFocus })
+        return () => h('div', { id: 'analysis-error-block-stub' })
+      }
+    })
+
+    const dummyStrategy = {
+      getHeaderTitle: () => 'Error header',
+      getBulletText: () => 'Bullet text',
+      getExpectedDocumentHtml: () => 'Expected doc',
+      getAction: () => undefined
+    }
+
+    const wrapper = mount(AnalysisWrapper, {
+      props: { strategy: dummyStrategy as any },
+      global: {
+        stubs: {
+          AnalysisErrorBlock: AnalysisErrorBlockStub,
+          AnalysisBanners: AnalysisBannersStub,
+          DsfrBadge: true,
+          DsfrButton: true,
+          VIcon: true
+        }
+      }
+    })
+    await flushPromises()
+
+    expect(wrapper.vm.beforeSubmit()).toBe(false)
+    expect(mockAnalysisErrorBlockFocus).toHaveBeenCalled()
+  })
+
+  it('saves explanation on continue when strategy is provided', async () => {
+    const rules = [
+      { rule: 'R_VISALE_CERTIFICATE_EXPIRATION', message: 'Expired', level: 'CRITICAL', ruleData: null }
+    ]
+    mockStoreDocument.value = {
+      id: 42,
+      files: [{ id: 1, name: 'visale.pdf', size: 1000 }],
+      documentStatus: 'TO_PROCESS',
+      documentAnalysisReport: { failedRules: rules, comment: '' }
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+    const dummyStrategy = {
+      getHeaderTitle: () => 'Error header',
+      getBulletText: () => 'Bullet text',
+      getExpectedDocumentHtml: () => 'Expected doc',
+      getAction: () => undefined
+    }
+
+    const wrapper = mount(AnalysisWrapper, {
+      props: { strategy: dummyStrategy as any },
+      global: {
+        stubs: {
+          AnalysisBanners: AnalysisBannersStub,
+          DsfrBadge: true,
+          DsfrButton: true,
+          VIcon: true
+        }
+      }
+    })
+    await flushPromises()
+
+    const textarea = wrapper.find('#explainText')
+    await textarea.setValue('Mon explication Visale')
+    await flushPromises()
+    expect(wrapper.vm.beforeSubmit()).toBe(true)
+
+    await wrapper.vm.saveExplanation()
+    await flushPromises()
+
+    expect(mockSaveDocumentComment).toHaveBeenCalledWith({
+      documentId: 42,
+      tenantId: 123,
+      comment: 'Mon explication Visale'
+    })
+  })
 })

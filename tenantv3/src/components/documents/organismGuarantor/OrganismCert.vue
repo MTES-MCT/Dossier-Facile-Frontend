@@ -28,6 +28,8 @@
           ref="analysis-wrapper"
           :is-uploading="isUploading"
           :polling-timeout-ms="20000"
+          :strategy="visaleStrategy"
+          @custom-event="onCustomEvent"
         >
           <template #fileUploader>
             <UploadFileWithAnalysis
@@ -72,10 +74,12 @@ import { DocumentType } from 'df-shared-next/src/models/Document'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { computed, provide, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter, type RouteLocationRaw } from 'vue-router'
 import { AnalyticsService } from '../../../services/AnalyticsService'
 import { RegisterService } from '../../../services/RegisterService'
 import { useTenantStore } from '../../../stores/tenant-store'
 import AnalysisWrapper from '../../analysis/AnalysisWrapper.vue'
+import { VisaleAnalysisErrorStrategy } from '../../analysis/strategies/VisaleAnalysisErrorStrategy'
 import UploadFileWithAnalysis from '../../analysis/UploadFileWithAnalysis.vue'
 import { documentFormKey } from '../../documents/documentFormState'
 import {
@@ -83,7 +87,6 @@ import {
   type DocumentSubCategory
 } from '../../documents/share/DocumentTypeConstants'
 import AnalysisFooter from '../../footer/AnalysisFooter.vue'
-import type { RouteLocationRaw } from 'vue-router'
 
 const props = defineProps<{
   tenantId?: number
@@ -94,8 +97,10 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const router = useRouter()
 const store = useTenantStore()
 const user = computed(() => store.user)
+const currentGuarantor = computed(() => props.guarantor ?? store.guarantor)
 
 const analysisWrapper = useTemplateRef('analysis-wrapper')
 
@@ -121,6 +126,13 @@ const shouldShowUploader = computed(
     Boolean(selectedDocumentType.value.key) || (certificateDocument.value?.files?.length ?? 0) > 0
 )
 const selectedSubCategory = computed(() => selectedDocumentType.value.value as DocumentSubCategory)
+
+const visaleStrategy = computed(() => {
+  if (selectedSubCategory.value === 'VISALE') {
+    return new VisaleAnalysisErrorStrategy()
+  }
+  return undefined
+})
 
 const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
 const previousStep: RouteLocationRaw = props.backStep
@@ -231,6 +243,14 @@ function documentTypes() {
   return documentTypeOptions.map((d) => {
     return { id: d.key, labelKey: d.key, value: d }
   })
+}
+
+async function onCustomEvent() {
+  const g = currentGuarantor.value ?? (guarantorId() ? ({ id: guarantorId() } as Guarantor) : undefined)
+  if (g) {
+    await store.deleteGuarantor(g)
+  }
+  router.push({ name: 'ValidateFile' })
 }
 
 async function submit() {

@@ -1,23 +1,35 @@
 <template>
-  <DsfrBadge
-    v-if="analysisErrorCount > 0"
-    type="warning"
-    :label="t('errors-count', { count: analysisErrorCount }, analysisErrorCount)"
-    class="fr-mb-2w"
-  />
-  <slot name="fileSpecificDescription" />
-  <AnalysisBanners
-    v-if="analysisErrorCount > 0"
-    ref="analysis-banner"
-    :failed-rules="analysisFailedRules ?? []"
-    :document="document"
-    class="fr-mb-3w"
-    @explain="(text) => openExplainSection(true, text)"
-  >
-    <template #errorContent="slotProps">
-      <slot name="analysisBannerError" v-bind="slotProps" />
-    </template>
-  </AnalysisBanners>
+  <template v-if="strategy">
+    <AnalysisErrorBlock
+      v-if="analysisErrorCount > 0"
+      ref="analysis-error-block"
+      :failed-rules="analysisFailedRules ?? []"
+      :strategy="strategy"
+      v-model="explainText"
+      @custom-event="(eventName) => emit('customEvent', eventName)"
+    />
+  </template>
+  <template v-else>
+    <DsfrBadge
+      v-if="analysisErrorCount > 0"
+      type="warning"
+      :label="t('errors-count', { count: analysisErrorCount }, analysisErrorCount)"
+      class="fr-mb-2w"
+    />
+    <slot name="fileSpecificDescription" />
+    <AnalysisBanners
+      v-if="analysisErrorCount > 0"
+      ref="analysis-banner"
+      :failed-rules="analysisFailedRules ?? []"
+      :document="document"
+      class="fr-mb-3w"
+      @explain="(text) => openExplainSection(true, text)"
+    >
+      <template #errorContent="slotProps">
+        <slot name="analysisBannerError" v-bind="slotProps" />
+      </template>
+    </AnalysisBanners>
+  </template>
   <div
     v-if="isAnalysisTerminated"
     class="analysis-success-card fr-mb-3w"
@@ -36,7 +48,7 @@
     </span>
   </div>
   <slot name="fileUploader" />
-  <div v-if="analysisFailedRules.length > 0" class="explain-section">
+  <div v-if="!strategy && analysisFailedRules.length > 0" class="explain-section">
     <div class="separator">
       <div class="separator-line"></div>
       <span class="separator-text">{{ t('or') }}</span>
@@ -84,6 +96,8 @@ import debounce from 'lodash.debounce'
 import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AnalysisBanners from '../analysis/AnalysisBanners.vue'
+import AnalysisErrorBlock from '../analysis/AnalysisErrorBlock.vue'
+import type { BaseAnalysisErrorStrategy } from '../analysis/strategies/BaseAnalysisErrorStrategy'
 import { useDocumentFormKey } from '../documents/documentFormState'
 import { toast } from '../toast/toastUtils'
 
@@ -91,14 +105,20 @@ const POLLING_INTERVAL_MS = 3000
 const POLLING_TIMEOUT_MS = 10000
 const SAVE_DEBOUNCE_MS = 1000
 
+const emit = defineEmits<{
+  customEvent: [eventName: string]
+}>()
+
 const props = withDefaults(
   defineProps<{
     isUploading?: boolean
     pollingTimeoutMs?: number
+    strategy?: BaseAnalysisErrorStrategy
   }>(),
   {
     isUploading: false,
-    pollingTimeoutMs: POLLING_TIMEOUT_MS
+    pollingTimeoutMs: POLLING_TIMEOUT_MS,
+    strategy: undefined
   }
 )
 
@@ -113,6 +133,7 @@ const analysisInProgress = ref(false)
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
 const pollingTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
 const analysisBanner = useTemplateRef('analysis-banner')
+const analysisErrorBlock = useTemplateRef('analysis-error-block')
 const showExplainForm = ref(false)
 const showExplainError = ref(false)
 const explainText = ref('')
@@ -151,11 +172,16 @@ defineExpose({
   nextDisabled,
   nextLabel,
   beforeSubmit,
-  saveExplanation
+  saveExplanation,
+  explainText
 })
 
 function focusBanners() {
-  analysisBanner.value?.focus()
+  if (props.strategy) {
+    analysisErrorBlock.value?.focus()
+  } else {
+    analysisBanner.value?.focus()
+  }
 }
 
 watch(
@@ -193,7 +219,8 @@ function stopPolling() {
 
 async function persistExplanation(): Promise<boolean> {
   const documentId = document.value?.id
-  if (!documentId || !showExplainForm.value || !explainText.value.trim()) {
+  const isFormActive = props.strategy ? true : showExplainForm.value
+  if (!documentId || !isFormActive || !explainText.value.trim()) {
     return true
   }
   const savedComment = document.value?.documentAnalysisReport?.comment || ''
@@ -315,10 +342,11 @@ async function saveExplanation(): Promise<void> {
 function beforeSubmit(): boolean {
   if (isBusy.value) return false
   if (analysisErrorCount.value > 0) {
-    if (showExplainForm.value && explainText.value.trim()) {
+    const isFormActive = props.strategy ? true : showExplainForm.value
+    if (isFormActive && explainText.value.trim()) {
       return true
     }
-    if (showExplainForm.value) {
+    if (!props.strategy && showExplainForm.value) {
       showExplainError.value = true
       explainTextarea.value?.focus()
       return false
