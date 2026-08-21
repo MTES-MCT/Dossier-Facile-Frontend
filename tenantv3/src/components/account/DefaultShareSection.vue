@@ -200,6 +200,12 @@ async function copyLink() {
 .select-wrapper {
   flex: 1;
   max-width: 500px;
+
+  /* The label is sr-only: cancel the gap the DSFR keeps between label and select
+     so the field stays top-aligned with the submit button */
+  :deep(.fr-label + .fr-select) {
+    margin-top: 0;
+  }
 }
 
 .btn-wrapper {

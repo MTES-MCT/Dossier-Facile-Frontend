@@ -201,7 +201,8 @@
   },
   "account": {
     "title": {
-      "dashboard": "Dashboard"
+      "dashboard": "Dashboard",
+      "completed": "Your file is complete"
     },
     "last-update": "Last update of the file on {0}",
     "file-update-title": "Update your file",
