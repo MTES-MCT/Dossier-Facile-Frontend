@@ -2,6 +2,7 @@ import { Property, type LightProperty, type PropertyType } from 'df-shared-next/
 import { User } from 'df-shared-next/src/models/User'
 import { defineStore } from 'pinia'
 import { OwnerUser } from 'df-shared-next/src/models/OwnerUser'
+import type { NamesForm } from 'df-shared-next/src/models/NamesForm'
 import UtilsService from '../services/UtilsService'
 import { i18n } from '../i18n'
 import AuthService from '../components/auth/AuthService'
@@ -190,12 +191,12 @@ const useOwnerStore = defineStore('owner', {
         (error: Error) => Promise.reject(error)
       )
     },
-    saveNames(lastName: string, firstName: string, email: string) {
-      return OwnerService.saveNames(
-        UtilsService.capitalize(lastName),
-        UtilsService.capitalize(firstName),
-        email
-      )
+    saveNames(lastName: string, firstName: string) {
+      const namesForm: NamesForm = {
+        lastName: UtilsService.capitalize(lastName),
+        firstName: UtilsService.capitalize(firstName)
+      }
+      return OwnerService.saveNames(namesForm)
         .then((response) => {
           this.loadUserCommit(response.data)
           return Promise.resolve(response.data)
