@@ -186,10 +186,25 @@ function focusBanners() {
 }
 
 watch(
+  () => props.isUploading,
+  (uploading) => {
+    if (uploading) {
+      analysisInProgress.value = true
+    }
+  },
+  { immediate: true }
+)
+
+watch(
   () => document.value,
   async (document) => {
     analysisFailedRules.value = document?.documentAnalysisReport?.failedRules ?? []
     if (document?.id) {
+      const isToProcess = document.documentStatus === 'TO_PROCESS'
+      const isFinished = !!document.documentAnalysisReport?.analysisStatus
+      if (isToProcess && !isFinished) {
+        analysisInProgress.value = true
+      }
       const status = await updateAnalysisStatus()
       if (status === AnalysisStatus.IN_PROGRESS) {
         startPolling()
