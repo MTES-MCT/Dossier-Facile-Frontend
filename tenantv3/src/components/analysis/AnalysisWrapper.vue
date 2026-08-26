@@ -92,6 +92,7 @@ import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { DsfrBadge, DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import debounce from 'lodash.debounce'
 import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch } from 'vue'
@@ -185,11 +186,32 @@ function focusBanners() {
   }
 }
 
+function hasPendingAnalysis(doc?: DfDocument | null): boolean {
+  const isToProcess = doc?.documentStatus === 'TO_PROCESS'
+  const isFinished = !!doc?.documentAnalysisReport?.analysisStatus
+  return isToProcess && !isFinished
+}
+
+watch(
+  () => props.isUploading,
+  (uploading) => {
+    if (uploading) {
+      analysisInProgress.value = true
+    } else if (!hasPendingAnalysis(document.value)) {
+      analysisInProgress.value = false
+    }
+  },
+  { immediate: true }
+)
+
 watch(
   () => document.value,
   async (document) => {
     analysisFailedRules.value = document?.documentAnalysisReport?.failedRules ?? []
     if (document?.id) {
+      if (hasPendingAnalysis(document)) {
+        analysisInProgress.value = true
+      }
       const status = await updateAnalysisStatus()
       if (status === AnalysisStatus.IN_PROGRESS) {
         startPolling()
