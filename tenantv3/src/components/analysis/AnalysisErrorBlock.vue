@@ -70,16 +70,24 @@
 
       <!-- Situation explanation section -->
       <div class="analysis-error-explain">
-        <label for="explainText" class="fr-label explain-label">
-          {{ t('explain-question') }}
-        </label>
-        <textarea
-          id="explainText"
-          v-model="explainTextModel"
-          class="fr-input fr-mt-1w"
-          rows="3"
-          :placeholder="t('explain-placeholder')"
-        />
+        <div class="fr-input-group" :class="{ 'fr-input-group--error': isExplainError }">
+          <label for="explainText" class="fr-label explain-label">
+            {{ t('explain-question') }}
+          </label>
+          <textarea
+            id="explainText"
+            ref="explainTextarea"
+            v-model="explainTextModel"
+            class="fr-input fr-mt-1w"
+            :class="{ 'fr-input--error': isExplainError }"
+            rows="3"
+            :placeholder="t('explain-placeholder')"
+            aria-describedby="explainText-error explain-info-text"
+          />
+          <p v-if="isExplainError" id="explainText-error" class="fr-error-text">
+            {{ explainErrorMessage }}
+          </p>
+        </div>
         <div class="explain-info-box fr-mt-2w">
           <VIcon
             name="ri:information-fill"
@@ -87,7 +95,7 @@
             class="explain-info-icon"
             aria-hidden="true"
           />
-          <span class="explain-info-text fr-mb-2w">
+          <span id="explain-info-text" class="explain-info-text fr-mb-2w">
             {{ t('explain-info') }}
           </span>
         </div>
@@ -106,6 +114,7 @@ import type { BaseAnalysisErrorStrategy } from './strategies/BaseAnalysisErrorSt
 const props = defineProps<{
   failedRules: DocumentRule[]
   strategy: BaseAnalysisErrorStrategy
+  hasExplainError?: boolean
 }>()
 
 const explainTextModel = defineModel<string>({ default: '' })
@@ -123,13 +132,33 @@ const bullets = computed(() =>
 const action = computed(() => props.strategy.getAction(props.failedRules, t))
 
 const cardRef = useTemplateRef<HTMLElement>('cardRef')
+const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
+
+const isExplainError = computed(() => {
+  if (props.hasExplainError) {
+    return explainTextModel.value.trim().length < 10
+  }
+  return false
+})
+
+const explainErrorMessage = computed(() => {
+  if (explainTextModel.value.trim().length === 0) {
+    return t('explain-error')
+  }
+  return t('explain-error-min-length')
+})
 
 function focus() {
   cardRef.value?.focus()
 }
 
+function focusExplain() {
+  explainTextarea.value?.focus()
+}
+
 defineExpose({
-  focus
+  focus,
+  focusExplain
 })
 </script>
 
@@ -293,6 +322,8 @@ defineExpose({
     "explain-question": "Does this document look correct to you? Add an explanation of your situation:",
     "explain-placeholder": "Text entered",
     "explain-info": "This explanation will be transmitted to our team only. It will not appear in your tenant file.",
+    "explain-error": "Please describe your situation before continuing.",
+    "explain-error-min-length": "Your explanation must contain at least 10 characters.",
     "visale-errors": {
       "multiple-header": "Errors detected on document",
       "bad-classification-header": "This is not the expected certificate",
@@ -319,6 +350,8 @@ defineExpose({
     "explain-question": "Ce document vous paraît correct ? Ajouter une explication sur votre situation :",
     "explain-placeholder": "Texte saisi",
     "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
+    "explain-error": "Veuillez décrire votre situation avant de continuer.",
+    "explain-error-min-length": "Votre explication doit contenir au moins 10 caractères.",
     "visale-errors": {
       "multiple-header": "Des erreurs sont détectées sur le document",
       "bad-classification-header": "Ce n’est pas le certificat attendu",

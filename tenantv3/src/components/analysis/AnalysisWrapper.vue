@@ -6,6 +6,7 @@
       :failed-rules="analysisFailedRules ?? []"
       :strategy="strategy"
       v-model="explainText"
+      :has-explain-error="showExplainError"
       @custom-event="(eventName) => emit('customEvent', eventName)"
     />
   </template>
@@ -62,21 +63,21 @@
       @click="openExplainSection(false)"
     />
     <div v-if="showExplainForm" class="explain-form">
-      <div class="fr-input-group" :class="{ 'fr-input-group--error': showExplainError }">
+      <div class="fr-input-group" :class="{ 'fr-input-group--error': isExplainError }">
         <label for="explainText" class="fr-label">{{ t('explain-question') }}</label>
         <textarea
           id="explainText"
           ref="explainTextarea"
           v-model="explainText"
           class="fr-input"
-          :class="{ 'fr-input--error': showExplainError }"
+          :class="{ 'fr-input--error': isExplainError }"
           rows="5"
           :placeholder="t('explain-placeholder')"
           aria-describedby="explainText-error explainText-info"
           @blur="onExplainBlur"
         />
-        <p v-if="showExplainError" id="explainText-error" class="fr-error-text">
-          {{ t('explain-error') }}
+        <p v-if="isExplainError" id="explainText-error" class="fr-error-text">
+          {{ explainErrorMessage }}
         </p>
       </div>
       <p id="explainText-info" class="fr-info-text">
@@ -220,11 +221,20 @@ function stopPolling() {
 async function persistExplanation(): Promise<boolean> {
   const documentId = document.value?.id
   const isFormActive = props.strategy ? true : showExplainForm.value
-  if (!documentId || !isFormActive || !explainText.value.trim()) {
+  if (!documentId || !isFormActive) {
     return true
+  }
+  const text = explainText.value.trim()
+  if (!text) {
+    return true
+  }
+  if (text.length < 10) {
+    showExplainError.value = true
+    return false
   }
   const savedComment = document.value?.documentAnalysisReport?.comment || ''
   if (explainText.value === savedComment) {
+    showExplainError.value = false
     return true
   }
   const params = {
@@ -236,6 +246,7 @@ async function persistExplanation(): Promise<boolean> {
   try {
     await store.saveDocumentComment(params)
     explanationSubmitted.value = true
+    showExplainError.value = false
     toast.success(t('explanation-saved'), undefined)
     return true
   } catch {
@@ -339,19 +350,37 @@ async function saveExplanation(): Promise<void> {
   }
 }
 
+const isExplainError = computed(() => {
+  if (showExplainError.value) {
+    return explainText.value.trim().length < 10
+  }
+  return false
+})
+
+const explainErrorMessage = computed(() => {
+  if (explainText.value.trim().length === 0) {
+    return t('explain-error')
+  }
+  return t('explain-error-min-length')
+})
+
 function beforeSubmit(): boolean {
   if (isBusy.value) return false
   if (analysisErrorCount.value > 0) {
     const isFormActive = props.strategy ? true : showExplainForm.value
-    if (isFormActive && explainText.value.trim()) {
+    if (isFormActive && explainText.value.trim().length >= 10) {
+      showExplainError.value = false
       return true
     }
-    if (!props.strategy && showExplainForm.value) {
+    if (props.strategy) {
+      showExplainError.value = true
+      analysisErrorBlock.value?.focusExplain?.() ?? analysisErrorBlock.value?.focus()
+    } else if (showExplainForm.value) {
       showExplainError.value = true
       explainTextarea.value?.focus()
-      return false
+    } else {
+      focusBanners()
     }
-    focusBanners()
     return false
   }
   return true
@@ -431,6 +460,7 @@ function beforeSubmit(): boolean {
     "explain-placeholder": "Enter text",
     "explain-info": "This explanation will be sent to our team only. It will not appear in your tenant file.",
     "explain-error": "Please describe your situation before continuing.",
+    "explain-error-min-length": "Your explanation must contain at least 10 characters.",
     "save-error": "An error occurred while saving your explanation.",
     "explanation-saved": "Explanation saved"
   },
@@ -445,6 +475,7 @@ function beforeSubmit(): boolean {
     "explain-placeholder": "Texte saisi",
     "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
     "explain-error": "Veuillez décrire votre situation avant de continuer.",
+    "explain-error-min-length": "Votre explication doit contenir au moins 10 caractères.",
     "save-error": "Erreur lors de l'enregistrement de votre explication.",
     "explanation-saved": "Explication enregistrée"
   }

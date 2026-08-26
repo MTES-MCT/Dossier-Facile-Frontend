@@ -119,20 +119,7 @@ const documentWatermarkUrl = computed(() => currentDocument.value?.name)
 const isUploading = computed(() => fileUploadStatus.value === UploadStatus.STATUS_SAVING)
 
 const showAnalysisLoading = computed(() => {
-  if (props.analysisInProgress || isUploading.value) {
-    return true
-  }
-  const report = currentDocument.value?.documentAnalysisReport
-  const isToProcess = currentDocument.value?.documentStatus === 'TO_PROCESS'
-  if (
-    currentDocument.value?.id &&
-    isToProcess &&
-    report?.analysisStatus !== 'CHECKED' &&
-    report?.analysisStatus !== 'DENIED'
-  ) {
-    return true
-  }
-  return false
+  return props.analysisInProgress || isUploading.value
 })
 
 const progressPercentage = ref(0)

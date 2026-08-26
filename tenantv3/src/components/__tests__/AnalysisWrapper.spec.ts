@@ -414,9 +414,9 @@ describe('analysisWrapper', () => {
     const wrapper = await mountWithOpenExplainForm()
 
     const textarea = wrapper.find('#explainText')
-    await textarea.setValue('A')
-    await textarea.setValue('AB')
-    await textarea.setValue('ABC')
+    await textarea.setValue('Explication A')
+    await textarea.setValue('Explication AB')
+    await textarea.setValue('Explication ABC')
 
     await vi.advanceTimersByTimeAsync(1000)
     await flushPromises()
@@ -425,7 +425,7 @@ describe('analysisWrapper', () => {
     expect(mockSaveDocumentComment).toHaveBeenCalledWith({
       documentId: 42,
       tenantId: 123,
-      comment: 'ABC'
+      comment: 'Explication ABC'
     })
   })
 
@@ -604,5 +604,63 @@ describe('analysisWrapper', () => {
       tenantId: 123,
       comment: 'Mon explication Visale'
     })
+  })
+
+  it('blocks submit and shows error if explanation has fewer than 10 characters', async () => {
+    const rules = [
+      { rule: 'R_VISALE_CERTIFICATE_EXPIRATION', message: 'Expired', level: 'CRITICAL', ruleData: null }
+    ]
+    mockStoreDocument.value = {
+      id: 42,
+      files: [{ id: 1, name: 'file.pdf', size: 1000 }],
+      documentStatus: 'TO_PROCESS',
+      documentAnalysisReport: { failedRules: rules, comment: '' }
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+
+    const wrapper = mountComponent()
+    await flushPromises()
+
+    await wrapper.vm.openExplainSection(false)
+    await flushPromises()
+
+    await wrapper.find('#explainText').setValue('Court')
+    expect(wrapper.vm.beforeSubmit()).toBe(false)
+    await flushPromises()
+    expect(wrapper.find('#explainText-error').exists()).toBe(true)
+    expect(wrapper.find('#explainText-error').text()).toBe('explain-error-min-length')
+  })
+
+  it('triggers validation and blocks saving during debounced auto-save if explanation has fewer than 10 characters', async () => {
+    const wrapper = await mountWithOpenExplainForm()
+
+    await wrapper.find('#explainText').setValue('Trois')
+    await vi.advanceTimersByTimeAsync(1000)
+    await flushPromises()
+
+    expect(mockSaveDocumentComment).not.toHaveBeenCalled()
+    expect(wrapper.find('#explainText-error').exists()).toBe(true)
+    expect(wrapper.find('#explainText-error').text()).toBe('explain-error-min-length')
+  })
+
+  it('displays analysis completed card when completed without failed rules even if inconclusive rules exist', async () => {
+    mockStoreDocument.value = {
+      ...mockStoreDocument.value,
+      documentAnalysisReport: {
+        id: 726,
+        analysisStatus: 'UNDEFINED',
+        failedRules: [],
+        passedRules: [],
+        inconclusiveRules: [
+          { rule: 'R_DOCUMENT_IA_ANALYSED', message: 'Not analyzed', level: 'INFO', ruleData: null }
+        ]
+      }
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.COMPLETED)
+
+    const wrapper = mountComponent()
+    await flushPromises()
+
+    expect(wrapper.find('.analysis-success-card').exists()).toBe(true)
   })
 })
