@@ -663,4 +663,43 @@ describe('analysisWrapper', () => {
 
     expect(wrapper.find('.analysis-success-card').exists()).toBe(true)
   })
+
+  it('resets analysisInProgress to false when upload fails or completes without a pending analysis document', async () => {
+    mockStoreDocument.value = {
+      id: 42,
+      files: [{ id: 1, name: 'tax.pdf', size: 1000 }],
+      documentStatus: 'VALIDATED',
+      documentAnalysisReport: undefined
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.IN_PROGRESS)
+
+    const wrapper = mountComponent({ isUploading: true })
+    await flushPromises()
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+
+    mockAnalysisResponse(AnalysisStatus.NO_ANALYSIS_SCHEDULED)
+    await wrapper.setProps({ isUploading: false })
+    await flushPromises()
+
+    expect(wrapper.vm.analysisInProgress).toBe(false)
+    expect(wrapper.vm.nextDisabled).toBe(false)
+  })
+
+  it('keeps analysisInProgress true when upload finishes on a pending document to prevent button flickering', async () => {
+    mockStoreDocument.value = {
+      id: 42,
+      files: [{ id: 1, name: 'tax.pdf', size: 1000 }],
+      documentStatus: 'TO_PROCESS',
+      documentAnalysisReport: undefined
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.IN_PROGRESS)
+
+    const wrapper = mountComponent({ isUploading: true })
+    await flushPromises()
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+
+    await wrapper.setProps({ isUploading: false })
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+  })
 })
