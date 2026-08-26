@@ -5,7 +5,11 @@
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
             <h1 v-safe-html="t(`account.title.dashboard`)"></h1>
-            <ValidationRequestCallout v-if="showOptIn" class="fr-mb-3w" />
+            <p v-if="isDossierCompletedOrToProcess" class="fr-h4">{{ t('account.title.completed') }}</p>
+            <template v-if="showOptIn">
+              <ValidationRequestCallout class="fr-mb-3w" />
+              <CompletedFileBanner v-if="isValidationRequested" class="fr-mb-3w" />
+            </template>
             <div v-else-if="isDenied() || user.status === 'TO_PROCESS'">
               <div class="fr-grid-row fr-grid-row--gutters">
                 <div v-if="isDenied()" class="fr-col">
@@ -186,6 +190,7 @@ import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import PartnersSection from '../components/account/PartnersSection.vue'
 import DefaultShareSection from '../components/account/DefaultShareSection.vue'
+import CompletedFileBanner from '../components/account/CompletedFileBanner.vue'
 import ValidationRequestCallout from '../components/account/ValidationRequestCallout.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
@@ -211,7 +216,7 @@ dayjs.extend(relativeTime)
 const expectedDate = ref<Dayjs | null>(null)
 const downloadZipElt = useTemplateRef('download-zip')
 const { openModal } = useModalStore('deleteAccount')
-const { showOptIn } = useCompletedOptIn()
+const { showOptIn, isValidationRequested, isDossierCompletedOrToProcess } = useCompletedOptIn()
 const { downloadZip: downloadZipArchive } = useZipDownload()
 
 watch(

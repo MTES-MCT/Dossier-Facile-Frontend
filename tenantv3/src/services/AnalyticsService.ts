@@ -227,6 +227,10 @@ export const AnalyticsService = {
     sendEvent('account', 'optin_cancel_validation')
   },
 
+  optInDownloadZip() {
+    sendEvent('account', 'optin_download_zip')
+  },
+
   openSimulationCAF() {
     sendEvent('funnel', 'open-simulation_caf')
   },

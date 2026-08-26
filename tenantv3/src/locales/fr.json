@@ -201,7 +201,8 @@
   },
   "account": {
     "title": {
-      "dashboard": "Tableau de bord"
+      "dashboard": "Tableau de bord",
+      "completed": "Votre dossier est complété"
     },
     "content-title": "Vos documents",
     "share-file-button": "Partager votre dossier",
