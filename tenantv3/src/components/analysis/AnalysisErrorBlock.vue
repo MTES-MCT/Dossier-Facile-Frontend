@@ -35,6 +35,7 @@
         <p
           class="analysis-error-expected-text"
           v-safe-html="strategy.getExpectedDocumentHtml(failedRules, t)"
+          @click="onExpectedTextClick"
         ></p>
       </div>
 
@@ -53,7 +54,7 @@
             secondary
             class="continue-without-btn fr-mt-2w fr-mb-2w"
             :label="action.buttonLabel"
-            @click="emit('customEvent', action.customEventName)"
+            @click="onCtaClick"
           />
           <p v-if="action.subtext" class="analysis-error-subtext">
             {{ action.subtext }}
@@ -105,6 +106,7 @@
 </template>
 
 <script setup lang="ts">
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import { computed, useTemplateRef } from 'vue'
@@ -133,6 +135,24 @@ const action = computed(() => props.strategy.getAction(props.failedRules, t))
 
 const cardRef = useTemplateRef<HTMLElement>('cardRef')
 const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
+
+
+// We detect if inside the block there is a <a> element and trigger the strategy onLinkClick method
+function onExpectedTextClick(event: MouseEvent) {
+  const anchor = (event.target as HTMLElement | null)?.closest('a')
+  if (anchor && props.strategy.onLinkClick) {
+    props.strategy.onLinkClick(anchor.href)
+  }
+}
+
+function onCtaClick() {
+  if (props.strategy.subCategory) {
+    AnalyticsService.document_ia_error_cta_click(props.strategy.subCategory)
+  }
+  if (action.value) {
+    emit('customEvent', action.value.customEventName)
+  }
+}
 
 const isExplainError = computed(() => {
   if (props.hasExplainError) {
