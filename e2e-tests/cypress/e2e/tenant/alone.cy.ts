@@ -81,9 +81,7 @@ describe("alone tenant scenario", () => {
 
     cy.validationStep();
 
-    cy.contains("Votre dossier est actuellement en cours de traitement").should(
-      "be.visible",
-    );
+    cy.requestFileValidation();
   });
 
   it("share links", () => {

@@ -29,7 +29,7 @@ describe("decline tenant scenario", () => {
     cy.contains("Déclarer ses ressources").click();
     cy.contains("Pas de revenus").click();
     cy.clickOnNext();
-    cy.expectPath("/documents-locataire/4");
+    cy.location("pathname").should("equal", "/documents-locataire/4");
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
@@ -41,9 +41,7 @@ describe("decline tenant scenario", () => {
     cy.clickOnNext();
 
     cy.validationStep();
-    cy.contains("Votre dossier est actuellement en cours de traitement").should(
-      "be.visible",
-    );
+    cy.requestFileValidation();
 
     // Operator declines only the identity document with a refusal message
     cy.declineAloneFile(account.email, refusalMessage, [
@@ -67,8 +65,8 @@ describe("decline tenant scenario", () => {
     // Resubmit: honor declaration is pre-checked from the first submission
     cy.visit(Cypress.env("tenantUrl") + "/validation-dossier");
     cy.validationStep();
-    cy.contains("Votre dossier est actuellement en cours de traitement").should(
-      "be.visible",
-    );
+    cy.contains(
+      "Votre demande de vérification est en cours de traitement",
+    ).should("be.visible");
   });
 });

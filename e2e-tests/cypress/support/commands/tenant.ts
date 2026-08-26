@@ -49,7 +49,21 @@ Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
   );
   cy.get(".input-file").selectFile(files);
   cy.wait(`@${alias}`).its("response.statusCode").should("eq", 200);
-  cy.waitUntilLoaderIsGone();
+  cy.waitUntilStepIsReady();
+});
+
+// Uploading used to raise the global vue-loading-overlay, which the tests waited on. That overlay
+// was replaced by the in-page analysis progress block, so synchronize on the next button instead:
+// it stays disabled while the file uploads and while the analysis report is being polled.
+Cypress.Commands.add("waitUntilStepIsReady", () => {
+  cy.get("body").then(($body) => {
+    if ($body.find('[data-cy="next-btn"]').length === 0) {
+      return;
+    }
+    cy.get('[data-cy="next-btn"]', { timeout: 40000 }).should(
+      "not.be.disabled",
+    );
+  });
 });
 
 Cypress.Commands.add("waitUntilModalIsGone", () => {
@@ -119,6 +133,17 @@ Cypress.Commands.add("validationStep", () => {
   cy.contains("Soumettre mon dossier").click();
 });
 
+// First submission of an opt-in eligible dossier (ALONE, no partner link): it lands in COMPLETED
+// and the dashboard offers the verification opt-in. Ask for the verification so the dossier
+// reaches the operator queue, like the historical submission did.
+Cypress.Commands.add("requestFileValidation", () => {
+  cy.contains("Faites vérifier votre dossier").should("be.visible");
+  cy.contains("button", "Demander une vérification").click();
+  cy.contains("Votre demande de vérification est en cours de traitement").should(
+    "be.visible",
+  );
+});
+
 Cypress.Commands.add(
   "gotoTenantDocumentsPage",
   (account: TestAccount) => {
@@ -134,10 +159,50 @@ Cypress.Commands.add(
   },
 );
 
+// Steps backed by a document analysis render a verdict once the report lands: a success card, or
+// error banners that block navigation until the tenant explains the situation. The generic test
+// file matches no expected document, so the error path is the nominal one here.
+Cypress.Commands.add("continuePastAnalysis", () => {
+  cy.get(
+    ".analysis-success-card, .analysis-banners, .analysis-error-block",
+    { timeout: 40000 },
+  ).should("exist");
+
+  cy.get("body").then(($body) => {
+    // The explanation must be at least 10 characters long
+    if ($body.find(".analysis-error-block").length) {
+      cy.get("#explainText").type("explication e2e");
+    } else if ($body.find(".analysis-banners").length) {
+      cy.get(".explain-link").first().click();
+      cy.get("#explainText").should("exist").type("explication e2e");
+    }
+  });
+
+  cy.clickOnNext();
+});
+
+// Documents whose category declares an error strategy (Visale) render AnalysisErrorBlock, which
+// embeds the explanation textarea, instead of the AnalysisBanners list and its "explain" link.
 Cypress.Commands.add(
   "assertAnalysisErrorAndExplain",
   (urlFragment: string) => {
-    cy.get(".analysis-banners", { timeout: 20000 }).should("exist");
+    cy.get(".analysis-banners, .analysis-error-block", {
+      timeout: 20000,
+    }).should("exist");
+
+    cy.get("body").then(($body) => {
+      if ($body.find(".analysis-error-block").length) {
+        cy.assertAnalysisErrorBlockAndExplain(urlFragment);
+      } else {
+        cy.assertAnalysisBannersAndExplain(urlFragment);
+      }
+    });
+  },
+);
+
+Cypress.Commands.add(
+  "assertAnalysisBannersAndExplain",
+  (urlFragment: string) => {
     cy.get(".analysis-banners").should("have.focus");
     cy.get(".analysis-banner").should("have.length.at.least", 1);
 
@@ -150,12 +215,36 @@ Cypress.Commands.add(
     cy.get("#explainText").should("exist").and("have.focus");
 
     cy.get('[data-cy="next-btn"]').click();
-    cy.get(".fr-error-text").should("be.visible");
+    cy.contains("Veuillez décrire votre situation avant de continuer.").should(
+      "be.visible",
+    );
     cy.get("#explainText").should("have.focus");
     cy.url().should("include", urlFragment);
 
-    cy.get("#explainText").type("test");
+    cy.get("#explainText").type("explication e2e");
 
+    cy.get('[data-cy="next-btn"]').click();
+    cy.url().should("not.include", urlFragment);
+  },
+);
+
+Cypress.Commands.add(
+  "assertAnalysisErrorBlockAndExplain",
+  (urlFragment: string) => {
+    cy.get(".analysis-error-block").should("have.focus");
+    cy.get(".analysis-error-header-title").should("be.visible");
+
+    // Submitting without an explanation keeps the tenant on the step and
+    // focuses the explanation field
+    cy.get('[data-cy="next-btn"]').should("not.be.disabled");
+    cy.get('[data-cy="next-btn"]').click();
+    cy.contains("Veuillez décrire votre situation avant de continuer.").should(
+      "be.visible",
+    );
+    cy.get(".analysis-error-block").should("have.focus");
+    cy.url().should("include", urlFragment);
+
+    cy.get("#explainText").type("explication e2e");
     cy.get('[data-cy="next-btn"]').click();
     cy.url().should("not.include", urlFragment);
   },
