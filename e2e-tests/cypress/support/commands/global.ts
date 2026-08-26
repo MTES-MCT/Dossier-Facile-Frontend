@@ -54,7 +54,15 @@ Cypress.Commands.add("expectPath", (path: string) => {
   cy.location("pathname").should("contains", path);
 });
 
+// The next button is disabled while a file is uploading and while the document analysis report is
+// being polled (up to 30s on residency steps). Clicking during that window is a no-op, so wait for
+// the button to become actionable first.
+const NEXT_BTN_TIMEOUT_MS = 40000;
+
 Cypress.Commands.add("clickOnNext", () => {
+  cy.get('[data-cy="next-btn"]', { timeout: NEXT_BTN_TIMEOUT_MS }).should(
+    "not.be.disabled",
+  );
   cy.get('[data-cy="next-btn"]').click();
 });
 

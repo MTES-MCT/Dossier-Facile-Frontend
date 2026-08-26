@@ -6,11 +6,11 @@ declare namespace Cypress {
 
     resetTestAccount(email: string): Chainable<void>;
 
-    verifyUserEmail(email: string): Chainable<void>;
-
     signupTenant(email: string, password: string): Chainable<void>;
 
     tenantLogin(email: string, password: string): Chainable<void>;
+
+    setPasswordIfRequested(password: string): Chainable<void>;
 
     createTestAccount(
       account: import("./testAccounts").TestAccount
@@ -27,6 +27,14 @@ declare namespace Cypress {
     ): Chainable<void>;
 
     assertAnalysisErrorAndExplain(urlFragment: string): Chainable<void>;
+
+    assertAnalysisBannersAndExplain(urlFragment: string): Chainable<void>;
+
+    assertAnalysisErrorBlockAndExplain(urlFragment: string): Chainable<void>;
+
+    continuePastAnalysis(): Chainable<void>;
+
+    requestFileValidation(): Chainable<void>;
 
     ownerLoginWithFC(username: string, password: string): Chainable<void>;
 
@@ -49,6 +57,8 @@ declare namespace Cypress {
     waitUntilModalIsGone(): Chainable<void>;
 
     waitUntilLoaderIsGone(): Chainable<void>;
+
+    waitUntilStepIsReady(): Chainable<void>;
 
     clickOnNext(): Chainable<void>;
 

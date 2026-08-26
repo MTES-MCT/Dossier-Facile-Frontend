@@ -17,6 +17,16 @@ export function testEmail(tag: string): string {
   return `${namespace}.${tag}@inbox.testmail.app`;
 }
 
+// Extracts the testmail.app tag back from an address built by testEmail()
+export function tagOfEmail(email: string): string {
+  const localPart = email.split("@")[0];
+  const separator = localPart.indexOf(".");
+  if (separator < 0) {
+    throw new Error(`Not a testmail.app address: ${email}`);
+  }
+  return localPart.slice(separator + 1);
+}
+
 export function testAccount(
   tag: string,
   firstname = "Jean",
