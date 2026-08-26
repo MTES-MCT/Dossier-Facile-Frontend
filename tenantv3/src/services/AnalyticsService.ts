@@ -354,6 +354,14 @@ export const AnalyticsService = {
 
   validate_correct_error_click(prefix: 'tenant' | 'guarantor' | 'couple', category: string) {
     sendFullEvent('funnel', 'clic', `validate_correct_error_${prefix}_${category}`)
+  },
+
+  document_analysis_visale_help() {
+    sendFullEvent('funnel', 'clic', 'document_analysis_visale_help')
+  },
+
+  document_ia_error_cta_click(subCategory: string) {
+    sendFullEvent('funnel', 'clic', `document_ia_error_cta_click_${subCategory.toLowerCase()}`)
   }
 }
 

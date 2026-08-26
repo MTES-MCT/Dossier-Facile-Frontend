@@ -11,6 +11,8 @@ export interface AnalysisErrorAction {
 }
 
 export abstract class BaseAnalysisErrorStrategy {
+  subCategory?: string
+
   /**
    * Title of the header block (handles single vs multiple errors).
    */
@@ -25,6 +27,11 @@ export abstract class BaseAnalysisErrorStrategy {
    * HTML/text describing the expected document requirement(s).
    */
   abstract getExpectedDocumentHtml(failedRules: DocumentRule[], t: TranslationFunction): string
+
+  /**
+   * Optional callback when a link inside the expected document text is clicked.
+   */
+  onLinkClick?(_href: string): void
 
   /**
    * List of bullet item texts/HTML to display.

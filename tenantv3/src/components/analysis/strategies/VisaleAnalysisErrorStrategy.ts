@@ -1,12 +1,15 @@
+import { AnalyticsService } from '@/services/AnalyticsService'
+import dayjs from 'dayjs'
+import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
 import {
   BaseAnalysisErrorStrategy,
   type AnalysisErrorAction,
   type TranslationFunction
 } from './BaseAnalysisErrorStrategy'
-import type { DocumentRule, Name } from 'df-shared-next/src/models/DocumentRule'
-import dayjs from 'dayjs'
 
 export class VisaleAnalysisErrorStrategy extends BaseAnalysisErrorStrategy {
+  override subCategory = 'visale'
+
   private formatExtractedName(name: Name): string {
     const last = name.lastName || ''
     const first = name.firstNames || ''
@@ -99,6 +102,10 @@ export class VisaleAnalysisErrorStrategy extends BaseAnalysisErrorStrategy {
     }
 
     return [this.getBulletText(rule, t)]
+  }
+
+  override onLinkClick(_href: string): void {
+    AnalyticsService.document_analysis_visale_help()
   }
 
   override getExpectedDocumentHtml(failedRules: DocumentRule[], t: TranslationFunction): string {
