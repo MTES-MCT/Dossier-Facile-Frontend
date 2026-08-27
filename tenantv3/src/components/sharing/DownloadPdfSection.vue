@@ -121,8 +121,9 @@ function retryDownload(remainingCount: number) {
 }
 
 function download() {
-  AnalyticsService.sharingDownloadFull()
+  AnalyticsService.sharingDownloadFull(store.user.status)
   showProgressBar.value = true
+  // Beware: 'COMPLETED' here is the generated PDF FileStatus, unrelated to the COMPLETED dossier status
   if (dossierPdfDocumentStatus.value === 'COMPLETED') {
     downloadPdf()
   } else {

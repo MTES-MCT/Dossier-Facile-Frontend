@@ -1,16 +1,13 @@
 import { Property } from 'df-shared-next/src/models/Property'
 import axios from 'axios'
 import type { OwnerUser } from 'df-shared-next/src/models/OwnerUser'
+import type { NamesForm } from 'df-shared-next/src/models/NamesForm'
 
 const API_URL = `${import.meta.env.VITE_OWNER_API_URL}/api/`
 
 const OwnerService = {
-  saveNames(lastName: string, firstName: string, email: string) {
-    return axios.post<OwnerUser>(`${API_URL}owner/names`, {
-      lastName,
-      firstName,
-      email
-    })
+  saveNames(namesForm: NamesForm) {
+    return axios.post<OwnerUser>(`${API_URL}owner/names`, namesForm)
   },
   saveProperty(property: Property) {
     return axios.post<Property>(`${API_URL}property`, {

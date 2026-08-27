@@ -78,9 +78,9 @@ function getFile() {
   </h1>
   <p>{{ t('watermarking-page.subtitle-cnil') }}</p>
   <div class="fr-alert fr-alert--info fr-mb-3w">
-    <p v-html="t('watermarking-page.behaviour-1')"></p>
-    <p v-html="t('watermarking-page.behaviour-2')"></p>
-    <p v-html="t('watermarking-page.behaviour-3')"></p>
+    <p v-safe-html="t('watermarking-page.behaviour-1')"></p>
+    <p v-safe-html="t('watermarking-page.behaviour-2')"></p>
+    <p v-safe-html="t('watermarking-page.behaviour-3')"></p>
   </div>
   <form name="uploadForm" @submit.prevent="handleSubmit">
     <div class="fr-grid-row fr-grid-row--center">

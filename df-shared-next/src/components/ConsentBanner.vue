@@ -2,7 +2,7 @@
   <div v-if="show" class="fr-consent-banner">
     <h2 class="fr-h6">{{ t('title') }}</h2>
     <div class="fr-consent-banner__content">
-      <p class="fr-text--sm" v-html="t('desc', [`${MAIN_URL}/politique-de-confidentialite`])" />
+      <p class="fr-text--sm" v-safe-html="t('desc', [`${MAIN_URL}/politique-de-confidentialite`])" />
     </div>
     <DsfrButtonGroup
       :buttons="consentButtons"
@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import * as Consent from '../services/ConsentService'
+import { vSafeHtml } from '../services/SanitizeService'
 import { useI18n } from 'vue-i18n'
 import { useModalStore } from '../stores/useModalStore'
 import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'

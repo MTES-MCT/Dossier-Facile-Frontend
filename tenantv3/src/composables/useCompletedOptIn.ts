@@ -31,6 +31,14 @@ export function useCompletedOptIn() {
 
   const showOptIn = computed(() => isCompleted.value || isValidationRequested.value)
 
+  // The dossier content is complete in both statuses an eligible tenant can be in: COMPLETED, and
+  // TO_PROCESS once it went back to the operator queue. Drives the dashboard subtitle.
+  const isDossierCompletedOrToProcess = computed(
+    () =>
+      store.user.optInEligible === true &&
+      (store.user.status === 'COMPLETED' || store.user.status === 'TO_PROCESS')
+  )
+
   async function submitValidationRequest(
     validationRequested: boolean
   ): Promise<ValidationRequestResult> {
@@ -52,5 +60,12 @@ export function useCompletedOptIn() {
     }
   }
 
-  return { isCompleted, isValidationRequested, showOptIn, isSubmitting, submitValidationRequest }
+  return {
+    isCompleted,
+    isValidationRequested,
+    isDossierCompletedOrToProcess,
+    showOptIn,
+    isSubmitting,
+    submitValidationRequest
+  }
 }

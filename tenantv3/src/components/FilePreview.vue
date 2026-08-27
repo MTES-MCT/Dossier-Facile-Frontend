@@ -10,7 +10,7 @@
           <DfButton
             v-else
             ref="download-button"
-            :disabled="!user || user.status !== 'VALIDATED'"
+            :disabled="!user || !UtilsService.isCompletedOrValidatedStatus(user.status)"
             :title="t('file.download-disabled-title')"
             :primary="true"
             @click="download"
@@ -200,7 +200,7 @@
           </DfButton>
           <DfButton
             v-else
-            :disabled="!user || user.status != 'VALIDATED'"
+            :disabled="!user || !UtilsService.isCompletedOrValidatedStatus(user.status)"
             :title="t('file.download-disabled-title')"
             :primary="true"
             @click="download"

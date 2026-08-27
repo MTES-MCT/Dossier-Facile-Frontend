@@ -1,19 +1,38 @@
 <template>
   <div class="default-share-section bg-white fr-p-4w">
     <div class="link-section">
-      <span class="fr-badge fr-badge--success fr-badge--sm fr-mb-2w">{{ t('badge-validated') }}</span>
+      <span
+        class="fr-badge fr-badge--sm fr-mb-2w"
+        :class="isCompleted ? 'fr-badge--info' : 'fr-badge--success'"
+        >{{ t(isCompleted ? 'badge-completed' : 'badge-validated') }}</span
+      >
       <h2 class="fr-h4 fr-mb-2w">{{ t('title') }}</h2>
       <p class="fr-mb-2w">
-        {{ t('description-1') }} <strong>{{ t('description-bold-1') }}</strong> {{ t('description-2') }} <strong>{{ t('description-bold-2') }}</strong>
+        {{ t(isCompleted ? 'description-1-completed' : 'description-1') }} <strong>{{ t('description-bold-1') }}</strong> {{ t('description-2') }} <strong>{{ t('description-bold-2') }}</strong>
       </p>
+      <ul class="fr-badges-group share-badges" role="list">
+        <li>
+          <span class="fr-badge fr-badge--sm">{{ t(isCompleted ? 'badge-not-verified' : 'badge-verified') }}</span>
+        </li>
+        <li>
+          <span class="fr-badge fr-badge--sm">{{ t('badge-secure-link') }}</span>
+        </li>
+      </ul>
       <div class="form-row fr-mb-2w">
         <div class="select-wrapper fr-mb-0w">
           <DsfrSelect
             v-model="selectedShareType"
-            :label="t('share-type-label')"
             :options="shareTypeOptions"
             name="shareType"
-          />
+            :aria-describedby="shareTypeHintId"
+          >
+            <template #label>
+              <span class="fr-sr-only">{{ t('share-type-label') }}</span>
+            </template>
+          </DsfrSelect>
+          <p :id="shareTypeHintId" class="fr-message fr-message--info fr-mt-1w fr-mb-0">
+            {{ t(selectedShareType === 'full' ? 'hint-with-docs' : 'hint-without-docs') }}
+          </p>
         </div>
         <div class="btn-wrapper">
           <button 
@@ -47,7 +66,7 @@
             {{ t('copy-link') }}
             <RiFileCopyLine aria-hidden="true" size="16" class="fr-ml-1v" />
           </button>
-          <a :href="fullUrl" class="fr-btn fr-btn--secondary btn-view-file" target="_blank" rel="noopener" @click="AnalyticsService.sharingSeeDefaultLink()">
+          <a :href="fullUrl" class="fr-btn fr-btn--secondary btn-view-file" target="_blank" rel="noopener" @click="AnalyticsService.sharingSeeDefaultLink(store.user.status)">
             {{ t('view-file') }}
             <RiEyeLine aria-hidden="true" size="16" class="fr-ml-1v" />
           </a>
@@ -76,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, useId } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { DsfrSelect } from '@gouvminint/vue-dsfr'
 import { 
@@ -92,10 +111,15 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { toast } from '@/components/toast/toastUtils'
 import dayjs from 'dayjs'
+import { useTenantStore } from '@/stores/tenant-store'
 
 const { t } = useI18n()
+const store = useTenantStore()
+
+const isCompleted = computed(() => store.user.status === 'COMPLETED')
 
 const selectedShareType = ref('full')
+const shareTypeHintId = useId()
 const generatedLink = ref<ApartmentSharingLink | null>(null)
 const loading = ref(false)
 const linkCopied = ref(false)
@@ -117,7 +141,7 @@ const daysUntilExpiration = computed(() => {
 
 async function getLink() {
   const isFullData = selectedShareType.value === 'full'
-  AnalyticsService.getDefaultLink(isFullData ? 'full' : 'limited')
+  AnalyticsService.getDefaultLink(isFullData ? 'full' : 'limited', store.user.status)
   
   loading.value = true
   linkCopied.value = false
@@ -133,7 +157,7 @@ async function getLink() {
 }
 
 async function copyLink() {
-  AnalyticsService.sharingCopyDefaultLink()
+  AnalyticsService.sharingCopyDefaultLink(store.user.status)
   const text = fullUrl.value
   try {
     if (navigator.clipboard && globalThis.isSecureContext) {
@@ -176,15 +200,22 @@ async function copyLink() {
 .select-wrapper {
   flex: 1;
   max-width: 500px;
+
+  /* The label is sr-only: cancel the gap the DSFR keeps between label and select
+     so the field stays top-aligned with the submit button */
+  :deep(.fr-label + .fr-select) {
+    margin-top: 0;
+  }
 }
 
 .btn-wrapper {
   display: flex;
   align-items: flex-start;
+}
 
-  @media (min-width: 768px) {
-    padding-top: 32px;
-  }
+ul.share-badges {
+  margin-bottom: 1rem;
+  padding: 0;
 }
 
 .link-result {
@@ -263,8 +294,13 @@ async function copyLink() {
 {
   "en": {
     "badge-validated": "VALIDATED FILE",
-    "title": "Your file is validated and ready to be shared",
+    "badge-completed": "COMPLETE FILE",
+    "title": "Your sharing link",
     "description-1": "This link gives access to your file.",
+    "description-1-completed": "Create a link to share your file.",
+    "badge-verified": "File verified by an agent",
+    "badge-not-verified": "File not verified by an agent",
+    "badge-secure-link": "Sharing via secure link",
     "description-bold-1": "Share it",
     "description-2": "only with",
     "description-bold-2": "people you trust.",
@@ -292,8 +328,13 @@ async function copyLink() {
   },
   "fr": {
     "badge-validated": "DOSSIER VALIDÉ",
-    "title": "Votre dossier est validé et prêt à être partagé",
+    "badge-completed": "DOSSIER COMPLET",
+    "title": "Votre lien de partage",
     "description-1": "Ce lien donne accès à votre dossier.",
+    "description-1-completed": "Créez un lien pour partager votre dossier.",
+    "badge-verified": "Dossier vérifié par un agent",
+    "badge-not-verified": "Dossier non vérifié par un agent",
+    "badge-secure-link": "Partage par lien sécurisé",
     "description-bold-1": "Partagez-le",
     "description-2": "uniquement avec",
     "description-bold-2": "des personnes de confiance.",

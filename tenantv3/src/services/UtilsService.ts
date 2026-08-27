@@ -68,6 +68,11 @@ export const UtilsService = {
       user.apartmentSharing?.tokenPublic !== ''
     )
   },
+  // A dossier can be shared by link or mail when VALIDATED (operator-verified)
+  // or COMPLETED (complete and submitted, without operator verification)
+  isCompletedOrValidatedStatus(status?: string) {
+    return status === 'VALIDATED' || status === 'COMPLETED'
+  },
   handleCommonSaveError(err: unknown, elt: HTMLElement | null | undefined) {
     let hasSpecificMessage = false
     if (isAxiosError(err)) {

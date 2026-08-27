@@ -1,25 +1,55 @@
 <template>
-  <DsfrBadge
-    v-if="analysisErrorCount > 0"
-    type="warning"
-    :label="t('errors-count', { count: analysisErrorCount }, analysisErrorCount)"
-    class="fr-mb-2w"
-  />
-  <slot name="fileSpecificDescription" />
-  <AnalysisBanners
-    v-if="analysisErrorCount > 0"
-    ref="analysis-banner"
-    :failed-rules="analysisFailedRules ?? []"
-    :document="document"
-    class="fr-mb-3w"
-    @explain="(text) => openExplainSection(true, text)"
+  <template v-if="strategy">
+    <AnalysisErrorBlock
+      v-if="analysisErrorCount > 0"
+      ref="analysis-error-block"
+      :failed-rules="analysisFailedRules ?? []"
+      :strategy="strategy"
+      v-model="explainText"
+      :has-explain-error="showExplainError"
+      @custom-event="(eventName) => emit('customEvent', eventName)"
+    />
+  </template>
+  <template v-else>
+    <DsfrBadge
+      v-if="analysisErrorCount > 0"
+      type="warning"
+      :label="t('errors-count', { count: analysisErrorCount }, analysisErrorCount)"
+      class="fr-mb-2w"
+    />
+    <slot name="fileSpecificDescription" />
+    <AnalysisBanners
+      v-if="analysisErrorCount > 0"
+      ref="analysis-banner"
+      :failed-rules="analysisFailedRules ?? []"
+      :document="document"
+      class="fr-mb-3w"
+      @explain="(text) => openExplainSection(true, text)"
+    >
+      <template #errorContent="slotProps">
+        <slot name="analysisBannerError" v-bind="slotProps" />
+      </template>
+    </AnalysisBanners>
+  </template>
+  <div
+    v-if="isAnalysisTerminated"
+    class="analysis-success-card fr-mb-3w"
+    role="status"
+    aria-live="polite"
   >
-    <template #errorContent="slotProps">
-      <slot name="analysisBannerError" v-bind="slotProps" />
-    </template>
-  </AnalysisBanners>
+    <VIcon
+      name="ri:checkbox-circle-line"
+      :scale="1.2"
+      color="var(--blue-france-sun-113-625)"
+      class="analysis-success-icon"
+      aria-hidden="true"
+    />
+    <span class="analysis-success-title">
+      {{ t('analysis-completed') }}
+    </span>
+  </div>
   <slot name="fileUploader" />
-  <div v-if="analysisFailedRules.length > 0" class="explain-section">
+  <div v-if="!strategy && analysisFailedRules.length > 0" class="explain-section">
     <div class="separator">
       <div class="separator-line"></div>
       <span class="separator-text">{{ t('or') }}</span>
@@ -33,21 +63,21 @@
       @click="openExplainSection(false)"
     />
     <div v-if="showExplainForm" class="explain-form">
-      <div class="fr-input-group" :class="{ 'fr-input-group--error': showExplainError }">
+      <div class="fr-input-group" :class="{ 'fr-input-group--error': isExplainError }">
         <label for="explainText" class="fr-label">{{ t('explain-question') }}</label>
         <textarea
           id="explainText"
           ref="explainTextarea"
           v-model="explainText"
           class="fr-input"
-          :class="{ 'fr-input--error': showExplainError }"
+          :class="{ 'fr-input--error': isExplainError }"
           rows="5"
           :placeholder="t('explain-placeholder')"
           aria-describedby="explainText-error explainText-info"
           @blur="onExplainBlur"
         />
-        <p v-if="showExplainError" id="explainText-error" class="fr-error-text">
-          {{ t('explain-error') }}
+        <p v-if="isExplainError" id="explainText-error" class="fr-error-text">
+          {{ explainErrorMessage }}
         </p>
       </div>
       <p id="explainText-info" class="fr-info-text">
@@ -61,12 +91,15 @@
 import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
-import { DsfrBadge, DsfrButton } from '@gouvminint/vue-dsfr'
+import { DsfrBadge, DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import debounce from 'lodash.debounce'
 import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AnalysisBanners from '../analysis/AnalysisBanners.vue'
+import AnalysisErrorBlock from '../analysis/AnalysisErrorBlock.vue'
+import type { BaseAnalysisErrorStrategy } from '../analysis/strategies/BaseAnalysisErrorStrategy'
 import { useDocumentFormKey } from '../documents/documentFormState'
 import { toast } from '../toast/toastUtils'
 
@@ -74,14 +107,20 @@ const POLLING_INTERVAL_MS = 3000
 const POLLING_TIMEOUT_MS = 10000
 const SAVE_DEBOUNCE_MS = 1000
 
+const emit = defineEmits<{
+  customEvent: [eventName: string]
+}>()
+
 const props = withDefaults(
   defineProps<{
     isUploading?: boolean
     pollingTimeoutMs?: number
+    strategy?: BaseAnalysisErrorStrategy
   }>(),
   {
     isUploading: false,
-    pollingTimeoutMs: POLLING_TIMEOUT_MS
+    pollingTimeoutMs: POLLING_TIMEOUT_MS,
+    strategy: undefined
   }
 )
 
@@ -96,6 +135,7 @@ const analysisInProgress = ref(false)
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
 const pollingTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
 const analysisBanner = useTemplateRef('analysis-banner')
+const analysisErrorBlock = useTemplateRef('analysis-error-block')
 const showExplainForm = ref(false)
 const showExplainError = ref(false)
 const explainText = ref('')
@@ -104,6 +144,17 @@ const explanationSubmitted = ref(false)
 let pendingSave: Promise<boolean> | null = null
 
 const analysisErrorCount = computed(() => analysisFailedRules.value?.length ?? 0)
+const isAnalysisTerminated = computed(() => {
+  const report = document.value?.documentAnalysisReport
+  if (!report || analysisInProgress.value) {
+    return false
+  }
+  const hasNoFailed = (report.failedRules?.length ?? 0) === 0
+  const hasPassedOrInconclusive =
+    (report.passedRules?.length ?? 0) > 0 || (report.inconclusiveRules?.length ?? 0) > 0
+
+  return hasNoFailed && hasPassedOrInconclusive
+})
 const isBusy = computed(() => analysisInProgress.value || props.isUploading)
 const nextDisabled = computed(() => isBusy.value)
 
@@ -123,18 +174,44 @@ defineExpose({
   nextDisabled,
   nextLabel,
   beforeSubmit,
-  saveExplanation
+  saveExplanation,
+  explainText
 })
 
 function focusBanners() {
-  analysisBanner.value?.focus()
+  if (props.strategy) {
+    analysisErrorBlock.value?.focus()
+  } else {
+    analysisBanner.value?.focus()
+  }
 }
+
+function hasPendingAnalysis(doc?: DfDocument | null): boolean {
+  const isToProcess = doc?.documentStatus === 'TO_PROCESS'
+  const isFinished = !!doc?.documentAnalysisReport?.analysisStatus
+  return isToProcess && !isFinished
+}
+
+watch(
+  () => props.isUploading,
+  (uploading) => {
+    if (uploading) {
+      analysisInProgress.value = true
+    } else if (!hasPendingAnalysis(document.value)) {
+      analysisInProgress.value = false
+    }
+  },
+  { immediate: true }
+)
 
 watch(
   () => document.value,
   async (document) => {
     analysisFailedRules.value = document?.documentAnalysisReport?.failedRules ?? []
     if (document?.id) {
+      if (hasPendingAnalysis(document)) {
+        analysisInProgress.value = true
+      }
       const status = await updateAnalysisStatus()
       if (status === AnalysisStatus.IN_PROGRESS) {
         startPolling()
@@ -165,11 +242,21 @@ function stopPolling() {
 
 async function persistExplanation(): Promise<boolean> {
   const documentId = document.value?.id
-  if (!documentId || !showExplainForm.value || !explainText.value.trim()) {
+  const isFormActive = props.strategy ? true : showExplainForm.value
+  if (!documentId || !isFormActive) {
     return true
+  }
+  const text = explainText.value.trim()
+  if (!text) {
+    return true
+  }
+  if (text.length < 10) {
+    showExplainError.value = true
+    return false
   }
   const savedComment = document.value?.documentAnalysisReport?.comment || ''
   if (explainText.value === savedComment) {
+    showExplainError.value = false
     return true
   }
   const params = {
@@ -181,6 +268,7 @@ async function persistExplanation(): Promise<boolean> {
   try {
     await store.saveDocumentComment(params)
     explanationSubmitted.value = true
+    showExplainError.value = false
     toast.success(t('explanation-saved'), undefined)
     return true
   } catch {
@@ -284,18 +372,37 @@ async function saveExplanation(): Promise<void> {
   }
 }
 
+const isExplainError = computed(() => {
+  if (showExplainError.value) {
+    return explainText.value.trim().length < 10
+  }
+  return false
+})
+
+const explainErrorMessage = computed(() => {
+  if (explainText.value.trim().length === 0) {
+    return t('explain-error')
+  }
+  return t('explain-error-min-length')
+})
+
 function beforeSubmit(): boolean {
   if (isBusy.value) return false
   if (analysisErrorCount.value > 0) {
-    if (showExplainForm.value && explainText.value.trim()) {
+    const isFormActive = props.strategy ? true : showExplainForm.value
+    if (isFormActive && explainText.value.trim().length >= 10) {
+      showExplainError.value = false
       return true
     }
-    if (showExplainForm.value) {
+    if (props.strategy) {
+      showExplainError.value = true
+      analysisErrorBlock.value?.focusExplain?.() ?? analysisErrorBlock.value?.focus()
+    } else if (showExplainForm.value) {
       showExplainError.value = true
       explainTextarea.value?.focus()
-      return false
+    } else {
+      focusBanners()
     }
-    focusBanners()
     return false
   }
   return true
@@ -303,6 +410,26 @@ function beforeSubmit(): boolean {
 </script>
 
 <style scoped>
+.analysis-success-card {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f5f5fe;
+  border-left: 4px solid var(--blue-france-sun-113-625, #000091);
+  padding: 1.25rem;
+}
+
+.analysis-success-icon {
+  flex-shrink: 0;
+}
+
+.analysis-success-title {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  color: var(--blue-france-sun-113-625, #000091);
+}
+
 .explain-section {
   display: flex;
   flex-direction: column;
@@ -346,6 +473,7 @@ function beforeSubmit(): boolean {
 {
   "en": {
     "errors-count": "{count} error to correct | {count} errors to correct",
+    "analysis-completed": "Analysis completed",
     "or": "OR",
     "uploading": "Uploading...",
     "analyzing": "Analyzing...",
@@ -354,11 +482,13 @@ function beforeSubmit(): boolean {
     "explain-placeholder": "Enter text",
     "explain-info": "This explanation will be sent to our team only. It will not appear in your tenant file.",
     "explain-error": "Please describe your situation before continuing.",
+    "explain-error-min-length": "Your explanation must contain at least 10 characters.",
     "save-error": "An error occurred while saving your explanation.",
     "explanation-saved": "Explanation saved"
   },
   "fr": {
     "errors-count": "{count} erreur à corriger | {count} erreurs à corriger",
+    "analysis-completed": "Analyse terminée",
     "or": "OU",
     "uploading": "Envoi en cours...",
     "analyzing": "Analyse en cours...",
@@ -367,6 +497,7 @@ function beforeSubmit(): boolean {
     "explain-placeholder": "Texte saisi",
     "explain-info": "Cette explication sera transmise à notre équipe uniquement. Elle n'apparaîtra pas dans votre dossier locataire.",
     "explain-error": "Veuillez décrire votre situation avant de continuer.",
+    "explain-error-min-length": "Votre explication doit contenir au moins 10 caractères.",
     "save-error": "Erreur lors de l'enregistrement de votre explication.",
     "explanation-saved": "Explication enregistrée"
   }

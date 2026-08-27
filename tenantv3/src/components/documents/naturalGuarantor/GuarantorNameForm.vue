@@ -4,7 +4,7 @@
       <GuarantorBadge v-if="showBadge" />
       <h1 class="fr-h4">{{ t(textKey + '.title') }}</h1>
       <DsfrAlert type="info" small>
-        <p v-html="t(choiceKey + '.two-guarantors-warning')"></p>
+        <p v-safe-html="t(choiceKey + '.two-guarantors-warning')"></p>
       </DsfrAlert>
       <div class="fr-mt-4w">
         <TextField
@@ -34,6 +34,7 @@
           name="email"
           type="email"
           :field-label="t('nameinformationform.email')"
+          :hint="t(textKey + '.email-hint')"
           autocomplete="email"
           validation-rules="required|email"
         />
@@ -84,12 +85,24 @@ function onSubmit() {
 <i18n lang="json">
 {
   "en": {
-    "guarantor": { "title": "Guarantor's Identity" },
-    "couple-guarantor": { "title": "Spouse's Guarantor Identity" }
+    "guarantor": {
+      "title": "Guarantor's Identity",
+      "email-hint": "Your guarantor will be notified by email at this address when your file is submitted."
+    },
+    "couple-guarantor": {
+      "title": "Spouse's Guarantor Identity",
+      "email-hint": "Your spouse's guarantor will be notified by email at this address when the file is submitted."
+    }
   },
   "fr": {
-    "guarantor": { "title": "Identité de votre garant" },
-    "couple-guarantor": { "title": "Identité de son garant" }
+    "guarantor": {
+      "title": "Identité de votre garant",
+      "email-hint": "Votre garant sera prévenu par email à cette adresse lors de la soumission de votre dossier."
+    },
+    "couple-guarantor": {
+      "title": "Identité de son garant",
+      "email-hint": "Son garant sera prévenu par email à cette adresse lors de la soumission du dossier."
+    }
   }
 }
 </i18n>

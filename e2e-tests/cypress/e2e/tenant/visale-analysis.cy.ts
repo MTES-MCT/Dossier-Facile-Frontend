@@ -25,7 +25,7 @@ describe("visale certificate analysis", () => {
     ).as("uploadVisale");
     cy.get(".input-file").selectFile("assets/qr-code.png");
     cy.wait("@uploadVisale").its("response.statusCode").should("eq", 200);
-    cy.waitUntilLoaderIsGone();
+    cy.waitUntilStepIsReady();
 
     cy.assertAnalysisErrorAndExplain("info-garant");
   });

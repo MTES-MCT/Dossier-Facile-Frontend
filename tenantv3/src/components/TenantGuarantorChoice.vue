@@ -7,9 +7,9 @@
         </h1>
       </div>
       <div class="fr-mt-3w">
-        <p v-html="t('tenantguarantorchoice.optional-guarantor')"></p>
+        <p v-safe-html="t('tenantguarantorchoice.optional-guarantor')"></p>
         <DsfrAlert type="info" small>
-          <p v-html="t('tenantguarantorchoice.two-guarantors-warning')"></p>
+          <p v-safe-html="t('tenantguarantorchoice.two-guarantors-warning')"></p>
         </DsfrAlert>
       </div>
     </NakedCard>

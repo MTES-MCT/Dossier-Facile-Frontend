@@ -177,6 +177,7 @@
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { ShareService } from '@/services/ShareService'
+import { useTenantStore } from '@/stores/tenant-store'
 import { onMounted, ref, useTemplateRef, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RiClipboardLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
@@ -190,6 +191,7 @@ import { Field, ErrorMessage, useForm, useField } from 'vee-validate'
 const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
+const store = useTenantStore()
 
 const activeTab = ref(0)
 const fileLink = ref('')
@@ -354,8 +356,8 @@ async function submit(event: Event) {
   if (event.submitter.value === 'email') {
     const email = toString(data.get('email'))
     const message = toString(data.get('message'))
-    AnalyticsService.sharingNew('mail', fullData ? 'full' : 'limited')
-    AnalyticsService.shareByMail(fullData ? 'full' : 'resume')
+    AnalyticsService.sharingNew('mail', fullData ? 'full' : 'limited', store.user.status)
+    AnalyticsService.shareByMail(fullData ? 'full' : 'resume', store.user.status)
     try {
       await ShareService.sendFileByMail({ email, fullData, daysValid, title, message })
       toast.success(t('share-mail-success'), null)
@@ -371,7 +373,7 @@ async function submit(event: Event) {
       toast.error(t('sharefile.sent-failed'), null)
     }
   } else if (event.submitter.value === 'link') {
-    AnalyticsService.sharingNew('link', fullData ? 'full' : 'limited')
+    AnalyticsService.sharingNew('link', fullData ? 'full' : 'limited', store.user.status)
     try {
       const response = await ShareService.createLink({ title, fullData, daysValid })
       fileLink.value = `${globalThis.location.origin}${response.data}`
@@ -390,7 +392,7 @@ async function submit(event: Event) {
 }
 
 async function copyLink() {
-  AnalyticsService.sharingCopyNewLink()
+  AnalyticsService.sharingCopyNewLink(store.user.status)
   try {
     await navigator.clipboard.writeText(fileLink.value)
     linkCopied.value = true

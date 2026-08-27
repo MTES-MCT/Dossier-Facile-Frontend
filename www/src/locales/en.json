@@ -33,35 +33,37 @@
   "s0": {
     "title": "Create a Solid Rental Application to Find Your Dream Home",
     "text": "DossierFacile helps you create a high-quality digital rental application",
-    "text2": "to increase your chances of success."
+    "text2": "that you share securely with landlords and agencies."
   },
   "s1": {
-    "h1": "Stand Out with a Quality Application",
-    "p1": "Provide landlords with a clear, comprehensive, and coherent application to maximize your chances.",
-    "h2": "Be the First to Respond to a Listing",
-    "p2": "Be the most responsive by sending your digital application with just one click.",
-    "h3": "Reassure Your Future Landlord",
-    "p3": "After undergoing rigorous testing by our operators, your application is certified by the government."
+    "h1": "Stand Out with a Complete Application",
+    "p1": "We guide you step by step to gather the documents expected in your situation.",
+    "h2": "Keep Control of Your Documents",
+    "p2": "You share via secure links, which you can suspend at any time.",
+    "h3": "A Question About a Document?",
+    "p3-before": "Our",
+    "p3-link": "online help",
+    "p3-after": "answers your questions. If in doubt, request a verification of your file by an agent after submitting it."
   },
   "s2": {
     "title": "Create Your Rental Application in Three Steps",
     "h1": "I Upload My Documents",
-    "p1": "DossierFacile asks for the necessary documents and only those!",
+    "p1": "DossierFacile asks for the necessary documents and only those.",
     "u1a": "ID Document",
     "u1b": "Proof of Accommodation",
     "u1c": "Proof of Employment",
     "u1d": "Tax Return",
     "u1e": "Proof of Income",
-    "h2": "DossierFacile Validates My Application",
-    "p2": "Our agents verify your application and assist you in making any necessary corrections.",
-    "h3": "My Application is Ready to be Sent",
-    "p3": "Your secure application, either in the form of a URL link or a PDF, is ready to be sent to landlords and agencies."
+    "h2": "My Application is Complete",
+    "p2": "As soon as all your documents are uploaded, your application is complete and your documents are watermarked to protect you. Our teams remain available if you have a doubt about a document.",
+    "h3": "I Share My Application Securely",
+    "p3": "You create one link per recipient, with an expiration date. You track views and cut off access whenever you decide."
   },
   "s3": {
     "title": "Protect Your Personal Information",
-    "text1": "With DossierFacile, no more scattered identification papers!",
-    "text2": "Your documents are watermarked to protect you from unscrupulous landlords' fraud.",
-    "text3": "You can customize the access to your application link and delete it at any time!",
+    "text1": "With DossierFacile, no more scattered identification papers.",
+    "text2": "Your documents are watermarked to protect you against fraud.",
+    "text3": "You share a link, and that link stays under your control.",
     "link": "Learn more about data security at DossierFacile"
   },
   "s4": {

@@ -71,7 +71,8 @@ describe(
 
       // Should upload a file and continue
       cy.contains("Propriétaire").click();
-      cy.uploadDocument(1).clickOnNext();
+      cy.uploadDocument(1);
+      cy.continuePastAnalysis();
       goBackToResidency();
       cy.contains("Modifier").click({ force: true });
       cy.get("dialog[open] button").contains("Supprimer mes documents").click();
@@ -95,7 +96,8 @@ describe(
 
       // Should upload a file and continue
       cy.contains("Propriétaire").click();
-      cy.uploadDocument(1).clickOnNext();
+      cy.uploadDocument(1);
+      cy.continuePastAnalysis();
       goBackToResidency();
       cy.contains("Modifier").click({ force: true });
       cy.get("dialog[open] button").contains("Supprimer mes documents").click();
@@ -128,7 +130,8 @@ describe(
 
       // Should upload a file and continue
       cy.contains("Propriétaire").click();
-      cy.uploadDocument(1).clickOnNext();
+      cy.uploadDocument(1);
+      cy.continuePastAnalysis();
       goBackToResidency();
     }
 

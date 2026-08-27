@@ -88,6 +88,38 @@ describe('useCompletedOptIn', () => {
     })
   })
 
+  describe('isDossierCompletedOrToProcess', () => {
+    it('is true for an eligible COMPLETED dossier', () => {
+      givenUser({ status: 'COMPLETED', optInEligible: true })
+
+      expect(useCompletedOptIn().isDossierCompletedOrToProcess.value).toBe(true)
+    })
+
+    it('is true while an eligible dossier waits for its verification', () => {
+      givenUser({ status: 'TO_PROCESS', optInEligible: true, validationRequested: true })
+
+      expect(useCompletedOptIn().isDossierCompletedOrToProcess.value).toBe(true)
+    })
+
+    it('is true for an eligible TO_PROCESS dossier that never answered the question', () => {
+      givenUser({ status: 'TO_PROCESS', optInEligible: true })
+
+      expect(useCompletedOptIn().isDossierCompletedOrToProcess.value).toBe(true)
+    })
+
+    it('is false outside of the rollout', () => {
+      givenUser({ status: 'TO_PROCESS' })
+
+      expect(useCompletedOptIn().isDossierCompletedOrToProcess.value).toBe(false)
+    })
+
+    it('is false for a validated dossier', () => {
+      givenUser({ status: 'VALIDATED', optInEligible: true })
+
+      expect(useCompletedOptIn().isDossierCompletedOrToProcess.value).toBe(false)
+    })
+  })
+
   describe('submitValidationRequest', () => {
     it('forwards the choice to the store', async () => {
       givenUser({ status: 'COMPLETED', optInEligible: true })

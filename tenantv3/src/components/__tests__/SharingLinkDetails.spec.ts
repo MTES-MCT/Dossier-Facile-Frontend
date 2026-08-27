@@ -11,6 +11,10 @@ vi.mocked(useI18n).mockReturnValue({
 } as ReturnType<typeof useI18n>)
 
 // Mock des services
+vi.mock('@/stores/tenant-store', () => ({
+  useTenantStore: () => ({ user: { status: 'VALIDATED' } })
+}))
+
 vi.mock('@/services/ApartmentSharingLinkService', () => ({
   ApartmentSharingLinkService: {
     updateLinkStatus: vi.fn(),

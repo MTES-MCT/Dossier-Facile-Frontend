@@ -161,6 +161,7 @@ import LinkWarning from './LinkWarning.vue'
 import { RiPauseCircleLine, RiCalendarLine, RiPencilLine, RiFileCopyLine, RiSendPlaneLine } from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { useTenantStore } from '@/stores/tenant-store'
 import { useResendMail } from '@/composables/useResendMail'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
@@ -172,6 +173,7 @@ const { link } = defineProps<{ link: ApartmentSharingLink }>()
 const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
+const store = useTenantStore()
 const { resendMail } = useResendMail()
 
 const isEditingExpiration = ref(false)
@@ -230,7 +232,7 @@ async function copyLink() {
 }
 
 async function handleResendMail() {
-  AnalyticsService.sharingResendMail()
+  AnalyticsService.sharingResendMail(store.user.status)
   if (await resendMail(link)) {
     emit('refresh')
   }
