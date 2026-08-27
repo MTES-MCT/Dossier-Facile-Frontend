@@ -92,6 +92,10 @@ export function useDocumentPreview(
         return t('documents.validation-rules.short.tax-wrong-year')
       case 'R_DOCUMENT_IA_CLASSIFICATION':
         return t('documents.validation-rules.short.generic-classification')
+      case 'R_PROFESSIONAL_2DDOC_ISSUE_DATE':
+        return t('documents.validation-rules.short.professional-issue-date')
+      case 'R_PROFESSIONAL_NAME_MATCH':
+        return t('documents.validation-rules.short.professional-name-match')
       default:
         return rule.message
     }

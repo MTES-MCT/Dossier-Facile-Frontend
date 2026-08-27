@@ -1,146 +1,92 @@
 <template>
-  <AllDeclinedMessages
-    :user-id="userId"
-    :document="mainActivityDocument"
-    :document-denied-reasons="mainActivityDocument?.documentDeniedReasons"
-    :document-status="documentStatus"
-  ></AllDeclinedMessages>
-  <div v-if="professionalFiles.length > 0" class="fr-col-12 fr-mb-3w">
-    <ListItem
-      v-for="file in professionalFiles"
-      :key="file.id"
-      :file="file"
-      :watermark-url="documentWatermarkUrl"
-      :doc-category="stateCategory"
-      @remove="remove(file)"
-      @ask-confirm="AnalyticsService.deleteDocument(stateCategory)"
-      @cancel="AnalyticsService.cancelDelete(stateCategory)"
-    />
-  </div>
-  <FileUpload
-    ref="file-upload"
-    :current-status="fileUploadStatus"
-    @add-files="addFiles"
-  ></FileUpload>
-  <MainActivityFooter />
+  <AnalysisWrapper
+    ref="analysis-wrapper"
+    :is-uploading="isUploading"
+    :polling-timeout-ms="10000"
+    :strategy="professionalStrategy"
+  >
+    <template #fileUploader>
+      <UploadFileWithAnalysis
+        ref="upload-file-with-analysis"
+        :doc-category="stateCategory"
+        :sub-category="category"
+        :analysis-in-progress="analysisInProgress"
+        :max-file-count="MAX_FILE_COUNT"
+        :analysis-time="10000"
+      />
+    </template>
+  </AnalysisWrapper>
+  <AnalysisFooter
+    :previous-step="mainActivityState.previousStep"
+    :before-submit="analysisWrapper?.beforeSubmit"
+    :next-disabled="analysisFooterNextDisabled"
+    :next-label="analysisWrapper?.nextLabel"
+    :on-submit-action="submit"
+  />
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue'
-import FileUpload from '@/components/uploads/FileUpload.vue'
-import ListItem from '@/components/uploads/ListItem.vue'
-import AllDeclinedMessages from '@/components/documents/share/AllDeclinedMessages.vue'
-import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import { computed, provide, useTemplateRef } from 'vue'
+import { useRouter } from 'vue-router'
+import AnalysisWrapper from '@/components/analysis/AnalysisWrapper.vue'
+import UploadFileWithAnalysis from '@/components/analysis/UploadFileWithAnalysis.vue'
+import {
+  IA_SUPPORTED_PROFESSIONAL_CATEGORIES,
+  ProfessionalAnalysisErrorStrategy
+} from '@/components/analysis/strategies/ProfessionalAnalysisErrorStrategy'
+import AnalysisFooter from '@/components/footer/AnalysisFooter.vue'
+import { documentFormKey } from '@/components/documents/documentFormState'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { useTenantStore } from '@/stores/tenant-store'
-import { RegisterService } from '@/services/RegisterService'
-import type { DfFile } from 'df-shared-next/src/models/DfFile'
-import { UtilsService } from '@/services/UtilsService'
-import { useLoading } from 'vue-loading-overlay'
 import type { MainActivityCategory } from '@/components/documents/share/DocumentTypeConstants'
 import { useMainActivityState } from './mainActivityState'
-import MainActivityFooter from './MainActivityFooter.vue'
-import { toast } from '@/components/toast/toastUtils'
-import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{ category: MainActivityCategory }>()
 
 const MAX_FILE_COUNT = 20
 
-const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
-const files = ref<{ name: string; file: File; size: number; id?: string; path?: string }[]>([])
-
-const fileUpload = useTemplateRef('file-upload')
-const store = useTenantStore()
+const router = useRouter()
 const mainActivityState = useMainActivityState()
-const { t } = useI18n()
 
 const stateCategory = mainActivityState.category
 const mainActivityDocument = mainActivityState.document
-const documentStatus = computed(() => mainActivityDocument.value?.documentStatus)
 const userId = mainActivityState.userId
-const professionalFiles = computed(() => {
-  const newFiles = files.value.map((f) => {
-    return {
-      documentSubCategory: props.category,
-      id: f.id,
-      name: f.name,
-      size: f.size
-    }
-  })
-  const existingFiles = mainActivityDocument.value?.files || []
-  return [...newFiles, ...existingFiles]
+
+const uploadFileWithAnalysis = useTemplateRef('upload-file-with-analysis')
+const analysisWrapper = useTemplateRef('analysis-wrapper')
+
+const isUploading = computed(() => uploadFileWithAnalysis.value?.isUploading ?? false)
+const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
+
+const professionalStrategy = computed(() => {
+  if (IA_SUPPORTED_PROFESSIONAL_CATEGORIES.includes(props.category)) {
+    return new ProfessionalAnalysisErrorStrategy(props.category.toLowerCase())
+  }
+  return undefined
 })
 
-const documentWatermarkUrl = computed(() => mainActivityDocument.value?.name)
+const analysisFooterNextDisabled = computed(() => {
+  const busy = Boolean(analysisWrapper.value?.nextDisabled)
+  const noFiles = (mainActivityDocument.value?.files?.length ?? 0) === 0
+  return busy || noFiles
+})
 
-async function save(): Promise<boolean> {
-  const formData = new FormData()
-  const newFiles = files.value.filter((f) => {
-    return !f.id
-  })
-  if (!newFiles.length) {
-    return true
+provide(documentFormKey, {
+  category: 'PROFESSIONAL',
+  textKey: mainActivityState.textKey,
+  previousStep: mainActivityState.previousStep,
+  nextStep: mainActivityState.nextStep,
+  formFieldValue: 'typeDocumentProfessional',
+  document: mainActivityDocument,
+  storeAction: mainActivityState.action,
+  userId: userId,
+  addData: (formData: FormData) => {
+    mainActivityState.addData?.(formData)
   }
+})
 
-  if (professionalFiles.value.length > MAX_FILE_COUNT) {
-    toast.maxFileError(professionalFiles.value.length, MAX_FILE_COUNT, fileUpload.value?.inputFile)
-    files.value = []
-    return false
-  }
-
-  Array.from(Array(newFiles.length).keys()).forEach((x) => {
-    const f: File = newFiles[x].file || new File([], '')
-    formData.append(`documents[${x}]`, f, newFiles[x].name)
-  })
-
-  formData.append('typeDocumentProfessional', props.category)
-  mainActivityState?.addData?.(formData)
-
-  fileUploadStatus.value = UploadStatus.STATUS_SAVING
-  const $loading = useLoading()
-  const loader = $loading.show()
-  return await store[mainActivityState.action](formData)
-    .then(() => {
-      files.value = []
-      fileUploadStatus.value = UploadStatus.STATUS_INITIAL
-      toast.success(t('file-saved'), fileUpload.value?.inputFile)
-      return true
-    })
-    .catch((err) => {
-      fileUploadStatus.value = UploadStatus.STATUS_FAILED
-      UtilsService.handleCommonSaveError(err, fileUpload.value?.inputFile)
-      return false
-    })
-    .finally(() => {
-      loader.hide()
-    })
-}
-
-function addFiles(fileList: File[]) {
-  AnalyticsService.uploadFile(stateCategory, props.category)
-  const nf = Array.from(fileList).map((f) => {
-    return { name: f.name, file: f, size: f.size }
-  })
-  files.value = [...files.value, ...nf]
-  save()
-}
-
-async function remove(file: DfFile, silent = false) {
-  AnalyticsService.deleteFile(stateCategory)
-  if (file.id) {
-    if (
-      mainActivityDocument.value?.files?.length === 1 &&
-      mainActivityDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
-    ) {
-      AnalyticsService.removeDeniedDocument(mainActivityDocument.value?.documentSubCategory || '')
-    }
-    await RegisterService.deleteFile(file.id, silent)
-  } else {
-    const firstIndex = files.value.findIndex((f) => {
-      return f.name === file.name && !f.path
-    })
-    files.value.splice(firstIndex, 1)
-  }
+async function submit() {
+  await analysisWrapper.value?.saveExplanation()
+  AnalyticsService.validateFunnelStep(stateCategory)
+  await router.push(mainActivityState.nextStep)
 }
 </script>

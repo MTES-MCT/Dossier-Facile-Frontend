@@ -8,6 +8,7 @@ export type FormField =
   | 'typeDocumentCertificate'
   | 'typeDocumentFinancial'
   | 'typeDocumentResidency'
+  | 'typeDocumentProfessional'
 
 type DocumentFormState = {
   previousStep: RouteLocationRaw
