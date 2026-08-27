@@ -3,9 +3,9 @@
     <AnalysisErrorBlock
       v-if="analysisErrorCount > 0"
       ref="analysis-error-block"
+      v-model="explainText"
       :failed-rules="analysisFailedRules ?? []"
       :strategy="strategy"
-      v-model="explainText"
       :has-explain-error="showExplainError"
       @custom-event="(eventName) => emit('customEvent', eventName)"
     />
@@ -396,7 +396,11 @@ function beforeSubmit(): boolean {
     }
     if (props.strategy) {
       showExplainError.value = true
-      analysisErrorBlock.value?.focusExplain?.() ?? analysisErrorBlock.value?.focus()
+      if (analysisErrorBlock.value?.focusExplain) {
+        analysisErrorBlock.value.focusExplain()
+      } else {
+        analysisErrorBlock.value?.focus()
+      }
     } else if (showExplainForm.value) {
       showExplainError.value = true
       explainTextarea.value?.focus()
