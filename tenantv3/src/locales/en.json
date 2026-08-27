@@ -187,7 +187,9 @@
         "tax-bad-classification": "Incorrect document detected",
         "tax-wrong-names": "Name does not match",
         "tax-wrong-year": "Document too old",
-        "generic-classification": "Incorrect document detected"
+        "generic-classification": "Incorrect document detected",
+        "professional-issue-date": "Document too old",
+        "professional-name-match": "Name does not match"
       }
     }
   },
