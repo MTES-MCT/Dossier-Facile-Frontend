@@ -36,6 +36,11 @@ Ce frontend échange avec 3 API du repo backend:
 - watermark -> api-watermark
 Le modèle de donnée et les différents statuts du dossier sont définis dans le `AGENTS.md` du repo backend
 
+## Domaine locataire
+
+- `tenantv3` gère le statut dossier `COMPLETED` comme un dossier complet, prêt à télécharger ou partager, mais pas encore vérifié par un opérateur. Dans ce cas, les documents backend encore `TO_PROCESS` sont affichés côté locataire comme « Document déposé ».
+- L'opt-in de vérification opérateur repose sur les champs backend `optInEligible` et `validationRequested` du `User`. Le front ne recalcule pas l'éligibilité : un dossier éligible `COMPLETED` peut demander une vérification via `/api/tenant/validation-request`, puis rester affiché comme téléchargeable et partageable quand il repasse en `TO_PROCESS` avec `validationRequested = true`.
+
 ## Points d'attention avant tout dev
 
 Pour limiter les risques de régressions, évaluer l'impact sur chacun de ces axes ; le traiter ou le justifier.
