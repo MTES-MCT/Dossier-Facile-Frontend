@@ -52,17 +52,14 @@ Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
   cy.waitUntilStepIsReady();
 });
 
-// Uploading used to raise the global vue-loading-overlay, which the tests waited on. That overlay
-// was replaced by the in-page analysis progress block, so synchronize on the next button instead:
-// it stays disabled while the file uploads and while the analysis report is being polled.
 Cypress.Commands.add("waitUntilStepIsReady", () => {
   cy.get("body").then(($body) => {
     if ($body.find('[data-cy="next-btn"]').length === 0) {
       return;
     }
-    cy.get('[data-cy="next-btn"]', { timeout: 40000 }).should(
-      "not.be.disabled",
-    );
+    cy.get('[data-cy="next-btn"]', { timeout: 40000 })
+      .should("not.be.disabled")
+      .and("not.have.attr", "aria-disabled");
   });
 });
 
