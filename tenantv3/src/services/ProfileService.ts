@@ -80,10 +80,5 @@ export const ProfileService = {
     return axios.get<Blob>(`${import.meta.env.VITE_API_URL}/api/application/zip`, {
       responseType: 'blob'
     })
-  },
-  getExpectedProcessingTime(tenantId: number) {
-    return axios.get<string>(
-      `${import.meta.env.VITE_API_URL}/api/tenant/${tenantId}/expectedProcessingTime`
-    )
   }
 }
