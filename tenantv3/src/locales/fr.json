@@ -279,13 +279,8 @@
       }
     },
     "processing-bloc": {
-      "title": "Délai de traitement",
+      "title": "Dossier en cours de traitement",
       "text": "Votre dossier est actuellement en cours de traitement. Vous recevrez un e-mail lorsque notre équipe l’aura traité.",
-      "badge": "Temps estimé : Entre {0}h et {1}h",
-      "badge-undefined": "Temps estimé non disponible",
-      "delay": "Votre dossier sera traité le {0} entre {1} et {2}",
-      "delay-on-2days": "Votre dossier sera traité entre le {0} et le {1}",
-      "delay-undefined": "Votre horaire de passage est en cours de calcul. Vous pouvez recharger la page pour actualiser l'estimation. Le délai de traitement moyen est généralement de moins de 24h.",
       "last-update": "Date de dernière modification : {0}"
     }
   },

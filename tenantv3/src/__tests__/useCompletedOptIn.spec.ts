@@ -6,7 +6,9 @@ const { mockStore } = vi.hoisted(() => ({
     user: {
       status: undefined as string | undefined,
       optInEligible: undefined as boolean | undefined,
-      validationRequested: undefined as boolean | undefined
+      validationRequested: undefined as boolean | undefined,
+      lotteryStatus: undefined as string | undefined,
+      nextEligibleDate: undefined as string | undefined
     },
     updateValidationRequest: vi.fn(() => Promise.resolve()),
     loadUser: vi.fn(() => Promise.resolve())
@@ -18,7 +20,13 @@ vi.mock('@/stores/tenant-store', () => ({
 }))
 
 function givenUser(user: Partial<typeof mockStore.user>) {
-  mockStore.user = { status: undefined, optInEligible: undefined, validationRequested: undefined }
+  mockStore.user = {
+    status: undefined,
+    optInEligible: undefined,
+    validationRequested: undefined,
+    lotteryStatus: undefined,
+    nextEligibleDate: undefined
+  }
   Object.assign(mockStore.user, user)
 }
 
@@ -38,20 +46,20 @@ describe('useCompletedOptIn', () => {
     it('is "completed" for an eligible COMPLETED dossier', () => {
       givenUser({ status: 'COMPLETED', optInEligible: true })
 
-      const { isCompleted, isValidationRequested, showOptIn } = useCompletedOptIn()
+      const { isCompleted, isVerificationInProgress, showOptIn } = useCompletedOptIn()
 
       expect(isCompleted.value).toBe(true)
-      expect(isValidationRequested.value).toBe(false)
+      expect(isVerificationInProgress.value).toBe(false)
       expect(showOptIn.value).toBe(true)
     })
 
     it('is "validation requested" for an eligible TO_PROCESS dossier that asked for it', () => {
       givenUser({ status: 'TO_PROCESS', optInEligible: true, validationRequested: true })
 
-      const { isCompleted, isValidationRequested, showOptIn } = useCompletedOptIn()
+      const { isCompleted, isVerificationInProgress, showOptIn } = useCompletedOptIn()
 
       expect(isCompleted.value).toBe(false)
-      expect(isValidationRequested.value).toBe(true)
+      expect(isVerificationInProgress.value).toBe(true)
       expect(showOptIn.value).toBe(true)
     })
 
@@ -85,6 +93,62 @@ describe('useCompletedOptIn', () => {
       const { showOptIn } = useCompletedOptIn()
 
       expect(showOptIn.value).toBe(false)
+    })
+  })
+
+  describe('lottery state', () => {
+    it('is "lottery pending" for a COMPLETED dossier with a registered application', () => {
+      givenUser({ status: 'COMPLETED', optInEligible: true, lotteryStatus: 'PENDING' })
+
+      const { isLotteryPending, isInCooldown, canApply, showOptIn } = useCompletedOptIn()
+
+      expect(isLotteryPending.value).toBe(true)
+      expect(isInCooldown.value).toBe(false)
+      expect(canApply.value).toBe(false)
+      expect(showOptIn.value).toBe(true)
+    })
+
+    it('is "cooldown" with its end date after a lost draw', () => {
+      givenUser({
+        status: 'COMPLETED',
+        optInEligible: true,
+        lotteryStatus: 'COOLDOWN',
+        nextEligibleDate: '2026-09-18'
+      })
+
+      const { isLotteryPending, isInCooldown, canApply, nextEligibleDate, showOptIn } =
+        useCompletedOptIn()
+
+      expect(isInCooldown.value).toBe(true)
+      expect(isLotteryPending.value).toBe(false)
+      expect(canApply.value).toBe(false)
+      expect(nextEligibleDate.value).toBe('2026-09-18')
+      expect(showOptIn.value).toBe(true)
+    })
+
+    it('allows a new application when eligible', () => {
+      givenUser({ status: 'COMPLETED', optInEligible: true })
+
+      const { canApply, isLotteryPending, isInCooldown } = useCompletedOptIn()
+
+      expect(canApply.value).toBe(true)
+      expect(isLotteryPending.value).toBe(false)
+      expect(isInCooldown.value).toBe(false)
+    })
+
+    it('shows an isValidationRequested display for a drawn dossier in the queue', () => {
+      givenUser({
+        status: 'TO_PROCESS',
+        optInEligible: true,
+        validationRequested: true,
+        lotteryStatus: 'DRAWN'
+      })
+
+      const { isVerificationInProgress, isLotteryPending, isInCooldown } = useCompletedOptIn()
+
+      expect(isVerificationInProgress.value).toBe(true)
+      expect(isLotteryPending.value).toBe(false)
+      expect(isInCooldown.value).toBe(false)
     })
   })
 
