@@ -231,6 +231,14 @@ export const AnalyticsService = {
     sendEvent('account', 'optin_download_zip')
   },
 
+  optInLotteryPendingDisplayed() {
+    sendEvent('account', 'optin_lottery_pending_displayed')
+  },
+
+  optInLotteryCooldownDisplayed() {
+    sendEvent('account', 'optin_lottery_cooldown_displayed')
+  },
+
   openSimulationCAF() {
     sendEvent('funnel', 'open-simulation_caf')
   },

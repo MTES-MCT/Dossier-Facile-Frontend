@@ -292,6 +292,8 @@ export const useTenantStore = defineStore('tenant', {
     loadUserCommit(user: User) {
       Object.assign(this.user, user)
       this.user.validationRequested = user.validationRequested
+      this.user.lotteryStatus = user.lotteryStatus
+      this.user.nextEligibleDate = user.nextEligibleDate
       Object.assign(this.status.loggedIn, true)
 
       const applicationType = user?.apartmentSharing.applicationType

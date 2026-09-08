@@ -5,14 +5,11 @@ import { useTenantStore } from '@/stores/tenant-store'
 export type ValidationRequestResult = 'success' | 'conflict' | 'error'
 
 /**
- * Derives the dashboard state of the operator validation opt-in.
- *
- * `optInEligible` is computed by the backend (ALONE dossier, no partner link, never validated nor
- * declined, feature flag enabled). The front never knows about the feature flag itself.
- *
- * - completed: the dossier is usable as is, the tenant may ask for a verification
- * - validation requested: the tenant asked for it, the dossier is back in the operator queue
- *   (status TO_PROCESS) but the dashboard keeps showing it as ready to share
+ * Dashboard state of the verification opt-in. `optInEligible` and `lotteryStatus`
+ * are backend-computed: the front never knows the feature flags.
+ * completed = may apply; lottery pending = waiting for the draw; validation
+ * requested = in the operator queue (legacy or drawn); cooldown = lost a draw,
+ * can re-apply from `nextEligibleDate`.
  */
 export function useCompletedOptIn() {
   const store = useTenantStore()
@@ -22,14 +19,29 @@ export function useCompletedOptIn() {
     () => store.user.optInEligible === true && store.user.status === 'COMPLETED'
   )
 
-  const isValidationRequested = computed(
+  const isVerificationInProgress = computed(
     () =>
       store.user.optInEligible === true &&
       store.user.status === 'TO_PROCESS' &&
       store.user.validationRequested === true
   )
 
-  const showOptIn = computed(() => isCompleted.value || isValidationRequested.value)
+  const isLotteryPending = computed(
+    () => isCompleted.value && store.user.lotteryStatus === 'PENDING'
+  )
+
+  const isInCooldown = computed(
+    () => isCompleted.value && store.user.lotteryStatus === 'COOLDOWN'
+  )
+
+  /** Only set during a cooldown (ISO date) */
+  const nextEligibleDate = computed(() => store.user.nextEligibleDate)
+
+  const canApply = computed(
+    () => isCompleted.value && !isLotteryPending.value && !isInCooldown.value
+  )
+
+  const showOptIn = computed(() => isCompleted.value || isVerificationInProgress.value)
 
   // The dossier content is complete in both statuses an eligible tenant can be in: COMPLETED, and
   // TO_PROCESS once it went back to the operator queue. Drives the dashboard subtitle.
@@ -62,7 +74,11 @@ export function useCompletedOptIn() {
 
   return {
     isCompleted,
-    isValidationRequested,
+    isVerificationInProgress,
+    isLotteryPending,
+    isInCooldown,
+    nextEligibleDate,
+    canApply,
     isDossierCompletedOrToProcess,
     showOptIn,
     isSubmitting,

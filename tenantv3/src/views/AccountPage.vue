@@ -8,7 +8,7 @@
             <p v-if="isDossierCompletedOrToProcess" class="fr-h4">{{ t('account.title.completed') }}</p>
             <template v-if="showOptIn">
               <ValidationRequestCallout class="fr-mb-3w" />
-              <CompletedFileBanner v-if="isValidationRequested" class="fr-mb-3w" />
+              <CompletedFileBanner v-if="isVerificationInProgress" class="fr-mb-3w" />
             </template>
             <div v-else-if="isDenied() || user.status === 'TO_PROCESS'">
               <div class="fr-grid-row fr-grid-row--gutters">
@@ -30,24 +30,14 @@
                 </div>
                 <div v-if="user.status === 'TO_PROCESS'" class="fr-col">
                   <div class="fr-callout to-process fr-callout-white fr-mb-3w">
-                    <div class="fr-mb-1w fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-                      <div class="fr-col-12 fr-col-md-6">
-                        <h2 class="fr-h4 fr-mb-0">
-                          <VIcon
-                            icon="ri:time-line"
-                            class="text-to-process bold-icon"
-                          />&nbsp;<span>{{ t('account.processing-bloc.title') }}</span>
-                        </h2>
-                      </div>
-                      <div class="fr-col-12 fr-col-md-6 badge-container">
-                        <p class="fr-badge fr-badge--purple-glycine">{{ processBadgeText }}</p>
-                      </div>
-                    </div>
+                    <h2 class="fr-h4 fr-mb-1w">
+                      <VIcon
+                        icon="ri:time-line"
+                        class="text-to-process bold-icon"
+                      />&nbsp;<span>{{ t('account.processing-bloc.title') }}</span>
+                    </h2>
                     <div>
                       <p>{{ t('account.processing-bloc.text') }}</p>
-                    </div>
-                    <div class="fr-text--bold fr-my-2w">
-                      {{ processBlocDelayText }}
                     </div>
                     <div>
                       <p
@@ -194,12 +184,10 @@ import CompletedFileBanner from '../components/account/CompletedFileBanner.vue'
 import ValidationRequestCallout from '../components/account/ValidationRequestCallout.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
-import { computed, ref, useTemplateRef, watch } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '../stores/tenant-store'
 import { useRouter } from 'vue-router'
-import { ProfileService } from '../services/ProfileService'
-import dayjs, { Dayjs } from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs'
 import { useI18n } from 'vue-i18n'
 import { useModalStore } from 'df-shared-next/src/stores/useModalStore'
 import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
@@ -207,66 +195,14 @@ import { useCompletedOptIn } from '@/composables/useCompletedOptIn'
 import { useZipDownload } from '@/composables/useZipDownload'
 const { t } = useI18n()
 
-const PROCESSING_TIME_DELTA = import.meta.env.VITE_PROCESSING_TIME_DELTA || 3
 const store = useTenantStore()
 const user = computed(() => store.user)
 const tabIndex = ref(0)
 const router = useRouter()
-dayjs.extend(relativeTime)
-const expectedDate = ref<Dayjs | null>(null)
 const downloadZipElt = useTemplateRef('download-zip')
 const { openModal } = useModalStore('deleteAccount')
-const { showOptIn, isValidationRequested, isDossierCompletedOrToProcess } = useCompletedOptIn()
+const { showOptIn, isVerificationInProgress, isDossierCompletedOrToProcess } = useCompletedOptIn()
 const { downloadZip: downloadZipArchive } = useZipDownload()
-
-watch(
-  () => user.value,
-  (tenant) => {
-    if (tenant && tenant.id) {
-      loadExpectedProcessingTime(tenant.id)
-    }
-  },
-  { immediate: true }
-)
-
-function loadExpectedProcessingTime(tenantId: number) {
-  ProfileService.getExpectedProcessingTime(tenantId).then((response) => {
-    if (response && response.data) {
-      expectedDate.value = dayjs(response.data)
-    }
-  })
-}
-
-const processBadgeText = computed(() => {
-  if (expectedDate.value && expectedDate.value != null) {
-    const currentDate = dayjs()
-    const delayFrom = expectedDate.value.diff(currentDate, 'hour')
-    const delayTo = delayFrom + PROCESSING_TIME_DELTA
-
-    return t('account.processing-bloc.badge', [delayFrom, delayTo])
-  }
-  return t('account.processing-bloc.badge-undefined')
-})
-
-const processBlocDelayText = computed(() => {
-  if (expectedDate.value && expectedDate.value != null) {
-    const processFromDate = dayjs(expectedDate.value)
-    const processToDate = dayjs(expectedDate.value).add(PROCESSING_TIME_DELTA, 'hour')
-
-    if (dayjs(processFromDate).isSame(dayjs(processToDate), 'day')) {
-      return t('account.processing-bloc.delay', [
-        processFromDate.format('D MMMM'),
-        processFromDate.format('HH[h]mm'),
-        processToDate.format('HH[h]mm')
-      ])
-    }
-    return t('account.processing-bloc.delay-on-2days', [
-      processFromDate.format('DD/MM à HH[h]mm'),
-      processToDate.format('DD/MM à HH[h]mm')
-    ])
-  }
-  return t('account.processing-bloc.delay-undefined')
-})
 
 function lastModifiedDate(): string {
   return dayjs(user.value.lastUpdateDate).format('D MMMM YYYY à HH[h]mm')
@@ -509,12 +445,6 @@ hr {
     height: 21px;
     width: 24px;
     margin-left: 0.5rem;
-  }
-}
-
-.badge-container {
-  @media (min-width: 768px) {
-    text-align: right;
   }
 }
 

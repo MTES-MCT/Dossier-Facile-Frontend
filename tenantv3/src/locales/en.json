@@ -277,13 +277,8 @@
       }
     },
     "processing-bloc": {
-      "title": "Processing Delay",
-      "text": "Your Files are currently in process. You will receive an e-ameil after processing.",
-      "badge": "Estimated time : From {0}h to {1}h",
-      "badge-undefined": "Estimated time not available",
-      "delay": "Yours Files will be process {0} between {1} and {2}",
-      "delay-on-2days": "Yours Files will be process from {0} to {1}",
-      "delay-undefined": "Estimated time computation is currently in progress. You can reload the page to refresh the estimation. The average processing time is usually less than 24 hours.",
+      "title": "File being processed",
+      "text": "Your file is currently being processed. You will receive an email once our team has processed it.",
       "last-update": "Last files update : {0}"
     }
   },

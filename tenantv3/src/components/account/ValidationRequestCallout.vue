@@ -1,18 +1,16 @@
 <template>
   <div
     class="fr-callout fr-callout-white"
-    :class="isValidationRequested ? 'accent-purple' : 'accent-primary'"
+    :class="isVerificationInProgress || isLotteryPending ? 'accent-purple' : 'accent-primary'"
   >
-    <template v-if="isValidationRequested">
+    <template v-if="isVerificationInProgress">
       <p class="fr-badge fr-badge--purple-glycine fr-badge--sm">
         <VIcon icon="ri:time-line" class="badge-icon" aria-hidden="true" />
         {{ t('requested.badge') }}
       </p>
-      <div class="callout-text">
+      <div class="callout-text" role="status">
         <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('requested.title') }}</h2>
-        <p>
-          {{ t('requested.text') }} <strong>{{ t('requested.text-bold') }}</strong>
-        </p>
+        <p>{{ t('requested.text') }}</p>
         <p>{{ t('requested.still-shareable') }}</p>
       </div>
       <button
@@ -24,6 +22,38 @@
       >
         {{ t('requested.cancel') }}
       </button>
+    </template>
+    <template v-else-if="isLotteryPending">
+      <p class="fr-badge fr-badge--purple-glycine fr-badge--sm">
+        <VIcon icon="ri:time-line" class="badge-icon" aria-hidden="true" />
+        {{ t('pending.badge') }}
+      </p>
+      <div class="callout-text" role="status">
+        <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('pending.title') }}</h2>
+        <p>{{ t('pending.text') }}</p>
+        <p>{{ t('pending.still-shareable') }}</p>
+      </div>
+      <button
+        ref="action-button"
+        type="button"
+        class="fr-btn fr-btn--secondary fr-btn--sm"
+        :disabled="isSubmitting"
+        @click="onCancel"
+      >
+        {{ t('pending.cancel') }}
+      </button>
+    </template>
+    <template v-else-if="isInCooldown">
+      <div class="callout-text" role="status">
+        <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('cooldown.title') }}</h2>
+        <p>
+          {{ t('cooldown.text') }}
+          <strong v-if="cooldownEndDate">{{
+            t('cooldown.text-date', [d(cooldownEndDate, 'short')])
+          }}</strong>
+        </p>
+        <p>{{ t('cooldown.still-shareable') }}</p>
+      </div>
     </template>
     <template v-else>
       <div class="callout-text">
@@ -62,10 +92,7 @@
       </button>
       <p class="time-note">
         <VIcon icon="ri:time-line" class="time-note__icon" aria-hidden="true" />
-        <span>
-          {{ t('available.time') }} <strong>{{ t('available.time-bold') }}</strong>
-          {{ t('available.time-after') }}
-        </span>
+        <span>{{ t('available.time-note') }}</span>
       </p>
     </template>
     <hr class="callout-separator" />
@@ -84,7 +111,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, useTemplateRef } from 'vue'
+import { computed, nextTick, onMounted, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { VIcon } from '@gouvminint/vue-dsfr'
 import { useCompletedOptIn } from '@/composables/useCompletedOptIn'
@@ -93,12 +120,30 @@ import { toast } from '@/components/toast/toastUtils'
 
 const HELP_URL = 'https://aide.dossierfacile.logement.gouv.fr/fr/'
 
-const { t } = useI18n()
-const { isValidationRequested, isSubmitting, submitValidationRequest } = useCompletedOptIn()
+const { t, d } = useI18n()
+const {
+  isVerificationInProgress,
+  isLotteryPending,
+  isInCooldown,
+  nextEligibleDate,
+  isSubmitting,
+  submitValidationRequest
+} = useCompletedOptIn()
 const calloutTitle = useTemplateRef<HTMLElement>('callout-title')
 const actionButton = useTemplateRef<HTMLButtonElement>('action-button')
 
-onMounted(() => AnalyticsService.optInSectionDisplayed())
+const cooldownEndDate = computed(() =>
+  nextEligibleDate.value ? new Date(nextEligibleDate.value) : undefined
+)
+
+onMounted(() => {
+  AnalyticsService.optInSectionDisplayed()
+  if (isLotteryPending.value) {
+    AnalyticsService.optInLotteryPendingDisplayed()
+  } else if (isInCooldown.value) {
+    AnalyticsService.optInLotteryCooldownDisplayed()
+  }
+})
 
 function onRequest() {
   AnalyticsService.optInRequestValidation()
@@ -217,15 +262,25 @@ async function submit(validationRequested: boolean) {
       "benefit-documents": "Make sure all the submitted documents are consistent.",
       "benefit-certification": "Get a state certification for your rental file.",
       "request": "Request a verification",
-      "time": "The verification takes",
-      "time-bold": "24 hours on average.",
-      "time-after": "Your file remains downloadable in the meantime."
+      "time-note": "Your file remains downloadable and shareable in the meantime."
+    },
+    "pending": {
+      "badge": "Application registered",
+      "title": "Your verification request is registered",
+      "text": "Every day, part of the requests is selected according to our processing capacity. You will receive an email if your file is selected.",
+      "still-shareable": "Your file remains downloadable and shareable in the meantime.",
+      "cancel": "Withdraw my verification request"
+    },
+    "cooldown": {
+      "title": "Your request was not selected this time",
+      "text": "The number of daily verifications is limited and your request was not selected. You can submit a new request",
+      "text-date": "from {0}.",
+      "still-shareable": "Your file remains complete, downloadable and shareable."
     },
     "requested": {
       "badge": "Request being processed",
       "title": "Your verification request is being processed",
-      "text": "You will receive an email once our team has processed your file. The average processing time",
-      "text-bold": "is 24 hours.",
+      "text": "You will receive an email once our team has processed your file.",
       "still-shareable": "Your file remains downloadable and shareable during the verification.",
       "cancel": "Cancel my verification request"
     },
@@ -244,15 +299,25 @@ async function submit(validationRequested: boolean) {
       "benefit-documents": "Vous assurer que tous les documents déposés sont cohérents.",
       "benefit-certification": "Obtenir une certification de l'État sur votre dossier de location.",
       "request": "Demander une vérification",
-      "time": "La vérification prend",
-      "time-bold": "en moyenne 24 heures.",
-      "time-after": "Votre dossier reste téléchargeable pendant ce temps."
+      "time-note": "Votre dossier reste téléchargeable et partageable en attendant."
+    },
+    "pending": {
+      "badge": "Demande enregistrée",
+      "title": "Votre demande de vérification est enregistrée",
+      "text": "Chaque jour, une partie des demandes est sélectionnée en fonction de nos capacités de traitement. Vous recevrez un e-mail si votre dossier est sélectionné.",
+      "still-shareable": "Votre dossier reste téléchargeable et partageable en attendant.",
+      "cancel": "Retirer ma demande de vérification"
+    },
+    "cooldown": {
+      "title": "Votre demande n'a pas été retenue cette fois",
+      "text": "Le nombre de vérifications quotidiennes est limité et votre demande n'a pas été retenue. Vous pourrez déposer une nouvelle demande",
+      "text-date": "à partir du {0}.",
+      "still-shareable": "Votre dossier reste complet, téléchargeable et partageable."
     },
     "requested": {
       "badge": "Demande en cours de traitement",
       "title": "Votre demande de vérification est en cours de traitement",
-      "text": "Vous recevrez un e-mail lorsque notre équipe aura traité votre dossier. Le délai de traitement",
-      "text-bold": "moyen est de 24 h.",
+      "text": "Vous recevrez un e-mail lorsque notre équipe aura traité votre dossier.",
       "still-shareable": "Votre dossier reste téléchargeable et partageable pendant la vérification.",
       "cancel": "Annuler ma demande de vérification"
     },

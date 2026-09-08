@@ -7,7 +7,9 @@ const { mockStore, mockToast, mockAnalytics } = vi.hoisted(() => ({
     user: {
       status: 'COMPLETED' as string,
       optInEligible: true as boolean,
-      validationRequested: undefined as boolean | undefined
+      validationRequested: undefined as boolean | undefined,
+      lotteryStatus: undefined as string | undefined,
+      nextEligibleDate: undefined as string | undefined
     },
     updateValidationRequest: vi.fn(() => Promise.resolve()),
     loadUser: vi.fn(() => Promise.resolve())
@@ -16,12 +18,19 @@ const { mockStore, mockToast, mockAnalytics } = vi.hoisted(() => ({
   mockAnalytics: {
     optInSectionDisplayed: vi.fn(),
     optInRequestValidation: vi.fn(),
-    optInCancelValidation: vi.fn()
+    optInCancelValidation: vi.fn(),
+    optInLotteryPendingDisplayed: vi.fn(),
+    optInLotteryCooldownDisplayed: vi.fn()
   }
 }))
 
 vi.mock('@/stores/tenant-store', () => ({ useTenantStore: () => mockStore }))
-vi.mock('vue-i18n', () => ({ useI18n: () => ({ t: (key: string) => key }) }))
+vi.mock('vue-i18n', () => ({
+  useI18n: () => ({
+    t: (key: string) => key,
+    d: (date: Date) => date.toISOString().slice(0, 10)
+  })
+}))
 vi.mock('@/components/toast/toastUtils', () => ({ toast: mockToast }))
 vi.mock('@/services/AnalyticsService', () => ({ AnalyticsService: mockAnalytics }))
 
@@ -37,7 +46,13 @@ function mountComponent(attachToBody = false) {
 describe('ValidationRequestCallout', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockStore.user = { status: 'COMPLETED', optInEligible: true, validationRequested: undefined }
+    mockStore.user = {
+      status: 'COMPLETED',
+      optInEligible: true,
+      validationRequested: undefined,
+      lotteryStatus: undefined,
+      nextEligibleDate: undefined
+    }
     mockStore.updateValidationRequest.mockResolvedValue(undefined)
   })
 
@@ -65,7 +80,13 @@ describe('ValidationRequestCallout', () => {
 
   describe('when a verification has been requested', () => {
     beforeEach(() => {
-      mockStore.user = { status: 'TO_PROCESS', optInEligible: true, validationRequested: true }
+      mockStore.user = {
+        status: 'TO_PROCESS',
+        optInEligible: true,
+        validationRequested: true,
+        lotteryStatus: undefined,
+        nextEligibleDate: undefined
+      }
     })
 
     it('shows the pending state with the purple accent', () => {
@@ -85,6 +106,50 @@ describe('ValidationRequestCallout', () => {
 
       expect(mockAnalytics.optInCancelValidation).toHaveBeenCalled()
       expect(mockStore.updateValidationRequest).toHaveBeenCalledWith(false)
+    })
+  })
+
+  describe('when a lottery application is waiting for the draw', () => {
+    beforeEach(() => {
+      mockStore.user.lotteryStatus = 'PENDING'
+    })
+
+    it('shows the registered application state with the purple accent', () => {
+      const wrapper = mountComponent()
+
+      expect(wrapper.text()).toContain('pending.badge')
+      expect(wrapper.text()).toContain('pending.title')
+      expect(wrapper.text()).toContain('pending.still-shareable')
+      expect(wrapper.text()).not.toContain('available.title')
+      expect(wrapper.find('.accent-purple').exists()).toBe(true)
+      expect(mockAnalytics.optInLotteryPendingDisplayed).toHaveBeenCalledTimes(1)
+    })
+
+    it('withdraws the application on click', async () => {
+      const wrapper = mountComponent()
+
+      await wrapper.find('button').trigger('click')
+      await flushPromises()
+
+      expect(mockAnalytics.optInCancelValidation).toHaveBeenCalled()
+      expect(mockStore.updateValidationRequest).toHaveBeenCalledWith(false)
+    })
+  })
+
+  describe('during the cooldown after a lost draw', () => {
+    beforeEach(() => {
+      mockStore.user.lotteryStatus = 'COOLDOWN'
+      mockStore.user.nextEligibleDate = '2026-09-18'
+    })
+
+    it('explains the situation with the next eligible date and no action button', () => {
+      const wrapper = mountComponent()
+
+      expect(wrapper.text()).toContain('cooldown.title')
+      expect(wrapper.text()).toContain('cooldown.text-date')
+      expect(wrapper.text()).not.toContain('available.request')
+      expect(wrapper.find('button').exists()).toBe(false)
+      expect(mockAnalytics.optInLotteryCooldownDisplayed).toHaveBeenCalledTimes(1)
     })
   })
 
