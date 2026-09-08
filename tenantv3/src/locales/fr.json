@@ -187,7 +187,9 @@
         "tax-bad-classification": "Mauvais document détecté",
         "tax-wrong-names": "Le nom ne correspond pas",
         "tax-wrong-year": "Document trop ancien",
-        "generic-classification": "Mauvais document détecté"
+        "generic-classification": "Mauvais document détecté",
+        "professional-issue-date": "Document trop ancien",
+        "professional-name-match": "Le nom ne correspond pas"
       }
     }
   },

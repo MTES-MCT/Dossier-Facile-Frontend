@@ -10,7 +10,7 @@
       <VIcon
         name="ri:alert-fill"
         :scale="1.2"
-        color="#c94625"
+        color="var(--text-default-warning)"
         class="analysis-error-header-icon"
         aria-hidden="true"
       />
@@ -33,8 +33,8 @@
           {{ t('expected-document-title') }}
         </h4>
         <p
-          class="analysis-error-expected-text"
           v-safe-html="strategy.getExpectedDocumentHtml(failedRules, t)"
+          class="analysis-error-expected-text"
           @click="onExpectedTextClick"
         ></p>
       </div>
@@ -83,7 +83,8 @@
             :class="{ 'fr-input--error': isExplainError }"
             rows="3"
             :placeholder="t('explain-placeholder')"
-            aria-describedby="explainText-error explain-info-text"
+            :aria-invalid="isExplainError"
+            :aria-describedby="isExplainError ? 'explainText-error explain-info-text' : 'explain-info-text'"
           />
           <p v-if="isExplainError" id="explainText-error" class="fr-error-text">
             {{ explainErrorMessage }}
@@ -92,7 +93,7 @@
         <div class="explain-info-box fr-mt-2w">
           <VIcon
             name="ri:information-fill"
-            color="#0063cb"
+            color="var(--text-default-info)"
             class="explain-info-icon"
             aria-hidden="true"
           />
@@ -184,18 +185,18 @@ defineExpose({
 
 <style scoped>
 .analysis-error-block {
-  border: 1px solid #c94625;
-  background-color: #ffffff;
+  border: 1px solid var(--border-plain-warning);
+  background-color: var(--background-default-grey, #ffffff);
   overflow: hidden;
 }
 
 .analysis-error-block:focus {
-  outline: 2px solid #000091;
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 
 .analysis-error-header {
-  background-color: #ffe9e6;
+  background-color: var(--background-contrast-warning);
   padding: 1rem 1.25rem;
   display: flex;
   align-items: center;
@@ -226,6 +227,7 @@ defineExpose({
   color: var(--text-default-warning);
   font-size: 1rem;
   line-height: 1.5rem;
+  list-style-type: disc;
 }
 
 .analysis-error-bullets li {
@@ -240,14 +242,14 @@ defineExpose({
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 700;
-  color: #161616;
+  color: var(--text-title-grey);
   margin: 0 0 0.5rem 0;
 }
 
 .analysis-error-section-text {
   font-size: 1rem;
   line-height: 1.5rem;
-  color: #3a3a3a;
+  color: var(--text-default-grey);
   margin: 0;
 }
 
@@ -258,17 +260,17 @@ defineExpose({
 .analysis-error-expected-text {
   font-size: 1rem;
   line-height: 1.5rem;
-  color: #000091;
+  color: var(--text-action-high-blue-france);
   margin: 0;
 }
 
 .analysis-error-expected-text :deep(strong) {
   font-weight: 700;
-  color: #000091;
+  color: var(--text-action-high-blue-france);
 }
 
 .analysis-error-expected-text :deep(a) {
-  color: #000091;
+  color: var(--text-action-high-blue-france);
   text-decoration: underline;
   background-image: none;
   border-bottom: none;
@@ -279,19 +281,14 @@ defineExpose({
 .analysis-error-subtext {
   font-size: 0.9375rem;
   line-height: 1.375rem;
-  color: #666666;
+  color: var(--text-mention-grey);
   margin: 0;
 }
 
 .analysis-error-hr {
   border: none;
-  border-top: 1px solid #ececec;
+  border-top: 1px solid var(--border-default-grey);
   margin: 1rem 0;
-}
-
-.continue-without-btn {
-  border-color: #000091;
-  color: #000091;
 }
 
 .analysis-error-separator {
@@ -304,26 +301,26 @@ defineExpose({
 .separator-line {
   flex: 1;
   height: 1px;
-  background-color: #e5e5e5;
+  background-color: var(--border-default-grey);
 }
 
 .separator-text {
   font-weight: 700;
   font-size: 0.875rem;
-  color: #161616;
+  color: var(--text-title-grey);
 }
 
 .explain-label {
   font-size: 1rem;
   line-height: 1.5rem;
-  color: #161616;
+  color: var(--text-title-grey);
 }
 
 .explain-info-box {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  color: #0063cb;
+  color: var(--text-default-info);
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
@@ -362,6 +359,18 @@ defineExpose({
       "action-description": "You can continue your application without a Visale guarantor and add it as soon as it is issued.",
       "action-button": "Continue without guarantor for now",
       "action-subtext": "You will be able to inform at the end of the process that your Visale is being renewed."
+    },
+    "professional-errors": {
+      "multiple-header": "Errors detected on document",
+      "issue-date-header": "This document was issued on {date}",
+      "name-header": "Name error detected on document",
+      "default-header": "Error on document",
+      "issue-date-bullet": "Issued on <strong>{date}</strong> (must be less than 2 months old)",
+      "name-bullet": "Certificate in the name of <strong>{name}</strong> different from yours",
+      "expected-name-and-issue-date": "Add a proof of professional activity in the name of <strong>{name}</strong> and <strong>less than 2 months old</strong>",
+      "expected-name": "Add a proof of professional activity in the name of <strong>{name}</strong>",
+      "expected-issue-date": "Add a proof of professional activity <strong>less than 2 months old</strong>",
+      "expected-default": "Add a proof of professional activity"
     }
   },
   "fr": {
@@ -390,6 +399,18 @@ defineExpose({
       "action-description": "Vous pouvez continuer votre dossier sans garant Visale et l’ajouter dès qu’elle sera délivrée.",
       "action-button": "Continuer sans garant pour l’instant",
       "action-subtext": "Vous pourrez informer à la fin du parcours que votre Visale est en cours de renouvellement."
+    },
+    "professional-errors": {
+      "multiple-header": "Des erreurs sont détectées sur le document",
+      "issue-date-header": "Ce document a été émis le {date}",
+      "name-header": "Une erreur de nom détectée sur le document",
+      "default-header": "Erreur sur le document",
+      "issue-date-bullet": "Émis le <strong>{date}</strong> (doit dater de moins de 2 mois)",
+      "name-bullet": "Attestation au nom de <strong>{name}</strong> différent du vôtre",
+      "expected-name-and-issue-date": "Ajoutez un justificatif d’activité professionnelle au nom de <strong>{name}</strong> et <strong>de moins de 2 mois</strong>",
+      "expected-name": "Ajoutez un justificatif d’activité professionnelle au nom de <strong>{name}</strong>",
+      "expected-issue-date": "Ajoutez un justificatif d’activité professionnelle <strong>de moins de 2 mois</strong>",
+      "expected-default": "Ajoutez un justificatif d’activité professionnelle"
     }
   }
 }

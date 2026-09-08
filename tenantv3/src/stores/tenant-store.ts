@@ -81,6 +81,8 @@ export type StoreAction =
   | 'saveOrganismIdentification'
   | 'saveTenantFinancial'
   | 'saveGuarantorFinancial'
+  | 'saveTenantProfessional'
+  | 'saveGuarantorProfessional'
 
 const initialStore = defaultState()
 
