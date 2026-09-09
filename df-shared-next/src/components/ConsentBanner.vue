@@ -2,7 +2,10 @@
   <div v-if="show" class="fr-consent-banner">
     <h2 class="fr-h6">{{ t('title') }}</h2>
     <div class="fr-consent-banner__content">
-      <p class="fr-text--sm" v-safe-html="t('desc', [`${MAIN_URL}/politique-de-confidentialite`])" />
+      <p
+        class="fr-text--sm"
+        v-safe-html="t('desc', [`${MAIN_URL}/politique-de-confidentialite`])"
+      />
     </div>
     <DsfrButtonGroup
       :buttons="consentButtons"
@@ -82,9 +85,9 @@ const consentButtons: ComputedRef<DsfrButtonProps[]> = computed(() => [
   "fr": {
     "title": "À propos des cookies sur DossierFacile",
     "desc": "DossierFacile utilise des cookies pour améliorer son site internet et vous permettre d'utiliser certains services.<br>Vous pouvez changer votre choix à tout moment en cliquant sur le bouton <b>« Gestion des cookies »</b> qui se trouve en bas de chaque page du site.",
-    "accept-all": "Tout accepter",
+    "accept-all": "Accepter tout",
     "accept-all-title": "Autoriser tous les cookies",
-    "reject-all": "Tout refuser",
+    "reject-all": "Refuser tout",
     "reject-all-title": "Refuser tous les cookies",
     "customize": "Personnaliser",
     "customize-title": "Personnaliser les cookies"
