@@ -65,8 +65,9 @@ describe("decline tenant scenario", () => {
     // Resubmit: honor declaration is pre-checked from the first submission
     cy.visit(Cypress.env("tenantUrl") + "/validation-dossier");
     cy.validationStep();
+    // Same wording as `requestFileValidation`: depends on the `tenant_lottery` feature flag
     cy.contains(
-      "Votre demande de vérification est en cours de traitement",
+      /Votre demande de vérification est (en cours de traitement|enregistrée)/,
     ).should("be.visible");
   });
 });

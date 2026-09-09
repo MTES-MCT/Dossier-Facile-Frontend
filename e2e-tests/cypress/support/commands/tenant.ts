@@ -136,9 +136,9 @@ Cypress.Commands.add("validationStep", () => {
 Cypress.Commands.add("requestFileValidation", () => {
   cy.contains("Faites vérifier votre dossier").should("be.visible");
   cy.contains("button", "Demander une vérification").click();
-  cy.contains("Votre demande de vérification est en cours de traitement").should(
-    "be.visible",
-  );
+  cy.contains(
+    /Votre demande de vérification est (en cours de traitement|enregistrée)/,
+  ).should("be.visible");
 });
 
 Cypress.Commands.add(
@@ -238,7 +238,7 @@ Cypress.Commands.add(
     cy.contains("Veuillez décrire votre situation avant de continuer.").should(
       "be.visible",
     );
-    cy.get(".analysis-error-block").should("have.focus");
+    cy.get("#explainText").should("have.focus");
     cy.url().should("include", urlFragment);
 
     cy.get("#explainText").type("explication e2e");
