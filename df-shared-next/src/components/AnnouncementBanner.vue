@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import cookies from 'js-cookie';
-import { computed, onMounted, ref } from 'vue';
-import { vSafeHtml } from '../services/SanitizeService';
+import cookies from 'js-cookie'
+import { computed, onMounted, ref } from 'vue'
+import { vSafeHtml } from '../services/SanitizeService'
 
 const DOMAIN = `${import.meta.env.VITE_COOKIE_DOMAIN}`
 
@@ -49,8 +49,8 @@ function closeAnnouncement() {
         class="fr-btn--close close"
         @click="closeAnnouncement()"
       >
-      <span class="sr-only">Fermer l'annonce</span>
-    </button>
+        <span class="sr-only">Fermer l'annonce</span>
+      </button>
     </div>
   </aside>
 </template>
@@ -59,6 +59,9 @@ function closeAnnouncement() {
 .announcement {
   background-color: #18753c;
   color: #fff;
+  & :focus-visible {
+    outline-color: white;
+  }
 }
 .message {
   display: flex;
