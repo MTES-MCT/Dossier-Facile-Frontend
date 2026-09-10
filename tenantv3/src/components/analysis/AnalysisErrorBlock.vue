@@ -362,15 +362,16 @@ defineExpose({
     },
     "professional-errors": {
       "multiple-header": "Errors detected on document",
-      "issue-date-header": "This document was issued on {date}",
-      "name-header": "Name error detected on document",
+      "issue-date-header": "Certificate too old",
+      "name-header": "The name {name} on the document does not match yours",
+      "default-name-header": "Name error detected on document",
       "default-header": "Error on document",
-      "issue-date-bullet": "Issued on <strong>{date}</strong> (must be less than 1 month old)",
+      "issue-date-bullet": "Certificate downloaded on <strong>{date}</strong>",
       "name-bullet": "Certificate in the name of <strong>{name}</strong> different from yours",
-      "expected-name-and-issue-date": "Add a proof of professional activity in the name of <strong>{name}</strong> and <strong>less than 1 month old</strong>",
-      "expected-name": "Add a proof of professional activity in the name of <strong>{name}</strong>",
-      "expected-issue-date": "Add a proof of professional activity <strong>less than 1 month old</strong>",
-      "expected-default": "Add a proof of professional activity"
+      "expected-name-and-issue-date": "Add a proof of professional activity in the name of <strong>{name}</strong>, downloaded before <strong>{minDate}</strong> from <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>",
+      "expected-name": "Add a proof of professional activity in the name of <strong>{name}</strong> from <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>",
+      "expected-issue-date": "Add a proof of professional activity downloaded before <strong>{minDate}</strong> from <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>",
+      "expected-default": "Add a proof of professional activity from <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>"
     }
   },
   "fr": {
@@ -402,15 +403,16 @@ defineExpose({
     },
     "professional-errors": {
       "multiple-header": "Des erreurs sont détectées sur le document",
-      "issue-date-header": "Ce document a été émis le {date}",
-      "name-header": "Une erreur de nom détectée sur le document",
+      "issue-date-header": "Attestation trop ancienne",
+      "name-header": "Le nom {name} sur le document ne correspond pas au vôtre",
+      "default-name-header": "Une erreur de nom détectée sur le document",
       "default-header": "Erreur sur le document",
-      "issue-date-bullet": "Émis le <strong>{date}</strong> (doit dater de moins de 1 mois)",
+      "issue-date-bullet": "Attestation téléchargée le <strong>{date}</strong>",
       "name-bullet": "Attestation au nom de <strong>{name}</strong> différent du vôtre",
-      "expected-name-and-issue-date": "Ajoutez un justificatif d’activité professionnelle au nom de <strong>{name}</strong> et <strong>de moins de 1 mois</strong>",
-      "expected-name": "Ajoutez un justificatif d’activité professionnelle au nom de <strong>{name}</strong>",
-      "expected-issue-date": "Ajoutez un justificatif d’activité professionnelle <strong>de moins de 1 mois</strong>",
-      "expected-default": "Ajoutez un justificatif d’activité professionnelle"
+      "expected-name-and-issue-date": "Ajoutez un justificatif d'activité professionnelle au nom de <strong>{name}</strong>, téléchargée avant le <strong>{minDate}</strong> depuis <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>",
+      "expected-name": "Ajoutez un justificatif d'activité professionnelle au nom de <strong>{name}</strong> depuis <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>",
+      "expected-issue-date": "Ajoutez un justificatif d'activité professionnelle téléchargée avant le <strong>{minDate}</strong> depuis <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>",
+      "expected-default": "Ajoutez un justificatif d'activité professionnelle depuis <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>"
     }
   }
 }
