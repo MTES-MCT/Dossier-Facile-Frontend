@@ -14,19 +14,19 @@ describe('ProfessionalAnalysisErrorStrategy', () => {
       return 'Des erreurs sont détectées sur le document'
     }
     if (key === 'professional-errors.issue-date-bullet') {
-      return `Émis le <strong>${params?.date}</strong> (doit dater de moins de 2 mois)`
+      return `Émis le <strong>${params?.date}</strong> (doit dater de moins de 1 mois)`
     }
     if (key === 'professional-errors.name-bullet') {
       return `Attestation au nom de <strong>${params?.name}</strong> différent du vôtre`
     }
     if (key === 'professional-errors.expected-issue-date') {
-      return 'Ajoutez un justificatif d’activité professionnelle <strong>de moins de 2 mois</strong>'
+      return 'Ajoutez un justificatif d’activité professionnelle <strong>de moins de 1 mois</strong>'
     }
     if (key === 'professional-errors.expected-name') {
       return `Ajoutez un justificatif d’activité professionnelle au nom de <strong>${params?.name}</strong>`
     }
     if (key === 'professional-errors.expected-name-and-issue-date') {
-      return `Ajoutez un justificatif d’activité professionnelle au nom de <strong>${params?.name}</strong> et <strong>de moins de 2 mois</strong>`
+      return `Ajoutez un justificatif d’activité professionnelle au nom de <strong>${params?.name}</strong> et <strong>de moins de 1 mois</strong>`
     }
     if (key === 'professional-errors.expected-default') {
       return 'Ajoutez un justificatif d’activité professionnelle'
@@ -42,11 +42,11 @@ describe('ProfessionalAnalysisErrorStrategy', () => {
     expect(defaultStrategy.subCategory).toBe('professional')
   })
 
-  it('Case 1: Document expiré / Date d’émission trop ancienne (>2 mois)', () => {
+  it('Case 1: Document expiré / Date d’émission trop ancienne (>1 mois)', () => {
     const failedRules: DocumentRule[] = [
       {
         rule: 'R_PROFESSIONAL_2DDOC_ISSUE_DATE',
-        message: 'La date d’émission du 2D-Doc est supérieure à 2 mois',
+        message: 'La date d’émission du 2D-Doc est supérieure à 1 mois',
         level: 'CRITICAL',
         ruleData: {
           extractedDate: '2026-05-15',
@@ -57,7 +57,7 @@ describe('ProfessionalAnalysisErrorStrategy', () => {
 
     expect(strategy.getHeaderTitle(failedRules, t)).toBe('Ce document a été émis le 15/05/2026')
     expect(strategy.getBulletList(failedRules, t)).toEqual([])
-    expect(strategy.getExpectedDocumentHtml(failedRules, t)).toContain('de moins de 2 mois')
+    expect(strategy.getExpectedDocumentHtml(failedRules, t)).toContain('de moins de 1 mois')
   })
 
   it('Case 2: Mauvais nom (avec un seul nom extrait)', () => {
@@ -152,7 +152,7 @@ describe('ProfessionalAnalysisErrorStrategy', () => {
       },
       {
         rule: 'R_PROFESSIONAL_2DDOC_ISSUE_DATE',
-        message: 'La date d’émission du 2D-Doc est supérieure à 2 mois',
+        message: 'La date d’émission du 2D-Doc est supérieure à 1 mois',
         level: 'CRITICAL',
         ruleData: {
           extractedDate: '2026-05-15',
@@ -164,10 +164,10 @@ describe('ProfessionalAnalysisErrorStrategy', () => {
     expect(strategy.getHeaderTitle(failedRules, t)).toBe('Des erreurs sont détectées sur le document')
     expect(strategy.getBulletList(failedRules, t)).toEqual([
       'Attestation au nom de <strong>RECOBER Laura</strong> différent du vôtre',
-      'Émis le <strong>15/05/2026</strong> (doit dater de moins de 2 mois)'
+      'Émis le <strong>15/05/2026</strong> (doit dater de moins de 1 mois)'
     ])
     expect(strategy.getExpectedDocumentHtml(failedRules, t)).toContain('DIALLA BAH KONATE')
-    expect(strategy.getExpectedDocumentHtml(failedRules, t)).toContain('de moins de 2 mois')
+    expect(strategy.getExpectedDocumentHtml(failedRules, t)).toContain('de moins de 1 mois')
   })
 
   it('returns undefined for getAction', () => {

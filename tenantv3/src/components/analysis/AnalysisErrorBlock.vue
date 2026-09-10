@@ -365,11 +365,11 @@ defineExpose({
       "issue-date-header": "This document was issued on {date}",
       "name-header": "Name error detected on document",
       "default-header": "Error on document",
-      "issue-date-bullet": "Issued on <strong>{date}</strong> (must be less than 2 months old)",
+      "issue-date-bullet": "Issued on <strong>{date}</strong> (must be less than 1 month old)",
       "name-bullet": "Certificate in the name of <strong>{name}</strong> different from yours",
-      "expected-name-and-issue-date": "Add a proof of professional activity in the name of <strong>{name}</strong> and <strong>less than 2 months old</strong>",
+      "expected-name-and-issue-date": "Add a proof of professional activity in the name of <strong>{name}</strong> and <strong>less than 1 month old</strong>",
       "expected-name": "Add a proof of professional activity in the name of <strong>{name}</strong>",
-      "expected-issue-date": "Add a proof of professional activity <strong>less than 2 months old</strong>",
+      "expected-issue-date": "Add a proof of professional activity <strong>less than 1 month old</strong>",
       "expected-default": "Add a proof of professional activity"
     }
   },
@@ -405,11 +405,11 @@ defineExpose({
       "issue-date-header": "Ce document a été émis le {date}",
       "name-header": "Une erreur de nom détectée sur le document",
       "default-header": "Erreur sur le document",
-      "issue-date-bullet": "Émis le <strong>{date}</strong> (doit dater de moins de 2 mois)",
+      "issue-date-bullet": "Émis le <strong>{date}</strong> (doit dater de moins de 1 mois)",
       "name-bullet": "Attestation au nom de <strong>{name}</strong> différent du vôtre",
-      "expected-name-and-issue-date": "Ajoutez un justificatif d’activité professionnelle au nom de <strong>{name}</strong> et <strong>de moins de 2 mois</strong>",
+      "expected-name-and-issue-date": "Ajoutez un justificatif d’activité professionnelle au nom de <strong>{name}</strong> et <strong>de moins de 1 mois</strong>",
       "expected-name": "Ajoutez un justificatif d’activité professionnelle au nom de <strong>{name}</strong>",
-      "expected-issue-date": "Ajoutez un justificatif d’activité professionnelle <strong>de moins de 2 mois</strong>",
+      "expected-issue-date": "Ajoutez un justificatif d’activité professionnelle <strong>de moins de 1 mois</strong>",
       "expected-default": "Ajoutez un justificatif d’activité professionnelle"
     }
   }
