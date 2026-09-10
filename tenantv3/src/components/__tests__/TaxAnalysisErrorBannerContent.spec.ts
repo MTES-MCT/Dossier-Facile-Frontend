@@ -55,6 +55,7 @@ describe('TaxAnalysisErrorBannerContent', () => {
     const wrapper = mountComponent(rule)
 
     expect(wrapper.text()).toContain(t('bad-classification.title'))
+    expect(wrapper.text()).toContain(t('bad-classification.current-other'))
     expect(wrapper.text()).toContain(t('bad-classification.expected'))
     expect(wrapper.text()).toContain(t('confirm-prompt'))
 
@@ -67,6 +68,26 @@ describe('TaxAnalysisErrorBannerContent', () => {
     expect(wrapper.emitted('explain')).toBeTruthy()
     const explainEmits = wrapper.emitted('explain') as string[][]
     expect(explainEmits[0][0]).toContain("J'ai fourni un avis d'imposition")
+  })
+
+  it('renders declarative situation notice message when isDeclarativeSituation is true and hides confirm button', () => {
+    const rule: DocumentRule = {
+      rule: 'R_TAX_BAD_CLASSIFICATION',
+      message: "Le document n'est pas un avis d'imposition",
+      level: 'CRITICAL',
+      ruleData: {
+        type: 'R_TAX_CLASSIFICATION',
+        isDeclarativeSituation: true
+      }
+    }
+
+    const wrapper = mountComponent(rule)
+
+    expect(wrapper.text()).toContain(t('bad-classification.title'))
+    expect(wrapper.text()).toContain(t('bad-classification.current-declarative'))
+    expect(wrapper.text()).toContain(t('bad-classification.expected'))
+    expect(wrapper.find('.dsfr-button-stub').exists()).toBe(false)
+    expect(wrapper.text()).not.toContain(t('confirm-prompt'))
   })
 
   it('renders R_TAX_LEAF banner without confirmation button', () => {

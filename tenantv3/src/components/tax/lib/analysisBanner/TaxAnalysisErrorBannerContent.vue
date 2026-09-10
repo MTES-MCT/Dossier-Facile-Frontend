@@ -111,30 +111,28 @@ function getCurrentLines(): string[] {
     return [t('wrong-number-of-documents.current')]
   }
 
+  if (data) {
+    switch (data.type) {
+      case 'R_TAX_CLASSIFICATION':
+        return data.isDeclarativeSituation
+          ? [t('bad-classification.current-declarative')]
+          : [t('bad-classification.current-other')]
+      case 'R_TAX_NAMES':
+        return data.extractedIdentities.map((n) => t('names.current', { name: n }))
+      case 'R_TAX_YEARS':
+        return data.extractedYears.map((y) =>
+          t('tax-wrong-year.current', { taxYear: y + 1, incomeYear: y })
+        )
+      case 'R_NAMES':
+        return data.extractedNames.map((n) => t('names.current', { name: formatName(n) }))
+    }
+  }
+
   if (r === 'R_DOCUMENT_IA_CLASSIFICATION' || r === 'R_TAX_BAD_CLASSIFICATION') {
     return [t('bad-classification.current-other')]
   }
 
-  if (!data) {
-    return [props.rule.message]
-  }
-
-  switch (data.type) {
-    case 'R_TAX_CLASSIFICATION':
-      return data.isDeclarativeSituation
-        ? [t('bad-classification.current-declarative')]
-        : [t('bad-classification.current-other')]
-    case 'R_TAX_NAMES':
-      return data.extractedIdentities.map((n) => t('names.current', { name: n }))
-    case 'R_TAX_YEARS':
-      return data.extractedYears.map((y) =>
-        t('tax-wrong-year.current', { taxYear: y + 1, incomeYear: y })
-      )
-    case 'R_NAMES':
-      return data.extractedNames.map((n) => t('names.current', { name: formatName(n) }))
-    default:
-      return [props.rule.message]
-  }
+  return [props.rule.message]
 }
 
 function getExpectedLines(): string[] {
