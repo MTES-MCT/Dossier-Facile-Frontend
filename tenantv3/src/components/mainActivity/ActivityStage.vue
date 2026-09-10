@@ -1,5 +1,6 @@
 <template>
   <BackLinkRow :label="t('stage')" :to="parent" category="INTERNSHIP" />
+  <AttestationMesDroitsSociaux v-if="suffix === 'tenant'"/>
   <i18n-t tag="p" :keypath="'desc-stage-' + suffix" class="fr-mb-0">
     <strong>{{ t('agreement') }}</strong>
   </i18n-t>
@@ -15,7 +16,6 @@
       </i18n-t>
     </li>
   </ul>
-  <AttestationMesDroitsSociaux v-if="suffix === 'tenant'"/>
   <UploadFilesMainActivity category="INTERNSHIP" />
 </template>
 
