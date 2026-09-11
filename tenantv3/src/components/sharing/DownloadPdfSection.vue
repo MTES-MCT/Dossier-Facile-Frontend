@@ -70,7 +70,7 @@ const store = useTenantStore()
 const isGroupDownloadDisabled = computed(() => {
   if (store.user.applicationType !== 'GROUP') return false
   const tenants = store.user.apartmentSharing?.tenants ?? []
-  return !tenants.every((tenant) => tenant.status === 'VALIDATED')
+  return !tenants.every((tenant) => UtilsService.isShareableStatus(tenant.status))
 })
 
 const showProgressBar = ref(false)

@@ -47,7 +47,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="fr-col-12 fr-col-lg-4">
+                <!-- ZIP fallback for a DECLINED dossier only -->
+                <div v-if="isDenied()" class="fr-col-12 fr-col-lg-4">
                   <div class="fr-callout warning fr-callout-white">
                     <ColoredTag
                       class="fr-m-1w"
@@ -74,7 +75,7 @@
                 </div>
               </div>
             </div>
-            <DefaultShareSection v-if="UtilsService.isCompletedOrValidatedStatus(user.status)" class="fr-mb-3w" />
+            <DefaultShareSection v-if="UtilsService.isShareableStatus(user.status)" class="fr-mb-3w" />
             <h2 v-safe-html="t(`account.content-title`)" class="fr-h3"></h2>
             <div class="fr-mt-3w fr-p-0w">
               <section v-if="user.applicationType !== 'ALONE'" class="fr-m-0 fr-p-0 bg-white">

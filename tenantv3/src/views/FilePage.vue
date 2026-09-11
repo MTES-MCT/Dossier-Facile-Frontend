@@ -10,16 +10,16 @@
         <DownloadFileButton
           ref="download-button"
           :show-progress-bar="showProgressBar"
-          :disabled="!user || !UtilsService.isCompletedOrValidatedStatus(user.status)"
+          :disabled="!user || !UtilsService.isShareableStatus(user.status)"
           @download="download"
         />
       </FileHeader>
       <FileStatusAlert
-        v-if="user && (user.status === 'VALIDATED' || user.status === 'COMPLETED')"
+        v-if="user && UtilsService.isShareableStatus(user.status)"
         :dossier-status="user.status"
         class="fr-mt-3w"
       />
-      <!-- a link whose dossier went back to review keep the legacy block -->
+      <!-- a link whose dossier is no longer submitted (INCOMPLETE, DECLINED) keeps the legacy block -->
       <FileReinsurance
         v-else-if="user !== null"
         :dossier-status="user.status"
@@ -225,7 +225,7 @@
         <div class="text-center">
           <DownloadFileButton
             :show-progress-bar="showProgressBar"
-            :disabled="!user || !UtilsService.isCompletedOrValidatedStatus(user.status)"
+            :disabled="!user || !UtilsService.isShareableStatus(user.status)"
             @download="download"
           />
         </div>

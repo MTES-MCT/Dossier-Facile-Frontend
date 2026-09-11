@@ -1,6 +1,7 @@
 import { computed, ref } from 'vue'
 import { isAxiosError } from 'axios'
 import { useTenantStore } from '@/stores/tenant-store'
+import { UtilsService } from '@/services/UtilsService'
 
 export type ValidationRequestResult = 'success' | 'conflict' | 'error'
 
@@ -46,9 +47,7 @@ export function useCompletedOptIn() {
   // The dossier content is complete in both statuses an eligible tenant can be in: COMPLETED, and
   // TO_PROCESS once it went back to the operator queue. Drives the dashboard subtitle.
   const isDossierCompletedOrToProcess = computed(
-    () =>
-      store.user.optInEligible === true &&
-      (store.user.status === 'COMPLETED' || store.user.status === 'TO_PROCESS')
+    () => store.user.optInEligible === true && UtilsService.isUnverifiedStatus(store.user.status)
   )
 
   async function submitValidationRequest(

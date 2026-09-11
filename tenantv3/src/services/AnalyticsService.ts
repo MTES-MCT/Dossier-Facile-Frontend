@@ -38,10 +38,11 @@ function sendEvent(category: EventCategory, name: string) {
   sendFullEvent(category, 'unknown', name)
 }
 
-// Sharing events of a COMPLETED (non verified) dossier are suffixed so the
-// existing VALIDATED series remains comparable in Matomo dashboards
+// Sharing events of a non verified dossier (COMPLETED or TO_PROCESS) are suffixed so
+// the existing VALIDATED series remains comparable in Matomo dashboards. UtilsService
+// is not imported here to avoid a circular dependency (it imports this service)
 function completedSuffix(dossierStatus?: string) {
-  return dossierStatus === 'COMPLETED' ? '_completed' : ''
+  return dossierStatus === 'COMPLETED' || dossierStatus === 'TO_PROCESS' ? '_completed' : ''
 }
 
 function getDoctypeByNumber(docType: number) {
