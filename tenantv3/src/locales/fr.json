@@ -586,8 +586,8 @@
   },
   "menu": {
     "help": "Aide",
-    "file": "Votre dossier",
-    "shared": "Vos partages",
+    "file": "Mon dossier",
+    "shared": "Mes partages",
     "account": "Mon compte",
     "messaging": "Messagerie",
     "blog": "Blog",

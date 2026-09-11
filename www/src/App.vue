@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
 import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
+import CommonHeader from 'df-shared-next/src/Header/CommonHeader.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
-import HeaderComponent from 'df-shared-next/src/Header/HeaderComponent.vue'
-import WwwMenu from './components/WwwMenu.vue'
 import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
-import { onBeforeMount } from 'vue'
-import cookies from 'js-cookie'
 import { useHead } from '@unhead/vue'
-import useWWWStore from './stores/www-store'
-import type { DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
+import { type DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
 import { MAIN_NAV, CONTENT } from 'df-shared-next/src/models/SkipLink'
+import { changeLang, locale } from './i18n'
+import { computed, onBeforeMount } from 'vue'
 
 const MESSAGE = import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''
 const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
@@ -19,12 +17,6 @@ const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
 const links: DsfrSkipLinksProps = {
   links: [MAIN_NAV, CONTENT]
 }
-
-onBeforeMount(() => {
-  const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
-  const store = useWWWStore()
-  store.setLang(lang)
-})
 
 // SEO defaults
 const titleTemplate = (title?: string) => (title ? `${title} - ${siteTitle}` : siteTitle)
@@ -39,15 +31,25 @@ useHead({
     { name: 'og:description', content: seoDescription }
   ]
 })
+
+// check for saved locale choice
+const currentLocale = computed(() => (localStorage.getItem('lang') === 'en' ? 'en' : 'fr'))
+// apply the choice
+onBeforeMount(() => {
+  changeLang(currentLocale.value)
+})
 </script>
 
 <template>
   <div class="cdn-background"></div>
   <ConsentHandler />
   <SkipLinks :links />
-  <HeaderComponent>
-    <WwwMenu />
-  </HeaderComponent>
+  <CommonHeader
+    v-model:current-lang="locale"
+    :is-logged-in="false"
+    :show-messaging="false"
+    @update:current-lang="changeLang"
+  />
   <div id="content">
     <Announcement :message="MESSAGE" />
     <main class="page" role="main">
