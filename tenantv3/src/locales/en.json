@@ -591,8 +591,8 @@
   },
   "menu": {
     "help": "Help",
-    "file": "Your File",
-    "shared": "Your shared data",
+    "file": "My File",
+    "shared": "My shared data",
     "account": "My Account",
     "messaging": "Messaging",
     "blog": "Blog",
