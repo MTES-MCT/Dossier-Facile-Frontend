@@ -109,12 +109,8 @@
             </button>
           </li>
           <li class="fr-footer__bottom-item">
-            <a
-              class="fr-footer__bottom-link"
-              :title="t('cgu-link-title')"
-              :href="`${VITE_MAIN_URL}/cgu`"
-            >
-              {{ t('cgu') }}
+            <a class="fr-footer__bottom-link" :href="`${VITE_MAIN_URL}/cgu`">
+              {{ t('cgu-link-title') }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">

@@ -1,6 +1,6 @@
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
 import { createPinia } from 'pinia'
-import i18n from './i18n'
+import { i18n } from './i18n'
 import { ViteSSG } from 'vite-ssg'
 import App from './App.vue'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
