@@ -48,7 +48,7 @@ onBeforeMount(() => {
     v-model:current-lang="locale"
     :is-logged-in="false"
     :show-messaging="false"
-    @update:current-lang="changeLang"
+    @update:current-lang="(lang) => lang && changeLang(lang)"
   />
   <div id="content">
     <Announcement :message="MESSAGE" />

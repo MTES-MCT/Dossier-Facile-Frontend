@@ -1,3 +1,4 @@
+import type { Ref } from "vue"
 import { createI18n } from 'vue-i18n'
 
 // define available locales
@@ -63,7 +64,7 @@ export function createAppI18n<T extends Record<string, any>>(
 
   return {
     i18n,
-    locale: i18n.global.locale,
+    locale: i18n.global.locale as Ref<Locale>,
     changeLang,
   }
 }

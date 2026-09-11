@@ -5,7 +5,7 @@ import type {
   DsfrNavigationProps
 } from '@gouvminint/vue-dsfr'
 import { DsfrHeader, DsfrNavigation } from '@gouvminint/vue-dsfr'
-import type { Locale } from 'src/i18n'
+import type { Locale } from '../i18n'
 import { useModalStore } from '../stores/useModalStore'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
