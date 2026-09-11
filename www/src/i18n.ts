@@ -1,15 +1,8 @@
-import { createI18n } from 'vue-i18n'
+import { createAppI18n, i18nCreateMessages } from 'df-shared-next/src/i18n'
 
-import en from './locales/en.json'
-import fr from './locales/fr.json'
-
-const i18n = createI18n({
-  legacy: false,
-  locale: 'fr',
-  messages: {
-    en,
-    fr
-  }
+const localeFiles = import.meta.glob('./locales/*.json', {
+  eager: true,
+  import: 'default',
 })
 
-export default i18n
+export const { i18n, changeLang, locale } = createAppI18n(i18nCreateMessages(localeFiles))

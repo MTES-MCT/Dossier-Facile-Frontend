@@ -186,18 +186,18 @@ export const useTenantStore = defineStore('tenant', {
     },
     getTenant:
       (state: State) =>
-      (id: number): User | CoTenant => {
-        if (id === state.user.id) {
-          return state.user
-        }
-        const user = state.user.apartmentSharing.tenants.find((r) => {
-          return r.id === id
-        })
-        if (!user) {
-          throw new Error(`Tenant ${id} not found`)
-        }
-        return user
-      },
+        (id: number): User | CoTenant => {
+          if (id === state.user.id) {
+            return state.user
+          }
+          const user = state.user.apartmentSharing.tenants.find((r) => {
+            return r.id === id
+          })
+          if (!user) {
+            throw new Error(`Tenant ${id} not found`)
+          }
+          return user
+        },
     allDocumentsPreValidated(state: State): boolean {
       const user = state.user
       const tenantDocumentsPreValidated = (tenant: CoTenant) =>
@@ -403,22 +403,6 @@ export const useTenantStore = defineStore('tenant', {
     async setCoTenants(data: Parameters<typeof ProfileService.saveCoTenants>[number]) {
       return ProfileService.saveCoTenants(data).then((response) => {
         this.loadUserCommit(response.data)
-      })
-    },
-    setLang(lang: 'fr' | 'en') {
-      i18n.global.locale.value = lang
-      i18n.global.fallbackLocale.value = 'fr'
-      dayjs.locale(lang)
-      const html = document.documentElement
-      html.setAttribute('lang', i18n.global.locale.value)
-      const expireTimes = new Date()
-      expireTimes.setFullYear(expireTimes.getFullYear() + 1)
-      cookies.set('lang', lang, {
-        expires: expireTimes,
-        path: '/',
-        domain: import.meta.env.VITE_COOKIE_DOMAIN || 'localhost',
-        secure: true,
-        sameSite: 'None'
       })
     },
     async validateFile(data: { honorDeclaration: boolean; clarification: string | undefined }) {
