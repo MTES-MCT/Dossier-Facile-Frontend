@@ -12,7 +12,8 @@ vi.mock('@/components/toast/toastUtils', () => ({
 
 vi.mock('@/services/UtilsService', () => ({
   UtilsService: {
-    getFileNameFromHeaders: vi.fn(() => 'document.pdf')
+    getFileNameFromHeaders: vi.fn(() => 'document.pdf'),
+    isUnverifiedStatus: (status?: string) => status === 'COMPLETED' || status === 'TO_PROCESS'
   }
 }))
 
@@ -60,13 +61,26 @@ describe('FileRowListItem', () => {
     expect(wrapper.text()).toContain('documents.status.COMPLETED')
   })
 
-  it('keeps the regular label when the dossier is not COMPLETED', () => {
+  it('labels a submitted document as completed when the dossier is TO_PROCESS', () => {
     const wrapper = mount(FileRowListItem, {
       global: { stubs: { RouterLink: true } },
       props: {
         label: 'Identification',
         document: { documentStatus: 'TO_PROCESS' },
         dossierStatus: 'TO_PROCESS'
+      }
+    })
+
+    expect(wrapper.text()).toContain('documents.status.COMPLETED')
+  })
+
+  it('keeps the regular label when the dossier is not submitted', () => {
+    const wrapper = mount(FileRowListItem, {
+      global: { stubs: { RouterLink: true } },
+      props: {
+        label: 'Identification',
+        document: { documentStatus: 'TO_PROCESS' },
+        dossierStatus: 'DECLINED'
       }
     })
 
@@ -104,7 +118,7 @@ describe('FileRowListItem', () => {
     expect(wrapper.find('a[href*="documents/doc-uuid"]').exists()).toBe(true)
   })
 
-  it('hides the view button for a submitted document when the dossier is under review', () => {
+  it('shows the view button for a submitted document of a TO_PROCESS dossier', () => {
     const wrapper = mount(FileRowListItem, {
       global: { stubs: { RouterLink: true } },
       props: {
@@ -112,6 +126,24 @@ describe('FileRowListItem', () => {
         enableDownload: true,
         showValidated: true,
         dossierStatus: 'TO_PROCESS',
+        document: {
+          documentStatus: 'TO_PROCESS',
+          name: 'https://api.example.com/api/application/links/abc-123/documents/doc-uuid'
+        }
+      }
+    })
+
+    expect(wrapper.find('a[href*="documents/doc-uuid"]').exists()).toBe(true)
+  })
+
+  it('hides the view button for a submitted document when the dossier is not submitted', () => {
+    const wrapper = mount(FileRowListItem, {
+      global: { stubs: { RouterLink: true } },
+      props: {
+        label: 'Identification',
+        enableDownload: true,
+        showValidated: true,
+        dossierStatus: 'DECLINED',
         document: {
           documentStatus: 'TO_PROCESS',
           name: 'https://api.example.com/api/application/links/abc-123/documents/doc-uuid'

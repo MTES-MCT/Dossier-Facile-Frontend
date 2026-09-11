@@ -61,17 +61,15 @@ export const UtilsService = {
     word = word[0].toUpperCase() + word.slice(1).toLowerCase()
     return word.replace(/([' -][A-Za-zÀ-ÖØ-öø-ÿ])/g, (s) => s.toUpperCase())
   },
-  canShareFile(user: User) {
-    return (
-      user.status === 'VALIDATED' &&
-      user.apartmentSharing?.tokenPublic !== undefined &&
-      user.apartmentSharing?.tokenPublic !== ''
-    )
+  // A submitted dossier (TO_PROCESS, COMPLETED or VALIDATED) can be shared by link
+  // or mail, and its full PDF can be generated
+  isShareableStatus(status?: string) {
+    return status === 'VALIDATED' || status === 'COMPLETED' || status === 'TO_PROCESS'
   },
-  // A dossier can be shared by link or mail when VALIDATED (operator-verified)
-  // or COMPLETED (complete and submitted, without operator verification)
-  isCompletedOrValidatedStatus(status?: string) {
-    return status === 'VALIDATED' || status === 'COMPLETED'
+  // A submitted dossier not yet verified by an operator: TO_PROCESS and COMPLETED get
+  // the same "not verified" rendering (public page, badges, sharing section)
+  isUnverifiedStatus(status?: string) {
+    return status === 'COMPLETED' || status === 'TO_PROCESS'
   },
   handleCommonSaveError(err: unknown, elt: HTMLElement | null | undefined) {
     let hasSpecificMessage = false
