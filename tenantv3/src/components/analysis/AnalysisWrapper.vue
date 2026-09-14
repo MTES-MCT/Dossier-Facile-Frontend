@@ -94,11 +94,16 @@
 </template>
 
 <script setup lang="ts">
-import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
+import {
+  AnalysisService,
+  AnalysisStatus,
+  type DocumentAnalysisStatusDTO
+} from '@/services/AnalysisService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { DsfrBadge, DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import type { DocumentAnalysisReport } from 'df-shared-next/src/models/DocumentAnalysisReport'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
 import debounce from 'lodash.debounce'
 import { computed, nextTick, onBeforeUnmount, ref, useTemplateRef, watch } from 'vue'
@@ -234,49 +239,70 @@ watch(
   { immediate: true }
 )
 
+function initExplainState(comment = '') {
+  explainText.value = comment
+  explanationSubmitted.value = !!comment
+  showExplainForm.value = !!comment
+}
+
+function handleCompletedOrIdleAnalysis(report?: DocumentAnalysisReport) {
+  stopPolling()
+  if (!report?.analysisStatus) {
+    reset()
+    return
+  }
+
+  if ((report.failedRules?.length ?? 0) > 0) {
+    analysisFailed()
+    return
+  }
+
+  const hasPassedOrInconclusive =
+    (report.passedRules?.length ?? 0) > 0 || (report.inconclusiveRules?.length ?? 0) > 0
+
+  if (hasPassedOrInconclusive) {
+    analysisSuccess()
+    return
+  }
+
+  reset()
+}
+
+async function handlePendingAnalysis() {
+  startAnalysis()
+  if (pollingInterval.value) {
+    return
+  }
+  const status = await updateAnalysisStatus()
+  if (status === AnalysisStatus.IN_PROGRESS && !pollingInterval.value) {
+    startPolling()
+  }
+}
+
+async function syncAnalysisState(doc?: DfDocument) {
+  if (!doc?.id) {
+    stopPolling()
+    reset()
+    return
+  }
+
+  if (hasPendingAnalysis(doc)) {
+    await handlePendingAnalysis()
+    return
+  }
+
+  handleCompletedOrIdleAnalysis(doc.documentAnalysisReport)
+}
+
 watch(
   () => document.value,
-  async (document) => {
+  async (currentDoc) => {
     if (pollingInterval.value || props.isUploading) {
       return
     }
-    analysisFailedRules.value = document?.documentAnalysisReport?.failedRules ?? []
-    if (document?.id) {
-      if (hasPendingAnalysis(document)) {
-        startAnalysis()
-        if (!pollingInterval.value) {
-          const status = await updateAnalysisStatus()
-          if (status === AnalysisStatus.IN_PROGRESS && !pollingInterval.value) {
-            startPolling()
-          }
-        }
-      } else {
-        stopPolling()
-        const report = document.documentAnalysisReport
-        if (report?.analysisStatus) {
-          if ((report.failedRules?.length ?? 0) > 0) {
-            analysisFailed()
-          } else if (
-            (report.passedRules?.length ?? 0) > 0 ||
-            (report.inconclusiveRules?.length ?? 0) > 0
-          ) {
-            analysisSuccess()
-          } else {
-            reset()
-          }
-        } else {
-          reset()
-        }
-      }
-    } else {
-      stopPolling()
-      reset()
-    }
-
-    const existingComment = document?.documentAnalysisReport?.comment || ''
-    explainText.value = existingComment
-    explanationSubmitted.value = !!existingComment
-    showExplainForm.value = !!existingComment
+    analysisFailedRules.value = currentDoc?.documentAnalysisReport?.failedRules ?? []
+    await syncAnalysisState(currentDoc)
+    initExplainState(currentDoc?.documentAnalysisReport?.comment)
   },
   { immediate: true }
 )
@@ -359,6 +385,77 @@ function startPolling() {
   }, props.pollingTimeoutMs)
 }
 
+function isPrematureCompletedStatus(data: DocumentAnalysisStatusDTO): boolean {
+  const docFilesCount = document.value?.files?.length ?? 0
+  const isFileCountMismatch =
+    docFilesCount > 0 &&
+    ((data.totalFiles !== undefined && data.totalFiles < docFilesCount) ||
+      (data.analyzedFiles !== undefined && data.analyzedFiles < docFilesCount))
+
+  const reportCreatedAt = data.analysisReport?.createdAt
+  const reportTimestamp = reportCreatedAt ? new Date(reportCreatedAt).getTime() : 0
+  const isStaleReport =
+    lastUploadTimestamp > 0 && reportTimestamp > 0 && reportTimestamp < lastUploadTimestamp - 1000
+
+  return isFileCountMismatch || isStaleReport
+}
+
+async function handleCompletedAnalysis(
+  docId: number,
+  report?: DocumentAnalysisReport
+): Promise<AnalysisStatus> {
+  const rules = report?.failedRules ?? []
+  const hadBannersBefore = analysisFailedRules.value.length > 0
+  analysisFailedRules.value = rules
+
+  if (report) {
+    store.updateDocumentAnalysisReport(docId, report)
+  }
+
+  if (rules.length > 0) {
+    analysisFailed()
+    if (!hadBannersBefore) {
+      await nextTick()
+      focusBanners()
+    }
+  } else {
+    analysisSuccess()
+  }
+
+  stopPolling()
+  return AnalysisStatus.COMPLETED
+}
+
+async function handleAnalysisResponse(
+  docId: number,
+  data: DocumentAnalysisStatusDTO
+): Promise<AnalysisStatus | 'FAILED'> {
+  if (data.status === AnalysisStatus.COMPLETED) {
+    if (isPrematureCompletedStatus(data)) {
+      startAnalysis()
+      return AnalysisStatus.IN_PROGRESS
+    }
+    return handleCompletedAnalysis(docId, data.analysisReport)
+  }
+
+  if (data.status === AnalysisStatus.NO_ANALYSIS_SCHEDULED) {
+    reset()
+    stopPolling()
+    return AnalysisStatus.NO_ANALYSIS_SCHEDULED
+  }
+
+  if (data.status === AnalysisStatus.IN_PROGRESS) {
+    if (!isOvertime.value) {
+      startAnalysis()
+    }
+    return AnalysisStatus.IN_PROGRESS
+  }
+
+  reset()
+  stopPolling()
+  return 'FAILED'
+}
+
 async function updateAnalysisStatus(): Promise<AnalysisStatus | 'FAILED' | undefined> {
   const docId = document.value?.id
   if (!docId) {
@@ -368,53 +465,7 @@ async function updateAnalysisStatus(): Promise<AnalysisStatus | 'FAILED' | undef
   }
   try {
     const { data } = await AnalysisService.getDocumentAnalysisStatus(docId)
-    if (data.status === AnalysisStatus.COMPLETED) {
-      const docFilesCount = document.value?.files?.length ?? 0
-      const isFileCountMismatch =
-        docFilesCount > 0 &&
-        ((data.totalFiles !== undefined && data.totalFiles < docFilesCount) ||
-          (data.analyzedFiles !== undefined && data.analyzedFiles < docFilesCount))
-
-      const reportCreatedAt = data.analysisReport?.createdAt
-      const reportTimestamp = reportCreatedAt ? new Date(reportCreatedAt).getTime() : 0
-      const isStaleReport =
-        lastUploadTimestamp > 0 && reportTimestamp > 0 && reportTimestamp < lastUploadTimestamp - 1000
-
-      if (isFileCountMismatch || isStaleReport) {
-        startAnalysis()
-        return AnalysisStatus.IN_PROGRESS
-      }
-
-      const rules = data.analysisReport?.failedRules ?? []
-      const hadBannersBefore = analysisFailedRules.value.length > 0
-      analysisFailedRules.value = rules
-      if (data.analysisReport) {
-        store.updateDocumentAnalysisReport(docId, data.analysisReport)
-      }
-      if (rules.length > 0) {
-        analysisFailed()
-        if (!hadBannersBefore) {
-          await nextTick()
-          focusBanners()
-        }
-      } else {
-        analysisSuccess()
-      }
-      stopPolling()
-      return AnalysisStatus.COMPLETED
-    } else if (data.status === AnalysisStatus.NO_ANALYSIS_SCHEDULED) {
-      reset()
-      stopPolling()
-      return AnalysisStatus.NO_ANALYSIS_SCHEDULED
-    } else if (data.status === AnalysisStatus.IN_PROGRESS) {
-      if (!isOvertime.value) {
-        startAnalysis()
-      }
-      return AnalysisStatus.IN_PROGRESS
-    }
-    reset()
-    stopPolling()
-    return 'FAILED'
+    return await handleAnalysisResponse(docId, data)
   } catch {
     reset()
     analysisFailedRules.value = []
