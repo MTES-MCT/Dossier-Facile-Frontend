@@ -3,6 +3,7 @@ import { config, flushPromises, mount } from '@vue/test-utils'
 import { defineComponent, h, ref } from 'vue'
 import AnalysisWrapper from '../analysis/AnalysisWrapper.vue'
 import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '@/components/toast/toastUtils'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { SafeHtmlPlugin } from 'df-shared-next/src/services/SanitizeService'
@@ -46,12 +47,13 @@ const saveDocumentCommentImpl = async (params: {
   }
 }
 const mockSaveDocumentComment = vi.fn(saveDocumentCommentImpl)
+const mockUpdateDocumentAnalysisReport = vi.fn()
 
 vi.mock('@/stores/tenant-store', () => ({
   useTenantStore: () => ({
     user: { id: 123 },
     saveDocumentComment: mockSaveDocumentComment,
-    updateDocumentAnalysisReport: vi.fn()
+    updateDocumentAnalysisReport: mockUpdateDocumentAnalysisReport
   })
 }))
 
@@ -187,13 +189,18 @@ describe('analysisWrapper', () => {
     expect(AnalysisService.getDocumentAnalysisStatus).toHaveBeenCalledTimes(initialCallCount)
   })
 
-  it('continues polling while IN_PROGRESS then stops on timeout', async () => {
+  it('continues polling while IN_PROGRESS then switches to overtime on timeout without stopping polling', async () => {
     mockAnalysisResponse(AnalysisStatus.IN_PROGRESS)
 
     const wrapper = mountComponent()
     await flushPromises()
 
     expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.isOvertime).toBe(false)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.nextLabel).toBe('analyzing')
+    expect(wrapper.vm.beforeSubmit()).toBe(false)
+
     const initialCallCount = vi.mocked(AnalysisService.getDocumentAnalysisStatus).mock.calls.length
 
     await vi.advanceTimersByTimeAsync(3000)
@@ -205,12 +212,28 @@ describe('analysisWrapper', () => {
     await vi.advanceTimersByTimeAsync(8000)
     await flushPromises()
 
-    expect(wrapper.vm.analysisInProgress).toBe(false)
+    // On timeout, isOvertime becomes true and button is re-enabled
+    expect(wrapper.vm.isOvertime).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(false)
+    expect(wrapper.vm.nextLabel).toBeUndefined()
+    expect(wrapper.vm.beforeSubmit()).toBe(true)
+    expect(AnalyticsService.document_analysis_timeout).toHaveBeenCalled()
 
-    const countAfterTimeout = vi.mocked(AnalysisService.getDocumentAnalysisStatus).mock.calls.length
+    // Polling continues in background!
+    const countAtTimeout = vi.mocked(AnalysisService.getDocumentAnalysisStatus).mock.calls.length
     await vi.advanceTimersByTimeAsync(6000)
     await flushPromises()
-    expect(AnalysisService.getDocumentAnalysisStatus).toHaveBeenCalledTimes(countAfterTimeout)
+    expect(vi.mocked(AnalysisService.getDocumentAnalysisStatus).mock.calls.length).toBeGreaterThan(
+      countAtTimeout
+    )
+
+    // When analysis finally completes:
+    mockAnalysisResponse(AnalysisStatus.COMPLETED)
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    expect(wrapper.vm.analysisInProgress).toBe(false)
+    expect(wrapper.vm.isOvertime).toBe(false)
   })
 
   it('blocks submit and focuses banners when unresolved errors remain', async () => {
@@ -702,4 +725,99 @@ describe('analysisWrapper', () => {
     expect(wrapper.vm.analysisInProgress).toBe(true)
     expect(wrapper.vm.nextDisabled).toBe(true)
   })
+
+  it('resets old analysis report, keeps analysisInProgress true and starts polling when uploading a new file to an already analyzed document', async () => {
+    const rules = [
+      { rule: 'R_SALARY_OLD', message: 'Old error', level: 'CRITICAL', ruleData: null }
+    ]
+    mockStoreDocument.value = {
+      id: 42,
+      files: [{ id: 1, name: 'salary1.pdf', size: 1000 }],
+      documentStatus: 'TO_PROCESS',
+      documentAnalysisReport: { failedRules: rules, analysisStatus: 'DENIED' }
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.IN_PROGRESS)
+
+    const wrapper = mountComponent({ isUploading: true })
+    await flushPromises()
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+
+    await wrapper.setProps({ isUploading: false })
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.analysisFailedRules).toEqual([])
+    expect(mockUpdateDocumentAnalysisReport).toHaveBeenCalledWith(42, undefined)
+
+    const newRules = [
+      { rule: 'R_SALARY_NEW', message: 'New result', level: 'CRITICAL', ruleData: null }
+    ]
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, newRules)
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    expect(wrapper.vm.analysisInProgress).toBe(false)
+    expect(wrapper.vm.analysisFailedRules).toEqual(newRules)
+  })
+
+  it('ignores premature COMPLETED response if report is from before upload and continues polling', async () => {
+    mockStoreDocument.value = {
+      id: 42,
+      files: [
+        { id: 1, name: 'salary1.pdf', size: 1000 },
+        { id: 2, name: 'salary2.pdf', size: 1000 }
+      ],
+      documentStatus: 'TO_PROCESS',
+      documentAnalysisReport: undefined
+    } as unknown as DfDocument
+
+    const wrapper = mountComponent({ isUploading: true })
+    await flushPromises()
+
+    await wrapper.setProps({ isUploading: false })
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+
+    vi.mocked(AnalysisService.getDocumentAnalysisStatus).mockResolvedValueOnce({
+      data: {
+        documentId: 42,
+        status: AnalysisStatus.COMPLETED,
+        analysisReport: {
+          id: 10,
+          analysisStatus: 'DENIED',
+          failedRules: [{ rule: 'OLD_RULE', message: 'Old', level: 'CRITICAL', ruleData: null }],
+          passedRules: [],
+          inconclusiveRules: [],
+          createdAt: new Date(Date.now() - 10000).toISOString()
+        }
+      }
+    })
+
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+
+    const freshRules = [{ rule: 'NEW_RULE', message: 'New', level: 'CRITICAL', ruleData: null }]
+    vi.mocked(AnalysisService.getDocumentAnalysisStatus).mockResolvedValueOnce({
+      data: {
+        documentId: 42,
+        status: AnalysisStatus.COMPLETED,
+        analysisReport: {
+          id: 11,
+          analysisStatus: 'DENIED',
+          failedRules: freshRules,
+          passedRules: [],
+          inconclusiveRules: [],
+          createdAt: new Date(Date.now() + 5000).toISOString()
+        }
+      }
+    })
+
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    expect(wrapper.vm.analysisInProgress).toBe(false)
+    expect(wrapper.vm.analysisFailedRules).toEqual(freshRules)
+  })
 })
+

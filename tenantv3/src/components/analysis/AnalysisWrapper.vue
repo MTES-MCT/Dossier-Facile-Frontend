@@ -32,7 +32,7 @@
     </AnalysisBanners>
   </template>
   <div
-    v-if="isAnalysisTerminated"
+    v-if="isSuccess"
     class="analysis-success-card fr-mb-3w"
     role="status"
     aria-live="polite"
@@ -48,7 +48,13 @@
       {{ t('analysis-completed') }}
     </span>
   </div>
-  <slot name="fileUploader" />
+  <slot
+    name="fileUploader"
+    :is-overtime="isOvertime"
+    :analysis-in-progress="analysisInProgress"
+    :analysis-time="props.pollingTimeoutMs"
+    :state="currentState"
+  />
   <div v-if="!strategy && analysisFailedRules.length > 0" class="explain-section">
     <div class="separator">
       <div class="separator-line"></div>
@@ -102,6 +108,7 @@ import AnalysisErrorBlock from '../analysis/AnalysisErrorBlock.vue'
 import type { BaseAnalysisErrorStrategy } from '../analysis/strategies/BaseAnalysisErrorStrategy'
 import { useDocumentFormKey } from '../documents/documentFormState'
 import { toast } from '../toast/toastUtils'
+import { useAnalysisStateMachine } from './useAnalysisStateMachine'
 
 const POLLING_INTERVAL_MS = 3000
 const POLLING_TIMEOUT_MS = 10000
@@ -128,10 +135,24 @@ const { t } = useI18n()
 
 const { document } = useDocumentFormKey()
 
+const {
+  currentState,
+  isOvertime,
+  analysisInProgress,
+  isAnalyzing,
+  isSuccess,
+  startUpload,
+  startAnalysis,
+  triggerOvertime,
+  analysisSuccess,
+  analysisFailed,
+  reset
+} = useAnalysisStateMachine()
+
 const analysisFailedRules = ref<DocumentRule[]>(
   document.value?.documentAnalysisReport?.failedRules ?? []
 )
-const analysisInProgress = ref(false)
+
 const pollingInterval = ref<ReturnType<typeof setInterval> | null>(null)
 const pollingTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
 const analysisBanner = useTemplateRef('analysis-banner')
@@ -142,40 +163,33 @@ const explainText = ref('')
 const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
 const explanationSubmitted = ref(false)
 let pendingSave: Promise<boolean> | null = null
+let lastUploadTimestamp = 0
 
 const analysisErrorCount = computed(() => analysisFailedRules.value?.length ?? 0)
-const isAnalysisTerminated = computed(() => {
-  const report = document.value?.documentAnalysisReport
-  if (!report || analysisInProgress.value) {
-    return false
-  }
-  const hasNoFailed = (report.failedRules?.length ?? 0) === 0
-  const hasPassedOrInconclusive =
-    (report.passedRules?.length ?? 0) > 0 || (report.inconclusiveRules?.length ?? 0) > 0
 
-  return hasNoFailed && hasPassedOrInconclusive
-})
-const isBusy = computed(() => analysisInProgress.value || props.isUploading)
+const isBusy = computed(() => props.isUploading || isAnalyzing.value)
 const nextDisabled = computed(() => isBusy.value)
 
 const store = useTenantStore()
 
 const nextLabel = computed(() => {
   if (props.isUploading) return t('uploading')
-  if (analysisInProgress.value) return t('analyzing')
+  if (isAnalyzing.value) return t('analyzing')
   return undefined
 })
 
 defineExpose({
   focusBanners,
   analysisInProgress,
+  isOvertime,
   analysisFailedRules,
   explanationSubmitted,
   nextDisabled,
   nextLabel,
   beforeSubmit,
   saveExplanation,
-  explainText
+  explainText,
+  currentState
 })
 
 function focusBanners() {
@@ -187,18 +201,34 @@ function focusBanners() {
 }
 
 function hasPendingAnalysis(doc?: DfDocument | null): boolean {
-  const isToProcess = doc?.documentStatus === 'TO_PROCESS'
+  const isToProcess = !doc?.documentStatus || doc?.documentStatus === 'TO_PROCESS'
   const isFinished = !!doc?.documentAnalysisReport?.analysisStatus
   return isToProcess && !isFinished
 }
 
 watch(
   () => props.isUploading,
-  (uploading) => {
+  (uploading, oldUploading) => {
     if (uploading) {
-      analysisInProgress.value = true
-    } else if (!hasPendingAnalysis(document.value)) {
-      analysisInProgress.value = false
+      lastUploadTimestamp = Date.now()
+      stopPolling()
+      startUpload()
+    } else if (oldUploading) {
+      lastUploadTimestamp = Date.now()
+      if (document.value?.id) {
+        store.updateDocumentAnalysisReport(document.value.id, undefined)
+      }
+      analysisFailedRules.value = []
+      const isPending =
+        !document.value?.documentStatus || document.value?.documentStatus === 'TO_PROCESS'
+      if (isPending) {
+        startAnalysis()
+        startPolling()
+      } else {
+        reset()
+      }
+    } else if (!hasPendingAnalysis(document.value) && !pollingInterval.value) {
+      reset()
     }
   },
   { immediate: true }
@@ -207,18 +237,40 @@ watch(
 watch(
   () => document.value,
   async (document) => {
+    if (pollingInterval.value || props.isUploading) {
+      return
+    }
     analysisFailedRules.value = document?.documentAnalysisReport?.failedRules ?? []
     if (document?.id) {
       if (hasPendingAnalysis(document)) {
-        analysisInProgress.value = true
-      }
-      const status = await updateAnalysisStatus()
-      if (status === AnalysisStatus.IN_PROGRESS) {
-        startPolling()
+        startAnalysis()
+        if (!pollingInterval.value) {
+          const status = await updateAnalysisStatus()
+          if (status === AnalysisStatus.IN_PROGRESS && !pollingInterval.value) {
+            startPolling()
+          }
+        }
+      } else {
+        stopPolling()
+        const report = document.documentAnalysisReport
+        if (report?.analysisStatus) {
+          if ((report.failedRules?.length ?? 0) > 0) {
+            analysisFailed()
+          } else if (
+            (report.passedRules?.length ?? 0) > 0 ||
+            (report.inconclusiveRules?.length ?? 0) > 0
+          ) {
+            analysisSuccess()
+          } else {
+            reset()
+          }
+        } else {
+          reset()
+        }
       }
     } else {
       stopPolling()
-      analysisInProgress.value = false
+      reset()
     }
 
     const existingComment = document?.documentAnalysisReport?.comment || ''
@@ -302,8 +354,8 @@ function startPolling() {
   pollingInterval.value = setInterval(updateAnalysisStatus, POLLING_INTERVAL_MS)
   pollingTimeout.value = setTimeout(() => {
     AnalyticsService.document_analysis_timeout(document.value?.documentCategory ?? 'NULL')
-    analysisInProgress.value = false
-    stopPolling()
+    triggerOvertime()
+    pollingTimeout.value = null
   }, props.pollingTimeoutMs)
 }
 
@@ -311,37 +363,60 @@ async function updateAnalysisStatus(): Promise<AnalysisStatus | 'FAILED' | undef
   const docId = document.value?.id
   if (!docId) {
     stopPolling()
+    reset()
     return undefined
   }
   try {
     const { data } = await AnalysisService.getDocumentAnalysisStatus(docId)
     if (data.status === AnalysisStatus.COMPLETED) {
-      analysisInProgress.value = false
+      const docFilesCount = document.value?.files?.length ?? 0
+      const isFileCountMismatch =
+        docFilesCount > 0 &&
+        ((data.totalFiles !== undefined && data.totalFiles < docFilesCount) ||
+          (data.analyzedFiles !== undefined && data.analyzedFiles < docFilesCount))
+
+      const reportCreatedAt = data.analysisReport?.createdAt
+      const reportTimestamp = reportCreatedAt ? new Date(reportCreatedAt).getTime() : 0
+      const isStaleReport =
+        lastUploadTimestamp > 0 && reportTimestamp > 0 && reportTimestamp < lastUploadTimestamp - 1000
+
+      if (isFileCountMismatch || isStaleReport) {
+        startAnalysis()
+        return AnalysisStatus.IN_PROGRESS
+      }
+
       const rules = data.analysisReport?.failedRules ?? []
       const hadBannersBefore = analysisFailedRules.value.length > 0
       analysisFailedRules.value = rules
       if (data.analysisReport) {
         store.updateDocumentAnalysisReport(docId, data.analysisReport)
       }
-      if (!hadBannersBefore && rules.length > 0) {
-        await nextTick()
-        focusBanners()
+      if (rules.length > 0) {
+        analysisFailed()
+        if (!hadBannersBefore) {
+          await nextTick()
+          focusBanners()
+        }
+      } else {
+        analysisSuccess()
       }
       stopPolling()
       return AnalysisStatus.COMPLETED
     } else if (data.status === AnalysisStatus.NO_ANALYSIS_SCHEDULED) {
-      analysisInProgress.value = false
+      reset()
       stopPolling()
       return AnalysisStatus.NO_ANALYSIS_SCHEDULED
     } else if (data.status === AnalysisStatus.IN_PROGRESS) {
-      analysisInProgress.value = true
+      if (!isOvertime.value) {
+        startAnalysis()
+      }
       return AnalysisStatus.IN_PROGRESS
     }
-    analysisInProgress.value = false
+    reset()
     stopPolling()
     return 'FAILED'
   } catch {
-    analysisInProgress.value = false
+    reset()
     analysisFailedRules.value = []
     stopPolling()
     return 'FAILED'
@@ -418,7 +493,7 @@ function beforeSubmit(): boolean {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #f5f5fe;
+  background-color: var(--background-alt-blue-france, #f5f5fe);
   border-left: 4px solid var(--blue-france-sun-113-625, #000091);
   padding: 1.25rem;
 }
@@ -452,14 +527,14 @@ function beforeSubmit(): boolean {
 .separator-line {
   flex: 1;
   height: 1px;
-  background-color: #ddd;
+  background-color: var(--border-default-grey, #ddd);
 }
 
 .separator-text {
   font-weight: 700;
   font-size: 1.25rem;
   line-height: 1.75rem;
-  color: #161616;
+  color: var(--text-default-grey, #161616);
 }
 
 .explain-btn {

@@ -35,13 +35,14 @@
         </template>
       </ResidencyAnalysisErrorBannerContent>
     </template>
-    <template #fileUploader>
+    <template #fileUploader="{ analysisInProgress, isOvertime, analysisTime }">
       <UploadFileWithAnalysis
         ref="upload-file-with-analysis"
         doc-category="residency"
         :sub-category="subCategory"
-        :analysis-time=30000
+        :analysis-time="analysisTime"
         :analysis-in-progress="analysisInProgress"
+        :is-overtime="isOvertime"
       />
     </template>
   </AnalysisWrapper>
@@ -102,7 +103,6 @@ const uploadFileWithAnalysis = useTemplateRef('upload-file-with-analysis')
 const analysisWrapper = useTemplateRef('analysis-wrapper')
 
 const isUploading = computed(() => uploadFileWithAnalysis.value?.isUploading ?? false)
-const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
 
 provide(documentFormKey, {
   category: 'RESIDENCY',
