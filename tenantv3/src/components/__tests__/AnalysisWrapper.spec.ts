@@ -3,6 +3,7 @@ import { config, flushPromises, mount } from '@vue/test-utils'
 import { defineComponent, h, ref } from 'vue'
 import AnalysisWrapper from '../analysis/AnalysisWrapper.vue'
 import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
+import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '@/components/toast/toastUtils'
 import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { SafeHtmlPlugin } from 'df-shared-next/src/services/SanitizeService'
@@ -46,12 +47,13 @@ const saveDocumentCommentImpl = async (params: {
   }
 }
 const mockSaveDocumentComment = vi.fn(saveDocumentCommentImpl)
+const mockUpdateDocumentAnalysisReport = vi.fn()
 
 vi.mock('@/stores/tenant-store', () => ({
   useTenantStore: () => ({
     user: { id: 123 },
     saveDocumentComment: mockSaveDocumentComment,
-    updateDocumentAnalysisReport: vi.fn()
+    updateDocumentAnalysisReport: mockUpdateDocumentAnalysisReport
   })
 }))
 
@@ -143,6 +145,18 @@ function mockAnalysisResponse(status: string, failedRules?: unknown[]) {
   } as never)
 }
 
+function mockAnalysisStatusOnce(data: {
+  documentId: number
+  status: AnalysisStatus | string
+  analysisReport?: unknown
+  totalFiles?: number
+  analyzedFiles?: number
+}) {
+  vi.mocked(AnalysisService.getDocumentAnalysisStatus).mockResolvedValueOnce({
+    data
+  } as never)
+}
+
 describe('analysisWrapper', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -187,13 +201,18 @@ describe('analysisWrapper', () => {
     expect(AnalysisService.getDocumentAnalysisStatus).toHaveBeenCalledTimes(initialCallCount)
   })
 
-  it('continues polling while IN_PROGRESS then stops on timeout', async () => {
+  it('continues polling while IN_PROGRESS then switches to overtime on timeout without stopping polling', async () => {
     mockAnalysisResponse(AnalysisStatus.IN_PROGRESS)
 
     const wrapper = mountComponent()
     await flushPromises()
 
     expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.isOvertime).toBe(false)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.nextLabel).toBe('analyzing')
+    expect(wrapper.vm.beforeSubmit()).toBe(false)
+
     const initialCallCount = vi.mocked(AnalysisService.getDocumentAnalysisStatus).mock.calls.length
 
     await vi.advanceTimersByTimeAsync(3000)
@@ -205,12 +224,28 @@ describe('analysisWrapper', () => {
     await vi.advanceTimersByTimeAsync(8000)
     await flushPromises()
 
-    expect(wrapper.vm.analysisInProgress).toBe(false)
+    // On timeout, isOvertime becomes true and button is re-enabled
+    expect(wrapper.vm.isOvertime).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(false)
+    expect(wrapper.vm.nextLabel).toBeUndefined()
+    expect(wrapper.vm.beforeSubmit()).toBe(true)
+    expect(AnalyticsService.document_analysis_timeout).toHaveBeenCalled()
 
-    const countAfterTimeout = vi.mocked(AnalysisService.getDocumentAnalysisStatus).mock.calls.length
+    // Polling continues in background!
+    const countAtTimeout = vi.mocked(AnalysisService.getDocumentAnalysisStatus).mock.calls.length
     await vi.advanceTimersByTimeAsync(6000)
     await flushPromises()
-    expect(AnalysisService.getDocumentAnalysisStatus).toHaveBeenCalledTimes(countAfterTimeout)
+    expect(vi.mocked(AnalysisService.getDocumentAnalysisStatus).mock.calls.length).toBeGreaterThan(
+      countAtTimeout
+    )
+
+    // When analysis finally completes:
+    mockAnalysisResponse(AnalysisStatus.COMPLETED)
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    expect(wrapper.vm.analysisInProgress).toBe(false)
+    expect(wrapper.vm.isOvertime).toBe(false)
   })
 
   it('blocks submit and focuses banners when unresolved errors remain', async () => {
@@ -702,4 +737,287 @@ describe('analysisWrapper', () => {
     expect(wrapper.vm.analysisInProgress).toBe(true)
     expect(wrapper.vm.nextDisabled).toBe(true)
   })
+
+  it('resets old analysis report, keeps analysisInProgress true and starts polling when uploading a new file to an already analyzed document', async () => {
+    const rules = [
+      { rule: 'R_SALARY_OLD', message: 'Old error', level: 'CRITICAL', ruleData: null }
+    ]
+    mockStoreDocument.value = {
+      id: 42,
+      files: [{ id: 1, name: 'salary1.pdf', size: 1000 }],
+      documentStatus: 'TO_PROCESS',
+      documentAnalysisReport: { failedRules: rules, analysisStatus: 'DENIED' }
+    } as unknown as DfDocument
+    mockAnalysisResponse(AnalysisStatus.IN_PROGRESS)
+
+    const wrapper = mountComponent({ isUploading: true })
+    await flushPromises()
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+
+    await wrapper.setProps({ isUploading: false })
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.analysisFailedRules).toEqual([])
+    expect(mockUpdateDocumentAnalysisReport).toHaveBeenCalledWith(42, undefined)
+
+    const newRules = [
+      { rule: 'R_SALARY_NEW', message: 'New result', level: 'CRITICAL', ruleData: null }
+    ]
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, newRules)
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    expect(wrapper.vm.analysisInProgress).toBe(false)
+    expect(wrapper.vm.analysisFailedRules).toEqual(newRules)
+  })
+
+  it('ignores premature COMPLETED response if report is from before upload and continues polling', async () => {
+    const initialCreatedAt = '2026-09-15T10:00:00.000Z'
+    const newCreatedAt = '2026-09-15T10:05:00.000Z'
+
+    mockStoreDocument.value = {
+      id: 42,
+      files: [
+        { id: 1, name: 'salary1.pdf', size: 1000 },
+        { id: 2, name: 'salary2.pdf', size: 1000 }
+      ],
+      documentStatus: 'TO_PROCESS',
+      documentAnalysisReport: {
+        id: 10,
+        createdAt: initialCreatedAt,
+        analysisStatus: 'DENIED',
+        failedRules: [{ rule: 'OLD_RULE', message: 'Old', level: 'CRITICAL', ruleData: null }],
+        passedRules: [],
+        inconclusiveRules: []
+      }
+    } as unknown as DfDocument
+
+    const wrapper = mountComponent({ isUploading: true })
+    await flushPromises()
+
+    await wrapper.setProps({ isUploading: false })
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+
+    mockAnalysisStatusOnce({
+      documentId: 42,
+      status: AnalysisStatus.COMPLETED,
+      analysisReport: {
+        id: 10,
+        analysisStatus: 'DENIED',
+        failedRules: [{ rule: 'OLD_RULE', message: 'Old', level: 'CRITICAL', ruleData: null }],
+        passedRules: [],
+        inconclusiveRules: [],
+        createdAt: initialCreatedAt
+      }
+    })
+
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+
+    const freshRules = [{ rule: 'NEW_RULE', message: 'New', level: 'CRITICAL', ruleData: null }]
+    mockAnalysisStatusOnce({
+      documentId: 42,
+      status: AnalysisStatus.COMPLETED,
+      analysisReport: {
+        id: 10,
+        analysisStatus: 'DENIED',
+        failedRules: freshRules,
+        passedRules: [],
+        inconclusiveRules: [],
+        createdAt: newCreatedAt
+      }
+    })
+
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    expect(wrapper.vm.analysisInProgress).toBe(false)
+    expect(wrapper.vm.nextDisabled).toBe(false)
+    expect(wrapper.vm.analysisFailedRules).toEqual(freshRules)
+  })
+
+  it('handles state transitions and continue button when uploading a file then a second file', async () => {
+    const report1CreatedAt = '2026-09-15T10:00:00.000Z'
+    const report2CreatedAt = '2026-09-15T10:05:00.000Z'
+
+    mockStoreDocument.value = {
+      id: 42,
+      files: [],
+      documentStatus: 'TO_PROCESS',
+      documentAnalysisReport: undefined
+    } as unknown as DfDocument
+
+    const wrapper = mountComponent({ isUploading: false })
+    await flushPromises()
+
+    // 0. État initial : IDLE, bouton continuer activé
+    expect(wrapper.vm.currentState).toBe('IDLE')
+    expect(wrapper.vm.nextDisabled).toBe(false)
+    expect(wrapper.vm.nextLabel).toBeUndefined()
+
+    // 1. Début upload du 1er fichier
+    mockStoreDocument.value.files = [{ id: 1, name: 'file1.pdf', size: 1000 }]
+    await wrapper.setProps({ isUploading: true })
+    await flushPromises()
+
+    expect(wrapper.vm.currentState).toBe('UPLOADING')
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.nextLabel).toBe('uploading')
+
+    // 2. Fin upload du 1er fichier -> transition ANALYZING
+    await wrapper.setProps({ isUploading: false })
+    await flushPromises()
+
+    expect(wrapper.vm.currentState).toBe('ANALYZING')
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.nextLabel).toBe('analyzing')
+
+    // 3. Résultat analyse du 1er fichier reçu avec succès
+    const report1 = {
+      id: 10,
+      analysisStatus: 'CHECKED' as const,
+      failedRules: [],
+      passedRules: [{ rule: 'R1', message: 'Valid', level: 'INFO', ruleData: null }],
+      inconclusiveRules: [],
+      createdAt: report1CreatedAt
+    }
+    mockAnalysisStatusOnce({
+      documentId: 42,
+      status: AnalysisStatus.COMPLETED,
+      analysisReport: report1
+    })
+
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    expect(wrapper.vm.currentState).toBe('SUCCESS')
+    expect(wrapper.vm.analysisInProgress).toBe(false)
+    expect(wrapper.vm.nextDisabled).toBe(false)
+    expect(wrapper.vm.nextLabel).toBeUndefined()
+
+    // Le document a maintenant le rapport 1 en store
+    mockStoreDocument.value.documentAnalysisReport = report1
+
+    // 4. Début upload du 2e fichier -> repasse en UPLOADING
+    mockStoreDocument.value.files = [
+      { id: 1, name: 'file1.pdf', size: 1000 },
+      { id: 2, name: 'file2.pdf', size: 2000 }
+    ]
+    await wrapper.setProps({ isUploading: true })
+    await flushPromises()
+
+    expect(wrapper.vm.currentState).toBe('UPLOADING')
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.nextLabel).toBe('uploading')
+
+    // 5. Fin upload du 2e fichier -> transition ANALYZING
+    await wrapper.setProps({ isUploading: false })
+    await flushPromises()
+
+    expect(wrapper.vm.currentState).toBe('ANALYZING')
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.nextLabel).toBe('analyzing')
+
+    // 6. 1er poll : renvoie prématurément le rapport 1 (même createdAt que report1)
+    mockAnalysisStatusOnce({
+      documentId: 42,
+      status: AnalysisStatus.COMPLETED,
+      analysisReport: report1
+    })
+
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    // Rapport prématuré ignoré : reste en ANALYZING, bouton toujours désactivé
+    expect(wrapper.vm.currentState).toBe('ANALYZING')
+    expect(wrapper.vm.analysisInProgress).toBe(true)
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.nextLabel).toBe('analyzing')
+
+    // 7. 2e poll : renvoie le nouveau rapport 2 (avec une nouvelle date createdAt)
+    const report2 = {
+      id: 10,
+      analysisStatus: 'CHECKED' as const,
+      failedRules: [],
+      passedRules: [{ rule: 'R2', message: 'Valid 2', level: 'INFO', ruleData: null }],
+      inconclusiveRules: [],
+      createdAt: report2CreatedAt
+    }
+    mockAnalysisStatusOnce({
+      documentId: 42,
+      status: AnalysisStatus.COMPLETED,
+      analysisReport: report2
+    })
+
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    // Nouveau rapport accepté : transition en SUCCESS, bouton réactivé
+    expect(wrapper.vm.currentState).toBe('SUCCESS')
+    expect(wrapper.vm.analysisInProgress).toBe(false)
+    expect(wrapper.vm.nextDisabled).toBe(false)
+    expect(wrapper.vm.nextLabel).toBeUndefined()
+  })
+
+  it('handles second upload initiated while first analysis is still in progress', async () => {
+    mockStoreDocument.value = {
+      id: 42,
+      files: [{ id: 1, name: 'file1.pdf', size: 1000 }],
+      documentStatus: 'TO_PROCESS',
+      documentAnalysisReport: undefined
+    } as unknown as DfDocument
+
+    const wrapper = mountComponent({ isUploading: true })
+    await flushPromises()
+
+    // Fin upload 1 -> passe en ANALYZING
+    await wrapper.setProps({ isUploading: false })
+    expect(wrapper.vm.currentState).toBe('ANALYZING')
+    expect(wrapper.vm.nextDisabled).toBe(true)
+
+    // Pendant l'analyse 1, l'utilisateur lance un 2e upload
+    mockStoreDocument.value.files = [
+      { id: 1, name: 'file1.pdf', size: 1000 },
+      { id: 2, name: 'file2.pdf', size: 1000 }
+    ]
+    await wrapper.setProps({ isUploading: true })
+    expect(wrapper.vm.currentState).toBe('UPLOADING')
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.nextLabel).toBe('uploading')
+
+    // Fin upload 2 -> repasse en ANALYZING
+    await wrapper.setProps({ isUploading: false })
+    expect(wrapper.vm.currentState).toBe('ANALYZING')
+    expect(wrapper.vm.nextDisabled).toBe(true)
+    expect(wrapper.vm.nextLabel).toBe('analyzing')
+
+    // Réception du résultat final
+    mockAnalysisStatusOnce({
+      documentId: 42,
+      status: AnalysisStatus.COMPLETED,
+      analysisReport: {
+        id: 10,
+        analysisStatus: 'CHECKED',
+        failedRules: [],
+        passedRules: [],
+        inconclusiveRules: [],
+        createdAt: '2026-09-15T12:00:00.000Z'
+      }
+    })
+    await vi.advanceTimersByTimeAsync(3000)
+    await flushPromises()
+
+    expect(wrapper.vm.currentState).toBe('SUCCESS')
+    expect(wrapper.vm.nextDisabled).toBe(false)
+    expect(wrapper.vm.nextLabel).toBeUndefined()
+  })
 })
+

@@ -80,9 +80,10 @@ vi.mock('@/services/AnalyticsService', () => ({
 const AnalysisWrapperStub = defineComponent({
   name: 'AnalysisWrapper',
   props: {
-    isUploading: { type: Boolean, default: false }
+    isUploading: { type: Boolean, default: false },
+    pollingTimeoutMs: { type: Number, default: 30000 }
   },
-  setup(_, { slots, expose }) {
+  setup(props, { slots, expose }) {
     expose(analysisWrapperExpose)
 
     return () =>
@@ -98,7 +99,11 @@ const AnalysisWrapperStub = defineComponent({
           explainLinkLabel: EXPLAIN_LINK_LABEL,
           onExplain: onExplainMock
         }),
-        slots.fileUploader?.()
+        slots.fileUploader?.({
+          analysisInProgress: analysisWrapperExpose.analysisInProgress,
+          isOvertime: analysisWrapperExpose.isOvertime,
+          analysisTime: props.pollingTimeoutMs
+        })
       ])
   }
 })
@@ -215,6 +220,7 @@ describe('ResidencyAnalysisStep', () => {
 
     analysisWrapperExpose = {
       analysisInProgress: false,
+      isOvertime: false,
       beforeSubmit: vi.fn(() => true),
       nextDisabled: false,
       nextLabel: 'next.label',

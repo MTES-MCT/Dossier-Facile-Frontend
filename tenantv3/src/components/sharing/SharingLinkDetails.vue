@@ -185,7 +185,6 @@ const fullUrl = computed(() => {
 })
 
 const isLinkOrMail = computed(() => link.type === 'LINK' || link.type === 'MAIL')
-const isPartnerOrOwner = computed(() => link.type === 'PARTNER' || link.type === 'OWNER')
 
 const isEditingTitle = ref(false)
 const editedTitle = ref(link.title)

@@ -722,7 +722,7 @@ export const useTenantStore = defineStore('tenant', {
       this.loadUserCommit(response.data)
       return response.data
     },
-    updateDocumentAnalysisReport(documentId: number, report: DocumentAnalysisReport) {
+    updateDocumentAnalysisReport(documentId: number, report?: DocumentAnalysisReport) {
       const doc =
         this.user.documents?.find((d: DfDocument) => d.id === documentId) ??
         this.selectedGuarantor?.documents?.find((d: DfDocument) => d.id === documentId)

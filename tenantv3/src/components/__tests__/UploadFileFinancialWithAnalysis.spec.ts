@@ -103,7 +103,8 @@ vi.mock('../financial/financialState', () => ({
 function createAnalysisWrapperStub(failedRulesCount: number) {
   return defineComponent({
     name: 'AnalysisWrapper',
-    setup(_, { slots, expose }) {
+    props: ['pollingTimeoutMs'],
+    setup(props, { slots, expose }) {
       expose({
         analysisFailedRules: Array.from({ length: failedRulesCount }, (_, i) => ({ id: i + 1 })),
         analysisInProgress: false,
@@ -113,15 +114,28 @@ function createAnalysisWrapperStub(failedRulesCount: number) {
         saveExplanation: vi.fn().mockResolvedValue(undefined)
       })
 
-      return () => h('div', [slots.fileUploader?.()])
+      return () =>
+        h('div', [
+          slots.fileUploader?.({
+            analysisTime: props.pollingTimeoutMs,
+            analysisInProgress: false,
+            isOvertime: false
+          })
+        ])
     }
   })
 }
 
+const UploadFileWithAnalysisStub = defineComponent({
+  name: 'UploadFileWithAnalysis',
+  props: ['analysisTime', 'isOvertime', 'analysisInProgress'],
+  template: '<div class="upload-file-with-analysis-stub"></div>'
+})
+
 function buildGlobalStubs(failedRulesCount: number) {
   return {
     AnalysisWrapper: createAnalysisWrapperStub(failedRulesCount),
-    UploadFileWithAnalysis: true,
+    UploadFileWithAnalysis: UploadFileWithAnalysisStub,
     AnalysisFooter: true,
     DsfrModalPatch: true,
     DsfrCallout: {
@@ -365,6 +379,14 @@ describe('UploadFileFinancialWithAnalysis', () => {
 
       expect(mockReplace).not.toHaveBeenCalled()
       expect(setup(wrapper).parsedMonthlySum).toBe(555)
+    })
+
+    it('passes analysisTime 30000 to UploadFileWithAnalysis', async () => {
+      const wrapper = mountComponent()
+      await flushPromises()
+
+      const uploader = wrapper.findComponent({ name: 'UploadFileWithAnalysis' })
+      expect(uploader.props('analysisTime')).toBe(30000)
     })
   })
 })

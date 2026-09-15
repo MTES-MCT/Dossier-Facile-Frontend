@@ -81,6 +81,7 @@ function mountComponent(props?: {
   maxFileCount?: number
   analysisInProgress?: boolean
   beforeSave?: (files: File[]) => Promise<boolean> | boolean
+  isOvertime?: boolean
 }) {
   return mount(UploadFileWithAnalysis, {
     props: {
@@ -185,10 +186,63 @@ describe('UploadFileWithAnalysis', () => {
     expect(RegisterService.deleteFile).not.toHaveBeenCalled()
   })
 
-  it('shows analysis loading bar when analysisInProgress is true', async () => {
-    const wrapper = mountComponent({ analysisInProgress: true })
+  it('shows analysis loading bar and spinner when analysisInProgress is true and not overtime', async () => {
+    const wrapper = mountComponent({ analysisInProgress: true, isOvertime: false })
     await flushPromises()
 
     expect(wrapper.find('.analysis-loading').exists()).toBe(true)
+    expect(wrapper.find('.analysis-loading-progress').exists()).toBe(true)
+    expect(wrapper.find('.analysis-loading-text').text()).toContain('analysis-in-progress')
+
+    const icon = wrapper.findComponent({ name: 'VIcon' })
+    expect(icon.props('name')).toBe('ri:loader-4-line')
+    expect(icon.classes()).toContain('analysis-loading-spinner')
+  })
+
+  it('cuts loader and shows overtime information when isOvertime prop is true', async () => {
+    const wrapper = mountComponent({ analysisInProgress: true, isOvertime: true })
+    await flushPromises()
+
+    expect(wrapper.find('.analysis-loading').exists()).toBe(true)
+    expect(wrapper.find('.analysis-loading-progress').exists()).toBe(false)
+    expect(wrapper.find('.analysis-loading-text').text()).toContain('analysis-overtime')
+
+    const icon = wrapper.findComponent({ name: 'VIcon' })
+    expect(icon.props('name')).toBe('ri:information-line')
+    expect(icon.classes()).not.toContain('analysis-loading-spinner')
+  })
+
+  it('cuts loader and shows overtime information when isOvertime changes to true', async () => {
+    const wrapper = mountComponent({ analysisInProgress: true, isOvertime: false })
+    await flushPromises()
+
+    expect(wrapper.find('.analysis-loading-progress').exists()).toBe(true)
+    expect(wrapper.findComponent({ name: 'VIcon' }).props('name')).toBe('ri:loader-4-line')
+
+    await wrapper.setProps({ isOvertime: true })
+    await flushPromises()
+
+    expect(wrapper.find('.analysis-loading-progress').exists()).toBe(false)
+    expect(wrapper.find('.analysis-loading-text').text()).toContain('analysis-overtime')
+    expect(wrapper.findComponent({ name: 'VIcon' }).props('name')).toBe('ri:information-line')
+    expect(wrapper.findComponent({ name: 'VIcon' }).classes()).not.toContain('analysis-loading-spinner')
+  })
+
+  it('restarts and advances progress when adding a new file while analysisInProgress is already true', async () => {
+    vi.useFakeTimers()
+    const wrapper = mountComponent({ analysisInProgress: true, isOvertime: false })
+    await flushPromises()
+
+    await vi.advanceTimersByTimeAsync(500)
+    const progressBar = wrapper.find('[role="progressbar"]')
+    expect(Number(progressBar.attributes('aria-valuenow'))).toBeGreaterThan(0)
+
+    const file = new File(['hello'], 'new.pdf', { type: 'application/pdf' })
+    await wrapper.vm.$.setupState.addFiles([file])
+    await flushPromises()
+
+    await vi.advanceTimersByTimeAsync(500)
+    expect(Number(wrapper.find('[role="progressbar"]').attributes('aria-valuenow'))).toBeGreaterThan(0)
+    vi.useRealTimers()
   })
 })

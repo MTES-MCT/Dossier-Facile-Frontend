@@ -50,14 +50,16 @@
         @explain="onExplain"
       />
     </template>
-    <template #fileUploader>
+    <template #fileUploader="{ analysisInProgress, isOvertime, analysisTime }">
       <UploadFileWithAnalysis
         ref="upload-file-with-analysis"
         :doc-category="state.category"
         :sub-category="salarySubCategory"
         step="SALARY_EMPLOYED_MORE_3_MONTHS"
         :max-file-count="10"
-        :analysis-in-progress="analysisWrapper?.analysisInProgress ?? false"
+        :analysis-time="analysisTime"
+        :analysis-in-progress="analysisInProgress"
+        :is-overtime="isOvertime"
         :before-save="beforeUploadSave"
         :before-open="beforeUploadOpen"
         @saved="onFileSaved"
