@@ -168,7 +168,7 @@ const explainText = ref('')
 const explainTextarea = useTemplateRef<HTMLTextAreaElement>('explainTextarea')
 const explanationSubmitted = ref(false)
 let pendingSave: Promise<boolean> | null = null
-let lastUploadTimestamp = 0
+const staleReportCreatedAt = ref<string | undefined>(undefined)
 
 const analysisErrorCount = computed(() => analysisFailedRules.value?.length ?? 0)
 
@@ -194,7 +194,8 @@ defineExpose({
   beforeSubmit,
   saveExplanation,
   explainText,
-  currentState
+  currentState,
+  openExplainSection
 })
 
 function focusBanners() {
@@ -215,11 +216,11 @@ watch(
   () => props.isUploading,
   (uploading, oldUploading) => {
     if (uploading) {
-      lastUploadTimestamp = Date.now()
+      staleReportCreatedAt.value =
+        document.value?.documentAnalysisReport?.createdAt ?? staleReportCreatedAt.value
       stopPolling()
       startUpload()
     } else if (oldUploading) {
-      lastUploadTimestamp = Date.now()
       if (document.value?.id) {
         store.updateDocumentAnalysisReport(document.value.id, undefined)
       }
@@ -230,9 +231,11 @@ watch(
         startAnalysis()
         startPolling()
       } else {
+        staleReportCreatedAt.value = undefined
         reset()
       }
     } else if (!hasPendingAnalysis(document.value) && !pollingInterval.value) {
+      staleReportCreatedAt.value = undefined
       reset()
     }
   },
@@ -392,10 +395,9 @@ function isPrematureCompletedStatus(data: DocumentAnalysisStatusDTO): boolean {
     ((data.totalFiles !== undefined && data.totalFiles < docFilesCount) ||
       (data.analyzedFiles !== undefined && data.analyzedFiles < docFilesCount))
 
-  const reportCreatedAt = data.analysisReport?.createdAt
-  const reportTimestamp = reportCreatedAt ? new Date(reportCreatedAt).getTime() : 0
   const isStaleReport =
-    lastUploadTimestamp > 0 && reportTimestamp > 0 && reportTimestamp < lastUploadTimestamp - 1000
+    !!staleReportCreatedAt.value &&
+    data.analysisReport?.createdAt === staleReportCreatedAt.value
 
   return isFileCountMismatch || isStaleReport
 }
@@ -404,6 +406,7 @@ async function handleCompletedAnalysis(
   docId: number,
   report?: DocumentAnalysisReport
 ): Promise<AnalysisStatus> {
+  staleReportCreatedAt.value = undefined
   const rules = report?.failedRules ?? []
   const hadBannersBefore = analysisFailedRules.value.length > 0
   analysisFailedRules.value = rules
