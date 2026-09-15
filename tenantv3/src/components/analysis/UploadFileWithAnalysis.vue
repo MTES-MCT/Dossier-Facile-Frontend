@@ -1,18 +1,23 @@
 <template>
-  <div v-if="showAnalysisLoading" class="analysis-loading fr-mb-3w" role="status" aria-live="polite">
+  <div v-if="showAnalysisLoading" class="analysis-loading fr-mb-3w">
     <div class="analysis-loading-header">
       <VIcon
-        name="ri:loader-4-line"
+        :name="isOvertime ? 'ri:information-line' : 'ri:loader-4-line'"
         :scale="1.2"
         color="var(--blue-france-sun-113-625)"
-        class="analysis-loading-spinner"
+        :class="{ 'analysis-loading-spinner': !isOvertime }"
         aria-hidden="true"
       />
       <span class="analysis-loading-title">
         {{ t('analysis-title') }}
       </span>
     </div>
-    <p class="analysis-loading-text fr-mt-1w" :class="{ 'fr-mb-2w': !isOvertime }">
+    <p
+      class="analysis-loading-text fr-mt-1w"
+      :class="{ 'fr-mb-2w': !isOvertime }"
+      role="status"
+      aria-live="polite"
+    >
       <template v-if="!isOvertime">
         {{ t('analysis-in-progress', { n: props.analysisTime / 1000 }) }}
       </template>
@@ -24,6 +29,7 @@
       v-if="!isOvertime"
       class="analysis-loading-progress"
       role="progressbar"
+      :aria-label="t('analysis-title')"
       :aria-valuenow="progressPercentage"
       aria-valuemin="0"
       aria-valuemax="100"
@@ -88,6 +94,7 @@ const props = withDefaults(
     beforeOpen?: () => boolean
     errorMessage?: string
     analysisTime?: number
+    isOvertime?: boolean
   }>(),
   {
     analysisInProgress: false,
@@ -97,7 +104,8 @@ const props = withDefaults(
     beforeSave: undefined,
     beforeOpen: undefined,
     errorMessage: undefined,
-    analysisTime: 10000
+    analysisTime: 10000,
+    isOvertime: false
   }
 )
 
@@ -123,7 +131,7 @@ const showAnalysisLoading = computed(() => {
 })
 
 const progressPercentage = ref(0)
-const isOvertime = computed(() => progressPercentage.value >= 100)
+const isOvertime = computed(() => props.isOvertime)
 let progressInterval: ReturnType<typeof setInterval> | null = null
 let startTime = 0
 
@@ -135,9 +143,10 @@ function startProgress() {
 
   progressInterval = setInterval(() => {
     const elapsed = Date.now() - startTime
-    const current = Math.min(100, Math.round((elapsed / durationMs) * 100))
+    // Plafonne à 95% tant que le parent n'a pas confirmé l'overtime
+    const current = Math.min(95, Math.round((elapsed / durationMs) * 100))
     progressPercentage.value = current
-    if (current >= 100) {
+    if (current >= 95) {
       stopProgress()
     }
   }, 100)
@@ -151,10 +160,23 @@ function stopProgress() {
 }
 
 watch(
+  isOvertime,
+  (overtime) => {
+    if (overtime) {
+      stopProgress()
+      progressPercentage.value = 100
+    }
+  },
+  { immediate: true }
+)
+
+watch(
   showAnalysisLoading,
   (isLoading) => {
     if (isLoading) {
-      startProgress()
+      if (!isOvertime.value && !progressInterval) {
+        startProgress()
+      }
     } else {
       stopProgress()
       progressPercentage.value = 0
@@ -178,7 +200,7 @@ const currentFiles = computed(() => {
       id: f.id,
       name: f.name,
       size: f.size,
-      preview: f.preview || (f.file ? URL.createObjectURL(f.file) : undefined)
+      preview: f.preview
     }
   })
   const existingFiles = currentDocument.value?.files || []
@@ -202,6 +224,8 @@ async function remove(file: DfFile, silent = false) {
 }
 
 async function addFiles(fileList: File[]) {
+  stopProgress()
+  progressPercentage.value = 0
   AnalyticsService.uploadFile(props.docCategory, props.subCategory)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size, preview: URL.createObjectURL(f) }
@@ -213,6 +237,7 @@ async function addFiles(fileList: File[]) {
     files.value = files.value.slice(0, previousCount)
     return
   }
+  startProgress()
   save()
 }
 
@@ -228,6 +253,8 @@ async function save(): Promise<boolean> {
   if (currentFiles.value.length > props.maxFileCount) {
     toast.maxFileError(currentFiles.value.length, props.maxFileCount, fileUpload.value?.inputFile)
     files.value = []
+    stopProgress()
+    progressPercentage.value = 0
     return false
   }
 
@@ -269,7 +296,7 @@ async function save(): Promise<boolean> {
 .analysis-loading {
   display: flex;
   flex-direction: column;
-  background-color: #F5F5FE;
+  background-color: var(--background-alt-blue-france, #f5f5fe);
   border-left: 4px solid var(--blue-france-sun-113-625, #000091);
   padding: 1.25rem;
 }
@@ -283,6 +310,12 @@ async function save(): Promise<boolean> {
 .analysis-loading-spinner {
   flex-shrink: 0;
   animation: spin 1s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .analysis-loading-spinner {
+    animation: none;
+  }
 }
 
 @keyframes spin {
@@ -326,12 +359,12 @@ async function save(): Promise<boolean> {
   gap: 0.5rem;
   font-size: 0.75rem;
   line-height: 1.25rem;
-  color: #0063cb;
+  color: var(--text-action-high-blue-france, #0063cb);
   margin: 0.5rem 0;
 }
 
 .info-icon {
-  color: #0063cb;
+  color: var(--text-action-high-blue-france, #0063cb);
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;

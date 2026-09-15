@@ -5,14 +5,15 @@
     :polling-timeout-ms="10000"
     :strategy="professionalStrategy"
   >
-    <template #fileUploader>
+    <template #fileUploader="{ analysisInProgress, isOvertime, analysisTime }">
       <UploadFileWithAnalysis
         ref="upload-file-with-analysis"
         :doc-category="stateCategory"
         :sub-category="category"
         :analysis-in-progress="analysisInProgress"
+        :is-overtime="isOvertime"
         :max-file-count="MAX_FILE_COUNT"
-        :analysis-time="10000"
+        :analysis-time="analysisTime"
       />
     </template>
   </AnalysisWrapper>
@@ -55,7 +56,6 @@ const uploadFileWithAnalysis = useTemplateRef('upload-file-with-analysis')
 const analysisWrapper = useTemplateRef('analysis-wrapper')
 
 const isUploading = computed(() => uploadFileWithAnalysis.value?.isUploading ?? false)
-const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
 
 const professionalStrategy = computed(() => {
   if (IA_SUPPORTED_PROFESSIONAL_CATEGORIES.includes(props.category)) {

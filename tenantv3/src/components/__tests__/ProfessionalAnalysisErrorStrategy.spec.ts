@@ -22,7 +22,7 @@ describe('ProfessionalAnalysisErrorStrategy', () => {
       return 'Des erreurs sont détectées sur le document'
     }
     if (key === 'professional-errors.issue-date-bullet') {
-      return `Attestation téléchargée le <strong>${params?.date}</strong>`
+      return `Attestation téléchargée le <strong>${params?.date}</strong> : elle doit dater de <strong>moins d’un mois</strong>`
     }
     if (key === 'professional-errors.name-bullet') {
       return `Attestation au nom de <strong>${params?.name}</strong> différent du vôtre`
@@ -65,7 +65,7 @@ describe('ProfessionalAnalysisErrorStrategy', () => {
 
     expect(strategy.getHeaderTitle(failedRules, t)).toBe('Attestation trop ancienne')
     expect(strategy.getBulletList(failedRules, t)).toEqual([
-      'Attestation téléchargée le <strong>1 août 2026</strong>'
+      'Attestation téléchargée le <strong>1 août 2026</strong> : elle doit dater de <strong>moins d’un mois</strong>'
     ])
     expect(strategy.getExpectedDocumentHtml(failedRules, t)).toContain('téléchargée avant le')
     expect(strategy.getExpectedDocumentHtml(failedRules, t)).toContain('mesdroitssociaux.gouv.fr')
@@ -178,7 +178,7 @@ describe('ProfessionalAnalysisErrorStrategy', () => {
     expect(strategy.getHeaderTitle(failedRules, t)).toBe('Des erreurs sont détectées sur le document')
     expect(strategy.getBulletList(failedRules, t)).toEqual([
       'Attestation au nom de <strong>RECOBER Laura</strong> différent du vôtre',
-      'Attestation téléchargée le <strong>1 août 2026</strong>'
+      'Attestation téléchargée le <strong>1 août 2026</strong> : elle doit dater de <strong>moins d’un mois</strong>'
     ])
     expect(strategy.getExpectedDocumentHtml(failedRules, t)).toContain('DIALLA BAH KONATE')
     expect(strategy.getExpectedDocumentHtml(failedRules, t)).toContain('téléchargée avant le')

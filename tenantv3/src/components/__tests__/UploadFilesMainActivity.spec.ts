@@ -74,7 +74,16 @@ const AnalysisWrapperStub = defineComponent({
   props: ['isUploading', 'pollingTimeoutMs', 'strategy'],
   setup(props, { slots, expose }) {
     expose(analysisWrapperExpose)
-    return () => h('div', { class: 'analysis-wrapper-stub' }, slots.fileUploader?.())
+    return () =>
+      h(
+        'div',
+        { class: 'analysis-wrapper-stub' },
+        slots.fileUploader?.({
+          analysisTime: props.pollingTimeoutMs,
+          analysisInProgress: false,
+          isOvertime: false
+        })
+      )
   }
 })
 
