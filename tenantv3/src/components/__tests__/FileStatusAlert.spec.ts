@@ -8,7 +8,7 @@ import FileStatusAlert from '../FileStatusAlert.vue'
 // so assertions are made on translation keys
 const i18n = createI18n({ legacy: false, locale: 'fr', fallbackLocale: 'fr', messages: {} })
 
-function mountAlert(dossierStatus: 'VALIDATED' | 'COMPLETED') {
+function mountAlert(dossierStatus: 'VALIDATED' | 'COMPLETED' | 'TO_PROCESS') {
   return mount(FileStatusAlert, {
     global: {
       plugins: [i18n],
@@ -19,21 +19,30 @@ function mountAlert(dossierStatus: 'VALIDATED' | 'COMPLETED') {
 }
 
 describe('FileStatusAlert', () => {
-  it('renders an info alert with the COMPLETED wording for a COMPLETED dossier', () => {
+  it('renders an info alert with the unverified wording for a COMPLETED dossier', () => {
     const wrapper = mountAlert('COMPLETED')
 
     expect(wrapper.find('.fr-alert--info').exists()).toBe(true)
-    expect(wrapper.text()).toContain('title-COMPLETED')
-    expect(wrapper.text()).toContain('documents-COMPLETED')
-    expect(wrapper.text()).toContain('review-COMPLETED')
+    expect(wrapper.text()).toContain('title-unverified')
+    expect(wrapper.text()).toContain('documents-unverified')
+    expect(wrapper.text()).toContain('review-unverified')
   })
 
-  it('renders a success alert with the VALIDATED wording for a VALIDATED dossier', () => {
+  // A TO_PROCESS dossier is not verified either: same rendering as COMPLETED
+  it('renders an info alert with the unverified wording for a TO_PROCESS dossier', () => {
+    const wrapper = mountAlert('TO_PROCESS')
+
+    expect(wrapper.find('.fr-alert--info').exists()).toBe(true)
+    expect(wrapper.text()).toContain('title-unverified')
+    expect(wrapper.text()).toContain('review-unverified')
+  })
+
+  it('renders a success alert with the verified wording for a VALIDATED dossier', () => {
     const wrapper = mountAlert('VALIDATED')
 
     expect(wrapper.find('.fr-alert--success').exists()).toBe(true)
-    expect(wrapper.text()).toContain('title-VALIDATED')
-    expect(wrapper.text()).toContain('documents-VALIDATED')
-    expect(wrapper.text()).toContain('review-VALIDATED')
+    expect(wrapper.text()).toContain('title-verified')
+    expect(wrapper.text()).toContain('documents-verified')
+    expect(wrapper.text()).toContain('review-verified')
   })
 })

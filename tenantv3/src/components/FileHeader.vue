@@ -30,9 +30,9 @@ const props = defineProps<{
 }>()
 const { t } = useI18n()
 
-// The income of a COMPLETED dossier has not been verified by an agent, so it is not displayed
+// The income of a dossier not verified by an agent (TO_PROCESS or COMPLETED) is not displayed
 const subtitle = computed(() => {
-  if (props.user?.status === 'COMPLETED') {
+  if (UtilsService.isUnverifiedStatus(props.user?.status)) {
     return getStatus()
   }
   return t('file.description', [getStatus(), getIncomeSum()])

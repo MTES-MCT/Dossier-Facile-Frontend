@@ -8,11 +8,11 @@
       </FileHeader>
 
       <FileStatusAlert
-        v-if="user && (user.status === 'VALIDATED' || user.status === 'COMPLETED')"
+        v-if="user && UtilsService.isShareableStatus(user.status)"
         :dossier-status="user.status"
         class="fr-mt-3w"
       />
-      <!-- a link whose dossier went back to review keep the legacy block -->
+      <!-- a link whose dossier is no longer submitted (INCOMPLETE, DECLINED) keeps the legacy block -->
       <FileReinsurance
         v-else
         :dossier-status="user?.status || 'TO_PROCESS'"

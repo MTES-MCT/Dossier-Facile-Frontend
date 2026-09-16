@@ -4,7 +4,7 @@
       <section class="section fr-my-5w">
         <h1 class="fr-h2 fr-mb-0">{{ t('your-shares') }}</h1>
         <SharingLinksRecap :links="sharingLinks" />
-        <ShareFile v-if="UtilsService.isCompletedOrValidatedStatus(store.user.status)" @refresh="refreshData" />
+        <ShareFile v-if="UtilsService.isShareableStatus(store.user.status)" @refresh="refreshData" />
         <SharingLinksHistory :links="activeLinks" @refresh="refreshData" />
         <NakedCard class="fr-p-3w">
           <h2 class="fr-h3">{{ t('report-suspicious-use') }}</h2>
