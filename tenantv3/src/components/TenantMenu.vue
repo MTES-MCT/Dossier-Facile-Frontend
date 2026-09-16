@@ -45,7 +45,7 @@
             >
               {{ t('menu.file') }}
               <br />
-              <span class="fr-label--disabled fr-text--xs">
+              <span class="fr-text--xs">
                 {{ user.email }}
               </span>
             </router-link>

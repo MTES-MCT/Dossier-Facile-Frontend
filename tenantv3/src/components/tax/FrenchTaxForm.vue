@@ -136,6 +136,8 @@ const taxNoticeInstructionText = computed(() => {
         taxYearPeriod.taxYear,
         taxYearPeriod.incomeYear
       ])
+    default:
+      return ''
   }
 })
 

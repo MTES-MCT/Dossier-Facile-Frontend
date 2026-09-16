@@ -1,5 +1,6 @@
 <template>
   <BackLinkRow :label="t('cdi')" :to="parent" category="CDI" />
+  <AttestationMesDroitsSociaux v-if="suffix === 'tenant'"/>
   <i18n-t tag="p" :keypath="'desc-cdi-' + suffix" class="fr-mb-0">
     <strong>{{ t('contract') }}</strong>
   </i18n-t>
@@ -16,7 +17,6 @@
     </li>
   </ul>
   <p>{{ t('if-no-contract-' + suffix) }}</p>
-  <AttestationMesDroitsSociaux v-if="suffix === 'tenant'"/>
   <UploadFilesMainActivity category="CDI" />
 </template>
 

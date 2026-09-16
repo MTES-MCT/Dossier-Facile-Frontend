@@ -1,5 +1,6 @@
 <template>
   <BackLinkRow :label="t('alternating')" :to="parent" category="ALTERNATION" />
+  <AttestationMesDroitsSociaux v-if="suffix === 'tenant'"/>
   <i18n-t tag="p" :keypath="'please-provide-' + suffix" class="fr-mb-0">
     <strong>{{ t('contract-' + suffix) }}</strong>
   </i18n-t>
@@ -15,7 +16,6 @@
       </i18n-t>
     </li>
   </ul>
-  <AttestationMesDroitsSociaux v-if="suffix === 'tenant'"/>
   <UploadFilesMainActivity category="ALTERNATION" />
 </template>
 

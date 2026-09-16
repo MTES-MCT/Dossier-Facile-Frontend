@@ -81,6 +81,8 @@ export type StoreAction =
   | 'saveOrganismIdentification'
   | 'saveTenantFinancial'
   | 'saveGuarantorFinancial'
+  | 'saveTenantProfessional'
+  | 'saveGuarantorProfessional'
 
 const initialStore = defaultState()
 
@@ -292,6 +294,8 @@ export const useTenantStore = defineStore('tenant', {
     loadUserCommit(user: User) {
       Object.assign(this.user, user)
       this.user.validationRequested = user.validationRequested
+      this.user.lotteryStatus = user.lotteryStatus
+      this.user.nextEligibleDate = user.nextEligibleDate
       Object.assign(this.status.loggedIn, true)
 
       const applicationType = user?.apartmentSharing.applicationType
@@ -718,7 +722,7 @@ export const useTenantStore = defineStore('tenant', {
       this.loadUserCommit(response.data)
       return response.data
     },
-    updateDocumentAnalysisReport(documentId: number, report: DocumentAnalysisReport) {
+    updateDocumentAnalysisReport(documentId: number, report?: DocumentAnalysisReport) {
       const doc =
         this.user.documents?.find((d: DfDocument) => d.id === documentId) ??
         this.selectedGuarantor?.documents?.find((d: DfDocument) => d.id === documentId)

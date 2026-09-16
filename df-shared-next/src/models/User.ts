@@ -22,6 +22,9 @@ export class User {
   validationRequested?: boolean
   /** Whether the validation question must be displayed on the dashboard */
   optInEligible?: boolean
+  lotteryStatus?: 'PENDING' | 'DRAWN' | 'COOLDOWN'
+  /** Only set with lotteryStatus COOLDOWN (ISO date) */
+  nextEligibleDate?: string
   honorDeclaration?: boolean
   lastUpdateDate?: Date
   clarification?: string

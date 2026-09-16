@@ -31,14 +31,15 @@
           :strategy="visaleStrategy"
           @custom-event="onCustomEvent"
         >
-          <template #fileUploader>
+          <template #fileUploader="{ analysisInProgress, isOvertime, analysisTime }">
             <UploadFileWithAnalysis
               ref="upload-file-with-analysis"
               doc-category="guarantee-provider-certificate"
               :sub-category="selectedSubCategory"
               :analysis-in-progress="analysisInProgress"
+              :is-overtime="isOvertime"
               :max-file-count="5"
-              :analysis-time="20000"
+              :analysis-time="analysisTime"
             />
           </template>
         </AnalysisWrapper>
@@ -134,7 +135,6 @@ const visaleStrategy = computed(() => {
   return undefined
 })
 
-const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
 const previousStep: RouteLocationRaw = props.backStep
 
 function guarantorId() {
