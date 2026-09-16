@@ -36,7 +36,9 @@ vi.mock('../services/ProfileService', () => ({
 // Mock UtilsService
 vi.mock('../services/UtilsService', () => ({
   UtilsService: {
-    getFileNameFromHeaders: vi.fn(() => 'dossierFacile.pdf')
+    getFileNameFromHeaders: vi.fn(() => 'dossierFacile.pdf'),
+    isShareableStatus: (status?: string) =>
+      status === 'VALIDATED' || status === 'COMPLETED' || status === 'TO_PROCESS'
   }
 }))
 
@@ -201,6 +203,14 @@ describe('DownloadPdfSection', () => {
       expect(downloadButton.attributes('disabled')).toBeDefined()
       expect(wrapper.find('.group-incomplete-msg').exists()).toBe(true)
       expect(wrapper.text()).toContain('group-incomplete')
+    })
+
+    // A TO_PROCESS co-tenant does not block the full PDF: every submitted dossier is eligible
+    it('enables the button when every tenant has submitted, even if some are still TO_PROCESS', async () => {
+      const wrapper = await mountWithGroupAndPdfReady(['VALIDATED', 'TO_PROCESS', 'COMPLETED'])
+      const downloadButton = wrapper.find('button.fr-btn--secondary')
+      expect(downloadButton.attributes('disabled')).toBeUndefined()
+      expect(wrapper.find('.group-incomplete-msg').exists()).toBe(false)
     })
 
     it('enables the button and hides the message when all tenants have status VALIDATED', async () => {

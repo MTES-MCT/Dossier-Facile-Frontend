@@ -41,6 +41,11 @@ vi.mock('vue-i18n', () => ({
 }))
 vi.mock('@/components/toast/toastUtils', () => ({ toast: mockToast }))
 vi.mock('@/services/AnalyticsService', () => ({ AnalyticsService: mockAnalytics }))
+vi.mock('@/services/UtilsService', () => ({
+  UtilsService: {
+    isUnverifiedStatus: (status?: string) => status === 'COMPLETED' || status === 'TO_PROCESS'
+  }
+}))
 
 const globalStubs = { VIcon: true }
 
