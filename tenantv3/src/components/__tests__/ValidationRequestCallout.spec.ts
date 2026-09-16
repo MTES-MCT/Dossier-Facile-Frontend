@@ -1,6 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
+import dayjs from 'dayjs'
+import 'dayjs/locale/fr'
 import ValidationRequestCallout from '../account/ValidationRequestCallout.vue'
+
+dayjs.locale('fr')
 
 const { mockStore, mockToast, mockAnalytics } = vi.hoisted(() => ({
   mockStore: {
@@ -9,7 +13,8 @@ const { mockStore, mockToast, mockAnalytics } = vi.hoisted(() => ({
       optInEligible: true as boolean,
       validationRequested: undefined as boolean | undefined,
       lotteryStatus: undefined as string | undefined,
-      nextEligibleDate: undefined as string | undefined
+      nextEligibleDate: undefined as string | undefined,
+      lastUpdateDate: undefined as string | undefined
     },
     updateValidationRequest: vi.fn(() => Promise.resolve()),
     loadUser: vi.fn(() => Promise.resolve())
@@ -25,9 +30,12 @@ const { mockStore, mockToast, mockAnalytics } = vi.hoisted(() => ({
 }))
 
 vi.mock('@/stores/tenant-store', () => ({ useTenantStore: () => mockStore }))
+// Renders the key followed by its parameters, so that interpolated values can be asserted
+const t = (key: string, args?: unknown[]) => (args ? `${key} ${args.join(' ')}` : key)
+
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
-    t: (key: string) => key,
+    t,
     d: (date: Date) => date.toISOString().slice(0, 10)
   })
 }))
@@ -43,7 +51,8 @@ const globalStubs = { VIcon: true }
 
 function mountComponent(attachToBody = false) {
   return mount(ValidationRequestCallout, {
-    global: { stubs: globalStubs },
+    // The global `t` mock from tests/unit.setup.ts drops the parameters: override it
+    global: { stubs: globalStubs, mocks: { t } },
     ...(attachToBody ? { attachTo: document.body } : {})
   })
 }
@@ -56,7 +65,8 @@ describe('ValidationRequestCallout', () => {
       optInEligible: true,
       validationRequested: undefined,
       lotteryStatus: undefined,
-      nextEligibleDate: undefined
+      nextEligibleDate: undefined,
+      lastUpdateDate: undefined
     }
     mockStore.updateValidationRequest.mockResolvedValue(undefined)
   })
@@ -90,7 +100,8 @@ describe('ValidationRequestCallout', () => {
         optInEligible: true,
         validationRequested: true,
         lotteryStatus: undefined,
-        nextEligibleDate: undefined
+        nextEligibleDate: undefined,
+        lastUpdateDate: '2026-08-06T11:32:00'
       }
     })
 
@@ -101,6 +112,29 @@ describe('ValidationRequestCallout', () => {
       expect(wrapper.text()).toContain('requested.title')
       expect(wrapper.text()).toContain('requested.still-shareable')
       expect(wrapper.find('.accent-purple').exists()).toBe(true)
+    })
+
+    it('mentions the average processing time and the request date', () => {
+      const wrapper = mountComponent()
+
+      expect(wrapper.find('strong').text()).toBe('requested.text-bold')
+      expect(wrapper.text()).toContain('requested.sent-on 6 août 2026 à 11h32')
+    })
+
+    it('skips the request date when the dossier has no update date', () => {
+      mockStore.user.lastUpdateDate = undefined
+      const wrapper = mountComponent()
+
+      expect(wrapper.text()).not.toContain('requested.sent-on')
+      expect(wrapper.text()).toContain('requested.still-shareable')
+    })
+
+    it('shows the same text once the lottery drew the dossier', () => {
+      mockStore.user.lotteryStatus = 'DRAWN'
+      const wrapper = mountComponent()
+
+      expect(wrapper.text()).toContain('requested.text-bold')
+      expect(wrapper.text()).toContain('requested.sent-on 6 août 2026 à 11h32')
     })
 
     it('cancels the request on click', async () => {

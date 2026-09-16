@@ -10,8 +10,13 @@
       </p>
       <div class="callout-text" role="status">
         <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('requested.title') }}</h2>
-        <p>{{ t('requested.text') }}</p>
-        <p>{{ t('requested.still-shareable') }}</p>
+        <p>
+          {{ t('requested.text') }} <strong>{{ t('requested.text-bold') }}</strong>
+        </p>
+        <p>
+          <template v-if="requestDate">{{ t('requested.sent-on', [requestDate]) }} </template
+          > {{ t('requested.still-shareable') }}
+        </p>
       </div>
       <button
         ref="action-button"
@@ -113,7 +118,9 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import dayjs from 'dayjs'
 import { VIcon } from '@gouvminint/vue-dsfr'
+import { useTenantStore } from '@/stores/tenant-store'
 import { useCompletedOptIn } from '@/composables/useCompletedOptIn'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '@/components/toast/toastUtils'
@@ -121,6 +128,7 @@ import { toast } from '@/components/toast/toastUtils'
 const HELP_URL = 'https://aide.dossierfacile.logement.gouv.fr/fr/'
 
 const { t, d } = useI18n()
+const store = useTenantStore()
 const {
   isVerificationInProgress,
   isLotteryPending,
@@ -134,6 +142,14 @@ const actionButton = useTemplateRef<HTMLButtonElement>('action-button')
 
 const cooldownEndDate = computed(() =>
   nextEligibleDate.value ? new Date(nextEligibleDate.value) : undefined
+)
+
+// The request date is the dossier last update: the opt-in click when the request goes straight
+// to the operator queue, the draw when it went through the lottery. Same format as the dashboard
+const requestDate = computed(() =>
+  store.user.lastUpdateDate
+    ? dayjs(store.user.lastUpdateDate).format('D MMMM YYYY à HH[h]mm')
+    : undefined
 )
 
 onMounted(() => {
@@ -280,7 +296,9 @@ async function submit(validationRequested: boolean) {
     "requested": {
       "badge": "Request being processed",
       "title": "Your verification request is being processed",
-      "text": "You will receive an email once our team has processed your file.",
+      "text": "You will receive an email once our team has processed your file. The average processing",
+      "text-bold": "time is 24 hours.",
+      "sent-on": "Request sent on {0}.",
       "still-shareable": "Your file remains downloadable and shareable during the verification.",
       "cancel": "Cancel my verification request"
     },
@@ -317,7 +335,9 @@ async function submit(validationRequested: boolean) {
     "requested": {
       "badge": "Demande en cours de traitement",
       "title": "Votre demande de vérification est en cours de traitement",
-      "text": "Vous recevrez un e-mail lorsque notre équipe aura traité votre dossier.",
+      "text": "Vous recevrez un e-mail lorsque notre équipe aura traité votre dossier. Le délai de traitement",
+      "text-bold": "moyen est de 24 h.",
+      "sent-on": "Demande envoyée le {0}.",
       "still-shareable": "Votre dossier reste téléchargeable et partageable pendant la vérification.",
       "cancel": "Annuler ma demande de vérification"
     },
