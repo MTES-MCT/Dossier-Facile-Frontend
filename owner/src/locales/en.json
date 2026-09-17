@@ -124,6 +124,7 @@
     "share-modal-detail": "The copy button will copy this link to your clipboard",
     "link-copied": "Link copied",
     "verified-applicants": "My verified applications ({count})",
+    "applicant-selection": "Applicant selection",
     "date": "Last modified date",
     "tenant-name": "Tenant name",
     "tenant-type": "File type",
