@@ -63,7 +63,6 @@
     <template v-else>
       <div class="callout-text">
         <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('available.title') }}</h2>
-        <p>{{ t('available.text') }}</p>
       </div>
       <p class="fr-text--bold">{{ t('available.why-title') }}</p>
       <ul class="benefits-list" role="list">
@@ -74,7 +73,10 @@
             color="var(--text-action-high-blue-france)"
             aria-hidden="true"
           />
-          <span>{{ t('available.benefit-documents') }}</span>
+          <span>
+            <strong>{{ t('available.benefit-documents-bold') }}</strong>
+            {{ t('available.benefit-documents') }}
+          </span>
         </li>
         <li class="benefits-list__item">
           <VIcon
@@ -83,7 +85,10 @@
             color="var(--text-action-high-blue-france)"
             aria-hidden="true"
           />
-          <span>{{ t('available.benefit-certification') }}</span>
+          <span>
+            {{ t('available.benefit-certification') }}
+            <strong>{{ t('available.benefit-certification-bold') }}</strong>{{ t('available.benefit-certification-after') }}
+          </span>
         </li>
       </ul>
       <button
@@ -97,7 +102,10 @@
       </button>
       <p class="time-note">
         <VIcon icon="ri:time-line" class="time-note__icon" aria-hidden="true" />
-        <span>{{ t('available.time-note') }}</span>
+        <span>
+          {{ t('available.time-note') }} <strong>{{ t('available.time-note-bold') }}</strong>
+          {{ t('available.time-note-after') }}
+        </span>
       </p>
     </template>
     <hr class="callout-separator" />
@@ -272,13 +280,17 @@ async function submit(validationRequested: boolean) {
 {
   "en": {
     "available": {
-      "title": "Have your file checked",
-      "text": "You can ask a member of our team to check your documents.",
+      "title": "Have your file checked by our team",
       "why-title": "Why request a verification?",
-      "benefit-documents": "Make sure all the submitted documents are consistent.",
-      "benefit-certification": "Get a state certification for your rental file.",
+      "benefit-documents-bold": "A member of our team",
+      "benefit-documents": "checks that your situation is consistent from one document to the next.",
+      "benefit-certification": "Your file gets the",
+      "benefit-certification-bold": "verified by DossierFacile label",
+      "benefit-certification-after": ".",
       "request": "Request a verification",
-      "time-note": "Your file remains downloadable and shareable in the meantime."
+      "time-note": "Verification takes",
+      "time-note-bold": "24 hours on average.",
+      "time-note-after": "Your file remains downloadable in the meantime."
     },
     "pending": {
       "badge": "Application registered",
@@ -311,13 +323,17 @@ async function submit(validationRequested: boolean) {
   },
   "fr": {
     "available": {
-      "title": "Faites vérifier votre dossier",
-      "text": "Vous pouvez demander à une personne de notre équipe de vérifier vos documents.",
+      "title": "Faites vérifier votre dossier par notre équipe",
       "why-title": "Pourquoi demander une vérification ?",
-      "benefit-documents": "Vous assurer que tous les documents déposés sont cohérents.",
-      "benefit-certification": "Obtenir une certification de l'État sur votre dossier de location.",
+      "benefit-documents-bold": "Une personne de notre équipe",
+      "benefit-documents": "vérifie que votre situation est cohérente d'un document à l'autre.",
+      "benefit-certification": "Votre dossier obtient le label",
+      "benefit-certification-bold": "dossier vérifié par DossierFacile",
+      "benefit-certification-after": ".",
       "request": "Demander une vérification",
-      "time-note": "Votre dossier reste téléchargeable et partageable en attendant."
+      "time-note": "La vérification prend",
+      "time-note-bold": "en moyenne 24 heures.",
+      "time-note-after": "Votre dossier reste téléchargeable pendant ce temps."
     },
     "pending": {
       "badge": "Demande enregistrée",
