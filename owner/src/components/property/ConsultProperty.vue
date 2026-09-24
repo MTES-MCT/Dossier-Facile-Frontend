@@ -115,6 +115,7 @@
           <table aria-describedby="verified-applicants">
             <thead>
               <tr>
+                <th>&nbsp;</th>
                 <th v-for="(_, col) of COLUMN_MAP" :key="col">
                   <button
                     type="button"
