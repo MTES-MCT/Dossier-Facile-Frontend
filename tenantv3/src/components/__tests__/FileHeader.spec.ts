@@ -43,4 +43,11 @@ describe('FileHeader', () => {
     expect(wrapper.text()).not.toContain('file.income')
     expect(wrapper.text()).not.toContain('file.no-income')
   })
+
+  it('hides the income of a TO_PROCESS dossier, not yet verified by an agent', () => {
+    const wrapper = mount(FileHeader, { props: { user: makeUser('TO_PROCESS') } })
+
+    expect(wrapper.text()).toContain('ALONE')
+    expect(wrapper.text()).not.toContain('file.income')
+  })
 })

@@ -1,19 +1,18 @@
 <template>
-  <DsfrAlert :type="alertType" :title="t(`title-${dossierStatus}`)" class="bg-white">
+  <DsfrAlert
+    :type="isVerified ? 'success' : 'info'"
+    :title="t(isVerified ? 'title-verified' : 'title-unverified')"
+    class="bg-white"
+  >
     <ul class="status-lines fr-mb-0 fr-mt-1w" role="list">
       <li class="status-line">
         <RiCheckboxCircleLine aria-hidden="true" size="18" class="status-line-icon" />
-        <span v-safe-html="t(`documents-${dossierStatus}`)" />
+        <span v-safe-html="t(isVerified ? 'documents-verified' : 'documents-unverified')" />
       </li>
       <li class="status-line">
-        <RiEyeOffLine
-          v-if="dossierStatus === 'COMPLETED'"
-          aria-hidden="true"
-          size="18"
-          class="status-line-icon"
-        />
-        <RiShieldCheckLine v-else aria-hidden="true" size="18" class="status-line-icon" />
-        <span v-safe-html="t(`review-${dossierStatus}`)" />
+        <RiShieldCheckLine v-if="isVerified" aria-hidden="true" size="18" class="status-line-icon" />
+        <RiEyeOffLine v-else aria-hidden="true" size="18" class="status-line-icon" />
+        <span v-safe-html="t(isVerified ? 'review-verified' : 'review-unverified')" />
       </li>
     </ul>
   </DsfrAlert>
@@ -26,12 +25,12 @@ import { DsfrAlert } from '@gouvminint/vue-dsfr'
 import { RiCheckboxCircleLine, RiEyeOffLine, RiShieldCheckLine } from '@remixicon/vue'
 
 const props = defineProps<{
-  dossierStatus: 'VALIDATED' | 'COMPLETED'
+  dossierStatus: 'VALIDATED' | 'COMPLETED' | 'TO_PROCESS'
 }>()
 
 const { t } = useI18n()
 
-const alertType = computed(() => (props.dossierStatus === 'COMPLETED' ? 'info' : 'success'))
+const isVerified = computed(() => props.dossierStatus === 'VALIDATED')
 </script>
 
 <style scoped lang="scss">
@@ -60,20 +59,20 @@ const alertType = computed(() => (props.dossierStatus === 'COMPLETED' ? 'info' :
 <i18n>
 {
   "fr": {
-    "title-COMPLETED": "Dossier complet",
-    "documents-COMPLETED": "Dossier complété : les pièces attendues sont présentes.",
-    "review-COMPLETED": "Les pièces <strong>n'ont pas été examinées par un agent</strong> : prenez le temps de les consulter.",
-    "title-VALIDATED": "Dossier complet et vérifié",
-    "documents-VALIDATED": "Toutes les pièces attendues sont présentes.",
-    "review-VALIDATED": "Les pièces <strong>ont été examinées par nos agents</strong>."
+    "title-unverified": "Dossier complet",
+    "documents-unverified": "Dossier complété : les pièces attendues sont présentes.",
+    "review-unverified": "Les pièces <strong>n'ont pas été examinées par un agent</strong> : prenez le temps de les consulter.",
+    "title-verified": "Dossier complet et vérifié",
+    "documents-verified": "Toutes les pièces attendues sont présentes.",
+    "review-verified": "Les pièces <strong>ont été examinées par nos agents</strong>."
   },
   "en": {
-    "title-COMPLETED": "Complete file",
-    "documents-COMPLETED": "File completed: all expected documents are present.",
-    "review-COMPLETED": "The documents <strong>have not been reviewed by an agent</strong>: take the time to check them.",
-    "title-VALIDATED": "Complete and verified file",
-    "documents-VALIDATED": "All expected documents are present.",
-    "review-VALIDATED": "The documents <strong>have been reviewed by our agents</strong>."
+    "title-unverified": "Complete file",
+    "documents-unverified": "File completed: all expected documents are present.",
+    "review-unverified": "The documents <strong>have not been reviewed by an agent</strong>: take the time to check them.",
+    "title-verified": "Complete and verified file",
+    "documents-verified": "All expected documents are present.",
+    "review-verified": "The documents <strong>have been reviewed by our agents</strong>."
   }
 }
 </i18n>

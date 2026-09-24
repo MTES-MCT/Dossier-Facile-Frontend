@@ -65,6 +65,7 @@ import { useI18n } from 'vue-i18n'
 import { computed, ref, useId, useTemplateRef } from 'vue'
 import type { RouteLocationRaw } from 'vue-router'
 import { apiService } from '@/services/ApiService'
+import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
 
 defineEmits<{ 'click-edit': [] }>()
@@ -111,10 +112,10 @@ const canViewDocument = computed(() => {
   if (!props.showValidated) {
     return true
   }
-  // Documents of a COMPLETED dossier are not reviewed yet (TO_PROCESS) but still consultable
+  // Documents of an unverified dossier (TO_PROCESS or COMPLETED) are not reviewed yet but still consultable
   return (
     props.document.documentStatus === 'VALIDATED' ||
-    (props.dossierStatus === 'COMPLETED' && props.document.documentStatus === 'TO_PROCESS')
+    (UtilsService.isUnverifiedStatus(props.dossierStatus) && props.document.documentStatus === 'TO_PROCESS')
   )
 })
 
@@ -133,8 +134,9 @@ function documentStatus() {
   if (!status) {
     return 'EMPTY'
   }
-  // A COMPLETED dossier is not waiting for an operator: its documents are simply submitted
-  if (status === 'TO_PROCESS' && props.dossierStatus === 'COMPLETED') {
+  // From the reader's point of view an unverified dossier (TO_PROCESS or COMPLETED) is not
+  // waiting for an operator: its documents are simply submitted
+  if (status === 'TO_PROCESS' && UtilsService.isUnverifiedStatus(props.dossierStatus)) {
     return 'COMPLETED'
   }
   return status

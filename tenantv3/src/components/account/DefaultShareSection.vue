@@ -3,16 +3,16 @@
     <div class="link-section">
       <span
         class="fr-badge fr-badge--sm fr-mb-2w"
-        :class="isCompleted ? 'fr-badge--info' : 'fr-badge--success'"
-        >{{ t(isCompleted ? 'badge-completed' : 'badge-validated') }}</span
+        :class="isUnverified ? 'fr-badge--info' : 'fr-badge--success'"
+        >{{ t(isUnverified ? 'badge-completed' : 'badge-validated') }}</span
       >
       <h2 class="fr-h4 fr-mb-2w">{{ t('title') }}</h2>
       <p class="fr-mb-2w">
-        {{ t(isCompleted ? 'description-1-completed' : 'description-1') }} <strong>{{ t('description-bold-1') }}</strong> {{ t('description-2') }} <strong>{{ t('description-bold-2') }}</strong>
+        {{ t(isUnverified ? 'description-1-completed' : 'description-1') }} <strong>{{ t('description-bold-1') }}</strong> {{ t('description-2') }} <strong>{{ t('description-bold-2') }}</strong>
       </p>
       <ul class="fr-badges-group share-badges" role="list">
         <li>
-          <span class="fr-badge fr-badge--sm">{{ t(isCompleted ? 'badge-not-verified' : 'badge-verified') }}</span>
+          <span class="fr-badge fr-badge--sm">{{ t(isUnverified ? 'badge-not-verified' : 'badge-verified') }}</span>
         </li>
         <li>
           <span class="fr-badge fr-badge--sm">{{ t('badge-secure-link') }}</span>
@@ -112,11 +112,13 @@ import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSh
 import { toast } from '@/components/toast/toastUtils'
 import dayjs from 'dayjs'
 import { useTenantStore } from '@/stores/tenant-store'
+import { UtilsService } from '@/services/UtilsService'
 
 const { t } = useI18n()
 const store = useTenantStore()
 
-const isCompleted = computed(() => store.user.status === 'COMPLETED')
+// TO_PROCESS and COMPLETED share the "not verified" rendering
+const isUnverified = computed(() => UtilsService.isUnverifiedStatus(store.user.status))
 
 const selectedShareType = ref('full')
 const shareTypeHintId = useId()

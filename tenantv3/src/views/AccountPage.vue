@@ -6,10 +6,7 @@
           <div class="fr-col-12">
             <h1 v-safe-html="t(`account.title.dashboard`)"></h1>
             <p v-if="isDossierCompletedOrToProcess" class="fr-h4">{{ t('account.title.completed') }}</p>
-            <template v-if="showOptIn">
-              <ValidationRequestCallout class="fr-mb-3w" />
-              <CompletedFileBanner v-if="isVerificationInProgress" class="fr-mb-3w" />
-            </template>
+            <ValidationRequestCallout v-if="showOptIn" class="fr-mb-3w" />
             <div v-else-if="isDenied() || user.status === 'TO_PROCESS'">
               <div class="fr-grid-row fr-grid-row--gutters">
                 <div v-if="isDenied()" class="fr-col">
@@ -47,7 +44,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="fr-col-12 fr-col-lg-4">
+                <!-- ZIP fallback for a DECLINED dossier only -->
+                <div v-if="isDenied()" class="fr-col-12 fr-col-lg-4">
                   <div class="fr-callout warning fr-callout-white">
                     <ColoredTag
                       class="fr-m-1w"
@@ -74,7 +72,7 @@
                 </div>
               </div>
             </div>
-            <DefaultShareSection v-if="UtilsService.isCompletedOrValidatedStatus(user.status)" class="fr-mb-3w" />
+            <DefaultShareSection v-if="UtilsService.isShareableStatus(user.status)" class="fr-mb-3w" />
             <h2 v-safe-html="t(`account.content-title`)" class="fr-h3"></h2>
             <div class="fr-mt-3w fr-p-0w">
               <section v-if="user.applicationType !== 'ALONE'" class="fr-m-0 fr-p-0 bg-white">
@@ -180,7 +178,6 @@ import ColoredBadge from 'df-shared-next/src/components/ColoredBadge.vue'
 import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import PartnersSection from '../components/account/PartnersSection.vue'
 import DefaultShareSection from '../components/account/DefaultShareSection.vue'
-import CompletedFileBanner from '../components/account/CompletedFileBanner.vue'
 import ValidationRequestCallout from '../components/account/ValidationRequestCallout.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
@@ -201,7 +198,7 @@ const tabIndex = ref(0)
 const router = useRouter()
 const downloadZipElt = useTemplateRef('download-zip')
 const { openModal } = useModalStore('deleteAccount')
-const { showOptIn, isVerificationInProgress, isDossierCompletedOrToProcess } = useCompletedOptIn()
+const { showOptIn, isDossierCompletedOrToProcess } = useCompletedOptIn()
 const { downloadZip: downloadZipArchive } = useZipDownload()
 
 function lastModifiedDate(): string {

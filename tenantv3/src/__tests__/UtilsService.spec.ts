@@ -78,6 +78,24 @@ describe('UtilsService', () => {
     })
   })
 
+  describe('isShareableStatus / isUnverifiedStatus', () => {
+    it('allows sharing for every submitted dossier', () => {
+      expect(UtilsService.isShareableStatus('VALIDATED')).toBe(true)
+      expect(UtilsService.isShareableStatus('COMPLETED')).toBe(true)
+      expect(UtilsService.isShareableStatus('TO_PROCESS')).toBe(true)
+      expect(UtilsService.isShareableStatus('INCOMPLETE')).toBe(false)
+      expect(UtilsService.isShareableStatus('DECLINED')).toBe(false)
+      expect(UtilsService.isShareableStatus(undefined)).toBe(false)
+    })
+
+    it('treats TO_PROCESS and COMPLETED as unverified', () => {
+      expect(UtilsService.isUnverifiedStatus('TO_PROCESS')).toBe(true)
+      expect(UtilsService.isUnverifiedStatus('COMPLETED')).toBe(true)
+      expect(UtilsService.isUnverifiedStatus('VALIDATED')).toBe(false)
+      expect(UtilsService.isUnverifiedStatus('INCOMPLETE')).toBe(false)
+    })
+  })
+
   describe('guarantorFullName', () => {
     it.each([
       {
