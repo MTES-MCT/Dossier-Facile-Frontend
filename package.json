@@ -4,6 +4,15 @@
   "license": "MIT",
   "version": "3.5.16",
   "description": "Frontend for DossierFacile",
+  "scripts": {
+    "dev": "pnpm --parallel --filter www --filter tenantv3 --filter owner dev",
+    "dev:www": "pnpm --filter www dev",
+    "dev:tenant": "pnpm --parallel --filter www --filter tenantv3 dev",
+    "dev:owner": "pnpm --parallel --filter www --filter owner dev",
+    "dev:watermark": "pnpm --filter watermark dev",
+    "dev:storybook": "pnpm --filter storybook storybook",
+    "dev:e2e": "pnpm --filter e2e-tests cy:open"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:MTES-MCT/Dossier-Facile-Frontend.git"
