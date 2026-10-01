@@ -1,133 +1,154 @@
 <template>
-  <div
-    class="fr-callout fr-callout-white"
-    :class="isVerificationInProgress || isLotteryPending ? 'accent-purple' : 'accent-primary'"
-  >
-    <template v-if="isVerificationInProgress">
-      <p class="fr-badge fr-badge--purple-glycine fr-badge--sm">
-        <VIcon icon="ri:time-line" class="badge-icon" aria-hidden="true" />
-        {{ t('requested.badge') }}
-      </p>
-      <div class="callout-text" role="status">
-        <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('requested.title') }}</h2>
-        <p>
-          {{ t('requested.text') }} <strong>{{ t('requested.text-bold') }}</strong>
+
+  <div>
+    <div
+      class="fr-callout fr-callout-white"
+      :class="isVerificationInProgress || isLotteryPending ? 'accent-purple' : 'accent-primary'"
+    >
+      <template v-if="isVerificationInProgress">
+        <p class="fr-badge fr-badge--purple-glycine fr-badge--sm">
+          <VIcon icon="ri:time-line" class="badge-icon" aria-hidden="true" />
+          {{ t('requested.badge') }}
         </p>
-        <p>
-          <template v-if="requestDate">{{ t('requested.sent-on', [requestDate]) }} </template
-          > {{ t('requested.still-shareable') }}
+        <div class="callout-text" role="status">
+          <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('requested.title') }}</h2>
+          <p>
+            {{ t('requested.text') }} <strong>{{ t('requested.text-bold') }}</strong>
+          </p>
+          <p>
+            <template v-if="requestDate">{{ t('requested.sent-on', [requestDate]) }} </template>
+            {{ t('requested.still-shareable') }}
+          </p>
+        </div>
+        <button
+          ref="action-button"
+          type="button"
+          class="fr-btn fr-btn--secondary fr-btn--sm"
+          :disabled="isSubmitting"
+          @click="openCancelModal"
+        >
+          {{ t('requested.cancel') }}
+        </button>
+      </template>
+      <template v-else-if="isLotteryPending">
+        <p class="fr-badge fr-badge--purple-glycine fr-badge--sm">
+          <VIcon icon="ri:time-line" class="badge-icon" aria-hidden="true" />
+          {{ t('pending.badge') }}
         </p>
-      </div>
-      <button
-        ref="action-button"
-        type="button"
-        class="fr-btn fr-btn--secondary fr-btn--sm"
-        :disabled="isSubmitting"
-        @click="onCancel"
-      >
-        {{ t('requested.cancel') }}
-      </button>
-    </template>
-    <template v-else-if="isLotteryPending">
-      <p class="fr-badge fr-badge--purple-glycine fr-badge--sm">
-        <VIcon icon="ri:time-line" class="badge-icon" aria-hidden="true" />
-        {{ t('pending.badge') }}
-      </p>
-      <div class="callout-text" role="status">
-        <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('pending.title') }}</h2>
-        <p>{{ t('pending.text') }}</p>
-        <p>{{ t('pending.still-shareable') }}</p>
-      </div>
-      <button
-        ref="action-button"
-        type="button"
-        class="fr-btn fr-btn--secondary fr-btn--sm"
-        :disabled="isSubmitting"
-        @click="onCancel"
-      >
-        {{ t('pending.cancel') }}
-      </button>
-    </template>
-    <template v-else-if="isInCooldown">
-      <div class="callout-text" role="status">
-        <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('cooldown.title') }}</h2>
-        <p>
-          {{ t('cooldown.text') }}
-          <strong v-if="cooldownEndDate">{{
-            t('cooldown.text-date', [d(cooldownEndDate, 'short')])
-          }}</strong>
-        </p>
-        <p>{{ t('cooldown.still-shareable') }}</p>
-      </div>
-    </template>
-    <template v-else>
-      <div class="callout-text">
-        <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('available.title') }}</h2>
-      </div>
-      <p class="fr-text--bold">{{ t('available.why-title') }}</p>
-      <ul class="benefits-list" role="list">
-        <li class="benefits-list__item">
-          <VIcon
-            icon="ri:file-line"
-            class="benefits-list__icon"
-            color="var(--text-action-high-blue-france)"
-            aria-hidden="true"
-          />
+        <div class="callout-text" role="status">
+          <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('pending.title') }}</h2>
+          <p>{{ t('pending.text') }}</p>
+          <p>{{ t('pending.still-shareable') }}</p>
+        </div>
+        <button
+          ref="action-button"
+          type="button"
+          class="fr-btn fr-btn--secondary fr-btn--sm"
+          :disabled="isSubmitting"
+          @click="onCancel"
+        >
+          {{ t('pending.cancel') }}
+        </button>
+      </template>
+      <template v-else-if="isInCooldown">
+        <div class="callout-text" role="status">
+          <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('cooldown.title') }}</h2>
+          <p>
+            {{ t('cooldown.text') }}
+            <strong v-if="cooldownEndDate">{{
+              t('cooldown.text-date', [d(cooldownEndDate, 'short')])
+            }}</strong>
+          </p>
+          <p>{{ t('cooldown.still-shareable') }}</p>
+        </div>
+      </template>
+      <template v-else>
+        <div class="callout-text">
+          <h2 ref="callout-title" class="fr-h4" tabindex="-1">{{ t('available.title') }}</h2>
+        </div>
+        <p class="fr-text--bold">{{ t('available.why-title') }}</p>
+        <ul class="benefits-list" role="list">
+          <li class="benefits-list__item">
+            <VIcon
+              icon="ri:file-line"
+              class="benefits-list__icon"
+              color="var(--text-action-high-blue-france)"
+              aria-hidden="true"
+            />
+            <span>
+              <strong>{{ t('available.benefit-documents-bold') }}</strong>
+              {{ t('available.benefit-documents') }}
+            </span>
+          </li>
+          <li class="benefits-list__item">
+            <VIcon
+              icon="ri:shield-line"
+              class="benefits-list__icon"
+              color="var(--text-action-high-blue-france)"
+              aria-hidden="true"
+            />
+            <span>
+              {{ t('available.benefit-certification') }}
+              <strong>{{ t('available.benefit-certification-bold') }}</strong
+              >{{ t('available.benefit-certification-after') }}
+            </span>
+          </li>
+        </ul>
+        <button
+          ref="action-button"
+          type="button"
+          class="fr-btn fr-btn--secondary fr-btn--sm"
+          :disabled="isSubmitting"
+          @click="onRequest"
+        >
+          {{ t('available.request') }}
+        </button>
+        <p class="time-note">
+          <VIcon icon="ri:time-line" class="time-note__icon" aria-hidden="true" />
           <span>
-            <strong>{{ t('available.benefit-documents-bold') }}</strong>
-            {{ t('available.benefit-documents') }}
+            {{ t('available.time-note') }} <strong>{{ t('available.time-note-bold') }}</strong>
+            {{ t('available.time-note-after') }}
           </span>
-        </li>
-        <li class="benefits-list__item">
-          <VIcon
-            icon="ri:shield-line"
-            class="benefits-list__icon"
-            color="var(--text-action-high-blue-france)"
-            aria-hidden="true"
-          />
-          <span>
-            {{ t('available.benefit-certification') }}
-            <strong>{{ t('available.benefit-certification-bold') }}</strong>{{ t('available.benefit-certification-after') }}
-          </span>
-        </li>
-      </ul>
-      <button
-        ref="action-button"
-        type="button"
-        class="fr-btn fr-btn--secondary fr-btn--sm"
-        :disabled="isSubmitting"
-        @click="onRequest"
-      >
-        {{ t('available.request') }}
-      </button>
-      <p class="time-note">
-        <VIcon icon="ri:time-line" class="time-note__icon" aria-hidden="true" />
-        <span>
-          {{ t('available.time-note') }} <strong>{{ t('available.time-note-bold') }}</strong>
-          {{ t('available.time-note-after') }}
-        </span>
+        </p>
+      </template>
+      <hr class="callout-separator" />
+      <p>
+        {{ t('help-before') }}
+        <a
+          :href="HELP_URL"
+          class="fr-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          :title="`${t('help-link')} - ${t('new-window')}`"
+          >{{ t('help-link') }}</a
+        >{{ t('help-after') }}
       </p>
-    </template>
-    <hr class="callout-separator" />
-    <p>
-      {{ t('help-before') }}
-      <a
-        :href="HELP_URL"
-        class="fr-link"
-        target="_blank"
-        rel="noopener noreferrer"
-        :title="`${t('help-link')} - ${t('new-window')}`"
-        >{{ t('help-link') }}</a
-      >{{ t('help-after') }}
-    </p>
+    </div>
+    <DsfrModalPatch
+      v-model:is-opened="isCancelModalOpened"
+      modal-id="modal-cancel-validation"
+      :title="t('cancel-modal.title')"
+      :actions="cancelModalActions"
+      size="lg"
+      @close="onCancelModalClosed"
+    >
+      <p>
+        {{ t('cancel-modal.benefit-before') }}
+        <strong>{{ t('cancel-modal.benefit-team') }}</strong>
+        {{ t('cancel-modal.benefit-middle') }}
+        <strong>{{ t('cancel-modal.benefit-label') }}</strong>
+      </p>
+      <p>{{ t('cancel-modal.consequence') }}</p>
+    </DsfrModalPatch>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, useTemplateRef } from 'vue'
+import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import dayjs from 'dayjs'
-import { VIcon } from '@gouvminint/vue-dsfr'
+import { VIcon, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useCompletedOptIn } from '@/composables/useCompletedOptIn'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -177,6 +198,43 @@ function onRequest() {
 function onCancel() {
   AnalyticsService.optInCancelValidation()
   return submit(false)
+}
+
+const isCancelModalOpened = ref(false)
+let cancelConfirmed = false
+
+const cancelModalActions = computed<DsfrButtonProps[]>(() => [
+  {
+    label: t('cancel-modal.continue'),
+    secondary: true,
+    onClick() {
+      isCancelModalOpened.value = false
+    }
+  },
+  {
+    label: t('cancel-modal.confirm'),
+    onClick() {
+      void confirmCancel()
+    }
+  }
+])
+
+function openCancelModal() {
+  cancelConfirmed = false
+  AnalyticsService.optInCancelModalDisplayed()
+  isCancelModalOpened.value = true
+}
+
+function onCancelModalClosed() {
+  if (!cancelConfirmed) {
+    AnalyticsService.optInCancelModalDismissed()
+  }
+}
+
+async function confirmCancel() {
+  cancelConfirmed = true
+  isCancelModalOpened.value = false
+  await onCancel()
 }
 
 async function submit(validationRequested: boolean) {
@@ -314,6 +372,16 @@ async function submit(validationRequested: boolean) {
       "still-shareable": "Your file remains downloadable and shareable during the verification.",
       "cancel": "Cancel my verification request"
     },
+    "cancel-modal": {
+      "title": "Cancel the verification of your file?",
+      "benefit-before": "With the verification,",
+      "benefit-team": "a member of our team",
+      "benefit-middle": "reviews your documents and checks that they are consistent with each other. Once verified, your file gets the",
+      "benefit-label": "“File verified by DossierFacile” label.",
+      "consequence": "If you cancel, your file goes back to completed. You can still share it, and request the verification again at any time.",
+      "continue": "Continue the verification",
+      "confirm": "Cancel the verification"
+    },
     "help-before": "For an immediate answer, see our",
     "help-link": "online help",
     "help-after": ".",
@@ -356,6 +424,16 @@ async function submit(validationRequested: boolean) {
       "sent-on": "Demande envoyée le {0}.",
       "still-shareable": "Votre dossier reste téléchargeable et partageable pendant la vérification.",
       "cancel": "Annuler ma demande de vérification"
+    },
+    "cancel-modal": {
+      "title": "Annuler la vérification de votre dossier ?",
+      "benefit-before": "Avec la vérification,",
+      "benefit-team": "une personne de notre équipe",
+      "benefit-middle": "relit vos documents et contrôle qu'ils sont cohérents entre eux. Une fois vérifié, votre dossier obtient",
+      "benefit-label": "le label « Dossier vérifié par DossierFacile ».",
+      "consequence": "Si vous annulez, votre dossier redevient complété. Vous pouvez toujours le partager, et redemander la vérification à tout moment.",
+      "continue": "Poursuivre la vérification",
+      "confirm": "Annuler la vérification"
     },
     "help-before": "Pour une réponse immédiate, consultez notre",
     "help-link": "aide en ligne",
