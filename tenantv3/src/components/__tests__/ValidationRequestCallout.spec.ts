@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { flushPromises, mount } from '@vue/test-utils'
+import { flushPromises, mount, type VueWrapper } from '@vue/test-utils'
+import { defineComponent, watch, type PropType } from 'vue'
 import dayjs from 'dayjs'
 import 'dayjs/locale/fr'
 import ValidationRequestCallout from '../account/ValidationRequestCallout.vue'
@@ -24,6 +25,8 @@ const { mockStore, mockToast, mockAnalytics } = vi.hoisted(() => ({
     optInSectionDisplayed: vi.fn(),
     optInRequestValidation: vi.fn(),
     optInCancelValidation: vi.fn(),
+    optInCancelModalDisplayed: vi.fn(),
+    optInCancelModalDismissed: vi.fn(),
     optInLotteryPendingDisplayed: vi.fn(),
     optInLotteryCooldownDisplayed: vi.fn()
   }
@@ -47,7 +50,43 @@ vi.mock('@/services/UtilsService', () => ({
   }
 }))
 
-const globalStubs = { VIcon: true }
+const DsfrModalPatchStub = defineComponent({
+  props: {
+    isOpened: Boolean,
+    title: { type: String, default: '' },
+    actions: { type: Array as PropType<{ label: string; onClick: () => void }[]>, default: () => [] }
+  },
+  emits: ['update:isOpened', 'close'],
+  setup(props, { emit }) {
+    watch(
+      () => props.isOpened,
+      (opened) => {
+        if (!opened) emit('close')
+      }
+    )
+  },
+  template: `
+    <div v-if="isOpened" class="modal-stub">
+      <h1>{{ title }}</h1>
+      <slot />
+      <button
+        v-for="action in actions"
+        :key="action.label"
+        type="button"
+        class="modal-action"
+        @click="action.onClick()"
+      >{{ action.label }}</button>
+      <button type="button" class="modal-close" @click="$emit('update:isOpened', false)">close</button>
+    </div>`
+})
+
+const globalStubs = { VIcon: true, DsfrModalPatch: DsfrModalPatchStub }
+
+function modalAction(wrapper: VueWrapper, label: string) {
+  const action = wrapper.findAll('.modal-action').find((button) => button.text() === label)
+  if (!action) throw new Error(`No modal action ${label}`)
+  return action
+}
 
 function mountComponent(attachToBody = false) {
   return mount(ValidationRequestCallout, {
@@ -137,14 +176,54 @@ describe('ValidationRequestCallout', () => {
       expect(wrapper.text()).toContain('requested.sent-on 6 août 2026 à 11h32')
     })
 
-    it('cancels the request on click', async () => {
+    it('asks for a confirmation before cancelling the request', async () => {
       const wrapper = mountComponent()
 
       await wrapper.find('button').trigger('click')
+
+      expect(wrapper.find('.modal-stub').exists()).toBe(true)
+      expect(wrapper.text()).toContain('cancel-modal.title')
+      expect(wrapper.text()).toContain('cancel-modal.benefit-team')
+      expect(wrapper.text()).toContain('cancel-modal.consequence')
+      expect(mockAnalytics.optInCancelModalDisplayed).toHaveBeenCalledTimes(1)
+      expect(mockStore.updateValidationRequest).not.toHaveBeenCalled()
+    })
+
+    it('cancels the request once confirmed', async () => {
+      const wrapper = mountComponent()
+
+      await wrapper.find('button').trigger('click')
+      await modalAction(wrapper, 'cancel-modal.confirm').trigger('click')
       await flushPromises()
 
+      expect(wrapper.find('.modal-stub').exists()).toBe(false)
       expect(mockAnalytics.optInCancelValidation).toHaveBeenCalled()
+      expect(mockAnalytics.optInCancelModalDismissed).not.toHaveBeenCalled()
       expect(mockStore.updateValidationRequest).toHaveBeenCalledWith(false)
+    })
+
+    it('keeps the request when the tenant continues the verification', async () => {
+      const wrapper = mountComponent()
+
+      await wrapper.find('button').trigger('click')
+      await modalAction(wrapper, 'cancel-modal.continue').trigger('click')
+      await flushPromises()
+
+      expect(wrapper.find('.modal-stub').exists()).toBe(false)
+      expect(mockAnalytics.optInCancelModalDismissed).toHaveBeenCalledTimes(1)
+      expect(mockAnalytics.optInCancelValidation).not.toHaveBeenCalled()
+      expect(mockStore.updateValidationRequest).not.toHaveBeenCalled()
+    })
+
+    it('keeps the request when the modal is closed', async () => {
+      const wrapper = mountComponent()
+
+      await wrapper.find('button').trigger('click')
+      await wrapper.find('.modal-close').trigger('click')
+      await flushPromises()
+
+      expect(mockAnalytics.optInCancelModalDismissed).toHaveBeenCalledTimes(1)
+      expect(mockStore.updateValidationRequest).not.toHaveBeenCalled()
     })
   })
 
@@ -164,12 +243,14 @@ describe('ValidationRequestCallout', () => {
       expect(mockAnalytics.optInLotteryPendingDisplayed).toHaveBeenCalledTimes(1)
     })
 
-    it('withdraws the application on click', async () => {
+    it('withdraws the application on click, without confirmation', async () => {
       const wrapper = mountComponent()
 
       await wrapper.find('button').trigger('click')
       await flushPromises()
 
+      expect(wrapper.find('.modal-stub').exists()).toBe(false)
+      expect(mockAnalytics.optInCancelModalDisplayed).not.toHaveBeenCalled()
       expect(mockAnalytics.optInCancelValidation).toHaveBeenCalled()
       expect(mockStore.updateValidationRequest).toHaveBeenCalledWith(false)
     })
