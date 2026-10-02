@@ -228,6 +228,14 @@ export const AnalyticsService = {
     sendEvent('account', 'optin_cancel_validation')
   },
 
+  optInCancelModalDisplayed() {
+    sendEvent('account', 'optin_cancel_modal_displayed')
+  },
+
+  optInCancelModalDismissed() {
+    sendEvent('account', 'optin_cancel_modal_dismissed')
+  },
+
   optInLotteryPendingDisplayed() {
     sendEvent('account', 'optin_lottery_pending_displayed')
   },

@@ -36,11 +36,24 @@ Assurez-vous d'avoir installé et configuré correctement la partie [backend](ht
 
 ### Lancement
 
-Vous pouvez lancer les applications depuis la racine avec `pnpm --filter www dev` `pnpm --filter tenantv3 dev` `pnpm --filter owner dev` et `pnpm --filter watermark dev`, ou bien depuis le dossier d'une application avec `pnpm dev`.
+Depuis la racine du monorepo :
+
+| Commande             | Projet lancé                                          |
+| -------------------- | ----------------------------------------------------- |
+| `pnpm dev`           | Site vitrine + applications locataire et propriétaire |
+| `pnpm dev:www`       | Site vitrine                                          |
+| `pnpm dev:tenant`    | Application locataire et site vitrine                 |
+| `pnpm dev:owner`     | Application propriétaire et site vitrine              |
+| `pnpm dev:watermark` | FiligraneFacile                                       |
+| `pnpm dev:storybook` | Storybook                                             |
+| `pnpm dev:e2e`       | Interface Cypress pour les tests E2E locaux           |
+
+Les quatre applications peuvent également être lancées depuis leur dossier avec `pnpm dev`.
+Le package `df-shared-next` est une bibliothèque consommée par les applications et ne possède pas de serveur à lancer.
 
 ## Lancer les tests end-to-end
 
-Démarrez les applications locales, ainsi que les api backend correspondantes, et lancez `pnpm --filter e2e-tests test`.
+Démarrez les applications locales, ainsi que les API backend correspondantes, puis lancez `pnpm dev:e2e` pour ouvrir Cypress ou `pnpm --filter e2e-tests test` pour exécuter les tests sans interface.
 
 ## Contexte pour les agents de code (`AGENTS.md`)
 
@@ -48,13 +61,12 @@ L'équipe a retenu une approche agnostique de l'agent IA utilisé : les fichiers
 
 ### Cas particuliers
 
-| Outil | Particularité | À faire dans ce repo |
-| --- | --- | --- |
-| **Claude Code** (Anthropic) | Format natif : `CLAUDE.md`| Créer un lien symbolique vers le même contenu : `ln -s AGENTS.md CLAUDE.md` (à la racine). Autre option : importer le fichier depuis `CLAUDE.md` avec `@AGENTS.md`. |
-| **Gemini CLI** (Google) | Format natif : `GEMINI.md` | Pointer vers `AGENTS.md` dans `.gemini/settings.json` : `{"contextFileName": "AGENTS.md"}`. |
+| Outil                       | Particularité              | À faire dans ce repo                                                                                                                                                |
+| --------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Claude Code** (Anthropic) | Format natif : `CLAUDE.md` | Créer un lien symbolique vers le même contenu : `ln -s AGENTS.md CLAUDE.md` (à la racine). Autre option : importer le fichier depuis `CLAUDE.md` avec `@AGENTS.md`. |
+| **Gemini CLI** (Google)     | Format natif : `GEMINI.md` | Pointer vers `AGENTS.md` dans `.gemini/settings.json` : `{"contextFileName": "AGENTS.md"}`.                                                                         |
 
 Pour ne pas avoir à maintenir plusieurs versions en parallèle, `AGENTS.md` reste **l'unique référence** : `CLAUDE.md` et `GEMINI.md` ne sont ajoutés que par lien symbolique ou import, selon l'outil utilisé dans l'équipe.
-
 
 ## Contributions
 
@@ -65,20 +77,24 @@ Les pull requests sont possibles. Pour des changements majeurs, veuillez d'abord
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ### ⚠️ IMPORTANT : Limites d'utilisation
+
 Bien que ce code soit distribué sous licence open source MIT, certains éléments contenus dans ce repository sont protégés et leur réutilisation est strictement interdite :
 
 ### Marque DossierFacile
+
 Ce repository utilise le nom et le logo de [DossierFacile](https://www.dossierfacile.logement.gouv.fr/), qui constituent une marque déposée de l'État français. Toute utilisation de cette marque en dehors du contexte officiel est interdite.
 
 ### Système de Design de l'État Français (DSFR)
+
 Ce repository met en oeuvre le [Système de Design de l'État Français (DSFR)](https://www.systeme-de-design.gouv.fr/). **Il est formellement interdit à tout autre acteur d'utiliser le DSFR pour des sites web ou des applications**. Le DSFR représente l'identité numérique de l'État français.
 
 ### Sanctions légales
+
 En cas d'usage non autorisé, vous vous exposez à des poursuites légales, notamment sur la base des articles suivants :
+
 - Usurpation des symboles de la République française ([art. 444-1 Code pénal](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006418825))
 - Contrefaçon ([art. L335-2 Code de la propriété intellectuelle](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032655082))
 - Entrave au fonctionnement d'un système automatisé de traitement de données de l'État ([art. 323-2 Code pénal](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030939443))
 - Escroquerie ([art. 313-2 du Code pénal](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000049531795))
 
 **Recommandation** : Si vous souhaitez réutiliser ce code, supprimez ou remplacez tous les éléments liés à la marque DossierFacile et au DSFR avant déploiement.
-
