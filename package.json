@@ -2,7 +2,7 @@
   "name": "dossierfacile",
   "private": true,
   "license": "MIT",
-  "version": "3.5.16",
+  "version": "3.5.17",
   "description": "Frontend for DossierFacile",
   "scripts": {
     "dev": "pnpm --parallel --filter www --filter tenantv3 --filter owner dev",
