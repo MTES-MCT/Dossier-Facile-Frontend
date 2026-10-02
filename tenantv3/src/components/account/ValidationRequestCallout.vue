@@ -203,18 +203,19 @@ function onCancel() {
 const isCancelModalOpened = ref(false)
 let cancelConfirmed = false
 
+// Keeping the verification is the primary action, cancelling it the secondary one
 const cancelModalActions = computed<DsfrButtonProps[]>(() => [
   {
-    label: t('cancel-modal.continue'),
+    label: t('cancel-modal.confirm'),
     secondary: true,
     onClick() {
-      isCancelModalOpened.value = false
+      void confirmCancel()
     }
   },
   {
-    label: t('cancel-modal.confirm'),
+    label: t('cancel-modal.continue'),
     onClick() {
-      void confirmCancel()
+      isCancelModalOpened.value = false
     }
   }
 ])
