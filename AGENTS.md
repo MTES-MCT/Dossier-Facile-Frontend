@@ -36,6 +36,10 @@ Ce frontend échange avec 3 API du repo backend:
 - watermark -> api-watermark
 Le modèle de donnée et les différents statuts du dossier sont définis dans le `AGENTS.md` du repo backend
 
+## Règles métier frontend
+
+- **Avis d'impôt (`tenantv3`)** : l'année attendue dépend de `tenantv3/src/components/tax/lib/taxYear.ts`. Pour une année civile N, demander l'avis d'impôt N-1 sur les revenus N-2 avant le 1er juillet ; accepter l'avis N-1/revenus N-2 ou l'avis N/revenus N-1 du 1er juillet au 14 septembre inclus ; demander l'avis N/revenus N-1 à partir du 15 septembre. L'avis de situation déclarative reste explicitement refusé dans ce parcours.
+
 ## Points d'attention avant tout dev
 
 Pour limiter les risques de régressions, évaluer l'impact sur chacun de ces axes ; le traiter ou le justifier.
