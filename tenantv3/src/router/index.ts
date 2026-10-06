@@ -1029,6 +1029,7 @@ export const router = createRouter({
         requiresAuth: true,
         skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
+      // TODO: design an account page for incomplete status
       beforeEnter: () => {
         const store = useTenantStore()
         if (store.user.status === 'INCOMPLETE') {
