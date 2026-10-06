@@ -21,7 +21,6 @@ const emit = defineEmits<{ 'on-logout': [] }>()
 
 const { openModal } = useModalStore('deleteAccount')
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const TENANT_URL = `http://${import.meta.env.VITE_TENANT_URL}/login`
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
 const PARTNER_URL =
@@ -75,26 +74,22 @@ const languageSelector = computed<DsfrHeaderProps['languageSelector']>(() => {
 })
 
 const navItems = computed<DsfrNavigationProps['navItems']>(() => [
-  {
-    to: `${MAIN_URL}/information`,
-    text: t('nav.information')
-  },
-  {
-    to: `${MAIN_URL}/blog`,
-    text: t('nav.blog')
-  },
-  {
-    to: `${MAIN_URL}/partenaires`,
-    text: t('nav.partners')
-  },
-  {
-    to: DOCS_URL,
-    text: t('nav.help')
-  },
-  {
-    to: `${MAIN_URL}/contact`,
-    text: t('nav.contact')
-  },
+  ...(!isLoggedIn
+    ? [
+        {
+          to: '/information',
+          text: t('nav.information')
+        },
+        {
+          to: '/blog',
+          text: t('nav.blog')
+        },
+        {
+          to: '/partenaires',
+          text: t('nav.partners')
+        }
+      ]
+    : []),
   ...(isLoggedIn
     ? [
         {
@@ -121,7 +116,15 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
           icon: 'ri:error-warning-line'
         }
       ]
-    : [])
+    : []),
+  {
+    to: DOCS_URL,
+    text: t('nav.help')
+  },
+  {
+    to: '/contact',
+    text: t('nav.contact')
+  }
 ])
 
 const updateLang = (payload: DsfrLanguageSelectorElement) => {
