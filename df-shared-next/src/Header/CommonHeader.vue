@@ -60,7 +60,7 @@ const quickLinks = computed<DsfrHeaderProps['quickLinks']>(() => [
     : [])
 ])
 
-const lang = defineModel<Locale>('currentLang')
+const lang = defineModel<Locale>('currentLang', {required: true})
 
 const languageSelector = computed<DsfrHeaderProps['languageSelector']>(() => {
   return {
