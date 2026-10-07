@@ -1,9 +1,5 @@
 import { AuthService } from '@/services/AuthService'
-import dayjs from 'dayjs'
-import 'dayjs/locale/en'
-import 'dayjs/locale/fr'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
-import { i18n } from '../i18n'
 
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { ProfileService } from '@/services/ProfileService'
@@ -38,7 +34,6 @@ import { MessageService } from '@/services/MessageService'
 import { RegisterService } from '@/services/RegisterService'
 import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import cookies from 'js-cookie'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const LOGOUT_REDIRECT_URL = import.meta.env.VITE_LOGOUT_REDIRECT_URL
