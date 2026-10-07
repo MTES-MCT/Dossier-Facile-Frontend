@@ -10,7 +10,7 @@
         <router-link :to="{ name: 'TenantName', force: true }" class="step-title">
           {{ t('personal-information') }}
         </router-link>
-        <ul class="vline">
+        <ul class="vline" role="list">
           <li class="ml-5">
             <router-link :to="{ name: 'TenantName', force: true }">
               <ColoredTag
@@ -34,7 +34,7 @@
       </li>
       <li class="step" :class="{ active: isActive('documents') }">
         <router-link class="step-title" :to="idDocLink">{{ t('my-document') }} </router-link>
-        <ul v-if="step === 2" class="vline">
+        <ul v-if="step === 2" class="vline" role="list">
           <li v-for="docType of TENANT_DOCUMENTS" :key="docType">
             <TenantDocumentLink :document-type="docType" />
           </li>
@@ -44,7 +44,11 @@
         <router-link class="step-title" :to="getGuarantorLink()"
           >{{ t('my-guarantor') }}
         </router-link>
-        <ul v-if="step === getStepNumber('guarantor') && selectedGuarantor" class="vline">
+        <ul
+          v-if="step === getStepNumber('guarantor') && selectedGuarantor"
+          class="vline"
+          role="list"
+        >
           <template
             v-if="
               selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
@@ -107,7 +111,7 @@
           }"
           >{{ t('my-cotenant') }}
         </router-link>
-        <ul v-if="step === getStepNumber('coTenant')" class="vline">
+        <ul v-if="step === getStepNumber('coTenant')" class="vline" role="list">
           <template v-for="(coTenant, k) in coTenants" :key="k">
             <li class="ml-5 bold">
               <router-link
@@ -139,7 +143,7 @@
         >
           {{ t('my-cotenant-guarantor') }}
         </router-link>
-        <ul v-if="step === getStepNumber('coTenantGuarantor')" class="vline">
+        <ul v-if="step === getStepNumber('coTenantGuarantor')" class="vline" role="list">
           <template
             v-if="
               selectedGuarantor &&
