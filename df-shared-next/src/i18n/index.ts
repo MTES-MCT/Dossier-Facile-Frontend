@@ -10,7 +10,7 @@ const datetimeFormats = {
   en: {
     short: {
       year: 'numeric',
-      month: 'short',
+      month: 'long',
       day: 'numeric'
     },
     long: {
@@ -26,7 +26,7 @@ const datetimeFormats = {
   fr: {
     short: {
       year: 'numeric',
-      month: 'short',
+      month: 'long',
       day: 'numeric'
     },
     long: {
@@ -70,18 +70,21 @@ export function createAppI18n<T extends Record<string, any>>(
 }
 
 // generates messages from glob imports
+const LOCALE_FROM_PATH = /\/([^/]+)\.json$/
+
 export function i18nCreateMessages(
   files: Record<string, unknown>,
+  base: Record<string, unknown> = {},
 ) {
   return Object.fromEntries(
     Object.entries(files).map(([path, messages]) => {
-      const locale = path.match(/\/([^/]+)\.json$/)?.[1]
+      const locale = LOCALE_FROM_PATH.exec(path)?.[1]
 
       if (!locale) {
         throw new Error(`Could not determine locale from "${path}"`)
       }
 
-      return [locale, messages]
+      return [locale, { ...base, ...(messages as Record<string, unknown>) }]
     }),
   )
 }
