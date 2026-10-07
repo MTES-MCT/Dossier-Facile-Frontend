@@ -21,8 +21,8 @@ const emit = defineEmits<{ 'on-logout': [] }>()
 
 const { openModal } = useModalStore('deleteAccount')
 
-const TENANT_URL = `http://${import.meta.env.VITE_TENANT_URL}/login`
-const OWNER_URL = import.meta.env.VITE_OWNER_URL
+const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}/login`
+const OWNER_URL = `https://${import.meta.env.VITE_OWNER_URL}`
 const PARTNER_URL =
   'https://partenaire.dossierfacile.logement.gouv.fr/devenir-partenaire-1/pourquoi-devenir-partenaire-dossierfacile'
 const DOCS_URL = `https://${import.meta.env.VITE_DOCS_URL}`
@@ -60,7 +60,7 @@ const quickLinks = computed<DsfrHeaderProps['quickLinks']>(() => [
     : [])
 ])
 
-const lang = defineModel<Locale>('currentLang', {required: true})
+const lang = defineModel<Locale>('currentLang', { required: true })
 
 const languageSelector = computed<DsfrHeaderProps['languageSelector']>(() => {
   return {
