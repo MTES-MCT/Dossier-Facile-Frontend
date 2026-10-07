@@ -20,6 +20,9 @@ export const DocumentService = {
   },
   getFinancialStatus(documents: DfDocument[] | undefined): string {
     const docs = DocumentService.getDocs('FINANCIAL', documents)
+    if (!docs.length) {
+      return 'EMPTY'
+    }
     if (docs.some((d) => d.documentStatus === 'DECLINED')) {
       return 'DECLINED'
     }

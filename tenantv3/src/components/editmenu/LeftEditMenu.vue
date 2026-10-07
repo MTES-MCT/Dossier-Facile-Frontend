@@ -27,7 +27,7 @@
                 :text="t(`lefteditmenu.${user.applicationType}`)"
                 :status="user.applicationType"
                 :active="step < 2"
-              ></ColoredTag>
+              />
             </router-link>
           </li>
         </ul>
@@ -64,7 +64,7 @@
                     :text="UtilsService.guarantorFullName(g)"
                     status="NONE"
                     :active="getGuarantorCurrentStep(0, g)"
-                  ></ColoredTag>
+                  />
                 </router-link>
               </li>
               <li v-for="docType of TENANT_DOCUMENTS" :key="docType" class="ml-10">
@@ -121,7 +121,7 @@
                   :text="getName(coTenant)"
                   status="NONE"
                   :active="getCurrentSubStep() == 0"
-                ></ColoredTag>
+                />
               </router-link>
             </li>
             <template v-if="coTenant.firstName && coTenant.lastName && coTenant.email">
@@ -165,7 +165,7 @@
                     :text="UtilsService.guarantorFullName(g)"
                     status="NONE"
                     :active="getGuarantorCurrentStep(0, g)"
-                  ></ColoredTag>
+                  />
                 </router-link>
               </li>
               <li class="ml-10">

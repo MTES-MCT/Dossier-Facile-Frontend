@@ -1,9 +1,9 @@
 <template>
-  <div class="fr-tag" :class="getClasses()">
-    <StatusIcon v-if="status && !hideIcon" :status="status" :warn="warn"></StatusIcon>
+  <span class="fr-tag" :class="getClasses()">
+    <StatusIcon v-if="status && !hideIcon" :status="status" :warn="warn" />
     <span v-if="label" class="fr-text--xs">{{ label }}&nbsp;:&nbsp;</span>
     {{ text }}
-  </div>
+  </span>
 </template>
 
 <script setup lang="ts">
@@ -85,7 +85,7 @@ function getClasses() {
   color: var(--primary);
   &.active {
     background-color: var(--background-default-grey);
-    outline: 1px solid #e5e5f4;
+    outline: 1px solid var(--g500);
     outline-offset: -2px;
   }
 }
@@ -95,7 +95,7 @@ function getClasses() {
   color: var(--primary);
   &.active {
     background-color: var(--background-default-grey);
-    outline: 1px solid #e5e5f4;
+    outline: 1px solid var(--g500);
     outline-offset: -2px;
   }
 }

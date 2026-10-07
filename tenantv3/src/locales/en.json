@@ -149,6 +149,7 @@
     "status": {
       "TO_PROCESS": "Processing",
       "COMPLETED": "Document submitted",
+      "FILLED": "Document submitted",
       "VALIDATED": "Verified",
       "DECLINED": "Modification Requested",
       "INCOMPLETE": "Incomplete",
