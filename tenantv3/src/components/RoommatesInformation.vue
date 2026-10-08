@@ -157,7 +157,7 @@
           </label>
         </Field>
         <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="authorize">
-          <span id="auth-errors" class="fr-error-text">{{ t(message || '') }}</span>
+          <p id="auth-errors" class="fr-error-text">{{ t(message || '') }}</p>
         </ErrorMessage>
       </div>
     </NakedCard>

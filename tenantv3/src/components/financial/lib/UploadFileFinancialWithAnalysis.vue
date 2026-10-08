@@ -15,7 +15,7 @@
       aria-describedby="monthlySum-desc"
       @blur="AnalyticsService.writeText(state.category)"
     />
-    <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
+    <p v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</p>
   </form>
   <slot name="incomeFilled" />
   <DsfrCallout
