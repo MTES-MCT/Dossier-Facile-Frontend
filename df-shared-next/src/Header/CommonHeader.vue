@@ -142,7 +142,7 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
     @language-select="updateLang"
   >
     <template #mainnav>
-      <DsfrNavigation :nav-items />
+      <DsfrNavigation id="main-nav" :nav-items />
     </template>
   </DsfrHeader>
 </template>
