@@ -160,7 +160,7 @@ defineExpose({ resetForm })
         label-visible
         :aria-invalid="errors.email ? true : undefined"
         :description-id="errors.email ? 'errors-email' : undefined"
-        hint="format attendu: adresse@domaine.tld"
+        :hint="t('fields.email-hint')"
         type="email"
         autocomplete="email"
         required
@@ -192,22 +192,25 @@ defineExpose({ resetForm })
     </div>
     <div class="fr-input-group" :class="{ 'fr-input-group--error': errors.message }">
       <label for="input-message" class="fr-label"
-        >{{ t('fields.message') }} ({{ t('field-required') }})</label
-      >
+        >{{ t('fields.message') }} ({{ t('field-required') }})
+        <span class="fr-hint-text">{{ t('fields.message-hint') }}</span>
+      </label>
       <textarea
         id="input-message"
         v-model="message"
         class="form-control fr-input"
         :name="t('fields.message')"
         :aria-invalid="errors.message ? true : undefined"
-        :description-id="errors.message ? 'errors-message' : 'description-message'"
+        :aria-describedby="
+          errors.message ? 'errors-message description-message' : 'description-message'
+        "
         autocomplete="off"
         placeholder=""
         rows="6"
         maxlength="2000"
         required
       />
-      <p>{{ message.length }}/2000</p>
+      <p id="description-message">{{ message.length }}/2000</p>
       <p v-if="errors.message" id="errors-message" class="fr-error-text">
         {{ errors.message }}
       </p>
@@ -258,10 +261,12 @@ textarea {
     },
     "fields": {
       "email": "Your email address",
+      "email-hint": "Expected format: address{'@'}domain.tld",
       "firstname": "Your first name",
       "lastname": "Your family name",
       "subject": "The subject of your message",
       "message": "Your message",
+      "message-hint": "maximum: 2000 characters",
       "consent": "Accepting our conditions",
       "consent-label": "You agree that this information may be shared with our support team and CRISP, our support tool, in order to respond to your request.",
       "submit": "Send my message",
@@ -273,15 +278,17 @@ textarea {
     "field-optional": "facultatif",
     "validation": {
       "required": "{field} est obligatoire",
-      "email": "L'adresse email saisie est incorrecte. Exemple: francis.cabrel{'@'}email.net",
+      "email": "L'adresse e-mail saisie est incorrecte. Exemple: francis.cabrel{'@'}email.net",
       "max": "{field} limité à {max} caractères"
     },
     "fields": {
-      "email": "Votre adresse email",
+      "email": "Votre adresse e-mail",
+      "email-hint": "format attendu: adresse{'@'}domaine.tld",
       "firstname": "Votre prénom",
       "lastname": "Votre nom",
       "subject": "L'objet de votre message",
       "message": "Votre message",
+      "message-hint": "maximum: 2000 caractères",
       "consent": "Accepter les conditions",
       "consent-label": "Vous acceptez que ces informations soient transmises à notre équipe d'assistance et à CRISP, notre outil d'assistance, afin de répondre à votre demande.",
       "submit": "Envoyer mon message",
