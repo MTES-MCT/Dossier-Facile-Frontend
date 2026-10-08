@@ -22,7 +22,7 @@
     :current-status="fileUploadStatus"
     :page="4"
     @add-files="addFiles"
-  ></FileUpload>
+  />
   <IdentificationFooter />
 </template>
 

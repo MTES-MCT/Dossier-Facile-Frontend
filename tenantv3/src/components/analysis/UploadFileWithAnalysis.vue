@@ -59,7 +59,7 @@
     :error-message="errorMessage"
     :before-open="beforeOpen"
     @add-files="addFiles"
-  ></FileUpload>
+  />
   <slot name="custom" />
 </template>
 
