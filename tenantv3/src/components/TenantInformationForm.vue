@@ -24,9 +24,12 @@
                       'fr-input--error': !meta.valid
                     }"
                   />
-                  <label v-safe-html="t('tenantinformationform.acceptAuthorSpouse')" for="authorize" />
+                  <label
+                    v-safe-html="t('tenantinformationform.acceptAuthorSpouse')"
+                    for="authorize"
+                  />
                   <ErrorMessage v-slot="{ message }" name="authorize">
-                    <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                    <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
                   </ErrorMessage>
                 </div>
               </Field>
@@ -53,10 +56,13 @@
                       'fr-input--error': !meta.valid
                     }"
                   />
-                  <label v-safe-html="t('tenantinformationform.acceptAuthorCoTenant')" for="authorize">
+                  <label
+                    v-safe-html="t('tenantinformationform.acceptAuthorCoTenant')"
+                    for="authorize"
+                  >
                   </label>
                   <ErrorMessage v-slot="{ message }" name="authorize">
-                    <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                    <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
                   </ErrorMessage>
                 </div>
               </Field>
@@ -185,7 +191,6 @@ function handleOthersInformation() {
 }
 
 function handleSaveError(error: unknown) {
-
   if (isAxiosError(error) && error.response?.status === 409) {
     form.value?.setFieldError('email', t('email-already-in-other-dossier'))
     nextTick(() => document.getElementById('email')?.focus())

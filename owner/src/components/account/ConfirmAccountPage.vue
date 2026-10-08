@@ -36,7 +36,9 @@ onMounted(async () => {
 
 <template>
   <div class="fr-container fr-py-4w">
-    <div v-if="errorType === 'loading'">{{ t('confirmaccountpage.loading') }}</div>
+    <div v-if="errorType === 'loading'">
+      <p>{{ t('confirmaccountpage.loading') }}</p>
+    </div>
     <div v-else-if="errorType === 'link-invalid'" class="fr-alert fr-alert--warning">
       <h3 class="fr-alert__title">{{ t('confirmaccountpage.link-invalid-title') }}</h3>
       <p>{{ t('confirmaccountpage.link-invalid') }}</p>

@@ -30,7 +30,7 @@
               required
             />
             <ErrorMessage v-slot="{ message }" name="firstName">
-              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+              <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
             </ErrorMessage>
           </div>
         </Field>

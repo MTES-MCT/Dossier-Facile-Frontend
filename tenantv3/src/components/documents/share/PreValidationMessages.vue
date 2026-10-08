@@ -28,7 +28,7 @@
             rows="4"
           />
           <ErrorMessage v-slot="{ message }" name="comment">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+            <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
           </ErrorMessage>
         </Field>
         <DfButton ref="submit-btn" class="fr-mt-2w fr-ml-auto" type="submit" primary>{{
