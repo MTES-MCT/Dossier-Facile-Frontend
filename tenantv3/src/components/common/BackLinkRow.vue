@@ -6,7 +6,7 @@
       size="20px"
       class="fr-mr-1w no-shrink"
     />
-    <h2 class="fr-text--md fr-text--regular fr-mb-0">{{ label }}</h2>
+    <p class="fr-text--md fr-text--regular fr-mb-0">{{ label }}</p>
     <DsfrButton
       v-if="isButton"
       :label="t('edit')"
