@@ -12,6 +12,7 @@
             :height="partner.height"
             :href="partner.href"
             :name="partner.name"
+            :determinant="partner.determinant"
             :width="partner.width"
           />
         </li>
@@ -27,7 +28,8 @@ import LogoPartnerComponent from './LogoPartnerComponent.vue'
 
 interface Props {
   partners: Partner[]
-  title?: string
+  title: string
+  determinant: string
   limit?: number
   backgroundGrey?: boolean
 }
