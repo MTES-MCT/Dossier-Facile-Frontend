@@ -36,12 +36,12 @@
                       />
                     </div>
                     <div class="fr-grid-col overflow--hidden max-content">
-                      <div :title="roommate.email" class="overflow--hidden">
+                      <p :id="`roomate-${key}`" class="fr-m-0 overflow--hidden">
                         <b>
                           {{ roommate.email }}
                         </b>
-                      </div>
-                      <div class="small-text">
+                      </p>
+                      <p class="fr-m-0 small-text">
                         {{
                           t(
                             roommate.id
@@ -49,7 +49,7 @@
                               : 'roommatesinformation.invite-waiting'
                           )
                         }}
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -59,6 +59,7 @@
                     icon="ri:delete-bin-2-fill"
                     icon-only
                     secondary
+                    :aria-describedby="`roomate-${key}`"
                     @click="remove(roommate)"
                   />
                 </div>
@@ -126,9 +127,9 @@
           @click="validateRoommateEmail"
         />
       </div>
-      <div class="fr-mt-3w fr-checkbox-group bg-purple">
+      <div class="fr-mt-3w bg-purple">
         <Field
-          v-slot="{ field, meta }"
+          v-slot="{ errors }"
           v-model="authorize"
           name="authorize"
           type="checkbox"
@@ -137,28 +138,26 @@
           }"
           :value="true"
         >
-          <input
+          <DsfrCheckbox
             id="authorize"
-            type="checkbox"
-            v-bind="field"
-            :aria-describedby="hasSubmited ? 'auth-errors' : undefined"
-            :aria-invalid="hasSubmited && !meta.valid"
-            :class="{
-              'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid
-            }"
-            @blur="updateAuthorize()"
-          />
-          <label for="authorize">
-            <p class="fr-mb-0">{{ t('roommatesinformation.acceptAuthor') }}</p>
-            <p>
-              {{ t('roommatesinformation.acceptAuthor-2') }}<span class="color--required">*</span>
-            </p>
-          </label>
+            v-model="authorize"
+            name="authorize"
+            aria-required
+            aria-describedby=""
+            :value="true"
+            :label="t('roommatesinformation.acceptAuthor')"
+            :error-message="errors[0] ? t(errors[0]) : ''"
+            @change="updateAuthorize"
+          >
+            <template #label>
+              <span>{{ t('roommatesinformation.acceptAuthor') }}</span>
+              <ul class="fr-mb-0">
+                <li>{{ t('roommatesinformation.acceptAuthor-1') }}</li>
+                <li>{{ t('roommatesinformation.acceptAuthor-2') }}</li>
+              </ul>
+            </template>
+          </DsfrCheckbox>
         </Field>
-        <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="authorize">
-          <p id="auth-errors" class="fr-error-text">{{ t(message || '') }}</p>
-        </ErrorMessage>
       </div>
     </NakedCard>
   </div>
@@ -174,7 +173,7 @@ import { Field, ErrorMessage, defineRule, useValidateField } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { RiUserFill } from '@remixicon/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import { DsfrButton } from '@gouvminint/vue-dsfr'
+import { DsfrButton, DsfrCheckbox } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 

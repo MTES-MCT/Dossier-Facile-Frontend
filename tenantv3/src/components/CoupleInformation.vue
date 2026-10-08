@@ -72,16 +72,21 @@
                 id="authorize"
                 v-model="authorize"
                 name="authorize"
+                aria-required
                 :value="true"
                 :label="t('acceptAuthor')"
                 :error-message="errors[0] ? t(errors[0]) : ''"
                 @change="updateAuthorize"
-              />
+              >
+                <template #label>
+                  <span>{{ t('acceptAuthor') }}</span>
+                  <ul class="fr-mb-0">
+                    <li>{{ t('acceptAuthorAccess') }}</li>
+                    <li>{{ t('acceptAuthorShare') }}</li>
+                  </ul>
+                </template>
+              </DsfrCheckbox>
             </Field>
-            <ul class="fr-mb-0">
-              <li>{{ t('acceptAuthorAccess') }}</li>
-              <li>{{ t('acceptAuthorShare') }}</li>
-            </ul>
           </div>
         </div>
       </div>
@@ -196,7 +201,7 @@ function updateAuthorize() {
     "spouseFirstName": "First Name",
     "spouseLastName": "Last Name",
     "spouseEmail": "Email",
-    "acceptAuthor": "I agree that my co-tenant:",
+    "acceptAuthor": "I agree that my partner (required)",
     "acceptAuthorAccess": "will have access to my documents and those of my guarantor, if applicable, once both of our applications have been validated.",
     "acceptAuthorShare": "may share the documents in our application with landlords, lessors or property services that are partners of DossierFacile.",
     "partner-email-title": "Your co-tenant's contact details",
@@ -206,7 +211,7 @@ function updateAuthorize() {
     "spouseFirstName": "Prénom",
     "spouseLastName": "Nom",
     "spouseEmail": "Email",
-    "acceptAuthor": "J’accepte que mon conjoint :",
+    "acceptAuthor": "J’accepte que mon conjoint (obligatoire) :",
     "acceptAuthorAccess": "ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés.",
     "acceptAuthorShare": "puisse partager les pièces de notre dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
     "partner-email-title": "Les coordonnées de votre conjoint(e)",
