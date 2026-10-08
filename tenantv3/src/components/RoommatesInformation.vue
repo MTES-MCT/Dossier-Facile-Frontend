@@ -23,7 +23,7 @@
           </DsfrModalPatch>
         </div>
         <div v-if="coTenants.length > 0" class="fr-col-12 fr-mt-2w">
-          <div v-for="(roommate, key) in coTenants" :key="key" class="fr-mb-1w">
+          <div v-for="roommate in coTenants" :key="roommate.email" class="fr-mb-1w">
             <NakedCard>
               <div class="fr-grid-row bg--white">
                 <div class="fr-col-10">
@@ -36,7 +36,7 @@
                       />
                     </div>
                     <div class="fr-grid-col overflow--hidden max-content">
-                      <p :id="`roomate-${key}`" class="fr-m-0 overflow--hidden">
+                      <p :id="roommateLabelId(roommate.email)" class="fr-m-0 overflow--hidden">
                         <b>
                           {{ roommate.email }}
                         </b>
@@ -55,11 +55,12 @@
                 </div>
                 <div class="fr-col-2 center-icon">
                   <DsfrButton
+                    :id="deleteButtonId(roommate.email)"
                     :label="t('roommatesinformation.delete')"
                     icon="ri:delete-bin-2-fill"
                     icon-only
                     secondary
-                    :aria-describedby="`roomate-${key}`"
+                    :aria-describedby="roommateLabelId(roommate.email)"
                     @click="remove(roommate)"
                   />
                 </div>
@@ -168,7 +169,7 @@ import { User } from 'df-shared-next/src/models/User'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import RoommatesInformationHelp from './helps/RoommatesInformationHelp.vue'
 import { useTenantStore } from '@/stores/tenant-store'
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { Field, ErrorMessage, defineRule, useValidateField } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { RiUserFill } from '@remixicon/vue'
@@ -221,6 +222,12 @@ onMounted(() => {
 
 const validateEmailField = useValidateField('email')
 
+// compute unique ids to identify roommate
+const toSafeId = (email: string) =>
+  Array.from(email, (character) => character.codePointAt(0)!.toString(16).padStart(6, '0')).join('')
+const deleteButtonId = (email: string) => `delete-roommate-${toSafeId(email)}`
+const roommateLabelId = (email: string) => `roommate-${toSafeId(email)}`
+
 const validateRoommateEmail = async () => {
   // initialize errors
   showEmailEmpty.value = false
@@ -235,28 +242,39 @@ const validateRoommateEmail = async () => {
   if (valid) addMail()
 }
 
+// focus helper
+async function focusElement(id: string) {
+  await nextTick()
+  document.getElementById(id)?.focus()
+}
+
 function addMail() {
   if (!newRoommate.value.length) {
     showEmailEmpty.value = true
+    focusElement('email')
     return
   }
 
   if (isEmailAlreadyExists(newRoommate.value)) {
     showRoomMateAlreadyExists.value = true
     emailIsValid.value = false
+    focusElement('email')
     return
   }
   if (user.value.email !== newRoommate.value) {
     emailIsValid.value = true
+    const email = newRoommate.value
     const coTenant = new User()
-    coTenant.email = newRoommate.value
-    store.createCoTenant(newRoommate.value)
+    coTenant.email = email
+    store.createCoTenant(email)
     coTenants.value = [...coTenants.value, coTenant]
     newRoommate.value = ''
     hasAddedEmail.value = false
+    focusElement(deleteButtonId(email))
   } else {
     showEmailExists.value = true
     emailIsValid.value = false
+    focusElement('email')
   }
 }
 
@@ -265,12 +283,18 @@ function isEmailAlreadyExists(email: string): boolean {
 }
 
 function remove(tenant: CoTenant) {
+  // compute next focus target
+  const list = coTenants.value
+  const removedIndex = list.findIndex((t) => t.email === tenant.email)
+  // previous or next roommate
+  const target = list[removedIndex - 1] ?? list[removedIndex + 1]
+
   if (tenant.id) {
     store.deleteCoTenant(tenant)
-    coTenants.value = coTenants.value.filter((t) => t.email !== tenant.email)
-  } else {
-    coTenants.value = coTenants.value.filter((t) => t.email !== tenant.email)
   }
+  coTenants.value = coTenants.value.filter((t) => t.email !== tenant.email)
+  focusElement(target ? deleteButtonId(target.email) : 'email')
+
   return false
 }
 
