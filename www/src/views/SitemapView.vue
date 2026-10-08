@@ -4,7 +4,7 @@
       <div class="fr-grid-row justify-content-center">
         <div class="fr-col-md-8">
           <h1>Plan du site</h1>
-          <p><i>Dossier</i><b>Facile</b>, le dossier de location numérique de l’État.</p>
+          <p>Dossier<b>Facile</b>, le dossier de location numérique de l’État.</p>
 
           <ul class="page-list">
             <li v-for="page in mainPages" :key="page.url" class="fr-h4">
@@ -56,6 +56,10 @@ const mainPages = [
   {
     name: 'Qui sommes-nous ?',
     url: '/information'
+  },
+  {
+    name: 'Partenaires',
+    url: '/partenaires'
   },
   {
     name: 'Devenir partenaire',
