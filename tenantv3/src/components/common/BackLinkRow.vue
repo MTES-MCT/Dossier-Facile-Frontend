@@ -1,27 +1,55 @@
 <template>
   <div class="display--flex align-items--center fr-mb-3w">
-    <RiCheckboxCircleLine
+    <VIcon
+      name="ri:checkbox-circle-line"
       color="var(--primary)"
       size="20px"
       class="fr-mr-1w no-shrink"
-      aria-hidden="true"
     />
     <h2 class="fr-text--md fr-text--regular fr-mb-0">{{ label }}</h2>
-    <DfButton tertiary-no-outline class="fr-ml-auto" :disabled="disabled" @click="$emit('click')">
-      {{ t('edit') }} <RiArrowGoBackLine size="1rem" class="fr-ml-1w" aria-hidden="true" />
-    </DfButton>
-    <slot></slot>
+    <DsfrButton
+      v-if="isButton"
+      :label="t('edit')"
+      tertiary
+      no-outline
+      class="fr-ml-auto"
+      :disabled
+      icon="fr-icon-arrow-go-back-fill"
+      icon-right
+      @click="$emit('click')"
+    >
+      <span class="visually-hidden">: {{ label }}</span>
+    </DsfrButton>
+    <RouterLink
+      v-else
+      class="fr-btn fr-icon-arrow-go-back-fill fr-btn--icon-right fr-btn--tertiary-no-outline fr-ml-auto"
+      :to
+    >
+      {{ t('edit') }} <span class="visually-hidden">: {{ label }}</span>
+    </RouterLink>
+    <slot />
   </div>
 </template>
 
 <script setup lang="ts">
-import { RiArrowGoBackLine, RiCheckboxCircleLine } from '@remixicon/vue'
-import { useI18n } from 'vue-i18n'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+/**
+ * The component uses either a link to go back to a previous step or a button to open the confirmation dialog before navigation.
+ */
 
-const { label, disabled = false } = defineProps<{
+import { useI18n } from 'vue-i18n'
+import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
+import type { RouteLocationRaw, RouterLink } from 'vue-router'
+
+const {
+  label,
+  disabled = false,
+  to,
+  isButton
+} = defineProps<{
   label: string
   disabled?: boolean
+  to: RouteLocationRaw
+  isButton: boolean
 }>()
 
 defineEmits<{ click: [] }>()
@@ -34,13 +62,13 @@ const { t } = useI18n()
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
-    "edit": "Edit",
+    "edit": "Edit"
   },
   "fr": {
-    "edit": "Modifier",
+    "edit": "Modifier"
   }
 }
 </i18n>

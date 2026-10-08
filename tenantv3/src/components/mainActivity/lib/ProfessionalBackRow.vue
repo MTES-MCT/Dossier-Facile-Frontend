@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :label="label" @click="onClick">
+  <BackLinkRow :to :is-button="hasDocument" :label="label" @click="onClick">
     <ConfirmDeleteModal
       v-model:is-opened="isModalOpened"
       document-category="professional"
@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { useRouter, type RouteLocationRaw } from 'vue-router'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import BackLinkRow from '@/components/common/BackLinkRow.vue'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -28,6 +28,7 @@ const store = useTenantStore()
 const state = useMainActivityState()
 
 const isModalOpened = ref(false)
+const hasDocument = computed(() => !!state.document.value?.documentCategory)
 
 const onClick = () => {
   AnalyticsService.editSituation(state.category, props.category)
