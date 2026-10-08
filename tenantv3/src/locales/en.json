@@ -717,7 +717,8 @@
   },
   "roommatesinformation": {
     "roommateEmail": "Add a roommate's email address",
-    "acceptAuthor": "I accept that other members of my shared housing have access to my documents and those of my guarantor, if applicable, once all the shared files have been validated.",
+    "acceptAuthor": "I accept that other members of my shared housing (required):",
+    "acceptAuthor-1": "have access to my documents and those of my guarantor, if applicable, once all the shared files have been validated.",
     "acceptAuthor-2": "I also agree that the other members of my shared housing can share the documents in my file with landlords, lessors or property services that are partners of DossierFacile.",
     "delete": "Delete",
     "field-required": "This field is required",

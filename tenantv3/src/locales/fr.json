@@ -712,7 +712,8 @@
   },
   "roommatesinformation": {
     "roommateEmail": "Ajouter l’adresse email d'un colocataire",
-    "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.",
+    "acceptAuthor": "J’accepte que les autres membres de ma colocation (obligatoire) :",
+    "acceptAuthor-1": "aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.",
     "acceptAuthor-2": "Je consens aussi au fait que les autres membres de ma colocation puissent partager les pièces de mon dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
     "delete": "Supprimer",
     "field-required": "Ce champ est requis",
