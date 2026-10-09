@@ -12,7 +12,14 @@
           {{ t('listitem.see') }}
           <span class="visually-hidden">{{ t('listitem.document') }} {{ fileName }}</span>
         </DsfrButton>
-        <DsfrButton icon="fr-icon-delete-bin-line" icon-right tertiary no-outline @click="remove">
+        <DsfrButton
+          ref="remove-btn"
+          icon="fr-icon-delete-bin-line"
+          icon-right
+          tertiary
+          no-outline
+          @click="remove"
+        >
           {{ t('listitem.delete') }}
           <span class="visually-hidden">{{ t('listitem.document') }} {{ fileName }}</span>
         </DsfrButton>
@@ -38,7 +45,7 @@ import ShowPreview from '../documents/share/ShowPreview.vue'
 import { AnalyticsService, type DocumentCategory } from '../../services/AnalyticsService'
 import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { useI18n } from 'vue-i18n'
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, ref, useTemplateRef, type ComponentPublicInstance } from 'vue'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
@@ -60,7 +67,7 @@ const props = withDefaults(
   }
 )
 
-const removeButton = useTemplateRef('remove-btn')
+const removeButton = useTemplateRef<ComponentPublicInstance>('remove-btn')
 defineExpose({ removeButton })
 
 const isDeleteModalOpen = ref(false)

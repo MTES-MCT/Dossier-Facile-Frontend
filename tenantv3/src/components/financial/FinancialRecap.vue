@@ -67,6 +67,7 @@
             >{{ t('edit') }}
           </router-link>
           <DsfrButton
+            ref="delete-btn"
             :label="t('delete')"
             icon="fr-icon-delete-bin-line"
             icon-right
@@ -143,7 +144,14 @@ import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import { STEP_LABEL, type DfDocument } from 'df-shared-next/src/models/DfDocument'
 import FinancialFooter from './lib/FinancialFooter.vue'
-import { computed, onMounted, ref, useTemplateRef, type ComputedRef } from 'vue'
+import {
+  computed,
+  onMounted,
+  ref,
+  useTemplateRef,
+  type ComponentPublicInstance,
+  type ComputedRef
+} from 'vue'
 import { useFinancialState } from '@/components/financial/financialState'
 import { useRoute, useRouter } from 'vue-router'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -159,7 +167,7 @@ const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
-const deleteBtn = useTemplateRef('delete-btn')
+const deleteBtn = useTemplateRef<ComponentPublicInstance>('delete-btn')
 const isInfoModaleVisible = ref(false)
 const isDeleteModaleVisible = ref(false)
 const deleteModaleActions: DsfrButtonProps[] = [
@@ -294,7 +302,7 @@ function deleteDoc() {
     .deleteDocument(id)
     .catch(() => {
       const index = sortedFinancialDocs.value.findIndex((d) => d.id === id)
-      toast.error(t('delete-failed'), deleteBtn.value?.at(index))
+      toast.error(t('delete-failed'), deleteBtn.value?.$el.querySelector('button').at(index))
     })
     .finally(() => {
       loader.hide()
