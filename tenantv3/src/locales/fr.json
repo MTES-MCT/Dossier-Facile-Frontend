@@ -586,8 +586,8 @@
   },
   "menu": {
     "help": "Aide",
-    "file": "Votre dossier",
-    "shared": "Vos partages",
+    "file": "Mon dossier",
+    "shared": "Mes partages",
     "account": "Mon compte",
     "messaging": "Messagerie",
     "blog": "Blog",
@@ -773,6 +773,7 @@
     "simulation-caf-text": "Découvrez l'estimation de l'aide au logement à laquelle vous pourriez être éligible."
   },
   "tenantguarantorchoice": {
+    "cotenant-guarantor": "Sa/son garant",
     "identification": "Pièce d’identité",
     "residency": "Justificatif de situation d'hébergement",
     "professional": "Justificatif de situation professionnelle",

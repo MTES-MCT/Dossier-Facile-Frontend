@@ -1,9 +1,5 @@
 import { AuthService } from '@/services/AuthService'
-import dayjs from 'dayjs'
-import 'dayjs/locale/en'
-import 'dayjs/locale/fr'
 import { DfMessage } from 'df-shared-next/src/models/DfMessage'
-import { i18n } from '../i18n'
 
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { ProfileService } from '@/services/ProfileService'
@@ -38,7 +34,6 @@ import { MessageService } from '@/services/MessageService'
 import { RegisterService } from '@/services/RegisterService'
 import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import cookies from 'js-cookie'
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const LOGOUT_REDIRECT_URL = import.meta.env.VITE_LOGOUT_REDIRECT_URL
@@ -186,18 +181,18 @@ export const useTenantStore = defineStore('tenant', {
     },
     getTenant:
       (state: State) =>
-      (id: number): User | CoTenant => {
-        if (id === state.user.id) {
-          return state.user
-        }
-        const user = state.user.apartmentSharing.tenants.find((r) => {
-          return r.id === id
-        })
-        if (!user) {
-          throw new Error(`Tenant ${id} not found`)
-        }
-        return user
-      },
+        (id: number): User | CoTenant => {
+          if (id === state.user.id) {
+            return state.user
+          }
+          const user = state.user.apartmentSharing.tenants.find((r) => {
+            return r.id === id
+          })
+          if (!user) {
+            throw new Error(`Tenant ${id} not found`)
+          }
+          return user
+        },
     allDocumentsPreValidated(state: State): boolean {
       const user = state.user
       const tenantDocumentsPreValidated = (tenant: CoTenant) =>
@@ -403,22 +398,6 @@ export const useTenantStore = defineStore('tenant', {
     async setCoTenants(data: Parameters<typeof ProfileService.saveCoTenants>[number]) {
       return ProfileService.saveCoTenants(data).then((response) => {
         this.loadUserCommit(response.data)
-      })
-    },
-    setLang(lang: 'fr' | 'en') {
-      i18n.global.locale.value = lang
-      i18n.global.fallbackLocale.value = 'fr'
-      dayjs.locale(lang)
-      const html = document.documentElement
-      html.setAttribute('lang', i18n.global.locale.value)
-      const expireTimes = new Date()
-      expireTimes.setFullYear(expireTimes.getFullYear() + 1)
-      cookies.set('lang', lang, {
-        expires: expireTimes,
-        path: '/',
-        domain: import.meta.env.VITE_COOKIE_DOMAIN || 'localhost',
-        secure: true,
-        sameSite: 'None'
       })
     },
     async validateFile(data: { honorDeclaration: boolean; clarification: string | undefined }) {
