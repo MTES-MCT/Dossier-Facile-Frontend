@@ -1,10 +1,12 @@
 <template>
   <NakedCard class="fr-mt-3w">
-    <DsfrBadge v-if="isTenant" class="fr-mb-1w" type="new" :label="t('badge-loc')" no-icon />
-    <GuarantorBadge v-else />
-    <h1 class="fr-h6" :class="{ 'fr-mb-0': canDeleteGuarantor }">
-      {{ nameToDisplay }}
-    </h1>
+    <div class="title-container">
+      <h1 class="fr-h6" :class="{ 'fr-mb-0': canDeleteGuarantor }">
+        {{ titleToDisplay }}
+      </h1>
+      <DsfrBadge v-if="isTenant" class="fr-mb-1w" type="new" :label="t('badge-loc')" no-icon />
+      <GuarantorBadge v-else />
+    </div>
     <div v-if="canDeleteGuarantor" class="fr-mb-2w fr-mt-1w">
       <button
         type="button"
@@ -37,6 +39,7 @@
     <DocumentPreviewCard
       v-for="doc in documents"
       :key="doc.document?.id || doc.documentCategory"
+      :name-to-display
       :preview-document="doc"
       :guarantor-id="guarantorId"
       :co-tenant-id="coTenantId"
@@ -86,23 +89,34 @@ const coTenantId = computed(() => {
   }
 })
 
+const isOrganism = computed(
+  () => !props.isTenant && 'typeGuarantor' in props.user && props.user.typeGuarantor === 'ORGANISM'
+)
+
 const nameToDisplay = computed(() => {
   if (props.isTenant) {
-    return t('documents-of', { fullName: UtilsService.tenantFullName(props.user as User) })
+    return UtilsService.tenantFullName(props.user as User)
   }
-  if ('typeGuarantor' in props.user) {
-    if (props.user.typeGuarantor === 'NATURAL_PERSON') {
-      return t('documents-of', { fullName: UtilsService.guarantorFullName(props.user) })
-    }
-    if (props.user.typeGuarantor === 'LEGAL_PERSON') {
-      return t('documents-of', { fullName: props.user.legalPersonName ?? '' })
-    }
-    if (props.user.typeGuarantor === 'ORGANISM') {
-      return t('document-of-organization')
-    }
+  if (!('typeGuarantor' in props.user)) {
+    return ''
   }
-  return t('documents-of', { fullName: '' })
+  switch (props.user.typeGuarantor) {
+    case 'NATURAL_PERSON':
+      return UtilsService.guarantorFullName(props.user)
+    case 'LEGAL_PERSON':
+      return props.user.legalPersonName
+    case 'ORGANISM':
+      return t('organization')
+    default:
+      return ''
+  }
 })
+
+const titleToDisplay = computed(() =>
+  isOrganism.value
+    ? t('document-of-organization')
+    : t('documents-of', { fullName: nameToDisplay.value })
+)
 
 const showGuarantorIdentityBlock = computed(() => {
   if (props.isTenant || !('typeGuarantor' in props.user)) {
@@ -237,6 +251,10 @@ const documents = computed(() => {
 </script>
 
 <style scoped lang="scss">
+.title-container {
+  display: flex;
+  flex-direction: column-reverse;
+}
 .document-preview-card {
   background-color: var(--background-default-grey);
   border: 1px solid var(--border-default-grey);
@@ -248,11 +266,12 @@ const documents = computed(() => {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "documents-of": "Documents of {fullName}",
     "document-of-organization": "Documents of the organization",
+    "organization": "the organization",
     "badge-loc": "TENANT FILE",
     "badge-guarantor": "GUARANTOR FILE",
     "to-correct-label": "TO CORRECT",
@@ -264,6 +283,7 @@ const documents = computed(() => {
   "fr": {
     "documents-of": "Documents de {fullName}",
     "document-of-organization": "Documents de l'organisme",
+    "organization": "l'organisme",
     "badge-loc": "DOSSIER LOCATAIRE",
     "badge-guarantor": "DOSSIER GARANT",
     "to-correct-label": "À CORRIGER",

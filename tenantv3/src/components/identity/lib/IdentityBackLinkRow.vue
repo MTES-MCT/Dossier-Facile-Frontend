@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :label="label" @click="onClick" />
+  <BackLinkRow :to="parentRoute" :is-button="false" :label="label" @click="onClick" />
 </template>
 
 <script setup lang="ts">

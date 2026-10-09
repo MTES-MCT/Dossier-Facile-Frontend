@@ -443,7 +443,11 @@
   },
   "filerowlistitem": {
     "edit": "Mettre à jour",
+    "add": "pour {doc} de {name}",
     "see": "Voir",
+    "remove": "Supprimer la pièce",
+    "show": "Voir le document",
+    "document":"le document {doc} de {name}",
     "see-title": "Voir - Ouvre une nouvelle fenêtre",
     "view-failed": "Impossible d'ouvrir le document. Veuillez réessayer.",
     "download": "Télécharger"
@@ -576,10 +580,9 @@
     "FRENCH_PASSPORT": "Passport français",
     "FRENCH_RESIDENCE_PERMIT": "Titre de séjour français",
     "OTHER_IDENTIFICATION": "Autre",
-    "remove": "Supprimer la pièce",
-    "show": "Voir la pièce",
     "see": "Voir",
     "delete": "Supprimer",
+    "document": "le document",
     "mb": "Mo",
     "kb": "Ko",
     "will-delete-file": "Êtes-vous sûr de vouloir supprimer ce fichier ?"
@@ -712,7 +715,8 @@
   },
   "roommatesinformation": {
     "roommateEmail": "Ajouter l’adresse email d'un colocataire",
-    "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.",
+    "acceptAuthor": "J’accepte que les autres membres de ma colocation (obligatoire) :",
+    "acceptAuthor-1": "aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.",
     "acceptAuthor-2": "Je consens aussi au fait que les autres membres de ma colocation puissent partager les pièces de mon dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
     "delete": "Supprimer",
     "field-required": "Ce champ est requis",

@@ -12,6 +12,7 @@
             :height="partner.height"
             :href="partner.href"
             :name="partner.name"
+            :determinant="partner.determinant"
             :width="partner.width"
           />
         </li>

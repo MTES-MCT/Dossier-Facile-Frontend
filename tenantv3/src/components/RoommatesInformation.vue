@@ -23,7 +23,7 @@
           </DsfrModalPatch>
         </div>
         <div v-if="coTenants.length > 0" class="fr-col-12 fr-mt-2w">
-          <div v-for="(roommate, key) in coTenants" :key="key" class="fr-mb-1w">
+          <div v-for="roommate in coTenants" :key="roommate.email" class="fr-mb-1w">
             <NakedCard>
               <div class="fr-grid-row bg--white">
                 <div class="fr-col-10">
@@ -36,12 +36,12 @@
                       />
                     </div>
                     <div class="fr-grid-col overflow--hidden max-content">
-                      <div :title="roommate.email" class="overflow--hidden">
+                      <p :id="roommateLabelId(roommate.email)" class="fr-m-0 overflow--hidden">
                         <b>
                           {{ roommate.email }}
                         </b>
-                      </div>
-                      <div class="small-text">
+                      </p>
+                      <p class="fr-m-0 small-text">
                         {{
                           t(
                             roommate.id
@@ -49,16 +49,18 @@
                               : 'roommatesinformation.invite-waiting'
                           )
                         }}
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </div>
                 <div class="fr-col-2 center-icon">
                   <DsfrButton
+                    :id="deleteButtonId(roommate.email)"
                     :label="t('roommatesinformation.delete')"
                     icon="ri:delete-bin-2-fill"
                     icon-only
                     secondary
+                    :aria-describedby="roommateLabelId(roommate.email)"
                     @click="remove(roommate)"
                   />
                 </div>
@@ -126,9 +128,9 @@
           @click="validateRoommateEmail"
         />
       </div>
-      <div class="fr-mt-3w fr-checkbox-group bg-purple">
+      <div class="fr-mt-3w bg-purple">
         <Field
-          v-slot="{ field, meta }"
+          v-slot="{ errors }"
           v-model="authorize"
           name="authorize"
           type="checkbox"
@@ -137,28 +139,26 @@
           }"
           :value="true"
         >
-          <input
+          <DsfrCheckbox
             id="authorize"
-            type="checkbox"
-            v-bind="field"
-            :aria-describedby="hasSubmited ? 'auth-errors' : undefined"
-            :aria-invalid="hasSubmited && !meta.valid"
-            :class="{
-              'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid
-            }"
-            @blur="updateAuthorize()"
-          />
-          <label for="authorize">
-            <p class="fr-mb-0">{{ t('roommatesinformation.acceptAuthor') }}</p>
-            <p>
-              {{ t('roommatesinformation.acceptAuthor-2') }}<span class="color--required">*</span>
-            </p>
-          </label>
+            v-model="authorize"
+            name="authorize"
+            aria-required
+            :value="true"
+            :label="t('roommatesinformation.acceptAuthor')"
+            :error-message="errors[0] ? t(errors[0]) : ''"
+            @change="updateAuthorize"
+          >
+            <template #label>
+              {{ t('roommatesinformation.acceptAuthor') }}<br />
+
+              <span class="fr-text--sm fr-mt-2v"
+                >{{ t('roommatesinformation.acceptAuthor-1') }} <br />
+                {{ t('roommatesinformation.acceptAuthor-2') }}</span
+              >
+            </template>
+          </DsfrCheckbox>
         </Field>
-        <ErrorMessage v-if="hasSubmited" v-slot="{ message }" name="authorize">
-          <span id="auth-errors" class="fr-error-text">{{ t(message || '') }}</span>
-        </ErrorMessage>
       </div>
     </NakedCard>
   </div>
@@ -169,12 +169,12 @@ import { User } from 'df-shared-next/src/models/User'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import RoommatesInformationHelp from './helps/RoommatesInformationHelp.vue'
 import { useTenantStore } from '@/stores/tenant-store'
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { Field, ErrorMessage, defineRule, useValidateField } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { RiUserFill } from '@remixicon/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-import { DsfrButton } from '@gouvminint/vue-dsfr'
+import { DsfrButton, DsfrCheckbox } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 
@@ -222,6 +222,12 @@ onMounted(() => {
 
 const validateEmailField = useValidateField('email')
 
+// compute unique ids to identify roommate
+const toSafeId = (email: string) =>
+  Array.from(email, (character) => character.codePointAt(0)!.toString(16).padStart(6, '0')).join('')
+const deleteButtonId = (email: string) => `delete-roommate-${toSafeId(email)}`
+const roommateLabelId = (email: string) => `roommate-${toSafeId(email)}`
+
 const validateRoommateEmail = async () => {
   // initialize errors
   showEmailEmpty.value = false
@@ -236,28 +242,39 @@ const validateRoommateEmail = async () => {
   if (valid) addMail()
 }
 
+// focus helper
+async function focusElement(id: string) {
+  await nextTick()
+  document.getElementById(id)?.focus()
+}
+
 function addMail() {
   if (!newRoommate.value.length) {
     showEmailEmpty.value = true
+    focusElement('email')
     return
   }
 
   if (isEmailAlreadyExists(newRoommate.value)) {
     showRoomMateAlreadyExists.value = true
     emailIsValid.value = false
+    focusElement('email')
     return
   }
   if (user.value.email !== newRoommate.value) {
     emailIsValid.value = true
+    const email = newRoommate.value
     const coTenant = new User()
-    coTenant.email = newRoommate.value
-    store.createCoTenant(newRoommate.value)
+    coTenant.email = email
+    store.createCoTenant(email)
     coTenants.value = [...coTenants.value, coTenant]
     newRoommate.value = ''
     hasAddedEmail.value = false
+    focusElement(deleteButtonId(email))
   } else {
     showEmailExists.value = true
     emailIsValid.value = false
+    focusElement('email')
   }
 }
 
@@ -266,12 +283,18 @@ function isEmailAlreadyExists(email: string): boolean {
 }
 
 function remove(tenant: CoTenant) {
+  // compute next focus target
+  const list = coTenants.value
+  const removedIndex = list.findIndex((t) => t.email === tenant.email)
+  // previous or next roommate
+  const target = list[removedIndex - 1] ?? list[removedIndex + 1]
+
   if (tenant.id) {
     store.deleteCoTenant(tenant)
-    coTenants.value = coTenants.value.filter((t) => t.email !== tenant.email)
-  } else {
-    coTenants.value = coTenants.value.filter((t) => t.email !== tenant.email)
   }
+  coTenants.value = coTenants.value.filter((t) => t.email !== tenant.email)
+  focusElement(target ? deleteButtonId(target.email) : 'email')
+
   return false
 }
 

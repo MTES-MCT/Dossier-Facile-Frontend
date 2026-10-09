@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :label="label" @click="onClick">
+  <BackLinkRow :to :is-button="hasDocument" :label="label" @click="onClick">
     <ConfirmDeleteModal
       v-model:is-opened="isModalOpened"
       document-category="tax"
@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { useRouter, type RouterLinkProps } from 'vue-router'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import BackLinkRow from '@/components/common/BackLinkRow.vue'
@@ -24,6 +24,7 @@ const store = useTenantStore()
 const { category, document } = useTaxState()
 
 const isModalOpened = ref(false)
+const hasDocument = computed(() => !!document.value)
 
 const onClick = () => {
   emit('edit')

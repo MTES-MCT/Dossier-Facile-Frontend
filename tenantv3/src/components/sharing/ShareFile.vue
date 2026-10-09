@@ -46,7 +46,7 @@
                 name="name"
               />
               <ErrorMessage v-slot="{ message }" name="name">
-                <span v-if="message" role="alert" class="fr-error-text">{{ t(message) }}</span>
+                <p v-if="message" role="alert" class="fr-error-text">{{ t(message) }}</p>
               </ErrorMessage>
             </div>
           </Field>
@@ -131,7 +131,7 @@
                   type="text"
                 />
                 <ErrorMessage v-slot="{ message }" name="email">
-                  <span v-if="message" role="alert" class="fr-error-text">{{ message }}</span>
+                  <p v-if="message" role="alert" class="fr-error-text">{{ message }}</p>
                 </ErrorMessage>
               </div>
             </Field>
@@ -153,7 +153,7 @@
                   name="message"
                 />
                 <ErrorMessage v-slot="{ message }" name="message">
-                  <span v-if="message" role="alert" class="fr-error-text">{{ message }}</span>
+                  <p v-if="message" role="alert" class="fr-error-text">{{ message }}</p>
                 </ErrorMessage>
               </div>
             </Field>

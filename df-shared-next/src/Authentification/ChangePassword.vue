@@ -22,14 +22,14 @@
                   :class="{
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid
-                  }"                  
+                  }"
                   type="password"
                   autocomplete="new-password"
                 />
               </Field>
               <PasswordMeter :password="password || ''" @score="setScore" />
               <ErrorMessage v-slot="{ message }" name="password">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
               </ErrorMessage>
             </div>
           </div>
@@ -58,7 +58,7 @@
                 />
               </Field>
               <ErrorMessage v-slot="{ message }" name="confirm-password">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
               </ErrorMessage>
             </div>
           </div>

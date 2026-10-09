@@ -128,7 +128,7 @@ function onBack() {
           </label>
         </Field>
         <ErrorMessage v-slot="{ message }" name="type">
-          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
         </ErrorMessage>
       </div>
     </NakedCard>

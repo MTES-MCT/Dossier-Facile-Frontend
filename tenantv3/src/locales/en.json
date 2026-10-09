@@ -441,7 +441,11 @@
   },
   "filerowlistitem": {
     "edit": "Update",
+    "add": "for {doc} of {name}",
+    "show": "Show Document",
+    "remove": "Remove Document",
     "see": "See",
+    "document":"the document {doc} for {name}",
     "see-title": "See - Open in a new window",
     "view-failed": "Unable to open the document. Please try again.",
     "download": "Download"
@@ -581,10 +585,9 @@
     "FRENCH_PASSPORT": "French Passport",
     "FRENCH_RESIDENCE_PERMIT": "French Residence Permit",
     "OTHER_IDENTIFICATION": "Other",
-    "remove": "Remove Document",
-    "show": "Show Document",
     "see": "See",
     "delete": "Delete",
+    "document": "the document",
     "mb": "MB",
     "kb": "KB",
     "will-delete-file": "Are you sure you want to delete this file?"
@@ -717,7 +720,8 @@
   },
   "roommatesinformation": {
     "roommateEmail": "Add a roommate's email address",
-    "acceptAuthor": "I accept that other members of my shared housing have access to my documents and those of my guarantor, if applicable, once all the shared files have been validated.",
+    "acceptAuthor": "I accept that other members of my shared housing (required):",
+    "acceptAuthor-1": "have access to my documents and those of my guarantor, if applicable, once all the shared files have been validated.",
     "acceptAuthor-2": "I also agree that the other members of my shared housing can share the documents in my file with landlords, lessors or property services that are partners of DossierFacile.",
     "delete": "Delete",
     "field-required": "This field is required",

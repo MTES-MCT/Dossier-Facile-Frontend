@@ -4,6 +4,7 @@
     ref="dialogRef"
     class="fr-modal"
     role="dialog"
+    aria-modal="true"
     aria-labelledby="fr-consent-modal-title"
     @cancel="modalStore.closeModal"
   >

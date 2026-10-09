@@ -36,7 +36,7 @@
       :is-required="true"
       counter-id="guarantor-customtext-counter"
     />
-    <span v-if="errorMessage" role="alert" class="fr-error-text">{{ t(errorMessage || '') }}</span>
+    <p v-if="errorMessage" role="alert" class="fr-error-text">{{ t(errorMessage || '') }}</p>
   </template>
   <GuarantorResidencyFooter :on-submit="submit" />
 </template>

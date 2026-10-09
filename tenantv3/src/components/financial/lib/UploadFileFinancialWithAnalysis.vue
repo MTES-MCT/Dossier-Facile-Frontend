@@ -5,17 +5,18 @@
       ref="inputSumElt"
       v-model="inputSum"
       v-bind="sumAttr"
-      :placeholder="t('amount')"
       name="monthlySum"
       class="fr-input fr-mb-2w"
-      required
+      aria-required
       autocomplete="off"
       inputmode="numeric"
       data-cy="monthlySum"
-      aria-describedby="monthlySum-desc"
+      aria-describedby="monthlySum-err monthlySum-desc"
       @blur="AnalyticsService.writeText(state.category)"
     />
-    <span v-if="errors.sum" role="alert" class="fr-error-text">{{ t(errors.sum) }}</span>
+    <p v-if="errors.sum" id="monthlySum-err" role="alert" class="fr-error-text">
+      {{ t(errors.sum) }}
+    </p>
   </form>
   <slot name="incomeFilled" />
   <DsfrCallout
