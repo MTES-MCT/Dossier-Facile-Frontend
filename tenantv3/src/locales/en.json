@@ -149,6 +149,7 @@
     "status": {
       "TO_PROCESS": "Processing",
       "COMPLETED": "Document submitted",
+      "FILLED": "Document submitted",
       "VALIDATED": "Verified",
       "DECLINED": "Modification Requested",
       "INCOMPLETE": "Incomplete",
@@ -998,6 +999,7 @@
     "error": "Error resending email",
     "too-many-requests": "You have already sent a sharing link less than an hour ago. Please try again after this delay."
   },
+  "step": "step",
   "page-titles": {
     "Home": "Home",
     "ChooseTenantIdentity": "Identity - @:page-titles.base.steps.1of2",
