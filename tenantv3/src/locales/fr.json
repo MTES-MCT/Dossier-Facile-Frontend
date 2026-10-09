@@ -576,10 +576,9 @@
     "FRENCH_PASSPORT": "Passport français",
     "FRENCH_RESIDENCE_PERMIT": "Titre de séjour français",
     "OTHER_IDENTIFICATION": "Autre",
-    "remove": "Supprimer la pièce",
-    "show": "Voir la pièce",
     "see": "Voir",
     "delete": "Supprimer",
+    "document": "le document",
     "mb": "Mo",
     "kb": "Ko",
     "will-delete-file": "Êtes-vous sûr de vouloir supprimer ce fichier ?"

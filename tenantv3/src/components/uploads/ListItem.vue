@@ -6,28 +6,16 @@
       <h3 class="fr-card__title text-overflow">
         {{ fileName }}
       </h3>
-      <div class="fr-text--sm">{{ size }}</div>
-      <div class="links blue-text fr-mt-1w">
-        <button
-          v-if="file.path || file.preview"
-          class="btn-link"
-          type="button"
-          :title="t('listitem.show')"
-          @click="openDoc"
-        >
-          <span>{{ t('listitem.see') }}</span>
-          <span class="fr-fi--sm fr-icon-eye-line fr-ml-1w"></span>
-        </button>
-        <button
-          ref="remove-btn"
-          type="button"
-          class="btn-link"
-          :title="t('listitem.remove')"
-          @click="remove"
-        >
-          <span>{{ t('listitem.delete') }}</span>
-          <span class="fr-fi--sm fr-icon-delete-line fr-ml-1w"></span>
-        </button>
+      <p class="fr-text--sm">{{ size }}</p>
+      <div class="btn-gtoup fr-mt-1w">
+        <DsfrButton icon="fr-icon-eye-line" icon-right tertiary no-outline @click="openDoc">
+          {{ t('listitem.see') }}
+          <span class="visually-hidden">{{ t('listitem.document') }} {{ fileName }}</span>
+        </DsfrButton>
+        <DsfrButton icon="fr-icon-delete-bin-line" icon-right tertiary no-outline @click="remove">
+          {{ t('listitem.delete') }}
+          <span class="visually-hidden">{{ t('listitem.document') }} {{ fileName }}</span>
+        </DsfrButton>
       </div>
     </div>
     <DsfrModalPatch v-model:is-opened="isDocModalVisible" :title="t('doc-preview')" size="xl">
@@ -52,6 +40,7 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { useI18n } from 'vue-i18n'
 import { computed, ref, useTemplateRef } from 'vue'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const emit = defineEmits<{ remove: []; 'ask-confirm': []; cancel: [] }>()
@@ -146,9 +135,9 @@ function openDoc() {
   max-width: 100%;
 }
 
-.links {
+.btn-gtoup {
   display: flex;
-  gap: 2rem;
+  gap: 0.25rem;
   justify-content: end;
 }
 </style>

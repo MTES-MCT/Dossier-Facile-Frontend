@@ -581,10 +581,9 @@
     "FRENCH_PASSPORT": "French Passport",
     "FRENCH_RESIDENCE_PERMIT": "French Residence Permit",
     "OTHER_IDENTIFICATION": "Other",
-    "remove": "Remove Document",
-    "show": "Show Document",
     "see": "See",
     "delete": "Delete",
+    "document": "the document",
     "mb": "MB",
     "kb": "KB",
     "will-delete-file": "Are you sure you want to delete this file?"
