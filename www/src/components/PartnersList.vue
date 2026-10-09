@@ -28,8 +28,7 @@ import LogoPartnerComponent from './LogoPartnerComponent.vue'
 
 interface Props {
   partners: Partner[]
-  title: string
-  determinant: string
+  title?: string
   limit?: number
   backgroundGrey?: boolean
 }

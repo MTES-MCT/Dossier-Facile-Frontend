@@ -79,11 +79,11 @@
                 @change="updateAuthorize"
               >
                 <template #label>
-                  <span>{{ t('acceptAuthor') }}</span>
-                  <ul class="fr-mb-0">
-                    <li>{{ t('acceptAuthorAccess') }}</li>
-                    <li>{{ t('acceptAuthorShare') }}</li>
-                  </ul>
+                  {{ t('acceptAuthor') }}<br />
+                  <span class="fr-text--sm fr-mt-2v"
+                    >{{ t('acceptAuthorAccess') }} <br />
+                    {{ t('acceptAuthorShare') }}</span
+                  >
                 </template>
               </DsfrCheckbox>
             </Field>
@@ -213,7 +213,7 @@ function updateAuthorize() {
     "spouseEmail": "Email",
     "acceptAuthor": "J’accepte que mon conjoint (obligatoire) :",
     "acceptAuthorAccess": "ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés.",
-    "acceptAuthorShare": "puisse partager les pièces de notre dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
+    "acceptAuthorShare": "Puisse partager les pièces de notre dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
     "partner-email-title": "Les coordonnées de votre conjoint(e)",
     "more-information": "Comment ça marche ?"
   }

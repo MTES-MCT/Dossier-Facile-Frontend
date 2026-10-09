@@ -144,18 +144,18 @@
             v-model="authorize"
             name="authorize"
             aria-required
-            aria-describedby=""
             :value="true"
             :label="t('roommatesinformation.acceptAuthor')"
             :error-message="errors[0] ? t(errors[0]) : ''"
             @change="updateAuthorize"
           >
             <template #label>
-              <span>{{ t('roommatesinformation.acceptAuthor') }}</span>
-              <ul class="fr-mb-0">
-                <li>{{ t('roommatesinformation.acceptAuthor-1') }}</li>
-                <li>{{ t('roommatesinformation.acceptAuthor-2') }}</li>
-              </ul>
+              {{ t('roommatesinformation.acceptAuthor') }}<br />
+
+              <span class="fr-text--sm fr-mt-2v"
+                >{{ t('roommatesinformation.acceptAuthor-1') }} <br />
+                {{ t('roommatesinformation.acceptAuthor-2') }}</span
+              >
             </template>
           </DsfrCheckbox>
         </Field>
