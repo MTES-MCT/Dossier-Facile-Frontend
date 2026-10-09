@@ -115,7 +115,12 @@
           <table aria-describedby="verified-applicants">
             <thead>
               <tr>
-                <th v-for="(_, col) of COLUMN_MAP" :key="col">
+                <th scope="col">
+                  <span class="fr-sr-only">
+                    {{ t('consultproperty.applicant-selection') }}
+                  </span>
+                </th>
+                <th v-for="(_, col) of APPLICANT_COLUMNS" :key="col" scope="col">
                   <button
                     type="button"
                     class="bold"
@@ -188,7 +193,7 @@
                 </td>
               </tr>
               <tr v-if="tenantIdToShow === k">
-                <td colspan="8" class="additional-td">
+                <td :colspan="APPLICANT_TABLE_COLUMN_COUNT" class="additional-td">
                   <div class="tenant-token-link fr-mb-3w fr-mt-1w">
                     <a
                       class="fr-btn"
@@ -219,6 +224,11 @@ import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import PropertyIcon from './PropertyIcon.vue'
 import type { Applicant } from './Applicant'
+import {
+  APPLICANT_COLUMNS,
+  APPLICANT_TABLE_COLUMN_COUNT,
+  type ApplicantColumn
+} from './applicantColumns'
 import UtilsService from '../../services/UtilsService'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
@@ -247,18 +257,8 @@ const toast = useToast()
 
 const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`
 const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
-const COLUMN_MAP = {
-  date: 'lastUpdateDate',
-  'tenant-name': 'tenantName',
-  'tenant-type': 'tenantType',
-  'tenant-salary': 'tenantSalary',
-  'guarantor-salary': 'guarantorSalary',
-  rate: 'rate',
-  status: 'status'
-} as const satisfies Record<string, keyof Applicant>
-type Column = keyof typeof COLUMN_MAP
 
-const sortColumn = ref<Column | ''>('')
+const sortColumn = ref<ApplicantColumn | ''>('')
 const ascending = ref(false)
 const tenantIdToShow = ref(-1)
 const selectedApplicants = ref([])
@@ -279,8 +279,8 @@ const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture)
 function getTenants(): Applicant[] {
   return UtilsService.getTenants(p.value).sort((a, b) => {
     if (sortColumn.value === '') return 0
-    const left = a[COLUMN_MAP[sortColumn.value]]
-    const right = b[COLUMN_MAP[sortColumn.value]]
+    const left = a[APPLICANT_COLUMNS[sortColumn.value]]
+    const right = b[APPLICANT_COLUMNS[sortColumn.value]]
     if (!left || !right) return 0
     if (left < right) {
       return ascending.value ? 1 : -1
@@ -335,7 +335,7 @@ function editProperty() {
   router.push({ name: 'PropertyName', params: { id: id.value } })
 }
 
-function sortTable(col: Column) {
+function sortTable(col: ApplicantColumn) {
   if (sortColumn.value === col) {
     ascending.value = !ascending.value
   } else {
