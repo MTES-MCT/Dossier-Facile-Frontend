@@ -1,10 +1,12 @@
 <template>
   <NakedCard class="fr-mt-3w">
-    <DsfrBadge v-if="isTenant" class="fr-mb-1w" type="new" :label="t('badge-loc')" no-icon />
-    <GuarantorBadge v-else />
-    <h1 class="fr-h6" :class="{ 'fr-mb-0': canDeleteGuarantor }">
-      {{ titleToDisplay }}
-    </h1>
+    <div class="title-container">
+      <h1 class="fr-h6" :class="{ 'fr-mb-0': canDeleteGuarantor }">
+        {{ titleToDisplay }}
+      </h1>
+      <DsfrBadge v-if="isTenant" class="fr-mb-1w" type="new" :label="t('badge-loc')" no-icon />
+      <GuarantorBadge v-else />
+    </div>
     <div v-if="canDeleteGuarantor" class="fr-mb-2w fr-mt-1w">
       <button
         type="button"
@@ -249,6 +251,10 @@ const documents = computed(() => {
 </script>
 
 <style scoped lang="scss">
+.title-container {
+  display: flex;
+  flex-direction: column-reverse;
+}
 .document-preview-card {
   background-color: var(--background-default-grey);
   border: 1px solid var(--border-default-grey);
