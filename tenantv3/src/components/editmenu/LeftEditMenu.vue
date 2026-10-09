@@ -3,7 +3,7 @@
     id="funnel-menu"
     class="left-edit-menu fr-pt-7w fr-pb-12w"
     role="navigation"
-    aria-label="Étapes"
+    :aria-label="t('step')"
   >
     <ol role="list">
       <li class="step" :class="{ active: isActive('information') }">
