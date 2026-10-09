@@ -22,22 +22,22 @@ const { t } = useI18n()
 const { suffix } = useFinancialState()
 </script>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
-    "enter-avg-income-tenant": "Enter your average net monthly income:",
-    "enter-avg-income-other": "Enter their average net monthly income:",
-    "enter-income-tenant": "Enter your {0}, without comma:",
-    "enter-income-other": "Enter their {0}, without comma:",
-    "net-income":"average net monthly income before withholding tax",
+    "enter-avg-income-tenant": "Enter your average net monthly income in euros (required)",
+    "enter-avg-income-other": "Enter their average net monthly income in euros (required)",
+    "enter-income-tenant": "Enter your {0}, without comma (required)",
+    "enter-income-other": "Enter their {0}, without comma (required)",
+    "net-income": "average net monthly income in euros before withholding tax",
     "example": "Example: "
   },
   "fr": {
-    "enter-avg-income-tenant": "Saisissez le montant de vos revenus mensuels nets moyens :",
-    "enter-avg-income-other": "Saisissez le montant de ses revenus mensuels nets moyens :",
-    "enter-income-tenant": "Saisissez votre {0}, sans virgule :",
-    "enter-income-other": "Saisissez son {0}, sans virgule :",
-    "net-income":"revenu mensuel net moyen avant prélèvement à la source",
+    "enter-avg-income-tenant": "Saisissez le montant de vos revenus mensuels nets moyens en euros (obligatoire)",
+    "enter-avg-income-other": "Saisissez le montant de ses revenus mensuels nets moyens en euros (obligatoire)",
+    "enter-income-tenant": "Saisissez votre {0}, sans virgule (obligatoire)",
+    "enter-income-other": "Saisissez son {0}, sans virgule (obligatoire)",
+    "net-income": "revenu mensuel net moyen en euros avant prélèvement à la source",
     "example": "Exemple : "
   }
 }
