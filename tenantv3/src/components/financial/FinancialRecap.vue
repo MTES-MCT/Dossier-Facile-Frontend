@@ -31,9 +31,9 @@
           :label="t('errors-to-fix', { count: errorsCount(doc) }, errorsCount(doc))"
           class="errors-badge fr-mb-2w"
         />
-        <div class="first-row">
+        <div :id="`financial-recap-${doc.id}`" class="first-row">
           <h2 class="fr-text--lg fr-mb-0">{{ categoryLabel(doc) }}</h2>
-          <span>{{ doc.monthlySum }}€ {{ t('net-per-month') }}</span>
+          <p class="fr-m-0">{{ doc.monthlySum }}€ {{ t('net-per-month') }}</p>
         </div>
         <span v-if="doc.documentCategoryStep" class="fr-text--sm fr-mb-0 text-grey">{{
           t(STEP_LABEL[doc.documentCategoryStep] ?? '')
@@ -60,31 +60,32 @@
           small
         />
         <div class="fr-ml-auto fr-mt-2w">
-          <router-link :to="makeLink(doc)" class="fr-link fr-mr-4w"
+          <router-link
+            :to="makeLink(doc)"
+            class="fr-btn fr-icon-delete-bin-line fr-btn--icon-right fr-btn--tertiary-no-outline"
+            :aria-describedby="`financial-recap-${doc.id}`"
             >{{ t('edit') }}
-            <RiEditLine size="1rem" aria-hidden="true" />
           </router-link>
-          <button
-            ref="delete-btn"
-            type="button"
-            class="btn-link color--primary"
+          <DsfrButton
+            :label="t('delete')"
+            icon="fr-icon-delete-bin-line"
+            icon-right
+            tertiary
+            no-outline
+            :aria-describedby="`financial-recap-${doc.id}`"
             @click="showDeleteModale(doc)"
-          >
-            {{ t('delete') }}
-            <RiDeleteBinLine size="1rem" aria-hidden="true" />
-          </button>
+          />
         </div>
       </div>
     </div>
     <router-link
       v-if="showAddIncome"
       :to="here + '/ajouter'"
-      class="fr-btn fr-ml-auto fr-mt-3w"
+      class="fr-btn fr-icon-add-line fr-btn--icon-right fr-ml-auto fr-mt-3w"
       :class="{ 'fr-btn--secondary': financialDocuments.length > 0 }"
       @click="AnalyticsService.addIncome(state.category)"
-      >{{ t(financialDocuments.length > 0 ? 'add-another-income' : 'add-income') }}
-      <RiAddFill class="tr-5" size="20" aria-hidden="true"
-    /></router-link>
+      >{{ t(financialDocuments.length > 0 ? 'add-another-income' : 'add-income') }}</router-link
+    >
   </NakedCard>
   <SimulationCaf class="fr-mx-3v" />
   <FinancialFooter
@@ -137,7 +138,6 @@
 <script setup lang="ts">
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import SimulationCaf from '../documents/share/SimulationCaf.vue'
-import { RiAddFill, RiDeleteBinLine, RiEditLine } from '@remixicon/vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
@@ -151,7 +151,7 @@ import TenantBadge from '../common/TenantBadge.vue'
 import GuarantorBadge from '../common/GuarantorBadge.vue'
 import { toast } from '@/components/toast/toastUtils'
 import { CATEGORY_TO_PATH, STEP_TO_PATH } from '@/composables/useInternalNavigation'
-import { DsfrAlert, DsfrBadge, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import { DsfrAlert, DsfrBadge, DsfrButton, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const store = useTenantStore()
