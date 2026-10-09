@@ -15,6 +15,11 @@ on:
         type: choice
         options:
           - preprod
+          - prod
+      confirm:
+        description: I confirm a deployment to production
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -26,8 +31,6 @@ concurrency:
 
 env:
   ENVIRONMENT: ${{ inputs.environment }}
-  # Scalingo region hosting the apps of each environment
-  SCALINGO_REGION: ${{ fromJSON('{"preprod":"osc-fr1"}')[inputs.environment] }}
 
 jobs:
   resolve:
@@ -43,7 +46,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REF: ${{ inputs.ref }}
+          CONFIRM: ${{ inputs.confirm }}
         run: |
+          # The confirmation box replaces the missing "are you sure?" dialog
+          if [[ "$ENVIRONMENT" == "prod" && "$CONFIRM" != "true" ]]; then
+            echo "::error::Production deployment not confirmed: tick the confirmation box when launching the workflow"
+            exit 1
+          fi
           sha=$(gh api "repos/$GITHUB_REPOSITORY/commits/$REF" --jq .sha)
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
           echo "Deploying \`$REF\` ($sha) to **$ENVIRONMENT**" >> "$GITHUB_STEP_SUMMARY"
@@ -61,15 +70,22 @@ jobs:
       matrix:
         workspace: [tenantv3, owner, www, watermark]
         include:
-          # Scalingo app names are not derived from the workspace names
           - workspace: tenantv3
             preprod: dossierfacile-front-staging-locataire
+            prod: dossierfacile-front-prod-locataire
+            prod_region: osc-fr1
           - workspace: owner
             preprod: dossierfacile-front-staging-owner
+            prod: dossierfacile-front-prod-owner
+            prod_region: osc-secnum-fr1
           - workspace: www
             preprod: dossierfacile-front-staging-www
+            prod: dossierfacile-front-prod-www
+            prod_region: osc-fr1
           - workspace: watermark
             preprod: dossierfacile-filigrane-preprod-front
+            prod: dossierfacile-filigrane-prod-front
+            prod_region: osc-secnum-fr1
 
     steps:
       - uses: actions/checkout@v4
@@ -80,4 +96,5 @@ jobs:
           SCALINGO_API_TOKEN: ${{ secrets.SCALINGO_API_TOKEN }}
           SHA: ${{ needs.resolve.outputs.sha }}
           APP: ${{ matrix[inputs.environment] }}
+          SCALINGO_REGION: ${{ inputs.environment == 'prod' && matrix.prod_region || 'osc-fr1' }}
         run: bash .github/scripts/scalingo-deploy.sh "$APP" "$SCALINGO_REGION" "$SHA"
