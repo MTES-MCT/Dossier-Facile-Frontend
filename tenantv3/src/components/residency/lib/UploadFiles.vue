@@ -48,12 +48,15 @@ const {
   maxFileCount = 10,
   category: residencyCategory,
   step: categoryStep,
-  guarantor = false
+  guarantor = false,
+  customText
 } = defineProps<{
   category: ResidencyCategory
   step?: DocumentCategoryStep
   maxFileCount?: number
   guarantor?: boolean
+  // Explanation saved along with the files (mandatory for guarantor OTHER_RESIDENCY)
+  customText?: string
 }>()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
@@ -109,6 +112,9 @@ async function save(): Promise<boolean> {
   formData.append('typeDocumentResidency', residencyCategory)
   if (categoryStep) {
     formData.append('categoryStep', categoryStep)
+  }
+  if (customText !== undefined) {
+    formData.append('customText', UtilsService.stripNewlines(customText))
   }
   residencyState?.addData?.(formData)
 
