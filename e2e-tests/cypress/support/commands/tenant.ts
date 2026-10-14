@@ -128,6 +128,21 @@ Cypress.Commands.add("validationStep", () => {
     }
   });
   cy.contains("Soumettre mon dossier").click();
+  // Every submission lands on the dashboard. An opt-in eligible dossier gets the post-submit
+  // modal there: close it so that the scenarios never depend on the opt-in rollout
+  cy.contains("h1", "Tableau de bord").should("exist");
+  cy.closeCompletedFileModalIfPresent();
+});
+
+// Post-submit modal of an opt-in eligible dossier: close it when it is displayed so that the
+// commands that follow work whether the dossier landed in COMPLETED or in the operator queue
+Cypress.Commands.add("closeCompletedFileModalIfPresent", () => {
+  cy.get("body").then(($body) => {
+    if ($body.find("#modal-completed-file[open]").length) {
+      cy.get("#modal-completed-file .fr-btn--close").click();
+      cy.get("#modal-completed-file").should("not.have.attr", "open");
+    }
+  });
 });
 
 // First submission of an opt-in eligible dossier (ALONE, no partner link): it lands in COMPLETED
@@ -135,7 +150,9 @@ Cypress.Commands.add("validationStep", () => {
 // reaches the operator queue, like the historical submission did.
 Cypress.Commands.add("requestFileValidation", () => {
   cy.contains("Faites vérifier votre dossier").should("be.visible");
-  cy.contains("button", "Demander une vérification").click();
+  cy.get("#validation-request")
+    .contains("button", "Demander une vérification")
+    .click();
   cy.contains(
     /Votre demande de vérification est (en cours de traitement|enregistrée)/,
   ).should("be.visible");

@@ -35,6 +35,7 @@ declare namespace Cypress {
     continuePastAnalysis(): Chainable<void>;
 
     requestFileValidation(): Chainable<void>;
+    closeCompletedFileModalIfPresent(): Chainable<void>;
 
     ownerLoginWithFC(username: string, password: string): Chainable<void>;
 

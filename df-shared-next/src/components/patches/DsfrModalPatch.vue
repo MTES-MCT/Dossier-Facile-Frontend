@@ -205,7 +205,7 @@ const iconProps = computed(() => {
     "close": "close"
   },
   "fr": {
-    "close": "fermer"
+    "close": "Fermer"
   }
 }
 </i18n>

@@ -6,7 +6,11 @@
           <div class="fr-col-12">
             <h1 v-safe-html="t(`account.title.dashboard`)"></h1>
             <p v-if="isDossierCompletedOrToProcess" class="fr-h4">{{ t('account.title.completed') }}</p>
-            <ValidationRequestCallout v-if="showOptIn" class="fr-mb-3w" />
+            <ValidationRequestCallout
+              v-if="showOptIn"
+              ref="validation-request"
+              class="fr-mb-3w"
+            />
             <div v-else-if="isDenied() || user.status === 'TO_PROCESS'">
               <div class="fr-grid-row fr-grid-row--gutters">
                 <div v-if="isDenied()" class="fr-col">
@@ -72,7 +76,11 @@
                 </div>
               </div>
             </div>
-            <DefaultShareSection v-if="UtilsService.isShareableStatus(user.status)" class="fr-mb-3w" />
+            <DefaultShareSection
+              v-if="UtilsService.isShareableStatus(user.status)"
+              ref="share-section"
+              class="fr-mb-3w"
+            />
             <h2 v-safe-html="t(`account.content-title`)" class="fr-h3"></h2>
             <div class="fr-mt-3w fr-p-0w">
               <section v-if="user.applicationType !== 'ALONE'" class="fr-m-0 fr-p-0 bg-white">
@@ -169,6 +177,11 @@
         </div>
       </section>
     </div>
+    <CompletedFileModal
+      v-model:is-opened="isCompletedFileModalOpened"
+      @share="goToShareSection"
+      @request-verification="goToValidationRequest"
+    />
   </div>
 </template>
 
@@ -179,9 +192,10 @@ import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import PartnersSection from '../components/account/PartnersSection.vue'
 import DefaultShareSection from '../components/account/DefaultShareSection.vue'
 import ValidationRequestCallout from '../components/account/ValidationRequestCallout.vue'
+import CompletedFileModal from '../components/account/CompletedFileModal.vue'
 import { UtilsService } from '../services/UtilsService'
 import TenantPanel from '../components/account/TenantPanel.vue'
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, nextTick, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '../stores/tenant-store'
 import { useRouter } from 'vue-router'
 import dayjs from 'dayjs'
@@ -189,6 +203,7 @@ import { useI18n } from 'vue-i18n'
 import { useModalStore } from 'df-shared-next/src/stores/useModalStore'
 import { DsfrButton, VIcon } from '@gouvminint/vue-dsfr'
 import { useCompletedOptIn } from '@/composables/useCompletedOptIn'
+import { useCompletedFileModal } from '@/composables/useCompletedFileModal'
 import { useZipDownload } from '@/composables/useZipDownload'
 const { t } = useI18n()
 
@@ -199,7 +214,22 @@ const router = useRouter()
 const downloadZipElt = useTemplateRef('download-zip')
 const { openModal } = useModalStore('deleteAccount')
 const { showOptIn, isDossierCompletedOrToProcess } = useCompletedOptIn()
+const { isOpened: isCompletedFileModalOpened } = useCompletedFileModal()
 const { downloadZip: downloadZipArchive } = useZipDownload()
+const validationRequestCallout = useTemplateRef('validation-request')
+const shareSection = useTemplateRef('share-section')
+
+// The modal CTAs land the user on the matching dashboard block. Wait for the dialog to close
+// (it restores the focus to the previously focused element) before moving the focus ourselves
+async function goToShareSection() {
+  await nextTick()
+  shareSection.value?.focusTitle()
+}
+
+async function goToValidationRequest() {
+  await nextTick()
+  validationRequestCallout.value?.focusTitle()
+}
 
 function lastModifiedDate(): string {
   return dayjs(user.value.lastUpdateDate).format('D MMMM YYYY à HH[h]mm')

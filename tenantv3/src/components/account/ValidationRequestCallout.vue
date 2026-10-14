@@ -1,6 +1,5 @@
 <template>
-
-  <div>
+  <div id="validation-request" ref="callout-root" class="validation-request">
     <div
       class="fr-callout fr-callout-white"
       :class="isVerificationInProgress || isLotteryPending ? 'accent-purple' : 'accent-primary'"
@@ -152,6 +151,7 @@ import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch
 import { useTenantStore } from '@/stores/tenant-store'
 import { useCompletedOptIn } from '@/composables/useCompletedOptIn'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { focusAndScrollTo } from '@/services/focusUtils'
 import { toast } from '@/components/toast/toastUtils'
 
 const HELP_URL = 'https://aide.dossierfacile.logement.gouv.fr/fr/'
@@ -166,6 +166,7 @@ const {
   isSubmitting,
   submitValidationRequest
 } = useCompletedOptIn()
+const calloutRoot = useTemplateRef<HTMLElement>('callout-root')
 const calloutTitle = useTemplateRef<HTMLElement>('callout-title')
 const actionButton = useTemplateRef<HTMLButtonElement>('action-button')
 
@@ -180,6 +181,13 @@ const requestDate = computed(() =>
     ? dayjs(store.user.lastUpdateDate).format('D MMMM YYYY à HH[h]mm')
     : undefined
 )
+
+// Lets the dashboard land the user on this block (e.g. from the post-submit modal)
+function focusTitle() {
+  focusAndScrollTo(calloutTitle.value, calloutRoot.value)
+}
+
+defineExpose({ focusTitle })
 
 onMounted(() => {
   AnalyticsService.optInSectionDisplayed()
@@ -254,6 +262,10 @@ async function submit(validationRequested: boolean) {
 </script>
 
 <style scoped lang="scss">
+.validation-request {
+  scroll-margin-top: 1.5rem;
+}
+
 /* Figma 10705:10163 — padding 32px/48px, 16px between blocks, drop shadow like the other dashboard cards */
 .fr-callout {
   display: flex;

@@ -68,6 +68,7 @@
 <script setup lang="ts">
 import { toast } from '@/components/toast/toastUtils'
 import { useTenantStore } from '@/stores/tenant-store'
+import { FROM_SUBMIT } from '@/composables/useCompletedFileModal'
 import { DsfrCheckbox, DsfrCheckboxSet } from '@gouvminint/vue-dsfr'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import TextAreaWithCounter from 'df-shared-next/src/components/TextAreaWithCounter.vue'
@@ -142,7 +143,8 @@ const submit = () => {
       return store.loadUser()
     })
     .then(() => {
-      router.push('/account')
+      // Tells the dashboard the dossier was just submitted (post-submit modal)
+      router.push({ name: 'Account', query: { from: FROM_SUBMIT } })
     })
     .catch(() => {
       toast.error(t('errors.submit-failed'), submitButton.value)
