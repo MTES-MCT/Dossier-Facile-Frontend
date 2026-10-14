@@ -67,7 +67,12 @@ const residencyState = useResidencyState()
 const fileUpload = useTemplateRef('file-upload')
 const { t } = useI18n()
 
-defineExpose({ inputFile: computed(() => fileUpload.value?.inputFile) })
+defineExpose({
+  inputFile: computed(() => fileUpload.value?.inputFile),
+  // Files still listed after a failed upload, waiting to be sent again
+  hasPendingFiles: computed(() => files.value.length > 0),
+  save
+})
 
 const category = residencyState.category
 const tenantResidencyDocument = residencyState.document

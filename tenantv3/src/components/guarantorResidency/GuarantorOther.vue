@@ -9,16 +9,25 @@
     <ul class="fr-mb-0">
       <li>
         <i18n-t :keypath="textKey + '.redirect-guest'" tag="span">
-          <RouterLink :to="`${parentRoute}/guest`">{{ t('guest-option') }}</RouterLink>
+          <button type="button" class="fr-link" @click="switchTo('guest')">
+            {{ t('guest-option') }}
+          </button>
         </i18n-t>
       </li>
       <li>
         <i18n-t :keypath="textKey + '.redirect-tenant'" tag="span">
-          <RouterLink :to="`${parentRoute}/tenant`">{{ t('tenant-option') }}</RouterLink>
+          <button type="button" class="fr-link" @click="switchTo('tenant')">
+            {{ t('tenant-option') }}
+          </button>
         </i18n-t>
       </li>
     </ul>
   </DsfrAlert>
+  <ConfirmDeleteModal
+    v-model:is-opened="isModalOpened"
+    document-category="residency"
+    @confirm="confirmSwitch"
+  />
 
   <TextAreaWithCounter
     ref="custom-text"
@@ -75,8 +84,11 @@ import { UtilsService } from '@/services/UtilsService'
 import { DsfrAlert } from '@gouvminint/vue-dsfr'
 import DfButton from 'df-shared-next/src/Button/DfButton.vue'
 import TextAreaWithCounter from 'df-shared-next/src/components/TextAreaWithCounter.vue'
+import ConfirmDeleteModal from 'df-shared-next/src/components/ConfirmDeleteModal.vue'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
+const router = useRouter()
 const errorId = useId()
 const store = useTenantStore()
 const parentRoute = useParentRoute()
@@ -97,6 +109,31 @@ const showUpload = ref(
   (document.value?.files?.length || 0) > 0 || document.value?.documentStatus === 'DECLINED'
 )
 
+// Switching to another situation goes through the same confirmation as the
+// "Modifier" link: the saved document must be deleted first, otherwise the next
+// screen keeps reusing it and the situation stays OTHER_RESIDENCY
+const isModalOpened = ref(false)
+const switchTarget = ref('')
+
+function switchTo(situation: 'guest' | 'tenant') {
+  switchTarget.value = `${parentRoute.value}/${situation}`
+  if (document.value) {
+    AnalyticsService.showWarningModale(category)
+    isModalOpened.value = true
+  } else {
+    router.push(switchTarget.value)
+  }
+}
+
+async function confirmSwitch() {
+  AnalyticsService.confirmModale(category)
+  const docId = document.value?.id
+  if (docId) {
+    await store.deleteDocument(docId)
+  }
+  router.push(switchTarget.value)
+}
+
 async function validateText() {
   const result = await validate()
   if (!result.valid) {
@@ -116,6 +153,10 @@ async function showUploadZone() {
 async function submit() {
   if (!(await validateText())) {
     return false
+  }
+  // Files whose upload failed are still listed: send them again, along with the text
+  if (uploadFiles.value?.hasPendingFiles) {
+    return uploadFiles.value.save()
   }
   const formData = new FormData()
   formData.append('customText', UtilsService.stripNewlines(value.value))
