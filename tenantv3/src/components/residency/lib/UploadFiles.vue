@@ -48,12 +48,15 @@ const {
   maxFileCount = 10,
   category: residencyCategory,
   step: categoryStep,
-  guarantor = false
+  guarantor = false,
+  customText
 } = defineProps<{
   category: ResidencyCategory
   step?: DocumentCategoryStep
   maxFileCount?: number
   guarantor?: boolean
+  // Explanation saved along with the files (mandatory for guarantor OTHER_RESIDENCY)
+  customText?: string
 }>()
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
@@ -64,7 +67,12 @@ const residencyState = useResidencyState()
 const fileUpload = useTemplateRef('file-upload')
 const { t } = useI18n()
 
-defineExpose({ inputFile: computed(() => fileUpload.value?.inputFile) })
+defineExpose({
+  inputFile: computed(() => fileUpload.value?.inputFile),
+  // Files still listed after a failed upload, waiting to be sent again
+  hasPendingFiles: computed(() => files.value.length > 0),
+  save
+})
 
 const category = residencyState.category
 const tenantResidencyDocument = residencyState.document
@@ -109,6 +117,9 @@ async function save(): Promise<boolean> {
   formData.append('typeDocumentResidency', residencyCategory)
   if (categoryStep) {
     formData.append('categoryStep', categoryStep)
+  }
+  if (customText !== undefined) {
+    formData.append('customText', UtilsService.stripNewlines(customText))
   }
   residencyState?.addData?.(formData)
 
