@@ -62,12 +62,12 @@
         <div class="fr-ml-auto fr-mt-2w">
           <router-link
             :to="makeLink(doc)"
-            class="fr-btn fr-icon-delete-bin-line fr-btn--icon-right fr-btn--tertiary-no-outline"
+            class="fr-btn fr-icon-pencil-line fr-btn--icon-right fr-btn--tertiary-no-outline"
             :aria-describedby="`financial-recap-${doc.id}`"
             >{{ t('edit') }}
           </router-link>
           <DsfrButton
-            ref="delete-btn"
+            :ref="(el) => setDeleteBtnRef(doc.id, el)"
             :label="t('delete')"
             icon="fr-icon-delete-bin-line"
             icon-right
@@ -144,14 +144,7 @@ import { useI18n } from 'vue-i18n'
 import { useLoading } from 'vue-loading-overlay'
 import { STEP_LABEL, type DfDocument } from 'df-shared-next/src/models/DfDocument'
 import FinancialFooter from './lib/FinancialFooter.vue'
-import {
-  computed,
-  onMounted,
-  ref,
-  useTemplateRef,
-  type ComponentPublicInstance,
-  type ComputedRef
-} from 'vue'
+import { computed, onMounted, ref, type ComponentPublicInstance, type ComputedRef } from 'vue'
 import { useFinancialState } from '@/components/financial/financialState'
 import { useRoute, useRouter } from 'vue-router'
 import { AnalyticsService } from '@/services/AnalyticsService'
@@ -167,7 +160,24 @@ const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
-const deleteBtn = useTemplateRef<ComponentPublicInstance>('delete-btn')
+const deleteBtns = new Map<number | string, HTMLButtonElement>()
+/**
+ * Buttons are in a v-for loop so we make a Map to be able to reference them.
+ * querySelector is a fallback if DsfrButton ever changes.
+ */
+function setDeleteBtnRef(
+  id: number | string | undefined,
+  el: Element | ComponentPublicInstance | null
+) {
+  if (id === undefined) return
+  if (el) {
+    const root = (el as ComponentPublicInstance).$el as HTMLElement
+    const button = root.tagName === 'BUTTON' ? root : root.querySelector('button')
+    if (button) deleteBtns.set(id, button as HTMLButtonElement)
+  } else {
+    deleteBtns.delete(id)
+  }
+}
 const isInfoModaleVisible = ref(false)
 const isDeleteModaleVisible = ref(false)
 const deleteModaleActions: DsfrButtonProps[] = [
@@ -301,8 +311,7 @@ function deleteDoc() {
   store
     .deleteDocument(id)
     .catch(() => {
-      const index = sortedFinancialDocs.value.findIndex((d) => d.id === id)
-      toast.error(t('delete-failed'), deleteBtn.value?.$el.querySelector('button').at(index))
+      toast.error(t('delete-failed'), deleteBtns.get(id))
     })
     .finally(() => {
       loader.hide()

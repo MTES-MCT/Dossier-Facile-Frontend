@@ -7,7 +7,7 @@
       v-bind="sumAttr"
       name="monthlySum"
       class="fr-input fr-mb-2w"
-      aria-required
+      aria-required="true"
       autocomplete="off"
       inputmode="numeric"
       data-cy="monthlySum"
