@@ -1,5 +1,8 @@
 import type { Ref } from "vue"
 import { createI18n } from 'vue-i18n'
+import dayjs from 'dayjs'
+import 'dayjs/locale/en'
+import 'dayjs/locale/fr'
 
 // define available locales
 export const locales = ['fr', 'en'] as const
@@ -60,6 +63,7 @@ export function createAppI18n<T extends Record<string, any>>(
 
     document.documentElement.lang = lang
     localStorage.setItem('lang', lang)
+    dayjs.locale(lang)
   }
 
   return {

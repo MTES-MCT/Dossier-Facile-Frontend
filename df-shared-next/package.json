@@ -26,7 +26,8 @@
     "axios": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:",
-    "vue-i18n": "catalog:"
+    "vue-i18n": "catalog:",
+    "dayjs": "catalog:"
   },
   "devDependencies": {
     "@types/js-cookie": "3.0.6",

@@ -34,6 +34,7 @@ catalog:
   typescript: 5.9.2
   jsdom: 26.1.0
   "@types/jsdom": 21.1.7
+  dayjs: 1.11.13
   prettier: 3.5.3
   eslint: 9.32.0
   eslint-plugin-vue: 10.4.0
