@@ -33,6 +33,8 @@ vi.mock('vue-router', () => ({
   useRouter: () => ({ push: mockRouterPush })
 }))
 
+vi.mock('@/composables/useCompletedFileModal', () => ({ FROM_SUBMIT: 'submit' }))
+
 vi.mock('vue-loading-overlay', () => ({
   useLoading: () => ({
     show: () => ({ hide: vi.fn() })
