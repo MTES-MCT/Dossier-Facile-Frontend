@@ -72,7 +72,7 @@
                 id="authorize"
                 v-model="authorize"
                 name="authorize"
-                aria-required
+                aria-required="true"
                 :value="true"
                 :label="t('acceptAuthor')"
                 :error-message="errors[0] ? t(errors[0]) : ''"
