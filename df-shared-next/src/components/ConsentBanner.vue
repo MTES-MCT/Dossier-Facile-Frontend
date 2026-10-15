@@ -27,7 +27,7 @@ import { DsfrButtonGroup } from '@gouvminint/vue-dsfr'
 import type { ComputedRef } from 'vue'
 import { computed } from 'vue'
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
+const MAIN_URL = import.meta.env.VITE_MAIN_URL
 
 defineProps<{ show: boolean }>()
 

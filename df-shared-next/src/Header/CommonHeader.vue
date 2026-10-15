@@ -21,11 +21,10 @@ const emit = defineEmits<{ 'on-logout': [] }>()
 
 const { openModal } = useModalStore('deleteAccount')
 
-const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}/login`
-const OWNER_URL = `https://${import.meta.env.VITE_OWNER_URL}`
-const PARTNER_URL =
-  'https://partenaire.dossierfacile.logement.gouv.fr/devenir-partenaire-1/pourquoi-devenir-partenaire-dossierfacile'
-const DOCS_URL = `https://${import.meta.env.VITE_DOCS_URL}`
+const TENANT_URL = `${import.meta.env.VITE_TENANT_URL}/login`
+const OWNER_URL = import.meta.env.VITE_OWNER_URL
+const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
+const DOCS_URL = import.meta.env.VITE_DOCS_URL
 
 const logoText = ['République', 'française']
 const serviceTitle = 'Dossier Facile'

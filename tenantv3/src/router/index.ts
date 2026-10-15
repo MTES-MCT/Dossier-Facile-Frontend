@@ -15,8 +15,8 @@ import { i18n } from '@/i18n'
 import { computed } from 'vue'
 import type { DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
-const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL
+const MAIN_URL = import.meta.env.VITE_MAIN_URL
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
 
 let updateTokenInterval: number
