@@ -9,29 +9,22 @@
   >
     <div class="completed-file-modal">
       <p class="completed-file-modal__line fr-text--bold">
-        <VIcon icon="ri:check-line" class="completed-file-modal__icon" aria-hidden="true" />
+        <span class="fr-icon-check-line" aria-hidden="true" />
         <span>{{ t('all-documents') }}</span>
       </p>
       <hr class="completed-file-modal__separator" />
       <p class="completed-file-modal__line fr-text--bold">
-        <img
-          :src="sparklingIcon"
-          class="completed-file-modal__icon"
-          width="24"
-          height="24"
-          alt=""
-          aria-hidden="true"
-        />
+        <span class="fr-icon-sparkling-2-line" aria-hidden="true" />
         <span>{{ t('auto-checked') }}</span>
       </p>
       <hr class="completed-file-modal__separator" />
       <p class="completed-file-modal__line fr-text--bold">
-        <VIcon icon="ri:share-forward-line" class="completed-file-modal__icon" aria-hidden="true" />
+        <span class="fr-icon-share-forward-line" aria-hidden="true" />
         <span>{{ t('shareable') }}</span>
       </p>
       <p>{{ t('landlord-receives') }}</p>
       <hr class="completed-file-modal__separator" />
-      <ul class="fr-badges-group completed-file-modal__badges" role="list">
+      <ul class="fr-badges-group completed-file-modal__badges">
         <li>
           <span class="fr-badge fr-badge--sm fr-badge--info">{{ t('badge-todo') }}</span>
         </li>
@@ -40,7 +33,7 @@
         </li>
       </ul>
       <p class="completed-file-modal__line completed-file-modal__line--accent fr-text--bold">
-        <VIcon icon="ri:user-search-line" class="completed-file-modal__icon" aria-hidden="true" />
+        <span class="fr-icon-user-search-line" aria-hidden="true" />
         <span>{{ t('verification-title') }}</span>
       </p>
       <p>{{ t('verification-text') }}</p>
@@ -51,9 +44,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { VIcon, type DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
-import sparklingIcon from '@/assets/images/icons/sparkling.svg'
 import { AnalyticsService } from '@/services/AnalyticsService'
 
 const { t } = useI18n()
@@ -113,18 +105,12 @@ function onClosed() {
 
 .completed-file-modal__line {
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: 0.5rem;
 
   &--accent {
     color: var(--text-action-high-blue-france);
   }
-}
-
-.completed-file-modal__icon {
-  flex-shrink: 0;
-  width: 1.5rem;
-  height: 1.5rem;
 }
 
 .completed-file-modal__separator {
@@ -140,7 +126,7 @@ function onClosed() {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "title": "Your documents are submitted: what you need to know",

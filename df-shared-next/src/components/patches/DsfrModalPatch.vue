@@ -202,7 +202,7 @@ const iconProps = computed(() => {
 <i18n lang="json">
 {
   "en": {
-    "close": "close"
+    "close": "Close"
   },
   "fr": {
     "close": "Fermer"
