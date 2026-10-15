@@ -149,6 +149,7 @@
     "status": {
       "TO_PROCESS": "En cours de traitement",
       "COMPLETED": "Document déposé",
+      "FILLED": "Document déposé",
       "VALIDATED": "Vérifié",
       "DECLINED": "Modification demandée",
       "INCOMPLETE": "Non terminé",

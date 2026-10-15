@@ -24,7 +24,7 @@
               'fr-input--valid': meta.valid,
               'fr-input--error': !meta.valid
             }"
-            maxlength="2000"
+            maxlength="1000"
             rows="4"
           />
           <ErrorMessage v-slot="{ message }" name="comment">
