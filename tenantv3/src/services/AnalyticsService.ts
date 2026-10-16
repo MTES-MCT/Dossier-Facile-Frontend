@@ -244,6 +244,22 @@ export const AnalyticsService = {
     sendEvent('account', 'optin_lottery_cooldown_displayed')
   },
 
+  optInCompletedModalDisplayed() {
+    sendEvent('account', 'optin_completed_modal_displayed')
+  },
+
+  optInCompletedModalShare() {
+    sendEvent('account', 'optin_completed_modal_share')
+  },
+
+  optInCompletedModalRequestVerification() {
+    sendEvent('account', 'optin_completed_modal_request_verification')
+  },
+
+  optInCompletedModalDismissed() {
+    sendEvent('account', 'optin_completed_modal_dismissed')
+  },
+
   openSimulationCAF() {
     sendEvent('funnel', 'open-simulation_caf')
   },

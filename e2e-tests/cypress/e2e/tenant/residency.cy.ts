@@ -80,10 +80,10 @@ describe(
 
     function testGuarantorResidencyStep() {
       cy.contains("Autre").click();
-      cy.get(".dropbox").should("exist");
-      cy.contains("Vous ne pouvez pas fournir de document").click();
-      cy.clickOnNext().expectPath("/2/");
+      cy.get(".dropbox").should("not.exist");
+      cy.expectPath("/2/");
       cy.get("textarea[name=customText]").type("Test");
+      cy.contains("Ajouter un document").click();
       cy.uploadDocument(1).clickOnNext().expectPath("/3/");
       cy.contains("Retour").click();
       cy.contains("Modifier").click({ force: true });

@@ -10,7 +10,7 @@
             v-model="message"
             name="message"
             rows="1"
-            :max="2000"
+            :max="1000"
             counter-id="message-desc"
             extra-aria-described-by="message-error"
           >
@@ -68,6 +68,7 @@
 <script setup lang="ts">
 import { toast } from '@/components/toast/toastUtils'
 import { useTenantStore } from '@/stores/tenant-store'
+import { FROM_SUBMIT } from '@/composables/useCompletedFileModal'
 import { DsfrCheckbox, DsfrCheckboxSet } from '@gouvminint/vue-dsfr'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import TextAreaWithCounter from 'df-shared-next/src/components/TextAreaWithCounter.vue'
@@ -110,7 +111,7 @@ const hasToDisplayConsentDeclaration = computed(() => {
 const isMainTenant = computed(() => store.user.tenantType === 'CREATE')
 
 const isMessageValid = computed(() => {
-  if (message.value.length > 2000) {
+  if (message.value.length > 1000) {
     return false
   }
   return true
@@ -142,7 +143,8 @@ const submit = () => {
       return store.loadUser()
     })
     .then(() => {
-      router.push('/account')
+      // Tells the dashboard the dossier was just submitted (post-submit modal)
+      router.push({ name: 'Account', query: { from: FROM_SUBMIT } })
     })
     .catch(() => {
       toast.error(t('errors.submit-failed'), submitButton.value)
@@ -162,7 +164,7 @@ const submit = () => {
     "honor-declaration": "I declare on my honor the accuracy of these informations (Article 441-1 of the Penal Code: 3 years imprisonment and €45,000 fine).",
     "consent-declaration": "I declare that I have obtained the consent of the persons mentioned in my file (spouse, roommates, guarantors).",
     "send-files": "Submit my application",
-    "error-message": "Your message is over the caracter limit of 2000.",
+    "error-message": "Your message is over the character limit of 1000.",
     "error-honor": "Please certify the accuracy of these informations.",
     "error-consent": "Please confirm that you have obtained consent."
   },
@@ -173,7 +175,7 @@ const submit = () => {
     "honor-declaration": "Je déclare avoir pris connaissance de l'article 441-1 du code pénal qui punit le faux et l'usage de faux de trois ans d'emprisonnement et de 45000 euros d'amende.",
     "consent-declaration": "Je déclare avoir obtenu le consentement des personnes mentionnées dans mon dossier (conjoint, colocataires, garants).",
     "send-files": "Soumettre mon dossier",
-    "error-message": "Votre message dépasse la limite de 2000 caractères.",
+    "error-message": "Votre message dépasse la limite de 1000 caractères.",
     "error-honor": "Veuillez certifier l'exactitude de ces informations.",
     "error-consent": "Veuillez confirmer avoir obtenu le consentement."
   }

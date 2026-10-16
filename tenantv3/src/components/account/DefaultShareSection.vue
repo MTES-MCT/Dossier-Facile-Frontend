@@ -1,12 +1,12 @@
 <template>
-  <div class="default-share-section bg-white fr-p-4w">
+  <div id="share-section" ref="share-section" class="default-share-section bg-white fr-p-4w">
     <div class="link-section">
       <span
         class="fr-badge fr-badge--sm fr-mb-2w"
         :class="isUnverified ? 'fr-badge--info' : 'fr-badge--success'"
         >{{ t(isUnverified ? 'badge-completed' : 'badge-validated') }}</span
       >
-      <h2 class="fr-h4 fr-mb-2w">{{ t('title') }}</h2>
+      <h2 ref="share-title" class="fr-h4 fr-mb-2w" tabindex="-1">{{ t('title') }}</h2>
       <p class="fr-mb-2w">
         {{ t(isUnverified ? 'description-1-completed' : 'description-1') }} <strong>{{ t('description-bold-1') }}</strong> {{ t('description-2') }} <strong>{{ t('description-bold-2') }}</strong>
       </p>
@@ -95,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useId } from 'vue'
+import { ref, computed, useId, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { DsfrSelect } from '@gouvminint/vue-dsfr'
 import { 
@@ -113,9 +113,19 @@ import { toast } from '@/components/toast/toastUtils'
 import dayjs from 'dayjs'
 import { useTenantStore } from '@/stores/tenant-store'
 import { UtilsService } from '@/services/UtilsService'
+import { focusAndScrollTo } from '@/services/focusUtils'
 
 const { t } = useI18n()
 const store = useTenantStore()
+const shareSection = useTemplateRef<HTMLElement>('share-section')
+const shareTitle = useTemplateRef<HTMLElement>('share-title')
+
+// Lets the dashboard land the user on this block (e.g. from the post-submit modal)
+function focusTitle() {
+  focusAndScrollTo(shareTitle.value, shareSection.value)
+}
+
+defineExpose({ focusTitle })
 
 // TO_PROCESS and COMPLETED share the "not verified" rendering
 const isUnverified = computed(() => UtilsService.isUnverifiedStatus(store.user.status))
@@ -186,6 +196,7 @@ async function copyLink() {
 <style scoped lang="scss">
 .default-share-section {
   box-shadow: 0 2px 6px 0 rgba(0, 0, 18, 0.16);
+  scroll-margin-top: 1.5rem;
 }
 
 .form-row {

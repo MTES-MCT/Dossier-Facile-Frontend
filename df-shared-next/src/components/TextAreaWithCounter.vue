@@ -6,6 +6,7 @@
       </slot>
         (<span v-if="isRequired">{{ t('required') }}</span>
         <span v-else>{{ t('optional') }}</span>)
+      <span v-if="$slots.hint" class="fr-hint-text"><slot name="hint" /></span>
       </label>
     <textarea
       :id="textAreaID"

@@ -1,7 +1,5 @@
 <template>
-  <div v-if="icon" class="icons">
-    <component :is="icon" size="14px" aria-hidden="true" />
-  </div>
+  <component v-if="icon" class="icons" :is="icon" size="14px" aria-hidden="true" />
 </template>
 
 <script setup lang="ts">

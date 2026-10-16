@@ -1,9 +1,9 @@
 <template>
-  <div class="fr-tag" :class="getClasses()">
-    <StatusIcon v-if="status && !hideIcon" :status="status" :warn="warn"></StatusIcon>
+  <span class="fr-tag" :class="getClasses()">
+    <StatusIcon v-if="status && !hideIcon" :status="status" :warn="warn" />
     <span v-if="label" class="fr-text--xs">{{ label }}&nbsp;:&nbsp;</span>
     {{ text }}
-  </div>
+  </span>
 </template>
 
 <script setup lang="ts">
@@ -52,76 +52,58 @@ function getClasses() {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-.fr-tag.valid-menu-link {
-  background-color: #f3faf7;
-  color: #466964;
+<style scoped>
+.fr-tag {
+  --_color: var(--color, var(--primary));
+  --_bgColor: var(--bgColor, var(--bf200-bf300));
+  --_outlineColor: var(--outlineColor);
+
+  width: fit-content;
+  min-width: fit-content;
+  font-size: 0.875rem;
+
+  color: var(--_color);
+  background-color: var(--_bgColor);
+  outline: 1px solid var(--_bgColor);
+  outline-offset: -2px;
+
   &.active {
-    outline: 1px solid #466964;
-    outline-offset: -2px;
+    --bgColor: var(--background-default-grey);
+    outline-color: var(--_outlineColor, var(--_color));
   }
 }
+
+.fr-tag.valid-menu-link {
+  --bgColor: var(--green-emeraude-975-75);
+  --color: var(--green-emeraude-sun-425-moon-753);
+}
+
 .fr-tag.to-process-menu-link {
-  background-color: var(--purple-background);
-  color: var(--purple-text);
-  &.active {
-    outline: 1px solid var(--purple-text);
-    outline-offset: -2px;
-  }
+  --color: var(--text-label-purple-glycine);
+  --bgColor: var(--background-contrast-purple-glycine);
 }
 
 .fr-tag.declined-menu-link {
-  background-color: var(--warning-950-100);
-  color: var(--danger);
-  &.active {
-    outline: 1px solid var(--danger);
-    outline-offset: -2px;
-  }
-}
-
-.fr-tag.empty-menu-link {
-  background-color: var(--bf200-bf300);
-  color: var(--primary);
-  &.active {
-    background-color: var(--background-default-grey);
-    outline: 1px solid #e5e5f4;
-    outline-offset: -2px;
-  }
+  --bgColor: var(--background-contrast-error);
+  --color: var(--text-default-error);
 }
 
 .fr-tag.filled-menu-link {
-  background-color: var(--bf200-bf300);
-  color: var(--primary);
-  &.active {
-    background-color: var(--background-default-grey);
-    outline: 1px solid #e5e5f4;
-    outline-offset: -2px;
-  }
+  --bgColor: var(--bf200-bf300);
+  --color: var(--primary);
 }
 
 .fr-tag.completed-menu-link {
-  background-color: var(--background-contrast-info);
-  color: var(--text-default-info);
-  &.active {
-    outline: 1px solid var(--text-default-info);
-    outline-offset: -2px;
-  }
+  --bgColor: var(--background-contrast-info);
+  --color: var(--text-default-info);
+  --outlineColor: var(--text-default-info);
 }
 
 .fr-tag.grey {
-  background-color: #eeeeee;
-  color: #929292;
+  --bgColor: #eeeeee;
+  --color: #929292;
   &.active {
-    background-color: #eeeeee;
-    color: #161616;
+    --color: #161616;
   }
-}
-
-.fr-tag {
-  width: fit-content;
-  min-width: fit-content;
-  color: var(--g800-plain);
-  font-size: 14px;
 }
 </style>

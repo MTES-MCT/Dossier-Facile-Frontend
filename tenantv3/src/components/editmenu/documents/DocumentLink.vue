@@ -1,6 +1,7 @@
 <template>
   <router-link :to="to">
-    <ColoredTag :text="text" :status="status" :active="active"></ColoredTag>
+    <ColoredTag :text="text" :status="status" :active="active" />
+    <span class="visually-hidden">{{ statusText }}</span>
   </router-link>
 </template>
 
@@ -46,6 +47,7 @@ const componentsPerType: { [type in PersonType]: string } = {
 }
 
 const text = computed(() => t(DocumentTypeTranslations[props.documentType]))
+const statusText = computed(() => t(`documents.status.${props.status}`))
 
 function getTargetComponent() {
   if (props.personType === PersonType.TENANT) {
@@ -88,7 +90,7 @@ const to = computed(() => {
 })
 </script>
 
-<style scoped lang="css">
+<style scoped>
 [href] {
   box-shadow: none;
   background-image: none;

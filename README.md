@@ -57,16 +57,9 @@ Démarrez les applications locales, ainsi que les API backend correspondantes, p
 
 ## Contexte pour les agents de code (`AGENTS.md`)
 
-L'équipe a retenu une approche agnostique de l'agent IA utilisé : les fichiers [`AGENTS.md`](AGENTS.md), conformes au [standard ouvert `AGENTS.md`](https://agents.md). On y décrit la stack, les packages et les sujets transverses (i18n, accessibilité, tests). La plupart des assistants de code IA savent le lire nativement, sans configuration supplémentaire.
+[`AGENTS.md`](AGENTS.md) présente aux agents de code la stack technique, les packages et les consignes relatives à l'internationalisation, à l'accessibilité et aux tests, conformément au [standard ouvert `AGENTS.md`](https://agents.md/).
 
-### Cas particuliers
-
-| Outil                       | Particularité              | À faire dans ce repo                                                                                                                                                |
-| --------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Claude Code** (Anthropic) | Format natif : `CLAUDE.md` | Créer un lien symbolique vers le même contenu : `ln -s AGENTS.md CLAUDE.md` (à la racine). Autre option : importer le fichier depuis `CLAUDE.md` avec `@AGENTS.md`. |
-| **Gemini CLI** (Google)     | Format natif : `GEMINI.md` | Pointer vers `AGENTS.md` dans `.gemini/settings.json` : `{"contextFileName": "AGENTS.md"}`.                                                                         |
-
-Pour ne pas avoir à maintenir plusieurs versions en parallèle, `AGENTS.md` reste **l'unique référence** : `CLAUDE.md` et `GEMINI.md` ne sont ajoutés que par lien symbolique ou import, selon l'outil utilisé dans l'équipe.
+Conservez `AGENTS.md` comme unique référence pour les instructions destinées aux agents de code.
 
 ## Contributions
 
