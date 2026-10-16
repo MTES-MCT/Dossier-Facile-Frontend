@@ -6,7 +6,7 @@ import HeaderComponent from 'df-shared-next/src/Header/HeaderComponent.vue'
 import WwwMenu from './components/WwwMenu.vue'
 import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, useTemplateRef } from 'vue'
 import cookies from 'js-cookie'
 import { useHead } from '@unhead/vue'
 import useWWWStore from './stores/www-store'
@@ -19,6 +19,8 @@ const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
 const links: DsfrSkipLinksProps = {
   links: [MAIN_NAV, CONTENT]
 }
+
+const mainElement = useTemplateRef<HTMLElement>('main')
 
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
@@ -49,8 +51,8 @@ useHead({
     <WwwMenu />
   </HeaderComponent>
   <div id="content">
-    <Announcement :message="MESSAGE" />
-    <main class="page" role="main">
+    <Announcement :message="MESSAGE" :to-focus="mainElement" />
+    <main ref="main" class="page" role="main" tabindex="-1">
       <RouterView />
       <FollowSocials />
     </main>
