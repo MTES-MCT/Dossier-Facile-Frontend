@@ -22,6 +22,8 @@ export class User {
   validationRequested?: boolean
   /** Whether the validation question must be displayed on the dashboard */
   optInEligible?: boolean
+  // POC: computed by the API (feature flag, FranceConnect, ALONE application)
+  mesriStudentEligible?: boolean
   lotteryStatus?: 'PENDING' | 'DRAWN' | 'COOLDOWN'
   /** Only set with lotteryStatus COOLDOWN (ISO date) */
   nextEligibleDate?: string
