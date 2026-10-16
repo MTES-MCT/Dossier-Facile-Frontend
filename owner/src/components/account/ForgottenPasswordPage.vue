@@ -7,7 +7,6 @@ import ForgottenPassword from 'df-shared-next/src/Authentification/ForgottenPass
 import useOwnerStore from '../../store/owner-store'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 const { t } = useI18n()
 const store = useOwnerStore()
 const toast = useToast()

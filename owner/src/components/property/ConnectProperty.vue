@@ -90,7 +90,7 @@ onMounted(() => {
   }
 })
 
-const TENANT_URL = `${import.meta.env.VITE_FULL_TENANT_URL}`
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const p = computed(() => store.getPropertyToConsult)
 
 function onSubmit() {

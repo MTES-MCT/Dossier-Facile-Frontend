@@ -23,7 +23,7 @@ import { useI18n } from 'vue-i18n'
 import OwnerMenu from './OwnerMenu.vue'
 import useOwnerStore from '@/store/owner-store'
 
-const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 
 const { t } = useI18n({ useScope: 'local' })
 const store = useOwnerStore()

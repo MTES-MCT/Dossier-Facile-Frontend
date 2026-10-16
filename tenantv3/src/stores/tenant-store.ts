@@ -34,8 +34,7 @@ import { MessageService } from '@/services/MessageService'
 import { RegisterService } from '@/services/RegisterService'
 import * as Sentry from '@sentry/vue'
 import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
-
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
+const MAIN_URL = import.meta.env.VITE_MAIN_URL
 const LOGOUT_REDIRECT_URL = import.meta.env.VITE_LOGOUT_REDIRECT_URL
 
 interface State {
