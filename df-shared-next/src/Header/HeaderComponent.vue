@@ -140,8 +140,7 @@ const { t } = useI18n()
 const MAIN_URL = import.meta.env.VITE_MAIN_URL
 const TENANT_URL = `${import.meta.env.VITE_TENANT_URL}/login`
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
-const PARTNER_URL =
-  'https://partenaire.dossierfacile.logement.gouv.fr/devenir-partenaire-1/pourquoi-devenir-partenaire-dossierfacile'
+const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
 
 withDefaults(defineProps<{ loggedIn?: boolean }>(), { loggedIn: false })
 

@@ -1153,7 +1153,7 @@ async function handleProtectedRoute(to: RouteLocationNormalized): Promise<boolea
     if (!keycloak.profile?.emailVerified) {
       // email should be validated before access to the protected page.
       keycloak.logout({
-        redirectUri: 'https:' + MAIN_URL + '/#emailNotValidated'
+        redirectUri: `${MAIN_URL}/#emailNotValidated`
       })
       return false
     } else {
