@@ -11,6 +11,7 @@
           :disabled="isSaving"
           class="input-file"
           accept="image/png, image/jpeg, image/heic, application/pdf"
+          aria-describedby="upload-desc"
           @click="onFileInputClick"
           @change="filesChange"
         />
@@ -19,16 +20,16 @@
         </div>
         <div v-else>
           <p class="fr-mb-3v">{{ t('fileupload.drag-and-drop-files') }}</p>
-          <p class="text-small text-grey fr-mb-3v">
+          <p id="upload-desc" class="text-small text-grey fr-mb-3v">
             {{ t('fileupload.files-format') }}<br />
             {{ sizeLimit }}<br v-if="sizeLimit" />
             {{ pagesLimit }}
           </p>
           <p class="fr-mb-1w">
             {{ t('fileupload.browse-files') }}
-            <label for="file" class="label-btn">
+            <span class="label-btn">
               {{ t('fileupload.browse') }}
-            </label>
+            </span>
           </p>
           <p v-if="errorMessage" class="fr-error-text fr-mb-0" role="alert">
             {{ errorMessage }}
@@ -102,7 +103,7 @@ function filesChange(e: Event) {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .dropbox {
   border: 1px solid var(--border-default-grey);
   padding: 1rem;

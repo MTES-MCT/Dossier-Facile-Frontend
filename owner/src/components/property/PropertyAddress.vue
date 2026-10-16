@@ -137,7 +137,7 @@ function clickItem(data: Address) {
           </div>
         </div>
         <ErrorMessage v-slot="{ message }" name="address">
-          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
         </ErrorMessage>
       </div>
     </NakedCard>

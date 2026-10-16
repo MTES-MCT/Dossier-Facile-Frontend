@@ -175,35 +175,24 @@
           </router-link>
         </div>
         <div class="fr-grid-row">
-          <div class="col fr-p-2w">
-            <figure class="fr-quote fr-quote--column">
-              <blockquote>
-                <p>{{ t('s4.t1') }}</p>
-              </blockquote>
-              <figcaption>
-                <p class="fr-quote__author">{{ t('s4.author1') }}</p>
-              </figcaption>
-            </figure>
+          <!-- not using DsfrQuote because of https://adrianroselli.com/2023/07/blockquotes-in-screen-readers.html#Verdict -->
+          <div class="fr-quote fr-quote--column col fr-p-2w">
+            <blockquote>
+              <p>{{ t('s4.t1') }}</p>
+            </blockquote>
+            <p class="fr-quote__author">{{ t('s4.author1') }}</p>
           </div>
-          <div class="col fr-p-2w">
-            <figure class="fr-quote fr-quote--column">
-              <blockquote>
-                <p>{{ t('s4.t2') }}</p>
-              </blockquote>
-              <figcaption>
-                <p class="fr-quote__author">{{ t('s4.author2') }}</p>
-              </figcaption>
-            </figure>
+          <div class="fr-quote fr-quote--column col fr-p-2w">
+            <blockquote>
+              <p>{{ t('s4.t2') }}</p>
+            </blockquote>
+            <p class="fr-quote__author">{{ t('s4.author2') }}</p>
           </div>
-          <div class="col fr-p-2w">
-            <figure class="fr-quote fr-quote--column">
-              <blockquote>
-                <p>{{ t('s4.t3') }}</p>
-              </blockquote>
-              <figcaption>
-                <p class="fr-quote__author">{{ t('s4.author3') }}</p>
-              </figcaption>
-            </figure>
+          <div class="fr-quote fr-quote--column col fr-p-2w">
+            <blockquote>
+              <p>{{ t('s4.t3') }}</p>
+            </blockquote>
+            <p class="fr-quote__author">{{ t('s4.author3') }}</p>
           </div>
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
