@@ -16,7 +16,14 @@
               <td class="title-cell">
                 <div v-if="!isEditingTitle" class="title-display">
                   <span>{{ link.title }}</span>
-                  <button type="button" class="link-button blue-text" :title="t('update-title')" @click="startEditingTitle">{{ t('update') }} <RiPencilLine aria-hidden="true" size="1em" /></button>
+                  <button
+                    type="button"
+                    class="link-button blue-text"
+                    :title="t('update-title')"
+                    @click="startEditingTitle"
+                  >
+                    {{ t('update') }} <RiPencilLine aria-hidden="true" size="1em" />
+                  </button>
                 </div>
                 <div v-else class="title-edit">
                   <input
@@ -27,8 +34,20 @@
                     @keyup.escape="cancelEditingTitle"
                   />
                   <div class="title-edit-buttons">
-                    <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" @click="saveTitle">{{ t('validate') }}</button>
-                    <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" @click="cancelEditingTitle">{{ t('cancel') }}</button>
+                    <button
+                      type="button"
+                      class="fr-btn fr-btn--tertiary fr-btn--sm"
+                      @click="saveTitle"
+                    >
+                      {{ t('validate') }}
+                    </button>
+                    <button
+                      type="button"
+                      class="fr-btn fr-btn--tertiary fr-btn--sm"
+                      @click="cancelEditingTitle"
+                    >
+                      {{ t('cancel') }}
+                    </button>
                   </div>
                 </div>
               </td>
@@ -42,7 +61,13 @@
               <td class="expiration-cell">
                 <template v-if="!isEditingExpiration">
                   {{ formatDate(link.expirationDate) }}
-                  <button type="button" class="link-button blue-text" @click="isEditingExpiration = true">{{ t('update') }} <RiPencilLine aria-hidden="true" size="1em" /></button>
+                  <button
+                    type="button"
+                    class="link-button blue-text"
+                    @click="isEditingExpiration = true"
+                  >
+                    {{ t('update') }} <RiPencilLine aria-hidden="true" size="1em" />
+                  </button>
                 </template>
                 <VueDatePicker
                   v-else
@@ -51,6 +76,7 @@
                   :enable-time-picker="false"
                   :clearable="false"
                   model-type="yyyy-MM-dd"
+                  :week-start="WeekStart.Monday"
                   auto-apply
                   :teleport="true"
                   @update:model-value="updateExpirationDate"
@@ -60,7 +86,14 @@
                     <div class="dp-custom-input">
                       <RiCalendarLine aria-hidden="true" size="16px" />
                       <span>{{ formatDatePicker(value) }}</span>
-                      <button type="button" class="dp-custom-input__close" aria-label="Fermer" @click.stop="isEditingExpiration = false">×</button>
+                      <button
+                        type="button"
+                        class="dp-custom-input__close"
+                        aria-label="Fermer"
+                        @click.stop="isEditingExpiration = false"
+                      >
+                        ×
+                      </button>
                     </div>
                   </template>
                 </VueDatePicker>
@@ -146,7 +179,9 @@
             <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
           </button>
           <p class="fr-text-mention--grey fr-text--sm fr-mb-0">
-            {{ t('last-sent', { date: formatDateTime(link.lastMailSentDate || link.creationDate) }) }}
+            {{
+              t('last-sent', { date: formatDateTime(link.lastMailSentDate || link.creationDate) })
+            }}
           </p>
         </div>
       </div>
@@ -158,7 +193,13 @@
 import dayjs from 'dayjs'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import LinkWarning from './LinkWarning.vue'
-import { RiPauseCircleLine, RiCalendarLine, RiPencilLine, RiFileCopyLine, RiSendPlaneLine } from '@remixicon/vue'
+import {
+  RiPauseCircleLine,
+  RiCalendarLine,
+  RiPencilLine,
+  RiFileCopyLine,
+  RiSendPlaneLine
+} from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
@@ -166,7 +207,7 @@ import { useResendMail } from '@/composables/useResendMail'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
 import { ref, computed } from 'vue'
-import { VueDatePicker } from '@vuepic/vue-datepicker'
+import { VueDatePicker, WeekStart } from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
 const { link } = defineProps<{ link: ApartmentSharingLink }>()
@@ -301,7 +342,8 @@ async function saveTitle() {
     th {
       font-weight: normal;
     }
-    td, th + td {
+    td,
+    th + td {
       flex: 1;
       text-align: right;
     }
@@ -359,7 +401,7 @@ h3 {
   justify-content: flex-end;
   gap: 0.5rem;
 }
-.expiration-cell :deep(.dp__main) {
+.expiration-cell :deep(.dp--main) {
   width: auto;
 }
 .expiration-cell :deep(.dp--clear-btn) {

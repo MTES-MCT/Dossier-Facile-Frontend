@@ -24,7 +24,7 @@
     "@sentry/vite-plugin": "catalog:",
     "@sentry/vue": "catalog:",
     "@types/js-cookie": "3.0.6",
-    "@vuepic/vue-datepicker": "12.0.5",
+    "@vuepic/vue-datepicker": "14.0.0",
     "axios": "catalog:",
     "dayjs": "1.11.23",
     "df-shared-next": "workspace:*",
