@@ -165,11 +165,11 @@ settings:
 catalogs:
   default:
     '@gouvfr/dsfr':
-      specifier: 1.14.3
-      version: 1.14.3
+      specifier: 1.15.4
+      version: 1.15.4
     '@gouvminint/vue-dsfr':
-      specifier: 8.13.1
-      version: 8.13.1
+      specifier: 8.20.0
+      version: 8.20.0
     '@intlify/unplugin-vue-i18n':
       specifier: 11.2.6
       version: 11.2.6
@@ -310,10 +310,10 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.14.3
+        version: 1.15.4
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
-        version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.44(typescript@5.9.2)))(vue-router@4.6.4(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
+        version: 8.20.0(@iconify/vue@5.0.3(vue@3.5.44(typescript@5.9.2)))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.4.0
         version: 4.4.0(vue@3.5.44(typescript@5.9.2))
@@ -432,10 +432,10 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.14.3
+        version: 1.15.4
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
-        version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.44(typescript@5.9.2)))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
+        version: 8.20.0(@iconify/vue@5.0.3(vue@3.5.44(typescript@5.9.2)))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.6.0
         version: 4.6.0(vue@3.5.44(typescript@5.9.2))
@@ -529,7 +529,7 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.14.3
+        version: 1.15.4
       df-shared-next:
         specifier: workspace:*
         version: link:../df-shared-next
@@ -605,10 +605,10 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.14.3
+        version: 1.15.4
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
-        version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.44(typescript@5.9.2)))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
+        version: 8.20.0(@iconify/vue@5.0.3(vue@3.5.44(typescript@5.9.2)))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
       '@remixicon/vue':
         specifier: 4.9.0
         version: 4.9.0(vue@3.5.44(typescript@5.9.2))
@@ -753,7 +753,7 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.14.3
+        version: 1.15.4
       '@sentry/tracing':
         specifier: 7.120.4
         version: 7.120.4
@@ -811,10 +811,10 @@ importers:
     dependencies:
       '@gouvfr/dsfr':
         specifier: 'catalog:'
-        version: 1.14.3
+        version: 1.15.4
       '@gouvminint/vue-dsfr':
         specifier: 'catalog:'
-        version: 8.13.1(@iconify/vue@4.3.0(vue@3.5.44(typescript@5.9.2)))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
+        version: 8.20.0(@iconify/vue@5.0.3(vue@3.5.44(typescript@5.9.2)))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
       '@sentry/vite-plugin':
         specifier: 'catalog:'
         version: 11.8.0(@babel/core@7.29.6(supports-color@8.1.1))(rollup@4.59.0)
@@ -1917,18 +1917,22 @@ packages:
   '@floating-ui/vue@1.1.11':
     resolution: {integrity: sha512-HzHKCNVxnGS35r9fCHBc3+uCnjw9IWIlCPL683cGgM9Kgj2BiAl8x1mS7vtvP6F9S/e/q4O6MApwSHj8hNLGfw==}
 
-  '@gouvfr/dsfr@1.14.3':
-    resolution: {integrity: sha512-UTplClQLp635J4vRHx/rJ7SKEi+bepc1FisvzTS8efQGQ3Gm8LttZf11NJ+4XhEMYLbCf8TBvFFwWBZ9ztRFkg==}
+  '@gouvfr/dsfr@1.14.4':
+    resolution: {integrity: sha512-Ca17apmTyAF2tMFwMcLwQN7fTlbfMFeyYSLUIUmjoSg1XVF4vDDkbvvKBpWJWaoTLDSFZBbvvHzcDyxw9wSkLA==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
 
-  '@gouvminint/vue-dsfr@8.13.1':
-    resolution: {integrity: sha512-BejnuRuFrEfVbl+hUweOk8k5lUhFRCNf4OPR7qTKLHSvvbAZehCvciBpu92GYrv9nuVW61AtPgbqjY/9CqGCNQ==}
-    engines: {node: '>=22.0.0', pnpm: '>=10.0.0'}
+  '@gouvfr/dsfr@1.15.4':
+    resolution: {integrity: sha512-Yu+4TuR7wBI7bBuPMNH4fstwmMweve+lJhopLkPZJ7i4pygjEtzfq4zaniibH5QNd+xjTWb/fEJiqe8nmYqcxg==}
+    engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
+
+  '@gouvminint/vue-dsfr@8.20.0':
+    resolution: {integrity: sha512-4tEdh+nMrRIAKvG0DIEoPT+MYi2fPZLNux79PlG6OVZdHDxru25GkiYZvP/FO5uuJGPKzW8etl/G6HVa7TfV8g==}
+    engines: {node: ^24.15.0 || >=26.0.0, pnpm: '>=10.0.0'}
     hasBin: true
     peerDependencies:
-      '@iconify/vue': ^4.2.0
-      vue: ^3.5.13
-      vue-router: ^4.5.0
+      '@iconify/vue': ^5.0.0
+      vue: ^3.5.27
+      vue-router: ^5.0.3
 
   '@hapi/address@5.1.1':
     resolution: {integrity: sha512-A+po2d/dVoY7cYajycYI43ZbYMXukuopIsqCjh5QzsBCipDtdofHntljDlpccMjIfTy6UOkg+5KPriwYch2bXA==}
@@ -1969,10 +1973,10 @@ packages:
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
-  '@iconify/vue@4.3.0':
-    resolution: {integrity: sha512-Xq0h6zMrHBbrW8jXJ9fISi+x8oDQllg5hTDkDuxnWiskJ63rpJu9CvJshj8VniHVTbsxCg9fVoPAaNp3RQI5OQ==}
+  '@iconify/vue@5.0.3':
+    resolution: {integrity: sha512-e9x6QZe2/HyeHUog0jzZJSZts7m/YntPYp/p4OqtZEXpHznxWnQpcX30YpuaUH43h69l3YeR1FCJ8V1t3qd7qA==}
     peerDependencies:
-      vue: '>=3'
+      vue: '>=3.0.0'
 
   '@intlify/bundle-utils@11.2.6':
     resolution: {integrity: sha512-ml1L5egqw91DgDUl8VKhvTgJ+Z00gU9gqcTL2pBrNq5Orr8SpldDjgSyCIlzqDRIvgH3OoMDDEDgHuEq2xKHZQ==}
@@ -4210,8 +4214,8 @@ packages:
       focus-trap: ^7.0.0
       vue: ^3.0.0
 
-  focus-trap@7.6.6:
-    resolution: {integrity: sha512-v/Z8bvMCajtx4mEXmOo7QEsIzlIOqRXTIwgUfsFOF9gEsespdbD0AkPIka1bSXZ8Y8oZ+2IVDQZePkTfEHZl7Q==}
+  focus-trap@8.2.3:
+    resolution: {integrity: sha512-LTNHZwcFM7bSdU1cG1ExoaTEzoGmdjw+EzDotolZmLTCbm0ll2k6J3NL+WfqP14nGLxAp+XDJgwlT2DtNhcukA==}
 
   follow-redirects@1.16.0:
     resolution: {integrity: sha512-y5rN/uOsadFT/JfYwhxRS5R7Qce+g3zG97+JrtFZlC9klX/W5hD7iiLzScI4nZqUS7DNUdhPgw4xI8W2LuXlUw==}
@@ -5657,8 +5661,8 @@ packages:
     os: [darwin, linux, win32, freebsd, openbsd, netbsd, sunos, android]
     hasBin: true
 
-  tabbable@6.3.0:
-    resolution: {integrity: sha512-EIHvdY5bPLuWForiR/AN2Bxngzpuwn1is4asboytXtpTgsArc+WmSJKVLlhdh71u7jFcryDqB2A8lQvj78MkyQ==}
+  tabbable@6.5.0:
+    resolution: {integrity: sha512-wieBHXygIm7OyQOu5hQlkk62/WyCFYGlWg7L6/ZCUZwx0o398Zkn4pVmMyfYhfMG8kGrj/Krt8eIk6UKC6VzwA==}
 
   temp-dir@2.0.0:
     resolution: {integrity: sha512-aoBAniQmmwtcKp/7BzsH8Cxzv8OL736p7v1ihGb5e9DJ9kTwGWHrQrVB5+lfVDzfGrdRzXch+ig7LHaY1JTOrg==}
@@ -6150,11 +6154,6 @@ packages:
     resolution: {integrity: sha512-hBtlTsqkAg93s8erZUCeVSFAqqfBtsLzpmS9NAiWOGQ5ZZa0FksGNgzSI79cvGJBkYqGPpNqIlazbImZnb/2wA==}
     peerDependencies:
       vue: ^3.3.0
-
-  vue-router@4.6.4:
-    resolution: {integrity: sha512-Hz9q5sa33Yhduglwz6g9skT8OBPii+4bFn88w6J+J4MfEo4KRRpmiNG/hHHkdbRFlLBOqxN8y8gf2Fb0MTUgVg==}
-    peerDependencies:
-      vue: ^3.5.0
 
   vue-router@5.4.0:
     resolution: {integrity: sha512-pFvcYcxinDHjZUlf7AzFBrT8r8Xqvv4uMHoJnjc+EqPawXQvHTkF8S4tfSmQLpriVHUGfkaKlI7Et0KRjTMTdw==}
@@ -7394,23 +7393,16 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@gouvfr/dsfr@1.14.3': {}
+  '@gouvfr/dsfr@1.14.4': {}
 
-  '@gouvminint/vue-dsfr@8.13.1(@iconify/vue@4.3.0(vue@3.5.44(typescript@5.9.2)))(vue-router@4.6.4(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))':
-    dependencies:
-      '@gouvfr/dsfr': 1.14.3
-      '@iconify/vue': 4.3.0(vue@3.5.44(typescript@5.9.2))
-      focus-trap: 7.6.6
-      focus-trap-vue: 4.1.0(focus-trap@7.6.6)(vue@3.5.44(typescript@5.9.2))
-      vue: 3.5.44(typescript@5.9.2)
-      vue-router: 4.6.4(vue@3.5.44(typescript@5.9.2))
+  '@gouvfr/dsfr@1.15.4': {}
 
-  '@gouvminint/vue-dsfr@8.13.1(@iconify/vue@4.3.0(vue@3.5.44(typescript@5.9.2)))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))':
+  '@gouvminint/vue-dsfr@8.20.0(@iconify/vue@5.0.3(vue@3.5.44(typescript@5.9.2)))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))':
     dependencies:
-      '@gouvfr/dsfr': 1.14.3
-      '@iconify/vue': 4.3.0(vue@3.5.44(typescript@5.9.2))
-      focus-trap: 7.6.6
-      focus-trap-vue: 4.1.0(focus-trap@7.6.6)(vue@3.5.44(typescript@5.9.2))
+      '@gouvfr/dsfr': 1.14.4
+      '@iconify/vue': 5.0.3(vue@3.5.44(typescript@5.9.2))
+      focus-trap: 8.2.3
+      focus-trap-vue: 4.1.0(focus-trap@8.2.3)(vue@3.5.44(typescript@5.9.2))
       vue: 3.5.44(typescript@5.9.2)
       vue-router: 5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2))
 
@@ -7443,7 +7435,7 @@ snapshots:
 
   '@iconify/types@2.0.0': {}
 
-  '@iconify/vue@4.3.0(vue@3.5.44(typescript@5.9.2))':
+  '@iconify/vue@5.0.3(vue@3.5.44(typescript@5.9.2))':
     dependencies:
       '@iconify/types': 2.0.0
       vue: 3.5.44(typescript@5.9.2)
@@ -9790,14 +9782,14 @@ snapshots:
 
   flatted@3.4.4: {}
 
-  focus-trap-vue@4.1.0(focus-trap@7.6.6)(vue@3.5.44(typescript@5.9.2)):
+  focus-trap-vue@4.1.0(focus-trap@8.2.3)(vue@3.5.44(typescript@5.9.2)):
     dependencies:
-      focus-trap: 7.6.6
+      focus-trap: 8.2.3
       vue: 3.5.44(typescript@5.9.2)
 
-  focus-trap@7.6.6:
+  focus-trap@8.2.3:
     dependencies:
-      tabbable: 6.3.0
+      tabbable: 6.5.0
 
   follow-redirects@1.16.0(debug@4.4.3(supports-color@8.1.1)):
     optionalDependencies:
@@ -11340,7 +11332,7 @@ snapshots:
 
   systeminformation@5.31.6: {}
 
-  tabbable@6.3.0: {}
+  tabbable@6.5.0: {}
 
   temp-dir@2.0.0: {}
 
@@ -11789,11 +11781,6 @@ snapshots:
   vue-pdf-embed@2.1.7(vue@3.5.44(typescript@5.9.2)):
     dependencies:
       pdfjs-dist: 6.4.299
-      vue: 3.5.44(typescript@5.9.2)
-
-  vue-router@4.6.4(vue@3.5.44(typescript@5.9.2)):
-    dependencies:
-      '@vue/devtools-api': 6.6.4
       vue: 3.5.44(typescript@5.9.2)
 
   vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)):
