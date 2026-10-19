@@ -20,7 +20,7 @@ allowBuilds:
 
 catalog:
   # dependencies
-  axios: 1.18.1
+  axios: 1.20.0
   "@gouvfr/dsfr": 1.14.3
   "@sentry/vue": 10.63.0
   "@sentry/vite-plugin": 5.3.0
@@ -28,7 +28,7 @@ catalog:
   vee-validate: 4.15.1
   "@vee-validate/rules": 4.15.1
   "@vee-validate/i18n": 4.15.1
-  vue: 3.5.18
+  vue: 3.5.44
   vue-i18n: 11.1.11
   vue-router: 4.5.1
   dompurify: 3.4.13
@@ -37,29 +37,29 @@ catalog:
   sass: 1.99.0
   vite: 7.3.0
   vitest: 4.0.16
-  vue-tsc: 3.0.4
+  vue-tsc: 3.3.13
   typescript: 5.9.2
   jsdom: 26.1.0
   "@types/jsdom": 21.1.7
-  prettier: 3.5.3
+  prettier: 3.9.10
   eslint: 9.32.0
-  eslint-plugin-vue: 10.4.0
-  jiti: 2.4.2
+  eslint-plugin-vue: 10.11.1
+  jiti: 2.7.0
   npm-run-all2: 8.0.4
-  "@vue/tsconfig": 0.7.0
+  "@vue/tsconfig": 0.9.1
   "@tsconfig/node18": 18.2.4
   "@vitejs/plugin-vue": 6.0.3
   "@types/node": 24.1.0
-  "@vitest/eslint-plugin": 1.5.2
+  "@vitest/eslint-plugin": 1.6.27
   "@vue/eslint-config-prettier": 10.2.0
-  "@vue/eslint-config-typescript": 14.6.0
-  "@vue/test-utils": 2.4.6
+  "@vue/eslint-config-typescript": 14.9.0
+  "@vue/test-utils": 2.5.1
   "@gouvminint/vue-dsfr": 8.13.1
-  "lightningcss": "1.32.0"
-  "browserslist": "4.28.1"
+  "lightningcss": 1.33.0
+  "browserslist": 4.29.3
   "rollup": "4.53.5"
-  "rollup-plugin-visualizer": "7.0.1"
-  "vite-plugin-purgecss-updated-v5": "1.2.6"
+  "rollup-plugin-visualizer": 7.1.1
+  "vite-plugin-purgecss-updated-v5": 1.3.0
 
 overrides:
   glob: 13.0.0
