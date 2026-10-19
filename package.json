@@ -18,33 +18,8 @@
     "url": "git@github.com:MTES-MCT/Dossier-Facile-Frontend.git"
   },
   "engines": {
-    "node": "22.x",
-    "pnpm": "^10.26.0"
+    "node": "24.x",
+    "pnpm": "^12.x"
   },
-  "packageManager": "pnpm@10.26.0",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "cypress",
-      "@parcel/watcher",
-      "@sentry/cli",
-      "esbuild"
-    ],
-    "overrides": {
-      "glob": "13.0.0",
-      "systeminformation": "5.31.6",
-      "js-yaml": "4.1.1",
-      "follow-redirects": "1.16.0",
-      "picomatch": "2.3.2",
-      "postcss": "8.5.13",
-      "@isaacs/brace-expansion": "5.0.1",
-      "brace-expansion": "5.0.7",
-      "minimatch": "10.2.3",
-      "rollup": "4.59.0",
-      "uuid": "14.0.0",
-      "@cypress/request>uuid": "8.3.2",
-      "@babel/core": "7.29.6",
-      "form-data": "4.0.6",
-      "tmp": "0.2.7"
-    }
-  }
+  "packageManager": "pnpm@12.14.0+sha512.c18ba6d87993d3d164cb5e8948f32b2c06ee854487e06cd8d86781342fb3e5bb4634367034711e86802baa9c37bea906ce1929ad08d70884c97d801df13389a6"
 }
