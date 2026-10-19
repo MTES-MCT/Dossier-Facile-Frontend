@@ -30,7 +30,7 @@
     "vue": "catalog:",
     "vue-i18n": "catalog:",
     "vue-router": "catalog:",
-    "vue3-toastify": "0.2.8"
+    "vue3-toastify": "0.2.9"
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",
@@ -59,7 +59,7 @@
     "vite": "catalog:",
     "vite-plugin-purgecss-updated-v5": "catalog:",
     "vite-ssg": "28.3.0",
-    "vite-ssg-sitemap": "0.9.0",
+    "vite-ssg-sitemap": "0.10.0",
     "vitest": "catalog:",
     "vue-router": "catalog:",
     "vue-tsc": "catalog:"

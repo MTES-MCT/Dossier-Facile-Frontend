@@ -849,8 +849,8 @@ importers:
         specifier: 'catalog:'
         version: 5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2))
       vue3-toastify:
-        specifier: 0.2.8
-        version: 0.2.8(vue@3.5.44(typescript@5.9.2))
+        specifier: 0.2.9
+        version: 0.2.9(vue@3.5.44(typescript@5.9.2))
     devDependencies:
       '@intlify/unplugin-vue-i18n':
         specifier: 'catalog:'
@@ -931,8 +931,8 @@ importers:
         specifier: 28.3.0
         version: 28.3.0(prettier@3.9.10)(supports-color@8.1.1)(unhead@2.1.13)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
       vite-ssg-sitemap:
-        specifier: 0.9.0
-        version: 0.9.0
+        specifier: 0.10.0
+        version: 0.10.0
       vitest:
         specifier: 'catalog:'
         version: 5.0.5(@types/node@26.6.5)(jsdom@30.1.3)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))
@@ -5989,8 +5989,8 @@ packages:
       '@vite-pwa/assets-generator':
         optional: true
 
-  vite-ssg-sitemap@0.9.0:
-    resolution: {integrity: sha512-C5XCa+oPET2w/re92L9o7je4LMsKJDOC/TI6klo0xAi72nlgQKa7rt9cOYMZxgAsAJUhk+c6RYPTRc73xvn1vw==}
+  vite-ssg-sitemap@0.10.0:
+    resolution: {integrity: sha512-OIja4fqUMcvWl5+bxQARe3LgzWTd8U/dWHWgrqiC7vv3AmTn0YnhMNUAimQ0M/0Aa9myEIAGLV0yKlYbKP8BJQ==}
 
   vite-ssg@28.3.0:
     resolution: {integrity: sha512-dIUjv+scfhJTfYGwf83R0KGAmr/duIo9oln5ZsQOIZZACm3voAON//7oKhtEwaOTtD4QTTab+nhvyn0QiIaFMA==}
@@ -6192,8 +6192,8 @@ packages:
     peerDependencies:
       typescript: '>=5.0.0'
 
-  vue3-toastify@0.2.8:
-    resolution: {integrity: sha512-8jDOqsJaBZEbGpCbhWDETJc11D1lZefvgFPq/IPdM+U7+qyXoVPDvK6uq/FIgyV7qV0NcNzvGBMEzjsLQqGROw==}
+  vue3-toastify@0.2.9:
+    resolution: {integrity: sha512-LN2GJGKgjt+C6IIBANp9hCM2A4yc5jC2Kj4YGl1J7ptj4rhThOJOGGlkCg+IxDt7hntNw9n3MG9ifv/AymyxKQ==}
     engines: {node: '>=20', npm: '>=9.0.0'}
     peerDependencies:
       vue: '>=3.2.0'
@@ -11628,7 +11628,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite-ssg-sitemap@0.9.0: {}
+  vite-ssg-sitemap@0.10.0: {}
 
   vite-ssg@28.3.0(prettier@3.9.10)(supports-color@8.1.1)(unhead@2.1.13)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.27.1)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.2)(vue@3.5.44(typescript@5.9.2)))(rolldown@1.2.14)(rollup@4.59.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.27.1)(jiti@2.7.0)(sass@1.99.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2)):
     dependencies:
@@ -11842,7 +11842,7 @@ snapshots:
       '@vue/language-core': 3.3.13
       typescript: 5.9.2
 
-  vue3-toastify@0.2.8(vue@3.5.44(typescript@5.9.2)):
+  vue3-toastify@0.2.9(vue@3.5.44(typescript@5.9.2)):
     optionalDependencies:
       vue: 3.5.44(typescript@5.9.2)
 
