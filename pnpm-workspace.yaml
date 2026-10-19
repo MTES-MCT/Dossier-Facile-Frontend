@@ -30,7 +30,7 @@ catalog:
   "@vee-validate/i18n": 4.15.1
   vue: 3.5.44
   vue-i18n: 11.4.14
-  vue-router: 4.5.1
+  vue-router: 5.4.0
   dompurify: 3.4.13
   # devDependencies
   "@intlify/unplugin-vue-i18n": 11.2.6
