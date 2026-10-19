@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",
-    "@tsconfig/node18": "catalog:",
+    "@tsconfig/node24": "catalog:",
     "@types/jsdom": "21.1.7",
     "@types/node": "catalog:",
     "@unhead/vue": "2.1.13",

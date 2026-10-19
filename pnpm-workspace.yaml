@@ -29,27 +29,27 @@ catalog:
   "@vee-validate/rules": 4.15.1
   "@vee-validate/i18n": 4.15.1
   vue: 3.5.44
-  vue-i18n: 11.1.11
+  vue-i18n: 11.4.14
   vue-router: 4.5.1
   dompurify: 3.4.13
   # devDependencies
-  "@intlify/unplugin-vue-i18n": 6.0.8
+  "@intlify/unplugin-vue-i18n": 11.2.6
   sass: 1.99.0
-  vite: 7.3.0
+  vite: 8.3.4
   vitest: 4.0.16
   vue-tsc: 3.3.13
   typescript: 5.9.2
   jsdom: 26.1.0
   "@types/jsdom": 21.1.7
   prettier: 3.9.10
-  eslint: 9.32.0
+  eslint: 10.13.0
   eslint-plugin-vue: 10.11.1
   jiti: 2.7.0
   npm-run-all2: 8.0.4
   "@vue/tsconfig": 0.9.1
-  "@tsconfig/node18": 18.2.4
-  "@vitejs/plugin-vue": 6.0.3
-  "@types/node": 24.1.0
+  "@tsconfig/node24": 24.0.5
+  "@vitejs/plugin-vue": 6.0.10
+  "@types/node": 26.6.5
   "@vue/devtools-api": 8.2.1
   "@vitest/eslint-plugin": 1.6.27
   "@vue/eslint-config-prettier": 10.2.0

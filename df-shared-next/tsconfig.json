@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es2025",
     "module": "ESNext",
     "strict": true,
     "moduleResolution": "Bundler",
@@ -21,10 +21,10 @@
 
     "sourceMap": true,
 
-    "baseUrl": ".",
     "types": ["vite/client"],
 
-    "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"]
+    "noEmit": true,
+    "allowImportingTsExtensions": true
   },
 
   "vueCompilerOptions": {
