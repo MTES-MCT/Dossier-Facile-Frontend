@@ -32,6 +32,7 @@
     "@types/js-cookie": "3.0.6",
     "@types/jsdom": "catalog:",
     "jsdom": "catalog:",
+    "@vue/devtools-api": "catalog:",
     "@vue/test-utils": "catalog:",
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
