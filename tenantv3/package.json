@@ -31,7 +31,7 @@
     "js-cookie": "3.0.8",
     "keycloak-js": "26.2.4",
     "lodash.debounce": "4.0.8",
-    "pdfjs-dist": "4.10.38",
+    "pdfjs-dist": "6.4.299",
     "pinia": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:",
