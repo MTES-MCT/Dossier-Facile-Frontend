@@ -45,7 +45,8 @@ catalog:
   eslint: 10.13.0
   eslint-plugin-vue: 10.11.1
   jiti: 2.7.0
-  npm-run-all2: 8.0.4
+  npm-run-all2: 9.0.3
+  start-server-and-test: 3.0.13
   "@vue/tsconfig": 0.9.1
   "@tsconfig/node24": 24.0.5
   "@vitejs/plugin-vue": 6.0.10
