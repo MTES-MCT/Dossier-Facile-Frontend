@@ -37,7 +37,7 @@
     "@tsconfig/node24": "catalog:",
     "@types/jsdom": "catalog:",
     "@types/node": "catalog:",
-    "@unhead/vue": "2.1.13",
+    "@unhead/vue": "3.4.3",
     "@vitejs/plugin-vue": "catalog:",
     "@vitest/eslint-plugin": "catalog:",
     "@vue/devtools-api": "catalog:",
