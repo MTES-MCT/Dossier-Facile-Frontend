@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es2025",
     "module": "esnext",
-    "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "experimentalDecorators": true,
