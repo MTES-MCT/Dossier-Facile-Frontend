@@ -9,7 +9,7 @@ import { useHead } from '@unhead/vue'
 import { type DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
 import { MAIN_NAV, CONTENT } from 'df-shared-next/src/models/SkipLink'
 import { changeLang, locale } from './i18n'
-import { computed, onBeforeMount } from 'vue'
+import { computed, onBeforeMount, useTemplateRef } from 'vue'
 
 const MESSAGE = import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''
 const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
@@ -17,6 +17,8 @@ const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
 const links: DsfrSkipLinksProps = {
   links: [MAIN_NAV, CONTENT]
 }
+
+const mainElement = useTemplateRef<HTMLElement>('main')
 
 // SEO defaults
 const titleTemplate = (title?: string) => (title ? `${title} - ${siteTitle}` : siteTitle)
@@ -51,8 +53,8 @@ onBeforeMount(() => {
     @update:current-lang="(lang) => lang && changeLang(lang)"
   />
   <div id="content">
-    <Announcement :message="MESSAGE" />
-    <main class="page" role="main">
+    <Announcement :message="MESSAGE" :to-focus="mainElement" />
+    <main ref="main" class="page" role="main" tabindex="-1">
       <RouterView />
       <FollowSocials />
     </main>

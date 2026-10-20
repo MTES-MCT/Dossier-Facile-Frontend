@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router'
 import { useTenantStore } from './stores/tenant-store'
-import { computed, onBeforeMount } from 'vue'
+import { computed, onBeforeMount, useTemplateRef } from 'vue'
 import TenantSkipLinks from './components/TenantSkipLinks.vue'
 import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import Footer from 'df-shared-next/src/Footer/FooterComponent.vue'
@@ -20,6 +20,8 @@ const route = useRoute()
 const isFunnel = computed(() => route.meta.hideFooter)
 const isLoggedIn = computed(() => store.isLoggedIn ?? false)
 const user = computed(() => store.user)
+
+const mainElement = useTemplateRef<HTMLElement>('main')
 
 // check for saved locale choice
 const currentLocale = computed(() => (localStorage.getItem('lang') === 'en' ? 'en' : 'fr'))
@@ -49,11 +51,11 @@ const showMessaging = computed(() => {
     @update:current-lang="changeLang"
     @on-logout="store.logout"
   />
-  <Announcement :message="announcementMessage" />
+  <Announcement :message="announcementMessage" :to-focus="mainElement" />
   <ToastContainer />
   <div id="content">
     <DeleteAccount />
-    <main role="main">
+    <main ref="main" role="main" tabindex="-1">
       <div class="page">
         <RouterView />
       </div>

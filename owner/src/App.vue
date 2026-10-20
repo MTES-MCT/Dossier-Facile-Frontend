@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue'
+import { computed, onBeforeMount, useTemplateRef } from 'vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
@@ -22,6 +22,8 @@ const links: DsfrSkipLinksProps = {
   links: [MAIN_NAV, CONTENT]
 }
 
+const mainElement = useTemplateRef<HTMLElement>('main')
+
 onBeforeMount(() => {
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
   store.setLang(lang)
@@ -35,8 +37,8 @@ onBeforeMount(() => {
   <OwnerHeader />
   <div id="content">
     <DeleteAccount />
-    <Announcement :message="MESSAGE"></Announcement>
-    <main role="main">
+    <Announcement :message="MESSAGE" :to-focus="mainElement" />
+    <main ref="main" role="main" tabindex="-1">
       <div class="page fr-background-alt--blue-france">
         <router-view />
       </div>
