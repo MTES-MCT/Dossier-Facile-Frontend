@@ -15,8 +15,8 @@ import { i18n } from '@/i18n'
 import { computed } from 'vue'
 import type { DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
-const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL
+const MAIN_URL = import.meta.env.VITE_MAIN_URL
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
 
 let updateTokenInterval: number
@@ -1029,6 +1029,7 @@ export const router = createRouter({
         requiresAuth: true,
         skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
+      // TODO: design an account page for incomplete status
       beforeEnter: () => {
         const store = useTenantStore()
         if (store.user.status === 'INCOMPLETE') {
@@ -1152,7 +1153,7 @@ async function handleProtectedRoute(to: RouteLocationNormalized): Promise<boolea
     if (!keycloak.profile?.emailVerified) {
       // email should be validated before access to the protected page.
       keycloak.logout({
-        redirectUri: 'https:' + MAIN_URL + '/#emailNotValidated'
+        redirectUri: `${MAIN_URL}/#emailNotValidated`
       })
       return false
     } else {

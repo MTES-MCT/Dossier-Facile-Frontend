@@ -253,7 +253,6 @@ import { RiCheckboxCircleLine, RiEye2Line, RiTimerFlashLine } from '@remixicon/v
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VITE_SSO_FRANCE_CONNECT_LOGIN_URL
-const MAIN_URL = `${import.meta.env.VITE_OWNER_URL}`
 
 const store = useOwnerStore()
 const { t } = useI18n()

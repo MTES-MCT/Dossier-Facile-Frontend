@@ -2,17 +2,12 @@ import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import TenantPanel from '../account/TenantPanel.vue'
 
+import { i18n } from '../../i18n'
+
 vi.mock('@/stores/tenant-store', () => ({
   useTenantStore: () => ({
     user: { id: 1, documents: [] }
   })
-}))
-
-vi.mock('vue-i18n', () => ({
-  useI18n: () => ({
-    t: (key: string) => key
-  }),
-  createI18n: () => ({})
 }))
 
 vi.mock('../../services/UtilsService', () => ({
@@ -67,7 +62,7 @@ function mountPanel(
 ) {
   return mount(TenantPanel, {
     props: { tenant, isCotenant, isCouple },
-    global: { stubs: globalStubs }
+    global: { stubs: globalStubs, plugins: [i18n] }
   })
 }
 

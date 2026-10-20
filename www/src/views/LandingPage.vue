@@ -270,7 +270,7 @@ useSeoMeta({
 const { t } = useI18n()
 
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
-const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
+const DOCS_URL = import.meta.env.VITE_DOCS_URL
 const HELP_URL = 'https://aide.dossierfacile.logement.gouv.fr/fr'
 
 const validatedDossierCount = ref('116000')
