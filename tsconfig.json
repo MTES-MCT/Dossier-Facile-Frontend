@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2025",
+    "target": "es2024",
     "module": "esnext",
     "allowSyntheticDefaultImports": true,
     "declaration": true,
