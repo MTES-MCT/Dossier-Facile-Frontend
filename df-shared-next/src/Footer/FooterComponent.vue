@@ -121,9 +121,9 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VITE_DOCS_URL}`"
+              :href="VITE_DOCS_URL"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener"
               :title="t('faq-link-title')"
             >
               {{ t('faq') }}
@@ -132,9 +132,9 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              href="https://partenaire.dossierfacile.logement.gouv.fr"
+              :href="PARTNER_URL"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener"
               :title="t('partner-link-title')"
             >
               {{ t('partner') }}
@@ -144,7 +144,7 @@
             <a
               class="fr-footer__bottom-link"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               :title="t('sources-link-title')"
               href="https://github.com/MTES-MCT/Dossier-Facile-Frontend"
             >
@@ -170,11 +170,11 @@
 
 <script setup lang="ts">
 import { useModalStore } from '../stores/useModalStore'
-import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const VITE_MAIN_URL = ref(`//${import.meta.env.VITE_MAIN_URL}`)
-const VITE_DOCS_URL = ref(`//${import.meta.env.VITE_DOCS_URL}`)
+const VITE_MAIN_URL = import.meta.env.VITE_MAIN_URL
+const VITE_DOCS_URL = import.meta.env.VITE_DOCS_URL
+const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
 
 const { t } = useI18n()
 

@@ -14,8 +14,8 @@ const { t, locale } = useI18n()
 
 const { openModal } = useModalStore('deleteAccount')
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
-const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
+const MAIN_URL = import.meta.env.VITE_MAIN_URL
+const DOCS_URL = import.meta.env.VITE_DOCS_URL
 
 const currentPage = computed(() => route.name)
 

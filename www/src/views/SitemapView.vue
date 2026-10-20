@@ -36,9 +36,10 @@ import { useHead } from '@unhead/vue'
 useHead({
   title: 'Plan du site'
 })
-const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
+const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
 
 const mainPages = [
   {
@@ -59,7 +60,7 @@ const mainPages = [
   },
   {
     name: 'Devenir partenaire',
-    url: 'https://partenaire.dossierfacile.logement.gouv.fr'
+    url: PARTNER_URL
   },
   {
     name: 'Blog',
