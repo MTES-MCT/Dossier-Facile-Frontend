@@ -18,7 +18,7 @@ const setupPlugin = async (options?: Parameters<typeof createRobotsTxtPlugin>[0]
 
   const plugin = createRobotsTxtPlugin(options)
 
-  plugin.configResolved?.({
+  plugin.configResolved({
     root,
     build: { outDir: OUT_DIR }
   } as any)
@@ -47,7 +47,7 @@ describe('createRobotsTxtPlugin', () => {
       disallowAllContent
     })
 
-    await plugin.closeBundle?.()
+    await plugin.closeBundle()
 
     const content = await readFile(resolveRobotsPath(root), 'utf8')
 
@@ -57,7 +57,7 @@ describe('createRobotsTxtPlugin', () => {
   it('falls back to do not write a robots file', async () => {
     const { plugin, root } = await setupPlugin({ environment: 'dev' })
 
-    await plugin.closeBundle?.()
+    await plugin.closeBundle()
 
     await expect(access(resolveRobotsPath(root))).rejects.toMatchObject({ code: 'ENOENT' })
   })
@@ -65,7 +65,7 @@ describe('createRobotsTxtPlugin', () => {
   it('does not write a robots file in prod', async () => {
     const { plugin, root } = await setupPlugin({ environment: 'prod' })
 
-    await plugin.closeBundle?.()
+    await plugin.closeBundle()
 
     await expect(access(resolveRobotsPath(root))).rejects.toMatchObject({ code: 'ENOENT' })
   })

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "22.x"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "vite",
@@ -20,34 +20,35 @@
   "dependencies": {
     "@gouvfr/dsfr": "catalog:",
     "@gouvminint/vue-dsfr": "catalog:",
-    "@remixicon/vue": "4.6.0",
+    "@remixicon/vue": "catalog:",
     "@sentry/vite-plugin": "catalog:",
     "@sentry/vue": "catalog:",
     "@types/js-cookie": "3.0.6",
-    "@vuepic/vue-datepicker": "12.0.5",
+    "@vuepic/vue-datepicker": "14.0.0",
     "axios": "catalog:",
-    "dayjs": "1.11.13",
+    "dayjs": "1.11.23",
     "df-shared-next": "workspace:*",
     "js-cookie": "3.0.8",
-    "keycloak-js": "26.2.0",
+    "keycloak-js": "catalog:",
     "lodash.debounce": "4.0.8",
-    "pdfjs-dist": "4.10.38",
+    "pdfjs-dist": "6.4.299",
     "pinia": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:",
     "vue-i18n": "catalog:",
     "vue-loading-overlay": "6.0.6",
-    "vue-pdf-embed": "2.1.2",
+    "vue-pdf-embed": "2.1.7",
     "vue-router": "catalog:"
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",
-    "@tsconfig/node18": "catalog:",
-    "@types/jsdom": "21.1.7",
+    "@tsconfig/node24": "catalog:",
+    "@types/jsdom": "catalog:",
     "@types/lodash.debounce": "4.0.9",
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vitest/eslint-plugin": "catalog:",
+    "@vue/devtools-api": "catalog:",
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
     "@vue/test-utils": "catalog:",
@@ -56,12 +57,12 @@
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "jiti": "catalog:",
-    "jsdom": "26.1.0",
+    "jsdom": "catalog:",
     "lightningcss": "catalog:",
     "npm-run-all2": "catalog:",
     "prettier": "catalog:",
     "rollup-plugin-visualizer": "catalog:",
-    "start-server-and-test": "2.0.12",
+    "start-server-and-test": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-purgecss-updated-v5": "catalog:",
@@ -79,5 +80,5 @@
       }
     ]
   },
-  "packageManager": "pnpm@10.26.0"
+  "packageManager": "pnpm@12.14.0+sha512.c18ba6d87993d3d164cb5e8948f32b2c06ee854487e06cd8d86781342fb3e5bb4634367034711e86802baa9c37bea906ce1929ad08d70884c97d801df13389a6"
 }

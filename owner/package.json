@@ -1,13 +1,13 @@
 {
   "name": "owner",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
-  "version": "0.0.0",
   "engines": {
-    "node": "22.x"
+    "node": "24.x"
   },
   "scripts": {
-    "dev": "vite --force",
+    "dev": "vite",
     "build": "vite build",
     "test:unit": "vitest",
     "fbuild": "vue-tsc --noEmit && vite build",
@@ -19,15 +19,15 @@
   "dependencies": {
     "@gouvfr/dsfr": "catalog:",
     "@gouvminint/vue-dsfr": "catalog:",
-    "@remixicon/vue": "4.6.0",
+    "@remixicon/vue": "catalog:",
     "@sentry/vite-plugin": "catalog:",
     "@sentry/vue": "catalog:",
     "@types/js-cookie": "3.0.6",
     "axios": "catalog:",
-    "date-fns": "4.1.0",
+    "date-fns": "4.4.0",
     "df-shared-next": "workspace:*",
     "js-cookie": "3.0.8",
-    "keycloak-js": "26.2.0",
+    "keycloak-js": "catalog:",
     "pinia": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:",
@@ -37,12 +37,13 @@
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",
-    "@tsconfig/node18": "catalog:",
+    "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
-    "@vue/tsconfig": "catalog:",
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
+    "@vue/tsconfig": "catalog:",
+    "@vue/devtools-api": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "sass": "catalog:",
@@ -62,5 +63,5 @@
       }
     ]
   },
-  "packageManager": "pnpm@10.26.0"
+  "packageManager": "pnpm@12.14.0+sha512.c18ba6d87993d3d164cb5e8948f32b2c06ee854487e06cd8d86781342fb3e5bb4634367034711e86802baa9c37bea906ce1929ad08d70884c97d801df13389a6"
 }

@@ -2,6 +2,10 @@
   "name": "www",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "build": "run-p tsc \"build-only {@}\" --",
     "test:unit": "vitest",
@@ -26,42 +30,39 @@
     "vue": "catalog:",
     "vue-i18n": "catalog:",
     "vue-router": "catalog:",
-    "vue3-toastify": "0.2.8"
+    "vue3-toastify": "0.2.9"
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",
-    "@tsconfig/node18": "catalog:",
-    "@types/jsdom": "21.1.7",
+    "@tsconfig/node24": "catalog:",
+    "@types/jsdom": "catalog:",
     "@types/node": "catalog:",
-    "@unhead/vue": "2.1.13",
+    "@unhead/vue": "3.4.3",
     "@vitejs/plugin-vue": "catalog:",
     "@vitest/eslint-plugin": "catalog:",
+    "@vue/devtools-api": "catalog:",
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
     "@vue/test-utils": "catalog:",
     "@vue/tsconfig": "catalog:",
     "browserslist": "catalog:",
-    "lightningcss": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "jiti": "catalog:",
-    "jsdom": "26.1.0",
+    "jsdom": "catalog:",
+    "lightningcss": "catalog:",
     "npm-run-all2": "catalog:",
     "prettier": "catalog:",
     "rollup-plugin-visualizer": "catalog:",
-    "start-server-and-test": "2.0.12",
+    "start-server-and-test": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-purgecss-updated-v5": "catalog:",
     "vite-ssg": "28.3.0",
-    "vite-ssg-sitemap": "0.9.0",
+    "vite-ssg-sitemap": "0.10.0",
     "vitest": "catalog:",
     "vue-router": "catalog:",
     "vue-tsc": "catalog:"
   },
-  "engines": {
-    "node": "22.x"
-  },
-  "type": "module",
-  "packageManager": "pnpm@10.26.0"
+  "packageManager": "pnpm@12.14.0+sha512.c18ba6d87993d3d164cb5e8948f32b2c06ee854487e06cd8d86781342fb3e5bb4634367034711e86802baa9c37bea906ce1929ad08d70884c97d801df13389a6"
 }

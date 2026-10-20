@@ -1,3 +1,4 @@
+/// <reference types="vite-ssg" />
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { fileURLToPath, URL } from 'node:url'
 import generateSiteMap from 'vite-ssg-sitemap'
@@ -8,7 +9,7 @@ import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import browserslist from 'browserslist'
 import { browserslistToTargets } from 'lightningcss'
 
-import { createRobotsTxtPlugin } from '../df-shared-next/src/plugin/robots'
+import { createRobotsTxtPlugin } from '../df-shared-next/src/plugin/robots.ts'
 
 // https://vitejs.dev/config/
 export default defineConfig({
