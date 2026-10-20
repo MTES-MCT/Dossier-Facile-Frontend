@@ -20,7 +20,7 @@
   "dependencies": {
     "@gouvfr/dsfr": "catalog:",
     "@gouvminint/vue-dsfr": "catalog:",
-    "@remixicon/vue": "4.9.0",
+    "@remixicon/vue": "catalog:",
     "@sentry/vite-plugin": "catalog:",
     "@sentry/vue": "catalog:",
     "@types/js-cookie": "3.0.6",
@@ -29,7 +29,7 @@
     "dayjs": "1.11.23",
     "df-shared-next": "workspace:*",
     "js-cookie": "3.0.8",
-    "keycloak-js": "26.2.4",
+    "keycloak-js": "catalog:",
     "lodash.debounce": "4.0.8",
     "pdfjs-dist": "6.4.299",
     "pinia": "catalog:",
