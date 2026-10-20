@@ -62,19 +62,22 @@ export default defineConfig({
     vue(),
     createRobotsTxtPlugin(),
     vueI18n({ strictMessage: false }),
-    pluginPurgeCss({
-      variables: false,
-      content: [`./dist/**/*.html`, `./src/**/*.vue`, `../df-shared-next/src/**/*.vue`],
-      safelist: {
-        standard: [/^fr-[a-z]+--/],
-        deep: [
-          /-(leave|enter|appear)(-(to|from|active))?$/,
-          /^(?!(.*?:)?cursor-move).+-move$/,
-          /^router-link(-exact)?-active$/,
-          /data-v-.*/
-        ]
-      }
-    }),
+    {
+      ...pluginPurgeCss({
+        variables: false,
+        content: [`./dist/**/*.html`, `./src/**/*.vue`, `../df-shared-next/src/**/*.vue`],
+        safelist: {
+          standard: [/^fr-[a-z]+--/],
+          deep: [
+            /-(leave|enter|appear)(-(to|from|active))?$/,
+            /^(?!(.*?:)?cursor-move).+-move$/,
+            /^router-link(-exact)?-active$/,
+            /data-v-.*/
+          ]
+        }
+      }),
+      apply: "build"
+    },
     sentryVitePlugin({
       org: 'betagouv',
       project: 'front-tenant',
