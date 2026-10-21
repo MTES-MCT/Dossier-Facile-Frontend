@@ -84,25 +84,18 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article4.webp'
 import BlogPostImage from '@/components/BlogPostImage.vue'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 
 const title = '5 astuces pour booster votre dossier de location'
 const description =
   'Pour se distinguer des autres, un seul moyen : constituer un dossier de location clair, cohérent et complet'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>

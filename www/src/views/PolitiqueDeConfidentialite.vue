@@ -368,23 +368,19 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
 import cookies from 'js-cookie'
-import { useSeoMeta } from '@unhead/vue'
 import { DsfrCheckbox } from '@gouvminint/vue-dsfr'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
+import { useI18n } from 'vue-i18n'
 
-const title = 'Politique de confidentialité'
 const description =
   'DossierFacile s’engage à protéger vos données personnelles : créez votre dossier de location en toute sécurité'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
+const { t } = useI18n()
 
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterDescription: description
+useMeta({
+  title: () => t('page-titles.politiqueDeConfidentialite'),
+  description: () => description,
+  canonicalUrl: useCanonicalUrl()
 })
 
 const consentRemoved = ref(false)

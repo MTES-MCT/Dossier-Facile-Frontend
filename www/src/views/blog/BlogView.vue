@@ -19,6 +19,7 @@
 </template>
 
 <script setup lang="ts">
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 import { useI18n } from 'vue-i18n'
 
 import article0Img from '../../assets/cover-features.webp'
@@ -287,16 +288,17 @@ const articles = [
   }
 ]
 
-import { useSeoMeta } from '@unhead/vue'
 import { DsfrCard } from '@gouvminint/vue-dsfr'
 
-useSeoMeta({
-  title: 'Le blog de DossierFacile',
-  description:
-    'Venez découvrir nos articles de blog pour vous éclairer sur les points d’éventuelle difficulté que vous rencontrez en créant votre dossier de location'
-})
+const description =
+  'Venez découvrir nos articles de blog pour vous éclairer sur les points d’éventuelle difficulté que vous rencontrez en créant votre dossier de location'
 
 const { t } = useI18n()
+useMeta({
+  title: () => t('page-titles.blog'),
+  description: () => description,
+  canonicalUrl: useCanonicalUrl()
+})
 </script>
 
 <style scoped>

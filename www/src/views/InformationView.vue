@@ -172,22 +172,17 @@
 </template>
 
 <script setup lang="ts">
-import { useSeoMeta } from '@unhead/vue'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
+import { useI18n } from 'vue-i18n'
 
-const title = 'Qui sommes-nous ?'
 const description =
   'Remettre la confiance au centre de la relation entre propriétaire et locataire grâce à notre outil 100 % en ligne, simple et gratuit.'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterDescription: description
+const { t } = useI18n()
+useMeta({
+  title: () => t('page-titles.information'),
+  description: () => description,
+  canonicalUrl: useCanonicalUrl()
 })
 </script>
 

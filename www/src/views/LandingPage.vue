@@ -225,21 +225,21 @@
         </template>
       </PartnersList>
       <p class="text-center fr-mt-5w fr-mb-5w">
-        <RouterLink to="/partenaires" class="fr-btn fr-mt-2w">
+        <a href="/partenaires" class="fr-btn fr-mt-2w">
           <span class="text-center full-width">
             {{ t('all-partners') }}
           </span>
-        </RouterLink>
+        </a>
       </p>
     </section>
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w institutional-section">
       <PartnersList :partners="INSTITUTIONAL_PARTNERS" :limit="8" :title="t('s6.title')" />
       <p class="text-center fr-mt-5w fr-mb-5w">
-        <RouterLink to="/partenaires" class="fr-btn fr-mt-2w">
+        <a href="/partenaires" class="fr-btn fr-mt-2w">
           <span class="text-center full-width">
             {{ t('all-partners') }}
           </span>
-        </RouterLink>
+        </a>
       </p>
     </section>
   </div>
@@ -249,23 +249,15 @@
 import { StatsService } from '../services/StatsService'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useSeoMeta } from '@unhead/vue'
 
 import imgJustif from '@icons/justif.webp'
 import PartnersList from '@/components/PartnersList.vue'
 
 import { INSTITUTIONAL_PARTNERS, PARTNERS } from '../models/PartnerModel'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 
-const title = 'Accueil'
-
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  ogTitle: seoTitle,
-  twitterTitle: seoTitle
-})
+const description =
+  "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
 
 const { t } = useI18n()
 
@@ -274,6 +266,12 @@ const DOCS_URL = import.meta.env.VITE_DOCS_URL
 const HELP_URL = 'https://aide.dossierfacile.logement.gouv.fr/fr'
 
 const validatedDossierCount = ref('116000')
+
+useMeta({
+  title: () => t('page-titles.home'),
+  description: () => description,
+  canonicalUrl: useCanonicalUrl()
+})
 
 onMounted(() => {
   StatsService.getValidatedDossierCount()

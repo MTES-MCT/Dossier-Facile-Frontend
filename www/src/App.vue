@@ -4,12 +4,16 @@ import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue'
 import CommonHeader from 'df-shared-next/src/Header/CommonHeader.vue'
 import Announcement from 'df-shared-next/src/components/AnnouncementBanner.vue'
 import ConsentHandler from 'df-shared-next/src/components/ConsentHandler.vue'
+import A11yNavigation from 'df-shared-next/src/components/A11yNavigation.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
-import { useHead } from '@unhead/vue'
 import { type DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
 import { MAIN_NAV, CONTENT } from 'df-shared-next/src/models/SkipLink'
 import { changeLang, locale } from './i18n'
-import { computed, onBeforeMount, useTemplateRef } from 'vue'
+import { computed, onBeforeMount, ref, useTemplateRef, provide } from 'vue'
+import {
+  type AccessibilityPropertiesType,
+  AccessibilityPropertiesKey
+} from 'df-shared-next/src/models/injectionKeys'
 
 const MESSAGE = import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''
 const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
@@ -20,19 +24,20 @@ const links: DsfrSkipLinksProps = {
 
 const mainElement = useTemplateRef<HTMLElement>('main')
 
-// SEO defaults
-const titleTemplate = (title?: string) => (title ? `${title} - ${siteTitle}` : siteTitle)
-const seoDescription =
-  "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
+const pageTitle = ref<string>()
+const a11yNavigationRef = useTemplateRef('a11yNavigation')
+const setAccessibilityProperties: AccessibilityPropertiesType = (title, focus = true): void => {
+  // announce page title to screen reader
+  if (title) {
+    pageTitle.value = `Page ${title} - ${siteTitle}`
+  }
+  // focus hidden title container
+  if (focus && a11yNavigationRef.value?.a11yTitle) {
+    a11yNavigationRef.value.a11yTitle.focus()
+  }
+}
 
-useHead({
-  titleTemplate,
-  meta: [
-    { name: 'og:title', content: siteTitle },
-    { name: 'description', content: seoDescription },
-    { name: 'og:description', content: seoDescription }
-  ]
-})
+provide(AccessibilityPropertiesKey, setAccessibilityProperties)
 
 // check for saved locale choice
 const currentLocale = computed(() => (localStorage.getItem('lang') === 'en' ? 'en' : 'fr'))
@@ -45,6 +50,7 @@ onBeforeMount(() => {
 <template>
   <div class="cdn-background"></div>
   <ConsentHandler />
+  <A11yNavigation ref="a11yNavigation" :page-title />
   <SkipLinks :links />
   <CommonHeader
     v-model:current-lang="locale"

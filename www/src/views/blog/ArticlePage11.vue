@@ -124,24 +124,18 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article11.webp'
 import BlogPostImage from '@/components/BlogPostImage.vue'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 
 const title = 'La caution locative : changements en vue pour 2022'
 const description =
   "La caution est une personne ou un organisme qui s'engage par écrit, à trun acte de cautio nnement, à payer votre loyer si vous ne le faites pas. Il s’agit le plus souvent d’un parent ou d’un proche. Si la caution ne rembourse pas les dettes locatives"
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
 
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>
