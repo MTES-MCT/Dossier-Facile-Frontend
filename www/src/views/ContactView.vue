@@ -27,7 +27,6 @@ const siteTitle = import.meta.env.VITE_SITE_TITLE
 const seoTitle = `${title} - ${siteTitle}`
 
 useSeoMeta({
-  title: title,
   description: description,
   ogTitle: seoTitle,
   ogDescription: description,

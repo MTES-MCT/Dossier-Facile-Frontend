@@ -194,25 +194,17 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article25.webp'
-
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 const title =
   "Dossier de location : Comment monter son dossier de location en tant qu'auto-entrepreneur ?"
 const description =
   'Être auto-entrepreneur est une aventure excitante, mais cela peut parfois rendre certaines démarches, comme louer un logement, un peu plus complexes'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>

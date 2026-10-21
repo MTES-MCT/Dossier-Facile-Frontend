@@ -1,4 +1,24 @@
 {
+  "page-titles": {
+    "home": "Home",
+    "partenaires": "Partners",
+    "blog": "Blog",
+    "information": "Information",
+    "mentionsLegales": "Legal",
+    "politiqueDeConfidentialite": "Privacy policy",
+    "CGU": "General condition of use",
+    "accessibility": "Accessibility",
+    "contact": "Contact",
+    "statistiques": "Statistics",
+    "planDuSite": "Site map",
+    "404": "Page not found (404 error)",
+    "createFile": "Create My Rental Application",
+    "login": "Login",
+    "owner": "Owner area",
+    "becomePartner": "Become a partner",
+    "help": "Help",
+    "source": "Source code"
+  },
   "404": {
     "title": "Page not found",
     "subtitle": "Error 404",

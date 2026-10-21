@@ -73,24 +73,18 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article6.webp'
 import BlogPostImage from '@/components/BlogPostImage.vue'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 
 const title = 'DossierFacile fait peau neuve !'
 const description =
   'Afin de mieux répondre aux besoins de nos locataires et propriétaires, le service DossierFacile fait peau neuve avec un nouveau site'
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
 
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>
