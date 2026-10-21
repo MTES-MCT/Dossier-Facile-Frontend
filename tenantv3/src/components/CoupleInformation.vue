@@ -76,6 +76,7 @@
                 :value="true"
                 :label="t('acceptAuthor')"
                 :error-message="errors[0] ? t(errors[0]) : ''"
+                :aria-invalid="errors.length > 0"
                 @change="updateAuthorize"
               >
                 <template #label>

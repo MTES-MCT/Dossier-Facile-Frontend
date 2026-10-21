@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :to :is-button="hasDocument" :label="label" @click="onClick">
+  <BackLinkRow :to :is-button="hasDocument" :label="label" @click.capture="onClick">
     <ConfirmDeleteModal
       v-model:is-opened="isModalOpened"
       document-category="financial"
@@ -50,8 +50,6 @@ const onClick = () => {
   sendEditEvent()
   if (document.value?.documentCategory) {
     isModalOpened.value = true
-  } else {
-    router.push(props.to)
   }
 }
 

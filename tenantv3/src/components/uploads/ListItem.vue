@@ -8,7 +8,15 @@
       </h3>
       <p class="fr-text--sm">{{ size }}</p>
       <div class="btn-gtoup fr-mt-1w">
-        <DsfrButton icon="fr-icon-eye-line" icon-right tertiary no-outline @click="openDoc">
+        <DsfrButton
+          v-if="file.path || file.preview"
+          icon="fr-icon-eye-line"
+          icon-right
+          tertiary
+          no-outline
+          type="button"
+          @click="openDoc"
+        >
           {{ t('listitem.see') }}
           <span class="visually-hidden">{{ t('listitem.document') }} {{ fileName }}</span>
         </DsfrButton>
@@ -18,6 +26,7 @@
           icon-right
           tertiary
           no-outline
+          type="button"
           @click="remove"
         >
           {{ t('listitem.delete') }}

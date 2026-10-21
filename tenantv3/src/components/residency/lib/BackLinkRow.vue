@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :to :is-button="hasDocument" :label="label" @click="onClick">
+  <BackLinkRow :to :is-button="hasDocument" :label="label" @click.capture="onClick">
     <ConfirmDeleteModal
       v-model:is-opened="isModalOpened"
       document-category="residency"
@@ -31,8 +31,6 @@ const onClick = () => {
   if (document.value) {
     AnalyticsService.showWarningModale(category)
     isModalOpened.value = true
-  } else {
-    router.push(props.to)
   }
 }
 

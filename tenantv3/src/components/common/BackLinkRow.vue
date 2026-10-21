@@ -1,12 +1,12 @@
 <template>
-  <div class="display--flex align-items--center fr-mb-3w">
+  <div class="backrow display--flex align-items--center fr-mb-3w">
     <VIcon
       name="ri:checkbox-circle-line"
       color="var(--primary)"
       size="20px"
       class="fr-mr-1w no-shrink"
     />
-    <p class="fr-text--md fr-text--regular fr-mb-0">{{ label }}</p>
+    <p class="backrow__title fr-text--md fr-text--regular fr-mb-0">{{ label }}</p>
     <DsfrButton
       v-if="isButton"
       :label="t('edit')"
@@ -57,6 +57,9 @@ const { t } = useI18n()
 </script>
 
 <style scoped>
+.backrow > :deep(.backrow__title) {
+  flex: 1;
+}
 .no-shrink {
   flex-shrink: 0;
 }
