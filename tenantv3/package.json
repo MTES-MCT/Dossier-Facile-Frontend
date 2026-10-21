@@ -25,7 +25,6 @@
     "@sentry/vue": "catalog:",
     "@types/js-cookie": "3.0.6",
     "@vuepic/vue-datepicker": "12.0.5",
-    "@vueuse/core": "catalog:",
     "axios": "catalog:",
     "dayjs": "catalog:",
     "df-shared-next": "workspace:*",

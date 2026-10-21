@@ -57,9 +57,6 @@ catalogs:
     '@vue/tsconfig':
       specifier: 0.7.0
       version: 0.7.0
-    '@vueuse/core':
-      specifier: 15.0.0
-      version: 15.0.0
     axios:
       specifier: 1.18.1
       version: 1.18.1
@@ -149,11 +146,7 @@ overrides:
 
 importers:
 
-  .:
-    dependencies:
-      '@vueuse/core':
-        specifier: 'catalog:'
-        version: 15.0.0(vue@3.5.18(typescript@5.9.2))
+  .: {}
 
   df-shared-next:
     dependencies:
@@ -479,9 +472,6 @@ importers:
       '@vuepic/vue-datepicker':
         specifier: 12.0.5
         version: 12.0.5(vue@3.5.18(typescript@5.9.2))
-      '@vueuse/core':
-        specifier: 'catalog:'
-        version: 15.0.0(vue@3.5.18(typescript@5.9.2))
       axios:
         specifier: 'catalog:'
         version: 1.18.1(debug@4.4.1)
@@ -679,9 +669,6 @@ importers:
       '@types/js-cookie':
         specifier: 3.0.6
         version: 3.0.6
-      '@vueuse/core':
-        specifier: 'catalog:'
-        version: 15.0.0(vue@3.5.18(typescript@5.9.2))
       axios:
         specifier: 'catalog:'
         version: 1.18.1(debug@4.4.1)
@@ -3016,27 +3003,11 @@ packages:
     peerDependencies:
       vue: ^3.5.0
 
-  '@vueuse/core@15.0.0':
-    resolution: {integrity: sha512-Zv67h5mrk7YHDJsRObx+DXaCBz6RKBUpxqLesJ+3xZNPG6yuQs7ja7kg3veFrrouYLWAqydQ7CwGEbLVxB43Ng==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      vue: ^3.5.0
-
   '@vueuse/metadata@14.1.0':
     resolution: {integrity: sha512-7hK4g015rWn2PhKcZ99NyT+ZD9sbwm7SGvp7k+k+rKGWnLjS/oQozoIZzWfCewSUeBmnJkIb+CNr7Zc/EyRnnA==}
 
-  '@vueuse/metadata@15.0.0':
-    resolution: {integrity: sha512-sfWE5LADAKJ0KnjtGliMdSN8Ij/L7uP6rXIZlgPloAI4zvvefbw6H5Lt7KJA6RqQOYgVqWF5Guj50HHMIzygBg==}
-    engines: {node: '>=22'}
-
   '@vueuse/shared@14.1.0':
     resolution: {integrity: sha512-EcKxtYvn6gx1F8z9J5/rsg3+lTQnvOruQd8fUecW99DCK04BkWD7z5KQ/wTAx+DazyoEE9dJt/zV8OIEQbM6kw==}
-    peerDependencies:
-      vue: ^3.5.0
-
-  '@vueuse/shared@15.0.0':
-    resolution: {integrity: sha512-vbNXhGrbV53xPOMSyOzMHQRvhMgZf7oNDw2RChUetVxwTIEkInQ1joZ9JbT0G3z2n2AJNjvmCWeM9ySYrnvogA==}
-    engines: {node: '>=22'}
     peerDependencies:
       vue: ^3.5.0
 
@@ -8455,22 +8426,9 @@ snapshots:
       '@vueuse/shared': 14.1.0(vue@3.5.18(typescript@5.9.2))
       vue: 3.5.18(typescript@5.9.2)
 
-  '@vueuse/core@15.0.0(vue@3.5.18(typescript@5.9.2))':
-    dependencies:
-      '@types/web-bluetooth': 0.0.21
-      '@vueuse/metadata': 15.0.0
-      '@vueuse/shared': 15.0.0(vue@3.5.18(typescript@5.9.2))
-      vue: 3.5.18(typescript@5.9.2)
-
   '@vueuse/metadata@14.1.0': {}
 
-  '@vueuse/metadata@15.0.0': {}
-
   '@vueuse/shared@14.1.0(vue@3.5.18(typescript@5.9.2))':
-    dependencies:
-      vue: 3.5.18(typescript@5.9.2)
-
-  '@vueuse/shared@15.0.0(vue@3.5.18(typescript@5.9.2))':
     dependencies:
       vue: 3.5.18(typescript@5.9.2)
 
