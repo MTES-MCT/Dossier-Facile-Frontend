@@ -40,6 +40,6 @@
     "vue-tsc": "catalog:"
   },
   "engines": {
-    "node": "24.x"
+    "node": ">=24"
   }
 }
