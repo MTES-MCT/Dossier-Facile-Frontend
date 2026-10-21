@@ -14,24 +14,18 @@
 <script setup lang="ts">
 import ContactPage from 'df-shared-next/src/components/ContactPage.vue'
 import Breadcrumb from 'df-shared-next/src/components/dsfr/BreadcrumbItem.vue'
-import { useSeoMeta } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 
 const { t } = useI18n()
 
-const title = 'Contactez-nous'
 const description = 'Formulaire de contact'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  description: description,
-  ogTitle: seoTitle,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterDescription: description
+useMeta({
+  title: () => t('page-titles.contact'),
+  description: () => description,
+  canonicalUrl: useCanonicalUrl()
 })
 
 function profileChanged(profile: string) {
