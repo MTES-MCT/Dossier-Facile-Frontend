@@ -469,21 +469,17 @@
   </section>
 </template>
 <script setup lang="ts">
-import { useSeoMeta } from '@unhead/vue'
+import { useI18n } from 'vue-i18n'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 
-const title = 'CGU'
+const { t } = useI18n()
+
 const description = "Conditions générales d'utilisation du service DossierFacile"
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterDescription: description
+useMeta({
+  title: () => t('page-titles.CGU'),
+  description: () => description,
+  canonicalUrl: useCanonicalUrl()
 })
 </script>
 

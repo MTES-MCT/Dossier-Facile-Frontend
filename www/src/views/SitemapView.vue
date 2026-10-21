@@ -3,8 +3,7 @@
     <article class="fr-container fr-mt-3w">
       <div class="fr-grid-row justify-content-center">
         <div class="fr-col-md-8">
-          <h1>Plan du site</h1>
-          <p><i>Dossier</i><b>Facile</b>, le dossier de location numérique de l’État.</p>
+          <h1>{{ t('sitemap') }}</h1>
 
           <ul class="page-list">
             <li v-for="page in mainPages" :key="page.url" class="fr-h4">
@@ -12,14 +11,14 @@
             </li>
           </ul>
 
-          <h2 class="fr-h4">Autres pages</h2>
+          <h2 class="fr-h4">{{ t('other') }}</h2>
           <ul>
             <li v-for="page in otherPages" :key="page.url">
               <a :href="page.url">{{ page.name }}</a>
             </li>
           </ul>
 
-          <h2 class="fr-mt-3w fr-h4">Réseaux sociaux</h2>
+          <h2 class="fr-mt-3w fr-h4">{{ t('socials') }}</h2>
           <ul>
             <li v-for="social in socials" :key="social.name">
               <a :href="social.url">{{ social.name }}</a>
@@ -31,11 +30,11 @@
   </section>
 </template>
 <script setup lang="ts">
-import { useHead } from '@unhead/vue'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
+import { useI18n } from 'vue-i18n'
 
-useHead({
-  title: 'Plan du site'
-})
+const { t } = useI18n()
+
 const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
@@ -43,62 +42,62 @@ const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
 
 const mainPages = [
   {
-    name: 'Monter mon dossier de location',
+    name: t('page-titles.createFile'),
     url: REGISTER_URL
   },
   {
-    name: 'Se connecter',
+    name: t('page-titles.login'),
     url: `${TENANT_URL}/login`
   },
   {
-    name: 'Espace propriétaire',
+    name: t('page-titles.owner'),
     url: `${OWNER_URL}`
   },
   {
-    name: 'Qui sommes-nous ?',
+    name: t('page-titles.information'),
     url: '/information'
   },
   {
-    name: 'Devenir partenaire',
+    name: t('page-titles.becomePartner'),
     url: PARTNER_URL
   },
   {
-    name: 'Blog',
+    name: t('page-titles.blog'),
     url: '/blog'
   },
   {
-    name: 'Aide',
+    name: t('page-titles.help'),
     url: 'https://aide.dossierfacile.logement.gouv.fr/fr'
   },
   {
-    name: 'Contact',
+    name: t('page-titles.contact'),
     url: '/contact'
   }
 ]
 
 const otherPages = [
   {
-    name: 'Accessibilité',
+    name: t('page-titles.accessibility'),
     url: '/accessibilite'
   },
   {
-    name: 'Mentions légales',
+    name: t('page-titles.mentionsLegales'),
     url: '/mentions-legales'
   },
   {
-    name: 'Politique de confidentialité',
+    name: t('page-titles.politiqueDeConfidentialite'),
     url: '/politique-de-confidentialite'
   },
   {
-    name: "Conditions générales d'utilisation",
+    name: t('page-titles.CGU'),
     url: '/cgu'
   },
   {
-    name: 'Statistiques',
+    name: t('page-titles.statistiques'),
     url: '/stats'
   },
   {
-    name: 'Code source',
+    name: t('page-titles.source'),
     url: 'https://github.com/MTES-MCT/Dossier-Facile-Frontend'
   }
 ]
@@ -125,6 +124,11 @@ const socials = [
     url: 'https://www.tiktok.com/@dossierfacile'
   }
 ]
+
+useMeta({
+  title: () => t('page-titles.planDuSite'),
+  canonicalUrl: useCanonicalUrl()
+})
 </script>
 
 <style scoped>
@@ -136,3 +140,18 @@ const socials = [
   }
 }
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "sitemap": "Site map",
+    "other": "Other pages",
+    "socials": "Social networks"
+  },
+  "fr": {
+    "sitemap": "Plan du site",
+    "other": "Autres pages",
+    "socials": "Réseaux sociaux"
+  }
+}
+</i18n>

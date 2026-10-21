@@ -183,21 +183,16 @@
 </template>
 
 <script setup lang="ts">
-import { useSeoMeta } from '@unhead/vue'
+import { useI18n } from 'vue-i18n'
+import { useCanonicalUrl, useMeta } from '../../../df-shared-next/src/composables/useSeo'
 
-const title = 'Déclaration accessibilité'
+const { t } = useI18n()
 const description = "Déclaration d'accessibilité de DossierFacile"
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterDescription: description
+useMeta({
+  title: () => t('page-titles.accessibility'),
+  description: () => description,
+  canonicalUrl: useCanonicalUrl()
 })
 
 const nonCompliantCriteria = [

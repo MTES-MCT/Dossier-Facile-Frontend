@@ -98,25 +98,18 @@
 
 <script setup lang="ts">
 import BlogArticle from './BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article.webp'
 import BlogPostImage from '@/components/BlogPostImage.vue'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 
-const title = 'Quelles pièces justificatives fournir pour mon dossier de location - Blog'
+const title = 'Quelles pièces justificatives fournir pour mon dossier de location'
 const description =
   'A cause de l’augmentation de la demande immobilière, il devient de plus en plus difficile de trouver un bon appartement à louer.'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>

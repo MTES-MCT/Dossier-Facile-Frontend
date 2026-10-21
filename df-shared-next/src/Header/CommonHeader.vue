@@ -21,7 +21,8 @@ const emit = defineEmits<{ 'on-logout': [] }>()
 
 const { openModal } = useModalStore('deleteAccount')
 
-const TENANT_URL = `${import.meta.env.VITE_TENANT_URL}/login`
+const MAIN_URL = import.meta.env.VITE_MAIN_URL
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
 const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
 const DOCS_URL = import.meta.env.VITE_DOCS_URL
@@ -32,7 +33,7 @@ const serviceDescription = "Le dossier de location numérique de l'État"
 const quickLinks = computed<DsfrHeaderProps['quickLinks']>(() => [
   {
     label: isLoggedIn ? t('logout') : t('tenant'),
-    to: isLoggedIn ? undefined : TENANT_URL,
+    to: isLoggedIn ? undefined : `${TENANT_URL}/login`,
     button: isLoggedIn,
     onClick: isLoggedIn ? () => emit('on-logout') : undefined,
     icon: 'ri:account-circle-line'
@@ -76,15 +77,15 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
   ...(!isLoggedIn
     ? [
         {
-          to: '/information',
+          to: `${MAIN_URL}/information`,
           text: t('nav.information')
         },
         {
-          to: '/blog',
+          to: `${MAIN_URL}/blog`,
           text: t('nav.blog')
         },
         {
-          to: '/partenaires',
+          to: `${MAIN_URL}/partenaires`,
           text: t('nav.partners')
         }
       ]
@@ -95,11 +96,11 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
           title: t('menu.account'),
           links: [
             {
-              to: '/account',
+              to: `${TENANT_URL}/account`,
               text: t('menu.file')
             },
             {
-              to: '/partages',
+              to: `${TENANT_URL}/partages`,
               text: t('menu.shared')
             }
           ]
@@ -110,7 +111,7 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
     ? [
         {
           id: 'nav-notification',
-          to: '/messaging',
+          to: `${TENANT_URL}/messaging`,
           text: t('nav.messaging'),
           icon: 'ri:error-warning-line'
         }
@@ -121,7 +122,7 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
     text: t('nav.help')
   },
   {
-    to: '/contact',
+    to: isLoggedIn ? '/contact' : `${MAIN_URL}/contact`,
     text: t('nav.contact')
   }
 ])
