@@ -27,7 +27,7 @@ const mainElement = useTemplateRef<HTMLElement>('main')
 const pageTitle = ref<string>()
 const a11yNavigationRef = useTemplateRef('a11yNavigation')
 const setAccessibilityProperties: AccessibilityPropertiesType = (title, focus = true): void => {
-  // announce page title to screen reader
+  // set page title for screen readers
   if (title) {
     pageTitle.value = `Page ${title} - ${siteTitle}`
   }
