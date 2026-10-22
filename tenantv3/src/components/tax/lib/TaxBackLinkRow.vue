@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :to :is-button="hasDocument" :label="label" @click.capture="onClick">
+  <BackLinkRow :to :is-button="hasDocument" :label="label" @edit="onEdit">
     <ConfirmDeleteModal
       v-model:is-opened="isModalOpened"
       document-category="tax"
@@ -26,7 +26,7 @@ const { category, document } = useTaxState()
 const isModalOpened = ref(false)
 const hasDocument = computed(() => !!document.value)
 
-const onClick = () => {
+const onEdit = () => {
   emit('edit')
   if (document.value) {
     AnalyticsService.showWarningModale(category)

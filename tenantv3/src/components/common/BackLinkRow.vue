@@ -16,7 +16,7 @@
       :disabled
       icon="fr-icon-arrow-go-back-fill"
       icon-right
-      @click="$emit('click')"
+      @click="$emit('edit')"
     >
       <span class="visually-hidden">: {{ label }}</span>
     </DsfrButton>
@@ -52,7 +52,7 @@ const {
   isButton: boolean
 }>()
 
-defineEmits<{ click: [] }>()
+defineEmits<{ edit: [] }>()
 const { t } = useI18n()
 </script>
 

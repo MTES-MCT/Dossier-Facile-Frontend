@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :to :is-button="hasDocument" :label="label" @click.capture="onClick">
+  <BackLinkRow :to :is-button="hasDocument" :label="label" @edit="onEdit">
     <ConfirmDeleteModal
       v-model:is-opened="isModalOpened"
       document-category="financial"
@@ -46,7 +46,7 @@ function sendEditEvent() {
   }
 }
 
-const onClick = () => {
+const onEdit = () => {
   sendEditEvent()
   if (document.value?.documentCategory) {
     isModalOpened.value = true
