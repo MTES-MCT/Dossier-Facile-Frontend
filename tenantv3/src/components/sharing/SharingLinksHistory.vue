@@ -21,10 +21,16 @@
           </ActiveShare>
         </template>
       </fieldset>
-      <DfButton ref="delete-btn" class="fr-ml-auto" tertiary :disabled="selectedLinks.length === 0"
-        >{{ t('delete-selection') }}
-        <RiDeleteBin6Line aria-hidden="true" size="1rem" class="fr-ml-1v" />
-      </DfButton>
+      <DsfrButton
+        ref="delete-btn"
+        class="fr-ml-auto"
+        type="submit"
+        :label="t('delete-selection')"
+        tertiary
+        icon="fr-icon-delete-bin-line"
+        icon-right
+        :disabled="selectedLinks.length === 0"
+      />
     </form>
 
     <DsfrModalPatch
@@ -39,12 +45,17 @@
     <hr class="fr-mt-3w" />
     <h3 class="fr-h5">{{ t('suspend-access') }}</h3>
     <p>{{ t('suspend-all') }}</p>
-    <form class="display--flex" @submit.prevent="toggleLinks">
-      <DfButton ref="toggle-btn" class="fr-mx-auto"
-        >{{ allLinksPaused ? t('enable-all') : t('pause-all') }}
-        <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
-      </DfButton>
-    </form>
+
+    <DsfrButton
+      ref="toggle-btn"
+      class="fr-mx-auto"
+      type="submit"
+      :label="allLinksPaused ? t('enable-all') : t('pause-all')"
+      secondary
+      :icon="allLinksPaused ? 'fr-icon-play-circle-line' : 'fr-icon-pause-circle-line'"
+      icon-right
+      @click="toggleLinks"
+    />
   </NakedCard>
 </template>
 
@@ -53,14 +64,13 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { useI18n } from 'vue-i18n'
 import ActiveShare from './ActiveShare.vue'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
-import { RiDeleteBin6Line, RiPauseCircleLine } from '@remixicon/vue'
 import { computed, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '../toast/toastUtils'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 const { links } = defineProps<{ links: ApartmentSharingLink[] }>()
 const emit = defineEmits<{ refresh: [] }>()
@@ -98,10 +108,10 @@ async function confirmDelete() {
     await ApartmentSharingLinkService.deleteLinks(selectedLinks.value)
     selectedLinks.value = []
     emit('refresh')
-    toast.success(t('delete-links-success'), deleteButton.value?.button)
+    toast.success(t('delete-links-success'), deleteButton.value?.$el)
   } catch (error) {
     console.error(error)
-    toast.error(t('error'), deleteButton.value?.button)
+    toast.error(t('error'), deleteButton.value?.$el)
   } finally {
     isMultiDeleteModalOpen.value = false
   }
@@ -115,10 +125,10 @@ async function toggleLinks() {
   try {
     await ApartmentSharingLinkService[method]()
     emit('refresh')
-    toast.success(enable ? t('reactivate-success') : t('pause-success'), toggleButton.value?.button)
+    toast.success(enable ? t('reactivate-success') : t('pause-success'), toggleButton.value?.$el)
   } catch (error) {
     console.error(error)
-    toast.error(t('error'), toggleButton.value?.button)
+    toast.error(t('error'), toggleButton.value?.$el)
   }
 }
 </script>
@@ -162,7 +172,7 @@ async function toggleLinks() {
   "fr": {
     "title": "Activité de vos partages",
     "consult-sharing-links": "Consultez l'historique d'activité de vos partages : accédez aux détails des consultations, téléchargements ou mises en pause de votre dossier.",
-    "active-shares-count": "Nombre total de partages actifs : {0}",
+    "active-shares-count": "Nombre total de partages actifs: {0}",
     "delete-selection": "Supprimer la sélection",
     "suspend-access": "Suspendre temporairement l'accès à votre dossier",
     "suspend-all": "Tous vos partages seront suspendus. Les personnes disposant d'un lien n'y auront plus accès tant que vous n'aurez pas réactivé le partage.",

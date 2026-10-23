@@ -6,35 +6,12 @@
         <slot :id="`cbl-${link.id}`"></slot>
         <div class="share-content">
           <label :for="`cbl-${link.id}`" class="share-title">
-            <RiLinksLine
-              v-if="link.type === 'LINK'"
-              size="1rem"
-              class="blue-text share-icon"
-              title="Partage par lien"
+            <span
+              :class="['fr-icon--sm', `fr-icon-${linkProperties.icon}-line`]"
+              aria-hidden="true"
             />
-            <RiMailLine
-              v-else-if="link.type === 'MAIL'"
-              size="1rem"
-              class="blue-text share-icon"
-              title="Partage par email"
-            />
-            <RiHome4Line
-              v-else-if="link.type === 'OWNER'"
-              size="1rem"
-              class="blue-text share-icon"
-              title="Propriétaire DossierFacile"
-            />
-            <RiShakeHandsLine
-              v-else-if="link.type === 'PARTNER'"
-              size="1rem"
-              class="blue-text share-icon"
-              title="Partenaire"
-            />
-            <span v-if="link.type === 'PARTNER'" class="fr-ml-1v">Partage avec</span>
-            <span class="fr-ml-1v bold">
-              {{ link.title }}
-            </span>
-            <span v-if="link.type === 'MAIL'" class="fr-ml-1v">- {{ link.ownerEmail }}</span>
+            <span class="visually-hidden">{{ t('select-link') }}</span>
+            {{ linkProperties.text }}
           </label>
           <!-- Badge visible uniquement en mobile -->
           <div class="share-badge-mobile">
@@ -94,19 +71,10 @@
 
 <script setup lang="ts">
 import { DsfrBadge } from '@gouvminint/vue-dsfr'
-import {
-  RiAddLine,
-  RiHome4Line,
-  RiInformationFill,
-  RiLinksLine,
-  RiMailLine,
-  RiPauseCircleFill,
-  RiShakeHandsLine,
-  RiSubtractLine
-} from '@remixicon/vue'
+import { RiAddLine, RiInformationFill, RiPauseCircleFill, RiSubtractLine } from '@remixicon/vue'
 import dayjs from 'dayjs'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SharingLinkDetails from './SharingLinkDetails.vue'
 import ShareActionsMenu from './ShareActionsMenu.vue'
@@ -122,6 +90,30 @@ const { t } = useI18n()
 const { resendMail } = useResendMail()
 
 const expanded = ref(false)
+
+const linkProperties = computed(() => {
+  let icon = 'links-line'
+  let text = props.link.title
+
+  switch (props.link.type) {
+    case 'LINK':
+      icon = 'links'
+      break
+    case 'MAIL':
+      icon = 'mail'
+      text = `${props.link.title} ${t('share-with')} ${props.link.ownerEmail}`
+      break
+    case 'OWNER':
+      icon = 'home-4'
+      break
+    case 'PARTNER':
+      icon = 'shake-hands'
+      text = `${t('share-with')} ${props.link.title}`
+      break
+  }
+
+  return { icon, text }
+})
 
 const toggleExpanded = () => {
   if (!expanded.value) {
@@ -189,7 +181,7 @@ const handleDelete = async () => {
 
 .share-infos {
   display: flex;
-  align-items: center;
+  align-items: start;
   flex: 1;
   min-width: 0;
 }
@@ -202,9 +194,12 @@ const handleDelete = async () => {
 
 .share-title {
   display: flex;
+  gap: 0.25rem;
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 0.25rem;
+  font-weight: bold;
+  line-height: 1;
 }
 
 .share-icon {
@@ -327,7 +322,7 @@ const handleDelete = async () => {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "created": "Created on: ",
@@ -347,7 +342,9 @@ const handleDelete = async () => {
     "delete-success": "Sharing deleted",
     "delete-error": "Error deleting sharing",
     "with-docs": "Full file with supporting documents",
-    "without-docs": "File without supporting documents"
+    "without-docs": "File without supporting documents",
+    "share-with": "shared with",
+    "select-link": "Select link:"
   },
   "fr": {
     "created": "Créé le : ",
@@ -367,7 +364,9 @@ const handleDelete = async () => {
     "delete-success": "Partage supprimé",
     "delete-error": "Erreur lors de la suppression du partage",
     "with-docs": "Dossier complet avec justificatifs",
-    "without-docs": "Dossier sans documents justificatifs"
+    "without-docs": "Dossier sans documents justificatifs",
+    "share-with": "partagé avec",
+    "select-link": "Sélectionner le lien:"
   }
 }
 </i18n>
