@@ -1,25 +1,23 @@
+an
 <template>
   <div class="share-item">
     <div class="share-row fr-px-2w fr-py-1w">
       <!-- Checkbox + Infos -->
       <div class="share-infos">
-        <slot :id="`cbl-${link.id}`"></slot>
+        <slot :id="linkId"></slot>
         <div class="share-content">
-          <label :for="`cbl-${link.id}`" class="share-title">
+          <label :for="linkId" class="share-title">
             <span
               :class="['fr-icon--sm', `fr-icon-${linkProperties.icon}-line`]"
               aria-hidden="true"
             />
             <span class="visually-hidden">{{ t('select-link') }}</span>
-            {{ linkProperties.text }}
+            <span :id="`${linkId}-title`">{{ linkProperties.text }}</span>
           </label>
           <!-- Badge visible uniquement en mobile -->
           <div class="share-badge-mobile">
             <DsfrBadge v-if="link.enabled" :label="t('active-sharing')" type="success" small />
-            <p v-else class="fr-badge fr-badge--sm fr-badge--new fr-badge--no-icon fr-mb-0">
-              <RiPauseCircleFill aria-hidden="true" size="1em" class="fr-mr-1v" />
-              <span>{{ t('disabled-sharing') }}</span>
-            </p>
+            <DsfrBadge v-else :label="t('disabled-sharing')" type="warning" small />
           </div>
           <p class="fr-mb-0 fr-text--xs text-grey share-dates">
             <span class="bold">{{ t('created') }}</span>
@@ -31,47 +29,47 @@
             <span class="bold border-left">{{ t('consultations') }}</span>
             <span>{{ t('times', [link.nbVisits]) }}</span>
           </p>
-          <p
-            class="fr-badge fr-badge--sm fr-badge--no-icon fr-mb-0 full-data-badge"
-            :class="link.fullData ? 'fr-badge--info' : 'badge-without-docs'"
-          >
-            <RiInformationFill aria-hidden="true" size="12" class="fr-mr-1v info-icon" />
-            <span>{{ link.fullData ? t('with-docs') : t('without-docs') }}</span>
-          </p>
+          <DsfrBadge
+            :label="link.fullData ? t('with-docs') : t('without-docs')"
+            :type="link.fullData ? 'new' : 'info'"
+            small
+          />
         </div>
       </div>
       <!-- Badge visible uniquement en desktop -->
       <div class="share-badge-desktop">
         <DsfrBadge v-if="link.enabled" :label="t('active-sharing')" type="success" small />
-        <p v-else class="fr-badge fr-badge--sm fr-badge--new fr-badge--no-icon fr-mb-0">
-          <RiPauseCircleFill aria-hidden="true" size="1em" class="fr-mr-1v" />
-          <span>{{ t('disabled-sharing') }}</span>
-        </p>
+        <DsfrBadge v-else :label="t('disabled-sharing')" type="warning" small />
       </div>
       <!-- Actions -->
       <div class="share-actions">
         <ShareActionsMenu
           :enabled="link.enabled"
           :link-type="link.type"
+          :link-id="linkId"
           @copy-link="handleCopyLink"
           @toggle-pause="handleTogglePause"
           @resend-mail="handleResendMail"
           @delete="handleDelete"
         />
-        <button type="button" class="link-button blue-text" @click="toggleExpanded">
-          {{ expanded ? t('show-less') : t('show-all') }}
-          <RiSubtractLine v-if="expanded" aria-hidden="true" size="1em" />
-          <RiAddLine v-else aria-hidden="true" size="1em" />
-        </button>
+        <DsfrButton
+          type="button"
+          :label="expanded ? t('show-less') : t('show-all')"
+          tertiary
+          :icon="expanded ? 'fr-icon-subtract-line' : 'fr-icon-add-line'"
+          icon-right
+          size="sm"
+          :aria-describedby="`${linkId}-title`"
+          @click="toggleExpanded"
+        />
       </div>
     </div>
-    <SharingLinkDetails v-if="expanded" :link @refresh="emit('refresh')" />
+    <SharingLinkDetails v-if="expanded" :link-id="linkId" :link @refresh="emit('refresh')" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { DsfrBadge } from '@gouvminint/vue-dsfr'
-import { RiAddLine, RiInformationFill, RiPauseCircleFill, RiSubtractLine } from '@remixicon/vue'
+import { DsfrBadge, DsfrButton, useRandomId } from '@gouvminint/vue-dsfr'
 import dayjs from 'dayjs'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { computed, ref } from 'vue'
@@ -89,6 +87,7 @@ const emit = defineEmits<{ refresh: [] }>()
 const { t } = useI18n()
 const { resendMail } = useResendMail()
 
+const linkId = useRandomId('link', props.link.id.toString())
 const expanded = ref(false)
 
 const linkProperties = computed(() => {

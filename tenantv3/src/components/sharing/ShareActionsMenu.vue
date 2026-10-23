@@ -1,59 +1,69 @@
 <template>
   <div ref="menuContainer" class="actions-menu">
-    <button
+    <DsfrButton
       type="button"
-      class="actions-button"
+      :label="t('actions')"
+      tertiary
+      :icon="isOpen ? 'fr-icon-arrow-up-s-line' : 'fr-icon-arrow-down-s-line'"
+      icon-right
+      size="sm"
       :aria-expanded="isOpen"
-      aria-haspopup="true"
+      :aria-controls="dropdownID"
+      :aria-describedby="`${linkId}-title`"
       @click="toggleMenu"
-    >
-      <span class="actions-text">{{ t('actions') }}</span>
-      <RiArrowUpSLine v-if="isOpen" aria-hidden="true" size="16px" class="arrow-icon" />
-      <RiArrowDownSLine v-else aria-hidden="true" size="16px" class="arrow-icon" />
-    </button>
+    />
 
-    <div v-if="isOpen" class="dropdown-menu">
+    <div v-show="isOpen" :id="dropdownID" class="dropdown-menu">
       <!-- Options for LINK type -->
-      <template v-if="linkType === 'LINK'">
-        <button v-if="enabled" type="button" class="menu-item" @click="handleCopyLink">
-          <RiFileCopyLine aria-hidden="true" size="16px" class="menu-icon" />
-          <span>{{ t('copy-the-link') }}</span>
-        </button>
-
-        <button type="button" class="menu-item" @click="handleTogglePause">
-          <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
-          <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
-          <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
-        </button>
-      </template>
-
+      <DsfrButton
+        v-if="linkType === 'LINK' && enabled"
+        class="menu-item"
+        type="button"
+        :label="t('copy-the-link')"
+        tertiary
+        no-outline
+        icon="fr-icon-clipboard-line"
+        size="sm"
+        :aria-describedby="`${linkId}-title`"
+        @click="handleCopyLink"
+      />
       <!-- Options for MAIL type -->
-      <template v-if="linkType === 'MAIL'">
-        <button v-if="enabled" type="button" class="menu-item" @click="handleResendMail">
-          <RiSendPlaneLine aria-hidden="true" size="16px" class="menu-icon" />
-          <span>{{ t('resend-mail') }}</span>
-        </button>
+      <DsfrButton
+        v-if="linkType === 'MAIL' && enabled"
+        class="menu-item"
+        type="button"
+        :label="t('resend-mail')"
+        tertiary
+        no-outline
+        icon="fr-icon-send-plane-line"
+        size="sm"
+        :aria-describedby="`${linkId}-title`"
+        @click="handleResendMail"
+      />
 
-        <button type="button" class="menu-item" @click="handleTogglePause">
-          <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
-          <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
-          <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
-        </button>
-      </template>
+      <DsfrButton
+        class="menu-item"
+        type="button"
+        :label="enabled ? t('pause-sharing') : t('reactivate-sharing')"
+        tertiary
+        no-outline
+        :icon="enabled ? 'fr-icon-pause-circle-line' : 'fr-icon-play-circle-line'"
+        size="sm"
+        :aria-describedby="`${linkId}-title`"
+        @click="handleTogglePause"
+      />
 
-      <!-- Options for OWNER/PARTNER type -->
-      <template v-if="linkType === 'OWNER' || linkType === 'PARTNER'">
-        <button type="button" class="menu-item" @click="handleTogglePause">
-          <RiPauseCircleLine v-if="enabled" aria-hidden="true" size="16px" class="menu-icon" />
-          <RiPlayCircleLine v-else aria-hidden="true" size="16px" class="menu-icon" />
-          <span>{{ enabled ? t('pause-sharing') : t('reactivate-sharing') }}</span>
-        </button>
-      </template>
-
-      <button type="button" class="menu-item delete-item" @click.stop="handleDelete">
-        <RiDeleteBinLine aria-hidden="true" size="16px" class="menu-icon" />
-        <span>{{ t('delete-sharing') }}</span>
-      </button>
+      <DsfrButton
+        class="menu-item"
+        type="button"
+        :label="t('delete-sharing')"
+        tertiary
+        no-outline
+        icon="fr-icon-delete-bin-line"
+        size="sm"
+        :aria-describedby="`${linkId}-title`"
+        @click.stop="handleDelete"
+      />
     </div>
     <DsfrModalPatch
       v-model:is-opened="isDeleteModalOpen"
@@ -68,23 +78,15 @@
 
 <script setup lang="ts">
 import { ref, computed, type ComputedRef } from 'vue'
-import {
-  RiArrowDownSLine,
-  RiArrowUpSLine,
-  RiFileCopyLine,
-  RiPauseCircleLine,
-  RiPlayCircleLine,
-  RiDeleteBinLine,
-  RiSendPlaneLine
-} from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
-import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
+import { DsfrButton, type DsfrButtonProps, useRandomId } from '@gouvminint/vue-dsfr'
 
 const props = defineProps<{
   enabled?: boolean
   linkType: 'LINK' | 'MAIL' | 'OWNER' | 'PARTNER'
+  linkId: string
 }>()
 
 const emit = defineEmits<{
@@ -95,6 +97,7 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
+const dropdownID = useRandomId('dropdown')
 
 const isOpen = ref(false)
 
@@ -207,25 +210,7 @@ const confirmDelete = () => {
 }
 
 .menu-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 16px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-family: Marianne, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 24px;
-  color: #000091;
-  text-align: left;
-  transition: background-color 0.2s;
-}
-
-.menu-item:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+  inline-size: 100%;
 }
 
 .menu-icon {
@@ -238,7 +223,7 @@ const confirmDelete = () => {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "actions": "Actions",
