@@ -5,7 +5,7 @@
     <hr />
     <form class="fr-grid-col" @submit.prevent="openDeleteModal">
       <fieldset class="share-list">
-        <legend class="bold fr-mb-1w">
+        <legend ref="share-legend" class="bold fr-mb-1w" tabindex="-1">
           {{ t('active-shares-count', [links.length]) }}
         </legend>
         <template v-for="link of links" :key="link.id">
@@ -64,13 +64,14 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import { useI18n } from 'vue-i18n'
 import ActiveShare from './ActiveShare.vue'
-import { computed, ref, useTemplateRef, type ComputedRef } from 'vue'
+import { computed, nextTick, provide, ref, useTemplateRef, type ComputedRef } from 'vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '../toast/toastUtils'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
+import { FocusLegendKey } from '@/models/InjectionKeys'
 
 const { links } = defineProps<{ links: ApartmentSharingLink[] }>()
 const emit = defineEmits<{ refresh: [] }>()
@@ -79,6 +80,7 @@ const { t } = useI18n()
 const selectedLinks = ref([])
 const deleteButton = useTemplateRef('delete-btn')
 const toggleButton = useTemplateRef('toggle-btn')
+const shareLegend = useTemplateRef<HTMLLegendElement>('share-legend')
 
 const isMultiDeleteModalOpen = ref(false)
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -114,6 +116,7 @@ async function confirmDelete() {
     toast.error(t('error'), deleteButton.value?.$el)
   } finally {
     isMultiDeleteModalOpen.value = false
+    setFocusLegend()
   }
 }
 
@@ -131,6 +134,12 @@ async function toggleLinks() {
     toast.error(t('error'), toggleButton.value?.$el)
   }
 }
+
+const setFocusLegend = async () => {
+  await nextTick()
+  shareLegend.value?.focus()
+}
+provide(FocusLegendKey, setFocusLegend)
 </script>
 
 <style scoped>

@@ -13,7 +13,7 @@
       @click="toggleMenu"
     />
 
-    <div v-show="isOpen" :id="dropdownID" class="dropdown-menu">
+    <div v-show="isOpen" :id="dropdownID" class="dropdown-menu fr-p-1v" @keyup.esc="isOpen = false">
       <!-- Options for LINK type -->
       <DsfrButton
         v-if="linkType === 'LINK' && enabled"
@@ -54,6 +54,7 @@
       />
 
       <DsfrButton
+        ref="delete-btn"
         class="menu-item"
         type="button"
         :label="t('delete-sharing')"
@@ -70,6 +71,7 @@
       :title="t('delete-confirmation-title')"
       :actions="modalActions"
       size="xl"
+      @close="handleFocus"
     >
       <p>{{ t('delete-confirmation-message') }}</p>
     </DsfrModalPatch>
@@ -77,11 +79,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, type ComputedRef } from 'vue'
+import { ref, computed, type ComputedRef, useTemplateRef, nextTick, inject } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { DsfrButton, type DsfrButtonProps, useRandomId } from '@gouvminint/vue-dsfr'
+import { FocusLegendKey, type FocusLegendType } from '@/models/InjectionKeys'
 
 const props = defineProps<{
   enabled?: boolean
@@ -98,8 +101,8 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const dropdownID = useRandomId('dropdown')
-
 const isOpen = ref(false)
+const setFocusLegend = inject(FocusLegendKey) as FocusLegendType
 
 const isDeleteModalOpen = ref(false)
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -147,13 +150,20 @@ const handleResendMail = () => {
 
 const handleDelete = () => {
   isDeleteModalOpen.value = true
-  closeMenu()
 }
 
-const confirmDelete = () => {
+const confirmDelete = async () => {
   AnalyticsService.sharingAction('delete')
   emit('delete')
   isDeleteModalOpen.value = false
+  await nextTick()
+  setFocusLegend()
+}
+
+const deleteBtn = useTemplateRef('delete-btn')
+const handleFocus = async () => {
+  await nextTick()
+  deleteBtn.value?.$el.focus()
 }
 </script>
 
@@ -201,7 +211,6 @@ const confirmDelete = () => {
   top: 32px;
   left: 0;
   width: 282px;
-  max-height: 430px;
   background-color: #ffffff;
   border-top: 1px solid #e3e3fd;
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 18, 0.16);
