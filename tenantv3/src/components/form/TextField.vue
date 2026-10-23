@@ -31,7 +31,7 @@
       />
     </Field>
     <ErrorMessage v-slot="{ message }" :name="name">
-      <span :id="`${name}-errors`" class="fr-error-text">{{ translateMessage(message || '') }}</span>
+      <p :id="`${name}-errors`" class="fr-error-text">{{ translateMessage(message || '') }}</p>
     </ErrorMessage>
   </div>
 </template>

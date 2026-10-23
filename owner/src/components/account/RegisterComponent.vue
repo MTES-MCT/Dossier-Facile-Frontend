@@ -62,7 +62,7 @@
                 />
               </Field>
               <ErrorMessage v-slot="{ message }" name="email">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
               </ErrorMessage>
             </div>
           </div>
@@ -90,7 +90,7 @@
               </Field>
               <PasswordMeter :password="password || ''" @score="setScore" />
               <ErrorMessage v-slot="{ message }" name="password">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
               </ErrorMessage>
             </div>
           </div>
@@ -121,7 +121,7 @@
                 />
               </Field>
               <ErrorMessage v-slot="{ message }" name="confirm-password">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
               </ErrorMessage>
             </div>
           </div>
@@ -150,7 +150,7 @@
                 </i18n-t>
               </label>
               <ErrorMessage v-slot="{ message }" class="fr-error-text" name="terms">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
               </ErrorMessage>
             </div>
           </div>
