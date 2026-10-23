@@ -2,8 +2,12 @@
   <div class="details">
     <div class="wrapper">
       <div class="section">
-        <h3 class="fr-text--sm blue-text fr-mb-0">{{ t('general-info') }}</h3>
         <table class="table">
+          <caption class="fr-text--sm blue-text fr-mb-0">
+            {{
+              t('general-info')
+            }}
+          </caption>
           <thead class="sr-only">
             <tr>
               <th scope="col">{{ t('property') }}</th>
@@ -12,26 +16,34 @@
           </thead>
           <tbody>
             <tr v-if="isLinkOrMail" :class="{ 'title-row-editing': isEditingTitle }">
-              <th scope="row" class="fr-text-mention--grey">{{ t('title-of-share') }}</th>
+              <th :id="`${linkId}-edit-title`" scope="row" class="fr-text-mention--grey">
+                {{ t('title-of-share') }}
+              </th>
               <td class="title-cell">
                 <div v-if="!isEditingTitle" class="title-display">
                   {{ link.title }}
                   <DsfrButton
+                    ref="edit-title-btn"
                     type="button"
                     :label="t('update')"
                     tertiary
                     icon="fr-icon-pencil-line"
                     icon-right
                     size="sm"
+                    :aria-describedby="`${linkId}-edit-title`"
                     @click="startEditingTitle"
                   />
                 </div>
                 <div v-else class="title-edit">
                   <input
+                    ref="edit-title-input"
                     v-model="editedTitle"
                     type="text"
                     class="fr-input"
-                    @keyup.enter="saveTitle"
+                    name="title"
+                    :aria-labelledby="`${linkId}-edit-title`"
+                    :aria-describedby="`${linkId}-title`"
+                    @keydown.enter="saveTitle"
                     @keyup.escape="cancelEditingTitle"
                   />
                   <div class="title-edit-buttons">
@@ -58,18 +70,22 @@
               <td>{{ formatDate(link.creationDate) }}</td>
             </tr>
             <tr v-if="isLinkOrMail">
-              <th scope="row" class="fr-text-mention--grey">{{ t('expires-on') }}</th>
+              <th :id="`${linkId}-expire`" scope="row" class="fr-text-mention--grey">
+                {{ t('expires-on') }}
+              </th>
               <td class="expiration-cell">
                 <template v-if="!isEditingExpiration">
-                  {{ formatDate(link.expirationDate) }}
+                  <time :datetime="link.expirationDate">{{ formatDate(link.expirationDate) }}</time>
                   <DsfrButton
+                    ref="edit-expiration-btn"
                     type="button"
                     :label="t('update')"
                     tertiary
                     icon="fr-icon-pencil-line"
                     icon-right
                     size="sm"
-                    @click="isEditingExpiration = true"
+                    :aria-describedby="`${linkId}-expire`"
+                    @click="openUpdateExpirationDate"
                   />
                 </template>
                 <VueDatePicker
@@ -82,12 +98,15 @@
                   auto-apply
                   :teleport="true"
                   @update:model-value="updateExpirationDate"
-                  @closed="isEditingExpiration = false"
+                  @closed="closeUpdateExpirationDate"
+                  @keyup.esc="closeUpdateExpirationDate"
                 >
                   <template #dp-input="{ value }">
                     <div class="dp-custom-input">
-                      <span class="fr-icon-calendar-line fr-icon--sm" />
-                      <span>{{ formatDatePicker(value) }}</span>
+                      <button ref="date-picker-btn" type="button">
+                        <span class="fr-icon-calendar-line fr-icon--sm" />
+                        {{ formatDatePicker(value) }}
+                      </button>
                       <DsfrButton
                         type="button"
                         class="dp-custom-input__close fr-m-0 fr-p-0"
@@ -97,7 +116,7 @@
                         icon="fr-icon-close-line"
                         icon-only
                         size="sm"
-                        @click.stop="isEditingExpiration = false"
+                        @click.stop="closeUpdateExpirationDate"
                       />
                     </div>
                   </template>
@@ -112,8 +131,12 @@
         </table>
       </div>
       <div class="section">
-        <h3 class="fr-text--sm blue-text fr-mb-0">{{ t('usage-stats') }}</h3>
         <table class="table">
+          <caption class="fr-text--sm blue-text fr-mb-0">
+            {{
+              t('usage-stats')
+            }}
+          </caption>
           <thead class="sr-only">
             <tr>
               <th scope="col">{{ t('property') }}</th>
@@ -137,7 +160,7 @@
         </table>
       </div>
     </div>
-    <div v-if="isLinkOrMail" class="info">
+    <div v-if="isLinkOrMail" class="info fr-mt-1w">
       <LinkWarning />
       <div class="link-row fr-mt-1w">
         <div class="link-info">
@@ -209,7 +232,7 @@ import { useTenantStore } from '@/stores/tenant-store'
 import { useResendMail } from '@/composables/useResendMail'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
-import { ref, computed } from 'vue'
+import { ref, computed, useTemplateRef, nextTick } from 'vue'
 import { VueDatePicker } from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
@@ -233,6 +256,10 @@ const isLinkOrMail = computed(() => link.type === 'LINK' || link.type === 'MAIL'
 
 const isEditingTitle = ref(false)
 const editedTitle = ref(link.title)
+const editTitleInput = useTemplateRef<HTMLInputElement>('edit-title-input')
+const editTitleBtn = useTemplateRef('edit-title-btn')
+const editExpirationBtn = useTemplateRef('edit-expiration-btn')
+const datePickerBtn = useTemplateRef<HTMLButtonElement>('date-picker-btn')
 
 const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
 const formatDatePicker = (date: Date | string) => dayjs(date).format('DD/MM/YYYY')
@@ -288,20 +315,37 @@ async function updateExpirationDate(date: string) {
     isEditingExpiration.value = false
     toast.success(t('expiration-updated'), null)
     emit('refresh')
+    await nextTick()
+    editExpirationBtn.value?.$el.focus()
   } catch (error) {
     console.error(error)
     toast.error(t('error'), null)
   }
 }
 
-function startEditingTitle() {
-  editedTitle.value = link.title
-  isEditingTitle.value = true
+async function openUpdateExpirationDate() {
+  isEditingExpiration.value = true
+  await nextTick()
+  datePickerBtn.value?.focus()
+}
+async function closeUpdateExpirationDate() {
+  isEditingExpiration.value = false
+  await nextTick()
+  editExpirationBtn.value?.$el.focus()
 }
 
-function cancelEditingTitle() {
+async function startEditingTitle() {
+  editedTitle.value = link.title
+  isEditingTitle.value = true
+  await nextTick()
+  editTitleInput.value?.focus()
+}
+
+async function cancelEditingTitle() {
   isEditingTitle.value = false
   editedTitle.value = link.title
+  await nextTick()
+  editTitleBtn.value?.$el.focus()
 }
 
 async function saveTitle() {
@@ -310,6 +354,8 @@ async function saveTitle() {
     isEditingTitle.value = false
     toast.success(t('title-updated'), null)
     emit('refresh')
+    await nextTick()
+    editTitleBtn.value?.$el.focus()
   } catch (error) {
     console.error(error)
     toast.error(t('error'), null)
@@ -396,7 +442,9 @@ async function saveTitle() {
   gap: 0.5rem;
   align-items: flex-end;
 }
-h3 {
+caption {
+  text-align: left;
+  font-weight: bold;
   border-bottom: 1px solid var(--blue-france-sun-113-625);
 }
 .expiration-cell {
