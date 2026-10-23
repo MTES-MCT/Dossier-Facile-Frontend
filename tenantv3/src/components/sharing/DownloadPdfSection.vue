@@ -2,9 +2,7 @@
   <div class="download-section">
     <div class="content-wrapper">
       <div class="left-section">
-        <div class="icon">
-          <RiFileDownloadLine aria-hidden="true" />
-        </div>
+        <span class="icon fr-icon-download-line" aria-hidden="true" />
         <div class="text-content">
           <h3 class="fr-text--lg fr-mb-0">{{ t('title') }}</h3>
           <p class="description-desktop fr-text--sm fr-mb-0">
@@ -28,26 +26,21 @@
         {{ t('group-incomplete') }}
       </p>
       <div class="btn-wrapper">
-        <button
-          v-if="showProgressBar"
-          type="button"
-          class="fr-btn fr-btn--secondary"
-          disabled
-        >
+        <button v-if="showProgressBar" type="button" class="fr-btn fr-btn--secondary" disabled>
           {{ t('download-in-progress') }}
           <span><ProgressIndicator diameter="22px" border="3px" /></span>
         </button>
-        <button
+        <DsfrButton
           v-else
           ref="downloadButton"
+          :label="t('download-button')"
           type="button"
-          class="fr-btn fr-btn--secondary"
+          icon="fr-icon-download-line"
+          icon-right
+          secondary
           :disabled="isGroupDownloadDisabled"
           @click="download"
-        >
-          {{ t('download-button') }}
-          <RiFileDownloadLine aria-hidden="true" size="1rem" class="fr-ml-1v" />
-        </button>
+        />
       </div>
     </div>
   </div>
@@ -56,13 +49,13 @@
 <script setup lang="ts">
 import { ref, useTemplateRef, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { RiFileDownloadLine } from '@remixicon/vue'
 import ProgressIndicator from 'df-shared-next/src/Button/ProgressIndicator.vue'
 import { ProfileService } from '@/services/ProfileService'
 import { UtilsService } from '@/services/UtilsService'
 import { toast } from '@/components/toast/toastUtils'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 const { t } = useI18n()
 const store = useTenantStore()
@@ -99,7 +92,7 @@ async function downloadPdf() {
     link.click()
   } catch (error) {
     console.error('Failed to download PDF:', error)
-    toast.error(t('download-failed'), downloadButton.value)
+    toast.error(t('download-failed'), downloadButton.value?.$el)
     showProgressBar.value = false
   } finally {
     showProgressBar.value = false
@@ -115,7 +108,7 @@ function retryDownload(remainingCount: number) {
       retryDownload(remainingCount - 1)
     } else {
       showProgressBar.value = false
-      toast.error(t('download-failed-try-later'), downloadButton.value)
+      toast.error(t('download-failed-try-later'), downloadButton.value?.$el)
     }
   }, 10000)
 }
@@ -134,8 +127,9 @@ function download() {
       .catch((error) => {
         showProgressBar.value = false
         const status = error?.response?.status
-        const message = status === 417 ? t('download-failed-incomplete-group') : t('download-failed')
-        toast.error(message, downloadButton.value)
+        const message =
+          status === 417 ? t('download-failed-incomplete-group') : t('download-failed')
+        toast.error(message, downloadButton.value?.$el)
       })
   }
 }
