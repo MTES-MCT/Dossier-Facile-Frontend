@@ -40,7 +40,12 @@
       ></div>
     </div>
   </div>
-  <ul v-if="currentFiles.length > 0" role="list" class="fr-col-12 fr-mb-3w">
+  <ul
+    v-if="currentFiles.length > 0"
+    role="list"
+    class="fr-col-12 fr-mb-3w"
+    data-cy="uploaded-files"
+  >
     <li v-for="file in currentFiles" :key="file.id || file.name">
       <ListItem
         :file="file"

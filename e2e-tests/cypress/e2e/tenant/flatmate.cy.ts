@@ -15,7 +15,7 @@ describe("flatmate tenant scenario", () => {
     cy.contains("En colocation").click();
     cy.get('input[name="email"]').type(flatmateEmail);
     cy.contains("Inviter ce colocataire").click();
-    cy.get('label[for="authorize"').click();
+    cy.get('label[for="authorize"]').click();
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");
@@ -50,7 +50,7 @@ describe("flatmate tenant scenario", () => {
     cy.contains("J’atteste sur l’honneur ne pas pouvoir").click().clickOnNext();
 
     cy.expectPath("/choix-garant");
-    cy.contains("Une personne morale").click({ force: true }).clickOnNext();
+    cy.contains("Une personne morale").click().clickOnNext();
 
     cy.expectPath("/info-garant/0");
     cy.get("#organismName").type("Organisme").uploadDocument().clickOnNext();

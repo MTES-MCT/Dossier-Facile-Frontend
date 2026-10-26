@@ -37,10 +37,14 @@ Cypress.Commands.add(
 
     cy.intercept("DELETE", "**/deleteAccount").as("deleteAccount");
 
-    cy.get(".fr-nav__btn").click();
-    cy.get(".fr-nav__link")
-      .contains("Supprimer mon compte")
-      .click({ force: true });
+    if (type === UserType.TENANT) {
+      cy.contains("header button", "Supprimer mon compte").click();
+    } else {
+      cy.get(".fr-nav__btn").click();
+      cy.get(".fr-nav__link")
+        .contains("Supprimer mon compte")
+        .click();
+    }
     cy.get("#modal-delete-account")
       .find("button")
       .contains("Supprimer mon compte")
@@ -73,7 +77,7 @@ Cypress.Commands.add("testAccessibility", () => {
 });
 
 Cypress.Commands.add("rejectCookies", () => {
-  cy.contains("Tout refuser").click();
+  cy.contains("button", "Refuser tout").click();
 });
 
 Cypress.Commands.add('ValidateAloneFile', (email: string) => {

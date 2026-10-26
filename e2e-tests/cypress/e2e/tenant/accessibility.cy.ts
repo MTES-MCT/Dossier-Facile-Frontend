@@ -1,4 +1,4 @@
-import { testAccount } from "../../support/testAccounts";
+import { testAccount, testEmail } from "../../support/testAccounts";
 
 describe("accessibility checks", () => {
   const account = testAccount("e2e-a11y");
@@ -52,6 +52,7 @@ describe("accessibility checks", () => {
     cy.testAccessibility();
     cy.get("#lastname").type("Dupont");
     cy.get("#firstname").type("Jean");
+    cy.get("#email").type(testEmail("e2e-a11y-garant"));
     cy.clickOnNext();
 
     cy.testAccessibility();
