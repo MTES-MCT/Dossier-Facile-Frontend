@@ -61,8 +61,9 @@ If the back office uses another port, append
 `--env boUrl=http://localhost:18081` to any of these commands.
 
 The owner and FranceConnect scenarios require a configured FranceConnect test
-provider and its fixture accounts. The partner scenario skips itself unless
-`dfConnectDemoUrl` is configured.
+provider and its fixture accounts. The partner scenario is disabled because the
+DFConnect demo is stopped, including when `dfConnectDemoUrl` is configured.
+Restore the demo and review the consent/revocation assertions before re-enabling it.
 The owner property-creation scenario requires a certified FranceConnect identity
 and a working ADEME lookup service. It keeps the original DPE lookup assertion.
 

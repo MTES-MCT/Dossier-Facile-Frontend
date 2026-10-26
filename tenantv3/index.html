@@ -5,11 +5,25 @@
     <link rel="icon" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DossierFacile</title>
+    <!-- Vue manages the header. Keep vanilla DSFR only for the remaining HTML components. -->
     <script type="module">
-      import('./node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.min.js')
+      import '@gouvfr/dsfr/dist/core/core.module.min.js'
+      import '@gouvfr/dsfr/dist/component/modal/modal.module.min.js'
+      import '@gouvfr/dsfr/dist/component/tab/tab.module.min.js'
+      import '@gouvfr/dsfr/dist/component/breadcrumb/breadcrumb.module.min.js'
+      import '@gouvfr/dsfr/dist/component/tooltip/tooltip.module.min.js'
     </script>
     <script nomodule type="text/javascript">
-      import('./node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.nomodule.min.js')
+      import('./node_modules/@gouvfr/dsfr/dist/core/core.nomodule.min.js').then(() =>
+        Promise.all([
+          import('./node_modules/@gouvfr/dsfr/dist/component/modal/modal.nomodule.min.js'),
+          import('./node_modules/@gouvfr/dsfr/dist/component/tab/tab.nomodule.min.js'),
+          import(
+            './node_modules/@gouvfr/dsfr/dist/component/breadcrumb/breadcrumb.nomodule.min.js'
+          ),
+          import('./node_modules/@gouvfr/dsfr/dist/component/tooltip/tooltip.nomodule.min.js')
+        ])
+      )
     </script>
   </head>
 

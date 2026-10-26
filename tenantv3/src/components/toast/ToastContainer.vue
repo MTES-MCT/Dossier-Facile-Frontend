@@ -17,17 +17,11 @@ import { alerts, removeToast } from './toastUtils'
 
 <style scoped>
 .toast-container {
-  position: sticky;
-  top: 0;
-  right: 1rem;
   width: min(22rem, calc(100% - 2rem));
   margin-left: auto;
-  z-index: 10000;
 }
 
 .toast-list {
-  position: absolute;
-  top: 1rem;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -35,6 +29,10 @@ import { alerts, removeToast } from './toastUtils'
   padding: 0;
   list-style: none;
   width: 100%;
+}
+
+.toast-list:not(:empty) {
+  padding-block: 1rem;
 }
 
 .toast-container :deep(.fr-alert) {
