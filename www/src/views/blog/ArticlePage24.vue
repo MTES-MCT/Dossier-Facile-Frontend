@@ -171,27 +171,19 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article24.webp'
 import BlogPostImage from '@/components/BlogPostImage.vue'
-
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 const title = 'Guide étape par étape pour trouver un appartement idéal'
 const description =
   "Trouver un appartement idéal n'est pas facile. Il faut chercher, comparer, visiter, négocier... " +
   'Heureusement, nous avons créé un guide étape par étape pour vous simplifier la vie. ' +
   'Quel que soit votre profil, vous y trouverez des conseils utiles, des astuces et des exemples. Suivez le guide !'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>

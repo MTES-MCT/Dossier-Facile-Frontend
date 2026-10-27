@@ -81,9 +81,9 @@
 </template>
 
 <script setup lang="ts">
-import { useSeoMeta } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 import image from '@/assets/cover-features.webp'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 
 const { t } = useI18n()
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
@@ -92,18 +92,11 @@ const title = 'Créez votre dossier de location en ligne avec DossierFacile'
 const description =
   'DossierFacile est le service public gratuit qui vous permet de constituer un dossier locataire numérique fiable et sécurisé. Notre plateforme vous accompagne pour créer un dossier de logement complet qui répond aux attentes des propriétaires'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>
 

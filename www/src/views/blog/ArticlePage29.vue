@@ -166,24 +166,16 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article29.png'
-
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 const title = '2 millions de comptes créés sur DossierFacile : une nouvelle étape majeure !'
 const description =
   "DossierFacile franchit un cap symbolique avec plus de 2 millions de comptes créés. Une confiance renouvelée dans le service public et une adoption accélérée qui démontrent l'efficacité d'une startup d'État au service de l'intérêt général."
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>

@@ -32,5 +32,5 @@
     "checkUnknownEvents": true,
     "checkUnknownDirectives": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "../www/src/route-meta.d.ts"]
 }

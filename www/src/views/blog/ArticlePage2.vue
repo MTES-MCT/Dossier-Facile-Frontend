@@ -93,25 +93,18 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article2.webp'
 import BlogPostImage from '@/components/BlogPostImage.vue'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 
-const title = 'Constituer votre DossierFacile - Blog'
+const title = 'Constituer votre DossierFacile'
 const description =
   'Mais coconstituer un dos sier de location qui regroupe tous les documents nécessaires sans tomber dans le désordre d’un pdf de cinquante pages ? Existe-t-il un outil facile et gratuit ?'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>

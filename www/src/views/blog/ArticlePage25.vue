@@ -126,26 +126,18 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article25.webp'
 import BlogPostImage from '@/components/BlogPostImage.vue'
-
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 const title =
   'Dossier de location : Comment choisir son garant et les documents à fournir pour votre dossier locatif'
 const description =
   'Guide complet sur les documents à fournir pour votre garant dans un dossier de location. Découvrez les justificatifs nécessaires pour constituer un dossier locataire solide avec garant, que ce soit pour une personne physique, Visale ou une entreprise.'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>
