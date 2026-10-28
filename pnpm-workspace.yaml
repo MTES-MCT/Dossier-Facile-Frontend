@@ -37,7 +37,7 @@ catalog:
   dayjs: 1.11.13
   prettier: 3.5.3
   eslint: 9.32.0
-  eslint-plugin-vue: 10.4.0
+  eslint-plugin-vue: 10.11.1
   jiti: 2.4.2
   npm-run-all2: 8.0.4
   "@vue/tsconfig": 0.7.0
