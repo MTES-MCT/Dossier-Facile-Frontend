@@ -1,4 +1,4 @@
-import { testAccount } from "../../support/testAccounts";
+import { testAccount } from "../../../support/testAccounts";
 
 describe("identity document upload", () => {
   const account = testAccount("e2e-identity");

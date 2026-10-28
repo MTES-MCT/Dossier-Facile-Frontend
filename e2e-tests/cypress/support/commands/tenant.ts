@@ -45,7 +45,7 @@ Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
     alias,
   );
   const files = [...Array(numberOfFiles).keys()].map(
-    (_) => "assets/test-document.png",
+    (_) => "cypress/fixtures/test-document.png",
   );
   cy.get(".input-file").selectFile(files);
   cy.wait(`@${alias}`).its("response.statusCode").should("eq", 200);
@@ -153,7 +153,10 @@ Cypress.Commands.add("requestFileValidation", () => {
   ).should("be.visible");
   cy.get("body").then(($body) => {
     if (
-      $body.find("#validation-request").text().includes("Faites vérifier votre dossier")
+      $body
+        .find("#validation-request")
+        .text()
+        .includes("Faites vérifier votre dossier")
     ) {
       cy.get("#validation-request")
         .contains("button", "Demander une vérification")
@@ -165,20 +168,17 @@ Cypress.Commands.add("requestFileValidation", () => {
   ).should("be.visible");
 });
 
-Cypress.Commands.add(
-  "gotoTenantDocumentsPage",
-  (account: TestAccount) => {
-    cy.tenantLogin(account.email, account.password);
-    cy.rejectCookies();
+Cypress.Commands.add("gotoTenantDocumentsPage", (account: TestAccount) => {
+  cy.tenantLogin(account.email, account.password);
+  cy.rejectCookies();
 
-    cy.fillTenantIdentity(account.firstname, account.lastname);
+  cy.fillTenantIdentity(account.firstname, account.lastname);
 
-    cy.expectPath("/type-locataire");
-    cy.clickOnNext();
+  cy.expectPath("/type-locataire");
+  cy.clickOnNext();
 
-    cy.expectPath("/documents-locataire/1");
-  },
-);
+  cy.expectPath("/documents-locataire/1");
+});
 
 // Residency navigation must work with analysis enabled or disabled. Once the
 // step is ready, explain any reported errors before continuing.
@@ -200,22 +200,19 @@ Cypress.Commands.add("continuePastAnalysis", () => {
 
 // Documents whose category declares an error strategy (Visale) render AnalysisErrorBlock, which
 // embeds the explanation textarea, instead of the AnalysisBanners list and its "explain" link.
-Cypress.Commands.add(
-  "assertAnalysisErrorAndExplain",
-  (urlFragment: string) => {
-    cy.get(".analysis-banners, .analysis-error-block", {
-      timeout: 20000,
-    }).should("exist");
+Cypress.Commands.add("assertAnalysisErrorAndExplain", (urlFragment: string) => {
+  cy.get(".analysis-banners, .analysis-error-block", {
+    timeout: 20000,
+  }).should("exist");
 
-    cy.get("body").then(($body) => {
-      if ($body.find(".analysis-error-block").length) {
-        cy.assertAnalysisErrorBlockAndExplain(urlFragment);
-      } else {
-        cy.assertAnalysisBannersAndExplain(urlFragment);
-      }
-    });
-  },
-);
+  cy.get("body").then(($body) => {
+    if ($body.find(".analysis-error-block").length) {
+      cy.assertAnalysisErrorBlockAndExplain(urlFragment);
+    } else {
+      cy.assertAnalysisBannersAndExplain(urlFragment);
+    }
+  });
+});
 
 Cypress.Commands.add(
   "assertAnalysisBannersAndExplain",

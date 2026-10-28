@@ -1,32 +1,34 @@
 import { defineConfig } from "cypress";
-import { log } from "./cypress/support/accessibility";
-import { forceFrenchLocale } from "./cypress/support/browserLocale";
+import {
+  installSupportTasks,
+  loadPrivateSettings,
+  targets,
+} from "./cypress/node/settings";
 
+loadPrivateSettings();
 export default defineConfig({
-  e2e: {
-    video: false,
-    defaultCommandTimeout: 5000,
-    setupNodeEvents(on) {
-      on("before:browser:launch", (browser, launchOptions) => {
-        forceFrenchLocale(browser, launchOptions);
-        return launchOptions;
-      });
-      on("task", {
-        ...log(),
-      });
-    },
-  },
-  env: {
-    configName: "local",
-    mainUrl: "http://localhost:9001",
-    tenantUrl: "http://localhost:9002",
-    tenantUser: "elsa",
-    ownerUrl: "http://localhost:3000",
-    ownerUser: "laurent",
-    boUrl: "http://localhost:8081",
-    TESTMAIL_NAMESPACE: "local",
-  },
+  video: false,
   viewportWidth: 1200,
   viewportHeight: 800,
   chromeWebSecurity: false,
+  blockHosts: ["stats.beta.gouv.fr", "*.crisp.chat"],
+  env: {
+    ...targets(),
+    configName: "local",
+    mainUrl: "http://localhost:9001",
+    tenantUser: "elsa",
+    ownerUser: "laurent",
+    boUrl: "http://localhost:8081",
+    TESTMAIL_NAMESPACE: process.env.DF_E2E_TESTMAIL_NAMESPACE ?? "local",
+    testmailTag: "local-signup",
+  },
+  e2e: {
+    specPattern: "cypress/e2e/{tenant,owner,accessibility}/**/*.cy.ts",
+    defaultCommandTimeout: 15_000,
+    taskTimeout: 90_000,
+    setupNodeEvents(on, config) {
+      installSupportTasks(on, config);
+      return config;
+    },
+  },
 });

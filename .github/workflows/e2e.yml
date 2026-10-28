@@ -35,6 +35,10 @@ jobs:
         working-directory: e2e-tests
         run: pnpm install
 
+      - name: Typecheck E2E tests
+        working-directory: e2e-tests
+        run: pnpm typecheck
+
       - name: Run e2e tests
         uses: cypress-io/github-action@v7
         with:

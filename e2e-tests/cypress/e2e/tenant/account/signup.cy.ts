@@ -1,13 +1,13 @@
-import { E2E_PASSWORD, tagOfEmail, testEmail } from "../../support/testAccounts";
+import { E2E_PASSWORD, testEmail } from "../../../support/testAccounts";
 import {
-  getEmail,
-  linkFromEmail,
+  waitForEmail,
   RESET_SUBJECT,
   WELCOME_SUBJECT,
-} from "../../support/mailbox";
+} from "../../../support/mailbox";
 
-const TESTEMAIL = testEmail(Cypress.env("testmailTag"));
-const TAG = tagOfEmail(TESTEMAIL);
+const TESTEMAIL = testEmail(
+  `${Cypress.env("testmailTag")}-${Date.now().toString(36)}`,
+);
 const PASSWORD = E2E_PASSWORD;
 const NEW_PASSWORD = "zyxwvu98765!";
 
@@ -22,7 +22,6 @@ function signup() {
 }
 
 function login(password = PASSWORD) {
-  cy.wrap(Cypress.env("TESTMAIL_API_KEY")).should("exist");
   cy.visit(Cypress.env("tenantUrl") + "/login");
   cy.get('input[name="username"]').type(TESTEMAIL);
   cy.get('input[name="password"]').type(password);
@@ -31,15 +30,13 @@ function login(password = PASSWORD) {
 
 describe("Test signup process", () => {
   before(() => {
-    cy.resetTestAccount(TESTEMAIL);
     signup();
   });
 
   it("should validate link in email and login", () => {
     // Query the inbox until the email arrives
-    getEmail(WELCOME_SUBJECT, TAG, timestamp).then((response) => {
+    waitForEmail("tenant-signup", TESTEMAIL, timestamp).then((email) => {
       // Verify subject
-      const email = response.body.emails[0];
       expect(email.subject).to.equal(WELCOME_SUBJECT);
 
       // Extract and check email content
@@ -56,7 +53,7 @@ describe("Test signup process", () => {
       );
 
       // Visit the verification link
-      cy.visit(linkFromEmail(email.html));
+      cy.visit(email.link);
 
       // Keycloak asks for the password here when the registration form did not
       cy.setPasswordIfRequested(PASSWORD);
@@ -79,12 +76,11 @@ describe("Test signup process", () => {
     cy.get("input[type=submit]").click();
 
     // Query the inbox until the reset email arrives, then open its link
-    getEmail(RESET_SUBJECT, TAG, timestamp).then((response) => {
-      const email = response.body.emails[0];
+    waitForEmail("tenant-recovery", TESTEMAIL, timestamp).then((email) => {
       expect(email.subject).to.equal(RESET_SUBJECT);
 
       // Set the new password on the Keycloak update-password page
-      cy.visit(linkFromEmail(email.html));
+      cy.visit(email.link);
       cy.get("#password-new").type(NEW_PASSWORD);
       cy.get("#password-confirm").type(NEW_PASSWORD);
       cy.get("#kc-passwd-update-form").submit();

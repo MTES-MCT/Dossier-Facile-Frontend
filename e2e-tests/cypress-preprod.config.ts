@@ -1,37 +1,35 @@
 import { defineConfig } from "cypress";
-import { log } from "./cypress/support/accessibility";
-import { forceFrenchLocale } from "./cypress/support/browserLocale";
+import {
+  installSupportTasks,
+  loadPrivateSettings,
+  targets,
+} from "./cypress/node/settings";
 
+loadPrivateSettings();
 export default defineConfig({
-  e2e: {
-    video: true,
-    defaultCommandTimeout: 10000,
-    setupNodeEvents(on) {
-      on("before:browser:launch", (browser, launchOptions) => {
-        forceFrenchLocale(browser, launchOptions);
-        return launchOptions;
-      });
-      on("task", {
-        ...log(),
-      });
-    },
-    retries: {
-      runMode: 5,
-    },
-    excludeSpecPattern: "**/accessibility.cy.ts",
-  },
+  video: true,
+  chromeWebSecurity: false,
+  blockHosts: ["stats.beta.gouv.fr", "*.crisp.chat"],
   env: {
+    ...targets(true),
     configName: "preprod",
     mainUrl: "https://www-preprod.dossierfacile.fr",
-    tenantUrl: "https://locataire-preprod.dossierfacile.fr",
     tenantUser: "mario",
-    ownerUrl: "https://proprietaire-preprod.dossierfacile.fr",
     ownerUser: "mario",
     testmailTag: "preprod-test",
-    testmailEndpoint: "https://api.testmail.app/api/json",
-    TESTMAIL_NAMESPACE: "7mxc3",
+    TESTMAIL_NAMESPACE: process.env.DF_E2E_TESTMAIL_NAMESPACE ?? "7mxc3",
     boUrl: "https://bo-dev.dossierfacile.fr",
     dfConnectDemoUrl: "https://demo-partenaire.dossierfacile.fr",
   },
-  chromeWebSecurity: false,
+  e2e: {
+    specPattern: "cypress/e2e/{tenant,owner,accessibility}/**/*.cy.ts",
+    excludeSpecPattern: "cypress/e2e/accessibility/**",
+    defaultCommandTimeout: 15_000,
+    taskTimeout: 90_000,
+    retries: { runMode: 5 },
+    setupNodeEvents(on, config) {
+      installSupportTasks(on, config);
+      return config;
+    },
+  },
 });

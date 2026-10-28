@@ -1,4 +1,4 @@
-import { testAccount } from "../../support/testAccounts";
+import { testAccount } from "../../../support/testAccounts";
 
 describe("tax document analysis", () => {
   const account = testAccount("e2e-tax");
@@ -10,13 +10,10 @@ describe("tax document analysis", () => {
   it("shows analysis errors and allows explanation", () => {
     cy.gotoTenantDocumentsPage(account);
 
-    cy.get("#funnel-menu").contains("Avis d'imposition").click();
-    cy.expectPath("/documents-locataire/5");
-    cy.get('a[href*="avec-avis"]').click();
-    cy.get('a[href*="avec-avis/francais"]').click();
+    openTaxUpload();
 
     cy.intercept("POST", "/api/register/documentTax").as("uploadTax");
-    cy.get(".input-file").selectFile("assets/qr-code.png");
+    cy.get(".input-file").selectFile("cypress/fixtures/qr-code.png");
     cy.wait("@uploadTax").its("response.statusCode").should("eq", 200);
     cy.waitUntilLoaderIsGone();
 
@@ -26,14 +23,11 @@ describe("tax document analysis", () => {
   it("does not auto-focus banners when returning to page with existing errors", () => {
     cy.gotoTenantDocumentsPage(account);
 
-    cy.get("#funnel-menu").contains("Avis d'imposition").click();
-    cy.expectPath("/documents-locataire/5");
-    cy.get('a[href*="avec-avis"]').click();
-    cy.get('a[href*="avec-avis/francais"]').click();
+    openTaxUpload();
 
     // Upload a file that triggers analysis errors
     cy.intercept("POST", "/api/register/documentTax").as("uploadTax");
-    cy.get(".input-file").selectFile("assets/qr-code.png");
+    cy.get(".input-file").selectFile("cypress/fixtures/qr-code.png");
     cy.wait("@uploadTax").its("response.statusCode").should("eq", 200);
     cy.waitUntilLoaderIsGone();
 
@@ -56,23 +50,24 @@ describe("tax document analysis", () => {
   it("shows error toast when uploading an avis de situation déclarative", () => {
     cy.gotoTenantDocumentsPage(account);
 
-    cy.get("#funnel-menu").contains("Avis d'imposition").click();
-    cy.expectPath("/documents-locataire/5");
-    cy.get('a[href*="avec-avis"]').click();
-    cy.get('a[href*="avec-avis/francais"]').click();
+    openTaxUpload();
 
     cy.get(".input-file").selectFile(
-      "assets/Avis_situation_declarative_titres_seuls.pdf",
+      "cypress/fixtures/Avis_situation_declarative_titres_seuls.pdf",
     );
 
     cy.get(".fr-alert--error")
       .should("be.visible")
-      .and(
-        "contain",
-        "L'avis de situation déclarative n'est pas accepté",
-      );
+      .and("contain", "L'avis de situation déclarative n'est pas accepté");
 
     // The rejected file must not remain in the upload list
     cy.get('[data-cy="uploaded-files"]').should("not.exist");
   });
 });
+
+function openTaxUpload(): void {
+  cy.get("#funnel-menu").contains("Avis d'imposition").click();
+  cy.expectPath("/documents-locataire/5");
+  cy.get('a[href*="avec-avis"]').click();
+  cy.get('a[href*="avec-avis/francais"]').click();
+}

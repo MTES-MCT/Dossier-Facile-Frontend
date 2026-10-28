@@ -1,4 +1,4 @@
-import { testAccount } from "../../support/testAccounts";
+import { testAccount } from "../../../support/testAccounts";
 
 describe("visale certificate analysis", () => {
   const account = testAccount("e2e-visale");
@@ -23,7 +23,7 @@ describe("visale certificate analysis", () => {
       "POST",
       "/api/register/guarantorOrganism/documentCertificate",
     ).as("uploadVisale");
-    cy.get(".input-file").selectFile("assets/qr-code.png");
+    cy.get(".input-file").selectFile("cypress/fixtures/qr-code.png");
     cy.wait("@uploadVisale").its("response.statusCode").should("eq", 200);
     cy.waitUntilStepIsReady();
 

@@ -1,8 +1,10 @@
-import { testAccount } from "../../support/testAccounts";
+import { testAccount, testEmail } from "../../../support/testAccounts";
 
 describe("flatmate tenant scenario", () => {
   const account = testAccount("e2e-flatmate");
-  const flatmateEmail = `coloc-${Math.floor(Math.random() * 10000)}@yopmail.fr`;
+  const flatmateEmail = testEmail(
+    `e2e-flatmate-invitee-${Date.now().toString(36)}`,
+  );
 
   it("validate file", () => {
     cy.createFreshTenant(account);

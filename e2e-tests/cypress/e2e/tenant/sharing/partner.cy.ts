@@ -1,4 +1,4 @@
-import { testAccount } from "../../support/testAccounts";
+import { testAccount } from "../../../support/testAccounts";
 
 const DEMO_URL = Cypress.env("dfConnectDemoUrl");
 

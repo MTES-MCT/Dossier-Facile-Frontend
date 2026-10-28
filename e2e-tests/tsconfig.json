@@ -6,7 +6,12 @@
     "verbatimModuleSyntax": true,
     "sourceMap": true,
     "outDir": "dist",
-    "module": "ES2022"
+    "module": "ES2022",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["node", "cypress", "cypress-axe", "cypress-wait-until"],
+    "moduleResolution": "bundler"
   },
-  "lib": ["es2022"]
+  "include": ["cypress/**/*.ts", "cypress*.config.ts"]
 }

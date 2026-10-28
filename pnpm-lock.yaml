@@ -263,6 +263,9 @@ importers:
         specifier: workspace:*
         version: link:../owner
     devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.1.0
       typescript:
         specifier: 5.8.3
         version: 5.8.3

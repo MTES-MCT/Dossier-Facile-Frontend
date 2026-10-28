@@ -1,39 +1,33 @@
+import { continueFranceConnectLogin, dismissCookies } from "../auth";
+import type { Realm } from "../types/accounts";
 /// <reference types="cypress" />
 
 import { terminalLog } from "../accessibility";
 import { UserType } from "../users";
 
-Cypress.Commands.add("loginWithFC", (username: string, password: string) => {
-  cy.get("#social-oidc").click();
-
-  cy.get("body").then(($body) => {
-    const mainProviders = '[data-testid="main-providers"]';
-    if ($body.find(mainProviders).length) {
-      cy.get(mainProviders).find("button").first().click();
-      cy.get("#login").clear().type(username);
-      cy.get("#password").clear().type(password);
-      cy.get("form").submit();
-    }
-  });
-
-  cy.get("form").submit();
-  cy.wait(100);
-});
+Cypress.Commands.add(
+  "loginWithFC",
+  (username: string, password: string, realm: Realm = "tenant") => {
+    continueFranceConnectLogin({ username, password }, realm);
+  },
+);
 
 Cypress.Commands.add(
   "loginWithFCAndDeleteAccount",
-  (username: string, passowrd: string, type: UserType) => {
-    ignoreErrorsOnSsoPage();
-
+  (username: string, password: string, type: UserType) => {
     cy.visit(
       type === UserType.TENANT
         ? Cypress.env("mainUrl")
-        : Cypress.env("ownerUrl")
+        : Cypress.env("ownerUrl"),
     );
     cy.contains(
-      type === UserType.TENANT ? "Espace locataire" : "Se connecter"
+      type === UserType.TENANT ? "Espace locataire" : "Se connecter",
     ).click();
-    cy.loginWithFC(username, passowrd);
+    cy.loginWithFC(
+      username,
+      password,
+      type === UserType.TENANT ? "tenant" : "owner",
+    );
 
     cy.intercept("DELETE", "**/deleteAccount").as("deleteAccount");
 
@@ -41,9 +35,7 @@ Cypress.Commands.add(
       cy.contains("header button", "Supprimer mon compte").click();
     } else {
       cy.get(".fr-nav__btn").click();
-      cy.get(".fr-nav__link")
-        .contains("Supprimer mon compte")
-        .click();
+      cy.get(".fr-nav__link").contains("Supprimer mon compte").click();
     }
     cy.get("#modal-delete-account")
       .find("button")
@@ -51,7 +43,7 @@ Cypress.Commands.add(
       .click();
 
     cy.wait("@deleteAccount").its("response.statusCode").should("eq", 200);
-  }
+  },
 );
 
 Cypress.Commands.add("expectPath", (path: string) => {
@@ -73,43 +65,36 @@ Cypress.Commands.add("clickOnNext", () => {
 Cypress.Commands.add("testAccessibility", () => {
   cy.wait(500);
   cy.injectAxe();
-  cy.checkA11y(null, null, terminalLog);
+  cy.checkA11y(undefined, undefined, terminalLog);
 });
 
 Cypress.Commands.add("rejectCookies", () => {
-  cy.contains("button", "Refuser tout").click();
+  dismissCookies();
 });
 
-Cypress.Commands.add('ValidateAloneFile', (email: string) => {
+Cypress.Commands.add("ValidateAloneFile", (email: string) => {
   cy.request({
-    method: 'POST',
-    url: `${Cypress.env('boUrl')}/api/testing/tenant/${email}/validate`,
-    failOnStatusCode: false
+    method: "POST",
+    url: `${Cypress.env("boUrl")}/api/testing/tenant/${email}/validate`,
+    failOnStatusCode: false,
   }).then((response) => {
-    expect(response.status).to.eq(200)
-  })
-})
+    expect(response.status).to.eq(200);
+  });
+});
 
-Cypress.Commands.add('declineAloneFile', (email: string, messageBody: string, documentCategories: string[] = []) => {
-  cy.request({
-    method: 'POST',
-    url: `${Cypress.env('boUrl')}/api/testing/tenant/${email}/decline`,
-    body: { messageBody, documentCategories },
-    failOnStatusCode: false
-  }).then((response) => {
-    expect(response.status).to.eq(200)
-  })
-})
-
-function ignoreErrorsOnSsoPage() {
-  if (Cypress.env("configName") === "local") {
-    cy.origin("https://sso-preprod.dossierfacile.fr", () => {
-      cy.on("uncaught:exception", (_) => {
-        return false;
-      });
+Cypress.Commands.add(
+  "declineAloneFile",
+  (email: string, messageBody: string, documentCategories: string[] = []) => {
+    cy.request({
+      method: "POST",
+      url: `${Cypress.env("boUrl")}/api/testing/tenant/${email}/decline`,
+      body: { messageBody, documentCategories },
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(200);
     });
-  }
-}
+  },
+);
 
 export function getInputByLabel(label: string) {
   return cy

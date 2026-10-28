@@ -5,7 +5,7 @@ Cypress.Commands.add(
   (username: string, password: string) => {
     cy.visit(Cypress.env("ownerUrl"));
     cy.contains("Se connecter").click();
-    cy.loginWithFC(username, password);
+    cy.loginWithFC(username, password, "owner");
     cy.visit(Cypress.env("ownerUrl"));
-  }
+  },
 );

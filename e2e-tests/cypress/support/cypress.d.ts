@@ -13,17 +13,17 @@ declare namespace Cypress {
     setPasswordIfRequested(password: string): Chainable<void>;
 
     createTestAccount(
-      account: import("./testAccounts").TestAccount
+      account: import("./testAccounts").TestAccount,
     ): Chainable<void>;
 
     createFreshTenant(
-      account: import("./testAccounts").TestAccount
+      account: import("./testAccounts").TestAccount,
     ): Chainable<void>;
 
     fillTenantIdentity(firstname: string, lastname: string): Chainable<void>;
 
     gotoTenantDocumentsPage(
-      account: import("./testAccounts").TestAccount
+      account: import("./testAccounts").TestAccount,
     ): Chainable<void>;
 
     assertAnalysisErrorAndExplain(urlFragment: string): Chainable<void>;
@@ -39,19 +39,27 @@ declare namespace Cypress {
 
     ownerLoginWithFC(username: string, password: string): Chainable<void>;
 
-    loginWithFC(username: string, password: string): Chainable<void>;
+    loginWithFC(
+      username: string,
+      password: string,
+      realm?: import("./types/accounts").Realm,
+    ): Chainable<void>;
 
     verifyTenantIdentity(firstname: string, lastname: string): Chainable<void>;
 
     loginWithFCAndDeleteAccount(
       username: string,
-      passowrd: string,
-      type: number
+      password: string,
+      type: number,
     ): Chainable<void>;
 
-    ValidateAloneFile(email: string): Chainable<void>
+    ValidateAloneFile(email: string): Chainable<void>;
 
-    declineAloneFile(email: string, messageBody: string, documentCategories?: string[]): Chainable<void>
+    declineAloneFile(
+      email: string,
+      messageBody: string,
+      documentCategories?: string[],
+    ): Chainable<void>;
 
     uploadDocument(numberOfFiles?: number): Chainable<void>;
 
@@ -69,13 +77,13 @@ declare namespace Cypress {
 
     simpleUploadDocumentStep(
       buttonToSelect: string,
-      numberOfFiles?: number
+      numberOfFiles?: number,
     ): Chainable<void>;
 
     selectResidencyStep(
       residencyType: string,
       step2Label?: string,
-      numberOfFiles?: number
+      numberOfFiles?: number,
     ): Chainable<void>;
 
     verifyErrorToastMessage(message: string): Chainable<void>;

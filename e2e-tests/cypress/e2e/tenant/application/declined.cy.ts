@@ -1,9 +1,8 @@
-import { testAccount } from "../../support/testAccounts";
+import { testAccount } from "../../../support/testAccounts";
 
 describe("decline tenant scenario", () => {
   const account = testAccount("e2e-declined");
-  const refusalMessage =
-    "[test-e2e] wrong identification";
+  const refusalMessage = "[test-e2e] wrong identification";
 
   it("declined tenant can re-submit", () => {
     cy.createFreshTenant(account);
@@ -44,16 +43,14 @@ describe("decline tenant scenario", () => {
     cy.requestFileValidation();
 
     // Operator declines only the identity document with a refusal message
-    cy.declineAloneFile(account.email, refusalMessage, [
-      "IDENTIFICATION",
-    ]);
+    cy.declineAloneFile(account.email, refusalMessage, ["IDENTIFICATION"]);
 
     // Dashboard surfaces the amendment-required card after a refusal
     cy.visit(Cypress.env("tenantUrl") + "/account");
     cy.contains("Modifications demandées").should("be.visible");
     cy.contains("Consulter ma messagerie").click();
     cy.expectPath("/messaging");
-    
+
     // Tenant reads the refusal on the messaging page
     cy.contains("Modification demandée").should("be.visible");
     cy.contains(refusalMessage).should("be.visible");

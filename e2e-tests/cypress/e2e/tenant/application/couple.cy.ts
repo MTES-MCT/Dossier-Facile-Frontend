@@ -1,9 +1,9 @@
-import { getInputByLabel } from "../../support/commands/global";
-import { testAccount } from "../../support/testAccounts";
+import { getInputByLabel } from "../../../support/commands/global";
+import { testAccount, testEmail } from "../../../support/testAccounts";
 
 describe("couple tenant scenario", () => {
   const account = testAccount("e2e-couple");
-  const spouseEmail = `conjoint-${Math.floor(Math.random() * 100000)}@yopmail.fr`;
+  const spouseEmail = testEmail(`e2e-couple-spouse-${Date.now().toString(36)}`);
 
   it("validate file", () => {
     cy.createFreshTenant(account);

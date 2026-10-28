@@ -1,4 +1,4 @@
-import { getTenantUser, UserType } from "../../support/users";
+import { getTenantUser, UserType } from "../../../support/users";
 
 describe("FranceConnect test", () => {
   const user = getTenantUser();

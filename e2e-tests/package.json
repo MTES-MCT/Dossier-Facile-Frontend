@@ -6,7 +6,11 @@
   "scripts": {
     "test": "ELECTRON_EXTRA_LAUNCH_ARGS=--lang=fr cypress run",
     "cy:open": "ELECTRON_EXTRA_LAUNCH_ARGS=--lang=fr cypress open --browser electron --e2e",
-    "cy:open-preprod": "ELECTRON_EXTRA_LAUNCH_ARGS=--lang=fr cypress open --browser electron --e2e --config-file cypress-preprod.config.ts"
+    "cy:open-preprod": "ELECTRON_EXTRA_LAUNCH_ARGS=--lang=fr cypress open --browser electron --e2e --config-file cypress-preprod.config.ts",
+    "test:security": "DF_E2E_SUITE=security pnpm test:regressions",
+    "test:regressions": "ELECTRON_EXTRA_LAUNCH_ARGS=--lang=fr cypress run --config-file cypress-regressions.config.ts",
+    "test:accounts": "DF_E2E_SUITE=accounts pnpm test:regressions",
+    "typecheck": "tsc --project tsconfig.json"
   },
   "dependencies": {
     "axe-core": "4.10.3",
@@ -17,6 +21,7 @@
     "owner": "workspace:*"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "typescript": "5.8.3"
   }
 }

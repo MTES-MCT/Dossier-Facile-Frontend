@@ -1,11 +1,13 @@
-export function terminalLog(violations: any[]) {
+import type { Result } from "axe-core";
+
+export function terminalLog(violations: Result[]): void {
   // This function comes from https://www.npmjs.com/package/cypress-axe
   cy.task(
-    'log',
+    "log",
     `${violations.length} accessibility violation${
-      violations.length === 1 ? '' : 's'
-    } ${violations.length === 1 ? 'was' : 'were'} detected`
-  )
+      violations.length === 1 ? "" : "s"
+    } ${violations.length === 1 ? "was" : "were"} detected`,
+  );
   // pluck specific keys to keep the table readable
   const violationData = violations.map(
     ({ id, impact, description, nodes }) => ({
@@ -13,21 +15,21 @@ export function terminalLog(violations: any[]) {
       impact,
       description,
       violations: nodes.length,
-      elements: nodes.map((node: any) => node.target).join(", ")
-    })
-  )
-  cy.task('table', violationData)
+      elements: nodes.map((node) => node.target).join(", "),
+    }),
+  );
+  cy.task("table", violationData);
 }
 
 export function log() {
   return {
-    log(message:string) {
+    log(message: string) {
       console.log(message);
       return null;
     },
-    table(message: string) {
+    table(message: Array<Record<string, unknown>>) {
       console.table(message);
       return null;
-    }
+    },
   };
 }

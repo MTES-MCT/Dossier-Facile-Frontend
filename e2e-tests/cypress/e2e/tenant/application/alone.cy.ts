@@ -1,5 +1,5 @@
-import { getInputByLabel } from "../../support/commands/global";
-import { testAccount, testEmail } from "../../support/testAccounts";
+import { getInputByLabel } from "../../../support/commands/global";
+import { testAccount, testEmail } from "../../../support/testAccounts";
 
 describe("alone tenant scenario", () => {
   const account = testAccount("e2e-alone");

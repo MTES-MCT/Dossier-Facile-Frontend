@@ -1,4 +1,4 @@
-import { testAccount } from "../../support/testAccounts";
+import { testAccount } from "../../../support/testAccounts";
 
 function navigateToSalaryUpload() {
   cy.get("#funnel-menu").contains("Justificatif de ressources").click();
@@ -24,9 +24,9 @@ describe("payslip document upload and analysis", () => {
 
     cy.intercept("POST", "/api/register/documentFinancial").as("uploadPayslip");
     cy.get(".input-file").selectFile([
-      "assets/qr-code.png",
-      "assets/qr-code.png",
-      "assets/qr-code.png",
+      "cypress/fixtures/qr-code.png",
+      "cypress/fixtures/qr-code.png",
+      "cypress/fixtures/qr-code.png",
     ]);
     cy.wait("@uploadPayslip").its("response.statusCode").should("eq", 200);
     cy.waitUntilLoaderIsGone();

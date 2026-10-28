@@ -1,3 +1,8 @@
+import {
+  loginWithPassword,
+  registerTenant,
+  setKeycloakPasswordIfRequested,
+} from "../auth";
 /// <reference types="cypress" />
 
 import type { TestAccount } from "../testAccounts";
@@ -14,46 +19,15 @@ Cypress.Commands.add("resetTestAccount", (email: string) => {
 });
 
 Cypress.Commands.add("signupTenant", (email: string, password: string) => {
-  cy.visit(Cypress.env("tenantUrl") + "/login");
-  cy.contains("S'inscrire").click();
-  cy.expectPath("/registration");
-  cy.get('input[name="email"]').type(email);
-  cy.get("body").then(($body) => {
-    // Keycloak only shows a password field here when "Password Validation" is
-    // required in the realm's registration flow; otherwise it asks for the
-    // password after the confirmation link is opened (setPasswordIfRequested)
-    if ($body.find('input[name="password"]').length > 0) {
-      cy.get('input[name="password"]').type(password);
-    }
-  });
-  cy.get("#acceptCgu").check({ force: true });
-  cy.get("input[type=submit]").click();
-  cy.location("pathname").should("not.include", "/registration");
+  registerTenant({ email, password });
 });
 
 Cypress.Commands.add("tenantLogin", (email: string, password: string) => {
-  // Drop any pending Keycloak auth session (left by the signup flow) so the
-  // login form is always displayed
-  cy.clearAllCookies();
-  cy.visit(Cypress.env("tenantUrl") + "/login");
-  //cy.pause()
-  cy.get('input[name="username"]').type(email);
-  cy.get('input[name="password"]').type(password);
-  cy.get("input[type=submit]").click();
+  loginWithPassword({ email, password });
 });
 
-// Fills the Keycloak "update password" screen, which is displayed after the
-// confirmation link when the account was created without a password
 Cypress.Commands.add("setPasswordIfRequested", (password: string) => {
-  cy.get("body").then(($body) => {
-    if ($body.find("#password-new").length === 0) {
-      cy.log("No password requested: the account already has one");
-      return;
-    }
-    cy.get("#password-new").type(password);
-    cy.get("#password-confirm").type(password);
-    cy.get("#kc-passwd-update-form").submit();
-  });
+  setKeycloakPasswordIfRequested(password);
 });
 
 // Recreates the account from scratch without logging in
@@ -75,7 +49,6 @@ Cypress.Commands.add("createFreshTenant", (account: TestAccount) => {
   cy.tenantLogin(account.email, account.password);
   cy.rejectCookies();
 });
-
 
 Cypress.Commands.add(
   "fillTenantIdentity",
