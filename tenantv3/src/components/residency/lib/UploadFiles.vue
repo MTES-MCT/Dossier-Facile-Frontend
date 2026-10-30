@@ -18,11 +18,7 @@
     />
   </div>
   <div class="fr-mb-3w">
-    <FileUpload
-      ref="file-upload"
-      :current-status="fileUploadStatus"
-      @add-files="addFiles"
-    ></FileUpload>
+    <FileUpload ref="file-upload" :current-status="fileUploadStatus" @add-files="addFiles" />
   </div>
 </template>
 

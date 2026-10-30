@@ -1,5 +1,5 @@
 <template>
-  <div class="toast-container">
+  <div v-if="alerts.length" class="toast-container">
     <TransitionGroup tag="ul" name="toasts" class="toast-list">
       <li v-for="alert of alerts" :key="alert.id">
         <DsfrAlert :type="alert.type" small closeable role="alert" @close="removeToast(alert)">

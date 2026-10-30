@@ -65,7 +65,7 @@
       <!-- OU separator -->
       <div class="analysis-error-separator">
         <div class="separator-line"></div>
-        <span class="separator-text">{{ t('or') }}</span>
+        <p class="separator-text">{{ t('or') }}</p>
         <div class="separator-line"></div>
       </div>
 

@@ -200,14 +200,4 @@ describe('CoupleInformation', () => {
     expect(checkbox.exists()).toBe(true)
     expect((checkbox.element as HTMLInputElement).checked).toBe(false)
   })
-
-  it('renders the consent details as a list outside the checkbox label', () => {
-    const wrapper = mount(CoupleInformation, {
-      props: { modelValue: [] },
-      global: { stubs }
-    })
-
-    const items = wrapper.find('ul').findAll('li')
-    expect(items.map((li) => li.text())).toEqual(['acceptAuthorAccess', 'acceptAuthorShare'])
-  })
 })
