@@ -1,48 +1,23 @@
+an
 <template>
   <div class="share-item">
     <div class="share-row fr-px-2w fr-py-1w">
       <!-- Checkbox + Infos -->
       <div class="share-infos">
-        <slot :id="`cbl-${link.id}`"></slot>
+        <slot :id="linkId"></slot>
         <div class="share-content">
-          <label :for="`cbl-${link.id}`" class="share-title">
-            <RiLinksLine
-              v-if="link.type === 'LINK'"
-              size="1rem"
-              class="blue-text share-icon"
-              title="Partage par lien"
+          <label :for="linkId" class="share-title">
+            <span
+              :class="['fr-icon--sm', `fr-icon-${linkProperties.icon}-line`]"
+              aria-hidden="true"
             />
-            <RiMailLine
-              v-else-if="link.type === 'MAIL'"
-              size="1rem"
-              class="blue-text share-icon"
-              title="Partage par email"
-            />
-            <RiHome4Line
-              v-else-if="link.type === 'OWNER'"
-              size="1rem"
-              class="blue-text share-icon"
-              title="Propriétaire DossierFacile"
-            />
-            <RiShakeHandsLine
-              v-else-if="link.type === 'PARTNER'"
-              size="1rem"
-              class="blue-text share-icon"
-              title="Partenaire"
-            />
-            <span v-if="link.type === 'PARTNER'" class="fr-ml-1v">Partage avec</span>
-            <span class="fr-ml-1v bold">
-              {{ link.title }}
-            </span>
-            <span v-if="link.type === 'MAIL'" class="fr-ml-1v">- {{ link.ownerEmail }}</span>
+            <span class="visually-hidden">{{ t('select-link') }}</span>
+            <span :id="`${linkId}-title`">{{ linkProperties.text }}</span>
           </label>
           <!-- Badge visible uniquement en mobile -->
           <div class="share-badge-mobile">
             <DsfrBadge v-if="link.enabled" :label="t('active-sharing')" type="success" small />
-            <p v-else class="fr-badge fr-badge--sm fr-badge--new fr-badge--no-icon fr-mb-0">
-              <RiPauseCircleFill aria-hidden="true" size="1em" class="fr-mr-1v" />
-              <span>{{ t('disabled-sharing') }}</span>
-            </p>
+            <DsfrBadge v-else :label="t('disabled-sharing')" type="warning" small />
           </div>
           <p class="fr-mb-0 fr-text--xs text-grey share-dates">
             <span class="bold">{{ t('created') }}</span>
@@ -54,59 +29,50 @@
             <span class="bold border-left">{{ t('consultations') }}</span>
             <span>{{ t('times', [link.nbVisits]) }}</span>
           </p>
-          <p
-            class="fr-badge fr-badge--sm fr-badge--no-icon fr-mb-0 full-data-badge"
-            :class="link.fullData ? 'fr-badge--info' : 'badge-without-docs'"
-          >
-            <RiInformationFill aria-hidden="true" size="12" class="fr-mr-1v info-icon" />
-            <span>{{ link.fullData ? t('with-docs') : t('without-docs') }}</span>
-          </p>
+          <DsfrBadge
+            :label="link.fullData ? t('with-docs') : t('without-docs')"
+            :type="link.fullData ? 'new' : 'info'"
+            small
+          />
         </div>
       </div>
       <!-- Badge visible uniquement en desktop -->
       <div class="share-badge-desktop">
         <DsfrBadge v-if="link.enabled" :label="t('active-sharing')" type="success" small />
-        <p v-else class="fr-badge fr-badge--sm fr-badge--new fr-badge--no-icon fr-mb-0">
-          <RiPauseCircleFill aria-hidden="true" size="1em" class="fr-mr-1v" />
-          <span>{{ t('disabled-sharing') }}</span>
-        </p>
+        <DsfrBadge v-else :label="t('disabled-sharing')" type="warning" small />
       </div>
       <!-- Actions -->
       <div class="share-actions">
         <ShareActionsMenu
           :enabled="link.enabled"
           :link-type="link.type"
+          :link-id="linkId"
           @copy-link="handleCopyLink"
           @toggle-pause="handleTogglePause"
           @resend-mail="handleResendMail"
           @delete="handleDelete"
         />
-        <button type="button" class="link-button blue-text" @click="toggleExpanded">
-          {{ expanded ? t('show-less') : t('show-all') }}
-          <RiSubtractLine v-if="expanded" aria-hidden="true" size="1em" />
-          <RiAddLine v-else aria-hidden="true" size="1em" />
-        </button>
+        <DsfrButton
+          type="button"
+          :label="expanded ? t('show-less') : t('show-all')"
+          tertiary
+          :icon="expanded ? 'fr-icon-subtract-line' : 'fr-icon-add-line'"
+          icon-right
+          size="sm"
+          :aria-describedby="`${linkId}-title`"
+          @click="toggleExpanded"
+        />
       </div>
     </div>
-    <SharingLinkDetails v-if="expanded" :link @refresh="emit('refresh')" />
+    <SharingLinkDetails v-if="expanded" :link-id="linkId" :link @refresh="emit('refresh')" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { DsfrBadge } from '@gouvminint/vue-dsfr'
-import {
-  RiAddLine,
-  RiHome4Line,
-  RiInformationFill,
-  RiLinksLine,
-  RiMailLine,
-  RiPauseCircleFill,
-  RiShakeHandsLine,
-  RiSubtractLine
-} from '@remixicon/vue'
+import { DsfrBadge, DsfrButton, useRandomId } from '@gouvminint/vue-dsfr'
 import dayjs from 'dayjs'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SharingLinkDetails from './SharingLinkDetails.vue'
 import ShareActionsMenu from './ShareActionsMenu.vue'
@@ -121,7 +87,32 @@ const emit = defineEmits<{ refresh: [] }>()
 const { t } = useI18n()
 const { resendMail } = useResendMail()
 
+const linkId = useRandomId('link', props.link.id.toString())
 const expanded = ref(false)
+
+const linkProperties = computed(() => {
+  let icon = 'links-line'
+  let text = props.link.title
+
+  switch (props.link.type) {
+    case 'LINK':
+      icon = 'links'
+      break
+    case 'MAIL':
+      icon = 'mail'
+      text = `${props.link.title} ${t('share-with')} ${props.link.ownerEmail}`
+      break
+    case 'OWNER':
+      icon = 'home-4'
+      break
+    case 'PARTNER':
+      icon = 'shake-hands'
+      text = `${t('share-with')} ${props.link.title}`
+      break
+  }
+
+  return { icon, text }
+})
 
 const toggleExpanded = () => {
   if (!expanded.value) {
@@ -189,7 +180,7 @@ const handleDelete = async () => {
 
 .share-infos {
   display: flex;
-  align-items: center;
+  align-items: start;
   flex: 1;
   min-width: 0;
 }
@@ -202,9 +193,12 @@ const handleDelete = async () => {
 
 .share-title {
   display: flex;
+  gap: 0.25rem;
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 0.25rem;
+  font-weight: bold;
+  line-height: 1;
 }
 
 .share-icon {
@@ -327,7 +321,7 @@ const handleDelete = async () => {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "created": "Created on: ",
@@ -347,7 +341,9 @@ const handleDelete = async () => {
     "delete-success": "Sharing deleted",
     "delete-error": "Error deleting sharing",
     "with-docs": "Full file with supporting documents",
-    "without-docs": "File without supporting documents"
+    "without-docs": "File without supporting documents",
+    "share-with": "shared with",
+    "select-link": "Select link:"
   },
   "fr": {
     "created": "Créé le : ",
@@ -367,7 +363,9 @@ const handleDelete = async () => {
     "delete-success": "Partage supprimé",
     "delete-error": "Erreur lors de la suppression du partage",
     "with-docs": "Dossier complet avec justificatifs",
-    "without-docs": "Dossier sans documents justificatifs"
+    "without-docs": "Dossier sans documents justificatifs",
+    "share-with": "partagé avec",
+    "select-link": "Sélectionner le lien:"
   }
 }
 </i18n>
