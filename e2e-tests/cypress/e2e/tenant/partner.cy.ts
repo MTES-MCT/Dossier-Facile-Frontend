@@ -2,9 +2,7 @@ import { testAccount } from "../../support/testAccounts";
 
 const DEMO_URL = Cypress.env("dfConnectDemoUrl");
 
-// Disabled because the partner demo is stopped. Restore it and review the
-// consent/revocation assertions before re-enabling this scenario.
-describe.skip("partner sharing scenario (DFConnect)", () => {
+describe("partner sharing scenario (DFConnect)", () => {
   const account = testAccount("e2e-partner");
 
   before(function () {
