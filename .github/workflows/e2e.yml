@@ -62,11 +62,11 @@ jobs:
           path: e2e-tests/cypress/videos/**/*.mp4
           retention-days: 1
 
-      - name: Mattermost alert (failure)
+      - name: Tchap alert (failure)
         if: failure()
         shell: bash
         env:
-          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+          TCHAP_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           # Cypress writes one screenshot per failed test
@@ -93,16 +93,4 @@ jobs:
           $list
           [Failed workflow]($RUN_URL)"
           jq -n --arg t "$text" '{attachments:[{text:$t,color:"#FF8000",fallback:"e2e failed"}]}' | \
-            curl -sS -X POST -H "Content-Type: application/json" --data @- "$MATTERMOST_WEBHOOK_URL"
-
-      - name: Mattermost alert (success)
-        if: success()
-        shell: bash
-        env:
-          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          text="[dossierfacile-preprod] ✅ Suite e2e preprod OK
-          [Workflow]($RUN_URL)"
-          jq -n --arg t "$text" '{attachments:[{text:$t,color:"#3DAA35",fallback:"e2e passed"}]}' | \
-            curl -sS -X POST -H "Content-Type: application/json" --data @- "$MATTERMOST_WEBHOOK_URL"
+            curl -sS -X POST -H "Content-Type: application/json" --data @- "$TCHAP_WEBHOOK_URL"
