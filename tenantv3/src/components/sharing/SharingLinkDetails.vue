@@ -2,8 +2,12 @@
   <div class="details">
     <div class="wrapper">
       <div class="section">
-        <h3 class="fr-text--sm blue-text fr-mb-0">{{ t('general-info') }}</h3>
         <table class="table">
+          <caption class="fr-text--sm blue-text fr-mb-0">
+            {{
+              t('general-info')
+            }}
+          </caption>
           <thead class="sr-only">
             <tr>
               <th scope="col">{{ t('property') }}</th>
@@ -12,23 +16,51 @@
           </thead>
           <tbody>
             <tr v-if="isLinkOrMail" :class="{ 'title-row-editing': isEditingTitle }">
-              <th scope="row" class="fr-text-mention--grey">{{ t('title-of-share') }}</th>
+              <th :id="`${linkId}-edit-title`" scope="row" class="fr-text-mention--grey">
+                {{ t('title-of-share') }}
+              </th>
               <td class="title-cell">
                 <div v-if="!isEditingTitle" class="title-display">
-                  <span>{{ link.title }}</span>
-                  <button type="button" class="link-button blue-text" :title="t('update-title')" @click="startEditingTitle">{{ t('update') }} <RiPencilLine aria-hidden="true" size="1em" /></button>
+                  {{ link.title }}
+                  <DsfrButton
+                    ref="edit-title-btn"
+                    type="button"
+                    :label="t('update')"
+                    tertiary
+                    icon="fr-icon-pencil-line"
+                    icon-right
+                    size="sm"
+                    :aria-describedby="`${linkId}-edit-title`"
+                    @click="startEditingTitle"
+                  />
                 </div>
                 <div v-else class="title-edit">
                   <input
+                    ref="edit-title-input"
                     v-model="editedTitle"
                     type="text"
                     class="fr-input"
-                    @keyup.enter="saveTitle"
+                    name="title"
+                    :aria-labelledby="`${linkId}-edit-title`"
+                    :aria-describedby="`${linkId}-title`"
+                    @keydown.enter="saveTitle"
                     @keyup.escape="cancelEditingTitle"
                   />
                   <div class="title-edit-buttons">
-                    <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" @click="saveTitle">{{ t('validate') }}</button>
-                    <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" @click="cancelEditingTitle">{{ t('cancel') }}</button>
+                    <DsfrButton
+                      type="button"
+                      :label="t('validate')"
+                      tertiary
+                      size="sm"
+                      @click="saveTitle"
+                    />
+                    <DsfrButton
+                      type="button"
+                      :label="t('cancel')"
+                      tertiary
+                      size="sm"
+                      @click="cancelEditingTitle"
+                    />
                   </div>
                 </div>
               </td>
@@ -38,11 +70,23 @@
               <td>{{ formatDate(link.creationDate) }}</td>
             </tr>
             <tr v-if="isLinkOrMail">
-              <th scope="row" class="fr-text-mention--grey">{{ t('expires-on') }}</th>
+              <th :id="`${linkId}-expire`" scope="row" class="fr-text-mention--grey">
+                {{ t('expires-on') }}
+              </th>
               <td class="expiration-cell">
                 <template v-if="!isEditingExpiration">
-                  {{ formatDate(link.expirationDate) }}
-                  <button type="button" class="link-button blue-text" @click="isEditingExpiration = true">{{ t('update') }} <RiPencilLine aria-hidden="true" size="1em" /></button>
+                  <time :datetime="link.expirationDate">{{ formatDate(link.expirationDate) }}</time>
+                  <DsfrButton
+                    ref="edit-expiration-btn"
+                    type="button"
+                    :label="t('update')"
+                    tertiary
+                    icon="fr-icon-pencil-line"
+                    icon-right
+                    size="sm"
+                    :aria-describedby="`${linkId}-expire`"
+                    @click="openUpdateExpirationDate"
+                  />
                 </template>
                 <VueDatePicker
                   v-else
@@ -54,13 +98,26 @@
                   auto-apply
                   :teleport="true"
                   @update:model-value="updateExpirationDate"
-                  @closed="isEditingExpiration = false"
+                  @closed="closeUpdateExpirationDate"
+                  @keyup.esc="closeUpdateExpirationDate"
                 >
                   <template #dp-input="{ value }">
                     <div class="dp-custom-input">
-                      <RiCalendarLine aria-hidden="true" size="16px" />
-                      <span>{{ formatDatePicker(value) }}</span>
-                      <button type="button" class="dp-custom-input__close" aria-label="Fermer" @click.stop="isEditingExpiration = false">×</button>
+                      <button ref="date-picker-btn" type="button">
+                        <span class="fr-icon-calendar-line fr-icon--sm" />
+                        {{ formatDatePicker(value) }}
+                      </button>
+                      <DsfrButton
+                        type="button"
+                        class="dp-custom-input__close fr-m-0 fr-p-0"
+                        :label="t('cancel')"
+                        tertiary
+                        no-outline
+                        icon="fr-icon-close-line"
+                        icon-only
+                        size="sm"
+                        @click.stop="closeUpdateExpirationDate"
+                      />
                     </div>
                   </template>
                 </VueDatePicker>
@@ -74,8 +131,12 @@
         </table>
       </div>
       <div class="section">
-        <h3 class="fr-text--sm blue-text fr-mb-0">{{ t('usage-stats') }}</h3>
         <table class="table">
+          <caption class="fr-text--sm blue-text fr-mb-0">
+            {{
+              t('usage-stats')
+            }}
+          </caption>
           <thead class="sr-only">
             <tr>
               <th scope="col">{{ t('property') }}</th>
@@ -99,55 +160,62 @@
         </table>
       </div>
     </div>
-    <div v-if="isLinkOrMail" class="info">
+    <div v-if="isLinkOrMail" class="info fr-mt-1w">
       <LinkWarning />
-      <!-- Partage par lien -->
-      <div v-if="link.type === 'LINK' && link.url" class="link-row fr-mt-1w">
+      <div class="link-row fr-mt-1w">
         <div class="link-info">
-          <p class="fr-text-mention--grey fr-mb-0">
-            {{ link.fullData ? t('link-with-docs') : t('link-without-docs') }}
+          <p v-if="link.type === 'LINK'" class="fr-mb-0">
+            <span class="fr-text-mention--grey">{{
+              link.fullData ? t('link-with-docs') : t('link-without-docs')
+            }}</span>
+            <br />
+            {{ fullUrl }}
           </p>
-          <p class="fr-mb-0">{{ fullUrl }}</p>
+          <p v-if="link.type === 'MAIL'" class="fr-mb-0">
+            <span class="fr-text-mention--grey">{{ t('email-sent-to') }}</span> <br />
+            {{ link.ownerEmail }} <br />
+            <span class="fr-text-mention--grey fr-text--sm">
+              {{
+                t('last-sent', { date: formatDateTime(link.lastMailSentDate || link.creationDate) })
+              }}
+            </span>
+          </p>
         </div>
         <div class="link-actions">
-          <button
+          <!-- Partage par lien -->
+          <DsfrButton
+            v-if="link.type === 'LINK' && link.url && link.enabled"
             type="button"
-            class="fr-btn fr-btn--secondary fr-btn--sm"
-            :disabled="!link.enabled"
+            :label="t('copy-link')"
+            secondary
+            icon="fr-icon-clipboard-line"
+            icon-right
+            size="sm"
+            :aria-describedby="`${linkId}-title`"
             @click="copyLink"
-          >
-            {{ t('copy-link') }}
-            <RiFileCopyLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
-          </button>
-          <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" @click="pause">
-            {{ link.enabled ? t('pause-share') : t('resume-share') }}
-            <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
-          </button>
-        </div>
-      </div>
-      <!-- Partage par mail -->
-      <div v-else-if="link.type === 'MAIL'" class="link-row fr-mt-1w">
-        <div class="link-info">
-          <p class="fr-text-mention--grey fr-mb-0">{{ t('email-sent-to') }}</p>
-          <p class="fr-mb-0">{{ link.ownerEmail }}</p>
-        </div>
-        <div class="link-actions">
-          <button
+          />
+          <!-- Partage par mail -->
+          <DsfrButton
+            v-if="link.type === 'MAIL'"
             type="button"
-            class="fr-btn fr-btn--secondary fr-btn--sm"
-            :disabled="!link.enabled"
+            :label="t('resend-mail')"
+            secondary
+            icon="fr-icon-send-plane-line"
+            icon-right
+            size="sm"
+            :aria-describedby="`${linkId}-title`"
             @click="handleResendMail"
-          >
-            {{ t('resend-mail') }}
-            <RiSendPlaneLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
-          </button>
-          <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" @click="pause">
-            {{ link.enabled ? t('pause-share') : t('resume-share') }}
-            <RiPauseCircleLine aria-hidden="true" size="1rem" class="fr-ml-1w" />
-          </button>
-          <p class="fr-text-mention--grey fr-text--sm fr-mb-0">
-            {{ t('last-sent', { date: formatDateTime(link.lastMailSentDate || link.creationDate) }) }}
-          </p>
+          />
+          <DsfrButton
+            type="button"
+            :label="link.enabled ? t('pause-share') : t('resume-share')"
+            secondary
+            :icon="link.enabled ? 'fr-icon-pause-circle-line' : 'fr-icon-play-circle-line'"
+            icon-right
+            size="sm"
+            :aria-describedby="`${linkId}-title`"
+            @click="pause"
+          />
         </div>
       </div>
     </div>
@@ -158,18 +226,18 @@
 import dayjs from 'dayjs'
 import type { ApartmentSharingLink } from 'df-shared-next/src/models/ApartmentSharingLink'
 import LinkWarning from './LinkWarning.vue'
-import { RiPauseCircleLine, RiCalendarLine, RiPencilLine, RiFileCopyLine, RiSendPlaneLine } from '@remixicon/vue'
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useResendMail } from '@/composables/useResendMail'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
-import { ref, computed } from 'vue'
+import { ref, computed, useTemplateRef, nextTick } from 'vue'
 import { VueDatePicker } from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
 
-const { link } = defineProps<{ link: ApartmentSharingLink }>()
+const { link, linkId } = defineProps<{ link: ApartmentSharingLink; linkId: string }>()
 const emit = defineEmits<{ refresh: [] }>()
 
 const { t } = useI18n()
@@ -188,6 +256,10 @@ const isLinkOrMail = computed(() => link.type === 'LINK' || link.type === 'MAIL'
 
 const isEditingTitle = ref(false)
 const editedTitle = ref(link.title)
+const editTitleInput = useTemplateRef<HTMLInputElement>('edit-title-input')
+const editTitleBtn = useTemplateRef('edit-title-btn')
+const editExpirationBtn = useTemplateRef('edit-expiration-btn')
+const datePickerBtn = useTemplateRef<HTMLButtonElement>('date-picker-btn')
 
 const formatDate = (date: string) => dayjs(date).format('D MMM YYYY')
 const formatDatePicker = (date: Date | string) => dayjs(date).format('DD/MM/YYYY')
@@ -243,20 +315,37 @@ async function updateExpirationDate(date: string) {
     isEditingExpiration.value = false
     toast.success(t('expiration-updated'), null)
     emit('refresh')
+    await nextTick()
+    editExpirationBtn.value?.$el.focus()
   } catch (error) {
     console.error(error)
     toast.error(t('error'), null)
   }
 }
 
-function startEditingTitle() {
-  editedTitle.value = link.title
-  isEditingTitle.value = true
+async function openUpdateExpirationDate() {
+  isEditingExpiration.value = true
+  await nextTick()
+  datePickerBtn.value?.focus()
+}
+async function closeUpdateExpirationDate() {
+  isEditingExpiration.value = false
+  await nextTick()
+  editExpirationBtn.value?.$el.focus()
 }
 
-function cancelEditingTitle() {
+async function startEditingTitle() {
+  editedTitle.value = link.title
+  isEditingTitle.value = true
+  await nextTick()
+  editTitleInput.value?.focus()
+}
+
+async function cancelEditingTitle() {
   isEditingTitle.value = false
   editedTitle.value = link.title
+  await nextTick()
+  editTitleBtn.value?.$el.focus()
 }
 
 async function saveTitle() {
@@ -265,6 +354,8 @@ async function saveTitle() {
     isEditingTitle.value = false
     toast.success(t('title-updated'), null)
     emit('refresh')
+    await nextTick()
+    editTitleBtn.value?.$el.focus()
   } catch (error) {
     console.error(error)
     toast.error(t('error'), null)
@@ -301,7 +392,8 @@ async function saveTitle() {
     th {
       font-weight: normal;
     }
-    td, th + td {
+    td,
+    th + td {
       flex: 1;
       text-align: right;
     }
@@ -332,7 +424,7 @@ async function saveTitle() {
 .link-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 1rem;
   flex-wrap: wrap;
 }
@@ -350,7 +442,9 @@ async function saveTitle() {
   gap: 0.5rem;
   align-items: flex-end;
 }
-h3 {
+caption {
+  text-align: left;
+  font-weight: bold;
   border-bottom: 1px solid var(--blue-france-sun-113-625);
 }
 .expiration-cell {
@@ -379,11 +473,9 @@ h3 {
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 18px;
   line-height: 1;
   color: #666;
   padding: 0;
-  margin-left: 4px;
 }
 .dp-custom-input__close:hover {
   color: #333;
@@ -448,12 +540,12 @@ h3 {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "property": "Property",
     "value": "Value",
-    "general-info":"General information",
+    "general-info": "General information",
     "title-of-share": "Title of the share",
     "update": "Update",
     "update-title": "Update the title",
@@ -485,7 +577,7 @@ h3 {
   "fr": {
     "property": "Propriété",
     "value": "Valeur",
-    "general-info":"Informations générales",
+    "general-info": "Informations générales",
     "title-of-share": "Titre du partage",
     "update": "Modifier",
     "update-title": "Modifier le titre",
