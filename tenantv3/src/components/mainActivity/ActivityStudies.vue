@@ -19,6 +19,7 @@
     </li>
   </ul>
   <p>{{ t('note-' + suffix) }}</p>
+  <MesriStudentFetch v-if="suffix === 'tenant'" />
   <UploadFilesMainActivity category="STUDENT" />
 </template>
 
@@ -28,6 +29,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useMainActivityState } from '@/components/mainActivity/lib/mainActivityState'
 import { useI18n } from 'vue-i18n'
 import UploadFilesMainActivity from './lib/UploadFilesMainActivity.vue'
+import MesriStudentFetch from './lib/MesriStudentFetch.vue'
 const { t } = useI18n()
 const { suffix } = useMainActivityState()
 const parent = useParentRoute()

@@ -69,6 +69,13 @@ export const RegisterService = {
     )
   },
 
+  // POC: the backend fetches the MESR student status with the tenant's FranceConnect token
+  fetchMesriStudentStatus() {
+    return axios.post<User>(
+      `${import.meta.env.VITE_API_URL}/api/register/documentProfessional/mesri`
+    )
+  },
+
   saveGuarantorProfessional(formData: FormData) {
     return axios.post<User>(
       `${import.meta.env.VITE_API_URL}/api/register/guarantorNaturalPerson/documentProfessional`,
