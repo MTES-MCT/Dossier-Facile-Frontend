@@ -219,6 +219,7 @@ import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import PropertyIcon from './PropertyIcon.vue'
 import type { Applicant } from './Applicant'
+import { compareApplicants } from './applicantSorting'
 import UtilsService from '../../services/UtilsService'
 import useOwnerStore from '../../store/owner-store'
 import AnalyticsService from '../../services/AnalyticsService'
@@ -262,7 +263,6 @@ const sortColumn = ref<Column | ''>('')
 const ascending = ref(false)
 const tenantIdToShow = ref(-1)
 const selectedApplicants = ref([])
-const tenants = ref<Array<Applicant>>([])
 const id = ref(0)
 
 const token = computed(() => {
@@ -276,21 +276,15 @@ const p = computed(() => store.getPropertyToConsult)
 const propertyType = computed(() => store.getPropertyToConsult?.type)
 const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture)
 
-function getTenants(): Applicant[] {
-  return UtilsService.getTenants(p.value).sort((a, b) => {
-    if (sortColumn.value === '') return 0
-    const left = a[COLUMN_MAP[sortColumn.value]]
-    const right = b[COLUMN_MAP[sortColumn.value]]
-    if (!left || !right) return 0
-    if (left < right) {
-      return ascending.value ? 1 : -1
-    }
-    if (right > left) {
-      return ascending.value ? -1 : 1
-    }
-    return 0
-  })
-}
+const tenants = computed(() => {
+  const applicants = UtilsService.getTenants(p.value)
+  if (sortColumn.value === '') {
+    return applicants
+  }
+  return applicants.sort(
+    compareApplicants(COLUMN_MAP[sortColumn.value], ascending.value)
+  )
+})
 
 function shareBtnClicked() {
   isShareModalOpened.value = true
@@ -298,15 +292,15 @@ function shareBtnClicked() {
 }
 
 onMounted(async () => {
-  if (route.params.id) {
-    id.value = Number(route.params.id)
-    await store.updatePropertyToConsult(id.value)
-    if (Object.keys(store.getPropertyToConsult).length <= 0) {
-      router.push({ name: 'Dashboard' })
-    } else {
-      tenants.value = getTenants()
-    }
-  } else {
+  if (!route.params.id) {
+    router.push({ name: 'Dashboard' })
+    return
+  }
+
+  id.value = Number(route.params.id)
+  await store.updatePropertyToConsult(id.value)
+
+  if (Object.keys(store.getPropertyToConsult).length <= 0) {
     router.push({ name: 'Dashboard' })
   }
 })
@@ -364,7 +358,6 @@ function validDeleteApplicants() {
   store.deleteApplicants(selectedApplicants.value).then(() => {
     selectedApplicants.value = []
     store.updatePropertyToConsult(id.value)
-    tenants.value = getTenants()
   })
   confirmDeleteApplicants.value = false
 }
