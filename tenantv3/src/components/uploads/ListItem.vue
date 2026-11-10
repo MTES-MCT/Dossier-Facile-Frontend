@@ -138,6 +138,7 @@ function openDoc() {
 }
 .fr-card > :first-child {
   flex: 1 0 96px;
+  align-self: stretch;
 }
 
 .fr-card__title {

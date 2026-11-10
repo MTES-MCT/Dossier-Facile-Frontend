@@ -5,18 +5,18 @@
     :document-denied-reasons="identityDocument?.documentDeniedReasons"
     :document-status="documentStatus"
   ></AllDeclinedMessages>
-  <div v-if="identificationFiles.length > 0" class="fr-col-12 fr-mb-3w">
-    <ListItem
-      v-for="file in identificationFiles"
-      :key="file.id"
-      :file="file"
-      :watermark-url="documentWatermarkUrl"
-      doc-category="identification"
-      @remove="remove(file)"
-      @ask-confirm="AnalyticsService.deleteDocument(identityState.category)"
-      @cancel="AnalyticsService.cancelDelete(identityState.category)"
-    />
-  </div>
+  <ul v-if="identificationFiles.length > 0" class="fr-col-12 fr-mb-3w" role="list">
+    <li v-for="file in identificationFiles" :key="file.id">
+      <ListItem
+        :file="file"
+        :watermark-url="documentWatermarkUrl"
+        doc-category="identification"
+        @remove="remove(file)"
+        @ask-confirm="AnalyticsService.deleteDocument(identityState.category)"
+        @cancel="AnalyticsService.cancelDelete(identityState.category)"
+      />
+    </li>
+  </ul>
   <FileUpload
     ref="file-upload"
     :current-status="fileUploadStatus"
@@ -148,3 +148,9 @@ async function remove(file: DfFile, silent = false) {
   }
 }
 </script>
+
+<style scoped>
+ul[role='list'] {
+  --li-bottom: 1rem;
+}
+</style>
