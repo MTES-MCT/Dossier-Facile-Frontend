@@ -4,7 +4,7 @@ import type {
   DsfrLanguageSelectorElement,
   DsfrNavigationProps
 } from '@gouvminint/vue-dsfr'
-import { DsfrHeader, DsfrNavigation } from '@gouvminint/vue-dsfr'
+import { DsfrHeader, DsfrLogo, DsfrNavigation } from '@gouvminint/vue-dsfr'
 import type { Locale } from '../i18n'
 import { useModalStore } from '../stores/useModalStore'
 import { computed } from 'vue'
@@ -21,18 +21,18 @@ const emit = defineEmits<{ 'on-logout': [] }>()
 
 const { openModal } = useModalStore('deleteAccount')
 
-const TENANT_URL = `${import.meta.env.VITE_TENANT_URL}/login`
+const MAIN_URL = import.meta.env.VITE_MAIN_URL
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
 const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
 const DOCS_URL = import.meta.env.VITE_DOCS_URL
 
 const logoText = ['République', 'française']
-const serviceTitle = 'Dossier Facile'
 const serviceDescription = "Le dossier de location numérique de l'État"
 const quickLinks = computed<DsfrHeaderProps['quickLinks']>(() => [
   {
     label: isLoggedIn ? t('logout') : t('tenant'),
-    to: isLoggedIn ? undefined : TENANT_URL,
+    to: isLoggedIn ? undefined : `${TENANT_URL}/login`,
     button: isLoggedIn,
     onClick: isLoggedIn ? () => emit('on-logout') : undefined,
     icon: 'ri:account-circle-line'
@@ -132,14 +132,11 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
 </script>
 
 <template>
-  <DsfrHeader
-    :logo-text
-    :service-title
-    :service-description
-    :quick-links
-    :language-selector
-    @language-select="updateLang"
-  >
+  <DsfrHeader :logo-text :quick-links :language-selector @language-select="updateLang">
+    <template #operator>
+      <p class="fr-text--xl">Dossier<b>Facile</b></p>
+      <p class="fr-text--sm">{{ serviceDescription }}</p>
+    </template>
     <template #mainnav>
       <DsfrNavigation id="main-nav" :nav-items />
     </template>
