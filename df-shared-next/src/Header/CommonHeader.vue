@@ -4,7 +4,7 @@ import type {
   DsfrLanguageSelectorElement,
   DsfrNavigationProps
 } from '@gouvminint/vue-dsfr'
-import { DsfrHeader, DsfrLogo, DsfrNavigation } from '@gouvminint/vue-dsfr'
+import { DsfrHeader, DsfrNavigation } from '@gouvminint/vue-dsfr'
 import type { Locale } from '../i18n'
 import { useModalStore } from '../stores/useModalStore'
 import { computed } from 'vue'
@@ -13,15 +13,15 @@ import { useI18n } from 'vue-i18n'
 interface Props {
   isLoggedIn: boolean
   showMessaging: boolean
+  newMessage: number
 }
 
-const { isLoggedIn, showMessaging } = defineProps<Props>()
+const { isLoggedIn, showMessaging, newMessage } = defineProps<Props>()
 const { t } = useI18n()
 const emit = defineEmits<{ 'on-logout': [] }>()
 
 const { openModal } = useModalStore('deleteAccount')
 
-const MAIN_URL = import.meta.env.VITE_MAIN_URL
 const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
 const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
@@ -106,12 +106,12 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
         }
       ]
     : []),
-  ...(showMessaging
+  ...(showMessaging && !!newMessage
     ? [
         {
           id: 'nav-notification',
           to: '/messaging',
-          text: t('nav.messaging'),
+          text: `${newMessage} ${t('nav.messaging')}`,
           icon: 'ri:error-warning-line'
         }
       ]
