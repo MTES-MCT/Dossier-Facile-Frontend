@@ -65,7 +65,7 @@ const isModalOpened = ref(false)
   "fr": {
     "see-in-file": "Voir l’attestation dans mon dossier",
     "sworn-statement": "Attestation sur l’honneur",
-    "i-certify": "Je soussigné·e {0}, atteste sur l’honneur que :",
+    "i-certify": "Je, {0}, certifie sur l’honneur que :",
     "dated": "Fait le",
     "signature": "Signature :"
   }

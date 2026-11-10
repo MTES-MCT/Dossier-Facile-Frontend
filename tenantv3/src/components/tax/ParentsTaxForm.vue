@@ -66,7 +66,7 @@ const attestChecked = ref(document.value?.documentSubCategory === 'MY_PARENTS')
   },
   "fr": {
     "i-attest": "J’atteste sur l’honneur ne pas pouvoir fournir de document, et je comprends que cette information sera visible dans mon dossier.",
-    "i-have-no-tax": "Je suis rattaché·e au foyer fiscal de mes parents et ne dispose pas d’un avis à mon nom propre.",
+    "i-have-no-tax": "Je dépends du foyer fiscal de mes parents et ne dispose pas d’un avis à mon nom propre.",
     "tenant": {
       "your-situation": "Votre situation :",
       "have-no-tax-notice": "Vous n’avez pas d’avis d’impôt",
