@@ -118,7 +118,9 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
     : []),
   {
     to: DOCS_URL,
-    text: t('nav.help')
+    text: t('nav.help'),
+    target: '_blank',
+    title: `${t('nav.help')} - ${t('new-window')}`
   },
   {
     to: '/contact',
