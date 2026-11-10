@@ -1,5 +1,5 @@
 <template>
-  <DsfrAlert type="warning" small>
+  <DsfrAlert type="info" small>
     <p>
       {{ t('submit-identity-document') }} <strong>{{ t('valid-doc') }}</strong>
     </p>

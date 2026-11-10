@@ -16,31 +16,33 @@
     />
     <label class="fr-label" for="precarious-checkbox">{{ t(textKey + '.you-precarious') }}</label>
   </div>
-  <DsfrAlert type="info" small>
-    <i18n-t keypath="info-115" tag="p">
-      <a href="tel:115" class="phone-link"
-        >115
-        <RiPhoneFill size="1rem" aria-hidden="true" />
-      </a>
-    </i18n-t>
-  </DsfrAlert>
-  <DsfrAlert type="info" small>
-    <i18n-t keypath="info-3919" tag="p">
-      <template #tel>
-        <a href="tel:3919" class="phone-link">
-          3919
-          <RiPhoneFill size="1rem" aria-hidden="true" />
-        </a>
-      </template>
-      <template #page>
-        <a
-          href="https://www.service-public.fr/particuliers/vosdroits/F12544"
-          :title="`${t('domestic-violence-page')} - ${t('new-window')}`"
-          target="_blank"
-          >{{ t('domestic-violence-page') }}</a
-        >
-      </template>
-    </i18n-t>
+  <DsfrAlert type="info" title="">
+    <ul>
+      <li>
+        <b>{{ t('info-115-title') }}</b
+        ><br />
+        <i18n-t keypath="info-115-content" tag="span">
+          <a href="tel:115" class="phone-link">115 </a>
+        </i18n-t>
+      </li>
+      <li>
+        <b>{{ t('info-3919-title') }}</b
+        ><br />
+        <i18n-t keypath="info-3919-content" tag="span">
+          <template #tel>
+            <a href="tel:3919" class="phone-link">3919</a>
+          </template>
+          <template #page>
+            <a
+              href="https://www.service-public.fr/particuliers/vosdroits/F12544"
+              :title="`${t('domestic-violence-page')} - ${t('new-window')}`"
+              target="_blank"
+              >{{ t('domestic-violence-page') }}</a
+            >
+          </template>
+        </i18n-t>
+      </li>
+    </ul>
   </DsfrAlert>
   <ResidencyFooter ref="footer" :on-submit="submit" :enabled="isPrecarious" />
 </template>
@@ -50,7 +52,6 @@ import { ref, useTemplateRef } from 'vue'
 import BackLinkRow from './lib/BackLinkRow.vue'
 import { useRouter } from 'vue-router'
 import { useTenantStore } from '@/stores/tenant-store'
-import { RiPhoneFill } from '@remixicon/vue'
 import { useI18n } from 'vue-i18n'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import ResidencyFooter from './lib/ResidencyFooter.vue'
@@ -104,38 +105,42 @@ const submit = () => {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "other-residency": "In a precarious situation",
     "cant-provide-receipts": "The applicant indicates that he/she is unable to provide a housing receipt for the last 3 months",
+    "need-help": "In need of help? Services exists to assist you.",
     "info-115": "Are you homeless? {0} is a national assistance and referral number for homeless people. It is open 24/7.",
     "info-3919": "Are you a victim of domestic violence? {tel} is an assistance and information number for women victims of violence. The service is anonymous and free of charge. Associations and public bodies can also help you. Visit the {page}.",
     "domestic-violence-page": "domestic violence page on the service-public.fr website",
     "validate-residency": "Validate your housing situation",
     "tenant": {
       "tick-box": "Tick the following box if you are in a precarious situation (homeless, victim of domestic violence, for example). The following sentence will be added to your file: {0}.",
-      "you-precarious": "You are in a precarious situation",
+      "you-precarious": "You are in a precarious situation"
     },
     "couple": {
       "tick-box": "Tick the following box if your spouse is in a precarious situation (homeless, victim of domestic violence, for example). The following sentence will be added to your file: {0}.",
-      "you-precarious": "Your spouse is in a precarious situation",
+      "you-precarious": "Your spouse is in a precarious situation"
     }
   },
   "fr": {
     "other-residency": "En situation précaire",
     "cant-provide-receipts": "Le candidat indique qu'il n'est pas en mesure de fournir de quittance de logement pour ces 3 derniers mois",
-    "info-115": "Vous êtes sans-abri ? Le {0} est un numéro national d'assistance et d'orientation pour les personnes sans-abri. Il est ouvert 7j/7 et 24h/24.",
-    "info-3919": "Vous êtes victime de violences conjugales ? Le {tel} est un numéro d’assistance et d’information destiné aux femmes victimes de violences. Le service est anonyme et gratuit. Des associations et organismes publics peuvent également vous venir en aide. Consultez la page {page}. ",
+    "need-help": "Besoin d'aide ? Des dispositifs existent pour vous accompagner.",
+    "info-115-title": "Vous êtes sans-abri ?",
+    "info-115-content": "Le {0} est un numéro national d'assistance et d'orientation, accessible 7j/7 et 24h/24.",
+    "info-3919-title": "Vous êtes victime de violences conjugales ?",
+    "info-3919-content": "Le {tel} est un numéro d’écoute, d’information et d'orientation anonyme et gratuit.",
     "domestic-violence-page": "violences conjugales du site service-public.fr",
     "validate-residency": "Valider votre situation d'hébergement",
     "tenant": {
       "tick-box": "Cochez la case suivante si vous êtes dans une situation précaire (sans-abri, victime de violences conjugales par exemple). La phrase suivante sera ajouté à votre dossier : {0}.",
-      "you-precarious": "Vous êtes dans une situation précaire",
+      "you-precarious": "Vous êtes dans une situation précaire"
     },
     "couple": {
       "tick-box": "Cochez la case suivante si votre conjoint est dans une situation précaire (sans-abri, victime de violences conjugales par exemple). La phrase suivante sera ajouté à votre dossier : {0}.",
-      "you-precarious": "Votre conjoint est dans une situation précaire",
+      "you-precarious": "Votre conjoint est dans une situation précaire"
     }
   }
 }
