@@ -6,22 +6,18 @@ import type {
 } from '@gouvminint/vue-dsfr'
 import { DsfrHeader, DsfrNavigation } from '@gouvminint/vue-dsfr'
 import type { Locale } from '../i18n'
-import { useModalStore } from '../stores/useModalStore'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 interface Props {
   isLoggedIn: boolean
-  userEmail: string
   showMessaging: boolean
   newMessage: number
 }
 
-const { isLoggedIn, userEmail, showMessaging, newMessage } = defineProps<Props>()
+const { isLoggedIn, showMessaging, newMessage } = defineProps<Props>()
 const { t } = useI18n()
 const emit = defineEmits<{ 'on-logout': [] }>()
-
-const { openModal } = useModalStore('deleteAccount')
 
 const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
@@ -38,19 +34,9 @@ const quickLinks = computed<DsfrHeaderProps['quickLinks']>(() => [
     onClick: isLoggedIn ? () => emit('on-logout') : undefined,
     icon: 'ri:account-circle-line'
   },
-  ...(isLoggedIn
-    ? [
-        {
-          label: t('menu.deleteAccount'),
-          button: true,
-          onClick: openModal,
-          icon: 'ri:delete-bin-line'
-        }
-      ]
-    : []),
-  ...(!isLoggedIn ? [{ label: t('owner'), to: OWNER_URL, icon: 'ri:community-line' }] : []),
   ...(!isLoggedIn
     ? [
+        { label: t('owner'), to: OWNER_URL, icon: 'ri:community-line' },
         {
           label: t('partner'),
           to: PARTNER_URL,
@@ -97,11 +83,15 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
           links: [
             {
               to: '/account',
-              text: `${t('menu.file')} - ${userEmail}`
+              text: t('menu.file')
             },
             {
               to: '/partages',
               text: t('menu.shared')
+            },
+            {
+              to: '/settings',
+              text: t('menu.settings')
             }
           ]
         }
