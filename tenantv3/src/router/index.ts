@@ -555,6 +555,15 @@ export const router = createRouter({
       redirect: '/nom-locataire'
     },
     {
+      path: '/settings',
+      name: 'Settings',
+      meta: {
+        requiresAuth: true,
+        skipLinks: { links: [CONTENT, FOOTER_NAVIGATION] }
+      },
+      component: () => import('../views/AccountSettings.vue')
+    },
+    {
       path: '/nom-locataire',
       name: 'TenantName',
       meta: {

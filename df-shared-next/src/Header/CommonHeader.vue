@@ -12,11 +12,12 @@ import { useI18n } from 'vue-i18n'
 
 interface Props {
   isLoggedIn: boolean
+  userEmail: string
   showMessaging: boolean
   newMessage: number
 }
 
-const { isLoggedIn, showMessaging, newMessage } = defineProps<Props>()
+const { isLoggedIn, userEmail, showMessaging, newMessage } = defineProps<Props>()
 const { t } = useI18n()
 const emit = defineEmits<{ 'on-logout': [] }>()
 
@@ -96,7 +97,7 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
           links: [
             {
               to: '/account',
-              text: t('menu.file')
+              text: `${t('menu.file')} - ${userEmail}`
             },
             {
               to: '/partages',

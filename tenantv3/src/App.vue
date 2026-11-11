@@ -50,6 +50,7 @@ const showMessaging = computed(() => {
     :is-logged-in
     :show-messaging
     :new-message
+    :user-email="user.email"
     @update:current-lang="changeLang"
     @on-logout="store.logout"
   />

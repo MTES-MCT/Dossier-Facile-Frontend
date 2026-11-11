@@ -446,7 +446,7 @@
     "show": "Show Document",
     "remove": "Remove Document",
     "see": "See",
-    "document":"the document {doc} for {name}",
+    "document": "the document {doc} for {name}",
     "see-title": "See - Open in a new window",
     "view-failed": "Unable to open the document. Please try again.",
     "download": "Download"
@@ -1149,6 +1149,7 @@
     "MyFile": "My files",
     "Account": "My account",
     "SharingLinksPage": "My shares",
+    "Settings": "Account settings",
     "Messages": "Messages",
     "AddCouple": "Account Confirmation",
     "AddGroup": "Account Confirmation",

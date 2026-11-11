@@ -448,7 +448,7 @@
     "see": "Voir",
     "remove": "Supprimer la pièce",
     "show": "Voir le document",
-    "document":"le document {doc} de {name}",
+    "document": "le document {doc} de {name}",
     "see-title": "Voir - Ouvre une nouvelle fenêtre",
     "view-failed": "Impossible d'ouvrir le document. Veuillez réessayer.",
     "download": "Télécharger"
@@ -1146,6 +1146,7 @@
     "MyFile": "Mon dossier",
     "Account": "Mon compte",
     "SharingLinksPage": "Mes partages",
+    "Settings": "Paramètres du compte",
     "Messages": "Messages",
     "AddCouple": "Confirmation de compte",
     "AddGroup": "Confirmation de compte",
