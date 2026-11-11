@@ -446,7 +446,7 @@
     "show": "Show Document",
     "remove": "Remove Document",
     "see": "See",
-    "document":"the document {doc} for {name}",
+    "document": "the document {doc} for {name}",
     "see-title": "See - Open in a new window",
     "view-failed": "Unable to open the document. Please try again.",
     "download": "Download"
@@ -994,7 +994,8 @@
     "invalid-file-extension": "This extension is not valid. Only .jpg, .png, .pdf or .heic are accepted",
     "no-file": "Add at least one file to continue",
     "submit-failed": "Unable to send the form. Please try again.",
-    "custom-text-too-long": "Your explanation exceeds the allowed length ({max} characters). Please shorten it."
+    "custom-text-too-long": "Your explanation exceeds the allowed length ({max} characters). Please shorten it.",
+    "custom-text-missing": "You must provide an explanation."
   },
   "resend-mail": {
     "success": "Email resent successfully",

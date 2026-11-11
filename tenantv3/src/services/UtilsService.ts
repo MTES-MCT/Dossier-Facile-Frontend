@@ -81,6 +81,9 @@ export const UtilsService = {
       } else if (message.includes('invalid file extension')) {
         toast.error(i18n.global.t('errors.invalid-file-extension'), elt)
         hasSpecificMessage = true
+      } else if (message.includes('must not be blank')) {
+        toast.error(i18n.global.t('errors.custom-text-missing'), elt)
+        hasSpecificMessage = true
       } else if (
         message.includes('number of document must be at least 1') ||
         message.includes('number of document must be between 1')
