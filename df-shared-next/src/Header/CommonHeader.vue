@@ -12,10 +12,10 @@ import { useI18n } from 'vue-i18n'
 interface Props {
   isLoggedIn: boolean
   showMessaging: boolean
-  newMessage: number
+  newMessage?: number
 }
 
-const { isLoggedIn, showMessaging, newMessage } = defineProps<Props>()
+const { isLoggedIn, showMessaging, newMessage = undefined } = defineProps<Props>()
 const { t } = useI18n()
 const emit = defineEmits<{ 'on-logout': [] }>()
 
