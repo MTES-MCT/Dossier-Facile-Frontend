@@ -992,7 +992,8 @@
     "invalid-file-extension": "Cette extension n'est pas valide. Seuls les fichiers en .jpg, .png, .pdf ou .heic sont acceptés",
     "no-file": "Ajoutez au moins un fichier pour continuer",
     "submit-failed": "Impossible d'envoyer le formulaire. Veuillez réessayer.",
-    "custom-text-too-long": "Votre explication dépasse la limite autorisée ({max} caractères). Veuillez la raccourcir."
+    "custom-text-too-long": "Votre explication dépasse la limite autorisée ({max} caractères). Veuillez la raccourcir.",
+    "custom-text-missing": "Vous devez fournir une explication."
   },
   "resend-mail": {
     "success": "Email renvoyé avec succès",
