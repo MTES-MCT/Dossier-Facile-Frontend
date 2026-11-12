@@ -38,7 +38,12 @@ Cypress.Commands.add(
     cy.intercept("DELETE", "**/deleteAccount").as("deleteAccount");
 
     if (type === UserType.TENANT) {
-      cy.contains("header button", "Supprimer mon compte").click();
+      // Account deletion lives on the settings page, reached through the "Mon compte" menu.
+      cy.contains(".fr-nav__btn", "Mon compte").click();
+      cy.contains(".fr-nav__link", "Paramètres du compte").click();
+      cy.expectPath("/settings");
+      // Scope to <main>: the confirmation modal holds a button with the same label.
+      cy.contains("main button", "Supprimer mon compte").click();
     } else {
       cy.get(".fr-nav__btn").click();
       cy.get(".fr-nav__link")

@@ -6,50 +6,37 @@ import type {
 } from '@gouvminint/vue-dsfr'
 import { DsfrHeader, DsfrNavigation } from '@gouvminint/vue-dsfr'
 import type { Locale } from '../i18n'
-import { useModalStore } from '../stores/useModalStore'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 interface Props {
   isLoggedIn: boolean
   showMessaging: boolean
+  newMessage?: number
 }
 
-const { isLoggedIn, showMessaging } = defineProps<Props>()
+const { isLoggedIn, showMessaging, newMessage = undefined } = defineProps<Props>()
 const { t } = useI18n()
 const emit = defineEmits<{ 'on-logout': [] }>()
 
-const { openModal } = useModalStore('deleteAccount')
-
-const TENANT_URL = `${import.meta.env.VITE_TENANT_URL}/login`
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
 const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
 const DOCS_URL = import.meta.env.VITE_DOCS_URL
 
 const logoText = ['République', 'française']
-const serviceTitle = 'Dossier Facile'
 const serviceDescription = "Le dossier de location numérique de l'État"
 const quickLinks = computed<DsfrHeaderProps['quickLinks']>(() => [
   {
     label: isLoggedIn ? t('logout') : t('tenant'),
-    to: isLoggedIn ? undefined : TENANT_URL,
+    to: isLoggedIn ? undefined : `${TENANT_URL}/login`,
     button: isLoggedIn,
     onClick: isLoggedIn ? () => emit('on-logout') : undefined,
     icon: 'ri:account-circle-line'
   },
-  ...(isLoggedIn
-    ? [
-        {
-          label: t('menu.deleteAccount'),
-          button: true,
-          onClick: openModal,
-          icon: 'ri:delete-bin-line'
-        }
-      ]
-    : []),
-  ...(!isLoggedIn ? [{ label: t('owner'), to: OWNER_URL, icon: 'ri:community-line' }] : []),
   ...(!isLoggedIn
     ? [
+        { label: t('owner'), to: OWNER_URL, icon: 'ri:community-line' },
         {
           label: t('partner'),
           to: PARTNER_URL,
@@ -101,24 +88,30 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
             {
               to: '/partages',
               text: t('menu.shared')
+            },
+            {
+              to: '/settings',
+              text: t('menu.settings')
             }
           ]
         }
       ]
     : []),
-  ...(showMessaging
+  ...(showMessaging && !!newMessage
     ? [
         {
           id: 'nav-notification',
           to: '/messaging',
-          text: t('nav.messaging'),
+          text: t('nav.messaging', newMessage),
           icon: 'ri:error-warning-line'
         }
       ]
     : []),
   {
     to: DOCS_URL,
-    text: t('nav.help')
+    text: t('nav.help'),
+    target: '_blank',
+    title: `${t('nav.help')} - ${t('new-window')}`
   },
   {
     to: '/contact',
@@ -132,14 +125,11 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
 </script>
 
 <template>
-  <DsfrHeader
-    :logo-text
-    :service-title
-    :service-description
-    :quick-links
-    :language-selector
-    @language-select="updateLang"
-  >
+  <DsfrHeader :logo-text :quick-links :language-selector @language-select="updateLang">
+    <template #operator>
+      <p class="fr-text--xl">Dossier<b>Facile</b></p>
+      <p class="fr-text--sm">{{ serviceDescription }}</p>
+    </template>
     <template #mainnav>
       <DsfrNavigation id="main-nav" :nav-items />
     </template>
@@ -172,7 +162,7 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
       "partners": "Partners",
       "help": "Help",
       "contact": "Contact us",
-      "messaging": "New messages"
+      "messaging": "{n} new message | {n} new messages"
     }
   },
   "fr": {
@@ -187,7 +177,7 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
       "partners": "Partenaires",
       "help": "Aide",
       "contact": "Nous contacter",
-      "messaging": "Nouveaux messages"
+      "messaging": "{n} nouveau message | {n} nouveaux messages"
     }
   }
 }

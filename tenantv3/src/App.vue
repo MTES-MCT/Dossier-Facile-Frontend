@@ -32,6 +32,7 @@ onBeforeMount(() => {
 
 const announcementMessage = computed(() => MESSAGE.replace('[[tenantId]]', `${store.user.id}`))
 
+const newMessage = computed(() => store.newMessage)
 const showMessaging = computed(() => {
   return (
     (isLoggedIn.value === true && user.value.status !== 'INCOMPLETE') ||
@@ -48,6 +49,8 @@ const showMessaging = computed(() => {
     v-model:current-lang="locale"
     :is-logged-in
     :show-messaging
+    :new-message
+    :user-email="user.email"
     @update:current-lang="changeLang"
     @on-logout="store.logout"
   />
