@@ -1,10 +1,10 @@
 <template>
   <div class="bg-blue">
     <div class="fr-container fr-my-5w">
-      <h1 class="fr-mb-0">{{ t('page-titles.Settings') }}</h1>
+      <h1 class="fr-h2 fr-mb-0">{{ t('page-titles.Settings') }}</h1>
       <section>
         <NakedCard class="flow">
-          <h2 class="fr-h5">{{ t('account-title') }}</h2>
+          <h2 class="fr-h3">{{ t('account-title') }}</h2>
           <dl>
             <dt>{{ t('email-address') }}</dt>
             <dd>
@@ -17,7 +17,7 @@
       </section>
       <section>
         <NakedCard class="flow">
-          <h2 class="fr-h5">{{ t('delete-title') }}</h2>
+          <h2 class="fr-h3">{{ t('delete-title') }}</h2>
           <p v-safe-html="t('delete-info')" />
           <DsfrButton
             :label="t('delete-button')"
@@ -45,7 +45,7 @@ const { openModal } = useModalStore('deleteAccount')
 
 <style scoped>
 .fr-container {
-  --card-padding: 2rem;
+  --card-padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
