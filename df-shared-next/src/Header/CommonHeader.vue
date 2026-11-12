@@ -97,13 +97,13 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
         }
       ]
     : []),
-  ...(showMessaging && !!newMessage
+  ...(showMessaging
     ? [
         {
           id: 'nav-notification',
           to: '/messaging',
-          text: t('nav.messaging', newMessage),
-          icon: 'ri:error-warning-line'
+          text: !!newMessage ? t('nav.new-messaging', newMessage) : t('nav.messaging'),
+          icon: !!newMessage ? 'ri:error-warning-line' : undefined
         }
       ]
     : []),
@@ -162,7 +162,8 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
       "partners": "Partners",
       "help": "Help",
       "contact": "Contact us",
-      "messaging": "{n} new message | {n} new messages"
+      "messaging": "Messages",
+      "new-messaging": "{n} new message | {n} new messages"
     }
   },
   "fr": {
@@ -177,7 +178,8 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
       "partners": "Partenaires",
       "help": "Aide",
       "contact": "Nous contacter",
-      "messaging": "{n} nouveau message | {n} nouveaux messages"
+      "messaging": "Messagerie",
+      "new-messaging": "{n} nouveau message | {n} nouveaux messages"
     }
   }
 }
