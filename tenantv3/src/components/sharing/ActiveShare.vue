@@ -1,4 +1,3 @@
-an
 <template>
   <div class="share-item">
     <div class="share-row fr-px-2w fr-py-1w">

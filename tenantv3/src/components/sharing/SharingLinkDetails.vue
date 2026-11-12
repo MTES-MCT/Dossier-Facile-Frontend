@@ -43,7 +43,7 @@
                     name="title"
                     :aria-labelledby="`${linkId}-edit-title`"
                     :aria-describedby="`${linkId}-title`"
-                    @keydown.enter="saveTitle"
+                    @keydown.enter.prevent="saveTitle"
                     @keyup.escape="cancelEditingTitle"
                   />
                   <div class="title-edit-buttons">
@@ -196,7 +196,7 @@
           />
           <!-- Partage par mail -->
           <DsfrButton
-            v-if="link.type === 'MAIL'"
+            v-if="link.type === 'MAIL' && link.enabled"
             type="button"
             :label="t('resend-mail')"
             secondary
