@@ -121,13 +121,13 @@ async function save(): Promise<boolean> {
     })
 }
 
-function addFiles(fileList: File[]) {
+async function addFiles(fileList: File[]) {
   AnalyticsService.uploadFile(identityState.category, props.category)
   const nf = Array.from(fileList).map((f) => {
     return { name: f.name, file: f, size: f.size }
   })
   files.value = [...files.value, ...nf]
-  save()
+  await save()
 }
 
 async function remove(file: DfFile, silent = false) {

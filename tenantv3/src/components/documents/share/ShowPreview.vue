@@ -63,7 +63,7 @@ async function getData() {
   }
 }
 if (!isImage()) {
-  getData()
+  await getData()
 }
 </script>
 
