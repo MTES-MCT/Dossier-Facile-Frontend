@@ -77,7 +77,7 @@ describe("couple tenant scenario", () => {
     cy.expectPath("/4/5");
     cy.contains("Votre conjoint n’a pas d’avis d’impôt").click();
     cy.contains("Autre situation").click();
-    getInputByLabel("Décrivez sa situation").type("...");
+    getInputByLabel("Décrivez sa situation").type("explication e2e");
     cy.clickOnNext();
 
     cy.expectPath("/garants-locataire");
