@@ -116,7 +116,7 @@ async function confirmDelete() {
     toast.error(t('error'), deleteButton.value?.$el)
   } finally {
     isMultiDeleteModalOpen.value = false
-    setFocusLegend()
+    void setFocusLegend()
   }
 }
 

@@ -1,6 +1,7 @@
 <template>
   <div ref="menuContainer" class="actions-menu">
     <DsfrButton
+      id="actionBtn"
       type="button"
       :label="t('actions')"
       tertiary
@@ -85,6 +86,7 @@ import { AnalyticsService } from '@/services/AnalyticsService'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { DsfrButton, type DsfrButtonProps, useRandomId } from '@gouvminint/vue-dsfr'
 import { FocusLegendKey, type FocusLegendType } from '@/models/InjectionKeys'
+import { toast } from '../toast/toastUtils'
 
 const props = defineProps<{
   enabled?: boolean
@@ -103,6 +105,7 @@ const { t } = useI18n()
 const dropdownID = useRandomId('dropdown')
 const isOpen = ref(false)
 const setFocusLegend = inject(FocusLegendKey) as FocusLegendType
+const deleteBtn = useTemplateRef('delete-btn')
 
 const isDeleteModalOpen = ref(false)
 const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
@@ -153,14 +156,18 @@ const handleDelete = () => {
 }
 
 const confirmDelete = async () => {
-  AnalyticsService.sharingAction('delete')
-  emit('delete')
-  isDeleteModalOpen.value = false
-  await nextTick()
-  setFocusLegend()
+  try {
+    AnalyticsService.sharingAction('delete')
+    emit('delete')
+  } catch (error) {
+    console.error(error)
+    toast.error(t('error'), deleteBtn.value?.$el)
+  } finally {
+    isDeleteModalOpen.value = false
+    await nextTick()
+    setFocusLegend()
+  }
 }
-
-const deleteBtn = useTemplateRef('delete-btn')
 const handleFocus = async () => {
   await nextTick()
   deleteBtn.value?.$el.focus()
@@ -171,39 +178,6 @@ const handleFocus = async () => {
 .actions-menu {
   position: relative;
   display: inline-block;
-}
-
-.actions-button {
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  padding: 4px 8px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.actions-button:hover {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-.actions-button[aria-expanded='true'] {
-  background-color: #e3e3fd;
-}
-
-.actions-text {
-  font-family: Marianne, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 24px;
-  color: #000091;
-  padding-left: 4px;
-}
-
-.arrow-icon {
-  color: #000091;
-  pointer-events: none;
 }
 
 .dropdown-menu {
@@ -220,15 +194,6 @@ const handleFocus = async () => {
 
 .menu-item {
   inline-size: 100%;
-}
-
-.menu-icon {
-  flex-shrink: 0;
-  color: #000091;
-}
-
-.delete-item {
-  background-color: rgba(0, 0, 0, 0.04);
 }
 </style>
 
