@@ -106,7 +106,7 @@ const linkProperties = computed(() => {
       break
     case 'PARTNER':
       icon = 'shake-hands'
-      text = `${t('share-with')} ${props.link.title}`
+      text = t('share-with-partner', [props.link.title])
       break
   }
 
@@ -342,6 +342,7 @@ const handleDelete = async () => {
     "with-docs": "Full file with supporting documents",
     "without-docs": "File without supporting documents",
     "share-with": "shared with",
+    "share-with-partner": "Shared with {0}",
     "select-link": "Select link:"
   },
   "fr": {
@@ -364,6 +365,7 @@ const handleDelete = async () => {
     "with-docs": "Dossier complet avec justificatifs",
     "without-docs": "Dossier sans documents justificatifs",
     "share-with": "partagé avec",
+    "share-with-partner": "Partage avec {0}",
     "select-link": "Sélectionner le lien:"
   }
 }
