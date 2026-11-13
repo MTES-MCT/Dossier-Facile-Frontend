@@ -97,7 +97,8 @@ describe("alone tenant scenario", () => {
     // Generate a full share link (the full file view is protected by a trigram)
     cy.get("#link-title").type("E2E partage");
     getInputByLabel("Contenu du lien partagé").select("full");
-    cy.get(".generate-link-btn").click();
+    // The "Générer un lien" tab has the same label: target the submit button
+    cy.get('button[name="action"][value="link"]').click();
 
     // Open the generated link: it lands on the trigram authentication page
     cy.contains("p", "/file/")
