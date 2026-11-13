@@ -102,8 +102,8 @@ const navItems = computed<DsfrNavigationProps['navItems']>(() => [
         {
           id: 'nav-notification',
           to: '/messaging',
-          text: !!newMessage ? t('nav.new-messaging', newMessage) : t('nav.messaging'),
-          icon: !!newMessage ? 'ri:error-warning-line' : undefined
+          text: newMessage ? t('nav.new-messaging', newMessage) : t('nav.messaging'),
+          icon: newMessage ? 'ri:error-warning-line' : undefined
         }
       ]
     : []),
