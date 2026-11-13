@@ -10,10 +10,8 @@
       </p>
     </div>
     <div class="wrapper">
-      <div class="icon">
-        <RiLinksLine aria-hidden="true" />
-      </div>
-      <form @submit.prevent="handleFormSubmit">
+      <span class="icon fr-icon-links-line" />
+      <form ref="shareForm" @submit.prevent="handleFormSubmit">
         <h3 class="fr-text--lg fr-mb-0">{{ t('share-link') }}</h3>
         <p class="fr-text--sm fr-mb-2w">{{ t('generate-link') }}</p>
         <p class="fr-text--sm fr-mb-1w">{{ t('required-inputs') }}</p>
@@ -28,7 +26,7 @@
             <div
               class="fr-input-group"
               :class="{
-                'fr-input-group--error': !meta.valid && meta.touched
+                'fr-input-group--error': !meta.valid && meta.validated
               }"
             >
               <label class="fr-label" for="link-title">
@@ -40,7 +38,7 @@
                 v-bind="field"
                 class="fr-input"
                 :class="{
-                  'fr-input--error': !meta.valid && meta.touched
+                  'fr-input--error': !meta.valid && meta.validated
                 }"
                 type="text"
                 name="name"
@@ -59,14 +57,15 @@
           />
         </div>
         <div
-          class="fr-input-group link-content-group"
-          :class="{ 'fr-input-group--error': hasSubmitted && shareTypeError }"
+          class="fr-select-group link-content-group"
+          :class="{ 'fr-select-group--error': hasSubmitted && shareTypeError }"
         >
           <DsfrSelect
             :model-value="selectedShareType"
             :label="t('link-content')"
             :hint="t('link-content-desc')"
             :options="shareTypeOptions"
+            :class="{ 'fr-input--error': hasSubmitted && shareTypeError }"
             name="shareType"
             @update:model-value="
               (val: string | number) => {
@@ -86,25 +85,33 @@
           }}
         </p>
         <DsfrTabs ref="tabsRef" v-model="activeTab" :tab-list-name="t('tab-list-name')" :tab-titles>
-          <DsfrTabContent tab-id="tab-0" panel-id="panel-0">
-            <div class="generate-link-btn-wrapper">
-              <button type="submit" class="fr-btn generate-link-btn" name="action" value="link">
-                {{ t('generate-a-link') }}
-                <RiLinksLine aria-hidden="true" size="1rem" class="fr-ml-1v" />
-              </button>
-            </div>
+          <DsfrTabContent tab-id="tab-0" panel-id="panel-0" tabindex="-1">
+            <DsfrButton
+              :label="t('generate-a-link')"
+              type="submit"
+              name="action"
+              value="link"
+              icon="fr-icon-links-line"
+              icon-right
+            />
+
             <div v-if="fileLink.length > 0" class="generated-link fr-mt-2w">
               <p class="fr-background-default--grey fr-p-1v fr-mb-0">{{ fileLink }}</p>
-              <button
+              <DsfrButton
                 ref="copy-link"
+                :label="t('copy-link')"
                 type="button"
-                class="fr-btn fr-btn--tertiary btn-copy"
+                icon="fr-icon-clipboard-line"
+                icon-right
+                secondary
+                aria-describedby="link-warning"
                 @click="copyLink"
               >
-                {{ t('copy-link') }}
-                <RiClipboardLine aria-hidden="true" size="1em" class="fr-ml-1v" />
-              </button>
-              <p v-if="linkCopied" class="link-copied-message fr-mt-1w">
+                <template #default
+                  ><span class="visually-hidden">{{ t('copy-link-generated') }}</span></template
+                >
+              </DsfrButton>
+              <p v-if="linkCopied" class="link-copied-message fr-mt-1w" role="status">
                 {{ t('link-copied') }}
               </p>
               <LinkWarning />
@@ -116,7 +123,7 @@
               <div
                 class="fr-input-group"
                 :class="{
-                  'fr-input-group--error': !meta.valid && meta.touched
+                  'fr-input-group--error': !meta.valid && meta.validated
                 }"
               >
                 <label class="fr-label" for="recipient-email">{{ t('recipient-email') }}</label>
@@ -125,7 +132,7 @@
                   v-bind="field"
                   class="fr-input"
                   :class="{
-                    'fr-input--error': !meta.valid && meta.touched
+                    'fr-input--error': !meta.valid && meta.validated
                   }"
                   name="email"
                   type="text"
@@ -139,7 +146,7 @@
               <div
                 class="fr-input-group"
                 :class="{
-                  'fr-input-group--error': !meta.valid && meta.touched
+                  'fr-input-group--error': !meta.valid && meta.validated
                 }"
               >
                 <label class="fr-label" for="email-message"> {{ t('custom-message') }} </label>
@@ -148,7 +155,7 @@
                   v-bind="field"
                   class="fr-input"
                   :class="{
-                    'fr-input--error': !meta.valid && meta.touched
+                    'fr-input--error': !meta.valid && meta.validated
                   }"
                   name="message"
                 />
@@ -157,17 +164,21 @@
                 </ErrorMessage>
               </div>
             </Field>
-            <button type="submit" class="fr-btn" name="action" value="email">
-              {{ t('share-by-email') }}
-              <RiMailLine aria-hidden="true" size="1rem" class="fr-ml-1v" />
-            </button>
+            <DsfrButton
+              :label="t('share-by-email')"
+              type="submit"
+              name="action"
+              value="email"
+              icon="fr-icon-mail-line"
+              icon-right
+            />
           </DsfrTabContent>
         </DsfrTabs>
       </form>
     </div>
     <div class="separator">
       <div class="separator-line"></div>
-      <span class="separator-text">{{ t('or') }}</span>
+      <p class="separator-text">{{ t('or') }}</p>
       <div class="separator-line"></div>
     </div>
     <DownloadPdfSection />
@@ -180,10 +191,9 @@ import { ShareService } from '@/services/ShareService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { onMounted, ref, useTemplateRef, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { RiClipboardLine, RiLinksLine, RiMailLine } from '@remixicon/vue'
 import { toast } from '@/components/toast/toastUtils'
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
-import { DsfrTabContent, DsfrTabs, DsfrSelect } from '@gouvminint/vue-dsfr'
+import { DsfrTabContent, DsfrTabs, DsfrSelect, DsfrButton } from '@gouvminint/vue-dsfr'
 import LinkWarning from './LinkWarning.vue'
 import DownloadPdfSection from './DownloadPdfSection.vue'
 import { Field, ErrorMessage, useForm, useField } from 'vee-validate'
@@ -199,6 +209,14 @@ const linkTitle = ref('')
 const linkValidity = ref('30')
 const linkCopied = ref(false)
 const hasSubmitted = ref(false)
+
+const { validate, resetForm } = useForm({
+  initialValues: {
+    name: '',
+    email: '',
+    message: ''
+  }
+})
 
 const {
   value: selectedShareType,
@@ -229,8 +247,6 @@ const validityOptions = computed(() => [
   { value: '90', text: t('x-days', [90]) }
 ])
 
-const { validate, resetForm } = useForm()
-
 const EMAIL_MAX_LENGTH = 254 // RFC 5321 maximum email length
 
 const isValidEmail = (email: string): boolean => {
@@ -253,19 +269,19 @@ const isValidEmail = (email: string): boolean => {
 }
 
 const emailValidation = (value: unknown) => {
-  if (typeof value !== 'string') return true
-  if (!value && activeTab.value === 1) {
+  if (activeTab.value !== 1) return true
+  if (typeof value !== 'string' || !value) {
     return t('field-required')
   }
-  if (value && !isValidEmail(value)) {
+  if (!isValidEmail(value)) {
     return t('invalid-email')
   }
   return true
 }
 
 const messageValidation = (value: unknown) => {
-  if (typeof value !== 'string') return true
-  if (!value && activeTab.value === 1) {
+  if (activeTab.value !== 1) return true
+  if (typeof value !== 'string' || !value) {
     return t('message-required')
   }
   return true
@@ -327,10 +343,21 @@ const tabTitles = computed(() => [
 const toString = (value: FormDataEntryValue | null) =>
   value && typeof value === 'string' ? value : ''
 
+const shareForm = useTemplateRef<HTMLFormElement>('shareForm')
+
 async function handleFormSubmit(event: Event) {
   hasSubmitted.value = true
   const [formValidation, shareTypeValidation] = await Promise.all([validate(), validateShareType()])
   if (!formValidation.valid || !shareTypeValidation.valid) {
+    // focus first errored element
+    const invalidFieldToFocus:
+      | HTMLInputElement
+      | HTMLTextAreaElement
+      | HTMLSelectElement
+      | undefined
+      | null = shareForm.value?.querySelector('.fr-input--error')
+    invalidFieldToFocus?.focus()
+
     return
   }
 
@@ -377,6 +404,7 @@ async function submit(event: Event) {
     try {
       const response = await ShareService.createLink({ title, fullData, daysValid })
       fileLink.value = `${globalThis.location.origin}${response.data}`
+      copyLinkBtn.value?.$el.focus()
       linkForm.reset()
       resetForm()
       resetShareType()
@@ -400,7 +428,7 @@ async function copyLink() {
       linkCopied.value = false
     }, 10000)
   } catch (err) {
-    toast.error(t('unable-to-copy'), copyLinkBtn.value)
+    toast.error(t('unable-to-copy'), copyLinkBtn.value?.$el.focus())
     throw new Error('Unable to copy', { cause: err })
   }
 }
@@ -583,6 +611,7 @@ async function copyLink() {
     "no-accommodation": "DossierFacile does not offer accommodation.",
     "share-mail-success": "Your file has been sent by mail",
     "copy-link": "Copy link",
+    "copy-link-generated": "generated",
     "link-copied": "The link has been copied.",
     "field-required": "This field is required",
     "choice-required": "A choice is required.",
@@ -618,6 +647,7 @@ async function copyLink() {
     "no-accommodation": "DossierFacile ne propose pas de logement.",
     "share-mail-success": "Votre dossier a bien été partagé par email",
     "copy-link": "Copier le lien",
+    "copy-link-generated": "généré",
     "link-copied": "Le lien a bien été copié.",
     "field-required": "Ce champ est requis",
     "choice-required": "Un choix est requis.",
