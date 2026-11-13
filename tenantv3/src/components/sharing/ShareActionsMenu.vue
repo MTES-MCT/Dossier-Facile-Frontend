@@ -121,7 +121,7 @@ const modalActions: ComputedRef<DsfrButtonProps[]> = computed(() => [
     label: t('confirm-delete'),
     type: 'button',
     onClick() {
-      confirmDelete()
+      void confirmDelete()
     }
   }
 ])
