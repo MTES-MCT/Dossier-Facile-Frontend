@@ -365,7 +365,7 @@ const handleDelete = async () => {
     "with-docs": "Dossier complet avec justificatifs",
     "without-docs": "Dossier sans documents justificatifs",
     "share-with": "partagé avec",
-    "share-with-partner": "Partage avec {0}",
+    "share-with-partner": "Partagé avec {0}",
     "select-link": "Sélectionner le lien:"
   }
 }

@@ -28,19 +28,19 @@ describe("partner sharing scenario (DFConnect)", () => {
 
     // Back on the tenant app: the PARTNER link is now listed
     cy.visit(Cypress.env("tenantUrl") + "/partages");
-    cy.contains(".share-item", "Partage avec", { timeout: 5000 }).should(
+    cy.contains(".share-item", "Partagé avec", { timeout: 5000 }).should(
       "exist",
     );
 
     // Revoke the partner share
-    cy.contains(".share-item", "Partage avec").within(() => {
+    cy.contains(".share-item", "Partagé avec").within(() => {
       cy.contains("button", "Actions").click();
       cy.contains("button", "Supprimer le partage").click();
     });
     cy.get("dialog[open]").contains("button", "Supprimer").click();
 
     // The partner link is gone
-    cy.contains("Partage avec").should("not.exist");
+    cy.contains("Partagé avec").should("not.exist");
 
     // Confirm via the demo that the partner can no longer access the tenant's data
     cy.visit(DEMO_URL);
