@@ -1,0 +1,91 @@
+name: Release
+
+run-name: Release ${{ github.ref_name }}
+
+# Pushing a tag vX.Y.Z publishes the GitHub release and records it on main.
+# Nothing is deployed here: the Deploy workflow is launched by hand afterwards.
+# A tag vX.Y.Z-rcN rehearses the whole thing: it publishes a pre-release and
+# records it on the throwaway branch release-test/main instead of main.
+on:
+  push:
+    # Uppercase tags are caught too, so that the validation rejects them out loud
+    tags: ['v*', 'V*']
+
+permissions:
+  contents: read
+
+# One release at a time, so that two tags cannot race on main
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  TAG: ${{ github.ref_name }}
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  validate:
+    name: Validate ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    # Leaves time to wait for the CI of a freshly pushed commit
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      prerelease: ${{ steps.validate.outputs.prerelease }}
+      previous_tag: ${{ steps.validate.outputs.previous_tag }}
+
+    steps:
+      # Full history: the checks look at every branch and every tag
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Validate the tag
+        id: validate
+        run: bash .github/scripts/validate-release-tag.sh "$TAG"
+
+  release:
+    name: Publish the GitHub release
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Create the release with generated notes
+        env:
+          GH_REPO: ${{ github.repository }}
+          PRERELEASE: ${{ needs.validate.outputs.prerelease }}
+          PREVIOUS_TAG: ${{ needs.validate.outputs.previous_tag }}
+        run: |
+          args=(--verify-tag --title "$TAG" --generate-notes)
+          # Explicit start of the notes: GitHub's own guess gets lost in the older, malformed tags
+          if [[ -n "$PREVIOUS_TAG" ]]; then
+            args+=(--notes-start-tag "$PREVIOUS_TAG")
+          fi
+          if [[ "$PRERELEASE" == "true" ]]; then
+            args+=(--prerelease)
+          else
+            args+=(--latest)
+          fi
+          url=$(gh release create "$TAG" "${args[@]}")
+          echo "Release published: $url" | tee -a "$GITHUB_STEP_SUMMARY"
+
+  update-main:
+    name: Record the release on ${{ needs.validate.outputs.prerelease == 'true' && 'release-test/main' || 'main' }}
+    needs: [validate, release]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
+      - name: Add the release commit
+        env:
+          BRANCH: ${{ needs.validate.outputs.prerelease == 'true' && 'release-test/main' || 'main' }}
+          # The rehearsal branch is created from main on its first use
+          CREATE_FROM: ${{ needs.validate.outputs.prerelease == 'true' && 'main' || '' }}
+        run: bash .github/scripts/update-release-branch.sh "$BRANCH" "$TAG"
