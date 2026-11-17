@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.app.json",
-  "exclude": [],
+  "exclude": ["../df-shared-next/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
     "lib": [],

@@ -43,5 +43,8 @@ jobs:
         if: ${{ matrix.ws == 'www' || matrix.ws == 'tenantv3' || matrix.ws == 'owner' }}
         run: pnpm --filter ${{ matrix.ws }} test:unit
 
+      - name: Typecheck df-shared-next
+        run: pnpm --filter df-shared-next tsc
+
       - name: Run df-shared-next tests
         run: pnpm --filter df-shared-next test -- --run
