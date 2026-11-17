@@ -6,6 +6,9 @@ import type { CoTenant } from 'df-shared-next/src/models/CoTenant'
 import { toast } from '@/components/toast/toastUtils'
 import { i18n } from '@/i18n'
 
+// Maximum length of the explanation typed on the screens that generate an attestation.
+export const CUSTOM_TEXT_MAX_LENGTH = 500
+
 export const UtilsService = {
   getLastAddedGuarantor(user: User) {
     if (user.guarantors?.length && user.guarantors?.length > 0) {
@@ -91,24 +94,9 @@ export const UtilsService = {
         toast.error(i18n.global.t('errors.no-file'), elt)
         hasSpecificMessage = true
       } else {
-        const customTextLimits: { code: string; max: number }[] = [
-          { code: 'LengthOfText.documentTaxForm.customText', max: 1355 },
-          { code: 'LengthOfText.documentTaxGuarantorNaturalPersonForm.customText', max: 1355 },
-          { code: 'LengthOfText.documentFinancialForm.customText', max: 2000 },
-          {
-            code: 'LengthOfText.documentFinancialGuarantorNaturalPersonForm.customText',
-            max: 2000,
-          },
-          { code: 'LengthOfText.documentResidencyForm.customText', max: 2000 },
-          {
-            code: 'LengthOfText.documentResidencyGuarantorNaturalPersonForm.customText',
-            max: 2000,
-          },
-        ]
-        const matched = customTextLimits.find((l) => message.includes(l.code))
-        if (matched) {
+        if (message.includes('LengthOfText.') && message.includes('.customText')) {
           toast.error(
-            i18n.global.t('errors.custom-text-too-long', { max: matched.max }),
+            i18n.global.t('errors.custom-text-too-long', { max: CUSTOM_TEXT_MAX_LENGTH }),
             elt,
           )
           hasSpecificMessage = true

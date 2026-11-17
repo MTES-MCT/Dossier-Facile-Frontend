@@ -109,7 +109,7 @@ const submit = () => {
 {
   "en": {
     "other-residency": "In a precarious situation",
-    "cant-provide-receipts": "The applicant indicates that he/she is unable to provide a housing receipt for the last 3 months",
+    "cant-provide-receipts": "I am unable to provide a housing receipt for the last 3 months",
     "need-help": "In need of help? Services exists to assist you.",
     "info-115": "Are you homeless? {0} is a national assistance and referral number for homeless people. It is open 24/7.",
     "info-3919": "Are you a victim of domestic violence? {tel} is an assistance and information number for women victims of violence. The service is anonymous and free of charge. Associations and public bodies can also help you. Visit the {page}.",
@@ -126,7 +126,7 @@ const submit = () => {
   },
   "fr": {
     "other-residency": "En situation précaire",
-    "cant-provide-receipts": "Le candidat indique qu'il n'est pas en mesure de fournir de quittance de logement pour ces 3 derniers mois",
+    "cant-provide-receipts": "Je ne suis pas en mesure de fournir de quittance de logement pour ces 3 derniers mois",
     "need-help": "Besoin d'aide ? Des dispositifs existent pour vous accompagner.",
     "info-115-title": "Vous êtes sans-abri ?",
     "info-115-content": "Le {0} est un numéro national d'assistance et d'orientation, accessible 7j/7 et 24h/24.",
@@ -135,11 +135,11 @@ const submit = () => {
     "domestic-violence-page": "violences conjugales du site service-public.fr",
     "validate-residency": "Valider votre situation d'hébergement",
     "tenant": {
-      "tick-box": "Cochez la case suivante si vous êtes dans une situation précaire (sans-abri, victime de violences conjugales par exemple). La phrase suivante sera ajouté à votre dossier : {0}.",
+      "tick-box": "Cochez la case suivante si vous êtes dans une situation précaire (sans-abri, victime de violences conjugales par exemple). La phrase suivante sera ajoutée à votre dossier : {0}.",
       "you-precarious": "Vous êtes dans une situation précaire"
     },
     "couple": {
-      "tick-box": "Cochez la case suivante si votre conjoint est dans une situation précaire (sans-abri, victime de violences conjugales par exemple). La phrase suivante sera ajouté à votre dossier : {0}.",
+      "tick-box": "Cochez la case suivante si votre conjoint est dans une situation précaire (sans-abri, victime de violences conjugales par exemple). La phrase suivante sera ajoutée à votre dossier : {0}.",
       "you-precarious": "Votre conjoint est dans une situation précaire"
     }
   }

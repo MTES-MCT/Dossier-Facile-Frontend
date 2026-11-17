@@ -33,7 +33,7 @@
     ref="custom-text"
     v-model="value"
     name="customText"
-    :max="1000"
+    :max="CUSTOM_TEXT_MAX_LENGTH"
     rows="4"
     :is-required="true"
     :class="meta.touched && !meta.valid ? 'fr-input--error' : ''"
@@ -78,7 +78,7 @@ import { useField } from 'vee-validate'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
-import { UtilsService } from '@/services/UtilsService'
+import { CUSTOM_TEXT_MAX_LENGTH, UtilsService } from '@/services/UtilsService'
 import { DsfrAlert, DsfrButton } from '@gouvminint/vue-dsfr'
 import TextAreaWithCounter from 'df-shared-next/src/components/TextAreaWithCounter.vue'
 import ConfirmDeleteModal from 'df-shared-next/src/components/ConfirmDeleteModal.vue'
