@@ -137,7 +137,7 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
       <p class="fr-text--sm">{{ serviceDescription }}</p>
     </template>
     <template #mainnav>
-      <DsfrNavigation id="main-nav" :nav-items />
+      <DsfrNavigation id="main-nav" :nav-items tabindex="-1" />
     </template>
   </DsfrHeader>
 </template>

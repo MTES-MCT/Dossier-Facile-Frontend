@@ -9,7 +9,7 @@ import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
 import { type DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
 import { MAIN_NAV, CONTENT } from 'df-shared-next/src/models/SkipLink'
 import { changeLang, locale } from './i18n'
-import { computed, onBeforeMount, ref, useTemplateRef, provide } from 'vue'
+import { computed, onBeforeMount, ref, useTemplateRef, provide, nextTick } from 'vue'
 import {
   type AccessibilityPropertiesType,
   AccessibilityPropertiesKey
@@ -31,10 +31,12 @@ const setAccessibilityProperties: AccessibilityPropertiesType = (title, focus = 
   if (title) {
     pageTitle.value = `Page ${title} - ${siteTitle}`
   }
-  // focus hidden title container
-  if (focus && a11yNavigationRef.value?.a11yTitle) {
-    a11yNavigationRef.value.a11yTitle.focus()
-  }
+  nextTick(() => {
+    // focus hidden title container
+    if (focus && a11yNavigationRef.value?.a11yTitle) {
+      a11yNavigationRef.value.a11yTitle.focus()
+    }
+  })
 }
 
 provide(AccessibilityPropertiesKey, setAccessibilityProperties)

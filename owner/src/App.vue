@@ -38,7 +38,7 @@ onBeforeMount(() => {
   <div id="content">
     <DeleteAccount />
     <Announcement :message="MESSAGE" :to-focus="mainElement" />
-    <main ref="main" role="main" tabindex="-1">
+    <main id="content" ref="main" role="main" tabindex="-1">
       <div class="page fr-background-alt--blue-france">
         <router-view />
       </div>
