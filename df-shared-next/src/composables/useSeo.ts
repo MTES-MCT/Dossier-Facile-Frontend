@@ -51,7 +51,7 @@ export function useMeta({
   ) as AccessibilityPropertiesType
 
   // Explicit title takes precedence; fall back to route.meta.title for pages
-  // that define their title in the router (list pages, home, 404…)
+  // that define their title in the router.
   const resolvedTitle = computed(() => toValue(title) ?? (route.meta.title || undefined))
 
   const fullTitle = computed(() => {
