@@ -19,13 +19,13 @@
         :class="{ 'fr-input--error': showError }"
         rows="3"
         minlength="10"
-        maxlength="1355"
+        :maxlength="CUSTOM_TEXT_MAX_LENGTH"
         aria-required="true"
         :aria-invalid="showError"
         :aria-describedby="showError ? 'explainText-error explain-info-text' : 'explain-info-text'"
       />
       <p id="explain-info-text" class="fr-my-1w">
-        {{ t('character-count', { n: explanation.length, max: 1355 }) }}
+        {{ t('character-count', { n: explanation.length, max: CUSTOM_TEXT_MAX_LENGTH }) }}
       </p>
       <p v-if="showError" id="explainText-error" class="fr-error-text" role="alert">
         {{ explainErrorMessage }}
@@ -55,7 +55,7 @@ import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useTaxState } from '@/components/tax/lib/taxState'
 import { AnalyticsService } from '@/services/AnalyticsService'
-import { UtilsService } from '@/services/UtilsService'
+import { CUSTOM_TEXT_MAX_LENGTH, UtilsService } from '@/services/UtilsService'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useI18n } from 'vue-i18n'
 import { computed, ref, useId, useTemplateRef } from 'vue'

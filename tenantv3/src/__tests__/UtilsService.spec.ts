@@ -133,16 +133,16 @@ describe('UtilsService', () => {
       ({ isAxiosError: true, response: { data: { message } } }) as unknown as AxiosError
 
     it.each([
-      { form: 'documentTaxForm', max: 1355 },
-      { form: 'documentTaxGuarantorNaturalPersonForm', max: 1355 },
-      { form: 'documentFinancialForm', max: 2000 },
-      { form: 'documentFinancialGuarantorNaturalPersonForm', max: 2000 },
-      { form: 'documentResidencyForm', max: 2000 },
-      { form: 'documentResidencyGuarantorNaturalPersonForm', max: 2000 }
-    ])('shows customText too-long toast with max=$max for $form', ({ form, max }) => {
+      'documentTaxForm',
+      'documentTaxGuarantorNaturalPersonForm',
+      'documentFinancialForm',
+      'documentFinancialGuarantorNaturalPersonForm',
+      'documentResidencyForm',
+      'documentResidencyGuarantorNaturalPersonForm'
+    ])('shows customText too-long toast with the shared limit for %s', (form) => {
       const err = buildErr(`Validation failed ... LengthOfText.${form}.customText ...`)
       UtilsService.handleCommonSaveError(err, null)
-      expect(i18n.global.t).toHaveBeenCalledWith('errors.custom-text-too-long', { max })
+      expect(i18n.global.t).toHaveBeenCalledWith('errors.custom-text-too-long', { max: 500 })
       expect(i18n.global.t).not.toHaveBeenCalledWith('add-file-failed')
       expect(toast.error).toHaveBeenCalledTimes(1)
     })
