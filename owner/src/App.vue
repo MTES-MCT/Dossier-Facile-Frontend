@@ -35,7 +35,7 @@ onBeforeMount(() => {
   <ConsentHandler />
   <SkipLinks :links />
   <OwnerHeader />
-  <div id="content">
+  <div>
     <DeleteAccount />
     <Announcement :message="MESSAGE" :to-focus="mainElement" />
     <main id="content" ref="main" role="main" tabindex="-1">

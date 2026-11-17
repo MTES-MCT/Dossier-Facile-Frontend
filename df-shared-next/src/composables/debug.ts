@@ -25,9 +25,9 @@ const isEnabled = () =>
     window.DEBUG === true)
 
 export class DebugLogger {
-  private prefix: string
+  readonly prefix: string
 
-  private styles = {
+  readonly styles = {
     info: 'color: #6366f1; font-weight: bold;',
     warn: 'color: #f59e0b; font-weight: bold;',
     error: 'color: #dc2626; font-weight: bold;',

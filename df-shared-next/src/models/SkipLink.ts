@@ -38,7 +38,7 @@ export const FUNNEL_SKIP_LINKS: DsfrSkipLinksProps = {
 }
 
 export const localizeSkipLinks = (links: SkipLink[] | undefined, t: ComposerTranslation) => {
-  if (!links || !links.length) return
+  if (!links?.length) return
   const skipLinks: SkipLink[] = []
 
   links.forEach((link) => {
