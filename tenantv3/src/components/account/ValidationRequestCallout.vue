@@ -187,7 +187,13 @@ function focusTitle() {
   focusAndScrollTo(calloutTitle.value, calloutRoot.value)
 }
 
-defineExpose({ focusTitle })
+// Lets the post-submit modal send the request itself
+function requestVerification() {
+  focusTitle()
+  return submit(true)
+}
+
+defineExpose({ focusTitle, requestVerification })
 
 onMounted(() => {
   AnalyticsService.optInSectionDisplayed()
