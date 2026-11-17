@@ -20,12 +20,14 @@ export function useCanonicalUrl(
   getRoute?: () => RouteLocationRaw
 ): () => string | null {
   const router = useRouter()
+  const isBrowser = typeof window !== 'undefined'
+
   return () => {
     if (!getRoute)
-      return `${window.location.origin}${router.currentRoute.value.path}`
+      return isBrowser ? `${window.location.origin}${router.currentRoute.value.path}` : router.currentRoute.value.path
     const route = getRoute()
     if (!route) return null
-    return `${window.location.origin}${router.resolve(route).href}`
+    return isBrowser ? `${window.location.origin}${router.resolve(route).href}` : router.resolve(route).href
   }
 }
 
@@ -53,8 +55,8 @@ export function useMeta({
   const resolvedTitle = computed(() => toValue(title) ?? (route.meta.title || undefined))
 
   const fullTitle = computed(() => {
-    const t = resolvedTitle.value
-    return t ? `${t} - ${siteTitle}` : siteTitle
+    const title = resolvedTitle.value
+    return typeof title === 'string' ? `${title} - ${siteTitle}` : siteTitle
   })
 
   if (!resolvedTitle.value) {
