@@ -125,7 +125,13 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
 </script>
 
 <template>
-  <DsfrHeader :logo-text :quick-links :language-selector @language-select="updateLang">
+  <DsfrHeader
+    :logo-text
+    :home-label="`${t('page-titles.home')} Dossier Facile`"
+    :quick-links
+    :language-selector
+    @language-select="updateLang"
+  >
     <template #operator>
       <p class="fr-text--xl">Dossier<b>Facile</b></p>
       <p class="fr-text--sm">{{ serviceDescription }}</p>

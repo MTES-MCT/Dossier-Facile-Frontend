@@ -111,5 +111,13 @@
   },
   "contact": {
     "title": "Comment pouvons-nous vous aider ?"
+  },
+  "skipLinks": {
+    "content": "Contenu",
+    "footer": "Pied de page",
+    "main-nav": "Navigation principale",
+    "footer-navigation": "Navigation de l'étape",
+    "funnel-menu": "Menu d'ajout des documents",
+    "step-content": "Contenu de l'étape"
   }
 }
