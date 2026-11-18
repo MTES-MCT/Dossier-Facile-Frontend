@@ -145,16 +145,23 @@ Cypress.Commands.add("closeCompletedFileModalIfPresent", () => {
   });
 });
 
-// First submission of an opt-in eligible dossier (ALONE, no partner link): it lands in COMPLETED
-// and the dashboard offers the verification opt-in. Ask for the verification so the dossier
-// reaches the operator queue, like the historical submission did.
+// Both rollout modes must end with a verification request. Eligible dossiers need
+// an explicit opt-in; other dossiers are queued by submission itself.
 Cypress.Commands.add("requestFileValidation", () => {
-  cy.contains("Faites vérifier votre dossier").should("be.visible");
-  cy.get("#validation-request")
-    .contains("button", "Demander une vérification")
-    .click();
   cy.contains(
-    /Votre demande de vérification est (en cours de traitement|enregistrée)/,
+    /Faites vérifier votre dossier|Votre demande de vérification est (en cours de traitement|enregistrée)|Dossier en cours de traitement/,
+  ).should("be.visible");
+  cy.get("body").then(($body) => {
+    if (
+      $body.find("#validation-request").text().includes("Faites vérifier votre dossier")
+    ) {
+      cy.get("#validation-request")
+        .contains("button", "Demander une vérification")
+        .click();
+    }
+  });
+  cy.contains(
+    /Votre demande de vérification est (en cours de traitement|enregistrée)|Dossier en cours de traitement/,
   ).should("be.visible");
 });
 
@@ -173,14 +180,10 @@ Cypress.Commands.add(
   },
 );
 
-// Steps backed by a document analysis render a verdict once the report lands: a success card, or
-// error banners that block navigation until the tenant explains the situation. The generic test
-// file matches no expected document, so the error path is the nominal one here.
+// Residency navigation must work with analysis enabled or disabled. Once the
+// step is ready, explain any reported errors before continuing.
 Cypress.Commands.add("continuePastAnalysis", () => {
-  cy.get(
-    ".analysis-success-card, .analysis-banners, .analysis-error-block",
-    { timeout: 40000 },
-  ).should("exist");
+  cy.waitUntilStepIsReady();
 
   cy.get("body").then(($body) => {
     // The explanation must be at least 10 characters long

@@ -158,7 +158,7 @@ function getLetterStyle() {
           />
         </Field>
         <ErrorMessage v-slot="{ message }" name="energy">
-          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
         </ErrorMessage>
       </p>
       <p>
@@ -188,7 +188,7 @@ function getLetterStyle() {
           />
         </Field>
         <ErrorMessage v-slot="{ message }" name="co2">
-          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
         </ErrorMessage>
       </p>
       <p>
@@ -219,7 +219,7 @@ function getLetterStyle() {
           />
         </Field>
         <ErrorMessage v-slot="{ message }" name="dpeDate">
-          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
         </ErrorMessage>
       </p>
 
@@ -258,7 +258,7 @@ function getLetterStyle() {
             </label>
           </Field>
           <ErrorMessage v-slot="{ message }" name="authorize">
-            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+            <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
           </ErrorMessage>
         </div>
       </div>

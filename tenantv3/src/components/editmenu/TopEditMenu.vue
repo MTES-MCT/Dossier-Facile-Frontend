@@ -393,6 +393,8 @@ h1 {
   flex-direction: row;
   flex-wrap: nowrap;
   overflow: scroll;
+  // Avoid the scroll container from widening the whole page on mobile
+  position: relative;
 }
 
 hr {

@@ -24,7 +24,7 @@
                 </div></label
               >
               <ErrorMessage v-slot="{ message }" class="fr-error-text" name="authorize">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
               </ErrorMessage>
             </div>
             <div class="mt-auto align-end">
@@ -90,7 +90,7 @@ onMounted(() => {
   }
 })
 
-const TENANT_URL = `${import.meta.env.VITE_FULL_TENANT_URL}`
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const p = computed(() => store.getPropertyToConsult)
 
 function onSubmit() {

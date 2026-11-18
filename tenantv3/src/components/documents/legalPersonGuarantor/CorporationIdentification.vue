@@ -38,7 +38,7 @@
               ref="file-upload"
               :current-status="fileUploadStatus"
               @add-files="addFiles"
-            ></FileUpload>
+            />
           </div>
         </div>
       </NakedCard>
@@ -63,7 +63,7 @@ import { useLoading } from 'vue-loading-overlay'
 import { AnalyticsService, type DocumentCategory } from '../../../services/AnalyticsService'
 import { RegisterService } from '../../../services/RegisterService'
 import GuarantorFooter from '../../footer/GuarantorFooter.vue'
-import FileUpload from '../../uploads/FileUpload.vue'
+import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import TextField from '@/components/form/TextField.vue'

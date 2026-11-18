@@ -28,7 +28,7 @@
               <PasswordMeter :password="password || ''" @score="setScore" />
             </Field>
             <ErrorMessage v-slot="{ message }" name="password">
-              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+              <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
             </ErrorMessage>
           </div>
           <div class="fr-col-12 fr-mb-3w">
@@ -57,7 +57,7 @@
                   required
                 />
                 <ErrorMessage v-slot="{ message }" name="confirm-password">
-                  <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                  <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
                 </ErrorMessage>
               </div>
             </Field>

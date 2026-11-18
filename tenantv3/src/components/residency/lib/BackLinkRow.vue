@@ -1,5 +1,5 @@
 <template>
-  <BackLinkRow :label="label" @click="onClick">
+  <BackLinkRow :to :is-button="hasDocument" :label="label" @edit="onEdit">
     <ConfirmDeleteModal
       v-model:is-opened="isModalOpened"
       document-category="residency"
@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { useRouter, type RouterLinkProps } from 'vue-router'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { useResidencyState } from '../residencyState'
@@ -24,14 +24,13 @@ const store = useTenantStore()
 const { category, document } = useResidencyState()
 
 const isModalOpened = ref(false)
+const hasDocument = computed(() => !!document.value)
 
-const onClick = () => {
+const onEdit = () => {
   emit('edit')
   if (document.value) {
     AnalyticsService.showWarningModale(category)
     isModalOpened.value = true
-  } else {
-    router.push(props.to)
   }
 }
 

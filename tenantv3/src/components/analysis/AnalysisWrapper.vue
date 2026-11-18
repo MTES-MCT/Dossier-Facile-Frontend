@@ -58,7 +58,7 @@
   <div v-if="!strategy && analysisFailedRules.length > 0" class="explain-section">
     <div class="separator">
       <div class="separator-line"></div>
-      <span class="separator-text">{{ t('or') }}</span>
+      <p class="separator-text">{{ t('or') }}</p>
       <div class="separator-line"></div>
     </div>
     <DsfrButton

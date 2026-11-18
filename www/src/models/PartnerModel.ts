@@ -43,6 +43,7 @@ import filigraneFacileUrl from '../assets/logos/FiligraneFacile.png'
 
 export interface Partner {
   name: string
+  determinant: string
   image: string
   href: string
   height: string
@@ -52,28 +53,32 @@ export interface Partner {
 export const INSTITUTIONAL_PARTNERS: Partner[] = [
   {
     image: cnousUrl,
-    name: 'CNOUS',
-    href: 'https://www.lescrous.fr/les-crous/le-cnous/',
+    name: 'CROUS',
+    determinant: 'du',
+    href: 'https://www.lescrous.fr/',
     height: '120',
     width: '120'
   },
   {
     image: dgesipUrl,
-    name: 'DGESIP',
-    href: 'https://www.enseignementsup-recherche.gouv.fr/fr/direction-generale-de-l-enseignement-superieur-et-de-l-insertion-professionnelle-dgesip-83714',
+    name: 'Ministère chargé de l’Enseignement Supérieur et de la recherche',
+    determinant: 'du',
+    href: 'https://www.enseignementsup-recherche.gouv.fr/',
     height: '180',
     width: '220'
   },
   {
     image: anilUrl,
+    name: 'ANIL, l’agence nationale pour l’information sur le logement',
+    determinant: "de l'",
     href: 'https://www.anil.org/votre-projet/vous-etes-locataire/se-loger/dans-le-prive/',
     height: '80',
-    width: '80',
-    name: 'ANIL, l’agence nationale pour l’information sur le logement'
+    width: '80'
   },
   {
     image: servicePublicUrl,
     name: 'Service Public',
+    determinant: 'de',
     href: 'https://www.service-public.fr/particuliers/vosdroits/R51424',
     height: '93',
     width: '270'
@@ -81,42 +86,48 @@ export const INSTITUTIONAL_PARTNERS: Partner[] = [
   {
     image: ministereInterieurUrl,
     name: 'Ministère de l’intérieur',
+    determinant: 'du',
     href: 'https://www.masecurite.interieur.gouv.fr/fr/fiches-pratiques/habitation/eviter-faux-dossiers-location-grace-dossierfacile?hl=dossierfacile',
     height: '150',
     width: '200'
   },
   {
     image: visaleUrl,
+    name: 'visale.fr - connecte emploi et logement',
+    determinant: 'de',
     height: '48',
     href: 'https://www.visale.fr/',
-    name: 'visale.fr - connecte emploi et logement',
     width: '150'
   },
   {
     image: unmlUrl,
-    href: 'https://www.unml.info/',
     name: 'Union nationale des missions locales',
+    determinant: "de l'",
+    href: 'https://www.unml.info/',
     height: '60',
     width: '118'
   },
   {
     image: cllajUrl,
-    href: 'https://www.projet-toit.fr/mon-dossier-de-location/',
     name: 'Comités Locaux pour le Logement Autonome des Jeunes',
+    determinant: 'des',
+    href: 'https://www.projet-toit.fr/mon-dossier-de-location/',
     height: '60',
     width: '137'
   },
   {
     image: ministerLogementUrl,
-    href: 'https://www.ecologie.gouv.fr/dossiers/comment-faciliter-lacces-logement',
     name: 'Ministère du logement et de la rénovation urbaine',
+    determinant: 'du',
+    href: 'https://www.ecologie.gouv.fr/dossiers/comment-faciliter-lacces-logement',
     width: '250',
     height: '179'
   },
   {
     image: filigraneFacileUrl,
-    href: 'https://filigrane.beta.gouv.fr/',
     name: 'Filigrane facile',
+    determinant: 'de',
+    href: 'https://filigrane.beta.gouv.fr/',
     width: '250',
     height: '73'
   }
@@ -125,219 +136,250 @@ export const INSTITUTIONAL_PARTNERS: Partner[] = [
 export const PARTNERS: Partner[] = [
   {
     image: papUrl,
+    name: 'PAP - Particulier à Particulier',
+    determinant: 'de',
     height: '60',
     href: 'https://www.pap.fr',
-    name: 'PAP - Particulier à Particulier',
     width: '167'
   },
   {
     image: jinkaUrl,
-    href: 'https://www.jinka.fr',
     name: 'Jinka',
+    determinant: 'de',
+    href: 'https://www.jinka.fr',
     height: '60',
     width: '185'
   },
   {
     image: locserviceUrl,
+    name: 'locservice.fr - location et colocation entre particuliers',
+    determinant: 'de',
     height: '60',
     href: 'https://www.locservice.fr/',
-    name: 'locservice.fr - location et colocation entre particuliers',
     width: '144'
   },
   {
     image: laforetUrl,
-    height: '60',
     name: 'Laforêt',
+    determinant: 'de',
+    height: '60',
     href: 'https://www.laforet.com/',
     width: '300'
   },
   {
     image: ouestfranceImmoUrl,
-    height: '60',
     name: 'Ouestfrance-immo',
+    determinant: 'de',
+    height: '60',
     href: 'https://www.ouestfrance-immo.com/',
     width: '250'
   },
   {
     image: unDeuxTroisLogerUrl,
+    name: '123Loger',
+    determinant: 'de',
     height: '60',
     href: 'https://www.123loger.com/',
-    name: '123Loger',
     width: '60'
   },
   {
     image: figaroImmoUrl,
-    height: '60',
     name: 'Figaro immobilier',
+    determinant: 'du',
+    height: '60',
     href: 'https://immobilier.lefigaro.fr/',
     width: '200'
   },
   {
     image: lokavizUrl,
-    href: 'https://www.lokaviz.fr/',
     name: 'Lokaviz',
+    determinant: 'de',
+    href: 'https://www.lokaviz.fr/',
     width: '250',
     height: '60'
   },
   {
     image: myappartUrl,
-    href: 'https://www.my-appart.fr',
     name: 'MyAppart',
+    determinant: 'de',
+    href: 'https://www.my-appart.fr',
     height: '93',
     width: '248'
   },
   {
     image: fasttUrl,
+    name: 'fastt',
+    determinant: 'de',
     height: '60',
     href: 'https://www.fastt.org/',
-    name: 'fastt',
     width: '95'
   },
   {
     image: flatsyUrl,
+    name: 'flatsy',
+    determinant: 'de',
     height: '60',
     href: 'https://www.flatsy.fr/',
-    name: 'flatsy',
     width: '174'
   },
   {
     image: hugoUrl,
+    name: 'monsieur Hugo',
+    determinant: 'de',
     height: '39',
     href: 'https://www.monsieurhugo.com/',
-    name: 'monsieur Hugo',
     width: '210'
   },
   {
     image: clickandrentUrl,
+    name: 'click and rent',
+    determinant: 'de',
     height: '30',
     href: 'https://www.clickandrent.fr/',
-    name: 'click and rent',
     width: '209'
   },
   {
     image: qlowerUrl,
+    name: 'qlower',
+    determinant: 'de',
     height: '30',
     href: 'https://www.qlower.com/',
-    name: 'qlower',
     width: '148'
   },
   {
     image: jelouebienUrl,
+    name: 'je loue bien.com',
+    determinant: 'de',
     height: '30',
     href: 'https://www.jelouebien.com/',
-    name: 'jelouebien.com',
     width: '227'
   },
   {
     image: gererseulUrl,
+    name: 'gérer seul - ma gestion locative',
+    determinant: 'de',
     height: '46',
     href: 'https://www.gererseul.com/',
-    name: 'gererseul – ma gestion locative',
     width: '200'
   },
   {
     image: superimmoUrl,
+    name: 'superimmo',
+    determinant: 'de',
     height: '60',
     href: 'https://www.superimmo.com/',
-    name: 'superimmo',
     width: '222'
   },
   {
     image: wiziUrl,
+    name: 'wizi',
+    determinant: 'de',
     height: '60',
     href: 'https://www.wizi.io/',
-    name: 'wizi',
     width: '151'
   },
   {
     image: rentilaUrl,
+    name: 'rentila',
+    determinant: 'de',
     height: '60',
     href: 'https://www.rentila.com/',
-    name: 'rentila',
     width: '102'
   },
   {
     image: platoimmoUrl,
+    name: 'plato immo',
+    determinant: 'de',
     height: '60',
     href: 'https://www.plato.immo/',
-    name: 'plato.immo',
     width: '133'
   },
   {
     image: immoloyerUrl,
+    name: 'immobilier loyer',
+    determinant: 'de',
     height: '60',
     href: 'https://www.immobilierloyer.com/',
-    name: 'immobilier loyer',
     width: '208'
   },
   {
     image: immopadUrl,
+    name: 'immopad',
+    determinant: "d'",
     height: '60',
     href: 'https://www.immopad.com/',
-    name: 'immopad',
     width: '188'
   },
   {
     image: omnireaUrl,
+    name: 'omnirea',
+    determinant: "d'",
     height: '60',
     href: 'https://omnirea.fr/',
-    name: 'omnirea',
     width: '172'
   },
   {
     image: emjysoftUrl,
+    name: 'emjysoft - gestion locative',
+    determinant: "d'",
     height: '60',
     href: 'https://www.emjysoft.com/logiciel-gestion-locative/',
-    name: 'emjysoft - gestion locative',
     width: '162'
   },
   {
     image: timciUrl,
+    name: 'Timci - gestion de biens',
+    determinant: 'de',
     height: '60',
     href: 'https://www.timci.com',
-    name: 'Timci - gestion de biens',
     width: '189'
   },
   {
     image: ispUrl,
+    name: 'ISP Group - Immobilier et consulting',
+    determinant: "d'",
     height: '60',
     href: 'https://www.isp-group.immo/louer/',
-    name: 'ISP Group - Immobilier et consulting',
     width: '99'
   },
   {
     image: jsoftUrl,
+    name: 'JSoft - Logiciel de gestion locative immobilière',
+    determinant: 'de',
     height: '60',
     href: 'https://www.jsoft.fr/logiciel-gestion-immobiliere/',
-    name: 'JSoft - Logiciel de gestion locative immobilière',
     width: '240'
   },
   {
     image: pdpUrl,
-    href: 'https://www.partirdeparis.fr/',
     name: 'Partir de Paris',
+    determinant: 'de',
+    href: 'https://www.partirdeparis.fr/',
     width: '196',
     height: '58'
   },
   {
     image: pautionsUrl,
-    href: 'https://pautions.fr',
     name: 'Pautions',
+    determinant: 'de',
+    href: 'https://pautions.fr',
     height: '55',
     width: '232'
   },
   {
     image: eonImmobilierUrl,
+    name: 'Eon Immobilier',
+    determinant: 'de',
     height: '53',
     href: 'https://www.eon-immobilier.com/',
-    name: 'Eon Immobilier',
     width: '240'
   },
   {
     image: immojeuneUrl,
+    name: 'Immmojeune',
+    determinant: "d'",
     height: '67',
     href: 'https://www.immojeune.com',
-    name: 'Immmojeune',
     width: '144'
   }
 ]

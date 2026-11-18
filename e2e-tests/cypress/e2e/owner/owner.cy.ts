@@ -4,15 +4,12 @@ describe("basic owner scenario", () => {
   const user = getOwnerUser();
   const propertyName = "Appartement 123";
 
-  beforeEach("reset account", () => {
+  it("create a property", () => {
     cy.loginWithFCAndDeleteAccount(
       user.username,
       user.password,
       UserType.OWNER,
     );
-  });
-
-  it("create a property", () => {
     cy.ownerLoginWithFC(user.username, user.password);
     cy.rejectCookies();
 
@@ -46,7 +43,8 @@ describe("basic owner scenario", () => {
 
     cy.contains("Partager ma propriété").click();
     cy.contains("Copier").click();
-    cy.get("dialog[open]").contains("fermer").click();
+    cy.get("dialog[open] .fr-btn--close").click();
+    cy.get("dialog[open]").should("not.exist");
 
     cy.intercept("DELETE", "**/property/*").as("deleteProperty");
     cy.contains("Supprimer ma propriété").click();

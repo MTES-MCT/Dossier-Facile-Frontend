@@ -16,17 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           run_install: false
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: "22"
+          check-latest: true
           cache: "pnpm"
           cache-dependency-path: pnpm-lock.yaml
 
@@ -35,7 +36,7 @@ jobs:
         run: pnpm install
 
       - name: Run e2e tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           working-directory: e2e-tests
           install: false
@@ -47,7 +48,7 @@ jobs:
           CYPRESS_TESTMAIL_NAMESPACE: ${{ vars.CYPRESS_TESTMAIL_NAMESPACE }}
 
       - name: Upload screenshot
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: cypress-screenshots
@@ -55,17 +56,17 @@ jobs:
           retention-days: 1
       - name: Upload Cypress videos on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: cypress-videos
           path: e2e-tests/cypress/videos/**/*.mp4
           retention-days: 1
 
-      - name: Mattermost alert (failure)
+      - name: Tchap alert (failure)
         if: failure()
         shell: bash
         env:
-          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+          TCHAP_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           # Cypress writes one screenshot per failed test
@@ -92,16 +93,4 @@ jobs:
           $list
           [Failed workflow]($RUN_URL)"
           jq -n --arg t "$text" '{attachments:[{text:$t,color:"#FF8000",fallback:"e2e failed"}]}' | \
-            curl -sS -X POST -H "Content-Type: application/json" --data @- "$MATTERMOST_WEBHOOK_URL"
-
-      - name: Mattermost alert (success)
-        if: success()
-        shell: bash
-        env:
-          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          text="[dossierfacile-preprod] ✅ Suite e2e preprod OK
-          [Workflow]($RUN_URL)"
-          jq -n --arg t "$text" '{attachments:[{text:$t,color:"#3DAA35",fallback:"e2e passed"}]}' | \
-            curl -sS -X POST -H "Content-Type: application/json" --data @- "$MATTERMOST_WEBHOOK_URL"
+            curl -sS -X POST -H "Content-Type: application/json" --data @- "$TCHAP_WEBHOOK_URL"

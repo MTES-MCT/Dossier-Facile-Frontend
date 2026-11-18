@@ -442,7 +442,11 @@
   },
   "filerowlistitem": {
     "edit": "Update",
+    "add": "for {doc} of {name}",
+    "show": "Show Document",
+    "remove": "Remove Document",
     "see": "See",
+    "document": "the document {doc} for {name}",
     "see-title": "See - Open in a new window",
     "view-failed": "Unable to open the document. Please try again.",
     "download": "Download"
@@ -489,10 +493,7 @@
       "label": "A Legal guarantor",
       "description": "Example : a company"
     },
-    "no-guarantor": {
-      "tenant": "I don't have a guarantor",
-      "cotenant": "My partner doesn't have a guarantor"
-    },
+    "no-guarantor": "I don't have a guarantor",
     "ask-guarantor": "Your guarantor is:",
     "optional-guarantor": "Adding a guarantor is not mandatory. If you don't have a guarantor, you can select <em>no guarantor</em> at the bottom of the page to proceed to the next step.",
     "two-guarantors-warning": "If you have 2 guarantors, add them one after the other. <strong>The documents of your 2 guarantors should not be mixed</strong>.",
@@ -582,18 +583,18 @@
     "FRENCH_PASSPORT": "French Passport",
     "FRENCH_RESIDENCE_PERMIT": "French Residence Permit",
     "OTHER_IDENTIFICATION": "Other",
-    "remove": "Remove Document",
-    "show": "Show Document",
     "see": "See",
     "delete": "Delete",
+    "document": "the document",
     "mb": "MB",
     "kb": "KB",
     "will-delete-file": "Are you sure you want to delete this file?"
   },
   "menu": {
     "help": "Help",
-    "file": "Your File",
-    "shared": "Your shared data",
+    "file": "My File",
+    "shared": "My shared data",
+    "settings": "Account settings",
     "account": "My Account",
     "messaging": "Messaging",
     "blog": "Blog",
@@ -718,7 +719,8 @@
   },
   "roommatesinformation": {
     "roommateEmail": "Add a roommate's email address",
-    "acceptAuthor": "I accept that other members of my shared housing have access to my documents and those of my guarantor, if applicable, once all the shared files have been validated.",
+    "acceptAuthor": "I accept that other members of my shared housing (required):",
+    "acceptAuthor-1": "have access to my documents and those of my guarantor, if applicable, once all the shared files have been validated.",
     "acceptAuthor-2": "I also agree that the other members of my shared housing can share the documents in my file with landlords, lessors or property services that are partners of DossierFacile.",
     "delete": "Delete",
     "field-required": "This field is required",
@@ -794,6 +796,7 @@
     "ask-guarantor": "Their guarantor is:",
     "optional-guarantor": "Adding a guarantor is not mandatory. If your partner doesn't have a guarantor, you can select <em>no guarantor</em> at the bottom of the page to proceed to the next step.",
     "two-guarantors-warning": "If your partner has 2 guarantors, add them one after the other. <strong>The documents of the 2 guarantors must not be mixed</strong>.",
+    "no-guarantor": "My partner doesn't have a guarantor",
     "type-required": "Select an option to continue",
     "visale-title": "Are you familiar with Visale?",
     "visale-text": "Visale is the guarantor for your future accommodation if you are between 18 and 30 years old OR if you are over 30 and employed (subject to conditions).",
@@ -992,7 +995,8 @@
     "invalid-file-extension": "This extension is not valid. Only .jpg, .png, .pdf or .heic are accepted",
     "no-file": "Add at least one file to continue",
     "submit-failed": "Unable to send the form. Please try again.",
-    "custom-text-too-long": "Your explanation exceeds the allowed length ({max} characters). Please shorten it."
+    "custom-text-too-long": "Your explanation exceeds the allowed length ({max} characters). Please shorten it.",
+    "custom-text-missing": "You must provide an explanation."
   },
   "resend-mail": {
     "success": "Email resent successfully",
@@ -1147,6 +1151,7 @@
     "MyFile": "My files",
     "Account": "My account",
     "SharingLinksPage": "My shares",
+    "Settings": "Account settings",
     "Messages": "Messages",
     "AddCouple": "Account Confirmation",
     "AddGroup": "Account Confirmation",

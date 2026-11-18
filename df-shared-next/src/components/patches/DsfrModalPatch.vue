@@ -114,6 +114,7 @@ const iconProps = computed(() => {
     ref="modal"
     :aria-labelledby="`${modalId}-title`"
     :role="role"
+    aria-modal="true"
     class="fr-modal--patched"
     @cancel.self="close"
   >

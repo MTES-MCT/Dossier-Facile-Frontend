@@ -53,7 +53,7 @@ const createMockLink = (overrides: Partial<ApartmentSharingLink> = {}): Apartmen
 describe('SharingLinkDetails', () => {
   const mountComponent = (link: ApartmentSharingLink) => {
     return mount(SharingLinkDetails, {
-      props: { link },
+      props: { link, linkId: 'share-1' },
       global: {
         stubs: {
           LinkWarning: true,
@@ -149,15 +149,11 @@ describe('SharingLinkDetails', () => {
 
         const wrapper = mountComponent(link)
 
+        // The copy-link button is not rendered while the share is paused
         const buttons = wrapper.findAll('.link-actions button')
-        expect(buttons).toHaveLength(2)
-
-        const pauseButton = buttons[1]
-        expect(pauseButton.text()).toContain('resume-share')
-        // Expect the copy-link button to be disabled
-        const copyButton = buttons[0]
-        expect(copyButton.text()).toContain('copy-link')
-        expect((copyButton.element as HTMLButtonElement).disabled).toBe(true)
+        expect(buttons).toHaveLength(1)
+        expect(buttons[0].text()).toContain('resume-share')
+        expect(wrapper.text()).not.toContain('copy-link')
       })
     })
 
@@ -188,15 +184,11 @@ describe('SharingLinkDetails', () => {
 
         const wrapper = mountComponent(link)
 
+        // The resend-mail button is not rendered while the share is paused
         const buttons = wrapper.findAll('.link-actions button')
-        expect(buttons).toHaveLength(2)
-
-        const resendButton = buttons[0]
-        expect(resendButton.text()).toContain('resend-mail')
-        expect((resendButton.element as HTMLButtonElement).disabled).toBe(true)
-
-        const pauseButton = buttons[1]
-        expect(pauseButton.text()).toContain('resume-share')
+        expect(buttons).toHaveLength(1)
+        expect(buttons[0].text()).toContain('resume-share')
+        expect(wrapper.text()).not.toContain('resend-mail')
       })
     })
   })

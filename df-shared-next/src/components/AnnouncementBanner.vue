@@ -2,12 +2,14 @@
 import cookies from 'js-cookie'
 import { computed, onMounted, ref } from 'vue'
 import { vSafeHtml } from '../services/SanitizeService'
+import { useI18n } from 'vue-i18n'
 
 const DOMAIN = `${import.meta.env.VITE_COOKIE_DOMAIN}`
+const { t } = useI18n()
 
 const announcementClosed = ref(false)
 
-const { message } = defineProps<{ message: string }>()
+const { message, toFocus } = defineProps<{ message: string; toFocus?: HTMLElement | null }>()
 
 const announcementClosedCookieKey = `announcement-closed-${btoa(message)}`
 
@@ -36,6 +38,7 @@ function createAnnouncementClosedCookie() {
 function closeAnnouncement() {
   createAnnouncementClosedCookie()
   announcementClosed.value = true
+  toFocus?.focus()
 }
 </script>
 
@@ -49,7 +52,7 @@ function closeAnnouncement() {
         class="fr-btn--close close"
         @click="closeAnnouncement()"
       >
-        <span class="sr-only">Fermer l'annonce</span>
+        <span class="sr-only">{{ t('close') }}</span>
       </button>
     </div>
   </aside>
@@ -87,3 +90,14 @@ function closeAnnouncement() {
   }
 }
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "close": "Close the message"
+  },
+  "fr": {
+    "close": "Fermer le message"
+  }
+}
+</i18n>

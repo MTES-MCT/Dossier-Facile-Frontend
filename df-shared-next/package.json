@@ -26,7 +26,8 @@
     "axios": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:",
-    "vue-i18n": "catalog:"
+    "vue-i18n": "catalog:",
+    "dayjs": "catalog:"
   },
   "devDependencies": {
     "@types/js-cookie": "3.0.6",
@@ -36,6 +37,7 @@
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
     "@vue/tsconfig": "catalog:",
+    "@vitest/eslint-plugin": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "prettier": "catalog:",

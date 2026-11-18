@@ -33,7 +33,7 @@
     ref="custom-text"
     v-model="value"
     name="customText"
-    :max="1000"
+    :max="CUSTOM_TEXT_MAX_LENGTH"
     rows="4"
     :is-required="true"
     :class="meta.touched && !meta.valid ? 'fr-input--error' : ''"
@@ -43,9 +43,7 @@
     <template #label>{{ t(textKey + '.describe-situation') }}</template>
     <template #hint>{{ t(textKey + '.describe-hint') }}</template>
   </TextAreaWithCounter>
-  <span v-if="errorMessage" :id="errorId" role="alert" class="fr-error-text">{{
-    t(errorMessage)
-  }}</span>
+  <p v-if="errorMessage" :id="errorId" role="alert" class="fr-error-text">{{ t(errorMessage) }}</p>
 
   <i18n-t :keypath="textKey + '.you-can-add-docs'" tag="p" class="fr-mt-3w">
     <a
@@ -64,7 +62,7 @@
     :custom-text="value"
     guarantor
   />
-  <DfButton v-else class="mx-auto" @click="showUploadZone">{{ t('add-document') }}</DfButton>
+  <DsfrButton v-else secondary :label="t('add-document')" @click="showUploadZone" />
 
   <GuarantorResidencyFooter :on-submit="submit" />
 </template>
@@ -80,9 +78,8 @@ import { useField } from 'vee-validate'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { useResidencyState } from '../residency/residencyState'
-import { UtilsService } from '@/services/UtilsService'
-import { DsfrAlert } from '@gouvminint/vue-dsfr'
-import DfButton from 'df-shared-next/src/Button/DfButton.vue'
+import { CUSTOM_TEXT_MAX_LENGTH, UtilsService } from '@/services/UtilsService'
+import { DsfrAlert, DsfrButton } from '@gouvminint/vue-dsfr'
 import TextAreaWithCounter from 'df-shared-next/src/components/TextAreaWithCounter.vue'
 import ConfirmDeleteModal from 'df-shared-next/src/components/ConfirmDeleteModal.vue'
 import { useRouter } from 'vue-router'

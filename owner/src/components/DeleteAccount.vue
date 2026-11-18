@@ -22,7 +22,7 @@ import type { DsfrButtonProps } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 
 const store = useOwnerStore()
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
+const MAIN_URL = import.meta.env.VITE_MAIN_URL
 const { t } = useI18n()
 const toast = useToast()
 

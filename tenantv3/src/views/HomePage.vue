@@ -10,8 +10,8 @@ const store = useTenantStore()
 
 const isLoggedIn = computed(() => store.isLoggedIn)
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
-const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
+const MAIN_URL = import.meta.env.VITE_MAIN_URL
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 
 onMounted(() => {
   nextTick(function () {

@@ -44,7 +44,7 @@
           </div>
         </Field>
         <ErrorMessage v-slot="{ message }" name="dpe">
-          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
         </ErrorMessage>
       </Form>
     </div>

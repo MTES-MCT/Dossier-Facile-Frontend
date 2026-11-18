@@ -3,7 +3,7 @@
   <TextAreaWithCounter
     ref="custom-text"
     v-model="customText"
-    :max="1000"
+    :max="CUSTOM_TEXT_MAX_LENGTH"
     counter-id="no-income-explanation-counter"
   >
     <template #label>{{ t('can-add-explanation') }}</template>
@@ -38,7 +38,7 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import { computed, ref, useTemplateRef } from 'vue'
 import { useTenantStore } from '@/stores/tenant-store'
 import { useLoading } from 'vue-loading-overlay'
-import { UtilsService } from '@/services/UtilsService'
+import { CUSTOM_TEXT_MAX_LENGTH, UtilsService } from '@/services/UtilsService'
 import { useFinancialState } from '../financialState'
 import { useI18n } from 'vue-i18n'
 import { getNextBtnInFooter, toast } from '@/components/toast/toastUtils'

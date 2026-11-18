@@ -1,5 +1,5 @@
 <template>
-  <img v-if="!error" :alt="alt" :src="imageData" />
+  <img v-if="!error" alt="" :src="imageData" width="96" />
   <div v-else>
     {{ error }}
   </div>
@@ -33,7 +33,7 @@ onMounted(() => {
         return
       }
       const mimeType = contentTypeHeader.toString().toLowerCase()
-      const imgBase64 = new Buffer(resp.data, 'binary').toString('base64')
+      const imgBase64 = Buffer.from(resp.data, 'binary').toString('base64')
       imageData.value = 'data:' + mimeType + ';base64,' + imgBase64
     })
     .catch(() => {

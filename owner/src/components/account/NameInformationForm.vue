@@ -31,7 +31,7 @@
                 />
               </Field>
               <ErrorMessage v-slot="{ message }" name="lastname">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
               </ErrorMessage>
             </div>
           </div>
@@ -61,7 +61,7 @@
                 />
               </Field>
               <ErrorMessage v-slot="{ message }" name="firstname">
-                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+                <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
               </ErrorMessage>
             </div>
           </div>

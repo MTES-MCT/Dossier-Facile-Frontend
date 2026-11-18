@@ -5,7 +5,6 @@ import { forceFrenchLocale } from "./cypress/support/browserLocale";
 export default defineConfig({
   e2e: {
     video: false,
-    screenshotOnRunFailure: false,
     defaultCommandTimeout: 5000,
     setupNodeEvents(on) {
       on("before:browser:launch", (browser, launchOptions) => {

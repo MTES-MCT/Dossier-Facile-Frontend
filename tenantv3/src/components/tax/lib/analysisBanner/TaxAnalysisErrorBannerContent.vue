@@ -22,7 +22,7 @@
       />
       <div class="separator fr-my-2w">
         <div class="separator-line"></div>
-        <span class="separator-text">{{ t('or') }}</span>
+        <p class="separator-text">{{ t('or') }}</p>
         <div class="separator-line"></div>
       </div>
       <p class="explain-link-text">

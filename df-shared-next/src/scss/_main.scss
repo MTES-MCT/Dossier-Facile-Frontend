@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   isolation: isolate;
+  word-break: break-word;
 }
 
 // if a list forces its role to retain semantic, remove the list style

@@ -1,6 +1,6 @@
 <template>
-  <div class="toast-container">
-    <TransitionGroup tag="ul" name="toasts" class="toast-list">
+  <div v-if="alerts.length" class="toast-container">
+    <TransitionGroup tag="ul" name="toasts" class="toast-list" role="list">
       <li v-for="alert of alerts" :key="alert.id">
         <DsfrAlert :type="alert.type" small closeable role="alert" @close="removeToast(alert)">
           <p>{{ alert.label }}</p>
@@ -17,24 +17,22 @@ import { alerts, removeToast } from './toastUtils'
 
 <style scoped>
 .toast-container {
-  position: sticky;
-  top: 0;
-  right: 1rem;
+  position: relative;
   width: min(22rem, calc(100% - 2rem));
   margin-left: auto;
-  z-index: 10000;
 }
 
 .toast-list {
+  --li-bottom: 0;
   position: absolute;
-  top: 1rem;
-  margin: 0;
+  inset-inline-end: 1rem;
+  inset-block-start: 0;
+  margin: 2rem 0 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 0;
-  list-style: none;
   width: 100%;
+  z-index: 900;
 }
 
 .toast-container :deep(.fr-alert) {

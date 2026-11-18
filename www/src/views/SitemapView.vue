@@ -4,7 +4,7 @@
       <div class="fr-grid-row justify-content-center">
         <div class="fr-col-md-8">
           <h1>Plan du site</h1>
-          <p><i>Dossier</i><b>Facile</b>, le dossier de location numérique de l’État.</p>
+          <p>Dossier<b>Facile</b>, le dossier de location numérique de l’État.</p>
 
           <ul class="page-list">
             <li v-for="page in mainPages" :key="page.url" class="fr-h4">
@@ -36,9 +36,10 @@ import { useHead } from '@unhead/vue'
 useHead({
   title: 'Plan du site'
 })
-const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
+const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
 
 const mainPages = [
   {
@@ -58,8 +59,12 @@ const mainPages = [
     url: '/information'
   },
   {
+    name: 'Partenaires',
+    url: '/partenaires'
+  },
+  {
     name: 'Devenir partenaire',
-    url: 'https://partenaire.dossierfacile.logement.gouv.fr'
+    url: PARTNER_URL
   },
   {
     name: 'Blog',

@@ -66,7 +66,7 @@ export default defineConfig({
       return renderedHTML.replace(/<link rel="modulepreload".*?>/i, '')
     },
     onFinished: () => {
-      const baseURL = 'https://' + process.env.VITE_MAIN_URL
+      const baseURL = process.env.VITE_MAIN_URL
       if (process.env.VITE_ENVIRONMENT === 'prod') {
         generateSiteMap({ hostname: baseURL })
       }

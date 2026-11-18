@@ -180,7 +180,7 @@
     <CompletedFileModal
       v-model:is-opened="isCompletedFileModalOpened"
       @share="goToShareSection"
-      @request-verification="goToValidationRequest"
+      @request-verification="requestVerificationFromModal"
     />
   </div>
 </template>
@@ -219,16 +219,15 @@ const { downloadZip: downloadZipArchive } = useZipDownload()
 const validationRequestCallout = useTemplateRef('validation-request')
 const shareSection = useTemplateRef('share-section')
 
-// The modal CTAs land the user on the matching dashboard block. Wait for the dialog to close
-// (it restores the focus to the previously focused element) before moving the focus ourselves
 async function goToShareSection() {
   await nextTick()
   shareSection.value?.focusTitle()
 }
 
-async function goToValidationRequest() {
+// The modal CTA sends the verification request itself
+async function requestVerificationFromModal() {
   await nextTick()
-  validationRequestCallout.value?.focusTitle()
+  await validationRequestCallout.value?.requestVerification()
 }
 
 function lastModifiedDate(): string {

@@ -10,8 +10,6 @@ const { t } = useI18n()
 const store = useOwnerStore()
 const toast = useToast()
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
-
 const isValidModalVisible = ref(false)
 
 function onRegister(data: { email: string; password: string }) {

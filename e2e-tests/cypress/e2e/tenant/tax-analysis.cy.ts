@@ -73,6 +73,6 @@ describe("tax document analysis", () => {
       );
 
     // The rejected file must not remain in the upload list
-    cy.get('ul[role="list"]').should("not.exist");
+    cy.get('[data-cy="uploaded-files"]').should("not.exist");
   });
 });

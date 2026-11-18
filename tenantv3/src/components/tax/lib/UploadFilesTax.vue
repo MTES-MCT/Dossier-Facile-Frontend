@@ -27,7 +27,7 @@
     :page="4"
     :error-message="errorMessage"
     @add-files="addFiles"
-  ></FileUpload>
+  />
   <DsfrModalPatch
     v-model:is-opened="isModalOpened"
     :title="t('avis-detected')"

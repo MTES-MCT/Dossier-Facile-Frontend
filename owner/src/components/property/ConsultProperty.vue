@@ -245,8 +245,8 @@ const router = useRouter()
 const store = useOwnerStore()
 const toast = useToast()
 
-const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`
-const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
+const OWNER_URL = import.meta.env.VITE_OWNER_URL
 const COLUMN_MAP = {
   date: 'lastUpdateDate',
   'tenant-name': 'tenantName',

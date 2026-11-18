@@ -12,7 +12,7 @@
     </a>
     <img
       v-else
-      :alt="name"
+      :alt="imageAlt"
       :height="height"
       :src="image"
       :width="width"
@@ -28,6 +28,7 @@ import { computed } from 'vue'
 const props = withDefaults(
   defineProps<{
     name: string
+    determinant: string
     image: string
     href?: string
     width?: string
@@ -44,7 +45,9 @@ const props = withDefaults(
   }
 )
 
-const imageAlt = computed(() => props.title ?? `aller sur le site ${props.name} (nouvelle fenêtre)`)
+const imageAlt = computed(
+  () => props.title ?? `Site ${props.determinant} ${props.name} (nouvelle fenêtre)`
+)
 </script>
 
 <style scoped>

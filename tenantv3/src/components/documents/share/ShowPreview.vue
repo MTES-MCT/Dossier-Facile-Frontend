@@ -1,7 +1,7 @@
 <template>
   <div class="preview">
     <!-- If a preview is available display it or if it's an image diplay id -->
-    <AuthImage v-if="hasToDisplayImage()" :src="getPreviewImage()!" :alt="t('showdoc.preview')" />
+    <AuthImage v-if="hasToDisplayImage()" :src="getPreviewImage()!" />
     <!-- If there is no preview available and the file is not an image preview pdf-->
     <div v-else-if="!isImage()">
       <vue-pdf-embed
@@ -63,17 +63,11 @@ async function getData() {
   }
 }
 if (!isImage()) {
-  getData()
+  await getData()
 }
 </script>
 
 <style scoped>
-.preview {
-  width: 96px;
-  height: 107px;
-  overflow: hidden;
-}
-
 .preview img {
   width: 100%;
   height: 100%;

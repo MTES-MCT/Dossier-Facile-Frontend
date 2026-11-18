@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { useI18n } from 'vue-i18n'
 import ShareActionsMenu from '../sharing/ShareActionsMenu.vue'
+import { FocusLegendKey } from '@/models/InjectionKeys'
 
 vi.mock('vue-i18n')
 
@@ -9,11 +10,18 @@ vi.mocked(useI18n).mockReturnValue({
   t: (tKey: string) => tKey
 } as ReturnType<typeof useI18n>)
 
+vi.mock('@/components/toast/toastUtils', () => ({
+  toast: {
+    error: vi.fn()
+  }
+}))
+
 describe('ShareActionsMenu', () => {
   const mountComponent = (linkType: 'LINK' | 'MAIL' | 'OWNER' | 'PARTNER' = 'LINK', enabled = true) => {
     return mount(ShareActionsMenu, {
-      props: { enabled, linkType },
+      props: { enabled, linkType, linkId: 'share-1' },
       global: {
+        provide: { [FocusLegendKey as symbol]: vi.fn() },
         stubs: {
           RiArrowDownSLine: true,
           RiArrowUpSLine: true,
@@ -23,14 +31,17 @@ describe('ShareActionsMenu', () => {
           RiDeleteBinLine: true,
           RiSendPlaneLine: true,
           ModalComponent: true,
-          DfButton: true
+          DsfrButton: {
+            props: ['label'],
+            template: '<button>{{ label }}</button>'
+          }
         }
       }
     })
   }
 
   const openMenu = async (wrapper: ReturnType<typeof mountComponent>) => {
-    await wrapper.find('.actions-button').trigger('click')
+    await wrapper.find('#actionBtn').trigger('click')
     return wrapper.findAll('.menu-item')
   }
 

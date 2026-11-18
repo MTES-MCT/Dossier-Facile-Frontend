@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils'
 import { defineComponent, watch, type PropType } from 'vue'
 import dayjs from 'dayjs'
@@ -310,5 +310,42 @@ describe('ValidationRequestCallout', () => {
     await flushPromises()
 
     expect(mockToast.error).toHaveBeenCalledWith('error', wrapper.find('button').element)
+  })
+
+  describe('when the post-submit modal asks for the verification', () => {
+    // The callout first scrolls to itself: jsdom implements neither scrollIntoView nor matchMedia
+    const scrollIntoView = vi.fn()
+
+    beforeEach(() => {
+      Element.prototype.scrollIntoView = scrollIntoView
+      vi.stubGlobal('matchMedia', () => ({ matches: false }))
+    })
+
+    afterEach(() => {
+      vi.unstubAllGlobals()
+    })
+
+    it('sends the request', async () => {
+      const wrapper = mountComponent(true)
+
+      await wrapper.vm.requestVerification()
+      await flushPromises()
+
+      expect(mockStore.updateValidationRequest).toHaveBeenCalledWith(true)
+      expect(mockToast.error).not.toHaveBeenCalled()
+      expect(scrollIntoView).toHaveBeenCalled()
+      expect(document.activeElement).toBe(wrapper.find('h2').element)
+    })
+
+    it('shows an error toast when the request fails', async () => {
+      vi.spyOn(console, 'error').mockImplementation(() => undefined)
+      mockStore.updateValidationRequest.mockRejectedValueOnce(new Error('boom'))
+      const wrapper = mountComponent()
+
+      await wrapper.vm.requestVerification()
+      await flushPromises()
+
+      expect(mockToast.error).toHaveBeenCalledWith('error', wrapper.find('button').element)
+    })
   })
 })

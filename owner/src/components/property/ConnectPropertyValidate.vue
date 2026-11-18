@@ -87,9 +87,9 @@ if (route.params.token) {
   router.push({ name: 'Dashboard' })
 }
 
-const TENANT_URL = `${import.meta.env.VITE_FULL_TENANT_URL}`
-const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
-const TENANT_API_URL = `${import.meta.env.VITE_API_URL}`
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
+const OWNER_URL = import.meta.env.VITE_OWNER_URL
+const TENANT_API_URL = import.meta.env.VITE_API_URL
 
 const isCreate = ref(true)
 const mainTenantFirstname = ref('')

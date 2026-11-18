@@ -43,7 +43,7 @@ import { computed } from 'vue'
 const { t } = useI18n()
 const route = useRoute()
 
-const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`
+const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const EXAMPLE_UUID = '550e8400-e29b-41d4-a716-446655440000'
 
 const exampleLink = computed(() => {
@@ -68,4 +68,3 @@ const currentLink = computed(() => {
   margin-top: 0.5rem;
 }
 </style>
-

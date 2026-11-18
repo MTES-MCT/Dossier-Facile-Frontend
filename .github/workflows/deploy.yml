@@ -88,7 +88,7 @@ jobs:
             prod_region: osc-secnum-fr1
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           sparse-checkout: .github/scripts
       - name: Deploy to Scalingo

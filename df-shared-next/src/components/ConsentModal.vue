@@ -4,6 +4,7 @@
     ref="dialogRef"
     class="fr-modal"
     role="dialog"
+    aria-modal="true"
     aria-labelledby="fr-consent-modal-title"
     @cancel="modalStore.closeModal"
   >
@@ -175,7 +176,7 @@ import * as Consent from '../services/ConsentService'
 import { useI18n } from 'vue-i18n'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
+const MAIN_URL = import.meta.env.VITE_MAIN_URL
 
 const initialValues = Consent.getAll()
 

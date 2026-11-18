@@ -72,7 +72,7 @@ function onBack() {
             />
             <div class="fr-grid-col">
               <div class="icon-container desktop">
-                <img alt="" svg-inline src="../../assets/ico_vide.svg" aria-label="icone meublé" />
+                <img alt="" svg-inline src="../../assets/ico_vide.svg" />
               </div>
               <div class="fr-mb-md-4w fr-m-2w">
                 {{ t('propertyfurniture.unfurnished') }}
@@ -103,12 +103,7 @@ function onBack() {
             />
             <div class="fr-grid-col">
               <div class="icon-container desktop">
-                <img
-                  alt=""
-                  svg-inline
-                  src="../../assets/ico_meuble.svg"
-                  aria-label="icone non meublé"
-                />
+                <img alt="" svg-inline src="../../assets/ico_meuble.svg" />
               </div>
               <div class="fr-mb-md-4w fr-m-2w">
                 {{ t('propertyfurniture.furnished') }}
@@ -117,7 +112,7 @@ function onBack() {
           </label>
         </Field>
         <ErrorMessage v-slot="{ message }" name="furniture">
-          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
         </ErrorMessage>
       </div>
     </NakedCard>

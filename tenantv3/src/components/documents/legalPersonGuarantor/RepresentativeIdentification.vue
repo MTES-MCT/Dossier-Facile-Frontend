@@ -30,7 +30,7 @@
               required
             />
             <ErrorMessage v-slot="{ message }" name="firstName">
-              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+              <p role="alert" class="fr-error-text">{{ t(message || '') }}</p>
             </ErrorMessage>
           </div>
         </Field>
@@ -100,7 +100,7 @@ import { AnalyticsService, type DocumentCategory } from '../../../services/Analy
 import { RegisterService } from '../../../services/RegisterService'
 import { useTenantStore } from '../../../stores/tenant-store'
 import GuarantorFooter from '../../footer/GuarantorFooter.vue'
-import FileUpload from '../../uploads/FileUpload.vue'
+import FileUpload from '@/components/uploads/FileUpload.vue'
 import ListItem from '../../uploads/ListItem.vue'
 import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
