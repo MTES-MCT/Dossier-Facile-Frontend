@@ -8,7 +8,7 @@ declare global {
 }
 
 export const CrispPlugin = {
-  install(app: App, options: { websiteId: string }) {
+  install(_app: App, options: { websiteId: string }) {
     window.$crisp = [
       ['safe', true],
       [

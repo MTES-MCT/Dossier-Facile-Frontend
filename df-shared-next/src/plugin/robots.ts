@@ -1,7 +1,7 @@
 import { writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 
-import type { PluginOption } from 'vite'
+import type { Plugin } from 'vite'
 
 export type RobotsPluginOptions = {
   environment?: string | null
@@ -14,7 +14,7 @@ export const createRobotsTxtPlugin = ({
   // default to prod if not set
   environment = process.env.VITE_ENVIRONMENT ?? 'prod',
   disallowAllContent = defaultContent
-}: RobotsPluginOptions = {}): PluginOption => {
+}: RobotsPluginOptions = {}): Plugin => {
   let outDir: string
   let root: string
 

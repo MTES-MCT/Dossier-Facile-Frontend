@@ -2,9 +2,17 @@ import { access, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 
+import type { ResolvedConfig } from 'vite'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import { createRobotsTxtPlugin } from '../robots'
+
+// The plugin declares its hooks as plain functions without plugin context,
+// so they can be invoked directly in tests
+type RobotsPluginHooks = {
+  configResolved: (config: ResolvedConfig) => void
+  closeBundle: () => Promise<void>
+}
 
 const OUT_DIR = 'dist'
 
@@ -16,12 +24,12 @@ const setupPlugin = async (options?: Parameters<typeof createRobotsTxtPlugin>[0]
 
   await mkdir(join(root, OUT_DIR), { recursive: true })
 
-  const plugin = createRobotsTxtPlugin(options)
+  const plugin = createRobotsTxtPlugin(options) as unknown as RobotsPluginHooks
 
-  plugin.configResolved?.({
+  plugin.configResolved({
     root,
     build: { outDir: OUT_DIR }
-  } as any)
+  } as ResolvedConfig)
 
   return { plugin, root }
 }
@@ -47,7 +55,7 @@ describe('createRobotsTxtPlugin', () => {
       disallowAllContent
     })
 
-    await plugin.closeBundle?.()
+    await plugin.closeBundle()
 
     const content = await readFile(resolveRobotsPath(root), 'utf8')
 
@@ -57,7 +65,7 @@ describe('createRobotsTxtPlugin', () => {
   it('falls back to do not write a robots file', async () => {
     const { plugin, root } = await setupPlugin({ environment: 'dev' })
 
-    await plugin.closeBundle?.()
+    await plugin.closeBundle()
 
     await expect(access(resolveRobotsPath(root))).rejects.toMatchObject({ code: 'ENOENT' })
   })
@@ -65,7 +73,7 @@ describe('createRobotsTxtPlugin', () => {
   it('does not write a robots file in prod', async () => {
     const { plugin, root } = await setupPlugin({ environment: 'prod' })
 
-    await plugin.closeBundle?.()
+    await plugin.closeBundle()
 
     await expect(access(resolveRobotsPath(root))).rejects.toMatchObject({ code: 'ENOENT' })
   })

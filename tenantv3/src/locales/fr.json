@@ -11,6 +11,14 @@
     "homepage": "Page d'accueil",
     "contact-us": "Contactez-nous"
   },
+  "skipLinks": {
+    "content": "Contenu",
+    "footer": "Pied de page",
+    "main-nav": "Navigation principale",
+    "footer-navigation": "Navigation de l'étape",
+    "funnel-menu": "Menu d'ajout des documents",
+    "step-content": "Contenu de l'étape"
+  },
   "register": "Enregistrer",
   "logout": "Se déconnecter",
   "signin": "Se connecter",

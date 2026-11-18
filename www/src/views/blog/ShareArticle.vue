@@ -116,5 +116,3 @@ async function copyToClipboard() {
   }
 }
 </script>
-
-<style scoped lang="scss"></style>

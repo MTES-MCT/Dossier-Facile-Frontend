@@ -21,7 +21,7 @@ export function useI18nForTest(componentSource: string, locale: string = 'fr') {
   })
 
   const t = (key: string, params?: Record<string, unknown>): string =>
-    (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
+    (i18n.global as unknown as { t: (key: string, params?: Record<string, unknown>) => string }).t(
       key,
       params
     )

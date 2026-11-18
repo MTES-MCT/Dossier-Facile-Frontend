@@ -247,25 +247,17 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article13.webp'
-
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 const title =
   'Dossier de location : Comment éviter les arnaques à la location : guide complet pour les propriétaires ?'
 const description =
   "La location d'un bien immobilier est une excellente manière de générer des revenus, mais elle comporte aussi certains risques, notamment celui des arnaques. Faux locataires, faux paiements, ou encore escroqueries sur les plateformes de location en ligne"
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>

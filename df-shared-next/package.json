@@ -21,11 +21,13 @@
   },
   "peerDependencies": {
     "@gouvfr/dsfr": "catalog:",
+    "@unhead/vue": "catalog:",
     "@vee-validate/i18n": "catalog:",
     "@vee-validate/rules": "catalog:",
     "axios": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:",
+    "vue-router": "catalog:",
     "vue-i18n": "catalog:",
     "dayjs": "catalog:"
   },

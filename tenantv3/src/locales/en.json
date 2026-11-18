@@ -11,6 +11,14 @@
     "homepage": "Homepage",
     "contact-us": "Contact us"
   },
+  "skipLinks": {
+    "content": "Content",
+    "footer": "Footer",
+    "main-nav": "Main navigation",
+    "footer-navigation": "Step navigation",
+    "funnel-menu": "Documents menu",
+    "step-content": "Step content"
+  },
   "register": "Save",
   "logout": "Logout",
   "signin": "Sign in",

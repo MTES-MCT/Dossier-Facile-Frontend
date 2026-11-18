@@ -13,26 +13,18 @@
 </template>
 
 <script setup lang="ts">
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 import { useI18n } from 'vue-i18n'
-import { useSeoMeta } from '@unhead/vue'
 
-const title = 'Nos statistiques'
 const description =
   'Consultez nos statistiques sur l’utilisation du service (nombre de dossiers créés, nombre de liens partagés, satisfaction des utilisateurs...)'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterDescription: description
-})
-
 const { t } = useI18n()
+useMeta({
+  title: () => t('page-titles.statistiques'),
+  description: () => description,
+  canonicalUrl: useCanonicalUrl()
+})
 const metabaseUrl = `${import.meta.env.VITE_METABASE_DASHBOARD_URL}`
 </script>
 

@@ -143,24 +143,17 @@
 
 <script setup lang="ts">
 import BlogArticle from '@/views/blog/BlogArticle.vue'
-import { useSeoMeta } from '@unhead/vue'
 import image from '@images/blog-article10.webp'
 import BlogPostImage from '@/components/BlogPostImage.vue'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 
 const title = 'Quand les journalistes parlent de DossierFacile'
 const description =
   'Constituer son dossier de location est une étape indispensable pour trouver le logement de ses rêves et pourtant c’est un parcours semé d’embûches'
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogImage: image,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterImage: image,
-  twitterDescription: description
+useMeta({
+  title: () => title,
+  description: () => description,
+  canonicalUrl: useCanonicalUrl(),
+  image: () => image
 })
 </script>

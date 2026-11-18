@@ -35,10 +35,10 @@ onBeforeMount(() => {
   <ConsentHandler />
   <SkipLinks :links />
   <OwnerHeader />
-  <div id="content">
+  <div>
     <DeleteAccount />
     <Announcement :message="MESSAGE" :to-focus="mainElement" />
-    <main ref="main" role="main" tabindex="-1">
+    <main id="content" ref="main" role="main" tabindex="-1">
       <div class="page fr-background-alt--blue-france">
         <router-view />
       </div>

@@ -81,22 +81,17 @@
   </section>
 </template>
 <script setup lang="ts">
-import { useSeoMeta } from '@unhead/vue'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
+import { useI18n } from 'vue-i18n'
 
-const title = 'Mentions légales'
 const description =
   'DossierFacile s’engage à protéger vos données personnelles : créez votre dossier de location en toute sécurité'
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE
-const seoTitle = `${title} - ${siteTitle}`
-
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: seoTitle,
-  ogDescription: description,
-  twitterTitle: seoTitle,
-  twitterDescription: description
+const { t } = useI18n()
+useMeta({
+  title: () => t('page-titles.mentionsLegales'),
+  description: () => description,
+  canonicalUrl: useCanonicalUrl()
 })
 </script>
 

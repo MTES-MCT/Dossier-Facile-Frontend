@@ -125,13 +125,19 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
 </script>
 
 <template>
-  <DsfrHeader :logo-text :quick-links :language-selector @language-select="updateLang">
+  <DsfrHeader
+    :logo-text
+    :home-label="`${t('home')} Dossier Facile`"
+    :quick-links
+    :language-selector
+    @language-select="updateLang"
+  >
     <template #operator>
       <p class="fr-text--xl">Dossier<b>Facile</b></p>
       <p class="fr-text--sm">{{ serviceDescription }}</p>
     </template>
     <template #mainnav>
-      <DsfrNavigation id="main-nav" :nav-items />
+      <DsfrNavigation id="main-nav" :nav-items tabindex="-1" />
     </template>
   </DsfrHeader>
 </template>
@@ -151,6 +157,7 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
 <i18n lang="json">
 {
   "en": {
+    "home": "Home",
     "logout": "Logout",
     "owner": "Owner area",
     "tenant": "Tenant area",
@@ -167,6 +174,7 @@ const updateLang = (payload: DsfrLanguageSelectorElement) => {
     }
   },
   "fr": {
+    "home": "Accueil",
     "logout": "Se déconnecter",
     "owner": "Espace propriétaire",
     "tenant": "Espace locataire",

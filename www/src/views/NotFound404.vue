@@ -63,12 +63,12 @@
 </template>
 
 <script setup lang="ts">
-import { useHead } from '@unhead/vue'
+import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-
-useHead({
-  title: 'Page introuvable'
+useMeta({
+  title: () => t('page-titles.404'),
+  canonicalUrl: useCanonicalUrl()
 })
 </script>
