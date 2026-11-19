@@ -13,7 +13,7 @@ Pour finir, des tests end to end sont présents dans le répertoire e2e-tests
 
 ## Pré-requis
 
-Vous aurez besoin de [node](https://nodejs.org/en/) v22 et [pnpm](https://pnpm.io/) pour construire le projet.
+Vous aurez besoin de [node](https://nodejs.org/en/) v26 et [pnpm](https://pnpm.io/) pour construire le projet.
 
 ## Installation
 

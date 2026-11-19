@@ -102,7 +102,7 @@ export function useMeta({
     },
     link: () => {
       const url = toValue(canonicalUrl)
-      return url ? [{ rel: 'canonical', href: url }] : []
+      return url ? [{ rel: 'canonical' as const, href: url }] : []
     }
   }
   useHead(args)

@@ -95,6 +95,7 @@
                   :enable-time-picker="false"
                   :clearable="false"
                   model-type="yyyy-MM-dd"
+                  :week-start="WeekStart.Monday"
                   auto-apply
                   :teleport="true"
                   @update:model-value="updateExpirationDate"
@@ -233,7 +234,7 @@ import { useResendMail } from '@/composables/useResendMail'
 import { toast } from '../toast/toastUtils'
 import { useI18n } from 'vue-i18n'
 import { ref, computed, useTemplateRef, nextTick } from 'vue'
-import { VueDatePicker } from '@vuepic/vue-datepicker'
+import { VueDatePicker, WeekStart } from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
@@ -453,7 +454,7 @@ caption {
   justify-content: flex-end;
   gap: 0.5rem;
 }
-.expiration-cell :deep(.dp__main) {
+.expiration-cell :deep(.dp--main) {
   width: auto;
 }
 .expiration-cell :deep(.dp--clear-btn) {

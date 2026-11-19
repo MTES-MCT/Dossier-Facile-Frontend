@@ -1,14 +1,29 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "exclude": ["src/**/__tests__/*"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "../df-shared-next/src/**/*.ts",
+    "../df-shared-next/src/**/*.tsx",
+    "../df-shared-next/src/**/*.vue"
+  ],
+  "exclude": [
+    "src/**/__tests__/**",
+    "../df-shared-next/src/**/__tests__/**",
+    "../df-shared-next/src/plugin/robots.ts"
+  ],
   "compilerOptions": {
     "composite": true,
+    "target": "es2024",
+    "lib": ["ES2024", "DOM", "DOM.Iterable"],
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "baseUrl": ".",
+    "rootDir": "..",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@icons/*": ["./src/assets/icons/*"],
+      "@images/*": ["./src/assets/images/*"],
+      "@components/*": ["./src/components/*"]
     }
   },
   "vueCompilerOptions": {

@@ -2,7 +2,9 @@ export const PdfAnalysisService = {
   async readPdfFirstPage(file: File): Promise<string> {
     try {
       const pdfjsLib = await import('pdfjs-dist/webpack')
-      const loadingTask = pdfjsLib.getDocument(await file.arrayBuffer())
+      const loadingTask = pdfjsLib.getDocument({
+        data: await file.arrayBuffer()
+      })
       const pdf = await loadingTask.promise
       const page = await pdf.getPage(1)
       const content = await page.getTextContent()

@@ -7,7 +7,7 @@ Ce monorepo héberge les interfaces web de DossierFacile, ainsi que celle de **F
 ## Stack technique
 
 - **Langages / Framework** : Vue 3 (Composition API), TypeScript
-- **Build / Runtime / Package manager** : Vite, Node 22, pnpm
+- **Build / Runtime / Package manager** : Vite, Node 26, pnpm
 - **Formulaires** : vee-validate (+ règles custom déclarées dans les `main.ts`)
 - **HTTP / auth** : Axios , keycloak-js (OIDC)
 - **Design system** : DSFR (`@gouvfr/dsfr` + `@gouvminint/vue-dsfr`)

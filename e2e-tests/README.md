@@ -1,6 +1,6 @@
 ## How to run tests
 
-Use Node 22 and pnpm. Run the commands below from the repository root.
+Use Node 26 and pnpm. Run the commands below from the repository root.
 
 Install dependencies, including after switching branches:
 

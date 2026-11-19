@@ -7,7 +7,7 @@ import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
 import browserslist from 'browserslist'
 import { browserslistToTargets } from 'lightningcss'
 
-import { createRobotsTxtPlugin } from '../df-shared-next/src/plugin/robots'
+import { createRobotsTxtPlugin } from '../df-shared-next/src/plugin/robots.ts'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -29,7 +29,7 @@ export default defineConfig({
       }
       // When this returns undefined, the default behaviour is used: inline only if size < 4k
     },
-    rollupOptions: {
+    rolldownOptions: {
       output: {
         manualChunks: (id) => {
           if (id.includes('pdfjs')) return 'pdfjs'
@@ -41,13 +41,15 @@ export default defineConfig({
       }
     }
   },
-  esbuild: {
+  oxc: {
     target: 'es2022'
   },
   optimizeDeps: {
     exclude: ['pdfjs-dist'],
-    esbuildOptions: {
-      target: 'es2022'
+    rolldownOptions: {
+      transform: {
+        target: 'es2022'
+      }
     }
   },
   server: {
@@ -60,19 +62,22 @@ export default defineConfig({
     vue(),
     createRobotsTxtPlugin(),
     vueI18n({ strictMessage: false }),
-    pluginPurgeCss({
-      variables: false,
-      content: [`./dist/**/*.html`, `./src/**/*.vue`, `../df-shared-next/src/**/*.vue`],
-      safelist: {
-        standard: [/^fr-[a-z]+--/],
-        deep: [
-          /-(leave|enter|appear)(-(to|from|active))?$/,
-          /^(?!(.*?:)?cursor-move).+-move$/,
-          /^router-link(-exact)?-active$/,
-          /data-v-.*/
-        ]
-      }
-    }),
+    {
+      ...pluginPurgeCss({
+        variables: false,
+        content: [`./dist/**/*.html`, `./src/**/*.vue`, `../df-shared-next/src/**/*.vue`],
+        safelist: {
+          standard: [/^fr-[a-z]+--/],
+          deep: [
+            /-(leave|enter|appear)(-(to|from|active))?$/,
+            /^(?!(.*?:)?cursor-move).+-move$/,
+            /^router-link(-exact)?-active$/,
+            /data-v-.*/
+          ]
+        }
+      }),
+      apply: "build"
+    },
     sentryVitePlugin({
       org: 'betagouv',
       project: 'front-tenant',
