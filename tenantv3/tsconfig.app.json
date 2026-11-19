@@ -4,6 +4,7 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
+    "../www/src/route-meta.d.ts",
     "../df-shared-next/src/**/*.ts",
     "../df-shared-next/src/**/*.tsx",
     "../df-shared-next/src/**/*.vue"

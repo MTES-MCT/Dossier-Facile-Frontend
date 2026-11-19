@@ -1,6 +1,7 @@
+import type { RouteRecordRaw } from "vue-router"
 import LandingPage from '../views/LandingPage.vue'
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Home',
@@ -206,7 +207,7 @@ const routes = [
   {
     path: '/404',
     name: '404',
-    component: () => import(/* webpackChunkName: "statistics" */ '../views/NotFound404.vue')
+    component: () => import(/* webpackChunkName: "404" */ '../views/NotFound404.vue')
   },
   {
     path: '/:pathMatch(.*)',

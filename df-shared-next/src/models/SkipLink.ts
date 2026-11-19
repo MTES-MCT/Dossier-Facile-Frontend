@@ -1,4 +1,5 @@
 import type { DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
+import type { ComposerTranslation } from "vue-i18n"
 
 export interface SkipLink {
   id: string
@@ -34,4 +35,19 @@ export const FUNNEL_SKIP_LINKS: DsfrSkipLinksProps = {
     { id: 'step-content', text: "Contenu de l'étape" },
     FOOTER_NAVIGATION
   ]
+}
+
+export const localizeSkipLinks = (links: SkipLink[] | undefined, t: ComposerTranslation) => {
+  if (!links?.length) return
+  const skipLinks: SkipLink[] = []
+
+  links.forEach((link) => {
+    const skipLink = {
+      id: link.id,
+      text: t(`skipLinks.${link.id}`)
+    }
+    skipLinks.push(skipLink)
+  })
+
+  return skipLinks
 }

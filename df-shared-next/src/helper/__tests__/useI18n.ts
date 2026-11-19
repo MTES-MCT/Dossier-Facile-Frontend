@@ -2,10 +2,6 @@ import { createI18n, type I18nOptions } from 'vue-i18n'
 
 type TestMessages = Record<string, Record<string, unknown>>
 
-type TestTranslator = {
-  t: (key: string, params?: Record<string, unknown>) => string
-}
-
 export function useI18nForTest(
   componentSource: string,
   locale: string = 'fr'
@@ -32,12 +28,11 @@ export function useI18nForTest(
     messages
   })
 
-  const translator = i18n.global as unknown as TestTranslator
-
-  const t = (
-    key: string,
-    params?: Record<string, unknown>
-  ): string => translator.t(key, params)
+  const t = (key: string, params?: Record<string, unknown>): string =>
+    (i18n.global as unknown as { t: (key: string, params?: Record<string, unknown>) => string }).t(
+      key,
+      params
+    )
 
   return {
     i18n,

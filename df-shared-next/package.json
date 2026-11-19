@@ -21,11 +21,13 @@
   },
   "peerDependencies": {
     "@gouvfr/dsfr": "catalog:",
+    "@unhead/vue": "catalog:",
     "@vee-validate/i18n": "catalog:",
     "@vee-validate/rules": "catalog:",
     "axios": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:",
+    "vue-router": "catalog:",
     "vue-i18n": "catalog:",
     "dayjs": "catalog:"
   },
@@ -38,7 +40,6 @@
     "@vue/eslint-config-typescript": "catalog:",
     "@vue/test-utils": "catalog:",
     "@vue/tsconfig": "catalog:",
-    "@vitest/eslint-plugin": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
     "jsdom": "catalog:",

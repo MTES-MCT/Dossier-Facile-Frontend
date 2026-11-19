@@ -1,6 +1,7 @@
 import { writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
-import type { Plugin, ResolvedConfig } from 'vite'
+
+import type { Plugin } from 'vite'
 
 export type RobotsPluginOptions = {
   environment?: string | null
@@ -10,35 +11,30 @@ export type RobotsPluginOptions = {
 const defaultContent = ['User-agent: *', 'Disallow: /', '']
 
 export const createRobotsTxtPlugin = ({
+  // default to prod if not set
   environment = process.env.VITE_ENVIRONMENT ?? 'prod',
   disallowAllContent = defaultContent
-}: RobotsPluginOptions = {}) => {
+}: RobotsPluginOptions = {}): Plugin => {
   let outDir: string
   let root: string
-
-  const configResolved = (config: ResolvedConfig): void => {
-    outDir = config.build.outDir
-    root = config.root
-  }
-
-  const closeBundle = async (): Promise<void> => {
-    if (environment === 'preprod') {
-      const robotsPath = resolve(root, outDir, 'robots.txt')
-
-      await writeFile(
-        robotsPath,
-        disallowAllContent.join('\n'),
-        'utf8'
-      )
-    }
-  }
 
   return {
     name: 'environment-robots',
     apply: 'build',
-    configResolved,
-    closeBundle
-  } satisfies Plugin
+    configResolved(config) {
+      outDir = config.build.outDir
+      root = config.root
+    },
+    async closeBundle() {
+      if (environment === 'preprod') {
+        // overwrite a disallow-all robots.txt file for non-prod environments
+        const robotsPath = resolve(root, outDir, 'robots.txt')
+
+        await writeFile(robotsPath, disallowAllContent.join('\n'), 'utf8')
+      }
+    }
+  }
 }
 
 export default createRobotsTxtPlugin
+

@@ -123,7 +123,13 @@
             </template>
           </ul>
         </div>
-        <nav id="main-nav" class="fr-nav" role="navigation" aria-label="Menu principal">
+        <nav
+          id="main-nav"
+          class="fr-nav"
+          role="navigation"
+          aria-label="Menu principal"
+          tabindex="-1"
+        >
           <slot></slot>
         </nav>
       </div>
