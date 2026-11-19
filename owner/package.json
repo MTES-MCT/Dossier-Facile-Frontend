@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=24"
+    "node": ">=26"
   },
   "scripts": {
     "dev": "vite",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",
-    "@tsconfig/node24": "catalog:",
+    "@tsconfig/node26": "catalog:",
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/eslint-config-prettier": "catalog:",

@@ -182,9 +182,9 @@ catalogs:
     '@sentry/vue':
       specifier: 11.8.0
       version: 11.8.0
-    '@tsconfig/node24':
-      specifier: 24.0.5
-      version: 24.0.5
+    '@tsconfig/node26':
+      specifier: 26.0.2
+      version: 26.0.2
     '@types/jsdom':
       specifier: 30.0.0
       version: 30.0.0
@@ -504,9 +504,9 @@ importers:
       '@intlify/unplugin-vue-i18n':
         specifier: 'catalog:'
         version: 11.2.6(rollup@4.59.0)(supports-color@8.1.1)(typescript@5.9.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.25.12)(jiti@2.7.0)(sass@1.105.2)(terser@5.51.2)(yaml@2.9.1))(vue-i18n@11.4.15(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
-      '@tsconfig/node24':
+      '@tsconfig/node26':
         specifier: 'catalog:'
-        version: 24.0.5
+        version: 26.0.2
       '@types/node':
         specifier: 'catalog:'
         version: 26.6.5
@@ -692,9 +692,9 @@ importers:
       '@intlify/unplugin-vue-i18n':
         specifier: 'catalog:'
         version: 11.2.6(rollup@4.59.0)(supports-color@8.1.1)(typescript@5.9.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.25.12)(jiti@2.7.0)(sass@1.105.2)(terser@5.51.2)(yaml@2.9.1))(vue-i18n@11.4.15(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
-      '@tsconfig/node24':
+      '@tsconfig/node26':
         specifier: 'catalog:'
-        version: 24.0.5
+        version: 26.0.2
       '@types/jsdom':
         specifier: 'catalog:'
         version: 30.0.0
@@ -877,9 +877,9 @@ importers:
       '@intlify/unplugin-vue-i18n':
         specifier: 'catalog:'
         version: 11.2.6(rollup@4.59.0)(supports-color@8.1.1)(typescript@5.9.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.25.12)(jiti@2.7.0)(sass@1.105.2)(terser@5.51.2)(yaml@2.9.1))(vue-i18n@11.4.15(vue@3.5.44(typescript@5.9.2)))(vue@3.5.44(typescript@5.9.2))
-      '@tsconfig/node24':
+      '@tsconfig/node26':
         specifier: 'catalog:'
-        version: 24.0.5
+        version: 26.0.2
       '@types/jsdom':
         specifier: 'catalog:'
         version: 30.0.0
@@ -2832,8 +2832,8 @@ packages:
     resolution: {integrity: sha512-/67zpWDBLV+oYAEL682s1ktXL0HgqX76f6gaVGkGnVZlBbm1zd0v4Bz8MFF2GGhoX9rvfq3KSQHubFHwa6w6/Q==}
     engines: {node: '>=12'}
 
-  '@tsconfig/node24@24.0.5':
-    resolution: {integrity: sha512-DWC54fGPuhZgg3Ighg4Y/A/bA3ZdB5hnzAuv/MkQ/X85sVsBsMQxu8t7khutdYeiNksBbFdDyeqv1HSW2Zl8aA==}
+  '@tsconfig/node26@26.0.2':
+    resolution: {integrity: sha512-RIBSoNGQxUQ8r4hSrEzS6TrUneoKaCuX6BjL4zF3wqttGq2w06zCea4d8P1gRvM/HZyDT1FQJ8trZSyy/63oMg==}
 
   '@tybys/wasm-util@0.10.5':
     resolution: {integrity: sha512-dOGOPxlaNV+G046mZzN+9C0dAcQZeSKcXiVaM0TYy/LM4ttTmgSBDxYfovcYI8Em3+eAbiAYpvWLOv8+ZVRJKA==}
@@ -8148,7 +8148,7 @@ snapshots:
       magic-string: 0.30.21
       string.prototype.matchall: 4.1.0
 
-  '@tsconfig/node24@24.0.5': {}
+  '@tsconfig/node26@26.0.2': {}
 
   '@tybys/wasm-util@0.10.5':
     dependencies:
