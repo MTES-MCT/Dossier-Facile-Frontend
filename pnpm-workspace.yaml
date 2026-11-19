@@ -5,7 +5,6 @@ packages:
   - watermark
   - df-shared-next
   - e2e-tests
-  - storybook
 
 minimumReleaseAge: 2880
 
@@ -80,8 +79,6 @@ overrides:
   brace-expansion: 5.0.7
   minimatch: 10.2.3
   rollup: 4.59.0
-  uuid: 14.0.0
-  "@cypress/request>uuid": 8.3.2
   "@babel/core": 7.29.6
   form-data: 4.0.6
   tmp: 0.2.7

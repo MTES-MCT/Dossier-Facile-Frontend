@@ -45,7 +45,6 @@ Depuis la racine du monorepo :
 | `pnpm dev:tenant`    | Application locataire et site vitrine                 |
 | `pnpm dev:owner`     | Application propriétaire et site vitrine              |
 | `pnpm dev:watermark` | FiligraneFacile                                       |
-| `pnpm dev:storybook` | Storybook                                             |
 | `pnpm dev:e2e`       | Interface Cypress pour les tests E2E locaux           |
 
 Les quatre applications peuvent également être lancées depuis leur dossier avec `pnpm dev`.

@@ -23,7 +23,6 @@ Ce monorepo héberge les interfaces web de DossierFacile, ainsi que celle de **F
 | `www` | Site vitrine |
 | `watermark` | App FiligraneFacile  - standalone app de filigranage de document |
 | `df-shared-next` | Lib partagée : composants, modèles TS, services, validateurs, plugins (consent, robots, Crisp) |
-| `storybook` | Documentation des composants |
 | `e2e-tests` | Tests Cypress |
 
 Commandes depuis la racine : `pnpm install`, puis `pnpm --filter <package> dev | build | test:unit | lint | tsc`.
