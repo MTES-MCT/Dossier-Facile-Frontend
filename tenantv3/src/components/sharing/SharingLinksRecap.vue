@@ -13,12 +13,15 @@
         <p class="fr-h5 fr-text-title--blue-france">{{ totalVisits }}</p>
         <p class="fr-text--md bold">{{ t('file-consultations') }}</p>
         <p class="fr-text--xs text-grey">
-          {{ t('since', [firstVisit.format('DD MMMM YYYY')]) }}
+          {{ t('since', [d(firstVisit, 'short')]) }}
         </p>
       </div>
     </div>
     <p class="fr-mb-0 fr-mt-2w display--flex">
-      <a href="#sharing-history" class="blue-text fr-mx-auto" @click="AnalyticsService.sharingGoToDetailsAll()"
+      <a
+        href="#sharing-history"
+        class="blue-text fr-mx-auto"
+        @click="AnalyticsService.sharingGoToDetailsAll()"
         >{{ t('see-more') }}
         <RiArrowDownLine aria-hidden="true" size="1rem" />
       </a>
@@ -39,24 +42,21 @@ import FileStatusBadge from './FileStatusBadge.vue'
 
 const { links } = defineProps<{ links: ApartmentSharingLink[] }>()
 
-const { t } = useI18n()
+const { t, d } = useI18n()
 const store = useTenantStore()
 
-const now = dayjs()
+const now = new Date()
 
 const totalActiveShares = computed(
   () => links.filter((l) => !l.deleted && dayjs(l.expirationDate).isAfter(now)).length
 )
 const totalVisits = computed(() => links.reduce((s, l) => s + l.nbVisits, 0))
 const firstVisit = computed(() => {
-  let date = now
-  for (const link of links) {
-    const linkDate = dayjs(link.creationDate)
-    if (linkDate.isBefore(date)) {
-      date = linkDate
-    }
-  }
-  return date
+  const earliest = links
+    .map((l) => new Date(l.creationDate).getTime())
+    .filter((time) => !Number.isNaN(time))
+    .reduce((min, time) => Math.min(min, time), now.getTime())
+  return new Date(earliest)
 })
 </script>
 
@@ -78,7 +78,7 @@ const firstVisit = computed(() => {
 }
 </style>
 
-<i18n>
+<i18n lang="json">
 {
   "en": {
     "file-validated": "File validated",
