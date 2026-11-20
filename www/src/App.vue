@@ -8,6 +8,7 @@ import A11yNavigation from 'df-shared-next/src/components/A11yNavigation.vue'
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue'
 import { type DsfrSkipLinksProps } from '@gouvminint/vue-dsfr'
 import { MAIN_NAV, CONTENT } from 'df-shared-next/src/models/SkipLink'
+import { SITE_TITLE } from 'df-shared-next/src/composables/useSeo'
 import { changeLang, locale } from './i18n'
 import { computed, onBeforeMount, ref, useTemplateRef, provide, nextTick } from 'vue'
 import {
@@ -16,7 +17,6 @@ import {
 } from 'df-shared-next/src/models/injectionKeys'
 
 const MESSAGE = import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ''
-const siteTitle = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
 
 const links: DsfrSkipLinksProps = {
   links: [MAIN_NAV, CONTENT]
@@ -29,7 +29,7 @@ const a11yNavigationRef = useTemplateRef('a11yNavigation')
 const setAccessibilityProperties: AccessibilityPropertiesType = (title, focus = true): void => {
   // set page title for screen readers
   if (title) {
-    pageTitle.value = `Page ${title} - ${siteTitle}`
+    pageTitle.value = `Page ${title} - ${SITE_TITLE}`
   }
   nextTick(() => {
     // focus hidden title container
