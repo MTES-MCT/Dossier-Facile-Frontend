@@ -1,4 +1,4 @@
-import { useHead } from '@unhead/vue'
+import { useHead, useSeoMeta } from '@unhead/vue'
 import type { Ref } from 'vue'
 import { computed, inject, toValue, watch } from 'vue'
 import type { RouteLocationRaw } from 'vue-router'
@@ -14,20 +14,34 @@ const debug = new DebugLogger('useMeta')
 
 type ReactiveInput<T> = Ref<T> | (() => T)
 
-const siteTitle: string = import.meta.env.VITE_SITE_TITLE
+// The fallback matters: VITE_SITE_TITLE is not set in every build environment,
+// and a missing value would render as "undefined" in page titles.
+export const SITE_TITLE: string = import.meta.env.VITE_SITE_TITLE || 'DossierFacile'
+
+/**
+ * Turns a root-relative path ("/contact", "/assets/image.png") into a full URL.
+ * Canonical links and Open Graph images must be full URLs, including in the
+ * pre-rendered HTML, where `window` does not exist: the site URL comes from
+ * VITE_MAIN_URL first, and from the browser only as a fallback.
+ */
+export function toAbsoluteUrl(path: string): string {
+  if (!path.startsWith('/') || path.startsWith('//')) return path
+  const mainUrl: string = import.meta.env.VITE_MAIN_URL || ''
+  const siteUrl = mainUrl.endsWith('/') ? mainUrl.slice(0, -1) : mainUrl
+  const origin = siteUrl || (typeof window === 'undefined' ? '' : window.location.origin)
+  return `${origin}${path}`
+}
 
 export function useCanonicalUrl(
   getRoute?: () => RouteLocationRaw
 ): () => string | null {
   const router = useRouter()
-  const isBrowser = typeof window !== 'undefined'
 
   return () => {
-    if (!getRoute)
-      return isBrowser ? `${window.location.origin}${router.currentRoute.value.path}` : router.currentRoute.value.path
+    if (!getRoute) return toAbsoluteUrl(router.currentRoute.value.path)
     const route = getRoute()
     if (!route) return null
-    return isBrowser ? `${window.location.origin}${router.resolve(route).href}` : router.resolve(route).href
+    return toAbsoluteUrl(router.resolve(route).href)
   }
 }
 
@@ -46,9 +60,11 @@ export function useMeta({
   noIndex?: ReactiveInput<boolean | undefined>
 }) {
   const route = useRoute()
-  const setAccessibilityProperties = inject(
-    AccessibilityPropertiesKey
-  ) as AccessibilityPropertiesType
+  // Only www provides this callback: default to a no-op elsewhere.
+  const setAccessibilityProperties: AccessibilityPropertiesType = inject(
+    AccessibilityPropertiesKey,
+    () => {}
+  )
 
   // Explicit title takes precedence; fall back to route.meta.title for pages
   // that define their title in the router.
@@ -56,7 +72,7 @@ export function useMeta({
 
   const fullTitle = computed(() => {
     const title = resolvedTitle.value
-    return typeof title === 'string' ? `${title} - ${siteTitle}` : siteTitle
+    return title ? `${title} - ${SITE_TITLE}` : SITE_TITLE
   })
 
   if (!resolvedTitle.value) {
@@ -71,39 +87,35 @@ export function useMeta({
     { immediate: true }
   )
 
-  const args = {
+  // An empty value must leave the tag out, not write it empty.
+  const descriptionText = () => toValue(description) || undefined
+  const imageUrl = () => {
+    const imagePath = toValue(image)
+    return imagePath ? toAbsoluteUrl(imagePath) : undefined
+  }
+
+  // useSeoMeta writes each tag with the attribute and name its consumers expect
+  // (property="og:title", name="twitter:title"...) and skips undefined values.
+  useSeoMeta({
     title: () => fullTitle.value,
-    meta: () => {
-      const metaDescription = toValue(description)
-      const imagePath = toValue(image)
-      return [
-        {
-          property: 'og:title',
-          content: fullTitle.value
-        }, {
-          property: 'twitterTitle',
-          content: fullTitle.value
-        },
-        ...(metaDescription
-          ? [
-            { name: 'description', content: metaDescription },
-            { property: 'og:description', content: metaDescription },
-            { property: 'twitterDescription', content: metaDescription }
-          ]
-          : []),
-        ...(toValue(noIndex)
-          ? [{ name: 'robots', content: 'noindex, nofollow' }]
-          : []),
-        ...(imagePath ? [
-          { name: 'og:image', content: imagePath },
-          { name: 'twitter:image', content: imagePath }
-        ] : [])
-      ]
-    },
+    description: descriptionText,
+    ogType: 'website',
+    ogUrl: () => toValue(canonicalUrl) || undefined,
+    ogTitle: () => fullTitle.value,
+    ogDescription: descriptionText,
+    ogImage: imageUrl,
+    // X only shows a preview when the card type is declared.
+    twitterCard: () => (imageUrl() ? 'summary_large_image' : 'summary'),
+    twitterTitle: () => fullTitle.value,
+    twitterDescription: descriptionText,
+    twitterImage: imageUrl,
+    robots: () => (toValue(noIndex) ? 'noindex, nofollow' : undefined)
+  })
+
+  useHead({
     link: () => {
       const url = toValue(canonicalUrl)
       return url ? [{ rel: 'canonical' as const, href: url }] : []
     }
-  }
-  useHead(args)
+  })
 }
