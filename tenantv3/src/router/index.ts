@@ -8,6 +8,7 @@ import {
   MAIN_NAV
 } from 'df-shared-next/src/models/SkipLink'
 import { keycloak } from '../plugin/keycloak'
+import { loadUserIfLoggedIn } from './loadUserIfLoggedIn'
 import Home from '../views/HomePage.vue'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
 import { clearAllToasts } from '@/components/toast/toastUtils'
@@ -1099,6 +1100,8 @@ export const router = createRouter({
         requiresAuth: false,
         skipLinks: { links: [MAIN_NAV, CONTENT] }
       },
+      // Pre-fills the contact form when the page is opened in a new tab by a logged-in tenant
+      beforeEnter: loadUserIfLoggedIn,
       component: () => import('../views/ContactPage.vue')
     },
     {

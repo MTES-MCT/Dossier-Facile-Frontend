@@ -224,6 +224,10 @@ describe('UploadFileFinancialWithAnalysis', () => {
         'document-ia-callout.need-help'
       )
       expect(wrapper.find('[data-test="support-link"]').attributes('href')).toBe('/contact')
+      expect(wrapper.find('[data-test="support-link"]').attributes('target')).toBe('_blank')
+      expect(wrapper.find('[data-test="support-link"]').attributes('title')).toBe(
+        'document-ia-callout.contact-link - new-window'
+      )
       expect(wrapper.find('[data-test="support-link"]').text()).toBe(
         'document-ia-callout.contact-link'
       )

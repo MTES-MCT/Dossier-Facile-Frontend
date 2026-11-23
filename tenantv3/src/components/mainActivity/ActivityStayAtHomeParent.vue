@@ -19,7 +19,7 @@
     </template>
     <template #model>
       <a
-        href="https://www.service-public.fr/simulateur/calcul/AttestationHonneur"
+        href="https://www.service-public.gouv.fr/simulateur/calcul/AttestationHonneur"
         :title="`${t('model')} - ${t('new-window')}`"
         target="_blank"
         >{{ t('model') }}</a

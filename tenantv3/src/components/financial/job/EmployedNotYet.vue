@@ -23,7 +23,10 @@
       <i18n-t keypath="please-provide" tag="p">
         <strong>{{ t('contract-page-' + suffix) }}</strong>
       </i18n-t>
-      <DsfrAlert type="info" small class="fr-mb-2w" :description="t('if-you-dont-know')" />
+      <p class="display--flex fr-mb-2w">
+        <RiInformationLine class="info-icon color--primary fr-mr-1v" aria-hidden="true" />
+        {{ t('if-you-dont-know') }}
+      </p>
     </template>
   </UploadFilesFinancial>
 </template>
@@ -36,7 +39,7 @@ import AlertEmployedNotYet from './AlertEmployedNotYet.vue'
 import { useI18n } from 'vue-i18n'
 import EnterMonthlyIncome from '../lib/EnterMonthlyIncome.vue'
 import { useFinancialState } from '../financialState'
-import { DsfrAlert } from '@gouvminint/vue-dsfr'
+import { RiInformationLine } from '@remixicon/vue'
 
 const { t } = useI18n()
 const parent = useParentRoute()
@@ -44,6 +47,12 @@ const grandparent = useParentRoute(2)
 const ancestor = useParentRoute(3)
 const { suffix, textKey } = useFinancialState()
 </script>
+
+<style scoped>
+.info-icon {
+  flex-shrink: 0;
+}
+</style>
 
 <i18n>
 {

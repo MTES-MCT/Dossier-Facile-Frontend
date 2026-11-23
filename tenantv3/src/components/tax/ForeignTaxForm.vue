@@ -12,7 +12,7 @@
     <li>{{ t('fiscal-year') }}</li>
   </ul>
   <p class="display--flex text-bold fr-mb-1w">
-    <RiInformationFill class="color--primary fr-mr-1v" aria-hidden="true" />
+    <RiInformationLine class="color--primary fr-mr-1v" aria-hidden="true" />
     {{ t('mandatory-translation') }}
   </p>
   <p>{{ t('add-french-translation') }}</p>
@@ -25,7 +25,7 @@ import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import TaxFooter from '@/components/tax/lib/TaxFooter.vue'
 import { useI18n } from 'vue-i18n'
-import { RiInformationFill } from '@remixicon/vue'
+import { RiInformationLine } from '@remixicon/vue'
 import UploadFilesTax from './lib/UploadFilesTax.vue'
 import { useTaxState } from './lib/taxState'
 
