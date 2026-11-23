@@ -31,6 +31,8 @@
       <router-link
         to="/contact"
         class="fr-link"
+        target="_blank"
+        :title="`${t('document-ia-callout.contact-link')} - ${t('new-window')}`"
         @click="AnalyticsService.document_analysis_contact_support()"
       >
         {{ t('document-ia-callout.contact-link') }}

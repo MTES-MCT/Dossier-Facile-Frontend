@@ -22,7 +22,7 @@
     <hr class="banner-separator fr-mt-1w" />
     <p class="explain-link-text">
       {{ t('contact-us.title') }}
-      <a href="/contact">
+      <a href="/contact" target="_blank" :title="`${t('contact-us.button')} - ${t('new-window')}`">
         {{ t('contact-us.button') }}
       </a>
     </p>

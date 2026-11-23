@@ -4,9 +4,12 @@ import ResidencyAnalysisErrorBannerContent from '../residency/lib/ResidencyAnaly
 import BannerSource from '../residency/lib/ResidencyAnalysisErrorBannerContent.vue?raw'
 import { useI18nForTest } from 'df-shared-next/src/helper/__tests__/useI18n'
 import type { DocumentRule } from 'df-shared-next/src/models/DocumentRule'
+import frMessages from '@/locales/fr.json'
 
 const LOCALE = 'fr'
 const { i18n, t } = useI18nForTest(BannerSource, LOCALE)
+// The link title uses the app-wide "new-window" message, which is not in the component block
+i18n.global.mergeLocaleMessage(LOCALE, { 'new-window': frMessages['new-window'] })
 
 describe('ResidencyAnalysisErrorBannerContent', () => {
   const dummyRule: DocumentRule = {
@@ -74,5 +77,14 @@ describe('ResidencyAnalysisErrorBannerContent', () => {
     const pageText = wrapper.text()
     expect(pageText).toContain(t('contact-us.title'))
     expect(pageText).toContain(t('contact-us.button'))
+  })
+
+  it('opens the contact link in a new tab', () => {
+    const wrapper = createWrapper()
+    const contactLink = wrapper.find('a[href="/contact"]')
+    expect(contactLink.attributes('target')).toBe('_blank')
+    expect(contactLink.attributes('title')).toBe(
+      `${t('contact-us.button')} - ${frMessages['new-window']}`
+    )
   })
 })

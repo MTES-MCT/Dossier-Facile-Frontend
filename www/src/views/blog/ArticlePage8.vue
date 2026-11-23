@@ -53,7 +53,7 @@
       par la personne qui vous héberge attestant que vous vivez chez lui sans contrepartie
       financière. Elle doit être accompagnée d’une pièce d’identité et d’un justificatif de domicile
       de votre hébergeur. Vous pouvez trouver comment la remplir sur
-      <a href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement"
+      <a href="https://www.service-public.gouv.fr/simulateur/calcul/AttestationHebergement"
         >le site des services publics</a
       >. N’oubliez pas de la faire signer par votre hébergeur !
     </p>

@@ -14,10 +14,10 @@
   </ul>
   <i18n-t :keypath="textKey + '.recommend-statement'" tag="p">
     <a
-      href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement"
-      :title="`service-public.fr - ${t('new-window')}`"
+      href="https://www.service-public.gouv.fr/simulateur/calcul/AttestationHonneur"
+      :title="`service-public.gouv.fr - ${t('new-window')}`"
       target="_blank"
-      >service-public.fr</a
+      >service-public.gouv.fr</a
     >
   </i18n-t>
   <UploadFiles category="GUEST_COMPANY" />

@@ -14,10 +14,10 @@
   </ul>
   <i18n-t keypath="advice" tag="p">
     <a
-      href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement"
-      :title="`service-public.fr - ${t('new-window')}`"
+      href="https://www.service-public.gouv.fr/simulateur/calcul/AttestationHonneur"
+      :title="`service-public.gouv.fr - ${t('new-window')}`"
       target="_blank"
-      >service-public.fr</a
+      >service-public.gouv.fr</a
     >
   </i18n-t>
 
@@ -60,7 +60,7 @@ const { category, textKey } = useResidencyState()
     "no-proof-title": "S’il n’en a pas, vous pouvez ajouter, au choix :",
     "no-proof-1": "un bulletin de salaire sur lequel le logement de fonction est visible",
     "no-proof-2": "un contrat de travail qui mentionne le logement de fonction",
-    "advice": "Nous vous recommandons d’ajouter également une attestation sur l’honneur expliquant la situation. Vous pouvez utiliser le modèle disponible sur le site {0}",
+    "advice": "Nous vous recommandons d’ajouter également une attestation sur l’honneur expliquant la situation. Vous pouvez utiliser le modèle disponible sur le site {0}.",
     "tenant": {
       "company-proof": "une attestation de l'employeur de votre garant"
     },

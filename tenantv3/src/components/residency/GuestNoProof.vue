@@ -11,7 +11,7 @@
   />
   <i18n-t :keypath="textKey + '.complete-certificate'" tag="p">
     <a
-      href="https://www.service-public.fr/simulateur/calcul/AttestationHebergement"
+      href="https://www.service-public.gouv.fr/simulateur/calcul/AttestationHebergement"
       :title="`${t('this-certificate')} - ${t('new-window')}`"
       target="_blank"
       >{{ t('this-certificate') }}</a

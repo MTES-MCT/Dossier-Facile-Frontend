@@ -65,6 +65,7 @@
             :label="t('link-content')"
             :hint="t('link-content-desc')"
             :options="shareTypeOptions"
+            :default-unselected-text="t('select-option')"
             :class="{ 'fr-input--error': hasSubmitted && shareTypeError }"
             name="shareType"
             @update:model-value="
@@ -235,7 +236,6 @@ const {
 )
 
 const shareTypeOptions = computed(() => [
-  { value: '', text: t('select-option'), disabled: true },
   { value: 'restricted', text: t('file-without-docs') },
   { value: 'full', text: t('file-with-docs') }
 ])
@@ -615,6 +615,7 @@ async function copyLink() {
     "link-copied": "The link has been copied.",
     "field-required": "This field is required",
     "choice-required": "A choice is required.",
+    "invalid-email": "Please enter a valid email address.",
     "message-required": "A message is required.",
     "share-type-without-docs": "Information about your situation, without supporting documents.",
     "share-type-with-docs": "Your complete file, with supporting documents"
