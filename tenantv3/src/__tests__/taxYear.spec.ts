@@ -6,42 +6,42 @@ const year = new Date().getFullYear()
 
 describe('taxYear for tax', () => {
   it('Before 15/09 use the previous year', async () => {
-    expect(getTaxYear(new Date(year, 4, 12))).to.eq(year - 1)
-    expect(getTaxYear(new Date(year, 8, 14))).to.eq(year - 1)
+    expect(getTaxYear(new Date(Date.UTC(year, 4, 12, 12)))).to.eq(year - 1)
+    expect(getTaxYear(new Date(Date.UTC(year, 8, 14, 12)))).to.eq(year - 1)
   })
 
   it('On the 15/09 use the current year', async () => {
-    expect(getTaxYear(new Date(year, 8, 15))).to.eq(year)
+    expect(getTaxYear(new Date(Date.UTC(year, 8, 15, 12)))).to.eq(year)
   })
 
   it('After 15/09 use the current year', async () => {
-    expect(getTaxYear(new Date(year, 8, 16))).to.eq(year)
-    expect(getTaxYear(new Date(year, 10, 7))).to.eq(year)
+    expect(getTaxYear(new Date(Date.UTC(year, 8, 16, 12)))).to.eq(year)
+    expect(getTaxYear(new Date(Date.UTC(year, 10, 7, 12)))).to.eq(year)
   })
 })
 
 describe('getTaxYearPeriod', () => {
   it('Before July 1st returns BEFORE_JULY period', () => {
-    const periodBeforeJuly = getTaxYearPeriod(new Date(year, 5, 30)) // June 30th
+    const periodBeforeJuly = getTaxYearPeriod(new Date(Date.UTC(year, 5, 30, 12))) // June 30th
     expect(periodBeforeJuly.period).toBe('BEFORE_JULY')
     expect(periodBeforeJuly.taxYear).toBe(year - 1)
     expect(periodBeforeJuly.incomeYear).toBe(year - 2)
   })
 
   it('From July 1st to September 14th returns JULY_TO_SEPTEMBER period', () => {
-    const periodJuly = getTaxYearPeriod(new Date(year, 6, 1)) // July 1st
+    const periodJuly = getTaxYearPeriod(new Date(Date.UTC(year, 6, 1, 12))) // July 1st
     expect(periodJuly.period).toBe('JULY_TO_SEPTEMBER')
     expect(periodJuly.taxYear).toBe(year - 1)
     expect(periodJuly.incomeYear).toBe(year - 2)
     expect(periodJuly.nextTaxYear).toBe(year)
     expect(periodJuly.nextIncomeYear).toBe(year - 1)
 
-    const periodSept14 = getTaxYearPeriod(new Date(year, 8, 14)) // Sept 14th
+    const periodSept14 = getTaxYearPeriod(new Date(Date.UTC(year, 8, 14, 12))) // Sept 14th
     expect(periodSept14.period).toBe('JULY_TO_SEPTEMBER')
   })
 
   it('On or after September 15th returns AFTER_SEPTEMBER period', () => {
-    const periodSept15 = getTaxYearPeriod(new Date(year, 8, 15)) // Sept 15th
+    const periodSept15 = getTaxYearPeriod(new Date(Date.UTC(year, 8, 15, 12))) // Sept 15th
     expect(periodSept15.period).toBe('AFTER_SEPTEMBER')
     expect(periodSept15.taxYear).toBe(year)
     expect(periodSept15.incomeYear).toBe(year - 1)
@@ -49,17 +49,29 @@ describe('getTaxYearPeriod', () => {
 })
 
 describe('taxNoticeLabel', () => {
+  it.each([
+    ['2026-09-14T21:59:59Z', '2024-25', 2025],
+    ['2026-09-14T22:00:00Z', '2025-26', 2026]
+  ] as const)(
+    'uses the same Paris cutoff for tax and financial steps at %s',
+    (instant, label, year) => {
+      const date = new Date(instant)
+      expect(getTaxNoticeLabel(date)).toBe(label)
+      expect(getTaxYearPeriod(date).taxYear).toBe(year)
+    }
+  )
+
   it('Before 15/09 formats with previous income year', () => {
-    expect(getTaxNoticeLabel(new Date(year, 4, 12))).to.eq(
+    expect(getTaxNoticeLabel(new Date(Date.UTC(year, 4, 12, 12)))).to.eq(
       `${year - 2}-${String(year - 1).slice(-2)}`
     )
   })
 
   it('On/after 15/09 formats with current notice year', () => {
-    expect(getTaxNoticeLabel(new Date(year, 8, 15))).to.eq(
+    expect(getTaxNoticeLabel(new Date(Date.UTC(year, 8, 15, 12)))).to.eq(
       `${year - 1}-${String(year).slice(-2)}`
     )
-    expect(getTaxNoticeLabel(new Date(year, 10, 7))).to.eq(
+    expect(getTaxNoticeLabel(new Date(Date.UTC(year, 10, 7, 12)))).to.eq(
       `${year - 1}-${String(year).slice(-2)}`
     )
   })

@@ -4,13 +4,16 @@
   "type": "module",
   "description": "End-to-end tests for DossierFacile",
   "scripts": {
+    "tsc": "tsc --noEmit --moduleResolution bundler --skipLibCheck",
     "test": "ELECTRON_EXTRA_LAUNCH_ARGS=--lang=fr cypress run",
+    "test:integration": "ELECTRON_EXTRA_LAUNCH_ARGS=--lang=fr cypress run --config-file cypress-integration.config.ts",
     "cy:open": "ELECTRON_EXTRA_LAUNCH_ARGS=--lang=fr cypress open --browser electron --e2e",
+    "cy:open-integration": "ELECTRON_EXTRA_LAUNCH_ARGS=--lang=fr cypress open --browser electron --e2e --config-file cypress-integration.config.ts",
     "cy:open-preprod": "ELECTRON_EXTRA_LAUNCH_ARGS=--lang=fr cypress open --browser electron --e2e --config-file cypress-preprod.config.ts"
   },
   "dependencies": {
     "axe-core": "4.10.3",
-    "cypress": "15.18.0",
+    "cypress": "16.3.0",
     "cypress-axe": "1.7.0",
     "cypress-wait-until": "3.0.2",
     "df-shared-next": "workspace:*",

@@ -166,10 +166,11 @@ function getSecondTitle(): string {
 }
 
 function getExpectedMonthList(): string[] {
-  const ruleData = props.rule.ruleData as
-    | { expectedMonthList?: string[]; expectedMonths?: string[] }
-    | undefined
-  return ruleData?.expectedMonthList ?? ruleData?.expectedMonths ?? []
+  const ruleData = props.rule.ruleData
+  // The backend names this list differently in the two payslip rules.
+  if (ruleData?.type === 'R_PAYSLIP_CLASSIFICATION') return ruleData.expectedMonths ?? []
+  if (ruleData?.type === 'R_PAYSLIP_CONTINUITY') return ruleData.expectedMonthList ?? []
+  return []
 }
 
 function getMissingMonthList(): string[] {

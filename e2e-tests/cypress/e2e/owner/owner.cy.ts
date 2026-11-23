@@ -53,7 +53,7 @@ describe("basic owner scenario", () => {
   });
 
   it("should error on invalid password token", () => {
-    cy.visit(Cypress.env("ownerUrl") + "/modifier-mot-de-passe/bad_token");
+    cy.visit(Cypress.expose("ownerUrl") + "/modifier-mot-de-passe/bad_token");
     cy.rejectCookies();
     const password = "password1!";
     cy.get("#password").type(password);

@@ -6,9 +6,15 @@
       v-model="explainText"
       :failed-rules="analysisFailedRules ?? []"
       :strategy="strategy"
+      :heading-level="errorHeadingLevel"
       :has-explain-error="showExplainError"
+      @explain-blur="onExplainBlur"
       @custom-event="(eventName) => emit('customEvent', eventName)"
-    />
+    >
+      <template #guidance="slotProps">
+        <slot name="errorGuidance" v-bind="slotProps" />
+      </template>
+    </AnalysisErrorBlock>
   </template>
   <template v-else>
     <DsfrBadge
@@ -128,11 +134,13 @@ const props = withDefaults(
     isUploading?: boolean
     pollingTimeoutMs?: number
     strategy?: BaseAnalysisErrorStrategy
+    errorHeadingLevel?: 2 | 3
   }>(),
   {
     isUploading: false,
     pollingTimeoutMs: POLLING_TIMEOUT_MS,
-    strategy: undefined
+    strategy: undefined,
+    errorHeadingLevel: 3
   }
 )
 

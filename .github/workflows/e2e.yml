@@ -36,16 +36,27 @@ jobs:
         run: pnpm install
 
       - name: Run e2e tests
+        id: ui-tests
         uses: cypress-io/github-action@v7
         with:
           working-directory: e2e-tests
           install: false
           config-file: cypress-preprod.config.ts
           browser: chrome
-          env: configFile=ci
         env:
           CYPRESS_TESTMAIL_API_KEY: ${{ secrets.CYPRESS_TESTMAIL_API_KEY }}
           CYPRESS_TESTMAIL_NAMESPACE: ${{ vars.CYPRESS_TESTMAIL_NAMESPACE }}
+
+      - name: Run real Document IA integrations on preproduction
+        if: ${{ !cancelled() && steps.ui-tests.outcome != 'skipped' }}
+        working-directory: e2e-tests
+        env:
+          CYPRESS_TESTMAIL_NAMESPACE: ${{ vars.CYPRESS_TESTMAIL_NAMESPACE }}
+        # One retry instead of the five used for UI tests: each attempt can wait three minutes
+        # for the analysis, so a Document IA outage should not hold the job for an hour.
+        run: >-
+          pnpm exec cypress run --config-file cypress-preprod.config.ts --browser chrome
+          --config 'specPattern=cypress/integration/**/*.cy.ts,trashAssetsBeforeRuns=false,retries=1'
 
       - name: Upload screenshot
         uses: actions/upload-artifact@v7

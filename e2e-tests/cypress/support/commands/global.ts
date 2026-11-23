@@ -27,8 +27,8 @@ Cypress.Commands.add(
 
     cy.visit(
       type === UserType.TENANT
-        ? Cypress.env("mainUrl")
-        : Cypress.env("ownerUrl")
+        ? Cypress.expose("mainUrl")
+        : Cypress.expose("ownerUrl")
     );
     cy.contains(
       type === UserType.TENANT ? "Espace locataire" : "Se connecter"
@@ -69,10 +69,10 @@ Cypress.Commands.add("expectPath", (path: string) => {
 const NEXT_BTN_TIMEOUT_MS = 40000;
 
 Cypress.Commands.add("clickOnNext", () => {
-  cy.get('[data-cy="next-btn"]', { timeout: NEXT_BTN_TIMEOUT_MS }).should(
-    "not.be.disabled",
-  );
-  cy.get('[data-cy="next-btn"]').click();
+  cy.get('[data-cy="next-btn"]', { timeout: NEXT_BTN_TIMEOUT_MS })
+    .should("not.be.disabled")
+    .and("not.have.attr", "aria-disabled", "true")
+    .click();
 });
 
 Cypress.Commands.add("testAccessibility", () => {
@@ -88,7 +88,7 @@ Cypress.Commands.add("rejectCookies", () => {
 Cypress.Commands.add('ValidateAloneFile', (email: string) => {
   cy.request({
     method: 'POST',
-    url: `${Cypress.env('boUrl')}/api/testing/tenant/${email}/validate`,
+    url: `${Cypress.expose('boUrl')}/api/testing/tenant/${email}/validate`,
     failOnStatusCode: false
   }).then((response) => {
     expect(response.status).to.eq(200)
@@ -98,7 +98,7 @@ Cypress.Commands.add('ValidateAloneFile', (email: string) => {
 Cypress.Commands.add('declineAloneFile', (email: string, messageBody: string, documentCategories: string[] = []) => {
   cy.request({
     method: 'POST',
-    url: `${Cypress.env('boUrl')}/api/testing/tenant/${email}/decline`,
+    url: `${Cypress.expose('boUrl')}/api/testing/tenant/${email}/decline`,
     body: { messageBody, documentCategories },
     failOnStatusCode: false
   }).then((response) => {
@@ -107,7 +107,7 @@ Cypress.Commands.add('declineAloneFile', (email: string, messageBody: string, do
 })
 
 function ignoreErrorsOnSsoPage() {
-  if (Cypress.env("configName") === "local") {
+  if (Cypress.expose("configName") === "local") {
     cy.origin("https://sso-preprod.dossierfacile.fr", () => {
       cy.on("uncaught:exception", (_) => {
         return false;

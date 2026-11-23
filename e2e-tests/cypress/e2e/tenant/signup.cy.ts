@@ -6,7 +6,7 @@ import {
   WELCOME_SUBJECT,
 } from "../../support/mailbox";
 
-const TESTEMAIL = testEmail(Cypress.env("testmailTag"));
+const TESTEMAIL = testEmail(Cypress.expose("testmailTag"));
 const TAG = tagOfEmail(TESTEMAIL);
 const PASSWORD = E2E_PASSWORD;
 const NEW_PASSWORD = "zyxwvu98765!";
@@ -22,8 +22,8 @@ function signup() {
 }
 
 function login(password = PASSWORD) {
-  cy.wrap(Cypress.env("TESTMAIL_API_KEY")).should("exist");
-  cy.visit(Cypress.env("tenantUrl") + "/login");
+  cy.env(["TESTMAIL_API_KEY"]).its("TESTMAIL_API_KEY").should("exist");
+  cy.visit(Cypress.expose("tenantUrl") + "/login");
   cy.get('input[name="username"]').type(TESTEMAIL);
   cy.get('input[name="password"]').type(password);
   cy.get("input[type=submit]").click();
@@ -70,7 +70,7 @@ describe("Test signup process", () => {
   it("should reset the password", () => {
     // The reset link is only valid within an active Keycloak auth session, so
     // start from the login page rather than visiting the reset URL directly
-    cy.visit(Cypress.env("tenantUrl") + "/login");
+    cy.visit(Cypress.expose("tenantUrl") + "/login");
     cy.contains("Mot de passe oublié").click();
 
     // Request the reset email

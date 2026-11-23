@@ -14,9 +14,9 @@
         class="analysis-error-header-icon"
         aria-hidden="true"
       />
-      <h3 class="analysis-error-header-title">
+      <component :is="`h${headingLevel}`" class="analysis-error-header-title">
         {{ strategy.getHeaderTitle(failedRules, t) }}
-      </h3>
+      </component>
     </div>
 
     <div class="analysis-error-body">
@@ -29,9 +29,9 @@
 
       <!-- Expected Document Section -->
       <div class="analysis-error-section fr-mt-2w">
-        <h4 class="analysis-error-section-title fr-text--bold">
+        <component :is="`h${headingLevel + 1}`" class="analysis-error-section-title fr-text--bold">
           {{ t('expected-document-title') }}
-        </h4>
+        </component>
         <p
           v-safe-html="strategy.getExpectedDocumentHtml(failedRules, t)"
           class="analysis-error-expected-text"
@@ -39,13 +39,15 @@
         ></p>
       </div>
 
+      <slot name="guidance" :failed-rules="failedRules" />
+
       <!-- Action section (only if strategy defines an action) -->
       <template v-if="action">
         <hr class="analysis-error-hr fr-pb-0" />
         <div class="analysis-error-section">
-          <h4 class="analysis-error-section-title fr-text--bold">
+          <component :is="`h${headingLevel + 1}`" class="analysis-error-section-title fr-text--bold">
             {{ action.title }}
-          </h4>
+          </component>
           <p class="analysis-error-section-text">
             {{ action.description }}
           </p>
@@ -85,6 +87,7 @@
             :placeholder="t('explain-placeholder')"
             :aria-invalid="isExplainError"
             :aria-describedby="isExplainError ? 'explainText-error explain-info-text' : 'explain-info-text'"
+            @blur="emit('explainBlur')"
           />
           <p v-if="isExplainError" id="explainText-error" class="fr-error-text">
             {{ explainErrorMessage }}
@@ -114,16 +117,18 @@ import { computed, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { BaseAnalysisErrorStrategy } from './strategies/BaseAnalysisErrorStrategy'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   failedRules: DocumentRule[]
   strategy: BaseAnalysisErrorStrategy
   hasExplainError?: boolean
-}>()
+  headingLevel?: 2 | 3
+}>(), { headingLevel: 3 })
 
 const explainTextModel = defineModel<string>({ default: '' })
 
 const emit = defineEmits<{
   customEvent: [eventName: string]
+  explainBlur: []
 }>()
 
 const { t } = useI18n()
@@ -372,6 +377,36 @@ defineExpose({
       "expected-name": "Add a proof of professional activity in the name of <strong>{name}</strong> from <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>",
       "expected-issue-date": "Add a proof of professional activity downloaded before <strong>{minDate}</strong> from <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>",
       "expected-default": "Add a proof of professional activity from <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>"
+    },
+    "tax-errors": {
+      "multiple-title": "Errors detected on the document",
+      "declarative-title": "A declarative situation notice is not accepted",
+      "classification-title": "This document is not a tax notice",
+      "pages-title": "Some pages are missing from the tax notice",
+      "old-year-title": "This tax notice is too old",
+      "year-title": "This tax notice is not for the expected year",
+      "names-title-tenant": "The name {name} on the tax notice does not match yours",
+      "names-title-other": "The name {name} on the tax notice does not match the person concerned",
+      "names-title": "The name on the tax notice does not match the application",
+      "unreadable-title": "The tax notice is unreadable",
+      "unreadable-bullet": "The information on the uploaded notice is blurry or corrupted",
+      "missing-year-bullet": "No notice was found for the required income year",
+      "old-year-bullet": "An uploaded notice is older than the accepted period",
+      "unknown-title": "Your tax notice could not be validated",
+      "declarative-bullet": "Uploaded document: <strong>declarative situation notice</strong> for income tax",
+      "classification-bullet": "Document not recognized as a tax notice",
+      "single-page-bullet": "Tax notice uploaded with only one page",
+      "pages-bullet": "Incomplete tax notice (missing pages)",
+      "year-bullet": "The year of the tax notice could not be validated",
+      "year-with-value-bullet": "<strong>{taxYear}</strong> tax notice on <strong>{incomeYear}</strong> income",
+      "names-bullet": "The name on the tax notice could not be matched to the application",
+      "named-bullet": "Tax notice in the name of <strong>{name}</strong>, which differs from the application",
+      "unknown-bullet": "The automatic check of this tax notice was unsuccessful",
+      "notice-label": "a {taxYear} tax notice on {incomeYear} income",
+      "with-pages": "{document} with all its pages",
+      "or": " or ",
+      "expected-name": " in the name of {name}",
+      "expected": "Add <strong>{document}{name}</strong>, available to download from <a href=\"https://www.impots.gouv.fr\" target=\"_blank\" rel=\"noopener noreferrer\">impots.gouv.fr<span class=\"fr-sr-only\"> (new window)</span></a>."
     }
   },
   "fr": {
@@ -413,6 +448,36 @@ defineExpose({
       "expected-name": "Ajoutez un justificatif d'activité professionnelle au nom de <strong>{name}</strong> depuis <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>",
       "expected-issue-date": "Ajoutez un justificatif d'activité professionnelle téléchargée avant le <strong>{minDate}</strong> depuis <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>",
       "expected-default": "Ajoutez un justificatif d'activité professionnelle depuis <a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">mesdroitssociaux.gouv.fr</a>"
+    },
+    "tax-errors": {
+      "multiple-title": "Des erreurs sont détectées sur le document",
+      "declarative-title": "L'avis de situation déclarative n'est pas accepté",
+      "classification-title": "Ce document n'est pas un avis d'impôt",
+      "pages-title": "Il manque des pages à votre avis d'impôt",
+      "old-year-title": "Cet avis d'impôt est trop ancien",
+      "year-title": "L'année de cet avis d'impôt ne correspond pas à l'année attendue",
+      "names-title-tenant": "Le nom {name} sur l'avis d'impôt ne correspond pas au vôtre",
+      "names-title-other": "Le nom {name} sur l'avis d'impôt ne correspond pas à celui de la personne concernée",
+      "names-title": "Le nom sur l'avis d'impôt ne correspond pas à celui du dossier",
+      "unreadable-title": "L'avis d'impôt est illisible",
+      "unreadable-bullet": "Les informations de l'avis déposé sont floues ou corrompues",
+      "missing-year-bullet": "Aucun avis ne correspond à l'année de revenus attendue",
+      "old-year-bullet": "Un avis déposé est antérieur à la période acceptée",
+      "unknown-title": "Votre avis d'impôt n'a pas pu être validé",
+      "declarative-bullet": "Document déposé : <strong>avis de situation déclarative</strong> à l'impôt sur le revenu",
+      "classification-bullet": "Document non reconnu comme un avis d'impôt",
+      "single-page-bullet": "Avis d'impôt déposé avec une seule page",
+      "pages-bullet": "Avis d'impôt incomplet (pages manquantes)",
+      "year-bullet": "L'année de l'avis d'impôt n'a pas pu être validée",
+      "year-with-value-bullet": "Avis d'impôt <strong>{taxYear}</strong> sur les revenus de <strong>{incomeYear}</strong>",
+      "names-bullet": "Le nom sur l'avis d'impôt n'a pas pu être associé à celui du dossier",
+      "named-bullet": "Avis d'impôt au nom de <strong>{name}</strong> différent de celui du dossier",
+      "unknown-bullet": "La vérification automatique de cet avis d'impôt n'a pas abouti",
+      "notice-label": "un avis d'impôt {taxYear} sur les revenus de {incomeYear}",
+      "with-pages": "{document} avec toutes ses pages",
+      "or": " ou ",
+      "expected-name": " au nom de {name}",
+      "expected": "Ajoutez <strong>{document}{name}</strong>, à télécharger sur <a href=\"https://www.impots.gouv.fr\" target=\"_blank\" rel=\"noopener noreferrer\">impots.gouv.fr<span class=\"fr-sr-only\"> (nouvelle fenêtre)</span></a>."
     }
   }
 }

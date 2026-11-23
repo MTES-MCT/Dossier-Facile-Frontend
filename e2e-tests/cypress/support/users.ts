@@ -44,9 +44,9 @@ const users: { [id: string]: User } = {
 };
 
 export function getTenantUser(): User {
-  return users[Cypress.env("tenantUser")];
+  return users[Cypress.expose("tenantUser")];
 }
 
 export function getOwnerUser(): User {
-  return users[Cypress.env("ownerUser")];
+  return users[Cypress.expose("ownerUser")];
 }

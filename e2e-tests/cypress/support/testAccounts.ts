@@ -10,7 +10,7 @@ export interface TestAccount {
 // Builds a testmail.app address so any email sent to the account stays
 // readable and matches the backend testing API allowlist
 export function testEmail(tag: string): string {
-  const namespace = Cypress.env("TESTMAIL_NAMESPACE");
+  const namespace = Cypress.expose("TESTMAIL_NAMESPACE");
   if (!namespace) {
     throw new Error("Missing TESTMAIL_NAMESPACE environment variable");
   }

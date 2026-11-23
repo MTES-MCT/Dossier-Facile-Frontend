@@ -3,7 +3,7 @@ import { testAccount, testEmail } from "../../support/testAccounts";
 
 describe(
   "residency category",
-  { testIsolation: false, baseUrl: Cypress.env("tenantUrl") },
+  { testIsolation: false, baseUrl: Cypress.expose("tenantUrl") },
   () => {
     before("reset account, login and setup", () => {
       cy.clearAllCookies();

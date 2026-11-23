@@ -45,14 +45,22 @@ Depuis la racine du monorepo :
 | `pnpm dev:tenant`    | Application locataire et site vitrine                 |
 | `pnpm dev:owner`     | Application propriétaire et site vitrine              |
 | `pnpm dev:watermark` | FiligraneFacile                                       |
-| `pnpm dev:e2e`       | Interface Cypress pour les tests E2E locaux           |
 
 Les quatre applications peuvent également être lancées depuis leur dossier avec `pnpm dev`.
 Le package `df-shared-next` est une bibliothèque consommée par les applications et ne possède pas de serveur à lancer.
 
-## Lancer les tests end-to-end
+## Lancer les tests
 
-Démarrez les applications locales, ainsi que les API backend correspondantes, puis lancez `pnpm dev:e2e` pour ouvrir Cypress ou `pnpm --filter e2e-tests test` pour exécuter les tests sans interface.
+| Commande                | Tests lancés                                               | Prérequis                             |
+| ----------------------- | ---------------------------------------------------------- | ------------------------------------- |
+| `pnpm test:unit`        | Tests unitaires de tous les packages                       | Aucun                                 |
+| `pnpm test:component`   | Tests de composants (bloc d'erreur de l'avis d'imposition) | Aucun                                 |
+| `pnpm test:e2e`         | Parcours complets dans les applications                    | Applications et API locales démarrées |
+| `pnpm test:integration` | Analyse réelle des documents par Document IA               | Idem, et Document IA joignable        |
+
+Les trois dernières commandes existent aussi avec le suffixe `:open` (par exemple `pnpm test:e2e:open`) : elles ouvrent la fenêtre Cypress, où l'on choisit un test et où on le regarde s'exécuter.
+
+Le détail est dans [`e2e-tests/README.md`](e2e-tests/README.md).
 
 ## Contexte pour les agents de code (`AGENTS.md`)
 

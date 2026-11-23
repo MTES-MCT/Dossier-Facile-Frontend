@@ -93,7 +93,7 @@ describe("accessibility checks", () => {
   it("Sharing page accessibility", () => {
     cy.tenantLogin(account.email, account.password);
     cy.rejectCookies();
-    cy.visit(Cypress.env("tenantUrl") + "/partages");
+    cy.visit(Cypress.expose("tenantUrl") + "/partages");
     cy.contains("Vos partages").should("exist");
     cy.get("h2").contains("Vos partages");
     cy.testAccessibility();

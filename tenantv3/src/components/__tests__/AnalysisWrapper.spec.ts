@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { config, flushPromises, mount } from '@vue/test-utils'
+import { config, enableAutoUnmount, flushPromises, mount } from '@vue/test-utils'
 import { defineComponent, h, ref } from 'vue'
 import AnalysisWrapper from '../analysis/AnalysisWrapper.vue'
+import { TaxAnalysisErrorStrategy } from '../analysis/strategies/TaxAnalysisErrorStrategy'
 import { AnalysisService, AnalysisStatus } from '@/services/AnalysisService'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { toast } from '@/components/toast/toastUtils'
@@ -9,6 +10,8 @@ import type { DfDocument } from 'df-shared-next/src/models/DfDocument'
 import { SafeHtmlPlugin } from 'df-shared-next/src/services/SanitizeService'
 
 config.global.plugins = [SafeHtmlPlugin]
+
+enableAutoUnmount(afterEach)
 
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
@@ -174,6 +177,90 @@ describe('analysisWrapper', () => {
 
   afterEach(() => {
     vi.useRealTimers()
+  })
+
+  it('saves a tax explanation when leaving before the debounce expires', async () => {
+    const rules = [{ rule: 'R_TAX_BAD_CLASSIFICATION', message: '', level: 'ERROR', ruleData: null }]
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+    const wrapper = mount(AnalysisWrapper, {
+      props: { strategy: new TaxAnalysisErrorStrategy() },
+      global: { stubs: { VIcon: true } }
+    })
+    await flushPromises()
+    await wrapper.get('#explainText').setValue('Mon explication fiscale personnelle')
+    expect(mockSaveDocumentComment).not.toHaveBeenCalled()
+    await wrapper.get('#explainText').trigger('blur')
+    wrapper.unmount()
+    await flushPromises()
+    expect(mockSaveDocumentComment).toHaveBeenCalledWith({
+      documentId: 42, tenantId: 123, comment: 'Mon explication fiscale personnelle'
+    })
+  })
+
+  it('requires a manual tax explanation, forwards guidance and saves before continuing', async () => {
+    const rules = [{ rule: 'R_TAX_BAD_CLASSIFICATION', message: '', level: 'ERROR', ruleData: null }]
+    mockAnalysisResponse(AnalysisStatus.COMPLETED, rules)
+    const wrapper = mount(AnalysisWrapper, {
+      attachTo: document.body,
+      props: { strategy: new TaxAnalysisErrorStrategy() },
+      slots: {
+        errorGuidance: ({ failedRules }) =>
+          h('p', { class: 'tax-guidance' }, failedRules[0]?.rule)
+      },
+      global: { stubs: { VIcon: true } }
+    })
+    await flushPromises()
+    expect(wrapper.get('.tax-guidance').text()).toBe('R_TAX_BAD_CLASSIFICATION')
+    const textarea = wrapper.get<HTMLTextAreaElement>('#explainText')
+    expect(textarea.element.value).toBe('')
+    expect(wrapper.findAll('button')).toHaveLength(0)
+    expect(wrapper.vm.beforeSubmit()).toBe(false)
+    await flushPromises()
+    expect(document.activeElement).toBe(textarea.element)
+    expect(textarea.attributes('aria-invalid')).toBe('true')
+    await textarea.setValue('  court  ')
+    expect(wrapper.vm.beforeSubmit()).toBe(false)
+    await vi.advanceTimersByTimeAsync(1000)
+    expect(mockSaveDocumentComment).not.toHaveBeenCalled()
+    await textarea.setValue('Mon explication fiscale personnelle')
+    expect(wrapper.vm.beforeSubmit()).toBe(true)
+    await wrapper.vm.saveExplanation()
+    expect(mockSaveDocumentComment).toHaveBeenCalledWith({
+      documentId: 42, tenantId: 123, comment: 'Mon explication fiscale personnelle'
+    })
+    wrapper.unmount()
+  })
+
+  it('restores the saved tax explanation and retains edits when saving fails', async () => {
+    const rules = [{ rule: 'R_TAX_NAMES', message: '', level: 'ERROR', ruleData: null }]
+    mockStoreDocument.value = {
+      ...mockStoreDocument.value,
+      documentAnalysisReport: {
+        id: 726,
+        analysisStatus: 'DENIED',
+        failedRules: rules,
+        passedRules: [],
+        inconclusiveRules: [],
+        comment: 'Mon explication déjà enregistrée',
+        createdAt: '2026-09-15T10:00:00.000Z'
+      }
+    }
+    const wrapper = mount(AnalysisWrapper, {
+      props: { strategy: new TaxAnalysisErrorStrategy() },
+      global: { stubs: { VIcon: true } }
+    })
+    await flushPromises()
+    expect(AnalysisService.getDocumentAnalysisStatus).not.toHaveBeenCalled()
+    expect(mockUpdateDocumentAnalysisReport).not.toHaveBeenCalled()
+    expect(wrapper.vm.analysisInProgress).toBe(false)
+    expect(wrapper.vm.analysisFailedRules).toEqual(rules)
+    expect(wrapper.get<HTMLTextAreaElement>('#explainText').element.value).toBe('Mon explication déjà enregistrée')
+    expect(wrapper.vm.beforeSubmit()).toBe(true)
+    mockSaveDocumentComment.mockRejectedValueOnce(new Error('network error'))
+    await wrapper.get('#explainText').setValue('Mon explication modifiée')
+    await expect(wrapper.vm.saveExplanation()).rejects.toThrow('save-failed')
+    expect(wrapper.get<HTMLTextAreaElement>('#explainText').element.value).toBe('Mon explication modifiée')
+    wrapper.unmount()
   })
 
   it('calls getDocumentAnalysisStatus on mount', async () => {

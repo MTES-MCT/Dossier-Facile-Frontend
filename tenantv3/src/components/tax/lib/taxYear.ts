@@ -1,7 +1,12 @@
-import dayjs from 'dayjs'
+import dayjs, { type Dayjs } from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 /**
- * Returns tax year period information for a given date.
+ * Returns the tax year period for the calendar date in Paris.
  *
  * Rules for a given calendar year N (e.g. 2026):
  * 1. Before July 1st (Jan 1 to June 30):
@@ -21,8 +26,8 @@ export interface TaxYearPeriod {
   nextIncomeYear: number
 }
 
-export const getTaxYearPeriod = (date: Date = new Date()): TaxYearPeriod => {
-  const d = dayjs(date)
+export const getTaxYearPeriod = (date: Date | Dayjs = new Date()): TaxYearPeriod => {
+  const d = dayjs(date).tz('Europe/Paris')
   const y = d.year()
   const july1 = d.set('month', 6).set('date', 1)
   const september15 = d.set('month', 8).set('date', 15)
