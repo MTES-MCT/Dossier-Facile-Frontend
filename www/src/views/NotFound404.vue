@@ -63,12 +63,14 @@
 </template>
 
 <script setup lang="ts">
-import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
+import { useMeta } from 'df-shared-next/src/composables/useSeo'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+// An error page must not be indexed, nor declare itself as a canonical page.
 useMeta({
   title: () => t('page-titles.404'),
-  canonicalUrl: useCanonicalUrl()
+  canonicalUrl: () => null,
+  noIndex: () => true
 })
 </script>
