@@ -60,7 +60,7 @@ catalog:
   "@vue/eslint-config-prettier": 10.2.0
   "@vue/eslint-config-typescript": 14.9.0
   "@vue/test-utils": 2.5.1
-  "@gouvminint/vue-dsfr": 8.20.0
+  "@gouvminint/vue-dsfr": 8.21.0
   "lightningcss": 1.33.0
   "browserslist": 4.29.3
   "rollup": "4.59.0"
