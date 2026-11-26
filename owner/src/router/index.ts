@@ -1,5 +1,6 @@
 import * as VueRouter from 'vue-router'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
+import { keycloakLocale } from 'df-shared-next/src/services/KeycloakLocaleService'
 import Dashboard from '../components/DashboardPage.vue'
 import LandingPage from '../components/LandingPage.vue'
 import useOwnerStore from '../store/owner-store'
@@ -301,7 +302,10 @@ router.beforeEach(async (to, _, next) => {
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!keycloak.authenticated) {
-      await keycloak.login({ redirectUri: OWNER_URL + to.fullPath })
+      await keycloak.login({
+        redirectUri: OWNER_URL + to.fullPath,
+        locale: keycloakLocale(lang)
+      })
     }
   }
   if (to.matched.some((record) => record.meta.requiresComplete)) {

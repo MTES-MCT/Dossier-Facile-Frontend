@@ -12,7 +12,7 @@
               {{ t('s0.text2') }}
             </p>
             <p>
-              <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
+              <a :href="registerUrl" class="fr-btn fr-mt-2w">
                 <span class="text-center full-width">
                   {{ t('button') }}
                 </span>
@@ -116,7 +116,7 @@
                 {{ t('docs') }}
               </span>
             </a>
-            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
+            <a :href="registerUrl" class="fr-btn fr-mt-2w">
               <span class="text-center full-width">
                 {{ t('button') }}
               </span>
@@ -197,7 +197,7 @@
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
-            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
+            <a :href="registerUrl" class="fr-btn fr-mt-2w">
               <span class="text-center full-width">
                 {{ t('button') }}
               </span>
@@ -244,13 +244,14 @@ import PartnersList from '@/components/PartnersList.vue'
 
 import { INSTITUTIONAL_PARTNERS, PARTNERS } from '../models/PartnerModel'
 import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
+import { useRegisterUrl } from '@/composables/useRegisterUrl'
 
 const description =
   "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
 
 const { t } = useI18n()
 
-const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
+const registerUrl = useRegisterUrl()
 const DOCS_URL = import.meta.env.VITE_DOCS_URL
 const HELP_URL = 'https://aide.dossierfacile.logement.gouv.fr/fr'
 

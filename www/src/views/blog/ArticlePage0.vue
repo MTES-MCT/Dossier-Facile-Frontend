@@ -70,7 +70,7 @@
             </li>
           </ol>
           <p class="p-btn">
-            <a class="fr-btn" :href="REGISTER_URL">
+            <a class="fr-btn" :href="registerUrl">
               {{ t('button') }}
             </a>
           </p>
@@ -84,9 +84,10 @@
 import { useI18n } from 'vue-i18n'
 import image from '@/assets/cover-features.webp'
 import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
+import { useRegisterUrl } from '@/composables/useRegisterUrl'
 
 const { t } = useI18n()
-const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
+const registerUrl = useRegisterUrl()
 
 const title = 'Créez votre dossier de location en ligne avec DossierFacile'
 const description =
