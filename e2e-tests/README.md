@@ -5,22 +5,23 @@ Four suites, from the lightest to the heaviest:
 | Suite | Command | What it checks | What it needs |
 | --- | --- | --- | --- |
 | Unit | `pnpm test:unit` | Functions and components in isolation, in every package | Nothing |
-| Component | `pnpm test:component` | The tax error block, mounted alone in a browser | Nothing |
+| Component | `pnpm test:component` | The tax error block, mounted alone in a browser | Chromium, installed once |
 | End-to-end | `pnpm test:e2e` | Full user journeys in the applications | The local stack |
 | Document IA integration | `pnpm test:integration` | Real upload and real document analysis | The local stack and Document IA |
 
-The last three use Cypress. Add `:open` to their command (`pnpm test:e2e:open`)
-to open the Cypress window, where you pick a test and watch it run.
+Component tests use Vitest in Chromium, the last two use Cypress. Add `:open` to
+the command of any of these three (`pnpm test:e2e:open`) to open a window where you
+pick a test and watch it run.
 
 ## Strategy
 
 Each suite checks what the cheaper ones cannot:
 
-- **Unit tests own the logic and the wording.** Every sentence shown to the user
-  is asserted here, and only here.
+- **Unit tests own the logic and the edge cases:** wording variants (other
+  applicants, English, tax years, unknown rules) and what happens after a click.
 - **Component tests check what needs a real browser:** layout at desktop and
-  mobile widths, accessibility rules, focus and dialogs. They recognise a case
-  by its title and do not check the other texts.
+  mobile widths, accessibility rules, focus and dialogs. Since they render each
+  visual state anyway, they also own its texts.
 - **End-to-end tests check user journeys across pages:** navigation, saving,
   reloading. In the tax, Visale and payslip scenarios the document analysis is
   simulated, so they do not depend on Document IA.
@@ -55,14 +56,23 @@ declared Cypress 16 support yet. It works.
 No application or backend to start. They also run on every pull request.
 
 ```sh
+pnpm --filter tenantv3 exec playwright install chromium   # once
 pnpm test:component        # run
-pnpm test:component:open   # Cypress window
+pnpm test:component:open   # Vitest window
 ```
 
-The specs are in `tenantv3/cypress/component`. They cover the six tax error
-cases at desktop and mobile widths: layout, heading levels, accessibility rules,
-focus and the confirmation dialog. No check depends on the icons, which the
-application downloads from the Iconify API: the tests also pass offline.
+The specs are the `*.browser.spec.ts` files in `tenantv3/src`, and share their
+test data with the unit tests. They cover the six tax error cases at desktop and
+mobile widths: texts, layout, heading levels, accessibility rules, focus and the
+confirmation dialog.
+
+Each case saves a screenshot in
+`tenantv3/src/components/tax/__tests__/__screenshots__/tax-errors/`. In CI they are
+published as the `tenant-component-screenshots` artifact of the run, kept 7 days
+when the tests fail and 14 days when the "CI" workflow is started by hand from
+the Actions tab, for a design review. No check depends on the icons, which the
+application downloads from the Iconify API: the tests also pass offline, with
+screenshots that lack the icons.
 
 ## End-to-end tests
 
@@ -105,6 +115,11 @@ to see the browser while it runs.
 
 If a service uses another port, override its address for one run, for example
 `--expose boUrl=http://localhost:18081`.
+
+A coding agent can drive the tests without a window: `pnpm test:e2e:agent` starts
+a headless Cypress session, and `cypress tap` runs a spec in it and reads the
+results, the steps, the page HTML and its accessibility tree. The commands are in
+the root `AGENTS.md`.
 
 ### Scenarios that need more than the local stack
 

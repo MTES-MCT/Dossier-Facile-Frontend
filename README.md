@@ -54,11 +54,13 @@ Le package `df-shared-next` est une bibliothèque consommée par les application
 | Commande                | Tests lancés                                               | Prérequis                             |
 | ----------------------- | ---------------------------------------------------------- | ------------------------------------- |
 | `pnpm test:unit`        | Tests unitaires de tous les packages                       | Aucun                                 |
-| `pnpm test:component`   | Tests de composants (bloc d'erreur de l'avis d'imposition) | Aucun                                 |
+| `pnpm test:component`   | Tests de composants (bloc d'erreur de l'avis d'imposition) | Chromium (voir ci-dessous)            |
 | `pnpm test:e2e`         | Parcours complets dans les applications                    | Applications et API locales démarrées |
 | `pnpm test:integration` | Analyse réelle des documents par Document IA               | Idem, et Document IA joignable        |
 
-Les trois dernières commandes existent aussi avec le suffixe `:open` (par exemple `pnpm test:e2e:open`) : elles ouvrent la fenêtre Cypress, où l'on choisit un test et où on le regarde s'exécuter.
+Les trois dernières commandes existent aussi avec le suffixe `:open` (par exemple `pnpm test:e2e:open`) : elles ouvrent une fenêtre où l'on choisit un test et où on le regarde s'exécuter (Vitest pour les tests de composants, Cypress pour les autres).
+
+Les tests de composants tournent dans Chromium : l'installer une fois avec `pnpm --filter tenantv3 exec playwright install chromium`.
 
 Le détail est dans [`e2e-tests/README.md`](e2e-tests/README.md).
 

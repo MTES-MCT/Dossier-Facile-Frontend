@@ -15,6 +15,7 @@
     "test:component:open": "pnpm --filter tenantv3 test:component:open",
     "test:e2e": "pnpm --filter e2e-tests test",
     "test:e2e:open": "pnpm --filter e2e-tests cy:open",
+    "test:e2e:agent": "pnpm --filter e2e-tests cy:open-agent",
     "test:integration": "pnpm --filter e2e-tests test:integration",
     "test:integration:open": "pnpm --filter e2e-tests cy:open-integration"
   },

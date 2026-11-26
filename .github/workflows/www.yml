@@ -47,9 +47,25 @@ jobs:
         if: ${{ matrix.ws == 'www' || matrix.ws == 'tenantv3' || matrix.ws == 'owner' }}
         run: pnpm --filter ${{ matrix.ws }} test:unit
 
+      - name: Install Chromium for tenant component tests
+        if: ${{ matrix.ws == 'tenantv3' }}
+        run: pnpm --filter tenantv3 exec playwright install --with-deps chromium
+
       - name: Run tenant component tests
         if: ${{ matrix.ws == 'tenantv3' }}
         run: pnpm --filter tenantv3 test:component
+
+      - name: Upload tenant component screenshots
+        if: ${{ matrix.ws == 'tenantv3' && (failure() || github.event_name == 'workflow_dispatch') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: tenant-component-screenshots
+          path: |
+            tenantv3/src/**/__screenshots__/
+            tenantv3/.vitest/attachments/failure-screenshots/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: ${{ github.event_name == 'workflow_dispatch' && 14 || 7 }}
 
       - name: Typecheck e2e tests
         if: ${{ matrix.ws == 'tenantv3' }}
