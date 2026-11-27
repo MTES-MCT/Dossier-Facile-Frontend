@@ -49,7 +49,7 @@ describe("decline tenant scenario", () => {
     ]);
 
     // Dashboard surfaces the amendment-required card after a refusal
-    cy.visit(Cypress.env("tenantUrl") + "/account");
+    cy.visit(Cypress.expose("tenantUrl") + "/account");
     cy.contains("Modifications demandées").should("be.visible");
     cy.contains("Consulter ma messagerie").click();
     cy.expectPath("/messaging");
@@ -63,7 +63,7 @@ describe("decline tenant scenario", () => {
     cy.simpleUploadDocumentStep("Autre");
 
     // Resubmit: honor declaration is pre-checked from the first submission
-    cy.visit(Cypress.env("tenantUrl") + "/validation-dossier");
+    cy.visit(Cypress.expose("tenantUrl") + "/validation-dossier");
     cy.validationStep();
     cy.requestFileValidation();
   });

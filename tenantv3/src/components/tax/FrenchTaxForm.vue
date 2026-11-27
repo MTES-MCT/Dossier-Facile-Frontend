@@ -2,63 +2,63 @@
   <p>{{ t(textKey + '.your-situation') }}</p>
   <BackLinkRow :label="t(textKey + '.have-a-tax-notice')" :to="grandParent" />
   <BackLinkRow :label="t('french')" :to="parent" />
-  <AnalysisWrapper ref="analysis-wrapper" :is-uploading="isUploading">
-    <template #analysisBannerError="{ rule, index, currentDocumentLabel, expectedDocumentLabel, notMatchingLabel, explainLinkLabel, onExplain }">
-      <TaxAnalysisErrorBannerContent
-        :rule="rule"
-        :index="index"
-        :current-document-label="currentDocumentLabel"
-        :expected-document-label="expectedDocumentLabel"
-        :not-matching-label="notMatchingLabel"
-        :explain-link-label="explainLinkLabel"
-        @explain="onExplain"
+  <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
+    <strong>{{ taxNoticeInstructionText }}</strong>
+  </i18n-t>
+  <p>
+    <strong>{{ t('warning') }}</strong>
+    {{ t('does-not-replace') }}
+  </p>
+  <DsfrAlert type="info" small class="fr-ml-0 fr-mb-3w">
+    <i18n-t tag="p" :keypath="textKey + '.download-tax-notice'">
+      <a
+        href="https://www.impots.gouv.fr"
+        :title="`impots.gouv.fr - ${t('new-window')}`"
+        target="_blank"
+        >impots.gouv.fr</a
+      >
+    </i18n-t>
+  </DsfrAlert>
+  <DsfrButton
+    icon="ri:eye-line"
+    :icon-right="true"
+    :label="t('see-which-doc')"
+    secondary
+    class="fr-mb-3w"
+    @click="isModalOpened = true"
+  />
+  <DsfrModalPatch v-model:is-opened="isModalOpened" :title="t('modal.sample-docs')" size="xl">
+    <DsfrAlert type="warning" small>
+      {{ t('modal.pay-attention-to-title') }}
+    </DsfrAlert>
+
+    <h2 class="fr-h4 fr-text-default--warning fr-my-1w">
+      {{ t('modal.refused-doc-title') }}
+    </h2>
+    <p>{{ t('modal.refused-doc-text') }}</p>
+
+    <img :src="avisKO" alt="" width="600" />
+
+    <h2 class="fr-h4 fr-text-default--success fr-mb-1w">
+      {{ t('modal.accepted-doc-title') }}
+    </h2>
+    <p>{{ t('modal.accepted-doc-text') }}</p>
+
+    <img :src="avisOK" alt="" width="600" height="850" />
+  </DsfrModalPatch>
+  <AnalysisWrapper
+    ref="analysis-wrapper"
+    :is-uploading="isUploading"
+    :strategy="taxStrategy"
+    :error-heading-level="2"
+  >
+    <template #errorGuidance="{ failedRules }">
+      <TaxAnalysisGuidance
+        :failed-rules="failedRules"
+        :parents-to="{ name: parentsRouteName }"
+        :identity-to="identityRoute"
+        :is-self="isSelf"
       />
-    </template>
-    <template #fileSpecificDescription>
-      <i18n-t tag="p" :keypath="textKey + '.add-tax-notice'">
-        <strong>{{ taxNoticeInstructionText }}</strong>
-      </i18n-t>
-      <p>
-        <strong>{{ t('warning') }}</strong>
-        {{ t('does-not-replace') }}
-      </p>
-      <DsfrAlert type="info" small class="fr-ml-0 fr-mb-3w">
-        <i18n-t tag="p" :keypath="textKey + '.download-tax-notice'">
-          <a
-            href="https://www.impots.gouv.fr"
-            :title="`impots.gouv.fr - ${t('new-window')}`"
-            target="_blank"
-            >impots.gouv.fr</a
-          >
-        </i18n-t>
-      </DsfrAlert>
-      <DsfrButton
-        icon="ri:eye-line"
-        :icon-right="true"
-        :label="t('see-which-doc')"
-        secondary
-        class="fr-mb-3w"
-        @click="isModalOpened = true"
-      />
-      <DsfrModalPatch v-model:is-opened="isModalOpened" :title="t('modal.sample-docs')" size="xl">
-        <DsfrAlert type="warning" small>
-          {{ t('modal.pay-attention-to-title') }}
-        </DsfrAlert>
-
-        <h2 class="fr-h4 fr-text-default--warning fr-my-1w">
-          {{ t('modal.refused-doc-title') }}
-        </h2>
-        <p>{{ t('modal.refused-doc-text') }}</p>
-
-        <img :src="avisKO" alt="" width="600" />
-
-        <h2 class="fr-h4 fr-text-default--success fr-mb-1w">
-          {{ t('modal.accepted-doc-title') }}
-        </h2>
-        <p>{{ t('modal.accepted-doc-text') }}</p>
-
-        <img :src="avisOK" alt="" width="600" height="850" />
-      </DsfrModalPatch>
     </template>
     <template #fileUploader>
       <UploadFileTaxWithAnalysis
@@ -85,25 +85,40 @@ import { useParentRoute } from '@/components/common/lib/useParentRoute'
 import AnalysisFooter from '@/components/footer/AnalysisFooter.vue'
 import BackLinkRow from '@/components/tax/lib/TaxBackLinkRow.vue'
 import { useTaxState } from '@/components/tax/lib/taxState'
+import { useTenantStore } from '@/stores/tenant-store'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { DsfrAlert, DsfrButton } from '@gouvminint/vue-dsfr'
 import DsfrModalPatch from 'df-shared-next/src/components/patches/DsfrModalPatch.vue'
 import { computed, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter, type RouteLocationRaw } from 'vue-router'
 import AnalysisWrapper from '../analysis/AnalysisWrapper.vue'
 import { useDocumentFormKey } from '../documents/documentFormState'
 import UploadFileTaxWithAnalysis, {
   type UploadFileTaxWithAnalysisExposed
 } from './lib/UploadFileTaxWithAnalysis.vue'
-import TaxAnalysisErrorBannerContent from './lib/analysisBanner/TaxAnalysisErrorBannerContent.vue'
+import { TaxAnalysisErrorStrategy } from '../analysis/strategies/TaxAnalysisErrorStrategy'
+import TaxAnalysisGuidance from './lib/TaxAnalysisGuidance.vue'
 import { getTaxYearPeriod } from './lib/taxYear'
 
 const { t } = useI18n()
 const router = useRouter()
+const route = useRoute()
 const parent = useParentRoute()
 const grandParent = useParentRoute(2)
-const { textKey } = useDocumentFormKey()
+const { textKey, document } = useDocumentFormKey()
+const store = useTenantStore()
+const isSelf = computed(
+  () =>
+    textKey === 'tenant' &&
+    (store.user.tenantType !== 'CREATE' || store.user.ownerType !== 'THIRD_PARTY')
+)
+const parentsRouteName = {
+  tenant: 'TenantTaxSansAvisParents',
+  couple: 'CoupleTaxSansAvisParents',
+  guarantor: 'GuarantorTaxSansAvisParents',
+  'couple-guarantor': 'TenantGuarantorTaxSansAvisParents'
+}[textKey]
 const { previousStep, nextStep, category: stateCategory } = useTaxState()
 
 const uploadFileTaxWithAnalysis = useTemplateRef<UploadFileTaxWithAnalysisExposed>(
@@ -116,14 +131,37 @@ const isUploading = computed(() => uploadFileTaxWithAnalysis.value?.isUploading 
 const analysisInProgress = computed(() => analysisWrapper.value?.analysisInProgress ?? false)
 
 const taxYearPeriod = getTaxYearPeriod()
+const taxStrategy = computed(() => {
+  const files = document.value?.files ?? []
+  const pageCount =
+    files.length > 0 && files.every((file) => file.numberOfPages !== undefined)
+      ? files.reduce((sum, file) => sum + (file.numberOfPages ?? 0), 0)
+      : undefined
+  return new TaxAnalysisErrorStrategy({
+    period: taxYearPeriod,
+    pageCount,
+    isSelf: isSelf.value
+  })
+})
+const identityRoute = computed<RouteLocationRaw | undefined>(() => {
+  if (isSelf.value && store.isFranceConnected) return undefined
+  const { tenantId, guarantorId, step } = route.params
+  switch (textKey) {
+    case 'couple':
+      return { name: 'CoupleName', params: { tenantId, step } }
+    case 'guarantor':
+      return { name: 'GuarantorName', params: { guarantorId } }
+    case 'couple-guarantor':
+      return { name: 'TenantGuarantorName', params: { tenantId, guarantorId, step } }
+    default:
+      return { name: 'TenantName' }
+  }
+})
 
 const taxNoticeInstructionText = computed(() => {
   switch (taxYearPeriod.period) {
     case 'BEFORE_JULY':
-      return t('this-year-tax.before-july', [
-        taxYearPeriod.taxYear,
-        taxYearPeriod.incomeYear
-      ])
+      return t('this-year-tax.before-july', [taxYearPeriod.taxYear, taxYearPeriod.incomeYear])
     case 'JULY_TO_SEPTEMBER':
       return t('this-year-tax.july-to-september', [
         taxYearPeriod.taxYear,
@@ -132,10 +170,7 @@ const taxNoticeInstructionText = computed(() => {
         taxYearPeriod.nextIncomeYear
       ])
     case 'AFTER_SEPTEMBER':
-      return t('this-year-tax.after-september', [
-        taxYearPeriod.taxYear,
-        taxYearPeriod.incomeYear
-      ])
+      return t('this-year-tax.after-september', [taxYearPeriod.taxYear, taxYearPeriod.incomeYear])
     default:
       return ''
   }
@@ -147,39 +182,6 @@ async function submit() {
   await router.push(nextStep)
 }
 </script>
-
-<style scoped>
-.large-btn {
-  justify-content: center;
-  flex-grow: 1;
-  @media (min-width: 768px) {
-    flex-grow: 0;
-    width: 6rem;
-  }
-}
-.error-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  background-color: #ffe9e6;
-  border-radius: 4px;
-  padding: 0 0.5rem;
-  width: fit-content;
-}
-
-.badge-icon {
-  width: 1rem;
-  height: 1rem;
-}
-
-.badge-text {
-  font-weight: 700;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  color: #b34000;
-  text-transform: uppercase;
-}
-</style>
 
 <i18n lang="json">
 {

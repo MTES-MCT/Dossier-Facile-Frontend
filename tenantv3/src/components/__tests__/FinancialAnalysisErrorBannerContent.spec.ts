@@ -57,7 +57,7 @@ describe('FinancialAnalysisErrorBannerContent', () => {
       level: 'ERROR',
       ruleData: {
         type: 'R_PAYSLIP_CLASSIFICATION',
-        expectedMonthList: ['2026-04', '2026-03'],
+        expectedMonths: ['2026-04', '2026-03'],
         entriesInError: [
           { fileId: 1, fileName: 'file-a.pdf' },
           { fileId: 2, fileName: 'file-b.pdf' }
@@ -71,7 +71,8 @@ describe('FinancialAnalysisErrorBannerContent', () => {
     expect(wrapper.text()).toContain('file-a.pdf')
     expect(wrapper.text()).toContain('file-b.pdf')
 
-    expect(wrapper.find('[data-test="month-description"]').exists()).toBe(true)
+    // `expectedMonths` is the field name the backend sends for this rule.
+    expect(wrapper.get('[data-test="month-description"]').text()).toBe('month:2026-04,2026-03')
     expect(wrapper.find('[data-test="identity-description"]').exists()).toBe(false)
     expect(wrapper.find('[data-test="missing-month-description"]').exists()).toBe(false)
   })

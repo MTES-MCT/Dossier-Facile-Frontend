@@ -2,7 +2,7 @@ import { getTenantUser, UserType } from "../../support/users";
 
 describe("change password scenario", () => {
   it("Join group - should error on invalid password token", () => {
-    cy.visit(Cypress.env("tenantUrl") + "/ajout-groupe/bad_token");
+    cy.visit(Cypress.expose("tenantUrl") + "/ajout-groupe/bad_token");
     cy.rejectCookies();
     const password = "password1!";
     cy.get("#password").type(password);
@@ -18,7 +18,7 @@ describe("change password scenario", () => {
   });
 
   it("Join couple - should error on invalid password token", () => {
-    cy.visit(Cypress.env("tenantUrl") + "/ajout-couple/bad_token");
+    cy.visit(Cypress.expose("tenantUrl") + "/ajout-couple/bad_token");
     cy.rejectCookies();
     const password = "password1!";
     cy.get("#password").type(password);

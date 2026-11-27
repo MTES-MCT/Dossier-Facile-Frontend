@@ -68,7 +68,7 @@ describe("alone tenant scenario", () => {
     cy.get("#firstname").clear().type("Jacques");
     cy.clickOnNext();
 
-    cy.visit(Cypress.env("tenantUrl") + "/liste-garants");
+    cy.visit(Cypress.expose("tenantUrl") + "/liste-garants");
     cy.contains("Durand").should("be.visible");
 
     // Delete the second guarantor; the renamed first one must remain
@@ -90,7 +90,7 @@ describe("alone tenant scenario", () => {
 
     cy.ValidateAloneFile(account.email);
 
-    cy.visit(Cypress.env("tenantUrl") + "/partages");
+    cy.visit(Cypress.expose("tenantUrl") + "/partages");
     cy.contains("Dossier validé", { timeout: 10000 }).should("exist");
     cy.testAccessibility();
 

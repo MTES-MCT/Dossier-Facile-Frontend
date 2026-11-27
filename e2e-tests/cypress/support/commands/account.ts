@@ -6,7 +6,7 @@ import type { TestAccount } from "../testAccounts";
 Cypress.Commands.add("resetTestAccount", (email: string) => {
   cy.request({
     method: "DELETE",
-    url: `${Cypress.env("boUrl")}/api/testing/user/${email}`,
+    url: `${Cypress.expose("boUrl")}/api/testing/user/${email}`,
     failOnStatusCode: false,
   }).then((response) => {
     expect(response.status).to.be.oneOf([200, 404]);
@@ -14,7 +14,7 @@ Cypress.Commands.add("resetTestAccount", (email: string) => {
 });
 
 Cypress.Commands.add("signupTenant", (email: string, password: string) => {
-  cy.visit(Cypress.env("tenantUrl") + "/login");
+  cy.visit(Cypress.expose("tenantUrl") + "/login");
   cy.contains("S'inscrire").click();
   cy.expectPath("/registration");
   cy.get('input[name="email"]').type(email);
@@ -35,7 +35,14 @@ Cypress.Commands.add("tenantLogin", (email: string, password: string) => {
   // Drop any pending Keycloak auth session (left by the signup flow) so the
   // login form is always displayed
   cy.clearAllCookies();
-  cy.visit(Cypress.env("tenantUrl") + "/login");
+  // The local Keycloak theme reads this cookie to initialize its language and
+  // throws without it. Set it so the login page renders in French.
+  if (Cypress.expose("configName") === "local") {
+    cy.setCookie("lang", "fr", {
+      domain: new URL(Cypress.expose("tenantUrl")).hostname,
+    });
+  }
+  cy.visit(Cypress.expose("tenantUrl") + "/login");
   //cy.pause()
   cy.get('input[name="username"]').type(email);
   cy.get('input[name="password"]').type(password);
@@ -61,7 +68,7 @@ Cypress.Commands.add("createTestAccount", (account: TestAccount) => {
   cy.resetTestAccount(account.email);
   cy.request({
     method: "POST",
-    url: `${Cypress.env("boUrl")}/api/testing/users`,
+    url: `${Cypress.expose("boUrl")}/api/testing/users`,
     body: { email: account.email, password: account.password },
   })
     .its("status")

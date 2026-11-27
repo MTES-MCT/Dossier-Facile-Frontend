@@ -1,6 +1,6 @@
 import { testAccount } from "../../support/testAccounts";
 
-const DEMO_URL = Cypress.env("dfConnectDemoUrl");
+const DEMO_URL = Cypress.expose("dfConnectDemoUrl");
 
 describe("partner sharing scenario (DFConnect)", () => {
   const account = testAccount("e2e-partner");
@@ -27,7 +27,7 @@ describe("partner sharing scenario (DFConnect)", () => {
     cy.contains("/dfc/tenant/profile").should("exist");
 
     // Back on the tenant app: the PARTNER link is now listed
-    cy.visit(Cypress.env("tenantUrl") + "/partages");
+    cy.visit(Cypress.expose("tenantUrl") + "/partages");
     cy.contains(".share-item", "Partagé avec", { timeout: 5000 }).should(
       "exist",
     );

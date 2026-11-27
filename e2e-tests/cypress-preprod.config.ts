@@ -3,10 +3,15 @@ import { log } from "./cypress/support/accessibility";
 import { forceFrenchLocale } from "./cypress/support/browserLocale";
 
 export default defineConfig({
+  fixturesFolder: "assets",
   e2e: {
     video: true,
     defaultCommandTimeout: 10000,
-    setupNodeEvents(on) {
+    setupNodeEvents(on, config) {
+      // CI supplies the public mailbox namespace through CYPRESS_TESTMAIL_NAMESPACE.
+      if (config.env.TESTMAIL_NAMESPACE) {
+        config.expose.TESTMAIL_NAMESPACE = config.env.TESTMAIL_NAMESPACE;
+      }
       on("before:browser:launch", (browser, launchOptions) => {
         forceFrenchLocale(browser, launchOptions);
         return launchOptions;
@@ -14,13 +19,14 @@ export default defineConfig({
       on("task", {
         ...log(),
       });
+      return config;
     },
     retries: {
       runMode: 5,
     },
     excludeSpecPattern: "**/accessibility.cy.ts",
   },
-  env: {
+  expose: {
     configName: "preprod",
     mainUrl: "https://www-preprod.dossierfacile.fr",
     tenantUrl: "https://locataire-preprod.dossierfacile.fr",

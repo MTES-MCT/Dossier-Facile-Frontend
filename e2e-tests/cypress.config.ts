@@ -3,10 +3,15 @@ import { log } from "./cypress/support/accessibility";
 import { forceFrenchLocale } from "./cypress/support/browserLocale";
 
 export default defineConfig({
+  fixturesFolder: "assets",
   e2e: {
     video: false,
     defaultCommandTimeout: 5000,
-    setupNodeEvents(on) {
+    setupNodeEvents(on, config) {
+      // CI supplies the public mailbox namespace through CYPRESS_TESTMAIL_NAMESPACE.
+      if (config.env.TESTMAIL_NAMESPACE) {
+        config.expose.TESTMAIL_NAMESPACE = config.env.TESTMAIL_NAMESPACE;
+      }
       on("before:browser:launch", (browser, launchOptions) => {
         forceFrenchLocale(browser, launchOptions);
         return launchOptions;
@@ -14,9 +19,10 @@ export default defineConfig({
       on("task", {
         ...log(),
       });
+      return config;
     },
   },
-  env: {
+  expose: {
     configName: "local",
     mainUrl: "http://localhost:9001",
     tenantUrl: "http://localhost:9002",

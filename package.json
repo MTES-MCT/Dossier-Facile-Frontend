@@ -10,7 +10,14 @@
     "dev:tenant": "pnpm --parallel --filter www --filter tenantv3 dev",
     "dev:owner": "pnpm --parallel --filter www --filter owner dev",
     "dev:watermark": "pnpm --filter watermark dev",
-    "dev:e2e": "pnpm --filter e2e-tests cy:open"
+    "test:unit": "pnpm -r --if-present test:unit --run",
+    "test:component": "pnpm --filter tenantv3 test:component",
+    "test:component:open": "pnpm --filter tenantv3 test:component:open",
+    "test:e2e": "pnpm --filter e2e-tests test",
+    "test:e2e:open": "pnpm --filter e2e-tests cy:open",
+    "test:e2e:agent": "pnpm --filter e2e-tests cy:open-agent",
+    "test:integration": "pnpm --filter e2e-tests test:integration",
+    "test:integration:open": "pnpm --filter e2e-tests cy:open-integration"
   },
   "repository": {
     "type": "git",

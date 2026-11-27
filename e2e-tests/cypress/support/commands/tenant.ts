@@ -5,7 +5,7 @@ import type { TestAccount } from "../testAccounts";
 Cypress.Commands.add(
   "tenantLoginWithFC",
   (username: string, password: string) => {
-    cy.visit(Cypress.env("tenantUrl"));
+    cy.visit(Cypress.expose("tenantUrl"));
     cy.contains("Espace locataire").click();
     cy.loginWithFC(username, password);
   },
@@ -64,12 +64,7 @@ Cypress.Commands.add("waitUntilStepIsReady", () => {
 });
 
 Cypress.Commands.add("waitUntilModalIsGone", () => {
-  cy.waitUntil(
-    () =>
-      Cypress.$(".modal").length === 0 ||
-      Cypress.$(".modal").is(":visible") === false,
-    { interval: 100, timeout: 10000 },
-  );
+  cy.get("dialog[open]", { timeout: 10000 }).should("not.exist");
 });
 
 Cypress.Commands.add("waitUntilLoaderIsGone", () => {
@@ -198,14 +193,12 @@ Cypress.Commands.add("continuePastAnalysis", () => {
   cy.clickOnNext();
 });
 
-// Documents whose category declares an error strategy (Visale) render AnalysisErrorBlock, which
+// Documents whose category declares an error strategy (Visale, French tax notices) render AnalysisErrorBlock, which
 // embeds the explanation textarea, instead of the AnalysisBanners list and its "explain" link.
 Cypress.Commands.add(
   "assertAnalysisErrorAndExplain",
   (urlFragment: string) => {
-    cy.get(".analysis-banners, .analysis-error-block", {
-      timeout: 20000,
-    }).should("exist");
+    cy.get(".analysis-banners, .analysis-error-block").should("exist");
 
     cy.get("body").then(($body) => {
       if ($body.find(".analysis-error-block").length) {

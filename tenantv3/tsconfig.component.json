@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.app.json",
+  "include": ["env.d.ts", "src/**/*.browser.spec.ts"],
+  "exclude": [],
+  "compilerOptions": {
+    "composite": false,
+    "types": ["node"]
+  }
+}

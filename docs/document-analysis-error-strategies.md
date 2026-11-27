@@ -45,6 +45,8 @@ Implémente la logique spécifique d'un type de document (ici les certificats de
 - Génération d'une puce par identité extraite si le certificat contient plusieurs noms (`extractedNames`).
 - Définition d'un `customEventName` dynamique selon les erreurs rencontrées (`errorGuarantorExpiration`, `errorGuarantorName`, `errorGuarantorClassification`, `multipleError`).
 
+`TaxAnalysisErrorStrategy.ts` suit le même modèle pour l'avis d'impôt français. Elle reçoit en option la période fiscale, le nombre de pages déposées et le destinataire (`isSelf`), et surcharge `getBulletList` pour afficher les puces même avec une seule erreur.
+
 ### 3. `AnalysisErrorBlock.vue`
 *(Emplacement : `tenantv3/src/components/analysis/AnalysisErrorBlock.vue`)*
 
@@ -57,6 +59,8 @@ Composant d'affichage réutilisable qui :
 - Émet un événement générique `@custom-event="emit('customEvent', action.customEventName)"`.
 - Propose la zone de texte d'explication avec auto-sauvegarde et encadré d'information.
 - Gère la prise de focus d'accessibilité (`tabindex="-1"` et méthode exposée `focus()`).
+- Expose un slot `guidance` (relayé par `AnalysisWrapper` sous le nom `errorGuidance`) pour afficher une aide propre au document sous la section "Document attendu". L'avis d'impôt français l'utilise avec `TaxAnalysisGuidance.vue`.
+- Accepte `headingLevel` (`errorHeadingLevel` sur `AnalysisWrapper`, 3 par défaut) : le titre du bloc est un `h{n}` et ses sections des `h{n+1}`. À régler selon la hiérarchie de titres de la page (2 pour `FrenchTaxForm.vue`).
 
 ### 4. `AnalysisWrapper.vue`
 *(Emplacement : `tenantv3/src/components/analysis/AnalysisWrapper.vue`)*

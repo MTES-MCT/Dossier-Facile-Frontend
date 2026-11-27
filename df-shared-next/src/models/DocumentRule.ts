@@ -35,7 +35,7 @@ export type TaxYearsRuleData = {
 export type PayslipClassificationRuleData = {
   type: 'R_PAYSLIP_CLASSIFICATION'
   entriesInError: PayslipClassificationEntry[]
-  expectedMonthList: string[]
+  expectedMonths: string[]
 }
 
 export type PayslipClassificationEntry = {
