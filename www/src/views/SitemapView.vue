@@ -30,20 +30,22 @@
   </section>
 </template>
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
 import { useI18n } from 'vue-i18n'
+import { useRegisterUrl } from '@/composables/useRegisterUrl'
 
 const { t } = useI18n()
 
 const TENANT_URL = import.meta.env.VITE_TENANT_URL
 const OWNER_URL = import.meta.env.VITE_OWNER_URL
-const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
+const registerUrl = useRegisterUrl()
 const PARTNER_URL = import.meta.env.VITE_PARTNER_URL
 
-const mainPages = [
+const mainPages = computed(() => [
   {
     name: t('page-titles.createFile'),
-    url: REGISTER_URL
+    url: registerUrl.value
   },
   {
     name: t('page-titles.login'),
@@ -77,7 +79,7 @@ const mainPages = [
     name: t('page-titles.contact'),
     url: '/contact'
   }
-]
+])
 
 const otherPages = [
   {

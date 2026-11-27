@@ -21,7 +21,7 @@
         </PartnersList>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
-            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
+            <a :href="registerUrl" class="fr-btn fr-mt-2w">
               <span class="text-center full-width">
                 {{ t('button') }}
               </span>
@@ -33,7 +33,7 @@
         <PartnersList :partners="INSTITUTIONAL_PARTNERS" :title="t('s6.title')" />
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
-            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
+            <a :href="registerUrl" class="fr-btn fr-mt-2w">
               <span class="text-center full-width">
                 {{ t('button') }}
               </span>
@@ -51,9 +51,10 @@ import { useI18n } from 'vue-i18n'
 import PartnersList from '@/components/PartnersList.vue'
 import { INSTITUTIONAL_PARTNERS, PARTNERS } from '../models/PartnerModel'
 import { useCanonicalUrl, useMeta } from 'df-shared-next/src/composables/useSeo'
+import { useRegisterUrl } from '@/composables/useRegisterUrl'
 
 const { t } = useI18n()
-const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
+const registerUrl = useRegisterUrl()
 
 const description = 'Liste de tous les organismes avec lesquels DossierFacile est en partenariat.'
 

@@ -11,6 +11,7 @@ import { keycloak } from '../plugin/keycloak'
 import { loadUserIfLoggedIn } from './loadUserIfLoggedIn'
 import Home from '../views/HomePage.vue'
 import { CookiesService } from 'df-shared-next/src/services/CookiesService'
+import { keycloakLocale } from 'df-shared-next/src/services/KeycloakLocaleService'
 import { clearAllToasts } from '@/components/toast/toastUtils'
 import { i18n } from '@/i18n'
 import { computed } from 'vue'
@@ -1185,7 +1186,8 @@ async function handleProtectedRoute(to: RouteLocationNormalized): Promise<boolea
   } else {
     // The page is protected and the user is not authenticated. Force a login.
     await keycloak.login({
-      redirectUri: TENANT_URL + to.fullPath
+      redirectUri: TENANT_URL + to.fullPath,
+      locale: keycloakLocale(i18n.global.locale.value)
     })
     return false
   }

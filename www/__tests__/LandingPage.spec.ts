@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
+import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { useI18n } from 'vue-i18n'
 import LandingPage from '@/views/LandingPage.vue'
@@ -20,7 +21,8 @@ router.push('/')
 await router.isReady()
 
 useI18n.mockReturnValue({
-  t: (tKey: string) => tKey
+  t: (tKey: string) => tKey,
+  locale: ref('fr')
 })
 
 describe('Header', () => {

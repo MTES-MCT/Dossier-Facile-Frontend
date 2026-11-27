@@ -65,10 +65,11 @@ import PropertyService from './PropertyService'
 import PropertyContainer from './PropertyContainer.vue'
 import useOwnerStore from '../../store/owner-store'
 import { ApartmentSharing } from 'df-shared-next/src/models/ApartmentSharing'
+import { keycloakLocale } from 'df-shared-next/src/services/KeycloakLocaleService'
 
 const route = useRoute()
 const router = useRouter()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const token = ref('')
 const showError = ref(false)
@@ -135,7 +136,10 @@ onMounted(() => {
       if (auth) {
         subscribe()
       } else {
-        keycloakTenant.login({ redirectUri: OWNER_URL + route.fullPath })
+        keycloakTenant.login({
+          redirectUri: OWNER_URL + route.fullPath,
+          locale: keycloakLocale(locale.value)
+        })
       }
     })
     .catch(() => {
