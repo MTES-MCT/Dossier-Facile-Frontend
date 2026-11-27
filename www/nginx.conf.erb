@@ -10,6 +10,13 @@ location / {
     add_header X-Content-Type-Options "nosniff";
 }
 
+# The QR code of the questionnaire in dossier PDF points here
+<% if ENV['QUESTIONNAIRE_URL'].to_s.strip != '' %>
+location = /questionnaire {
+    return 302 <%= ENV['QUESTIONNAIRE_URL'].strip %>;
+}
+<% end %>
+
 location ~* \.(webp|jpg|heic|jpeg|png|gif|js|css|svg|woff2)$ {
     expires 365d;
     add_header Cache-Control "public, no-transform";
